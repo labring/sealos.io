@@ -6,7 +6,7 @@ const withMDX = createMDX()
 const config = {
   output: 'standalone',
   reactStrictMode: true,
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'], // 确保包含 mdx
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   images: {
     unoptimized: true,
   },
