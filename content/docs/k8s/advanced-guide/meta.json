@@ -1,0 +1,4 @@
+{
+    "title": "进阶指南",
+    "pages": ["image-build-standardized", "build-image-using-registry-sync", "sealos-run", "dual-stack-cluster", "template-function"]
+}

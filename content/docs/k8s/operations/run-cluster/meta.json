@@ -1,0 +1,4 @@
+{
+    "title": "Sealos 集群镜像运行",
+    "pages": ["gen-apply-cluster", "config-customize-app_images-config-rootfs_mage", "template-apply-cluster", "upgrade-cluster"]
+}

@@ -63,14 +63,24 @@ Sealos 需要使用证书来保证通信安全，默认在您不提供证书的�
 
 关于如何使用 Sealos 部署 Kubernetes
 集群，可以参考：[安装 Kubernetes 集群](/developer-guide/lifecycle-management/quick-start/deploy-kubernetes.md)
-，支持 [Docker Hub](https://hub.docker.com/r/labring/kubernetes/tags) 中的几乎所有 Kubernetes 版本 (**暂不支持 1.28 及以上版本
-**)。
+，支持 [Docker Hub](https://hub.docker.com/r/labring/kubernetes/tags) 中的几乎所有 Kubernetes 版本 (**暂不支持 1.28 及以上版本**)。
 
 </Callout>
 
 如果您的机器还没有安装过 Kubernetes，**建议直接使用该脚本连同 Kubernetes 和 Sealos 集群一起安装。**
 
-根据您的域名情况，可以分为以下几种安装方式：
+由于国内网络的特殊原因，访问 GitHub 可能会受限，建议先到以下几个网站寻找最新可用的 GitHub 代理：
+
+- https://ghproxy.link/
+- https://ghproxy.net/
+
+找到可用的 GitHub 代理之后，将其设置为环境变量 `PROXY_PREFIX`，例如：
+
+```bash
+export PROXY_PREFIX=https://ghfast.top
+```
+
+接下来根据您的域名情况，可以分为以下几种安装方式：
 
 ### 1、无公网域名，也不想自定义域名
 
@@ -81,10 +91,10 @@ Sealos 需要使用证书来保证通信安全，默认在您不提供证书的�
 使用 nip.io 作为 Sealos 的域名非常简单，只需在第一个 Master 节点上执行以下命令，并根据提示输入参数：
 
 ```bash
-$ curl -sfL https://mirror.ghproxy.com/https://raw.githubusercontent.com/labring/sealos/v5.0.1/scripts/cloud/install.sh -o /tmp/install.sh && SEALOS_VERSION=v5.0.1 && bash /tmp/install.sh \
+$ curl -sfL $PROXY_PREFIX/https://raw.githubusercontent.com/labring/sealos/v5.0.1/scripts/cloud/install.sh -o /tmp/install.sh && SEALOS_VERSION=v5.0.1 && bash /tmp/install.sh \
   --cloud-version=v5.0.1 \
   --image-registry=registry.cn-shanghai.aliyuncs.com --zh \
-  --proxy-prefix=https://mirror.ghproxy.com
+  --proxy-prefix=$PROXY_PREFIX
 ```
 
 当需要你输入 Sealos Cloud 域名时，你需要输入这种格式的域名：`[ip].nip.io`，其中 [ip] 是你的 Master 节点 IP。
@@ -123,10 +133,10 @@ cloud.example.io   A   192.168.1.10
 然后在第一个 Master 节点上执行以下命令，并根据提示输入参数：
 
 ```bash
-$ curl -sfL https://mirror.ghproxy.com/https://raw.githubusercontent.com/labring/sealos/v5.0.1/scripts/cloud/install.sh -o /tmp/install.sh && SEALOS_VERSION=v5.0.1 && bash /tmp/install.sh \
+$ curl -sfL $PROXY_PREFIX/https://raw.githubusercontent.com/labring/sealos/v5.0.1/scripts/cloud/install.sh -o /tmp/install.sh && SEALOS_VERSION=v5.0.1 && bash /tmp/install.sh \
   --cloud-version=v5.0.1 \
   --image-registry=registry.cn-shanghai.aliyuncs.com --zh \
-  --proxy-prefix=https://mirror.ghproxy.com \
+  --proxy-prefix=$PROXY_PREFIX \
   --cloud-domain=<your_domain> \
   --cert-path=<your_crt> \
   --key-path=<your_key>
@@ -150,10 +160,10 @@ cloud.example.io   A   192.168.1.10
 然后在第一个 Master 节点上执行以下命令，并根据提示输入参数：
 
 ```bash
-$ curl -sfL https://mirror.ghproxy.com/https://raw.githubusercontent.com/labring/sealos/v5.0.1/scripts/cloud/install.sh -o /tmp/install.sh && SEALOS_VERSION=v5.0.1 && bash /tmp/install.sh \
+$ curl -sfL $PROXY_PREFIX/https://raw.githubusercontent.com/labring/sealos/v5.0.1/scripts/cloud/install.sh -o /tmp/install.sh && SEALOS_VERSION=v5.0.1 && bash /tmp/install.sh \
   --cloud-version=v5.0.1 \
   --image-registry=registry.cn-shanghai.aliyuncs.com --zh \
-  --proxy-prefix=https://mirror.ghproxy.com \
+  --proxy-prefix=$PROXY_PREFIX \
   --cloud-domain=<your_domain>
 ```
 
@@ -207,10 +217,10 @@ $ curl -sfL https://mirror.ghproxy.com/https://raw.githubusercontent.com/labring
 然后在第一个 Master 节点上执行以下命令，并根据提示输入参数：
 
 ```bash
-$ curl -sfL https://mirror.ghproxy.com/https://raw.githubusercontent.com/labring/sealos/v5.0.1/scripts/cloud/install.sh -o /tmp/install.sh && SEALOS_VERSION=v5.0.1 && bash /tmp/install.sh \
+$ curl -sfL $PROXY_PREFIX/https://raw.githubusercontent.com/labring/sealos/v5.0.1/scripts/cloud/install.sh -o /tmp/install.sh && SEALOS_VERSION=v5.0.1 && bash /tmp/install.sh \
   --cloud-version=v5.0.1 \
   --image-registry=registry.cn-shanghai.aliyuncs.com --zh \
-  --proxy-prefix=https://mirror.ghproxy.com \
+  --proxy-prefix=$PROXY_PREFIX \
   --cloud-domain=<your_domain>
 ```
 

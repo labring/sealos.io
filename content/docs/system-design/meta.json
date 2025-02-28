@@ -1,4 +1,4 @@
 {
-    "title": "系统设计",
-    "pages": ["billing-system", "monitor-system", "system-application", "system-architecture", "user-system"]
+    "title": "System Design",
+    "pages": ["devbox-architecture"]
 }

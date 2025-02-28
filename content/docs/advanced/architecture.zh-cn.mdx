@@ -1,50 +1,54 @@
 ---
-title: Architecture
+title: Devbox 架构
 ---
 
-Sealos DevBox is an advanced development environment solution that leverages cloud-native Container and Kubernetes technologies to offer a unified and flexible development Runtime. Its key feature is simulating a traditional virtual machine experience while maintaining containerization benefits.
+Sealos DevBox 是一种先进的开发环境解决方案，它利用云原生容器和 Kubernetes 技术提供统一且灵活的开发运行时。其核心特点是在保持容器化优势的同时，模拟传统虚拟机体验。
 
-## Architecture
+## 架构
 
-Sealos DevBox is built on a layered architecture, comprising these key components:
+Sealos DevBox 基于分层架构设计，包含以下关键组件：
 
-![](./images/architecture.zh-cn.png)
-
-
-## Control Flow
-
-DevBox implements a decoupled front-end and back-end design:
-
-1. Users trigger actions via the web interface or plugins
-2. DevBox Controller receives and processes these requests
-3. Controller translates the processed instructions into Kubernetes API calls
-4. Kubernetes executes the corresponding Container operations
-
-![](./images/controller_flow.zh-cn.png)
+![](./images/architecture.png)
 
 
+## 控制流程
 
-## State Persistence Mechanism
+DevBox 实现了前后端解耦设计：
 
-DevBox employs an intelligent state preservation system to maintain user environment consistency:
+1. 用户通过网页界面或插件触发操作
+2. Devbox 控制器接收并处理这些请求
+3. 控制器将处理后的指令转换为 Kubernetes API 调用
+4. Kubernetes 执行相应的容器操作
 
-### Automatic Saving
+![](./images/controller_flow.png)
 
-- System auto-saves user environment changes under specific conditions
-- Changes are packaged as image layers
-- New layers are appended to the base image as commits
-- Updated images are securely stored in an isolated internal registry
 
-### Environment Recovery
+## 状态持久化机制
 
-- On subsequent startups, system boots from the most recent image
-- Ensures full preservation of historical changes
+DevBox 采用智能状态保存系统，确保用户环境的一致性：
 
-### Optimization
 
-The Container-shim layer provides automated maintenance:
-- Regularly merges image layers to optimize storage
-- Automatically cleans up redundant data
-- Optimizes image size and layer count for optimal system performance
+### 自动保存
 
-![](./images/shim_arch.zh-cn.png)
+- 系统在特定条件下自动保存用户环境变更
+- 变更被打包为镜像层
+- 新的镜像层作为提交附加到基础镜像上
+- 更新后的镜像安全地存储在隔离的内部镜像仓库中
+
+### 环境恢复
+
+- 在后续启动时，系统从最新镜像启动
+- 确保完整保留历史变更
+
+### 优化
+
+Container-shim 层提供自动化维护：
+
+- 定期合并镜像层以优化存储
+- 自动清理冗余数据
+- 优化镜像大小和层数，实现系统最佳性能
+
+![](./images/shim_arch.png)
+
+
+

@@ -1,0 +1,4 @@
+{
+    "title": "Sealos 使用指南",
+    "pages": ["commands", "kubernetes-cluster-image", "app-cluster-image"]
+}

@@ -1,0 +1,4 @@
+{
+    "title": "K8s 集群管理",
+    "pages": ["quick-start", "operations", "advanced-guide", "reference", "QA"]
+}

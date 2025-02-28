@@ -1,0 +1,4 @@
+{
+    "title": "Sealos 集群镜像构建",
+    "pages": ["build-multi-arch-image", "build-image-image-list", "build-image-manifests", "build-image-helm_charts", "build-image-binary", "build-image-go_template", "build-image-scp_exec", "build-image-with-kubeadm-run-cluster", "build_run_application_private_registry"]
+}

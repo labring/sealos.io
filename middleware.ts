@@ -13,6 +13,10 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     return NextResponse.redirect(`https://sealos.io${pathname}`);
   }
 
+  if (pathname === '/robots.txt') {
+    return NextResponse.redirect(new URL('/api/robots', request.url));
+  }
+
   const i18nMiddleware = createI18nMiddleware(i18n);
 
   // @ts-ignore

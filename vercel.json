@@ -11,6 +11,11 @@
             "permanent": false
         },
         {
+            "source": "/docs/5.0.0/Intro",
+            "destination": "https://sealos.io/docs/overview/intro",
+            "permanent": false
+        },
+        {
             "source": "/zh-Hans/:path(.*)",
             "destination": "https://sealos.run/:path",
             "permanent": false
