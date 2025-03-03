@@ -58,7 +58,7 @@ const Footer = async () => {
             </Link>
           </div>
           <div className="mt-3 text-xs font-medium text-custom-secondary-text sm:text-sm">
-            A cloud operating system based on the Kubernetes kernel
+            Develop, deploy, and scale in one seamless cloud platform
           </div>
         </div>
 
@@ -67,9 +67,7 @@ const Footer = async () => {
             <div className="text-base font-semibold uppercase text-black hover:text-black hover:no-underline">
               Product
             </div>
-            <FooterLink href="/docs/quick-start">
-              Docs
-            </FooterLink>
+            <FooterLink href="/docs/quick-start">Docs</FooterLink>
             <FooterLink href="https://template.usw.sealos.io">
               App Store
             </FooterLink>
@@ -78,9 +76,7 @@ const Footer = async () => {
             <div className="text-base font-semibold uppercase text-black hover:text-black hover:no-underline">
               Developer
             </div>
-            <FooterLink href={siteConfig.links.github}>
-              Self Hosting
-            </FooterLink>
+            <FooterLink href={siteConfig.links.github}>Self Hosting</FooterLink>
           </FooterLinkColumn>
           <FooterLinkColumn>
             <div className="text-base font-semibold uppercase text-black hover:text-black hover:no-underline">

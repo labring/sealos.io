@@ -36,23 +36,23 @@ export default function Hero() {
         height={92}
       />
 
-      <div className="relative flex min-h-[700px] w-full  flex-col overflow-hidden rounded-lg pb-0 pt-6 sm:py-14 lg:min-h-[1000px] lg:py-20">
+      <div className="relative flex min-h-[700px] w-full flex-col overflow-hidden rounded-lg pb-0 pt-6 sm:py-14 lg:min-h-[1000px] lg:py-20">
         <div className="z-10 whitespace-pre-wrap text-center tracking-tighter text-black">
           <AnimateElement type="slideUp" delay={0.2} duration={0.6}>
             <div
-              className="text-2xl font-bold leading-[97px] sm:text-[56px] lg:text-[64px] xl:text-[80px]"
+              className="text-xl font-bold leading-[30px] sm:text-[40px] sm:leading-[54px] lg:text-[48px] lg:leading-[64px] xl:text-[56px] xl:leading-[82px]"
               style={{ letterSpacing: '0.15px' }}
             >
-              <span className="block">Ship 10x Faster with</span>
-              <span className="block">Sealos DevBox</span>
+              <span className="block">Develop, deploy, and scale</span>
+              <span className="block">in one seamless cloud platform</span>
             </div>
             <div
-              className="mx-auto mb-6 mt-0  max-w-[700px] text-xs font-medium text-custom-secondary-text sm:my-6 sm:text-base"
+              className="mx-auto my-6 max-w-[700px] text-xs font-medium text-custom-secondary-text sm:text-base"
               style={{ letterSpacing: '0.15px' }}
             >
-              Your Complete Cloud Development Platform That Cuts Deployment Time
-              by 90%. Transform Your Development Workflow: Build, Test & Deploy in
-              One Unified Cloud Environment
+              Simplify your entire development lifecycle, with Sealos. We remove
+              the complexity so you can focus on building and growing your apps
+              effortlessly.
             </div>
 
             <div className="flex items-center justify-center gap-4 text-base font-medium">

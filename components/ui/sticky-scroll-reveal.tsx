@@ -8,6 +8,7 @@ const StickyScroll = ({
 }: {
   content: {
     title: string;
+    subtitle?: string;
     description: string;
     content?: React.ReactNode | any;
     icon?: React.ReactNode;
@@ -59,6 +60,9 @@ const StickyScroll = ({
             </div>
             <div className="flex flex-col gap-3">
               <h2 className="text-2xl font-bold">{item.title}</h2>
+              {item.subtitle && (
+                <p className="text-base text-blue-600">{item.subtitle}</p>
+              )}
               <p className="text-lg text-[#4E6185]">{item.description}</p>
             </div>
           </motion.div>

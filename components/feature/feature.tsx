@@ -8,7 +8,7 @@ const features = [
   {
     title: 'Enterprise Cloud OS',
     description:
-      'Enterprise-grade Kubernetes platform with multi-cloud support. Single-click cluster creation and automated container orchestration across AWS, GCP, and Azure.',
+      'A powerful production-ready Kubernetes platform with multi-cloud support. Deploy and orchestrate containers effortlessly across AWS, GCP, and Azure with one-click cluster creation.',
     icon: <SealosIcon />,
   },
   {
@@ -20,7 +20,7 @@ const features = [
   {
     title: 'Global Object Storage',
     description:
-      'Enterprise-compliant object storage with built-in encryption, versioning, and disaster recovery. Native SDKs for Python, Go, Java, Node.js.',
+      'Secure, enterprise-grade storage with built-in encryption, versioning, and disaster recovery. S3 compatible with native SDKs for Python, Go, Java, and Node.js.',
     icon: <ObjectStorageIcon />,
   },
 ];
@@ -29,21 +29,21 @@ const features2 = [
   {
     title: 'Enterprise-Grade Isolation',
     description:
-      'Develop in isolated environments and avoid dependency nightmares. Use consistent, reproducible workspaces for each project, and focus on relevant tasks.',
+      'Work in fully isolated environments with consistent, reproducible workspaces - no more dependency conflicts. Stay focused on what matters.',
     icon: '🛡️',
     image: '/images/foundation-2-1.svg',
   },
   {
     title: 'Hyperscale Performance',
     description:
-      'Industry-leading performance with auto-scaling up to 10,000 nodes. Our proprietary load balancer delivers 3x faster response times than traditional solutions.',
+      'Auto-scale up to 10,000 nodes with industry-leading speed. Our proprietary load balancer delivers 3x faster response times than traditional solutions.',
     icon: '🚀',
     image: '/images/foundation-2-2.svg',
   },
   {
     title: 'Universal Access & Security',
     description:
-      'Access applications through any network with automatic TLS support. Develop securely and flexibly on any networks, anywhere.',
+      'Secure, flexible access from any network with automatic TLS. With full support for your own custom domain. Develop anywhere, without limitations.',
     icon: '🌐',
     image: '/images/foundation-2-3.svg',
   },
@@ -53,17 +53,17 @@ const performanceStats = [
   {
     icon: '/images/efficient-1.svg',
     percentage: '90%',
-    description: 'Infrastructure Cost Reduction',
+    description: 'Cost Reduction',
   },
   {
     icon: '/images/efficient-2.svg',
-    percentage: '5x',
-    description: 'Faster Development Cycles',
+    percentage: '10x',
+    description: 'Faster Development',
   },
   {
     icon: '/images/efficient-3.svg',
     percentage: '99.99%',
-    description: 'Platform Availability',
+    description: 'Availability',
   },
   {
     icon: '/images/efficient-4.svg',
@@ -96,8 +96,10 @@ export default function Feature() {
                 <div className="flex  gap-4 p-6 pb-0">
                   <div className="text-5xl">{feature.icon}</div>
                   <div className="flex flex-col gap-2">
-                    <h3 className="text-lg font-semibold">{feature.title}</h3>
-                    <p className="mb-4 text-xs text-custom-secondary-text">
+                    <h3 className="text-lg font-semibold sm:text-[20px]">
+                      {feature.title}
+                    </h3>
+                    <p className="mb-4 text-sm text-custom-secondary-text ">
                       {feature.description}
                     </p>
                   </div>
@@ -160,7 +162,7 @@ export default function Feature() {
         <div className="mt-[200px] text-center text-base font-bold text-black sm:text-4xl">
           Enterprise-Grade Development Platform
         </div>
-        <div className="mt-16 flex flex-wrap items-center gap-10 rounded border border-dashed border-[#9DCBE6] px-2 py-9 lg:px-20">
+        <div className="mt-16 grid grid-cols-2 flex-wrap items-center gap-10 rounded border border-dashed border-[#9DCBE6] px-2 py-9 lg:px-20 2xl:grid-cols-4">
           {performanceStats.map((stat, index) => (
             <div key={index} className="flex flex-1 items-center gap-4">
               <div className="h-[37px] w-[37px] flex-shrink-0 lg:h-[80px] lg:w-[80px]">
@@ -172,10 +174,10 @@ export default function Feature() {
                 />
               </div>
               <div className="flex flex-col">
-                <div className="text-[12px] font-bold text-black lg:text-[28px]">
+                <div className="text-[24px] font-bold text-black lg:text-[28px]">
                   {stat.percentage}
                 </div>
-                <div className="text-nowrap text-[6px] font-medium text-custom-secondary-text lg:text-sm">
+                <div className="text-nowrap text-[12px] font-medium text-custom-secondary-text lg:text-sm">
                   {stat.description}
                 </div>
               </div>

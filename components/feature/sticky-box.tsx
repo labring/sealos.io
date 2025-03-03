@@ -8,9 +8,9 @@ import { useState, useEffect } from 'react';
 const content = [
   {
     title: 'Instant Cloud Workspaces',
-    subtitle: 'Development at the speed of thought',
+    subtitle: 'Manage your cloud environments with ease',
     description:
-      "Launch production-ready development environments in seconds. Share code, configs and data seamlessly with your team - all powered by Sealos's enterprise-grade cloud platform.",
+      'Spin up fully configured cloud environments in seconds. Effortlessly manage multiple teams and projects to share code, configs, and data seamlessly.',
     content: (
       <div className="group relative aspect-[700/450] w-full overflow-hidden rounded-lg bg-[#FAFCFF] shadow-sticky-box">
         <Image
@@ -37,10 +37,10 @@ const content = [
     ),
   },
   {
-    title: 'Unified Development Pipeline',
-    subtitle: 'Seamless from code to production',
+    title: 'Seamless Development Pipeline',
+    subtitle: 'If it works in development, then it works in production',
     description:
-      'Accelerate your workflow with automated environment setup, seamless IDE integration, and unified development, testing and production environments.',
+      'Streamline workflows with automated setup and IDE integration. Supporting seamless transitions from development and testing to production environments.',
     content: (
       <div className="group relative aspect-[700/450] w-full overflow-hidden rounded-lg bg-[#FAFCFF] shadow-sticky-box">
         <Image
@@ -68,9 +68,9 @@ const content = [
   },
   {
     title: 'Effortless Continuous Delivery',
-    subtitle: 'Deploy with confidence',
+    subtitle: 'Reliable deployments without the hassle',
     description:
-      'Deploy applications with confidence - no container expertise needed. Let DevBox handle versioning, container builds and orchestration while you focus on coding.',
+      'Deploy with confidence - no container expertise required. DevBox handles versioning, builds, and orchestration so you can focus on coding.',
     content: (
       <div className="group relative aspect-[700/450] max-h-[400px] w-full rounded-lg bg-[#FAFCFF] shadow-sticky-box">
         <Image
