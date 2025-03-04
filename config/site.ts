@@ -15,7 +15,7 @@ export const siteConfig: SiteConfig = {
   links: {
     github: 'https://github.com/labring/sealos',
     twitter: 'https://x.com/Sealos_io',
-    discord: 'https://discord.com/invite/qzBmGGZGk7',
+    discord: 'https://discord.gg/wdUn538zVP',
     youtube: 'https://www.youtube.com/@sealos_io',
   },
   ogImage: `${process.env.NEXT_PUBLIC_APP_URL}/images/banner.jpeg?${new Date().getTime()}`,
