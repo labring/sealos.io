@@ -58,7 +58,7 @@ const Footer = async () => {
             </Link>
           </div>
           <div className="mt-3 text-xs font-medium text-custom-secondary-text sm:text-sm">
-            Develop, deploy, and scale in one seamless cloud platform
+            {siteConfig.tagline}
           </div>
         </div>
 
