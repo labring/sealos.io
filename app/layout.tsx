@@ -11,7 +11,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
+    default: `${siteConfig.name} | ${siteConfig.tagline}`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -22,14 +22,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: siteConfig.url.base,
-    siteName: siteConfig.name,
+    siteName: `${siteConfig.name} | ${siteConfig.tagline}`,
     title: siteConfig.name,
     description: siteConfig.description,
     images: [siteConfig.ogImage]
   },
   twitter: {
     card: 'summary_large_image',
-    title: siteConfig.name,
+    title: `${siteConfig.name} | ${siteConfig.tagline}`,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
     creator: siteConfig.twitterHandle,
@@ -51,10 +51,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {/* <link rel="dns-prefetch" href="https://hm.baidu.com" /> */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.clarity.ms" />
-        
+
         {/* <link rel="preconnect" href="https://hm.baidu.com" /> */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
-        
+
         <Analytics />
       </head>
       <body className="flex min-h-screen flex-col">{children}</body>

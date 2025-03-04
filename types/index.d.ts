@@ -1,6 +1,7 @@
 export type SiteConfig = {
   name: string;
   author: string;
+  tagline: string;
   description: string;
   keywords: Array<string>;
   url: {
