@@ -1,8 +1,9 @@
-import Example from '@/components/feature/example';
-import Feature from '@/components/feature/feature';
+import Feature from './components/feature';
+import TechGrid from './components/techgrid';
+import FooterCta from './components/footerCta';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
-import Hero from '@/components/header/hero';
+import Hero from './components/hero';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
 
 export default function HomePage({ params }: { params: { lang: string } }) {
@@ -11,8 +12,9 @@ export default function HomePage({ params }: { params: { lang: string } }) {
       <Header lang={params.lang} />
       <main className="custom-container pt-14">
         <Hero />
+        <TechGrid />
         <Feature />
-        <Example />
+        <FooterCta />
       </main>
       <div className="mt-[140px] h-[1px] bg-[#DDE7F7]"></div>
       <Footer />
