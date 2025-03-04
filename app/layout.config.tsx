@@ -42,10 +42,10 @@ export const HeaderLinks = [
   //   text: 'Pricing',
   //   url: '/pricing',
   // },
-  {
-    text: 'Blog',
-    url: '/blog',
-  },
+  // {
+  //   text: 'Blog',
+  //   url: '/blog',
+  // },
   {
     text: 'Contact',
     url: 'mailto:contact@sealos.io',
