@@ -65,7 +65,7 @@ const Footer = async () => {
         <div className="mt-10 grid grid-cols-3 items-start gap-10 lg:mt-0">
           <FooterLinkColumn>
             <div className="text-base font-semibold uppercase text-black hover:text-black hover:no-underline">
-              Product
+              Resources
             </div>
             <FooterLink href="/docs/quick-start">Docs</FooterLink>
             <FooterLink href="https://template.usw.sealos.io">
@@ -74,15 +74,15 @@ const Footer = async () => {
           </FooterLinkColumn>
           <FooterLinkColumn>
             <div className="text-base font-semibold uppercase text-black hover:text-black hover:no-underline">
-              Developer
+              Products
             </div>
-            <FooterLink href={siteConfig.links.github}>Self Hosting</FooterLink>
+            <FooterLink href="/devbox">DevBox</FooterLink>
           </FooterLinkColumn>
           <FooterLinkColumn>
             <div className="text-base font-semibold uppercase text-black hover:text-black hover:no-underline">
               Support
             </div>
-            <FooterLink href="#">About Us</FooterLink>
+            <FooterLink href="mailto:contact@sealos.io">Contact Us</FooterLink>
             {/* <FooterLink href="#">Contact Us</FooterLink> */}
           </FooterLinkColumn>
         </div>
