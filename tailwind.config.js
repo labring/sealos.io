@@ -78,5 +78,5 @@ export default {
 		'./node_modules/fumadocs-ui/dist/**/*.js',
 	],
 	presets: [createPreset()],
-	plugins: [require("tailwindcss-animate")]
+	plugins: [require("tailwindcss-animate"), require('@tailwindcss/typography')]
 }
