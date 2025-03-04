@@ -103,6 +103,12 @@ const Footer = async () => {
           >
             Privacy Policy
           </FooterLink>
+          <FooterLink
+            className="text-[10px] font-normal text-custom-secondary-text md:text-sm"
+            href="/legal/cookie-policy"
+          >
+            Cookie Policy
+          </FooterLink>
           <div>|</div>
           <div>Copyright © 2024 Sealos. All rights reserved.</div>
         </div>

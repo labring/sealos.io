@@ -35,7 +35,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "app/[lang]/legal/layout.tsx.bak"  ],
   "exclude": [
     "node_modules"
   ]

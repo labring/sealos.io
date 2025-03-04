@@ -29,9 +29,10 @@ export default async function Page({
         style: 'clerk',
         single: false,
       }}
+      lastUpdate={page.data.lastModified ? new Date(page.data.lastModified) : undefined}
       editOnGithub={{
-        owner: 'sailos-io',
-        repo: 'website',
+        owner: 'labring',
+        repo: 'sealos-website',
         sha: 'main',
         // file path, make sure it's valid
         path: `content/docs/${page.file.path}`,
