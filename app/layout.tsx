@@ -48,6 +48,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
         <link rel="manifest" href="/favicon/site.webmanifest" />
 
+        <link rel="alternate" hrefLang="en" href="https://sealos.io" />
+        <link rel="alternate" hrefLang="zh-CN" href="https://sealos.run" />
+        <link rel="alternate" hrefLang="x-default" href="https://sealos.io" />
+
         {/* <link rel="dns-prefetch" href="https://hm.baidu.com" /> */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.clarity.ms" />
