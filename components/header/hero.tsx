@@ -7,10 +7,6 @@ import Image from 'next/image';
 import { AnimateElement } from '../ui/animated-wrapper';
 import { GetStartedButton } from '../ui/shiny-button';
 
-const DynamicVideo = dynamic(() => import('./video'), {
-  ssr: false,
-});
-
 export default function Hero() {
   return (
     <div className="relative">
@@ -68,7 +64,15 @@ export default function Hero() {
           </AnimateElement>
         </div>
 
-        <DynamicVideo />
+        <br />
+
+        <div className="mt-6 flex items-center justify-center">
+          <a href="/devbox">
+            <div className="relative flex cursor-pointer items-center justify-center overflow-hidden rounded-md bg-gray-200 py-2 pl-4 pr-3 text-gray-700 shadow-button hover:bg-gray-300 sm:pl-5 sm:pr-4">
+              <div className="z-10">Learn more about DevBox</div>
+            </div>
+          </a>
+        </div>
 
         <AnimatedGridPattern
           width={72}

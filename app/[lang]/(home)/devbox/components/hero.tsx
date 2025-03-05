@@ -7,10 +7,6 @@ import Image from 'next/image';
 import { AnimateElement } from '@/components/ui/animated-wrapper';
 import { GetStartedButton } from '@/components/ui/shiny-button';
 
-const DynamicVideo = dynamic(() => import('@/components/header/video'), {
-  ssr: false,
-});
-
 export default function Hero() {
   return (
     <div className="relative">

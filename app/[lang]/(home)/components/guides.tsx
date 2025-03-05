@@ -1,29 +1,35 @@
 import { ArrowRight } from 'lucide-react';
-import { AnimateElement } from '../ui/animated-wrapper';
+import { AnimateElement } from '@/components/ui/animated-wrapper';
 
 const data = [
   {
-    title: 'Guide to creating, developing, and deploying a Next.js app using Sealos DevBox',
+    title:
+      'Guide to creating, developing, and deploying a Next.js app using Sealos DevBox',
     url: '/docs/quick-start',
   },
   {
-    title: 'Comprehensive guide to building an AI-powered Discord bot using Sealos DevBox',
+    title:
+      'Comprehensive guide to building an AI-powered Discord bot using Sealos DevBox',
     url: '/docs/examples/build-your-own-discord-bot',
   },
   {
-    title: 'Comprehensive Guide to connecting to PostgreSQL databases in Sealos DevBox using Node.js',
+    title:
+      'Comprehensive Guide to connecting to PostgreSQL databases in Sealos DevBox using Node.js',
     url: '/docs/guides/databases/postgresql/nodejs',
   },
   {
-    title: 'Comprehensive Guide to connecting to PostgreSQL databases in Sealos DevBox using Python',
+    title:
+      'Comprehensive Guide to connecting to PostgreSQL databases in Sealos DevBox using Python',
     url: '/docs/guides/databases/postgresql/python',
   },
   {
-    title: 'Comprehensive Guide to connecting to PostgreSQL databases in Sealos DevBox using Go',
+    title:
+      'Comprehensive Guide to connecting to PostgreSQL databases in Sealos DevBox using Go',
     url: '/docs/guides/databases/postgresql/go',
   },
   {
-    title: 'Comprehensive Guide to connecting to PostgreSQL databases in Sealos DevBox using Java',
+    title:
+      'Comprehensive Guide to connecting to PostgreSQL databases in Sealos DevBox using Java',
     url: '/docs/guides/databases/postgresql/java',
   },
 ];
@@ -93,7 +99,7 @@ export default function Example() {
     <div className="mt-[140px]">
       <AnimateElement type="slideUp">
         <div className="text-center text-base font-bold text-black sm:text-4xl">
-          Examples
+          Quick Start Guides
         </div>
         <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {data.map((item, index) => (
@@ -129,8 +135,8 @@ export default function Example() {
             </div>
           </AnimateElement>
           <img
-            src="/images/example.png"
-            alt="Example"
+            src="/images/quick-start.png"
+            alt="Quick Start Guides"
             className="ml-auto block h-[312px] w-[478px] object-cover"
           />
         </div>

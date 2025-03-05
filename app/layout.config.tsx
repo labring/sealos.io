@@ -31,12 +31,12 @@ export const baseOptions: BaseLayoutProps = {
 
 export const HeaderLinks = [
   {
-    text: 'App Store',
-    url: 'https://template.usw.sealos.io',
-  },
-  {
     text: 'DevBox',
     url: '/devbox',
+  },
+  {
+    text: 'App Store',
+    url: 'https://template.usw.sealos.io',
   },
   {
     text: 'Docs',

@@ -60,9 +60,20 @@ const ShinyButton = ({ children, className, ...props }: ShinyButtonProps) => {
   );
 };
 
-export const GetStartedButton = () => {
+export const GetStartedButton = ({
+  className,
+  ...props
+}: {
+  className?: string;
+}) => {
   return (
-    <div className="relative flex cursor-pointer items-center justify-center gap-[6px] overflow-hidden rounded-md bg-custom-bg py-2 pl-4 pr-3 text-custom-primary-text shadow-button hover:bg-[#97D9FF] sm:pl-5 sm:pr-4">
+    <div
+      className={cn(
+        'relative flex cursor-pointer items-center justify-center gap-[6px] overflow-hidden rounded-md bg-custom-bg py-2 pl-4 pr-3 text-custom-primary-text shadow-button hover:bg-[#97D9FF] sm:pl-5 sm:pr-4',
+        className,
+      )}
+      {...props}
+    >
       <div className="z-10">Get Started</div>
       <ArrowRight className="relative h-4 w-4" />
       <motion.div

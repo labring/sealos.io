@@ -1,10 +1,10 @@
 'use client';
 
 import ReactPlayer from 'react-player';
-import { AnimateElement } from '../ui/animated-wrapper';
+import { AnimateElement } from './ui/animated-wrapper';
 import { useState, useRef, useEffect } from 'react';
 
-export default function Video() {
+export default function Video({ url }: { url: string }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const playerRef = useRef<ReactPlayer>(null);
 
@@ -15,7 +15,7 @@ export default function Video() {
           <div className="aspect-video w-full">
             <ReactPlayer
               ref={playerRef}
-              url="https://www.youtube.com/watch?v=A9mxz0JaY2o"
+              url={url}
               width="100%"
               height="100%"
               playing={isPlaying}
