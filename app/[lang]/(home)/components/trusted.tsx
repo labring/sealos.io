@@ -3,36 +3,36 @@ import Image from 'next/image';
 
 const companies = [
   {
-    name: 'Google',
-    url: '/images/logos/google.svg',
+    name: 'TikTok',
+    url: '/images/logos/tiktok.svg',
   },
   {
     name: 'GitHub',
     url: '/images/logos/github.svg',
   },
   {
-    name: 'Amazon',
-    url: '/images/logos/amazon.svg',
+    name: 'FastGPT',
+    url: '/images/logos/fastgpt.svg',
   },
   {
-    name: 'Meta',
-    url: '/images/logos/meta.svg',
+    name: 'Nvidia',
+    url: '/images/logos/nvidia.svg',
   },
   {
-    name: 'Netflix',
-    url: '/images/logos/netflix.svg',
+    name: 'JetBrains',
+    url: '/images/logos/jetbrains.svg',
   },
   {
     name: 'Microsoft',
     url: '/images/logos/microsoft.svg',
   },
   {
-    name: 'MIT',
-    url: '/images/logos/mit.svg',
+    name: 'Open Source Initiative',
+    url: '/images/logos/open-source.webp',
   },
   {
-    name: 'Caltech',
-    url: '/images/logos/caltech.svg',
+    name: 'Stripe',
+    url: '/images/logos/stripe.svg',
   },
 ];
 
