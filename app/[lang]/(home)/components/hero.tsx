@@ -2,7 +2,7 @@ import { GetStartedButton } from '@/components/ui/shiny-button';
 import { ReactNode } from 'react';
 
 interface HeroProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export default function Hero({ children }: HeroProps) {
@@ -21,9 +21,8 @@ export default function Hero({ children }: HeroProps) {
             </span>
           </p>
 
-          <div className="mt-9 px-8 sm:flex sm:items-center sm:justify-center sm:space-x-5 sm:px-0">
+          <div className="mt-9 flex items-center justify-center space-x-5">
             <GetStartedButton className="w-1/4 px-8 py-3 text-lg font-bold" />
-
             {/* <a
               href="#"
               title=""

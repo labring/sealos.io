@@ -85,8 +85,8 @@ export default function Example() {
             </div>
           </AnimateElement>
           <img
-            src="/images/example.png"
-            alt="Example"
+            src="/images/quick-start.png"
+            alt="Quick Start"
             className="ml-auto block h-[312px] w-[478px] object-cover"
           />
         </div>
