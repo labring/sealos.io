@@ -36,6 +36,7 @@ export const HeaderLinks = [
   },
   {
     text: 'App Store',
+    isExternal: true,
     url: 'https://template.usw.sealos.io',
   },
   {

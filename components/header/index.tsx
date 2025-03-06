@@ -5,7 +5,7 @@ import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
 import Link from 'fumadocs-core/link';
-import { Menu, X } from 'lucide-react';
+import { ExternalLink, Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import { GetStartedButton } from '../ui/shiny-button';
@@ -51,9 +51,14 @@ export default function Header({ lang }: { lang: string }) {
                 <Link
                   key={link.text}
                   href={link.url}
-                  className="rounded-md px-2 py-1 hover:bg-[#0306070D]"
+                  className="relative rounded-md px-2 py-1 hover:bg-[#0306070D]"
                 >
                   {link.text}
+                  {link.isExternal && (
+                    <span className="pl-2">
+                      <ExternalLink className="absolute right-0 top-0 size-3" />
+                    </span>
+                  )}
                 </Link>
               ))}
             </div>
@@ -83,7 +88,7 @@ export default function Header({ lang }: { lang: string }) {
                   onClick={() => setIsMenuOpen(false)}
                   aria-hidden="true"
                 />
-                <div className="absolute left-0 top-0 z-50 w-full">
+                <div className="fixed left-0 top-0 z-50 w-full">
                   <div className="bg-[#EBF2FF] px-4 py-3">
                     <div className="mb-4 flex items-center justify-between">
                       <div>
@@ -122,9 +127,14 @@ export default function Header({ lang }: { lang: string }) {
                         <Link
                           key={link.text}
                           href={link.url}
-                          className="rounded-md px-2 py-1 hover:bg-[#0306070D]"
+                          className="relative flex items-center rounded-md px-2 py-1 hover:bg-[#0306070D]"
                         >
                           {link.text}
+                          {link.isExternal && (
+                            <span className="pl-2">
+                              <ExternalLink className="size-3" />
+                            </span>
+                          )}
                         </Link>
                       ))}
                     </div>
