@@ -21,61 +21,365 @@ const mockData: Record<string, CategoryData> = {
   'Industry Standards': {
     description: 'Production-tested technologies powering modern applications',
     items: [
-      { name: 'Node.js', language: 'JavaScript', icon: '/icons/node.js.svg', githubStars: 89000, adoptionRate: '95%', isEnterprise: true },
-      { name: 'Python', language: 'Python', icon: '/icons/python.svg', githubStars: 45000, adoptionRate: '92%', isEnterprise: true },
-      { name: 'Ruby', language: 'Ruby', icon: '/icons/ruby.png', githubStars: 30000, adoptionRate: '88%', isEnterprise: true },
-      { name: 'Java', language: 'Java', icon: '/icons/java.svg', githubStars: 75000, adoptionRate: '93%', isEnterprise: true },
-      { name: 'Go', language: 'Go', icon: '/icons/go.svg', githubStars: 50000, adoptionRate: '91%', isEnterprise: true },
-      { name: 'PHP', language: 'PHP', icon: '/icons/php.svg', githubStars: 20000, adoptionRate: '85%', isEnterprise: true },
+      {
+        name: 'Node.js',
+        language: 'JavaScript',
+        icon: '/icons/node.js.svg',
+        githubStars: 89000,
+        adoptionRate: '95%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Python',
+        language: 'Python',
+        icon: '/icons/python.svg',
+        githubStars: 45000,
+        adoptionRate: '92%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Ruby',
+        language: 'Ruby',
+        icon: '/icons/ruby.png',
+        githubStars: 30000,
+        adoptionRate: '88%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Java',
+        language: 'Java',
+        icon: '/icons/java.svg',
+        githubStars: 75000,
+        adoptionRate: '93%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Go',
+        language: 'Go',
+        icon: '/icons/go.svg',
+        githubStars: 50000,
+        adoptionRate: '91%',
+        isEnterprise: true,
+      },
+      {
+        name: 'PHP',
+        language: 'PHP',
+        icon: '/icons/php.svg',
+        githubStars: 20000,
+        adoptionRate: '85%',
+        isEnterprise: true,
+      },
+      {
+        name: '.NET',
+        language: '.NET',
+        icon: '/icons/net.svg',
+        githubStars: 20000,
+        adoptionRate: '85%',
+        isEnterprise: true,
+      },
     ],
   },
   'Backend & APIs': {
     description: 'Robust server-side frameworks for scalable applications',
     items: [
-      { name: 'Echo', language: 'JavaScript', icon: '/icons/echo.svg', githubStars: 24000, adoptionRate: '78%', isEnterprise: true },
-      { name: 'Chi', language: 'JavaScript', icon: '/icons/chi.svg', githubStars: 15000, adoptionRate: '72%', isEnterprise: true },
-      { name: 'Iris', language: 'TypeScript', icon: '/icons/iris.svg', githubStars: 18000, adoptionRate: '75%', isEnterprise: true },
-      { name: 'Gin', language: 'Go', icon: '/icons/gin.svg', githubStars: 12000, adoptionRate: '68%', isEnterprise: true },
-      { name: 'vert.x', language: 'Go', icon: '/icons/vert.x.svg', githubStars: 10000, adoptionRate: '65%', isEnterprise: true },
-      { name: 'Spring Boot', language: 'Java', icon: '/icons/spring-boot.svg', githubStars: 50000, adoptionRate: '93%', isEnterprise: true },
-      { name: 'Django', language: 'Python', icon: '/icons/django.svg', githubStars: 35000, adoptionRate: '87%', isEnterprise: true },
-      { name: 'Flask', language: 'Python', icon: '/icons/flask.svg', githubStars: 20000, adoptionRate: '82%', isEnterprise: true },
-      { name: 'Rocket', language: 'Rust', icon: '/icons/rocket.svg', githubStars: 10000, adoptionRate: '70%', isEnterprise: true },
-      { name: 'Express.js', language: 'JavaScript', icon: '/icons/express.js.svg', githubStars: 40000, adoptionRate: '89%', isEnterprise: true },
+      {
+        name: 'Echo',
+        language: 'JavaScript',
+        icon: '/icons/echo.svg',
+        githubStars: 24000,
+        adoptionRate: '78%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Chi',
+        language: 'JavaScript',
+        icon: '/icons/chi.svg',
+        githubStars: 15000,
+        adoptionRate: '72%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Iris',
+        language: 'TypeScript',
+        icon: '/icons/iris.svg',
+        githubStars: 18000,
+        adoptionRate: '75%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Gin',
+        language: 'Go',
+        icon: '/icons/gin.svg',
+        githubStars: 12000,
+        adoptionRate: '68%',
+        isEnterprise: true,
+      },
+      {
+        name: 'vert.x',
+        language: 'Go',
+        icon: '/icons/vert.x.svg',
+        githubStars: 10000,
+        adoptionRate: '65%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Spring Boot',
+        language: 'Java',
+        icon: '/icons/spring-boot.svg',
+        githubStars: 50000,
+        adoptionRate: '93%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Django',
+        language: 'Python',
+        icon: '/icons/django.svg',
+        githubStars: 35000,
+        adoptionRate: '87%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Flask',
+        language: 'Python',
+        icon: '/icons/flask.svg',
+        githubStars: 20000,
+        adoptionRate: '82%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Rocket',
+        language: 'Rust',
+        icon: '/icons/rocket.svg',
+        githubStars: 10000,
+        adoptionRate: '70%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Express.js',
+        language: 'JavaScript',
+        icon: '/icons/express.js.svg',
+        githubStars: 40000,
+        adoptionRate: '89%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Vert.x',
+        language: 'Java',
+        icon: '/icons/vert.x.svg',
+        githubStars: 40000,
+        adoptionRate: '89%',
+        isEnterprise: true,
+      },
+      {
+        name: 'nginx',
+        language: 'nginx',
+        icon: '/icons/nginx.svg',
+        githubStars: 40000,
+        adoptionRate: '89%',
+        isEnterprise: true,
+      },
     ],
   },
   'Frontend & UI': {
-    description: 'Modern frontend frameworks for building interactive user interfaces',
+    description:
+      'Modern frontend frameworks for building interactive user interfaces',
     items: [
-      { name: 'Next.js', language: 'JavaScript', icon: '/icons/next.js.svg', githubStars: 50000, adoptionRate: '94%', isEnterprise: true },
-      { name: 'React', language: 'JavaScript', icon: '/icons/react.svg', githubStars: 70000, adoptionRate: '95%', isEnterprise: true },
-      { name: 'Vue', language: 'JavaScript', icon: '/icons/vue.svg', githubStars: 40000, adoptionRate: '92%', isEnterprise: true },
-      { name: 'Angular', language: 'JavaScript', icon: '/icons/angular.svg', githubStars: 60000, adoptionRate: '93%', isEnterprise: true },
-      { name: 'nuxt3', language: 'JavaScript', icon: '/icons/nuxt3.svg', githubStars: 20000, adoptionRate: '85%', isEnterprise: true },
-      { name: 'Umi', language: 'JavaScript', icon: '/icons/umi.svg', githubStars: 15000, adoptionRate: '80%', isEnterprise: true },
-      { name: 'SvelteKit', language: 'JavaScript', icon: '/icons/svelte.svg', githubStars: 10000, adoptionRate: '75%', isEnterprise: true },
+      {
+        name: 'Next.js',
+        language: 'JavaScript',
+        icon: '/icons/next.js.svg',
+        githubStars: 50000,
+        adoptionRate: '94%',
+        isEnterprise: true,
+      },
+      {
+        name: 'React',
+        language: 'JavaScript',
+        icon: '/icons/react.svg',
+        githubStars: 70000,
+        adoptionRate: '95%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Vue',
+        language: 'JavaScript',
+        icon: '/icons/vue.svg',
+        githubStars: 40000,
+        adoptionRate: '92%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Angular',
+        language: 'JavaScript',
+        icon: '/icons/angular.svg',
+        githubStars: 60000,
+        adoptionRate: '93%',
+        isEnterprise: true,
+      },
+      {
+        name: 'nuxt3',
+        language: 'JavaScript',
+        icon: '/icons/nuxt3.svg',
+        githubStars: 20000,
+        adoptionRate: '85%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Umi',
+        language: 'JavaScript',
+        icon: '/icons/umi.svg',
+        githubStars: 15000,
+        adoptionRate: '80%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Svelte',
+        language: 'JavaScript',
+        icon: '/icons/svelte.svg',
+        githubStars: 10000,
+        adoptionRate: '75%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Hexo',
+        language: 'JavaScript',
+        icon: '/icons/hexo.svg',
+        githubStars: 10000,
+        adoptionRate: '75%',
+        isEnterprise: true,
+      },
     ],
   },
   'Documentation & Content': {
-    description: 'Tools for creating and managing technical documentation and content',
+    description:
+      'Tools for creating and managing technical documentation and content',
     items: [
-      { name: 'Docusaurus', language: 'JavaScript', icon: '/icons/docusaurus.svg', githubStars: 20000, adoptionRate: '85%', isEnterprise: true },
-      { name: 'VuePress', language: 'JavaScript', icon: '/icons/vuepress.svg', githubStars: 15000, adoptionRate: '82%', isEnterprise: true },
-      { name: 'Gatsby', language: 'JavaScript', icon: '/icons/gatsby.svg', githubStars: 25000, adoptionRate: '88%', isEnterprise: true },
-      { name: 'Hugo', language: 'Go', icon: '/icons/hugo.svg', githubStars: 10000, adoptionRate: '75%', isEnterprise: true },
-      { name: 'Jekyll', language: 'Ruby', icon: '/icons/jekyll.png', githubStars: 12000, adoptionRate: '80%', isEnterprise: true },
-      { name: 'Reveal.js', language: 'JavaScript', icon: '/icons/reveal.js.svg', githubStars: 18000, adoptionRate: '87%', isEnterprise: true },
+      {
+        name: 'Docusaurus',
+        language: 'JavaScript',
+        icon: '/icons/docusaurus.svg',
+        githubStars: 20000,
+        adoptionRate: '85%',
+        isEnterprise: true,
+      },
+      {
+        name: 'VuePress',
+        language: 'JavaScript',
+        icon: '/icons/vuepress.svg',
+        githubStars: 15000,
+        adoptionRate: '82%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Gatsby',
+        language: 'JavaScript',
+        icon: '/icons/gatsby.svg',
+        githubStars: 25000,
+        adoptionRate: '88%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Hugo',
+        language: 'Go',
+        icon: '/icons/hugo.svg',
+        githubStars: 10000,
+        adoptionRate: '75%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Jekyll',
+        language: 'Ruby',
+        icon: '/icons/jekyll.png',
+        githubStars: 12000,
+        adoptionRate: '80%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Reveal.js',
+        language: 'JavaScript',
+        icon: '/icons/reveal.js.svg',
+        githubStars: 18000,
+        adoptionRate: '87%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Astro',
+        language: 'JavaScript',
+        icon: '/icons/astro.svg',
+        githubStars: 18000,
+        adoptionRate: '87%',
+        isEnterprise: true,
+      },
     ],
   },
   'Systems & Native Development': {
-    description: 'Native development frameworks and languages for building high-performance applications',
+    description:
+      'Native development frameworks and languages for building high-performance applications',
     items: [
-      { name: 'C++', language: 'C++', icon: '/icons/c++.svg', githubStars: 50000, adoptionRate: '94%', isEnterprise: true },
-      { name: 'Rust', language: 'Rust', icon: '/icons/rust.svg', githubStars: 30000, adoptionRate: '88%', isEnterprise: true },
-      { name: 'Go', language: 'Go', icon: '/icons/go.svg', githubStars: 40000, adoptionRate: '92%', isEnterprise: true },
-      { name: 'Java', language: 'Java', icon: '/icons/java.svg', githubStars: 70000, adoptionRate: '95%', isEnterprise: true },
-      { name: 'C#', language: 'C#', icon: '/icons/csharp.svg', githubStars: 35000, adoptionRate: '89%', isEnterprise: true },
-      { name: 'Kotlin', language: 'Kotlin', icon: '/icons/kotlin.svg', githubStars: 25000, adoptionRate: '86%', isEnterprise: true },
+      {
+        name: 'C++',
+        language: 'C++',
+        icon: '/icons/c++.svg',
+        githubStars: 50000,
+        adoptionRate: '94%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Rust',
+        language: 'Rust',
+        icon: '/icons/rust.svg',
+        githubStars: 30000,
+        adoptionRate: '88%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Go',
+        language: 'Go',
+        icon: '/icons/go.svg',
+        githubStars: 40000,
+        adoptionRate: '92%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Java',
+        language: 'Java',
+        icon: '/icons/java.svg',
+        githubStars: 70000,
+        adoptionRate: '95%',
+        isEnterprise: true,
+      },
+      {
+        name: 'C#',
+        language: 'C#',
+        icon: '/icons/csharp.svg',
+        githubStars: 35000,
+        adoptionRate: '89%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Kotlin',
+        language: 'Kotlin',
+        icon: '/icons/kotlin.svg',
+        githubStars: 25000,
+        adoptionRate: '86%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Ubuntu',
+        language: 'Ubuntu',
+        icon: '/icons/ubuntu.svg',
+        githubStars: 25000,
+        adoptionRate: '86%',
+        isEnterprise: true,
+      },
+      {
+        name: 'Debian',
+        language: 'Debian',
+        icon: '/icons/debian.svg',
+        githubStars: 25000,
+        adoptionRate: '86%',
+        isEnterprise: true,
+      },
     ],
   },
 };
@@ -91,7 +395,7 @@ export default function TechGrid() {
     <div className="mt-0 lg:mt-52">
       <AnimateElement type="slideUp">
         <div className="mb-6 text-center text-base font-bold text-black sm:mb-16 sm:text-4xl">
-        Comprehensive Development Stack Support
+          Comprehensive Development Stack Support
         </div>
 
         {/* Tabs */}
@@ -105,9 +409,10 @@ export default function TechGrid() {
                   : 'text-custom-secondary-text hover:bg-[#FAFCFF]/80'
               }`}
               style={{
-                boxShadow: activeTab === tab
-                  ? '0px 4px 4px 0px rgba(19, 51, 107, 0.05), 0px 0px 1px 0px rgba(19, 51, 107, 0.08)'
-                  : '',
+                boxShadow:
+                  activeTab === tab
+                    ? '0px 4px 4px 0px rgba(19, 51, 107, 0.05), 0px 0px 1px 0px rgba(19, 51, 107, 0.08)'
+                    : '',
               }}
               onClick={() => handleTabChange(tab)}
             >
@@ -126,10 +431,15 @@ export default function TechGrid() {
           {mockData[activeTab].items.map((tech) => (
             <div
               key={tech.name}
-              className="flex flex-col gap-4 rounded-lg bg-white px-6 py-5"
+              className="flex cursor-pointer flex-col gap-4 rounded-lg bg-white px-6 py-5"
               style={{
                 boxShadow:
                   '0px 12px 40px -25px rgba(6, 26, 65, 0.20), 0px 0px 1px 0px rgba(19, 51, 107, 0.20)',
+              }}
+              onClick={() => {
+                const name = tech.name.toLowerCase().replace(/\s+/g, '');
+                const url = `https://usw.sealos.io/?openapp=system-devbox?page%3Dcreate%26runtime%3D${name}`;
+                window.open(url, '_blank');
               }}
             >
               <div className="flex gap-4">
@@ -150,7 +460,7 @@ export default function TechGrid() {
                   </p>
                 </div>
               </div>
-              
+
               {/* Metrics */}
               {(tech.githubStars || tech.adoptionRate || tech.isEnterprise) && (
                 <div className="flex flex-wrap gap-2 text-xs">
