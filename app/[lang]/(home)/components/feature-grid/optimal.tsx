@@ -65,7 +65,7 @@ export default function FeatureGrid() {
               className="absolute bottom-0 left-0 h-full w-full"
               style={{
                 boxShadow: 'inset 0 2px 5px rgba(0, 0, 0, 0.1)',
-                background: 'linear-gradient(135deg, #cbd5e0 0%, #DBE2E9 100%)',
+                background: 'linear-gradient(135deg, #ECF0F3 0%, #A6B7C9 100%)',
               }}
               animate={{
                 opacity: [
@@ -149,7 +149,7 @@ export default function FeatureGrid() {
               style={{
                 transformOrigin: 'bottom',
                 boxShadow: 'inset 0 2px 5px rgba(0, 0, 0, 0.1)',
-                background: 'linear-gradient(135deg, #fdba74 0%, #FDCE9B 100%)',
+                background: 'linear-gradient(135deg, #FEEBD6 0%, #FCA13F 100%)',
               }}
               animate={{
                 scaleY: [
@@ -238,7 +238,7 @@ export default function FeatureGrid() {
               style={{
                 transformOrigin: 'bottom',
                 boxShadow: 'inset 0 2px 5px rgba(0, 0, 0, 0.1)',
-                background: 'linear-gradient(135deg, #93c5fd 0%, #B0D4FD 100%)',
+                background: 'linear-gradient(135deg, #DCECFE 0%, #59A5FC 100%)',
               }}
               animate={{
                 scaleY: [
