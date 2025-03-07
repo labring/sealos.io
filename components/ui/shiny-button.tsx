@@ -62,16 +62,25 @@ const ShinyButton = ({ children, className, ...props }: ShinyButtonProps) => {
 
 export const GetStartedButton = ({
   className,
+  link,
   ...props
 }: {
   className?: string;
+  link?: string;
 }) => {
+  const handleClick = () => {
+    if (link) {
+      window.location.href = link;
+    }
+  };
+
   return (
     <div
       className={cn(
         'relative flex cursor-pointer items-center justify-center gap-[6px] overflow-hidden rounded-md bg-custom-bg py-2 pl-4 pr-3 text-custom-primary-text shadow-button hover:bg-[#97D9FF] sm:pl-5 sm:pr-4',
         className,
       )}
+      onClick={handleClick}
       {...props}
     >
       <div className="z-10">Get Started</div>

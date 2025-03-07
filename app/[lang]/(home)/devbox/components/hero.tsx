@@ -22,7 +22,10 @@ export default function Hero({ children }: HeroProps) {
           </p>
 
           <div className="mt-9 flex items-center justify-center space-x-5">
-            <GetStartedButton className="w-1/4 px-8 py-3 text-lg font-bold" />
+            <GetStartedButton
+              className="w-1/4 px-8 py-3 text-lg font-bold"
+              link="https://usw.sealos.io/?openapp=system-devbox"
+            />
             {/* <a
               href="#"
               title=""

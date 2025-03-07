@@ -76,7 +76,10 @@ export default function Example() {
               <div className="text-base font-bold leading-normal  text-black sm:text-[28px]">
                 Develop faster and deploy smarter with DevBox
               </div>
-              <a href="https://usw.sealos.io" target="_blank">
+              <a
+                href="https://usw.sealos.io/?openapp=system-devbox"
+                target="_blank"
+              >
                 <div className="flex w-fit cursor-pointer items-center justify-center gap-[6px] rounded-md bg-[#FAFCFF] py-2 pl-5 pr-4 font-medium text-custom-primary-text shadow-button hover:bg-[#F1F5FB]">
                   Try DevBox today!
                   <ArrowRight className="relative h-4 w-4" />
