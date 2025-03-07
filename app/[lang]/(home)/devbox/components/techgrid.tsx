@@ -19,7 +19,8 @@ interface CategoryData {
   items: TechItem[];
 }
 
-const deployLink = 'https://usw.sealos.io/';
+const deployLink =
+  'https://usw.sealos.io/?openapp=system-devbox?page%3Dcreate%26runtime%3D';
 const tileData: Record<string, CategoryData> = {
   'Industry Standards': {
     description: 'Production-tested technologies powering modern applications',
@@ -78,6 +79,15 @@ const tileData: Record<string, CategoryData> = {
         // adoptionRate: '85%',
         // isEnterprise: true,
       },
+      {
+        name: '.NET',
+        language: '.NET',
+        icon: '/icons/net.svg',
+        githubStars: 15900,
+        githubRepo: 'https://github.com/dotnet/runtime',
+        // adoptionRate: '85%',
+        // isEnterprise: true,
+      },
     ],
   },
   'Backend & APIs': {
@@ -117,15 +127,6 @@ const tileData: Record<string, CategoryData> = {
         githubStars: 80600,
         githubRepo: 'https://github.com/gin-gonic/gin',
         // adoptionRate: '68%',
-        // isEnterprise: true,
-      },
-      {
-        name: 'vert.x',
-        language: 'Go',
-        icon: '/icons/vert.x.svg',
-        githubStars: 14400,
-        githubRepo: 'https://github.com/eclipse-vertx/vert.x',
-        // adoptionRate: '65%',
         // isEnterprise: true,
       },
       {
@@ -170,6 +171,24 @@ const tileData: Record<string, CategoryData> = {
         icon: '/icons/express.js.svg',
         githubStars: 66400,
         githubRepo: 'https://github.com/expressjs/express',
+        // adoptionRate: '89%',
+        // isEnterprise: true,
+      },
+      {
+        name: 'Vert.x',
+        language: 'Java',
+        icon: '/icons/vert.x.svg',
+        githubStars: 14400,
+        githubRepo: 'https://github.com/eclipse-vertx/vert.x',
+        // adoptionRate: '89%',
+        // isEnterprise: true,
+      },
+      {
+        name: 'nginx',
+        language: 'nginx',
+        icon: '/icons/nginx.svg',
+        githubStars: 26200,
+        githubRepo: 'https://github.com/nginx/nginx',
         // adoptionRate: '89%',
         // isEnterprise: true,
       },
@@ -242,6 +261,15 @@ const tileData: Record<string, CategoryData> = {
         // adoptionRate: '75%',
         // isEnterprise: true,
       },
+      {
+        name: 'Hexo',
+        language: 'JavaScript',
+        icon: '/icons/hexo.svg',
+        githubStars: 40100,
+        githubRepo: 'https://github.com/hexojs/hexo',
+        // adoptionRate: '75%',
+        // isEnterprise: true,
+      },
     ],
   },
   'Documentation & Content': {
@@ -299,6 +327,15 @@ const tileData: Record<string, CategoryData> = {
         icon: '/icons/reveal.js.svg',
         githubStars: 68500,
         githubRepo: 'https://github.com/hakimel/reveal.js',
+        // adoptionRate: '87%',
+        // isEnterprise: true,
+      },
+      {
+        name: 'Astro',
+        language: 'JavaScript',
+        icon: '/icons/astro.svg',
+        githubStars: 49600,
+        githubRepo: 'https://github.com/withastro/astro',
         // adoptionRate: '87%',
         // isEnterprise: true,
       },
@@ -362,6 +399,24 @@ const tileData: Record<string, CategoryData> = {
         // adoptionRate: '86%',
         // isEnterprise: true,
       },
+      {
+        name: 'Ubuntu',
+        language: 'Ubuntu',
+        icon: '/icons/ubuntu.svg',
+        githubStars: undefined,
+        githubRepo: undefined,
+        // adoptionRate: '86%',
+        // isEnterprise: true,
+      },
+      {
+        name: 'Debian',
+        language: 'Debian',
+        icon: '/icons/debian.svg',
+        githubStars: undefined,
+        githubRepo: undefined,
+        // adoptionRate: '86%',
+        // isEnterprise: true,
+      },
     ],
   },
 };
@@ -410,50 +465,53 @@ export default function TechGrid() {
 
         {/* Grid */}
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4">
-          {tileData[activeTab].items.map((tech) => (
-            <div
-              key={tech.name}
-              className="flex flex-col gap-4 rounded-lg bg-white px-6 py-5"
-              style={{
-                boxShadow:
-                  '0px 12px 40px -25px rgba(6, 26, 65, 0.20), 0px 0px 1px 0px rgba(19, 51, 107, 0.20)',
-              }}
-            >
-              <div className="relative flex gap-4">
-                <div className="relative flex size-7 items-center justify-center text-4xl lg:size-10">
-                  <Image
-                    src={tech.icon}
-                    alt={tech.name}
-                    fill
-                    className="size-7 lg:size-10"
-                  />
+          {tileData[activeTab].items.map((tech) => {
+            const deployName = tech.name.toLowerCase().replace(/\s+/g, '');
+            return (
+              <div
+                key={tech.name}
+                className="flex flex-col gap-4 rounded-lg bg-white px-6 py-5"
+                style={{
+                  boxShadow:
+                    '0px 12px 40px -25px rgba(6, 26, 65, 0.20), 0px 0px 1px 0px rgba(19, 51, 107, 0.20)',
+                }}
+              >
+                <div className="relative flex gap-4">
+                  <div className="relative flex size-7 items-center justify-center text-4xl lg:size-10">
+                    <Image
+                      src={tech.icon}
+                      alt={tech.name}
+                      fill
+                      className="size-7 lg:size-10"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <h3 className="text-lg font-medium text-black">
+                      {tech.name}
+                    </h3>
+                    <p className=" text-xs text-custom-secondary-text">
+                      {tech.language}
+                    </p>
+                  </div>
+                  <div className="absolute right-0 top-0 -mt-2  flex flex-col items-center gap-2 rounded p-2">
+                    <span className="text-yellow-500">⭐</span>
+                    <span className="text-xs text-custom-secondary-text">
+                      {tech.githubStars
+                        ? tech.githubStars.toLocaleString()
+                        : 'Popular'}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex flex-col justify-center">
-                  <h3 className="text-lg font-medium text-black">
-                    {tech.name}
-                  </h3>
-                  <p className=" text-xs text-custom-secondary-text">
-                    {tech.language}
-                  </p>
-                </div>
-                <div className="absolute right-0 top-0 -mt-2  flex flex-col items-center gap-2 rounded p-2">
-                  <span className="text-yellow-500">⭐</span>
-                  <span className="text-xs text-custom-secondary-text">
-                    {tech.githubStars
-                      ? tech.githubStars.toLocaleString()
-                      : 'Popular'}
-                  </span>
-                </div>
-              </div>
 
-              {/* Deploy Button */}
-              <div className="mt-4 flex justify-center">
-                <a href={deployLink}>
-                  <DeployButton />
-                </a>
+                {/* Deploy Button */}
+                <div className="mt-4 flex justify-center">
+                  <a href={deployLink + deployName}>
+                    <DeployButton />
+                  </a>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-14 flex justify-center">
