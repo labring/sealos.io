@@ -7,14 +7,14 @@ import { Database, FolderGit2, Server } from 'lucide-react';
 const iconStyle = 'text-blue-300 ';
 const features = [
   {
-    title: 'Environment Management',
+    title: 'Steamlined Workflow',
     description:
-      'Manage numerous projects and teams with multiple cloud workspaces. Allowing you to hare code, configs and data seamlessly with your team.',
-    image: '/images/devbox/workspaces.svg',
+      'From development to production - developers can code and build in their favorite IDEs then seamlessly test, release, and scale without friction.',
+    image: '/images/devbox/streamlined-workflow.svg',
     icon: <FolderGit2 className={iconStyle} />,
   },
   {
-    title: 'Integrated Databases',
+    title: 'Managed Databases',
     description:
       'Instantly provision development databases with automated backups, snapshots, and scaling. Connect effortlessly to MySQL, PostgreSQL, MongoDB, and Redis.',
     image: '/images/devbox/databases.svg',

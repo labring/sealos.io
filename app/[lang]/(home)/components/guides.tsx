@@ -3,33 +3,27 @@ import { AnimateElement } from '@/components/ui/animated-wrapper';
 
 const data = [
   {
-    title:
-      'Guide to creating, developing, and deploying a Next.js app using Sealos DevBox',
+    title: 'Create, develop, and deploy a Next.js app using Sealos DevBox',
     url: '/docs/quick-start',
   },
   {
-    title:
-      'Comprehensive guide to building an AI-powered Discord bot using Sealos DevBox',
+    title: 'Build an AI-powered Discord bot using Sealos DevBox',
     url: '/docs/examples/build-your-own-discord-bot',
   },
   {
-    title:
-      'Comprehensive Guide to connecting to PostgreSQL databases in Sealos DevBox using Node.js',
+    title: 'Connect to PostgreSQL databases in Sealos DevBox using Node.js',
     url: '/docs/guides/databases/postgresql/nodejs',
   },
   {
-    title:
-      'Comprehensive Guide to connecting to PostgreSQL databases in Sealos DevBox using Python',
+    title: 'Connect to PostgreSQL databases in Sealos DevBox using Python',
     url: '/docs/guides/databases/postgresql/python',
   },
   {
-    title:
-      'Comprehensive Guide to connecting to PostgreSQL databases in Sealos DevBox using Go',
+    title: 'Connect to PostgreSQL databases in Sealos DevBox using Go',
     url: '/docs/guides/databases/postgresql/go',
   },
   {
-    title:
-      'Comprehensive Guide to connecting to PostgreSQL databases in Sealos DevBox using Java',
+    title: 'Connect to PostgreSQL databases in Sealos DevBox using Java',
     url: '/docs/guides/databases/postgresql/java',
   },
 ];

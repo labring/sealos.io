@@ -27,12 +27,12 @@ const companies = [
     url: '/images/logos/microsoft.svg',
   },
   {
-    name: 'Open Source Initiative',
-    url: '/images/logos/open-source.webp',
-  },
-  {
     name: 'Stripe',
     url: '/images/logos/stripe.svg',
+  },
+  {
+    name: 'Open Source Initiative',
+    url: '/images/logos/open-source.webp',
   },
 ];
 
