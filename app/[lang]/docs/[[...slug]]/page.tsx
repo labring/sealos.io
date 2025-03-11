@@ -29,7 +29,9 @@ export default async function Page({
         style: 'clerk',
         single: false,
       }}
-      lastUpdate={page.data.lastModified ? new Date(page.data.lastModified) : undefined}
+      lastUpdate={
+        page.data.lastModified ? new Date(page.data.lastModified) : undefined
+      }
       editOnGithub={{
         owner: 'labring',
         repo: 'sealos-website',
@@ -71,12 +73,14 @@ export function generateMetadata({
   const url = `${siteConfig.url.base}/docs/${page.slugs.join('/')}`;
 
   const isRootPage = !params.slug || params.slug.length === 0;
-  const docTitle = isRootPage ? 'Sealos Docs' : `${page.data.title} | Sealos Docs`;
+  const docTitle = isRootPage
+    ? 'Sealos Docs'
+    : `${page.data.title} | Sealos Docs`;
 
   return {
     metadataBase: new URL(siteConfig.url.base),
     title: {
-      absolute: docTitle
+      absolute: docTitle,
     },
     description: page.data.description,
     alternates: {
@@ -86,7 +90,7 @@ export function generateMetadata({
       url,
       title: docTitle,
       description: page.data.description,
-      images: `${siteConfig.url.base}/images/banner.jpeg`,
+      images: `${siteConfig.url.base}/images/og/blog.svg`,
       siteName: docTitle,
       type: 'website',
     },
@@ -95,7 +99,7 @@ export function generateMetadata({
       site: siteConfig.twitterHandle,
       title: docTitle,
       description: page.data.description,
-      images: `${siteConfig.url.base}/images/banner.jpeg`,
+      images: `${siteConfig.url.base}/images/og/blog.svg`,
     },
   } satisfies Metadata;
 }

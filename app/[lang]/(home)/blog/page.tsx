@@ -4,37 +4,27 @@ import type { InferPageType } from 'fumadocs-core/source';
 import Image from 'next/image';
 import Link from 'next/link';
 
-function BlogItem({ page }: { page: InferPageType<typeof blog> }) {
+function BlogItem({
+  page,
+  priorityImage,
+}: {
+  page: InferPageType<typeof blog>;
+  priorityImage?: Boolean;
+}) {
   return (
     <Link
       href={page.url}
       className="group flex flex-col overflow-hidden rounded-xl bg-card text-card-foreground shadow-md transition-all hover:-translate-y-1 hover:bg-accent hover:text-accent-foreground hover:shadow-xl"
     >
       <div className="relative aspect-video h-auto w-full overflow-hidden">
-        {page.data.image != null ? (
-          <Image
-            alt="image"
-            src={page.data.image}
-            className="h-full object-cover transition-transform group-hover:scale-105"
-            fill
-            sizes="(max-width: 760px) 90vw, 400px"
-          />
-        ) : (
-          <div
-            className="flex h-full flex-1 flex-col"
-            style={{
-              backgroundImage: `url('/images/blog.webp')`,
-            }}
-          >
-            <Image
-              alt="logo"
-              src="/logo.svg"
-              className="m-auto h-20 w-20 rounded-full transition-transform group-hover:scale-110"
-              width={128}
-              height={128}
-            />
-          </div>
-        )}
+        <Image
+          alt="image"
+          src={`/api/og/blog/${encodeURI(page.data.title)}`}
+          className="h-full object-cover transition-transform group-hover:scale-105"
+          fill
+          priority={priorityImage ? true : false}
+          sizes="(max-width: 760px) 90vw, 400px"
+        />
       </div>
 
       <div className="flex flex-1 flex-col gap-2.5 p-5">
@@ -90,8 +80,8 @@ export default function BlogIndex() {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {posts.map((page) => (
-          <BlogItem key={page.url} page={page} />
+        {posts.map((page, index) => (
+          <BlogItem key={page.url} page={page} priorityImage={index < 9} />
         ))}
       </div>
     </main>
