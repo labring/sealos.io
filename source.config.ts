@@ -10,7 +10,7 @@ import { remarkInstall } from 'fumadocs-docgen';
 export const { docs, meta } = defineDocs();
 
 export const blog = defineCollections({
-  dir: 'content/blogs',
+  dir: 'content/blog',
   type: 'doc',
   schema: frontmatterSchema.extend({
     title: z.string(),

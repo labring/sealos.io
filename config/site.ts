@@ -6,7 +6,8 @@ export const siteConfig: SiteConfig = {
   name: 'Sealos',
   author: 'labring',
   tagline: 'Develop, deploy, and scale in one seamless cloud platform',
-  description: 'Sealos DevBox is an all-in-one cloud platform for 1-click environment/database/app setup, local IDE integration & auto-deployment.',
+  description:
+    'Sealos DevBox is an all-in-one cloud platform for 1-click environment/database/app setup, local IDE integration & auto-deployment.',
   keywords: ['sealos', 'Next.js'],
   url: {
     base: process.env.NEXT_PUBLIC_APP_URL || '',
@@ -19,7 +20,9 @@ export const siteConfig: SiteConfig = {
     discord: 'https://discord.gg/wdUn538zVP',
     youtube: 'https://www.youtube.com/@sealos_io',
   },
-  ogImage: `${process.env.NEXT_PUBLIC_APP_URL}/images/banner.jpeg?${new Date().getTime()}`,
+  ogImage: `${
+    process.env.NEXT_PUBLIC_APP_URL
+  }/images/banner.jpeg?${new Date().getTime()}`,
 };
 
 export type AuthorData = {
@@ -30,6 +33,12 @@ export type AuthorData = {
 };
 
 export const blogAuthors: Record<string, AuthorData> = {
+  default: {
+    name: 'Sealos',
+    title: 'Sealos',
+    url: 'https://github.com/labring/sealos',
+    image_url: `/logo.svg`,
+  },
   zjy: {
     name: 'ZJY',
     title: 'ZJY',
