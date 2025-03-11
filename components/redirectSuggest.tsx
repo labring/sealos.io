@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 
 const Info = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={62} height={62} fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" width={48} height={48} viewBox="0,0,62,62" fill="none">
     <g clipPath="url(#a)">
       <path
         fill="#F7B500"
@@ -31,7 +31,7 @@ const easeFromBottom = `@keyframes easeFromBottom {
     transform: translateY(0);
   }
 }`;
-export default function Redirect() {
+export default function RedirectSuggest() {
   const [open, setOpen] = useState(false);
 
   const checkIpInChina = useCallback(async () => {
@@ -68,10 +68,10 @@ export default function Redirect() {
     return (
       <>
         <style>{easeFromBottom}</style>
-        <div className="fixed bottom-4 z-50 grid animate-[easeFromBottom_0.4s_ease-in-out] grid-cols-[78px_1fr] rounded-xl bg-white p-[1.75rem] shadow-[0px_4px_4px_0px_#00000040] max-md:mx-4 md:right-3.5">
+        <div className="fixed bottom-6 z-50 grid animate-[easeFromBottom_0.4s_ease-in-out] grid-cols-[64px_1fr] rounded-xl bg-white p-[1.75rem] shadow-[0px_4px_4px_0px_#00000040] max-md:mx-4 md:right-6">
           <Info />
           <div>
-            <h3 className="my-[0.375rem] text-md font-medium md:text-lg xl:text-[26px]">
+            <h3 className="my-[0.375rem] text-md font-medium md:text-lg xl:text-[24px]">
               访问版本提醒
             </h3>
             <div className="relative max-xl:text-sm md:w-60 xl:w-[450px]">
