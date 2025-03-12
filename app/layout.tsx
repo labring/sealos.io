@@ -2,13 +2,13 @@ import { Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
 import './global.css';
 import { Analytics } from '@/components/analytics';
-import { generateRootMetadata } from '@/lib/utils/metadata';
+import { generatePageMetadata } from '@/lib/utils/metadata';
 
 const inter = Inter({
   subsets: ['latin'],
 });
 
-export const metadata = generateRootMetadata();
+export const metadata = generatePageMetadata();
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

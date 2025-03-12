@@ -3,17 +3,31 @@ import Trusted from './components/trusted';
 import FeatureGrid from './components/feature-grid';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
-import Hero from './components/hero';
+import Hero from '@/components/header/hero';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
 import Video from '@/components/video';
 import { HovermeButton } from '@/components/button/hoverme';
+import { generatePageMetadata } from '@/lib/utils/metadata';
+
+const title = {
+  main: 'Develop, deploy, and scale in one seamless cloud platform',
+  sub: 'The Unified Cloud Platform for Developers',
+};
+
+export const metadata = generatePageMetadata({
+  title: 'DevBox' + ' | ' + title.sub,
+});
 
 export default function HomePage({ params }: { params: { lang: string } }) {
   return (
     <div className="h-full bg-[#EBF2FF]">
       <Header lang={params.lang} />
       <main className="custom-container pt-14">
-        <Hero>
+        <Hero
+          title={title}
+          mainTitleEmphasis={2}
+          getStartedLink="https://usw.sealos.io"
+        >
           <Video url="https://youtu.be/A9mxz0JaY2o" />
           <div className="my-8 flex items-center justify-center">
             <a href="/devbox">

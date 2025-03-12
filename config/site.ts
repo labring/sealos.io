@@ -4,11 +4,11 @@ export const domain = process.env.NEXT_PUBLIC_APP_URL || 'https://sealos.io';
 
 export const siteConfig: SiteConfig = {
   name: 'Sealos',
-  author: 'labring',
+  author: 'Labring',
   tagline: 'Develop, deploy, and scale in one seamless cloud platform',
   description:
-    'Sealos DevBox is an all-in-one cloud platform for 1-click environment/database/app setup, local IDE integration & auto-deployment.',
-  keywords: ['sealos', 'Next.js'],
+    'Sealos simplifies development with one-click DevBox, scalable Kubernetes and easy app deployment - faster, simpler workflows for developers.',
+  keywords: ['sealos'],
   url: {
     base: process.env.NEXT_PUBLIC_APP_URL || '',
     author: '',

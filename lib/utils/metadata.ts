@@ -6,6 +6,8 @@ import { notFound } from 'next/navigation';
 
 const ogImageApi = `${siteConfig.url.base}/api/og`;
 
+const siteName = siteConfig.name;
+
 export async function generateBlogMetadata(props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
@@ -49,7 +51,7 @@ export async function generateBlogMetadata(props: {
       authors: page
         ? page.data.authors.map((author) => blogAuthors[author].name)
         : undefined,
-      siteName: docTitle,
+      siteName: siteName,
       type: page ? 'article' : 'website',
     },
     twitter: {
@@ -100,7 +102,7 @@ export function generateDocsMetadata({
       title: docTitle,
       description: page.data.description,
       images: imageUrl,
-      siteName: docTitle,
+      siteName: siteName,
       type: 'website',
     },
     twitter: {
@@ -113,30 +115,43 @@ export function generateDocsMetadata({
   } satisfies Metadata;
 }
 
-export function generateRootMetadata(): Metadata {
+export function generatePageMetadata(
+  options: {
+    title?: string;
+    description?: string;
+    keywords?: string[];
+  } = {},
+): Metadata {
+  const websiteImageApi = `${ogImageApi}/website/`;
+  const title = options.title
+    ? `${options.title} | ${siteConfig.name}`
+    : `${siteConfig.name} | ${siteConfig.tagline}`;
+  const description = options.description
+    ? options.description
+    : siteConfig.description;
+  const keywords = options.keywords ? options.keywords : siteConfig.keywords;
+  const imageUrl = websiteImageApi + 'default';
+
   return {
-    title: {
-      default: `${siteConfig.name} | ${siteConfig.tagline}`,
-      template: `%s | ${siteConfig.name}`,
-    },
-    description: siteConfig.description,
-    keywords: siteConfig.keywords,
-    alternates: {
-      canonical: siteConfig.url.base,
-    },
+    title: title,
+    description: description,
+    keywords: keywords,
+    // alternates: {
+    //   canonical: siteConfig.url.base,
+    // },
     openGraph: {
       type: 'website',
-      url: siteConfig.url.base,
-      siteName: `${siteConfig.name} | ${siteConfig.tagline}`,
-      title: siteConfig.name,
-      description: siteConfig.description,
-      images: [siteConfig.ogImage],
+      // url: siteConfig.url.base,
+      siteName: siteName,
+      title: title,
+      description: description,
+      images: [imageUrl],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${siteConfig.name} | ${siteConfig.tagline}`,
-      description: siteConfig.description,
-      images: [siteConfig.ogImage],
+      title: title,
+      description: description,
+      images: [imageUrl],
       creator: siteConfig.twitterHandle,
       site: siteConfig.twitterHandle,
     },
