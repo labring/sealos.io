@@ -120,6 +120,7 @@ export function generatePageMetadata(
     title?: string;
     description?: string;
     keywords?: string[];
+    pathname?: string | null;
   } = {},
 ): Metadata {
   const websiteImageApi = `${ogImageApi}/website/`;
@@ -130,7 +131,10 @@ export function generatePageMetadata(
     ? options.description
     : siteConfig.description;
   const keywords = options.keywords ? options.keywords : siteConfig.keywords;
-  const imageUrl = websiteImageApi + 'default';
+  const getImage = options.pathname
+    ? options.pathname.replace(/^\/+/, '')
+    : undefined;
+  const imageUrl = websiteImageApi + (getImage || 'default');
 
   return {
     title: title,

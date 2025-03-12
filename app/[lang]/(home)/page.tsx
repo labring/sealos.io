@@ -14,9 +14,7 @@ const title = {
   sub: 'The Unified Cloud Platform for Developers',
 };
 
-export const metadata = generatePageMetadata({
-  title: 'DevBox' + ' | ' + title.sub,
-});
+export const metadata = generatePageMetadata();
 
 export default function HomePage({ params }: { params: { lang: string } }) {
   return (
