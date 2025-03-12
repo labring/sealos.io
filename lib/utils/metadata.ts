@@ -112,3 +112,34 @@ export function generateDocsMetadata({
     },
   } satisfies Metadata;
 }
+
+export function generateRootMetadata(): Metadata {
+  return {
+    title: {
+      default: `${siteConfig.name} | ${siteConfig.tagline}`,
+      template: `%s | ${siteConfig.name}`,
+    },
+    description: siteConfig.description,
+    keywords: siteConfig.keywords,
+    alternates: {
+      canonical: siteConfig.url.base,
+    },
+    openGraph: {
+      type: 'website',
+      url: siteConfig.url.base,
+      siteName: `${siteConfig.name} | ${siteConfig.tagline}`,
+      title: siteConfig.name,
+      description: siteConfig.description,
+      images: [siteConfig.ogImage],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${siteConfig.name} | ${siteConfig.tagline}`,
+      description: siteConfig.description,
+      images: [siteConfig.ogImage],
+      creator: siteConfig.twitterHandle,
+      site: siteConfig.twitterHandle,
+    },
+    metadataBase: new URL(siteConfig.url.base),
+  };
+}
