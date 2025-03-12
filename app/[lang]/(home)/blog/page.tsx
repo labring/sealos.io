@@ -1,3 +1,4 @@
+import { generateBlogMetadata } from '@/lib/utils/metadata';
 import { blogAuthors } from '@/config/site';
 import { blog } from '@/lib/source';
 import type { InferPageType } from 'fumadocs-core/source';
@@ -87,3 +88,5 @@ export default function BlogIndex() {
     </main>
   );
 }
+
+export const generateMetadata = generateBlogMetadata;
