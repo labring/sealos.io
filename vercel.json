@@ -1,64 +1,59 @@
 {
-    "functions": {
-        "api/*": {
-            "includeFiles": "_files/**"
-        }
+  "redirects": [
+    {
+      "source": "/zh-Hans/blog/:path(.*)",
+      "destination": "https://blog.sealos.run/blog/:path",
+      "permanent": false
     },
-    "redirects": [
-        {
-            "source": "/zh-Hans/blog/:path(.*)",
-            "destination": "https://blog.sealos.run/blog/:path",
-            "permanent": false
-        },
-        {
-            "source": "/docs/Intro",
-            "destination": "https://sealos.io/docs/overview/intro",
-            "permanent": false
-        },
-        {
-            "source": "/docs/5.0.0/Intro",
-            "destination": "https://sealos.io/docs/overview/intro",
-            "permanent": false
-        },
-        {
-            "source": "/zh-Hans/:path(.*)",
-            "destination": "https://sealos.run/:path",
-            "permanent": false
-        },
-        {
-            "source": "/self-hosting",
-            "destination": "https://sealos.run/self-hosting",
-            "permanent": false
-        },
-        {
-            "source": "/pricing",
-            "destination": "https://sealos.run/pricing",
-            "permanent": false
-        },
-        {
-            "source": "/docs/5.0.0/user-guide/ai-proxy",
-            "destination": "https://sealos.run/docs/5.0.0/user-guide/ai-proxy/",
-            "permanent": false
-        },
-        {
-            "source": "/docs/5.0.0/developer-guide/sealos/installation",
-            "destination": "https://sealos.run/docs/5.0.0/developer-guide/sealos/installation",
-            "permanent": false
-        },
-        {
-            "source": "/docs/self-hosting/sealos/installation",
-            "destination": "https://sealos.run/docs/self-hosting/sealos/installation",
-            "permanent": false
-        },
-        {
-            "source": "/docs/self-hosting/lifecycle-management/quick-start/deploy-kubernetes",
-            "destination": "https://sealos.run/docs/self-hosting/lifecycle-management/quick-start/deploy-kubernetes",
-            "permanent": false
-        },
-        {
-            "source": "/company",
-            "destination": "https://sealos.run/company",
-            "permanent": false
-        }
-    ]
+    {
+      "source": "/docs/Intro",
+      "destination": "https://sealos.io/docs/overview/intro",
+      "permanent": false
+    },
+    {
+      "source": "/docs/5.0.0/Intro",
+      "destination": "https://sealos.io/docs/overview/intro",
+      "permanent": false
+    },
+    {
+      "source": "/zh-Hans/:path(.*)",
+      "destination": "https://sealos.run/:path",
+      "permanent": false
+    },
+    {
+      "source": "/self-hosting",
+      "destination": "https://sealos.run/self-hosting",
+      "permanent": false
+    },
+    {
+      "source": "/pricing",
+      "destination": "https://sealos.run/pricing",
+      "permanent": false
+    },
+    {
+      "source": "/docs/5.0.0/user-guide/ai-proxy",
+      "destination": "https://sealos.run/docs/5.0.0/user-guide/ai-proxy/",
+      "permanent": false
+    },
+    {
+      "source": "/docs/5.0.0/developer-guide/sealos/installation",
+      "destination": "https://sealos.run/docs/5.0.0/developer-guide/sealos/installation",
+      "permanent": false
+    },
+    {
+      "source": "/docs/self-hosting/sealos/installation",
+      "destination": "https://sealos.run/docs/self-hosting/sealos/installation",
+      "permanent": false
+    },
+    {
+      "source": "/docs/self-hosting/lifecycle-management/quick-start/deploy-kubernetes",
+      "destination": "https://sealos.run/docs/self-hosting/lifecycle-management/quick-start/deploy-kubernetes",
+      "permanent": false
+    },
+    {
+      "source": "/company",
+      "destination": "https://sealos.run/company",
+      "permanent": false
+    }
+  ]
 }
