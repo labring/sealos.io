@@ -36,7 +36,6 @@ export default async function CategoryPage({
         categories={categories}
         tags={tags}
       />
-
       <BlogGrid posts={posts} />
     </main>
   );

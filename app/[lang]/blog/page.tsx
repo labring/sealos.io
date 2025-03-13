@@ -34,7 +34,6 @@ export default async function BlogIndex({ searchParams }: BlogIndexProps) {
         categories={categories}
         tags={tags}
       />
-
       <BlogGrid posts={posts} />
     </main>
   );
