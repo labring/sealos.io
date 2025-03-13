@@ -52,7 +52,6 @@ export default async function BlogLayout({
               </span>
             </div>
           </div>
-
           <h1
             className="mb-4 text-4xl font-bold tracking-tight text-foreground"
             itemProp="name"

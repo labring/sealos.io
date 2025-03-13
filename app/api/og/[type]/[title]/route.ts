@@ -408,7 +408,7 @@ async function drawBlogDocsContent(
     // Position category text above the main title
     ctx.fillText(category, centerX, centerY - 30);
   }
-
+    
   // Add the main title text in the center
   ctx.font = 'bold 64px Arial, sans-serif';
   ctx.textAlign = 'center';

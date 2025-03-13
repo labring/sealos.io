@@ -25,6 +25,7 @@ export async function getCategories() {
     return [];
   }
 }
+
 // Extract the blog post type with Zod parameters
 export type BlogPost = ReturnType<typeof blog.getPages>[number];
 export async function getAllTags(pages?: BlogPost[]) {

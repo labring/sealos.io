@@ -36,7 +36,6 @@ export default async function CategoryPage({
         categories={categories}
         tags={tags}
       />
-
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {posts.length > 0 ? (
           posts.map((page, index) => (

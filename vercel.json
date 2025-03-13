@@ -21,11 +21,6 @@
             "permanent": false
         },
         {
-            "source": "/zh-cn/:path(.*)",
-            "destination": "https://sealos.run/docs/5.0.0/Intro",
-            "permanent": false
-        },
-        {
             "source": "/self-hosting",
             "destination": "https://sealos.run/self-hosting",
             "permanent": false
