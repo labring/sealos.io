@@ -6,6 +6,7 @@ import fs from 'fs';
 
 // Register fonts for canvas
 function registerFonts() {
+
   const fontPath = join(__dirname, '_files', 'fonts');
 
   // Check if the directory exists
