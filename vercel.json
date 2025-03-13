@@ -1,4 +1,9 @@
 {
+    "functions": {
+        "api": {
+            "includeFiles": "_files/**"
+        }
+    },
     "redirects": [
         {
             "source": "/zh-Hans/blog/:path(.*)",
