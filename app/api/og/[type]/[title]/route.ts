@@ -8,8 +8,6 @@ import fs from 'fs';
 function registerFonts() {
   const fontPath = join(process.cwd(), 'fonts');
 
-  console.log(fontPath);
-
   // Check if the directory exists
   if (!fs.existsSync(fontPath)) {
     console.warn('Fonts directory not found:', fontPath);
