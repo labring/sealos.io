@@ -6,7 +6,9 @@ import fs from 'fs';
 
 // Register fonts for canvas
 function registerFonts() {
-  const fontPath = join(__dirname, '_files', 'fonts');
+  const fontPath = join(process.cwd(), 'fonts');
+
+  console.log(fontPath);
 
   // Check if the directory exists
   if (!fs.existsSync(fontPath)) {
@@ -16,8 +18,8 @@ function registerFonts() {
 
   try {
     // Register Arial or a suitable alternative
-    registerFont(join(fontPath, 'arial.otf'), { family: 'Arial' });
-    registerFont(join(fontPath, 'arial-bold.otf'), {
+    registerFont(join(fontPath, 'arial.ttf'), { family: 'Arial' });
+    registerFont(join(fontPath, 'arial-bold.ttf'), {
       family: 'Arial',
       weight: 'bold',
     });
