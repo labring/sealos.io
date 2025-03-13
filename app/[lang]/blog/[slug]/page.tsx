@@ -1,11 +1,10 @@
-import { blogAuthors, domain } from '@/config/site';
 import { blog } from '@/lib/source';
 import { DocsBody } from 'fumadocs-ui/page';
-import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
 import React from 'react';
+import { generateBlogMetadata } from '@/lib/utils/metadata';
 
 export default async function BlogPage({
   params,
@@ -46,28 +45,4 @@ export function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata(props: {
-  params: Promise<{ slug: string }>;
-}) {
-  const params = await props.params;
-  const page = blog.getPage([params.slug]);
-  if (!page) notFound();
-
-  return {
-    metadataBase: new URL(domain),
-    title: page.data.title,
-    description: page.data.description,
-    keywords: page.data.keywords,
-    alternates: {
-      canonical: `${domain}/blog/${params.slug}`,
-    },
-    openGraph: {
-      type: 'article',
-      tags: page.data.keywords,
-      authors: page.data.authors.map((author) => blogAuthors[author].name),
-      title: page.data.title,
-      description: page.data.description,
-      images: page.data.image ?? '/opengraph-image.png',
-    },
-  } satisfies Metadata;
-}
+export const generateMetadata = generateBlogMetadata;

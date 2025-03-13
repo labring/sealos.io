@@ -1,92 +1,93 @@
-import { cn } from '@/lib/utils';
-import { ArrowRight, Menu } from 'lucide-react';
-import dynamic from 'next/dynamic';
-import AnimatedGridPattern from '../ui/animated-grid-pattern';
-import TypingAnimation from '../ui/typing-animation';
-import Image from 'next/image';
-import { AnimateElement } from '../ui/animated-wrapper';
-import { GetStartedButton } from '../ui/shiny-button';
+import { GetStartedButton } from '@/components/ui/shiny-button';
+import { ReactNode } from 'react';
 
-export default function Hero() {
-  return (
-    <div className="relative">
-      <Image
-        className="absolute left-4  top-4 z-10 h-[28px] w-[34px] lg:left-28 lg:top-28 lg:h-[100px] lg:w-[136px]"
-        src="/images/header-1.svg"
-        alt="hero-bg"
-        width={136}
-        height={100}
-      />
-      <Image
-        className="absolute -top-8 right-20 z-10 h-[28px] w-[34px] lg:right-64 lg:h-[115px] lg:w-[181px]"
-        src="/images/header-2.svg"
-        alt="hero-bg"
-        width={181}
-        height={115}
-      />
-      <Image
-        className="absolute right-12 top-[130px] z-10 h-[28px] w-[34px] lg:right-36 lg:top-[330px] lg:h-[92px] lg:w-[153px]"
-        src="/images/header-3.svg"
-        alt="hero-bg"
-        width={153}
-        height={92}
-      />
+interface HeroProps {
+  children?: ReactNode;
+  title: {
+    main: string;
+    sub: string;
+  };
+  mainTitleEmphasis: number;
+  getStartedLink: string;
+}
 
-      <div className="relative flex min-h-[700px] w-full flex-col overflow-hidden rounded-lg pb-0 pt-6 sm:py-14 lg:min-h-[1000px] lg:py-20">
-        <div className="z-10 whitespace-pre-wrap text-center tracking-tighter text-black">
-          <AnimateElement type="slideUp" delay={0.2} duration={0.6}>
-            <div
-              className="text-xl font-bold leading-[30px] sm:text-[40px] sm:leading-[54px] lg:text-[48px] lg:leading-[64px] xl:text-[56px] xl:leading-[82px]"
-              style={{ letterSpacing: '0.15px' }}
-            >
-              <span className="block">Develop, deploy, and scale</span>
-              <span className="block">in one seamless cloud platform</span>
-            </div>
-            <div
-              className="mx-auto my-6 max-w-[700px] text-xs font-medium text-custom-secondary-text sm:text-base"
-              style={{ letterSpacing: '0.15px' }}
-            >
-              Simplify your entire development lifecycle, with Sealos. We remove
-              the complexity so you can focus on building and growing your apps
-              effortlessly.
-            </div>
-
-            <div className="flex items-center justify-center gap-4 text-base font-medium">
-              <a href="https://usw.sealos.io" target="_blank">
-                <GetStartedButton />
-              </a>
-              <a href="mailto:contact@sealos.io" target="_blank">
-                <div className="flex cursor-pointer items-center justify-center gap-[6px] rounded-md bg-[#FAFCFF] px-4 py-2 text-custom-primary-text shadow-button hover:bg-[#F1F5FB] sm:px-5">
-                  Contact Sales
-                </div>
-              </a>
-            </div>
-          </AnimateElement>
-        </div>
-
-        <br />
-
-        <div className="mt-6 flex items-center justify-center">
-          <a href="/devbox">
-            <div className="relative flex cursor-pointer items-center justify-center overflow-hidden rounded-md bg-gray-200 py-2 pl-4 pr-3 text-gray-700 shadow-button hover:bg-gray-300 sm:pl-5 sm:pr-4">
-              <div className="z-10">Learn more about DevBox</div>
-            </div>
-          </a>
-        </div>
-
-        <AnimatedGridPattern
-          width={72}
-          height={72}
-          numSquares={200}
-          maxOpacity={0.5}
-          duration={1}
-          className={cn(
-            '[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]',
-            'top-10 h-[600px]',
-          )}
-        />
-      </div>
-      <div className="z-1 absolute bottom-32  h-[400px] w-full bg-[#99E0FFB2] blur-[200px]"></div>
-    </div>
+export default function Hero({
+  children,
+  title,
+  mainTitleEmphasis,
+  getStartedLink,
+}: HeroProps) {
+  const { partialTitle, highlightTitle } = splitTitle(
+    title.main,
+    mainTitleEmphasis,
   );
+  return (
+    <section className="pt-12 sm:pt-16">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto text-center">
+          <h1 className="font-inter px-6 text-lg text-gray-600">{title.sub}</h1>
+          <p className="font-pj mt-5 text-4xl font-bold leading-tight text-gray-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight">
+            {partialTitle}
+            <span className="relative inline-flex sm:inline">
+              <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] opacity-30 blur-lg filter"></span>
+              <span className="relative"> {highlightTitle}</span>
+            </span>
+          </p>
+
+          <div className="mt-9 flex items-center justify-center space-x-5">
+            <GetStartedButton
+              className="w-1/4 px-8 py-3 text-lg font-bold"
+              link={getStartedLink}
+            />
+            {/* <a
+              href="#"
+              title=""
+              className="font-pj mt-4 inline-flex w-full items-center justify-center rounded-xl border-2 border-gray-400 px-6 py-3 text-lg font-bold text-gray-900 transition-all duration-200 hover:border-gray-900 hover:bg-gray-900 hover:text-white focus:border-gray-900 focus:bg-gray-900 focus:text-white focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 sm:mt-0 sm:w-auto"
+              role="button"
+            >
+              <svg
+                className="mr-2 h-5 w-5"
+                viewBox="0 0 18 18"
+                fill="none"
+                stroke="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8.18003 13.4261C6.8586 14.3918 5 13.448 5 11.8113V5.43865C5 3.80198 6.8586 2.85821 8.18003 3.82387L12.5403 7.01022C13.6336 7.80916 13.6336 9.44084 12.5403 10.2398L8.18003 13.4261Z"
+                  stroke-width="2"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Watch free demo
+            </a> */}
+          </div>
+
+          <p className="font-inter mt-8 text-base text-gray-500">
+            Try for free · No credit card required
+          </p>
+        </div>
+      </div>
+
+      <div>{children}</div>
+    </section>
+  );
+}
+
+function splitTitle(str: string, numLastWords: number) {
+  let words = str.trim().split(/\s+/); // Split string into words
+  if (words.length === 0 || numLastWords <= 0)
+    return { partialTitle: str, extractedWord: '' };
+
+  // Ensure we don't try to take more words than exist
+  numLastWords = Math.min(numLastWords, words.length);
+
+  // Get the last numLastWords words
+  let extractedWords = words.splice(-numLastWords);
+
+  return {
+    partialTitle: words.join(' '),
+    highlightTitle: extractedWords.join(' '),
+  };
 }

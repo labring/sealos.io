@@ -155,3 +155,19 @@
 /* button[data-theme-toggle][aria-label='Toggle Theme'] {
   display: none !important;
 } */
+
+.prose a {
+  @apply no-underline;
+}
+
+/* Blog content styles */
+.blog-content :global(.prose) {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Ensure any potential nested prose elements maintain full width */
+.blog-content .prose {
+  width: 100% !important;
+  max-width: none !important;
+}
