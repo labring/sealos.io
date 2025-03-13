@@ -1,6 +1,6 @@
 import { generateBlogMetadata } from '@/lib/utils/metadata';
-import BlogItem from '../../components/BlogItem';
 import BlogHeader from '../../components/BlogHeader';
+import BlogGrid from '../../components/BlogGrid';
 import { redirect } from 'next/navigation';
 import {
   getCategories,
@@ -37,19 +37,7 @@ export default async function CategoryPage({
         tags={tags}
       />
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {posts.length > 0 ? (
-          posts.map((page, index) => (
-            <BlogItem key={page.url} page={page} priorityImage={index < 9} />
-          ))
-        ) : (
-          <div className="col-span-3 py-10 text-center">
-            <p className="text-lg text-muted-foreground">
-              No posts found in this category.
-            </p>
-          </div>
-        )}
-      </div>
+      <BlogGrid posts={posts} />
     </main>
   );
 }

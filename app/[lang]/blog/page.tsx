@@ -6,6 +6,7 @@ import {
   getAllTags,
   getSortedBlogPosts,
 } from '@/lib/utils/blog-utils';
+import BlogGrid from './components/BlogGrid';
 
 interface BlogIndexProps {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -34,11 +35,7 @@ export default async function BlogIndex({ searchParams }: BlogIndexProps) {
         tags={tags}
       />
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {posts.map((page, index) => (
-          <BlogItem key={page.url} page={page} priorityImage={index < 9} />
-        ))}
-      </div>
+      <BlogGrid posts={posts} />
     </main>
   );
 }
