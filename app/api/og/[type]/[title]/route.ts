@@ -1,7 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { join } from 'path';
-import { createCanvas, loadImage } from 'canvas';
+import { createCanvas, loadImage, registerFont } from 'canvas';
 import { siteConfig } from '@/config/site';
+import fs from 'fs';
+
+// Register fonts for canvas
+function registerFonts() {
+  const fontPath = join(process.cwd(), 'public', 'fonts');
+
+  // Check if the directory exists
+  if (!fs.existsSync(fontPath)) {
+    console.warn('Fonts directory not found:', fontPath);
+    return;
+  }
+
+  try {
+    // Register Arial or a suitable alternative
+    registerFont(join(fontPath, 'arial.otf'), { family: 'Arial' });
+    registerFont(join(fontPath, 'arial-bold.otf'), {
+      family: 'Arial',
+      weight: 'bold',
+    });
+
+    // You can register additional fonts if needed
+    // registerFont(join(fontPath, 'inter.ttf'), { family: 'Inter' });
+  } catch (error) {
+    console.error('Error registering fonts:', error);
+  }
+}
+
+// Register fonts at module level
+registerFonts();
 
 // Deterministic "random" function based on seed
 function seededRandom(x: number, y: number, seed = 12345) {
@@ -408,7 +437,7 @@ async function drawBlogDocsContent(
     // Position category text above the main title
     ctx.fillText(category, centerX, centerY - 30);
   }
-    
+
   // Add the main title text in the center
   ctx.font = 'bold 64px Arial, sans-serif';
   ctx.textAlign = 'center';
@@ -515,6 +544,10 @@ function drawWrappedText(
   maxWidth: number,
   lineHeight: number,
 ) {
+  // Ensure we use a font that's registered or a fallback
+  // ctx.font already set in the calling context, but we can make it more robust:
+  // ctx.font = ctx.font || 'bold 64px Arial, "Helvetica Neue", sans-serif';
+
   const words = text.split(' ');
   let line = '';
   let testLine = '';
