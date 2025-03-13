@@ -20,6 +20,11 @@ jobs:
         deployments: write
         pull-requests: write
     runs-on: ubuntu-latest
+
+    # Job outputs
+    outputs:
+      url: ${{ steps.deploy.outputs.preview-url }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,7 +35,7 @@ jobs:
           fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
-        id: vercel-action
+        id: deploy
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }} #Required
@@ -39,3 +44,25 @@ jobs:
           # vercel-args: '--local-config vercel.json' # Optional
           vercel-args: '--local-config ./vercel.json'
           working-directory: ./
+
+      - name: Create deployment status comment
+        if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
+          PREVIEW_URL: ${{ steps.deploy.outputs.preview-url }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const success = process.env.JOB_STATUS === 'success';
+            const deploymentUrl = ${process.env.PREVIEW_URL};
+            const status = success ? '✅ Success' : '❌ Failed';
+            console.log(process.env.JOB_STATUS);
+  
+            const commentBody = `**Deployment Status: ${status}**
+            ${success ? `🔗 Preview URL: ${deploymentUrl}` : ''}`;
+  
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.payload.pull_request.number,
+              body: commentBody
+            });
