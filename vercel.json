@@ -1,6 +1,6 @@
 {
     "functions": {
-        "api": {
+        "api/*": {
             "includeFiles": "_files/**"
         }
     },
