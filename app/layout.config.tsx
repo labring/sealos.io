@@ -1,3 +1,4 @@
+import { templateDomain } from '@/config/site';
 import { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import Image from 'next/image';
 
@@ -37,7 +38,7 @@ export const HeaderLinks = [
   {
     text: 'App Store',
     isExternal: true,
-    url: 'https://template.usw.sealos.io',
+    url: templateDomain,
   },
   {
     text: 'Docs',

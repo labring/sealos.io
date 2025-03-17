@@ -1,5 +1,5 @@
 import React from 'react';
-import { siteConfig } from '@/config/site';
+import { siteConfig, templateDomain } from '@/config/site';
 import Link from 'fumadocs-core/link';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
@@ -68,9 +68,7 @@ const Footer = async () => {
               Resources
             </div>
             <FooterLink href="/docs/quick-start">Docs</FooterLink>
-            <FooterLink href="https://template.usw.sealos.io">
-              App Store
-            </FooterLink>
+            <FooterLink href={templateDomain}>App Store</FooterLink>
           </FooterLinkColumn>
           <FooterLinkColumn>
             <div className="text-base font-semibold uppercase text-black hover:text-black hover:no-underline">

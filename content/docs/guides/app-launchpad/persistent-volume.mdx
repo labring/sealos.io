@@ -1,13 +1,27 @@
 ---
 title: Persistent Volume
-keywords: [persistent storage, data persistence, container storage, Sealos, external storage, container deployment, data retention, Nextcloud, application container]
+keywords:
+  [
+    persistent storage,
+    data persistence,
+    container storage,
+    Sealos,
+    external storage,
+    container deployment,
+    data retention,
+    Nextcloud,
+    application container,
+  ]
 description: Ensure data persistence in Sealos with external storage solutions, maintaining data continuity even through container restarts or redeployments.
 ---
 
-[Sealos](https://usw.sealos.io) offers a flexible environment where containers can be effortlessly created and
-destroyed. This flexibility is advantageous for application deployment and management, but it also raises the issue of
-maintaining data persistence. In scenarios where data is stored within an application container, its destruction leads
-to the loss of all stored data.
+import { AppDashboardLink } from '@/components/docs/Links';
+
+<AppDashboardLink /> offers a flexible environment where containers can be
+effortlessly created and destroyed. This flexibility is advantageous for
+application deployment and management, but it also raises the issue of
+maintaining data persistence. In scenarios where data is stored within an
+application container, its destruction leads to the loss of all stored data.
 
 To counter this problem, the use of persistent storage is essential. Persistent storage ensures that data is stored
 externally, thereby preserving it even through container restarts or redeployments. This is particularly vital for

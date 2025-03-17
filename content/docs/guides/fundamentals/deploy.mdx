@@ -3,7 +3,9 @@ title: Deploy
 description: Learn how to deploy your application using Sealos DevBox and App Launchpad
 ---
 
-After releasing your application as an OCI image, the next step is to deploy it to [Sealos Cloud](https://usw.sealos.io) for production use. This guide will walk you through the deployment process using App Launchpad.
+import { AppDashboardLink } from '@/components/docs/Links';
+
+After releasing your application as an OCI image, the next step is to deploy it to <AppDashboardLink /> for production use. This guide will walk you through the deployment process using App Launchpad.
 
 ## Initiate Deployment
 
@@ -11,12 +13,13 @@ After releasing your application as an OCI image, the next step is to deploy it 
 
 <h4>Access Project Details</h4>
 
-- Go to the Sealos DevBox List in your [Sealos Desktop](https://usw.sealos.io).
+- Go to the Sealos DevBox List in your <AppDashboardLink />.
 - Find your project and click on the "Detail" button on the right side of your project's row.
 
 <h4>Select Release Version</h4>
 
 In your project's details page:
+
 - Locate the "Version" section.
 - Find the release you want to deploy.
 - Click the "Deploy" button in the "Operation" column next to your chosen release.
@@ -38,6 +41,7 @@ In the App Launchpad application, you'll need to configure your application sett
 <h4>Set Resource Limits</h4>
 
 Configure the resources for your application:
+
 - CPU allocation
 - Memory allocation
 - Storage requirements
@@ -45,18 +49,21 @@ Configure the resources for your application:
 <h4>Configure Environment Variables</h4>
 
 If your application requires specific environment variables:
+
 - Add each variable with its corresponding value.
 - Ensure sensitive information is properly secured.
 
 <h4>Set Up Volumes (if needed)</h4>
 
 If your application requires persistent storage:
+
 - Configure any necessary volumes.
 - Specify mount paths for these volumes.
 
 <h4>Network Configuration</h4>
 
 Set up your application's network configuration:
+
 - Specify the container port your application listens on.
 - Configure any additional ports if required.
 
@@ -94,7 +101,9 @@ Once the status changes to "Running", your application is successfully deployed.
 </div>
 
 <Callout type="info">
-  Remember that you can always update your application by creating a new release in DevBox and repeating this deployment process with the new version using App Launchpad.
+  Remember that you can always update your application by creating a new release
+  in DevBox and repeating this deployment process with the new version using App
+  Launchpad.
 </Callout>
 
 ## Conclusion

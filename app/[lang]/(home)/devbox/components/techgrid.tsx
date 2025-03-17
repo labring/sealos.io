@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { AnimateElement } from '@/components/ui/animated-wrapper';
 import Image from 'next/image';
 import { DeployButton } from './deployButton';
+import { appDomain } from '@/config/site';
 
 interface TechItem {
   name: string;
@@ -19,8 +20,7 @@ interface CategoryData {
   items: TechItem[];
 }
 
-const deployLink =
-  'https://usw.sealos.io/?openapp=system-devbox?page%3Dcreate%26runtime%3D';
+const deployLink = `${appDomain}/?openapp=system-devbox?page%3Dcreate%26runtime%3D`;
 const tileData: Record<string, CategoryData> = {
   'Industry Standards': {
     description: 'Production-tested technologies powering modern applications',

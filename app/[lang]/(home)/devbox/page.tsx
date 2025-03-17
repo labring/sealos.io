@@ -8,6 +8,7 @@ import Hero from '@/components/header/hero';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
 import Video from '@/components/video';
 import { generatePageMetadata } from '@/lib/utils/metadata';
+import { appDomain } from '@/config/site';
 
 const title = {
   main: 'Ship 10x Faster with DevBox',
@@ -26,7 +27,7 @@ export default function HomePage({ params }: { params: { lang: string } }) {
         <Hero
           title={title}
           mainTitleEmphasis={1}
-          getStartedLink="https://usw.sealos.io/?openapp=system-devbox"
+          getStartedLink={`${appDomain}/?openapp=system-devbox`}
         >
           <Video url="https://youtu.be/A9mxz0JaY2o" />
         </Hero>

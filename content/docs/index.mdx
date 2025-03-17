@@ -4,6 +4,7 @@ description: Find quickstart guides, tutorials, best practices, deployment templ
 ---
 
 import { Text, Code, Play, Database } from 'lucide-react';
+import { templateDomain } from '@/config/site';
 
 <Cards>
   <Card
@@ -121,27 +122,27 @@ import {
 
 <Cards>
   <Card
-    href="https://template.usw.sealos.io/deploy?templateName=fastgpt"
+    href={templateDomain + '/deploy?templateName=fastgpt'}
     title="FastGPT"
   ></Card>
   <Card
-    href="https://template.usw.sealos.io/deploy?templateName=wordpress"
+    href={templateDomain + '/deploy?templateName=wordpress'}
     title="Wordpress"
   ></Card>
   <Card
-    href="https://template.usw.sealos.io/deploy?templateName=flarum"
+    href={templateDomain + '/deploy?templateName=flarum'}
     title="Flarum"
   ></Card>
   <Card
-    href="https://template.usw.sealos.io/deploy?templateName=headscale"
+    href={templateDomain + '/deploy?templateName=headscale'}
     title="Headscale"
   ></Card>
   <Card
-    href="https://template.usw.sealos.io/deploy?templateName=teable"
+    href={templateDomain + '/deploy?templateName=teable'}
     title="Teable"
   ></Card>
   <Card
-    href="https://template.usw.sealos.io/deploy?templateName=s-pdf"
+    href={templateDomain + '/deploy?templateName=s-pdf'}
     title="Stirling-PDF"
   ></Card>
 </Cards>
@@ -149,7 +150,7 @@ import {
 <br />
 
 <center>
-  <a href="https://template.usw.sealos.io" target="_blank">
+  <a href={templateDomain} target="_blank">
     View all apps \>
   </a>
 </center>

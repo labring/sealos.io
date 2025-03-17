@@ -1,7 +1,7 @@
 'use client';
 
 import { HeaderLinks } from '@/app/layout.config';
-import { siteConfig } from '@/config/site';
+import { appDomain, siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
 import Link from 'fumadocs-core/link';
@@ -65,7 +65,7 @@ export default function Header({ lang }: { lang: string }) {
           </div>
 
           <div className="hidden items-center gap-4 text-sm font-medium lg:flex">
-            <a href="https://usw.sealos.io" target="_blank">
+            <a href={appDomain} target="_blank">
               <GetStartedButton />
             </a>
           </div>

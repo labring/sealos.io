@@ -8,6 +8,7 @@ import { TailwindIndicator } from '@/components/tailwind-indicator';
 import Video from '@/components/video';
 import { HovermeButton } from '@/components/button/hoverme';
 import { generatePageMetadata } from '@/lib/utils/metadata';
+import { appDomain } from '@/config/site';
 
 const title = {
   main: 'Develop, deploy, and scale in one seamless cloud platform',
@@ -21,11 +22,7 @@ export default function HomePage({ params }: { params: { lang: string } }) {
     <div className="h-full bg-[#EBF2FF]">
       <Header lang={params.lang} />
       <main className="custom-container pt-14">
-        <Hero
-          title={title}
-          mainTitleEmphasis={2}
-          getStartedLink="https://usw.sealos.io"
-        >
+        <Hero title={title} mainTitleEmphasis={2} getStartedLink={appDomain}>
           <Video url="https://youtu.be/A9mxz0JaY2o" />
           <div className="my-8 flex items-center justify-center">
             <a href="/devbox">

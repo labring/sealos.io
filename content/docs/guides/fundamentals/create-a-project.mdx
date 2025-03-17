@@ -3,11 +3,13 @@ title: Create a Project
 description: Learn how to create a new project using Sealos DevBox
 ---
 
+import { AppDashboardLink } from '@/components/docs/Links';
+
 This guide will walk you through the steps to create a new project using Sealos DevBox.
 
 ## Access Sealos DevBox
 
-1. Navigate to [Sealos Desktop](https://usw.sealos.io) in your web browser.
+1. Navigate to <AppDashboardLink /> in your web browser.
 2. Locate and click on the "DevBox" icon.
 
 ## Create a New Project
@@ -21,6 +23,7 @@ This will open the project creation interface where you can configure your new p
 <h4>Configure the Runtime</h4>
 
 In the "Runtime" section:
+
 - Choose the development framework or language for your project.
 - Use the sliders to set the CPU cores and memory for your project. Adjust these based on your project's requirements.
 
@@ -32,11 +35,13 @@ Scroll down to the "Network" section to set up your project's network configurat
 
 ![Network Configuration](./images/devbox-network-config.png)
 
-- **Container Port**: 
+- **Container Port**:
+
   - Enter the main port your application will use.
   - If you need additional ports, click the "Add Port" button and specify them.
 
 - **Enable Internet Access**:
+
   - Toggle the switch to enable internet access for your DevBox. This allows external users to access your application through the public internet using the provided domain.
 
 - **Domain**:
