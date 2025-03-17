@@ -1,4 +1,5 @@
-import { type AuthorData, blogAuthors } from '@/config/site';
+import { GetStartedButton } from '@/components/ui/shiny-button';
+import { type AuthorData, blogAuthors, siteConfig } from '@/config/site';
 import { blog } from '@/lib/source';
 import { getBlogImage, getPageCategory } from '@/lib/utils/blog-utils';
 import type { InferPageType } from 'fumadocs-core/source';
@@ -119,8 +120,26 @@ export default async function BlogLayout({
         </div>
       </div>
       <div className="blog-content -mt-4 w-full border-t pt-8">{children}</div>
-      <Footer page={page} />
+      <Cta />
     </main>
+  );
+}
+
+function Cta() {
+  return (
+    <div className="mt-16 rounded-2xl border border-blue-200/20 bg-gradient-to-br from-blue-500/10 via-blue-400/5 to-background p-8">
+      <div className="flex flex-col items-center text-center">
+        <h3 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          Ready to experience Sealos?
+        </h3>
+        <p className="mt-3 max-w-md text-muted-foreground">
+          {siteConfig.tagline}
+        </p>
+        <Link href="https://os.sealos.io" target="_blank">
+          <GetStartedButton className="mt-6" />
+        </Link>
+      </div>
+    </div>
   );
 }
 

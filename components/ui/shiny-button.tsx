@@ -61,10 +61,12 @@ const ShinyButton = ({ children, className, ...props }: ShinyButtonProps) => {
 };
 
 export const GetStartedButton = ({
+  title,
   className,
   link,
   ...props
 }: {
+  title?: string;
   className?: string;
   link?: string;
 }) => {
@@ -83,7 +85,7 @@ export const GetStartedButton = ({
       onClick={handleClick}
       {...props}
     >
-      <div className="z-10">Get Started</div>
+      <div className="z-10">{title ? title : 'Get Started'}</div>
       <ArrowRight className="relative h-4 w-4" />
       <motion.div
         className="absolute -top-1/2 left-0 h-[200%] w-[40px] bg-white/60"
