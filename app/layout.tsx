@@ -29,9 +29,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
         <link rel="manifest" href="/favicon/site.webmanifest" />
 
+        {/*
+        Alternate URLs based on language
         <link rel="alternate" hrefLang="en" href="https://sealos.io" />
         <link rel="alternate" hrefLang="zh-CN" href="https://sealos.run" />
-        <link rel="alternate" hrefLang="x-default" href="https://sealos.io" />
+        <link rel="alternate" hrefLang="x-default" href="https://sealos.io" /> 
+        */}
 
         {/* <link rel="dns-prefetch" href="https://hm.baidu.com" /> */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
