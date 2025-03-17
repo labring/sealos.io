@@ -8,6 +8,7 @@ import { TailwindIndicator } from '@/components/tailwind-indicator';
 import Video from '@/components/video';
 import { HovermeButton } from '@/components/button/hoverme';
 import { generatePageMetadata } from '@/lib/utils/metadata';
+import RedirectSuggest from '@/components/redirectSuggest';
 
 const title = {
   main: 'Develop, deploy, and scale in one seamless cloud platform',
@@ -43,6 +44,7 @@ export default function HomePage({ params }: { params: { lang: string } }) {
       <div className="mt-[140px] h-[1px] bg-[#DDE7F7]"></div>
       <Footer />
       <TailwindIndicator />
+      <RedirectSuggest />
     </div>
   );
 }
