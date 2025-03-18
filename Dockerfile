@@ -1,7 +1,15 @@
 FROM node:20-alpine AS base
 
 FROM base AS builder
-RUN apk add --no-cache libc6-compat git python3 pkgconfig pixman-dev
+RUN apk add --no-cache \
+    libc6-compat \
+    git \
+    build-base \
+    g++ \
+    cairo-dev \
+    jpeg-dev \
+    pango-dev \
+    giflib-dev
 WORKDIR /app
 
 ARG NEXT_PUBLIC_APP_URL
