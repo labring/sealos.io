@@ -1,7 +1,7 @@
 FROM node:20-alpine AS base
 
 FROM base AS builder
-RUN apk add --no-cache libc6-compat git
+RUN apk add --no-cache libc6-compat git python3
 WORKDIR /app
 
 ARG NEXT_PUBLIC_APP_URL
