@@ -7,13 +7,15 @@ import { useEffect } from 'react';
 // Clarity script for lazy loading
 const loadClarity = (trackingId: string) => {
   const w = window as any;
-  w.clarity = w.clarity || function() {
-    (w.clarity.q = w.clarity.q || []).push(arguments);
-  };
+  w.clarity =
+    w.clarity ||
+    function () {
+      (w.clarity.q = w.clarity.q || []).push(arguments);
+    };
   const d = document;
   const s = d.createElement('script');
   s.async = true;
-  s.src = "https://www.clarity.ms/tag/" + trackingId;
+  s.src = 'https://www.clarity.ms/tag/' + trackingId;
   const firstScript = d.getElementsByTagName('script')[0];
   firstScript?.parentNode?.insertBefore(s, firstScript);
 };
@@ -72,6 +74,18 @@ export function Analytics() {
               }
             `}
           </Script>
+
+          {analyticsConfig.email?.enabled && (
+            <Script strategy="afterInteractive" id="email-analytics">
+              {`
+            (function(w,d,t,u,n,a,m){w['MauticTrackingObject']=n;
+              w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments)},a=d.createElement(t),
+              m=d.getElementsByTagName(t)[0];a.async=1;a.src=u;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://engage.sealos.io/mtc.js','mt');
+            mt('send', 'pageview');
+          `}
+            </Script>
+          )}
         </>
       )}
     </>
