@@ -128,6 +128,16 @@ function getContentConfig(type: string) {
       'icons',
       'docs.svg',
     );
+  } else if (type === 'email') {
+    tagText = 'Sealos Email';
+    iconPath = join(
+      process.cwd(),
+      'public',
+      'images',
+      'og',
+      'icons',
+      'email.svg',
+    );
   } else if (type === 'website') {
     // For website type, we'll use a different approach
     showTag = false;
