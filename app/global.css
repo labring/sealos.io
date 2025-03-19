@@ -157,31 +157,3 @@
 } */
 
 
-.prose {
-  max-width: 100% !important;
-}
-
-/* .prose :where(code):not(:where([class~=not-prose], [class~=not-prose] *)) {
-  color: var(--tw-prose-code);
-  font-weight: 400;
-  font-size: 13px;
-  padding: 3px;
-  border: 1px solid;
-  border-color: hsl(var(--border)/1);
-  border-radius: 5px;
-  background: hsl(var(--muted)/1);
-}
-
-.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {
-  content: initial;
-}
-
-.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
-  content: initial;
-}
-
-
-a.peer {
-  @apply no-underline;
-} */
-
