@@ -13,7 +13,7 @@ export default function BlogLayout({
   return (
     <div className={`h-full ${styles.blog_layout}`}>
       <Header lang={params.lang} />
-      <div className="custom-container min-h-screen pt-36 prose dark:prose-invert">{children}</div>
+      <div className="custom-container min-h-screen pt-36">{children}</div>
       <Footer />
     </div>
   );

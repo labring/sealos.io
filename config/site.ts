@@ -13,7 +13,7 @@ export const siteConfig: SiteConfig = {
     'Sealos simplifies development with one-click DevBox, scalable Kubernetes and easy app deployment - faster, simpler workflows for developers.',
   keywords: ['sealos'],
   url: {
-    base: process.env.NEXT_PUBLIC_APP_URL || '',
+    base: domain,
     author: '',
   },
   twitterHandle: '@Sealos_io',
