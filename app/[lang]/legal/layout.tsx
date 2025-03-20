@@ -2,6 +2,7 @@ import Footer from '@/components/footer';
 import Header from '@/components/header';
 import { ReactNode } from 'react';
 import styles from './index.module.css';
+import clsx from 'clsx';
 
 export default function BlogLayout({
   params,
@@ -13,7 +14,7 @@ export default function BlogLayout({
   return (
     <div className={`h-full ${styles.blog_layout}`}>
       <Header lang={params.lang} />
-      <div className="custom-container min-h-screen pt-36">{children}</div>
+      <div className={clsx("custom-container min-h-screen pt-36", styles.markdown)}>{children}</div>
       <Footer />
     </div>
   );
