@@ -33,7 +33,7 @@ export default async function Page({
       }
       editOnGithub={{
         owner: 'labring',
-        repo: 'sealos-website',
+        repo: 'sealos.io',
         sha: 'main',
         // file path, make sure it's valid
         path: `content/docs/${page.file.path}`,
