@@ -23,8 +23,8 @@ export default function LocaleLayout({
             lastUpdate: '最后更新于',
             editOnGithub: '在 GitHub 上编辑',
             searchNoResult: '没有找到相关内容',
-            toc: '目录',
-            tocNoHeadings: '没有找到目录',
+            toc: '本页导航',
+            tocNoHeadings: '本页没有导航',
             chooseLanguage: '选择语言',
           },
         }[params.lang]

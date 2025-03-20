@@ -2,6 +2,7 @@ import Footer from '@/components/footer';
 import Header from '@/components/header';
 import { ReactNode } from 'react';
 import styles from './index.module.css';
+import clsx from 'clsx';
 
 export default function BlogLayout({
   params,

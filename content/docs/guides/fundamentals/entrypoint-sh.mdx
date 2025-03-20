@@ -1,4 +1,188 @@
 ---
-title: 应用启动配置
-description: 了解如何配置 Devbox 项目的启动命令
+title: Entry Point
+description: Learn how to configure startup commands for your DevBox project
 ---
+
+In Sealos DevBox, `entrypoint.sh` is a special script file that defines how your application starts after deployment. This guide will help you understand how to properly configure this file to ensure your application starts and runs correctly in the deployment environment.
+
+## What is entrypoint.sh
+
+In a DevBox project, `entrypoint.sh` is your application's entry point that:
+
+- Defines the startup command for your application
+- Executes automatically after application deployment
+- Ensures your application starts correctly
+- Serves as a key component when publishing your project as an OCI image
+
+<Callout type="warn">
+`entrypoint.sh` should only be responsible for starting your application, not building it. All build steps should be completed in the development environment.
+</Callout>
+
+## Building in the Development Environment
+
+Before configuring `entrypoint.sh`, complete your application build in the development environment. This approach:
+- Reduces application startup time
+- Avoids installing build dependencies in production
+- Ensures you're deploying verified build artifacts
+
+<div className='steps [&_h4]:step'>
+
+<h4>Build Your Application</h4>
+
+Execute the build in your development environment:
+
+```bash
+# Next.js app
+npm run build  # generates .next directory
+
+# TypeScript app
+npm run build  # generates dist directory
+
+# Go app
+go build -o main  # generates executable
+```
+
+<h4>Verify Build Results</h4>
+
+Confirm your build artifacts were generated correctly:
+```bash
+# Check build directory
+ls -l dist/  # or .next/, build/, etc.
+
+# Test build artifacts
+node dist/main.js  # or other startup command
+```
+
+<h4>Configure Startup Command</h4>
+
+Configure `entrypoint.sh` based on your build artifacts:
+
+```bash title="entrypoint.sh"
+#!/bin/bash
+# Next.js
+NODE_ENV=production node .next/standalone/server.js
+
+# TypeScript Node.js
+node dist/main.js
+
+# Go
+./main
+```
+
+</div>
+
+## Common Configuration Scenarios
+
+### Pre-built Web Applications
+
+```bash title="entrypoint.sh"
+#!/bin/bash
+# Next.js (pre-built)
+NODE_ENV=production node .next/standalone/server.js
+
+# Vue (pre-built)
+node server/index.js
+
+# React (pre-built)
+serve -s build -l 3000
+```
+
+### Compiled Backend Services
+
+```bash title="entrypoint.sh"
+#!/bin/bash
+# Go (compiled)
+./main
+
+# Java (packaged)
+java -jar app.jar
+
+# Rust (compiled)
+./server
+```
+
+### Interpreted Backend Services
+
+```bash title="entrypoint.sh"
+#!/bin/bash
+# Python
+python app.py
+
+# Node.js (pre-built)
+node dist/index.js
+
+# PHP
+php -S 0.0.0.0:8000
+```
+
+## Best Practices
+
+<div className='steps [&_h4]:step'>
+
+<h4>Ensure Pre-building</h4>
+
+- Complete all build steps in the development environment
+- Verify the integrity of build artifacts
+- Test that the built application starts correctly
+
+<h4>Use the Correct Port</h4>
+
+Ensure your application listens on the correct port:
+- Use the port from environment variables (if available)
+- If manually specified, use standard ports (like 3000, 8080, etc.)
+- Make sure to listen on 0.0.0.0 rather than localhost
+
+<h4>Handle Environment Variables</h4>
+
+If your application depends on environment variables:
+- Configure environment variables during deployment via the Application Management interface
+- Don't hardcode sensitive information in `entrypoint.sh`
+
+</div>
+
+<Callout type="warn">
+Don't add background processes or daemons in entrypoint.sh. If you need to run multiple services, create and deploy separate DevBox projects for each.
+</Callout>
+
+## Common Issues
+
+### Build-related Problems
+
+If you encounter build-related issues:
+1. Ensure all build steps are completed in the development environment
+2. Check that build artifacts are complete
+3. Verify runtime dependencies for your build artifacts
+
+### Startup Failures
+
+If your application fails to start:
+1. Check if the startup command points to the correct build artifacts
+2. Confirm all required environment variables are configured
+3. Review application logs for detailed error information
+
+### Permission Issues
+
+If you encounter permission errors:
+- Ensure `entrypoint.sh` has execution permissions:
+```bash
+chmod +x entrypoint.sh
+```
+- Check if the permissions for build artifacts are correct
+
+## Testing and Validation
+
+Before publishing your application:
+1. Complete the build in the development environment
+2. Test the build artifacts
+3. Verify that `entrypoint.sh` starts your application correctly:
+```bash
+./entrypoint.sh
+```
+
+## Next Steps
+
+After completing your application build and configuring `entrypoint.sh`, you're ready to [publish](./release) your application. During the publishing process:
+
+1. Ensure all build artifacts are correctly generated
+2. The system will use your configured `entrypoint.sh` as the application's startup entry point
+3. After publishing is complete, during the [deployment](./deploy) phase, your application will start according to the method defined in `entrypoint.sh`
