@@ -27,7 +27,7 @@ export default async function BlogIndex({ searchParams }: BlogIndexProps) {
   const posts = getSortedBlogPosts({ tags: selectedTags });
 
   return (
-    <main className="flex flex-1 flex-col pb-20">
+    <main className="flex flex-1 flex-col pb-20 mx-8 md:mx-[15%]">
       <BlogHeader
         title="Blog"
         description="Sharing our technical insights, product updates and industry news"

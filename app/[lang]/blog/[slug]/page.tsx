@@ -9,9 +9,9 @@ import { generateBlogMetadata } from '@/lib/utils/metadata';
 export default async function BlogPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ lang: string; slug: string }>;
 }) {
-  const page = blog.getPage([(await params).slug]);
+  const page = blog.getPage([(await params).slug], (await params).lang);
   if (!page) notFound();
 
   const Content = page.data.body;

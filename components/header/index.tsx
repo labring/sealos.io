@@ -71,7 +71,7 @@ export default function Header({ lang }: { lang: string }) {
           </div>
 
           {/* phone menu */}
-          <div className="lg:hidden">
+          <div className={cn('lg:hidden', hasScrolled ? '' : ' ')}>
             <button
               aria-label="Open Menu"
               title="Open Menu"

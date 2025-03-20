@@ -37,8 +37,8 @@ const FooterLink: React.FC<FooterLinkProps> = ({
 
 const Footer = async () => {
   return (
-    <div className="custom-container relative pt-20">
-      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between text-sm lg:flex-row">
+    <div className="relative w-full pt-20">
+      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between text-sm max-xl:px-8 lg:flex-row">
         <div>
           <div className="mb-4 mr-4 md:flex">
             <Link
@@ -87,7 +87,7 @@ const Footer = async () => {
       </div>
 
       <div className="mt-16 h-[1px] w-full bg-[#DDE7F7]"></div>
-      <div className="flex justify-between pb-6 pl-2 pt-4">
+      <div className="flex max-w-7xl justify-between pb-6 pl-2 pt-4 mx-auto px-2">
         <div className="flex items-center space-x-2 text-[10px] font-normal text-custom-secondary-text md:text-sm">
           <FooterLink
             className="text-[10px] font-normal text-custom-secondary-text md:text-sm"
