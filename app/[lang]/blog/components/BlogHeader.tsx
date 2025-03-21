@@ -4,18 +4,14 @@ import TagBar from './TagBar';
 
 interface BlogHeaderProps {
   lang: languagesType;
+  title: string;
+  description?: string;
   categories: string[];
   tags: string[];
 }
 
-type Text = Record<'title'|'description'|'cates'| 'all_cates'|'filter_tag'|'clear'|'all_tag', string>;
-
-
-const translations: Record<languagesType, Text> = {
+export const translations: Record<languagesType, Record<'cates' | 'all_cates' | 'filter_tag' | 'clear' | 'all_tag', string>> = {
   en: {
-    title: 'Blog',
-    description:
-      'Sharing our technical insights, product updates and industry news',
     cates: 'Categories',
     all_cates: 'All Categories',
     filter_tag: 'Filter by Tags',
@@ -23,8 +19,6 @@ const translations: Record<languagesType, Text> = {
     all_tag: 'All Tags',
   },
   'zh-cn': {
-    title: '博客',
-    description: '分享我们的技术洞见、产品更新和行业新闻',
     cates: '分类',
     all_cates: '所有分类',
     filter_tag: '按标签过滤',
@@ -34,15 +28,14 @@ const translations: Record<languagesType, Text> = {
 };
 
 
-
-
 export default function BlogHeader({
   lang,
+  title,
+  description,
   categories,
   tags,
 }: BlogHeaderProps) {
   const text = translations[lang];
-
 
   return (
     <div>
@@ -53,17 +46,19 @@ export default function BlogHeader({
           </span>
         </div>
         <h1 className="mb-8 text-center text-4xl font-bold md:text-5xl">
-          {text.title}
+          {title}
         </h1>
-        <div className="flex flex-row justify-center gap-2.5 max-sm:flex-col max-sm:items-stretch">
-          <p className="text-center text-lg text-muted-foreground">
-            {text.description}
-          </p>
-        </div>
+        {description && (
+          <div className="flex flex-row justify-center gap-2.5 max-sm:flex-col max-sm:items-stretch">
+            <p className="text-center text-lg text-muted-foreground">
+              {description}
+            </p>
+          </div>
+        )}
       </div>
       <CategoryBar categories={categories} text={text} />
       <div className="hidden sm:block">
-        <TagBar tags={tags} text={text}/>
+        <TagBar tags={tags} text={text} />
       </div>
     </div>
   );

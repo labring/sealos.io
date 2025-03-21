@@ -15,6 +15,21 @@ interface BlogIndexProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
+const translations: Record<
+  languagesType,
+  Record<'title' | 'description', string>
+> = {
+  en: {
+    title: 'Blog',
+    description:
+      'Sharing our technical insights, product updates and industry news',
+  },
+  'zh-cn': {
+    title: '博客',
+    description: '分享我们的技术洞见、产品更新和行业新闻',
+  },
+};
+
 export default async function BlogIndex({
   params: { lang },
   searchParams,
@@ -30,12 +45,12 @@ export default async function BlogIndex({
     : [];
 
   // Pass selected tags to filter posts
-  const posts = getSortedBlogPosts({ tags: selectedTags });
+  const posts = getSortedBlogPosts({ tags: selectedTags, lang });
 
   return (
     <BlogContainer>
-      <BlogHeader lang={lang} categories={categories} tags={tags} />
-      <BlogGrid posts={posts} />
+      <BlogHeader title={translations[lang].title} description={translations[lang].description} lang={lang} categories={categories} tags={tags} />
+      <BlogGrid posts={posts} lang={lang} />
     </BlogContainer>
   );
 }

@@ -6,7 +6,7 @@ import fs from 'fs';
 
 // Register fonts for canvas
 function registerFonts() {
-  const fontPath = join(process.cwd(), 'fonts');
+  const fontPath = join(process.cwd(), '/public/fonts');
 
   // Check if the directory exists
   if (!fs.existsSync(fontPath)) {
@@ -16,9 +16,13 @@ function registerFonts() {
 
   try {
     // Register Arial or a suitable alternative
-    registerFont(join(fontPath, 'arial.ttf'), { family: 'Arial' });
-    registerFont(join(fontPath, 'arial-bold.ttf'), {
-      family: 'Arial',
+    // registerFont(join(fontPath, 'arial.otf'), { family: 'Arial' });
+    // registerFont(join(fontPath, 'arial-bold.otf'), {
+    //   family: 'Arial',
+    //   weight: 'bold',
+    // });
+    registerFont(join(fontPath, 'NotoSansSC-Bold.ttf'), {
+      family: 'Noto Sans',
       weight: 'bold',
     });
 
@@ -378,7 +382,7 @@ async function drawBlogDocsContent(
   const centerY = height / 2;
 
   // Draw the pill/tag style type indicator
-  ctx.font = 'bold 24px Arial, sans-serif';
+  ctx.font = 'bold 24px Arial, NotoSans, sans-serif';
   const tagWidth = ctx.measureText(config.tagText).width + 70; // Add padding
   const tagHeight = 45;
   const tagX = centerX - tagWidth / 2;
@@ -433,7 +437,7 @@ async function drawBlogDocsContent(
 
   // Add category above the main title if provided
   if (category) {
-    ctx.font = 'bold 28px Arial, sans-serif';
+    ctx.font = 'bold 28px Arial, NotoSans, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillStyle = '#0F3460';
@@ -449,7 +453,7 @@ async function drawBlogDocsContent(
   }
 
   // Add the main title text in the center
-  ctx.font = 'bold 64px Arial, sans-serif';
+  ctx.font = 'bold 64px Arial, Noto Sans, sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillStyle = '#0F3460';
@@ -494,7 +498,7 @@ async function drawWebsiteContent(
   ctx.drawImage(fullLogo, logoX, logoY, logoWidth, logoHeight);
 
   // Add title below the logo
-  ctx.font = 'bold 48px Arial, sans-serif';
+  ctx.font = 'bold 48px Arial, Noto Sans, sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillStyle = '#0F3460';
@@ -508,7 +512,7 @@ async function drawWebsiteContent(
   // Add tagline below the title - only if using standard logo
   if (fullLogo === logo) {
     // Only add tagline if we're using the fallback logo
-    ctx.font = 'bold 36px Arial, sans-serif';
+    ctx.font = 'bold 36px Arial, Noto Sans, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
@@ -516,7 +520,7 @@ async function drawWebsiteContent(
     ctx.fillText(tagline, width / 2, logoY + logoHeight + 120); // Position below the title
   } else {
     // If using the full logo, still add the tagline below the "here here here" title
-    ctx.font = 'bold 36px Arial, sans-serif';
+    ctx.font = 'bold 36px Arial, Noto Sans, sans-serif';
     const tagline = siteConfig.tagline;
     ctx.fillText(tagline, width / 2, logoY + logoHeight + 120); // Position below the title
   }
