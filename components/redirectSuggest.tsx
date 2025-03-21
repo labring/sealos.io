@@ -31,6 +31,7 @@ const easeFromBottom = `@keyframes easeFromBottom {
     transform: translateY(0);
   }
 }`;
+
 export default function RedirectSuggest() {
   const [open, setOpen] = useState(false);
 
@@ -68,13 +69,13 @@ export default function RedirectSuggest() {
     return (
       <>
         <style>{easeFromBottom}</style>
-        <div className="fixed bottom-6 z-50 grid animate-[easeFromBottom_0.4s_ease-in-out] grid-cols-[64px_1fr] rounded-xl bg-white p-[1.75rem] shadow-[0px_4px_4px_0px_#00000040] max-md:mx-4 md:right-6">
+        <div className="fixed bottom-6 z-50 grid animate-[easeFromBottom_0.4s_ease-in-out] grid-cols-[56px_1fr] rounded-xl bg-white p-6 shadow-[0px_4px_4px_0px_#00000040] max-md:mx-4 md:right-6">
           <Info />
           <div>
-            <h3 className="my-[0.375rem] text-md font-medium md:text-lg xl:text-[24px]">
+            <h3 className="my-1 text-md font-medium md:text-lg xl:text-[23px]">
               访问版本提醒
             </h3>
-            <div className="relative max-xl:text-sm md:w-60 xl:w-[450px]">
+            <div className="relative max-xl:text-sm md:w-60 xl:w-[400px]">
               <p className="leading-[180%] text-[#93919A] ">
               检测到您是中国大陆IP，推荐您使用 Sealos 中国大陆版（人民币计费）以享受本地化价格与服务。
               </p>

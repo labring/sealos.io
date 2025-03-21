@@ -5,9 +5,9 @@ import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
   const { pathname } = request.nextUrl;
 
-  if (request.nextUrl.hostname === 'sealos.io' && pathname.startsWith('/zh-cn')) {
-    return NextResponse.redirect(new URL(`https://sealos.run${pathname}`));
-  }
+  // if (request.nextUrl.hostname === 'sealos.io' && pathname.startsWith('/zh-cn')) {
+  //   return NextResponse.redirect(new URL(`https://sealos.run${pathname}`));
+  // }
   if (request.nextUrl.hostname === 'sealos.run' && pathname.startsWith('/en')) {
     return NextResponse.redirect(new URL(`https://sealos.io${pathname}`));
   }

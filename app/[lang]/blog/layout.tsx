@@ -2,12 +2,13 @@ import Footer from '@/components/footer';
 import Header from '@/components/header';
 import { ReactNode } from 'react';
 import styles from './blog.module.css';
+import { languagesType } from '@/lib/i18n';
 
 export default function BlogLayout({
   params,
   children,
 }: {
-  params: { lang: string };
+  params: { lang: languagesType };
   children: ReactNode;
 }) {
   return (

@@ -1,6 +1,6 @@
 ---
-title: What is Sealos and How Does It Work?
-description: Introduction to Sealos - the unified cloud platform.
+title: SealOS 是什么以及它是如何工作的？
+description: 统一云平台Sealos简介。
 date: 2025-03-17
 tags: ['Sealos']
 authors: ['default']

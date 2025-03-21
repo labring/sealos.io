@@ -8,12 +8,32 @@ import {
 } from '@/lib/utils/blog-utils';
 import BlogGrid from './components/BlogGrid';
 import BlogContainer from './components/BlogContainer';
+import { languagesType } from '@/lib/i18n';
 
 interface BlogIndexProps {
+  params: { lang: languagesType };
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default async function BlogIndex({ searchParams }: BlogIndexProps) {
+const translations: Record<
+  languagesType,
+  Record<'title' | 'description', string>
+> = {
+  en: {
+    title: 'Blog',
+    description:
+      'Sharing our technical insights, product updates and industry news',
+  },
+  'zh-cn': {
+    title: '博客',
+    description: '分享我们的技术洞见、产品更新和行业新闻',
+  },
+};
+
+export default async function BlogIndex({
+  params: { lang },
+  searchParams,
+}: BlogIndexProps) {
   const categories = await getCategories();
   const tags = await getAllTags();
 
@@ -25,17 +45,12 @@ export default async function BlogIndex({ searchParams }: BlogIndexProps) {
     : [];
 
   // Pass selected tags to filter posts
-  const posts = getSortedBlogPosts({ tags: selectedTags });
+  const posts = getSortedBlogPosts({ tags: selectedTags, lang });
 
   return (
     <BlogContainer>
-      <BlogHeader
-        title="Blog"
-        description="Sharing our technical insights, product updates and industry news"
-        categories={categories}
-        tags={tags}
-      />
-      <BlogGrid posts={posts} />
+      <BlogHeader title={translations[lang].title} description={translations[lang].description} lang={lang} categories={categories} tags={tags} />
+      <BlogGrid posts={posts} lang={lang} />
     </BlogContainer>
   );
 }

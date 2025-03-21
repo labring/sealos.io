@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Page } from 'fumadocs-core/source';
 import { blog } from '@/lib/source';
+import { languagesType } from '../i18n';
 
 export async function getCategories() {
   const contentPath = path.join(process.cwd(), 'content/blog');
@@ -33,7 +34,7 @@ export async function getAllTags(pages?: BlogPost[]) {
   if (pages) {
     posts = pages;
   } else {
-    posts = getBlogPosts();
+    posts = [...blog.getPages()];
   }
   const tagSet = new Set<string>();
 
@@ -58,17 +59,14 @@ export function getBlogImage(title: string, category?: string) {
     : baseUrl;
 }
 
-function getBlogPosts() {
-  const posts = [...blog.getPages()];
-  return posts;
-}
 
 export function getSortedBlogPosts(options?: {
   category?: string;
   tags?: string[];
+  lang?: languagesType
 }) {
-  const posts = getBlogPosts();
-
+  const posts = blog.getPages(options?.lang);
+  
   let filteredPosts = posts;
 
   // Filter by category if provided

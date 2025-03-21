@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { ChevronDown, Tag, X } from 'lucide-react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
-export default function TagsBar({ tags = [] }: { tags?: string[] }) {
+export default function TagsBar({ tags = [], text }: { tags?: string[], text: Record<string, string> }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -61,7 +61,7 @@ export default function TagsBar({ tags = [] }: { tags?: string[] }) {
         <div className="flex items-center gap-1.5">
           <Tag className="h-4 w-4 text-muted-foreground" />
           <h4 className="whitespace-nowrap text-sm font-medium text-muted-foreground">
-            Filter by Tags
+            {text.filter_tag}
           </h4>
         </div>
 
@@ -73,7 +73,7 @@ export default function TagsBar({ tags = [] }: { tags?: string[] }) {
               onClick={clearTags}
               className="absolute right-2 z-20 flex items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground hover:bg-accent"
             >
-              <X className="h-3 w-3" /> Clear
+              <X className="h-3 w-3" /> {text.clear}
             </button>
           )}
 
@@ -86,7 +86,7 @@ export default function TagsBar({ tags = [] }: { tags?: string[] }) {
                   : 'border-muted/60 bg-transparent hover:bg-accent/50'
               }`}
             >
-              All Tags
+              {text.all_tag}
             </button>
 
             {visibleTags.map((tag) => {
