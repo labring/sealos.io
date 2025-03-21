@@ -8,12 +8,17 @@ import {
 } from '@/lib/utils/blog-utils';
 import BlogGrid from './components/BlogGrid';
 import BlogContainer from './components/BlogContainer';
+import { languagesType } from '@/lib/i18n';
 
 interface BlogIndexProps {
+  params: { lang: languagesType };
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default async function BlogIndex({ searchParams }: BlogIndexProps) {
+export default async function BlogIndex({
+  params: { lang },
+  searchParams,
+}: BlogIndexProps) {
   const categories = await getCategories();
   const tags = await getAllTags();
 
@@ -29,12 +34,7 @@ export default async function BlogIndex({ searchParams }: BlogIndexProps) {
 
   return (
     <BlogContainer>
-      <BlogHeader
-        title="Blog"
-        description="Sharing our technical insights, product updates and industry news"
-        categories={categories}
-        tags={tags}
-      />
+      <BlogHeader lang={lang} categories={categories} tags={tags} />
       <BlogGrid posts={posts} />
     </BlogContainer>
   );

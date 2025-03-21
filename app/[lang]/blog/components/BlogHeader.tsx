@@ -1,19 +1,49 @@
+import { languagesType } from '@/lib/i18n';
 import CategoryBar from './CategoryBar';
 import TagBar from './TagBar';
 
 interface BlogHeaderProps {
-  title: string;
-  description?: string;
+  lang: languagesType;
   categories: string[];
   tags: string[];
 }
 
+type Text = Record<'title'|'description'|'cates'| 'all_cates'|'filter_tag'|'clear'|'all_tag', string>;
+
+
+const translations: Record<languagesType, Text> = {
+  en: {
+    title: 'Blog',
+    description:
+      'Sharing our technical insights, product updates and industry news',
+    cates: 'Categories',
+    all_cates: 'All Categories',
+    filter_tag: 'Filter by Tags',
+    clear: 'Clear',
+    all_tag: 'All Tags',
+  },
+  'zh-cn': {
+    title: '博客',
+    description: '分享我们的技术洞见、产品更新和行业新闻',
+    cates: '分类',
+    all_cates: '所有分类',
+    filter_tag: '按标签过滤',
+    clear: '清除',
+    all_tag: '所有标签',
+  },
+};
+
+
+
+
 export default function BlogHeader({
-  title,
-  description,
+  lang,
   categories,
   tags,
 }: BlogHeaderProps) {
+  const text = translations[lang];
+
+
   return (
     <div>
       <div className="py-12 pt-28">
@@ -23,19 +53,17 @@ export default function BlogHeader({
           </span>
         </div>
         <h1 className="mb-8 text-center text-4xl font-bold md:text-5xl">
-          {title}
+          {text.title}
         </h1>
-        {description && (
-          <div className="flex flex-row justify-center gap-2.5 max-sm:flex-col max-sm:items-stretch">
-            <p className="text-center text-lg text-muted-foreground">
-              {description}
-            </p>
-          </div>
-        )}
+        <div className="flex flex-row justify-center gap-2.5 max-sm:flex-col max-sm:items-stretch">
+          <p className="text-center text-lg text-muted-foreground">
+            {text.description}
+          </p>
+        </div>
       </div>
-      <CategoryBar categories={categories} />
+      <CategoryBar categories={categories} text={text} />
       <div className="hidden sm:block">
-        <TagBar tags={tags} />
+        <TagBar tags={tags} text={text}/>
       </div>
     </div>
   );

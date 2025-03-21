@@ -6,8 +6,10 @@ import { useRouter, usePathname } from 'next/navigation';
 
 export default function CategoryBar({
   categories = [],
+  text
 }: {
   categories?: string[];
+  text: Record<string, string>
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -68,7 +70,7 @@ export default function CategoryBar({
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           <Layers className="h-5 w-5 text-primary" />
-          <h3 className="whitespace-nowrap font-medium">Categories</h3>
+          <h3 className="whitespace-nowrap font-medium">{text.cates}</h3>
         </div>
 
         <div className="h-8 border-l border-muted-foreground/20"></div>
@@ -78,7 +80,7 @@ export default function CategoryBar({
             {visibleCategories.map((category) => {
               const categoryTitle =
                 category === 'all'
-                  ? 'All Categories'
+                  ? text.all_cates
                   : category
                       .split('-')
                       .map(
