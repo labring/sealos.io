@@ -8,6 +8,7 @@ import {
   formatCategoryTitle,
   getAllTags,
 } from '@/lib/utils/blog-utils';
+import BlogContainer from '../../components/BlogContainer';
 
 export default async function CategoryPage({
   params,
@@ -29,7 +30,7 @@ export default async function CategoryPage({
   const categoryTitle = formatCategoryTitle(category);
 
   return (
-    <main className="flex flex-1 flex-col pb-20">
+    <BlogContainer>
       <BlogHeader
         title={`${categoryTitle} Articles`}
         description={`Blog articles in the ${categoryTitle.toLowerCase()} category`}
@@ -37,7 +38,7 @@ export default async function CategoryPage({
         tags={tags}
       />
       <BlogGrid posts={posts} />
-    </main>
+    </BlogContainer>
   );
 }
 

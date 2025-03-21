@@ -20,7 +20,6 @@ export default async function BlogLayout({
 }) {
   const page = blog.getPage([params.slug], params.lang);
 
-  console.log(page);
   if (!page) notFound();
   const category = getPageCategory(page);
 
@@ -62,17 +61,16 @@ export default async function BlogLayout({
           <div className="mb-10 overflow-hidden rounded-2xl bg-gradient-to-b from-primary/10 to-background ">
             <div className="relative h-[250px] w-full">
               <Image
-                src={getBlogImage(encodeURI(page.data.title))}
+                src={getBlogImage(encodeURI(page.data.title), category)}
                 alt={page.data.title}
                 fill
-                className="object-cover"
+                className="object-cover object-[center_60%]"
                 priority
                 itemProp="image"
               />
             </div>
             <div className="px-8 py-6">
               <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-                <div></div>
                 <div className="flex items-center gap-2">
                   <span className="inline-block rounded-full bg-primary/15 px-3 py-1 text-xs font-medium text-primary">
                     {category.toUpperCase()}

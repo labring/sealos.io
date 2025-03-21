@@ -7,6 +7,7 @@ import {
   getSortedBlogPosts,
 } from '@/lib/utils/blog-utils';
 import BlogGrid from './components/BlogGrid';
+import BlogContainer from './components/BlogContainer';
 
 interface BlogIndexProps {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -27,7 +28,7 @@ export default async function BlogIndex({ searchParams }: BlogIndexProps) {
   const posts = getSortedBlogPosts({ tags: selectedTags });
 
   return (
-    <main className="flex flex-1 flex-col pb-20 mx-8 md:mx-[15%]">
+    <BlogContainer>
       <BlogHeader
         title="Blog"
         description="Sharing our technical insights, product updates and industry news"
@@ -35,7 +36,7 @@ export default async function BlogIndex({ searchParams }: BlogIndexProps) {
         tags={tags}
       />
       <BlogGrid posts={posts} />
-    </main>
+    </BlogContainer>
   );
 }
 
