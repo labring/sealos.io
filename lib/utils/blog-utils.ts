@@ -52,7 +52,8 @@ export function getPageCategory(page: Page) {
 }
 
 export function getBlogImage(title: string, category?: string) {
-  const baseUrl = `/api/og/blog/${title}`;
+  const safeTitle = encodeURIComponent(title);
+  const baseUrl = `/api/og/blog/${safeTitle}`;
   return category
     ? `${baseUrl}?category=${encodeURIComponent(category)}`
     : baseUrl;

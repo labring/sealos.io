@@ -20,7 +20,7 @@ export default function BlogItem({
     >
       <div className="relative aspect-video h-auto w-full overflow-visible">
         <Image
-          src={getBlogImage(encodeURI(page.data.title), category)}
+          src={getBlogImage(page.data.title, category)}
           alt={page.data.title}
           className="h-full object-cover"
           fill
