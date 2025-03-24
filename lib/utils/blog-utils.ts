@@ -54,24 +54,21 @@ export function getPageCategory(page: Page) {
 
 export function getBlogImage(title: string, category?: string) {
   if (process.env.NODE_ENV !== 'production') {
-    return `/images/og-blog/${`${title}.png`
+    return `/images/og-blog/${title}.png`
       .replaceAll(' ', '')
-      .replaceAll('?', '')}`;
+      .replaceAll('?', '');
   }
-  const baseUrl = `/api/og/blog/${encodeURI(title)}`;
-  return category
-    ? `${baseUrl}?category=${encodeURI(category)}`
-    : baseUrl;
+  const baseUrl = `/api/og/blog/${encodeURIComponent(title)}`;
+  return category ? `${baseUrl}?category=${encodeURI(category)}` : baseUrl;
 }
-
 
 export function getSortedBlogPosts(options?: {
   category?: string;
   tags?: string[];
-  lang?: languagesType
+  lang?: languagesType;
 }) {
   const posts = blog.getPages(options?.lang);
-  
+
   let filteredPosts = posts;
 
   // Filter by category if provided

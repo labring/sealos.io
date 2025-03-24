@@ -18,11 +18,22 @@ $ curl --silent "https://api.github.com/repos/labring/sealos/releases" | jq -r '
 $ VERSION=`curl -s https://api.github.com/repos/labring/sealos/releases/latest | grep -oE '"tag_name": "[^"]+"' | head -n1 | cut -d'"' -f4`
 ```
 
+另外由于国内网络的特殊原因，访问 GitHub 可能会受限，建议先到以下几个网站寻找最新可用的 GitHub 代理：
+
+- https://ghproxy.link/
+- https://ghproxy.net/
+
+找到可用的 GitHub 代理之后，将其设置为环境变量 `PROXY_PREFIX`，例如：
+
+```bash
+export PROXY_PREFIX=https://ghfast.top
+```
+
 ## 二进制自动下载
 
 ```shell
 
-$ curl -sfL https://mirror.ghproxy.com/https://raw.githubusercontent.com/labring/sealos/main/scripts/install.sh | PROXY_PREFIX=https://mirror.ghproxy.com sh -s ${VERSION} labring/sealos
+$ curl -sfL ${PROXY_PREFIX}/https://raw.githubusercontent.com/labring/sealos/main/scripts/install.sh | PROXY_PREFIX=${PROXY_PREFIX} sh -s ${VERSION} labring/sealos
 
 ```
 
@@ -31,12 +42,12 @@ $ curl -sfL https://mirror.ghproxy.com/https://raw.githubusercontent.com/labring
 <Tabs items={['amd64', 'arm64']}>
 
   ```bash tab="amd64"
-  $ wget https://mirror.ghproxy.com/https://github.com/labring/sealos/releases/download/${VERSION}/sealos_${VERSION#v}_linux_amd64.tar.gz \
+  $ wget ${PROXY_PREFIX}/https://github.com/labring/sealos/releases/download/${VERSION}/sealos_${VERSION#v}_linux_amd64.tar.gz \
   && tar zxvf sealos_${VERSION#v}_linux_amd64.tar.gz sealos && chmod +x sealos && mv sealos /usr/bin
   ```
 
   ```bash tab="arm64"
-  $ wget https://mirror.ghproxy.com/https://github.com/labring/sealos/releases/download/${VERSION}/sealos_${VERSION#v}_linux_arm64.tar.gz \
+  $ wget ${PROXY_PREFIX}/https://github.com/labring/sealos/releases/download/${VERSION}/sealos_${VERSION#v}_linux_arm64.tar.gz \
   && tar zxvf sealos_${VERSION#v}_linux_arm64.tar.gz sealos && chmod +x sealos && mv sealos /usr/bin
   ```
 </Tabs>
@@ -81,8 +92,3 @@ $ sudo yum install sealos
 $ git clone https://github.com/labring/sealos.git
 $ make build BINS=sealos
 ```
-
-## 下一步
-
-[安装 K8s 集群](/developer-guide/lifecycle-management/quick-start/deploy-kubernetes.md)。
-

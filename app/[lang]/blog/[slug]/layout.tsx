@@ -23,7 +23,7 @@ export default async function BlogLayout({
   if (!page) notFound();
   const category = getPageCategory(page);
 
-  // inline style: set the postion for toc; set as a global style will make docs page strange
+  // inline style: set the position for toc; set as a global style will make docs page strange
 
   return (
     <DocsLayout
