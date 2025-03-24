@@ -53,7 +53,7 @@ export function getPageCategory(page: Page) {
 }
 
 export function getBlogImage(title: string, category?: string) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV === 'production') {
     return `/images/og-blog/${title}.png`
       .replaceAll(' ', '')
       .replaceAll('?', '');
