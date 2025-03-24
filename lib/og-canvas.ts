@@ -21,7 +21,7 @@ function registerFonts() {
       family: 'Arial',
       weight: 'bold',
     });
-    registerFont(join(fontPath, 'NotoSansSC-Bold.ttf'), {
+    registerFont(join(fontPath, 'NotoSansSC-Black.ttf'), {
       family: 'Noto Sans',
       weight: 'bold',
     });

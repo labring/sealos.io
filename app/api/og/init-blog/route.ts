@@ -23,8 +23,8 @@ async function generateImages() {
       try {
         const imageBuffer = await drawCanvas(
           'blog',
-          title,
-          category !== 'uncategorized' ? category : '',
+          title.toUpperCase(),
+          category !== 'uncategorized' ? category.toUpperCase() : undefined,
         );
 
         const filePath = path.join(
