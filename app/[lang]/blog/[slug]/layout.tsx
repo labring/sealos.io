@@ -61,7 +61,7 @@ export default async function BlogLayout({
           <div className="mb-10 overflow-hidden rounded-2xl bg-gradient-to-b from-primary/10 to-background ">
             <div className="relative h-[250px] w-full">
               <Image
-                src={getBlogImage(encodeURI(page.data.title), category)}
+                src={getBlogImage(page.data.title, category)}
                 alt={page.data.title}
                 fill
                 className="object-cover object-[center_60%]"

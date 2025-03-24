@@ -70,7 +70,7 @@ export default function CategoryBar({
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           <Layers className="h-5 w-5 text-primary" />
-          <h3 className="whitespace-nowrap font-medium">{text.cates}</h3>
+          <h3 className="whitespace-nowrap font-medium">{text.cats}</h3>
         </div>
 
         <div className="h-8 border-l border-muted-foreground/20"></div>
@@ -80,7 +80,7 @@ export default function CategoryBar({
             {visibleCategories.map((category) => {
               const categoryTitle =
                 category === 'all'
-                  ? text.all_cates
+                  ? text.all_cats
                   : category
                       .split('-')
                       .map(

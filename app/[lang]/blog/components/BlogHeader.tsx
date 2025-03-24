@@ -10,17 +10,17 @@ interface BlogHeaderProps {
   tags: string[];
 }
 
-export const translations: Record<languagesType, Record<'cates' | 'all_cates' | 'filter_tag' | 'clear' | 'all_tag', string>> = {
+export const translations: Record<languagesType, Record<'cats' | 'all_cats' | 'filter_tag' | 'clear' | 'all_tag', string>> = {
   en: {
-    cates: 'Categories',
-    all_cates: 'All Categories',
+    cats: 'Categories',
+    all_cats: 'All Categories',
     filter_tag: 'Filter by Tags',
     clear: 'Clear',
     all_tag: 'All Tags',
   },
   'zh-cn': {
-    cates: '分类',
-    all_cates: '所有分类',
+    cats: '分类',
+    all_cats: '所有分类',
     filter_tag: '按标签过滤',
     clear: '清除',
     all_tag: '所有标签',

@@ -27,8 +27,10 @@ async function generateImages() {
           category !== 'uncategorized' ? category : '',
         );
 
-        const fileName = `${title}-${category}.png`;
-        const filePath = path.join(OUTPUT_DIR, encodeURIComponent(fileName));
+        const filePath = path.join(
+          OUTPUT_DIR,
+          `${title}.png`.replaceAll(' ', '').replaceAll('?', ''),
+        );
 
         fs.writeFileSync(filePath, imageBuffer as Uint8Array);
       } catch (error) {

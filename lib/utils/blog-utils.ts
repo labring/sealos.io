@@ -53,15 +53,14 @@ export function getPageCategory(page: Page) {
 }
 
 export function getBlogImage(title: string, category?: string) {
-  if (process.env.NODE_ENV === 'production') {
-    const fileName = category
-      ? `${title}-${category}.png`
-      : `${title}-.png`;
-    return `/images/og-blog/${encodeURIComponent(fileName)}`;
+  if (process.env.NODE_ENV !== 'production') {
+    return `/images/og-blog/${`${title}.png`
+      .replaceAll(' ', '')
+      .replaceAll('?', '')}`;
   }
-  const baseUrl = `/api/og/blog/${title}`;
+  const baseUrl = `/api/og/blog/${encodeURI(title)}`;
   return category
-    ? `${baseUrl}?category=${encodeURIComponent(category)}`
+    ? `${baseUrl}?category=${encodeURI(category)}`
     : baseUrl;
 }
 
