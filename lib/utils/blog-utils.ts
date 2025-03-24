@@ -29,13 +29,27 @@ export async function getCategories() {
 
 // Extract the blog post type with Zod parameters
 export type BlogPost = ReturnType<typeof blog.getPages>[number];
-export async function getAllTags(pages?: BlogPost[]) {
+export async function getAllTags(pages?: BlogPost[], lang?: languagesType) {
   let posts;
   if (pages) {
     posts = pages;
   } else {
-    posts = [...blog.getPages()];
+    posts = [...blog.getPages(lang)];
+    
+    // Apply the same language filtering logic as getSortedBlogPosts
+    if (lang && posts.length > 0) {
+      posts = posts.filter(post => {
+        // Check if the file path contains language identifier
+        if (lang === 'zh-cn') {
+          return post.file.path.includes('.zh-cn.');
+        } else {
+          // English articles typically don't have language identifiers or have .en.
+          return !post.file.path.includes('.zh-cn.') || post.file.path.includes('.en.');
+        }
+      });
+    }
   }
+  
   const tagSet = new Set<string>();
 
   posts.forEach((post) => {
@@ -44,7 +58,8 @@ export async function getAllTags(pages?: BlogPost[]) {
     }
   });
 
-  return Array.from(tagSet);
+  const tags = Array.from(tagSet);
+  return tags;
 }
 
 export function getPageCategory(page: Page) {
@@ -67,9 +82,26 @@ export function getSortedBlogPosts(options?: {
   tags?: string[];
   lang?: languagesType;
 }) {
+  // Retrieve all blog posts filtered by language
   const posts = blog.getPages(options?.lang);
 
+  // Modify language filtering logic based on actual file structure
   let filteredPosts = posts;
+  
+  // Filter based on known file structure
+  if (options?.lang && posts.length > 0) {
+    // Filter based on language identifiers in file paths
+    // Example: content/blog/(category)/article/index.zh-cn.md
+    filteredPosts = filteredPosts.filter(post => {   
+      // Check if the file path contains language identifier
+      if (options.lang === 'zh-cn') {
+        return post.file.path.includes('.zh-cn.');
+      } else {
+        // English articles typically don't have language identifiers or have .en.
+        return !post.file.path.includes('.zh-cn.') || post.file.path.includes('.en.');
+      }
+    });
+  }
 
   // Filter by category if provided
   if (options?.category) {

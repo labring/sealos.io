@@ -35,7 +35,7 @@ export default async function BlogIndex({
   searchParams,
 }: BlogIndexProps) {
   const categories = await getCategories();
-  const tags = await getAllTags();
+  const tags = await getAllTags(undefined, lang);
 
   // Extract tags from URL search params
   const selectedTags = searchParams.tag
@@ -45,7 +45,10 @@ export default async function BlogIndex({
     : [];
 
   // Pass selected tags to filter posts
-  const posts = getSortedBlogPosts({ tags: selectedTags, lang });
+  const posts = getSortedBlogPosts({ 
+    tags: selectedTags, 
+    lang: lang
+  });
 
   return (
     <BlogContainer>

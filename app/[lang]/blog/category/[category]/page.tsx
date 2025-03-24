@@ -24,7 +24,11 @@ export default async function CategoryPage({
     redirect(`../../blog/`);
   }
 
-  const allPosts = getSortedBlogPosts({ category: category, tags: [], lang });
+  const allPosts = getSortedBlogPosts({ 
+    category: category, 
+    tags: [], 
+    lang: lang
+  });
   const posts = allPosts;
   const tags = await getAllTags(allPosts);
 
