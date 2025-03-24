@@ -24,7 +24,7 @@ export default async function CategoryPage({
     redirect(`../../blog/`);
   }
 
-  const allPosts = getSortedBlogPosts({ category: category, tags: [] });
+  const allPosts = getSortedBlogPosts({ category: category, tags: [], lang });
   const posts = allPosts;
   const tags = await getAllTags(allPosts);
 
@@ -39,7 +39,7 @@ export default async function CategoryPage({
       description: `Blog articles in the ${categoryTitle.toLowerCase()} category`,
     },
     'zh-cn': {
-      title: `${categoryTitle} 的文章`,
+      title: `${categoryTitle}`,
       description: `${categoryTitle.toLowerCase()}分类下的博客`,
     },
   };

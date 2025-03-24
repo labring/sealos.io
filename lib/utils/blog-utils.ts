@@ -53,6 +53,12 @@ export function getPageCategory(page: Page) {
 }
 
 export function getBlogImage(title: string, category?: string) {
+  if (process.env.NODE_ENV === 'production') {
+    const fileName = category
+      ? `${title}-${category}.png`
+      : `${title}-.png`;
+    return `/images/og-blog/${encodeURIComponent(fileName)}`;
+  }
   const baseUrl = `/api/og/blog/${title}`;
   return category
     ? `${baseUrl}?category=${encodeURIComponent(category)}`

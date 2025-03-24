@@ -12,6 +12,7 @@
 /out/
 /build
 *.tsbuildinfo
+/public/images/og-blog
 
 # misc
 .DS_Store
