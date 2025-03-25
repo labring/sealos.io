@@ -34,11 +34,21 @@ export default async function BlogLayout({
       tree={blog.pageTree[params.lang]}
     >
       <style>
-        {`@media (min-width: 768px) {
-  .md\\:\\[--fd-nav-height\\:0px\\] {
-     --fd-nav-height: 100px !important;
-  }
-}`}
+        {`
+        @media (min-width: 768px) {
+          .md\\:\\[--fd-nav-height\\:0px\\] {
+            --fd-nav-height: 55px !important;
+          }
+        }
+        @media (min-width: 1280px) {
+          .md\\:\\[--fd-nav-height\\:0px\\] {
+            --fd-nav-height: 100px !important;
+          }
+        }
+        #nd-subnav {
+          display: none;
+        }
+        `}
       </style>
       <DocsPage
         toc={page.data.toc}
