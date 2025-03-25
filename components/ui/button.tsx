@@ -55,3 +55,24 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button"
 
 export { Button, buttonVariants }
+
+export function DeployButton({ imageUrl='https://cdn.jsdelivr.net/gh/labring-actions/templates@main/Deploy-on-Sealos.svg', deployUrl, alt }: {        
+  deployUrl: string;     
+  imageUrl?: string;       
+  alt?: string;         
+}) {
+  return (
+    <a 
+      href={deployUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block hover:opacity-90 transition-opacity"
+    >
+      <img 
+        src={imageUrl} 
+        alt={alt}
+        className="rounded-xl mt-1 mb-1"
+      />
+    </a>
+  );
+}
