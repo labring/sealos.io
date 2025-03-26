@@ -48,6 +48,11 @@ export default async function BlogLayout({
         #nd-subnav {
           display: none;
         }
+        .blog-content img {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
         `}
       </style>
       <DocsPage
