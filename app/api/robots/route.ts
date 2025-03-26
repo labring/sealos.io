@@ -7,7 +7,7 @@ export async function GET() {
   
   const robotsTxt = `User-agent: *
 Allow: /
-Disallow: /zh/
+Disallow: /zh-cn/
 Disallow: /en/
 
 Host: ${host}

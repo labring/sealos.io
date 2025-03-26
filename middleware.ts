@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
   }
 
   if (pathname === '/robots.txt') {
-    return NextResponse.redirect(new URL('/api/robots', request.url));
+    return NextResponse.rewrite(new URL('/api/robots', request.url));
   }
 
   const i18nMiddleware = createI18nMiddleware(i18n);
@@ -24,6 +24,6 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|images/|icons/|favicon/|favicon.ico|logo.svg|robots.txt|sitemap.xml).*)/',
+    '/((?!api|_next/static|_next/image|images/|icons/|favicon/|favicon.ico|logo.svg|sitemap.xml).*)/',
   ],
 };

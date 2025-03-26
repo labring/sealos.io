@@ -4,6 +4,16 @@ import { source } from '@/lib/source';
 
 export const revalidate = false;
 
+// Function to escape special characters in URLs
+const escapeXmlChars = (url: string): string => {
+  return url
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+};
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const url = (path: string): string => new URL(path, domain).toString();
 
@@ -25,8 +35,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     ...(await Promise.all(
       source.getPages().map(async (page) => {
+        // Escape special characters in URL
+        const escapedUrl = escapeXmlChars(url(page.url));
         return {
-          url: url(page.url),
+          url: escapedUrl,
           changeFrequency: 'weekly',
           priority: 0.5,
         } as MetadataRoute.Sitemap[number];
