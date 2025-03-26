@@ -64,3 +64,24 @@ jobs:
             NEXT_PUBLIC_APP_URL=${{ secrets.NEXT_PUBLIC_APP_URL }}
             NEXT_PUBLIC_OPEN_SOURCE_URL=${{ secrets.NEXT_PUBLIC_OPEN_SOURCE_URL }}
             NEXT_PUBLIC_DEFAULT_LOCALE=${{ secrets.NEXT_PUBLIC_DEFAULT_LOCALE }}
+
+    outputs:
+      tags: ${{ steps.datetime.outputs.datetime }}
+
+  update-image:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.repository == 'labring/sealos.io'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: set image deployment/sealos-docs sealos-docs=ghcr.io/labring/sealos.io:${{ needs.build.outputs.tags }}
+      - uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: annotate deployment/sealos-docs originImageName="ghcr.io/labring/sealos.io:${{ needs.build.outputs.tags }}" --overwrite

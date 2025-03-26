@@ -3,7 +3,7 @@ import { SiteConfig } from '@/types';
 export const domain = process.env.NEXT_PUBLIC_APP_URL || 'https://sealos.io';
 
 export const appDomain = 'https://os.sealos.io';
-export const templateDomain = 'https://template.usw.sealos.io';
+export const templateDomain = 'https://template.sealos.io';
 
 export const siteConfig: SiteConfig = {
   name: 'Sealos',
