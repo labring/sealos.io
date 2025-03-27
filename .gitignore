@@ -29,3 +29,6 @@ yarn-error.log*
 .vercel
 next-env.d.ts
 .cursorrules
+
+pnpm-lock.yaml
+bun.lock
