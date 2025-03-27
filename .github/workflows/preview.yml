@@ -49,9 +49,10 @@ jobs:
         uses: amondnet/vercel-action@v25
         id: deploy
         with:
-          token: ${{ secrets.VERCEL_TOKEN }} # Required
-          org-id: ${{ secrets.VERCEL_ORG_ID }} #Required
-          project-id: ${{ secrets.VERCEL_PROJECT_ID }} #Required
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }} #Required
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} #Required
+          github-comment: false
           # vercel-args: '--local-config vercel.json' # Optional
           vercel-args: '--local-config ./vercel.json --prebuilt'
           working-directory: ./
