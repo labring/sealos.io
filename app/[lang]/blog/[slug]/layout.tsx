@@ -1,7 +1,7 @@
 import { GetStartedButton } from '@/components/ui/shiny-button';
 import { type AuthorData, blogAuthors, siteConfig } from '@/config/site';
 import { blog } from '@/lib/source';
-import { getBlogImage, getPageCategory } from '@/lib/utils/blog-utils';
+import { getBlogImage, getPageCategory, getPostsByLuaguage } from '@/lib/utils/blog-utils';
 import type { InferPageType } from 'fumadocs-core/source';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,18 +11,40 @@ import { Fragment } from 'react';
 import { DocsPage } from 'fumadocs-ui/page';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import '../blog.module.css';
+
+
+import { languagesType } from '@/lib/i18n';
+
+
+function getAdjacentBlog(page: ReturnType<typeof blog.getPage>, lang: languagesType) {
+  const posts = getPostsByLuaguage(lang);
+  const index = posts.findIndex((p) => p.data.title === page?.data.title);
+  const prev = posts[index - 1];
+  const next = posts[index + 1];
+
+  return {
+    previous: Boolean(prev) ? {
+      name: prev.data.title,
+      url: prev.url
+    } : undefined,
+    next: Boolean(next) ? {
+      name: next.data.title,
+      url: next.url
+    } : undefined,
+  }
+}
 export default async function BlogLayout({
   params,
   children,
 }: {
-  params: { lang: string; slug: string };
+    params: { lang: languagesType; slug: string };
   children: ReactNode;
 }) {
   const page = blog.getPage([params.slug], params.lang);
 
   if (!page) notFound();
   const category = getPageCategory(page);
-
+  const adjacentPosts = getAdjacentBlog(page, params.lang);
   // inline style: set the position for toc; set as a global style will make docs page strange
 
   return (
@@ -66,6 +88,10 @@ export default async function BlogLayout({
         }}
         breadcrumb={{
           enabled: false,
+        }}
+        footer={{
+          enabled: true,
+          items: adjacentPosts
         }}
       >
         <article
