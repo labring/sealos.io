@@ -9,7 +9,8 @@ RUN apk add --no-cache \
     cairo-dev \
     jpeg-dev \
     pango-dev \
-    giflib-dev
+    giflib-dev \
+    librsvg
 WORKDIR /app
 
 ARG NEXT_PUBLIC_APP_URL
