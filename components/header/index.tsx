@@ -1,6 +1,6 @@
 'use client';
 
-import { HeaderLinks } from '@/app/layout.config';
+import { HeaderLinks, getHeaderLinks, navTranslations } from '@/app/layout.config';
 import { appDomain, siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
@@ -9,12 +9,17 @@ import { ExternalLink, Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import { GetStartedButton } from '../ui/shiny-button';
+import { languagesType } from '@/lib/i18n';
 
-export default function Header({ lang }: { lang: string }) {
+export default function Header({ lang }: { lang: languagesType }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const [hasScrolled, setHasScrolled] = useState(false);
 
+  // Get translated navigation links based on current language
+  const localizedLinks = getHeaderLinks(lang);
+  const translations = navTranslations[lang];
+  
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setHasScrolled(latest > 20);
   });
@@ -47,7 +52,7 @@ export default function Header({ lang }: { lang: string }) {
               </span>
             </Link>
             <div className="hidden items-center gap-x-5 text-sm font-medium lg:flex">
-              {HeaderLinks.map((link) => (
+              {localizedLinks.map((link) => (
                 <Link
                   key={link.text}
                   href={link.url}
@@ -66,7 +71,7 @@ export default function Header({ lang }: { lang: string }) {
 
           <div className="hidden items-center gap-4 text-sm font-medium lg:flex">
             <a href={appDomain} target="_blank">
-              <GetStartedButton />
+              <GetStartedButton title={translations.getStarted} />
             </a>
           </div>
 
@@ -123,7 +128,7 @@ export default function Header({ lang }: { lang: string }) {
                     </div>
 
                     <div className="flex flex-col gap-y-2">
-                      {HeaderLinks.map((link) => (
+                      {localizedLinks.map((link) => (
                         <Link
                           key={link.text}
                           href={link.url}

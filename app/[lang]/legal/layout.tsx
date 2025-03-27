@@ -3,12 +3,13 @@ import Header from '@/components/header';
 import { ReactNode } from 'react';
 import styles from './index.module.css';
 import clsx from 'clsx';
+import { languagesType } from '@/lib/i18n';
 
 export default function BlogLayout({
   params,
   children,
 }: {
-  params: { lang: string };
+  params: { lang: languagesType };
   children: ReactNode;
 }) {
   return (

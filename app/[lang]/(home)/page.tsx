@@ -10,6 +10,7 @@ import { HovermeButton } from '@/components/button/hoverme';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import { appDomain } from '@/config/site';
 import RedirectSuggest from '@/components/redirectSuggest';
+import { languagesType } from '@/lib/i18n';
 
 const title = {
   main: 'Develop, deploy, and scale in one seamless cloud platform',
@@ -18,7 +19,7 @@ const title = {
 
 export const metadata = generatePageMetadata();
 
-export default function HomePage({ params }: { params: { lang: string } }) {
+export default function HomePage({ params }: { params: { lang: languagesType } }) {
   return (
     <div className="h-full bg-[#EBF2FF]">
       <Header lang={params.lang} />
