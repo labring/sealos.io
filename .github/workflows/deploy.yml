@@ -31,8 +31,12 @@ jobs:
           node-version: 20
       - name: Install dependencies
         run: npm install
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull environment variables
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build
-        run: npm run build
+        run: vercel build --prod --local-config ./vercel.json
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
         id: vercel-action
@@ -42,5 +46,5 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} #Required
           github-comment: false
           # vercel-args: '--local-config vercel.json' # Optional
-          vercel-args: '--prod --local-config ./vercel.json'
+          vercel-args: '--prod --local-config ./vercel.json --prebuilt'
           working-directory: ./
