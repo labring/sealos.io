@@ -37,14 +37,7 @@ jobs:
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build
         run: vercel build --prod --local-config ./vercel.json
+      - name: Link to Vercel
+        run: vercel link -t ${{ secrets.VERCEL_TOKEN }} -p ${{ secrets.VERCEL_PROJECT_ID }} --scope ${{ secrets.VERCEL_ORG_ID }} -y
       - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        id: vercel-action
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }} #Required
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} #Required
-          github-comment: false
-          # vercel-args: '--local-config vercel.json' # Optional
-          vercel-args: '--prod --local-config ./vercel.json --prebuilt'
-          working-directory: ./
+        run: vercel deploy --prod --local-config ./vercel.json --archive=tgz --prebuilt --token=${{ secrets.VERCEL_TOKEN }}

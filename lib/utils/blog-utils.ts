@@ -80,24 +80,20 @@ export function getBlogImage(title: string, category?: string) {
   return category ? `${baseUrl}?category=${encodeURI(category)}` : baseUrl;
 }
 
-export function getSortedBlogPosts(options?: {
-  category?: string;
-  tags?: string[];
-  lang?: languagesType;
-}) {
+export function getPostsByLuaguage(lang: languagesType) {
   // Retrieve all blog posts filtered by language
-  const posts = blog.getPages(options?.lang);
+  const posts = blog.getPages(lang);
 
   // Modify language filtering logic based on actual file structure
   let filteredPosts = posts;
 
   // Filter based on known file structure
-  if (options?.lang && posts.length > 0) {
+  if (lang && posts.length > 0) {
     // Filter based on language identifiers in file paths
     // Example: content/blog/(category)/article/index.zh-cn.md
     filteredPosts = filteredPosts.filter((post) => {
       // Check if the file path contains language identifier
-      if (options.lang === 'zh-cn') {
+      if (lang === 'zh-cn') {
         return post.file.path.includes('.zh-cn.');
       } else {
         // English articles typically don't have language identifiers or have .en.
@@ -107,7 +103,16 @@ export function getSortedBlogPosts(options?: {
       }
     });
   }
+  return filteredPosts;
+}
 
+export function getSortedBlogPosts(options?: {
+  category?: string;
+  tags?: string[];
+  lang?: languagesType;
+}) {
+  let filteredPosts = getPostsByLuaguage(options?.lang ?? 'en');
+  
   // Filter by category if provided
   if (options?.category) {
     filteredPosts = filteredPosts.filter(
