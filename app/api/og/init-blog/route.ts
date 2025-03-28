@@ -7,6 +7,7 @@ import { blog } from '@/lib/source';
 import { languagesType } from '@/lib/i18n';
 import { getPageCategory } from '@/lib/utils/blog-utils';
 import { drawCanvas } from '@/lib/og-canvas';
+import sharp from 'sharp';
 
 const OUTPUT_DIR = path.join(process.cwd(), 'public', 'images', 'og-blog');
 
@@ -21,18 +22,22 @@ async function generateImages() {
       const title = post.data.title;
       const category = getPageCategory(post);
       try {
-        const imageBuffer = await drawCanvas(
+        const canvasBuffer = await drawCanvas(
           'blog',
           title.toUpperCase(),
           category !== 'uncategorized' ? category.toUpperCase() : undefined,
         );
 
+        const webpBuffer = await sharp(canvasBuffer)
+          .webp({ quality: 90 })
+          .toBuffer();
+
         const filePath = path.join(
           OUTPUT_DIR,
-          `${title}.png`.replaceAll(' ', '').replaceAll('?', ''),
+          `${title}.webp`.replaceAll(' ', '').replaceAll('?', ''),
         );
 
-        fs.writeFileSync(filePath, imageBuffer as Uint8Array);
+        fs.writeFileSync(filePath, webpBuffer as Uint8Array);
       } catch (error) {
         console.error(`Failed to generate image for ${title} - ${category}:`);
       }
