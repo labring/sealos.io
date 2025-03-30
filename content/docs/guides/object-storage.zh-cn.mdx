@@ -176,3 +176,40 @@ Sealos 对象存储支持多种语言的 SDK，接下来介绍如何在 Sealos D
     ```
 </Tabs>
 
+### Java SDK 代码示例
+
+详细文档参考：[Java Client API Reference](https://min.io/docs/minio/linux/developers/java/API.html)
+
+例子：使用 Java Client SDK 上传 style1.css 文件到 sv3dd7u4-test 存储桶，将 Endpoint 设置为外网地址 External。如果服务部署在当前 K8s 集群内，可以将 Endpoint 改为内网地址 Internal。
+
+```java
+package org.example;
+
+import io.minio.MinioClient;
+import io.minio.UploadObjectArgs;
+
+public class FileUploader {
+    public static void main(String[] args) throws Exception {
+
+        MinioClient minioClient =
+                MinioClient.builder()
+                        .endpoint("https://objectstorageapi.xxx.xxx.xxx")
+                        .credentials("xxxxxxxx", "xxxxxxxxxxxxxxxx")
+                        .build();
+
+
+        minioClient.uploadObject(
+                UploadObjectArgs.builder()
+                        .bucket("sv3dd7u4-test")
+                        .object("style1.css")
+                        .filename("src/main/java/org/example/style1.css")
+                        .build());
+
+        System.out.println("Successfully uploaded bytes.");
+    }
+}
+```
+
+### 其他语言 SDK 略
+
+详细文档参考：[Software Development Kits (SDK)](https://min.io/docs/minio/linux/developers/minio-drivers.html)
