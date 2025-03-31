@@ -179,14 +179,17 @@ Sealos 对象存储支持多种语言的 SDK，接下来介绍如何在 Sealos D
 ### SDK 使用示例
 
 <Tabs items={['Go', 'Java', 'Others']}>
+
     <Tab value="Go">
         以下是使用 Go SDK 访问 Sealos 对象存储的示例代码，更多详细信息请参考 [Go Client API Reference](https://min.io/docs/minio/linux/developers/go/API.html)。
 
         下面的示例演示了如何使用 Go SDK 将本地文件 `hello.html` 上传到名为 `xxxxxxxx-test` 的存储桶中：
 
-        <Callout type="info"> 这里需要将 Endpoint 设置为外网地址 External。如果服务部署在 Sealos Cloud 中，可以将 Endpoint 改为内网地址 Internal。 </Callout>
+        <Callout type="info">
+            这里需要将 Endpoint 设置为外网地址 External。如果服务部署在 Sealos Cloud 中，可以将 Endpoint 改为内网地址 Internal。
+        </Callout>
 
-        ```
+        ```go
         package main
 
         import (
@@ -245,7 +248,7 @@ Sealos 对象存储支持多种语言的 SDK，接下来介绍如何在 Sealos D
 
         <Callout type="info"> 这里需要将 Endpoint 设置为外网地址 External。如果服务部署在 Sealos Cloud 中，可以将 Endpoint 改为内网地址 Internal。 </Callout>
 
-        ```
+        ```java
         package org.example;
 
         import io.minio.MinioClient;
@@ -253,13 +256,10 @@ Sealos 对象存储支持多种语言的 SDK，接下来介绍如何在 Sealos D
 
         public class FileUploader {
         public static void main(String[] args) throws Exception {
-
-        MinioClient minioClient =
-        MinioClient.builder()
+        MinioClient minioClient = MinioClient.builder()
         .endpoint("https://objectstorageapi.xxx.xxx.xxx")
         .credentials("xxxxxxxx", "xxxxxxxxxxxxxxxx")
         .build();
-
 
         minioClient.uploadObject(
         UploadObjectArgs.builder()
