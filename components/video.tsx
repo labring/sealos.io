@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { useState } from 'react';
 import { Play, LoaderCircle } from 'lucide-react';
 
@@ -12,14 +12,10 @@ const ReactPlayer = dynamic(() => import('react-player/lazy'), {
 
 type VideoProps = {
   url: string;
-  image: {
-    src: string;
-    width: number;
-    height: number;
-  };
+  placeholderImage: StaticImageData;
 };
 
-export default function Video({ url, image }: VideoProps) {
+export default function Video({ url, placeholderImage }: VideoProps) {
   const [isPlayerRequested, setIsPlayerRequested] = useState(false);
   const [isPlayerVisible, setIsPlayerVisible] = useState(false);
   const [isPreconnected, setIsPreconnected] = useState(false);
@@ -52,7 +48,7 @@ export default function Video({ url, image }: VideoProps) {
             >
               {videoPlaceholder({
                 url,
-                image,
+                placeholderImage,
                 externalLink: isPlayerRequested,
                 isLoading,
               })}
@@ -89,18 +85,16 @@ export default function Video({ url, image }: VideoProps) {
 
 function videoPlaceholder({
   url,
-  image,
+  placeholderImage,
   externalLink,
   isLoading,
 }: VideoProps & { externalLink?: boolean; isLoading?: boolean }) {
   const content = (
     <div className="relative h-full w-full rounded-lg bg-gray-100/50 backdrop-blur-sm">
       <Image
-        src={image.src}
+        src={placeholderImage}
         alt="Sealos DevBox Video Thumbnail"
         className="absolute inset-0 h-full w-full rounded-lg object-cover"
-        width={image.width}
-        height={image.height}
         priority
       />
       <div className="absolute inset-0 flex flex-col items-center justify-center">

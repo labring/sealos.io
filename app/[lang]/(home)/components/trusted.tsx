@@ -62,10 +62,8 @@ export default function Logos() {
         <div className="relative mt-6">
           <Marquee className="max-w-full [--duration:40s]">
             {companies.map((company, idx) => (
-              <Image
+              <img
                 key={idx}
-                width={112}
-                height={40}
                 src={company.url}
                 className="h-10 w-28 opacity-30 grayscale dark:brightness-0 dark:invert"
                 alt={company.name}

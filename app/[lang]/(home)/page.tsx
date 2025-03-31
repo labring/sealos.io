@@ -11,6 +11,7 @@ import { generatePageMetadata } from '@/lib/utils/metadata';
 import { appDomain } from '@/config/site';
 import RedirectSuggest from '@/components/redirectSuggest';
 import { languagesType } from '@/lib/i18n';
+import placeholderImage from '/public/images/video.webp';
 
 const title = {
   main: 'Develop, deploy, and scale in one seamless cloud platform',
@@ -31,11 +32,7 @@ export default function HomePage({
         <Hero title={title} mainTitleEmphasis={2} getStartedLink={appDomain}>
           <Video
             url="https://youtu.be/A9mxz0JaY2o"
-            image={{
-              src: '/images/video.webp',
-              width: 1280,
-              height: 720,
-            }}
+            placeholderImage={placeholderImage}
           />
           <div className="my-8 flex items-center justify-center">
             <a href="/devbox">

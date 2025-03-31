@@ -10,6 +10,7 @@ import Video from '@/components/video';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import { appDomain } from '@/config/site';
 import { languagesType } from '@/lib/i18n';
+import placeholderImage from '/public/images/video.webp';
 
 const title = {
   main: 'Ship 10x Faster with DevBox',
@@ -36,11 +37,7 @@ export default function HomePage({
         >
           <Video
             url="https://youtu.be/A9mxz0JaY2o"
-            image={{
-              src: '/images/video.webp',
-              width: 1280,
-              height: 720,
-            }}
+            placeholderImage={placeholderImage}
           />
         </Hero>
         <div className="mb-[64px]  mt-[64px] h-[1px] bg-[#DDE7F7]"></div>

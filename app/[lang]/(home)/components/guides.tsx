@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import { AnimateElement } from '@/components/ui/animated-wrapper';
 import { appDomain } from '@/config/site';
 import Image from 'next/image';
+import quickStartImage from '/public/images/quick-start.png';
 
 const data = [
   {
@@ -130,11 +131,9 @@ export default function Example() {
             </div>
           </AnimateElement>
           <Image
-            src="/images/quick-start.png"
+            src={quickStartImage}
             alt="Quick Start Guides"
             className="ml-auto block h-[312px] w-[478px] object-cover"
-            width={4000}
-            height={2590}
           />
         </div>
       </AnimateElement>

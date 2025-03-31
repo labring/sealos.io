@@ -1,7 +1,6 @@
 import React from 'react';
 import { siteConfig, templateDomain } from '@/config/site';
 import Link from 'fumadocs-core/link';
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { DiscordIcon, GithubIcon } from '../ui/icons';
 
@@ -47,7 +46,7 @@ const Footer = async () => {
               title={siteConfig.name}
               className="flex items-center gap-2 font-bold"
             >
-              <Image
+              <img
                 alt={siteConfig.name}
                 src="/logo.svg"
                 className="h-7 w-7"
@@ -131,7 +130,7 @@ const Footer = async () => {
             href={siteConfig.links.twitter}
             aria-label="Twitter"
           >
-            <Image
+            <img
               src="/icons/twitter.svg"
               alt="Twitter"
               width={16}
@@ -144,7 +143,7 @@ const Footer = async () => {
             href={siteConfig.links.youtube}
             aria-label="YouTube"
           >
-            <Image
+            <img
               src="/icons/youtube.svg"
               alt="YouTube"
               width={16}

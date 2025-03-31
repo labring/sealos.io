@@ -1,6 +1,3 @@
-import { cn } from '@/lib/utils';
-import Image from 'next/image';
-import { MagicCard } from '@/components/ui/magic-card';
 import { AnimateElement } from '@/components/ui/animated-wrapper';
 import { Database, FolderGit2, Server } from 'lucide-react';
 
@@ -70,11 +67,9 @@ export default function Feature() {
                   delay={0.4}
                   className="mt-auto h-full"
                 >
-                  <Image
+                  <img
                     src={feature.image}
                     alt={feature.title}
-                    width={411}
-                    height={285}
                     className="z-10 mt-auto h-full w-full object-cover"
                   />
                 </AnimateElement>

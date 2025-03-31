@@ -1,16 +1,11 @@
 'use client';
 
-import {
-  HeaderLinks,
-  getHeaderLinks,
-  navTranslations,
-} from '@/app/layout.config';
+import { getHeaderLinks, navTranslations } from '@/app/layout.config';
 import { appDomain, siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
 import Link from 'fumadocs-core/link';
 import { ExternalLink, Menu, X } from 'lucide-react';
-import Image from 'next/image';
 import { useState } from 'react';
 import { GetStartedButton } from '../ui/shiny-button';
 import { languagesType } from '@/lib/i18n';
@@ -44,8 +39,8 @@ export default function Header({ lang }: { lang: languagesType }) {
               title={siteConfig.name}
               className="flex items-center gap-2 font-bold"
             >
-              <Image
-                alt=""
+              <img
+                alt="Sealos Logo"
                 src="/logo.svg"
                 className="h-8 w-8"
                 width={48}
@@ -107,8 +102,8 @@ export default function Header({ lang }: { lang: languagesType }) {
                           title={siteConfig.name}
                           className="inline-flex items-center"
                         >
-                          <Image
-                            alt=""
+                          <img
+                            alt="Sealos Logo"
                             src="/logo.svg"
                             className="h-8 w-8"
                             width={48}
