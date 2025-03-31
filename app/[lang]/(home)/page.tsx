@@ -19,13 +19,20 @@ const title = {
 
 export const metadata = generatePageMetadata();
 
-export default function HomePage({ params }: { params: { lang: languagesType } }) {
+export default function HomePage({
+  params,
+}: {
+  params: { lang: languagesType };
+}) {
   return (
     <div className="h-full bg-[#EBF2FF]">
       <Header lang={params.lang} />
       <main className="custom-container px-8 pt-14 md:px-[15%]">
         <Hero title={title} mainTitleEmphasis={2} getStartedLink={appDomain}>
-          <Video url="https://youtu.be/A9mxz0JaY2o" />
+          <Video
+            url="https://youtu.be/A9mxz0JaY2o"
+            image="/images/video.webp"
+          />
           <div className="my-8 flex items-center justify-center">
             <a href="/devbox">
               <HovermeButton text="Discover DevBox" />
