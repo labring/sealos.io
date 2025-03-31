@@ -10,7 +10,13 @@ RUN apk add --no-cache \
     jpeg-dev \
     pango-dev \
     giflib-dev \
-    librsvg
+    librsvg-dev \
+    freetype-dev \
+    harfbuzz-dev \
+    fribidi-dev \
+    udev \
+    ttf-opensans \
+    fontconfig
 WORKDIR /app
 
 ARG NEXT_PUBLIC_APP_URL
