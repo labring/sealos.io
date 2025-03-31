@@ -22,7 +22,14 @@ export default async function BlogPage({
         components={{
           ...defaultMdxComponents,
           img: (props) => (
-            <ImageZoom {...(props as any)} className="rounded-xl" />
+            <div className="image-container">
+              <ImageZoom {...(props as any)} className="rounded-xl" />
+              {props.alt && (
+                <span className="image-caption">
+                  {props.alt}
+                </span>
+              )}
+            </div>
           ),
           p: ({ children, ...props }: any) => {
             const hasH5 = React.Children.toArray(children).some(

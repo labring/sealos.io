@@ -120,4 +120,20 @@
 /* button[data-theme-toggle][aria-label='Toggle Theme'] {
   display: none !important;
 } */
+
+/* Image caption styles */
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.image-caption {
+  margin-top: 0rem;
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  text-align: center;
+  max-width: 90%;
+}
  
