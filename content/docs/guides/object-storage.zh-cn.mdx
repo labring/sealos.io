@@ -176,40 +176,106 @@ Sealos 对象存储支持多种语言的 SDK，接下来介绍如何在 Sealos D
     ```
 </Tabs>
 
-### Java SDK 代码示例
+### SDK 使用示例
 
-详细文档参考：[Java Client API Reference](https://min.io/docs/minio/linux/developers/java/API.html)
+<Tabs items={['Go', 'Java', 'Others']}>
+    <Tab value="Go">
+        以下是使用 Go SDK 访问 Sealos 对象存储的示例代码，更多详细信息请参考 [Go Client API Reference](https://min.io/docs/minio/linux/developers/go/API.html)。
 
-例子：使用 Java Client SDK 上传 style1.css 文件到 sv3dd7u4-test 存储桶，将 Endpoint 设置为外网地址 External。如果服务部署在当前 K8s 集群内，可以将 Endpoint 改为内网地址 Internal。
+        下面的示例演示了如何使用 Go SDK 将本地文件 `hello.html` 上传到名为 `xxxxxxxx-test` 的存储桶中：
 
-```java
-package org.example;
+        <Callout type="info"> 这里需要将 Endpoint 设置为外网地址 External。如果服务部署在 Sealos Cloud 中，可以将 Endpoint 改为内网地址 Internal。 </Callout>
 
-import io.minio.MinioClient;
-import io.minio.UploadObjectArgs;
+        ```
+        package main
 
-public class FileUploader {
-    public static void main(String[] args) throws Exception {
+        import (
+            "context"
+            "fmt"
+            "github.com/minio/minio-go/v7"
+            "github.com/minio/minio-go/v7/pkg/credentials"
+            "log"
+            "os"
+        )
 
-        MinioClient minioClient =
-                MinioClient.builder()
-                        .endpoint("https://objectstorageapi.xxx.xxx.xxx")
-                        .credentials("xxxxxxxx", "xxxxxxxxxxxxxxxx")
-                        .build();
+        func main() {
+            endpoint := "objectstorageapi.xxx.xxx.xxx"
+            accessKey := "xxxxxxxx"
+            secretKey := "xxxxxxxxxxxxxxxx"
+            bucket := "xxxxxxxx-hello"
+
+            minioClient, err := minio.New(endpoint, &minio.Options{
+                Creds:  credentials.NewStaticV4(accessKey, secretKey, ""),
+                Secure: true,
+                Region: "us-east-1",
+            })
+            if err != nil {
+                log.Fatalln(err)
+            }
+
+            file, err := os.Open("hello.html")
+            if err != nil {
+                fmt.Println(err)
+                return
+            }
+            defer file.Close()
+
+            fileStat, err := file.Stat()
+            if err != nil {
+                fmt.Println(err)
+                return
+            }
+
+            uploadInfo, err := minioClient.PutObject(context.Background(), bucket, "hello.html", file, fileStat.Size(), minio.PutObjectOptions{ContentType: "text/html"})
+            if err != nil {
+                fmt.Println(err)
+                return
+            }
+
+            fmt.Println("Successfully uploaded bytes.")
+        }
+        ```
+    </Tab>
+
+    <Tab value="Java">
+
+        以下是使用 Java SDK 访问 Sealos 对象存储的示例代码，更多详细信息请参考 [Java Client API 文档](https://min.io/docs/minio/linux/developers/java/API.html)。
+
+        下面的示例演示了如何使用 Java SDK 将本地文件 `hello.html` 上传到名为 `xxxxxxxx-test` 的存储桶中：
+
+        <Callout type="info"> 这里需要将 Endpoint 设置为外网地址 External。如果服务部署在 Sealos Cloud 中，可以将 Endpoint 改为内网地址 Internal。 </Callout>
+
+        ```
+        package org.example;
+
+        import io.minio.MinioClient;
+        import io.minio.UploadObjectArgs;
+
+        public class FileUploader {
+            public static void main(String[] args) throws Exception {
+
+                MinioClient minioClient =
+                        MinioClient.builder()
+                                .endpoint("https://objectstorageapi.xxx.xxx.xxx")
+                                .credentials("xxxxxxxx", "xxxxxxxxxxxxxxxx")
+                                .build();
 
 
-        minioClient.uploadObject(
-                UploadObjectArgs.builder()
-                        .bucket("sv3dd7u4-test")
-                        .object("style1.css")
-                        .filename("src/main/java/org/example/style1.css")
-                        .build());
+                minioClient.uploadObject(
+                        UploadObjectArgs.builder()
+                                .bucket("xxxxxxxx-hello")
+                                .object("hello.html")
+                                .filename("hello.html")
+                                .build());
 
-        System.out.println("Successfully uploaded bytes.");
-    }
-}
-```
+                System.out.println("Successfully uploaded bytes.");
+            }
+        }
+        ```
+    </Tab>
 
-### 其他语言 SDK 略
+    <Tab value="Others">
+        其他语言的详细信息请参考 [Software Development Kits (SDK)](https://min.io/docs/minio/linux/developers/minio-drivers.html)。
+    </Tab>
 
-详细文档参考：[Software Development Kits (SDK)](https://min.io/docs/minio/linux/developers/minio-drivers.html)
+</Tabs>
