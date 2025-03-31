@@ -51,6 +51,7 @@ jobs:
         uses: amondnet/vercel-action@v25
         id: deploy
         with:
+          vercel-version: "41.4.1"
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }} #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} #Required
