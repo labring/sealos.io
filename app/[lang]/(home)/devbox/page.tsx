@@ -36,7 +36,11 @@ export default function HomePage({
         >
           <Video
             url="https://youtu.be/A9mxz0JaY2o"
-            image="/images/video.webp"
+            image={{
+              src: '/images/video.webp',
+              width: 1280,
+              height: 720,
+            }}
           />
         </Hero>
         <div className="mb-[64px]  mt-[64px] h-[1px] bg-[#DDE7F7]"></div>

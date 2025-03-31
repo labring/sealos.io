@@ -1,6 +1,10 @@
 'use client';
 
-import { HeaderLinks, getHeaderLinks, navTranslations } from '@/app/layout.config';
+import {
+  HeaderLinks,
+  getHeaderLinks,
+  navTranslations,
+} from '@/app/layout.config';
 import { appDomain, siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
@@ -19,7 +23,7 @@ export default function Header({ lang }: { lang: languagesType }) {
   // Get translated navigation links based on current language
   const localizedLinks = getHeaderLinks(lang);
   const translations = navTranslations[lang];
-  
+
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setHasScrolled(latest > 20);
   });
@@ -44,8 +48,8 @@ export default function Header({ lang }: { lang: languagesType }) {
                 alt=""
                 src="/logo.svg"
                 className="h-8 w-8"
-                width={28}
-                height={28}
+                width={48}
+                height={48}
               />
               <span className="hidden text-xl font-bold md:block">
                 {siteConfig.name}
@@ -107,8 +111,8 @@ export default function Header({ lang }: { lang: languagesType }) {
                             alt=""
                             src="/logo.svg"
                             className="h-8 w-8"
-                            width={32}
-                            height={32}
+                            width={48}
+                            height={48}
                           />
                           <span className="ml-2 text-xl font-bold tracking-wide text-gray-950">
                             {siteConfig.name}

@@ -12,7 +12,11 @@ const ReactPlayer = dynamic(() => import('react-player/lazy'), {
 
 type VideoProps = {
   url: string;
-  image: string;
+  image: {
+    src: string;
+    width: number;
+    height: number;
+  };
 };
 
 export default function Video({ url, image }: VideoProps) {
@@ -92,11 +96,11 @@ function videoPlaceholder({
   const content = (
     <div className="relative h-full w-full rounded-lg bg-gray-100/50 backdrop-blur-sm">
       <Image
-        src={image}
+        src={image.src}
         alt="Sealos DevBox Video Thumbnail"
         className="absolute inset-0 h-full w-full rounded-lg object-cover"
-        width={0}
-        height={0}
+        width={image.width}
+        height={image.height}
         priority
       />
       <div className="absolute inset-0 flex flex-col items-center justify-center">

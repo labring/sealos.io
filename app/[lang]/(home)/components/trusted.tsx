@@ -5,34 +5,50 @@ const companies = [
   {
     name: 'TikTok',
     url: '/images/logos/tiktok.svg',
+    widht: 97,
+    height: 22,
   },
   {
     name: 'GitHub',
     url: '/images/logos/github.svg',
+    widht: 135,
+    height: 48,
   },
   {
     name: 'FastGPT',
     url: '/images/logos/fastgpt.svg',
+    widht: 2000,
+    height: 491,
   },
   {
     name: 'Nvidia',
     url: '/images/logos/nvidia.svg',
+    widht: 731,
+    height: 137,
   },
   {
     name: 'JetBrains',
     url: '/images/logos/jetbrains.svg',
+    widht: 298,
+    height: 64,
   },
   {
     name: 'Microsoft',
     url: '/images/logos/microsoft.svg',
+    widht: 300,
+    height: 64,
   },
   {
     name: 'Stripe',
     url: '/images/logos/stripe.svg',
+    widht: 300,
+    height: 125,
   },
   {
     name: 'Open Source Initiative',
     url: '/images/logos/open-source.webp',
+    widht: 640,
+    height: 229,
   },
 ];
 

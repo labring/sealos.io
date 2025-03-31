@@ -31,7 +31,11 @@ export default function HomePage({
         <Hero title={title} mainTitleEmphasis={2} getStartedLink={appDomain}>
           <Video
             url="https://youtu.be/A9mxz0JaY2o"
-            image="/images/video.webp"
+            image={{
+              src: '/images/video.webp',
+              width: 1280,
+              height: 720,
+            }}
           />
           <div className="my-8 flex items-center justify-center">
             <a href="/devbox">

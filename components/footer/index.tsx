@@ -51,8 +51,8 @@ const Footer = async () => {
                 alt={siteConfig.name}
                 src="/logo.svg"
                 className="h-7 w-7"
-                width={30}
-                height={30}
+                width={48}
+                height={48}
               />
               <span className="text-xl font-bold">{siteConfig.name}</span>
             </Link>
@@ -87,7 +87,7 @@ const Footer = async () => {
       </div>
 
       <div className="mt-16 h-[1px] w-full bg-[#DDE7F7]"></div>
-      <div className="flex max-w-7xl justify-between pb-6 pl-2 pt-4 mx-auto px-2">
+      <div className="mx-auto flex max-w-7xl justify-between px-2 pb-6 pl-2 pt-4">
         <div className="flex items-center space-x-2 text-[10px] font-normal text-custom-secondary-text md:text-sm">
           <FooterLink
             className="text-[10px] font-normal text-custom-secondary-text md:text-sm"
