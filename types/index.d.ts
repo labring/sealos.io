@@ -14,6 +14,8 @@ export type SiteConfig = {
     twitter: string;
     discord: string;
     youtube: string;
+    bilibili: string;
+    wechat: string;
   };
   ogImage: string;
 };

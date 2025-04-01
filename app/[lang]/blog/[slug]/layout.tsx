@@ -194,25 +194,44 @@ export default async function BlogLayout({
           <div className="blog-content -mt-4 w-full border-t pt-8">
             {children}
           </div>
-          <Cta />
+          <Cta lang={params.lang} />
         </article>
       </DocsPage>
     </DocsLayout>
   );
 }
 
-function Cta() {
+function Cta({ lang }: { lang: languagesType }) {
+  
+  // Translation for CTA header text
+  const ctaText = {
+    en: "Ready to experience Sealos?",
+    "zh-cn": "一键启动 开发未来"
+  }[lang];
+  
+  // Translation for tagline
+  const tagline = {
+    en: "Develop, deploy, and scale in one seamless cloud platform",
+    "zh-cn": "让环境配置、应用开发、部署发布一气呵成"
+  }[lang];
+
+  // Translation for getstarted
+  const getstarted = {
+    en: "Get Started",
+    "zh-cn": "我要试试"
+  }[lang];
+  
   return (
     <div className="mt-16 rounded-2xl border border-blue-200/20 bg-gradient-to-br from-blue-500/10 via-blue-400/5 to-background p-8">
       <div className="flex flex-col items-center text-center">
         <h3 className="text-2xl font-bold tracking-tight sm:text-3xl">
-          Ready to experience Sealos?
+          {ctaText}
         </h3>
         <p className="mt-3 max-w-md text-muted-foreground">
-          {siteConfig.tagline}
+          {tagline}
         </p>
         <Link href="https://os.sealos.io" target="_blank">
-          <GetStartedButton className="mt-6" />
+          <GetStartedButton className="mt-6" title={getstarted} />
         </Link>
       </div>
     </div>

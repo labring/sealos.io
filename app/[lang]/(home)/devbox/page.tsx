@@ -47,7 +47,7 @@ export default function HomePage({
         <FooterCta />
       </main>
       <div className="mt-[140px] h-[1px] bg-[#DDE7F7]"></div>
-      <Footer />
+      <Footer lang={params.lang} />
       <TailwindIndicator />
     </div>
   );

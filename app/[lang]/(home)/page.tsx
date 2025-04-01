@@ -48,7 +48,7 @@ export default function HomePage({
         <Guides />
       </main>
       <div className="mt-[140px] h-[1px] bg-[#DDE7F7]"></div>
-      <Footer />
+      <Footer lang={params.lang} />
       <TailwindIndicator />
       <RedirectSuggest />
     </div>
