@@ -13,8 +13,8 @@ import { languagesType } from '@/lib/i18n';
 import placeholderImage from '/public/images/video.webp';
 
 const title = {
-  main: 'Ship 10x Faster with DevBox',
-  sub: 'One-Click Cloud Development Environment',
+  main: 'Code. Build. Deploy. We’ve Got the Rest.',
+  sub: 'Seamless development from start to production. ',
 };
 
 export const metadata = generatePageMetadata({
