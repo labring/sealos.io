@@ -24,7 +24,7 @@ const data = [
     src: codeEditorsImage,
   },
   {
-    title: 'Publish your release with snapshot-based versioning',
+    title: 'Build and publish your release with snapshot-based versioning',
     content:
       'Eliminate inconsistencies from traditional CI/CD pipelines might introduce when rebuilding from scratch with snapshots that include system configurations, dependencies, and code.',
     src: releaseImage,
@@ -64,6 +64,11 @@ export default function FeatureFourImages() {
         <h2 className="mb-4 text-4xl font-semibold tracking-tighter text-neutral-800">
           How to use the Easiest Cloud Dev Environment: DevBox
         </h2>
+        <p>
+          With DevBox, you can focus entirely on writing great code while we
+          handle the infrastructure, scaling, and deployment. Seamless
+          development from start to production.
+        </p>
       </div>
 
       {/* Mobile view (single column layout with images below texts) */}
