@@ -65,7 +65,7 @@ export default function Hero({
           </div>
 
           <p className="font-inter mt-8 text-base text-gray-500">
-            Try for free · No credit card required
+            Sign up to get started
           </p>
         </div>
       </div>
