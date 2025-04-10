@@ -90,7 +90,7 @@ function videoPlaceholder({
   isLoading,
 }: VideoProps & { externalLink?: boolean; isLoading?: boolean }) {
   const content = (
-    <div className="relative h-full w-full rounded-lg bg-gray-100/50 backdrop-blur-sm">
+    <div className="relative h-full w-full rounded-lg bg-gray-100/50 backdrop-blur-xs">
       <Image
         src={placeholderImage}
         alt="Sealos DevBox Video Thumbnail"

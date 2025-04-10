@@ -99,7 +99,7 @@ export default async function BlogLayout({
           itemType="http://schema.org/Article"
           itemScope
         >
-          <div className="mb-10 overflow-hidden rounded-2xl bg-gradient-to-b from-primary/10 to-background ">
+          <div className="mb-10 overflow-hidden rounded-2xl bg-linear-to-b from-primary/10 to-background ">
             <div className="relative h-[250px] w-full">
               <Image
                 src={getBlogImage(page.data.title, category)}
@@ -147,7 +147,7 @@ export default async function BlogLayout({
                     {page.data.authors.map((author, i) => (
                       <div
                         key={i}
-                        className="z-[1] hover:z-10"
+                        className="z-1 hover:z-10"
                         style={{ zIndex: page.data.authors.length - i }}
                       >
                         <AuthorAvatar author={blogAuthors[author]} />
@@ -222,7 +222,7 @@ function Cta({ lang }: { lang: languagesType }) {
   }[lang];
   
   return (
-    <div className="mt-16 rounded-2xl border border-blue-200/20 bg-gradient-to-br from-blue-500/10 via-blue-400/5 to-background p-8">
+    <div className="mt-16 rounded-2xl border border-blue-200/20 bg-linear-to-br from-blue-500/10 via-blue-400/5 to-background p-8">
       <div className="flex flex-col items-center text-center">
         <h3 className="text-2xl font-bold tracking-tight sm:text-3xl">
           {ctaText}

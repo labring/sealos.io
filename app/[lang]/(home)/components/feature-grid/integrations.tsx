@@ -110,7 +110,7 @@ export function Integrations() {
         <div className="absolute ">
           <div className="absolute inset-0 -z-10 rounded-full  bg-background opacity-40 blur-xl dark:bg-background" />
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-b from-transparent to-background to-70% dark:to-background" />
+        <div className="absolute inset-x-0 bottom-0 h-full bg-linear-to-b from-transparent to-background to-70% dark:to-background" />
       </div>
     </div>
   );

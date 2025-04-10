@@ -35,7 +35,7 @@ k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.1.1
 
 ## 编写 Dockerfile
 
-```Dockerfile
+```dockerfile
 FROM scratch
 COPY ../examples .
 CMD ["helm install ingress-nginx ingress-nginx-4.1.0.tgz --namespace ingress-nginx --create-namespace"]

@@ -79,7 +79,7 @@ export default function Header({ lang }: { lang: languagesType }) {
             <button
               aria-label="Open Menu"
               title="Open Menu"
-              className="focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50 -mr-1 rounded p-2 transition duration-200 focus:outline-none"
+              className="focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50 -mr-1 rounded p-2 transition duration-200 focus:outline-hidden"
               onClick={() => setIsMenuOpen(true)}
             >
               <Menu />
