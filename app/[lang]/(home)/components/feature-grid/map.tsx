@@ -1,14 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 function Marker({
   src,
+  alt,
   top,
   offset,
   delay,
 }: {
   src: string;
+  alt: string;
   top: number;
   offset: number;
   delay: number;
@@ -33,10 +36,12 @@ function Marker({
           className="fill-white dark:fill-black"
         />
       </svg>
-      <img
-        alt=""
+      <Image
+        alt={alt}
         src={src}
         className="absolute left-[7px] top-[4px] size-6 rounded-full"
+        width={1024}
+        height={1024}
       />
     </motion.div>
   );
@@ -49,36 +54,42 @@ export function Map() {
       <div className="absolute inset-0">
         <Marker
           src="/images/faces/male-1.jpg"
+          alt="Male Face 1"
           top={96}
           offset={-128}
           delay={0.15}
         />
         <Marker
           src="/images/faces/female-1.jpg"
+          alt="Female Face 1"
           top={160}
           offset={-16}
           delay={0.4}
         />
         <Marker
           src="/images/faces/male-2.jpg"
+          alt="Male Face 2"
           top={144}
           offset={96}
           delay={0.3}
         />
         <Marker
           src="/images/faces/male-3.jpg"
+          alt="Male Face 3"
           top={192}
           offset={64}
           delay={0.6}
         />
         <Marker
           src="/images/faces/female-2.jpg"
+          alt="Female Face 2"
           top={224}
           offset={-32}
           delay={0.8}
         />
         <Marker
           src="/images/faces/female-3.jpg"
+          alt="Female Face 3"
           top={30}
           offset={-40}
           delay={0.25}

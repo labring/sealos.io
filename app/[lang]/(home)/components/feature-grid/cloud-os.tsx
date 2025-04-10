@@ -52,7 +52,7 @@ export default function index({ className }: { className?: string }) {
             ref={div6Ref}
             className="h-16 w-16 border border-blue-200 bg-blue-50 shadow-lg shadow-blue-100/30"
           >
-            <Image src="/logo.svg" alt="Logo" width="64" height="64" />
+            <Image src="/logo.svg" alt="Logo" width={48} height={48} />
           </Circle>
         </div>
         <div className="flex flex-col justify-center gap-2">

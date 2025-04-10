@@ -1,5 +1,5 @@
 ---
-title: What is Sealos and How Does It Work?
+title: What Is Sealos and How Does It Work?
 description: Introduction to Sealos - the unified cloud platform.
 date: 2025-03-17
 tags: ['Sealos']

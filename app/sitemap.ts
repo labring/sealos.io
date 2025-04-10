@@ -1,6 +1,5 @@
-import { domain } from '@/config/site';
 import type { MetadataRoute } from 'next';
-import { source } from '@/lib/source';
+import { source, blog } from '@/lib/source';
 
 export const revalidate = false;
 
@@ -15,34 +14,90 @@ const escapeXmlChars = (url: string): string => {
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const url = (path: string): string => new URL(path, domain).toString();
+
+  const locale = process.env.NEXT_PUBLIC_DEFAULT_LOCALE;
+  // Default domain from env or config (fallback)
+  const defaultDomain = locale?.includes('zh-cn')
+    ? 'https://sealos.run' 
+    : 'https://sealos.io';
+
+  // Generate URL with appropriate domain based on locale
+  const getUrl = (path: string, locale?: string): string => {
+    return new URL(path, defaultDomain).toString();
+  };
+
+  // Get all documentation pages
+  const docPages = await Promise.all(
+    source.getPages().map(async (page) => {
+      
+      // Escape special characters in URL
+      const escapedUrl = escapeXmlChars(getUrl(page.url, locale));
+      return {
+        url: escapedUrl,
+        changeFrequency: 'weekly',
+        priority: 0.5,
+      } as MetadataRoute.Sitemap[number];
+    })
+  );
+
+  // Get all blog posts
+  const blogPages = await Promise.all(
+    blog.getPages().map(async (post) => {
+      
+      const escapedUrl = escapeXmlChars(getUrl(post.url, locale));
+      return {
+        url: escapedUrl,
+        changeFrequency: 'weekly',
+        priority: 0.6,
+      } as MetadataRoute.Sitemap[number];
+    })
+  );
+
+  // Additional Chinese-specific pages
+  const chineseSpecificPages: MetadataRoute.Sitemap = locale?.includes('zh-cn') 
+    ? [
+        {
+          url: 'https://sealos.run/case/',
+          changeFrequency: 'monthly',
+          priority: 0.8,
+        },
+        {
+          url: 'https://sealos.run/price',
+          changeFrequency: 'monthly',
+          priority: 0.8,
+        },
+        {
+          url: 'https://sealos.run/aiproxy',
+          changeFrequency: 'monthly',
+          priority: 0.8,
+        },
+      ]
+    : [];
 
   return [
     {
-      url: url('/'),
+      // Use default domain for main pages
+      url: getUrl('/'),
       changeFrequency: 'monthly',
       priority: 1,
     },
     {
-      url: url('/docs'),
+      url: getUrl('/devbox'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    ...chineseSpecificPages,
+    {
+      url: getUrl('/docs'),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-        url: url('/blog'),
-        changeFrequency: 'monthly',
-        priority: 0.8,
-      },
-    ...(await Promise.all(
-      source.getPages().map(async (page) => {
-        // Escape special characters in URL
-        const escapedUrl = escapeXmlChars(url(page.url));
-        return {
-          url: escapedUrl,
-          changeFrequency: 'weekly',
-          priority: 0.5,
-        } as MetadataRoute.Sitemap[number];
-      }),
-    )),
+      url: getUrl('/blog'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    ...docPages,
+    ...blogPages,
   ];
 }

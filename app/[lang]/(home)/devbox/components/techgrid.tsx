@@ -1,7 +1,6 @@
 'use client';
 import React, { useCallback, useState } from 'react';
 import { AnimateElement } from '@/components/ui/animated-wrapper';
-import Image from 'next/image';
 import { DeployButton } from './deployButton';
 import { appDomain } from '@/config/site';
 
@@ -478,10 +477,9 @@ export default function TechGrid() {
               >
                 <div className="relative flex gap-4">
                   <div className="relative flex size-7 items-center justify-center text-4xl lg:size-10">
-                    <Image
+                    <img
                       src={tech.icon}
                       alt={tech.name}
-                      fill
                       className="size-7 lg:size-10"
                     />
                   </div>

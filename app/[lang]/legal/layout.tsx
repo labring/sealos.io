@@ -18,7 +18,7 @@ export default function BlogLayout({
       <div className="custom-container md:px-[15%] min-h-screen dark:prose-invert prose px-8 pt-36">
         {children}
       </div>
-      <Footer />
+      <Footer lang={params.lang} />
     </div>
   );
 }

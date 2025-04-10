@@ -15,7 +15,7 @@ export default function BlogLayout({
     <div className={`h-full ${styles.blog_layout}`}>
       <Header lang={params.lang} />
       <div className="custom-container min-h-screen">{children}</div>
-      <Footer />
+      <Footer lang={params.lang} />
     </div>
   );
 }

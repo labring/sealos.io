@@ -1,5 +1,5 @@
 ---
-title: What is DevBox and How Does It Work?
+title: What Is DevBox and How Does It Work?
 description: DevBox is an all-in-one platform designed for integrated online development, testing, and production
 date: 2025-03-25
 tags: ['Sealos']

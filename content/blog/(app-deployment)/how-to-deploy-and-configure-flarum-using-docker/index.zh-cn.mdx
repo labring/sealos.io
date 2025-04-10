@@ -1,0 +1,333 @@
+---
+title: Flarum 论坛搭建完全指南：从安装部署到高级定制与优化
+description: 全面介绍现代化开源论坛 Flarum 的安装部署、主题定制、插件推荐、性能优化及安全最佳实践，帮助您快速搭建一个专业、美观的社区论坛。
+date: 2024-11-21
+tags: ['Sealos', 'Flarum']
+authors: ['default']
+---
+
+import { DeployButton } from '@/components/ui/button'
+
+随着开源社区的日益繁荣，用户和开发者对在线社区平台的品质要求也水涨船高。传统的 BBS 论坛模式，在界面美观度、移动端适配、用户体验便捷性及互动性方面，已逐渐难以满足现代用户的期待。因此，**如何搭建一个现代化、高品质、功能强大的在线社区**，成为了许多网站管理者和社区运营者面临的迫切需求与共同挑战。
+
+今天，我们就来深入介绍一款能够有效应对这些挑战的现代化、优雅且功能强大的开源论坛软件 —— Flarum。
+
+![Flarum 论坛界面展示](./images/flarum-forum-interface-showcase.zh-cn.jpg)
+
+Flarum 以其现代简约的设计理念、卓越的用户体验、强大的**可扩展性**和对 **SEO 友好**的架构，正在重新定义我们对网络社区的想象，为构建充满活力的在线互动空间提供了全新的解决方案。
+
+## Flarum 简介：现代化开源论坛软件
+
+[Flarum](https://github.com/flarum/flarum) 是一个诞生于 2014 年的**开源论坛软件**项目。其创始人 Toby Zerner 和 Franz Liedke 旨在创建一个现代化的、设计优雅的论坛系统，以解决**传统论坛软件**在界面设计陈旧、用户体验不佳、移动端适配差以及**可扩展性**不足等方面的普遍痛点。
+
+经过社区驱动的开发与迭代，Flarum 在 2015 年发布了首个公开 Beta 版本，凭借其前瞻性的设计和出色的性能，迅速吸引了全球大量开发者和社区运营者的关注。此后，Flarum 团队与活跃的社区贡献者不断协作，持续进行版本更新与功能完善，使其逐渐成长为**现代论坛软件**领域一颗备受瞩目的新星。
+
+![Flarum 官方网站](./images/flarum-official-website.png)
+
+Flarum 的核心设计理念可以概括为 "**现代、简约、优雅**"。它彻底摒弃了传统论坛软件常见的臃肿界面和复杂操作逻辑，转而追求极致简洁明了的界面布局、流畅自然的交互动画以及直观易懂的用户体验。
+
+目前，Flarum 项目在 GitHub 上已累计获得超过 15,000 Star，充分证明了其在开发者社区中的受欢迎程度和影响力。
+
+![Flarum GitHub 仓库](./images/flarum-github-repository.png)
+
+## Flarum 核心功能与特色
+
+Flarum 提供了一系列强大的功能特性，旨在帮助用户轻松构建和管理现代化的在线社区：
+
+*   **界面设计**：采用扁平化、**响应式设计**，确保在桌面、平板、手机等不同尺寸设备上均能提供一致且美观的视觉体验。
+*   **用户体验**：操作流程简单直观，学习曲线平缓，极大降低了新用户的上手门槛。
+*   **权限管理**：提供细粒度的**用户权限管理**系统，允许管理员为不同用户组精确配置访问和操作权限，满足复杂社区的管理需求。
+*   **社交互动**：内置丰富的社交互动功能，如点赞、@提及用户、实时站内通知等，有效提升社区成员的参与度和粘性。
+*   **高度可扩展性**：基于模块化设计，拥有强大的**可扩展性**。用户可以通过安装丰富的 **Flarum 插件** (Extensions) 或利用其 **REST API** 进行二次开发，轻松扩展论坛功能，满足各种定制化需求 (例如**集成支付实现付费内容**、**增强 SEO 功能**、**接入第三方登录**等)。
+
+## Flarum 的技术架构
+
+Flarum 采用了先进的**前后端分离**架构：
+
+*   **后端**：基于被誉为 "全世界最好的语言" **PHP** 及其流行的 **Laravel** 框架开发，提供稳定、安全的 **RESTful API** 接口。
+*   **前端**：使用现代 JavaScript 语言和高性能的 **Mithril.js** 框架构建，实现了**单页应用 (SPA)** 的用户界面，带来如原生应用般流畅的浏览体验。
+
+这种现代化的技术架构赋予了 Flarum 出色的**性能**、高度的**灵活性**和更佳的**可维护性**。
+
+![Flarum 技术架构](./images/flarum-technical-architecture.jpg)
+
+同时，Flarum 还积极运用了 Composer (PHP 依赖管理工具)、WebSocket (实现实时通信) 等现代 Web 开发技术栈，进一步提升了系统的整体性能、开发效率和实时互动能力。
+
+## Flarum vs 传统 BBS 论坛
+
+以下是 Flarum 与传统 BBS 论坛软件的详细对比：
+
+| 特性             | Flarum                                                       | 传统 BBS 论坛                                      |
+| :--------------- | :----------------------------------------------------------- | :------------------------------------------------- |
+| **界面设计**     | ✅ 现代、简约、美观，符合当代审美                              | ❌ 相对老旧、界面复杂，视觉吸引力较弱              |
+| **移动端适配**   | ✅ **响应式设计**，自动适配不同屏幕尺寸，移动端体验佳          | ❌ 大多未针对移动端优化，浏览和操作不便              |
+| **社交互动**     | ✅ 点赞、@提及、实时通知等丰富的互动功能，促进社区活跃         | ❌ 互动形式相对单一，用户参与感较弱                |
+| **实时性**       | ✅ 内容更新近乎实时（依赖 WebSocket），无需手动刷新页面        | ❌ 实时性相对较弱，信息获取有延迟                   |
+| **可扩展性**     | ✅ **模块化设计**，**插件生态**丰富，易于扩展功能和**定制开发** | ❌ 可扩展性相对有限，二次开发难度较大              |
+| **用户权限管理** | ✅ 细粒度的用户组权限设置，灵活满足管理需求                    | ✅ 通常也有比较完善的权限管理系统                   |
+| **功能丰富程度** | ⚠️ 相对较新，部分高级功能依赖**插件**实现，核心功能持续完善中 | ✅ 经过多年发展, 积累了大量内置功能                 |
+| **用户习惯**     | ⚠️ 现代化的界面和交互方式可能需要**传统 BBS 用户**适应          | ✅ 很多用户已习惯传统 BBS 的使用方式和界面布局       |
+| **SEO 优化**     | ✅ 现代架构和**专用 SEO 插件**支持更好的搜索引擎优化           | ⚠️ 普遍对 SEO 支持较弱，需要较多手动优化           |
+| **性能表现**     | ✅ 轻量级核心，**性能优化**潜力大，加载速度快                | ⚠️ 架构相对陈旧，可能存在性能瓶颈                   |
+
+## Flarum 安装部署指南
+
+### 系统环境要求
+
+要在您的服务器上成功安装并运行 Flarum，需要确保满足以下环境要求：
+
+- **Web 服务器**：Apache (需要 mod_rewrite) 或 Nginx
+- **PHP 版本**：PHP 7.4 及以上版本
+- **PHP 扩展**：需要启用 Fileinfo，Mbstring，OpenSSL，PDO，Tokenizer，XML，Ctype，JSON，GD 等扩展
+- **数据库**：MySQL 5.6+ 或 MariaDB 10.0.5+
+- **命令行访问**：SSH 访问权限，用于运行 Composer
+
+可以看出，Flarum 的依赖技术环境相对专业，**对于没有服务器管理和 PHP 开发经验的用户来说，手动安装和配置的过程可能会比较复杂且耗时，甚至会遇到各种环境问题而望而却步**。这正是许多潜在用户在尝试 Flarum 时遇到的第一个障碍。
+
+### 使用 Sealos 一键部署 Flarum
+
+对于没有技术背景的同学而言，你也不用担心安装问题，[Sealos 应用商店](https://sealos.run/docs/guides/app-store)提供了一键部署的应用模板，点一下鼠标即可完成部署，非常丝滑。
+
+**如果你想快速搭建一个 Flarum 论坛，又不想陷入繁琐的安装和配置过程**，可以试试 Sealos。
+
+直接打开 Flarum 应用模板：
+
+<DeployButton deployUrl="https://template.hzh.sealos.run/deploy?templateName=flarum" />
+
+然后点击右上角的 "去 Sealos 部署"。
+
+> 如果您是第一次使用 [Sealos](https://sealos.run/)，则需要注册登录 Sealos 公有云账号，登录之后会立即跳转到模板的部署页面。
+
+点击右上角的 "部署应用" 开始部署，部署完成后，直接点击应用的 "详情" 进入该应用的详情页面。
+
+![Sealos 部署 Flarum](./images/sealos-deploying-flarum.zh-cn.jpg)
+
+等待应用状态变成 running 之后，直接点击外网地址便可打开 Flarum 的可视化界面。
+
+![Flarum 运行状态](./images/flarum-running-status.jpg)
+
+点击右上角的 "Log In" 登录管理员账号：
+
+![Flarum 登录界面](./images/flarum-login-screen.jpg)
+
++ 用户名：`flarum`
++ 密码：`flarum`
+
+打开管理员后台，就可以对论坛进行各种自定义设置了。
+
+![Flarum 管理后台](./images/flarum-admin-backend.jpg)
+
+### 修改 Flarum 软件源以适应国内网络
+
+**由于国内特殊的网络环境限制**，直接使用 Flarum 默认的国外软件源 (如 Composer 的 Packagist 源、Alpine Linux 的软件源) 可能会导致**安装或更新插件时速度缓慢甚至失败**。因此，在进行下一步配置之前，强烈建议将软件源替换为国内镜像源，否则后续的插件安装等操作将寸步难行。
+
+在 Sealos 的 Flarum 应用详情页面，点击右上角的 "变更" 按钮：
+
+![修改软件源](./images/flarum-modify-software-source.jpg)
+
+接着，展开 "高级配置" 部分，修改 "运行命令" 和 "命令参数" 如下：
+
++ 运行命令：`/bin/bash -c`
++ 命令参数：`sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && apk update && apk add git && composer config repo.packagist composer https://mirrors.aliyun.com/composer/ && /init`
+
+![设置国内源](./images/flarum-set-china-mirrors.jpg)
+
+<Callout type="info">
+  这条命令的作用是在容器启动时，先将 Alpine Linux 的软件源替换为中科大镜像源，然后更新软件列表并安装 `git`（部分插件安装需要），接着将 Composer 的主源 `repo.packagist`   配置为阿里云镜像源，最后再执行原始的 `/init` 启动脚本。
+</Callout>
+
+修改完成后，点击右上角的 "变更" 按钮确认。
+
+等待 Sealos 应用重启完成 (状态再次变为 `running`)，此时您的 Flarum 环境就已经配置好了国内镜像源，可以顺畅地进行后续操作了。重新打开论坛界面继续配置。
+
+## Flarum 高级定制与优化指南
+
+Flarum 提供了丰富的**个性化设置**选项，让您可以轻松打造一个符合社区定位、独具特色的论坛。通过**自定义主题**、调整配色方案、上传 Logo、设置背景图片、修改导航栏样式等，您可以让您的论坛在视觉上脱颖而出。
+
+### 安装中文语言包
+
+**首先，我们需要安装一个中文语言包，让论坛更适合中文用户使用。**
+
+在 Flarum 应用详情界面，点击右下角的终端按钮：
+
+![打开终端](./images/flarum-terminal-theme-installation.zh-cn.jpg)
+
+在打开的终端中执行以下命令安装中文语言包：
+
+```bash
+extension require flarum-lang/chinese-simplified:dev-master
+```
+
+<Callout type="info">
+  这里使用的是 `extension` 命令，这是 Sealos Flarum 模板封装好的快捷命令，等同于在 Flarum 根目录下执行 `composer require ...` 并处理相关依赖。
+</Callout>
+
+安装成功：
+
+![中文语言包安装成功](./images/flarum-chinese-language-installed.jpg)
+
+安装完成后，回到 Flarum 管理后台 (可能需要刷新页面)，在左侧菜单找到 `Extensions` (扩展) 管理页面，可以看到多了个中文语言。
+
+![启用中文语言](./images/flarum-enable-chinese-language.jpg)
+
+点击该扩展旁边的开关按钮，启用中文语言包。
+
+![启用中文语言步骤](./images/flarum-enable-chinese-steps.jpg)
+
+然后回到 Basics，将 Default Language 改为简体中文，最后点击下方的 Save Changes，论坛的语言就变成中文啦。如果没有切换就刷新一下页面。
+
+![设置默认语言](./images/flarum-set-default-language.jpg)
+
+### 基础外观设置
+
+接下来进行一些常规的设置，例如论坛名称、论坛描述、欢迎横幅等等。
+
+![基础设置](./images/flarum-basic-settings.zh-cn.jpg)
+
+设置完成后，欢迎横幅是这个样子的：
+
+![欢迎横幅](./images/flarum-welcome-banner.jpg)
+
+这可不太美观的，咱直接让它向左对齐，别居中了。怎么改呢？很简单，在 "外观" 中点击 "编辑自定义 CSS"：
+
+![自定义CSS](./images/flarum-custom-css.jpg)
+
+然后填入以下 CSS：
+
+```css
+.Hero-close {
+    float: right;
+    margin-top: -10px;
+    color: inherit;
+    opacity: 0.5;
+    visibility: hidden;
+}
+.Hero h1 {
+    margin: 0;
+    font-weight: bold;
+    line-height: 1.5em;
+}
+.containerNarrow {
+    max-width: none;
+    margin: 0 auto;
+    text-align: left;
+}
+```
+
+保存之后再刷新页面就变成这个样子了：
+
+![修改后的横幅](./images/flarum-modified-banner.jpg)
+
+这下舒服多了。
+
+除此之外，还可以设置论坛的配色和 Logo 等。
+
+![配色和Logo设置](./images/flarum-color-logo-settings.zh-cn.jpg)
+
+### 自定义页眉和页脚
+
+页眉和页脚也是可以自定义的，例如 Sealos [官方论坛](https://forum.sealos.run)的自定义页脚：
+
+```html
+<div class="footer" style="padding:0 15px;">
+    <p style="text-align: center;">
+        Copyright © 2023 by <a style="padding: 0 3px;" href="https://sealos.run/" target="_blank"><b>sealos.run</b></a>
+    </p>
+    <p style="text-align: center;">
+        声明：除非另有说明，否则本站内容依据 <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank">CC BY-SA 4.0</a> 许可证进行授权，转载请附上出处链接。
+    </p>
+    <p style="text-align: center;">
+        ⛵️🐳 <a href="https://sealos.run/" target="_blank" style="font-weight:bold; color:transparent;background-image:linear-gradient(to right,#0ea5e9,#2563eb);-webkit-background-clip: text;background-clip: text">Sealos</a>
+    </p>
+</div>
+```
+
+![自定义页脚设置](./images/flarum-custom-footer-settings.zh-cn.jpg)
+
+最终效果如下：
+
+![页脚效果展示](./images/flarum-footer-effect-showcase.zh-cn.jpg)
+
+### 主题推荐与安装
+
+推荐一个现代风格的主题，GitHub 地址：**https://github.com/DellZHackintosh/fluent-flarum**
+
+安装方法和之前一样，在 Flarum 应用详情界面，点击右下角的终端按钮：
+
+![打开终端安装主题](./images/flarum-terminal-theme-installation.zh-cn.jpg)
+
+在打开的终端中执行以下命令安装：
+
+```bash
+extension require dalez/fluent-flarum
+```
+
+安装完成后，在管理员后台开启。
+
+![启用主题](./images/flarum-enable-theme.zh-cn.jpg)
+
+最终效果：
+
+![主题效果展示](./images/flarum-theme-effect-showcase.jpg)
+
+## Flarum 插件推荐与扩展指南
+
+Flarum 的一大魅力在于它的可扩展性。通过安装各式各样的插件，你可以为你的论坛添加新的功能和特性，满足社区的特定需求。无论是增强 SEO 表现、集成第三方身份验证，还是支持全文搜索、实现实时聊天，总有一款插件能够满足你的需要。
+
+### 常用核心功能插件
+
+**Flarum 的核心魅力之一在于其强大的可扩展性**。通过安装各式各样的**插件 (Extensions)**，您可以为您的论坛添加无数新的功能和特性，以满足社区发展的特定需求。无论是需要**增强 SEO 表现**、**集成第三方身份验证 (如微信、GitHub 登录)**、支持**全文搜索**、实现**实时聊天室**、添加**付费内容或会员等级**，还是需要**更精细的内容审核工具**或**数据统计分析**，Flarum 庞大的插件生态中几乎总能找到合适的解决方案。
+
+面对众多的插件，新用户可能会感到不知从何选起。以下是一些经过社区验证、广受欢迎且功能实用的**基础和进阶 Flarum 插件推荐**，覆盖了**用户管理、内容管理、SEO 优化、界面增强**等多个方面：
+
+*   **用户与互动增强：**
+    *   [**FoF User Directory**](https://flarum.org/extension/fof/user-directory) (`fof/user-directory`)：添加一个用户目录页面，方便用户浏览、搜索和发现其他社区成员。*(安装命令： `extension require fof/user-directory："*"`)*
+    *   [**Emoji Picker**](https://github.com/clarkwinkelmann/flarum-ext-emojionearea) (`clarkwinkelmann/flarum-ext-emojionearea`)：提供一个方便的表情符号选择器，让用户在发帖或回复时轻松插入 Emoji。注意：此插件可能与 Flarum 自带的 Emoji 插件冲突，安装前需禁用默认的 Emoji 插件。*(安装命令：`extension require clarkwinkelmann/flarum-ext-emojionearea`)*
+    *   [**FoF Follow Tags**](https://flarum.org/extension/fof/follow-tags) (`fof/follow-tags`)：允许用户关注感兴趣的标签 (话题分类)，并在关注的标签下有新内容时收到通知。
+
+*   **内容管理与展示：**
+    *   [**FoF Filter**](https://github.com/FriendsOfFlarum/filter) (`fof/filter`)：提供内容自动审核和过滤功能，帮助管理员管理用户生成的内容，防止垃圾信息或不当言论。*(安装命令： `extension require fof/filter："*"`)*
+    *   [**Discussion views**](https://github.com/MichaelBelgium/flarum-discussion-views) (`michaelbelgium/flarum-discussion-views`)：在帖子列表和详情页显示每个话题 (讨论) 的浏览量，直观反映内容的受欢迎程度。*(安装命令：`extension require michaelbelgium/flarum-discussion-views`)*
+    *   [**Echo showfloor**](https://gitee.com/echo886/flarum-showfloor) (`wanecho/showfloor`)：像传统论坛 (如百度贴吧) 一样，在帖子回复中显示楼层号。*(安装命令： `extension require wanecho/showfloor："*"`)*
+    *   [**Fancybox-Plus**](https://github.com/tohsakrat/fancybox-plus) (`tohsakarat/fancybox-plus`)：增强论坛内的图片浏览体验，点击图片后会弹出一个优雅、功能丰富的灯箱 (Lightbox) 效果浏览界面。*(安装命令：`extension require tohsakarat/fancybox-plus`)*
+
+*   **导航与 SEO 优化：**
+    *   [**FoF Links**](https://github.com/FriendsOfFlarum/links) (`fof/links`)：允许管理员在论坛的导航栏、侧边栏或页脚轻松添加自定义链接，方便用户快速访问论坛内外的其他重要页面或资源。*(安装命令：`extension require fof/links`)*
+    *   [**Flarum SEO**](https://github.com/v17development/flarum-seo) (`v17development/flarum-seo`)：强烈推荐！提供全面的 **SEO 优化**功能，包括自动生成 Sitemap、优化 Meta 标签、添加结构化数据 (Schema.org) 等，显著提升论坛在搜索引擎中的可见性。*(安装命令：`extension require v17development/flarum-seo`)*
+    *   [**FoF Sitemap**](https://github.com/FriendsOfFlarum/sitemap) (`fof/sitemap`)：专门用于生成符合标准的 `sitemap.xml` 文件，帮助搜索引擎更好地发现和索引论坛内容。通常与 Flarum SEO 插件配合使用效果更佳。*(安装命令：`extension require fof/sitemap`)*
+
+*   **管理与安全：**
+    *   [**FoF Ban IPs**](https://flarum.org/extension/fof/ban-ips) (`fof/ban-ips`)：允许管理员封禁指定的 IP 地址或 IP 地址段，阻止恶意用户访问论坛。
+    *   [**FoF Spamblock**](https://flarum.org/extension/fof/spamblock) (`fof/spamblock`)：帮助识别和标记垃圾用户，简化**反垃圾邮件**管理流程。
+
+太多了，本文就不一一介绍了，更多插件可到 Flarum 插件市场去找：**https://flarum.org/extensions**
+
+<Callout type="info">
+  请注意，在 Sealos 提供的 Flarum 模板环境中安装插件时，**应统一使用 `extension require <插件包名>` 的命令格式**，而不是 Flarum 官方文档或插件页面通常提供的   `composer require <插件包名>` 命令。
+  
+  例如，安装 "Discussion views" 插件时，即使官方页面写的是 `composer require michaelbelgium/flarum-discussion-views`：
+  
+  ![](./images/flarum-plugin-installation-example.jpg)
+  
+  您在 Sealos 的 Flarum 终端中实际需要执行的命令是：
+  
+  ```bash
+  extension require michaelbelgium/flarum-discussion-views
+  ```
+</Callout>
+
+**探索更多插件**
+
+以上仅是冰山一角。Flarum 拥有一个活跃的开发者社区，不断贡献着新的插件。您可以访问 [Flarum 官方插件市场](https://flarum.org/extensions) (原 Extiverse 页面) 来探索更多满足您需求的插件。在这里，您可以根据分类、兼容性、评分等条件筛选查找，找到适合您社区发展的**功能扩展**。合理选择和搭配插件，是发挥 Flarum **高度可扩展性**优势的关键。
+
+## 总结：拥抱 Flarum，构建您的现代在线社区
+
+Flarum 凭借其**简约美观的界面设计、强大的核心功能、卓越的用户体验**以及至关重要的**良好可扩展性**，正在吸引全球范围内越来越多寻求现代化社区解决方案的运营者和用户的关注。
+
+选择 Flarum，意味着您将获得一个**开箱即用、技术先进且充满活力**的现代化社区平台。相较于复杂的**传统 BBS** 系统，Flarum 让您可以将更多精力投入到社区内容的建设、用户互动和实际运营发展上，而非耗费在繁琐的技术细节或陈旧的系统维护中。
+
+Flarum 提供的各项核心优势——如**移动端友好的响应式设计、灵活精细的权限管理、丰富的社交互动方式、对 SEO 的天然友好性以及强大的插件生态系统**——都将为您的在线社区注入新的活力，帮助您构建一个参与度高、体验流畅、管理高效的互动空间。
+
+虽然 Flarum 在**安装部署** (对于非技术用户)、**高级主题定制**以及某些**特定高级功能**的实现上可能需要一定的学习和探索 (或依赖社区插件)，但其现代化架构和活跃社区为解决这些挑战提供了坚实的基础和丰富的资源。
+
+如果您正在寻找一款能够替代**老旧 BBS 论坛**、渴望搭建一个真正属于 21 世纪的在线社区平台，那么 Flarum 绝对值得您深入了解和尝试。借助 Sealos 等工具，您可以轻松跨越安装门槛，快速体验 Flarum 的魅力。

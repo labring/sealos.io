@@ -28,11 +28,11 @@ description: Sealos 对象存储提供企业级云存储解决方案，支持S3�
 ![Sealos 对象存储控制台创建存储桶操作界面](./images/object-storage-create-bucket-interface.zh-cn.png)
 
 <Callout type="info">
-存储桶权限说明：
+    存储桶权限说明：
 
-- **private (私有访问)**：仅允许经过身份验证的用户访问存储桶内容，适用于存储敏感数据或内部使用
-- **publicRead (公共读)**：允许所有人读取存储桶内对象 (无需身份验证)，但写入操作仍需认证，适用于内容分发、静态网站托管等场景
-- **publicReadWrite (公共读写)**：开放完整的读写权限 (需谨慎使用)，适用于需要临时文件共享或协作的场景，生产环境不建议开启
+    - **private (私有访问)**：仅允许经过身份验证的用户访问存储桶内容，适用于存储敏感数据或内部使用
+    - **publicRead (公共读)**：允许所有人读取存储桶内对象 (无需身份验证)，但写入操作仍需认证，适用于内容分发、静态网站托管等场景
+    - **publicReadWrite (公共读写)**：开放完整的读写权限 (需谨慎使用)，适用于需要临时文件共享或协作的场景，生产环境不建议开启
 </Callout>
 
 ### 上传文件
@@ -41,19 +41,19 @@ Sealos 对象存储支持灵活的文件管理操作，以下是详细的上传�
 
 <div className='steps [&_h4]:step'>
 
-<h4>进入目标存储桶</h4>
+    <h4>进入目标存储桶</h4>
 
-1. 进入【对象存储】应用界面
-2. 在存储桶列表中选择目标存储桶
-3. 导航至需要上传文件的目录 (默认为根目录)
+    1. 进入【对象存储】应用界面
+    2. 在存储桶列表中选择目标存储桶
+    3. 导航至需要上传文件的目录 (默认为根目录)
 
-<h4>执行上传操作</h4>
+    <h4>执行上传操作</h4>
 
-1. 点击顶部工具栏的【上传】按钮
-2. 在文件 (夹) 选择器中：
-   - 选择【文件】，会打开系统的文件浏览器，选择单个或多个文件进行批量上传
-   - 选择【文件夹】，也会打开系统的文件浏览器，选择整个文件夹进行目录结构保持式上传
-3. 点击【上传】按钮启动传输
+    1. 点击顶部工具栏的【上传】按钮
+    2. 在文件 (夹) 选择器中：
+       - 选择【文件】，会打开系统的文件浏览器，选择单个或多个文件进行批量上传
+       - 选择【文件夹】，也会打开系统的文件浏览器，选择整个文件夹进行目录结构保持式上传
+    3. 点击【上传】按钮启动传输
 
 </div>
 
@@ -63,23 +63,23 @@ Sealos 对象存储支持灵活的文件管理操作，以下是详细的上传�
 
 <div className='steps [&_h4]:step'>
 
-<h4>进入存储桶设置</h4>
+    <h4>进入存储桶设置</h4>
 
-1. 进入【对象存储】应用
-2. 在存储桶列表中找到并点击目标存储桶
-3. 点击存储桶名称右上角的【编辑】按钮
+    1. 进入【对象存储】应用
+    2. 在存储桶列表中找到并点击目标存储桶
+    3. 点击存储桶名称右上角的【编辑】按钮
 
-![Sealos 存储桶权限设置入口](./images/sealos-bucket-permission-setting-entry.zh-cn.png)
+    ![Sealos 存储桶权限设置入口](./images/sealos-bucket-permission-setting-entry.zh-cn.png)
 
-<h4>选择权限类型</h4>
+    <h4>选择权限类型</h4>
 
-在存储桶权限设置面板中选择新的访问级别：
+    在存储桶权限设置面板中选择新的访问级别：
 
-- **private**：仅允许通过访问密钥认证的用户访问
-- **publicRead**：允许匿名用户读取对象 (推荐用于静态网站托管)
-- **publicReadWrite**：允许匿名用户读写操作 (开发测试环境慎用)
+    - **private**：仅允许通过访问密钥认证的用户访问
+    - **publicRead**：允许匿名用户读取对象 (推荐用于静态网站托管)
+    - **publicReadWrite**：允许匿名用户读写操作 (开发测试环境慎用)
 
-确认当前存储桶中无敏感数据 (当改为公共权限时)，然后点击【应用】按钮即可生效。
+    确认当前存储桶中无敏感数据 (当改为公共权限时)，然后点击【应用】按钮即可生效。
 
 </div>
 
@@ -101,27 +101,27 @@ Sealos 对象存储提供完整的静态网站托管解决方案，支持自动�
 
 <div className='steps [&_h4]:step'>
 
-<h4>创建可访问存储桶</h4>
+    <h4>创建可访问存储桶</h4>
 
-1. 新建或选择现有存储桶，确保其访问权限设置为 **publicRead** 或 **publicReadWrite**
-2. 在存储桶详情页，点击顶部工具栏的【打开托管】按钮
+    1. 新建或选择现有存储桶，确保其访问权限设置为 **publicRead** 或 **publicReadWrite**
+    2. 在存储桶详情页，点击顶部工具栏的【打开托管】按钮
 
-![启用 Sealos 对象存储静态托管功能](./images/sealos-objectstorage-static-hosting-enable.zh-cn.png)
+    ![启用 Sealos 对象存储静态托管功能](./images/sealos-objectstorage-static-hosting-enable.zh-cn.png)
 
-<h4>访问托管网站</h4>
+    <h4>访问托管网站</h4>
 
-1. 启用静态托管后，系统会自动生成访问地址
-2. 点击访问地址，在新标签页打开网站
-3. 确保存储桶内已上传 `index.html` 作为默认首页
+    1. 启用静态托管后，系统会自动生成访问地址
+    2. 点击访问地址，在新标签页打开网站
+    3. 确保存储桶内已上传 `index.html` 作为默认首页
 
-![查看静态网站访问地址](./images/sealos-objectstorage-static-hosting-access.zh-cn.png)
+    ![查看静态网站访问地址](./images/sealos-objectstorage-static-hosting-access.zh-cn.png)
 
-<h4>配置自定义域名</h4>
+    <h4>配置自定义域名</h4>
 
-1. 在存储桶右上角点击三个点，选择【自定义域名】，会直接跳转到【应用管理】的应用变更界面
-2. 接下来的操作和【应用管理】的自定义域名配置一致，请参考应用管理的[自定义域名配置](/docs/guides/app-launchpad/add-a-domain)
+    1. 在存储桶右上角点击三个点，选择【自定义域名】，会直接跳转到【应用管理】的应用变更界面
+    2. 接下来的操作和【应用管理】的自定义域名配置一致，请参考应用管理的[自定义域名配置](/docs/guides/app-launchpad/add-a-domain)
 
-![Sealos 对象存储自定义域名配置](./images/sealos-objectstorage-static-hosting-custom-domain.zh-cn.png)
+    ![Sealos 对象存储自定义域名配置](./images/sealos-objectstorage-static-hosting-custom-domain.zh-cn.png)
 
 </div>
 
@@ -145,27 +145,27 @@ Sealos 对象存储支持多种语言的 SDK，接下来介绍如何在 Sealos D
     go get github.com/minio/minio-go/v7
     ```
 
-  <Tab value="Java">
-    以 Maven 为例，在 `pom.xml` 文件中添加以下依赖：
+    <Tab value="Java">
+        以 Maven 为例，在 `pom.xml` 文件中添加以下依赖：
 
-    ```xml
-    <dependency>
-        <groupId>io.minio</groupId>
-        <artifactId>minio</artifactId>
-        <version>8.5.17</version>
-    </dependency>
-    ```
+        ```xml
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>8.5.17</version>
+        </dependency>
+        ```
 
-    如果使用 Gradle，可以在 `build.gradle` 文件中添加以下依赖：
+        如果使用 Gradle，可以在 `build.gradle` 文件中添加以下依赖：
 
-    ```groovy
-    dependencies {
+        ```groovy
+        dependencies {
         implementation 'io.minio:minio:8.5.17'
     }
-    ```
+        ```
 
-    如果您没有使用任何构建工具，可以直接下载 [MinIO Java SDK 的 JAR 文件](https://repo1.maven.org/maven2/io/minio/minio/8.5.17/)，并将其添加到您的项目中。
-  </Tab>
+        如果您没有使用任何构建工具，可以直接下载 [MinIO Java SDK 的 JAR 文件](https://repo1.maven.org/maven2/io/minio/minio/8.5.17/)，并将其添加到您的项目中。
+    </Tab>
 
     ```bash tab="Node.js"
     npm install minio
@@ -176,3 +176,106 @@ Sealos 对象存储支持多种语言的 SDK，接下来介绍如何在 Sealos D
     ```
 </Tabs>
 
+### SDK 使用示例
+
+<Tabs items={['Go', 'Java', 'Others']}>
+
+    <Tab value="Go">
+        以下是使用 Go SDK 访问 Sealos 对象存储的示例代码，更多详细信息请参考 [Go Client API Reference](https://min.io/docs/minio/linux/developers/go/API.html)。
+
+        下面的示例演示了如何使用 Go SDK 将本地文件 `hello.html` 上传到名为 `xxxxxxxx-test` 的存储桶中：
+
+        <Callout type="info">
+        这里需要将 Endpoint 设置为外网地址 External。如果服务部署在 Sealos Cloud 中，可以将 Endpoint 改为内网地址 Internal。
+        </Callout>
+
+        ```go
+        package main
+
+        import (
+            "context"
+            "fmt"
+            "github.com/minio/minio-go/v7"
+            "github.com/minio/minio-go/v7/pkg/credentials"
+            "log"
+            "os"
+        )
+
+        func main() {
+            endpoint := "objectstorageapi.xxx.xxx.xxx"
+            accessKey := "xxxxxxxx"
+            secretKey := "xxxxxxxxxxxxxxxx"
+            bucket := "xxxxxxxx-hello"
+
+            minioClient, err := minio.New(endpoint, &minio.Options{
+                Creds:  credentials.NewStaticV4(accessKey, secretKey, ""),
+                Secure: true,
+                Region: "us-east-1",
+            })
+            if err != nil {
+                log.Fatalln(err)
+            }
+
+            file, err := os.Open("hello.html")
+            if err != nil {
+                fmt.Println(err)
+                return
+            }
+            defer file.Close()
+
+            fileStat, err := file.Stat()
+            if err != nil {
+                fmt.Println(err)
+                return
+            }
+
+            uploadInfo, err := minioClient.PutObject(context.Background(), bucket, "hello.html", file, fileStat.Size(), minio.PutObjectOptions{ContentType: "text/html"})
+            if err != nil {
+                fmt.Println(err)
+                return
+            }
+
+            fmt.Println("Successfully uploaded bytes.")
+        }
+        ```
+    </Tab>
+
+    <Tab value="Java">
+
+        以下是使用 Java SDK 访问 Sealos 对象存储的示例代码，更多详细信息请参考 [Java Client API 文档](https://min.io/docs/minio/linux/developers/java/API.html)。
+
+        下面的示例演示了如何使用 Java SDK 将本地文件 `hello.html` 上传到名为 `xxxxxxxx-test` 的存储桶中：
+
+        <Callout type="info"> 这里需要将 Endpoint 设置为外网地址 External。如果服务部署在 Sealos Cloud 中，可以将 Endpoint 改为内网地址 Internal。 </Callout>
+
+        ```java
+        package org.example;
+
+        import io.minio.MinioClient;
+        import io.minio.UploadObjectArgs;
+
+        public class FileUploader {
+            public static void main(String[] args) throws Exception {
+                MinioClient minioClient = MinioClient.builder()
+                        .endpoint("https://objectstorageapi.xxx.xxx.xxx")
+                        .credentials("xxxxxxxx", "xxxxxxxxxxxxxxxx")
+                        .build();
+
+                minioClient.uploadObject(
+                        UploadObjectArgs.builder()
+                                .bucket("xxxxxxxx-hello")
+                                .object("hello.html")
+                                .filename("hello.html")
+                                .build());
+
+                System.out.println("Successfully uploaded bytes.");
+            }
+        }
+        ```
+    </Tab>
+
+    <Tab value="Others">
+        其他语言的详细信息请参考 [Software Development Kits (SDK)](https://min.io/docs/minio/linux/developers/minio-drivers.html)。
+    </Tab>
+
+</Tabs>

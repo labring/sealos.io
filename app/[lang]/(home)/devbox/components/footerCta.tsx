@@ -1,6 +1,8 @@
 import { ArrowRight } from 'lucide-react';
 import { AnimateElement } from '@/components/ui/animated-wrapper';
 import { appDomain } from '@/config/site';
+import Image from 'next/image';
+import quickStartImage from 'public/images/quick-start.png';
 
 const StarIcon = () => (
   <svg
@@ -85,8 +87,8 @@ export default function Example() {
               </a>
             </div>
           </AnimateElement>
-          <img
-            src="/images/quick-start.png"
+          <Image
+            src={quickStartImage}
             alt="Quick Start"
             className="ml-auto block h-[312px] w-[478px] object-cover"
           />

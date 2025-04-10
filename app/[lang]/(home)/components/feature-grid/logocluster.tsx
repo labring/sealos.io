@@ -2,18 +2,12 @@
 
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
-import {
-  Blocks,
-  Cloud,
-  Code,
-  Database,
-  File,
-  Package,
-  Package2,
-} from 'lucide-react';
+import { Blocks, Cloud, Code, Database, File, Package } from 'lucide-react';
+import Image from 'next/image';
 
 function Mark({ className }: { className?: string }) {
-  return <img src="/logo.svg" alt="Logo" className={clsx(className, 'h-32')} />;
+  // return <img src="/logo.svg" alt="Logo" className={clsx(className, 'h-32')} />;
+  return <Image src="/logo.svg" alt="Logo" width={48} height={48} />;
 }
 
 function Circle({

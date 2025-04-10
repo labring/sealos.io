@@ -1,12 +1,11 @@
 'use client';
 
-import { HeaderLinks, getHeaderLinks, navTranslations } from '@/app/layout.config';
+import { getHeaderLinks, navTranslations } from '@/app/layout.config';
 import { appDomain, siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
 import Link from 'fumadocs-core/link';
 import { ExternalLink, Menu, X } from 'lucide-react';
-import Image from 'next/image';
 import { useState } from 'react';
 import { GetStartedButton } from '../ui/shiny-button';
 import { languagesType } from '@/lib/i18n';
@@ -19,7 +18,7 @@ export default function Header({ lang }: { lang: languagesType }) {
   // Get translated navigation links based on current language
   const localizedLinks = getHeaderLinks(lang);
   const translations = navTranslations[lang];
-  
+
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setHasScrolled(latest > 20);
   });
@@ -40,12 +39,12 @@ export default function Header({ lang }: { lang: languagesType }) {
               title={siteConfig.name}
               className="flex items-center gap-2 font-bold"
             >
-              <Image
-                alt=""
+              <img
+                alt="Sealos Logo"
                 src="/logo.svg"
                 className="h-8 w-8"
-                width={28}
-                height={28}
+                width={48}
+                height={48}
               />
               <span className="hidden text-xl font-bold md:block">
                 {siteConfig.name}
@@ -103,12 +102,12 @@ export default function Header({ lang }: { lang: languagesType }) {
                           title={siteConfig.name}
                           className="inline-flex items-center"
                         >
-                          <Image
-                            alt=""
+                          <img
+                            alt="Sealos Logo"
                             src="/logo.svg"
                             className="h-8 w-8"
-                            width={32}
-                            height={32}
+                            width={48}
+                            height={48}
                           />
                           <span className="ml-2 text-xl font-bold tracking-wide text-gray-950">
                             {siteConfig.name}

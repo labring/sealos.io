@@ -9,7 +9,14 @@ RUN apk add --no-cache \
     cairo-dev \
     jpeg-dev \
     pango-dev \
-    giflib-dev
+    giflib-dev \
+    librsvg-dev \
+    freetype-dev \
+    harfbuzz-dev \
+    fribidi-dev \
+    udev \
+    ttf-opensans \
+    fontconfig
 WORKDIR /app
 
 ARG NEXT_PUBLIC_APP_URL

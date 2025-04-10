@@ -35,21 +35,24 @@ export async function getAllTags(pages?: BlogPost[], lang?: languagesType) {
     posts = pages;
   } else {
     posts = [...blog.getPages(lang)];
-    
+
     // Apply the same language filtering logic as getSortedBlogPosts
     if (lang && posts.length > 0) {
-      posts = posts.filter(post => {
+      posts = posts.filter((post) => {
         // Check if the file path contains language identifier
         if (lang === 'zh-cn') {
           return post.file.path.includes('.zh-cn.');
         } else {
           // English articles typically don't have language identifiers or have .en.
-          return !post.file.path.includes('.zh-cn.') || post.file.path.includes('.en.');
+          return (
+            !post.file.path.includes('.zh-cn.') ||
+            post.file.path.includes('.en.')
+          );
         }
       });
     }
   }
-  
+
   const tagSet = new Set<string>();
 
   posts.forEach((post) => {
@@ -69,7 +72,7 @@ export function getPageCategory(page: Page) {
 
 export function getBlogImage(title: string, category?: string) {
   if (process.env.NODE_ENV === 'production') {
-    return `/images/og-blog/${title}.png`
+    return `/images/og-blog/${title}.webp`
       .replaceAll(' ', '')
       .replaceAll('?', '');
   }

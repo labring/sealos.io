@@ -2,32 +2,38 @@
 
 import { useEffect, useState } from 'react';
 import { TextComponent } from '@/components/featurefour';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
+
+import launchImage from '/public/images/devbox/launch.png';
+import codeEditorsImage from '/public/images/devbox/code-editors.png';
+import releaseImage from '/public/images/devbox/release.png';
+import deployImage from '/public/images/devbox/deploy.png';
 
 const data = [
   {
     title: 'Launch your dev environment in just one-click',
     content:
       'Choose from a wide-range of templates, or create your own, to create a fully configured cloud environment. Eliminate time wasted on setup and spend more time developing.',
-    srcImage: '/images/devbox/launch.png',
+    src: launchImage,
   },
   {
     title: 'Code and build in your favorite code editor',
     content:
       'Write, build and test your code remotely with persistent environments, seamlessly continuing where you left off all from within your favorite code editor.',
-    srcImage: '/images/devbox/code-editors.png',
+    src: codeEditorsImage,
   },
   {
-    title: 'Publish your release with snapshot-based versioning',
+    title: 'Build and publish your release with snapshot-based versioning',
     content:
       'Eliminate inconsistencies from traditional CI/CD pipelines might introduce when rebuilding from scratch with snapshots that include system configurations, dependencies, and code.',
-    srcImage: '/images/devbox/release.png',
+    src: releaseImage,
   },
   {
     title: 'Deploy to production seamlessly with auto-scaling',
     content:
       'Deploy to production and benefit from auto-scaling without the hassle. And thanks to our proprietary load balancer you can enjoy 3x faster response times than traditional solutions.',
-    srcImage: '/images/devbox/deploy.png',
+    src: deployImage,
   },
 ];
 
@@ -58,6 +64,11 @@ export default function FeatureFourImages() {
         <h2 className="mb-4 text-4xl font-semibold tracking-tighter text-neutral-800">
           How to use the Easiest Cloud Dev Environment: DevBox
         </h2>
+        <p>
+          With DevBox, you can focus entirely on writing great code while we
+          handle the infrastructure, scaling, and deployment. Seamless
+          development from start to production.
+        </p>
       </div>
 
       {/* Mobile view (single column layout with images below texts) */}
@@ -88,10 +99,10 @@ export default function FeatureFourImages() {
                 featureOpen === index ? 'opacity-100' : 'h-0 opacity-0',
               )}
             >
-              <img
+              <Image
                 alt={item.title}
                 className="h-full w-full object-contain"
-                src={item.srcImage}
+                src={item.src}
               />
             </div>
           </div>
@@ -125,14 +136,14 @@ export default function FeatureFourImages() {
         {/* Image container for desktop view */}
         <div className="relative h-96 w-full overflow-hidden rounded-lg md:h-[500px]">
           {data.map((item, index) => (
-            <img
+            <Image
               alt={item.title}
               className={cn(
                 'absolute inset-0 h-full w-full transform-gpu rounded-lg object-contain object-center transition-all duration-500',
                 featureOpen === index ? 'opacity-100' : 'opacity-0',
               )}
               key={item.title}
-              src={item.srcImage}
+              src={item.src}
               style={{ zIndex: featureOpen === index ? 10 : 1 }}
             />
           ))}

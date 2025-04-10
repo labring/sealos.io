@@ -16,7 +16,7 @@ export const baseOptions: BaseLayoutProps = {
   nav: {
     title: (
       <div className="flex items-center gap-1">
-        <Image alt="" src="/logo.svg" width={32} height={32} />
+        <img alt="Sealos Logo" src="/logo.svg" />
         <span className="hidden text-base font-bold md:block">Sealos</span>
       </div>
     ),
@@ -82,13 +82,13 @@ export const navTranslations: Record<languagesType, Record<string, string>> = {
     blog: 'Blog',
     contact: 'Contact',
     getStarted: 'Get Started',
-    
+
     // URLs
     devboxUrl: '/devbox',
     appStoreUrl: templateDomain,
     docsUrl: '/docs',
     blogUrl: '/blog',
-    contactUrl: 'mailto:contact@sealos.io'
+    contactUrl: 'mailto:contact@sealos.io',
   },
   'zh-cn': {
     // Button texts
@@ -98,28 +98,29 @@ export const navTranslations: Record<languagesType, Record<string, string>> = {
     blog: '博客',
     contact: '联系我们',
     getStarted: '免费体验 7 天',
-    
+
     // URLs
     devboxUrl: '/devbox',
     appStoreUrl: templateDomain,
     docsUrl: '/docs',
     blogUrl: '/blog',
-    contactUrl: 'https://fael3z0zfze.feishu.cn/share/base/form/shrcn5oHHTKCf3VREMKOhEy6fmf'
-  }
+    contactUrl:
+      'https://fael3z0zfze.feishu.cn/share/base/form/shrcn5oHHTKCf3VREMKOhEy6fmf',
+  },
 };
 
 // Generate navigation links with translated text and URLs using the language parameter
 export const getHeaderLinks = (lang: languagesType) => {
-  return HeaderLinksData.map(link => ({
+  return HeaderLinksData.map((link) => ({
     text: navTranslations[lang][link.textKey],
     url: navTranslations[lang][link.urlKey],
-    isExternal: link.isExternal
+    isExternal: link.isExternal,
   }));
 };
 
 // Maintain backwards compatibility with default English navigation links
-export const HeaderLinks = HeaderLinksData.map(link => ({
+export const HeaderLinks = HeaderLinksData.map((link) => ({
   text: navTranslations.en[link.textKey],
   url: navTranslations.en[link.urlKey],
-  isExternal: link.isExternal
+  isExternal: link.isExternal,
 }));
