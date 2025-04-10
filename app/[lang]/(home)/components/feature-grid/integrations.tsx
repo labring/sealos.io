@@ -58,6 +58,34 @@ function Card(card: { icon: JSX.Element; bg: JSX.Element }) {
   );
 }
 
+const marqueeStyle = `
+.marquee {
+  animation: marquee var(--duration) linear infinite;
+}
+
+.marquee-vertical {
+  animation: marquee-vertical var(--duration) linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+  }
+}
+`
+
+
 export function Integrations() {
   const [randomTiles1, setRandomTiles1] = useState<typeof tiles.line1>([]);
   const [randomTiles2, setRandomTiles2] = useState<typeof tiles.line2>([]);
@@ -76,6 +104,7 @@ export function Integrations() {
 
   return (
     <div className="flex w-full flex-col items-center justify-center">
+      <style jsx>{marqueeStyle}</style>
       <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
         <Marquee reverse className="-delay-[200ms] [--duration:10s]" repeat={5}>
           {randomTiles1.map((review, idx) => (
@@ -107,10 +136,10 @@ export function Integrations() {
             <Card key={idx} {...review} />
           ))}
         </Marquee>
-        <div className="absolute ">
+        <div className="absolute">
           <div className="absolute inset-0 -z-10 rounded-full  bg-background opacity-40 blur-xl dark:bg-background" />
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-full bg-linear-to-b from-transparent to-background to-70% dark:to-background" />
+        <div className="absolute inset-x-0 bottom-0 h-full bg-linear-to-b from-transparent to-white to-70% dark:to-background" />
       </div>
     </div>
   );

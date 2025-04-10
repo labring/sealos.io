@@ -1,11 +1,12 @@
 @import 'tailwindcss' layer(base);
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
+@import "tailwindcss-animated";
 
 /* path of `fumadocs-ui` relative to the CSS file */
 /* @import 'tailwindcss/theme' layer(theme);
 @import 'tailwindcss/preflight' layer(base); */
-@plugin 'tailwindcss-animate';
+
 
 @source ".";
 @source "../components";
@@ -133,23 +134,7 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(calc(-100% - var(--gap)));
-    }
-  }
-  @keyframes marquee-vertical {
-    from {
-      transform: translateY(0);
-    }
-    to {
-      transform: translateY(calc(-100% - var(--gap)));
-    }
-  }
+ 
 }
 
 /*
