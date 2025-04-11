@@ -19,7 +19,7 @@ async function generateImages() {
   for (const lang of ['en', 'zh-cn']) {
     const posts = blog.getPages(lang as languagesType);
     for (const post of posts) {
-      const title = post.data.title;
+      const title = post.data.imageTitle || post.data.title;
       const category = getPageCategory(post);
       try {
         const canvasBuffer = await drawCanvas(
