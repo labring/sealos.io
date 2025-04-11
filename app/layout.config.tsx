@@ -24,14 +24,7 @@ export const baseOptions: BaseLayoutProps = {
   themeSwitch: {
     enabled: false,
   },
-  githubUrl: 'https://github.com/labring/sealos',
-  links: [
-    {
-      text: 'Documentation',
-      url: '/docs',
-      active: 'nested-url',
-    },
-  ],
+  githubUrl: 'https://github.com/labring/sealos'
 };
 
 // Define the basic structure of navigation links
