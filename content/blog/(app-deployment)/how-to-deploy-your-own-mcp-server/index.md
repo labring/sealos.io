@@ -1,5 +1,6 @@
 ---
 title: 'The Ultimate Step-By-Step Guide To Creating Your Own MCP Server with Sealos DevBox'
+imageTitle: 'How To Create Your Own MCP Server'
 description: 'Sealos DevBox offers a streamlined solution, allowing you to develop and deploy your own MCP server in minutes.'
 date: 2025-04-11
 authors: ['default']
