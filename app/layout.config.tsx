@@ -21,6 +21,9 @@ export const baseOptions: BaseLayoutProps = {
       </div>
     ),
   },
+  themeSwitch: {
+    enabled: false,
+  },
   githubUrl: 'https://github.com/labring/sealos',
   links: [
     {

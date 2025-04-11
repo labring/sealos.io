@@ -101,8 +101,8 @@ export default function Example() {
         <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {data.map((item, index) => (
             <div key={index}>
-              <a href={item.url} target="_blank">
-                <div className="flex flex-1 cursor-pointer items-center gap-3 rounded-lg bg-white/80 p-6 text-sm font-medium text-black shadow-example-card hover:text-[#005B9C] md:text-base">
+              <a href={item.url} target="_blank" rel="noreferrer" className="h-full">
+                <div className="h-full flex flex-1 cursor-pointer items-center gap-3 rounded-lg bg-white/80 p-6 text-sm font-medium text-black shadow-example-card hover:text-[#005B9C] md:text-base">
                   <StarIcon />
                   {item.title}
                 </div>

@@ -32,7 +32,7 @@
     "react-responsive": "^10.0.0",
     "sharp": "^0.33.5",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animated": "2",
+    "tailwindcss-animated": "^2.0.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
