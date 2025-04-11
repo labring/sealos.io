@@ -9,6 +9,15 @@ const config = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   images: {
     // unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'oss.laf.run',
+        port: '',
+        pathname: '/**',
+        search: '',
+      },
+    ],
   },
 };
 

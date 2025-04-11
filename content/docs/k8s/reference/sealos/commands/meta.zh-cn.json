@@ -1,3 +1,4 @@
 {
-    "title": "Sealos 命令说明"
+    "title": "Sealos 命令说明",
+    "pages": ["add", "apply", "build", "cert", "create", "delete", "env", "exec", "gen", "images", "inspect", "load", "login", "logout", "manifest", "merge", "pull", "push", "registry", "reset", "rmi", "run", "save", "scp", "tag"]
 }

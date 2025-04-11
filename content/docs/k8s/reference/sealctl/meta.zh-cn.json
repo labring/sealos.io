@@ -1,4 +1,4 @@
 {
     "title": "Sealctl 使用指南",
-    "pages": ["..."]
+    "pages": ["cert", "cri", "hostname", "hosts", "ipvs", "registry", "static-pod", "tar-and-untar", "token"]
 }
