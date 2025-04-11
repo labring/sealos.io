@@ -26,7 +26,7 @@ export async function generateBlogMetadata(props: {
 
   if (page) {
     url = `${siteConfig.url.base}/blog/${page.slugs.join('/')}`;
-    imageUrl = blogImageApi + page.data.title;
+    imageUrl = blogImageApi + (page.data.imageTitle || page.data.title);
     docTitle = `${page.data.title} | Sealos Blog`;
     description = page.data.description;
   }

@@ -1,5 +1,6 @@
 ---
 title: What Is Model Context Protocol (MCP) - Improved AI Integration
+imageTitle: What is Model Context Protocol (MCP)?
 description: The Model Context Protocol (MCP) acts as a bridge between AI models and external services, creating a standardized communication framework that enhances tool integration, accessibility, and AI reasoning capabilities.
 date: 2025-04-03
 tags: ['Sealos']
