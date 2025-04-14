@@ -6,11 +6,17 @@ date: 2025-04-11
 authors: ['default']
 ---
 
+import YouTube from '@/components/docs/video';
+
 # The Ultimate Step-By-Step Guide To Creating Your Own MCP Server with Sealos DevBox
 
 With the growing popularity of Machine Context Protocol (MCP), developers increasingly want to create custom MCP servers to extend AI capabilities. Sealos DevBox offers a streamlined solution, allowing you to develop and deploy your own MCP server in minutes. This comprehensive guide walks you through the entire process, from initial setup to deployment.
 
 Want to get started straight away? [Deploy an MCP server with DevBox](https://os.sealos.io/?openapp=system-devbox?page%3Dcreate%26runtime%3Dmcp).
+
+You can also follow along with the video tutorial:
+
+<YouTube id="lyQB8Bs6H5E" />
 
 ## What is an MCP Server?
 
@@ -78,9 +84,12 @@ This is where you'll implement your MCP server's functionality.
 
 ## Practical Example: IP Geolocation Service
 
-Let's create an MCP server that retrieves geographical information based on IP addresses:
+Let's create an MCP server that retrieves geographical information based on IP addresses.
+
+First let's add the dependency httpx towards the top of the file `import httpx` and then we can add our main function:
 
 ```python
+
 """Define your mcp server logic"""
 @mcp.tool()
 async def get_ip_info(ip: str = None) -> str:
@@ -137,7 +146,7 @@ Once development and testing are complete:
 7.  When the status shows "running," your deployment is complete
 8.  Copy the public address and update it in your client application
 
-![Once ready you cna publish your DevBox](./images/publish-devbox.png)
+![Once ready you can publish your DevBox](./images/publish-devbox.png)
 
 ## Conclusion
 

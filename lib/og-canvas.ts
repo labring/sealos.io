@@ -1,4 +1,3 @@
-
 import { join } from 'path';
 import { createCanvas, loadImage, registerFont } from 'canvas';
 import { siteConfig } from '@/config/site';
@@ -42,7 +41,6 @@ function seededRandom(x: number, y: number, seed = 12345) {
   return value - Math.floor(value);
 }
 
-
 export async function drawCanvas(
   type: string,
   title: string,
@@ -70,7 +68,6 @@ export async function drawCanvas(
   return buffer;
 }
 
-
 // Get configuration based on content type
 function getContentConfig(type: string) {
   // Default tag and icon if type is not recognized
@@ -80,40 +77,56 @@ function getContentConfig(type: string) {
   let showTitle = true;
 
   // Content specific configurations
-  if (type === 'blog') {
-    tagText = 'Sealos Blog';
-    iconPath = join(
-      process.cwd(),
-      'public',
-      'images',
-      'og',
-      'icons',
-      'blog.svg',
-    );
-  } else if (type === 'docs') {
-    tagText = 'Sealos Docs';
-    iconPath = join(
-      process.cwd(),
-      'public',
-      'images',
-      'og',
-      'icons',
-      'docs.svg',
-    );
-  } else if (type === 'email') {
-    tagText = 'Sealos Email';
-    iconPath = join(
-      process.cwd(),
-      'public',
-      'images',
-      'og',
-      'icons',
-      'email.svg',
-    );
-  } else if (type === 'website') {
-    // For website type, we'll use a different approach
-    showTag = false;
-    showTitle = false;
+  switch (type) {
+    case 'blog':
+      tagText = 'Sealos Blog';
+      iconPath = join(
+        process.cwd(),
+        'public',
+        'images',
+        'og',
+        'icons',
+        'blog.svg',
+      );
+      break;
+    case 'docs':
+      tagText = 'Sealos Docs';
+      iconPath = join(
+        process.cwd(),
+        'public',
+        'images',
+        'og',
+        'icons',
+        'docs.svg',
+      );
+      break;
+    case 'video':
+      tagText = 'Sealos Video';
+      iconPath = join(
+        process.cwd(),
+        'public',
+        'images',
+        'og',
+        'icons',
+        'video.svg',
+      );
+      break;
+    case 'email':
+      tagText = 'Sealos Email';
+      iconPath = join(
+        process.cwd(),
+        'public',
+        'images',
+        'og',
+        'icons',
+        'email.svg',
+      );
+      break;
+    case 'website':
+      // For website type, we'll use a different approach
+      showTag = false;
+      showTitle = false;
+      break;
   }
 
   // Uppercase the tag text
@@ -551,5 +564,3 @@ function drawWrappedText(
 
   ctx.fillText(line, x, y + lineCount * lineHeight);
 }
-
-
