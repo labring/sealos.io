@@ -1,5 +1,4 @@
 import { locales } from '@/lib/i18n';
-import { I18nProvider } from 'fumadocs-ui/i18n';
 import { RootProvider } from 'fumadocs-ui/provider';
 import type { ReactNode } from 'react';
 
@@ -11,11 +10,11 @@ export default function LocaleLayout({
   params: { lang: string };
 }) {
   return (
-    <I18nProvider
-      locale={params.lang}
-      locales={locales}
-      translations={
-        {
+    <RootProvider
+      i18n={{
+        locale: params.lang,
+        locales,
+        translations: {
           'zh-cn': {
             search: '搜索',
             nextPage: '下一页',
@@ -27,19 +26,16 @@ export default function LocaleLayout({
             tocNoHeadings: '本页没有导航',
             chooseLanguage: '选择语言',
           },
-        }[params.lang]
-      }
+        }[params.lang],
+      }}
+      theme={{
+        forcedTheme: 'light',
+        defaultTheme: 'light',
+        enabled: false,
+        enableSystem: false,
+      }}
     >
-      <RootProvider
-        theme={{
-          forcedTheme: 'light',
-          defaultTheme: 'light',
-          enabled: false,
-          enableSystem: false,
-        }}
-      >
-        {children}
-      </RootProvider>
-    </I18nProvider>
+      {children}
+    </RootProvider>
   );
 }
