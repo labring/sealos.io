@@ -1,4 +1,5 @@
 import { baseOptions } from '@/app/layout.config';
+import { getLanguageSlug } from '@/lib/i18n';
 import { source } from '@/lib/source';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import type { ReactNode } from 'react';
@@ -13,7 +14,11 @@ export default function Layout({
   const tree = source.pageTree[params.lang];
 
   return (
-    <DocsLayout tree={tree} {...baseOptions}>
+    <DocsLayout
+      tree={tree}
+      {...baseOptions}
+      nav={{ ...baseOptions.nav, url: getLanguageSlug(params.lang) + '/' }}
+    >
       <span
         className="absolute inset-0 z-[-1] h-[64rem] max-h-screen overflow-hidden"
         style={{

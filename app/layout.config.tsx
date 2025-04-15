@@ -1,8 +1,7 @@
 import { templateDomain } from '@/config/site';
 import { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import Image from 'next/image';
-import { languagesType } from '@/lib/i18n';
-import { i18n } from '@/lib/i18n';
+import { getLanguageSlug, languagesType } from '@/lib/i18n';
 
 /**
  * Shared layout configurations
@@ -108,10 +107,11 @@ export const navTranslations: Record<languagesType, Record<string, string>> = {
 
 // Generate navigation links with translated text and URLs using the language parameter
 export const getHeaderLinks = (lang: languagesType) => {
-  const langSlug = lang == i18n.defaultLanguage ? '' : `/${lang}`;
   return HeaderLinksData.map((link) => ({
     text: navTranslations[lang][link.textKey],
-    url: (link.isExternal ? '' : langSlug) + navTranslations[lang][link.urlKey],
+    url:
+      (link.isExternal ? '' : getLanguageSlug(lang)) +
+      navTranslations[lang][link.urlKey],
     isExternal: link.isExternal,
   }));
 };
