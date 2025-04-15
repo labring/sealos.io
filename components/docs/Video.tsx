@@ -5,6 +5,7 @@ export default function YouTube({ id }: { id: string }) {
         className="aspect-video w-full"
         src={`https://www.youtube.com/embed/${id}`}
         title="YouTube Video Player"
+        allowFullScreen
       />
     </div>
   );
