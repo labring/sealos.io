@@ -80,7 +80,7 @@ export function getBlogImage(title: string, category?: string) {
   return category ? `${baseUrl}?category=${encodeURI(category)}` : baseUrl;
 }
 
-export function getPostsByLuaguage(lang: languagesType) {
+export function getPostsByLanguage(lang: languagesType) {
   // Retrieve all blog posts filtered by language
   const posts = blog.getPages(lang);
 
@@ -112,7 +112,7 @@ export function getSortedBlogPosts(options?: {
   tags?: string[];
   lang?: languagesType;
 }) {
-  let filteredPosts = getPostsByLuaguage(options?.lang ?? 'en');
+  let filteredPosts = getPostsByLanguage(options?.lang ?? 'en');
 
   console.log(filteredPosts);
 

@@ -1,7 +1,11 @@
 import { GetStartedButton } from '@/components/ui/shiny-button';
 import { type AuthorData, blogAuthors, siteConfig } from '@/config/site';
 import { blog } from '@/lib/source';
-import { getBlogImage, getPageCategory, getPostsByLuaguage } from '@/lib/utils/blog-utils';
+import {
+  getBlogImage,
+  getPageCategory,
+  getPostsByLanguage,
+} from '@/lib/utils/blog-utils';
 import type { InferPageType } from 'fumadocs-core/source';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,7 +21,7 @@ import { languagesType } from '@/lib/i18n';
 
 
 function getAdjacentBlog(page: ReturnType<typeof blog.getPage>, lang: languagesType) {
-  const posts = getPostsByLuaguage(lang);
+  const posts = getPostsByLanguage(lang);
   const index = posts.findIndex((p) => p.data.title === page?.data.title);
   const prev = posts[index - 1];
   const next = posts[index + 1];
