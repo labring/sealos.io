@@ -1,0 +1,18 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+  padding-inline: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border-radius: 52px;
+  background: linear-gradient(90deg, rgb(16, 88, 255) 0%, rgb(131, 138, 241) 57.5%, rgb(255, 128, 230) 100%);
+  cursor: pointer;
+}
+
+.buttonText {
+  color: white;
+  margin-right: 6px;
+  font-size: 14px;
+}
