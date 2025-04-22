@@ -12,6 +12,16 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     return NextResponse.redirect(new URL(`https://sealos.io${pathname}`));
   }
 
+  // Redirect English customers pages to homepage
+  if (pathname === '/en/customers' || pathname.startsWith('/en/customers/')) {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
+
+  // If default language is English, also redirect /customers to homepage
+  if ((pathname === '/customers' || pathname.startsWith('/customers/')) && i18n.defaultLanguage === 'en') {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
+
   if (pathname === '/robots.txt') {
     return NextResponse.rewrite(new URL('/api/robots', request.url));
   }

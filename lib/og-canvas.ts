@@ -100,6 +100,17 @@ function getContentConfig(type: string) {
         'docs.svg',
       );
       break;
+    case 'customers':
+      tagText = 'Sealos Customers';
+      iconPath = join(
+        process.cwd(),
+        'public',
+        'images',
+        'og',
+        'icons',
+        'blog.svg', // Reusing blog icon for now, can be replaced with a dedicated icon later
+      );
+      break;
     case 'video':
       tagText = 'Sealos Video';
       iconPath = join(

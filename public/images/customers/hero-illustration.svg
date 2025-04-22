@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="500" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cloud Platform Base -->
+  <rect x="150" y="300" width="300" height="60" rx="10" fill="#52AEFF" />
+  <rect x="170" y="310" width="260" height="40" rx="5" fill="#0078D4" />
+  
+  <!-- Middle Layer -->
+  <rect x="180" y="230" width="240" height="60" rx="10" fill="#52AEFF" />
+  <rect x="200" y="240" width="200" height="40" rx="5" fill="#0078D4" />
+  
+  <!-- Top Layer -->
+  <rect x="210" y="160" width="180" height="60" rx="10" fill="#52AEFF" />
+  <rect x="230" y="170" width="140" height="40" rx="5" fill="#0078D4" />
+  
+  <!-- Person on Platform -->
+  <g transform="translate(400, 160) scale(0.8)">
+    <!-- Body -->
+    <rect x="0" y="0" width="40" height="70" rx="10" fill="#FFFFFF" />
+    <!-- Head -->
+    <circle cx="20" cy="-15" r="20" fill="#FFFFFF" />
+    <!-- Arms -->
+    <rect x="-20" y="15" width="40" height="10" rx="5" fill="#FFFFFF" />
+    <rect x="20" y="15" width="40" height="10" rx="5" fill="#FFFFFF" />
+    <!-- Legs -->
+    <rect x="5" y="70" width="10" height="30" rx="5" fill="#FFFFFF" />
+    <rect x="25" y="70" width="10" height="30" rx="5" fill="#FFFFFF" />
+    <!-- Tablet/Device -->
+    <rect x="-15" y="30" width="30" height="20" rx="2" fill="#52AEFF" />
+  </g>
+  
+  <!-- Person on Platform 2 -->
+  <g transform="translate(250, 230) scale(0.8)">
+    <!-- Body -->
+    <rect x="0" y="0" width="40" height="70" rx="10" fill="#FFFFFF" />
+    <!-- Head -->
+    <circle cx="20" cy="-15" r="20" fill="#FFFFFF" />
+    <!-- Arms -->
+    <rect x="-20" y="15" width="40" height="10" rx="5" fill="#FFFFFF" />
+    <rect x="20" y="15" width="40" height="10" rx="5" fill="#FFFFFF" />
+    <!-- Legs -->
+    <rect x="5" y="70" width="10" height="30" rx="5" fill="#FFFFFF" />
+    <rect x="25" y="70" width="10" height="30" rx="5" fill="#FFFFFF" />
+    <!-- Tablet/Device -->
+    <rect x="-15" y="30" width="30" height="20" rx="2" fill="#52AEFF" />
+  </g>
+  
+  <!-- Connection Lines -->
+  <line x1="300" y1="160" x2="300" y2="230" stroke="#52AEFF" stroke-width="4" stroke-dasharray="10,5" />
+  <line x1="300" y1="290" x2="300" y2="300" stroke="#52AEFF" stroke-width="4" stroke-dasharray="10,5" />
+  
+  <!-- Data Flow Arrows -->
+  <g transform="translate(320, 200) rotate(90)">
+    <path d="M0,0 L10,10 L0,20 Z" fill="#FFFFFF" />
+  </g>
+  <g transform="translate(280, 270) rotate(90)">
+    <path d="M0,0 L10,10 L0,20 Z" fill="#FFFFFF" />
+  </g>
+  
+  <!-- Cloud Elements -->
+  <g transform="translate(150, 100)">
+    <circle cx="0" cy="0" r="20" fill="#52AEFF" opacity="0.5" />
+    <circle cx="15" cy="-10" r="25" fill="#52AEFF" opacity="0.5" />
+    <circle cx="30" cy="0" r="20" fill="#52AEFF" opacity="0.5" />
+    <circle cx="15" cy="10" r="15" fill="#52AEFF" opacity="0.5" />
+  </g>
+  
+  <g transform="translate(450, 120)">
+    <circle cx="0" cy="0" r="15" fill="#52AEFF" opacity="0.5" />
+    <circle cx="10" cy="-8" r="20" fill="#52AEFF" opacity="0.5" />
+    <circle cx="25" cy="0" r="15" fill="#52AEFF" opacity="0.5" />
+    <circle cx="10" cy="8" r="12" fill="#52AEFF" opacity="0.5" />
+  </g>
+  
+  <!-- Abstract Data Elements -->
+  <g transform="translate(400, 80)">
+    <rect x="0" y="0" width="30" height="5" rx="2" fill="#FFFFFF" opacity="0.7" />
+    <rect x="0" y="10" width="20" height="5" rx="2" fill="#FFFFFF" opacity="0.7" />
+    <rect x="0" y="20" width="25" height="5" rx="2" fill="#FFFFFF" opacity="0.7" />
+  </g>
+  
+  <g transform="translate(180, 350)">
+    <rect x="0" y="0" width="30" height="5" rx="2" fill="#FFFFFF" opacity="0.7" />
+    <rect x="0" y="10" width="20" height="5" rx="2" fill="#FFFFFF" opacity="0.7" />
+    <rect x="0" y="20" width="25" height="5" rx="2" fill="#FFFFFF" opacity="0.7" />
+  </g>
+  
+  <!-- Floating Icons -->
+  <g transform="translate(150, 200)">
+    <circle cx="0" cy="0" r="15" fill="#0078D4" opacity="0.8" />
+    <path d="M-5,-5 L5,5 M-5,5 L5,-5" stroke="#FFFFFF" stroke-width="2" />
+  </g>
+  
+  <g transform="translate(450, 250)">
+    <circle cx="0" cy="0" r="15" fill="#0078D4" opacity="0.8" />
+    <path d="M-5,0 L5,0 M0,-5 L0,5" stroke="#FFFFFF" stroke-width="2" />
+  </g>
+  
+  <!-- Decorative Elements -->
+  <g transform="translate(100, 150)">
+    <rect x="0" y="0" width="10" height="10" fill="#FFFFFF" opacity="0.3" />
+    <rect x="20" y="20" width="10" height="10" fill="#FFFFFF" opacity="0.3" />
+    <rect x="40" y="0" width="10" height="10" fill="#FFFFFF" opacity="0.3" />
+  </g>
+  
+  <g transform="translate(500, 350)">
+    <rect x="0" y="0" width="10" height="10" fill="#FFFFFF" opacity="0.3" />
+    <rect x="20" y="20" width="10" height="10" fill="#FFFFFF" opacity="0.3" />
+    <rect x="40" y="0" width="10" height="10" fill="#FFFFFF" opacity="0.3" />
+  </g>
+</svg>

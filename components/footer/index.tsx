@@ -85,24 +85,26 @@ export const footerTranslations: Record<languagesType, Record<string, string>> =
     resourcesTitle: 'Resources',
     productsTitle: 'Products',
     supportTitle: 'Support',
-    
+
     // Link texts
     docs: 'Docs',
     appStore: 'App Store',
     devbox: 'DevBox',
     fastgpt: 'FastGPT',
     contactUs: 'Contact Us',
+    case: 'Customers ',
     termsOfService: 'Terms of Service',
     privacyPolicy: 'Privacy Policy',
     cookiePolicy: 'Cookie Policy',
     copyright: 'Copyright © 2024 Sealos. All rights reserved.',
-    
+
     // URLs
     docsUrl: '/docs/quick-start',
     appStoreUrl: templateDomain,
     devboxUrl: '/devbox',
     fastgptUrl: 'https://tryfastgpt.ai',
     contactUsUrl: 'mailto:contact@sealos.io',
+    caseUrl: '/customers',
     termsOfServiceUrl: '/docs/msa/terms-of-service',
     privacyPolicyUrl: '/docs/msa/privacy-policy',
     cookiePolicyUrl: '/legal/cookie-policy',
@@ -112,7 +114,7 @@ export const footerTranslations: Record<languagesType, Record<string, string>> =
     resourcesTitle: '资源',
     productsTitle: '产品',
     supportTitle: '支持',
-    
+
     // Link texts
     docs: '文档',
     appStore: '应用商店',
@@ -126,7 +128,7 @@ export const footerTranslations: Record<languagesType, Record<string, string>> =
     privacyPolicy: '隐私政策',
     cookiePolicy: 'Cookie 政策',
     copyright: 'Copyright © 2024 Sealos. 粤ICP备2023048773号 珠海环界云计算有限公司版权所有',
-    
+
     // URLs - keeping the same URLs as English but can be customized if needed
     docsUrl: '/docs/quick-start',
     appStoreUrl: templateDomain,
@@ -134,7 +136,7 @@ export const footerTranslations: Record<languagesType, Record<string, string>> =
     fastgptUrl: 'https://fastgpt.cn',
     aiproxyUrl: '/aiproxy',
     contactUsUrl: 'https://fael3z0zfze.feishu.cn/share/base/form/shrcn5oHHTKCf3VREMKOhEy6fmf',
-    caseUrl: '/case',
+    caseUrl: '/customers',
     forumUrl: 'https://forum.sealos.run',
     termsOfServiceUrl: '/docs/msa/terms-of-service',
     privacyPolicyUrl: '/docs/msa/privacy-policy',
@@ -145,16 +147,17 @@ export const footerTranslations: Record<languagesType, Record<string, string>> =
 // Generate the footer links with translated text and URLs
 const getFooterLinks = (lang: languagesType) => {
   const translations = footerTranslations[lang];
-  
+
   const productLinks = [...FooterLinksData.products.links];
   if (lang === 'zh-cn') {
     productLinks.push({ textKey: 'aiproxy', urlKey: 'aiproxyUrl', isExternal: false });
   }
   const supportLinks = [...FooterLinksData.support.links];
+  supportLinks.push({ textKey: 'case', urlKey: 'caseUrl', isExternal: false });
   if (lang === 'zh-cn') {
-    supportLinks.push({ textKey: 'case', urlKey: 'caseUrl', isExternal: false },{ textKey: 'forum', urlKey: 'forumUrl', isExternal: true });
+    supportLinks.push({ textKey: 'forum', urlKey: 'forumUrl', isExternal: true });
   }
-  
+
   return {
     resources: {
       title: FooterLinksData.resources.titleKey ? translations[FooterLinksData.resources.titleKey] : '',
@@ -197,7 +200,7 @@ interface FooterProps {
 
 const Footer = async ({ lang = i18n.defaultLanguage as languagesType }: FooterProps) => {
   const footerLinks = getFooterLinks(lang);
-  
+
   return (
     <div className="relative w-full pt-20">
       <div className="mx-auto flex max-w-7xl flex-col items-start justify-between text-sm max-xl:px-8 lg:flex-row">

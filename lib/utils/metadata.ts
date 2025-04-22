@@ -122,7 +122,6 @@ export function generatePageMetadata(
     pathname?: string | null;
   } = {},
 ): Metadata {
-  const websiteImageApi = `${ogImageApi}/website/`;
   const title = options.title
     ? `${options.title} | ${siteConfig.name}`
     : `${siteConfig.name} | ${siteConfig.tagline}`;
@@ -130,10 +129,34 @@ export function generatePageMetadata(
     ? options.description
     : siteConfig.description;
   const keywords = options.keywords ? options.keywords : siteConfig.keywords;
-  const getImage = options.pathname
-    ? options.pathname.replace(/^\/+/, '')
-    : undefined;
-  const imageUrl = websiteImageApi + (getImage || 'default');
+
+  // Determine the correct image API endpoint based on the pathname
+  let imageApi = `${ogImageApi}/website/`;
+  let imagePath = 'default';
+
+  if (options.pathname) {
+    const path = options.pathname.replace(/^\/*/, '');
+
+    // Extract the language and the rest of the path
+    const pathParts = path.split('/');
+    const lang = pathParts[0]; // First part is the language
+    const restPath = pathParts.slice(1).join('/');
+
+    if (restPath.startsWith('customers/')) {
+      // For customer case pages
+      imageApi = `${ogImageApi}/customers/`;
+      imagePath = restPath.replace('customers/', '');
+    } else if (restPath === 'customers') {
+      // For main customers page
+      imageApi = `${ogImageApi}/customers/`;
+      imagePath = 'default';
+    } else {
+      // For other pages
+      imagePath = restPath || path; // Use restPath if available, otherwise use the full path
+    }
+  }
+
+  const imageUrl = imageApi + imagePath;
 
   return {
     title: title,
@@ -144,7 +167,7 @@ export function generatePageMetadata(
     // },
     openGraph: {
       type: 'website',
-      // url: siteConfig.url.base,
+      url: options.pathname ? `${siteConfig.url.base}/${options.pathname}` : siteConfig.url.base,
       siteName: siteName,
       title: title,
       description: description,
