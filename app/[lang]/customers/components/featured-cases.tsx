@@ -55,7 +55,13 @@ export default function FeaturedCases({ lang }: { lang: languagesType }) {
   const t = translations[lang];
 
   return (
-    <section className="py-24">
+    <section className="py-24 relative">
+      {/* Visual indicator at the top of the section */}
+      <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex flex-col items-center">
+        <div className="h-12 w-1 rounded-full bg-gradient-to-b from-primary/10 to-primary/40"></div>
+        <div className="mt-1 h-3 w-3 rounded-full bg-primary/60"></div>
+      </div>
+
       <h2 className="mb-12 text-center text-3xl font-bold tracking-tight text-black md:text-4xl">{t.title}</h2>
       <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
         {t.featuredCases.map((caseStudy, index) => (

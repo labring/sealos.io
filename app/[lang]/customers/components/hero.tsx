@@ -6,11 +6,13 @@ const translations = {
     title: 'Customer Success Stories',
     description: 'Discover how industry leaders and technology pioneers leverage our platform to power up their applications and accelerate business growth.',
     getStarted: 'Get Started Free',
+    scrollForMore: 'Scroll for more',
   },
   'zh-cn': {
     title: '客户成功案例',
     description: '了解行业领导者和技术先驱如何利用我们的平台为其应用提供动力并加速业务增长。',
     getStarted: '免费开始使用',
+    scrollForMore: '向下滚动查看更多',
   }
 };
 
@@ -56,6 +58,16 @@ export default function Hero({ lang }: { lang: languagesType }) {
           {/* Glowing effect behind illustration */}
           <div className="absolute -right-10 -top-10 z-0 h-64 w-64 rounded-full bg-blue-500/20 blur-3xl"></div>
           <div className="absolute -bottom-10 -left-10 z-0 h-64 w-64 rounded-full bg-primary/20 blur-3xl"></div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-4 left-0 right-0 flex flex-col items-center justify-center">
+        <div className="mb-2 text-sm font-medium text-gray-300 opacity-80">{t.scrollForMore}</div>
+        <div className="animate-bounce rounded-full bg-white/10 p-2 backdrop-blur-sm transition-all duration-300 hover:bg-white/20">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
         </div>
       </div>
     </section>

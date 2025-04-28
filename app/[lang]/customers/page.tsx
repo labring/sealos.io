@@ -35,7 +35,7 @@ export default function CasePage({
 }) {
   return (
     <main className="px-8 pt-20 md:px-[15%]">
-      <div className="space-y-8"> {/* Add spacing container */}
+      <div className="space-y-16"> {/* Increased spacing between sections for better visual separation */}
         <Hero lang={params.lang} />
         <FeaturedCases lang={params.lang} />
         <CaseGrid lang={params.lang} />
