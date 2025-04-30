@@ -111,7 +111,7 @@ DevBox is the perfect companion for your AI code editor because it gives you an 
 | ------------------------ | --------------- | --------------- | --------------- | ------------- |
 | **DevBox Compatibility** | ✅ Full support | ✅ Full support | ✅ Full support | ✅ Compatible |
 
-The VS Code Marketplace hosts the [DevBox extension]([https://marketplace.visualstudio.com/items?itemName=labring.devbox-aio]) which is compatible with VS Code based editors.
+The VS Code Marketplace hosts the [DevBox extension](https://marketplace.visualstudio.com/items?itemName=labring.devbox-aio) which is compatible with VS Code based editors.
 
 ### General Features
 
