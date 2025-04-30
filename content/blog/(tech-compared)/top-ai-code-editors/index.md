@@ -97,7 +97,88 @@ The newest contender from ByteDance (creators of TikTok) brings fresh ideas to t
 
 ### Honorable Mention: Zed
 
+![](./images/zed.webp)
+
 Breaking from the VS Code mold, Zed is built from the ground up in Rust with a focus on performance and clean design. While newer to AI integration (launched in August 2024), its blazing speed and careful approach to AI features make it worth watching.
+
+## AI IDE Comparison Table
+
+### DevBox Compatibility
+
+DevBox is the perfect companion for your AI code editor because it gives you an instant, ready-to-code development environment—no setup, no dependencies, no waiting. Whether you're fine-tuning models, integrating APIs, or testing inference pipelines, DevBox lets you spin up isolated, GPU-capable containers with everything pre-installed and versioned. You can move from prompt to prototype in seconds, and sync seamlessly between your editor and the cloud without worrying about breaking your local machine. It’s the fastest way to go from idea to running AI code, right from your editor.
+
+| Feature                  | Cursor          | Windsurf        | VS Code         | Trae          |
+| ------------------------ | --------------- | --------------- | --------------- | ------------- |
+| **DevBox Compatibility** | ✅ Full support | ✅ Full support | ✅ Full support | ✅ Compatible |
+
+The VS Code Marketplace hosts the [DevBox extension]([https://marketplace.visualstudio.com/items?itemName=labring.devbox-aio]) which is compatible with VS Code based editors.
+
+### General Features
+
+| Feature          | Cursor                | Windsurf           | VS Code                    | Trae                   |
+| ---------------- | --------------------- | ------------------ | -------------------------- | ---------------------- |
+| Release Year     | 2022                  | 2023               | 2015                       | 2024                   |
+| License          | Proprietary           | Proprietary        | MIT (Open Source)          | Proprietary            |
+| Platform Support | Windows, macOS, Linux | Windows, macOS     | Windows, macOS, Linux, Web | Windows, macOS, Linux  |
+| Performance      | High (optimized)      | High (lightweight) | Moderate                   | Very high (rust-based) |
+| Memory Usage     | Moderate              | Low                | Moderate-High              | Very low               |
+
+### AI Features
+
+| Feature               | Cursor          | Windsurf           | VS Code              | Trae         |
+| --------------------- | --------------- | ------------------ | -------------------- | ------------ |
+| Built-in AI Assistant | ✅ Cursor AI    | ✅ Windsurf AI     | ❌ (via extensions)  | ✅ TraeGPT   |
+| Code Completion       | Advanced        | Advanced           | Basic (IntelliSense) | Advanced     |
+| Code Generation       | ✅ Extensive    | ✅ Good            | ✅ Via extensions    | ✅ Excellent |
+| AI Pair Programming   | ✅ Strong focus | ✅ Primary feature | ❌ Limited           | ✅ Advanced  |
+| Context Understanding | High            | Very high          | Depends on extension | Very high    |
+
+### Developer Experience
+
+| Feature              | Cursor                        | Windsurf      | VS Code       | Trae             |
+| -------------------- | ----------------------------- | ------------- | ------------- | ---------------- |
+| Extension Ecosystem  | Moderate (VS Code compatible) | Growing       | Extensive     | Growing rapidly  |
+| Customization        | High                          | Moderate      | Very high     | High             |
+| Git Integration      | Strong                        | Basic         | Comprehensive | Strong           |
+| Debugging Tools      | Advanced                      | Basic         | Comprehensive | Advanced         |
+| Terminal Integration | Full support                  | Basic support | Full support  | Enhanced support |
+
+### Language Support
+
+| Feature                | Cursor         | Windsurf      | VS Code        | Trae          |
+| ---------------------- | -------------- | ------------- | -------------- | ------------- |
+| Language Support       | 100+ languages | 50+ languages | 100+ languages | 75+ languages |
+| Framework Support      | Extensive      | Good          | Extensive      | Strong        |
+| LSP Support            | Full           | Partial       | Full           | Full          |
+| Custom Language Server | ✅             | ❌            | ✅             | ✅            |
+
+### Special Features
+
+| Feature                       | Cursor      | Windsurf        | VS Code             | Trae          |
+| ----------------------------- | ----------- | --------------- | ------------------- | ------------- |
+| Real-time Collaboration       | ✅          | ❌              | ✅ (via extensions) | ✅            |
+| Chat Interface                | ✅ Advanced | ✅ Clean design | ❌ (via extensions) | ✅ Integrated |
+| Voice Coding                  | ✅          | ❌              | ❌ (via extensions) | ✅            |
+| Code Refactoring AI           | ✅ Advanced | ✅ Basic        | ❌ (via extensions) | ✅ Advanced   |
+| Project-wide AI Understanding | ✅ High     | ✅ Moderate     | ❌ (limited)        | ✅ Very high  |
+
+### Price & Licensing
+
+| Feature            | Cursor       | Windsurf     | VS Code                     | Trae         |
+| ------------------ | ------------ | ------------ | --------------------------- | ------------ |
+| Free Tier          | ✅ Limited   | ✅ Limited   | ✅ Fully featured           | ✅ Basic     |
+| Pro Tier           | $20/month    | $15/month    | Free (some extensions paid) | $18/month    |
+| Team Pricing       | ✅ Available | ✅ Available | N/A                         | ✅ Available |
+| Enterprise Options | ✅ Custom    | ❌ Not yet   | ✅ Via Microsoft            | ✅ Custom    |
+
+### Community & Support
+
+| Feature               | Cursor        | Windsurf         | VS Code     | Trae             |
+| --------------------- | ------------- | ---------------- | ----------- | ---------------- |
+| Documentation         | Comprehensive | Good             | Excellent   | Very good        |
+| Community Size        | Growing       | Small but active | Massive     | New but growing  |
+| Issue Resolution Time | Fast          | Moderate         | Variable    | Fast             |
+| Active Development    | Very active   | Active           | Very active | Extremely active |
 
 ## Additional Noteworthy AI Coding Tools
 
