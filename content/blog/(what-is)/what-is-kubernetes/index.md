@@ -84,7 +84,7 @@ Worker nodes are the machines that run containerized applications. Each node inc
 
 3. **Container Runtime**: The software responsible for running containers (Docker, containerd, CRI-O, etc.)
 
-![Kubernetes Cluster Architecture](placeholder-for-cluster-architecture-image.jpg)
+![Kubernetes Cluster Architecture](./images/kubernetes-cluster-architecture.webp)
 
 ## Essential Kubernetes Components
 
