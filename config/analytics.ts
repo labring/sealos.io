@@ -14,6 +14,10 @@ export interface AnalyticsConfig {
   email?: {
     enabled: boolean;
   };
+  rybbit?: {
+    siteId: string;
+    enabled: boolean;
+  };
   // umami?: {
   //   websiteId: string;
   //   src: string;
@@ -41,6 +45,10 @@ const analyticsConfigByLanguage: Record<string, AnalyticsConfig> = {
     email: {
       enabled: true,
     },
+    rybbit: {
+      siteId: '1',
+      enabled: true,
+    },
   },
   'zh-cn': {
     baidu: {
@@ -57,6 +65,10 @@ const analyticsConfigByLanguage: Record<string, AnalyticsConfig> = {
     },
     email: {
       enabled: true,
+    },
+    rybbit: {
+      siteId: '',
+      enabled: false,
     },
   },
 };

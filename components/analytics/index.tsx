@@ -20,6 +20,18 @@ const loadClarity = (trackingId: string) => {
   firstScript?.parentNode?.insertBefore(s, firstScript);
 };
 
+// Rybbit analytics script for lazy loading
+const loadRybbitAnalytics = (siteId: string) => {
+  const d = document;
+  const s = d.createElement('script');
+  s.async = true;
+  s.defer = true;
+  s.src = 'https://analytics.sealos.io/api/script.js';
+  s.setAttribute('data-site-id', siteId);
+  const firstScript = d.getElementsByTagName('script')[0];
+  firstScript?.parentNode?.insertBefore(s, firstScript);
+};
+
 export function Analytics() {
   // Lazy load Clarity after page is fully loaded
   useEffect(() => {
@@ -28,6 +40,18 @@ export function Analytics() {
       const timer = setTimeout(() => {
         loadClarity(analyticsConfig.clarity!.trackingId);
       }, 3000); // 3 seconds delay
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  // Lazy load Rybbit analytics after page is fully loaded
+  useEffect(() => {
+    if (analyticsConfig.rybbit?.enabled) {
+      // Add a small delay to prioritize more important resources
+      const timer = setTimeout(() => {
+        loadRybbitAnalytics(analyticsConfig.rybbit!.siteId);
+      }, 3500); // 3.5 seconds delay (slightly after Clarity)
 
       return () => clearTimeout(timer);
     }
@@ -42,7 +66,7 @@ export function Analytics() {
             (function() {
               var hm = document.createElement("script");
               hm.src = "https://hm.baidu.com/hm.js?${analyticsConfig.baidu.trackingId}";
-              var s = document.getElementsByTagName("script")[0]; 
+              var s = document.getElementsByTagName("script")[0];
               s.parentNode.insertBefore(hm, s);
             })();
           `}
