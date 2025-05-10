@@ -2,58 +2,58 @@
   "redirects": [
     {
       "source": "/zh-Hans/blog/:path(.*)",
-      "destination": "https://blog.sealos.run/blog/:path",
-      "permanent": false
+      "destination": "https://sealos.run/blog/:path",
+      "permanent": true
     },
     {
       "source": "/docs/Intro",
       "destination": "https://sealos.io/docs/overview/intro",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/5.0.0/Intro",
       "destination": "https://sealos.io/docs/overview/intro",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/zh-Hans/:path(.*)",
       "destination": "https://sealos.run/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/self-hosting",
       "destination": "https://sealos.run/self-hosting",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/pricing",
       "destination": "https://sealos.run/pricing",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/5.0.0/user-guide/ai-proxy",
       "destination": "https://sealos.run/docs/5.0.0/user-guide/ai-proxy/",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/5.0.0/developer-guide/sealos/installation",
       "destination": "https://sealos.run/docs/5.0.0/developer-guide/sealos/installation",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/self-hosting/sealos/installation",
       "destination": "https://sealos.run/docs/self-hosting/sealos/installation",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/self-hosting/lifecycle-management/quick-start/deploy-kubernetes",
       "destination": "https://sealos.run/docs/self-hosting/lifecycle-management/quick-start/deploy-kubernetes",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/company",
       "destination": "https://sealos.run/company",
-      "permanent": false
+      "permanent": true
     }
   ]
 }
