@@ -42,6 +42,7 @@ export default function HomePage({
         </Hero>
         <div className="mb-[64px]  mt-[64px] h-[1px] bg-[#DDE7F7]"></div>
         <FeatureFour />
+        <div id="one-click-deployment" className="scroll-mt-20" />
         <TechGrid />
         <Feature />
         <FooterCta />

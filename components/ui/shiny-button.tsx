@@ -41,7 +41,7 @@ const ShinyButton = ({ children, className, ...props }: ShinyButtonProps) => {
       )}
     >
       <span
-        className="relative block size-full text-sm uppercase tracking-wide text-[rgb(0,0,0,65%)] dark:font-light dark:text-[rgb(255,255,255,90%)]"
+        className="relative block size-full text-sm tracking-wide text-[rgb(0,0,0,65%)] uppercase dark:font-light dark:text-[rgb(255,255,255,90%)]"
         style={{
           maskImage:
             'linear-gradient(-75deg,hsl(var(--primary)) calc(var(--x) + 20%),transparent calc(var(--x) + 30%),hsl(var(--primary)) calc(var(--x) + 100%))',
@@ -71,6 +71,7 @@ export const GetStartedButton = ({
   link?: string;
 }) => {
   const handleClick = () => {
+    window.rybbit.event('Get Started Button Clicked');
     if (link) {
       window.location.href = link;
     }
@@ -79,7 +80,7 @@ export const GetStartedButton = ({
   return (
     <div
       className={cn(
-        'relative flex cursor-pointer items-center justify-center gap-[6px] overflow-hidden rounded-md bg-custom-bg py-2 pl-4 pr-3 text-custom-primary-text shadow-button hover:bg-[#97D9FF] sm:pl-5 sm:pr-4',
+        'bg-custom-bg text-custom-primary-text shadow-button relative flex cursor-pointer items-center justify-center gap-[6px] overflow-hidden rounded-md py-2 pr-3 pl-4 hover:bg-[#97D9FF] sm:pr-4 sm:pl-5',
         className,
       )}
       onClick={handleClick}
