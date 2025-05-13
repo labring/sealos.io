@@ -12,13 +12,24 @@ import { appDomain } from '@/config/site';
 import { languagesType } from '@/lib/i18n';
 import placeholderImage from '/public/images/video.webp';
 
-const title = {
-  main: 'Code. Build. Deploy. We’ve Got the Rest.',
-  sub: 'Seamless development from start to production. ',
+// Define translations for different languages
+const translations = {
+  'en': {
+    title: {
+      main: 'Code. Build. Deploy. We\'ve Got the Rest.',
+      sub: 'Seamless development from start to production.',
+    }
+  },
+  'zh-cn': {
+    title: {
+      main: '编码. 构建. 部署. 其余的交给我们.',
+      sub: '从开发到生产的无缝体验.',
+    }
+  }
 };
 
 export const metadata = generatePageMetadata({
-  title: 'DevBox' + ' | ' + title.sub,
+  title: 'DevBox' + ' | ' + translations.en.title.sub,
 });
 
 export default function HomePage({
@@ -26,14 +37,17 @@ export default function HomePage({
 }: {
   params: { lang: languagesType };
 }) {
+  const t = translations[params.lang] || translations.en;
+
   return (
     <div className="h-full bg-[#EBF2FF]">
       <Header lang={params.lang} />
       <main className="custom-container px-8 pt-14 md:px-[15%]">
         <Hero
-          title={title}
+          title={t.title}
           mainTitleEmphasis={1}
           getStartedLink={`${appDomain}/?openapp=system-devbox`}
+          lang={params.lang}
         >
           <Video
             url="https://youtu.be/A9mxz0JaY2o"

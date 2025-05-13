@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useInView } from 'framer-motion';
-import { ReactNode, useRef } from 'react';
+import { ReactNode, useRef, memo } from 'react';
 
 type AnimationType = 'fadeIn' | 'slideUp' | 'scale' | 'rotate';
 
@@ -13,22 +13,42 @@ interface AnimateElementProps {
   className?: string;
 }
 
-const animations: Record<AnimationType, any> = {
+// Pre-define animation variants to avoid recreating objects on each render
+const animations = {
   fadeIn: { opacity: [0, 1] },
   slideUp: { opacity: [0, 1], y: [50, 0] },
   scale: { scale: [0, 1] },
   rotate: { rotate: [-180, 0], opacity: [0, 1] },
 };
 
-export const AnimateElement: React.FC<AnimateElementProps> = ({
+// Hidden variant is constant, so define it outside the component
+const hiddenVariant = { opacity: 0, y: 50 };
+
+// Memoize the component to prevent unnecessary re-renders
+export const AnimateElement = memo(({
   children,
   type,
   delay = 0.2,
   duration = 0.4,
   className,
-}) => {
+}: AnimateElementProps) => {
   const ref = useRef(null);
-  const isInView = useInView(ref);
+  // Only track inView changes, with a margin to start animation before fully in view
+  const isInView = useInView(ref, {
+    once: true, // Only animate once
+    margin: "-10% 0px" // Start animation when element is 10% away from viewport
+  });
+
+  // Create the visible variant with the specific animation type
+  const visibleVariant = {
+    ...animations[type],
+    transition: {
+      duration,
+      delay,
+      // Use a simpler easing function for better performance
+      ease: "easeOut",
+    },
+  };
 
   return (
     <motion.div
@@ -36,19 +56,12 @@ export const AnimateElement: React.FC<AnimateElementProps> = ({
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
       variants={{
-        hidden: { opacity: 0, y: 50 },
-        visible: {
-          ...animations[type],
-          transition: {
-            duration,
-            delay,
-            ease: [0.17, 0.55, 0.55, 1],
-          },
-        },
+        hidden: hiddenVariant,
+        visible: visibleVariant,
       }}
       className={className}
     >
       {children}
     </motion.div>
   );
-};
+});

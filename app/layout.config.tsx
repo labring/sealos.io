@@ -89,7 +89,7 @@ export const navTranslations: Record<languagesType, Record<string, string>> = {
     devboxUrl: '/devbox',
     appStoreUrl: templateDomain,
     docsUrl: '/docs',
-    caseUrl: '/customers',
+    caseUrl: '/',
     blogUrl: '/blog',
     contactUrl: 'mailto:contact@sealos.io',
   },

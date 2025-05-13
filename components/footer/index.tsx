@@ -118,7 +118,7 @@ export const footerTranslations: Record<
     devboxUrl: '/devbox',
     fastgptUrl: 'https://tryfastgpt.ai',
     contactUsUrl: 'mailto:contact@sealos.io',
-    caseUrl: '/customers',
+    caseUrl: '/',
     termsOfServiceUrl: '/docs/msa/terms-of-service',
     privacyPolicyUrl: '/docs/msa/privacy-policy',
     cookiePolicyUrl: '/legal/cookie-policy',
