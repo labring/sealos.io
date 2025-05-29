@@ -1,136 +1,1783 @@
 ---
 title: Node.js
-description: Learn how to connect to Redis databases in Sealos DevBox using Node.js
+description: Comprehensive guide for using Redis with Node.js in Sealos - from basics to production deployment
 ---
 
-This guide will walk you through the process of connecting to a Redis database using Node.js within your Sealos DevBox project.
+import { File, Folder, Files } from 'fumadocs-ui/components/files';
+
+This comprehensive guide covers everything you need to know about using Redis with Node.js in Sealos DevBox, from basic operations to production-ready implementations.
 
 ## Prerequisites
 
 - [A Sealos DevBox project](/docs/guides/fundamentals/create-a-project) with Node.js environment
 - [A Redis database created using the Database app in Sealos](./)
+- Basic understanding of JavaScript and Node.js
 
-## Install Required Packages
+## Project Setup & Structure
+
+Let's start by setting up a complete project structure that we'll build upon throughout this guide.
+
+### Initialize Your Project
 
 In your Cursor terminal, install the necessary packages:
 
 ```bash
-npm install redis dotenv
+npm install redis dotenv @redis/json @redis/search @redis/time-series msgpack5
 ```
 
-This command installs:
-- `redis`: The Redis client for Node.js
-- `dotenv`: A zero-dependency module that loads environment variables from a `.env` file
+### Project Structure
 
-## Connection Setup
+Create the following directory structure:
+
+```bash
+# Create directories
+mkdir src examples tests
+
+# Create main files
+touch .env package.json
+touch src/redisClient.js
+touch examples/basic-operations.js
+touch tests/connection-test.js
+```
+
+Your project should look like this:
+
+<Files>
+  <Folder name="redis-nodejs-guide" defaultOpen>
+    <File name=".env" />
+    <File name="package.json" />
+    <Folder name="src" defaultOpen>
+      <File name="redisClient.js" />
+    </Folder>
+    <Folder name="examples">
+      <File name="basic-operations.js" />
+    </Folder>
+    <Folder name="tests">
+      <File name="connection-test.js" />
+    </Folder>
+  </Folder>
+</Files>
+
+### Environment Configuration
 
 <div className='steps [&_h4]:step'>
 
-#### Set up the environment variables
+#### Set up environment variables
 
-First, let's set up the environment variables for our database connection. Create a `.env` file in your project root with the following content:
+Create your `.env` file with your Sealos Redis credentials:
 
 ```ini title=".env"
+# Basic Redis connection
 REDIS_HOST=your_redis_host
 REDIS_PORT=6379
 REDIS_PASSWORD=your_redis_password
+REDIS_DB=0
+
+# Advanced settings (we'll use these later)
+REDIS_TLS=false
+REDIS_USERNAME=default
+REDIS_CONNECT_TIMEOUT=10000
+REDIS_COMMAND_TIMEOUT=5000
 ```
 
-Replace the placeholders with your actual Redis credentials from the Database app in Sealos.
+#### Create the main Redis client
 
-#### Create a connection file
+Create `src/redisClient.js` - this will be our single source of truth for Redis connections:
 
-Next, create a file named `redisClient.js` with the following content:
-
-```javascript
-const redis = require('redis');
+```javascript title="src/redisClient.js"
+const { createClient } = require('redis');
 require('dotenv').config();
 
-const client = redis.createClient({
-  url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
-  password: process.env.REDIS_PASSWORD
-});
+class RedisManager {
+  constructor() {
+    this.client = null;
+    this.isConnected = false;
+  }
 
-client.on('error', (err) => console.log('Redis Client Error', err));
+  createClient() {
+    const config = {
+      url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+      password: process.env.REDIS_PASSWORD,
+      database: parseInt(process.env.REDIS_DB) || 0,
+      socket: {
+        connectTimeout: parseInt(process.env.REDIS_CONNECT_TIMEOUT) || 60000,
+        commandTimeout: parseInt(process.env.REDIS_COMMAND_TIMEOUT) || 5000,
+        reconnectStrategy: (retries) => {
+          if (retries > 20) {
+            console.error('Too many reconnection attempts, giving up');
+            return false;
+          }
+          // Exponential backoff with jitter (latest best practice)
+          const jitter = Math.floor(Math.random() * 200);
+          const delay = Math.min(Math.pow(2, retries) * 50, 2000);
+          console.log(`Reconnecting in ${delay + jitter}ms...`);
+          return delay + jitter;
+        },
+        keepAlive: 30000,
+        noDelay: true
+      }
+    };
 
-async function connectRedis() {
-  await client.connect();
-}
+    // Add TLS if enabled
+    if (process.env.REDIS_TLS === 'true') {
+      config.socket.tls = true;
+      config.socket.rejectUnauthorized = process.env.NODE_ENV === 'production';
+    }
 
-module.exports = { client, connectRedis };
-```
+    this.client = createClient(config);
+    this.setupEventHandlers();
+    return this.client;
+  }
 
-This file creates a Redis client and exports it along with a connection function.
+  setupEventHandlers() {
+    this.client.on('connect', () => {
+      console.log('✅ Redis client connected');
+    });
 
-#### Create a test script
+    this.client.on('ready', () => {
+      console.log('✅ Redis client ready');
+      this.isConnected = true;
+    });
 
-Now, let's create a file named `test-redis.js` to demonstrate basic Redis operations:
+    this.client.on('error', (err) => {
+      console.error('❌ Redis client error:', err.message);
+      this.isConnected = false;
+    });
 
-```javascript
-const { client, connectRedis } = require('./redisClient');
+    this.client.on('end', () => {
+      console.log('🔌 Redis client disconnected');
+      this.isConnected = false;
+    });
 
-async function testRedisOperations() {
-  try {
-    await connectRedis();
-    console.log('Connected to Redis');
+    this.client.on('reconnecting', () => {
+      console.log('🔄 Redis client reconnecting...');
+      this.isConnected = false;
+    });
+  }
 
-    // Set a key
-    await client.set('mykey', 'Hello from Sealos DevBox!');
-    console.log('Key set successfully');
+  async connect() {
+    if (!this.client) {
+      this.createClient();
+    }
 
-    // Get a key
-    const value = await client.get('mykey');
-    console.log('Retrieved value:', value);
+    if (!this.isConnected) {
+      await this.client.connect();
+    }
 
-    // Set a hash
-    await client.hSet('myhash', 'field1', 'value1');
-    await client.hSet('myhash', 'field2', 'value2');
-    console.log('Hash set successfully');
+    return this.client;
+  }
 
-    // Get hash fields
-    const hashValue = await client.hGetAll('myhash');
-    console.log('Retrieved hash:', hashValue);
+  async disconnect() {
+    if (this.client && this.isConnected) {
+      // Use destroy() instead of quit() for latest node-redis
+      this.client.destroy();
+    }
+  }
 
-    // Close the connection
-    await client.quit();
-    console.log('Redis connection closed');
-  } catch (error) {
-    console.error('An error occurred:', error);
+  getClient() {
+    if (!this.isConnected) {
+      throw new Error('Redis client not connected. Call connect() first.');
+    }
+    return this.client;
+  }
+
+  async ping() {
+    try {
+      const result = await this.client.ping();
+      return result === 'PONG';
+    } catch (error) {
+      console.error('Redis ping failed:', error);
+      return false;
+    }
   }
 }
 
-testRedisOperations();
+// Export singleton instance
+const redisManager = new RedisManager();
+module.exports = redisManager;
 ```
 
-This script demonstrates setting and getting a key, as well as working with Redis hashes.
+#### Test your connection
+
+Create `tests/connection-test.js`:
+
+```javascript title="tests/connection-test.js"
+const redisManager = require('../src/redisClient');
+
+async function testConnection() {
+  try {
+    console.log('🔍 Testing Redis connection...');
+
+    // Connect to Redis
+    await redisManager.connect();
+
+    // Test ping
+    const pingResult = await redisManager.ping();
+    console.log('📡 Ping result:', pingResult ? 'SUCCESS' : 'FAILED');
+
+    // Test basic operations
+    const client = redisManager.getClient();
+
+    await client.set('test:connection', 'Hello from Sealos!');
+    const value = await client.get('test:connection');
+    console.log('💾 Test value:', value);
+
+    // Clean up test key
+    await client.del('test:connection');
+
+    console.log('✅ Connection test completed successfully!');
+
+  } catch (error) {
+    console.error('❌ Connection test failed:', error.message);
+  } finally {
+    await redisManager.disconnect();
+  }
+}
+
+// Run the test
+testConnection();
+```
+
+#### Run your first test
+
+```bash
+node tests/connection-test.js
+```
+
+You should see output like:
+```
+🔍 Testing Redis connection...
+✅ Redis client connected
+✅ Redis client ready
+📡 Ping result: SUCCESS
+💾 Test value: Hello from Sealos!
+✅ Connection test completed successfully!
+🔌 Redis client disconnected
+```
 
 </div>
 
-## Usage
+## Basic Operations & Data Types
 
-To run the test script, use the following command in your Cursor terminal:
+Now let's explore Redis data types with practical examples. Create `examples/basic-operations.js`:
 
-```bash
-node test-redis.js
+```javascript title="examples/basic-operations.js"
+const redisManager = require('../src/redisClient');
+
+async function demonstrateBasicOperations() {
+  try {
+    await redisManager.connect();
+    const client = redisManager.getClient();
+
+    console.log('🚀 Starting basic operations demo...\n');
+
+    // 1. Strings
+    console.log('📝 STRING OPERATIONS:');
+    await client.set('user:name', 'John Doe');
+    await client.setEx('session:abc123', 3600, 'active'); // With TTL
+
+    const name = await client.get('user:name');
+    const session = await client.get('session:abc123');
+    console.log(`Name: ${name}`);
+    console.log(`Session: ${session}`);
+
+    // Increment counter
+    await client.incr('page:views');
+    await client.incrBy('page:views', 5);
+    const views = await client.get('page:views');
+    console.log(`Page views: ${views}\n`);
+
+    // 2. Hashes
+    console.log('🗂️  HASH OPERATIONS:');
+    await client.hSet('user:1001', {
+      name: 'Alice Smith',
+      email: 'alice@example.com',
+      age: '28',
+      city: 'New York'
+    });
+
+    const user = await client.hGetAll('user:1001');
+    const userAge = await client.hGet('user:1001', 'age');
+    console.log('User data:', user);
+    console.log(`User age: ${userAge}\n`);
+
+    // 3. Lists
+    console.log('📋 LIST OPERATIONS:');
+    await client.lPush('tasks', 'Task 1', 'Task 2', 'Task 3');
+    await client.rPush('tasks', 'Task 4'); // Add to end
+
+    const tasks = await client.lRange('tasks', 0, -1);
+    const firstTask = await client.lPop('tasks');
+    console.log('All tasks:', tasks);
+    console.log(`Completed task: ${firstTask}\n`);
+
+    // 4. Sets
+    console.log('🎯 SET OPERATIONS:');
+    await client.sAdd('tags:user:1001', 'developer', 'nodejs', 'redis');
+    await client.sAdd('tags:user:1002', 'designer', 'css', 'nodejs');
+
+    const userTags = await client.sMembers('tags:user:1001');
+    const commonTags = await client.sInter('tags:user:1001', 'tags:user:1002');
+    console.log('User 1001 tags:', userTags);
+    console.log('Common tags:', commonTags);
+
+    console.log('\n✅ Basic operations demo completed!');
+
+  } catch (error) {
+    console.error('❌ Error in basic operations:', error.message);
+  } finally {
+    await redisManager.disconnect();
+  }
+}
+
+// Run the demo
+demonstrateBasicOperations();
 ```
 
-This will execute the `testRedisOperations` function, demonstrating the connection to Redis and basic operations.
+### Test Basic Operations
 
-## Best Practices
+```bash
+node examples/basic-operations.js
+```
 
-1. Use environment variables for Redis credentials.
-2. Handle connection errors and implement reconnection logic if needed.
-3. Use async/await for cleaner asynchronous code.
-4. Close the Redis connection when it's no longer needed.
-5. Consider using a connection pool for better performance in production environments.
+Expected output:
+```
+🚀 Starting basic operations demo...
 
-## Troubleshooting
+📝 STRING OPERATIONS:
+Name: John Doe
+Session: active
+Page views: 6
 
-If you encounter connection issues:
+🗂️  HASH OPERATIONS:
+User data: { name: 'Alice Smith', email: 'alice@example.com', age: '28', city: 'New York' }
+User age: 28
 
-1. Verify your Redis credentials in the `.env` file.
-2. Ensure your Redis database is running and accessible.
-3. Check for any network restrictions in your DevBox environment.
-4. Confirm that the `redis` package is correctly installed.
+📋 LIST OPERATIONS:
+All tasks: [ 'Task 3', 'Task 2', 'Task 1', 'Task 4' ]
+Completed task: Task 3
 
-For more detailed information on using Redis with Node.js, refer to the [Node Redis documentation](https://github.com/redis/node-redis).
+🎯 SET OPERATIONS:
+User 1001 tags: [ 'nodejs', 'redis', 'developer' ]
+Common tags: [ 'nodejs' ]
+
+✅ Basic operations demo completed!
+```
+
+## Advanced Data Structures & Real-World Use Cases
+
+Now let's build practical applications using Redis's advanced data structures. We'll create several examples that demonstrate real-world scenarios.
+
+### Working with Sorted Sets - Leaderboard System
+
+Create `examples/leaderboard.js`:
+
+```javascript title="examples/leaderboard.js"
+const redisManager = require('../src/redisClient');
+
+class Leaderboard {
+  constructor(name) {
+    this.leaderboardKey = `leaderboard:${name}`;
+  }
+
+  async updateScore(userId, score, userData = {}) {
+    const client = redisManager.getClient();
+
+    // Update score in sorted set
+    await client.zAdd(this.leaderboardKey, { score, value: userId });
+
+    // Store additional user data if provided
+    if (Object.keys(userData).length > 0) {
+      await client.hSet(`user:${userId}`, userData);
+    }
+
+    console.log(`✅ Updated score for user ${userId}: ${score}`);
+  }
+
+  async getTopPlayers(count = 10) {
+    const client = redisManager.getClient();
+
+    const players = await client.zRevRange(this.leaderboardKey, 0, count - 1, {
+      withScores: true
+    });
+
+    // Enrich with user data
+    const enrichedPlayers = [];
+    for (let i = 0; i < players.length; i++) {
+      const { value: userId, score } = players[i];
+      const userData = await client.hGetAll(`user:${userId}`);
+
+      enrichedPlayers.push({
+        rank: i + 1,
+        userId,
+        score,
+        name: userData.name || `User ${userId}`,
+        ...userData
+      });
+    }
+
+    return enrichedPlayers;
+  }
+
+  async getUserRank(userId) {
+    const client = redisManager.getClient();
+
+    const rank = await client.zRevRank(this.leaderboardKey, userId);
+    const score = await client.zScore(this.leaderboardKey, userId);
+
+    return rank !== null ? { rank: rank + 1, score } : null;
+  }
+}
+
+async function demonstrateLeaderboard() {
+  try {
+    await redisManager.connect();
+    console.log('🏆 Starting leaderboard demo...\n');
+
+    const gameLeaderboard = new Leaderboard('game_scores');
+
+    // Add some players with scores
+    await gameLeaderboard.updateScore('player1', 1500, { name: 'Alice', level: 25 });
+    await gameLeaderboard.updateScore('player2', 2300, { name: 'Bob', level: 32 });
+    await gameLeaderboard.updateScore('player3', 1800, { name: 'Charlie', level: 28 });
+    await gameLeaderboard.updateScore('player4', 2100, { name: 'Diana', level: 30 });
+    await gameLeaderboard.updateScore('player5', 1200, { name: 'Eve', level: 22 });
+
+    console.log('\n🥇 Top 3 Players:');
+    const topPlayers = await gameLeaderboard.getTopPlayers(3);
+    topPlayers.forEach(player => {
+      console.log(`${player.rank}. ${player.name} - Score: ${player.score} (Level ${player.level})`);
+    });
+
+    // Check specific player rank
+    const aliceRank = await gameLeaderboard.getUserRank('player1');
+    console.log(`\n📊 Alice's rank: #${aliceRank.rank} with score ${aliceRank.score}`);
+
+    console.log('\n✅ Leaderboard demo completed!');
+
+  } catch (error) {
+    console.error('❌ Error in leaderboard demo:', error.message);
+  } finally {
+    await redisManager.disconnect();
+  }
+}
+
+// Export for use in other examples
+module.exports = Leaderboard;
+
+// Run demo if called directly
+if (require.main === module) {
+  demonstrateLeaderboard();
+}
+```
+
+### Working with Lists - Task Queue System
+
+Create `examples/task-queue.js`:
+
+```javascript title="examples/task-queue.js"
+const redisManager = require('../src/redisClient');
+
+class TaskQueue {
+  constructor(queueName = 'default_queue') {
+    this.queueName = queueName;
+    this.processingQueue = `${queueName}:processing`;
+  }
+
+  async addTask(taskData, priority = 'normal') {
+    const client = redisManager.getClient();
+    const task = {
+      id: `task_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      data: taskData,
+      createdAt: new Date().toISOString(),
+      priority,
+      attempts: 0
+    };
+
+    const queueKey = priority === 'high' ? `${this.queueName}:high` : this.queueName;
+    await client.lPush(queueKey, JSON.stringify(task));
+
+    console.log(`📝 Added ${priority} priority task: ${task.id}`);
+    return task.id;
+  }
+
+  async processTask(timeout = 5) {
+    const client = redisManager.getClient();
+
+    // Check high priority queue first
+    let result = await client.brPop(`${this.queueName}:high`, 0.1);
+    if (!result) {
+      // Then check normal priority queue
+      result = await client.brPop(this.queueName, timeout);
+    }
+
+    if (result) {
+      const task = JSON.parse(result.element);
+
+      // Move to processing queue for reliability
+      await client.lPush(this.processingQueue, JSON.stringify(task));
+
+      console.log(`⚡ Processing task: ${task.id}`);
+      return task;
+    }
+
+    return null;
+  }
+
+  async completeTask(taskId) {
+    const client = redisManager.getClient();
+
+    // Remove from processing queue
+    const processingTasks = await client.lRange(this.processingQueue, 0, -1);
+    for (let i = 0; i < processingTasks.length; i++) {
+      const task = JSON.parse(processingTasks[i]);
+      if (task.id === taskId) {
+        await client.lRem(this.processingQueue, 1, processingTasks[i]);
+        console.log(`✅ Completed task: ${taskId}`);
+        break;
+      }
+    }
+  }
+
+  async getQueueStats() {
+    const client = redisManager.getClient();
+
+    return {
+      pending: await client.lLen(this.queueName),
+      highPriority: await client.lLen(`${this.queueName}:high`),
+      processing: await client.lLen(this.processingQueue)
+    };
+  }
+}
+
+async function demonstrateTaskQueue() {
+  try {
+    await redisManager.connect();
+    console.log('📋 Starting task queue demo...\n');
+
+    const emailQueue = new TaskQueue('email_queue');
+
+    // Add various tasks
+    await emailQueue.addTask({
+      type: 'welcome_email',
+      recipient: 'user@example.com',
+      template: 'welcome'
+    });
+
+    await emailQueue.addTask({
+      type: 'password_reset',
+      recipient: 'admin@example.com',
+      token: 'abc123'
+    }, 'high');
+
+    await emailQueue.addTask({
+      type: 'newsletter',
+      recipients: ['user1@example.com', 'user2@example.com']
+    });
+
+    // Check queue stats
+    let stats = await emailQueue.getQueueStats();
+    console.log('📊 Queue stats:', stats);
+
+    // Process some tasks
+    console.log('\n🔄 Processing tasks...');
+
+    for (let i = 0; i < 3; i++) {
+      const task = await emailQueue.processTask();
+      if (task) {
+        // Simulate task processing
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        await emailQueue.completeTask(task.id);
+      }
+    }
+
+    // Final stats
+    stats = await emailQueue.getQueueStats();
+    console.log('\n📊 Final queue stats:', stats);
+
+    console.log('\n✅ Task queue demo completed!');
+
+  } catch (error) {
+    console.error('❌ Error in task queue demo:', error.message);
+  } finally {
+    await redisManager.disconnect();
+  }
+}
+
+// Export for use in other examples
+module.exports = TaskQueue;
+
+// Run demo if called directly
+if (require.main === module) {
+  demonstrateTaskQueue();
+}
+```
+
+### Test Advanced Data Structures
+
+Run the leaderboard example:
+```bash
+node examples/leaderboard.js
+```
+
+Run the task queue example:
+```bash
+node examples/task-queue.js
+```
+
+Expected output for leaderboard:
+```
+🏆 Starting leaderboard demo...
+
+✅ Updated score for user player1: 1500
+✅ Updated score for user player2: 2300
+✅ Updated score for user player3: 1800
+✅ Updated score for user player4: 2100
+✅ Updated score for user player5: 1200
+
+🥇 Top 3 Players:
+1. Bob - Score: 2300 (Level 32)
+2. Diana - Score: 2100 (Level 30)
+3. Charlie - Score: 1800 (Level 28)
+
+📊 Alice's rank: #4 with score 1500
+
+✅ Leaderboard demo completed!
+```
+
+## Advanced Caching Strategies
+
+Let's implement different caching patterns that you can use in production applications.
+
+### Cache-Aside Pattern (Lazy Loading)
+
+Create `examples/cache-patterns.js`:
+
+```javascript title="examples/cache-patterns.js"
+const redisManager = require('../src/redisClient');
+
+class CacheAsideService {
+  constructor(ttl = 3600) {
+    this.ttl = ttl; // Time to live in seconds
+  }
+
+  async get(key, fetchFunction) {
+    try {
+      const client = redisManager.getClient();
+
+      // Try to get from cache first
+      const cached = await client.get(key);
+      if (cached) {
+        console.log(`🎯 Cache HIT for key: ${key}`);
+        return JSON.parse(cached);
+      }
+
+      console.log(`❌ Cache MISS for key: ${key}`);
+
+      // Cache miss - fetch from source
+      const data = await fetchFunction();
+
+      // Store in cache with TTL
+      await client.setEx(key, this.ttl, JSON.stringify(data));
+      console.log(`💾 Cached data for key: ${key}`);
+
+      return data;
+    } catch (error) {
+      console.error('Cache-aside error:', error);
+      // Fallback to direct fetch if cache fails
+      return await fetchFunction();
+    }
+  }
+
+  async invalidate(key) {
+    const client = redisManager.getClient();
+    await client.del(key);
+    console.log(`🗑️  Invalidated cache for key: ${key}`);
+  }
+
+  async invalidatePattern(pattern) {
+    const client = redisManager.getClient();
+    const keys = await client.keys(pattern);
+    if (keys.length > 0) {
+      await client.del(keys);
+      console.log(`🗑️  Invalidated ${keys.length} keys matching pattern: ${pattern}`);
+    }
+  }
+}
+
+// Simulate database operations
+const mockDatabase = {
+  async getUserById(userId) {
+    console.log(`🔍 Fetching user ${userId} from database...`);
+    // Simulate database delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    return {
+      id: userId,
+      name: `User ${userId}`,
+      email: `user${userId}@example.com`,
+      createdAt: new Date().toISOString()
+    };
+  },
+
+  async getProductById(productId) {
+    console.log(`🔍 Fetching product ${productId} from database...`);
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    return {
+      id: productId,
+      name: `Product ${productId}`,
+      price: Math.floor(Math.random() * 1000) + 10,
+      category: 'Electronics'
+    };
+  }
+};
+
+async function demonstrateCacheAside() {
+  try {
+    await redisManager.connect();
+    console.log('🚀 Starting Cache-Aside pattern demo...\n');
+
+    const cache = new CacheAsideService(1800); // 30 minutes TTL
+
+    // Function to get user with caching
+    async function getUserProfile(userId) {
+      return await cache.get(`user:${userId}`, async () => {
+        return await mockDatabase.getUserById(userId);
+      });
+    }
+
+    // First call - cache miss
+    console.log('📞 First call to getUserProfile(1001):');
+    let user = await getUserProfile('1001');
+    console.log('👤 User data:', user);
+
+    console.log('\n📞 Second call to getUserProfile(1001):');
+    // Second call - cache hit
+    user = await getUserProfile('1001');
+    console.log('👤 User data:', user);
+
+    // Invalidate and try again
+    console.log('\n🗑️  Invalidating user cache...');
+    await cache.invalidate('user:1001');
+
+    console.log('\n📞 Third call after invalidation:');
+    user = await getUserProfile('1001');
+    console.log('👤 User data:', user);
+
+    console.log('\n✅ Cache-Aside demo completed!');
+
+  } catch (error) {
+    console.error('❌ Error in cache-aside demo:', error.message);
+  } finally {
+    await redisManager.disconnect();
+  }
+}
+
+// Export for use in other examples
+module.exports = { CacheAsideService, mockDatabase };
+
+// Run demo if called directly
+if (require.main === module) {
+  demonstrateCacheAside();
+}
+```
+
+### Write-Through Pattern
+
+Add this to `examples/cache-patterns.js` (append to the file):
+
+```javascript title="examples/cache-patterns.js (continued)"
+class WriteThroughCache {
+  constructor(ttl = 3600) {
+    this.ttl = ttl;
+  }
+
+  async set(key, data, saveFunction) {
+    try {
+      const client = redisManager.getClient();
+
+      // Write to database first
+      await saveFunction(data);
+      console.log(`💾 Saved data to database for key: ${key}`);
+
+      // Then update cache
+      await client.setEx(key, this.ttl, JSON.stringify(data));
+      console.log(`🎯 Updated cache for key: ${key}`);
+
+      return data;
+    } catch (error) {
+      console.error('Write-through error:', error);
+      throw error; // Re-throw to maintain transaction integrity
+    }
+  }
+
+  async get(key) {
+    const client = redisManager.getClient();
+    const cached = await client.get(key);
+    return cached ? JSON.parse(cached) : null;
+  }
+
+  async update(key, updates, updateFunction) {
+    try {
+      const client = redisManager.getClient();
+
+      // Update database first
+      const updatedData = await updateFunction(updates);
+      console.log(`🔄 Updated database for key: ${key}`);
+
+      // Update cache
+      await client.setEx(key, this.ttl, JSON.stringify(updatedData));
+      console.log(`🎯 Updated cache for key: ${key}`);
+
+      return updatedData;
+    } catch (error) {
+      console.error('Write-through update error:', error);
+      throw error;
+    }
+  }
+}
+
+async function demonstrateWriteThrough() {
+  try {
+    await redisManager.connect();
+    console.log('🚀 Starting Write-Through pattern demo...\n');
+
+    const writeCache = new WriteThroughCache(3600);
+
+    // Create new user
+    const newUser = {
+      id: '2001',
+      name: 'John Smith',
+      email: 'john.smith@example.com',
+      role: 'admin'
+    };
+
+    console.log('📝 Creating new user with write-through:');
+    await writeCache.set('user:2001', newUser, async (userData) => {
+      // Simulate database save
+      console.log('💾 Saving to database:', userData.name);
+      await new Promise(resolve => setTimeout(resolve, 200));
+    });
+
+    // Read from cache
+    console.log('\n📖 Reading user from cache:');
+    const cachedUser = await writeCache.get('user:2001');
+    console.log('👤 Cached user:', cachedUser);
+
+    // Update user
+    console.log('\n🔄 Updating user with write-through:');
+    await writeCache.update('user:2001', { role: 'super_admin' }, async (updates) => {
+      // Simulate database update
+      console.log('🔄 Updating database with:', updates);
+      await new Promise(resolve => setTimeout(resolve, 200));
+      return { ...cachedUser, ...updates };
+    });
+
+    // Read updated data
+    const updatedUser = await writeCache.get('user:2001');
+    console.log('👤 Updated user:', updatedUser);
+
+    console.log('\n✅ Write-Through demo completed!');
+
+  } catch (error) {
+    console.error('❌ Error in write-through demo:', error.message);
+  } finally {
+    await redisManager.disconnect();
+  }
+}
+
+// Add to exports
+module.exports = { CacheAsideService, WriteThroughCache, mockDatabase };
+```
+
+### Test Caching Patterns
+
+```bash
+node examples/cache-patterns.js
+```
+
+Expected output:
+```
+🚀 Starting Cache-Aside pattern demo...
+
+📞 First call to getUserProfile(1001):
+❌ Cache MISS for key: user:1001
+🔍 Fetching user 1001 from database...
+💾 Cached data for key: user:1001
+👤 User data: { id: '1001', name: 'User 1001', email: 'user1001@example.com', createdAt: '...' }
+
+📞 Second call to getUserProfile(1001):
+🎯 Cache HIT for key: user:1001
+👤 User data: { id: '1001', name: 'User 1001', email: 'user1001@example.com', createdAt: '...' }
+
+🗑️  Invalidating user cache...
+🗑️  Invalidated cache for key: user:1001
+
+📞 Third call after invalidation:
+❌ Cache MISS for key: user:1001
+🔍 Fetching user 1001 from database...
+💾 Cached data for key: user:1001
+
+✅ Cache-Aside demo completed!
+```
+
+## Redis Stack Integration
+
+Redis Stack provides powerful modules for JSON, Search, and TimeSeries. Let's explore how to use them with our Node.js application.
+
+### Working with RedisJSON
+
+Create `examples/redis-json.js`:
+
+```javascript title="examples/redis-json.js"
+const redisManager = require('../src/redisClient');
+
+class RedisJSONService {
+  async setDocument(key, document) {
+    const client = redisManager.getClient();
+    // Use the native JSON.SET command (latest node-redis supports JSON module)
+    await client.json.set(key, '$', document);
+    console.log(`📄 Stored JSON document: ${key}`);
+  }
+
+  async getDocument(key) {
+    const client = redisManager.getClient();
+    return await client.json.get(key);
+  }
+
+  async updateField(key, path, value) {
+    const client = redisManager.getClient();
+    await client.json.set(key, path, value);
+    console.log(`🔄 Updated field ${path} in document: ${key}`);
+  }
+
+  async getField(key, path) {
+    const client = redisManager.getClient();
+    return await client.json.get(key, { path });
+  }
+
+  async appendToArray(key, path, ...values) {
+    const client = redisManager.getClient();
+    return await client.json.arrAppend(key, path, ...values);
+  }
+
+  async incrementNumber(key, path, increment = 1) {
+    const client = redisManager.getClient();
+    return await client.json.numIncrBy(key, path, increment);
+  }
+}
+
+async function demonstrateRedisJSON() {
+  try {
+    await redisManager.connect();
+    console.log('📄 Starting RedisJSON demo...\n');
+
+    const jsonService = new RedisJSONService();
+
+    // Store user profile as JSON document
+    const userProfile = {
+      id: 1001,
+      name: 'John Doe',
+      email: 'john@example.com',
+      preferences: {
+        theme: 'dark',
+        notifications: true,
+        language: 'en'
+      },
+      tags: ['premium', 'early-adopter'],
+      level: 25,
+      metadata: {
+        createdAt: new Date().toISOString(),
+        lastLogin: new Date().toISOString()
+      }
+    };
+
+    await jsonService.setDocument('user:1001', userProfile);
+
+    // Get entire document
+    console.log('📖 Retrieved user profile:');
+    const retrievedProfile = await jsonService.getDocument('user:1001');
+    console.log(JSON.stringify(retrievedProfile, null, 2));
+
+    // Update nested field
+    console.log('\n🔄 Updating theme preference...');
+    await jsonService.updateField('user:1001', '$.preferences.theme', 'light');
+
+    // Get specific field
+    const theme = await jsonService.getField('user:1001', '$.preferences.theme');
+    console.log(`🎨 Current theme: ${theme}`);
+
+    // Add new tag to array
+    console.log('\n🏷️  Adding new tag...');
+    await jsonService.appendToArray('user:1001', '$.tags', 'beta-tester');
+
+    // Get updated tags
+    const tags = await jsonService.getField('user:1001', '$.tags');
+    console.log('🏷️  Updated tags:', tags);
+
+    // Increment a numeric field
+    console.log('\n🔢 Incrementing user level...');
+    await jsonService.incrementNumber('user:1001', '$.level', 1);
+    const level = await jsonService.getField('user:1001', '$.level');
+    console.log('📈 New level:', level);
+
+    console.log('\n✅ RedisJSON demo completed!');
+
+  } catch (error) {
+    console.error('❌ Error in RedisJSON demo:', error.message);
+  } finally {
+    await redisManager.disconnect();
+  }
+}
+
+// Export for use in other examples
+module.exports = RedisJSONService;
+
+// Run demo if called directly
+if (require.main === module) {
+  demonstrateRedisJSON();
+}
+```
+
+### Working with RediSearch
+
+Create `examples/redis-search.js`:
+
+```javascript title="examples/redis-search.js"
+const redisManager = require('../src/redisClient');
+const { SchemaFieldTypes } = require('@redis/search');
+
+class RedisSearchService {
+  async createIndex(indexName, schema, options = {}) {
+    const client = redisManager.getClient();
+
+    try {
+      // Use the native ft.create method (latest node-redis supports Search module)
+      await client.ft.create(indexName, schema, {
+        ON: 'JSON',
+        PREFIX: 'product:',
+        ...options
+      });
+      console.log(`🔍 Created search index: ${indexName}`);
+    } catch (error) {
+      if (!error.message.includes('Index already exists')) {
+        throw error;
+      }
+      console.log(`🔍 Index ${indexName} already exists`);
+    }
+  }
+
+  async indexDocument(key, document) {
+    const client = redisManager.getClient();
+    await client.json.set(key, '$', document);
+    console.log(`📄 Indexed document: ${key}`);
+  }
+
+  async search(indexName, query, options = {}) {
+    const client = redisManager.getClient();
+    return await client.ft.search(indexName, query, options);
+  }
+
+  async aggregate(indexName, query, options = {}) {
+    const client = redisManager.getClient();
+    return await client.ft.aggregate(indexName, query, options);
+  }
+}
+
+async function demonstrateRediSearch() {
+  try {
+    await redisManager.connect();
+    console.log('🔍 Starting RediSearch demo...\n');
+
+    const searchService = new RedisSearchService();
+
+    // Create product search index using latest schema format
+    await searchService.createIndex('idx:products', {
+      '$.name': {
+        type: SchemaFieldTypes.TEXT,
+        AS: 'name',
+        SORTABLE: true
+      },
+      '$.description': {
+        type: SchemaFieldTypes.TEXT,
+        AS: 'description'
+      },
+      '$.price': {
+        type: SchemaFieldTypes.NUMERIC,
+        AS: 'price'
+      },
+      '$.category': {
+        type: SchemaFieldTypes.TAG,
+        AS: 'category'
+      },
+      '$.rating': {
+        type: SchemaFieldTypes.NUMERIC,
+        AS: 'rating'
+      }
+    });
+
+    // Index some products
+    const products = [
+      {
+        id: 1,
+        name: 'Wireless Headphones',
+        description: 'High-quality wireless headphones with noise cancellation',
+        price: 199.99,
+        category: 'electronics',
+        rating: 4.5
+      },
+      {
+        id: 2,
+        name: 'Smart Watch',
+        description: 'Feature-rich smartwatch with health monitoring',
+        price: 299.99,
+        category: 'electronics',
+        rating: 4.2
+      },
+      {
+        id: 3,
+        name: 'Coffee Maker',
+        description: 'Automatic coffee maker with programmable timer',
+        price: 89.99,
+        category: 'appliances',
+        rating: 4.0
+      }
+    ];
+
+    for (const product of products) {
+      await searchService.indexDocument(`product:${product.id}`, product);
+    }
+
+    console.log('\n🔍 Searching for "wireless":');
+    let results = await searchService.search('idx:products', 'wireless');
+    console.log(`Found ${results.total} results:`);
+    results.documents.forEach((doc) => {
+      console.log(`- ${doc.value.name}: $${doc.value.price}`);
+    });
+
+    console.log('\n🔍 Searching electronics under $250:');
+    results = await searchService.search('idx:products', '@category:{electronics} @price:[0 250]');
+    console.log(`Found ${results.total} results:`);
+    results.documents.forEach((doc) => {
+      console.log(`- ${doc.value.name}: $${doc.value.price} (${doc.value.category})`);
+    });
+
+    console.log('\n✅ RediSearch demo completed!');
+
+  } catch (error) {
+    console.error('❌ Error in RediSearch demo:', error.message);
+  } finally {
+    await redisManager.disconnect();
+  }
+}
+
+// Export for use in other examples
+module.exports = RedisSearchService;
+
+// Run demo if called directly
+if (require.main === module) {
+  demonstrateRediSearch();
+}
+```
+
+### Test Redis Stack Features
+
+Run the RedisJSON example:
+```bash
+node examples/redis-json.js
+```
+
+Run the RediSearch example:
+```bash
+node examples/redis-search.js
+```
+
+**Note**: Redis Stack features require a Redis Stack installation. If you're using standard Redis, these examples will show how the commands work, but you'll need Redis Stack for full functionality.
+
+### Working with Connection Pooling (Latest v5+ Features)
+
+For high-performance applications, use the latest connection pooling features:
+
+```javascript title="examples/connection-pool.js"
+const { createClientPool } = require('redis');
+require('dotenv').config();
+
+async function demonstrateConnectionPool() {
+  try {
+    console.log('🏊 Starting connection pool demo...\n');
+
+    // Create a connection pool (v5+ feature)
+    const pool = await createClientPool({
+      url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+      password: process.env.REDIS_PASSWORD,
+      database: parseInt(process.env.REDIS_DB) || 0
+    })
+    .on('error', err => console.error('Redis Client Pool Error', err))
+    .connect();
+
+    console.log('✅ Connection pool created and connected');
+
+    // Execute commands directly on the pool
+    await pool.ping();
+    console.log('📡 Pool ping successful');
+
+    // Use pool for multiple operations
+    const operations = [];
+    for (let i = 0; i < 10; i++) {
+      operations.push(pool.set(`pool:test:${i}`, `value-${i}`));
+    }
+
+    await Promise.all(operations);
+    console.log('💾 Stored 10 keys using pool');
+
+    // Read back the values
+    const values = [];
+    for (let i = 0; i < 10; i++) {
+      values.push(await pool.get(`pool:test:${i}`));
+    }
+
+    console.log('📖 Retrieved values:', values.slice(0, 3), '...');
+
+    // Clean up
+    for (let i = 0; i < 10; i++) {
+      await pool.del(`pool:test:${i}`);
+    }
+
+    await pool.destroy();
+    console.log('🧹 Pool destroyed');
+
+    console.log('\n✅ Connection pool demo completed!');
+
+  } catch (error) {
+    console.error('❌ Error in connection pool demo:', error.message);
+  }
+}
+
+// Export for use in other examples
+module.exports = { demonstrateConnectionPool };
+
+// Run demo if called directly
+if (require.main === module) {
+  demonstrateConnectionPool();
+}
+```
+
+### Test Connection Pool
+
+```bash
+node examples/connection-pool.js
+```
+
+## Comprehensive Troubleshooting Guide
+
+### Common Connection Issues
+
+#### Issue: "ECONNREFUSED" Error
+
+**Symptoms:**
+```
+Error: connect ECONNREFUSED 127.0.0.1:6379
+```
+
+**Solutions:**
+1. **Check Redis server status:**
+   ```bash
+   # In Sealos terminal
+   redis-cli ping
+   ```
+
+2. **Verify connection parameters:**
+   ```javascript
+   // Debug connection
+   const client = redis.createClient({
+     url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+     password: process.env.REDIS_PASSWORD,
+     socket: {
+       connectTimeout: 60000,
+       lazyConnect: true
+     }
+   });
+
+   client.on('error', (err) => {
+     console.error('Detailed error:', err);
+   });
+   ```
+
+3. **Check environment variables:**
+   ```javascript
+   console.log('Redis config:', {
+     host: process.env.REDIS_HOST,
+     port: process.env.REDIS_PORT,
+     hasPassword: !!process.env.REDIS_PASSWORD
+   });
+   ```
+
+#### Issue: "WRONGPASS" Authentication Error
+
+**Symptoms:**
+```
+ReplyError: WRONGPASS invalid username-password pair
+```
+
+**Solutions:**
+1. **Verify password in environment:**
+   ```bash
+   echo $REDIS_PASSWORD
+   ```
+
+2. **Test authentication manually:**
+   ```bash
+   redis-cli -h your_host -p 6379 -a your_password ping
+   ```
+
+3. **Handle authentication in code:**
+   ```javascript
+   const client = redis.createClient({
+     url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+     password: process.env.REDIS_PASSWORD,
+     // For Redis with ACL users
+     username: process.env.REDIS_USERNAME || 'default'
+   });
+   ```
+
+#### Issue: "Socket closed unexpectedly"
+
+**Symptoms:**
+```
+Error: Socket closed unexpectedly
+```
+
+**Solutions:**
+1. **Implement robust reconnection:**
+   ```javascript
+   const client = redis.createClient({
+     socket: {
+       reconnectStrategy: (retries) => {
+         if (retries > 20) return false;
+         return Math.min(retries * 50, 500);
+       },
+       connectTimeout: 60000,
+       lazyConnect: true
+     }
+   });
+   ```
+
+2. **Handle connection events:**
+   ```javascript
+   client.on('end', () => {
+     console.log('Connection ended, attempting to reconnect...');
+   });
+
+   client.on('reconnecting', () => {
+     console.log('Reconnecting to Redis...');
+   });
+   ```
+
+### Performance Issues
+
+#### Issue: Slow Response Times
+
+**Diagnosis:**
+```javascript
+// Monitor command execution time
+const originalSend = client.sendCommand;
+client.sendCommand = function(...args) {
+  const start = Date.now();
+  const result = originalSend.apply(this, args);
+
+  result.then(() => {
+    const duration = Date.now() - start;
+    if (duration > 100) { // Log slow commands
+      console.warn(`Slow Redis command: ${args[0]} took ${duration}ms`);
+    }
+  });
+
+  return result;
+};
+```
+
+**Solutions:**
+1. **Use pipelining for bulk operations:**
+   ```javascript
+   // Instead of multiple individual commands
+   const pipeline = client.multi();
+   for (let i = 0; i < 1000; i++) {
+     pipeline.set(`key:${i}`, `value:${i}`);
+   }
+   await pipeline.exec();
+   ```
+
+2. **Optimize data structures:**
+   ```javascript
+   // Use appropriate data types
+   // For counters: use INCR instead of GET/SET
+   await client.incr('page_views');
+
+   // For bulk data: use HMSET instead of multiple SET
+   await client.hSet('user:1001', {
+     name: 'John',
+     email: 'john@example.com',
+     age: '30'
+   });
+   ```
+
+#### Issue: Memory Usage Problems
+
+**Diagnosis:**
+```javascript
+async function diagnoseMemory() {
+  const info = await client.info('memory');
+  const stats = await client.info('stats');
+
+  console.log('Memory info:', info);
+  console.log('Stats:', stats);
+
+  // Check for memory leaks
+  const keyCount = await client.dbSize();
+  console.log('Total keys:', keyCount);
+}
+```
+
+**Solutions:**
+1. **Set appropriate TTL:**
+   ```javascript
+   // Always set expiration for cache data
+   await client.setEx('cache:user:1001', 3600, userData);
+
+   // Use EXPIRE for existing keys
+   await client.expire('session:abc123', 1800);
+   ```
+
+2. **Clean up unused keys:**
+   ```javascript
+   async function cleanupOldKeys() {
+     const cursor = '0';
+     let scanCursor = cursor;
+
+     do {
+       const result = await client.scan(scanCursor, {
+         MATCH: 'temp:*',
+         COUNT: 100
+       });
+
+       if (result.keys.length > 0) {
+         await client.del(result.keys);
+       }
+
+       scanCursor = result.cursor;
+     } while (scanCursor !== '0');
+   }
+   ```
+
+### Data Consistency Issues
+
+#### Issue: Race Conditions
+
+**Problem:** Multiple clients modifying the same data simultaneously.
+
+**Solution - Optimistic Locking:**
+```javascript
+async function updateUserBalance(userId, amount) {
+  const key = `user:${userId}:balance`;
+
+  while (true) {
+    // Watch the key for changes
+    await client.watch(key);
+
+    const currentBalance = parseFloat(await client.get(key) || '0');
+    const newBalance = currentBalance + amount;
+
+    // Start transaction
+    const multi = client.multi();
+    multi.set(key, newBalance.toString());
+
+    try {
+      const results = await multi.exec();
+      if (results) {
+        // Transaction succeeded
+        return newBalance;
+      }
+      // Transaction failed due to key modification, retry
+    } catch (error) {
+      throw error;
+    }
+  }
+}
+```
+
+**Solution - Lua Scripts for Atomicity:**
+```javascript
+const updateBalanceScript = `
+  local key = KEYS[1]
+  local amount = tonumber(ARGV[1])
+  local current = tonumber(redis.call('GET', key) or 0)
+  local new_balance = current + amount
+
+  if new_balance >= 0 then
+    redis.call('SET', key, new_balance)
+    return new_balance
+  else
+    return -1
+  end
+`;
+
+async function updateBalanceAtomic(userId, amount) {
+  const result = await client.eval(
+    updateBalanceScript,
+    1,
+    `user:${userId}:balance`,
+    amount.toString()
+  );
+
+  if (result === -1) {
+    throw new Error('Insufficient balance');
+  }
+
+  return result;
+}
+```
+
+## Best Practices Summary
+
+### Development Best Practices
+
+1. **Always use environment variables** for configuration
+2. **Implement proper error handling** with specific error types
+3. **Use connection pooling** for high-traffic applications
+4. **Set appropriate TTL** for all cached data
+5. **Use pipelining** for bulk operations
+6. **Implement health checks** for production deployments
+
+### Security Best Practices
+
+1. **Enable TLS/SSL** in production
+2. **Use strong passwords** and consider ACL users
+3. **Restrict network access** to Redis instances
+4. **Regularly update** Redis and client libraries
+5. **Monitor for suspicious activity**
+
+### Performance Best Practices
+
+1. **Choose appropriate data structures** for your use case
+2. **Use Lua scripts** for complex atomic operations
+3. **Monitor memory usage** and implement cleanup strategies
+4. **Optimize serialization** for large objects
+5. **Use Redis Stack modules** when appropriate
+
+### Production Best Practices
+
+1. **Implement comprehensive monitoring**
+2. **Set up proper logging** and alerting
+3. **Use container orchestration** for scalability
+4. **Plan for disaster recovery**
+5. **Regular performance testing** and optimization
+
+## Complete Application Example
+
+Let's create a comprehensive example that combines multiple Redis features. Create `examples/complete-app.js`:
+
+```javascript title="examples/complete-app.js"
+const redisManager = require('../src/redisClient');
+const TaskQueue = require('./task-queue');
+const Leaderboard = require('./leaderboard');
+const { CacheAsideService } = require('./cache-patterns');
+
+class RedisApplication {
+  constructor() {
+    this.taskQueue = new TaskQueue('app_tasks');
+    this.leaderboard = new Leaderboard('user_scores');
+    this.cache = new CacheAsideService(3600);
+  }
+
+  async initialize() {
+    await redisManager.connect();
+    console.log('🚀 Redis Application initialized');
+  }
+
+  async simulateUserActivity() {
+    console.log('\n👥 Simulating user activity...');
+
+    // Add some users to leaderboard
+    const users = [
+      { id: 'user1', name: 'Alice', score: 1500 },
+      { id: 'user2', name: 'Bob', score: 2300 },
+      { id: 'user3', name: 'Charlie', score: 1800 },
+      { id: 'user4', name: 'Diana', score: 2100 }
+    ];
+
+    for (const user of users) {
+      await this.leaderboard.updateScore(user.id, user.score, { name: user.name });
+
+      // Add task to send welcome email
+      await this.taskQueue.addTask({
+        type: 'welcome_email',
+        userId: user.id,
+        email: `${user.name.toLowerCase()}@example.com`
+      });
+    }
+  }
+
+  async processBackgroundTasks() {
+    console.log('\n⚡ Processing background tasks...');
+
+    for (let i = 0; i < 4; i++) {
+      const task = await this.taskQueue.processTask(1);
+      if (task) {
+        console.log(`📧 Sending ${task.data.type} to ${task.data.email}`);
+        // Simulate email sending
+        await new Promise(resolve => setTimeout(resolve, 500));
+        await this.taskQueue.completeTask(task.id);
+      }
+    }
+  }
+
+  async showLeaderboard() {
+    console.log('\n🏆 Current Leaderboard:');
+    const topPlayers = await this.leaderboard.getTopPlayers(5);
+    topPlayers.forEach(player => {
+      console.log(`${player.rank}. ${player.name} - ${player.score} points`);
+    });
+  }
+
+  async demonstrateCache() {
+    console.log('\n💾 Cache demonstration:');
+
+    // Simulate expensive operation
+    const expensiveOperation = async (id) => {
+      console.log(`🔄 Performing expensive calculation for ${id}...`);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      return { id, result: Math.random() * 1000, timestamp: new Date().toISOString() };
+    };
+
+    // First call - cache miss
+    console.log('First call (cache miss):');
+    const result1 = await this.cache.get('calculation:1', () => expensiveOperation('calc1'));
+    console.log('Result:', result1);
+
+    // Second call - cache hit
+    console.log('\nSecond call (cache hit):');
+    const result2 = await this.cache.get('calculation:1', () => expensiveOperation('calc1'));
+    console.log('Result:', result2);
+  }
+
+  async getApplicationStats() {
+    const client = redisManager.getClient();
+
+    const stats = {
+      queueStats: await this.taskQueue.getQueueStats(),
+      totalKeys: await client.dbSize(),
+      memoryUsage: await client.info('memory'),
+      topPlayer: await this.leaderboard.getTopPlayers(1)
+    };
+
+    return stats;
+  }
+
+  async cleanup() {
+    await redisManager.disconnect();
+    console.log('🧹 Application cleanup completed');
+  }
+}
+
+async function runCompleteExample() {
+  const app = new RedisApplication();
+
+  try {
+    await app.initialize();
+
+    await app.simulateUserActivity();
+    await app.processBackgroundTasks();
+    await app.showLeaderboard();
+    await app.demonstrateCache();
+
+    console.log('\n📊 Application Statistics:');
+    const stats = await app.getApplicationStats();
+    console.log('Queue stats:', stats.queueStats);
+    console.log('Total Redis keys:', stats.totalKeys);
+    console.log('Top player:', stats.topPlayer[0]);
+
+    console.log('\n✅ Complete application example finished!');
+
+  } catch (error) {
+    console.error('❌ Application error:', error.message);
+  } finally {
+    await app.cleanup();
+  }
+}
+
+// Run the complete example
+if (require.main === module) {
+  runCompleteExample();
+}
+
+module.exports = RedisApplication;
+```
+
+### Run All Examples
+
+Now you can test all the examples we've built:
+
+```bash
+# Test connection
+node tests/connection-test.js
+
+# Basic operations
+node examples/basic-operations.js
+
+# Advanced data structures
+node examples/leaderboard.js
+node examples/task-queue.js
+
+# Caching patterns
+node examples/cache-patterns.js
+
+# Redis Stack features (if available)
+node examples/redis-json.js
+node examples/redis-search.js
+
+# Connection pooling (v5+ features)
+node examples/connection-pool.js
+
+# Complete application
+node examples/complete-app.js
+```
+
+### Project Structure Summary
+
+Your final project structure should look like this:
+
+<Files>
+  <Folder name="redis-nodejs-guide" defaultOpen>
+    <File name=".env" />
+    <File name="package.json" />
+    <Folder name="src" defaultOpen>
+      <File name="redisClient.js" />
+    </Folder>
+    <Folder name="examples">
+      <File name="basic-operations.js" />
+      <File name="leaderboard.js" />
+      <File name="task-queue.js" />
+      <File name="cache-patterns.js" />
+      <File name="redis-json.js" />
+      <File name="redis-search.js" />
+      <File name="connection-pool.js" />
+      <File name="complete-app.js" />
+    </Folder>
+    <Folder name="tests">
+      <File name="connection-test.js" />
+    </Folder>
+  </Folder>
+</Files>
+
+## Next Steps
+
+Now that you have a solid foundation with Redis and Node.js, consider exploring:
+
+1. **Production Deployment**: Implement monitoring, logging, and error handling
+2. **Performance Optimization**: Use pipelining, connection pooling, and memory optimization
+3. **Security**: Enable TLS, implement proper authentication, and secure your Redis instance
+4. **Scaling**: Explore Redis Cluster, Sentinel, and horizontal scaling strategies
+5. **Integration**: Connect with your favorite Node.js frameworks (Express, NestJS, Fastify)
+
+For more detailed information and updates, refer to the [official node-redis documentation](https://github.com/redis/node-redis) and [Redis Stack documentation](https://redis.io/docs/stack/).
