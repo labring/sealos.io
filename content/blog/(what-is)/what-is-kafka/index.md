@@ -6,8 +6,6 @@ tags: ['Sealos', 'Kafka', 'Streaming', 'Event-Driven Architecture']
 authors: ['default']
 ---
 
-# A Comprehensive Guide to Event Streaming in 2025
-
 Apache Kafka has established itself as the de facto standard for event streaming and real-time data processing, revolutionizing how organizations handle data flows in today's event-driven landscape. This comprehensive guide explains everything you need to know about Kafka, from basic concepts to advanced implementation strategies.
 
 ## Understanding Apache Kafka: The Foundation of Modern Event Streaming
