@@ -23,7 +23,7 @@ authors: ['default']
 
 作为公有云服务提供商，我们会分配基于主站域名的二级域名方便用户开发与测试，同时为保证安全，从用户端 (公网) 到集群网关的链路流量采取了 TLS 加密。此外，我们也支持用户自定义域名 CNAME 解析到其业务的需求，且支持自动签名与续签。这些产品优势与策略导致在同一可用区出现海量二级域名与用户自定义域名共存的情况。
 
-我们是第一个做到用同一个 [K8S 集群](https://kubernetes.io/docs/home/)支撑如此海量用户的公有云厂商，但也需要着手解决一个从未有人遇到过难题，即**海量域名 Ingress**场景下的**网关性能瓶颈**。
+我们是业界率先做到用同一个 [K8S 集群](https://kubernetes.io/docs/home/)支撑如此海量用户的公有云厂商，但也需要着手解决一个从未有人遇到过难题，即**海量域名 Ingress**场景下的**网关性能瓶颈**。
 
 目前所有开源生态的产品都没有很好适配单集群海量租户海量应用网关条目的场景，在我们的观察下，**随着域名数量的上升，Ingress 配置同步的时间会非线性劣化，创建 Ingress 后，用户业务需要等待很长一段时间才能从公网访问。**
 
@@ -79,7 +79,9 @@ istio 这样实现的原因笔者也能理解，这样可以不用为不同的�
 
 我们观察到 patch 分为多个阶段，在不同的阶段可能会多次序列化和反序列化同一个对象。由此我们想到了另一个思路，为所有需要合并的数据进行缓存，保留反序列化后的对象，这样可以保证每个对象只序列化和反序列化一次。
 
-优化完 controller 的性能提升了 50%+，最终的实现代码可以参考：
+![Istio 控制面优化后的火焰图](./images/sealos-istio-flamegraph-optimized-controller.png)
+
+优化完 controller 的性能提升了 50%+，从新的火焰图中能看到，优化部分的时间占用已经完全看不见了。最终的实现代码可以参考：
 
 <https://github.com/luanshaotong/istio/compare/istio-1.19...luanshaotong:istio:test>
 
@@ -139,6 +141,10 @@ envoy 不仅仅会对 filterchain 进行 hash，还会父类型的 listener 和�
 
 图中为继承原版的 `MessageUtil` 类实现了 `CachedMessageUtil` 类的接口，由于具体的实现放在了 Protobuf 中，使得我们对于 envoy 的改动非常小，在未来 envoy 升级时修改的代价也很低。
 
+![Envoy 数据面优化后的火焰图](./images/sealos-envoy-flamegraph-optimized-data-plane.png)
+
+从修改后的火焰图可以看出，修改部分的处理时间只占很小一部分了。
+
 ## 最终的效果
 
 ### 性能
@@ -180,6 +186,8 @@ envoy 不仅仅会对 filterchain 进行 hash，还会父类型的 listener 和�
 ![优化后 Sealos 线上 Ingress 响应时间](./images/sealos-online-response-time-after-optimization.png)
 
 线上环境与测试环境比例差异较大，主要原因目前我们推测是因为线上环境有大量的业务流量请求负载，在优化了 envoy 的响应性能之后收益更大。
+
+原先需要 2min 的时间优化到了 5s，但这里 2min 只是理想情况，业务高峰时需要同时生效的条目比较多时这个时间会长达几十分钟。而且如果是更大规模时优化前的 Envoy 表现会更为糟糕，甚至完全不可用，而优化之后生效时间几乎不随规模的增大而降低。
 
 ### 兼容性
 
