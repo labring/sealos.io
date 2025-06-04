@@ -107,6 +107,7 @@ export const navTranslations: Record<languagesType, Record<string, string>> = {
     docs: '文档',
     case: '客户案例',
     blog: '博客',
+    pricing: '价格',
     contact: '联系我们',
     getStarted: '免费体验 7 天',
 
@@ -116,6 +117,7 @@ export const navTranslations: Record<languagesType, Record<string, string>> = {
     docsUrl: '/docs',
     caseUrl: '/customers',
     blogUrl: '/blog',
+    pricingUrl: 'https://sealos.run/pricing',
     contactUrl:
       'https://fael3z0zfze.feishu.cn/share/base/form/shrcn5oHHTKCf3VREMKOhEy6fmf',
   },

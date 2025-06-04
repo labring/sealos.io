@@ -140,6 +140,7 @@ export const footerTranslations: Record<
     aiproxy: 'AI Proxy',
     case: '案例',
     forum: '社区',
+    pricing: '价格',
     contactUs: '联系我们',
     termsOfService: '服务条款',
     privacyPolicy: '隐私政策',
@@ -152,6 +153,7 @@ export const footerTranslations: Record<
     devboxUrl: '/devbox',
     fastgptUrl: 'https://fastgpt.cn',
     aiproxyUrl: '/aiproxy',
+    pricingUrl: 'https://sealos.run/pricing',
     contactUsUrl:
       'https://fael3z0zfze.feishu.cn/share/base/form/shrcn5oHHTKCf3VREMKOhEy6fmf',
     caseUrl: '/customers',

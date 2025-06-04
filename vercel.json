@@ -26,11 +26,6 @@
       "permanent": true
     },
     {
-      "source": "/pricing",
-      "destination": "https://sealos.run/pricing",
-      "permanent": true
-    },
-    {
       "source": "/docs/5.0.0/user-guide/ai-proxy",
       "destination": "https://sealos.run/docs/5.0.0/user-guide/ai-proxy/",
       "permanent": true
