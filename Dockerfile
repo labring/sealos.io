@@ -32,7 +32,11 @@ COPY . .
 RUN npm install && npm run build
 
 FROM base AS runner
-RUN apk add --no-cache curl
+RUN apk add --no-cache curl cairo-dev \
+    pango-dev \
+    libjpeg-turbo \
+    giflib-dev \
+    librsvg-dev
 ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
