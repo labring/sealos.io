@@ -62,6 +62,7 @@ const FooterLinksData: Record<string, FooterCategoryType> = {
   products: {
     titleKey: 'productsTitle',
     links: [
+      { textKey: 'pricing', urlKey: 'pricingUrl', isExternal: false },
       { textKey: 'devbox', urlKey: 'devboxUrl', isExternal: false },
       { textKey: 'fastgpt', urlKey: 'fastgptUrl', isExternal: true },
     ],
@@ -105,6 +106,7 @@ export const footerTranslations: Record<
     devbox: 'DevBox',
     fastgpt: 'FastGPT',
     contactUs: 'Contact Us',
+    pricing: 'Pricing',
     case: 'Customers ',
     termsOfService: 'Terms of Service',
     privacyPolicy: 'Privacy Policy',
@@ -117,6 +119,7 @@ export const footerTranslations: Record<
     appStoreUrl: templateDomain,
     devboxUrl: '/devbox',
     fastgptUrl: 'https://tryfastgpt.ai',
+    pricingUrl: '/pricing',
     contactUsUrl: 'mailto:contact@sealos.io',
     caseUrl: '/',
     termsOfServiceUrl: '/docs/msa/terms-of-service',
