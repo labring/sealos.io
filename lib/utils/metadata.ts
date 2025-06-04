@@ -139,7 +139,6 @@ export function generatePageMetadata(
 
     // Extract the language and the rest of the path
     const pathParts = path.split('/');
-    const lang = pathParts[0]; // First part is the language
     const restPath = pathParts.slice(1).join('/');
 
     if (restPath.startsWith('customers/')) {
@@ -162,9 +161,16 @@ export function generatePageMetadata(
     title: title,
     description: description,
     keywords: keywords,
-    // alternates: {
-    //   canonical: siteConfig.url.base,
-    // },
+    alternates: {
+      types: {
+        'application/rss+xml': [
+          {
+            title: 'Sealos Blog',
+            url: `${siteConfig.url.base}/rss.xml`,
+          },
+        ],
+      },
+    },
     openGraph: {
       type: 'website',
       url: options.pathname ? `${siteConfig.url.base}/${options.pathname}` : siteConfig.url.base,

@@ -2,7 +2,7 @@ import React from 'react';
 import { siteConfig, templateDomain } from '@/config/site';
 import Link from 'fumadocs-core/link';
 import { cn } from '@/lib/utils';
-import { DiscordIcon, GithubIcon, BilibiliIcon, WechatIcon } from '../ui/icons';
+import { DiscordIcon, GithubIcon, BilibiliIcon, WechatIcon, RSSIcon } from '../ui/icons';
 import { languagesType, i18n } from '@/lib/i18n';
 
 const year = new Date().getFullYear();
@@ -367,6 +367,13 @@ const Footer = async ({
               <WechatIcon />
             </Link>
           )}
+          <Link
+            className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
+            href="/rss.xml"
+            aria-label="RSS Feed"
+          >
+            <RSSIcon />
+          </Link>
         </div>
       </div>
     </div>

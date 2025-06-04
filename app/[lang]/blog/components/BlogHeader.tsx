@@ -1,6 +1,7 @@
 import { languagesType } from '@/lib/i18n';
 import CategoryBar from './CategoryBar';
 import TagBar from './TagBar';
+import { RSSButton } from '@/components/ui/rss-button';
 
 interface BlogHeaderProps {
   lang: languagesType;
@@ -55,6 +56,9 @@ export default function BlogHeader({
             </p>
           </div>
         )}
+        <div className="flex justify-center mt-6">
+          <RSSButton lang={lang} />
+        </div>
       </div>
       <CategoryBar categories={categories} text={text} />
       <div className="hidden sm:block">
