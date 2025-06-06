@@ -91,7 +91,7 @@ The complete implementation can be found in our optimized codebase:
 
 Despite our control plane victories, end-to-end performance remained stubbornly slow. The real monster was lurking in Envoy's data plane, where single-threaded processing created a devastating bottleneck.
 
-Envoy is an open-source service mesh proxy written in C++ ([our optimized version](https://github.com/higress-group/envoy)). To analyze its performance, we employed [perf and FlameGraph.pl tools](https://www.brendangregg.com/flamegraphs.html) to generate comprehensive flame graphs during data plane startup.
+Envoy is an open-source service mesh proxy written in C++ ([optimized version by Higress](https://github.com/higress-group/envoy)). To analyze its performance, we employed [perf and FlameGraph.pl tools](https://www.brendangregg.com/flamegraphs.html) to generate comprehensive flame graphs during data plane startup.
 
 ![Envoy startup flame graph](./images/envoy-startup-flamegraph-filterchain.png)
 
