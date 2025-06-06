@@ -70,8 +70,18 @@ export const GetStartedButton = ({
   className?: string;
   link?: string;
 }) => {
-  const handleClick = () => {
-    window.rybbit.event('Get Started Button Clicked');
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      if (typeof window !== 'undefined' && window.rybbit) {
+        window.rybbit.event('Get Started Button Clicked');
+      }
+    } catch (error) {
+      console.warn('Analytics tracking failed:', error);
+    }
+
     if (link) {
       window.location.href = link;
     }
@@ -84,6 +94,7 @@ export const GetStartedButton = ({
         className,
       )}
       onClick={handleClick}
+      role="button"
       {...props}
     >
       <div className="z-10">{title ? title : 'Get Started'}</div>
