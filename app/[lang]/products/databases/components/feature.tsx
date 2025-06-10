@@ -66,16 +66,18 @@ export default function Feature() {
         </p>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
         {features.map((feature, index) => (
           <div
             key={index}
             className="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl"
           >
             <div className="mb-6">
-              <div className="mb-4 flex items-center gap-3">
-                <div className="text-blue-600">{feature.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900">
+              <div className="mb-4 flex items-start gap-3">
+                <div className="flex-shrink-0 text-blue-600">
+                  {feature.icon}
+                </div>
+                <h3 className="text-lg leading-tight font-semibold text-gray-900">
                   {feature.title}
                 </h3>
               </div>

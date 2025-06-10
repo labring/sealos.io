@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { appsConfig, getAllCategories, AppConfig } from '@/config/apps';
 import { templateDomain } from '@/config/site';
+import { AppIcon } from '@/components/ui/app-icon';
 
 const categories = getAllCategories();
 
@@ -144,7 +145,7 @@ export default function Applications() {
               >
                 <div className="mb-3 flex items-center justify-between">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-blue-100/30 bg-white/80 shadow-sm">
-                    <img
+                    <AppIcon
                       src={app.icon}
                       alt={`${app.name} icon`}
                       className="h-6 w-6"
@@ -204,7 +205,7 @@ export default function Applications() {
             >
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-blue-100/30 bg-gradient-to-r from-blue-50/50 to-indigo-50/50 shadow-sm">
-                  <img
+                  <AppIcon
                     src={app.icon}
                     alt={`${app.name} icon`}
                     className="h-8 w-8"

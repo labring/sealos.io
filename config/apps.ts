@@ -24,14 +24,15 @@ export interface AppConfig {
 }
 
 // Export the apps data as typed AppConfig array with deploy URLs
-export const appsConfig: AppConfig[] = (appsData as AppConfig[]).map(app => ({
+export const appsConfig: AppConfig[] = (appsData as AppConfig[]).map((app) => ({
   ...app,
-  deployUrl: getDeployUrl(app.slug)
+  deployUrl: getDeployUrl(app.slug),
 }));
 
 // Helper functions
 export function getAppBySlug(slug: string): AppConfig | undefined {
-  return appsConfig.find((app) => app.slug === slug);
+  const lowerSlug = slug.toLowerCase();
+  return appsConfig.find((app) => app.slug.toLowerCase() === lowerSlug);
 }
 
 export function getAppsByCategory(category: string): AppConfig[] {

@@ -26,9 +26,7 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/ItzCrazyKns/Perplexica",
     "website": "https://github.com/ItzCrazyKns/Perplexica",
-    "tags": [
-      "ai"
-    ],
+    "tags": ["ai"],
     "i18n": {
       "zh": {
         "description": "Perplexica 是一个开源的 AI 驱动搜索引擎，可以作为 Perplexity AI 的替代品。"
@@ -62,9 +60,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/toeverything/AFFiNE",
     "website": "https://affine.pro/",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "AList",
@@ -93,9 +89,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/alist-org/alist",
     "website": "https://github.com/alist-org/alist",
-    "tags": [
-      "tool"
-    ],
+    "tags": ["tool"],
     "i18n": {
       "zh": {
         "description": "一个支持多种存储的文件列表/WebDAV程序，由 Gin 和 Solidjs 提供支持。"
@@ -129,9 +123,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/yangchuansheng/anki-sync-server",
     "website": "https://docs.ankiweb.net/sync-server.html",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "Appsmith",
@@ -160,9 +152,7 @@
     "gradient": "from-teal-50/70 to-cyan-50/70",
     "github": "https://github.com/appsmithorg/appsmith",
     "website": "https://www.appsmith.com/",
-    "tags": [
-      "low-code"
-    ]
+    "tags": ["low-code"]
   },
   {
     "name": "artalk",
@@ -191,9 +181,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/ArtalkJS/Artalk",
     "website": "https://github.com/ArtalkJS/Artalk",
-    "tags": [
-      "tool"
-    ],
+    "tags": ["tool"],
     "i18n": {
       "zh": {
         "description": "Artalk 是一款简单易用但功能丰富的评论系统，你可以开箱即用地部署并置入任何博客、网站、Web 应用。"
@@ -227,9 +215,7 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/bytebase/bytebase",
     "website": "https://bytebase.com/",
-    "tags": [
-      "database"
-    ]
+    "tags": ["database"]
   },
   {
     "name": "chatany",
@@ -258,9 +244,7 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/ChatAnyTeam/ChatAny",
     "website": "https://github.com/ChatAnyTeam/ChatAny",
-    "tags": [
-      "ai"
-    ]
+    "tags": ["ai"]
   },
   {
     "name": "chatbot-ui",
@@ -289,9 +273,7 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/mckaywrigley/chatbot-ui",
     "website": "https://www.chatbotui.com/",
-    "tags": [
-      "ai"
-    ]
+    "tags": ["ai"]
   },
   {
     "name": "Chat Nio",
@@ -320,10 +302,7 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/coaidev/coai",
     "website": "https://coai.dev/",
-    "tags": [
-      "ai",
-      "tool"
-    ],
+    "tags": ["ai", "tool"],
     "i18n": {
       "zh": {
         "description": "下一代 AIGC 一站式商业解决方案"
@@ -357,9 +336,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/coder/code-server",
     "website": "https://github.com/coder/code-server",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "Cronicle",
@@ -388,15 +365,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/jhuckaby/Cronicle",
     "website": "http://cronicle.net",
-    "tags": [
-      "dev-ops"
-    ]
+    "tags": ["dev-ops"]
   },
   {
     "name": "DbGate",
     "slug": "dbgate",
     "description": "DbGate is cross-platform database manager. It is designed to be simple to use and effective, when working with more databases simultaneously. But there are also many advanced features like schema compare, visual query designer, chart visualisation or batch export and import.",
-    "icon": "/images/apps/dbgate.svg",
+    "icon": "/images/apps/dbgate.png",
     "category": "Database",
     "features": [
       "Data Storage",
@@ -419,15 +394,13 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/dbgate/dbgate",
     "website": "https://dbgate.org",
-    "tags": [
-      "database"
-    ]
+    "tags": ["database"]
   },
   {
     "name": "DeeplX",
     "slug": "deeplx",
     "description": "DeepL Free API (No TOKEN required)",
-    "icon": "/images/apps/deeplx.svg",
+    "icon": "/images/apps/deeplx.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -450,15 +423,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/OwO-Network/DeepLX",
     "website": "https://github.com/OwO-Network/DeepLX",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "Dify",
     "slug": "dify",
     "description": "Dify is an open-source LLM app development platform.",
-    "icon": "/images/apps/dify.svg",
+    "icon": "/images/apps/dify.png",
     "category": "AI",
     "features": [
       "AI Processing",
@@ -481,9 +452,7 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/langgenius/dify",
     "website": "https://dify.ai/",
-    "tags": [
-      "ai"
-    ],
+    "tags": ["ai"],
     "i18n": {
       "zh": {
         "description": "Dify 是一个开源的 LLM 应用开发平台"
@@ -523,7 +492,7 @@
     "name": "Excalidraw",
     "slug": "excalidraw",
     "description": "An open source virtual hand-drawn style whiteboard. Collaborative and end-to-end encrypted.",
-    "icon": "/images/apps/excalidraw.svg",
+    "icon": "/images/apps/excalidraw.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -546,44 +515,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/excalidraw/excalidraw",
     "website": "https://excalidraw.com/",
-    "tags": [
-      "tool"
-    ]
-  },
-  {
-    "name": "Fast Poster",
-    "slug": "fast-poster",
-    "description": "🔥 Fast Poster - 海报生成器,图片生成器,电商海报编辑器。支持Java Python PHP Go JS等多语言SDK。",
-    "icon": "/images/apps/fast-poster.png",
-    "category": "Tools",
-    "features": [
-      "User-Friendly Interface",
-      "Easy Configuration",
-      "Multi-Platform Support",
-      "Extensible"
-    ],
-    "benefits": [
-      "Easy to deploy and manage",
-      "Self-hosted solution",
-      "Open source and free",
-      "Community supported"
-    ],
-    "useCases": [
-      "Business Operations",
-      "Development Workflow",
-      "Data Management",
-      "Team Collaboration"
-    ],
-    "gradient": "from-green-50/70 to-emerald-50/70",
-    "github": "https://github.com/psoho/fast-poster",
-    "website": "https://fastposter.net/doc/",
-    "tags": []
+    "tags": ["tool"]
   },
   {
     "name": "Fireboom",
     "slug": "fireboom",
     "description": "Fireboom is a visualization API cloud platform designed for developers with the goal of rapidly delivering production-ready APIs.",
-    "icon": "/images/apps/fireboom.svg",
+    "icon": "/images/apps/fireboom.png",
     "category": "Low-Code",
     "features": [
       "Visual Interface",
@@ -606,15 +544,13 @@
     "gradient": "from-teal-50/70 to-cyan-50/70",
     "github": "https://github.com/fireboomio",
     "website": "https://fireboom.cloud/",
-    "tags": [
-      "low-code"
-    ]
+    "tags": ["low-code"]
   },
   {
     "name": "Flarum",
     "slug": "flarum",
     "description": "Flarum is a delightfully simple discussion platform for your website.",
-    "icon": "/images/apps/flarum.svg",
+    "icon": "/images/apps/flarum.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -637,9 +573,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/crazy-max/docker-flarum",
     "website": "https://flarum.org/",
-    "tags": [
-      "blog"
-    ]
+    "tags": ["blog"]
   },
   {
     "name": "Flowise",
@@ -668,9 +602,7 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/FlowiseAI/Flowise",
     "website": "https://flowiseai.com/",
-    "tags": [
-      "ai"
-    ]
+    "tags": ["ai"]
   },
   {
     "name": "Gitea",
@@ -699,9 +631,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/go-gitea/gitea",
     "website": "https://gitea.com",
-    "tags": [
-      "tool"
-    ],
+    "tags": ["tool"],
     "i18n": {
       "zh": {
         "description": "Gitea 的首要目标是创建一个极易安装，运行非常快速，安装和使用体验良好的自建 Git 服务"
@@ -735,9 +665,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/juanfont/headscale",
     "website": "https://github.com/juanfont/headscale",
-    "tags": [
-      "tool"
-    ],
+    "tags": ["tool"],
     "i18n": {
       "zh": {
         "description": "一个自托管的开源 Tailscale 控制服务器实现，使用 PostgreSQL 作为数据库。"
@@ -771,9 +699,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/juanfont/headscale",
     "website": "https://github.com/juanfont/headscale",
-    "tags": [
-      "tool"
-    ],
+    "tags": ["tool"],
     "i18n": {
       "zh": {
         "description": "一个自托管的开源 Tailscale 控制服务器实现。"
@@ -807,9 +733,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/heyform/heyform",
     "website": "https://heyform.net/",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "ILLA Builder",
@@ -838,15 +762,13 @@
     "gradient": "from-teal-50/70 to-cyan-50/70",
     "github": "https://github.com/illacloud/illa-builder",
     "website": "https://www.illacloud.com/zh-CN",
-    "tags": [
-      "low-code"
-    ]
+    "tags": ["low-code"]
   },
   {
     "name": "influxdb",
     "slug": "influxdb",
     "description": "Real-time insights from any time series data with a single, purpose-built database. Run at any scale in any environment in the cloud, on-premises, or at the edge.",
-    "icon": "/images/apps/influxdb.svg",
+    "icon": "/images/apps/influxdb.png",
     "category": "Database",
     "features": [
       "Data Storage",
@@ -867,15 +789,13 @@
       "Team Collaboration"
     ],
     "gradient": "from-blue-50/70 to-indigo-50/70",
-    "tags": [
-      "database"
-    ]
+    "tags": ["database"]
   },
   {
     "name": "inpaint-web",
     "slug": "inpaint-web",
     "description": "A free and open-source inpainting & image-upscaling tool powered by webgpu and wasm on the browser.",
-    "icon": "/images/apps/inpaint-web.svg",
+    "icon": "/images/apps/inpaint-web.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -898,9 +818,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/lxfater/inpaint-web",
     "website": "https://github.com/lxfater/inpaint-web",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "IT-Tools",
@@ -929,15 +847,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/CorentinTh/it-tools",
     "website": "https://it-tools.tech/",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "jsoncrack",
     "slug": "jsoncrack",
     "description": "JSON Crack is a free, open-source data visualization app capable of visualizing data formats such as JSON, YAML, XML, CSV and more, into interactive graphs.",
-    "icon": "/images/apps/jsoncrack.svg",
+    "icon": "/images/apps/jsoncrack.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -960,9 +876,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/AykutSarac/jsoncrack.com",
     "website": "https://github.com/AykutSarac/jsoncrack.com",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "JupyterDockerStacks",
@@ -991,9 +905,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/jupyter/docker-stacks",
     "website": "https://jupyter-docker-stacks.readthedocs.io/en/latest/",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "LibreChat",
@@ -1022,9 +934,7 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/danny-avila/LibreChat",
     "website": "https://github.com/danny-avila/LibreChat",
-    "tags": [
-      "ai"
-    ]
+    "tags": ["ai"]
   },
   {
     "name": "listmonk",
@@ -1053,9 +963,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/knadh/listmonk",
     "website": "https://listmonk.app/",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "Lobe Chat Database Version",
@@ -1084,9 +992,7 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/lobehub/lobe-chat",
     "website": "https://github.com/lobehub/lobe-chat",
-    "tags": [
-      "ai"
-    ],
+    "tags": ["ai"],
     "i18n": {
       "zh": {
         "description": "Lobe Chat 是一款现代化设计的开源 ChatGPT/LLMs 聊天应用与开发框架，支持语音合成、多模态、可扩展的（function call）插件系统。"
@@ -1120,9 +1026,7 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/lobehub/lobe-chat",
     "website": "https://github.com/lobehub/lobe-chat",
-    "tags": [
-      "ai"
-    ],
+    "tags": ["ai"],
     "i18n": {
       "zh": {
         "description": "Lobe Chat 是一款现代化设计的开源 ChatGPT/LLMs 聊天应用与开发框架，支持语音合成、多模态、可扩展的（function call）插件系统。"
@@ -1156,9 +1060,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/logto-io/logto",
     "website": "https://logto.io/",
-    "tags": [
-      "tool"
-    ],
+    "tags": ["tool"],
     "i18n": {
       "zh": {
         "description": "Logto 是一个开源的 身份与访问管理（IAM）平台，是 Auth0 的开源替代方案，旨在帮助开发者快速构建安全、可扩展的登录注册系统和用户身份体系。"
@@ -1169,7 +1071,7 @@
     "name": "mautic",
     "slug": "mautic",
     "description": "Mautic is the world’s largest open source marketing automation software.",
-    "icon": "/images/apps/mautic.svg",
+    "icon": "/images/apps/mautic.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1192,9 +1094,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/mautic/mautic",
     "website": "https://www.mautic.org/",
-    "tags": [
-      "tool"
-    ],
+    "tags": ["tool"],
     "i18n": {
       "zh": {
         "description": "Mautic 是一款开源的营销自动化平台，提供电子邮件营销、客户旅程设计、潜在客户管理和行为跟踪等功能，帮助企业自动化营销流程、分析用户互动并个性化客户体验。"
@@ -1205,7 +1105,7 @@
     "name": "Meilisearch",
     "slug": "meilisearch",
     "description": "A lightning-fast search API that fits effortlessly into your apps, websites, and workflow.",
-    "icon": "/images/apps/meilisearch.svg",
+    "icon": "/images/apps/meilisearch.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1228,9 +1128,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/meilisearch/meilisearch",
     "website": "https://www.meilisearch.com/",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "memos",
@@ -1288,16 +1186,13 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/metabase/metabase",
     "website": "metabase.com",
-    "tags": [
-      "database",
-      "low-code"
-    ]
+    "tags": ["database", "low-code"]
   },
   {
     "name": "midjourney-ui",
     "slug": "midjourney-ui",
     "description": "Midjourney UI is an open source txt2img UI for AI draw.",
-    "icon": "/images/apps/midjourney-ui.svg",
+    "icon": "/images/apps/midjourney-ui.png",
     "category": "AI",
     "features": [
       "AI Processing",
@@ -1320,9 +1215,7 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/erictik/midjourney-ui",
     "website": "https://github.com/topics/midjourney-ui",
-    "tags": [
-      "ai"
-    ]
+    "tags": ["ai"]
   },
   {
     "name": "MinIO",
@@ -1351,9 +1244,7 @@
     "gradient": "from-orange-50/70 to-amber-50/70",
     "github": "https://github.com/minio/minio",
     "website": "https://min.io/",
-    "tags": [
-      "storage"
-    ]
+    "tags": ["storage"]
   },
   {
     "name": "mongo-express",
@@ -1382,9 +1273,7 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/mongo-express/mongo-express",
     "website": "https://github.com/mongo-express/mongo-express",
-    "tags": [
-      "database"
-    ]
+    "tags": ["database"]
   },
   {
     "name": "N8N PostgreSQL",
@@ -1413,9 +1302,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/n8n-io/n8n",
     "website": "https://n8n.io/",
-    "tags": [
-      "tool"
-    ],
+    "tags": ["tool"],
     "i18n": {
       "zh": {
         "description": "n8n 是一个工作流自动化平台，通过将代码的灵活性与无代码的速度相结合，帮助技术团队构建自动化流程。"
@@ -1449,9 +1336,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/n8n-io/n8n",
     "website": "https://n8n.io/",
-    "tags": [
-      "tool"
-    ],
+    "tags": ["tool"],
     "i18n": {
       "zh": {
         "description": "n8n 是一个工作流自动化平台，通过将代码的灵活性与无代码的速度相结合，帮助技术团队构建自动化流程。"
@@ -1485,9 +1370,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/sonatype/nexus-public",
     "website": "https://www.sonatype.com/products/sonatype-nexus-repository",
-    "tags": [
-      "tool"
-    ],
+    "tags": ["tool"],
     "i18n": {
       "zh": {
         "description": "一个强大的软件仓库管理工具，主要用于存储和管理软件开发过程中的各类组件（artifacts）。"
@@ -1521,15 +1404,13 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/nocodb/nocodb",
     "website": "https://nocodb.com/",
-    "tags": [
-      "database"
-    ]
+    "tags": ["database"]
   },
   {
     "name": "nsfw",
     "slug": "nsfw",
     "description": "NSFW is a project for image pornography recognition",
-    "icon": "/images/apps/nsfw.svg",
+    "icon": "/images/apps/nsfw.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1558,7 +1439,7 @@
     "name": "Open WebUI",
     "slug": "open-webui",
     "description": "User-friendly WebUI for LLMs (Formerly Ollama WebUI)",
-    "icon": "/images/apps/open-webui.svg",
+    "icon": "/images/apps/open-webui.png",
     "category": "AI",
     "features": [
       "AI Processing",
@@ -1581,9 +1462,7 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/open-webui/open-webui",
     "website": "https://github.com/open-webui/open-webui",
-    "tags": [
-      "ai"
-    ]
+    "tags": ["ai"]
   },
   {
     "name": "OpenObserve",
@@ -1618,7 +1497,7 @@
     "name": "Overleaf",
     "slug": "overleaf",
     "description": "Overleaf is an open-source online real-time collaborative LaTeX editor.",
-    "icon": "/images/apps/overleaf.svg",
+    "icon": "/images/apps/overleaf.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1641,9 +1520,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/overleaf/overleaf",
     "website": "https://github.com/overleaf/overleaf",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "PDFMathTranslate",
@@ -1672,10 +1549,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/Byaidu/PDFMathTranslate",
     "website": "https://pdf2zh.com/",
-    "tags": [
-      "tool",
-      "ai"
-    ],
+    "tags": ["tool", "ai"],
     "i18n": {
       "zh": {
         "description": "基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务。"
@@ -1686,7 +1560,7 @@
     "name": "Penpot",
     "slug": "penpot",
     "description": "The open-source design tool for design and code collaboration.",
-    "icon": "/images/apps/penpot.svg",
+    "icon": "/images/apps/penpot.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1709,9 +1583,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/penpot/penpot",
     "website": "https://penpot.app/",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "pgadmin4",
@@ -1740,15 +1612,13 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/pgadmin-org/pgadmin4",
     "website": "https://www.pgadmin.org/",
-    "tags": [
-      "database"
-    ]
+    "tags": ["database"]
   },
   {
     "name": "PhotoPrism",
     "slug": "photoprism",
     "description": "AI-Powered Photos App for the Decentralized Web.",
-    "icon": "/images/apps/photoprism.svg",
+    "icon": "/images/apps/photoprism.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1771,9 +1641,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/photoprism/photoprism",
     "website": "https://www.photoprism.app/",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "phpmyadmin",
@@ -1802,15 +1670,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/phpmyadmin/phpmyadmin",
     "website": "https://www.phpmyadmin.net/",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "Plane",
     "slug": "plane",
     "description": "Open Source JIRA, Linear, Monday, and Asana Alternative. Plane helps you track your issues, epics, and product roadmaps in the simplest way possible.",
-    "icon": "/images/apps/plane.svg",
+    "icon": "/images/apps/plane.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1833,9 +1699,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/makeplane/plane",
     "website": "http://plane.so/",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "plausible",
@@ -1864,15 +1728,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/plausible/analytics",
     "website": "https://github.com/plausible/analytics",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "PrivateBin",
     "slug": "privatebin",
     "description": "A minimalist, open source online pastebin where the server has zero knowledge of pasted data.",
-    "icon": "/images/apps/privatebin.svg",
+    "icon": "/images/apps/privatebin.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1895,9 +1757,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/PrivateBin/PrivateBin",
     "website": "https://privatebin.info/",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "qinglong",
@@ -1926,9 +1786,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/whyour/qinglong",
     "website": "https://github.com/whyour/qinglong",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "Reactive-Resume",
@@ -1957,15 +1815,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/AmruthPillai/Reactive-Resume",
     "website": "https://rxresu.me/",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "Readeck",
     "slug": "Readeck",
     "description": "Readeck helps you keep all that web content you’ll want to revisit in an hour, tomorrow, or in 20 years.",
-    "icon": "/images/apps/Readeck.svg",
+    "icon": "/images/apps/Readeck.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1988,9 +1844,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://codeberg.org/readeck/readeck",
     "website": "readeck.org",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "RedisInsight",
@@ -2019,15 +1873,13 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/RedisInsight/RedisInsight",
     "website": "https://redis.com/redis-enterprise/redis-insight/",
-    "tags": [
-      "database"
-    ]
+    "tags": ["database"]
   },
   {
     "name": "Refly",
     "slug": "refly",
     "description": "Refly is an open-source AI-native creation engine powered by 13+ leading AI models.",
-    "icon": "/images/apps/refly.svg",
+    "icon": "/images/apps/refly.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2050,9 +1902,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/refly-ai/refly",
     "website": "https://refly.ai/",
-    "tags": [
-      "tool"
-    ],
+    "tags": ["tool"],
     "i18n": {
       "zh": {
         "description": "refly 是一款开源的 AI Native 创作引擎，由多线程对话、代码组件、知识库集成、上下文记忆和智能搜索驱动，Refly 是将创意转化为优质内容的最佳方式。"
@@ -2063,7 +1913,7 @@
     "name": "registry",
     "slug": "registry",
     "description": "registry is an implementation of the OCI Distribution Specification. gui-registry is a web UI for registry.",
-    "icon": "/images/apps/registry.svg",
+    "icon": "/images/apps/registry.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2115,9 +1965,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/DIYgod/RSSHub",
     "website": "https://docs.rsshub.app/",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "Ruiqi-Waf",
@@ -2146,15 +1994,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/HUAHUAI23/simple-waf",
     "website": "https://github.com/HUAHUAI23/simple-waf",
-    "tags": [
-      "dev-ops"
-    ]
+    "tags": ["dev-ops"]
   },
   {
     "name": "Rybbit",
     "slug": "rybbit",
     "description": "Rybbit is the modern open source and privacy friendly alternative to Google Analytics.",
-    "icon": "/images/apps/rybbit.svg",
+    "icon": "/images/apps/rybbit.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2177,9 +2023,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/rybbit-io/rybbit",
     "website": "https://rybbit.io/",
-    "tags": [
-      "tool"
-    ],
+    "tags": ["tool"],
     "i18n": {
       "zh": {
         "description": "Rybbit 是一款开源、注重隐私、比 Google Analytics 更直观的下一代替代品，用于网络和产品分析，并且易于安装和使用。"
@@ -2190,7 +2034,7 @@
     "name": "SigNoz",
     "slug": "signoz",
     "description": "SigNoz is an open-source observability platform native to OpenTelemetry with logs, traces and metrics in a single application. An open-source alternative to DataDog, NewRelic, etc.",
-    "icon": "/images/apps/signoz.svg",
+    "icon": "/images/apps/signoz.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2213,16 +2057,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/SigNoz/signoz",
     "website": "https://signoz.io/",
-    "tags": [
-      "tool",
-      "database"
-    ]
+    "tags": ["tool", "database"]
   },
   {
     "name": "Stirling-PDF",
     "slug": "s-pdf",
     "description": "1 Locally hosted web application that allows you to perform various operations on PDF files.",
-    "icon": "/images/apps/s-pdf.svg",
+    "icon": "/images/apps/s-pdf.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2245,9 +2086,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/Stirling-Tools/Stirling-PDF",
     "website": "https://github.com/Stirling-Tools/Stirling-PDF",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "SurveyKing",
@@ -2276,9 +2115,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/javahuang/SurveyKing",
     "website": "https://surveyking.cn/",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "Tailchat",
@@ -2341,10 +2178,7 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/teableio/teable",
     "website": "teable.io",
-    "tags": [
-      "database",
-      "low-code"
-    ],
+    "tags": ["database", "low-code"],
     "i18n": {
       "zh": {
         "description": "Teable 是一款企业级高性能多维表格解决方案，通过无代码方式快速构建业务管理系统，支持私有部署和精细权限管理。"
@@ -2407,9 +2241,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/tolgee-io/tolgee",
     "website": "https://tolgee.io/",
-    "tags": [
-      "tool"
-    ],
+    "tags": ["tool"],
     "i18n": {
       "zh": {
         "description": "Tolgee 是一个开源的本地化平台，专为开发者设计，支持上下文直接翻译、一键生成翻译截图、生产环境实时编辑，并集成多种机器翻译服务（如 DeepL、Google Translate），提供翻译记忆与自动化功能，简化多语言应用的开发流程。"
@@ -2420,7 +2252,7 @@
     "name": "docker-ubuntu-sshd",
     "slug": "ubuntu-sshd",
     "description": "Ubuntu image with SSH & SFTP",
-    "icon": "/images/apps/ubuntu-sshd.svg",
+    "icon": "/images/apps/ubuntu-sshd.png",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2443,9 +2275,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/takeyamajp/docker-ubuntu-sshd",
     "website": "https://github.com/takeyamajp/docker-ubuntu-sshd",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "Umami",
@@ -2474,10 +2304,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/umami-software/umami",
     "website": "https://umami.is/",
-    "tags": [
-      "monitor",
-      "tool"
-    ]
+    "tags": ["monitor", "tool"]
   },
   {
     "name": "UptimeKuma",
@@ -2506,10 +2333,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/louislam/uptime-kuma",
     "website": "https://uptime.kuma.pet/",
-    "tags": [
-      "monitor",
-      "tool"
-    ]
+    "tags": ["monitor", "tool"]
   },
   {
     "name": "Vaultwarden",
@@ -2538,9 +2362,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/dani-garcia/vaultwarden",
     "website": "https://github.com/dani-garcia/vaultwarden",
-    "tags": [
-      "tool"
-    ]
+    "tags": ["tool"]
   },
   {
     "name": "WordPress",
@@ -2569,9 +2391,7 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/WordPress/WordPress",
     "website": "https://wordpress.org",
-    "tags": [
-      "blog"
-    ]
+    "tags": ["blog"]
   },
   {
     "name": "WrenAI",
@@ -2600,9 +2420,6 @@
     "gradient": "from-teal-50/70 to-cyan-50/70",
     "github": "https://github.com/Canner/WrenAI",
     "website": "https://github.com/Canner/WrenAI",
-    "tags": [
-      "low-code",
-      "ai"
-    ]
+    "tags": ["low-code", "ai"]
   }
 ]

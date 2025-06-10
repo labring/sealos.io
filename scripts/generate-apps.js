@@ -257,7 +257,7 @@ async function downloadIcon(iconUrl, slug) {
     // Extract file extension from URL
     const urlObj = new URL(iconUrl);
     const pathname = urlObj.pathname;
-    const extension = path.extname(pathname) || '.svg'; // Default to .svg if no extension
+    const extension = path.extname(pathname) || '.png'; // Default if no extension
 
     // Create filename with slug and original extension
     const filename = `${slug}${extension}`;

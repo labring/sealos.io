@@ -1,17 +1,9 @@
+import { AppConfig } from '@/config/apps';
 import { languagesType } from '@/lib/i18n';
+import { AppIcon } from '@/components/ui/app-icon';
 
 interface AppHeaderProps {
-  app: {
-    name: string;
-    icon: string;
-    category: string;
-    description: string;
-    gradient: string;
-    tags?: string[];
-    deployUrl: string;
-    website?: string;
-    github?: string;
-  };
+  app: AppConfig;
   translations: {
     deployNow: string;
     website: string;
@@ -21,13 +13,14 @@ interface AppHeaderProps {
 }
 
 export default function AppHeader({ app, translations, lang }: AppHeaderProps) {
+  const deployUrl = app.deployUrl;
   return (
     <div
       className={`bg-gradient-to-r ${app.gradient} mb-8 rounded-2xl border border-blue-100 p-8`}
     >
       <div className="flex items-start gap-6">
         <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-blue-100/30 bg-white/80 shadow-lg">
-          <img
+          <AppIcon
             src={app.icon}
             alt={`${app.name} icon`}
             className="h-12 w-12"
@@ -35,37 +28,17 @@ export default function AppHeader({ app, translations, lang }: AppHeaderProps) {
         </div>
         <div className="flex-1">
           <div className="mb-2 flex items-center gap-3">
-            <h1 className="text-3xl font-bold text-gray-900">
-              {app.name}
-            </h1>
+            <h1 className="text-3xl font-bold text-gray-900">{app.name}</h1>
             <span className="rounded-full bg-white/70 px-3 py-1 text-sm font-medium text-gray-700">
               {app.category}
             </span>
           </div>
-          <p className="mb-4 text-lg text-gray-700">
-            {app.description}
-          </p>
-
-          {/* Tags */}
-          {app.tags && app.tags.length > 0 && (
-            <div className="mb-4">
-              <div className="flex flex-wrap gap-2">
-                {app.tags.map((tag: string, index: number) => (
-                  <span
-                    key={index}
-                    className="inline-flex items-center rounded-full bg-white/50 px-3 py-1 text-sm text-gray-700"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
+          <p className="mb-4 text-lg text-gray-700">{app.description}</p>
 
           {/* Links and Deploy Button */}
           <div className="flex flex-wrap items-center gap-4">
             <a
-              href={app.deployUrl}
+              href={deployUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center rounded-lg bg-blue-600 px-6 py-3 text-lg font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-lg"
