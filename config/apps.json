@@ -1,1 +1,2608 @@
-[]
+[
+  {
+    "name": "Perplexica",
+    "slug": "perplexica",
+    "description": "Perplexica is an open-source AI-powered searching tool or an AI-powered search engine that goes deep into the internet to find answers.",
+    "icon": "/images/apps/perplexica.ico",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/ItzCrazyKns/Perplexica",
+    "website": "https://github.com/ItzCrazyKns/Perplexica",
+    "tags": [
+      "ai"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "Perplexica 是一个开源的 AI 驱动搜索引擎，可以作为 Perplexity AI 的替代品。"
+      }
+    }
+  },
+  {
+    "name": "AFFiNE",
+    "slug": "affine",
+    "description": "A privacy-focussed, local-first, open-source, and ready-to-use alternative for Notion & Miro.",
+    "icon": "/images/apps/affine.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/toeverything/AFFiNE",
+    "website": "https://affine.pro/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "AList",
+    "slug": "alist",
+    "description": "A file list/WebDAV program that supports multiple storages, powered by Gin and Solidjs.",
+    "icon": "/images/apps/alist.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/alist-org/alist",
+    "website": "https://github.com/alist-org/alist",
+    "tags": [
+      "tool"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "一个支持多种存储的文件列表/WebDAV程序，由 Gin 和 Solidjs 提供支持。"
+      }
+    }
+  },
+  {
+    "name": "anki-sync-server",
+    "slug": "anki-sync-server",
+    "description": "Self-Hosted Anki Sync Server",
+    "icon": "/images/apps/anki-sync-server.jpeg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/yangchuansheng/anki-sync-server",
+    "website": "https://docs.ankiweb.net/sync-server.html",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "Appsmith",
+    "slug": "appsmith",
+    "description": "Appsmith is an open-source platform to build, deploy, and maintain internal apps. You can build anything from simple CRUD apps, admin panels, dashboards to custom business apps and complicated multi-step workflows.",
+    "icon": "/images/apps/appsmith.png",
+    "category": "Low-Code",
+    "features": [
+      "Visual Interface",
+      "Drag & Drop",
+      "No Coding Required",
+      "Integrations"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-teal-50/70 to-cyan-50/70",
+    "github": "https://github.com/appsmithorg/appsmith",
+    "website": "https://www.appsmith.com/",
+    "tags": [
+      "low-code"
+    ]
+  },
+  {
+    "name": "artalk",
+    "slug": "artalk",
+    "description": "Artalk is an intuitive yet feature-rich comment system, ready for immediate deployment into any blog, website, or web application.",
+    "icon": "/images/apps/artalk.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/ArtalkJS/Artalk",
+    "website": "https://github.com/ArtalkJS/Artalk",
+    "tags": [
+      "tool"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "Artalk 是一款简单易用但功能丰富的评论系统，你可以开箱即用地部署并置入任何博客、网站、Web 应用。"
+      }
+    }
+  },
+  {
+    "name": "Bytebase",
+    "slug": "bytebase",
+    "description": "Bytebase is GitLab/GitHub for Database DevOps, built for developers, DBAs and platform teams.",
+    "icon": "/images/apps/bytebase.svg",
+    "category": "Database",
+    "features": [
+      "Data Storage",
+      "Query Processing",
+      "Backup & Recovery",
+      "High Availability"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-blue-50/70 to-indigo-50/70",
+    "github": "https://github.com/bytebase/bytebase",
+    "website": "https://bytebase.com/",
+    "tags": [
+      "database"
+    ]
+  },
+  {
+    "name": "chatany",
+    "slug": "chatany",
+    "description": "One-click to own your own ChatGPT+StabilityAI+Midjourney web service",
+    "icon": "/images/apps/chatany.ico",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/ChatAnyTeam/ChatAny",
+    "website": "https://github.com/ChatAnyTeam/ChatAny",
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "name": "chatbot-ui",
+    "slug": "chatbot-ui",
+    "description": "An open source ChatGPT UI",
+    "icon": "/images/apps/chatbot-ui.ico",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/mckaywrigley/chatbot-ui",
+    "website": "https://www.chatbotui.com/",
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "name": "Chat Nio",
+    "slug": "chatnio",
+    "description": "Next Generation AI One-Stop Internationalization Solution.",
+    "icon": "/images/apps/chatnio.png",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/coaidev/coai",
+    "website": "https://coai.dev/",
+    "tags": [
+      "ai",
+      "tool"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "下一代 AIGC 一站式商业解决方案"
+      }
+    }
+  },
+  {
+    "name": "code-server",
+    "slug": "code-server",
+    "description": "VS Code in the browser",
+    "icon": "/images/apps/code-server.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/coder/code-server",
+    "website": "https://github.com/coder/code-server",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "Cronicle",
+    "slug": "cronicle",
+    "description": "Cronicle is a multi-server task scheduler and runner, with a web based front-end UI.It handles both scheduled, repeating and on-demand jobs, targeting any number of slave servers, with real-time stats and live log viewer.Written in Node.js, proudly open source and MIT licensed.default username and password is admin",
+    "icon": "/images/apps/cronicle.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/jhuckaby/Cronicle",
+    "website": "http://cronicle.net",
+    "tags": [
+      "dev-ops"
+    ]
+  },
+  {
+    "name": "DbGate",
+    "slug": "dbgate",
+    "description": "DbGate is cross-platform database manager. It is designed to be simple to use and effective, when working with more databases simultaneously. But there are also many advanced features like schema compare, visual query designer, chart visualisation or batch export and import.",
+    "icon": "/images/apps/dbgate.svg",
+    "category": "Database",
+    "features": [
+      "Data Storage",
+      "Query Processing",
+      "Backup & Recovery",
+      "High Availability"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-blue-50/70 to-indigo-50/70",
+    "github": "https://github.com/dbgate/dbgate",
+    "website": "https://dbgate.org",
+    "tags": [
+      "database"
+    ]
+  },
+  {
+    "name": "DeeplX",
+    "slug": "deeplx",
+    "description": "DeepL Free API (No TOKEN required)",
+    "icon": "/images/apps/deeplx.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/OwO-Network/DeepLX",
+    "website": "https://github.com/OwO-Network/DeepLX",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "Dify",
+    "slug": "dify",
+    "description": "Dify is an open-source LLM app development platform.",
+    "icon": "/images/apps/dify.svg",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/langgenius/dify",
+    "website": "https://dify.ai/",
+    "tags": [
+      "ai"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "Dify 是一个开源的 LLM 应用开发平台"
+      }
+    }
+  },
+  {
+    "name": "Elasticsearch",
+    "slug": "elasticsearch",
+    "description": "Free and Open, Distributed, RESTful Search Engine.",
+    "icon": "/images/apps/elasticsearch.gif",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/elastic/helm-charts",
+    "website": "https://github.com/elastic/helm-charts",
+    "tags": []
+  },
+  {
+    "name": "Excalidraw",
+    "slug": "excalidraw",
+    "description": "An open source virtual hand-drawn style whiteboard. Collaborative and end-to-end encrypted.",
+    "icon": "/images/apps/excalidraw.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/excalidraw/excalidraw",
+    "website": "https://excalidraw.com/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "Fast Poster",
+    "slug": "fast-poster",
+    "description": "🔥 Fast Poster - 海报生成器,图片生成器,电商海报编辑器。支持Java Python PHP Go JS等多语言SDK。",
+    "icon": "/images/apps/fast-poster.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/psoho/fast-poster",
+    "website": "https://fastposter.net/doc/",
+    "tags": []
+  },
+  {
+    "name": "Fireboom",
+    "slug": "fireboom",
+    "description": "Fireboom is a visualization API cloud platform designed for developers with the goal of rapidly delivering production-ready APIs.",
+    "icon": "/images/apps/fireboom.svg",
+    "category": "Low-Code",
+    "features": [
+      "Visual Interface",
+      "Drag & Drop",
+      "No Coding Required",
+      "Integrations"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-teal-50/70 to-cyan-50/70",
+    "github": "https://github.com/fireboomio",
+    "website": "https://fireboom.cloud/",
+    "tags": [
+      "low-code"
+    ]
+  },
+  {
+    "name": "Flarum",
+    "slug": "flarum",
+    "description": "Flarum is a delightfully simple discussion platform for your website.",
+    "icon": "/images/apps/flarum.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/crazy-max/docker-flarum",
+    "website": "https://flarum.org/",
+    "tags": [
+      "blog"
+    ]
+  },
+  {
+    "name": "Flowise",
+    "slug": "flowise",
+    "description": "Drag & drop UI to build your customized LLM flow.",
+    "icon": "/images/apps/flowise.ico",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/FlowiseAI/Flowise",
+    "website": "https://flowiseai.com/",
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "name": "Gitea",
+    "slug": "gitea",
+    "description": "The goal of this project is to make the easiest, fastest, and most painless way of setting up a self-hosted Git service.",
+    "icon": "/images/apps/gitea.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/go-gitea/gitea",
+    "website": "https://gitea.com",
+    "tags": [
+      "tool"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "Gitea 的首要目标是创建一个极易安装，运行非常快速，安装和使用体验良好的自建 Git 服务"
+      }
+    }
+  },
+  {
+    "name": "Headscale PostgreSQL",
+    "slug": "headscale-pg",
+    "description": "An open source, self-hosted implementation of the Tailscale control server with PostgreSQL.",
+    "icon": "/images/apps/headscale-pg.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/juanfont/headscale",
+    "website": "https://github.com/juanfont/headscale",
+    "tags": [
+      "tool"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "一个自托管的开源 Tailscale 控制服务器实现，使用 PostgreSQL 作为数据库。"
+      }
+    }
+  },
+  {
+    "name": "Headscale",
+    "slug": "headscale",
+    "description": "An open source, self-hosted implementation of the Tailscale control server.",
+    "icon": "/images/apps/headscale.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/juanfont/headscale",
+    "website": "https://github.com/juanfont/headscale",
+    "tags": [
+      "tool"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "一个自托管的开源 Tailscale 控制服务器实现。"
+      }
+    }
+  },
+  {
+    "name": "HeyForm",
+    "slug": "heyform",
+    "description": "HeyForm is an open-source form builder that allows anyone to create engaging conversational forms for surveys, questionnaires, quizzes, and polls. No coding skills required.",
+    "icon": "/images/apps/heyform.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/heyform/heyform",
+    "website": "https://heyform.net/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "ILLA Builder",
+    "slug": "illa-builder",
+    "description": "ILLA is a robust open source low-code platform for developers to build internal tools.",
+    "icon": "/images/apps/illa-builder.svg",
+    "category": "Low-Code",
+    "features": [
+      "Visual Interface",
+      "Drag & Drop",
+      "No Coding Required",
+      "Integrations"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-teal-50/70 to-cyan-50/70",
+    "github": "https://github.com/illacloud/illa-builder",
+    "website": "https://www.illacloud.com/zh-CN",
+    "tags": [
+      "low-code"
+    ]
+  },
+  {
+    "name": "influxdb",
+    "slug": "influxdb",
+    "description": "Real-time insights from any time series data with a single, purpose-built database. Run at any scale in any environment in the cloud, on-premises, or at the edge.",
+    "icon": "/images/apps/influxdb.svg",
+    "category": "Database",
+    "features": [
+      "Data Storage",
+      "Query Processing",
+      "Backup & Recovery",
+      "High Availability"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-blue-50/70 to-indigo-50/70",
+    "tags": [
+      "database"
+    ]
+  },
+  {
+    "name": "inpaint-web",
+    "slug": "inpaint-web",
+    "description": "A free and open-source inpainting & image-upscaling tool powered by webgpu and wasm on the browser.",
+    "icon": "/images/apps/inpaint-web.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/lxfater/inpaint-web",
+    "website": "https://github.com/lxfater/inpaint-web",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "IT-Tools",
+    "slug": "it-tools",
+    "description": "Useful tools for developer and people working in IT.",
+    "icon": "/images/apps/it-tools.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/CorentinTh/it-tools",
+    "website": "https://it-tools.tech/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "jsoncrack",
+    "slug": "jsoncrack",
+    "description": "JSON Crack is a free, open-source data visualization app capable of visualizing data formats such as JSON, YAML, XML, CSV and more, into interactive graphs.",
+    "icon": "/images/apps/jsoncrack.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/AykutSarac/jsoncrack.com",
+    "website": "https://github.com/AykutSarac/jsoncrack.com",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "JupyterDockerStacks",
+    "slug": "docker-stacks",
+    "description": "Ready-to-run Docker images containing Jupyter applications.",
+    "icon": "/images/apps/docker-stacks.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/jupyter/docker-stacks",
+    "website": "https://jupyter-docker-stacks.readthedocs.io/en/latest/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "LibreChat",
+    "slug": "librechat",
+    "description": "Enhanced ChatGPT Clone",
+    "icon": "/images/apps/librechat.svg",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/danny-avila/LibreChat",
+    "website": "https://github.com/danny-avila/LibreChat",
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "name": "listmonk",
+    "slug": "listmonk",
+    "description": "High performance, self-hosted, newsletter and mailing list manager with a modern dashboard. Single binary app.",
+    "icon": "/images/apps/listmonk.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/knadh/listmonk",
+    "website": "https://listmonk.app/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "Lobe Chat Database Version",
+    "slug": "lobe-chat-db",
+    "description": "An open-source, modern-design ChatGPT/LLMs UI/Framework. Supports speech-synthesis, multi-modal, and extensible (function call) plugin system.",
+    "icon": "/images/apps/lobe-chat-db.png",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/lobehub/lobe-chat",
+    "website": "https://github.com/lobehub/lobe-chat",
+    "tags": [
+      "ai"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "Lobe Chat 是一款现代化设计的开源 ChatGPT/LLMs 聊天应用与开发框架，支持语音合成、多模态、可扩展的（function call）插件系统。"
+      }
+    }
+  },
+  {
+    "name": "Lobe Chat",
+    "slug": "lobe-chat",
+    "description": "An open-source, modern-design ChatGPT/LLMs UI/Framework. Supports speech-synthesis, multi-modal, and extensible (function call) plugin system.",
+    "icon": "/images/apps/lobe-chat.png",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/lobehub/lobe-chat",
+    "website": "https://github.com/lobehub/lobe-chat",
+    "tags": [
+      "ai"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "Lobe Chat 是一款现代化设计的开源 ChatGPT/LLMs 聊天应用与开发框架，支持语音合成、多模态、可扩展的（function call）插件系统。"
+      }
+    }
+  },
+  {
+    "name": "Logto",
+    "slug": "logto",
+    "description": "Logto is an open-source Identity and Access Management (IAM) platform designed to streamline Customer Identity and Access Management (CIAM) and Workforce Identity Management.",
+    "icon": "/images/apps/logto.ico",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/logto-io/logto",
+    "website": "https://logto.io/",
+    "tags": [
+      "tool"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "Logto 是一个开源的 身份与访问管理（IAM）平台，是 Auth0 的开源替代方案，旨在帮助开发者快速构建安全、可扩展的登录注册系统和用户身份体系。"
+      }
+    }
+  },
+  {
+    "name": "mautic",
+    "slug": "mautic",
+    "description": "Mautic is the world’s largest open source marketing automation software.",
+    "icon": "/images/apps/mautic.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/mautic/mautic",
+    "website": "https://www.mautic.org/",
+    "tags": [
+      "tool"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "Mautic 是一款开源的营销自动化平台，提供电子邮件营销、客户旅程设计、潜在客户管理和行为跟踪等功能，帮助企业自动化营销流程、分析用户互动并个性化客户体验。"
+      }
+    }
+  },
+  {
+    "name": "Meilisearch",
+    "slug": "meilisearch",
+    "description": "A lightning-fast search API that fits effortlessly into your apps, websites, and workflow.",
+    "icon": "/images/apps/meilisearch.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/meilisearch/meilisearch",
+    "website": "https://www.meilisearch.com/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "memos",
+    "slug": "memos",
+    "description": "A privacy-first, lightweight note-taking service. Easily capture and share your great thoughts.",
+    "icon": "/images/apps/memos.webp",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/usememos/memos",
+    "website": "https://github.com/usememos/memos",
+    "tags": []
+  },
+  {
+    "name": "metabase",
+    "slug": "metabase",
+    "description": "The simplest, fastest way to get business intelligence and analytics to everyone in your company 😋",
+    "icon": "/images/apps/metabase.svg",
+    "category": "Database",
+    "features": [
+      "Data Storage",
+      "Query Processing",
+      "Backup & Recovery",
+      "High Availability"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-blue-50/70 to-indigo-50/70",
+    "github": "https://github.com/metabase/metabase",
+    "website": "metabase.com",
+    "tags": [
+      "database",
+      "low-code"
+    ]
+  },
+  {
+    "name": "midjourney-ui",
+    "slug": "midjourney-ui",
+    "description": "Midjourney UI is an open source txt2img UI for AI draw.",
+    "icon": "/images/apps/midjourney-ui.svg",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/erictik/midjourney-ui",
+    "website": "https://github.com/topics/midjourney-ui",
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "name": "MinIO",
+    "slug": "minio",
+    "description": "MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.",
+    "icon": "/images/apps/minio.png",
+    "category": "Storage",
+    "features": [
+      "File Storage",
+      "Data Backup",
+      "Access Control",
+      "Synchronization"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-orange-50/70 to-amber-50/70",
+    "github": "https://github.com/minio/minio",
+    "website": "https://min.io/",
+    "tags": [
+      "storage"
+    ]
+  },
+  {
+    "name": "mongo-express",
+    "slug": "mongo-express",
+    "description": "A web-based MongoDB admin interface written with Node.js, Express, and Bootstrap3",
+    "icon": "/images/apps/mongo-express.svg",
+    "category": "Database",
+    "features": [
+      "Data Storage",
+      "Query Processing",
+      "Backup & Recovery",
+      "High Availability"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-blue-50/70 to-indigo-50/70",
+    "github": "https://github.com/mongo-express/mongo-express",
+    "website": "https://github.com/mongo-express/mongo-express",
+    "tags": [
+      "database"
+    ]
+  },
+  {
+    "name": "N8N PostgreSQL",
+    "slug": "n8n-pg",
+    "description": "n8n is a workflow automation platform that gives technical teams the flexibility of code with the speed of no-code.",
+    "icon": "/images/apps/n8n-pg.ico",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/n8n-io/n8n",
+    "website": "https://n8n.io/",
+    "tags": [
+      "tool"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "n8n 是一个工作流自动化平台，通过将代码的灵活性与无代码的速度相结合，帮助技术团队构建自动化流程。"
+      }
+    }
+  },
+  {
+    "name": "N8N",
+    "slug": "n8n",
+    "description": "n8n is a workflow automation platform that gives technical teams the flexibility of code with the speed of no-code.",
+    "icon": "/images/apps/n8n.ico",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/n8n-io/n8n",
+    "website": "https://n8n.io/",
+    "tags": [
+      "tool"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "n8n 是一个工作流自动化平台，通过将代码的灵活性与无代码的速度相结合，帮助技术团队构建自动化流程。"
+      }
+    }
+  },
+  {
+    "name": "Nexus",
+    "slug": "nexus",
+    "description": "A robust package registry built on extensive enterprise storage capabilities.",
+    "icon": "/images/apps/nexus.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/sonatype/nexus-public",
+    "website": "https://www.sonatype.com/products/sonatype-nexus-repository",
+    "tags": [
+      "tool"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "一个强大的软件仓库管理工具，主要用于存储和管理软件开发过程中的各类组件（artifacts）。"
+      }
+    }
+  },
+  {
+    "name": "NocoDB",
+    "slug": "nocodb",
+    "description": "Turns any MySQL, PostgreSQL, SQL Server, SQLite & MariaDB into a smart spreadsheet.",
+    "icon": "/images/apps/nocodb.svg",
+    "category": "Database",
+    "features": [
+      "Data Storage",
+      "Query Processing",
+      "Backup & Recovery",
+      "High Availability"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-blue-50/70 to-indigo-50/70",
+    "github": "https://github.com/nocodb/nocodb",
+    "website": "https://nocodb.com/",
+    "tags": [
+      "database"
+    ]
+  },
+  {
+    "name": "nsfw",
+    "slug": "nsfw",
+    "description": "NSFW is a project for image pornography recognition",
+    "icon": "/images/apps/nsfw.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/labring/nsfw",
+    "website": "https://github.com/labring/nsfw",
+    "tags": []
+  },
+  {
+    "name": "Open WebUI",
+    "slug": "open-webui",
+    "description": "User-friendly WebUI for LLMs (Formerly Ollama WebUI)",
+    "icon": "/images/apps/open-webui.svg",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/open-webui/open-webui",
+    "website": "https://github.com/open-webui/open-webui",
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "name": "OpenObserve",
+    "slug": "openobserve",
+    "description": "OpenObserve is a cloud native observability platform built specifically for logs, metrics, traces, analytics, RUM (Real User Monitoring - Performance, Errors, Session Replay) designed to work at petabyte scale.",
+    "icon": "/images/apps/openobserve.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/openobserve/openobserve",
+    "website": "https://openobserve.ai/",
+    "tags": []
+  },
+  {
+    "name": "Overleaf",
+    "slug": "overleaf",
+    "description": "Overleaf is an open-source online real-time collaborative LaTeX editor.",
+    "icon": "/images/apps/overleaf.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/overleaf/overleaf",
+    "website": "https://github.com/overleaf/overleaf",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "PDFMathTranslate",
+    "slug": "pdf2zh",
+    "description": "PDFMathTranslate is an open-source PDF scientific paper translation with preserved formats.",
+    "icon": "/images/apps/pdf2zh.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/Byaidu/PDFMathTranslate",
+    "website": "https://pdf2zh.com/",
+    "tags": [
+      "tool",
+      "ai"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务。"
+      }
+    }
+  },
+  {
+    "name": "Penpot",
+    "slug": "penpot",
+    "description": "The open-source design tool for design and code collaboration.",
+    "icon": "/images/apps/penpot.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/penpot/penpot",
+    "website": "https://penpot.app/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "pgadmin4",
+    "slug": "pgadmin4",
+    "description": "pgAdmin 4 is a rewrite of the popular pgAdmin3 management tool for the PostgreSQL database.",
+    "icon": "/images/apps/pgadmin4.png",
+    "category": "Database",
+    "features": [
+      "Data Storage",
+      "Query Processing",
+      "Backup & Recovery",
+      "High Availability"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-blue-50/70 to-indigo-50/70",
+    "github": "https://github.com/pgadmin-org/pgadmin4",
+    "website": "https://www.pgadmin.org/",
+    "tags": [
+      "database"
+    ]
+  },
+  {
+    "name": "PhotoPrism",
+    "slug": "photoprism",
+    "description": "AI-Powered Photos App for the Decentralized Web.",
+    "icon": "/images/apps/photoprism.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/photoprism/photoprism",
+    "website": "https://www.photoprism.app/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "phpmyadmin",
+    "slug": "phpmyadmin",
+    "description": "A web interface for MySQL and MariaDB.",
+    "icon": "/images/apps/phpmyadmin.ico",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/phpmyadmin/phpmyadmin",
+    "website": "https://www.phpmyadmin.net/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "Plane",
+    "slug": "plane",
+    "description": "Open Source JIRA, Linear, Monday, and Asana Alternative. Plane helps you track your issues, epics, and product roadmaps in the simplest way possible.",
+    "icon": "/images/apps/plane.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/makeplane/plane",
+    "website": "http://plane.so/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "plausible",
+    "slug": "plausible",
+    "description": "Simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics alternative to Google Analytics.",
+    "icon": "/images/apps/plausible.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/plausible/analytics",
+    "website": "https://github.com/plausible/analytics",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "PrivateBin",
+    "slug": "privatebin",
+    "description": "A minimalist, open source online pastebin where the server has zero knowledge of pasted data.",
+    "icon": "/images/apps/privatebin.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/PrivateBin/PrivateBin",
+    "website": "https://privatebin.info/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "qinglong",
+    "slug": "qinglong",
+    "description": "Timed task management platform supporting Python3, JavaScript, Shell, Typescript",
+    "icon": "/images/apps/qinglong.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/whyour/qinglong",
+    "website": "https://github.com/whyour/qinglong",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "Reactive-Resume",
+    "slug": "Reactive-Resume",
+    "description": "A free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume.",
+    "icon": "/images/apps/Reactive-Resume.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/AmruthPillai/Reactive-Resume",
+    "website": "https://rxresu.me/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "Readeck",
+    "slug": "Readeck",
+    "description": "Readeck helps you keep all that web content you’ll want to revisit in an hour, tomorrow, or in 20 years.",
+    "icon": "/images/apps/Readeck.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://codeberg.org/readeck/readeck",
+    "website": "readeck.org",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "RedisInsight",
+    "slug": "redisinsight",
+    "description": "RedisInsight is a visual tool that provides capabilities to design, develop and optimize your Redis application. Query, analyse and interact with your Redis data.",
+    "icon": "/images/apps/redisinsight.svg",
+    "category": "Database",
+    "features": [
+      "Data Storage",
+      "Query Processing",
+      "Backup & Recovery",
+      "High Availability"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-blue-50/70 to-indigo-50/70",
+    "github": "https://github.com/RedisInsight/RedisInsight",
+    "website": "https://redis.com/redis-enterprise/redis-insight/",
+    "tags": [
+      "database"
+    ]
+  },
+  {
+    "name": "Refly",
+    "slug": "refly",
+    "description": "Refly is an open-source AI-native creation engine powered by 13+ leading AI models.",
+    "icon": "/images/apps/refly.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/refly-ai/refly",
+    "website": "https://refly.ai/",
+    "tags": [
+      "tool"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "refly 是一款开源的 AI Native 创作引擎，由多线程对话、代码组件、知识库集成、上下文记忆和智能搜索驱动，Refly 是将创意转化为优质内容的最佳方式。"
+      }
+    }
+  },
+  {
+    "name": "registry",
+    "slug": "registry",
+    "description": "registry is an implementation of the OCI Distribution Specification. gui-registry is a web UI for registry.",
+    "icon": "/images/apps/registry.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/distribution/distribution",
+    "website": "https://distribution.github.io/distribution",
+    "tags": []
+  },
+  {
+    "name": "RSSHub",
+    "slug": "rsshub",
+    "description": "🍰 Everything is RSSible",
+    "icon": "/images/apps/rsshub.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/DIYgod/RSSHub",
+    "website": "https://docs.rsshub.app/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "Ruiqi-Waf",
+    "slug": "Ruiqi-Waf",
+    "description": "A modern web application firewall (WAF) management system built on top of HAProxy and OWASP Coraza WAF with the Coraza SPOA integration. This system provides a comprehensive backend API for managing HAProxy configurations, Coraza WAF rules, and traffic inspection.",
+    "icon": "/images/apps/Ruiqi-Waf.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/HUAHUAI23/simple-waf",
+    "website": "https://github.com/HUAHUAI23/simple-waf",
+    "tags": [
+      "dev-ops"
+    ]
+  },
+  {
+    "name": "Rybbit",
+    "slug": "rybbit",
+    "description": "Rybbit is the modern open source and privacy friendly alternative to Google Analytics.",
+    "icon": "/images/apps/rybbit.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/rybbit-io/rybbit",
+    "website": "https://rybbit.io/",
+    "tags": [
+      "tool"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "Rybbit 是一款开源、注重隐私、比 Google Analytics 更直观的下一代替代品，用于网络和产品分析，并且易于安装和使用。"
+      }
+    }
+  },
+  {
+    "name": "SigNoz",
+    "slug": "signoz",
+    "description": "SigNoz is an open-source observability platform native to OpenTelemetry with logs, traces and metrics in a single application. An open-source alternative to DataDog, NewRelic, etc.",
+    "icon": "/images/apps/signoz.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/SigNoz/signoz",
+    "website": "https://signoz.io/",
+    "tags": [
+      "tool",
+      "database"
+    ]
+  },
+  {
+    "name": "Stirling-PDF",
+    "slug": "s-pdf",
+    "description": "1 Locally hosted web application that allows you to perform various operations on PDF files.",
+    "icon": "/images/apps/s-pdf.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/Stirling-Tools/Stirling-PDF",
+    "website": "https://github.com/Stirling-Tools/Stirling-PDF",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "SurveyKing",
+    "slug": "surveyking",
+    "description": "SurveyKing is one of the known open source survey systems that has the most powerful functions, the simplest installation, and the best comprehensive experience.",
+    "icon": "/images/apps/surveyking.ico",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/javahuang/SurveyKing",
+    "website": "https://surveyking.cn/",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "Tailchat",
+    "slug": "tailchat",
+    "description": "Next generation noIM application in your own workspace.",
+    "icon": "/images/apps/tailchat.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/msgbyte/tailchat",
+    "website": "https://tailchat.msgbyte.com/",
+    "tags": [],
+    "i18n": {
+      "zh": {
+        "description": "在您自己工作区中的下一代 noIM 应用程序"
+      }
+    }
+  },
+  {
+    "name": "teable",
+    "slug": "teable",
+    "description": "Teable is a Super fast, Real-time, Professional, Developer friendly, No-code database built on Postgres.",
+    "icon": "/images/apps/teable.png",
+    "category": "Database",
+    "features": [
+      "Data Storage",
+      "Query Processing",
+      "Backup & Recovery",
+      "High Availability"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-blue-50/70 to-indigo-50/70",
+    "github": "https://github.com/teableio/teable",
+    "website": "teable.io",
+    "tags": [
+      "database",
+      "low-code"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "Teable 是一款企业级高性能多维表格解决方案，通过无代码方式快速构建业务管理系统，支持私有部署和精细权限管理。"
+      }
+    }
+  },
+  {
+    "name": "Tianji",
+    "slug": "tianji",
+    "description": "Tianji: Insight into everything, Website Analytics + Uptime Monitor + Server Status. not only another GA alternatives",
+    "icon": "/images/apps/tianji.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/msgbyte/tianji",
+    "website": "https://tianji.msgbyte.com/",
+    "tags": []
+  },
+  {
+    "name": "Tolgee",
+    "slug": "tolgee",
+    "description": "Tolgee is an open-source localization platform developers enjoy to working with.",
+    "icon": "/images/apps/tolgee.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/tolgee-io/tolgee",
+    "website": "https://tolgee.io/",
+    "tags": [
+      "tool"
+    ],
+    "i18n": {
+      "zh": {
+        "description": "Tolgee 是一个开源的本地化平台，专为开发者设计，支持上下文直接翻译、一键生成翻译截图、生产环境实时编辑，并集成多种机器翻译服务（如 DeepL、Google Translate），提供翻译记忆与自动化功能，简化多语言应用的开发流程。"
+      }
+    }
+  },
+  {
+    "name": "docker-ubuntu-sshd",
+    "slug": "ubuntu-sshd",
+    "description": "Ubuntu image with SSH & SFTP",
+    "icon": "/images/apps/ubuntu-sshd.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/takeyamajp/docker-ubuntu-sshd",
+    "website": "https://github.com/takeyamajp/docker-ubuntu-sshd",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "Umami",
+    "slug": "umami",
+    "description": "Umami is an open source, privacy-focused alternative to Google Analytics.",
+    "icon": "/images/apps/umami.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/umami-software/umami",
+    "website": "https://umami.is/",
+    "tags": [
+      "monitor",
+      "tool"
+    ]
+  },
+  {
+    "name": "UptimeKuma",
+    "slug": "uptime-kuma",
+    "description": "Uptime Kuma is an easy-to-use self-hosted monitoring tool.",
+    "icon": "/images/apps/uptime-kuma.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/louislam/uptime-kuma",
+    "website": "https://uptime.kuma.pet/",
+    "tags": [
+      "monitor",
+      "tool"
+    ]
+  },
+  {
+    "name": "Vaultwarden",
+    "slug": "vaultwarden",
+    "description": "Alternative implementation of the Bitwarden server API written in Rust and compatible with upstream Bitwarden clients*, perfect for self-hosted deployment where running the official resource-heavy service might not be ideal.",
+    "icon": "/images/apps/vaultwarden.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/dani-garcia/vaultwarden",
+    "website": "https://github.com/dani-garcia/vaultwarden",
+    "tags": [
+      "tool"
+    ]
+  },
+  {
+    "name": "WordPress",
+    "slug": "wordpress",
+    "description": "WordPress is a powerful, user-friendly and open source content management system (CMS) that can be used to publish websites, news, blogs and other content on the Internet.",
+    "icon": "/images/apps/wordpress.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/WordPress/WordPress",
+    "website": "https://wordpress.org",
+    "tags": [
+      "blog"
+    ]
+  },
+  {
+    "name": "WrenAI",
+    "slug": "wrenai",
+    "description": "🤖 Open-source GenBI AI Agent that empowers data-driven teams to chat with their data to generate Text-to-SQL, charts, spreadsheets, reports, and BI. 📈📊📋🧑‍💻",
+    "icon": "/images/apps/wrenai.svg",
+    "category": "Low-Code",
+    "features": [
+      "Visual Interface",
+      "Drag & Drop",
+      "No Coding Required",
+      "Integrations"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-teal-50/70 to-cyan-50/70",
+    "github": "https://github.com/Canner/WrenAI",
+    "website": "https://github.com/Canner/WrenAI",
+    "tags": [
+      "low-code",
+      "ai"
+    ]
+  }
+]
