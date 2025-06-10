@@ -7,6 +7,15 @@ const config = {
   output: 'standalone',
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  async redirects() {
+    return [
+      {
+        source: '/devbox',
+        destination: '/products/devbox',
+        permanent: true,
+      },
+    ];
+  },
   images: {
     // unoptimized: true,
     remotePatterns: [

@@ -154,7 +154,7 @@ Select a platform based on your specific technical requirements, performance nee
 - **GitHub Copilot**: Integrated directly into popular IDEs like VS Code
 - **Cursor**: An AI-enhanced code editor built specifically for AI-assisted development
 
-For the most seamless experience, consider using these tools in conjunction with **[Sealos DevBox](https://sealos.io/devbox)**, which provides one-click development environments specifically optimized for AI-assisted coding workflows.
+For the most seamless experience, consider using these tools in conjunction with **[Sealos DevBox](https://sealos.io/products/devbox)**, which provides one-click development environments specifically optimized for AI-assisted coding workflows.
 
 ### Step 2: Define Your Requirements
 

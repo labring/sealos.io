@@ -117,7 +117,7 @@ This parallel prototyping is particularly valuable in the early stages. You migh
 
 ![IDE setup for game development with AI](./images/ide.webp)
 
-Setting up a proper development environment is often time-consuming and technically challenging. To accelerate this process and ensure compatibility with modern AI-assisted workflows, consider using [Sealos DevBox](https://sealos.io/devbox) to deploy a fully-configured environment ready for game development.
+Setting up a proper development environment is often time-consuming and technically challenging. To accelerate this process and ensure compatibility with modern AI-assisted workflows, consider using [Sealos DevBox](https://sealos.io/products/devbox) to deploy a fully-configured environment ready for game development.
 
 For 2D game development, lightweight frameworks offer excellent performance with simpler learning curves:
 

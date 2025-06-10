@@ -18,20 +18,20 @@ import ScrollProgressWrapper from '@/components/scroll-progress-wrapper';
 
 // Define translations for different languages
 const translations = {
-  'en': {
+  en: {
     title: {
       main: 'Develop, deploy, and scale in one seamless cloud platform',
       sub: 'The Unified Cloud Platform for Developers',
     },
-    discoverButton: 'Discover DevBox'
+    discoverButton: 'Discover DevBox',
   },
   'zh-cn': {
     title: {
       main: '在一个无缝云平台中开发、部署和扩展',
       sub: '为开发者打造的统一云平台',
     },
-    discoverButton: '探索 DevBox'
-  }
+    discoverButton: '探索 DevBox',
+  },
 };
 
 export const metadata = generatePageMetadata();
@@ -59,15 +59,15 @@ export default function HomePage({
             placeholderImage={placeholderImage}
           />
           <div className="my-8 flex items-center justify-center">
-            <a href="/devbox">
+            <a href="/products/devbox">
               <HovermeButton text={translations[params.lang].discoverButton} />
             </a>
           </div>
         </Hero>
 
-        <div className="mb-[40px] mt-[64px] h-[1px] bg-[#DDE7F7]"></div>
+        <div className="mt-[64px] mb-[40px] h-[1px] bg-[#DDE7F7]"></div>
         <Trusted lang={params.lang} />
-        <div className="mb-[40px] mt-[64px]"></div>
+        <div className="mt-[64px] mb-[40px]"></div>
         <FeatureGrid />
         <WhyChooseUs lang={params.lang} />
         <Guides />
