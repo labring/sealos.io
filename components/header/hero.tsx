@@ -15,6 +15,8 @@ interface HeroProps {
   mainTitleEmphasis: number;
   getStartedLink?: string;
   lang?: languagesType;
+  testimonial?: boolean;
+  videoCta?: boolean;
 }
 
 export default function Hero({
@@ -23,6 +25,8 @@ export default function Hero({
   mainTitleEmphasis,
   getStartedLink,
   lang = 'en',
+  testimonial = true,
+  videoCta = true,
 }: HeroProps) {
   const { partialTitle, highlightTitle } = splitTitle(
     title.main,
@@ -30,7 +34,7 @@ export default function Hero({
   );
 
   const translations = {
-    'en': {
+    en: {
       signUpText: 'Sign up to get started',
       watchDemo: 'Watch demo',
       getStarted: 'Get Started',
@@ -43,10 +47,11 @@ export default function Hero({
       getStarted: '立即开始',
       scrollDown: '向下滚动了解更多',
       trustedBy: '全球领先企业的信赖之选',
-    }
+    },
   };
 
-  const t = translations[lang as keyof typeof translations] || translations['en'];
+  const t =
+    translations[lang as keyof typeof translations] || translations['en'];
 
   return (
     <section className="relative pt-12 sm:pt-16">
@@ -61,7 +66,7 @@ export default function Hero({
             {title.sub}
           </motion.h1>
           <motion.p
-            className="font-pj mt-5 text-4xl font-bold leading-tight text-gray-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight"
+            className="font-pj mt-5 text-4xl leading-tight font-bold text-gray-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -86,43 +91,51 @@ export default function Hero({
                   link={getStartedLink}
                   title={t.getStarted}
                 />
-                <a
-                  href="#video-section"
-                  title={t.watchDemo}
-                  className="font-pj inline-flex items-center justify-center rounded-xl border-2 border-gray-400 px-6 py-3 text-lg font-medium text-gray-900 transition-all duration-200 hover:border-gray-900 hover:bg-gray-900 hover:text-white focus:border-gray-900 focus:bg-gray-900 focus:text-white focus:outline-hidden focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
-                  role="button"
-                >
-                  <svg
-                    className="mr-2 h-5 w-5"
-                    viewBox="0 0 18 18"
-                    fill="none"
-                    stroke="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8.18003 13.4261C6.8586 14.3918 5 13.448 5 11.8113V5.43865C5 3.80198 6.8586 2.85821 8.18003 3.82387L12.5403 7.01022C13.6336 7.80916 13.6336 9.44084 12.5403 10.2398L8.18003 13.4261Z"
-                      strokeWidth="2"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  {t.watchDemo}
-                </a>
+                {videoCta && (
+                  <>
+                    <a
+                      href="#video-section"
+                      title={t.watchDemo}
+                      className="font-pj inline-flex items-center justify-center rounded-xl border-2 border-gray-400 px-6 py-3 text-lg font-medium text-gray-900 transition-all duration-200 hover:border-gray-900 hover:bg-gray-900 hover:text-white focus:border-gray-900 focus:bg-gray-900 focus:text-white focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 focus:outline-hidden"
+                      role="button"
+                    >
+                      <svg
+                        className="mr-2 h-5 w-5"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        stroke="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8.18003 13.4261C6.8586 14.3918 5 13.448 5 11.8113V5.43865C5 3.80198 6.8586 2.85821 8.18003 3.82387L12.5403 7.01022C13.6336 7.80916 13.6336 9.44084 12.5403 10.2398L8.18003 13.4261Z"
+                          strokeWidth="2"
+                          strokeMiterlimit="10"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      {t.watchDemo}
+                    </a>
+                  </>
+                )}
               </motion.div>
 
-              {/* Testimonial badge and sign up text */}
-              <motion.div
-                className="mt-8 flex flex-col items-center justify-center"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-              >
-                <TestimonialBadge count="10K+" lang={lang} />
-                <p className="font-inter mt-4 text-base text-gray-500">
-                  {t.signUpText}
-                </p>
-              </motion.div>
+              {testimonial && (
+                <>
+                  {/* Testimonial badge and sign up text */}
+                  <motion.div
+                    className="mt-8 flex flex-col items-center justify-center"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                  >
+                    <TestimonialBadge count="10K+" lang={lang} />
+                    <p className="font-inter mt-4 text-base text-gray-500">
+                      {t.signUpText}
+                    </p>
+                  </motion.div>
+                </>
+              )}
             </>
           )}
         </div>
