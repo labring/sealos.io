@@ -49,11 +49,11 @@ Having transitioned our CNI to [Cilium](https://cilium.io/) early on (a decision
 
 Cilium Gateway exclusively supports LB mode, creating tight coupling with cloud vendor LB services. This conflicts with our private deployment requirements where we prefer decoupled architectures. Stability concerns also emerged: when handling large-scale routing configurations, **Cilium Gateway Ingress rule propagation** became unacceptably slow (measured in minutes). Our operational SLA requires sub-5-second route convergence. Given these constraints, our current conclusion is to defer Cilium Gateway adoption until these critical issues are resolved.
 
-## Envoy Gateway: Early Stages and Production Gaps
+## Envoy Gateway: Early Evaluation Issues, Now Resolved
 
-As Kubernetes evolves toward standardized Gateway APIs (replacing traditional Ingress), and considering our preference for Envoy-based implementations, **[Envoy Gateway](https://gateway.envoyproxy.io/)** initially appeared promising. Our evaluation revealed, however, that this project remains in early development stages with several critical limitations: memory leaks causing OOM, pathpolicy misconfigurations, and feature gaps in merged gateway mode.
+As Kubernetes evolves toward standardized Gateway APIs (replacing traditional Ingress), and considering our preference for Envoy-based implementations, **[Envoy Gateway](https://gateway.envoyproxy.io/)** initially appeared promising. During our **early evaluation** (based on last year's versions), however, the project was still in relatively early development stages with several limitations we encountered at the time: memory leaks causing OOM, pathpolicy misconfigurations, and feature gaps in merged gateway mode.
 
-While we actively contribute to upstream development through bug reports and improvement suggestions, **Envoy Gateway is not yet production-ready** for our complex, high-scale needs.
+We're pleased to note that **these issues have since been resolved**, and the Envoy Gateway community has demonstrated excellent responsiveness and problem-solving capabilities. We actively contributed to upstream development through bug reports and improvement suggestions. However, given our urgent production requirements at that time, **we chose to proceed with more mature solutions available then.**
 
 ## The Kubernetes Gateway API Standard: Elegant but Impractical for Multi-Tenancy
 
