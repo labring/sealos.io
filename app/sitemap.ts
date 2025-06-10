@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { source, blog } from '@/lib/source';
+import { appsConfig } from '@/config/apps';
 
 export const revalidate = false;
 
@@ -50,6 +51,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   );
 
+  // Generate static product pages
+  const staticProductPages: MetadataRoute.Sitemap = [
+    {
+      url: escapeXmlChars(getUrl('/products/devbox')),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: escapeXmlChars(getUrl('/products/databases')),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: escapeXmlChars(getUrl('/products/app-store')),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+  ];
+
+  // Generate dynamic app store pages for each app
+  const appStorePages: MetadataRoute.Sitemap = appsConfig.map((app) => ({
+    url: escapeXmlChars(getUrl(`/products/app-store/${app.slug}`)),
+    changeFrequency: 'weekly',
+    priority: 0.7,
+  }));
+
   // Additional Chinese-specific pages
   const chineseSpecificPages: MetadataRoute.Sitemap = locale?.includes('zh-cn')
     ? [
@@ -78,11 +105,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 1,
     },
-    {
-      url: getUrl('/products/devbox'),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
+    ...staticProductPages,
+    ...appStorePages,
     ...chineseSpecificPages,
     {
       url: getUrl('/docs'),
