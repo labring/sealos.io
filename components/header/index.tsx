@@ -9,6 +9,7 @@ import { ExternalLink, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { GetStartedButton } from '../ui/shiny-button';
 import { languagesType } from '@/lib/i18n';
+import DropdownMenu from './dropdown-menu';
 
 export default function Header({ lang }: { lang: languagesType }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,7 +28,7 @@ export default function Header({ lang }: { lang: languagesType }) {
     <div
       className={cn(
         'fixed top-0 z-50 w-full',
-        hasScrolled ? 'bg-[#EBF2FF] shadow-header' : '',
+        hasScrolled ? 'shadow-header bg-[#EBF2FF]' : '',
       )}
     >
       <nav className={cn('custom-container-header relative text-black')}>
@@ -51,20 +52,28 @@ export default function Header({ lang }: { lang: languagesType }) {
               </span>
             </Link>
             <div className="hidden items-center gap-x-5 text-sm font-medium lg:flex">
-              {localizedLinks.map((link) => (
-                <Link
-                  key={link.text}
-                  href={link.url}
-                  className="relative rounded-md px-2 py-1 hover:bg-[#0306070D]"
-                >
-                  {link.text}
-                  {link.isExternal && (
-                    <span className="pl-2">
-                      <ExternalLink className="absolute right-0 top-0 size-3" />
-                    </span>
-                  )}
-                </Link>
-              ))}
+              {localizedLinks.map((link) =>
+                link.children ? (
+                  <DropdownMenu
+                    key={link.text}
+                    trigger={link.text}
+                    items={link.children}
+                  />
+                ) : (
+                  <Link
+                    key={link.text}
+                    href={link.url}
+                    className="relative rounded-md px-2 py-1 hover:bg-[#0306070D]"
+                  >
+                    {link.text}
+                    {link.isExternal && (
+                      <span className="pl-2">
+                        <ExternalLink className="absolute top-0 right-0 size-3" />
+                      </span>
+                    )}
+                  </Link>
+                ),
+              )}
             </div>
           </div>
 
@@ -92,7 +101,7 @@ export default function Header({ lang }: { lang: languagesType }) {
                   onClick={() => setIsMenuOpen(false)}
                   aria-hidden="true"
                 />
-                <div className="fixed left-0 top-0 z-50 w-full">
+                <div className="fixed top-0 left-0 z-50 w-full">
                   <div className="bg-[#EBF2FF] px-4 py-3">
                     <div className="mb-4 flex items-center justify-between">
                       <div>
@@ -127,20 +136,44 @@ export default function Header({ lang }: { lang: languagesType }) {
                     </div>
 
                     <div className="flex flex-col gap-y-2">
-                      {localizedLinks.map((link) => (
-                        <Link
-                          key={link.text}
-                          href={link.url}
-                          className="relative flex items-center rounded-md px-2 py-1 hover:bg-[#0306070D]"
-                        >
-                          {link.text}
-                          {link.isExternal && (
-                            <span className="pl-2">
-                              <ExternalLink className="size-3" />
-                            </span>
-                          )}
-                        </Link>
-                      ))}
+                      {localizedLinks.map((link) =>
+                        link.children ? (
+                          <div key={link.text} className="flex flex-col">
+                            <div className="px-2 py-1 font-medium text-gray-900">
+                              {link.text}
+                            </div>
+                            <div className="ml-4 flex flex-col gap-y-1">
+                              {link.children.map((child) => (
+                                <Link
+                                  key={child.text}
+                                  href={child.url}
+                                  className="relative flex items-center rounded-md px-2 py-1 text-sm text-gray-600 hover:bg-[#0306070D]"
+                                >
+                                  {child.text}
+                                  {child.isExternal && (
+                                    <span className="pl-2">
+                                      <ExternalLink className="size-3" />
+                                    </span>
+                                  )}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <Link
+                            key={link.text}
+                            href={link.url}
+                            className="relative flex items-center rounded-md px-2 py-1 hover:bg-[#0306070D]"
+                          >
+                            {link.text}
+                            {link.isExternal && (
+                              <span className="pl-2">
+                                <ExternalLink className="size-3" />
+                              </span>
+                            )}
+                          </Link>
+                        ),
+                      )}
                     </div>
                   </div>
                 </div>

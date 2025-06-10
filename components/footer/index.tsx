@@ -2,7 +2,13 @@ import React from 'react';
 import { siteConfig, templateDomain } from '@/config/site';
 import Link from 'fumadocs-core/link';
 import { cn } from '@/lib/utils';
-import { DiscordIcon, GithubIcon, BilibiliIcon, WechatIcon, RSSIcon } from '../ui/icons';
+import {
+  DiscordIcon,
+  GithubIcon,
+  BilibiliIcon,
+  WechatIcon,
+  RSSIcon,
+} from '../ui/icons';
 import { languagesType, i18n } from '@/lib/i18n';
 
 const year = new Date().getFullYear();
@@ -56,14 +62,21 @@ const FooterLinksData: Record<string, FooterCategoryType> = {
     links: [
       { textKey: 'docs', urlKey: 'docsUrl', isExternal: false },
       { textKey: 'education', urlKey: 'educationUrl', isExternal: false },
-      { textKey: 'appStore', urlKey: 'appStoreUrl', isExternal: true },
+      { textKey: 'blog', urlKey: 'blogUrl', isExternal: false },
     ],
   },
   products: {
     titleKey: 'productsTitle',
     links: [
-      { textKey: 'pricing', urlKey: 'pricingUrl', isExternal: false },
       { textKey: 'devbox', urlKey: 'devboxUrl', isExternal: false },
+      { textKey: 'databases', urlKey: 'databasesUrl', isExternal: false },
+      { textKey: 'appStore', urlKey: 'appStoreUrl', isExternal: true },
+    ],
+  },
+  services: {
+    titleKey: 'servicesTitle',
+    links: [
+      { textKey: 'pricing', urlKey: 'pricingUrl', isExternal: false },
       { textKey: 'fastgpt', urlKey: 'fastgptUrl', isExternal: true },
     ],
   },
@@ -97,13 +110,16 @@ export const footerTranslations: Record<
     // Category titles
     resourcesTitle: 'Resources',
     productsTitle: 'Products',
+    servicesTitle: 'Services',
     supportTitle: 'Support',
 
     // Link texts
     docs: 'Docs',
     education: 'Education',
+    blog: 'Blog',
     appStore: 'App Store',
     devbox: 'DevBox',
+    databases: 'Databases',
     fastgpt: 'FastGPT',
     contactUs: 'Contact Us',
     pricing: 'Pricing',
@@ -116,8 +132,10 @@ export const footerTranslations: Record<
     // URLs
     docsUrl: '/docs/quick-start',
     educationUrl: '/education',
-    appStoreUrl: templateDomain,
-    devboxUrl: '/devbox',
+    blogUrl: '/blog',
+    appStoreUrl: '/products/app-store',
+    devboxUrl: '/products/devbox',
+    databasesUrl: '/products/databases',
     fastgptUrl: 'https://tryfastgpt.ai',
     pricingUrl: '/pricing',
     contactUsUrl: 'mailto:contact@sealos.io',
@@ -130,12 +148,16 @@ export const footerTranslations: Record<
     // Category titles
     resourcesTitle: '资源',
     productsTitle: '产品',
+    servicesTitle: '服务',
     supportTitle: '支持',
 
     // Link texts
     docs: '文档',
+    education: '教育',
+    blog: '博客',
     appStore: '应用商店',
     devbox: 'DevBox',
+    databases: '数据库',
     fastgpt: 'FastGPT',
     aiproxy: 'AI Proxy',
     case: '案例',
@@ -149,8 +171,11 @@ export const footerTranslations: Record<
 
     // URLs - keeping the same URLs as English but can be customized if needed
     docsUrl: '/docs/quick-start',
-    appStoreUrl: templateDomain,
-    devboxUrl: '/devbox',
+    educationUrl: '/education',
+    blogUrl: '/blog',
+    appStoreUrl: '/products/app-store',
+    devboxUrl: '/products/devbox',
+    databasesUrl: '/products/databases',
     fastgptUrl: 'https://fastgpt.cn',
     aiproxyUrl: '/aiproxy',
     pricingUrl: 'https://sealos.run/pricing',
@@ -168,14 +193,15 @@ export const footerTranslations: Record<
 const getFooterLinks = (lang: languagesType) => {
   const translations = footerTranslations[lang];
 
-  const productLinks = [...FooterLinksData.products.links];
+  const servicesLinks = [...FooterLinksData.services.links];
   if (lang === 'zh-cn') {
-    productLinks.push({
+    servicesLinks.push({
       textKey: 'aiproxy',
       urlKey: 'aiproxyUrl',
       isExternal: false,
     });
   }
+
   const supportLinks = [...FooterLinksData.support.links];
   supportLinks.push({ textKey: 'case', urlKey: 'caseUrl', isExternal: false });
   if (lang === 'zh-cn') {
@@ -201,7 +227,17 @@ const getFooterLinks = (lang: languagesType) => {
       title: FooterLinksData.products.titleKey
         ? translations[FooterLinksData.products.titleKey]
         : '',
-      links: productLinks.map((link) => ({
+      links: FooterLinksData.products.links.map((link) => ({
+        text: translations[link.textKey],
+        url: translations[link.urlKey],
+        isExternal: link.isExternal,
+      })),
+    },
+    services: {
+      title: FooterLinksData.services.titleKey
+        ? translations[FooterLinksData.services.titleKey]
+        : '',
+      links: servicesLinks.map((link) => ({
         text: translations[link.textKey],
         url: translations[link.urlKey],
         isExternal: link.isExternal,
@@ -263,7 +299,7 @@ const Footer = async ({
           </div>
         </div>
 
-        <div className="mt-10 grid grid-cols-3 items-start gap-10 lg:mt-0">
+        <div className="mt-10 grid grid-cols-4 items-start gap-10 lg:mt-0">
           <FooterLinkColumn>
             <div className="text-base font-semibold text-black uppercase hover:text-black hover:no-underline">
               {footerLinks.resources.title}
@@ -279,6 +315,16 @@ const Footer = async ({
               {footerLinks.products.title}
             </div>
             {footerLinks.products.links.map((link, index) => (
+              <FooterLink key={index} href={link.url}>
+                {link.text}
+              </FooterLink>
+            ))}
+          </FooterLinkColumn>
+          <FooterLinkColumn>
+            <div className="text-base font-semibold text-black uppercase hover:text-black hover:no-underline">
+              {footerLinks.services.title}
+            </div>
+            {footerLinks.services.links.map((link, index) => (
               <FooterLink key={index} href={link.url}>
                 {link.text}
               </FooterLink>
