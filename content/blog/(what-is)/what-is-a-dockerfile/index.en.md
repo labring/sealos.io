@@ -649,7 +649,7 @@ COPY config/ ./config/
 
 Create `.dockerignore` to exclude unnecessary files:
 
-```dockerignore
+```
 # Version control
 .git
 .gitignore
@@ -1345,7 +1345,7 @@ BuildKit features like secret mounts, cache mounts, and bind mounts provide powe
 
 Optimizing the build context and effectively using `.dockerignore` files can significantly improve build performance and security.
 
-```dockerignore
+```
 # Exclude version control
 .git
 .gitignore
