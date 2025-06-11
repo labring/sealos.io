@@ -404,7 +404,7 @@ spec:
 
 ## Deploy Kafka on Sealos: Managed Streaming Excellence
 
-Sealos transforms Kafka deployment from a complex infrastructure challenge into a simple, streamlined operation. By leveraging Sealos's cloud-native platform built on Kubernetes, organizations can deploy production-ready Kafka clusters that benefit from enterprise-grade management features without the operational overhead.
+Sealos transforms Kafka deployment from a complex infrastructure challenge into a simple, streamlined operation. By leveraging cloud-native platform of Sealos built on Kubernetes, organizations can deploy production-ready Kafka clusters that benefit from enterprise-grade management features without the operational overhead.
 
 ### Benefits of Managed Kafka on Sealos
 
@@ -422,7 +422,7 @@ Sealos transforms Kafka deployment from a complex infrastructure challenge into 
 
 ### Kubernetes Benefits for Kafka
 
-Running Kafka on Sealos's Kubernetes platform provides additional advantages:
+Running Kafka on the Kubernetes platform of Sealos providing additional advantages:
 
 - **Resource Efficiency**: Kubernetes bin-packing algorithms optimize resource utilization across your cluster
 - **Rolling Updates**: Seamless Kafka version upgrades without downtime using Kubernetes rolling deployment strategies

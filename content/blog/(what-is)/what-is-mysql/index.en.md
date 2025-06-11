@@ -299,7 +299,7 @@ MySQL offers multiple backup and recovery strategies:
 
 ## Deploy MySQL on Sealos: Managed Database Excellence
 
-Sealos transforms MySQL deployment from a complex infrastructure challenge into a simple, one-click operation. By leveraging Sealos's cloud-native platform, organizations can deploy production-ready MySQL instances that benefit from enterprise-grade management features without the operational overhead.
+Sealos transforms MySQL deployment from a complex infrastructure challenge into a simple, one-click operation. By leveraging the cloud-native platform of Sealos, organizations can deploy production-ready MySQL instances that benefit from enterprise-grade management features without the operational overhead.
 
 ### Benefits of Managed MySQL on Sealos
 

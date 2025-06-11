@@ -7,7 +7,7 @@ tags: ['Sealos', 'Envoy', 'Nginx', 'Higress']
 authors: ['default']
 ---
 
-Sealos Cloud has effectively navigated the complex landscape of mainstream open-source API gateways. This article aims to help readers understand the challenges of **API gateway selection** for demanding public cloud environments, prevent common pitfalls, and provide a reference based on Sealos's practical experiences.
+Sealos Cloud has effectively navigated the complex landscape of mainstream open-source API gateways. This article aims to help readers understand the challenges of **API gateway selection** for demanding public cloud environments, prevent common pitfalls, and provide a reference based on practical experiences from Sealos.
 
 ## The Complex Demands of Sealos Cloud: A High-Stakes Environment for API Gatewa
 
@@ -23,9 +23,9 @@ Controller components face extreme performance demands. As routing tables expand
 
 Our initial implementation utilized [Nginx Ingress](https://github.com/kubernetes/ingress-nginx), but several critical limitations emerged, impacting our ability to serve a multi-user public cloud:
 
-*   **Reload Instability**: Configuration changes caused temporary connection drops. In multi-user clusters, frequent ingress modifications led to persistent network instability.
-*   **Unreliable Long Connections**: Active connections frequently terminated during configuration updates, a major issue for real-time applications.
-*   **Performance Limitations**: We observed slow configuration propagation and high resource consumption under load, making it unsuitable as a **high-performance API gateway** for our needs.
+- **Reload Instability**: Configuration changes caused temporary connection drops. In multi-user clusters, frequent ingress modifications led to persistent network instability.
+- **Unreliable Long Connections**: Active connections frequently terminated during configuration updates, a major issue for real-time applications.
+- **Performance Limitations**: We observed slow configuration propagation and high resource consumption under load, making it unsuitable as a **high-performance API gateway** for our needs.
 
 These **Nginx Ingress limitations** ruled out most Nginx-based gateways. Our comparative testing revealed that [Envoy-based solutions](https://www.envoyproxy.io/) deliver superior performance with minimal overhead on both control and data planes.
 
@@ -83,9 +83,9 @@ A crucial factor for us was that **Higress maintains compatibility with Nginx In
 
 To further promote community development and enhance Higress for broader use cases, we've provided several suggestions:
 
-*   **Enhanced Gateway API Standard Support**: While v1 version compatibility exists, full feature parity with Ingress capabilities remains incomplete and is an area for growth.
-*   **Open-Sourcing Advanced Features**: Game-changing features like advanced security protections and circuit breaker mechanisms should ideally be open-sourced. We welcome commercial integration opportunities as platform requirements evolve.
-*   **Plugin Architecture Expansion**: Peripheral functionality should be expanded through a robust plugin architecture to maintain core function cohesion and reliability.
+- **Enhanced Gateway API Standard Support**: While v1 version compatibility exists, full feature parity with Ingress capabilities remains incomplete and is an area for growth.
+- **Open-Sourcing Advanced Features**: Game-changing features like advanced security protections and circuit breaker mechanisms should ideally be open-sourced. We welcome commercial integration opportunities as platform requirements evolve.
+- **Plugin Architecture Expansion**: Peripheral functionality should be expanded through a robust plugin architecture to maintain core function cohesion and reliability.
 
 ## Summary: Strategic Gateway Selection for Cloud Success
 

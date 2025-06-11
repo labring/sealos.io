@@ -209,7 +209,7 @@ Sealos offers a specialized program for students and educational institutions th
 With this powerhouse combination, students can:
 
 1. **Prototype with AI Assistance**: Use Cursor's AI to rapidly generate and explain code
-2. **Deploy and Test Instantly**: Run your code in Sealos's cloud environment without configuration headaches
+2. **Deploy and Test Instantly**: Run your code in Sealos cloud environment without configuration headaches
 3. **Access Specialized Tools**: Utilize GPU resources for machine learning projects without expensive hardware
 4. **Version Without Worry**: Experiment freely with Git branches knowing you can always reset your environment
 5. **Get Help Contextually**: Share your exact development setup with instructors for precise guidance

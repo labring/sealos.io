@@ -444,7 +444,7 @@ spec:
 
 ## Deploy MongoDB on Sealos: Managed Database Excellence
 
-Sealos transforms MongoDB deployment from a complex infrastructure challenge into a simple, streamlined operation. By leveraging Sealos's cloud-native platform built on Kubernetes, organizations can deploy production-ready MongoDB clusters that benefit from enterprise-grade management features without the operational overhead.
+Sealos transforms MongoDB deployment from a complex infrastructure challenge into a simple, streamlined operation. By leveraging the cloud-native platform of Sealos built on Kubernetes, organizations can deploy production-ready MongoDB clusters that benefit from enterprise-grade management features without the operational overhead.
 
 ### Benefits of Managed MongoDB on Sealos
 
@@ -462,7 +462,7 @@ Sealos transforms MongoDB deployment from a complex infrastructure challenge int
 
 ### Kubernetes Benefits for MongoDB
 
-Running MongoDB on Sealos's Kubernetes platform provides additional advantages:
+Running MongoDB on the Sealos Kubernetes platform provides additional advantages:
 
 - **Resource Efficiency**: Kubernetes bin-packing algorithms optimize resource utilization across your cluster
 - **Rolling Updates**: Seamless MongoDB version upgrades without downtime using Kubernetes rolling deployment strategies

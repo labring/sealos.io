@@ -493,7 +493,7 @@ This integrated approach means developers can:
 4. **Deploy Automatically**: Push changes that trigger automatic deployment
 5. **Scale Intelligently**: Benefit from automatic resource optimization
 
-Whether you're building a personal portfolio, corporate website, or high-traffic application, the combination of DevBox's flexible development environments and Sealos's intelligent autoscaling provides the perfect foundation for modern static site development and deployment.
+Whether you're building a personal portfolio, corporate website, or high-traffic application, the combination of DevBox's flexible development environments and intelligent autoscaling through Sealos provides the perfect foundation for modern static site development and deployment.
 
 ## Conclusion: Embracing Static Sites for Modern Web Development
 

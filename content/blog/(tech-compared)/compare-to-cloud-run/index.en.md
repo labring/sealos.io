@@ -13,16 +13,6 @@ tags:
     'google cloud',
     'sealos',
   ]
-keywords:
-  [
-    'sealos vs google cloud run',
-    'cloud platform comparison',
-    'kubernetes deployment',
-    'serverless containers',
-    'PaaS comparison',
-    'cloud native',
-    'google cloud run alternative',
-  ]
 ---
 
 The serverless container landscape has evolved dramatically, with Google Cloud Run pioneering many concepts while platforms like Sealos push the boundaries of what's possible in cloud-native development. While Cloud Run offers excellent Google Cloud integration and serverless simplicity, Sealos provides a **comprehensive cloud-native platform** that goes far beyond basic container deployment.
