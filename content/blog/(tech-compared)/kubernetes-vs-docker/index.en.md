@@ -1,5 +1,6 @@
 ---
 title: What Is The Difference Between Kubernetes and Docker?
+imageTitle: Kubernetes vs Docker
 description: Discover the key differences between Docker and Kubernetes in this comprehensive guide. Learn when to use each technology, their features, advantages, disadvantages, and how they work together for efficient containerization and orchestration.
 date: 2025-04-22
 tags: ['Sealos']

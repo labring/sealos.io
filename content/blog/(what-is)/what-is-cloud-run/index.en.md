@@ -1,6 +1,6 @@
 ---
 title: What Is Google Cloud Run? A Complete Guide to Serverless Container Platform
-imageTitle: What Is Google Cloud Run
+imageTitle: What Is Google Cloud Run?
 description: Learn everything about Google Cloud Run - a fully managed serverless platform for deploying containerized applications. Discover features, pricing, benefits, and how it compares to alternatives like Sealos.
 date: 2025-06-06
 tags:

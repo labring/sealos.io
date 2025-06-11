@@ -1,6 +1,6 @@
 ---
 title: 'The Ultimate Database Guide for Sealos: Which Database Should You Choose in 2025?'
-imageTitle: 'Which Database Should You Choose on Sealos?'
+imageTitle: Which Database Should You Choose?
 description: 'Complete comparison of PostgreSQL, MongoDB, MySQL, Redis, Kafka, and Milvus on Sealos. Learn which database fits your project needs with real-world examples and performance insights.'
 date: 2025-06-03
 tags:

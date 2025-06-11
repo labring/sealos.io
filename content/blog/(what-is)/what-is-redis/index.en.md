@@ -87,6 +87,8 @@ Redis's exceptional performance stems from its fundamental architecture decision
 - **Pipelining support**: Clients can send multiple commands without waiting for individual responses, dramatically reducing network round-trip overhead. Pipelining can improve throughput by orders of magnitude in high-latency network environments.
 - **Lua scripting**: Server-side scripting ensures atomic execution of complex operations while reducing network traffic. Scripts run in Redis's single-threaded environment, guaranteeing consistency while enabling sophisticated data manipulations that would require multiple round-trips otherwise.
 
+When deploying Redis in production environments, many organizations choose [managed database solutions](/products/databases) to handle the operational complexity while maintaining these performance benefits.
+
 Benchmarks consistently show Redis handling millions of operations per second on modern hardware, with typical latencies measured in microseconds rather than milliseconds.
 
 ### Performance Characteristics and Limitations

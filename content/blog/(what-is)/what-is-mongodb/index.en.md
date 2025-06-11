@@ -1,5 +1,6 @@
 ---
 title: What is MongoDB and How Does It Work?
+imageTitle: What is MongoDB?
 description: MongoDB is the leading NoSQL document database, providing powerful data storage and retrieval capabilities that enable modern application development at scale.
 date: 2025-05-29
 tags: ['Sealos', 'MongoDB', 'NoSQL', 'Database', 'Document Database']
@@ -25,6 +26,8 @@ In today's application-driven digital environment, organizations need to:
 - Enable rapid application development with flexible schemas
 
 MongoDB addresses these needs by providing a document-oriented database that works seamlessly with modern programming languages and development frameworks. Its combination of flexibility, performance, and scalability has made it the database of choice for modern applications.
+
+Organizations deploying MongoDB at scale often benefit from [managed database platforms](/products/databases) that handle operational complexity while preserving the flexibility and performance characteristics that make MongoDB attractive for modern development workflows.
 
 ## The Evolution of Database Technology
 

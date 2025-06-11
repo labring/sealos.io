@@ -49,23 +49,31 @@ To better understand cloud native, it's helpful to compare it with other cloud-r
 | **Cloud Based**   | A general term for services delivered over the internet, regardless of their architecture                      |
 | **Cloud First**   | A business strategy prioritizing cloud resources for new IT services and technology refreshes                  |
 
+## What is a Cloud-Native Application?
+
+A cloud-native application is specifically designed from the ground up to take advantage of the elasticity and distributed nature of the cloud. To better understand what a cloud-native application is, it's best to start with what it's not—a traditional, monolithic application.
+
+### Traditional Monolithic Applications
+
+Monolithic applications function as a single unit, often with custom-built operating systems, middleware, and language stacks for each application. Most scripts and processes are also purpose-built for the build, test, and deployment. Overall, this application architecture creates close dependencies, making it more difficult to change, test, deploy, and operate systems as they grow over time. What starts out as simple to design and deploy soon becomes complex, hard to evolve, and challenging to operate.
+
+### Cloud-Native Application Characteristics
+
+By comparison, cloud-native applications make the most of modern infrastructure's dynamic, distributed nature to achieve greater speed, agility, scalability, reliability, and cost efficiency. Cloud-native applications are typically broken down into multiple, self-contained services through the use of technologies and methodologies, namely DevOps, continuous delivery and continuous integration, containers, microservices, and declarative APIs.
+
+This enables teams to deploy and scale components independently, so they can make updates, fix issues, and deliver new features without any service interruption. Cloud-native applications are built with the assumption that failures will happen, and they're designed to be resilient and self-healing.
+
 ## The Pillars of Cloud Native Architecture
 
-Cloud native is built on several foundational pillars that collectively enable the speed, agility, and resilience these systems are known for:
+Cloud native is built on several foundational pillars that collectively enable the speed, agility, and resilience these systems are known for. There are various ways to create a cloud-native architecture, but the goal is always to increase software delivery velocity and service reliability and to develop shared ownership among software stakeholders.
 
-### 1. Containerization
+The fundamentals of cloud-native architectures are based on five core pillars:
 
-Containers provide lightweight, consistent runtime environments that package applications with their dependencies. Unlike traditional virtual machines, containers share the host OS kernel, making them highly efficient and portable.
+### 1. Microservices
 
-**Key technologies:**
+Almost all cloud architectures are based on microservices, but the key benefit they deliver is composability—breaking down an application into a collection of smaller, lightweight services that can easily be composed and connected to each other via application programming interfaces (APIs). For example, an ecommerce application might be composed of a specific service for the shopping cart, another for payment, and another one that communicates with the back end about inventory management.
 
-- Docker for container creation and management
-- Container registries for image storage and distribution
-- OCI (Open Container Initiative) standards ensuring interoperability
-
-### 2. Microservices Architecture
-
-Breaking monolithic applications into smaller, independently deployable services enables:
+Composability also enables teams to swap and re-compose components to meet new business requirements without disrupting another part of the application. This approach enables:
 
 - Faster development cycles with autonomous teams
 - Improved fault isolation
@@ -74,7 +82,30 @@ Breaking monolithic applications into smaller, independently deployable services
 
 Companies like Netflix (600+ services), Uber (1,000+ services), and WeChat (3,000+ services) deploy hundreds to thousands of times per day using microservice architectures. This approach allows them to rapidly respond to market conditions by updating small parts of complex applications without full redeployments.
 
-### 3. The Twelve-Factor Application Methodology
+### 2. Containers and Orchestration
+
+Containers are lightweight, executable components that contain all the elements needed—including app source code and dependencies—to run the code in any environment. Containers deliver workload portability that supports "build once, run anywhere" code, making development and deployment significantly easier. They also help to reduce the chance of friction between languages, libraries, and frameworks since they can be deployed independently. This portability and flexibility makes containers ideal for building microservices architectures.
+
+Container orchestration is also essential as the number of microservices grows to help manage containers so they can run smoothly as an application. A container orchestration platform like Kubernetes provides oversight and control of where and how containers run, repair any failures, and balance load between containers.
+
+**Key technologies:**
+
+- Docker for container creation and management
+- Container registries for image storage and distribution
+- OCI (Open Container Initiative) standards ensuring interoperability
+- Kubernetes for container orchestration
+
+### 3. DevOps
+
+Cloud-native application development requires shifting to an agile delivery methodology like DevOps, where developers and IT operations teams collaborate to automate infrastructure and software delivery processes. DevOps allows development and operations teams to communicate more closely and come together around a shared purpose, creating a culture and environment where applications can be built, tested, and released faster.
+
+### 4. Continuous Integration and Continuous Delivery (CI/CD)
+
+Automation can repair, scale, and deploy systems much faster than people. CI/CD pipelines help automate the build, testing, and deployment of application changes without the need to schedule downtime or wait for a maintenance window. Continuous delivery ensures that software releases are more reliable and less risky, allowing teams to deliver new services and features more rapidly and frequently.
+
+Modern CI/CD systems enforce a strict separation across build, release, and run stages, with each release tagged with a unique ID and support for rollbacks. This approach enables organizations to move from quarterly releases to on-demand updates, catching problems early when they're less expensive to fix.
+
+### 5. The Twelve-Factor Application Methodology
 
 Many cloud-native systems follow the principles of the Twelve-Factor Application methodology, which provides guidance for building software-as-a-service applications that:
 
@@ -86,7 +117,7 @@ Many cloud-native systems follow the principles of the Twelve-Factor Application
 
 Key factors include codebase management, dependency isolation, configuration externalization, backing services as attached resources, and strict separation between build, release, and run stages.
 
-### 4. Modern Design Practices
+### 6. Modern Design Practices
 
 Cloud-native applications embrace modern design practices that focus on resilience, manageability, and observability:
 
@@ -94,11 +125,11 @@ Cloud-native applications embrace modern design practices that focus on resilien
 - **Built-in telemetry**: Comprehensive monitoring, health checks, and observability are integrated from the beginning
 - **Security and identity management**: Authentication and authorization are implemented from the start, often leveraging role-based access control (RBAC)
 
-### 5. Infrastructure as Code (IaC)
+### 7. Infrastructure as Code (IaC)
 
 Cloud native approaches treat infrastructure provisioning as a programmable task. This declarative approach ensures consistent, repeatable environments while enabling version control and automated testing of infrastructure changes. IaC makes infrastructure deployments repeatable and prevents runtime issues caused by configuration drift or missing dependencies.
 
-### 6. Container Orchestration
+### 8. Container Orchestration
 
 Managing containers at scale requires orchestration platforms, with Kubernetes emerging as the de facto standard. Kubernetes provides:
 
@@ -108,7 +139,19 @@ Managing containers at scale requires orchestration platforms, with Kubernetes e
 - Storage orchestration
 - Rolling updates with zero downtime
 
-### 7. DevOps and CI/CD Practices
+## Cloud-Native Services and Technologies
+
+Cloud-native services and technologies help you build, run, and deploy scalable applications in any environment. While your customers and business users benefit from a regular application, cloud-native services operate behind the scenes to keep things running smoothly.
+
+For example, cloud-native services might describe the as-a-service offerings from cloud service providers (for example, IaaS, PaaS, and SaaS service models), the microservices of an application, and the APIs that connect and enable communication between services.
+
+## What is the difference between cloud and cloud native?
+
+There is actually a difference between cloud and cloud native. Cloud refers to cloud computing, where companies or individuals pay to access computing resources as an on-demand service.
+
+While it is often used as a catch-all description for the tools and techniques used to develop software in the cloud, the term "cloud native" isn't solely about cloud adoption. Instead, it refers to how applications are built and delivered, rather than just where they are deployed. In some cases, an application may not even run in the cloud. It's possible to build applications with cloud-native principles and run it on-premises or in hybrid environments.
+
+### 9. DevOps and CI/CD Practices
 
 Automating the software delivery pipeline is essential for cloud native operations:
 
@@ -128,6 +171,40 @@ Modern CI/CD systems enforce a strict separation across build, release, and run 
 | Development    | Waterfall or slow-cycle methodologies | Agile, DevOps practices                       |
 | Infrastructure | Static, manually provisioned          | Dynamic, programmatically defined             |
 
+## Cloud-Native Benefits
+
+### Faster Innovation
+
+Smaller, loosely coupled services allow teams to work and develop autonomously. Cloud-native approaches increase developer productivity and velocity, making it easier for developers to innovate.
+
+### Reliable Releases
+
+Cloud-native architectures enable developers to rapidly build, test, and deploy new and existing services. This allows you to bring products and services to market faster and reduces the risk of deployments.
+
+### Scalability
+
+Cloud-native architectures employ infrastructure automation, helping to eliminate downtime due to human error. You can balance load based on demand, allowing you to optimize cost and performance better.
+
+### Lower Costs
+
+A streamlined software delivery process reduces the costs of delivering new updates and features. Cloud-native applications also allow for sharing resources and on-demand consumption, significantly lowering your operating costs.
+
+### Higher Availability
+
+Cloud-native architectures provide high availability and reliability as they reduce operational complexity, simplify configuration changes, and offer autoscaling and self-healing.
+
+### Portability
+
+Cloud-native apps are designed to run almost anywhere, making it easy to move them from one environment to another without making changes to the entire application.
+
+### Better Security
+
+Cloud-native applications help you reduce attack surface area and make it easier to detect and respond to attacks or new vulnerabilities. They are also much easier to patch and update as they follow standardized deployment and management.
+
+### Improved Compliance
+
+It's much easier and cheaper to implement and demonstrate compliance with cloud-native applications as most data security controls are implemented at the platform level. Cloud providers also maintain compliance with risk management frameworks, making it easier for you to meet compliance standards with residual controls.
+
 ## The Business Benefits of Cloud Native
 
 Organizations adopting cloud native approaches typically experience:
@@ -138,6 +215,22 @@ Organizations adopting cloud native approaches typically experience:
 4. **Reduced operational costs**: Optimized resource consumption and automation
 5. **Innovation enablement**: Technology flexibility and reduced experimentation barriers
 
+## Cloud-Native Challenges
+
+Despite the many cloud-native benefits, this model does come with some trade-offs that should be considered. Cloud-native computing is not always straightforward to implement as beyond adopting new tools and technologies, it also requires cultural shifts to make its use successful.
+
+Some common cloud-native challenges include:
+
+- **Distributed systems complexity**: Dealing with distributed systems and many moving parts can be overwhelming if you don't have tools or processes in place to manage development, testing, and deployment
+- **Increased operational and technology costs**: Without the right cost optimization and oversight in place to control the use of resources in cloud environments
+- **Lack of existing technology skills**: Teams may need training to work with and integrate a more complex technology stack
+- **Resistance to cultural shifts**: Implementing cloud-native technologies and DevOps best practices requires organizational change
+- **Executive buy-in**: Difficulty communicating cloud-native concepts to gain support from non-technical executives
+
+However, none of the above is unmanageable with the right expertise and strategy. For example, adopting a simple "lift and shift" approach to migrating to the cloud is a good place to start, but it won't provide many of the cloud-native benefits listed above. Many organizations end up stalling out at this stage because they haven't anticipated the expense and complexity of re-architecting to a cloud-native architecture.
+
+We recommend not treating cloud native as a multi-year, big-bang project. Instead, it should be considered an ongoing journey of constant iteration to learn and improve as you go.
+
 ## Common Cloud Native Implementation Challenges
 
 Despite its benefits, cloud native adoption presents several challenges:
@@ -147,6 +240,8 @@ Despite its benefits, cloud native adoption presents several challenges:
 - **Security concerns**: Managing the expanded attack surface and container vulnerabilities
 - **Complexity management**: Handling the operational overhead of distributed systems
 - **Skill gaps**: Finding and developing talent with cloud native expertise
+
+These challenges align with the broader implementation difficulties organizations face when transitioning to cloud-native architectures.
 
 ## Cloud Native Adoption Strategy
 
@@ -171,6 +266,8 @@ The cloud native ecosystem continues to evolve rapidly, with emerging trends inc
 ## Sealos: Streamlining Your Cloud Native Journey
 
 [Sealos](https://sealos.io) offers a comprehensive platform that simplifies cloud native adoption. By providing an integrated solution for Kubernetes management, application deployment, and observability, Sealos helps organizations overcome common implementation challenges and accelerate their cloud native transformation.
+
+For organizations building cloud-native applications that require reliable data persistence, [managed database solutions](/products/databases) can provide the scalability and automation benefits that align with cloud-native principles while reducing operational overhead.
 
 ## Conclusion
 

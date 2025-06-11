@@ -1,5 +1,6 @@
 ---
 title: What is Apache Kafka and How Does It Work?
+imageTitle: What is Apache Kafka?
 description: Apache Kafka is the leading distributed streaming platform, providing powerful real-time data processing capabilities that enable event-driven architectures at scale.
 date: 2025-05-30
 tags: ['Sealos', 'Kafka', 'Streaming', 'Event-Driven Architecture']
@@ -25,6 +26,8 @@ In today's data-driven digital environment, organizations need to:
 - Enable microservices communication through reliable messaging
 
 Kafka addresses these needs by providing a unified platform for handling all real-time data feeds in an organization. Its combination of high throughput, low latency, and fault tolerance has made it the backbone of modern data architectures.
+
+When implementing Kafka in production environments, many organizations complement their streaming infrastructure with [managed database solutions](/products/databases) to ensure reliable data persistence and analytics capabilities for their event-driven architectures.
 
 ## The Evolution of Data Processing
 

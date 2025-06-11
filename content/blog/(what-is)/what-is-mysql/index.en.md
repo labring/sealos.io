@@ -1,5 +1,6 @@
 ---
 title: What is MySQL and How Does It Work?
+imageTitle: What is MySQL?
 description: MySQL is one of the world's most popular open-source relational database management systems, providing powerful data storage and retrieval capabilities for applications of all sizes.
 date: 2025-05-28
 tags: ['Sealos', 'MySQL', 'Database']
@@ -25,6 +26,8 @@ In today's data-driven digital environment, organizations need to:
 - Maintain high availability and disaster recovery capabilities
 
 MySQL addresses these needs by providing a mature, feature-rich database platform that works seamlessly across different operating systems, programming languages, and deployment environments. Its combination of performance, reliability, and ease of use has made it the database of choice for developers and organizations worldwide.
+
+For teams looking to focus on application development rather than database administration, [managed database solutions](/products/databases) offer MySQL hosting with automated maintenance, scaling, and monitoring capabilities.
 
 ## The Evolution of Database Management
 

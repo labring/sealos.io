@@ -1,5 +1,6 @@
 ---
 title: 'The Ultimate Guide to AI Game Development in 2025: Tools, Tips & Techniques'
+imageTitle: The Ultimate Guide to AI Game Development
 description: 'Learn how to create professional-quality games with AI tools in 2025. This comprehensive guide covers everything from concept development to deployment, helping you become your own game studio with cutting-edge AI assistance.'
 date: 2025-03-26
 tags: ['Sealos']

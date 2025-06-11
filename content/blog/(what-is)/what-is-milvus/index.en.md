@@ -30,6 +30,8 @@ To bridge this gap, **embeddings** are used to convert unstructured data into nu
 
 Milvus serves as the specialized storage and retrieval engine for these vector embeddings, enabling fast and scalable similarity searches that power modern AI applications.
 
+As vector databases become critical infrastructure for AI workloads, many organizations choose [managed database services](/products/databases) to handle the operational complexity of maintaining high-performance vector search capabilities at scale.
+
 ## The History and Evolution of Milvus
 
 Milvus was created to address the growing need for efficient vector similarity search in AI and machine learning applications. As deep learning models began generating high-dimensional vector embeddings for images, text, audio, and other data types, traditional databases proved inadequate for handling similarity search at scale.
