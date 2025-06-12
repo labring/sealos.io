@@ -1,6 +1,7 @@
 import { AppConfig } from '@/config/apps';
 import { languagesType } from '@/lib/i18n';
 import { AppIcon } from '@/components/ui/app-icon';
+import { CustomButton } from '@/components/ui/custom-button';
 
 interface AppHeaderProps {
   app: AppConfig;
@@ -37,11 +38,15 @@ export default function AppHeader({ app, translations, lang }: AppHeaderProps) {
 
           {/* Links and Deploy Button */}
           <div className="flex flex-wrap items-center gap-4">
-            <a
+            <CustomButton
+              className="inline-flex cursor-pointer items-center rounded-lg bg-blue-600 px-6 py-3 text-lg font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-lg"
+              title="Deploy App"
               href={deployUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-lg bg-blue-600 px-6 py-3 text-lg font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-lg"
+              location="app-page"
+              additionalData={{
+                technology: app.name,
+                category: app.category,
+              }}
             >
               <svg
                 className="mr-2 h-5 w-5"
@@ -57,7 +62,7 @@ export default function AppHeader({ app, translations, lang }: AppHeaderProps) {
                 />
               </svg>
               {translations.deployNow}
-            </a>
+            </CustomButton>
 
             {/* Links */}
             {app.website && (

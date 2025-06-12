@@ -57,11 +57,15 @@ export default function HomePage({
           <Video
             url="https://youtu.be/A9mxz0JaY2o"
             placeholderImage={placeholderImage}
+            title="Sealos DevBox"
+            location="hero"
           />
           <div className="my-8 flex items-center justify-center">
-            <a href="/products/devbox">
-              <HovermeButton text={translations[params.lang].discoverButton} />
-            </a>
+            <HovermeButton
+              text={translations[params.lang].discoverButton}
+              href="/products/devbox"
+              location="hero"
+            />
           </div>
         </Hero>
 

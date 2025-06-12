@@ -5,6 +5,7 @@ import { TestimonialBadge } from '@/components/ui/testimonial-badge';
 import { ReactNode } from 'react';
 import { languagesType } from '@/lib/i18n';
 import { motion } from 'framer-motion';
+import { CustomButton } from '../ui/custom-button';
 
 interface HeroProps {
   children?: ReactNode;
@@ -90,14 +91,15 @@ export default function Hero({
                   className="w-auto px-8 py-3 text-lg font-bold"
                   link={getStartedLink}
                   title={t.getStarted}
+                  location="hero"
                 />
                 {videoCta && (
                   <>
-                    <a
-                      href="#video-section"
-                      title={t.watchDemo}
+                    <CustomButton
                       className="font-pj inline-flex items-center justify-center rounded-xl border-2 border-gray-400 px-6 py-3 text-lg font-medium text-gray-900 transition-all duration-200 hover:border-gray-900 hover:bg-gray-900 hover:text-white focus:border-gray-900 focus:bg-gray-900 focus:text-white focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 focus:outline-hidden"
-                      role="button"
+                      title={t.watchDemo}
+                      href="#video-section"
+                      location="hero"
                     >
                       <svg
                         className="mr-2 h-5 w-5"
@@ -115,7 +117,7 @@ export default function Hero({
                         />
                       </svg>
                       {t.watchDemo}
-                    </a>
+                    </CustomButton>
                   </>
                 )}
               </motion.div>

@@ -25,9 +25,11 @@ export default function HomePage({
       <main className="custom-container px-8 pt-14 md:px-[15%]">
         <Hero title={title} mainTitleEmphasis={2}>
           <div className="my-8 flex items-center justify-center">
-            <a href="https://go.sealos.io/edu-apply">
-              <HovermeButton text="Apply for Free Credits" />
-            </a>
+            <HovermeButton
+              text="Apply for Free Credits"
+              href="https://go.sealos.io/edu-apply"
+              location="hero"
+            />
           </div>
           <p className="text-center font-medium">
             Join thousands of students already using Sealos for education

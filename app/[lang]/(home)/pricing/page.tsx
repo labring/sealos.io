@@ -37,9 +37,11 @@ export default function PricingPage({
       <main className="custom-container px-8 pt-14 md:px-[15%]">
         <Hero title={title} mainTitleEmphasis={2}>
           <div className="my-8 flex items-center justify-center">
-            <a href="https://os.sealos.io">
-              <HovermeButton text="Get Started Today" />
-            </a>
+            <HovermeButton
+              text="Get Started Today"
+              href="https://os.sealos.io"
+              location="hero"
+            />
           </div>
           <p className="text-center font-medium text-slate-600">
             Scale your applications with confidence on our cloud platform

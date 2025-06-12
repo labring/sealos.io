@@ -1,6 +1,8 @@
 'use client';
 
+import { CustomButton } from '@/components/ui/custom-button';
 import { templateDomain } from '@/config/site';
+import { ExternalLink } from 'lucide-react';
 
 export default function FooterCta() {
   return (
@@ -24,14 +26,18 @@ export default function FooterCta() {
           </p>
 
           <div className="mb-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a
+            <CustomButton
+              className="cursor-pointer rounded-xl bg-white px-8 py-4 text-lg font-bold text-blue-600 shadow-lg transition-all duration-300 hover:bg-blue-50 hover:shadow-xl"
+              title="Browse App Store"
+              newWindow={true}
+              location="footer-cta"
               href={templateDomain}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl bg-white px-8 py-4 text-lg font-bold text-blue-600 shadow-lg transition-all duration-300 hover:bg-blue-50 hover:shadow-xl"
             >
-              Browse App Store
-            </a>
+              <span className="inline-flex items-center gap-2">
+                <ExternalLink className="h-5 w-5" />
+                Browse App Store
+              </span>
+            </CustomButton>
             {/* <a
               href="/docs/guides/app-store"
               className="rounded-xl border-2 border-white px-8 py-4 text-lg font-bold text-white transition-all duration-300 hover:bg-white hover:text-blue-600"

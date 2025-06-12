@@ -1,8 +1,9 @@
 'use client';
 import React, { useCallback, useState } from 'react';
 import { AnimateElement } from '@/components/ui/animated-wrapper';
-import { DeployButton } from './deployButton';
 import { appDomain } from '@/config/site';
+import { CustomButton } from '@/components/ui/custom-button';
+import { Package } from 'lucide-react';
 
 interface TechItem {
   name: string;
@@ -439,7 +440,7 @@ export default function TechGrid() {
           {Object.keys(tileData).map((tab) => (
             <button
               key={tab}
-              className={`rounded-md px-2 py-1 ${
+              className={`cursor-pointer rounded-md px-2 py-1 ${
                 activeTab === tab
                   ? 'rounded-md bg-[#FAFCFF] text-black'
                   : 'text-custom-secondary-text hover:bg-[#FAFCFF]/80'
@@ -458,7 +459,7 @@ export default function TechGrid() {
         </div>
 
         {/* Category Description */}
-        <div className="mb-6 text-center text-sm text-custom-secondary-text">
+        <div className="text-custom-secondary-text mb-6 text-center text-sm">
           {tileData[activeTab].description}
         </div>
 
@@ -487,13 +488,13 @@ export default function TechGrid() {
                     <h3 className="text-lg font-medium text-black">
                       {tech.name}
                     </h3>
-                    <p className=" text-xs text-custom-secondary-text">
+                    <p className="text-custom-secondary-text text-xs">
                       {tech.language}
                     </p>
                   </div>
-                  <div className="absolute right-0 top-0 -mt-2  flex flex-col items-center gap-2 rounded p-2">
+                  <div className="absolute top-0 right-0 -mt-2 flex flex-col items-center gap-2 rounded p-2">
                     <span className="text-yellow-500">⭐</span>
-                    <span className="text-xs text-custom-secondary-text">
+                    <span className="text-custom-secondary-text text-xs">
                       {tech.githubStars
                         ? tech.githubStars.toLocaleString()
                         : 'Popular'}
@@ -503,9 +504,21 @@ export default function TechGrid() {
 
                 {/* Deploy Button */}
                 <div className="mt-4 flex justify-center">
-                  <a href={deployLink + deployName}>
-                    <DeployButton />
-                  </a>
+                  <CustomButton
+                    className="group bg-custom-bg text-custom-primary-text hover:ring-custom-bg focus-visible:ring-ring relative flex h-9 w-full max-w-52 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-md px-4 py-2 text-sm font-medium whitespace-pre shadow-sm transition-all duration-300 ease-out hover:bg-[#97D9FF] hover:ring-2 hover:ring-offset-2 focus-visible:ring-1 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 md:flex"
+                    title="Deploy DevBox"
+                    href={`${deployLink}${deployName}`}
+                    location="tech-grid"
+                    additionalData={{
+                      technology: tech.name,
+                      category: activeTab,
+                    }}
+                  >
+                    <div className="flex items-center">
+                      <Package className="h-4 w-4 fill-none" />
+                      <span className="ml-2">Deploy on DevBox</span>
+                    </div>
+                  </CustomButton>
                 </div>
               </div>
             );
@@ -514,7 +527,7 @@ export default function TechGrid() {
 
         <div className="mt-14 flex justify-center">
           <div
-            className="max-w-[760px] rounded-[46px] border border-solid border-[#ABE1FF] px-4 py-3 text-center text-xs font-medium text-custom-secondary-text md:text-sm"
+            className="text-custom-secondary-text max-w-[760px] rounded-[46px] border border-solid border-[#ABE1FF] px-4 py-3 text-center text-xs font-medium md:text-sm"
             style={{
               background:
                 'linear-gradient(90deg, rgba(170, 229, 255, 0.30) 0%, rgba(170, 229, 255, 0.20) 100%)',

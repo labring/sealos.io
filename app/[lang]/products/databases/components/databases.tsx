@@ -1,5 +1,6 @@
 'use client';
 
+import { CustomButton } from '@/components/ui/custom-button';
 import { appDomain } from '@/config/site';
 const dbAppSlug = '?openapp=system-dbprovider';
 
@@ -197,14 +198,15 @@ export default function Databases() {
                 </div>
               </div>
 
-              <a
+              <CustomButton
+                title="Deploy Database"
+                className="mt-auto block w-full cursor-pointer rounded-lg bg-blue-600 px-4 py-3 text-center font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-lg"
+                newWindow={true}
                 href={db.deployUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto block w-full rounded-lg bg-blue-600 px-4 py-3 text-center font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-lg"
+                additionalData={{ technology: db.name }}
               >
                 Deploy {db.name}
-              </a>
+              </CustomButton>
             </div>
           </div>
         ))}

@@ -3,6 +3,8 @@ export interface GTMEvent {
   [key: string]: any;
 }
 
+export type ButtonActionType = 'url' | 'anchor' | 'modal' | 'custom';
+
 export const gtmPush = (event: GTMEvent) => {
   if (typeof window !== 'undefined' && window.dataLayer) {
     window.dataLayer.push(event);
@@ -21,12 +23,19 @@ export const trackPageView = (pagePath: string, pageTitle?: string) => {
 export const trackButtonClick = (
   buttonText: string,
   buttonLocation: string,
+  actionType: ButtonActionType,
+  actionTarget: string,
   additionalData?: Record<string, any>,
 ) => {
   gtmPush({
     event: 'button_click',
     button_text: buttonText,
     button_location: buttonLocation,
+    action_type: actionType || '',
+    action_target: actionTarget || '',
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
+    page_title: typeof window !== 'undefined' ? document.title : '',
     ...additionalData,
   });
 };
@@ -43,6 +52,9 @@ export const trackVideoEvent = (
     video_title: videoTitle,
     video_url: videoUrl,
     video_position: videoPosition,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    page_title: typeof window !== 'undefined' ? document.title : '',
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
   });
 };
 
@@ -56,6 +68,9 @@ export const trackFormSubmission = (
     form_name: formName,
     form_location: formLocation,
     form_success: success,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    page_title: typeof window !== 'undefined' ? document.title : '',
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
   });
 };
 
@@ -69,6 +84,9 @@ export const trackDownload = (
     file_name: fileName,
     file_url: fileUrl,
     download_location: downloadLocation,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    page_title: typeof window !== 'undefined' ? document.title : '',
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
   });
 };
 
@@ -78,6 +96,9 @@ export const trackCustomEvent = (
 ) => {
   gtmPush({
     event: eventName,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    page_title: typeof window !== 'undefined' ? document.title : '',
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
     ...eventData,
   });
 };
@@ -87,6 +108,8 @@ export const trackScrollDepth = (percentage: number, pagePath: string) => {
     event: 'scroll_depth',
     scroll_percentage: percentage,
     page_path: pagePath,
+    page_title: typeof window !== 'undefined' ? document.title : '',
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
   });
 };
 
@@ -100,5 +123,8 @@ export const trackSearch = (
     search_term: searchTerm,
     search_location: searchLocation,
     search_results_count: resultsCount,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    page_title: typeof window !== 'undefined' ? document.title : '',
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
   });
 };

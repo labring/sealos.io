@@ -10,6 +10,7 @@ import {
   trackPageView,
   trackCustomEvent,
   GTMEvent,
+  ButtonActionType,
 } from '@/lib/gtm';
 
 /**
@@ -31,12 +32,20 @@ export function useGTM() {
 
   const trackButton = useCallback(
     (
-      buttonId: string,
+      buttonText: string,
       location: string,
+      actionType: ButtonActionType,
+      actionTarget: string = '',
       additionalData?: Record<string, any>,
     ) => {
       if (isGTMEnabled) {
-        trackButtonClick(buttonId, location, additionalData);
+        trackButtonClick(
+          buttonText,
+          location,
+          actionType,
+          actionTarget,
+          additionalData,
+        );
       }
     },
     [isGTMEnabled],

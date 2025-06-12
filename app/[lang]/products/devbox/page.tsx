@@ -14,18 +14,18 @@ import placeholderImage from '/public/images/video.webp';
 
 // Define translations for different languages
 const translations = {
-  'en': {
+  en: {
     title: {
-      main: 'Code. Build. Deploy. We\'ve Got the Rest.',
+      main: "Code. Build. Deploy. We've Got the Rest.",
       sub: 'Seamless development from start to production.',
-    }
+    },
   },
   'zh-cn': {
     title: {
       main: '编码. 构建. 部署. 其余的交给我们.',
       sub: '从开发到生产的无缝体验.',
-    }
-  }
+    },
+  },
 };
 
 export const metadata = generatePageMetadata({
@@ -52,9 +52,11 @@ export default function HomePage({
           <Video
             url="https://youtu.be/A9mxz0JaY2o"
             placeholderImage={placeholderImage}
+            title="Sealos DevBox"
+            location="hero"
           />
         </Hero>
-        <div className="mb-[64px]  mt-[64px] h-[1px] bg-[#DDE7F7]"></div>
+        <div className="mt-[64px] mb-[64px] h-[1px] bg-[#DDE7F7]"></div>
         <FeatureFour />
         <div id="one-click-deployment" className="scroll-mt-20" />
         <TechGrid />

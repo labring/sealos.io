@@ -1,8 +1,41 @@
 'use client';
 
-export function HovermeButton({ text }: { text: string }) {
+import { useGTM } from '@/hooks/use-gtm';
+
+type HovermeButtonProps = {
+  text: string;
+  href?: string;
+  location: string;
+  onClick?: () => void;
+};
+
+export function HovermeButton({
+  text,
+  href,
+  location,
+  onClick,
+}: HovermeButtonProps) {
+  const { trackButton } = useGTM();
+
+  const handleClick = () => {
+    // Track the button click
+    trackButton(text, location, 'url', href || 'unknown');
+
+    // Call the provided onClick handler if it exists
+    if (onClick) {
+      onClick();
+    }
+
+    if (href) {
+      window.location.href = href;
+    }
+  };
+
   return (
-    <button className="group relative inline-flex h-[calc(48px+8px)] items-center justify-center rounded-full bg-neutral-900 py-1 pl-6 pr-14 font-medium text-neutral-50">
+    <button
+      className="group relative inline-flex h-[calc(48px+8px)] items-center justify-center rounded-full bg-neutral-900 py-1 pr-14 pl-6 font-medium text-neutral-50"
+      onClick={handleClick}
+    >
       <span className="z-10 pr-2">{text}</span>
       <div className="absolute right-1 inline-flex h-12 w-12 items-center justify-end rounded-full bg-neutral-700 transition-[width] group-hover:w-[calc(100%-8px)]">
         <div className="mr-3.5 flex items-center justify-center">

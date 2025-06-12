@@ -6,6 +6,7 @@ import { ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 import { languagesType } from '@/lib/i18n';
 import { appsConfig } from '@/config/apps';
 import { AppIcon } from '@/components/ui/app-icon';
+import { CustomButton } from '@/components/ui/custom-button';
 
 interface HighlightedAppsProps {
   lang: languagesType;
@@ -55,9 +56,14 @@ export default function HighlightedApps({ lang }: HighlightedAppsProps) {
       {/* Expand/Collapse Button */}
       {(hasMoreApps || isExpanded) && (
         <div className="mt-8 text-center">
-          <button
+          <CustomButton
+            className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 transition-all duration-300 hover:border-gray-400 hover:bg-gray-50"
+            title="Toggle Apps View"
+            actionType="custom"
+            newWindow={true}
+            location="app-list"
+            additionalData={{ isExpanded }}
             onClick={() => setIsExpanded(!isExpanded)}
-            className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 transition-all duration-300 hover:border-gray-400 hover:bg-gray-50"
           >
             {isExpanded ? (
               <>
@@ -70,21 +76,22 @@ export default function HighlightedApps({ lang }: HighlightedAppsProps) {
                 Show More Apps
               </>
             )}
-          </button>
+          </CustomButton>
         </div>
       )}
 
       {/* Call to Action */}
       <div className="mt-12 text-center">
-        <a
+        <CustomButton
+          className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-lg"
+          title="Browse App Store"
+          newWindow={true}
+          location="app-list"
           href={templateDomain}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-lg"
         >
           <ExternalLink className="h-5 w-5" />
           Browse App Store
-        </a>
+        </CustomButton>
       </div>
     </section>
   );
