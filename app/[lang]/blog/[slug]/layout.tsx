@@ -15,7 +15,8 @@ import { Fragment } from 'react';
 import { DocsPage } from 'fumadocs-ui/page';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import '../blog.module.css';
-
+import StructuredDataComponent from '@/components/structured-data';
+import { generateArticleSchema, generateBreadcrumbSchema } from '@/lib/utils/structured-data';
 
 import { languagesType } from '@/lib/i18n';
 
@@ -49,9 +50,35 @@ export default async function BlogLayout({
   if (!page) notFound();
   const category = getPageCategory(page);
   const adjacentPosts = getAdjacentBlog(page, params.lang);
+
+  // Generate structured data for the blog post
+  const articleSchema = generateArticleSchema(
+    page.data.title,
+    page.data.description,
+    `${siteConfig.url.base}${page.url}`,
+    new Date(page.data.date).toISOString(),
+    new Date(page.data.date).toISOString(), // Use same date if no modified date
+    page.data.authors,
+    getBlogImage(page.data.imageTitle || page.data.title, category),
+    page.data.tags,
+    params.lang
+  );
+
+  // Generate breadcrumb structured data
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: siteConfig.url.base },
+    { name: 'Blog', url: `${siteConfig.url.base}/blog` },
+    { name: page.data.title, url: `${siteConfig.url.base}${page.url}` }
+  ], params.lang);
+
   // inline style: set the position for toc; set as a global style will make docs page strange
 
   return (
+    <>
+      {/* Structured Data for SEO */}
+      <StructuredDataComponent data={[articleSchema, breadcrumbSchema]} />
+
+
     <DocsLayout
       sidebar={{
         enabled: false,
@@ -205,6 +232,7 @@ export default async function BlogLayout({
         </article>
       </DocsPage>
     </DocsLayout>
+    </>
   );
 }
 

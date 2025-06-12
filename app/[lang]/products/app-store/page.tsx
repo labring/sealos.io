@@ -26,6 +26,7 @@ const translations = {
 
 export const metadata = generatePageMetadata({
   title: 'App Store' + ' | ' + translations.en.title.sub,
+  pathname: '/products/app-store'
 });
 
 export default function AppStorePage({

@@ -45,6 +45,7 @@ export async function generateMetadata({
     title: `Deploy ${app.name}`,
     description: app.description,
     keywords: app.tags,
+    pathname: `/products/app-store/${params.slug}`
   });
 }
 

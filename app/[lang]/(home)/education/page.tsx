@@ -12,7 +12,11 @@ const title = {
   sub: 'Free Cloud Credits for Students and Teachers',
 };
 
-export const metadata = generatePageMetadata();
+export const metadata = generatePageMetadata({
+  title: 'Education | Free Cloud Credits for Students and Teachers',
+  description: 'Launch your learning in the cloud with free cloud credits for students and teachers. Join thousands already using Sealos for education.',
+  pathname: '/education'
+});
 
 export default function HomePage({
   params,

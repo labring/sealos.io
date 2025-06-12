@@ -22,7 +22,11 @@ const title = {
   sub: 'Pay only for what you use. No hidden fees, no surprises.',
 };
 
-export const metadata = generatePageMetadata();
+export const metadata = generatePageMetadata({
+  title: 'Pricing | Simple, Transparent Pricing',
+  description: 'Pay only for what you use. No hidden fees, no surprises. Scale your applications with confidence on our cloud platform.',
+  pathname: '/pricing'
+});
 
 export default function PricingPage({
   params,
