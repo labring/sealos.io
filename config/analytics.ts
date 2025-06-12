@@ -18,6 +18,10 @@ export interface AnalyticsConfig {
     siteId: string;
     enabled: boolean;
   };
+  gtm?: {
+    containerId: string;
+    enabled: boolean;
+  };
   // umami?: {
   //   websiteId: string;
   //   src: string;
@@ -30,24 +34,30 @@ import { i18n } from '@/lib/i18n';
 // Define different analytics configurations for different languages
 const analyticsConfigByLanguage: Record<string, AnalyticsConfig> = {
   en: {
+    // Use GTM to manage all analytics
+    gtm: {
+      containerId: process.env.NEXT_PUBLIC_GTM_ID || 'GTM-5DTRN2V3',
+      enabled: true,
+    },
+    // Disable all services as they'll be managed by GTM
     baidu: {
       trackingId: '',
       enabled: false,
     },
     google: {
       trackingId: 'G-YF5VHZSTE0', // Google Analytics ID for English website
-      enabled: true,
+      enabled: false,
     },
     clarity: {
       trackingId: 'qf9f625a3h', // Clarity ID for English website
-      enabled: true,
+      enabled: false,
     },
     email: {
-      enabled: true,
+      enabled: false,
     },
     rybbit: {
       siteId: '1',
-      enabled: true,
+      enabled: false,
     },
   },
   'zh-cn': {
@@ -68,6 +78,10 @@ const analyticsConfigByLanguage: Record<string, AnalyticsConfig> = {
     },
     rybbit: {
       siteId: '',
+      enabled: false,
+    },
+    gtm: {
+      containerId: '',
       enabled: false,
     },
   },

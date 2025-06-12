@@ -33,7 +33,38 @@ const loadRybbitAnalytics = (siteId: string) => {
 };
 
 export function Analytics() {
-  // Lazy load Clarity after page is fully loaded
+  // GTM Implementation with improved error handling
+  useEffect(() => {
+    if (analyticsConfig.gtm?.enabled && analyticsConfig.gtm.containerId) {
+      // Avoid duplicate GTM initialization
+      if (
+        window.dataLayer &&
+        window.dataLayer.find((item) => item['gtm.start'])
+      ) {
+        return;
+      }
+
+      // Initialize dataLayer first
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js',
+      });
+
+      // Load GTM script
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtm.js?id=${analyticsConfig.gtm.containerId}`;
+      script.onerror = () => {
+        console.warn('Failed to load Google Tag Manager');
+      };
+
+      const firstScript = document.getElementsByTagName('script')[0];
+      firstScript?.parentNode?.insertBefore(script, firstScript);
+    }
+  }, []);
+
+  // Lazy load Clarity after page is fully loaded (only for zh-cn now)
   useEffect(() => {
     if (analyticsConfig.clarity?.enabled) {
       // Add a small delay to prioritize more important resources
@@ -59,6 +90,26 @@ export function Analytics() {
 
   return (
     <>
+      {/* Google Tag Manager */}
+      {analyticsConfig.gtm?.enabled && analyticsConfig.gtm.containerId && (
+        <>
+          <Script
+            id="gtm-script"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','${analyticsConfig.gtm.containerId}');
+              `,
+            }}
+          />
+        </>
+      )}
+
+      {/* Baidu Analytics - for zh-cn */}
       {analyticsConfig.baidu?.enabled && (
         <Script strategy="afterInteractive" id="baidu-analytics">
           {`
@@ -98,19 +149,19 @@ export function Analytics() {
               }
             `}
           </Script>
+        </>
+      )}
 
-          {analyticsConfig.email?.enabled && (
-            <Script strategy="afterInteractive" id="email-analytics">
-              {`
+      {analyticsConfig.email?.enabled && (
+        <Script strategy="afterInteractive" id="email-analytics">
+          {`
             (function(w,d,t,u,n,a,m){w['MauticTrackingObject']=n;
               w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments)},a=d.createElement(t),
               m=d.getElementsByTagName(t)[0];a.async=1;a.src=u;m.parentNode.insertBefore(a,m)
             })(window,document,'script','https://engage.sealos.io/mtc.js','mt');
             mt('send', 'pageview');
           `}
-            </Script>
-          )}
-        </>
+        </Script>
       )}
     </>
   );

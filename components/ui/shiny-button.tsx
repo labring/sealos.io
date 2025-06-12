@@ -73,15 +73,6 @@ export const GetStartedButton = ({
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-
-    try {
-      if (typeof window !== 'undefined' && window.rybbit) {
-        window.rybbit.event('Get Started Button Clicked');
-      }
-    } catch (error) {
-      console.warn('Analytics tracking failed:', error);
-    }
-
     if (link) {
       window.location.href = link;
     }

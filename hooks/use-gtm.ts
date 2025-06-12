@@ -1,0 +1,95 @@
+'use client';
+
+import { useCallback } from 'react';
+import { analyticsConfig } from '@/config/analytics';
+import {
+  gtmPush,
+  trackButtonClick,
+  trackVideoEvent,
+  trackFormSubmission,
+  trackPageView,
+  trackCustomEvent,
+  GTMEvent,
+} from '@/lib/gtm';
+
+/**
+ * Hook for GTM tracking functionality
+ * Only tracks if GTM is enabled and available
+ */
+export function useGTM() {
+  const isGTMEnabled =
+    analyticsConfig.gtm?.enabled && analyticsConfig.gtm?.containerId;
+
+  const trackEvent = useCallback(
+    (event: GTMEvent) => {
+      if (isGTMEnabled) {
+        gtmPush(event);
+      }
+    },
+    [isGTMEnabled],
+  );
+
+  const trackButton = useCallback(
+    (
+      buttonId: string,
+      location: string,
+      additionalData?: Record<string, any>,
+    ) => {
+      if (isGTMEnabled) {
+        trackButtonClick(buttonId, location, additionalData);
+      }
+    },
+    [isGTMEnabled],
+  );
+
+  const trackVideo = useCallback(
+    (
+      action: 'play' | 'pause' | 'complete' | 'seek',
+      title: string,
+      url: string,
+      position?: number,
+    ) => {
+      if (isGTMEnabled) {
+        trackVideoEvent(action, title, url, position);
+      }
+    },
+    [isGTMEnabled],
+  );
+
+  const trackForm = useCallback(
+    (formName: string, location: string, success: boolean = true) => {
+      if (isGTMEnabled) {
+        trackFormSubmission(formName, location, success);
+      }
+    },
+    [isGTMEnabled],
+  );
+
+  const trackPage = useCallback(
+    (path: string, title?: string) => {
+      if (isGTMEnabled) {
+        trackPageView(path, title);
+      }
+    },
+    [isGTMEnabled],
+  );
+
+  const trackCustom = useCallback(
+    (eventName: string, data: Record<string, any>) => {
+      if (isGTMEnabled) {
+        trackCustomEvent(eventName, data);
+      }
+    },
+    [isGTMEnabled],
+  );
+
+  return {
+    isEnabled: isGTMEnabled,
+    trackEvent,
+    trackButton,
+    trackVideo,
+    trackForm,
+    trackPage,
+    trackCustom,
+  };
+}
