@@ -15,6 +15,11 @@ import { Fragment } from 'react';
 import { DocsPage } from 'fumadocs-ui/page';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import '../blog.module.css';
+import StructuredDataComponent from '@/components/structured-data';
+import {
+  generateArticleSchema,
+  generateBreadcrumbSchema,
+} from '@/lib/utils/structured-data';
 
 import { languagesType } from '@/lib/i18n';
 
@@ -54,18 +59,46 @@ export default async function BlogLayout({
   if (!page) notFound();
   const category = getPageCategory(page);
   const adjacentPosts = getAdjacentBlog(page, params.lang);
+
+  // Generate structured data for the blog post
+  const articleSchema = generateArticleSchema(
+    page.data.title,
+    page.data.description,
+    `${siteConfig.url.base}${page.url}`,
+    new Date(page.data.date).toISOString(),
+    new Date(page.data.date).toISOString(), // Use same date if no modified date
+    page.data.authors,
+    getBlogImage(page.data.imageTitle || page.data.title, category),
+    page.data.tags,
+    params.lang,
+  );
+
+  // Generate breadcrumb structured data
+  const breadcrumbSchema = generateBreadcrumbSchema(
+    [
+      { name: 'Home', url: siteConfig.url.base },
+      { name: 'Blog', url: `${siteConfig.url.base}/blog` },
+      { name: page.data.title, url: `${siteConfig.url.base}${page.url}` },
+    ],
+    params.lang,
+  );
+
   // inline style: set the position for toc; set as a global style will make docs page strange
 
   return (
-    <DocsLayout
-      sidebar={{
-        enabled: false,
-        tabs: false,
-      }}
-      tree={blog.pageTree[params.lang]}
-    >
-      <style>
-        {`
+    <>
+      {/* Structured Data for SEO */}
+      <StructuredDataComponent data={[articleSchema, breadcrumbSchema]} />
+
+      <DocsLayout
+        sidebar={{
+          enabled: false,
+          tabs: false,
+        }}
+        tree={blog.pageTree[params.lang]}
+      >
+        <style>
+          {`
         @media (min-width: 768px) {
           .md\\:\\[--fd-nav-height\\:0px\\] {
             --fd-nav-height: 55px !important;
@@ -85,110 +118,110 @@ export default async function BlogLayout({
           margin-right: auto;
         }
         `}
-      </style>
-      <DocsPage
-        toc={page.data.toc}
-        tableOfContent={{
-          style: 'clerk',
-          single: false,
-        }}
-        tableOfContentPopover={{
-          style: 'normal',
-        }}
-        breadcrumb={{
-          enabled: false,
-        }}
-        footer={{
-          enabled: true,
-          items: adjacentPosts,
-        }}
-      >
-        <article
-          className="custom-container mx-auto w-full max-w-[900px] px-8 py-10 sm:py-20 md:px-[15%]"
-          itemType="http://schema.org/Article"
-          itemScope
+        </style>
+        <DocsPage
+          toc={page.data.toc}
+          tableOfContent={{
+            style: 'clerk',
+            single: false,
+          }}
+          tableOfContentPopover={{
+            style: 'normal',
+          }}
+          breadcrumb={{
+            enabled: false,
+          }}
+          footer={{
+            enabled: true,
+            items: adjacentPosts,
+          }}
         >
-          <div className="from-primary/10 to-background mb-10 overflow-hidden rounded-2xl bg-linear-to-b">
-            <div className="relative h-[250px] w-full">
-              <Image
-                src={getBlogImage(
-                  page.data.imageTitle || page.data.title,
-                  category,
-                )}
-                alt={page.data.title}
-                fill
-                className="object-cover object-[center_60%]"
-                priority
-                itemProp="image"
-              />
-            </div>
-            <div className="px-8 py-6">
-              <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <span className="bg-primary/15 text-primary inline-block rounded-full px-3 py-1 text-xs font-medium">
-                    {category.toUpperCase()}
-                  </span>
-                  <span className="text-muted-foreground text-sm">
-                    {new Date(page.data.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </span>
-                </div>
+          <article
+            className="custom-container mx-auto w-full max-w-[900px] px-8 py-10 sm:py-20 md:px-[15%]"
+            itemType="http://schema.org/Article"
+            itemScope
+          >
+            <div className="from-primary/10 to-background mb-10 overflow-hidden rounded-2xl bg-linear-to-b">
+              <div className="relative h-[250px] w-full">
+                <Image
+                  src={getBlogImage(
+                    page.data.imageTitle || page.data.title,
+                    category,
+                  )}
+                  alt={page.data.title}
+                  fill
+                  className="object-cover object-[center_60%]"
+                  priority
+                  itemProp="image"
+                />
               </div>
-              <h1
-                className="text-foreground mb-4 text-4xl font-bold tracking-tight"
-                itemProp="name"
-              >
-                {page.data.title}
-              </h1>
-
-              {page.data.description && (
-                <p
-                  className="text-muted-foreground mb-6 text-lg"
-                  itemProp="description"
-                >
-                  {page.data.description}
-                </p>
-              )}
-
-              <div className="border-border flex flex-wrap items-center justify-between gap-4 border-t pt-4">
-                <div className="flex flex-wrap items-center gap-4">
-                  <div className="flex -space-x-2">
-                    {page.data.authors.map((author, i) => (
-                      <div
-                        key={i}
-                        className="z-1 hover:z-10"
-                        style={{ zIndex: page.data.authors.length - i }}
-                      >
-                        <AuthorAvatar author={blogAuthors[author]} />
-                      </div>
-                    ))}
+              <div className="px-8 py-6">
+                <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="bg-primary/15 text-primary inline-block rounded-full px-3 py-1 text-xs font-medium">
+                      {category.toUpperCase()}
+                    </span>
+                    <span className="text-muted-foreground text-sm">
+                      {new Date(page.data.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </span>
                   </div>
-                  <div className="flex flex-col">
-                    <div className="flex flex-wrap items-center gap-1">
+                </div>
+                <h1
+                  className="text-foreground mb-4 text-4xl font-bold tracking-tight"
+                  itemProp="name"
+                >
+                  {page.data.title}
+                </h1>
+
+                {page.data.description && (
+                  <p
+                    className="text-muted-foreground mb-6 text-lg"
+                    itemProp="description"
+                  >
+                    {page.data.description}
+                  </p>
+                )}
+
+                <div className="border-border flex flex-wrap items-center justify-between gap-4 border-t pt-4">
+                  <div className="flex flex-wrap items-center gap-4">
+                    <div className="flex -space-x-2">
                       {page.data.authors.map((author, i) => (
-                        <Fragment key={i}>
-                          {i !== 0 && (
-                            <span className="text-muted-foreground">&</span>
-                          )}
-                          <span className="font-medium">
-                            {blogAuthors[author].name}
-                          </span>
-                        </Fragment>
+                        <div
+                          key={i}
+                          className="z-1 hover:z-10"
+                          style={{ zIndex: page.data.authors.length - i }}
+                        >
+                          <AuthorAvatar author={blogAuthors[author]} />
+                        </div>
                       ))}
                     </div>
-                    {page.data.authors.length === 1 && (
-                      <span className="text-muted-foreground text-sm">
-                        {blogAuthors[page.data.authors[0]].title}
-                      </span>
-                    )}
+                    <div className="flex flex-col">
+                      <div className="flex flex-wrap items-center gap-1">
+                        {page.data.authors.map((author, i) => (
+                          <Fragment key={i}>
+                            {i !== 0 && (
+                              <span className="text-muted-foreground">&</span>
+                            )}
+                            <span className="font-medium">
+                              {blogAuthors[author].name}
+                            </span>
+                          </Fragment>
+                        ))}
+                      </div>
+                      {page.data.authors.length === 1 && (
+                        <span className="text-muted-foreground text-sm">
+                          {blogAuthors[page.data.authors[0]].title}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                {/* Tags section */}
-                {/* {page.data.tags && page.data.tags.length > 0 && (
+                  {/* Tags section */}
+                  {/* {page.data.tags && page.data.tags.length > 0 && (
               <div className="flex flex-wrap items-center gap-2">
                 {page.data.tags.map((tag: string, index: number) => (
                   <span
@@ -200,16 +233,17 @@ export default async function BlogLayout({
                 ))}
               </div>
             )} */}
+                </div>
               </div>
             </div>
-          </div>
-          <div className="blog-content -mt-4 w-full border-t pt-8">
-            {children}
-          </div>
-          <Cta lang={params.lang} />
-        </article>
-      </DocsPage>
-    </DocsLayout>
+            <div className="blog-content -mt-4 w-full border-t pt-8">
+              {children}
+            </div>
+            <Cta lang={params.lang} />
+          </article>
+        </DocsPage>
+      </DocsLayout>
+    </>
   );
 }
 

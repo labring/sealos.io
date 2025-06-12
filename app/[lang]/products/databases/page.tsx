@@ -26,6 +26,7 @@ const translations = {
 
 export const metadata = generatePageMetadata({
   title: 'Cloud Databases' + ' | ' + translations.en.title.sub,
+  pathname: '/products/databases'
 });
 
 export default function DatabasesPage({

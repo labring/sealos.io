@@ -34,7 +34,9 @@ const translations = {
   },
 };
 
-export const metadata = generatePageMetadata();
+export const metadata = generatePageMetadata({
+  pathname: '/'
+});
 
 export default function HomePage({
   params,

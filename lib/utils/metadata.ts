@@ -3,6 +3,7 @@ import { blog } from '@/lib/source';
 import { source } from '@/lib/source';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { i18n } from '@/lib/i18n';
 
 const ogImageApi = `${siteConfig.url.base}/api/og`;
 
@@ -120,6 +121,7 @@ export function generatePageMetadata(
     description?: string;
     keywords?: string[];
     pathname?: string | null;
+    lang?: string;
   } = {},
 ): Metadata {
   const title = options.title
@@ -157,11 +159,21 @@ export function generatePageMetadata(
 
   const imageUrl = imageApi + imagePath;
 
+  // Generate hreflang links if pathname is provided
+  const hreflangLinks = options.pathname ? generateHreflangLinks(options.pathname) : [];
+  const alternateLanguages: Record<string, string> = {};
+
+  hreflangLinks.forEach(link => {
+    alternateLanguages[link.hrefLang] = link.href;
+  });
+
   return {
     title: title,
     description: description,
     keywords: keywords,
     alternates: {
+      canonical: options.pathname ? `${siteConfig.url.base}${options.pathname}` : siteConfig.url.base,
+      languages: Object.keys(alternateLanguages).length > 0 ? alternateLanguages : undefined,
       types: {
         'application/rss+xml': [
           {
@@ -189,4 +201,55 @@ export function generatePageMetadata(
     },
     metadataBase: new URL(siteConfig.url.base),
   };
+}
+
+/**
+ * Generate hreflang links for international SEO
+ * @param currentPath - The current page path (without language prefix)
+ * @returns Array of hreflang link objects
+ */
+export function generateHreflangLinks(
+  currentPath: string = ''
+): Array<{ hrefLang: string; href: string }> {
+  const links: Array<{ hrefLang: string; href: string }> = [];
+
+  // Clean the current path - remove leading slash and language prefix
+  const cleanPath = currentPath.replace(/^\/?(en|zh-cn)\/?/, '').replace(/^\/+/, '');
+
+  // Domain mapping based on language
+  const domainMap = {
+    'en': 'https://sealos.io',
+    'zh-cn': 'https://sealos.run'
+  };
+
+  // Generate hreflang links for each supported language
+  i18n.languages.forEach((lang) => {
+    const domain = domainMap[lang as keyof typeof domainMap];
+    let href = domain;
+
+    // Add path if it exists
+    if (cleanPath) {
+      href = `${domain}/${cleanPath}`;
+    }
+
+    // Add the hreflang link
+    links.push({
+      hrefLang: lang === 'zh-cn' ? 'zh-CN' : lang,
+      href: href
+    });
+  });
+
+  // Add x-default (fallback to English domain)
+  const defaultDomain = domainMap['en'];
+  let defaultHref = defaultDomain;
+  if (cleanPath) {
+    defaultHref = `${defaultDomain}/${cleanPath}`;
+  }
+
+  links.push({
+    hrefLang: 'x-default',
+    href: defaultHref
+  });
+
+  return links;
 }

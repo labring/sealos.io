@@ -6,6 +6,9 @@ import { Banner } from 'fumadocs-ui/components/banner';
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import styles from '@/app/components/banner-button.module.css';
+import StructuredDataComponent from '@/components/structured-data';
+import { generateBreadcrumbSchema } from '@/lib/utils/structured-data';
+import { siteConfig } from '@/config/site';
 
 export default function Layout({
   children,
@@ -19,8 +22,18 @@ export default function Layout({
   // Only render banner for Chinese language
   const showBanner = params.lang === 'zh-cn';
 
+  // Generate breadcrumb structured data for docs
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: siteConfig.url.base },
+    { name: 'Documentation', url: `${siteConfig.url.base}/docs` }
+  ], params.lang);
+
   return (
     <>
+      {/* Structured Data for SEO */}
+      <StructuredDataComponent data={breadcrumbSchema} />
+
+
       {showBanner && (
         <Banner id="docs-banner" variant="rainbow">
           🎉 Sealos 首充折扣，限时返场！最高立返 10000，活动日期 4月22日-4月28日
