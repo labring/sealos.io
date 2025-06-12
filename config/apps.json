@@ -26,7 +26,13 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/ItzCrazyKns/Perplexica",
     "website": "https://github.com/ItzCrazyKns/Perplexica",
-    "tags": ["ai"],
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/Perplexica/index.yaml",
+      "sha": "1df0f404b16dba04c21eba4380031cf71a2cee23"
+    },
     "i18n": {
       "zh": {
         "description": "Perplexica 是一个开源的 AI 驱动搜索引擎，可以作为 Perplexity AI 的替代品。"
@@ -60,7 +66,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/toeverything/AFFiNE",
     "website": "https://affine.pro/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/affine/index.yaml",
+      "sha": "b18b3b9138bced73fdeb77bc7218c2330d57dc7b"
+    }
   },
   {
     "name": "AList",
@@ -89,7 +101,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/alist-org/alist",
     "website": "https://github.com/alist-org/alist",
-    "tags": ["tool"],
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/alist/index.yaml",
+      "sha": "d02a9b2924e1a73418e4f71f644a8c7e2c6540d0"
+    },
     "i18n": {
       "zh": {
         "description": "一个支持多种存储的文件列表/WebDAV程序，由 Gin 和 Solidjs 提供支持。"
@@ -123,7 +141,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/yangchuansheng/anki-sync-server",
     "website": "https://docs.ankiweb.net/sync-server.html",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/anki-sync-server.yaml",
+      "sha": "e0237bf2bd551d4a47e7b28562640a01f39fb082"
+    }
   },
   {
     "name": "Appsmith",
@@ -152,7 +176,13 @@
     "gradient": "from-teal-50/70 to-cyan-50/70",
     "github": "https://github.com/appsmithorg/appsmith",
     "website": "https://www.appsmith.com/",
-    "tags": ["low-code"]
+    "tags": [
+      "low-code"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/appsmith.yaml",
+      "sha": "3bcb737f7f6801198159a269d09dc42c13b688c5"
+    }
   },
   {
     "name": "artalk",
@@ -181,7 +211,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/ArtalkJS/Artalk",
     "website": "https://github.com/ArtalkJS/Artalk",
-    "tags": ["tool"],
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/artalk.yaml",
+      "sha": "6786c9dc109f86c2ca1998fd250c7bb9c9b5b19c"
+    },
     "i18n": {
       "zh": {
         "description": "Artalk 是一款简单易用但功能丰富的评论系统，你可以开箱即用地部署并置入任何博客、网站、Web 应用。"
@@ -215,7 +251,13 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/bytebase/bytebase",
     "website": "https://bytebase.com/",
-    "tags": ["database"]
+    "tags": [
+      "database"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/bytebase.yaml",
+      "sha": "0fa29930ddd1037eae1b890d43322dfc4f862968"
+    }
   },
   {
     "name": "chatany",
@@ -244,7 +286,13 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/ChatAnyTeam/ChatAny",
     "website": "https://github.com/ChatAnyTeam/ChatAny",
-    "tags": ["ai"]
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/chatany.yaml",
+      "sha": "4473bf2704d5e1a7e10ca094877036528e94220c"
+    }
   },
   {
     "name": "chatbot-ui",
@@ -273,7 +321,13 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/mckaywrigley/chatbot-ui",
     "website": "https://www.chatbotui.com/",
-    "tags": ["ai"]
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/chatbot-ui.yaml",
+      "sha": "72adcc8abead18a15ec3015fd0964aa64d259675"
+    }
   },
   {
     "name": "Chat Nio",
@@ -302,7 +356,14 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/coaidev/coai",
     "website": "https://coai.dev/",
-    "tags": ["ai", "tool"],
+    "tags": [
+      "ai",
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/chatnio.yaml",
+      "sha": "8338a6f846844cdbc92150eb935845b4d55e762c"
+    },
     "i18n": {
       "zh": {
         "description": "下一代 AIGC 一站式商业解决方案"
@@ -336,7 +397,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/coder/code-server",
     "website": "https://github.com/coder/code-server",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/code-server.yaml",
+      "sha": "9b3ead9af347467f3e85231311421a4d60e86928"
+    }
   },
   {
     "name": "Cronicle",
@@ -365,7 +432,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/jhuckaby/Cronicle",
     "website": "http://cronicle.net",
-    "tags": ["dev-ops"]
+    "tags": [
+      "dev-ops"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/cronicle.yaml",
+      "sha": "35dd987774310100935a3d797abe8aa831bcdb17"
+    }
   },
   {
     "name": "DbGate",
@@ -394,7 +467,13 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/dbgate/dbgate",
     "website": "https://dbgate.org",
-    "tags": ["database"]
+    "tags": [
+      "database"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/dbgate.yaml",
+      "sha": "cd16e18440036489a6bb756b4eda9b8b9562670d"
+    }
   },
   {
     "name": "DeeplX",
@@ -423,7 +502,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/OwO-Network/DeepLX",
     "website": "https://github.com/OwO-Network/DeepLX",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/deeplx.yaml",
+      "sha": "1d5f74a49104c6ff93d7d9e06480702145af5b54"
+    }
   },
   {
     "name": "Dify",
@@ -452,7 +537,13 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/langgenius/dify",
     "website": "https://dify.ai/",
-    "tags": ["ai"],
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/dify.yaml",
+      "sha": "4dbbf8c2c1ae05053a9f467ef6f2947fb41b27c3"
+    },
     "i18n": {
       "zh": {
         "description": "Dify 是一个开源的 LLM 应用开发平台"
@@ -486,7 +577,11 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/elastic/helm-charts",
     "website": "https://github.com/elastic/helm-charts",
-    "tags": []
+    "tags": [],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/elasticsearch.yaml",
+      "sha": "68b7372b19e009d83e1e2184ca3eaa7ecdd54324"
+    }
   },
   {
     "name": "Excalidraw",
@@ -515,7 +610,86 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/excalidraw/excalidraw",
     "website": "https://excalidraw.com/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/excalidraw/index.yaml",
+      "sha": "b82a955497bef32f9e731e8bfe9669c432578a95"
+    }
+  },
+  {
+    "name": "Fast Poster",
+    "slug": "fast-poster",
+    "description": "🔥 Fast Poster - 海报生成器,图片生成器,电商海报编辑器。支持Java Python PHP Go JS等多语言SDK。",
+    "icon": "/images/apps/fast-poster.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/psoho/fast-poster",
+    "website": "https://fastposter.net/doc/",
+    "tags": [],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/fast-poster.yaml",
+      "sha": "ff7e4cc1ec26214e1a454dad34b7dc4703e9f560"
+    }
+  },
+  {
+    "name": "FeatBit Standard",
+    "slug": "featbit-standard",
+    "description": "FeatBit is an open-source feature flags management tool that empowers developers (Standard Edition).",
+    "icon": "/images/apps/featbit-standard.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/featbit/featbit",
+    "website": "https://www.featbit.co/",
+    "tags": [
+      "tools"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/featbit/index.yaml",
+      "sha": "3008821b514eaa18483f6a4c6d86f45165b7b5d2"
+    },
+    "i18n": {
+      "zh": {
+        "description": "FeatBit 是一个开源的企业级功能管理平台，旨在帮助开发者安全地发布、控制和测试新功能。"
+      }
+    }
   },
   {
     "name": "Fireboom",
@@ -544,7 +718,13 @@
     "gradient": "from-teal-50/70 to-cyan-50/70",
     "github": "https://github.com/fireboomio",
     "website": "https://fireboom.cloud/",
-    "tags": ["low-code"]
+    "tags": [
+      "low-code"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/fireboom.yaml",
+      "sha": "f42cd61196aaa95384a8a679f13154c48c8f60ec"
+    }
   },
   {
     "name": "Flarum",
@@ -573,7 +753,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/crazy-max/docker-flarum",
     "website": "https://flarum.org/",
-    "tags": ["blog"]
+    "tags": [
+      "blog"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/flarum.yaml",
+      "sha": "77b3f7ab88d0cdf1c577750a732901be7378b45b"
+    }
   },
   {
     "name": "Flowise",
@@ -602,7 +788,13 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/FlowiseAI/Flowise",
     "website": "https://flowiseai.com/",
-    "tags": ["ai"]
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/flowise.yaml",
+      "sha": "82b75120977f9a561fc334d6645b9c8b95f64721"
+    }
   },
   {
     "name": "Gitea",
@@ -631,7 +823,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/go-gitea/gitea",
     "website": "https://gitea.com",
-    "tags": ["tool"],
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/gitea.yaml",
+      "sha": "4c79c6335699d90f9741c89f659a807f3eb5e3ff"
+    },
     "i18n": {
       "zh": {
         "description": "Gitea 的首要目标是创建一个极易安装，运行非常快速，安装和使用体验良好的自建 Git 服务"
@@ -665,7 +863,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/juanfont/headscale",
     "website": "https://github.com/juanfont/headscale",
-    "tags": ["tool"],
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/headscale-pg/index.yaml",
+      "sha": "cfca1a4aa2f2334d86941a44124145ca4bd7738c"
+    },
     "i18n": {
       "zh": {
         "description": "一个自托管的开源 Tailscale 控制服务器实现，使用 PostgreSQL 作为数据库。"
@@ -699,7 +903,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/juanfont/headscale",
     "website": "https://github.com/juanfont/headscale",
-    "tags": ["tool"],
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/headscale/index.yaml",
+      "sha": "42f39d418faa6b4280b141a6dbda0bbb632ebc2b"
+    },
     "i18n": {
       "zh": {
         "description": "一个自托管的开源 Tailscale 控制服务器实现。"
@@ -733,7 +943,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/heyform/heyform",
     "website": "https://heyform.net/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/heyform/index.yaml",
+      "sha": "bb669aef745d77489e8d23aed54269af472e31ff"
+    }
   },
   {
     "name": "ILLA Builder",
@@ -762,7 +978,13 @@
     "gradient": "from-teal-50/70 to-cyan-50/70",
     "github": "https://github.com/illacloud/illa-builder",
     "website": "https://www.illacloud.com/zh-CN",
-    "tags": ["low-code"]
+    "tags": [
+      "low-code"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/illa-builder.yaml",
+      "sha": "1fd5afd5f6bc1728c75460c84124ad11e08f0e65"
+    }
   },
   {
     "name": "influxdb",
@@ -789,7 +1011,13 @@
       "Team Collaboration"
     ],
     "gradient": "from-blue-50/70 to-indigo-50/70",
-    "tags": ["database"]
+    "tags": [
+      "database"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/influxdb.yaml",
+      "sha": "101a8b84f81a047ef86b219edda55947b866a41a"
+    }
   },
   {
     "name": "inpaint-web",
@@ -818,7 +1046,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/lxfater/inpaint-web",
     "website": "https://github.com/lxfater/inpaint-web",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/inpaint-web.yaml",
+      "sha": "5ed6859e0fc97fbea3a2ef153967e7c8a9b9af32"
+    }
   },
   {
     "name": "IT-Tools",
@@ -847,13 +1081,19 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/CorentinTh/it-tools",
     "website": "https://it-tools.tech/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/it-tools/index.yaml",
+      "sha": "09a33a35d04dd76154bd775403c336eda47b12d7"
+    }
   },
   {
     "name": "jsoncrack",
     "slug": "jsoncrack",
     "description": "JSON Crack is a free, open-source data visualization app capable of visualizing data formats such as JSON, YAML, XML, CSV and more, into interactive graphs.",
-    "icon": "/images/apps/jsoncrack.png",
+    "icon": "/images/apps/jsoncrack.svg",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -876,7 +1116,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/AykutSarac/jsoncrack.com",
     "website": "https://github.com/AykutSarac/jsoncrack.com",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/jsoncrack.yaml",
+      "sha": "7f7ac194509d5cb90117db52d023d597db5b052a"
+    }
   },
   {
     "name": "JupyterDockerStacks",
@@ -905,7 +1151,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/jupyter/docker-stacks",
     "website": "https://jupyter-docker-stacks.readthedocs.io/en/latest/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/jupyter-docker-stacks.yaml",
+      "sha": "e54b42f88f69f99bc6f46cc1ca713f2680039d98"
+    }
   },
   {
     "name": "LibreChat",
@@ -934,7 +1186,13 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/danny-avila/LibreChat",
     "website": "https://github.com/danny-avila/LibreChat",
-    "tags": ["ai"]
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/librechat.yaml",
+      "sha": "a0a38c98ecf134c3881f2050f814c06b2f7db329"
+    }
   },
   {
     "name": "listmonk",
@@ -963,7 +1221,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/knadh/listmonk",
     "website": "https://listmonk.app/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/listmonk/index.yaml",
+      "sha": "abec0f87f7b7b9c42e10904b63de966725eb28b7"
+    }
   },
   {
     "name": "Lobe Chat Database Version",
@@ -992,7 +1256,13 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/lobehub/lobe-chat",
     "website": "https://github.com/lobehub/lobe-chat",
-    "tags": ["ai"],
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/lobe-chat-db/index.yaml",
+      "sha": "bb2b76455bf9a2cba74c5a22ae23a108e657293f"
+    },
     "i18n": {
       "zh": {
         "description": "Lobe Chat 是一款现代化设计的开源 ChatGPT/LLMs 聊天应用与开发框架，支持语音合成、多模态、可扩展的（function call）插件系统。"
@@ -1026,7 +1296,13 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/lobehub/lobe-chat",
     "website": "https://github.com/lobehub/lobe-chat",
-    "tags": ["ai"],
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/lobe-chat.yaml",
+      "sha": "5ee6d995eeaf66922def6adbb3b575f004341ae9"
+    },
     "i18n": {
       "zh": {
         "description": "Lobe Chat 是一款现代化设计的开源 ChatGPT/LLMs 聊天应用与开发框架，支持语音合成、多模态、可扩展的（function call）插件系统。"
@@ -1060,7 +1336,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/logto-io/logto",
     "website": "https://logto.io/",
-    "tags": ["tool"],
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/logto/index.yaml",
+      "sha": "24cf438373723f2dee5e780cb1962e30aaba3768"
+    },
     "i18n": {
       "zh": {
         "description": "Logto 是一个开源的 身份与访问管理（IAM）平台，是 Auth0 的开源替代方案，旨在帮助开发者快速构建安全、可扩展的登录注册系统和用户身份体系。"
@@ -1094,7 +1376,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/mautic/mautic",
     "website": "https://www.mautic.org/",
-    "tags": ["tool"],
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/mautic/index.yaml",
+      "sha": "abf65460faa51691a3c30b6b97886d2327c70e1b"
+    },
     "i18n": {
       "zh": {
         "description": "Mautic 是一款开源的营销自动化平台，提供电子邮件营销、客户旅程设计、潜在客户管理和行为跟踪等功能，帮助企业自动化营销流程、分析用户互动并个性化客户体验。"
@@ -1128,7 +1416,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/meilisearch/meilisearch",
     "website": "https://www.meilisearch.com/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/meilisearch/index.yaml",
+      "sha": "f2cfd1cb8cf1ff899718dc7814c53fcb6b10d0f1"
+    }
   },
   {
     "name": "memos",
@@ -1157,7 +1451,11 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/usememos/memos",
     "website": "https://github.com/usememos/memos",
-    "tags": []
+    "tags": [],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/memos.yaml",
+      "sha": "6623f04268d65d3fa18c4ae57eb1037fdbd24545"
+    }
   },
   {
     "name": "metabase",
@@ -1186,7 +1484,14 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/metabase/metabase",
     "website": "metabase.com",
-    "tags": ["database", "low-code"]
+    "tags": [
+      "database",
+      "low-code"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/metabase.yaml",
+      "sha": "b8db0cb47c5e56da5b4c18c1cbe59f4c45c43acf"
+    }
   },
   {
     "name": "midjourney-ui",
@@ -1215,7 +1520,13 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/erictik/midjourney-ui",
     "website": "https://github.com/topics/midjourney-ui",
-    "tags": ["ai"]
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/midjourney-ui.yaml",
+      "sha": "c5bda87a5ac0e3e7e61b0a33a392c60a6d4f6c9c"
+    }
   },
   {
     "name": "MinIO",
@@ -1244,7 +1555,13 @@
     "gradient": "from-orange-50/70 to-amber-50/70",
     "github": "https://github.com/minio/minio",
     "website": "https://min.io/",
-    "tags": ["storage"]
+    "tags": [
+      "storage"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/minio.yaml",
+      "sha": "d90388cc6cc4b1f2b0e3937086704251b7d25aa2"
+    }
   },
   {
     "name": "mongo-express",
@@ -1273,7 +1590,13 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/mongo-express/mongo-express",
     "website": "https://github.com/mongo-express/mongo-express",
-    "tags": ["database"]
+    "tags": [
+      "database"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/mongo-express.yaml",
+      "sha": "b75becf42ecfc76f850e0610f2511bf0cab1b660"
+    }
   },
   {
     "name": "N8N PostgreSQL",
@@ -1302,7 +1625,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/n8n-io/n8n",
     "website": "https://n8n.io/",
-    "tags": ["tool"],
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/n8n-pg/index.yaml",
+      "sha": "93eb5b99ca478d060c7b0436f9e193ddd15e421e"
+    },
     "i18n": {
       "zh": {
         "description": "n8n 是一个工作流自动化平台，通过将代码的灵活性与无代码的速度相结合，帮助技术团队构建自动化流程。"
@@ -1336,7 +1665,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/n8n-io/n8n",
     "website": "https://n8n.io/",
-    "tags": ["tool"],
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/n8n/index.yaml",
+      "sha": "bf534b1a18e6506a1be02b8976744426bff4cdfd"
+    },
     "i18n": {
       "zh": {
         "description": "n8n 是一个工作流自动化平台，通过将代码的灵活性与无代码的速度相结合，帮助技术团队构建自动化流程。"
@@ -1370,7 +1705,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/sonatype/nexus-public",
     "website": "https://www.sonatype.com/products/sonatype-nexus-repository",
-    "tags": ["tool"],
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/nexus/index.yaml",
+      "sha": "72b1e3864b2e5ee7b5e609a87983241fc0d52855"
+    },
     "i18n": {
       "zh": {
         "description": "一个强大的软件仓库管理工具，主要用于存储和管理软件开发过程中的各类组件（artifacts）。"
@@ -1404,7 +1745,13 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/nocodb/nocodb",
     "website": "https://nocodb.com/",
-    "tags": ["database"]
+    "tags": [
+      "database"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/nocodb/index.yaml",
+      "sha": "3a7f6aaa9e6a7386134ecf0980576ac88851564e"
+    }
   },
   {
     "name": "nsfw",
@@ -1433,7 +1780,11 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/labring/nsfw",
     "website": "https://github.com/labring/nsfw",
-    "tags": []
+    "tags": [],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/nsfw.yaml",
+      "sha": "d010ee3d36f8e5ecf9efdab861a456c6b106a5e4"
+    }
   },
   {
     "name": "Open WebUI",
@@ -1462,7 +1813,13 @@
     "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/open-webui/open-webui",
     "website": "https://github.com/open-webui/open-webui",
-    "tags": ["ai"]
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/open-webui.yaml",
+      "sha": "1dc287ba192926c095c3928eb93ed10e9ffaf107"
+    }
   },
   {
     "name": "OpenObserve",
@@ -1491,7 +1848,11 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/openobserve/openobserve",
     "website": "https://openobserve.ai/",
-    "tags": []
+    "tags": [],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/openobserve.yaml",
+      "sha": "8069eeab8d7af7b3e6b3320c9d270403a9022fdf"
+    }
   },
   {
     "name": "Overleaf",
@@ -1520,7 +1881,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/overleaf/overleaf",
     "website": "https://github.com/overleaf/overleaf",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/overleaf/index.yaml",
+      "sha": "eca201906ac4ef3054aec360cd80c4290a56aa48"
+    }
   },
   {
     "name": "PDFMathTranslate",
@@ -1549,7 +1916,14 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/Byaidu/PDFMathTranslate",
     "website": "https://pdf2zh.com/",
-    "tags": ["tool", "ai"],
+    "tags": [
+      "tool",
+      "ai"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/pdf2zh/index.yaml",
+      "sha": "bbf729687914bdd990e03fb52607d1b77e318301"
+    },
     "i18n": {
       "zh": {
         "description": "基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务。"
@@ -1583,7 +1957,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/penpot/penpot",
     "website": "https://penpot.app/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/penpot/index.yaml",
+      "sha": "4622a2b71161efbd561a090ca7f54a41db25864f"
+    }
   },
   {
     "name": "pgadmin4",
@@ -1612,7 +1992,13 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/pgadmin-org/pgadmin4",
     "website": "https://www.pgadmin.org/",
-    "tags": ["database"]
+    "tags": [
+      "database"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/pgadmin4.yaml",
+      "sha": "24584c28bd6aa7c1aafb6fbdd08af4056a56e2e5"
+    }
   },
   {
     "name": "PhotoPrism",
@@ -1641,7 +2027,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/photoprism/photoprism",
     "website": "https://www.photoprism.app/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/photoprism/index.yaml",
+      "sha": "b3e8b02f497d312e8f386c0a3afd924ad3b9bca8"
+    }
   },
   {
     "name": "phpmyadmin",
@@ -1670,7 +2062,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/phpmyadmin/phpmyadmin",
     "website": "https://www.phpmyadmin.net/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/phpmyadmin.yaml",
+      "sha": "9d7429e1764e01318d52469536420b40a852dbbc"
+    }
   },
   {
     "name": "Plane",
@@ -1699,7 +2097,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/makeplane/plane",
     "website": "http://plane.so/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/plane/index.yaml",
+      "sha": "8010dd3387345ce4399eb11a0d6bb64838cf400e"
+    }
   },
   {
     "name": "plausible",
@@ -1728,7 +2132,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/plausible/analytics",
     "website": "https://github.com/plausible/analytics",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/plausible.yaml",
+      "sha": "455d5ed270d95be306a81274f0b2f941221a04e9"
+    }
   },
   {
     "name": "PrivateBin",
@@ -1757,7 +2167,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/PrivateBin/PrivateBin",
     "website": "https://privatebin.info/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/privatebin/index.yaml",
+      "sha": "d8667d3f93a117a9f7dae444189f4990badfea01"
+    }
   },
   {
     "name": "qinglong",
@@ -1786,7 +2202,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/whyour/qinglong",
     "website": "https://github.com/whyour/qinglong",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/qinglong.yaml",
+      "sha": "a50a36c2716a8177dbe1e7244b284a39f47cec34"
+    }
   },
   {
     "name": "Reactive-Resume",
@@ -1815,7 +2237,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/AmruthPillai/Reactive-Resume",
     "website": "https://rxresu.me/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/reactive-resume/index.yaml",
+      "sha": "a10056f10e31990daec602ea7af0601565e8b202"
+    }
   },
   {
     "name": "Readeck",
@@ -1844,7 +2272,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://codeberg.org/readeck/readeck",
     "website": "readeck.org",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/readeck/index.yaml",
+      "sha": "2e112e25ff283dd0007d36927f65a88906913d07"
+    }
   },
   {
     "name": "RedisInsight",
@@ -1873,7 +2307,13 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/RedisInsight/RedisInsight",
     "website": "https://redis.com/redis-enterprise/redis-insight/",
-    "tags": ["database"]
+    "tags": [
+      "database"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/redisinsight.yaml",
+      "sha": "dfdd39d8390500e5c4986a5f18950aa64d5ac434"
+    }
   },
   {
     "name": "Refly",
@@ -1902,7 +2342,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/refly-ai/refly",
     "website": "https://refly.ai/",
-    "tags": ["tool"],
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/refly/index.yaml",
+      "sha": "2a5eb5d26d1560717d9b0a06988dcedde9afdeb3"
+    },
     "i18n": {
       "zh": {
         "description": "refly 是一款开源的 AI Native 创作引擎，由多线程对话、代码组件、知识库集成、上下文记忆和智能搜索驱动，Refly 是将创意转化为优质内容的最佳方式。"
@@ -1936,7 +2382,11 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/distribution/distribution",
     "website": "https://distribution.github.io/distribution",
-    "tags": []
+    "tags": [],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/registry/index.yaml",
+      "sha": "052ebbffe90f295d690f0a834c4ff438343632c5"
+    }
   },
   {
     "name": "RSSHub",
@@ -1965,7 +2415,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/DIYgod/RSSHub",
     "website": "https://docs.rsshub.app/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/rsshub.yaml",
+      "sha": "b3fb11b95503bfafae93f229e9c273835803c263"
+    }
   },
   {
     "name": "Ruiqi-Waf",
@@ -1994,7 +2450,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/HUAHUAI23/simple-waf",
     "website": "https://github.com/HUAHUAI23/simple-waf",
-    "tags": ["dev-ops"]
+    "tags": [
+      "dev-ops"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/ruiqi-waf/index.yaml",
+      "sha": "dc6719af06473b7145702071ba9efdb6e888ba15"
+    }
   },
   {
     "name": "Rybbit",
@@ -2023,7 +2485,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/rybbit-io/rybbit",
     "website": "https://rybbit.io/",
-    "tags": ["tool"],
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/rybbit/index.yaml",
+      "sha": "e2275f05ad99ed06deaac1843bbc60d5f137e6a6"
+    },
     "i18n": {
       "zh": {
         "description": "Rybbit 是一款开源、注重隐私、比 Google Analytics 更直观的下一代替代品，用于网络和产品分析，并且易于安装和使用。"
@@ -2057,7 +2525,14 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/SigNoz/signoz",
     "website": "https://signoz.io/",
-    "tags": ["tool", "database"]
+    "tags": [
+      "tool",
+      "database"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/signoz/index.yaml",
+      "sha": "a74480dbde348e727dc2af0d30fca701866e74a5"
+    }
   },
   {
     "name": "Stirling-PDF",
@@ -2086,7 +2561,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/Stirling-Tools/Stirling-PDF",
     "website": "https://github.com/Stirling-Tools/Stirling-PDF",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/stirling-pdf/index.yaml",
+      "sha": "66dc642b846627b924a6bc26459ea8d096a58eea"
+    }
   },
   {
     "name": "SurveyKing",
@@ -2115,7 +2596,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/javahuang/SurveyKing",
     "website": "https://surveyking.cn/",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/surveyking/index.yaml",
+      "sha": "7c2664ed83acf487c1b4af2a103567b82ed20cf0"
+    }
   },
   {
     "name": "Tailchat",
@@ -2145,6 +2632,10 @@
     "github": "https://github.com/msgbyte/tailchat",
     "website": "https://tailchat.msgbyte.com/",
     "tags": [],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/tailchat.yaml",
+      "sha": "3093dabb6123a55117fd559c49979ca9280c8d3f"
+    },
     "i18n": {
       "zh": {
         "description": "在您自己工作区中的下一代 noIM 应用程序"
@@ -2178,7 +2669,14 @@
     "gradient": "from-blue-50/70 to-indigo-50/70",
     "github": "https://github.com/teableio/teable",
     "website": "teable.io",
-    "tags": ["database", "low-code"],
+    "tags": [
+      "database",
+      "low-code"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/teable.yaml",
+      "sha": "33147b58c1312433f4b6b5a9f46c4c726d5b84a1"
+    },
     "i18n": {
       "zh": {
         "description": "Teable 是一款企业级高性能多维表格解决方案，通过无代码方式快速构建业务管理系统，支持私有部署和精细权限管理。"
@@ -2212,7 +2710,11 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/msgbyte/tianji",
     "website": "https://tianji.msgbyte.com/",
-    "tags": []
+    "tags": [],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/tianji.yaml",
+      "sha": "5f78c1678e846487ef47f298f54a2b89b423f2cd"
+    }
   },
   {
     "name": "Tolgee",
@@ -2241,7 +2743,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/tolgee-io/tolgee",
     "website": "https://tolgee.io/",
-    "tags": ["tool"],
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/tolgee/index.yaml",
+      "sha": "a73640d5126bd08b3c5f0b56ff2c6054b89f8b28"
+    },
     "i18n": {
       "zh": {
         "description": "Tolgee 是一个开源的本地化平台，专为开发者设计，支持上下文直接翻译、一键生成翻译截图、生产环境实时编辑，并集成多种机器翻译服务（如 DeepL、Google Translate），提供翻译记忆与自动化功能，简化多语言应用的开发流程。"
@@ -2275,7 +2783,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/takeyamajp/docker-ubuntu-sshd",
     "website": "https://github.com/takeyamajp/docker-ubuntu-sshd",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/ubuntu-sshd.yaml",
+      "sha": "5f3ffc5abdd98d19ff4bd7d3dc0da0a528ab199c"
+    }
   },
   {
     "name": "Umami",
@@ -2304,7 +2818,14 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/umami-software/umami",
     "website": "https://umami.is/",
-    "tags": ["monitor", "tool"]
+    "tags": [
+      "monitor",
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/umami.yaml",
+      "sha": "8bf625b3fa7206636fc1e240032848cec5f70d2a"
+    }
   },
   {
     "name": "UptimeKuma",
@@ -2333,7 +2854,14 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/louislam/uptime-kuma",
     "website": "https://uptime.kuma.pet/",
-    "tags": ["monitor", "tool"]
+    "tags": [
+      "monitor",
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/uptime-kuma.yaml",
+      "sha": "698eda5fff8fd6307385290b169cf01fc26289d1"
+    }
   },
   {
     "name": "Vaultwarden",
@@ -2362,7 +2890,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/dani-garcia/vaultwarden",
     "website": "https://github.com/dani-garcia/vaultwarden",
-    "tags": ["tool"]
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/vaultwarden.yaml",
+      "sha": "e7b2b35def066f88cb9a4bfd554adb666073506e"
+    }
   },
   {
     "name": "WordPress",
@@ -2391,7 +2925,13 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/WordPress/WordPress",
     "website": "https://wordpress.org",
-    "tags": ["blog"]
+    "tags": [
+      "blog"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/wordpress.yaml",
+      "sha": "49e6596a6d15c026d59fb38c96b45919d4fcc4ae"
+    }
   },
   {
     "name": "WrenAI",
@@ -2420,6 +2960,13 @@
     "gradient": "from-teal-50/70 to-cyan-50/70",
     "github": "https://github.com/Canner/WrenAI",
     "website": "https://github.com/Canner/WrenAI",
-    "tags": ["low-code", "ai"]
+    "tags": [
+      "low-code",
+      "ai"
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/labring-actions/templates/main/template/wrenai/index.yaml",
+      "sha": "ed66a01d62a4a966bc1b8c3b3102f5d4429ff795"
+    }
   }
 ]

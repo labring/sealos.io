@@ -2,6 +2,19 @@
 
 /**
  * Script to fetch template data from GitHub API using curl and generate app list config
+ *
+ * Environment Variables:
+ *   GITHUB_TOKEN or GH_TOKEN: GitHub Personal Access Token for authentication (optional but recommended)
+ *
+ * Usage:
+ *   node generate-apps.js [limit] [--start=N] [--update]
+ *   GITHUB_TOKEN=your_token node generate-apps.js [limit] [--start=N] [--update]
+ *
+ * Parameters:
+ *   limit: Maximum number of items to process (default: 200)
+ *   --start=N: Starting position/offset for processing (default: 0)
+ *   --limit=N: Alternative way to specify limit
+ *   --update, --overwrite, -u: Force update existing apps and process even unchanged sources
  */
 
 const fs = require('fs');
@@ -13,19 +26,89 @@ const { execSync } = require('child_process');
 const API_BASE =
   'https://api.github.com/repos/labring-actions/templates/contents/template';
 
+// Output path for apps.json (used for both input and output)
+const APPS_CONFIG_PATH = path.join(__dirname, '..', 'config', 'apps.json');
+
+/**
+ * Load existing apps configuration from file
+ */
+function loadExistingApps() {
+  try {
+    if (fs.existsSync(APPS_CONFIG_PATH)) {
+      console.log(`📖 Loading existing apps from: ${APPS_CONFIG_PATH}`);
+      const content = fs.readFileSync(APPS_CONFIG_PATH, 'utf8');
+      const existingApps = JSON.parse(content);
+      console.log(`Found ${existingApps.length} existing apps`);
+      return existingApps;
+    } else {
+      console.log(`📝 No existing apps file found, starting fresh`);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error loading existing apps:', error.message);
+    return [];
+  }
+}
+
+/**
+ * Check if we should skip processing an item based on source tracking
+ * Only checks source URL and SHA hash
+ */
+function shouldSkipProcessing(existingApps, sourceUrl, sha, forceUpdate) {
+  if (forceUpdate) return false;
+
+  const existingApp = existingApps.find((app) => app.source?.url === sourceUrl);
+  if (!existingApp) return false;
+
+  // Handle missing SHA values
+  const existingSha = existingApp.source?.sha;
+  if (!existingSha || !sha) {
+    console.log(
+      `⚠️ Missing SHA information for ${sourceUrl} - processing to update`,
+    );
+    return false; // Process if either SHA is missing
+  }
+
+  // Skip if SHA hasn't changed (content is identical)
+  const shouldSkip = existingSha === sha;
+
+  if (shouldSkip) {
+    console.log(`⏭ Skipping source ${sourceUrl} - no changes (SHA: ${sha})`);
+  }
+
+  return shouldSkip;
+}
+
 /**
  * Fetch data using curl command
  */
 function fetchWithCurl(url) {
   try {
     console.log(`Fetching: ${url}`);
-    const result = execSync(
-      `curl -s -H "User-Agent: Node.js GitHub API Client" "${url}"`,
-      {
-        encoding: 'utf8',
-        timeout: 30000, // 30 second timeout
-      },
-    );
+
+    // Build curl command with optional GitHub token
+    let curlCommand = `curl -s -H "User-Agent: Node.js GitHub API Client"`;
+
+    // Add GitHub token if available
+    const githubToken = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+    if (githubToken) {
+      curlCommand += ` -H "Authorization: Bearer ${githubToken}"`;
+      console.log('Using GitHub authentication token');
+    } else {
+      console.log(
+        '⚠️ No GitHub token found. Using unauthenticated requests (rate limited)',
+      );
+      console.log(
+        '💡 Set GITHUB_TOKEN or GH_TOKEN environment variable for higher rate limits',
+      );
+    }
+
+    curlCommand += ` "${url}"`;
+
+    const result = execSync(curlCommand, {
+      encoding: 'utf8',
+      timeout: 30000, // 30 second timeout
+    });
     return result;
   } catch (error) {
     console.error(`Error fetching ${url}:`, error.message);
@@ -59,7 +142,7 @@ function parseTemplateYAML(yamlContent) {
 /**
  * Convert template to app config format
  */
-async function convertTemplateToAppConfig(template) {
+async function convertTemplateToAppConfig(template, sourceUrl, sha) {
   const spec = template.spec || {};
   const metadata = template.metadata || {};
 
@@ -223,6 +306,10 @@ async function convertTemplateToAppConfig(template) {
     github: spec.gitRepo || undefined,
     website: spec.url || undefined,
     tags: spec.categories || [],
+    source: {
+      url: sourceUrl,
+      sha: sha,
+    },
     // Add i18n object if available
     ...(Object.keys(i18n).length > 0 && { i18n }),
   };
@@ -297,22 +384,119 @@ async function processTemplates() {
   console.log('Fetching template data from GitHub using curl...');
   console.log('API Endpoint:', API_BASE);
 
+  // Parse command line arguments
+  const args = process.argv.slice(2);
+
+  // Parse start parameter (default: 0)
+  const startArg = args.find((arg) => arg.startsWith('--start='));
+  const start = startArg ? parseInt(startArg.split('=')[1]) : 0;
+
+  // Parse limit parameter (default: 200)
+  // Look for --limit= format first, then plain numbers (excluding start values and flags)
+  const limitArg =
+    args.find((arg) => arg.startsWith('--limit=')) ||
+    args.find(
+      (arg) =>
+        !isNaN(parseInt(arg)) && !arg.startsWith('--') && !arg.startsWith('-'),
+    );
+  const limit = limitArg
+    ? limitArg.startsWith('--limit=')
+      ? parseInt(limitArg.split('=')[1])
+      : parseInt(limitArg)
+    : 200;
+
+  const forceUpdate =
+    args.includes('--update') ||
+    args.includes('--overwrite') ||
+    args.includes('-u');
+
+  console.log(`Start position: ${start}`);
+  console.log(`Max items to process: ${limit}`);
+  console.log(`Force update mode: ${forceUpdate ? 'enabled' : 'disabled'}`);
+
+  // Load existing apps
+  const existingApps = loadExistingApps();
+
   try {
     // Fetch the contents of the template directory
     console.log('Making API request...');
     const contentsJson = fetchWithCurl(API_BASE);
     console.log('API response received, parsing JSON...');
-    const contents = JSON.parse(contentsJson);
+
+    let contents;
+    try {
+      contents = JSON.parse(contentsJson);
+
+      // Debug: Check if contents is an array
+      if (!Array.isArray(contents)) {
+        console.error(`❌ API response is not an array:`, typeof contents);
+        console.error('Response:', contentsJson.substring(0, 500) + '...');
+
+        // Check if it's an error response
+        if (contents && contents.message) {
+          console.error('GitHub API Error:', contents.message);
+          if (contents.documentation_url) {
+            console.error('Documentation:', contents.documentation_url);
+          }
+
+          // Handle rate limit specifically
+          if (contents.message.includes('rate limit exceeded')) {
+            console.error('\n🚫 GitHub API Rate Limit Exceeded!');
+            console.error('Solutions:');
+            console.error(
+              '1. Wait for rate limit reset (check: curl -s https://api.github.com/rate_limit)',
+            );
+            console.error(
+              '2. Use GitHub token: GITHUB_TOKEN=your_token node scripts/generate-apps.js',
+            );
+            console.error(
+              '3. Create token at: https://github.com/settings/tokens',
+            );
+            console.error('\nRate limit info:');
+
+            // Get rate limit info
+            try {
+              const rateLimitJson = execSync(
+                'curl -s https://api.github.com/rate_limit',
+                { encoding: 'utf8' },
+              );
+              const rateLimitData = JSON.parse(rateLimitJson);
+              const resetTime = new Date(rateLimitData.rate.reset * 1000);
+              console.error(
+                `- Remaining: ${rateLimitData.rate.remaining}/${rateLimitData.rate.limit}`,
+              );
+              console.error(`- Resets at: ${resetTime.toLocaleString()}`);
+            } catch (e) {
+              console.error('- Could not fetch rate limit details');
+            }
+          }
+
+          process.exit(1);
+        }
+        process.exit(1);
+      }
+    } catch (error) {
+      console.error(`❌ Error parsing main API response JSON:`, error.message);
+      console.error('Response:', contentsJson.substring(0, 500) + '...');
+      process.exit(1);
+    }
+
     console.log(`Found ${contents.length} items in the directory`);
+    console.log(
+      `Processing range: ${start} to ${Math.min(start + limit, contents.length)} (${Math.min(limit, contents.length - start)} items)`,
+    );
 
-    const appConfigs = [];
+    const appConfigs = [...existingApps]; // Start with existing apps
     let processedCount = 0;
-    const maxItems = process.argv[2] ? parseInt(process.argv[2]) : 200;
+    let skippedCount = 0;
+    let addedCount = 0;
+    let updatedCount = 0;
 
-    for (const item of contents.slice(0, maxItems)) {
+    for (const item of contents.slice(start, start + limit)) {
       processedCount++;
+      const totalInRange = Math.min(limit, contents.length - start);
       console.log(
-        `\n[${processedCount}/${Math.min(contents.length, maxItems)}] Processing: ${item.name}`,
+        `\n[${processedCount}/${totalInRange}] Processing: ${item.name}`,
       );
 
       // Add delay between requests
@@ -334,16 +518,52 @@ async function processTemplates() {
 
           if (indexYaml) {
             console.log(`Found index.yaml in folder`);
+
+            // Check if we should skip processing based on source tracking
+            if (
+              shouldSkipProcessing(
+                existingApps,
+                indexYaml.download_url,
+                indexYaml.sha,
+                forceUpdate,
+              )
+            ) {
+              skippedCount++;
+              continue;
+            }
+
             await sleep(500);
 
             const yamlContent = fetchWithCurl(indexYaml.download_url);
             const template = parseTemplateYAML(yamlContent);
 
             if (template) {
-              const appConfig = await convertTemplateToAppConfig(template);
+              const appConfig = await convertTemplateToAppConfig(
+                template,
+                indexYaml.download_url,
+                indexYaml.sha,
+              );
               if (appConfig) {
-                appConfigs.push(appConfig);
-                console.log(`✅ Processed template: ${appConfig.name}`);
+                // Find existing app by source URL
+                const existingAppIndex = appConfigs.findIndex(
+                  (app) => app.source?.url === indexYaml.download_url,
+                );
+
+                if (existingAppIndex !== -1) {
+                  // Update existing app based on source URL
+                  appConfigs[existingAppIndex] = appConfig;
+                  console.log(
+                    `🔄 Updated app from source: ${appConfig.name} (${appConfig.slug})`,
+                  );
+                  updatedCount++;
+                } else {
+                  // Add new app
+                  appConfigs.push(appConfig);
+                  console.log(
+                    `✅ Added new app: ${appConfig.name} (${appConfig.slug})`,
+                  );
+                  addedCount++;
+                }
               }
             } else {
               console.log(
@@ -356,16 +576,52 @@ async function processTemplates() {
         } else if (item.type === 'file' && item.name.endsWith('.yaml')) {
           // This is a YAML file
           console.log(`Processing file: ${item.name}`);
+
+          // Check if we should skip processing based on source tracking
+          if (
+            shouldSkipProcessing(
+              existingApps,
+              item.download_url,
+              item.sha,
+              forceUpdate,
+            )
+          ) {
+            skippedCount++;
+            continue;
+          }
+
           await sleep(500);
 
           const yamlContent = fetchWithCurl(item.download_url);
           const template = parseTemplateYAML(yamlContent);
 
           if (template) {
-            const appConfig = await convertTemplateToAppConfig(template);
+            const appConfig = await convertTemplateToAppConfig(
+              template,
+              item.download_url,
+              item.sha,
+            );
             if (appConfig) {
-              appConfigs.push(appConfig);
-              console.log(`✅ Processed template: ${appConfig.name}`);
+              // Find existing app by source URL
+              const existingAppIndex = appConfigs.findIndex(
+                (app) => app.source?.url === item.download_url,
+              );
+
+              if (existingAppIndex !== -1) {
+                // Update existing app based on source URL
+                appConfigs[existingAppIndex] = appConfig;
+                console.log(
+                  `🔄 Updated app from source: ${appConfig.name} (${appConfig.slug})`,
+                );
+                updatedCount++;
+              } else {
+                // Add new app
+                appConfigs.push(appConfig);
+                console.log(
+                  `✅ Added new app: ${appConfig.name} (${appConfig.slug})`,
+                );
+                addedCount++;
+              }
             }
           } else {
             console.log(`⚠ No valid template found in ${item.name}`);
@@ -380,9 +636,13 @@ async function processTemplates() {
       }
     }
 
-    if (contents.length > maxItems) {
+    const processedRange = Math.min(limit, contents.length - start);
+    if (start + limit < contents.length) {
       console.log(
-        `\n⚠ Note: Only processed first ${maxItems} items out of ${contents.length} total.`,
+        `\n⚠ Note: Processed ${processedRange} items (${start} to ${start + limit - 1}) out of ${contents.length} total.`,
+      );
+      console.log(
+        `💡 Use --start=${start + limit} to continue from where you left off.`,
       );
     }
 
@@ -390,16 +650,37 @@ async function processTemplates() {
     const configContent = generateConfigFile(appConfigs);
 
     // Write to file
-    const outputPath = path.join(__dirname, '..', 'config', 'apps.json');
-    fs.writeFileSync(outputPath, configContent, 'utf8');
+    fs.writeFileSync(APPS_CONFIG_PATH, configContent, 'utf8');
 
-    console.log(
-      `\n✅ Generated JSON config file with ${appConfigs.length} apps: ${outputPath}`,
-    );
-    console.log('\nGenerated apps:');
-    appConfigs.forEach((app) => {
-      console.log(`  - ${app.name} (${app.category})`);
-    });
+    console.log(`\n✅ Generated JSON config file: ${APPS_CONFIG_PATH}`);
+    console.log(`📊 Summary:`);
+    console.log(`  - Total apps in config: ${appConfigs.length}`);
+    console.log(`  - New apps added: ${addedCount}`);
+    console.log(`  - Existing apps updated: ${updatedCount}`);
+    console.log(`  - Apps skipped (no changes): ${skippedCount}`);
+
+    if (addedCount > 0) {
+      console.log('\n🆕 New apps added:');
+      // Show only the new apps added in this run
+      const newApps = appConfigs.slice(-addedCount);
+      newApps.forEach((app) => {
+        console.log(`  - ${app.name} (${app.category})`);
+      });
+    }
+
+    if (updatedCount > 0) {
+      console.log('\n🔄 Apps updated in this run:', updatedCount);
+    }
+
+    if (skippedCount > 0) {
+      console.log(`\n⏭ Apps skipped: ${skippedCount}`);
+      if (!forceUpdate) {
+        console.log('   (Source files unchanged since last update)');
+        console.log('💡 Use --update flag to force update all apps');
+      } else {
+        console.log('   (Apps already exist and were skipped)');
+      }
+    }
   } catch (error) {
     console.error('Error processing templates:', error.message);
     console.error('Full error:', error);
