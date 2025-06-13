@@ -2,9 +2,16 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
+import { useGTM } from '@/hooks/use-gtm';
 
 const Info = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={48} height={48} viewBox="0,0,62,62" fill="none">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={48}
+    height={48}
+    viewBox="0,0,62,62"
+    fill="none"
+  >
     <g clipPath="url(#a)">
       <path
         fill="#F7B500"
@@ -34,6 +41,30 @@ const easeFromBottom = `@keyframes easeFromBottom {
 
 export default function RedirectSuggest() {
   const [open, setOpen] = useState(false);
+  const { trackCustom, trackButton } = useGTM();
+
+  const handleModalShow = useCallback(() => {
+    setOpen(true);
+    trackCustom('modal_open', {
+      modal_type: 'china_redirect',
+    });
+  }, [trackCustom]);
+
+  const handleModalClose = useCallback(() => {
+    setOpen(false);
+    trackCustom('modal_closed', {
+      modal_type: 'china_redirect',
+    });
+  }, [trackCustom]);
+
+  const handleRedirectClick = useCallback(() => {
+    trackButton(
+      '立即前往',
+      'china_redirect_modal',
+      'url',
+      'https://sealos.run/',
+    );
+  }, [trackButton]);
 
   const checkIpInChina = useCallback(async () => {
     try {
@@ -49,12 +80,12 @@ export default function RedirectSuggest() {
         res.prov !== '中国澳门' &&
         res.prov !== '中国台湾'
       ) {
-        setOpen(true);
+        handleModalShow();
       }
     } catch (error) {
       console.log(error);
     }
-  }, [setOpen]);
+  }, [handleModalShow]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -72,24 +103,26 @@ export default function RedirectSuggest() {
         <div className="fixed bottom-6 z-50 grid animate-[easeFromBottom_0.4s_ease-in-out] grid-cols-[56px_1fr] rounded-xl bg-white p-6 shadow-[0px_4px_4px_0px_#00000040] max-md:mx-4 md:right-6">
           <Info />
           <div>
-            <h3 className="my-1 text-md font-medium md:text-lg xl:text-[23px]">
+            <h3 className="text-md my-1 font-medium md:text-lg xl:text-[23px]">
               访问版本提醒
             </h3>
             <div className="relative max-xl:text-sm md:w-60 xl:w-[400px]">
-              <p className="leading-[180%] text-[#93919A] ">
-              检测到您是中国大陆IP，推荐您使用 Sealos 中国大陆版（人民币计费）以享受本地化价格与服务。
+              <p className="leading-[180%] text-[#93919A]">
+                检测到您是中国大陆IP，推荐您使用 Sealos
+                中国大陆版（人民币计费）以享受本地化价格与服务。
               </p>
               <a
-                className="absolute bottom-0 right-0 text-[#52AEFF] "
+                className="absolute right-0 bottom-0 cursor-pointer text-[#52AEFF] hover:underline"
                 href="https://sealos.run/"
+                onClick={handleRedirectClick}
               >
                 立即前往&gt;&gt;
               </a>
             </div>
           </div>
           <div
-            className="absolute right-[31px] top-[23px] cursor-pointer"
-            onClick={() => setOpen(false)}
+            className="absolute top-[23px] right-[31px] cursor-pointer"
+            onClick={handleModalClose}
           >
             <X color="#A7ADB8" />
           </div>
