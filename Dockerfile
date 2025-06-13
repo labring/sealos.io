@@ -36,14 +36,26 @@ RUN apk add --no-cache curl cairo-dev \
     pango-dev \
     libjpeg-turbo \
     giflib-dev \
-    librsvg-dev
+    librsvg-dev \
+    build-base
 ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 WORKDIR /app
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+COPY ./package*.json ./
+COPY ./next* ./
+COPY ./postcss.config.js ./
+COPY ./tsconfig.json ./
+COPY ./source.config.ts ./
+
+# Install only production dependencies
+RUN npm ci --only=production && npm cache clean --force
+
+# Copy built application
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+
 USER nextjs
 
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -51,4 +63,4 @@ ENV PORT=3000
 
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+CMD ["npm", "start"]
