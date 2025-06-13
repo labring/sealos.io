@@ -39,28 +39,70 @@ export async function generateBlogMetadata(props: {
     },
     description: description,
     keywords: keywords,
+    authors: page
+      ? page.data.authors.map((author) => ({ name: blogAuthors[author].name }))
+      : [{ name: siteConfig.author }],
+    creator: siteConfig.author,
+    publisher: siteConfig.author,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     alternates: {
       canonical: `${domain}/blog/${params.slug || ''}`,
+      types: {
+        'application/rss+xml': [
+          {
+            title: 'Sealos Blog',
+            url: `${siteConfig.url.base}/rss.xml`,
+          },
+        ],
+      },
     },
     openGraph: {
       url,
       title: docTitle,
       description: description,
-      tags: keywords,
-      images: imageUrl,
-      authors: page
-        ? page.data.authors.map((author) => blogAuthors[author].name)
-        : undefined,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: docTitle,
+        },
+      ],
       siteName: siteName,
       type: page ? 'article' : 'website',
+      ...(page && {
+        publishedTime: page.data.date,
+        modifiedTime: page.data.lastModified || page.data.date,
+        authors: page.data.authors.map((author) => blogAuthors[author].name),
+        section: 'Technology',
+        tags: page.data.tags || keywords,
+      }),
+      locale: 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
       site: siteConfig.twitterHandle,
+      creator: siteConfig.twitterHandle,
       title: docTitle,
       description: description,
-      images: imageUrl,
+      images: [
+        {
+          url: imageUrl,
+          alt: docTitle,
+        },
+      ],
     },
+    category: page ? 'Technology' : undefined,
   };
 }
 
@@ -94,24 +136,62 @@ export function generateDocsMetadata({
       absolute: docTitle,
     },
     description: page.data.description,
+    keywords: ['sealos', 'documentation', 'kubernetes', 'cloud platform', 'devops', 'container'],
+    authors: [{ name: siteConfig.author }],
+    creator: siteConfig.author,
+    publisher: siteConfig.author,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     alternates: {
       canonical: url,
+      types: {
+        'application/rss+xml': [
+          {
+            title: 'Sealos Blog',
+            url: `${siteConfig.url.base}/rss.xml`,
+          },
+        ],
+      },
     },
     openGraph: {
       url,
       title: docTitle,
       description: page.data.description,
-      images: imageUrl,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: docTitle,
+        },
+      ],
       siteName: siteName,
       type: 'website',
+      locale: params.lang === 'zh-cn' ? 'zh_CN' : 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
       site: siteConfig.twitterHandle,
+      creator: siteConfig.twitterHandle,
       title: docTitle,
       description: page.data.description,
-      images: imageUrl,
+      images: [
+        {
+          url: imageUrl,
+          alt: docTitle,
+        },
+      ],
     },
+    category: 'Documentation',
   } satisfies Metadata;
 }
 
@@ -122,6 +202,11 @@ export function generatePageMetadata(
     keywords?: string[];
     pathname?: string | null;
     lang?: string;
+    author?: string;
+    publishedTime?: string;
+    modifiedTime?: string;
+    section?: string;
+    tags?: string[];
   } = {},
 ): Metadata {
   const title = options.title
@@ -131,6 +216,7 @@ export function generatePageMetadata(
     ? options.description
     : siteConfig.description;
   const keywords = options.keywords ? options.keywords : siteConfig.keywords;
+  const lang = options.lang || 'en';
 
   // Determine the correct image API endpoint based on the pathname
   let imageApi = `${ogImageApi}/website/`;
@@ -171,6 +257,23 @@ export function generatePageMetadata(
     title: title,
     description: description,
     keywords: keywords,
+    authors: options.author ? [{ name: options.author }] : [{ name: siteConfig.author }],
+    creator: siteConfig.author,
+    publisher: siteConfig.author,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    verification: {
+      google: process.env.GOOGLE_SITE_VERIFICATION,
+    },
     alternates: {
       canonical: options.pathname ? `${siteConfig.url.base}${options.pathname}` : siteConfig.url.base,
       languages: Object.keys(alternateLanguages).length > 0 ? alternateLanguages : undefined,
@@ -185,21 +288,138 @@ export function generatePageMetadata(
     },
     openGraph: {
       type: 'website',
-      url: options.pathname ? `${siteConfig.url.base}/${options.pathname}` : siteConfig.url.base,
+      url: options.pathname ? `${siteConfig.url.base}${options.pathname}` : siteConfig.url.base,
       siteName: siteName,
       title: title,
       description: description,
-      images: [imageUrl],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      locale: lang === 'zh-cn' ? 'zh_CN' : 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
       title: title,
       description: description,
-      images: [imageUrl],
+      images: [
+        {
+          url: imageUrl,
+          alt: title,
+        },
+      ],
       creator: siteConfig.twitterHandle,
       site: siteConfig.twitterHandle,
     },
     metadataBase: new URL(siteConfig.url.base),
+    category: options.section,
+  };
+}
+
+/**
+ * Generate metadata for product pages with enhanced SEO
+ */
+export function generateProductMetadata(
+  options: {
+    productName: string;
+    description: string;
+    pathname: string;
+    lang?: string;
+    features?: string[];
+    category?: string;
+  }
+): Metadata {
+  const lang = options.lang || 'en';
+  const isZhCn = lang === 'zh-cn';
+
+  const title = `${options.productName} | ${siteConfig.name}`;
+  const keywords = [
+    'sealos',
+    options.productName.toLowerCase(),
+    'cloud platform',
+    'kubernetes',
+    'container',
+    'devops',
+    'cloud native',
+    ...(options.features || [])
+  ];
+
+  const imageApi = `${ogImageApi}/products/`;
+  const imageUrl = imageApi + options.productName.toLowerCase().replace(/\s+/g, '-');
+
+  // Generate hreflang links
+  const hreflangLinks = generateHreflangLinks(options.pathname);
+  const alternateLanguages: Record<string, string> = {};
+
+  hreflangLinks.forEach(link => {
+    alternateLanguages[link.hrefLang] = link.href;
+  });
+
+  return {
+    title: title,
+    description: options.description,
+    keywords: keywords,
+    authors: [{ name: siteConfig.author }],
+    creator: siteConfig.author,
+    publisher: siteConfig.author,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    alternates: {
+      canonical: `${siteConfig.url.base}${options.pathname}`,
+      languages: Object.keys(alternateLanguages).length > 0 ? alternateLanguages : undefined,
+      types: {
+        'application/rss+xml': [
+          {
+            title: 'Sealos Blog',
+            url: `${siteConfig.url.base}/rss.xml`,
+          },
+        ],
+      },
+    },
+    openGraph: {
+      type: 'website',
+      url: `${siteConfig.url.base}${options.pathname}`,
+      siteName: siteName,
+      title: title,
+      description: options.description,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${options.productName} - ${options.description}`,
+        },
+      ],
+      locale: isZhCn ? 'zh_CN' : 'en_US',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: options.description,
+      images: [
+        {
+          url: imageUrl,
+          alt: `${options.productName} - ${options.description}`,
+        },
+      ],
+      creator: siteConfig.twitterHandle,
+      site: siteConfig.twitterHandle,
+    },
+    metadataBase: new URL(siteConfig.url.base),
+    category: options.category || 'Technology',
   };
 }
 
