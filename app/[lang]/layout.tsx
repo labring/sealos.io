@@ -14,6 +14,13 @@ const inter = Inter({
 
 export const metadata = generatePageMetadata();
 
+// Generate static params for all supported languages
+export async function generateStaticParams() {
+  return locales.map((locale) => ({
+    lang: locale.locale,
+  }));
+}
+
 export default function LocaleLayout({
   children,
   params,
