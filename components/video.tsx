@@ -167,10 +167,10 @@ const Video = memo(
                   onReady={() => {
                     setIsPlayerVisible(true);
                     setIsLoading(false);
-                    trackVideo('play', title, url, 0);
+                    trackVideo('play', title, url, { videoPosition: 0 });
                   }}
                   onStart={() => {
-                    trackVideo('play', title, url, 0);
+                    trackVideo('play', title, url, { videoPosition: 0 });
                   }}
                   onPause={() => {
                     trackVideo('pause', title, url);
@@ -179,7 +179,7 @@ const Video = memo(
                     trackVideo('complete', title, url);
                   }}
                   onSeek={(seconds) => {
-                    trackVideo('seek', title, url, seconds);
+                    trackVideo('seek', title, url, { videoPosition: seconds });
                   }}
                 />
               </div>

@@ -13,6 +13,8 @@ import {
   ButtonActionType,
 } from '@/lib/gtm';
 
+const defaultContext = 'website';
+
 /**
  * Hook for GTM tracking functionality
  * Only tracks if GTM is enabled and available
@@ -40,6 +42,7 @@ export function useGTM() {
     ) => {
       if (isGTMEnabled) {
         trackButtonClick(
+          additionalData?.context || defaultContext,
           buttonText,
           location,
           actionType,
@@ -56,37 +59,65 @@ export function useGTM() {
       action: 'play' | 'pause' | 'complete' | 'seek',
       title: string,
       url: string,
-      position?: number,
+      additionalData?: Record<string, any>,
     ) => {
       if (isGTMEnabled) {
-        trackVideoEvent(action, title, url, position);
+        trackVideoEvent(
+          additionalData?.context || defaultContext,
+          action,
+          title,
+          url,
+          additionalData?.videoPosition,
+        );
       }
     },
     [isGTMEnabled],
   );
 
   const trackForm = useCallback(
-    (formName: string, location: string, success: boolean = true) => {
+    (
+      formName: string,
+      location: string,
+      success: boolean = true,
+      additionalData?: Record<string, any>,
+    ) => {
       if (isGTMEnabled) {
-        trackFormSubmission(formName, location, success);
+        trackFormSubmission(
+          additionalData?.context || defaultContext,
+          formName,
+          location,
+          success,
+        );
       }
     },
     [isGTMEnabled],
   );
 
   const trackPage = useCallback(
-    (path: string, title?: string) => {
+    (path: string, additionalData?: Record<string, any>) => {
       if (isGTMEnabled) {
-        trackPageView(path, title);
+        trackPageView(
+          additionalData?.context || defaultContext,
+          path,
+          additionalData?.pageTitle,
+        );
       }
     },
     [isGTMEnabled],
   );
 
   const trackCustom = useCallback(
-    (eventName: string, data: Record<string, any>) => {
+    (
+      eventName: string,
+      data: Record<string, any>,
+      additionalData?: Record<string, any>,
+    ) => {
       if (isGTMEnabled) {
-        trackCustomEvent(eventName, data);
+        trackCustomEvent(
+          additionalData?.context || defaultContext,
+          eventName,
+          data,
+        );
       }
     },
     [isGTMEnabled],

@@ -11,8 +11,13 @@ export const gtmPush = (event: GTMEvent) => {
   }
 };
 
-export const trackPageView = (pagePath: string, pageTitle?: string) => {
+export const trackPageView = (
+  context: string,
+  pagePath: string,
+  pageTitle?: string,
+) => {
   gtmPush({
+    context,
     event: 'page_view',
     page_path: pagePath,
     page_title: pageTitle || document.title,
@@ -21,6 +26,7 @@ export const trackPageView = (pagePath: string, pageTitle?: string) => {
 };
 
 export const trackButtonClick = (
+  context: string,
   buttonText: string,
   buttonLocation: string,
   actionType: ButtonActionType,
@@ -28,6 +34,7 @@ export const trackButtonClick = (
   additionalData?: Record<string, any>,
 ) => {
   gtmPush({
+    context,
     event: 'button_click',
     button_text: buttonText,
     button_location: buttonLocation,
@@ -41,12 +48,16 @@ export const trackButtonClick = (
 };
 
 export const trackVideoEvent = (
+  context: string,
+
   action: 'play' | 'pause' | 'complete' | 'seek',
   videoTitle: string,
   videoUrl: string,
   videoPosition?: number,
 ) => {
   gtmPush({
+    context,
+
     event: 'video_interaction',
     video_action: action,
     video_title: videoTitle,
@@ -59,6 +70,7 @@ export const trackVideoEvent = (
 };
 
 export const trackFormSubmission = (
+  context: string,
   formName: string,
   formLocation: string,
   success: boolean = true,
@@ -75,11 +87,14 @@ export const trackFormSubmission = (
 };
 
 export const trackDownload = (
+  context: string,
+
   fileName: string,
   fileUrl: string,
   downloadLocation: string,
 ) => {
   gtmPush({
+    context,
     event: 'file_download',
     file_name: fileName,
     file_url: fileUrl,
@@ -91,10 +106,13 @@ export const trackDownload = (
 };
 
 export const trackCustomEvent = (
+  context: string,
+
   eventName: string,
   eventData: Record<string, any>,
 ) => {
   gtmPush({
+    context,
     event: eventName,
     page_path: typeof window !== 'undefined' ? window.location.pathname : '',
     page_title: typeof window !== 'undefined' ? document.title : '',
@@ -103,8 +121,13 @@ export const trackCustomEvent = (
   });
 };
 
-export const trackScrollDepth = (percentage: number, pagePath: string) => {
+export const trackScrollDepth = (
+  context: string,
+  percentage: number,
+  pagePath: string,
+) => {
   gtmPush({
+    context,
     event: 'scroll_depth',
     scroll_percentage: percentage,
     page_path: pagePath,
@@ -114,11 +137,13 @@ export const trackScrollDepth = (percentage: number, pagePath: string) => {
 };
 
 export const trackSearch = (
+  context: string,
   searchTerm: string,
   searchLocation: string,
   resultsCount?: number,
 ) => {
   gtmPush({
+    context,
     event: 'search',
     search_term: searchTerm,
     search_location: searchLocation,
