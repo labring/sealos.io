@@ -24,10 +24,16 @@ const translations = {
   },
 };
 
-export const metadata = generatePageMetadata({
-  title: 'Cloud Databases' + ' | ' + translations.en.title.sub,
-  pathname: '/products/databases'
-});
+// Generate metadata function that supports internationalization
+export function generateMetadata({ params }: { params: { lang: languagesType } }) {
+  const t = translations[params.lang] || translations.en;
+  return generatePageMetadata({
+    title: 'Cloud Databases' + ' | ' + t.title.sub,
+    description: t.title.main + ' ' + t.title.sub,
+    pathname: '/products/databases',
+    lang: params.lang
+  });
+}
 
 export default function DatabasesPage({
   params,
