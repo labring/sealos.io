@@ -49,7 +49,6 @@ export const trackButtonClick = (
 
 export const trackVideoEvent = (
   context: string,
-
   action: 'play' | 'pause' | 'complete' | 'seek',
   videoTitle: string,
   videoUrl: string,
@@ -57,7 +56,6 @@ export const trackVideoEvent = (
 ) => {
   gtmPush({
     context,
-
     event: 'video_interaction',
     video_action: action,
     video_title: videoTitle,
@@ -76,6 +74,7 @@ export const trackFormSubmission = (
   success: boolean = true,
 ) => {
   gtmPush({
+    context,
     event: 'form_submission',
     form_name: formName,
     form_location: formLocation,
