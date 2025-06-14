@@ -70,7 +70,7 @@ export const GetStartedButton = ({
 }: {
   title?: string;
   className?: string;
-  link?: string;
+  link: string;
   location: string;
 }) => {
   const { trackButton } = useGTM();

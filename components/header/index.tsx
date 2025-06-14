@@ -81,6 +81,7 @@ export default function Header({ lang }: { lang: languagesType }) {
             <a href={appDomain} target="_blank">
               <GetStartedButton
                 title={translations.getStarted}
+                link="https://os.sealos.io"
                 location="navbar"
               />
             </a>
