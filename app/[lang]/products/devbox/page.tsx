@@ -12,7 +12,10 @@ import { appDomain, siteConfig } from '@/config/site';
 import { languagesType } from '@/lib/i18n';
 import placeholderImage from '/public/images/video.webp';
 import StructuredDataComponent from '@/components/structured-data';
-import { generateProductSchema, generateBreadcrumbSchema } from '@/lib/utils/structured-data';
+import {
+  generateProductSchema,
+  generateBreadcrumbSchema,
+} from '@/lib/utils/structured-data';
 
 // Define translations for different languages
 const translations = {
@@ -31,13 +34,17 @@ const translations = {
 };
 
 // Generate metadata function that supports internationalization
-export function generateMetadata({ params }: { params: { lang: languagesType } }) {
+export function generateMetadata({
+  params,
+}: {
+  params: { lang: languagesType };
+}) {
   const t = translations[params.lang] || translations.en;
   return generatePageMetadata({
     title: 'DevBox' + ' | ' + t.title.sub,
     description: t.title.main + ' ' + t.title.sub,
     pathname: '/products/devbox',
-    lang: params.lang
+    lang: params.lang,
   });
 }
 
@@ -53,15 +60,18 @@ export default function HomePage({
     'DevBox',
     t.title.main + ' ' + t.title.sub,
     `${siteConfig.url.base}/products/devbox`,
-    params.lang
+    params.lang,
   );
 
   // Generate breadcrumb structured data
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: siteConfig.url.base },
-    { name: 'Products', url: `${siteConfig.url.base}/products` },
-    { name: 'DevBox', url: `${siteConfig.url.base}/products/devbox` }
-  ], params.lang);
+  const breadcrumbSchema = generateBreadcrumbSchema(
+    [
+      { name: 'Home', url: siteConfig.url.base },
+      { name: 'Products', url: `${siteConfig.url.base}/products` },
+      { name: 'DevBox', url: `${siteConfig.url.base}/products/devbox` },
+    ],
+    params.lang,
+  );
 
   return (
     <>
@@ -69,32 +79,32 @@ export default function HomePage({
       <StructuredDataComponent data={[productSchema, breadcrumbSchema]} />
 
       <div className="h-full bg-[#EBF2FF]">
-      <Header lang={params.lang} />
-      <main className="custom-container px-8 pt-14 md:px-[15%]">
-        <Hero
-          title={t.title}
-          mainTitleEmphasis={1}
-          getStartedLink={`${appDomain}/?openapp=system-devbox`}
-          lang={params.lang}
-        >
-          <Video
-            url="https://youtu.be/A9mxz0JaY2o"
-            placeholderImage={placeholderImage}
-            title="Sealos DevBox"
-            location="hero"
-          />
-        </Hero>
-        <div className="mt-[64px] mb-[64px] h-[1px] bg-[#DDE7F7]"></div>
-        <FeatureFour />
-        <div id="one-click-deployment" className="scroll-mt-20" />
-        <TechGrid />
-        <Feature />
-        <FooterCta />
-      </main>
-      <div className="mt-[140px] h-[1px] bg-[#DDE7F7]"></div>
-      <Footer lang={params.lang} />
-      <TailwindIndicator />
-    </div>
+        <Header lang={params.lang} />
+        <main className="custom-container px-8 pt-14 md:px-[15%]">
+          <Hero
+            title={t.title}
+            mainTitleEmphasis={1}
+            getStartedLink={`${appDomain}/?openapp=system-devbox`}
+            lang={params.lang}
+          >
+            <Video
+              url="https://www.youtube.com/watch?v=TrEsUMwWtDg"
+              placeholderImage={placeholderImage}
+              title="Sealos DevBox"
+              location="hero"
+            />
+          </Hero>
+          <div className="mt-[64px] mb-[64px] h-[1px] bg-[#DDE7F7]"></div>
+          <FeatureFour />
+          <div id="one-click-deployment" className="scroll-mt-20" />
+          <TechGrid />
+          <Feature />
+          <FooterCta />
+        </main>
+        <div className="mt-[140px] h-[1px] bg-[#DDE7F7]"></div>
+        <Footer lang={params.lang} />
+        <TailwindIndicator />
+      </div>
     </>
   );
 }

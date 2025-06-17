@@ -35,7 +35,7 @@ const translations = {
 };
 
 export const metadata = generatePageMetadata({
-  pathname: '/'
+  pathname: '/',
 });
 
 export default function HomePage({
@@ -57,7 +57,7 @@ export default function HomePage({
           lang={params.lang}
         >
           <Video
-            url="https://youtu.be/A9mxz0JaY2o"
+            url="https://www.youtube.com/watch?v=TrEsUMwWtDg"
             placeholderImage={placeholderImage}
             title="Sealos DevBox"
             location="hero"
