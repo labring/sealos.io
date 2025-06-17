@@ -5,7 +5,7 @@ import { i18n } from '@/lib/i18n';
 export interface StructuredData {
   '@context': string;
   '@type': string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 // Organization structured data for Sealos/Labring

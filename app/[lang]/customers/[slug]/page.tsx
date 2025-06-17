@@ -532,7 +532,7 @@ function CaseStudyPageContent({
 
   // Custom components for ReactMarkdown
   const MarkdownComponents = {
-    img: (props: any) => (
+    img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
       <div className="my-6">
         <img
           src={props.src}
@@ -544,42 +544,42 @@ function CaseStudyPageContent({
         )}
       </div>
     ),
-    table: (props: any) => (
+    table: (props: React.TableHTMLAttributes<HTMLTableElement>) => (
       <div className="my-6 overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg" {...props} />
       </div>
     ),
-    th: (props: any) => (
+    th: (props: React.ThHTMLAttributes<HTMLTableCellElement>) => (
       <th className="bg-gray-50 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" {...props} />
     ),
-    td: (props: any) => (
+    td: (props: React.TdHTMLAttributes<HTMLTableCellElement>) => (
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-t border-gray-200" {...props} />
     ),
-    tr: (props: any) => (
+    tr: (props: React.HTMLAttributes<HTMLTableRowElement>) => (
       <tr className="hover:bg-gray-50" {...props} />
     ),
-    blockquote: (props: any) => (
+    blockquote: (props: React.BlockquoteHTMLAttributes<HTMLQuoteElement>) => (
       <blockquote className="border-l-4 border-primary/30 pl-4 italic text-gray-700 my-6" {...props} />
     ),
-    a: (props: any) => (
+    a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
       <a className="text-primary hover:underline" target="_blank" rel="noopener noreferrer" {...props} />
     ),
-    h2: (props: any) => (
+    h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
       <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4" {...props} />
     ),
-    h3: (props: any) => (
+    h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
       <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3" {...props} />
     ),
-    ul: (props: any) => (
+    ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
       <ul className="list-disc pl-6 my-4 space-y-2" {...props} />
     ),
-    ol: (props: any) => (
+    ol: (props: React.OlHTMLAttributes<HTMLOListElement>) => (
       <ol className="list-decimal pl-6 my-4 space-y-2" {...props} />
     ),
-    li: (props: any) => (
+    li: (props: React.LiHTMLAttributes<HTMLLIElement>) => (
       <li className="text-gray-700" {...props} />
     ),
-    p: (props: any) => (
+    p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
       <p className="text-gray-700 leading-relaxed my-4" {...props} />
     ),
   };

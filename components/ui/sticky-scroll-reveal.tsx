@@ -10,13 +10,13 @@ const StickyScroll = ({
     title: string;
     subtitle?: string;
     description: string;
-    content?: React.ReactNode | any;
+    content?: React.ReactNode;
     icon?: React.ReactNode;
   }[];
   contentClassName?: string;
 }) => {
-  const targetRef = useRef<any>(null);
-  const containerRef = useRef<any>(null);
+  const targetRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [activeCard, setActiveCard] = useState(0);
   const { scrollYProgress } = useScroll({
     target: targetRef,
