@@ -2,7 +2,7 @@
 title: 'How to Deploy Tolgee Localization Platform on Sealos'
 imgTItle: 'Deploy Tolgee on Sealos with one click'
 description: Deploy Tolgee, the open-source localization platform, on Sealos with one click. Get automatic SSL, custom domains, backups, and scaling without complex setup.
-date: 2025-05-29
+date: 2025-06-16
 tags:
   [
     'Sealos',
@@ -17,9 +17,11 @@ authors: ['default']
 
 Businesses that fail to speak their customers' native languages are essentially closing doors to vast market opportunities. Application localization (l10n) and internationalization (i18n) have evolved from nice-to-have features to critical business requirements that can make or break a product's global success. The complexity of managing translations across multiple languages, coordinating with translators worldwide, and maintaining consistency across different platforms has traditionally been a significant barrier for many development teams.
 
-Enter Tolgee, an innovative open-source localization platform that promises to revolutionize how we approach translation management in software development. When paired with Sealos, a cutting-edge cloud operating system designed for simplicity and efficiency, deploying and managing a robust localization infrastructure becomes as straightforward as a single click.
+Enter [Tolgee](https://tolgee.io), an innovative open-source localization platform that promises to revolutionize how we approach translation management in software development. When paired with Sealos, a cutting-edge cloud operating system designed for simplicity and efficiency, deploying and managing a robust localization infrastructure becomes as straightforward as a single click.
 
 This comprehensive guide will explore every aspect of Tolgee as a localization solution, examine its competitive advantages, analyze potential drawbacks, and provide you with detailed insights into why this platform might be the perfect fit for your internationalization needs. We'll also walk through the seamless deployment process on Sealos and discuss how this combination can transform your approach to global software distribution.
+
+When you are ready you can go ahead and deploy [Tolgee on Sealos](https://sealos.io/products/app-store/tolgee) in just one-click.
 
 ## Understanding Tolgee: A Deep Dive into Modern Localization
 
@@ -30,6 +32,8 @@ The platform was born out of frustration with existing localization workflows th
 At its core, Tolgee is built on the principle that context is king in translation work. When translators can see exactly how their work will appear to end-users, they can make informed decisions about terminology, tone, and cultural adaptation that simply aren't possible when working with abstract text strings in spreadsheets or standalone translation files.
 
 ### Revolutionary In-Context Editing Capabilities
+
+![Tolgee Translations Settings](./images/languages-mt-settings.webp)
 
 The crown jewel of Tolgee's feature set is its in-context editing functionality, which fundamentally changes how translations are created and reviewed. This feature allows translators to work directly within the live application interface, seeing their changes in real-time as they type. The system overlays editing interfaces on top of translatable text elements, providing immediate visual feedback about character limits, text overflow, and visual hierarchy impacts.
 
@@ -47,6 +51,8 @@ The system also learns from translator preferences and corrections, gradually im
 
 ### Comprehensive Machine Translation Integration
 
+![Tolgee Machine Translation Settings](./images/languages-mt-settings.webp)
+
 While human translation remains irreplaceable for quality and cultural nuance, machine translation has evolved to provide valuable starting points for human translators. Tolgee integrates with leading machine translation services including Google Translate, DeepL, AWS Translate, and Microsoft Translator, allowing teams to choose the service that best fits their needs and budget constraints.
 
 The platform's approach to machine translation is particularly sophisticated. Rather than simply providing raw machine translation output, Tolgee can pre-translate content based on project-specific terminology, previous human corrections, and context-aware improvements. This creates machine translations that are significantly more accurate and useful as starting points for human refinement.
@@ -58,6 +64,8 @@ The integration also supports batch processing for large volumes of content, aut
 Tolgee offers numerous compelling advantages that set it apart from both traditional localization tools and modern competitors. Understanding these benefits can help you make an informed decision about whether Tolgee aligns with your organization's needs and workflows.
 
 ### Streamlined Developer Experience
+
+![Tolgee Integrations](./images/integrations.webp)
 
 One of Tolgee's strongest selling points is its developer-centric design philosophy. The platform provides Software Development Kits (SDKs) for all major web development frameworks, including React, Angular, Vue.js, Svelte, Next.js, and many others. These SDKs are designed to integrate seamlessly with existing development workflows, requiring minimal changes to existing codebases.
 
@@ -167,7 +175,7 @@ The platform's security model also supports fine-grained access controls and aud
 
 Deploying Tolgee on Sealos is remarkably simple thanks to the Sealos App Store.
 
-You can go ahead and deploy [Tolgee on Sealos](https://template.sealos.io/deploy?templateName=tolgee) or follow the instructions below.
+You can go ahead and deploy [Tolgee on Sealos](https://sealos.io/products/app-store/tolgee) or follow the instructions below.
 
 1. **Access Sealos Cloud:** Log in to your Sealos Cloud account. If you don't have one, you can sign up quickly.
 2. **Navigate to App Store:** Once logged in, go to the "App Store".
@@ -186,6 +194,8 @@ After successfully deploying Tolgee on Sealos, several configuration steps can h
 
 #### User Management and Access Control
 
+![Tolgee Organization Member Permissions](./images/organization-member-permissions.webp)
+
 The first step after deployment involves setting up user accounts and access controls that align with your organization's structure and security requirements. Tolgee supports role-based access control with predefined roles including Owner, Admin, Translator, and Reviewer, each with specific permissions designed to support common localization workflows.
 
 Owners have complete control over projects and can manage all aspects of the platform including user management, billing, and system configuration. Admins can manage projects and users but cannot access billing or system-level settings. Translators can access assigned projects and edit translations but cannot modify project settings or manage users. Reviewers can view and comment on translations but cannot make direct edits.
@@ -193,6 +203,8 @@ Owners have complete control over projects and can manage all aspects of the pla
 For larger organizations, consider implementing single sign-on (SSO) integration to streamline user management and ensure compliance with organizational security policies. Tolgee supports standard SSO protocols and can integrate with most enterprise identity management systems.
 
 #### Project Structure and Organization
+
+![Tolgee Project Settings](./images/project-settings.webp)
 
 Effective project organization is crucial for maintaining efficiency as your localization efforts scale. Consider creating separate projects for different products, feature areas, or release cycles to maintain clear boundaries and simplify access management.
 
