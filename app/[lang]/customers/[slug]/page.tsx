@@ -2,11 +2,10 @@ import { generatePageMetadata } from '@/lib/utils/metadata';
 import { languagesType } from '@/lib/i18n';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { GetStartedButton } from '@/components/ui/shiny-button';
 import { appDomain } from '@/config/site';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import Image from 'next/image';
+import TocSidebar from '../components/toc-sidebar';
 
 // Define types for case study data
 type Metric = { value: string; label: string };
@@ -587,6 +586,9 @@ function CaseStudyPageContent({
 
   return (
     <main className="px-0 pt-0 pb-0 md:px-0 relative">
+      {/* TOC Sidebar */}
+      <TocSidebar />
+
       {/* Hero section with background image */}
       <div
         className="relative mb-12 overflow-hidden mt-16"
@@ -629,74 +631,77 @@ function CaseStudyPageContent({
         </div>
       </div>
 
-      {/* Content container with proper padding */}
-      <div className="px-8 md:px-[15%]">
-        {/* Mobile metrics scrolling cards */}
-        <div className="mb-12 block sm:hidden">
-          <div className="mb-4 text-center text-sm text-gray-500">Swipe left and right to view key metrics</div>
-          <div className="overflow-x-auto pb-4">
-            <div
-              className="flex w-max space-x-4 px-4"
-              style={{
-                background: 'linear-gradient(to right, white, #F8FBFF)',
-                boxShadow: '0 15px 35px -10px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.04)'
-              }}
-            >
-              {caseStudy.metrics.map((metric: Metric, idx: number) => (
+      {/* Main content wrapper with optimized layout */}
+      <div className="relative">
+        {/* Unified content container with smart width management */}
+        <div className="mx-auto max-w-5xl px-6 lg:px-8 xl:max-w-6xl xl:pr-72">
+
+          {/* Mobile metrics scrolling cards */}
+          <div className="mb-12 block sm:hidden">
+            <div className="mb-4 text-center text-sm text-gray-500">Swipe left and right to view key metrics</div>
+            <div className="overflow-x-auto pb-4">
+              <div
+                className="flex w-max space-x-4 px-4"
+                style={{
+                  background: 'linear-gradient(to right, white, #F8FBFF)',
+                  boxShadow: '0 15px 35px -10px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.04)'
+                }}
+              >
+                {caseStudy.metrics.map((metric: Metric, idx: number) => (
+                  <div
+                    key={idx}
+                    className="relative flex h-32 w-40 shrink-0 flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md"
+                  >
+                    {/* Decorative element */}
+                    <div className="absolute -top-4 left-1/2 h-8 w-8 -translate-x-1/2 rounded-full bg-primary/10 blur-lg"></div>
+
+                    <div
+                      className="relative text-3xl font-bold"
+                      style={{ color: '#0078D4' }}
+                    >
+                      {metric.value}
+                    </div>
+                    <div className="relative mt-2 text-xs font-medium text-gray-700">{metric.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop metrics grid */}
+          <div
+            className="mb-12 hidden grid-cols-1 gap-4 overflow-hidden rounded-xl p-0 shadow-lg sm:grid sm:grid-cols-3"
+            style={{
+              background: 'linear-gradient(to right, white, #F8FBFF)',
+              boxShadow: '0 15px 35px -10px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.04)'
+            }}
+          >
+            {caseStudy.metrics.map((metric: Metric, idx: number) => (
               <div
                 key={idx}
-                className="relative flex h-32 w-40 shrink-0 flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md"
+                className={`relative p-6 text-center ${idx < caseStudy.metrics.length - 1 ? 'border-r' : ''} border-gray-100`}
               >
                 {/* Decorative element */}
-                <div className="absolute -top-4 left-1/2 h-8 w-8 -translate-x-1/2 rounded-full bg-primary/10 blur-lg"></div>
+                <div className="absolute -top-6 left-1/2 h-12 w-12 -translate-x-1/2 rounded-full bg-primary/10 blur-xl"></div>
 
                 <div
-                  className="relative text-3xl font-bold"
+                  className="relative text-4xl font-bold"
                   style={{ color: '#0078D4' }}
                 >
                   {metric.value}
                 </div>
-                <div className="relative mt-2 text-xs font-medium text-gray-700">{metric.label}</div>
+                <div className="relative mt-2 text-sm font-medium text-gray-700">{metric.label}</div>
               </div>
             ))}
           </div>
-        </div>
-      </div>
 
-      {/* Desktop metrics grid */}
-      <div
-        className="mb-12 hidden grid-cols-1 gap-4 overflow-hidden rounded-xl p-0 shadow-lg sm:grid sm:grid-cols-3"
-        style={{
-          background: 'linear-gradient(to right, white, #F8FBFF)',
-          boxShadow: '0 15px 35px -10px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.04)'
-        }}
-      >
-        {caseStudy.metrics.map((metric: Metric, idx: number) => (
-          <div
-            key={idx}
-            className={`relative p-6 text-center ${idx < caseStudy.metrics.length - 1 ? 'border-r' : ''} border-gray-100`}
-          >
-            {/* Decorative element */}
-            <div className="absolute -top-6 left-1/2 h-12 w-12 -translate-x-1/2 rounded-full bg-primary/10 blur-xl"></div>
-
-            <div
-              className="relative text-4xl font-bold"
-              style={{ color: '#0078D4' }}
-            >
-              {metric.value}
-            </div>
-            <div className="relative mt-2 text-sm font-medium text-gray-700">{metric.label}</div>
-          </div>
-        ))}
-      </div>
-
-      <blockquote
-        className="mb-12 overflow-hidden rounded-xl p-6 text-center shadow-lg sm:p-8 md:p-10"
-        style={{
-          background: 'linear-gradient(135deg, rgba(82, 174, 255, 0.15), rgba(255, 248, 240, 0.4))',
-          boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.1), 0 10px 20px -15px rgba(82, 174, 255, 0.2)'
-        }}
-      >
+          <blockquote
+          className="mb-12 overflow-hidden rounded-xl p-6 text-center shadow-lg sm:p-8 md:p-10"
+          style={{
+            background: 'linear-gradient(135deg, rgba(82, 174, 255, 0.15), rgba(255, 248, 240, 0.4))',
+            boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.1), 0 10px 20px -15px rgba(82, 174, 255, 0.2)'
+          }}
+        >
         {/* Decorative element */}
         <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl"></div>
         <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-yellow-500/5 blur-3xl"></div>
@@ -714,67 +719,77 @@ function CaseStudyPageContent({
             <div className="text-base font-bold text-gray-900 sm:text-lg">{caseStudy.quote.author}</div>
             <div className="text-xs font-medium text-primary/80 sm:text-sm">{caseStudy.quote.title}</div>
           </footer>
-        </div>
-      </blockquote>
+          </div>
+          </blockquote>
 
-      <div className="mb-12 space-y-10">
-        {caseStudy.content.map((section: ContentSection, idx: number) => (
-          <div
-            key={idx}
-            className="rounded-xl bg-white p-8 shadow-md transition-all hover:shadow-lg"
-            style={{
-              background: idx % 2 === 0 ? 'linear-gradient(to right, white, #F8FBFF)' : 'linear-gradient(to left, white, #F8FBFF)'
-            }}
-          >
-            <h2 className="mb-4 inline-block text-2xl font-bold text-gray-900">
-              <span className="relative">
-                {section.title}
-                <span className="absolute bottom-0 left-0 h-2 w-full bg-primary/10"></span>
-              </span>
-            </h2>
-            <div className="prose max-w-none">
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={MarkdownComponents}
-              >
-                {section.markdown}
-              </ReactMarkdown>
+          {/* Main content area with optimized reading layout */}
+          <div className="relative">
+            {/* Content sections with better typography and spacing */}
+            <div className="mb-12 space-y-10" id="case-study-content">
+              {caseStudy.content.map((section: ContentSection, idx: number) => (
+                <article
+                  key={idx}
+                  className="rounded-xl bg-white p-8 shadow-md transition-all hover:shadow-lg lg:p-10"
+                  style={{
+                    background: idx % 2 === 0 ? 'linear-gradient(to right, white, #F8FBFF)' : 'linear-gradient(to left, white, #F8FBFF)'
+                  }}
+                >
+                  <header className="mb-6">
+                    <h2 className="inline-block text-2xl font-bold text-gray-900 lg:text-3xl">
+                      <span className="relative">
+                        {section.title}
+                        <span className="absolute bottom-0 left-0 h-2 w-full bg-primary/10 lg:h-3"></span>
+                      </span>
+                    </h2>
+                  </header>
+
+                  <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-primary prose-strong:text-gray-900 prose-ul:text-gray-700 prose-ol:text-gray-700 prose-li:text-gray-700 prose-blockquote:border-primary/20 prose-blockquote:text-gray-600 prose-code:text-primary prose-pre:bg-gray-50">
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={MarkdownComponents}
+                    >
+                      {section.markdown}
+                    </ReactMarkdown>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
-        ))}
-      </div>
 
-      <div
-        className="rounded-xl p-6 text-center shadow-xl sm:p-8 md:p-12"
-        style={{
-          background: 'linear-gradient(135deg, rgba(82, 174, 255, 0.2), rgba(255, 248, 240, 0.6), rgba(82, 174, 255, 0.15))',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 30px -15px rgba(82, 174, 255, 0.25)'
-        }}
-      >
-        {/* Decorative element */}
-        <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-blue-500/15 blur-3xl"></div>
-        <div className="absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-yellow-500/10 blur-3xl"></div>
+          {/* Call to Action section */}
+          <div
+            className="rounded-xl p-6 text-center shadow-xl sm:p-8 md:p-12"
+            style={{
+              background: 'linear-gradient(135deg, rgba(82, 174, 255, 0.2), rgba(255, 248, 240, 0.6), rgba(82, 174, 255, 0.15))',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 30px -15px rgba(82, 174, 255, 0.25)'
+            }}
+          >
+            {/* Decorative element */}
+            <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-blue-500/15 blur-3xl"></div>
+            <div className="absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-yellow-500/10 blur-3xl"></div>
 
-        <h2 className="relative mb-4 text-xl font-bold tracking-tight text-gray-900 sm:mb-6 sm:text-2xl md:text-3xl">
-          <span className="relative inline-block">
-            {caseStudy.title}
-            <span className="absolute bottom-1 left-0 h-2 w-full bg-primary/20 sm:h-3"></span>
-          </span>
-        </h2>
-        <div className="flex justify-center">
-          <a href={appDomain} target="_blank" rel="noopener noreferrer">
-            <div
-              className="relative flex cursor-pointer items-center justify-center gap-[6px] overflow-hidden rounded-md bg-[#b2e3ff] px-6 py-2 text-[#005b9c] shadow-button hover:bg-[#97D9FF] sm:px-8 sm:py-3 sm:text-base"
-            >
-              <div className="z-10">{caseStudy.getStarted}</div>
-              <svg xmlns="http://www.w3.org/2000/svg" className="relative h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
+            <h2 className="relative mb-4 text-xl font-bold tracking-tight text-gray-900 sm:mb-6 sm:text-2xl md:text-3xl">
+              <span className="relative inline-block">
+                {caseStudy.title}
+                <span className="absolute bottom-1 left-0 h-2 w-full bg-primary/20 sm:h-3"></span>
+              </span>
+            </h2>
+            <div className="flex justify-center">
+              <a href={appDomain} target="_blank" rel="noopener noreferrer">
+                <div
+                  className="relative flex cursor-pointer items-center justify-center gap-[6px] overflow-hidden rounded-md bg-[#b2e3ff] px-6 py-2 text-[#005b9c] shadow-button hover:bg-[#97D9FF] sm:px-8 sm:py-3 sm:text-base"
+                >
+                  <div className="z-10">{caseStudy.getStarted}</div>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="relative h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </a>
             </div>
-          </a>
-        </div>
-      </div>
-      </div> {/* Close content container */}
+          </div>
+
+        </div> {/* Close max-width container */}
+      </div> {/* Close relative wrapper */}
     </main>
   );
 }
