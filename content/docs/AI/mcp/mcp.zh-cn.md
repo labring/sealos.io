@@ -1,3 +1,6 @@
+---
+title: MCP
+---
 Sealos 为其平台上的各种能力配置了对应的 MCP Server。它们采用StreamableHttp作为通信方式，您可以轻松的在任何支持StreamableHttp的IDE中使用它。提升您在Sealos平台上的使用体验。
 
 ## 支持的服务
