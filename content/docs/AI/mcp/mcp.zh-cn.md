@@ -84,21 +84,10 @@ Authorization=URL编码的kc
 
 ![](./images/trae-1.png)
 
-之后选择手动配置，将下面的结构复制到弹出的对话框中：
+之后选择手动配置，将复制配置到弹出的对话框中：
 
-```JSON
-{
-  "mcpServers": {
-    "my-mcp-server-e513587d": { //自己起的名称
-      "url": "http://localhost:3000/api/mcp", //想要添加的地址
-      "headers": {
-          "Authorization"://这里填入自己的Kubeconfig
-      }
-  }
-  }
-}
-```
+![](images/trae-2.png)
 
 配置完成后，点击确认即可使用。点击MCP Server的名称即可查看其支持的Tool列表。
 
-![](./images/trae-2.png)
+![](images/trae-3.png)
