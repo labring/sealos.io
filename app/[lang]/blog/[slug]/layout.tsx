@@ -1,5 +1,10 @@
 import { GetStartedButton } from '@/components/ui/shiny-button';
-import { type AuthorData, blogAuthors, siteConfig } from '@/config/site';
+import {
+  appDomain,
+  type AuthorData,
+  blogAuthors,
+  siteConfig,
+} from '@/config/site';
 import { blog } from '@/lib/source';
 import {
   getBlogImage,
@@ -276,7 +281,7 @@ function Cta({ lang }: { lang: languagesType }) {
         <GetStartedButton
           className="mt-6"
           title={getstarted}
-          link="https://os.sealos.io"
+          link={appDomain}
           location="navbar"
         />
       </div>

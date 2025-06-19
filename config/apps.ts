@@ -1,4 +1,5 @@
 import appsData from './apps.json';
+import { appDomain } from './site';
 
 export interface AppConfig {
   name: string;
@@ -58,7 +59,5 @@ export function searchApps(query: string): AppConfig[] {
 }
 
 export function getDeployUrl(slug: string): string {
-  return (
-    'https://os.sealos.io' + '?openapp=system-template%3FtemplateName%3D' + slug
-  );
+  return appDomain + '?openapp=system-template%3FtemplateName%3D' + slug;
 }

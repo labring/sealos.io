@@ -16,6 +16,7 @@ import {
   Code2,
   Headphones,
 } from 'lucide-react';
+import { appDomain } from '@/config/site';
 
 const title = {
   main: 'Simple, Transparent Pricing',
@@ -24,8 +25,9 @@ const title = {
 
 export const metadata = generatePageMetadata({
   title: 'Pricing | Simple, Transparent Pricing',
-  description: 'Pay only for what you use. No hidden fees, no surprises. Scale your applications with confidence on our cloud platform.',
-  pathname: '/pricing'
+  description:
+    'Pay only for what you use. No hidden fees, no surprises. Scale your applications with confidence on our cloud platform.',
+  pathname: '/pricing',
 });
 
 export default function PricingPage({
@@ -43,7 +45,7 @@ export default function PricingPage({
           <div className="my-8 flex items-center justify-center">
             <HovermeButton
               text="Get Started Today"
-              href="https://os.sealos.io"
+              href={appDomain}
               location="hero"
             />
           </div>
