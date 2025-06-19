@@ -16,7 +16,7 @@ export function RSSButton({ lang, className = '' }: RSSButtonProps) {
   return (
     <Link
       href="/rss.xml"
-      className={`group inline-flex items-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-4 py-2.5 text-sm font-medium text-primary transition-all duration-200 hover:bg-primary/10 hover:border-primary/30 hover:shadow-sm hover:scale-105 ${className}`}
+      className={`group border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/30 inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition-all duration-200 hover:scale-105 hover:shadow-sm ${className}`}
       aria-label={translations[lang]}
       title={translations[lang]}
     >

@@ -3,6 +3,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { useGTM } from '@/hooks/use-gtm';
+import { useButtonHandler } from '@/hooks/use-button-handler';
+
+const redirectDomain = 'https://sealos.run/';
 
 const Info = () => (
   <svg
@@ -41,7 +44,14 @@ const easeFromBottom = `@keyframes easeFromBottom {
 
 export default function RedirectSuggest() {
   const [open, setOpen] = useState(false);
-  const { trackCustom, trackButton } = useGTM();
+  const { trackCustom } = useGTM();
+
+  const { handleClick: handleRedirectClick } = useButtonHandler({
+    title: '立即前往',
+    location: 'china_redirect_modal',
+    href: redirectDomain,
+    actionType: 'url',
+  });
 
   const handleModalShow = useCallback(() => {
     setOpen(true);
@@ -56,15 +66,6 @@ export default function RedirectSuggest() {
       modal_type: 'china_redirect',
     });
   }, [trackCustom]);
-
-  const handleRedirectClick = useCallback(() => {
-    trackButton(
-      '立即前往',
-      'china_redirect_modal',
-      'url',
-      'https://sealos.run/',
-    );
-  }, [trackButton]);
 
   const checkIpInChina = useCallback(async () => {
     try {
@@ -113,7 +114,7 @@ export default function RedirectSuggest() {
               </p>
               <a
                 className="absolute right-0 bottom-0 cursor-pointer text-[#52AEFF] hover:underline"
-                href="https://sealos.run/"
+                href={redirectDomain}
                 onClick={handleRedirectClick}
               >
                 立即前往&gt;&gt;

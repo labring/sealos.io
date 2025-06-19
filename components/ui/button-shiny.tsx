@@ -5,7 +5,7 @@ import { motion, type AnimationProps } from 'framer-motion';
 
 import { cn } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
-import { useGTM } from '@/hooks/use-gtm';
+import { useButtonHandler } from '@/hooks/use-button-handler';
 
 const animationProps = {
   initial: { '--x': '100%', scale: 0.8 },
@@ -30,12 +30,30 @@ const animationProps = {
 interface ShinyButtonProps {
   children: React.ReactNode;
   className?: string;
+  href?: string;
+  location?: string;
+  title?: string;
 }
-const ShinyButton = ({ children, className, ...props }: ShinyButtonProps) => {
+const ShinyButton = ({
+  children,
+  className,
+  href,
+  location,
+  title,
+  ...props
+}: ShinyButtonProps) => {
+  const { handleClick } = useButtonHandler({
+    title: title || 'ShinyButton',
+    location: location || '',
+    href,
+    actionType: 'url',
+  });
+
   return (
     <motion.button
       {...animationProps}
       {...props}
+      onClick={handleClick}
       className={cn(
         'relative rounded-lg px-6 py-2 font-medium backdrop-blur-xl transition-shadow duration-300 ease-in-out hover:shadow-sm dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/10%)_0%,transparent_60%)] dark:hover:shadow-[0_0_20px_hsl(var(--primary)/10%)]',
         className,
@@ -73,28 +91,21 @@ export const GetStartedButton = ({
   link: string;
   location: string;
 }) => {
-  const { trackButton } = useGTM();
-
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    // Track the button click
-    trackButton(title || 'Get Started', location, 'url', link || '');
-
-    if (link) {
-      window.location.href = link;
-    }
-  };
+  const { handleClick } = useButtonHandler({
+    title: title || 'Get Started',
+    location,
+    href: link,
+    actionType: 'url',
+    onClick: () => {}, // Empty onClick since navigation is handled by the hook
+  });
 
   return (
-    <div
+    <button
       className={cn(
         'bg-custom-bg text-custom-primary-text shadow-button relative flex cursor-pointer items-center justify-center gap-[6px] overflow-hidden rounded-md py-2 pr-3 pl-4 hover:bg-[#97D9FF] sm:pr-4 sm:pl-5',
         className,
       )}
       onClick={handleClick}
-      role="button"
       {...props}
     >
       <div className="z-10">{title ? title : 'Get Started'}</div>
@@ -113,7 +124,7 @@ export const GetStartedButton = ({
           filter: 'blur(20px)',
         }}
       />
-    </div>
+    </button>
   );
 };
 
