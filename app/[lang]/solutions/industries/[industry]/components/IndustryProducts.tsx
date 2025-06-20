@@ -2,7 +2,7 @@
 
 import { AnimateElement } from '@/components/ui/animated-wrapper';
 import { CheckCircle, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { CustomButton } from '@/components/ui/button-custom';
 import { IndustryProductRef } from '@/config/industries';
 import { getAppBySlug } from '@/config/apps';
 
@@ -99,12 +99,19 @@ export default function IndustryProducts({
                 </div>
 
                 <div className="mt-auto">
-                  <Link
+                  <CustomButton
+                    title={`Deploy ${app.name}`}
                     href={app.deployUrl || '#'}
+                    location={`${industryName.toLowerCase()}-products`}
                     className="inline-flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
+                    additionalData={{
+                      appName: app.name,
+                      industry: industryName,
+                      source: 'industry-products-section',
+                    }}
                   >
                     Deploy Now <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
+                  </CustomButton>
                 </div>
               </div>
             </AnimateElement>

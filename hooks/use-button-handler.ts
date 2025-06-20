@@ -4,6 +4,7 @@ import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useGTM } from '@/hooks/use-gtm';
 import { ButtonActionType } from '@/lib/gtm';
+import { sanitizeForGTM } from '@/lib/gtm-utils';
 
 interface ButtonHandlerOptions {
   title: string;
@@ -39,7 +40,15 @@ export function useButtonHandler({
 
       // Track the button click if tracking is enabled
       if (trackingEnabled && location) {
-        trackButton(title, location, actionType, href || '', additionalData);
+        // Sanitize additionalData to prevent circular references
+        const cleanAdditionalData = sanitizeForGTM(additionalData);
+        trackButton(
+          title,
+          location,
+          actionType,
+          href || '',
+          cleanAdditionalData,
+        );
       }
 
       // Call the provided onClick handler if it exists
@@ -52,10 +61,12 @@ export function useButtonHandler({
         if (newWindow) {
           window.open(href, '_blank', 'noopener,noreferrer');
         } else if (
-          href.startsWith('http') ||
-          href.startsWith('https') ||
+          href.startsWith('http://') ||
+          href.startsWith('https://') ||
           href.startsWith('mailto:') ||
-          href.startsWith('tel:')
+          href.startsWith('tel:') ||
+          href.startsWith('ftp://') ||
+          href.startsWith('//') // Protocol-relative URLs
         ) {
           // External links or special protocols
           window.location.href = href;

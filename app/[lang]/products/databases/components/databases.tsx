@@ -203,6 +203,7 @@ export default function Databases() {
                 className="mt-auto block w-full cursor-pointer rounded-lg bg-blue-600 px-4 py-3 text-center font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-lg"
                 newWindow={true}
                 href={db.deployUrl}
+                location="databases-section"
                 additionalData={{ technology: db.name }}
               >
                 Deploy {db.name}

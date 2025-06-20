@@ -3,7 +3,7 @@
 import { AnimateElement } from '@/components/ui/animated-wrapper';
 import { appDomain } from '@/config/site';
 import { CheckCircle, Code, Database, Globe } from 'lucide-react';
-import Link from 'next/link';
+import { CustomButton } from '@/components/ui/button-custom';
 
 interface CoreProductsProps {
   industryName: string;
@@ -71,18 +71,33 @@ export default function CoreProducts({ industryName }: CoreProductsProps) {
               </div>
 
               <div className="mt-auto flex gap-3">
-                <Link
+                <CustomButton
+                  title="Learn More about DevBox"
                   href="/products/devbox"
+                  location={`${industryName.toLowerCase()}-core-products`}
                   className="flex-1 rounded-lg bg-blue-600 px-4 py-3 text-center font-medium text-white transition-colors hover:bg-blue-700"
+                  additionalData={{
+                    product: 'DevBox',
+                    industry: industryName,
+                    action: 'learn-more',
+                  }}
                 >
                   Learn More
-                </Link>
-                <Link
+                </CustomButton>
+                <CustomButton
+                  title="Try DevBox Now"
                   href={appDomain}
+                  location={`${industryName.toLowerCase()}-core-products`}
                   className="flex-1 rounded-lg border-2 border-blue-600 px-4 py-3 text-center font-medium text-blue-600 transition-colors hover:bg-blue-50"
+                  newWindow={true}
+                  additionalData={{
+                    product: 'DevBox',
+                    industry: industryName,
+                    action: 'try-now',
+                  }}
                 >
                   Try Now
-                </Link>
+                </CustomButton>
               </div>
             </div>
           </AnimateElement>
@@ -135,18 +150,33 @@ export default function CoreProducts({ industryName }: CoreProductsProps) {
               </div>
 
               <div className="mt-auto flex gap-3">
-                <Link
+                <CustomButton
+                  title="Learn More about Databases"
                   href="/products/databases"
+                  location={`${industryName.toLowerCase()}-core-products`}
                   className="flex-1 rounded-lg bg-green-600 px-4 py-3 text-center font-medium text-white transition-colors hover:bg-green-700"
+                  additionalData={{
+                    product: 'Databases',
+                    industry: industryName,
+                    action: 'learn-more',
+                  }}
                 >
                   Learn More
-                </Link>
-                <Link
+                </CustomButton>
+                <CustomButton
+                  title="Try Databases Now"
                   href={appDomain}
+                  location={`${industryName.toLowerCase()}-core-products`}
                   className="flex-1 rounded-lg border-2 border-green-600 px-4 py-3 text-center font-medium text-green-600 transition-colors hover:bg-green-50"
+                  newWindow={true}
+                  additionalData={{
+                    product: 'Databases',
+                    industry: industryName,
+                    action: 'try-now',
+                  }}
                 >
                   Try Now
-                </Link>
+                </CustomButton>
               </div>
             </div>
           </AnimateElement>
@@ -199,18 +229,33 @@ export default function CoreProducts({ industryName }: CoreProductsProps) {
               </div>
 
               <div className="mt-auto flex gap-3">
-                <Link
+                <CustomButton
+                  title="Learn More about App Store"
                   href="/products/app-store"
+                  location={`${industryName.toLowerCase()}-core-products`}
                   className="flex-1 rounded-lg bg-purple-600 px-4 py-3 text-center font-medium text-white transition-colors hover:bg-purple-700"
+                  additionalData={{
+                    product: 'App Store',
+                    industry: industryName,
+                    action: 'learn-more',
+                  }}
                 >
                   Learn More
-                </Link>
-                <Link
+                </CustomButton>
+                <CustomButton
+                  title="Try App Store Now"
                   href={appDomain}
+                  location={`${industryName.toLowerCase()}-core-products`}
                   className="flex-1 rounded-lg border-2 border-purple-600 px-4 py-3 text-center font-medium text-purple-600 transition-colors hover:bg-purple-50"
+                  newWindow={true}
+                  additionalData={{
+                    product: 'App Store',
+                    industry: industryName,
+                    action: 'try-now',
+                  }}
                 >
                   Try Now
-                </Link>
+                </CustomButton>
               </div>
             </div>
           </AnimateElement>

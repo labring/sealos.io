@@ -3,6 +3,7 @@
 import { useButtonHandler } from '@/hooks/use-button-handler';
 import { ButtonActionType } from '@/lib/gtm';
 import { ReactNode } from 'react';
+import { ButtonLink } from './button-link';
 
 type CustomButtonProps = {
   children: ReactNode;
@@ -43,6 +44,20 @@ export function CustomButton({
     onClick,
     additionalData,
   });
+
+  if (href && !disabled) {
+    return (
+      <ButtonLink
+        href={href}
+        title={title}
+        className={className}
+        newWindow={newWindow}
+        onClick={handleClick}
+      >
+        {children}
+      </ButtonLink>
+    );
+  }
 
   return (
     <button
