@@ -76,7 +76,7 @@ export default function FooterCta() {
             and SLA guarantees tailored to their specific requirements.
           </p>
           <a
-            href="mailto:contact@sealos.io"
+            href="/contact"
             className="inline-flex items-center font-medium text-blue-600 hover:text-blue-700"
           >
             Contact Us
@@ -94,7 +94,7 @@ export default function FooterCta() {
             guarantees.
           </p>
           <a
-            href="mailto:contact@sealos.io"
+            href="/contact"
             className="inline-flex items-center font-medium text-blue-600 hover:text-blue-700"
           >
             Contact Us

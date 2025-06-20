@@ -109,7 +109,7 @@ export default function FooterCta() {
             deployments.
           </p>
           <a
-            href="mailto:contact@sealos.io"
+            href="/contact"
             className="inline-flex items-center font-medium text-blue-600 hover:text-blue-700"
           >
             Contact Sales

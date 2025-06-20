@@ -92,7 +92,7 @@ export const HeaderLinksData: HeaderLinkType[] = [
   {
     textKey: 'contact',
     urlKey: 'contactUrl',
-    isExternal: true,
+    isExternal: false,
   },
 ];
 
@@ -120,7 +120,7 @@ export const navTranslations: Record<languagesType, Record<string, string>> = {
     caseUrl: '/',
     blogUrl: '/blog',
     pricingUrl: '/pricing',
-    contactUrl: 'mailto:contact@sealos.io',
+    contactUrl: '/contact',
   },
   'zh-cn': {
     // Button texts
