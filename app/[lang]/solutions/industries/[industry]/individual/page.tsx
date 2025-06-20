@@ -6,15 +6,14 @@ import { notFound } from 'next/navigation';
 import { getIndustryConfig, getAllIndustries } from '@/config/industries';
 
 // Components
-import IndustryOverview from './components/IndustryOverview';
-import IndustryChallenges from './components/IndustryChallenges';
-import IndustryBenefits from './components/IndustryBenefits';
-import IndustryStats from './components/IndustryStats';
-import CoreProducts from './components/CoreProducts';
-import IndustryProducts from './components/IndustryProducts';
-import ImplementationBenefits from './components/ImplementationBenefits';
-import IndustryCTA from './components/IndustryCTA';
-import IndustryVisualBreak from './components/IndustryVisualBreak';
+import IndividualOverview from './components/IndividualOverview';
+import IndividualChallenges from './components/IndividualChallenges';
+import IndividualBenefits from './components/IndividualBenefits';
+import IndividualStats from './components/IndividualStats';
+import IndividualProducts from './components/IndividualProducts';
+import IndividualImplementation from './components/IndividualImplementation';
+import IndividualCTA from './components/IndividualCTA';
+import IndividualVisualBreak from './components/IndividualVisualBreak';
 import { appDomain } from '@/config/site';
 
 interface PageProps {
@@ -37,14 +36,19 @@ export async function generateMetadata({ params }: PageProps) {
   }
 
   return generatePageMetadata({
-    title: config.metadata.title,
-    description: config.metadata.description,
-    keywords: config.metadata.keywords,
-    pathname: `/solutions/industries/${config.slug}`,
+    title: `Individual Solutions for ${config.name} | ${config.metadata.title}`,
+    description: `Discover personalized cloud solutions tailored for individuals in the ${config.name.toLowerCase()} sector. ${config.metadata.description}`,
+    keywords: [
+      ...config.metadata.keywords,
+      'individual solutions',
+      'personal cloud platform',
+      'individual developer',
+    ],
+    pathname: `/solutions/industries/${config.slug}/individual`,
   });
 }
 
-export default async function IndustryPage({ params }: PageProps) {
+export default async function IndividualIndustryPage({ params }: PageProps) {
   const resolvedParams = await params;
   const config = getIndustryConfig(resolvedParams.industry);
 
@@ -58,51 +62,55 @@ export default async function IndustryPage({ params }: PageProps) {
 
       {/* Hero Section */}
       <main className="container mx-auto px-4 pt-20 sm:px-6 lg:px-8">
-        {/* Industry Overview Section with integrated CTAs */}
-        <IndustryOverview
+        {/* Individual Overview Section with integrated CTAs */}
+        <IndividualOverview
           industryName={config.name}
           industrySlug={config.slug}
-          title={config.title}
+          title={`Individual ${config.name} Solutions`}
           overviewParagraphs={config.overview.paragraphs}
           ctaText={config.hero.ctaText ?? 'Get Started'}
           ctaUrl={config.hero.ctaUrl ?? appDomain}
           description={config.hero.description}
-          introText={config.hero.introText}
+          introText={`Empowering individual professionals in ${config.name.toLowerCase()} with scalable, secure, and cost-effective cloud solutions`}
           centralIcon={config.centralIcon}
+          promoBanner={config.promoBanner}
         />
 
         {/* Visual Break */}
-        <IndustryVisualBreak config={config.visualBreak} />
+        <IndividualVisualBreak
+          config={config.visualBreak}
+          industryName={config.name}
+        />
 
         {/* Challenges Section */}
-        <IndustryChallenges
+        <IndividualChallenges
           challenges={config.challenges}
           industryName={config.name}
         />
 
         {/* Why Sealos Section */}
-        <IndustryBenefits
+        <IndividualBenefits
           benefits={config.benefits}
           industryName={config.name}
         />
 
         {/* Statistics Section */}
-        <IndustryStats stats={config.stats} industryName={config.name} />
-
-        {/* Core Sealos Products Section */}
-        <CoreProducts industryName={config.name} />
+        <IndividualStats stats={config.stats} industryName={config.name} />
 
         {/* Industry-Specific Products Section */}
-        <IndustryProducts
+        <IndividualProducts
           products={config.products}
           industryName={config.name}
         />
 
         {/* Implementation Benefits */}
-        <ImplementationBenefits benefits={config.implementation} />
+        <IndividualImplementation
+          benefits={config.implementation}
+          industryName={config.name}
+        />
 
         {/* CTA Section */}
-        <IndustryCTA config={config} />
+        <IndividualCTA config={config} />
       </main>
 
       <Footer lang={resolvedParams.lang} />

@@ -76,6 +76,14 @@ export interface IndustryConfig {
     description: string;
     features: string;
   };
+  promoBanner?: IndustryPromoBanner;
+}
+
+export interface IndustryPromoBanner {
+  title: string;
+  subtitle: string;
+  cta: string;
+  link: string;
 }
 
 export const industriesConfig: Record<string, IndustryConfig> = {
@@ -275,6 +283,13 @@ export const industriesConfig: Record<string, IndustryConfig> = {
         'Educational institutions worldwide trust Sealos to deliver reliable, scalable cloud infrastructure that enhances learning experiences and reduces operational complexity.',
       features:
         'Scalable infrastructure • Cost-effective solutions • Easy deployment',
+    },
+    promoBanner: {
+      title: 'Special Offer for Education Professionals',
+      subtitle:
+        'Get started for free on Sealos - perfect for individual educators and students',
+      cta: 'Claim Your Education Discount',
+      link: 'https://go.sealos.io/edu-apply',
     },
   },
   gaming: {
