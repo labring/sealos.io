@@ -78,13 +78,11 @@ export default function Header({ lang }: { lang: languagesType }) {
           </div>
 
           <div className="hidden items-center gap-4 text-sm font-medium lg:flex">
-            <a href={appDomain} target="_blank">
-              <GetStartedButton
-                title={translations.getStarted}
-                link={appDomain}
-                location="navbar"
-              />
-            </a>
+            <GetStartedButton
+              title={translations.getStarted}
+              link={appDomain}
+              location="navbar"
+            />
           </div>
 
           {/* phone menu */}
