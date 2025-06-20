@@ -3,7 +3,7 @@ import Header from '@/components/header';
 import Hero from '@/components/header/hero';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import { languagesType } from '@/lib/i18n';
-import { HovermeButton } from '@/components/button/hoverme';
+import { HovermeButton } from '@/components/ui/button-hoverme';
 import { pricingData } from '@/config/pricing';
 import { PricingTable } from './components/pricing-table';
 import { FeatureCard } from './components/feature-card';

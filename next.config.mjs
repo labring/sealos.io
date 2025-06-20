@@ -19,6 +19,11 @@ const config = {
         destination: '/products/devbox',
         permanent: true,
       },
+      {
+        source: '/education',
+        destination: '/solutions/industries/education',
+        permanent: true,
+      },
     ];
   },
   images: {

@@ -7,7 +7,7 @@ import { useMotionValueEvent, useScroll } from 'framer-motion';
 import Link from 'fumadocs-core/link';
 import { ExternalLink, Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import { GetStartedButton } from '../ui/shiny-button';
+import { GetStartedButton } from '../ui/button-shiny';
 import { languagesType } from '@/lib/i18n';
 import DropdownMenu from './dropdown-menu';
 

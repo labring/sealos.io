@@ -2,7 +2,7 @@
 import React, { useCallback, useState } from 'react';
 import { AnimateElement } from '@/components/ui/animated-wrapper';
 import { appDomain } from '@/config/site';
-import { CustomButton } from '@/components/ui/custom-button';
+import { CustomButton } from '@/components/ui/button-custom';
 import { Package } from 'lucide-react';
 
 interface TechItem {

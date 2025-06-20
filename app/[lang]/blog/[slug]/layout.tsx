@@ -1,4 +1,4 @@
-import { GetStartedButton } from '@/components/ui/shiny-button';
+import { GetStartedButton } from '@/components/ui/button-shiny';
 import {
   appDomain,
   type AuthorData,

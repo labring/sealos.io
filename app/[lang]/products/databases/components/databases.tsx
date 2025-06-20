@@ -1,6 +1,6 @@
 'use client';
 
-import { CustomButton } from '@/components/ui/custom-button';
+import { CustomButton } from '@/components/ui/button-custom';
 import { appDomain } from '@/config/site';
 const dbAppSlug = '?openapp=system-dbprovider';
 

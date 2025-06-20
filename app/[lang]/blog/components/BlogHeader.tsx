@@ -1,7 +1,7 @@
 import { languagesType } from '@/lib/i18n';
 import CategoryBar from './CategoryBar';
 import TagBar from './TagBar';
-import { RSSButton } from '@/components/ui/rss-button';
+import { RSSButton } from '@/components/ui/button-rss';
 
 interface BlogHeaderProps {
   lang: languagesType;
@@ -11,7 +11,10 @@ interface BlogHeaderProps {
   tags: string[];
 }
 
-export const translations: Record<languagesType, Record<'cats' | 'all_cats' | 'filter_tag' | 'clear' | 'all_tag', string>> = {
+export const translations: Record<
+  languagesType,
+  Record<'cats' | 'all_cats' | 'filter_tag' | 'clear' | 'all_tag', string>
+> = {
   en: {
     cats: 'Categories',
     all_cats: 'All Categories',
@@ -28,7 +31,6 @@ export const translations: Record<languagesType, Record<'cats' | 'all_cats' | 'f
   },
 };
 
-
 export default function BlogHeader({
   lang,
   title,
@@ -42,7 +44,7 @@ export default function BlogHeader({
     <div>
       <div className="py-12 pt-28">
         <div className="mb-6 text-center">
-          <span className="inline-block rounded-lg bg-primary/10 px-4 py-1.5 text-lg font-medium text-primary">
+          <span className="bg-primary/10 text-primary inline-block rounded-lg px-4 py-1.5 text-lg font-medium">
             Sealos Blog
           </span>
         </div>
@@ -51,12 +53,12 @@ export default function BlogHeader({
         </h1>
         {description && (
           <div className="flex flex-row justify-center gap-2.5 max-sm:flex-col max-sm:items-stretch">
-            <p className="text-center text-lg text-muted-foreground">
+            <p className="text-muted-foreground text-center text-lg">
               {description}
             </p>
           </div>
         )}
-        <div className="flex justify-center mt-6">
+        <div className="mt-6 flex justify-center">
           <RSSButton lang={lang} />
         </div>
       </div>

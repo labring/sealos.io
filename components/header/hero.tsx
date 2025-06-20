@@ -1,11 +1,11 @@
 'use client';
 
-import { GetStartedButton } from '@/components/ui/shiny-button';
+import { GetStartedButton } from '@/components/ui/button-shiny';
 import { TestimonialBadge } from '@/components/ui/testimonial-badge';
 import { ReactNode } from 'react';
 import { languagesType } from '@/lib/i18n';
 import { motion } from 'framer-motion';
-import { CustomButton } from '../ui/custom-button';
+import { CustomButton } from '../ui/button-custom';
 
 interface HeroProps {
   children?: ReactNode;

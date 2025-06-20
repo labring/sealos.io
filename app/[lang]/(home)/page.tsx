@@ -8,7 +8,7 @@ import Header from '@/components/header';
 import Hero from '@/components/header/hero';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
 import Video from '@/components/video';
-import { HovermeButton } from '@/components/button/hoverme';
+import { HovermeButton } from '@/components/ui/button-hoverme';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import { appDomain } from '@/config/site';
 import RedirectSuggest from '@/components/redirectSuggest';

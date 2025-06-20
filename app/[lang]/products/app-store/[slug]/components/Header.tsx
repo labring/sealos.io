@@ -1,7 +1,7 @@
 import { AppConfig } from '@/config/apps';
 import { languagesType } from '@/lib/i18n';
 import { AppIcon } from '@/components/ui/app-icon';
-import { CustomButton } from '@/components/ui/custom-button';
+import { CustomButton } from '@/components/ui/button-custom';
 
 interface AppHeaderProps {
   app: AppConfig;

@@ -1,6 +1,7 @@
 import { templateDomain } from '@/config/site';
 import { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import { getLanguageSlug, languagesType } from '@/lib/i18n';
+import { getAllIndustries, getIndustryConfig } from '@/config/industries';
 
 /**
  * Shared layout configurations
@@ -79,6 +80,16 @@ export const HeaderLinksData: HeaderLinkType[] = [
     isExternal: false,
   },
   {
+    textKey: 'solutions',
+    urlKey: '#',
+    isExternal: false,
+    children: getAllIndustries().map((industrySlug) => ({
+      textKey: `industry_${industrySlug}`,
+      urlKey: `industry_${industrySlug}Url`,
+      isExternal: false,
+    })),
+  },
+  {
     textKey: 'contact',
     urlKey: 'contactUrl',
     isExternal: true,
@@ -90,6 +101,7 @@ export const navTranslations: Record<languagesType, Record<string, string>> = {
   en: {
     // Button texts
     products: 'Products',
+    solutions: 'Solutions',
     devbox: 'DevBox',
     databases: 'Databases',
     appStore: 'App Store',
@@ -113,6 +125,7 @@ export const navTranslations: Record<languagesType, Record<string, string>> = {
   'zh-cn': {
     // Button texts
     products: '产品',
+    solutions: '解决方案',
     devbox: 'DevBox',
     databases: '数据库',
     appStore: '应用商店',
@@ -138,22 +151,35 @@ export const navTranslations: Record<languagesType, Record<string, string>> = {
 
 // Generate navigation links with translated text and URLs using the language parameter
 export const getHeaderLinks = (lang: languagesType) => {
+  // Create dynamic translations for industries
+  const dynamicTranslations = { ...navTranslations[lang] };
+
+  // Add industry translations dynamically
+  getAllIndustries().forEach((industrySlug) => {
+    const industryConfig = getIndustryConfig(industrySlug);
+    if (industryConfig) {
+      dynamicTranslations[`industry_${industrySlug}`] = industryConfig.name;
+      dynamicTranslations[`industry_${industrySlug}Url`] =
+        `/solutions/industries/${industrySlug}`;
+    }
+  });
+
   // Filter out the 'case' (Customers) link for English pages
   return HeaderLinksData.filter(
     (link) => !(link.textKey === 'case' && lang === 'en'),
   ).map((link) => ({
-    text: navTranslations[lang][link.textKey],
+    text: dynamicTranslations[link.textKey],
     url:
       link.urlKey === '#'
         ? '#'
         : (link.isExternal ? '' : getLanguageSlug(lang)) +
-          navTranslations[lang][link.urlKey],
+          dynamicTranslations[link.urlKey],
     isExternal: link.isExternal,
     children: link.children?.map((child) => ({
-      text: navTranslations[lang][child.textKey],
+      text: dynamicTranslations[child.textKey],
       url:
         (child.isExternal ? '' : getLanguageSlug(lang)) +
-        navTranslations[lang][child.urlKey],
+        dynamicTranslations[child.urlKey],
       isExternal: child.isExternal,
     })),
   }));

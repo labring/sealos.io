@@ -3,7 +3,7 @@ import { AnimateElement } from '@/components/ui/animated-wrapper';
 import { appDomain } from '@/config/site';
 import Image from 'next/image';
 import quickStartImage from '/public/images/quick-start.png';
-import { CustomButton } from '@/components/ui/custom-button';
+import { CustomButton } from '@/components/ui/button-custom';
 
 interface CallToActionSectionProps {
   title: string;

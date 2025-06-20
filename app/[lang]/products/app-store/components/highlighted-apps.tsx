@@ -6,7 +6,7 @@ import { ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 import { languagesType } from '@/lib/i18n';
 import { appsConfig } from '@/config/apps';
 import { AppIcon } from '@/components/ui/app-icon';
-import { CustomButton } from '@/components/ui/custom-button';
+import { CustomButton } from '@/components/ui/button-custom';
 
 interface HighlightedAppsProps {
   lang: languagesType;
