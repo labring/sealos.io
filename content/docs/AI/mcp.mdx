@@ -1,0 +1,303 @@
+---
+title: MCP (Model Context Protocol)
+description: Learn how to use Model Context Protocol (MCP) services on the Sealos platform to connect AI models with external tools and data sources through standardized interfaces.
+keywords: [MCP, Model Context Protocol, Sealos, AI integration, large language models, tool calling]
+---
+
+## What is Model Context Protocol (MCP)?
+
+The [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) is a game-changing standard that lets AI models talk to external tools and data sources seamlessly. Instead of building custom integrations for every service, developers can integrate once and connect to any MCP-compatible system.
+
+### The Problem MCP Solves
+
+Here's the challenge: AI models are smart, but they're isolated. They can't access your databases, check your billing, or run code in your development environment. To make AI truly useful, you need to connect it to real-world systems.
+
+The traditional approach? Build custom integrations for every single service. Each one has different APIs, authentication methods, and data formats. It's a maintenance nightmare that gets worse as you add more tools.
+
+### MCP Changes Everything
+
+MCP is like having a universal translator for AI integrations. Here's how it works:
+
+**For Developers**: Write one MCP integration and connect to any MCP-compatible service. No more custom connectors for every tool.
+
+**For Service Providers**: Build one MCP interface and instantly work with any MCP-enabled AI application.
+
+**Think USB-C for AI**: Just like USB-C replaced dozens of different charging cables, MCP replaces dozens of different API integrations with one standard protocol.
+
+### How MCP Works: The Three-Part System
+
+MCP uses a simple client-server model with three key components:
+
+- **MCP Host**: Your AI application (like Cursor, VS Code, or ChatGPT)
+- **MCP Client**: The connection bridge that your AI app creates
+- **MCP Server**: The external service that provides tools and data (like Sealos)
+
+**Simple Example**: Your Cursor editor (Host) creates a connection (Client) to talk to Sealos services (Server). Want to connect to multiple services? Your editor just opens multiple connections.
+
+## Sealos MCP: Your Cloud Platform, AI-Ready
+
+Sealos has built MCP servers for all its major platform capabilities. Using StreamableHttp communication, these servers work seamlessly with any MCP-compatible IDE or AI application.
+
+**Bottom line**: You can now control your entire Sealos infrastructure through natural language conversations with AI.
+
+### What You Can Do with Sealos MCP
+
+Here's what's available right now:
+
+- **🛠️ DevBox**: Spin up development environments and run code
+- **🗄️ Database**: Query and manage your databases
+- **💰 Cost Center**: Check billing and manage expenses
+- **📊 Observability**: Monitor performance and view logs
+
+**Note**: Service availability varies by region. Check your Sealos console to see what's available in your zone.
+
+### Quick Authentication Setup
+
+Sealos uses your KubeConfig for authentication. Here's the simple 3-step process:
+
+**Step 1: Get Your KubeConfig**
+1. Go to [Sealos Console](https://os.sealos.io)
+2. Click your profile picture (top right)
+3. Select "KubeConfig" and copy the content
+
+**Step 2: URL Encode It**
+
+Choose any of these methods to URL-encode your KubeConfig:
+
+**Method 1: Online Tool (Easiest)**
+1. Open [URL Encoder](https://www.urlencoder.org/) or search "URL encoder"
+2. Paste your KubeConfig content
+3. Click "Encode"
+4. Copy the encoded result
+
+**Method 2: Browser Console**
+1. Press `F12` on any webpage to open developer tools
+2. Go to "Console" tab
+3. Type this and press Enter:
+   ```javascript
+   encodeURIComponent(`paste your KubeConfig here`)
+   ```
+4. Copy the encoded output
+
+**Method 3: Python (if installed)**
+1. Open terminal
+2. Type `python3` to enter Python
+3. Run this code:
+   ```python
+   import urllib.parse
+   kubeconfig = """paste your KubeConfig here"""
+   encoded = urllib.parse.quote(kubeconfig)
+   print(encoded)
+   ```
+4. Copy the encoded result
+
+**Step 3: Use It**
+Add this header to your MCP configuration:
+```
+Authorization: <your-url-encoded-kubeconfig>
+```
+
+**Example**: `apiVersion: v1` becomes `apiVersion%3A%20v1`
+
+**Pro Tip**: Save your encoded KubeConfig somewhere safe—you'll use it for all MCP configurations.
+
+## Ready to Get Started?
+
+### Before You Begin: Two Things You Need
+
+**1. Your MCP Service URL**
+- Log into [Sealos Console](https://os.sealos.io)
+- Find the MCP services section for your region
+- Copy the URL for the service you want to use
+
+**2. Your Authentication Token**
+- Follow the authentication steps above to get your URL-encoded KubeConfig
+- Keep it handy—you'll paste it into your IDE configuration
+
+**That's it!** Now let's connect your favorite AI tool to Sealos.
+
+## Connect Your AI Tool to Sealos
+
+### Cherry Studio Setup
+
+[Cherry Studio](https://cherry-ai.com/) makes MCP configuration visual and straightforward.
+
+**Quick Setup:**
+1. **Settings** → **MCP Servers** → **Add Server**
+2. **Fill in the details:**
+   - **Name**: `Sealos` (or whatever you prefer)
+   - **Type**: `Streamable HTTP (StreamableHttp)`
+   - **URL**: Your Sealos MCP service URL
+   - **Headers**: `Authorization=<your-url-encoded-kubeconfig>`
+3. **Hit the green start button** and wait for "Connected" status
+
+**Start Using It:**
+Once connected, just chat normally. When you need Sealos functionality, select the MCP tools and ask.
+
+### VS Code Setup
+
+VS Code gets MCP powers through extensions. Here's the streamlined setup:
+
+**Quick Setup:**
+1. **Open AI Chat** (right sidebar) → **Agent Mode** → **Tools icon**
+2. **Find MCP settings** → **Gear icon** → **Add new server**
+3. **Configure:**
+   - **Name**: `Sealos Platform`
+   - **URL**: Your Sealos MCP service URL
+   - **Headers**:
+   ```json
+   {
+     "Authorization": "<your-url-encoded-kubeconfig>"
+   }
+   ```
+4. **Save** → VS Code auto-connects
+
+**Code While You Chat:**
+Now you can ask your AI assistant to interact with Sealos while you code.
+
+### Cursor Setup
+
+[Cursor](https://www.cursor.com/) has the best native MCP support. Setup is super clean:
+
+**Quick Setup:**
+1. **Settings gear** (top right) → **MCP Servers** → **New MCP Server**
+2. **Paste this config** (replace the URL and auth token):
+   ```json
+   {
+     "name": "Sealos MCP",
+     "url": "https://your-sealos-mcp-endpoint.com",
+     "headers": {
+       "Authorization": "<your-url-encoded-kubeconfig>"
+     }
+   }
+   ```
+3. **Save** → Cursor auto-verifies → Look for "Connected" status
+
+**AI-Powered Development:**
+Now your AI coding assistant can manage your entire Sealos infrastructure.
+
+### Trae Setup
+
+Trae keeps it simple with manual JSON configuration.
+
+**Quick Setup:**
+1. **Gear icon** (top right) → **MCP** → **Add** → **Manual Configuration**
+2. **Paste this config** (update URL and auth):
+   ```json
+   {
+     "name": "Sealos MCP",
+     "url": "https://your-sealos-mcp-endpoint.com",
+     "headers": {
+       "Authorization": "<your-url-encoded-kubeconfig>"
+     }
+   }
+   ```
+3. **Confirm** → You're connected!
+
+**Explore Your Tools:**
+Click your server name to see all available Sealos tools and what they do.
+
+### Cline Setup
+
+[Cline](https://github.com/cline/cline) is a powerful AI coding assistant that runs directly in VS Code with native MCP support. It can write code, execute commands, browse the web, and more.
+
+**Setup Steps:**
+1. **Install the Cline extension** in VS Code and restart
+2. **Add server via interface**:
+   - Click **"MCP Servers" icon** (purple button) → **"Remote Servers" tab**
+   - **Server Name**: `sealos`
+   - **Server URL**: `https://your-sealos-mcp-endpoint.com`
+   - Click **"Add Server"**
+3. **Complete configuration**:
+   - Click **"Edit Configuration"** to open `cline_mcp_settings.json`
+   - Add the complete configuration for the `sealos` server:
+   ```json
+   {
+     "mcpServers": {
+       "sealos": {
+         "type": "streamableHttp",
+         "url": "https://your-sealos-mcp-endpoint.com",
+         "headers": {
+           "Authorization": "<your-url-encoded-kubeconfig>"
+         },
+         "disabled": false,
+         "autoApprove": [],
+         "timeout": 60
+       }
+     }
+   }
+   ```
+   **Important**: Replace `<your-url-encoded-kubeconfig>` with your actual URL-encoded KubeConfig from the steps above.
+4. **Save** → Cline auto-verifies → Look for "Connected" status
+
+**What You Can Do:**
+Now you can ask Cline to manage your entire Sealos infrastructure.
+
+**Pro Tips:**
+- Add trusted tools to `autoApprove` for faster workflows
+- Use environment variables for sensitive auth tokens
+- Set appropriate `timeout` values for long-running operations
+
+## When Things Don't Work
+
+### "Connection Failed" - Fix It Fast
+
+**Most Common Cause**: Wrong URL or bad auth token
+
+**Quick Fixes:**
+1. **Double-check your MCP service URL** - Copy it fresh from Sealos console
+2. **Re-encode your KubeConfig** - Authentication tokens can get corrupted
+3. **Test your network** - Can you reach sealos.run in your browser?
+4. **Check the obvious** - Typos in configuration happen to everyone
+
+### "Authentication Error" - Get Back In
+
+**What Happened**: Your KubeConfig is invalid or expired
+
+**Fix It:**
+1. **Get a fresh KubeConfig** from Sealos console
+2. **Make sure you copied the whole thing** - Missing characters break everything
+3. **Re-encode it properly** - Use a reliable URL encoder
+4. **Check your header format** - Should be `Authorization: <encoded-config>`
+
+### "Tool Calls Failing" - Restore Functionality
+
+**Likely Issues**: Permissions or service availability
+
+**Solutions:**
+1. **Verify your account permissions** - Do you have access to the service you're calling?
+2. **Check service status** - Is the service running in your region?
+3. **Look at error messages** - They usually tell you exactly what's wrong
+4. **Try a simple test** - Start with basic operations before complex ones
+
+### Pro Debugging Tips
+
+- **Check connection status first** - Your IDE shows if MCP is connected
+- **Enable verbose logging** - More info = faster fixes
+- **Test one thing at a time** - Don't change multiple settings simultaneously
+- **When in doubt, restart** - Sometimes IDEs need a fresh start after configuration changes
+
+## Resources & Next Steps
+
+### Essential Links
+
+**Learn More:**
+- [Official MCP Documentation](https://modelcontextprotocol.io/) - Deep dive into the protocol
+- [Sealos Platform Docs](/docs) - Everything about Sealos
+- [AI Proxy Service](/docs/guides/ai-proxy) - Sealos AI integration options
+
+**Compatible Tools:**
+- [Cherry Studio](https://cherry-ai.com/) - Clean AI chat interface
+- [Cursor](https://www.cursor.com/) - Best-in-class AI code editor
+- [VS Code](https://code.visualstudio.com/) - Works with MCP extensions
+- [Cline](https://github.com/cline/cline) - AI coding assistant for VS Code
+- [Claude Desktop](https://claude.ai/) - Anthropic's desktop app
+- Any other MCP-compatible application
+
+### Need Help?
+
+**Stuck? Here's where to go:**
+1. **Start here** - Re-read the troubleshooting section above
+2. **Community help** - [Discord](https://discord.gg/wdUn538zVP) for peer support
+3. **Bug reports** - [GitHub Issues](https://github.com/labring/sealos/issues) for technical problems
+4. **Direct support** - Contact Sealos support for urgent issues

@@ -51,7 +51,7 @@ export default function HomePage({
 
       <main className="custom-container px-8 pt-14 md:px-[15%]">
         <Hero
-          title={translations[params.lang].title}
+          title={translations[params.lang]?.title || translations.en.title}
           mainTitleEmphasis={2}
           getStartedLink={appDomain}
           lang={params.lang}

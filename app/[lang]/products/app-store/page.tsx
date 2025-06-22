@@ -6,7 +6,7 @@ import Header from '@/components/header';
 import Hero from '@/components/header/hero';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import { templateDomain } from '@/config/site';
-import { languagesType } from '@/lib/i18n';
+import { languagesType, LANGUAGES } from '@/lib/i18n';
 
 // Define translations for different languages
 const translations = {
@@ -23,6 +23,13 @@ const translations = {
     },
   },
 };
+
+// Generate static params for all supported languages
+export async function generateStaticParams() {
+  return LANGUAGES.map((lang) => ({
+    lang: lang,
+  }));
+}
 
 // Generate metadata function that supports internationalization
 export function generateMetadata({ params }: { params: { lang: languagesType } }) {

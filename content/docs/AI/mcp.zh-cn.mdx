@@ -1,0 +1,418 @@
+---
+title: MCP (Model Context Protocol)
+description: 了解如何在 Sealos 平台上使用 Model Context Protocol (MCP) 服务，通过标准化接口连接 AI 模型与外部工具和数据源。
+keywords: [MCP, Model Context Protocol, Sealos, AI集成, 大语言模型, 工具调用]
+---
+
+## 什么是 Model Context Protocol (MCP)
+
+[Model Context Protocol](https://modelcontextprotocol.io/) (MCP) 是一个标准化接口，让大语言模型 (LLM) 能够与外部工具和数据源进行通信。它允许开发者和工具提供商只需集成一次，就能与任何兼容 MCP 的系统交互。
+
+### 为什么需要 MCP
+
+大语言模型默认无法访问实时或外部数据。为了提供相关的上下文信息——如当前的财务数据、定价信息或用户特定数据——开发者必须将 LLM 连接到外部系统。
+
+每个工具或服务都有自己的 API、模式和认证方式。随着集成数量的增长，管理这些差异变得困难且容易出错。
+
+### MCP 如何解决问题
+
+MCP 标准化了 LLM 与工具和数据源交互的方式。开发者只需实现一次 MCP 集成，就可以用它来管理与任何兼容服务的通信。
+
+工具和数据提供商只需要暴露一次 MCP 接口。之后，他们的系统就可以被任何支持 MCP 的应用程序访问。
+
+MCP 就像 USB-C 标准：不需要为每个设备使用不同的连接器，而是使用一个端口来处理多种类型的连接。
+
+### MCP 架构：服务器、主机和客户端
+
+MCP 使用客户端-服务器架构来实现 AI 模型与外部系统的通信：
+
+- **MCP 主机 (Host)**：AI 应用程序，如 IDE（Cursor）、AI 聊天应用（ChatGPT）或 AI 代理
+- **MCP 客户端 (Client)**：主机创建的连接，用于连接到外部服务
+- **MCP 服务器 (Server)**：外部服务，提供工具和数据访问
+
+要连接到多个 MCP 服务器，一个主机需要打开和管理多个 MCP 客户端。
+
+## Sealos MCP 服务
+
+Sealos 为其平台上的各种能力配置了对应的 MCP Server。它们采用 StreamableHttp 作为通信方式，您可以轻松地在任何支持 StreamableHttp 的 IDE 中使用它，提升您在 Sealos 平台上的使用体验。
+
+### 支持的服务
+
+当前 Sealos MCP 支持以下服务：
+
+- **DevBox**：开发环境管理和代码执行
+- **数据库**：数据库操作和查询
+- **费用中心**：账单查询和费用管理
+- **可观测系统**：监控和日志查询
+
+不同可用区支持的 MCP 服务可能会略有差别。您可以在 Sealos 控制台中查看当前可用区支持的具体服务列表。
+
+### 认证与授权
+
+Sealos MCP 服务采用 HTTP Header 中的 `Authorization` 字段来确定您的身份。认证流程如下：
+
+1. **获取 KubeConfig**：从 Sealos 控制台获取您的 KubeConfig 文件
+2. **URL 编码**：将 KubeConfig 内容进行 URL 编码
+3. **设置 Header**：在请求头中添加 `Authorization` 字段
+
+```
+Authorization: <URL编码的KubeConfig内容>
+```
+
+#### 如何获取和编码 KubeConfig
+
+**第一步：获取 KubeConfig**
+
+1. 登录 [Sealos 控制台](https://cloud.sealos.run)
+2. 点击右上角的用户头像
+3. 选择"KubeConfig"
+4. 复制 KubeConfig 内容
+
+**第二步：进行 URL 编码**
+
+您可以使用以下任一方法对 KubeConfig 进行 URL 编码：
+
+**方法一：在线编码工具（推荐）**
+
+1. 打开 [URL编码工具](https://www.urlencoder.org/) 或搜索"URL编码"
+2. 将复制的 KubeConfig 内容粘贴到输入框
+3. 点击 "Encode" 按钮
+4. 复制编码后的结果
+
+**方法二：使用浏览器控制台**
+
+1. 在任意网页按 `F12` 打开开发者工具
+2. 切换到"控制台"选项卡
+3. 输入以下代码并按回车：
+   ```javascript
+   encodeURIComponent(`粘贴您的KubeConfig内容到这里`)
+   ```
+4. 复制输出的编码结果
+
+**方法三：使用 Python（如果已安装）**
+
+1. 打开终端或命令提示符
+2. 输入 `python3` 进入 Python 环境
+3. 执行以下代码：
+   ```python
+   import urllib.parse
+   kubeconfig = """粘贴您的KubeConfig内容到这里"""
+   encoded = urllib.parse.quote(kubeconfig)
+   print(encoded)
+   ```
+4. 复制输出的编码结果
+
+**编码示例**：
+
+- 原始内容：`apiVersion: v1`
+- 编码后：`apiVersion%3A%20v1`
+
+## 快速开始
+
+### 获取 MCP 服务地址
+
+在配置 MCP 客户端之前，您需要获取 Sealos MCP 服务的地址：
+
+1. 登录 [Sealos 控制台](https://cloud.sealos.run)
+2. 在控制台中查看当前可用区的 MCP 服务列表
+3. 复制您需要使用的服务的 MCP 地址
+
+### 准备认证信息
+
+按照上述步骤获取并 URL 编码您的 KubeConfig 内容，用于后续的认证配置。
+
+## 在不同 IDE 中使用 Sealos MCP
+
+### 在 Cherry Studio 中使用
+
+[Cherry Studio](https://cherry-ai.com/) 是一个支持 MCP 的 AI 聊天应用。
+
+#### 配置步骤
+
+1. **打开 MCP 配置**
+   - 在 Cherry Studio 中，点击"设置" → "MCP 服务器"
+   - 进入 MCP 服务器可视化配置页面
+
+2. **添加新服务器**
+   - 点击"添加服务器"按钮
+   - 进入具体的配置页面
+
+3. **填写配置信息**
+   - **名称**：为 MCP Server 起一个便于识别的名称（如：Sealos DevBox）
+   - **类型**：选择"可流式传输的HTTP (StreamableHttp)"
+   - **URL**：填入 Sealos MCP 服务的地址
+   - **请求头**：添加认证授权的 Header
+
+   ```
+   Authorization=<URL编码的KubeConfig>
+   ```
+
+4. **启动服务**
+   - 配置完成后，点击右上角的绿色按钮启动 MCP 服务
+   - 等待连接状态显示为"已连接"
+
+#### 使用 MCP 工具
+
+启用 MCP 服务后，在对话时：
+
+1. 选择需要使用的 MCP 工具
+2. AI 将能够调用 Sealos 平台的相关功能
+3. 您可以通过自然语言与 Sealos 服务进行交互
+
+### 在 VS Code 中使用
+
+VS Code 通过扩展支持 MCP 功能，让您可以在编码过程中直接使用 Sealos 的各种服务。
+
+#### 配置步骤
+
+1. **打开 AI 对话框**
+   - 在 VS Code 中，打开右侧的 AI 对话框
+   - 选择"Agent 模式"
+   - 点击右侧的工具图标
+
+2. **进入 MCP 配置**
+   - 点击工具图标后，顶部对话框会显示当前已有的 MCP 服务
+   - 选择任意一个现有服务，点击右侧的设置齿轮图标
+   - 进入 MCP 配置页面
+
+3. **配置 MCP 服务器**
+
+   在 MCP 配置区域填写以下信息：
+
+   - **名称**：为 MCP Server 起一个描述性名称（如：Sealos Platform）
+   - **URL**：Sealos MCP 服务的完整地址
+   - **请求头**：认证授权的 Header 信息
+
+   ```json
+   {
+     "Authorization": "<URL编码的KubeConfig>"
+   }
+   ```
+
+4. **保存并测试**
+   - 保存配置后，VS Code 会自动尝试连接到 MCP 服务器
+   - 连接成功后，您就可以在 AI 对话中使用 Sealos 的功能了
+
+#### 使用示例
+
+配置完成后，您可以通过自然语言与 Sealos 服务交互：
+
+- "帮我查看当前的费用使用情况"
+- "在 DevBox 中运行这段代码"
+- "查询数据库中的用户数据"
+
+### 在 Cursor 中使用
+
+[Cursor](https://www.cursor.com/) 是一个 AI 驱动的代码编辑器，原生支持 MCP 协议。
+
+#### 配置步骤
+
+1. **打开设置页面**
+   - 在 Cursor 中，点击右上角的设置齿轮图标
+   - 在设置页面中找到"MCP 服务器"选项
+
+2. **添加新的 MCP 服务器**
+   - 点击"New MCP Server"按钮
+   - 进入 MCP Server 编辑页面
+
+3. **配置服务器信息**
+
+   填写以下必要字段：
+
+   - **名称**：为服务器起一个便于识别的名称（如：Sealos MCP）
+   - **URL**：Sealos MCP 服务的完整地址
+   - **请求头**：用于认证授权的 Header 信息
+
+   配置示例：
+   ```json
+   {
+     "name": "Sealos MCP",
+     "url": "https://your-sealos-mcp-endpoint.com",
+     "headers": {
+       "Authorization": "<URL编码的KubeConfig>"
+     }
+   }
+   ```
+
+4. **保存并启用**
+   - 保存配置后，Cursor 会自动验证连接
+   - 连接成功后，MCP 服务器状态会显示为"已连接"
+
+#### 在 Cursor 中使用 MCP
+
+配置完成后，您可以在 Cursor 的 AI 聊天中：
+
+- 直接调用 Sealos 平台的功能
+- 通过自然语言操作 DevBox、数据库等服务
+- 获取实时的费用和监控信息
+
+### 在 Trae 中使用
+
+Trae 是另一个支持 MCP 的 AI 应用程序。
+
+#### 配置步骤
+
+1. **打开 MCP 配置**
+   - 进入 Trae 应用
+   - 点击右上角的齿轮图标
+   - 选择"MCP"选项
+   - 点击"添加"按钮
+
+2. **手动配置**
+   - 选择"手动配置"选项
+   - 在弹出的对话框中输入配置信息
+
+3. **配置格式**
+
+   使用以下 JSON 格式配置：
+   ```json
+   {
+     "name": "Sealos MCP",
+     "url": "https://your-sealos-mcp-endpoint.com",
+     "headers": {
+       "Authorization": "<URL编码的KubeConfig>"
+     }
+   }
+   ```
+
+4. **完成配置**
+   - 将配置信息粘贴到对话框中
+   - 点击"确认"按钮完成配置
+
+#### 查看可用工具
+
+配置完成后：
+- 点击 MCP Server 的名称
+- 查看其支持的工具列表
+- 了解每个工具的功能和用法
+
+### 在 Cline 中使用
+
+[Cline](https://github.com/cline/cline) 是一个强大的 AI 编程助手，支持在 VS Code 中直接使用 MCP 协议。它可以帮助您编写代码、执行命令、浏览网页等，并且原生支持 MCP 服务器。
+
+#### 配置步骤
+
+1. **安装 Cline 扩展**
+   - 在 VS Code 中搜索并安装 "Cline" 扩展
+   - 重启 VS Code 以激活扩展
+
+2. **通过界面添加服务器**
+
+   通过 Cline 的图形界面添加 Sealos MCP 服务器：
+
+   **第一步：打开 MCP Servers 界面**
+   - 点击 Cline 界面顶部的 "MCP Servers" 图标按钮（紫色图标）
+   - 在弹出的 "MCP Servers" 对话框中，选择 "Remote Servers" 选项卡
+
+   **第二步：添加新服务器**
+   - 在 "Server Name" 字段中输入：`sealos`
+   - 在 "Server URL" 字段中输入：`https://your-sealos-mcp-endpoint.com`
+   - 点击 "Add Server" 按钮
+
+   **第三步：完善配置信息**
+   - 添加服务器后，点击底部的 "Edit Configuration" 按钮
+   - 在打开的 `cline_mcp_settings.json` 配置文件中，为 `sealos` 服务器添加完整配置：
+
+   ```json
+   {
+     "mcpServers": {
+       "sealos": {
+         "type": "streamableHttp",
+         "url": "https://your-sealos-mcp-endpoint.com",
+         "headers": {
+           "Authorization": "<URL编码的KubeConfig>"
+         },
+         "disabled": false,
+         "autoApprove": [],
+         "timeout": 60
+       }
+     }
+   }
+   ```
+
+   **重要提醒**：请确保将 `<URL编码的KubeConfig>` 替换为您按照上述方法编码后的实际 KubeConfig 内容。
+
+   **配置说明**：
+   - `type`: 必须设置为 `"streamableHttp"` 表示使用 HTTP 流式传输
+   - `url`: Sealos MCP 服务的地址
+   - `headers`: 包含认证信息的请求头
+   - `disabled`: 设置为 `false` 启用此服务器
+   - `autoApprove`: 自动批准的工具列表（可选）
+   - `timeout`: 连接超时时间（秒）
+
+3. **保存并重启**
+   - 保存配置后，Cursor 会自动验证连接
+   - 连接成功后，您就可以在 Cline 中使用 Sealos 的功能了
+
+#### 使用 Sealos MCP 功能
+
+配置完成后，您可以在 Cline 中通过自然语言与 Sealos 服务交互。
+
+
+
+## 故障排除
+
+### 常见问题
+
+#### 连接失败
+
+**问题**：无法连接到 Sealos MCP 服务器
+
+**解决方案**：
+1. 检查 MCP 服务地址是否正确
+2. 确认网络连接正常
+3. 验证 KubeConfig 是否有效
+4. 检查 URL 编码是否正确
+
+#### 认证错误
+
+**问题**：收到认证失败的错误信息
+
+**解决方案**：
+1. 重新获取最新的 KubeConfig
+2. 确保 KubeConfig 内容完整
+3. 重新进行 URL 编码（参考上述编码方法）
+4. 检查 Authorization Header 格式：`Authorization: <编码后的内容>`
+
+#### 工具调用失败
+
+**问题**：MCP 工具无法正常工作
+
+**解决方案**：
+1. 确认您有相应服务的访问权限
+2. 检查服务是否在当前可用区可用
+3. 查看错误日志获取详细信息
+4. 联系 Sealos 技术支持
+
+### 调试技巧
+
+1. **检查连接状态**：在 IDE 中查看 MCP 服务器的连接状态
+2. **查看日志**：启用详细日志记录以获取更多调试信息
+3. **测试简单操作**：先尝试简单的工具调用，确认基本功能正常
+4. **验证权限**：确保您的账户有足够的权限访问相关服务
+
+## 更多资源
+
+### 相关文档
+
+- [Model Context Protocol 官方文档](https://modelcontextprotocol.io/)
+- [Sealos 平台文档](/docs)
+- [Sealos AI Proxy 服务](/docs/guides/ai-proxy)
+
+### 支持的 IDE 和应用
+
+- [Cherry Studio](https://cherry-ai.com/) - AI 聊天应用
+- [Cursor](https://www.cursor.com/) - AI 代码编辑器
+- [VS Code](https://code.visualstudio.com/) - 通过扩展支持
+- [Cline](https://github.com/cline/cline) - VS Code 中的 AI 编程助手
+- [Claude Desktop](https://claude.ai/) - Anthropic 的桌面应用
+- 其他支持 MCP 的应用程序
+
+### 获取帮助
+
+如果您在使用 Sealos MCP 服务时遇到问题：
+
+1. 查看本文档的故障排除部分
+2. 访问 [Sealos 社区论坛](https://forum.sealos.run)
+3. 提交 [GitHub Issue](https://github.com/labring/sealos/issues)
+4. 联系 Sealos 技术支持团队
