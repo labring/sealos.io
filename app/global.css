@@ -175,6 +175,11 @@
 }
 
 @layer base {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
   ::-webkit-scrollbar,
   ::-webkit-scrollbar {
     width: 8px;
@@ -205,6 +210,7 @@
   .custom-container,
   .custom-container-header {
     width: 100%;
+    max-width: 100%;
     margin-left: auto;
     margin-right: auto;
     box-sizing: border-box;
@@ -218,6 +224,15 @@
   .custom-container-header {
     padding-left: 16px;
     padding-right: 16px;
+  }
+
+  /* Ensure containers don't cause horizontal overflow on small screens */
+  @media (max-width: 640px) {
+    .custom-container,
+    .custom-container-header {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
   }
 }
 

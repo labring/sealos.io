@@ -32,13 +32,17 @@ export default function Header({ lang }: { lang: languagesType }) {
       )}
     >
       <nav className={cn('custom-container-header relative text-black')}>
-        <div className={cn('flex w-full justify-between py-[10px]')}>
-          <div className="flex items-center md:gap-x-9">
+        <div
+          className={cn(
+            'flex w-full min-w-0 items-center justify-between py-[10px]',
+          )}
+        >
+          <div className="flex min-w-0 flex-shrink items-center md:gap-x-9">
             <Link
               href={'/'}
               aria-label={siteConfig.name}
               title={siteConfig.name}
-              className="flex items-center gap-2 font-bold"
+              className="flex flex-shrink-0 items-center gap-2 font-bold"
             >
               <img
                 alt="Sealos Logo"
@@ -86,11 +90,11 @@ export default function Header({ lang }: { lang: languagesType }) {
           </div>
 
           {/* phone menu */}
-          <div className={cn('lg:hidden', hasScrolled ? '' : ' ')}>
+          <div className="flex flex-shrink-0 items-center lg:hidden">
             <button
               aria-label="Open Menu"
               title="Open Menu"
-              className="focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50 -mr-1 rounded p-2 transition duration-200 focus:outline-hidden"
+              className="focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50 rounded p-2 transition duration-200 focus:outline-hidden"
               onClick={() => setIsMenuOpen(true)}
             >
               <Menu />

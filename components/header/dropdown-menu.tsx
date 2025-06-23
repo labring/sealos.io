@@ -79,7 +79,7 @@ export default function DropdownMenu({
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 z-50 mt-1 min-w-[200px] rounded-lg border border-gray-200 bg-white shadow-lg">
+        <div className="absolute top-full left-0 z-[60] mt-1 min-w-[200px] rounded-lg border border-gray-200 bg-white shadow-lg">
           <div className="py-2">
             {items.map((item) => (
               <Link

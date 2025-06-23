@@ -51,7 +51,10 @@ export default function LocaleLayout({
         <link rel="manifest" href="/favicon/site.webmanifest" />
 
         {/* Viewport and Mobile Optimization */}
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -75,7 +78,11 @@ export default function LocaleLayout({
         {/* <link rel="preconnect" href="https://hm.baidu.com" /> */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
 
         {/* Language and Locale */}
         <meta httpEquiv="Content-Language" content={htmlLang} />
@@ -85,7 +92,7 @@ export default function LocaleLayout({
 
         <Analytics />
       </head>
-      <body className="flex min-h-screen flex-col">
+      <body className="flex min-h-screen flex-col overflow-x-hidden">
         <GTMBody />
         <RootProvider
           i18n={{
