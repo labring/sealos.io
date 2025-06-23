@@ -1,11 +1,11 @@
-import Feature from './components/feature';
-import FeatureFour from './components/featurefour';
+import Problems from './components/problems';
+import Solutions from './components/solutions';
+import Workflow from './components/workflow';
 import TechGrid from './components/techgrid';
 import FooterCta from './components/footerCta';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import Hero from '@/components/header/hero';
-import { TailwindIndicator } from '@/components/tailwind-indicator';
 import Video from '@/components/video';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import { appDomain, siteConfig } from '@/config/site';
@@ -21,15 +21,19 @@ import {
 const translations = {
   en: {
     title: {
-      main: "Code. Build. Deploy. We've Got the Rest.",
-      sub: 'Seamless development from start to production.',
+      main: 'Focus on Your Code, Not Configuration',
+      sub: 'Streamlined development flow so you can build, test, and ship faster.',
     },
+    description:
+      'Eliminate development environment friction with ready-to-code cloud workstations. Instant setup, perfect isolation, enterprise security.',
   },
   'zh-cn': {
     title: {
-      main: '编码. 构建. 部署. 其余的交给我们.',
-      sub: '从开发到生产的无缝体验.',
+      main: '专注代码，无需配置',
+      sub: '简化开发流程，让您更快地构建、测试和发布。',
     },
+    description:
+      '使用即开即用的云工作站消除开发环境摩擦。即时设置，完美隔离，企业级安全。',
   },
 };
 
@@ -42,7 +46,7 @@ export function generateMetadata({
   const t = translations[params.lang] || translations.en;
   return generatePageMetadata({
     title: 'DevBox' + ' | ' + t.title.sub,
-    description: t.title.main + ' ' + t.title.sub,
+    description: t.description,
     pathname: '/products/devbox',
     lang: params.lang,
   });
@@ -58,7 +62,7 @@ export default function HomePage({
   // Generate structured data for DevBox product
   const productSchema = generateProductSchema(
     'DevBox',
-    t.title.main + ' ' + t.title.sub,
+    t.description,
     `${siteConfig.url.base}/products/devbox`,
     params.lang,
   );
@@ -94,16 +98,22 @@ export default function HomePage({
               location="hero"
             />
           </Hero>
-          <div className="mt-[64px] mb-[64px] h-[1px] bg-[#DDE7F7]"></div>
-          <FeatureFour />
+
+          {/* Problem-Solution Structure */}
+          <Problems lang={params.lang} />
+          <Solutions lang={params.lang} />
+
+          {/* Development Workflow */}
+          <Workflow lang={params.lang} />
+
+          {/* Template Deployment Section */}
           <div id="one-click-deployment" className="scroll-mt-20" />
           <TechGrid />
-          <Feature />
+
           <FooterCta />
         </main>
         <div className="mt-[140px] h-[1px] bg-[#DDE7F7]"></div>
         <Footer lang={params.lang} />
-        <TailwindIndicator />
       </div>
     </>
   );

@@ -430,10 +430,26 @@ export default function TechGrid() {
   }, []);
 
   return (
-    <div className="mt-0 lg:mt-52">
+    <div>
       <AnimateElement type="slideUp">
-        <div className="mb-6 text-center text-4xl font-bold text-black sm:mb-16">
+        <div className="mb-6 text-center text-4xl font-bold text-black sm:mb-8">
           Comprehensive Development Stack Support
+        </div>
+
+        {/* Banner */}
+        <div className="mb-8 flex justify-center">
+          <div
+            className="text-custom-secondary-text max-w-[760px] rounded-[46px] border border-solid border-[#ABE1FF] px-4 py-3 text-center text-xs font-medium md:text-sm"
+            style={{
+              background:
+                'linear-gradient(90deg, rgba(170, 229, 255, 0.30) 0%, rgba(170, 229, 255, 0.20) 100%)',
+            }}
+          >
+            Launch specialized development environments for
+            <span className="px-1 text-[#008AB6]">
+              any framework or language.
+            </span>
+          </div>
         </div>
 
         {/* Tabs */}
@@ -528,21 +544,6 @@ export default function TechGrid() {
               </div>
             );
           })}
-        </div>
-
-        <div className="mt-14 flex justify-center">
-          <div
-            className="text-custom-secondary-text max-w-[760px] rounded-[46px] border border-solid border-[#ABE1FF] px-4 py-3 text-center text-xs font-medium md:text-sm"
-            style={{
-              background:
-                'linear-gradient(90deg, rgba(170, 229, 255, 0.30) 0%, rgba(170, 229, 255, 0.20) 100%)',
-            }}
-          >
-            Launch specialized development environments for
-            <span className="px-1 text-[#008AB6]">
-              any framework or language.
-            </span>
-          </div>
         </div>
       </AnimateElement>
     </div>
