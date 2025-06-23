@@ -6,19 +6,32 @@ import { cn } from '@/lib/utils';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
 import Link from 'fumadocs-core/link';
 import { ExternalLink, Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useMemo, useCallback, memo } from 'react';
 import { GetStartedButton } from '../ui/button-shiny';
 import { languagesType } from '@/lib/i18n';
 import DropdownMenu from './dropdown-menu';
 
-export default function Header({ lang }: { lang: languagesType }) {
+interface HeaderProps {
+  lang: languagesType;
+}
+
+const Header = memo<HeaderProps>(({ lang }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const [hasScrolled, setHasScrolled] = useState(false);
 
-  // Get translated navigation links based on current language
-  const localizedLinks = getHeaderLinks(lang);
-  const translations = navTranslations[lang];
+  // Memoize translated navigation links to prevent recalculation
+  const localizedLinks = useMemo(() => getHeaderLinks(lang), [lang]);
+  const translations = useMemo(() => navTranslations[lang], [lang]);
+
+  // Memoize event handlers
+  const handleMenuToggle = useCallback(() => {
+    setIsMenuOpen(prev => !prev);
+  }, []);
+
+  const handleMenuClose = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setHasScrolled(latest > 20);
@@ -95,7 +108,7 @@ export default function Header({ lang }: { lang: languagesType }) {
               aria-label="Open Menu"
               title="Open Menu"
               className="focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50 rounded p-2 transition duration-200 focus:outline-hidden"
-              onClick={() => setIsMenuOpen(true)}
+              onClick={handleMenuToggle}
             >
               <Menu />
             </button>
@@ -104,7 +117,7 @@ export default function Header({ lang }: { lang: languagesType }) {
               <>
                 <div
                   className="fixed inset-0 z-40 bg-black/50 transition-opacity duration-300"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={handleMenuClose}
                   aria-hidden="true"
                 />
                 <div className="fixed top-0 left-0 z-50 w-full">
@@ -134,7 +147,7 @@ export default function Header({ lang }: { lang: languagesType }) {
                           aria-label="Close Menu"
                           title="Close Menu"
                           className="font-norma tracking-wide transition-colors duration-200"
-                          onClick={() => setIsMenuOpen(false)}
+                          onClick={handleMenuClose}
                         >
                           <X />
                         </button>
@@ -190,4 +203,8 @@ export default function Header({ lang }: { lang: languagesType }) {
       </nav>
     </div>
   );
-}
+});
+
+Header.displayName = 'Header';
+
+export default Header;

@@ -1,45 +1,51 @@
 import { cn } from '@/lib/utils';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useMemo, memo, useCallback } from 'react';
 
-const StickyScroll = ({
+interface StickyScrollContent {
+  title: string;
+  subtitle?: string;
+  description: string;
+  content?: React.ReactNode;
+  icon?: React.ReactNode;
+}
+
+interface StickyScrollProps {
+  content: StickyScrollContent[];
+  contentClassName?: string;
+}
+
+const StickyScroll = memo<StickyScrollProps>(({
   content,
   contentClassName,
-}: {
-  content: {
-    title: string;
-    subtitle?: string;
-    description: string;
-    content?: React.ReactNode;
-    icon?: React.ReactNode;
-  }[];
-  contentClassName?: string;
 }) => {
   const targetRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeCard, setActiveCard] = useState(0);
+
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ['0px 200px', 'end center'],
   });
 
-  const cardLength = content.length;
-
-  const activeRanges = [
+  // Memoize active ranges to prevent recreation on every render
+  const activeRanges = useMemo(() => [
     [0, 0.3],
     [0.31, 0.6],
     [0.61, 1],
-  ];
+  ], []);
 
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+  // Memoize the scroll handler to prevent unnecessary re-renders
+  const handleScrollChange = useCallback((latest: number) => {
     for (let i = 0; i < activeRanges.length; i++) {
-      // console.log(latest, activeRanges[i][0], activeRanges[i][1]);
       if (latest >= activeRanges[i][0] && latest < activeRanges[i][1]) {
         setActiveCard(i);
         break;
       }
     }
-  });
+  }, [activeRanges]);
+
+  useMotionValueEvent(scrollYProgress, 'change', handleScrollChange);
 
   return (
     <motion.div
@@ -77,6 +83,8 @@ const StickyScroll = ({
       </div>
     </motion.div>
   );
-};
+});
+
+StickyScroll.displayName = 'StickyScroll';
 
 export default StickyScroll;

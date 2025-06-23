@@ -1,31 +1,51 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo, useCallback, memo } from 'react';
 import { appsConfig, getAllCategories, AppConfig } from '@/config/apps';
 import { templateDomain } from '@/config/site';
 import { AppIcon } from '@/components/ui/app-icon';
 
 const categories = getAllCategories();
 
-export default function Applications() {
+const Applications = memo(() => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
   const [showAll, setShowAll] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'compact'>('grid');
 
-  const filteredApplications = appsConfig.filter((app: AppConfig) => {
-    const matchesCategory =
-      activeCategory === 'All' || app.category === activeCategory;
-    const matchesSearch =
-      app.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      app.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  // Memoize filtered applications to prevent unnecessary recalculations
+  const filteredApplications = useMemo(() => {
+    return appsConfig.filter((app: AppConfig) => {
+      const matchesCategory =
+        activeCategory === 'All' || app.category === activeCategory;
+      const matchesSearch =
+        app.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        app.description.toLowerCase().includes(searchTerm.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [activeCategory, searchTerm]);
 
-  // Show only first 12 applications initially unless "Show All" is clicked
-  const displayedApplications = showAll
-    ? filteredApplications
-    : filteredApplications.slice(0, 12);
+  // Memoize displayed applications to prevent unnecessary slicing
+  const displayedApplications = useMemo(() => {
+    return showAll ? filteredApplications : filteredApplications.slice(0, 12);
+  }, [filteredApplications, showAll]);
+
+  // Memoize event handlers to prevent unnecessary re-renders
+  const handleCategoryChange = useCallback((category: string) => {
+    setActiveCategory(category);
+  }, []);
+
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  }, []);
+
+  const handleViewModeChange = useCallback((mode: 'grid' | 'compact') => {
+    setViewMode(mode);
+  }, []);
+
+  const handleShowAllToggle = useCallback(() => {
+    setShowAll(prev => !prev);
+  }, []);
 
   return (
     <section className="py-16">
@@ -60,7 +80,7 @@ export default function Applications() {
               type="text"
               placeholder="Search applications..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={handleSearchChange}
               className="w-full rounded-lg border border-gray-300 bg-white py-3 pr-4 pl-10 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none"
             />
           </div>
@@ -68,7 +88,7 @@ export default function Applications() {
           {/* View Mode Toggle */}
           <div className="flex rounded-lg border border-gray-300 bg-white">
             <button
-              onClick={() => setViewMode('grid')}
+              onClick={() => handleViewModeChange('grid')}
               className={`rounded-l-lg px-3 py-2 transition-colors ${
                 viewMode === 'grid'
                   ? 'bg-blue-500 text-white'
@@ -90,7 +110,7 @@ export default function Applications() {
               </svg>
             </button>
             <button
-              onClick={() => setViewMode('compact')}
+              onClick={() => handleViewModeChange('compact')}
               className={`rounded-r-lg px-3 py-2 transition-colors ${
                 viewMode === 'compact'
                   ? 'bg-blue-500 text-white'
@@ -120,7 +140,7 @@ export default function Applications() {
         {categories.map((category) => (
           <button
             key={category}
-            onClick={() => setActiveCategory(category)}
+            onClick={() => handleCategoryChange(category)}
             className={`rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 ${
               activeCategory === category
                 ? 'border-blue-500 bg-blue-500 text-white shadow-lg'
@@ -269,7 +289,7 @@ export default function Applications() {
       {filteredApplications.length > 12 && (
         <div className="mt-8 text-center">
           <button
-            onClick={() => setShowAll(!showAll)}
+            onClick={handleShowAllToggle}
             className="inline-flex items-center rounded-lg border border-blue-200 bg-white px-6 py-3 font-medium text-blue-600 transition-all duration-300 hover:border-blue-300 hover:bg-blue-50"
           >
             {showAll ? (
@@ -345,4 +365,8 @@ export default function Applications() {
       </div>
     </section>
   );
-}
+});
+
+Applications.displayName = 'Applications';
+
+export default Applications;

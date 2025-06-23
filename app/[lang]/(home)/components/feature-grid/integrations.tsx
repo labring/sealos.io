@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useAnimation, useInView } from 'framer-motion';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState, useMemo, memo } from 'react';
 import { cn } from '@/lib/utils';
 import { Marquee } from '../marquee';
 import { tiles } from './integrations/tiles';
@@ -86,21 +86,32 @@ const marqueeStyle = `
 `
 
 
-export function Integrations() {
+export const Integrations = memo(() => {
   const [randomTiles1, setRandomTiles1] = useState<typeof tiles.line1>([]);
   const [randomTiles2, setRandomTiles2] = useState<typeof tiles.line2>([]);
   const [randomTiles3, setRandomTiles3] = useState<typeof tiles.line3>([]);
   const [randomTiles4, setRandomTiles4] = useState<typeof tiles.line1>([]);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Ensures this runs client-side
-      setRandomTiles1(shuffleArray([...tiles.line1]));
-      setRandomTiles2(shuffleArray([...tiles.line2]));
-      setRandomTiles3(shuffleArray([...tiles.line3]));
-      setRandomTiles4(shuffleArray([...tiles.line4]));
-    }
+  // Memoize the shuffled arrays to prevent unnecessary recalculations
+  const shuffledTiles = useMemo(() => {
+    if (typeof window === 'undefined') return null;
+
+    return {
+      line1: shuffleArray([...tiles.line1]),
+      line2: shuffleArray([...tiles.line2]),
+      line3: shuffleArray([...tiles.line3]),
+      line4: shuffleArray([...tiles.line4]),
+    };
   }, []);
+
+  useEffect(() => {
+    if (shuffledTiles) {
+      setRandomTiles1(shuffledTiles.line1);
+      setRandomTiles2(shuffledTiles.line2);
+      setRandomTiles3(shuffledTiles.line3);
+      setRandomTiles4(shuffledTiles.line4);
+    }
+  }, [shuffledTiles]);
 
   return (
     <div className="flex w-full flex-col items-center justify-center">
@@ -143,4 +154,6 @@ export function Integrations() {
       </div>
     </div>
   );
-}
+});
+
+Integrations.displayName = 'Integrations';
