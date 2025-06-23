@@ -4,10 +4,30 @@ import { Check, Shield, Zap, Code, Globe } from 'lucide-react';
 import { lazy, Suspense } from 'react';
 import { languagesType } from '@/lib/i18n';
 
-// Lazy load the AnimateElement component to reduce initial bundle size
+// Lazy load the AnimateElement component with preloading
 const AnimateElement = lazy(() => import('@/components/ui/animated-wrapper').then(mod => ({
   default: mod.AnimateElement
 })));
+
+// Preload the AnimateElement component when the module loads
+const preloadAnimateElement = () => {
+  if (typeof window !== 'undefined') {
+    // Use requestIdleCallback for better performance
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        import('@/components/ui/animated-wrapper');
+      });
+    } else {
+      // Fallback for browsers without requestIdleCallback
+      setTimeout(() => {
+        import('@/components/ui/animated-wrapper');
+      }, 100);
+    }
+  }
+};
+
+// Start preloading immediately
+preloadAnimateElement();
 
 // Define translations for different languages
 const translations = {
@@ -224,12 +244,28 @@ export default function WhyChooseUs({ lang = 'en' as languagesType }) {
     </div>
   );
 
-  return (
-    <Suspense fallback={
-      <div className="mt-[140px] min-h-[400px] flex items-center justify-center">
-        <div className="text-center text-gray-500">Loading...</div>
+  // Enhanced loading fallback with skeleton
+  const LoadingFallback = () => (
+    <div className="mt-[140px] min-h-[400px]">
+      <div className="text-center">
+        <div className="h-8 bg-gray-200 rounded animate-pulse mx-auto mb-4 w-64"></div>
+        <div className="h-4 bg-gray-200 rounded animate-pulse mx-auto mb-8 w-96"></div>
       </div>
-    }>
+      <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="p-6 bg-white rounded-lg shadow-sm">
+            <div className="h-6 w-6 bg-gray-200 rounded animate-pulse mb-4"></div>
+            <div className="h-5 bg-gray-200 rounded animate-pulse mb-2"></div>
+            <div className="h-4 bg-gray-200 rounded animate-pulse mb-1"></div>
+            <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  return (
+    <Suspense fallback={<LoadingFallback />}>
       <AnimateElement type="slideUp">
         <Content />
       </AnimateElement>
