@@ -29,8 +29,8 @@ export async function GET() {
     // For Chinese, select *.zh-cn.mdx files
     globPattern = ['./content/docs/**/*.zh-cn.mdx'];
   } else {
-    // For other languages (default English), select *.mdx files that don't have .zh-cn. in their path
-    globPattern = ['./content/docs/**/*.mdx', '!./content/docs/**/*.zh-cn.mdx'];
+    // For other languages (default English), select *.en.mdx files
+    globPattern = ['./content/docs/**/*.en.mdx'];
   }
 
   const files = await fg(globPattern);
