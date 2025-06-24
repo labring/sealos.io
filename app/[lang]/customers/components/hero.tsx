@@ -1,4 +1,5 @@
 import { languagesType } from '@/lib/i18n';
+import Image from 'next/image';
 import { appDomain } from '@/config/site';
 
 const translations = {
@@ -48,13 +49,17 @@ export default function Hero({ lang }: { lang: languagesType }) {
 
         {/* Right illustration */}
         <div className="relative md:w-1/2">
-          <img
-            src="/images/customers/case-banner.png"
-            alt="Cloud Technology Illustration"
-            className="relative z-10 w-full max-w-lg"
-            width={500}
-            height={400}
-          />
+          <div className="relative z-10 w-full max-w-lg">
+            <Image
+              src="/images/customers/case-banner.png"
+              alt="Cloud Technology Illustration"
+              width={500}
+              height={400}
+              className="w-full h-auto"
+              priority
+              sizes="(max-width: 768px) 100vw, 500px"
+            />
+          </div>
           {/* Glowing effect behind illustration */}
           <div className="absolute -right-10 -top-10 z-0 h-64 w-64 rounded-full bg-blue-500/20 blur-3xl"></div>
           <div className="absolute -bottom-10 -left-10 z-0 h-64 w-64 rounded-full bg-primary/20 blur-3xl"></div>

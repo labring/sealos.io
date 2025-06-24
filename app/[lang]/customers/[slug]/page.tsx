@@ -6,6 +6,7 @@ import { appDomain } from '@/config/site';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import TocSidebar from '../components/toc-sidebar';
+import Image from 'next/image';
 
 // Define types for case study data
 type Metric = { value: string; label: string };
@@ -534,11 +535,18 @@ function CaseStudyPageContent({
   const MarkdownComponents = {
     img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
       <div className="my-6">
-        <img
-          src={props.src}
-          alt={props.alt}
-          className="mx-auto rounded-lg shadow-md max-w-full"
-        />
+        <div className="relative mx-auto max-w-full">
+          <Image
+            src={props.src || ''}
+            alt={props.alt || ''}
+            width={800}
+            height={400}
+            className="mx-auto rounded-lg shadow-md"
+            style={{ width: 'auto', height: 'auto', maxWidth: '100%' }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
+            loading="lazy"
+          />
+        </div>
         {props.alt && (
           <p className="mt-2 text-center text-sm text-gray-500">{props.alt}</p>
         )}
@@ -614,11 +622,17 @@ function CaseStudyPageContent({
 
           <div className="mt-8 flex items-center">
             <div className="mr-4 h-12 bg-white/90 p-2 rounded">
-              <img
-                src={caseStudy.logo}
-                alt={caseStudy.companyName}
-                className="h-full"
-              />
+              <div className="relative h-full w-12">
+                <Image
+                  src={caseStudy.logo}
+                  alt={caseStudy.companyName}
+                  fill
+                  className="object-contain"
+                  sizes="48px"
+                  loading="eager"
+                  priority
+                />
+              </div>
             </div>
             <div className="inline-block rounded-md border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium tracking-wide text-white shadow-sm whitespace-nowrap">
               {caseStudy.industry}

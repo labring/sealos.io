@@ -1,13 +1,24 @@
 'use client';
 
 import { Check, Shield, Zap, Code, Globe } from 'lucide-react';
-import { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import { languagesType } from '@/lib/i18n';
 
-// Lazy load the AnimateElement component to reduce initial bundle size
-const AnimateElement = lazy(() => import('@/components/ui/animated-wrapper').then(mod => ({
-  default: mod.AnimateElement
-})));
+// Lazy load the AnimateElement component using Next.js dynamic for better optimization
+const AnimateElement = dynamic(
+  () => import('@/components/ui/animated-wrapper').then(mod => ({
+    default: mod.AnimateElement
+  })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="mt-[140px] min-h-[400px] flex items-center justify-center">
+        <div className="animate-pulse text-gray-400">Loading content...</div>
+      </div>
+    )
+  }
+);
 
 // Define translations for different languages
 const translations = {

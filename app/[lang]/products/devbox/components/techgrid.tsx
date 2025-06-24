@@ -4,6 +4,7 @@ import { AnimateElement } from '@/components/ui/animated-wrapper';
 import { appDomain } from '@/config/site';
 import { CustomButton } from '@/components/ui/button-custom';
 import { Package } from 'lucide-react';
+import Image from 'next/image';
 
 interface TechItem {
   name: string;
@@ -478,10 +479,14 @@ export default function TechGrid() {
               >
                 <div className="relative flex gap-4">
                   <div className="relative flex size-7 items-center justify-center text-4xl lg:size-10">
-                    <img
+                    <Image
                       src={tech.icon}
                       alt={tech.name}
-                      className="size-7 lg:size-10"
+                      width={40}
+                      height={40}
+                      className="size-7 lg:size-10 object-contain"
+                      loading="lazy"
+                      sizes="40px"
                     />
                   </div>
                   <div className="flex flex-col justify-center">

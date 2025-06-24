@@ -1,4 +1,5 @@
 import { languagesType } from '@/lib/i18n';
+import Image from 'next/image';
 
 const translations = {
   'en': {
@@ -75,11 +76,16 @@ export default function TrustedCompanies({ lang }: { lang: languagesType }) {
                       background: 'linear-gradient(135deg, white, #F8FBFF)'
                     }}
                   >
-                    <img
-                      src={company.logo}
-                      alt={company.name}
-                      className="max-h-14 max-w-full transform opacity-100 transition-all duration-300 hover:scale-110"
-                    />
+                    <div className="relative h-14 w-full">
+                      <Image
+                        src={company.logo}
+                        alt={company.name}
+                        fill
+                        className="transform object-contain opacity-100 transition-all duration-300 hover:scale-110"
+                        sizes="(max-width: 768px) 144px, 192px"
+                        loading="lazy"
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -93,11 +99,16 @@ export default function TrustedCompanies({ lang }: { lang: languagesType }) {
                     key={index}
                     className="flex h-20 w-32 shrink-0 items-center justify-center rounded-lg bg-white/80 p-4 shadow-md transition-all duration-300 hover:shadow-lg"
                   >
-                    <img
-                      src={company.logo}
-                      alt={company.name}
-                      className="max-h-12 max-w-full transform opacity-80 transition-all duration-300 hover:scale-110 hover:opacity-100"
-                    />
+                    <div className="relative h-12 w-full">
+                      <Image
+                        src={company.logo}
+                        alt={company.name}
+                        fill
+                        className="transform object-contain opacity-80 transition-all duration-300 hover:scale-110 hover:opacity-100"
+                        sizes="(max-width: 768px) 128px, 160px"
+                        loading="lazy"
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -128,11 +139,16 @@ export default function TrustedCompanies({ lang }: { lang: languagesType }) {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <img
-                      src={company.logo}
-                      alt={company.name}
-                      className="max-h-16 max-w-full transform transition-all duration-300 group-hover:scale-110"
-                    />
+                    <div className="relative h-16 w-full">
+                      <Image
+                        src={company.logo}
+                        alt={company.name}
+                        fill
+                        className="transform object-contain transition-all duration-300 group-hover:scale-110"
+                        sizes="(max-width: 768px) 192px, 256px"
+                        loading="lazy"
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -145,11 +161,16 @@ export default function TrustedCompanies({ lang }: { lang: languagesType }) {
                   key={index}
                   className={`group flex items-center justify-center rounded-lg p-4 transition-all duration-300 hover:bg-white hover:shadow-md ${index % 5 === 0 ? 'col-span-2' : ''}`}
                 >
-                  <img
-                    src={company.logo}
-                    alt={company.name}
-                    className="h-12 max-w-full transform opacity-70 grayscale transition-all duration-300 hover:scale-110 hover:opacity-100 hover:grayscale-0"
-                  />
+                  <div className="relative h-12 w-full">
+                    <Image
+                      src={company.logo}
+                      alt={company.name}
+                      fill
+                      className="transform object-contain opacity-70 grayscale transition-all duration-300 hover:scale-110 hover:opacity-100 hover:grayscale-0"
+                      sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 16vw"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
               ))}
             </div>

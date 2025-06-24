@@ -1,5 +1,6 @@
 import { AnimateElement } from '@/components/ui/animated-wrapper';
 import { Database, FolderGit2, Server } from 'lucide-react';
+import Image from 'next/image';
 
 const iconStyle = 'text-blue-300 ';
 const features = [
@@ -67,11 +68,16 @@ export default function Feature() {
                   delay={0.4}
                   className="mt-auto h-full"
                 >
-                  <img
-                    src={feature.image}
-                    alt={feature.title}
-                    className="z-10 mt-auto h-full w-full object-cover"
-                  />
+                  <div className="relative h-full w-full">
+                    <Image
+                      src={feature.image}
+                      alt={feature.title}
+                      fill
+                      className="z-10 object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      loading="lazy"
+                    />
+                  </div>
                 </AnimateElement>
               </div>
               {index === 1 && (

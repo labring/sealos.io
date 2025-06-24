@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
+import Image from 'next/image'
 
 import { cn } from "@/lib/utils"
 
@@ -56,23 +57,30 @@ Button.displayName = "Button"
 
 export { Button, buttonVariants }
 
-export function DeployButton({ imageUrl='https://cdn.jsdelivr.net/gh/labring-actions/templates@main/Deploy-on-Sealos.svg', deployUrl, alt }: {        
-  deployUrl: string;     
-  imageUrl?: string;       
-  alt?: string;         
+export function DeployButton({ imageUrl='https://cdn.jsdelivr.net/gh/labring-actions/templates@main/Deploy-on-Sealos.svg', deployUrl, alt }: {
+  deployUrl: string;
+  imageUrl?: string;
+  alt?: string;
 }) {
   return (
-    <a 
+    <a
       href={deployUrl}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-block hover:opacity-90 transition-opacity"
     >
-      <img 
-        src={imageUrl} 
-        alt={alt}
-        className="rounded-xl mt-1 mb-1"
-      />
+      <div className="relative">
+        <Image
+          src={imageUrl}
+          alt={alt || 'Deploy on Sealos'}
+          width={200}
+          height={60}
+          className="rounded-xl mt-1 mb-1"
+          style={{ width: 'auto', height: 'auto' }}
+          loading="lazy"
+          sizes="200px"
+        />
+      </div>
     </a>
   );
 }

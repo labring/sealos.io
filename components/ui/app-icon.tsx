@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Package } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 interface AppIconProps {
   src: string;
@@ -10,11 +11,13 @@ interface AppIconProps {
   className?: string;
   fallbackClassName?: string;
   fallbackIcon?: React.ComponentType<{ className?: string }>;
+  width?: number;
+  height?: number;
 }
 
 /**
- * AppIcon component with robust fallback functionality
- * Always shows fallback icon instead of broken images
+ * AppIcon component with robust fallback functionality and Next.js Image optimization
+ * Uses Next.js Image with built-in error handling for better performance
  */
 export function AppIcon({
   src,
@@ -22,43 +25,13 @@ export function AppIcon({
   className,
   fallbackClassName,
   fallbackIcon: FallbackIcon = Package,
+  width = 24,
+  height = 24,
 }: AppIconProps) {
-  const [imageStatus, setImageStatus] = useState<
-    'loading' | 'loaded' | 'error'
-  >('loading');
+  const [hasError, setHasError] = useState(false);
 
-  // Reset when src changes
-  useEffect(() => {
-    if (!src || src.trim() === '') {
-      setImageStatus('error');
-      return;
-    }
-
-    setImageStatus('loading');
-
-    // Create a new image to test if it loads
-    const img = new Image();
-
-    img.onload = () => {
-      setImageStatus('loaded');
-    };
-
-    img.onerror = () => {
-      console.log('Image failed to load:', src);
-      setImageStatus('error');
-    };
-
-    img.src = src;
-
-    // Cleanup
-    return () => {
-      img.onload = null;
-      img.onerror = null;
-    };
-  }, [src]);
-
-  // Show fallback for error or invalid src
-  if (imageStatus === 'error' || !src || src.trim() === '') {
+  // Show fallback for invalid src or error
+  if (!src || src.trim() === '' || hasError) {
     return (
       <FallbackIcon
         className={cn('text-gray-600', fallbackClassName || className)}
@@ -67,26 +40,22 @@ export function AppIcon({
     );
   }
 
-  // Show loading fallback
-  if (imageStatus === 'loading') {
-    return (
-      <FallbackIcon
-        className={cn(
-          'animate-pulse text-gray-400',
-          fallbackClassName || className,
-        )}
-        aria-label={`${alt} (loading...)`}
-      />
-    );
-  }
-
-  // Show the actual image
+  // Show the actual image using Next.js Image with error handling
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
+      width={width}
+      height={height}
       className={className}
       style={{ display: 'block' }}
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      priority={false}
+      loading="lazy"
+      onError={() => {
+        console.log('Image failed to load:', src);
+        setHasError(true);
+      }}
     />
   );
 }
