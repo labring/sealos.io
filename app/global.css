@@ -175,11 +175,6 @@
 }
 
 @layer base {
-  html,
-  body {
-    overflow-x: hidden;
-  }
-
   ::-webkit-scrollbar,
   ::-webkit-scrollbar {
     width: 8px;
