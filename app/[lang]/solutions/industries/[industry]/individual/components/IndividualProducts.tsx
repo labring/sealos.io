@@ -4,7 +4,7 @@ import { AnimateElement } from '@/components/ui/animated-wrapper';
 import { CheckCircle, ArrowRight } from 'lucide-react';
 import { CustomButton } from '@/components/ui/button-custom';
 import { IndustryProductRef } from '@/config/industries';
-import { getAppBySlug } from '@/config/apps';
+import { getAppBySlugSync } from '@/config/apps';
 
 interface IndividualProductsProps {
   products: IndustryProductRef[];
@@ -25,7 +25,7 @@ export default function IndividualProducts({
 }: IndividualProductsProps) {
   // Get the actual app data for each product reference
   const appProducts = products
-    .map((productRef) => getAppBySlug(productRef.slug))
+    .map((productRef) => getAppBySlugSync(productRef.slug))
     .filter((app) => app !== undefined);
 
   if (appProducts.length === 0) {
@@ -70,7 +70,7 @@ export default function IndividualProducts({
                     Key Benefits for Individuals:
                   </h4>
                   <ul className="space-y-1">
-                    {app.benefits.slice(0, 4).map((benefit, idx) => (
+                    {app.benefits.slice(0, 4).map((benefit: string, idx: number) => (
                       <li
                         key={idx}
                         className="flex items-center gap-2 text-sm text-gray-600"
@@ -87,7 +87,7 @@ export default function IndividualProducts({
                     Perfect for Individual {industryName} Professionals:
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {app.useCases.slice(0, 4).map((useCase, idx) => (
+                    {app.useCases.slice(0, 4).map((useCase: string, idx: number) => (
                       <span
                         key={idx}
                         className="rounded-full bg-purple-100 px-2 py-1 text-xs text-purple-800"

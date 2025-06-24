@@ -1,5 +1,5 @@
 import Feature from './components/feature';
-import HighlightedApps from './components/highlighted-apps';
+import HighlightedApps from './components/highlighted-apps-server';
 import FooterCta from './components/footerCta';
 import Footer from '@/components/footer';
 import Header from '@/components/header';

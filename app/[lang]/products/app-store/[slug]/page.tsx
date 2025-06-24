@@ -1,4 +1,4 @@
-import { getAppBySlug, appsConfig } from '@/config/apps';
+import { getAppBySlug, loadAllApps, getAppBySlugSync, appsConfig } from '@/config/apps';
 import { notFound } from 'next/navigation';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import { languagesType } from '@/lib/i18n';
@@ -24,7 +24,8 @@ interface AppDeployPageProps {
 
 // Generate static params for all apps
 export async function generateStaticParams() {
-  return appsConfig.map((app) => ({
+  const allApps = await loadAllApps();
+  return allApps.map((app) => ({
     slug: app.slug,
   }));
 }
@@ -33,7 +34,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: AppDeployPageProps): Promise<Metadata> {
-  const app = getAppBySlug(params.slug);
+  const app = await getAppBySlug(params.slug);
 
   if (!app) {
     return {
@@ -86,8 +87,8 @@ const translations = {
   },
 };
 
-export default function AppDeployPage({ params }: AppDeployPageProps) {
-  const app = getAppBySlug(params.slug);
+export default async function AppDeployPage({ params }: AppDeployPageProps) {
+  const app = await getAppBySlug(params.slug);
   const t = translations[params.lang] || translations.en;
 
   if (!app) {

@@ -1,56 +1,77 @@
 'use client';
 
-import { useState } from 'react';
-import { templateDomain } from '@/config/site';
+import { useState, useEffect } from 'react';
 import { ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 import { languagesType } from '@/lib/i18n';
-import { appsConfig } from '@/config/apps';
 import { AppIcon } from '@/components/ui/app-icon';
 import { CustomButton } from '@/components/ui/button-custom';
+import { loadAllApps, AppConfig } from '@/config/apps-loader';
 
-interface HighlightedAppsProps {
+interface AppGridProps {
   lang: languagesType;
+  initialApps: AppConfig[];
+  templateDomain: string;
 }
 
-export default function HighlightedApps({ lang }: HighlightedAppsProps) {
+export default function AppGrid({ lang, initialApps, templateDomain }: AppGridProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [apps, setApps] = useState<AppConfig[]>(initialApps);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Load apps dynamically on client side
+  useEffect(() => {
+    const loadApps = async () => {
+      try {
+        const dynamicApps = await loadAllApps();
+        if (dynamicApps.length > 0) {
+          setApps(dynamicApps);
+        }
+      } catch (error) {
+        console.error('Failed to load apps dynamically:', error);
+      }
+    };
+
+    // Only load if we're on the client side
+    if (typeof window !== 'undefined') {
+      loadApps();
+    }
+  }, []);
 
   // Calculate apps to show based on grid columns (5 rows)
-  // Using the largest breakpoint (xl:grid-cols-10) for calculation
   const appsPerRow = 10; // Based on xl:grid-cols-10
   const rowsToShow = 5;
-  const appsToShow = isExpanded ? appsConfig.length : appsPerRow * rowsToShow;
-  const visibleApps = appsConfig.slice(0, appsToShow);
-  const hasMoreApps = appsConfig.length > appsToShow;
-  return (
-    <section className="py-16">
-      {/* Section Title */}
-      <div className="mb-12 text-center">
-        <h2 className="mb-4 text-4xl font-bold text-gray-900">
-          Featured Applications
-        </h2>
-        <p className="mx-auto max-w-3xl text-xl text-gray-600">
-          Deploy production-ready applications with one click. From databases to
-          development tools.
-        </p>
-      </div>
+  const appsToShow = isExpanded ? apps.length : appsPerRow * rowsToShow;
+  const visibleApps = apps.slice(0, appsToShow);
+  const hasMoreApps = apps.length > appsToShow;
 
+  return (
+    <>
       {/* Apps Icon Grid */}
       <div className="grid grid-cols-4 gap-6 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10">
-        {visibleApps.map((app, index) => (
-          <a
-            key={index}
-            href={`/${lang}/products/app-store/${app.slug}`}
-            title={app.name}
-            className="group flex h-20 w-20 items-center justify-center rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:scale-105 hover:border-blue-300 hover:shadow-lg"
-          >
-            <AppIcon
-              src={app.icon}
-              alt={`${app.name} icon`}
-              className="h-10 w-10 transition-transform duration-300 group-hover:scale-110"
+        {isLoading ? (
+          // Loading skeleton
+          Array.from({ length: appsToShow }).map((_, index) => (
+            <div
+              key={index}
+              className="flex h-20 w-20 items-center justify-center rounded-xl border border-gray-200 bg-gray-100 animate-pulse"
             />
-          </a>
-        ))}
+          ))
+        ) : (
+          visibleApps.map((app, index) => (
+            <a
+              key={`${app.slug}-${index}`}
+              href={`/${lang}/products/app-store/${app.slug}`}
+              title={app.name}
+              className="group flex h-20 w-20 items-center justify-center rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:scale-105 hover:border-blue-300 hover:shadow-lg"
+            >
+              <AppIcon
+                src={app.icon}
+                alt={`${app.name} icon`}
+                className="h-10 w-10 transition-transform duration-300 group-hover:scale-110"
+              />
+            </a>
+          ))
+        )}
       </div>
 
       {/* Expand/Collapse Button */}
@@ -93,6 +114,6 @@ export default function HighlightedApps({ lang }: HighlightedAppsProps) {
           Browse App Store
         </CustomButton>
       </div>
-    </section>
+    </>
   );
 }

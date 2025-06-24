@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "npm run generate-apps && next build",
     "dev": "next dev",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
-    "generate-apps": "node scripts/generate-apps.js"
+    "generate-apps": "node scripts/generate-apps-api.js",
+    "generate-apps:clean": "node scripts/generate-apps-api.js --clean"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",

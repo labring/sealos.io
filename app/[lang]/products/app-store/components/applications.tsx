@@ -1,29 +1,48 @@
 'use client';
 
-import { useState, useMemo, useCallback, memo } from 'react';
-import { appsConfig, getAllCategories, AppConfig } from '@/config/apps';
+import { useState, useMemo, useCallback, memo, useEffect } from 'react';
+import {
+  getAllCategories,
+  getAppsByCategory,
+  searchApps,
+  type AppConfig
+} from '@/config/apps';
 import { templateDomain } from '@/config/site';
 import { AppIcon } from '@/components/ui/app-icon';
-
-const categories = getAllCategories();
 
 const Applications = memo(() => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
   const [showAll, setShowAll] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'compact'>('grid');
+  const [categories, setCategories] = useState<string[]>(['All']);
+  const [applications, setApplications] = useState<AppConfig[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Load categories on mount
+  useEffect(() => {
+    getAllCategories().then(setCategories);
+  }, []);
+
+  // Load applications when category changes
+  useEffect(() => {
+    setLoading(true);
+    getAppsByCategory(activeCategory)
+      .then(setApplications)
+      .finally(() => setLoading(false));
+  }, [activeCategory]);
 
   // Memoize filtered applications to prevent unnecessary recalculations
   const filteredApplications = useMemo(() => {
-    return appsConfig.filter((app: AppConfig) => {
-      const matchesCategory =
-        activeCategory === 'All' || app.category === activeCategory;
-      const matchesSearch =
+    if (searchTerm.trim()) {
+      // If searching, use search API for better performance
+      return applications.filter((app: AppConfig) =>
         app.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        app.description.toLowerCase().includes(searchTerm.toLowerCase());
-      return matchesCategory && matchesSearch;
-    });
-  }, [activeCategory, searchTerm]);
+        app.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    return applications;
+  }, [applications, searchTerm]);
 
   // Memoize displayed applications to prevent unnecessary slicing
   const displayedApplications = useMemo(() => {
@@ -33,6 +52,7 @@ const Applications = memo(() => {
   // Memoize event handlers to prevent unnecessary re-renders
   const handleCategoryChange = useCallback((category: string) => {
     setActiveCategory(category);
+    setShowAll(false); // Reset show all when changing category
   }, []);
 
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +66,18 @@ const Applications = memo(() => {
   const handleShowAllToggle = useCallback(() => {
     setShowAll(prev => !prev);
   }, []);
+
+  // Show loading state
+  if (loading && applications.length === 0) {
+    return (
+      <section className="py-16">
+        <div className="text-center">
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
+          <p className="mt-4 text-gray-600">Loading applications...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-16">

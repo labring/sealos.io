@@ -1,63 +1,50 @@
-import appsData from './apps.json';
-import { appDomain } from './site';
+// Re-export everything from the new apps-loader for backward compatibility
+export type { AppConfig } from './apps-loader';
+export {
+  loadAllApps,
+  loadAppsByCategory,
+  getAllCategories,
+  searchApps,
+  getAppBySlug,
+  getAppsByCategory,
+  getDeployUrl,
+  clearCache,
+  getCacheStats
+} from './apps-loader';
 
-export interface AppConfig {
-  name: string;
-  slug: string;
-  description: string;
-  // longDescription?: string;
-  icon: string;
-  category: string;
-  features: string[];
-  benefits: string[];
-  useCases: string[];
-  gradient: string;
-  github?: string;
-  website?: string;
-  tags: string[];
-  deployUrl?: string;
-  source?: {
-    url: string;
-    sha: string;
-  };
-  i18n?: {
-    zh?: {
-      description: string;
-    };
-  };
-}
+// Legacy synchronous exports for backward compatibility
+// Note: These will load from the main apps.json file
+import appsData from './apps.json';
+import { getDeployUrl, type AppConfig } from './apps-loader';
 
 // Export the apps data as typed AppConfig array with deploy URLs
-export const appsConfig: AppConfig[] = (appsData as AppConfig[]).map((app) => ({
+export const appsConfig: AppConfig[] = (appsData as any[]).map((app) => ({
   ...app,
   deployUrl: getDeployUrl(app.slug),
 }));
 
-// Helper functions
-export function getAppBySlug(slug: string): AppConfig | undefined {
+// Legacy synchronous helper functions for backward compatibility
+// Note: These use the main appsConfig loaded from apps.json
+export function getAppBySlugSync(slug: string): AppConfig | undefined {
   const lowerSlug = slug.toLowerCase();
   return appsConfig.find((app) => app.slug.toLowerCase() === lowerSlug);
 }
 
-export function getAppsByCategory(category: string): AppConfig[] {
+export function getAppsByCategorySync(category: string): AppConfig[] {
   return appsConfig.filter((app) => app.category === category);
 }
 
-export function getAllCategories(): string[] {
+export function getAllCategoriesSync(): string[] {
   const categories = [...new Set(appsConfig.map((app) => app.category))];
   return ['All', ...categories];
 }
 
-export function searchApps(query: string): AppConfig[] {
+export function searchAppsSync(query: string): AppConfig[] {
   const lowercaseQuery = query.toLowerCase();
   return appsConfig.filter(
     (app) =>
       app.name.toLowerCase().includes(lowercaseQuery) ||
       app.description.toLowerCase().includes(lowercaseQuery) ||
-      app.tags?.some((tag) => tag.toLowerCase().includes(lowercaseQuery)),
+      app.tags?.some((tag: string) => tag.toLowerCase().includes(lowercaseQuery)),
   );
-}
-
-export function getDeployUrl(slug: string): string {
-  return appDomain + '?openapp=system-template%3FtemplateName%3D' + slug;
 }
