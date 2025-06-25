@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
 import { Blocks, Cloud, Code, Database, File, Package } from 'lucide-react';
 import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
 
 function Mark({ className }: { className?: string }) {
   // return <img src="/logo.svg" alt="Logo" className={clsx(className, 'h-32')} />;
@@ -14,10 +15,12 @@ function Circle({
   size,
   delay,
   opacity,
+  animate = 'idle',
 }: {
   size: number;
   delay: number;
   opacity: string;
+  animate?: 'idle' | 'active';
 }) {
   return (
     <motion.div
@@ -35,31 +38,65 @@ function Circle({
           },
         },
       }}
+      animate={animate}
       style={{ '--opacity': opacity } as React.CSSProperties}
       className={clsx(
-        'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full',
+        'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full',
         'bg-[radial-gradient(circle,transparent_25%,color-mix(in_srgb,var(--color-blue-500)_var(--opacity),transparent)_100%)]',
-        'ring-1 ring-inset ring-blue-500/[8%]',
+        'ring-1 ring-blue-500/[8%] ring-inset',
       )}
     />
   );
 }
 
 function Circles() {
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(
+      () => {
+        setIsActive(true);
+        setTimeout(() => setIsActive(false), 1200);
+      },
+      4000 + Math.random() * 2000,
+    );
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="absolute inset-0">
-      <Circle size={528} opacity="3%" delay={0.45} />
-      <Circle size={400} opacity="5%" delay={0.3} />
-      <Circle size={272} opacity="5%" delay={0.15} />
-      <Circle size={144} opacity="10%" delay={0} />
-      <div className="absolute inset-0 bg-linear-to-t from-white to-35%  dark:from-gray-950" />
+      <Circle
+        size={528}
+        opacity="3%"
+        delay={0.45}
+        animate={isActive ? 'active' : 'idle'}
+      />
+      <Circle
+        size={400}
+        opacity="5%"
+        delay={0.3}
+        animate={isActive ? 'active' : 'idle'}
+      />
+      <Circle
+        size={272}
+        opacity="5%"
+        delay={0.15}
+        animate={isActive ? 'active' : 'idle'}
+      />
+      <Circle
+        size={144}
+        opacity="10%"
+        delay={0}
+        animate={isActive ? 'active' : 'idle'}
+      />
+      <div className="absolute inset-0 bg-linear-to-t from-white to-35% dark:from-gray-950" />
     </div>
   );
 }
 
 function MainLogo() {
   return (
-    <div className="absolute left-44 top-32 flex size-16 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/5 dark:bg-gray-900 dark:ring-white/10">
+    <div className="absolute top-32 left-44 flex size-16 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/5 dark:bg-gray-900 dark:ring-white/10">
       <Mark className="h-9 fill-[#e879f9]" />
     </div>
   );
@@ -76,6 +113,19 @@ function Logo({
   top: number;
   hover: { x: number; y: number; rotate: number; delay: number };
 }) {
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(
+      () => {
+        setIsActive(true);
+        setTimeout(() => setIsActive(false), 1200); // match animation duration
+      },
+      3500 + Math.random() * 2000,
+    ); // randomize interval for more natural effect
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <motion.div
       variants={{
@@ -93,6 +143,7 @@ function Logo({
           },
         },
       }}
+      animate={isActive ? 'active' : 'idle'}
       style={{ left, top } as React.CSSProperties}
       className="absolute flex size-16 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/5 dark:bg-gray-900 dark:ring-white/10"
     >

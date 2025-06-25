@@ -49,7 +49,7 @@ function Card(card: { icon: JSX.Element; bg: JSX.Element }) {
         // light styles
         'bg-white [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]',
         // dark styles
-        'transform-gpu dark:bg-transparent dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]',
+        'transform-gpu dark:bg-transparent dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] dark:[border:1px_solid_rgba(255,255,255,.1)]',
       )}
     >
       {card.icon}
@@ -83,8 +83,7 @@ const marqueeStyle = `
     transform: translateY(calc(-100% - var(--gap)));
   }
 }
-`
-
+`;
 
 export const Integrations = memo(() => {
   const [randomTiles1, setRandomTiles1] = useState<typeof tiles.line1>([]);
@@ -148,9 +147,9 @@ export const Integrations = memo(() => {
           ))}
         </Marquee>
         <div className="absolute">
-          <div className="absolute inset-0 -z-10 rounded-full  bg-background opacity-40 blur-xl dark:bg-background" />
+          <div className="bg-background dark:bg-background absolute inset-0 -z-10 rounded-full opacity-40 blur-xl" />
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-full bg-linear-to-b from-transparent to-white to-70% dark:to-background" />
+        <div className="dark:to-background absolute inset-x-0 bottom-0 h-full bg-linear-to-b from-transparent to-white to-70%" />
       </div>
     </div>
   );

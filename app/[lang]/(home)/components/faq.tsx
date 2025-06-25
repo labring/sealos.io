@@ -8,8 +8,10 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { languagesType } from '@/lib/i18n';
+import { trackCustomEvent } from '@/lib/gtm';
 import { motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
+import { useCallback } from 'react';
 
 // FAQ translations
 const translations = {
@@ -18,7 +20,7 @@ const translations = {
     subtitle: 'Find answers to common questions about Sealos',
     getStarted: 'Get Started Free',
     stillHaveQuestions: 'Still have questions?',
-    contactUs: 'Contact our support team',
+    contactUs: 'Contact us',
     faqs: [
       {
         question: 'What is Sealos?',
@@ -54,7 +56,7 @@ const translations = {
     subtitle: '查找关于 Sealos 云平台的常见问题答案',
     getStarted: '免费开始使用',
     stillHaveQuestions: '还有其他问题？',
-    contactUs: '联系我们的支持团队',
+    contactUs: '联系我们',
     faqs: [
       {
         question: 'Sealos 是什么？',
@@ -88,24 +90,43 @@ const translations = {
 export default function FAQ({ lang }: { lang: languagesType }) {
   const t = translations[lang];
 
+  const handleFAQToggle = useCallback(
+    (value: string) => {
+      if (value) {
+        const index = parseInt(value.replace('item-', ''));
+        const faq = t.faqs[index];
+        if (faq) {
+          trackCustomEvent('faq_interaction', 'faq_expand', {
+            faq_question: faq.question,
+            faq_index: index,
+            language: lang,
+            component: 'faq',
+          });
+        }
+      }
+    },
+    [t.faqs, lang],
+  );
+
   return (
-    <div className="mt-[140px]">
+    <div>
       <AnimateElement type="slideUp">
         <div className="text-center">
           <h2 className="text-base font-bold text-black sm:text-4xl">
             {t.title}
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-gray-600 sm:text-lg">
+          <p className="mx-auto mt-4 text-sm text-gray-600 sm:text-lg">
             {t.subtitle}
           </p>
         </div>
 
-        <div className="mx-auto mt-16 max-w-3xl">
+        <div className="mx-auto mt-16 max-w-6xl">
           <Accordion
             type="single"
             collapsible
             defaultValue="item-0"
             className="w-full"
+            onValueChange={handleFAQToggle}
           >
             {t.faqs.map((faq, index) => (
               <motion.div
@@ -134,23 +155,6 @@ export default function FAQ({ lang }: { lang: languagesType }) {
               </motion.div>
             ))}
           </Accordion>
-
-          {/* Additional help section */}
-          <motion.div
-            className="mt-12 text-center"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <p className="mb-4 text-lg font-medium">{t.stillHaveQuestions}</p>
-            <a
-              href="/contact"
-              className="font-medium text-[#44BCFF] transition-colors duration-200 hover:text-[#0090FF]"
-            >
-              {t.contactUs} →
-            </a>
-          </motion.div>
         </div>
       </AnimateElement>
     </div>

@@ -1,36 +1,44 @@
-import Guides from './components/guides';
 import Trusted from './components/trusted';
-import FeatureGrid from './components/feature-grid';
 import WhyChooseUs from './components/why-choose-us';
 import FAQ from './components/faq';
+import ProblemsAndSolutions from './components/problems-solutions';
+import WorkflowShowcase from './components/workflow-showcase';
+import HeroBenefits from './components/hero-benefits';
+import Desktop from './components/desktop';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import Hero from '@/components/header/hero';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
-import Video from '@/components/video';
-import { HovermeButton } from '@/components/ui/button-hoverme';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import { appDomain } from '@/config/site';
 import RedirectSuggest from '@/components/redirectSuggest';
 import { languagesType } from '@/lib/i18n';
-import placeholderImage from '/public/images/video.webp';
 import ScrollProgressWrapper from '@/components/scroll-progress-wrapper';
+import { CallToActionSection } from '@/components/ui/call-to-action-section';
 
-// Define translations for different languages
+// Define translations only for strings used directly in this component
 const translations = {
   en: {
     title: {
-      main: 'Develop, deploy, and scale in one seamless cloud platform',
-      sub: 'The Unified Cloud Platform for Developers',
+      main: 'End Cloud Complexity. Start Building.',
+      sub: 'Enterprise-grade infrastructure as simple as your desktop',
     },
-    discoverButton: 'Discover DevBox',
+    desktop: {
+      title: 'Experience Sealos Cloud OS',
+      description:
+        'Try Sealos interactive desktop experience. Click on modules to explore their features, drag windows around, and resize them just like a real desktop environment.',
+    },
   },
   'zh-cn': {
     title: {
-      main: '在一个无缝云平台中开发、部署和扩展',
-      sub: '为开发者打造的统一云平台',
+      main: '终结云复杂性，开始构建',
+      sub: '企业级基础设施，如桌面般简单',
     },
-    discoverButton: '探索 DevBox',
+    desktop: {
+      title: '体验 Sealos 云操作系统',
+      description:
+        '尝试 Sealos 的交互式桌面体验。点击模块探索其功能，拖拽窗口，就像真实的桌面环境一样调整大小。',
+    },
   },
 };
 
@@ -43,42 +51,59 @@ export default function HomePage({
 }: {
   params: { lang: languagesType };
 }) {
+  const t = translations[params.lang] || translations.en;
+
   return (
     <div className="h-full bg-[#EBF2FF]">
       <Header lang={params.lang} />
-      {/* Scroll progress indicator */}
       <ScrollProgressWrapper />
 
-      <main className="custom-container px-8 pt-14 md:px-[15%]">
+      <main className="custom-container px-8 pt-14 pb-20 md:px-[15%]">
         <Hero
-          title={translations[params.lang]?.title || translations.en.title}
+          title={t.title}
           mainTitleEmphasis={2}
           getStartedLink={appDomain}
           lang={params.lang}
         >
-          <Video
-            url="https://www.youtube.com/watch?v=TrEsUMwWtDg"
-            placeholderImage={placeholderImage}
-            title="Sealos DevBox"
-            location="hero"
-          />
-          <div className="my-8 flex items-center justify-center">
-            <HovermeButton
-              text={translations[params.lang].discoverButton}
-              href="/products/devbox"
-              location="hero"
-            />
+          <div className="mx-auto hidden max-w-7xl sm:block">
+            <Desktop />
+          </div>
+
+          <div className="mt-12">
+            <HeroBenefits lang={params.lang} />
           </div>
         </Hero>
-
-        <div className="mt-[64px] mb-[40px] h-[1px] bg-[#DDE7F7]"></div>
-        <Trusted lang={params.lang} />
-        <div className="mt-[64px] mb-[40px]"></div>
-        <FeatureGrid />
-        <WhyChooseUs lang={params.lang} />
-        <Guides />
-        <FAQ lang={params.lang} />
       </main>
+
+      <div className="space-y-20">
+        <div className="custom-container px-8 md:px-[15%]">
+          <ProblemsAndSolutions lang={params.lang} />
+        </div>
+
+        <div className="custom-container px-8 md:px-[15%]">
+          <Trusted lang={params.lang} />
+        </div>
+
+        <div className="custom-container px-8 md:px-[15%]">
+          <WorkflowShowcase lang={params.lang} />
+        </div>
+
+        <div className="custom-container px-8 md:px-[15%]">
+          <WhyChooseUs lang={params.lang} />
+        </div>
+
+        <div className="custom-container px-8 md:px-[15%]">
+          <FAQ lang={params.lang} />
+        </div>
+
+        <div className="custom-container px-8 md:px-[15%]">
+          <CallToActionSection
+            title="Develop, Build, Deploy, and Scale Without Limits"
+            buttonText="Get Started"
+          />
+        </div>
+      </div>
+
       <div className="mt-[140px] h-[1px] bg-[#DDE7F7]"></div>
       <Footer lang={params.lang} />
       <TailwindIndicator />

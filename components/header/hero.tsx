@@ -18,6 +18,10 @@ interface HeroProps {
   lang?: languagesType;
   testimonial?: boolean;
   videoCta?: boolean;
+  secondaryCta?: {
+    title: string;
+    href: string;
+  };
 }
 
 export default function Hero({
@@ -28,6 +32,7 @@ export default function Hero({
   lang = 'en',
   testimonial = true,
   videoCta = true,
+  secondaryCta,
 }: HeroProps) {
   const { partialTitle, highlightTitle } = splitTitle(
     title.main,
@@ -36,14 +41,12 @@ export default function Hero({
 
   const translations = {
     en: {
-      signUpText: 'Sign up to get started',
       watchDemo: 'Watch demo',
       getStarted: 'Get Started',
       scrollDown: 'Scroll down to learn more',
       trustedBy: 'Trusted by leading companies worldwide',
     },
     'zh-cn': {
-      signUpText: '注册即可开始使用',
       watchDemo: '观看演示',
       getStarted: '立即开始',
       scrollDown: '向下滚动了解更多',
@@ -93,14 +96,14 @@ export default function Hero({
                   title={t.getStarted}
                   location="hero"
                 />
-                {videoCta && (
-                  <>
-                    <CustomButton
-                      className="font-pj inline-flex items-center justify-center rounded-xl border-2 border-gray-400 px-6 py-3 text-lg font-medium text-gray-900 transition-all duration-200 hover:border-gray-900 hover:bg-gray-900 hover:text-white focus:border-gray-900 focus:bg-gray-900 focus:text-white focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 focus:outline-hidden"
-                      title={t.watchDemo}
-                      href="#video-section"
-                      location="hero"
-                    >
+                {secondaryCta && (
+                  <CustomButton
+                    className="font-pj inline-flex items-center justify-center rounded-xl border-2 border-gray-400 px-6 py-3 text-lg font-medium text-gray-900 transition-all duration-200 hover:border-gray-900 hover:bg-gray-900 hover:text-white focus:border-gray-900 focus:bg-gray-900 focus:text-white focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 focus:outline-hidden"
+                    title={secondaryCta.title}
+                    href={secondaryCta.href}
+                    location="hero"
+                  >
+                    {videoCta && (
                       <svg
                         className="mr-2 h-5 w-5"
                         viewBox="0 0 18 18"
@@ -116,9 +119,9 @@ export default function Hero({
                           strokeLinejoin="round"
                         />
                       </svg>
-                      {t.watchDemo}
-                    </CustomButton>
-                  </>
+                    )}
+                    {secondaryCta.title}
+                  </CustomButton>
                 )}
               </motion.div>
 
@@ -132,9 +135,6 @@ export default function Hero({
                     transition={{ duration: 0.5, delay: 0.6 }}
                   >
                     <TestimonialBadge count="10K+" lang={lang} />
-                    <p className="font-inter mt-4 text-base text-gray-500">
-                      {t.signUpText}
-                    </p>
                   </motion.div>
                 </>
               )}

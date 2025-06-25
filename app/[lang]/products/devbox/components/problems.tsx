@@ -107,7 +107,6 @@ export default function Problems({ lang }: ProblemsProps) {
 
               <div className="mt-auto flex justify-center">
                 <div className="inline-flex items-center rounded-full bg-red-50 px-3 py-1 text-sm font-medium text-red-700">
-                  {lang === 'zh-cn' ? '影响：' : 'Impact: '}
                   {problem.impact}
                 </div>
               </div>

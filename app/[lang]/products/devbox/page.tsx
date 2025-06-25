@@ -26,6 +26,7 @@ const translations = {
     },
     description:
       'Eliminate development environment friction with ready-to-code cloud workstations. Instant setup, perfect isolation, enterprise security.',
+    watchDemo: 'Watch Demo',
   },
   'zh-cn': {
     title: {
@@ -34,6 +35,7 @@ const translations = {
     },
     description:
       '使用即开即用的云工作站消除开发环境摩擦。即时设置，完美隔离，企业级安全。',
+    watchDemo: '观看演示',
   },
 };
 
@@ -90,6 +92,11 @@ export default function HomePage({
             mainTitleEmphasis={1}
             getStartedLink={`${appDomain}/?openapp=system-devbox`}
             lang={params.lang}
+            videoCta={true}
+            secondaryCta={{
+              title: t.watchDemo,
+              href: '#video-section',
+            }}
           >
             <Video
               url="https://www.youtube.com/watch?v=TrEsUMwWtDg"
