@@ -190,51 +190,88 @@ export default function WhyChooseUs({ lang = 'en' as languagesType }) {
 
   // Comparison table component for better SSR support
   const ComparisonTable = () => (
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
-            ></th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium tracking-wider text-[#44BCFF] uppercase"
-            >
-              {t.comparison.sealos}
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
-            >
-              {t.comparison.traditional}
-            </th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-200 bg-white">
+    <>
+      {/* Mobile: Card layout */}
+      <div className="block lg:hidden">
+        <div className="space-y-4 p-4">
           {t.comparison.features.map((feature, index) => (
-            <tr
+            <div
               key={index}
-              className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50`}
+              className="flex flex-col gap-2 rounded-lg border border-gray-100 bg-white p-4 shadow-sm"
             >
-              <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
+              <div className="mb-1 text-xs font-semibold text-gray-500">
                 {feature.name}
-              </td>
-              <td className="flex items-center px-6 py-4 text-sm whitespace-nowrap text-gray-900">
+              </div>
+              <div className="mb-1 flex items-center">
                 <span className="mr-2 flex h-5 w-5 items-center justify-center rounded-full bg-blue-100">
                   <Check className="h-3 w-3 text-[#44BCFF]" />
                 </span>
-                {feature.sealos}
-              </td>
-              <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
-                {feature.traditional}
-              </td>
-            </tr>
+                <span className="text-sm font-medium text-[#44BCFF]">
+                  {t.comparison.sealos}:
+                </span>
+                <span className="ml-2 text-sm text-gray-900">
+                  {feature.sealos}
+                </span>
+              </div>
+              <div className="flex items-center">
+                <span className="text-sm font-medium text-gray-500">
+                  {t.comparison.traditional}:
+                </span>
+                <span className="ml-2 text-sm text-gray-500">
+                  {feature.traditional}
+                </span>
+              </div>
+            </div>
           ))}
-        </tbody>
-      </table>
-    </div>
+        </div>
+      </div>
+      {/* Desktop: Table layout */}
+      <div className="hidden overflow-x-auto lg:block">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
+              ></th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium tracking-wider text-[#44BCFF] uppercase"
+              >
+                {t.comparison.sealos}
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
+              >
+                {t.comparison.traditional}
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200 bg-white">
+            {t.comparison.features.map((feature, index) => (
+              <tr
+                key={index}
+                className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50`}
+              >
+                <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
+                  {feature.name}
+                </td>
+                <td className="flex items-center px-6 py-4 text-sm whitespace-nowrap text-gray-900">
+                  <span className="mr-2 flex h-5 w-5 items-center justify-center rounded-full bg-blue-100">
+                    <Check className="h-3 w-3 text-[#44BCFF]" />
+                  </span>
+                  {feature.sealos}
+                </td>
+                <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
+                  {feature.traditional}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 
   // Main content component for better SSR support

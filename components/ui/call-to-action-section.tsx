@@ -23,13 +23,21 @@ export function CallToActionSection({
 }: CallToActionSectionProps) {
   return (
     <div
-      className={`flex w-full flex-col justify-between overflow-hidden rounded-[20px] md:flex-row ${className}`}
+      className={`relative flex w-full flex-col justify-between overflow-hidden rounded-[20px] ${className}`}
       style={{
         background: 'linear-gradient(90deg, #D6EEFF 0%, #E1F3FF 100%)',
       }}
     >
+      {showImage && (
+        <Image
+          src={quickStartImage}
+          alt="Quick Start"
+          className="pointer-events-none absolute top-0 right-0 z-0 hidden h-full w-auto object-cover lg:block"
+          style={{ maxHeight: 400, minWidth: 320 }}
+        />
+      )}
       <AnimateElement type="slideUp">
-        <div className="flex size-full flex-col justify-center gap-16 px-4 py-16 sm:px-[72px] md:pr-0">
+        <div className="relative z-10 flex size-full flex-col justify-center gap-16 px-4 py-16 sm:px-[72px] md:pr-0">
           <div className="text-base leading-normal font-bold text-black sm:text-[28px]">
             {title}
           </div>
@@ -45,13 +53,6 @@ export function CallToActionSection({
           </CustomButton>
         </div>
       </AnimateElement>
-      {showImage && (
-        <Image
-          src={quickStartImage}
-          alt="Quick Start"
-          className="ml-auto block h-[312px] w-[478px] object-cover"
-        />
-      )}
     </div>
   );
 }
