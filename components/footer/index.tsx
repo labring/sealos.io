@@ -10,6 +10,7 @@ import {
   RSSIcon,
 } from '../ui/icons';
 import { languagesType, i18n } from '@/lib/i18n';
+import { CustomButton } from '../ui/button-custom';
 
 const year = new Date().getFullYear();
 
@@ -35,7 +36,7 @@ const FooterLink: React.FC<FooterLinkProps> = ({
   <Link
     href={href}
     className={cn(
-      'hover:underline-decoration-4 hover:underline-color-[#005B9C] text-custom-secondary-text text-sm font-medium hover:text-[#005B9C] hover:underline hover:underline-offset-4',
+      'hover:underline-decoration-4 hover:underline-color-[#005B9C] text-custom-secondary-text font-medium hover:text-[#005B9C] hover:underline hover:underline-offset-4',
       className,
     )}
   >
@@ -275,14 +276,14 @@ const Footer = async ({
 
   return (
     <div className="relative w-full pt-20">
-      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between text-sm max-xl:px-8 lg:flex-row">
-        <div>
-          <div className="mr-4 mb-4 md:flex">
+      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between px-8 text-sm lg:flex-row">
+        <div className="flex w-full flex-col items-center lg:items-start">
+          <div className="mr-4 mb-4 w-full justify-center md:flex lg:justify-start">
             <Link
               href={'/'}
               aria-label={siteConfig.name}
               title={siteConfig.name}
-              className="flex items-center gap-2 font-bold"
+              className="flex w-full items-center justify-center gap-2 font-bold lg:justify-start"
             >
               <img
                 alt={siteConfig.name}
@@ -294,12 +295,13 @@ const Footer = async ({
               <span className="text-xl font-bold">{siteConfig.name}</span>
             </Link>
           </div>
-          <div className="text-custom-secondary-text mt-3 text-xs font-medium sm:text-sm">
+          <div className="text-custom-secondary-text mt-3 w-full text-center text-sm font-medium lg:text-left">
             {siteConfig.tagline}
           </div>
         </div>
 
-        <div className="mt-10 grid grid-cols-4 items-start gap-10 lg:mt-0">
+        {/* Footer Links: single column on small screens, grid on large */}
+        <div className="mt-10 hidden w-full grid-cols-1 gap-4 text-center sm:grid sm:grid-cols-2 sm:gap-y-8 lg:mt-0 lg:grid-cols-4 lg:items-start lg:gap-10 lg:text-left">
           <FooterLinkColumn>
             <div className="text-base font-semibold text-black uppercase hover:text-black hover:no-underline">
               {footerLinks.resources.title}
@@ -344,40 +346,50 @@ const Footer = async ({
       </div>
 
       <div className="mt-16 h-[1px] w-full bg-[#DDE7F7]"></div>
-      <div className="mx-auto flex max-w-7xl justify-between px-2 pt-4 pb-6 pl-2">
-        <div className="text-custom-secondary-text flex items-center space-x-2 text-[10px] font-normal md:text-sm">
+      {/* Legal links, copyright, and social icons row */}
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-8 pt-4 pb-4 text-center text-xs lg:flex-row lg:items-center lg:justify-between lg:gap-0">
+        {/* Legal links */}
+        <div className="text-custom-secondary-text order-1 flex flex-wrap justify-center gap-2 font-normal lg:order-none">
           {footerLinks.legal.links.map((link, index) => (
             <FooterLink
               key={index}
-              className="text-custom-secondary-text text-[10px] font-normal md:text-sm"
+              className="text-custom-secondary-text font-normal"
               href={link.url}
             >
               {link.text}
             </FooterLink>
           ))}
-          <div>|</div>
-          <div>{footerLinks.copyright}</div>
         </div>
-        <div className="flex space-x-4">
-          <Link
+        {/* Copyright */}
+        <div className="text-custom-secondary-text order-3 font-normal lg:order-none lg:px-4">
+          {footerLinks.copyright}
+        </div>
+        {/* Social icons */}
+        <div className="order-2 flex justify-center space-x-4 lg:order-none">
+          <CustomButton
             className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
             href={siteConfig.links.github}
-            aria-label="GitHub"
+            title="GitHub"
+            location="footer_social"
+            newWindow={true}
           >
             <GithubIcon />
-          </Link>
-
-          <Link
+          </CustomButton>
+          <CustomButton
             className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
             href={siteConfig.links.discord}
-            aria-label="Discord"
+            title="Discord"
+            location="footer_social"
+            newWindow={true}
           >
             <DiscordIcon />
-          </Link>
-          <Link
+          </CustomButton>
+          <CustomButton
             className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
             href={siteConfig.links.twitter}
-            aria-label="Twitter"
+            title="Twitter"
+            location="footer_social"
+            newWindow={true}
           >
             <img
               src="/icons/twitter.svg"
@@ -386,11 +398,13 @@ const Footer = async ({
               height={16}
               className="h-4 w-4"
             />
-          </Link>
-          <Link
+          </CustomButton>
+          <CustomButton
             className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
             href={siteConfig.links.youtube}
-            aria-label="YouTube"
+            title="YouTube"
+            location="footer_social"
+            newWindow={true}
           >
             <img
               src="/icons/youtube.svg"
@@ -399,32 +413,38 @@ const Footer = async ({
               height={16}
               className="h-4 w-4"
             />
-          </Link>
+          </CustomButton>
           {lang === 'zh-cn' && (
-            <Link
+            <CustomButton
               className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
               href={siteConfig.links.bilibili}
-              aria-label="Bilibili"
+              title="Bilibili"
+              location="footer_social"
+              newWindow={true}
             >
               <BilibiliIcon />
-            </Link>
+            </CustomButton>
           )}
           {lang === 'zh-cn' && (
-            <Link
+            <CustomButton
               className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
               href={siteConfig.links.wechat}
-              aria-label="WeChat"
+              title="WeChat"
+              location="footer_social"
+              newWindow={true}
             >
               <WechatIcon />
-            </Link>
+            </CustomButton>
           )}
-          <Link
+          <CustomButton
             className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
             href="/rss.xml"
-            aria-label="RSS Feed"
+            title="RSS Feed"
+            location="footer_social"
+            newWindow={true}
           >
             <RSSIcon />
-          </Link>
+          </CustomButton>
         </div>
       </div>
     </div>
