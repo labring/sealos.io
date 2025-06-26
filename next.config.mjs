@@ -2,6 +2,25 @@ import { createMDX } from 'fumadocs-mdx/next';
 
 const withMDX = createMDX();
 
+const securityHeaders = [
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff',
+  },
+  {
+    key: 'X-Frame-Options',
+    value: 'DENY',
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'strict-origin-when-cross-origin',
+  },
+  {
+    key: 'X-XSS-Protection',
+    value: '1; mode=block', // optional, deprecated
+  },
+];
+
 /** @type {import('next').NextConfig} */
 const config = {
   // Removed 'output: standalone' to enable static generation for docs pages
@@ -11,6 +30,14 @@ const config = {
   // Enable static generation optimization
   experimental: {
     optimizePackageImports: ['fumadocs-ui', 'fumadocs-core'],
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: securityHeaders,
+      },
+    ];
   },
   async redirects() {
     return [
