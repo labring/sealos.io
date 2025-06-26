@@ -101,7 +101,7 @@ export default function RedirectSuggest() {
     return (
       <>
         <style>{easeFromBottom}</style>
-        <div className="fixed bottom-6 z-50 grid animate-[easeFromBottom_0.4s_ease-in-out] grid-cols-[56px_1fr] rounded-xl bg-white p-6 shadow-[0px_4px_4px_0px_#00000040] max-md:mx-4 md:right-6">
+        <div className="fixed bottom-6 z-[125] grid animate-[easeFromBottom_0.4s_ease-in-out] grid-cols-[56px_1fr] rounded-xl bg-white p-6 shadow-[0px_4px_4px_0px_#00000040] max-md:mx-4 md:right-6">
           <Info />
           <div>
             <h3 className="text-md my-1 font-medium md:text-lg xl:text-[23px]">
