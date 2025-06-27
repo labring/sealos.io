@@ -189,6 +189,7 @@ export default function Desktop() {
     startPos: { x: number; y: number };
     startSize: { width: number; height: number };
   } | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   const desktopRef = useRef<HTMLDivElement>(null);
 
@@ -198,6 +199,10 @@ export default function Desktop() {
       setIsLoading(false);
     }, 2000);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    setMounted(true);
   }, []);
 
   const showTooltip = useCallback((text: string, element: HTMLElement) => {
@@ -838,8 +843,10 @@ export default function Desktop() {
       </div>
 
       {/* Portal-rendered Tooltip */}
-      {tooltip.show &&
+      {mounted &&
+        tooltip.show &&
         typeof window !== 'undefined' &&
+        typeof document !== 'undefined' &&
         createPortal(
           <div
             className="pointer-events-none fixed rounded bg-gray-900 px-2 py-1 text-xs text-white shadow-lg"
