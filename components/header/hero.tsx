@@ -61,34 +61,23 @@ export default function Hero({
     <section className="relative pt-12 sm:pt-16">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto text-center">
-          <motion.h1
-            className="font-inter px-6 text-lg text-gray-600"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {title.sub}
-          </motion.h1>
-          <motion.p
-            className="font-pj mt-5 text-4xl leading-tight font-bold text-gray-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+          <p className="font-inter px-6 text-lg text-gray-600">{title.sub}</p>
+          <h1 className="font-pj mt-5 text-4xl leading-tight font-bold text-gray-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight">
             {partialTitle}
             <span className="relative inline-flex sm:inline">
               <span className="absolute inset-0 h-full w-full bg-linear-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] opacity-30 blur-lg filter"></span>
               <span className="relative"> {highlightTitle}</span>
             </span>
-          </motion.p>
+          </h1>
 
           {getStartedLink && (
             <>
+              {/* Animate only the CTA buttons, with minimal delay/duration */}
               <motion.div
                 className="mt-9 flex items-center justify-center space-x-5"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
               >
                 <GetStartedButton
                   className="w-auto px-8 py-3 text-lg font-bold"
@@ -132,7 +121,7 @@ export default function Hero({
                     className="mt-8 flex flex-col items-center justify-center"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
                   >
                     <TestimonialBadge count="10K+" lang={lang} />
                   </motion.div>
