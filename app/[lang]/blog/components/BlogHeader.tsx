@@ -2,6 +2,7 @@ import { languagesType } from '@/lib/i18n';
 import CategoryBar from './CategoryBar';
 import TagBar from './TagBar';
 import { RSSButton } from '@/components/ui/button-rss';
+import { memo } from 'react';
 
 interface BlogHeaderProps {
   lang: languagesType;
@@ -31,13 +32,13 @@ export const translations: Record<
   },
 };
 
-export default function BlogHeader({
+const BlogHeader = memo<BlogHeaderProps>(({
   lang,
   title,
   description,
   categories,
   tags,
-}: BlogHeaderProps) {
+}) => {
   const text = translations[lang];
 
   return (
@@ -68,4 +69,8 @@ export default function BlogHeader({
       </div>
     </div>
   );
-}
+});
+
+BlogHeader.displayName = 'BlogHeader';
+
+export default BlogHeader;
