@@ -1,6 +1,7 @@
 import { AnimateElement } from '@/components/ui/animated-wrapper';
 import { Clock, AlertCircle, Zap, Shield } from 'lucide-react';
 import { languagesType } from '@/lib/i18n';
+import { useMemo, memo } from 'react';
 
 const translations = {
   en: {
@@ -66,19 +67,20 @@ const translations = {
   },
 };
 
-const problemIcons = [
-  <Clock className="h-8 w-8 text-red-500" />,
-  <AlertCircle className="h-8 w-8 text-orange-500" />,
-  <Zap className="h-8 w-8 text-yellow-500" />,
-  <Shield className="h-8 w-8 text-purple-500" />,
-];
-
 interface ProblemsProps {
   lang: languagesType;
 }
 
-export default function Problems({ lang }: ProblemsProps) {
+const Problems = memo<ProblemsProps>(({ lang }) => {
   const t = translations[lang] || translations.en;
+
+  // Memoize problem icons to prevent recreation on each render
+  const problemIcons = useMemo(() => [
+    <Clock key="clock" className="h-8 w-8 text-red-500" />,
+    <AlertCircle key="alert" className="h-8 w-8 text-orange-500" />,
+    <Zap key="zap" className="h-8 w-8 text-yellow-500" />,
+    <Shield key="shield" className="h-8 w-8 text-purple-500" />,
+  ], []);
 
   return (
     <section className="py-16">
@@ -116,4 +118,8 @@ export default function Problems({ lang }: ProblemsProps) {
       </div>
     </section>
   );
-}
+});
+
+Problems.displayName = 'Problems';
+
+export default Problems;

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { memo } from 'react';
 import { Code, Package, Rocket, Play } from 'lucide-react';
 import { BentoCard } from './workflow/bentogrid';
 import { ReleaseAnimation } from './workflow/release-animation';
@@ -101,7 +101,7 @@ const translations = {
   },
 };
 
-export default function WorkflowShowcase({ lang }: WorkflowShowcaseProps) {
+const WorkflowShowcase = memo<WorkflowShowcaseProps>(({ lang }) => {
   const t = translations[lang];
 
   return (
@@ -135,4 +135,8 @@ export default function WorkflowShowcase({ lang }: WorkflowShowcaseProps) {
       </div>
     </div>
   );
-}
+});
+
+WorkflowShowcase.displayName = 'WorkflowShowcase';
+
+export default WorkflowShowcase;

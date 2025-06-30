@@ -1,17 +1,23 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, memo } from 'react';
 import { languagesType } from '@/lib/i18n';
 
-// This is a wrapper component to handle translation errors
-export default function CaseWrapper({ 
-  children,
-  lang 
-}: { 
+interface CaseWrapperProps {
   children: ReactNode;
   lang: languagesType;
-}) {
+}
+
+// This is a wrapper component to handle translation errors
+const CaseWrapper = memo<CaseWrapperProps>(({
+  children,
+  lang
+}) => {
   return (
     <div className="case-wrapper">
       {children}
     </div>
   );
-}
+});
+
+CaseWrapper.displayName = 'CaseWrapper';
+
+export default CaseWrapper;

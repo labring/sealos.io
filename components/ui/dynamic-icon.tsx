@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import * as LucideIcons from 'lucide-react';
 import { LucideIcon, LucideProps } from 'lucide-react';
 
@@ -7,7 +7,7 @@ interface DynamicIconProps extends Omit<LucideProps, 'ref'> {
   fallback?: keyof typeof LucideIcons;
 }
 
-const DynamicIcon: React.FC<DynamicIconProps> = ({
+const DynamicIcon = memo<DynamicIconProps>(({
   name,
   fallback = 'CircleCheck',
   ...props
@@ -32,6 +32,8 @@ const DynamicIcon: React.FC<DynamicIconProps> = ({
   }
 
   return <IconComponent {...props} />;
-};
+});
+
+DynamicIcon.displayName = 'DynamicIcon';
 
 export default DynamicIcon;
