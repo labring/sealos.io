@@ -10,6 +10,7 @@ import { useState, useMemo, useCallback, memo } from 'react';
 import { GetStartedButton } from '../ui/button-shiny';
 import { languagesType } from '@/lib/i18n';
 import DropdownMenu from './dropdown-menu';
+import Image from 'next/image';
 
 interface HeaderProps {
   lang: languagesType;
@@ -57,12 +58,13 @@ const Header = memo<HeaderProps>(({ lang }) => {
               title={siteConfig.name}
               className="flex flex-shrink-0 items-center gap-2 font-bold"
             >
-              <img
+              <Image
                 alt="Sealos Logo"
                 src="/logo.svg"
                 className="h-8 w-8"
                 width={48}
                 height={48}
+                priority
               />
               <span className="hidden text-xl font-bold md:block">
                 {siteConfig.name}
@@ -130,12 +132,13 @@ const Header = memo<HeaderProps>(({ lang }) => {
                           title={siteConfig.name}
                           className="inline-flex items-center"
                         >
-                          <img
+                          <Image
                             alt="Sealos Logo"
                             src="/logo.svg"
                             className="h-8 w-8"
                             width={48}
                             height={48}
+                            priority
                           />
                           <span className="ml-2 text-xl font-bold tracking-wide text-gray-950">
                             {siteConfig.name}
