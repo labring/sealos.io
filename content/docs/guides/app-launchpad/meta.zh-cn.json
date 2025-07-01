@@ -1,4 +1,5 @@
 {
     "title": "应用管理",
+    "defaultOpen": true,
     "pages": ["create-app", "docker-compose-migration", "update-apps", "add-a-domain", "expose-multiple-ports", "environments", "configmap", "autoscaling", "persistent-volume", "custom-certificates"]
 }

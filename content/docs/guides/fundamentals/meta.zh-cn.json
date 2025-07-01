@@ -1,5 +1,5 @@
 {
-    "title": "基础概念",
+    "title": "DevBox",
     "pages": ["create-a-project", "develop", "entrypoint-sh", "release", "deploy", "template-market"],
-    "defaultOpen": true
+    "defaultOpen": false
 }
