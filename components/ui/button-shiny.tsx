@@ -1,33 +1,12 @@
 'use client';
 
 import React from 'react';
-import { motion, type AnimationProps } from 'framer-motion';
 
 import { cn } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
 import { useButtonHandler } from '@/hooks/use-button-handler';
 import { ButtonLink } from './button-link';
 
-const animationProps = {
-  initial: { '--x': '100%', scale: 0.8 },
-  animate: { '--x': '-100%', scale: 1 },
-  whileTap: { scale: 0.95 },
-  transition: {
-    repeat: Infinity,
-    repeatType: 'loop',
-    repeatDelay: 1,
-    type: 'spring',
-    stiffness: 20,
-    damping: 15,
-    mass: 2,
-    scale: {
-      type: 'spring',
-      stiffness: 200,
-      damping: 5,
-      mass: 0.5,
-    },
-  },
-} as AnimationProps;
 interface ShinyButtonProps {
   children: React.ReactNode;
   className?: string;
@@ -35,6 +14,7 @@ interface ShinyButtonProps {
   location?: string;
   title?: string;
 }
+
 const ShinyButton = ({
   children,
   className,
@@ -93,19 +73,17 @@ const ShinyButton = ({
     );
   }
 
-  // For non-link buttons, use motion.button with full animation
   return (
-    <motion.button
-      {...animationProps}
+    <button
       {...props}
       onClick={handleClick}
       className={cn(
-        'relative rounded-lg px-6 py-2 font-medium backdrop-blur-xl transition-shadow duration-300 ease-in-out hover:shadow-sm dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/10%)_0%,transparent_60%)] dark:hover:shadow-[0_0_20px_hsl(var(--primary)/10%)]',
+        'animate-shiny-button relative rounded-lg px-6 py-2 font-medium backdrop-blur-xl transition-shadow duration-300 ease-in-out hover:shadow-sm dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/10%)_0%,transparent_60%)] dark:hover:shadow-[0_0_20px_hsl(var(--primary)/10%)]',
         className,
       )}
     >
       {buttonContent}
-    </motion.button>
+    </button>
   );
 };
 
@@ -132,20 +110,7 @@ export const GetStartedButton = ({
     <>
       <div className="z-10">{title ? title : 'Get Started'}</div>
       <ArrowRight className="relative h-4 w-4" />
-      <motion.div
-        className="absolute -top-1/2 left-0 h-[200%] w-[40px] bg-white/60"
-        initial={{ x: '-50px', skew: '-20deg' }}
-        animate={{ x: '150px' }}
-        transition={{
-          repeat: Infinity,
-          duration: 1,
-          ease: 'easeInOut',
-          repeatDelay: 1,
-        }}
-        style={{
-          filter: 'blur(20px)',
-        }}
-      />
+      <div className="animate-shine-effect absolute -top-1/2 left-0 h-[200%] w-[40px] bg-white/60" />
     </>
   );
 

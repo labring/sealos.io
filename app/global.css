@@ -279,3 +279,63 @@
   text-align: center;
   max-width: 90%;
 }
+
+/* Custom animations */
+/* Fade in up animation used in the hero section */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Shiny button animation used in the hero section */
+@keyframes shinyButton {
+  0% {
+    --x: 100%;
+    transform: scale(0.8);
+  }
+  50% {
+    --x: -100%;
+    transform: scale(1);
+  }
+  100% {
+    --x: 100%;
+    transform: scale(0.8);
+  }
+}
+
+/* Shine effect animation used in the hero section */
+@keyframes shineEffect {
+  0% {
+    transform: translateX(-100px) skew(-20deg);
+  }
+  100% {
+    transform: translateX(200px) skew(-20deg);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.3s ease-out 0.1s both;
+}
+
+.animate-fade-in-up-delayed {
+  animation: fadeInUp 0.3s ease-out 0.2s both;
+}
+
+.animate-shiny-button {
+  animation: shinyButton 2s ease-in-out infinite;
+}
+
+.animate-shiny-button:hover {
+  transform: scale(0.95);
+}
+
+.animate-shine-effect {
+  animation: shineEffect 2s linear infinite;
+  filter: blur(20px);
+}

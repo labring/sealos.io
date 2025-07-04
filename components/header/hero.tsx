@@ -4,7 +4,6 @@ import { GetStartedButton } from '@/components/ui/button-shiny';
 import { TestimonialBadge } from '@/components/ui/testimonial-badge';
 import { ReactNode } from 'react';
 import { languagesType } from '@/lib/i18n';
-import { motion } from 'framer-motion';
 import { CustomButton } from '../ui/button-custom';
 
 interface HeroProps {
@@ -72,13 +71,8 @@ export default function Hero({
 
           {getStartedLink && (
             <>
-              {/* Animate only the CTA buttons, with minimal delay/duration */}
-              <motion.div
-                className="mt-9 flex items-center justify-center space-x-5"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.1 }}
-              >
+              {/* CTA buttons */}
+              <div className="animate-fade-in-up mt-9 flex items-center justify-center space-x-5">
                 <GetStartedButton
                   className="w-auto px-8 py-3 text-lg font-bold"
                   link={getStartedLink}
@@ -112,19 +106,14 @@ export default function Hero({
                     {secondaryCta.title}
                   </CustomButton>
                 )}
-              </motion.div>
+              </div>
 
               {testimonial && (
                 <>
-                  {/* Testimonial badge and sign up text */}
-                  <motion.div
-                    className="mt-8 flex flex-col items-center justify-center"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.2 }}
-                  >
+                  {/* Testimonial badge */}
+                  <div className="animate-fade-in-up-delayed mt-8 flex flex-col items-center justify-center">
                     <TestimonialBadge count="10K+" lang={lang} />
-                  </motion.div>
+                  </div>
                 </>
               )}
             </>
