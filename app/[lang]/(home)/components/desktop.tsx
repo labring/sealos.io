@@ -191,6 +191,12 @@ export default function Desktop() {
   } | null>(null);
   const [mounted, setMounted] = useState(false);
 
+  const [todayDate, setTodayDate] = useState('');
+
+  useEffect(() => {
+    setTodayDate(new Date().toLocaleDateString());
+  }, []);
+
   const desktopRef = useRef<HTMLDivElement>(null);
 
   // Auto-hide loading screen after 2 seconds
@@ -786,7 +792,7 @@ export default function Desktop() {
             </div>
 
             <div className="flex items-center space-x-2 text-xs text-gray-500">
-              <span>{new Date().toLocaleDateString()}</span>
+              <span>{todayDate}</span>
             </div>
           </div>
         </div>
