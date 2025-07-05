@@ -2,8 +2,21 @@
 
 import { languagesType } from '@/lib/i18n';
 import { useState, useEffect } from 'react';
+import { createTranslationHook, type TranslationConfig } from '@/lib/utils/translations';
 
-const translations = {
+type TestimonialData = {
+  quote: string;
+  author: string;
+  title: string;
+  image: string;
+};
+
+type TestimonialsTranslations = {
+  title: string;
+  testimonials: TestimonialData[];
+};
+
+const translations: TranslationConfig<TestimonialsTranslations> = {
   'en': {
     title: 'Customer Testimonials',
     testimonials: [
@@ -34,8 +47,10 @@ const translations = {
   }
 };
 
+const useTranslations = createTranslationHook(translations);
+
 export default function Testimonials({ lang }: { lang: languagesType }) {
-  const t = translations[lang];
+  const t = useTranslations(lang);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
