@@ -3,8 +3,17 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { languagesType } from '@/lib/i18n';
+import { createTranslationHook, type TranslationConfig } from '@/lib/utils/translations';
 
-const translations = {
+type TestimonialTranslations = {
+  trusted: string;
+  developers: string;
+  companies: string;
+  users: string;
+  projects: string;
+};
+
+const translations: TranslationConfig<TestimonialTranslations> = {
   'en': {
     trusted: 'Trusted by',
     developers: 'developers',
@@ -21,6 +30,8 @@ const translations = {
   }
 };
 
+const useTranslations = createTranslationHook(translations);
+
 interface TestimonialBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   count: string;
   lang?: languagesType;
@@ -28,7 +39,7 @@ interface TestimonialBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const TestimonialBadge = React.forwardRef<HTMLDivElement, TestimonialBadgeProps>(
   ({ className, count, lang = 'en', ...props }, ref) => {
-    const t = translations[lang];
+    const t = useTranslations(lang);
 
     return (
       <div

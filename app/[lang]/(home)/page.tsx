@@ -15,9 +15,21 @@ import RedirectSuggest from '@/components/redirectSuggest';
 import { languagesType } from '@/lib/i18n';
 import ScrollProgressWrapper from '@/components/scroll-progress-wrapper';
 import { CallToActionSection } from '@/components/ui/call-to-action-section';
+import { createTranslationHook, type TranslationConfig } from '@/lib/utils/translations';
 
 // Define translations only for strings used directly in this component
-const translations = {
+type HomeTranslations = {
+  title: {
+    main: string;
+    sub: string;
+  };
+  desktop: {
+    title: string;
+    description: string;
+  };
+};
+
+const translations: TranslationConfig<HomeTranslations> = {
   en: {
     title: {
       main: 'End Cloud Complexity. Start Building.',
@@ -42,6 +54,8 @@ const translations = {
   },
 };
 
+const useTranslations = createTranslationHook(translations);
+
 export const metadata = generatePageMetadata({
   pathname: '/',
 });
@@ -51,7 +65,7 @@ export default function HomePage({
 }: {
   params: { lang: languagesType };
 }) {
-  const t = translations[params.lang] || translations.en;
+  const t = useTranslations(params.lang);
 
   return (
     <div className="h-full bg-[#EBF2FF]">

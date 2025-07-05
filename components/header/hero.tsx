@@ -5,6 +5,7 @@ import { TestimonialBadge } from '@/components/ui/testimonial-badge';
 import { ReactNode } from 'react';
 import { languagesType } from '@/lib/i18n';
 import { CustomButton } from '../ui/button-custom';
+import { getCommonTranslations } from '@/lib/utils/translations';
 
 interface HeroProps {
   children?: ReactNode;
@@ -38,23 +39,7 @@ export default function Hero({
     mainTitleEmphasis,
   );
 
-  const translations = {
-    en: {
-      watchDemo: 'Watch demo',
-      getStarted: 'Get Started',
-      scrollDown: 'Scroll down to learn more',
-      trustedBy: 'Trusted by leading companies worldwide',
-    },
-    'zh-cn': {
-      watchDemo: '观看演示',
-      getStarted: '立即开始',
-      scrollDown: '向下滚动了解更多',
-      trustedBy: '全球领先企业的信赖之选',
-    },
-  };
-
-  const t =
-    translations[lang as keyof typeof translations] || translations['en'];
+  const commonT = getCommonTranslations(lang);
 
   return (
     <section className="relative pt-12 sm:pt-16">
@@ -76,7 +61,7 @@ export default function Hero({
                 <GetStartedButton
                   className="w-auto px-8 py-3 text-lg font-bold"
                   link={getStartedLink}
-                  title={t.getStarted}
+                  title={commonT.getStarted}
                   location="hero"
                 />
                 {secondaryCta && (

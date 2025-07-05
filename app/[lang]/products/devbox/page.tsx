@@ -16,9 +16,18 @@ import {
   generateProductSchema,
   generateBreadcrumbSchema,
 } from '@/lib/utils/structured-data';
+import { createTranslationHook, getCommonTranslations, type TranslationConfig } from '@/lib/utils/translations';
 
 // Define translations for different languages
-const translations = {
+type DevboxTranslations = {
+  title: {
+    main: string;
+    sub: string;
+  };
+  description: string;
+};
+
+const translations: TranslationConfig<DevboxTranslations> = {
   en: {
     title: {
       main: 'Focus on Your Code, Not Configuration',
@@ -26,7 +35,6 @@ const translations = {
     },
     description:
       'Eliminate development environment friction with ready-to-code cloud workstations. Instant setup, perfect isolation, enterprise security.',
-    watchDemo: 'Watch Demo',
   },
   'zh-cn': {
     title: {
@@ -35,9 +43,10 @@ const translations = {
     },
     description:
       '使用即开即用的云工作站消除开发环境摩擦。即时设置，完美隔离，企业级安全。',
-    watchDemo: '观看演示',
   },
 };
+
+const useTranslations = createTranslationHook(translations);
 
 // Generate metadata function that supports internationalization
 export function generateMetadata({
@@ -45,7 +54,7 @@ export function generateMetadata({
 }: {
   params: { lang: languagesType };
 }) {
-  const t = translations[params.lang] || translations.en;
+  const t = useTranslations(params.lang);
   return generatePageMetadata({
     title: 'DevBox' + ' | ' + t.title.sub,
     description: t.description,
@@ -59,7 +68,8 @@ export default function HomePage({
 }: {
   params: { lang: languagesType };
 }) {
-  const t = translations[params.lang] || translations.en;
+  const t = useTranslations(params.lang);
+  const commonT = getCommonTranslations(params.lang);
 
   // Generate structured data for DevBox product
   const productSchema = generateProductSchema(
@@ -94,7 +104,7 @@ export default function HomePage({
             lang={params.lang}
             videoCta={true}
             secondaryCta={{
-              title: t.watchDemo,
+              title: commonT.watchDemo,
               href: '#video-section',
             }}
           >
