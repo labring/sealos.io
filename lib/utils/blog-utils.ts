@@ -103,7 +103,6 @@ export function getPostsByLanguage(lang: languagesType) {
     });
   }
 
-  console.log(filteredPosts)
   return filteredPosts;
 }
 
@@ -113,8 +112,6 @@ export function getSortedBlogPosts(options?: {
   lang?: languagesType;
 }) {
   let filteredPosts = getPostsByLanguage(options?.lang ?? 'en');
-
-  console.log(filteredPosts);
 
   // Filter by category if provided
   if (options?.category) {

@@ -10,6 +10,9 @@ import {
 import { notFound } from 'next/navigation';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import { generateDocsMetadata } from '@/lib/utils/metadata';
+import AIShareButtons from '@/components/ai-share-buttons';
+import AIShareButtonsCompact from '@/components/ai-share-buttons-compact';
+import { languagesType } from '@/lib/i18n';
 
 /**
  * Generate the correct GitHub file path based on language
@@ -33,7 +36,7 @@ function getGithubFilePath(filePath: string, language: string): string {
 export default async function Page({
   params,
 }: {
-  params: { lang: string; slug?: string[] };
+  params: { lang: languagesType; slug?: string[] };
 }) {
   const page = source.getPage(params.slug, params.lang);
   if (!page) notFound();
@@ -60,6 +63,7 @@ export default async function Page({
     >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
+      <AIShareButtonsCompact lang={params.lang} className="mb-6" />
       <DocsBody>
         <MDX
           components={{
@@ -72,6 +76,7 @@ export default async function Page({
           }}
         />
       </DocsBody>
+      <AIShareButtons lang={params.lang} />
     </DocsPage>
   );
 }

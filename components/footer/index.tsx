@@ -8,6 +8,7 @@ import {
   BilibiliIcon,
   WechatIcon,
   RSSIcon,
+  MeteorIconsX,
 } from '../ui/icons';
 import { languagesType, i18n } from '@/lib/i18n';
 import { CustomButton } from '../ui/button-custom';
@@ -391,13 +392,7 @@ const Footer = async ({
             location="footer_social"
             newWindow={true}
           >
-            <img
-              src="/icons/twitter.svg"
-              alt="Twitter"
-              width={16}
-              height={16}
-              className="h-4 w-4"
-            />
+            <MeteorIconsX className="h-4 w-4" />
           </CustomButton>
           <CustomButton
             className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"

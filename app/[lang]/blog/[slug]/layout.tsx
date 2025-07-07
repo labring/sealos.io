@@ -21,6 +21,8 @@ import { DocsPage } from 'fumadocs-ui/page';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import '../blog.module.css';
 import StructuredDataComponent from '@/components/structured-data';
+import AIShareButtons from '@/components/ai-share-buttons';
+import AIShareButtonsCompact from '@/components/ai-share-buttons-compact';
 import {
   generateArticleSchema,
   generateBreadcrumbSchema,
@@ -241,9 +243,11 @@ export default async function BlogLayout({
                 </div>
               </div>
             </div>
+            <AIShareButtonsCompact lang={params.lang} className="mb-6" />
             <div className="blog-content -mt-4 w-full border-t pt-8">
               {children}
             </div>
+            <AIShareButtons lang={params.lang} />
             <Cta lang={params.lang} />
           </article>
         </DocsPage>
