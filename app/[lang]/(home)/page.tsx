@@ -9,7 +9,6 @@ import Footer from '@/components/footer';
 import Header from '@/components/header';
 import Hero from '@/components/header/hero';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
-import { generatePageMetadata } from '@/lib/utils/metadata';
 import { appDomain } from '@/config/site';
 import RedirectSuggest from '@/components/redirectSuggest';
 import { languagesType } from '@/lib/i18n';
@@ -41,10 +40,6 @@ const translations = {
     },
   },
 };
-
-export const metadata = generatePageMetadata({
-  pathname: '/',
-});
 
 export default function HomePage({
   params,
