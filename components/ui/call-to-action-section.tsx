@@ -56,3 +56,5 @@ export function CallToActionSection({
     </div>
   );
 }
+
+export default CallToActionSection;

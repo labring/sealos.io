@@ -1,19 +1,24 @@
-import Trusted from './components/trusted';
-import WhyChooseUs from './components/why-choose-us';
-import FAQ from './components/faq';
-import ProblemsAndSolutions from './components/problems-solutions';
-import WorkflowShowcase from './components/workflow-showcase';
-import HeroBenefits from './components/hero-benefits';
+import dynamic from 'next/dynamic';
+
 import Desktop from './components/desktop';
-import Footer from '@/components/footer';
 import Header from '@/components/header';
 import Hero from '@/components/header/hero';
+import HeroBenefits from './components/hero-benefits';
+import ProblemsAndSolutions from './components/problems-solutions';
+import Trusted from './components/trusted';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
 import { appDomain } from '@/config/site';
-import RedirectSuggest from '@/components/redirectSuggest';
 import { languagesType } from '@/lib/i18n';
 import ScrollProgressWrapper from '@/components/scroll-progress-wrapper';
+
+const WorkflowShowcase = dynamic(
+  () => import('./components/workflow-showcase'),
+);
+const WhyChooseUs = dynamic(() => import('./components/why-choose-us'));
+const FAQ = dynamic(() => import('./components/faq'));
 import { CallToActionSection } from '@/components/ui/call-to-action-section';
+const RedirectSuggest = dynamic(() => import('@/components/redirectSuggest'));
+const Footer = dynamic(() => import('@/components/footer'));
 
 // Define translations only for strings used directly in this component
 const translations = {
