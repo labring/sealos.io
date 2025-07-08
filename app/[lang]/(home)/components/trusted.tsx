@@ -1,6 +1,5 @@
 'use client';
 
-import { Marquee } from './marquee';
 import { languagesType } from '@/lib/i18n';
 import { Counter } from '@/components/ui/counter';
 
@@ -101,9 +100,9 @@ export default function Logos({ lang = 'en' as languagesType }) {
 
           <div
             id="metrics-container"
-            className="flex flex-wrap justify-center gap-8 md:gap-16"
+            className="flex w-full flex-wrap justify-evenly gap-y-8 md:gap-y-16"
           >
-            <div className="flex flex-col items-center">
+            <div className="flex w-1/2 flex-col items-center sm:w-auto md:w-1/3">
               <span className="bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] bg-clip-text text-3xl font-bold text-transparent md:text-4xl">
                 <Counter end={10000} suffix="+" duration={1000} />
               </span>
@@ -111,7 +110,7 @@ export default function Logos({ lang = 'en' as languagesType }) {
                 {t.metrics[0].label}
               </span>
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex w-1/2 flex-col items-center md:w-1/3">
               <span className="bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] bg-clip-text text-3xl font-bold text-transparent md:text-4xl">
                 <Counter end={50000} suffix="+" duration={1000} />
               </span>
@@ -119,7 +118,7 @@ export default function Logos({ lang = 'en' as languagesType }) {
                 {t.metrics[1].label}
               </span>
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex w-1/2 flex-col items-center md:w-1/3">
               <span className="bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] bg-clip-text text-3xl font-bold text-transparent md:text-4xl">
                 <Counter end={99.9} decimals={1} suffix="%" duration={1000} />
               </span>
@@ -156,18 +155,16 @@ export default function Logos({ lang = 'en' as languagesType }) {
 
         {/* All partners marquee */}
         <div className="relative mt-10">
-          <Marquee className="max-w-full [--duration:40s]">
-            {t.companies
-              .filter((company) => !company.featured)
-              .map((company, idx) => (
-                <img
-                  key={idx}
-                  src={company.url}
-                  className="h-10 w-28 opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 dark:brightness-0 dark:invert"
-                  alt={company.name}
-                />
-              ))}
-          </Marquee>
+          {t.companies
+            .filter((company) => !company.featured)
+            .map((company, idx) => (
+              <img
+                key={idx}
+                src={company.url}
+                className="h-10 w-28 opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 dark:brightness-0 dark:invert"
+                alt={company.name}
+              />
+            ))}
         </div>
       </div>
     </div>
