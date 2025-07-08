@@ -32,11 +32,11 @@ export default function AIShareButtonsCompact({ lang, className = '' }: AIShareB
   const t = translations[lang];
 
   return (
-    <div className={`flex flex-col lg:flex-row lg:items-center gap-2 text-sm ${className}`}>
-      <span className="font-medium text-gray-700 shrink-0">{t.title}</span>
+    <div className={`flex flex-col xl:flex-row xl:items-center gap-1.5 text-sm ${className}`}>
+      <span className="font-medium text-gray-700 shrink-0 text-xs">{t.title}</span>
 
       {/* AI share button group */}
-      <div className="flex flex-wrap gap-1.5 lg:gap-2">
+      <div className="flex flex-wrap gap-1">
         <AIShareButton
           platform="chatgpt"
           label={t.chatgpt}
@@ -70,10 +70,10 @@ export default function AIShareButtonsCompact({ lang, className = '' }: AIShareB
       </div>
 
       {/* Separator */}
-      <span className="text-gray-400 mx-1 hidden lg:inline shrink-0">|</span>
+      <span className="text-gray-400 mx-0.5 hidden xl:inline shrink-0 text-xs">|</span>
 
       {/* Social share button group */}
-      <div className="flex flex-wrap gap-1.5 lg:gap-2">
+      <div className="flex flex-wrap gap-1">
         <SocialShareButton
           platform="linkedin"
           variant="compact"
