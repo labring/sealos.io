@@ -1,5 +1,63 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { LucideIcon, LucideProps } from 'lucide-react';
+import {
+  Activity,
+  BarChart3,
+  BookOpen,
+  CircleCheck,
+  Clock,
+  Cloud,
+  Code,
+  Cpu,
+  Database,
+  DollarSign,
+  FileText,
+  GitBranch,
+  Globe,
+  Headphones,
+  Layers,
+  Rocket,
+  Server,
+  Settings,
+  Shield,
+  Smile,
+  TrendingUp,
+  Trophy,
+  Users,
+  Wifi,
+  Wrench,
+  Zap,
+} from 'lucide-react';
+
+// Static icon map to avoid dynamic imports
+const iconMap: Record<string, LucideIcon> = {
+  Activity,
+  BarChart3,
+  BookOpen,
+  CircleCheck,
+  Clock,
+  Cloud,
+  Code,
+  Cpu,
+  Database,
+  DollarSign,
+  FileText,
+  GitBranch,
+  Globe,
+  Headphones,
+  Layers,
+  Rocket,
+  Server,
+  Settings,
+  Shield,
+  Smile,
+  TrendingUp,
+  Trophy,
+  Users,
+  Wifi,
+  Wrench,
+  Zap,
+};
 
 interface DynamicIconProps extends Omit<LucideProps, 'ref'> {
   name: string;
@@ -11,40 +69,15 @@ const DynamicIcon: React.FC<DynamicIconProps> = ({
   fallback = 'CircleCheck',
   ...props
 }) => {
-  const [IconComponent, setIconComponent] = useState<LucideIcon | null>(null);
-
-  useEffect(() => {
-    let mounted = true;
-
-    const loadIcon = async (iconName: string) => {
-      try {
-        const module = await import(`lucide-react`);
-        const icons = module as any;
-        
-        if (mounted && icons[iconName]) {
-          setIconComponent(() => icons[iconName] as LucideIcon);
-        } else if (mounted && fallback && fallback !== iconName) {
-          // Try loading fallback
-          loadIcon(fallback);
-        }
-      } catch (error) {
-        if (process.env.NODE_ENV === 'development') {
-          console.warn(`Failed to load icon "${iconName}":`, error);
-        }
-        if (mounted && fallback && fallback !== iconName) {
-          loadIcon(fallback);
-        }
-      }
-    };
-
-    loadIcon(name);
-
-    return () => {
-      mounted = false;
-    };
-  }, [name, fallback]);
+  // Get the icon component from the static map
+  const IconComponent = iconMap[name] || iconMap[fallback];
 
   if (!IconComponent) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(
+        `Icon "${name}" not found in icon map. Using fallback or empty span.`,
+      );
+    }
     // Return empty span with similar dimensions to prevent layout shift
     return <span className="inline-block" style={{ width: props.size || 24, height: props.size || 24 }} />;
   }

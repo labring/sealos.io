@@ -119,7 +119,7 @@ const config = {
     config.optimization = {
       ...config.optimization,
       sideEffects: false,
-      usedExports: true,
+      // Removed usedExports due to conflict with Next.js caching
     };
     
     return config;
