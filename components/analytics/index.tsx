@@ -33,7 +33,7 @@ const loadRybbitAnalytics = (siteId: string) => {
 };
 
 export function Analytics() {
-  // GTM Implementation with improved error handling
+  // GTM Implementation with smart lazy loading
   useEffect(() => {
     if (analyticsConfig.gtm?.enabled && analyticsConfig.gtm.containerId) {
       // Avoid duplicate GTM initialization
@@ -44,23 +44,68 @@ export function Analytics() {
         return;
       }
 
-      // Initialize dataLayer first
+      // Initialize dataLayer immediately
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        'gtm.start': new Date().getTime(),
-        event: 'gtm.js',
-      });
+      
+      let gtmLoaded = false;
+      
+      const loadGTM = () => {
+        if (gtmLoaded) return;
+        gtmLoaded = true;
+        
+        window.dataLayer.push({
+          'gtm.start': new Date().getTime(),
+          event: 'gtm.js',
+        });
 
-      // Load GTM script
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = `https://www.googletagmanager.com/gtm.js?id=${analyticsConfig.gtm.containerId}`;
-      script.onerror = () => {
-        console.warn('Failed to load Google Tag Manager');
+        // Load GTM script
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtm.js?id=${analyticsConfig.gtm!.containerId}`;
+        script.onerror = () => {
+          console.warn('Failed to load Google Tag Manager');
+        };
+
+        const firstScript = document.getElementsByTagName('script')[0];
+        firstScript?.parentNode?.insertBefore(script, firstScript);
       };
 
-      const firstScript = document.getElementsByTagName('script')[0];
-      firstScript?.parentNode?.insertBefore(script, firstScript);
+      // Strategy 1: Load on user interaction (scroll, click, or touch)
+      const interactionEvents = ['scroll', 'mousedown', 'touchstart', 'keydown'];
+      let interactionTriggered = false;
+      
+      const handleInteraction = () => {
+        if (!interactionTriggered) {
+          interactionTriggered = true;
+          // Small delay to ensure interaction doesn't block
+          setTimeout(loadGTM, 100);
+          
+          // Remove all listeners once triggered
+          interactionEvents.forEach(event => {
+            window.removeEventListener(event, handleInteraction);
+          });
+        }
+      };
+      
+      // Add interaction listeners
+      interactionEvents.forEach(event => {
+        window.addEventListener(event, handleInteraction, { passive: true, once: true });
+      });
+      
+      // Strategy 2: Fallback - load after 5 seconds if no interaction
+      const fallbackTimer = setTimeout(() => {
+        if (!gtmLoaded) {
+          loadGTM();
+        }
+      }, 5000);
+      
+      // Cleanup
+      return () => {
+        clearTimeout(fallbackTimer);
+        interactionEvents.forEach(event => {
+          window.removeEventListener(event, handleInteraction);
+        });
+      };
     }
   }, []);
 
@@ -90,24 +135,7 @@ export function Analytics() {
 
   return (
     <>
-      {/* Google Tag Manager */}
-      {analyticsConfig.gtm?.enabled && analyticsConfig.gtm.containerId && (
-        <>
-          <Script
-            id="gtm-script"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','${analyticsConfig.gtm.containerId}');
-              `,
-            }}
-          />
-        </>
-      )}
+      {/* Google Tag Manager is now loaded via useEffect with smart lazy loading */}
 
       {/* Baidu Analytics - for zh-cn */}
       {analyticsConfig.baidu?.enabled && (

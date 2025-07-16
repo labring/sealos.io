@@ -147,6 +147,8 @@ export default function Logos({ lang = 'en' as languagesType }) {
                 <img
                   src={company.url}
                   alt={company.name}
+                  width={company.width}
+                  height={company.height}
                   className="max-h-12 max-w-full transform opacity-100 transition-all duration-300 hover:scale-110"
                 />
               </div>
@@ -163,6 +165,8 @@ export default function Logos({ lang = 'en' as languagesType }) {
                 <img
                   key={idx}
                   src={company.url}
+                  width={company.width}
+                  height={company.height}
                   className="h-10 w-28 opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 dark:brightness-0 dark:invert"
                   alt={company.name}
                 />

@@ -10,6 +10,9 @@ import { generateHomepageSchema } from '@/lib/utils/structured-data';
 
 const inter = Inter({
   subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
 });
 
 export const metadata = generatePageMetadata();
@@ -66,12 +69,13 @@ export default function LocaleLayout({
         <meta name="referrer" content="strict-origin-when-cross-origin" />
 
         {/* Performance and Resource Hints */}
-        {/* <link rel="dns-prefetch" href="https://hm.baidu.com" /> */}
-        {/* <link rel="dns-prefetch" href="https://www.clarity.ms" /> */}
-        {/* <link rel="preconnect" href="https://hm.baidu.com" /> */}
-
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        {/* <link rel="preconnect" href="https://hm.baidu.com" /> */}
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://hm.baidu.com" />
+        <link rel="dns-prefetch" href="https://analytics.sealos.io" />
+        <link rel="dns-prefetch" href="https://engage.sealos.io" />
+        
+        {/* Preconnect to critical third-party domains */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link

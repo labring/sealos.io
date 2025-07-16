@@ -1,10 +1,8 @@
+import dynamic from 'next/dynamic';
 import Trusted from './components/trusted';
 import WhyChooseUs from './components/why-choose-us';
-import FAQ from './components/faq';
 import ProblemsAndSolutions from './components/problems-solutions';
-import WorkflowShowcase from './components/workflow-showcase';
 import HeroBenefits from './components/hero-benefits';
-import Desktop from './components/desktop';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import Hero from '@/components/header/hero';
@@ -14,6 +12,20 @@ import RedirectSuggest from '@/components/redirectSuggest';
 import { languagesType } from '@/lib/i18n';
 import ScrollProgressWrapper from '@/components/scroll-progress-wrapper';
 import { CallToActionSection } from '@/components/ui/call-to-action-section';
+
+// Dynamic imports for heavy components
+const Desktop = dynamic(() => import('./components/desktop'), {
+  loading: () => <div className="min-h-[600px] flex items-center justify-center"><div className="animate-pulse text-gray-500">Loading desktop experience...</div></div>,
+  ssr: false
+});
+
+const FAQ = dynamic(() => import('./components/faq'), {
+  loading: () => <div className="min-h-[400px]" />
+});
+
+const WorkflowShowcase = dynamic(() => import('./components/workflow-showcase'), {
+  loading: () => <div className="min-h-[400px]" />
+});
 
 // Define translations only for strings used directly in this component
 const translations = {
