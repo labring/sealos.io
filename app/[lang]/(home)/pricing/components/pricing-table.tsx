@@ -1,43 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Cpu, MemoryStick, HardDrive, Cable, Globe } from 'lucide-react';
+import { Icon } from '@/components/ui/icon-mapper';
 import {
   formatPrice,
   calculatePrice,
   getPeriodLabel,
   PricingPeriod,
+  type Region,
 } from '@/config/pricing';
-
-interface PricingItem {
-  name: string;
-  unit: string;
-  price: number;
-  description?: string;
-  icon?: string;
-}
-
-interface Region {
-  id: string;
-  name: string;
-  code: string;
-  compute: PricingItem[];
-  network: PricingItem[];
-}
-
-const getIconComponent = (iconName: string) => {
-  const iconMap = {
-    Cpu: Cpu,
-    MemoryStick: MemoryStick,
-    HardDrive: HardDrive,
-    Cable: Cable,
-    Globe: Globe,
-  };
-  const IconComponent = iconMap[iconName as keyof typeof iconMap];
-  return IconComponent ? (
-    <IconComponent className="h-5 w-5 text-slate-600" />
-  ) : null;
-};
 
 export function PricingTable({ region }: { region: Region }) {
   const [pricingPeriod, setPricingPeriod] = useState<PricingPeriod>('hourly');
@@ -132,9 +103,11 @@ export function PricingTable({ region }: { region: Region }) {
                 >
                   <td className="px-8 py-4">
                     <div className="flex items-center space-x-3">
-                      <span className="text-lg">
-                        {getIconComponent(item.icon || '')}
-                      </span>
+                      {item.icon && (
+                        <span className="text-lg">
+                          <Icon name={item.icon} className="h-5 w-5 text-slate-600" />
+                        </span>
+                      )}
                       <div>
                         <div className="text-sm font-medium text-slate-900">
                           {item.name}
@@ -172,9 +145,11 @@ export function PricingTable({ region }: { region: Region }) {
                 >
                   <td className="px-8 py-4">
                     <div className="flex items-center space-x-3">
-                      <span className="text-lg">
-                        {getIconComponent(item.icon || '')}
-                      </span>
+                      {item.icon && (
+                        <span className="text-lg">
+                          <Icon name={item.icon} className="h-5 w-5 text-slate-600" />
+                        </span>
+                      )}
                       <div>
                         <div className="text-sm font-medium text-slate-900">
                           {item.name}

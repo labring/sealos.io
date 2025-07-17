@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimateElement } from '@/components/ui/animated-wrapper';
-import DynamicIcon from '@/components/ui/dynamic-icon';
+import { Icon } from '@/components/ui/icon-mapper';
 import { IndustryBenefit } from '@/config/industries';
 
 interface IndustryBenefitsProps {
@@ -33,7 +33,7 @@ export default function IndustryBenefits({
               <div className="flex h-full min-h-[180px] flex-col rounded-xl border border-gray-100 bg-white p-8 shadow-md transition-shadow hover:shadow-lg">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
-                    <DynamicIcon
+                    <Icon
                       name={benefit.iconName}
                       className={`h-8 w-8 ${benefit.iconColor}`}
                     />

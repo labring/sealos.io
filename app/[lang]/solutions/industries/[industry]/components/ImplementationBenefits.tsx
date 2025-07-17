@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimateElement } from '@/components/ui/animated-wrapper';
-import DynamicIcon from '@/components/ui/dynamic-icon';
+import { Icon } from '@/components/ui/icon-mapper';
 import { IndustryBenefit } from '@/config/industries';
 
 interface ImplementationBenefitsProps {
@@ -29,7 +29,7 @@ export default function ImplementationBenefits({
             <AnimateElement key={index} type="slideUp">
               <div className="flex h-full min-h-[200px] flex-col rounded-xl border border-gray-100 bg-white p-6 text-center shadow-sm">
                 <div className="mb-4 flex justify-center">
-                  <DynamicIcon
+                  <Icon
                     name={benefit.iconName}
                     className={`h-6 w-6 ${benefit.iconColor}`}
                   />

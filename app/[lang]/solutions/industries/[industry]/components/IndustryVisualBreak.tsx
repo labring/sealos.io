@@ -1,8 +1,9 @@
 'use client';
 
 import { AnimateElement } from '@/components/ui/animated-wrapper';
-import DynamicIcon from '@/components/ui/dynamic-icon';
+import { Icon } from '@/components/ui/icon-mapper';
 import { IndustryVisualBreak as IndustryVisualBreakConfig } from '@/config/industries';
+import { ArrowRight } from 'lucide-react';
 
 interface IndustryVisualBreakProps {
   config: IndustryVisualBreakConfig;
@@ -35,7 +36,7 @@ export default function IndustryVisualBreak({
                 <AnimateElement key={index} type="slideUp" delay={index * 0.1}>
                   <div className="group flex flex-col items-center text-center">
                     <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-lg transition-shadow duration-300 group-hover:shadow-xl">
-                      <DynamicIcon
+                      <Icon
                         name={item.iconName}
                         className={`h-8 w-8 ${item.color}`}
                       />
@@ -53,7 +54,7 @@ export default function IndustryVisualBreak({
               <AnimateElement type="slideUp" delay={0.5}>
                 <div className="flex items-center gap-3 text-gray-600">
                   <div className="h-px w-8 bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div>
-                  <DynamicIcon name="ArrowRight" className="h-5 w-5" />
+                  <ArrowRight className="h-5 w-5" />
                   <div className="h-px w-8 bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div>
                 </div>
               </AnimateElement>

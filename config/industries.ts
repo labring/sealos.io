@@ -1,14 +1,46 @@
+import { LucideIcon } from 'lucide-react';
+import {
+  GraduationCap,
+  Cloud,
+  Layers,
+  Shield,
+  Globe,
+  Server,
+  Code,
+  Users,
+  DollarSign,
+  Zap,
+  Clock,
+  GitBranch,
+  Gamepad2,
+  Wifi,
+  BarChart3,
+  Cpu,
+  Database,
+  Rocket,
+  Trophy,
+  Headphones,
+  Code2,
+  Settings,
+  TrendingUp,
+  Activity,
+  FileText,
+  Wrench,
+  BookOpen,
+  Smile,
+} from 'lucide-react';
+
 export interface IndustryChallenge {
   title: string;
   description: string;
-  iconName: string;
+  icon: LucideIcon;
   iconColor: string;
 }
 
 export interface IndustryBenefit {
   title: string;
   description: string;
-  iconName: string;
+  icon: LucideIcon;
   iconColor: string;
 }
 
@@ -19,7 +51,7 @@ export interface IndustryStat {
 }
 
 export interface IndustryVisualIcon {
-  iconName: string;
+  icon: LucideIcon;
   label: string;
   color: string;
 }
@@ -49,7 +81,7 @@ export interface IndustryConfig {
   slug: string;
   name: string;
   title: string;
-  centralIcon: string;
+  centralIcon: LucideIcon;
   metadata: {
     title: string;
     description: string;
@@ -91,7 +123,7 @@ export const industriesConfig: Record<string, IndustryConfig> = {
     slug: 'education',
     name: 'Education',
     title: 'Transform Education with Cloud Technology',
-    centralIcon: 'GraduationCap',
+    centralIcon: GraduationCap,
     metadata: {
       title: 'Education Solutions | Cloud Platform for Schools & Universities',
       description:
@@ -129,21 +161,21 @@ export const industriesConfig: Record<string, IndustryConfig> = {
         'From development to deployment, Sealos provides the complete infrastructure stack you need',
       icons: [
         {
-          iconName: 'Cloud',
+          icon: Cloud,
           label: 'Cloud Infrastructure',
           color: 'text-blue-500',
         },
         {
-          iconName: 'Layers',
+          icon: Layers,
           label: 'Scalable Platform',
           color: 'text-green-500',
         },
         {
-          iconName: 'Shield',
+          icon: Shield,
           label: 'Secure Access',
           color: 'text-purple-500',
         },
-        { iconName: 'Globe', label: 'Global Reach', color: 'text-orange-500' },
+        { icon: Globe, label: 'Global Reach', color: 'text-orange-500' },
       ],
     },
     challenges: [
@@ -151,42 +183,42 @@ export const industriesConfig: Record<string, IndustryConfig> = {
         title: 'Limited IT Resources',
         description:
           'Educational institutions often struggle with budget constraints, lack of dedicated IT staff, and outdated infrastructure that hampers digital transformation.',
-        iconName: 'Server',
+        icon: Server,
         iconColor: 'text-red-500',
       },
       {
         title: 'Complex Software Management',
         description:
           'Installing, maintaining, and updating educational software across multiple devices and platforms is time-consuming and error-prone.',
-        iconName: 'Code',
+        icon: Code,
         iconColor: 'text-red-500',
       },
       {
         title: 'Scalability Issues',
         description:
           'Traditional on-premise solutions struggle to accommodate fluctuating student populations and varying computational demands throughout the academic year.',
-        iconName: 'Users',
+        icon: Users,
         iconColor: 'text-red-500',
       },
       {
         title: 'Security & Compliance',
         description:
           'Protecting sensitive student data while maintaining compliance with educational privacy regulations like FERPA is increasingly challenging.',
-        iconName: 'Shield',
+        icon: Shield,
         iconColor: 'text-red-500',
       },
       {
         title: 'Remote Learning Barriers',
         description:
           'Providing consistent access to learning tools and computing resources for students across different locations and devices.',
-        iconName: 'Globe',
+        icon: Globe,
         iconColor: 'text-red-500',
       },
       {
         title: 'High Infrastructure Costs',
         description:
           'Maintaining physical servers, software licenses, and IT infrastructure consumes significant portions of educational budgets.',
-        iconName: 'DollarSign',
+        icon: DollarSign,
         iconColor: 'text-red-500',
       },
     ],
@@ -195,28 +227,28 @@ export const industriesConfig: Record<string, IndustryConfig> = {
         title: 'Instant Development Environments',
         description:
           'Students and faculty can launch pre-configured development environments in seconds, eliminating setup time and ensuring consistent experiences.',
-        iconName: 'Zap',
+        icon: Zap,
         iconColor: 'text-blue-500',
       },
       {
         title: 'Cost-Effective Solution',
         description:
           'Pay-as-you-use pricing model significantly reduces infrastructure costs compared to traditional on-premise solutions.',
-        iconName: 'DollarSign',
+        icon: DollarSign,
         iconColor: 'text-green-500',
       },
       {
         title: 'Enhanced Collaboration',
         description:
           'Built-in collaboration tools enable seamless project sharing, code review, and group work across distributed teams.',
-        iconName: 'Users',
+        icon: Users,
         iconColor: 'text-purple-500',
       },
       {
         title: 'Enterprise-Grade Security',
         description:
           'Advanced security features and compliance standards ensure student data protection and regulatory compliance.',
-        iconName: 'Shield',
+        icon: Shield,
         iconColor: 'text-red-500',
       },
     ],
@@ -252,28 +284,28 @@ export const industriesConfig: Record<string, IndustryConfig> = {
         title: 'Quick Deployment',
         description:
           'Get started in minutes with pre-configured educational templates and one-click deployments.',
-        iconName: 'Clock',
+        icon: Clock,
         iconColor: 'text-blue-500',
       },
       {
         title: 'Scalable Infrastructure',
         description:
           'Automatically scale resources based on student demand and course requirements.',
-        iconName: 'Server',
+        icon: Server,
         iconColor: 'text-green-500',
       },
       {
         title: 'Integrated Ecosystem',
         description:
           'Seamlessly connect databases, development tools, and collaboration platforms.',
-        iconName: 'GitBranch',
+        icon: GitBranch,
         iconColor: 'text-purple-500',
       },
       {
         title: '24/7 Support',
         description:
           'Dedicated educational support team to ensure smooth operations during critical periods.',
-        iconName: 'Users',
+        icon: Users,
         iconColor: 'text-orange-500',
       },
     ],
@@ -296,7 +328,7 @@ export const industriesConfig: Record<string, IndustryConfig> = {
     slug: 'gaming',
     name: 'Gaming',
     title: 'Power Your Gaming Infrastructure with Cloud',
-    centralIcon: 'Gamepad2',
+    centralIcon: Gamepad2,
     metadata: {
       title: 'Gaming Solutions | Cloud Platform for Game Developers & Studios',
       description:
@@ -334,18 +366,18 @@ export const industriesConfig: Record<string, IndustryConfig> = {
         'From development to deployment, Sealos provides the complete infrastructure stack you need',
       icons: [
         {
-          iconName: 'Zap',
+          icon: Zap,
           label: 'High Performance',
           color: 'text-yellow-500',
         },
-        { iconName: 'Cpu', label: 'Powerful Computing', color: 'text-red-500' },
+        { icon: Cpu, label: 'Powerful Computing', color: 'text-red-500' },
         {
-          iconName: 'Database',
+          icon: Database,
           label: 'Real-time Data',
           color: 'text-blue-500',
         },
         {
-          iconName: 'Globe',
+          icon: Globe,
           label: 'Global Distribution',
           color: 'text-green-500',
         },
@@ -356,42 +388,42 @@ export const industriesConfig: Record<string, IndustryConfig> = {
         title: 'Performance & Responsiveness',
         description:
           'Gaming requires optimized performance and high-performance computing to deliver smooth, responsive gameplay experiences for competitive and casual players alike.',
-        iconName: 'Wifi',
+        icon: Wifi,
         iconColor: 'text-red-500',
       },
       {
         title: 'Massive Scaling',
         description:
           'Game traffic can spike from hundreds to millions of concurrent players instantly, requiring infrastructure that can scale rapidly without performance degradation.',
-        iconName: 'BarChart3',
+        icon: BarChart3,
         iconColor: 'text-red-500',
       },
       {
         title: 'Global Distribution',
         description:
           'Players are worldwide, requiring game servers and content to be distributed globally for consistent performance experiences across regions.',
-        iconName: 'Globe',
+        icon: Globe,
         iconColor: 'text-red-500',
       },
       {
         title: 'Real-time Data Processing',
         description:
           'Multiplayer games generate massive amounts of real-time data that must be processed, synchronized, and stored with minimal delay.',
-        iconName: 'Cpu',
+        icon: Cpu,
         iconColor: 'text-red-500',
       },
       {
         title: 'Development Complexity',
         description:
           'Building and maintaining game servers, matchmaking systems, and backend infrastructure diverts resources from core game development.',
-        iconName: 'Code',
+        icon: Code,
         iconColor: 'text-red-500',
       },
       {
         title: 'Infrastructure Costs',
         description:
           'Running game servers 24/7 across multiple regions with redundancy can result in massive infrastructure costs, especially for smaller studios.',
-        iconName: 'DollarSign',
+        icon: DollarSign,
         iconColor: 'text-red-500',
       },
     ],
@@ -400,28 +432,28 @@ export const industriesConfig: Record<string, IndustryConfig> = {
         title: 'Optimized Performance Infrastructure',
         description:
           'Deploy game servers in multiple regions with optimized networking to deliver enhanced performance for competitive gaming experiences.',
-        iconName: 'Rocket',
+        icon: Rocket,
         iconColor: 'text-purple-500',
       },
       {
         title: 'Instant Auto-Scaling',
         description:
           'Automatically scale game servers up or down based on player demand, handling viral growth or scheduled events seamlessly.',
-        iconName: 'Zap',
+        icon: Zap,
         iconColor: 'text-blue-500',
       },
       {
         title: 'Real-time Analytics',
         description:
           'Built-in monitoring and analytics provide real-time insights into player behavior, server performance, and game metrics.',
-        iconName: 'BarChart3',
+        icon: BarChart3,
         iconColor: 'text-green-500',
       },
       {
         title: 'Developer-Friendly Tools',
         description:
           'Comprehensive development tools, APIs, and SDKs designed specifically for game development workflows and deployment pipelines.',
-        iconName: 'Code',
+        icon: Code,
         iconColor: 'text-orange-500',
       },
     ],
@@ -457,28 +489,28 @@ export const industriesConfig: Record<string, IndustryConfig> = {
         title: 'Rapid Deployment',
         description:
           'Deploy game servers and infrastructure in minutes with pre-configured gaming templates and one-click scaling.',
-        iconName: 'Rocket',
+        icon: Rocket,
         iconColor: 'text-purple-500',
       },
       {
         title: 'Global Edge Network',
         description:
           'Leverage edge computing and CDN to deliver optimized gaming experiences worldwide.',
-        iconName: 'Globe',
+        icon: Globe,
         iconColor: 'text-blue-500',
       },
       {
         title: 'Gaming-Optimized Stack',
         description:
           'Purpose-built tools and services designed specifically for gaming workloads and requirements.',
-        iconName: 'Trophy',
+        icon: Trophy,
         iconColor: 'text-yellow-500',
       },
       {
         title: 'Expert Gaming Support',
         description:
           'Dedicated gaming infrastructure experts available 24/7 to optimize performance and resolve issues.',
-        iconName: 'Headphones',
+        icon: Headphones,
         iconColor: 'text-green-500',
       },
     ],
@@ -494,7 +526,7 @@ export const industriesConfig: Record<string, IndustryConfig> = {
     slug: 'information-technology',
     name: 'Information Technology',
     title: 'Accelerate Development with Cloud-Native Platform',
-    centralIcon: 'Code2',
+    centralIcon: Code2,
     metadata: {
       title:
         'Information Technology Solutions | Cloud Platform for Developers & IT Teams',
@@ -535,22 +567,22 @@ export const industriesConfig: Record<string, IndustryConfig> = {
         'From development to deployment, Sealos provides the complete infrastructure stack you need',
       icons: [
         {
-          iconName: 'Zap',
+          icon: Zap,
           label: 'One-Click Deploy',
           color: 'text-blue-500',
         },
         {
-          iconName: 'Layers',
+          icon: Layers,
           label: 'App Templates',
           color: 'text-green-500',
         },
         {
-          iconName: 'Activity',
+          icon: Activity,
           label: 'Auto Scaling',
           color: 'text-purple-500',
         },
         {
-          iconName: 'GitBranch',
+          icon: GitBranch,
           label: 'DevOps Ready',
           color: 'text-orange-500',
         },
@@ -561,42 +593,42 @@ export const industriesConfig: Record<string, IndustryConfig> = {
         title: 'Environment Setup Complexity',
         description:
           'Setting up consistent development and production environments across teams often involves complex configuration and significant time investment.',
-        iconName: 'Settings',
+        icon: Settings,
         iconColor: 'text-red-500',
       },
       {
         title: 'Scaling Infrastructure',
         description:
           'Traditional infrastructure struggles to handle variable workloads and requires extensive planning and management to scale applications effectively.',
-        iconName: 'TrendingUp',
+        icon: TrendingUp,
         iconColor: 'text-red-500',
       },
       {
         title: 'DevOps Pipeline Complexity',
         description:
           'Building and maintaining CI/CD pipelines, deployment automation, and monitoring systems requires specialized knowledge and resources.',
-        iconName: 'GitBranch',
+        icon: GitBranch,
         iconColor: 'text-red-500',
       },
       {
         title: 'Resource Management',
         description:
           'Managing multiple environments, databases, and services across different stages of development leads to resource waste and increased costs.',
-        iconName: 'Database',
+        icon: Database,
         iconColor: 'text-red-500',
       },
       {
         title: 'Deployment Bottlenecks',
         description:
           'Manual deployment processes and environment inconsistencies create bottlenecks that slow down development and increase deployment risks.',
-        iconName: 'Clock',
+        icon: Clock,
         iconColor: 'text-red-500',
       },
       {
         title: 'Infrastructure Costs',
         description:
           'Maintaining dedicated servers and infrastructure for development, testing, and production environments results in high operational costs.',
-        iconName: 'DollarSign',
+        icon: DollarSign,
         iconColor: 'text-red-500',
       },
     ],
@@ -605,28 +637,28 @@ export const industriesConfig: Record<string, IndustryConfig> = {
         title: 'One-Click Environments',
         description:
           'Instantly provision development and production environments with pre-configured templates, eliminating setup time and ensuring consistency.',
-        iconName: 'Zap',
+        icon: Zap,
         iconColor: 'text-blue-500',
       },
       {
         title: 'App Templates & Starters',
         description:
           'Choose from a comprehensive library of application templates and starter projects to accelerate development and follow best practices.',
-        iconName: 'FileText',
+        icon: FileText,
         iconColor: 'text-green-500',
       },
       {
         title: 'Automatic Scaling',
         description:
           'Applications automatically scale based on demand, ensuring optimal performance during traffic spikes without manual intervention.',
-        iconName: 'Activity',
+        icon: Activity,
         iconColor: 'text-purple-500',
       },
       {
         title: 'Integrated Development Tools',
         description:
           'Complete development ecosystem with databases, caching, monitoring, and CI/CD tools integrated and ready to use.',
-        iconName: 'Wrench',
+        icon: Wrench,
         iconColor: 'text-orange-500',
       },
     ],
@@ -662,28 +694,28 @@ export const industriesConfig: Record<string, IndustryConfig> = {
         title: 'Instant Environment Provisioning',
         description:
           'Deploy complete development environments in seconds with pre-configured templates for popular frameworks and languages.',
-        iconName: 'Rocket',
+        icon: Rocket,
         iconColor: 'text-blue-500',
       },
       {
         title: 'Template Library',
         description:
           'Access a comprehensive collection of application templates, from simple APIs to complex microservices architectures.',
-        iconName: 'BookOpen',
+        icon: BookOpen,
         iconColor: 'text-green-500',
       },
       {
         title: 'Seamless Scaling',
         description:
           'Applications automatically scale horizontally and vertically based on real-time demand and resource utilization.',
-        iconName: 'TrendingUp',
+        icon: TrendingUp,
         iconColor: 'text-purple-500',
       },
       {
         title: 'Developer Experience',
         description:
           'Intuitive interface and powerful CLI tools designed to enhance developer productivity and reduce friction.',
-        iconName: 'Smile',
+        icon: Smile,
         iconColor: 'text-orange-500',
       },
     ],

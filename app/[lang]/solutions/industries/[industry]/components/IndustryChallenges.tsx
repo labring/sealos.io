@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimateElement } from '@/components/ui/animated-wrapper';
-import DynamicIcon from '@/components/ui/dynamic-icon';
+import { Icon } from '@/components/ui/icon-mapper';
 import { IndustryChallenge } from '@/config/industries';
 
 interface IndustryChallengesProps {
@@ -32,7 +32,7 @@ export default function IndustryChallenges({
               <div className="flex h-full min-h-[200px] flex-col rounded-xl border border-gray-100 bg-white p-6 shadow-md transition-shadow hover:shadow-lg">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
-                    <DynamicIcon
+                    <Icon
                       name={challenge.iconName}
                       className={`h-6 w-6 ${challenge.iconColor}`}
                     />

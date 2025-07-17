@@ -115,12 +115,7 @@ const config = {
       };
     }
     
-    // Enable tree shaking for specific modules
-    config.optimization = {
-      ...config.optimization,
-      sideEffects: false,
-      // Removed usedExports due to conflict with Next.js caching
-    };
+    // Tree shaking is handled by Next.js by default
     
     return config;
   },
