@@ -13,7 +13,7 @@ import { languagesType } from '@/lib/i18n';
 import placeholderImage from '/public/images/video.webp';
 import StructuredDataComponent from '@/components/structured-data';
 import {
-  generateProductSchema,
+  generateDevBoxSchema,
   generateBreadcrumbSchema,
 } from '@/lib/utils/structured-data';
 
@@ -62,12 +62,7 @@ export default function HomePage({
   const t = translations[params.lang] || translations.en;
 
   // Generate structured data for DevBox product
-  const productSchema = generateProductSchema(
-    'DevBox',
-    t.description,
-    `${siteConfig.url.base}/products/devbox`,
-    params.lang,
-  );
+  const devboxSchema = generateDevBoxSchema(params.lang);
 
   // Generate breadcrumb structured data
   const breadcrumbSchema = generateBreadcrumbSchema(
@@ -82,7 +77,7 @@ export default function HomePage({
   return (
     <>
       {/* Structured Data for SEO */}
-      <StructuredDataComponent data={[productSchema, breadcrumbSchema]} />
+      <StructuredDataComponent data={[devboxSchema, breadcrumbSchema]} />
 
       <div className="h-full bg-[#EBF2FF]">
         <Header lang={params.lang} />

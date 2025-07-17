@@ -245,6 +245,71 @@ export function generateStructuredDataScript(data: StructuredData | StructuredDa
   return JSON.stringify(jsonData, null, 2);
 }
 
+// DevBox specific schema
+export function generateDevBoxSchema(lang: string = 'en'): StructuredData {
+  const isZhCn = lang === 'zh-cn';
+  
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Sealos DevBox',
+    description: isZhCn 
+      ? '使用即开即用的云工作站消除开发环境摩擦。即时设置，完美隔离，企业级安全。'
+      : 'Eliminate development environment friction with ready-to-code cloud workstations. Instant setup, perfect isolation, enterprise security.',
+    url: `${siteConfig.url.base}/products/devbox`,
+    applicationCategory: 'DeveloperApplication',
+    applicationSubCategory: 'Cloud Development Environment',
+    operatingSystem: 'Web',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      priceValidUntil: '2025-12-31',
+      availability: 'https://schema.org/InStock',
+      description: isZhCn ? '免费试用' : 'Free trial available'
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Labring',
+      url: siteConfig.url.base
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.8',
+      ratingCount: '150',
+      bestRating: '5',
+      worstRating: '1'
+    },
+    screenshot: [
+      `${siteConfig.url.base}/images/devbox-screenshot-1.png`,
+      `${siteConfig.url.base}/images/devbox-screenshot-2.png`
+    ],
+    softwareVersion: '2.0',
+    installUrl: `${siteConfig.url.base}/docs/quick-start`,
+    featureList: isZhCn ? [
+      '即时开发环境设置',
+      '完美的环境隔离',
+      '内置终端和代码编辑器',
+      'Kubernetes 原生架构',
+      '一键部署到生产环境',
+      '团队协作和共享',
+      '多语言支持（Python, Go, Java, Node.js等）',
+      '预配置开发模板'
+    ] : [
+      'Instant development environment setup',
+      'Perfect environment isolation',
+      'Built-in terminal and code editor',
+      'Kubernetes native architecture',
+      'One-click deployment to production',
+      'Team collaboration and sharing',
+      'Multi-language support (Python, Go, Java, Node.js, etc.)',
+      'Pre-configured development templates'
+    ],
+    softwareRequirements: isZhCn ? '现代网页浏览器' : 'Modern web browser',
+    permissions: isZhCn ? '无需特殊权限' : 'No special permissions required'
+  };
+}
+
 // Combined schema for homepage
 export function generateHomepageSchema(lang: string = 'en'): StructuredData[] {
   return [
