@@ -35,14 +35,17 @@ const config = {
   swcMinify: true,
   // Compiler optimizations
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production' ? {
-      exclude: ['error', 'warn'],
-    } : false,
+    removeConsole:
+      process.env.NODE_ENV === 'production'
+        ? {
+            exclude: ['error', 'warn'],
+          }
+        : false,
   },
   // Enable static generation optimization
   experimental: {
     optimizePackageImports: [
-      'fumadocs-ui', 
+      'fumadocs-ui',
       'fumadocs-core',
       'lucide-react',
       'framer-motion',
@@ -102,22 +105,6 @@ const config = {
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-  },
-  // Webpack configuration
-  webpack: (config, { isServer }) => {
-    // Optimize canvas to only load on server side
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        canvas: false,
-        fs: false,
-        path: false,
-      };
-    }
-    
-    // Tree shaking is handled by Next.js by default
-    
-    return config;
   },
 };
 
