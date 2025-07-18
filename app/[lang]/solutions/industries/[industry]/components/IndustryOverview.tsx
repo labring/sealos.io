@@ -15,7 +15,7 @@ interface IndustryOverviewProps {
   ctaUrl?: string;
   description?: string;
   introText?: string;
-  centralIcon?: string;
+  centralIcon?: React.ReactNode;
 }
 
 export default function IndustryOverview({

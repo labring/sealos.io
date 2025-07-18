@@ -1,7 +1,6 @@
 'use client';
 
 import { AnimateElement } from '@/components/ui/animated-wrapper';
-import { Icon } from '@/components/ui/icon-mapper';
 import { IndustryBenefit } from '@/config/industries';
 
 interface IndividualBenefitsProps {
@@ -34,7 +33,9 @@ export default function IndividualBenefits({
               <div className="flex h-full min-h-[180px] flex-col rounded-xl border border-gray-100 bg-white p-8 shadow-md transition-shadow hover:shadow-lg">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
-                    <Icon name={benefit.iconName} className={`h-8 w-8 ${benefit.iconColor}`} />
+                    <div className={`h-8 w-8 ${benefit.iconColor}`}>
+                      {benefit.icon}
+                    </div>
                   </div>
                   <div className="flex flex-1 flex-col">
                     <h3 className="mb-3 text-xl font-semibold text-gray-900">

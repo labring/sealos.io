@@ -2582,7 +2582,7 @@
     "name": "Tianji",
     "slug": "tianji",
     "description": "Tianji: Insight into everything, Website Analytics + Uptime Monitor + Server Status. not only another GA alternatives",
-    "icon": "/images/apps/tianji.svg",
+    "icon": "/icons/default.svg",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",

@@ -1,7 +1,6 @@
 'use client';
 
 import { AnimateElement } from '@/components/ui/animated-wrapper';
-import { Icon } from '@/components/ui/icon-mapper';
 import { IndustryVisualBreak as IndustryVisualBreakConfig } from '@/config/industries';
 import { ArrowRight } from 'lucide-react';
 
@@ -42,7 +41,7 @@ export default function IndividualVisualBreak({
                 <AnimateElement key={index} type="slideUp" delay={index * 0.1}>
                   <div className="group flex flex-col items-center text-center">
                     <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-lg transition-shadow duration-300 group-hover:shadow-xl">
-                      <Icon name={item.iconName} className={`h-8 w-8 ${item.color}`} />
+                      <div className={`h-8 w-8 ${item.color}`}>{item.icon}</div>
                     </div>
                     <span className="text-sm font-medium text-gray-700">
                       {item.label}

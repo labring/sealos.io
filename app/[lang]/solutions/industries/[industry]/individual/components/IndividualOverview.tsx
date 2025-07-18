@@ -16,7 +16,7 @@ interface IndividualOverviewProps {
   ctaUrl?: string;
   description?: string;
   introText?: string;
-  centralIcon?: string;
+  centralIcon?: React.ReactNode;
   promoBanner?: IndustryPromoBanner;
 }
 

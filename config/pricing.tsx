@@ -1,9 +1,11 @@
+import { Cable, Cpu, Globe, HardDrive, MemoryStick } from 'lucide-react';
+
 export interface PricingItem {
   name: string;
   unit: string;
   price: number;
   description?: string;
-  icon?: string;
+  icon?: React.ReactNode;
 }
 
 export interface Region {
@@ -25,28 +27,28 @@ export const pricingData: Region[] = [
         unit: 'Core',
         price: 0.010417,
         description: 'High-performance compute cores',
-        icon: 'Cpu',
+        icon: <Cpu size="100%" />,
       },
       {
         name: 'Memory',
         unit: 'GB',
         price: 0.005208,
         description: 'Fast RAM for your applications',
-        icon: 'MemoryStick',
+        icon: <MemoryStick size="100%" />,
       },
       {
         name: 'Storage',
         unit: 'GB',
         price: 0.000347,
         description: 'Optimized persistent storage',
-        icon: 'HardDrive',
+        icon: <HardDrive size="100%" />,
       },
       {
         name: 'Port',
         unit: 'Port',
         price: 0.006944,
         description: 'Network port',
-        icon: 'Cable',
+        icon: <Cable size="100%" />,
       },
     ],
     network: [
@@ -55,7 +57,7 @@ export const pricingData: Region[] = [
         unit: 'M',
         price: 0.000098,
         description: 'Data transfer charges',
-        icon: 'Globe',
+        icon: <Globe size="100%" />,
       },
     ],
   },

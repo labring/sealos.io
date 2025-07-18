@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { Icon } from '@/components/ui/icon-mapper';
 import {
   formatPrice,
   calculatePrice,
@@ -105,7 +104,9 @@ export function PricingTable({ region }: { region: Region }) {
                     <div className="flex items-center space-x-3">
                       {item.icon && (
                         <span className="text-lg">
-                          <Icon name={item.icon} className="h-5 w-5 text-slate-600" />
+                          <div className="h-5 w-5 text-slate-600">
+                            {item.icon}
+                          </div>
                         </span>
                       )}
                       <div>
@@ -147,7 +148,9 @@ export function PricingTable({ region }: { region: Region }) {
                     <div className="flex items-center space-x-3">
                       {item.icon && (
                         <span className="text-lg">
-                          <Icon name={item.icon} className="h-5 w-5 text-slate-600" />
+                          <div className="h-5 w-5 text-slate-600">
+                            {item.icon}
+                          </div>
                         </span>
                       )}
                       <div>
