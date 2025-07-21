@@ -7,12 +7,20 @@ import { GTMBody } from '@/components/analytics/gtm-body';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import StructuredDataComponent from '@/components/structured-data';
 import { generateHomepageSchema } from '@/lib/utils/structured-data';
+import { DefaultSearchDialog } from '@/components/docs/Search';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   preload: true,
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+  fallback: [
+    'system-ui',
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'Segoe UI',
+    'Roboto',
+    'sans-serif',
+  ],
 });
 
 export const metadata = generatePageMetadata();
@@ -74,7 +82,7 @@ export default function LocaleLayout({
         <link rel="dns-prefetch" href="https://hm.baidu.com" />
         <link rel="dns-prefetch" href="https://analytics.sealos.io" />
         <link rel="dns-prefetch" href="https://engage.sealos.io" />
-        
+
         {/* Preconnect to critical third-party domains */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -117,6 +125,9 @@ export default function LocaleLayout({
             defaultTheme: 'light',
             enabled: false,
             enableSystem: false,
+          }}
+          search={{
+            SearchDialog: DefaultSearchDialog,
           }}
         >
           {children}
