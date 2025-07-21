@@ -15,16 +15,30 @@ import { CallToActionSection } from '@/components/ui/call-to-action-section';
 
 // Dynamic imports for heavy components
 const Desktop = dynamic(() => import('./components/desktop'), {
-  loading: () => <div className="min-h-[600px] flex items-center justify-center"><div className="animate-pulse text-gray-500">Loading desktop experience...</div></div>,
-  ssr: false
+  loading: () => (
+    <div className="flex min-h-[600px] items-center justify-center">
+      <div className="animate-pulse text-gray-500">
+        Loading desktop experience...
+      </div>
+    </div>
+  ),
+  ssr: false,
 });
 
 const FAQ = dynamic(() => import('./components/faq'), {
-  loading: () => <div className="min-h-[400px]" />
+  loading: () => <div className="min-h-[400px]" />,
 });
 
-const WorkflowShowcase = dynamic(() => import('./components/workflow-showcase'), {
-  loading: () => <div className="min-h-[400px]" />
+const WorkflowShowcase = dynamic(
+  () => import('./components/workflow-showcase'),
+  {
+    loading: () => <div className="min-h-[400px]" />,
+  },
+);
+
+const DevBoxShowcase = dynamic(() => import('./components/devbox-showcase'), {
+  loading: () => <div className="min-h-[600px]" />,
+  ssr: true, // Enable SSR for SEO benefits
 });
 
 // Define translations only for strings used directly in this component
@@ -85,6 +99,10 @@ export default function HomePage({
       <div className="space-y-20">
         <div className="custom-container px-8 md:px-[15%]">
           <ProblemsAndSolutions lang={params.lang} />
+        </div>
+
+        <div className="custom-container px-8 md:px-[15%]">
+          <DevBoxShowcase lang={params.lang} />
         </div>
 
         <div className="custom-container px-8 md:px-[15%]">
