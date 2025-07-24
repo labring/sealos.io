@@ -38,7 +38,6 @@ const WorkflowShowcase = dynamic(
 
 const DevBoxShowcase = dynamic(() => import('./components/devbox-showcase'), {
   loading: () => <div className="min-h-[600px]" />,
-  ssr: true, // Enable SSR for SEO benefits
 });
 
 // Define translations only for strings used directly in this component

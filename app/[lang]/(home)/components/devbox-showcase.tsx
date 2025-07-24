@@ -1,22 +1,25 @@
 'use client';
 
-import { Suspense, useRef, useMemo, memo } from 'react';
-import dynamic from 'next/dynamic';
-import { motion, useInView } from 'framer-motion';
-import { languagesType } from '@/lib/i18n';
-import { CustomButton } from '@/components/ui/button-custom';
-import OptimizedIcon from '@/components/ui/optimized-icon';
-import LazyIntersection from '@/components/ui/lazy-intersection';
 import {
+  Zap,
+  Package,
+  Rocket,
+  Code2,
   ArrowRight,
   CheckCircle,
   TrendingUp,
   Shield,
-  Zap,
-  Code2,
 } from 'lucide-react';
+import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
+import { motion } from 'framer-motion';
+import { languagesType } from '@/lib/i18n';
+import { CustomButton } from '@/components/ui/button-custom';
+import TypewriterCode from '@/components/ui/typewriter-code';
+import TerminalAnimation from '@/components/ui/terminal-animation';
+import AnimatedCounter from '@/components/ui/animated-counter';
 
-// Lazy load components for better performance
+// Lazy load the AnimateElement component
 const AnimateElement = dynamic(
   () =>
     import('@/components/ui/animated-wrapper').then((mod) => ({
@@ -33,34 +36,6 @@ const AnimateElement = dynamic(
     ),
   },
 );
-
-const AnimatedCounter = dynamic(
-  () => import('@/components/ui/animated-counter'),
-  { ssr: false },
-);
-
-const TerminalDemo = dynamic(() => import('./devbox-terminal'), {
-  ssr: false,
-  loading: () => (
-    <div className="relative min-h-[280px] lg:min-h-[320px]">
-      <div className="h-full rounded-xl bg-gradient-to-br from-gray-900 to-gray-800 p-1">
-        <div className="h-full rounded-lg bg-gray-900 p-4">
-          <div className="mb-3 flex items-center space-x-2">
-            <div className="h-3 w-3 rounded-full bg-gray-700"></div>
-            <div className="h-3 w-3 rounded-full bg-gray-700"></div>
-            <div className="h-3 w-3 rounded-full bg-gray-700"></div>
-          </div>
-          <div className="space-y-2">
-            <div className="h-2 w-3/4 animate-pulse rounded bg-gray-800"></div>
-            <div className="h-2 w-1/2 animate-pulse rounded bg-gray-800"></div>
-            <div className="h-2 w-full animate-pulse rounded bg-gray-800"></div>
-            <div className="mt-4 h-32 w-full animate-pulse rounded bg-gray-800"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
-});
 
 // Define translations
 const translations = {
@@ -150,108 +125,150 @@ const translations = {
   },
 };
 
-// Pre-calculate structured data to avoid re-computation
-const getStructuredData = (subtitle: string) => ({
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'Sealos DevBox',
-  applicationCategory: 'DeveloperApplication',
-  description: subtitle,
-  operatingSystem: 'Web',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'USD',
-  },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.8',
-    reviewCount: '2000',
-  },
-  featureList: [
-    'Instant environment provisioning',
-    'Zero dependency conflicts',
-    'Version-controlled environments',
-    'One-click deployment',
-    'Auto-scaling infrastructure',
-  ],
-});
+// Icon map with enhanced styling
+const iconMap = {
+  zap: (className: string) => <Zap className={className} />,
+  package: (className: string) => <Package className={className} />,
+  rocket: (className: string) => <Rocket className={className} />,
+};
 
-function DevBoxShowcase({ lang = 'en' as languagesType }) {
+export default function DevBoxShowcase({ lang = 'en' as languagesType }) {
   const t = translations[lang];
 
-  // Memoize structured data to avoid recalculation
-  const structuredData = useMemo(
-    () => getStructuredData(t.subtitle),
-    [t.subtitle],
+  // Enhanced Features component with 3D effects and animations
+  const Features = () => (
+    <div className="grid gap-8 xl:grid-cols-3">
+      {t.features.map((feature, index) => (
+        <motion.div
+          key={index}
+          className="group relative overflow-hidden rounded-2xl border border-blue-100/50 bg-gradient-to-br from-white via-blue-50/30 to-purple-50/20 p-8 backdrop-blur-sm"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.2, duration: 0.6 }}
+          whileHover={{
+            y: -8,
+            scale: 1.02,
+            boxShadow: '0 25px 50px -12px rgba(59, 130, 246, 0.25)',
+            transition: { duration: 0.2 },
+          }}
+        >
+          {/* Dynamic background decoration */}
+          <motion.div className="absolute inset-0 bg-gradient-to-r from-blue-400/5 via-purple-400/5 to-cyan-400/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+          {/* Border glow effect */}
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 opacity-0 blur-sm transition-opacity duration-500 group-hover:opacity-100" />
+
+          {/* Floating particles */}
+          {[...Array(3)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute h-1 w-1 rounded-full bg-blue-400/30"
+              style={{
+                left: `${20 + i * 30}%`,
+                top: `${20 + i * 20}%`,
+              }}
+              animate={{
+                y: [-10, 10, -10],
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{
+                duration: 2 + i,
+                repeat: Infinity,
+                delay: index * 0.2 + i * 0.3,
+              }}
+            />
+          ))}
+
+          <div className="relative z-10">
+            {/* Enhanced icon container */}
+            <motion.div
+              className="relative mb-6 inline-flex rounded-xl bg-gradient-to-br from-white to-blue-50 p-4 shadow-lg"
+              whileHover={{
+                rotate: [0, -5, 5, 0],
+                scale: 1.1,
+              }}
+              transition={{ duration: 0.2 }}
+            >
+              {/* Icon glow effect */}
+              <div className="absolute inset-0 rounded-xl bg-blue-400/20 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
+
+              <motion.div
+                whileHover={{ scale: 1.2 }}
+                transition={{ duration: 0.2 }}
+              >
+                {iconMap[feature.icon as keyof typeof iconMap](
+                  'h-8 w-8 text-[#44BCFF] relative z-10',
+                )}
+              </motion.div>
+            </motion.div>
+
+            <h3 className="mb-3 text-xl font-bold text-gray-900">
+              {feature.title}
+            </h3>
+            <p className="leading-relaxed text-gray-600">
+              {feature.description}
+            </p>
+          </div>
+        </motion.div>
+      ))}
+    </div>
   );
 
-  // Memoized Features component for better performance
-  const Features = memo(() => {
-    const ref = useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref, { once: true, margin: '-100px' });
+  // Enhanced main content component with advanced visual effects
+  const Content = () => (
+    <section
+      className="relative overflow-hidden bg-gradient-to-b from-transparent via-blue-50/20 to-transparent py-20"
+      data-mouse-light-container
+    >
+      {/* Enhanced background decoration */}
+      <div className="absolute inset-0">
+        {/* Main light effects */}
+        <motion.div
+          className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-gradient-to-r from-blue-200/30 to-purple-200/30 blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
 
-    return (
-      <div ref={ref} className="grid gap-8 lg:grid-cols-3">
-        {t.features.map((feature, index) => (
+        <motion.div
+          className="absolute right-1/4 bottom-1/4 h-64 w-64 rounded-full bg-gradient-to-r from-cyan-200/20 to-blue-200/20 blur-2xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.2, 0.5, 0.2],
+          }}
+          transition={{ duration: 6, repeat: Infinity, delay: 2 }}
+        />
+
+        {/* Floating particles */}
+        {[...Array(6)].map((_, i) => (
           <motion.div
-            key={feature.icon}
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="group relative"
-            style={{ willChange: 'transform, opacity' }}
-          >
-            <div className="relative h-full overflow-hidden rounded-2xl border border-gray-200/50 bg-white/60 p-8 shadow-sm backdrop-blur-sm transition-all duration-500 hover:scale-[1.02] hover:border-blue-200 hover:bg-white/80 hover:shadow-lg">
-              {/* Simplified background with CSS animation */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-400/0 via-purple-400/0 to-blue-400/0 opacity-0 transition-opacity duration-500 group-hover:opacity-[0.05]" />
-
-              {/* Static decoration - no continuous animation */}
-              <div className="absolute top-0 right-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-gradient-to-br from-blue-100/20 to-purple-100/20 opacity-50 transition-all duration-500 group-hover:opacity-100" />
-
-              <div className="relative z-10">
-                {/* Simplified icon container */}
-                <div className="mb-6 inline-flex rounded-xl bg-blue-50/50 p-4 transition-all duration-300 group-hover:scale-110 group-hover:bg-blue-100/50">
-                  <OptimizedIcon
-                    icon={feature.icon as 'Zap' | 'Package' | 'Rocket'}
-                    className="h-8 w-8 text-[#44BCFF]"
-                  />
-                </div>
-
-                <h3 className="mb-3 text-xl font-bold text-gray-900 transition-colors group-hover:text-[#44BCFF]">
-                  {feature.title}
-                </h3>
-                <p className="leading-relaxed text-gray-600">
-                  {feature.description}
-                </p>
-
-                {/* CSS-based progress bar */}
-                <div className="mt-4 h-1 w-full overflow-hidden rounded-full bg-gray-100">
-                  <div className="h-full w-0 rounded-full bg-gradient-to-r from-[#44BCFF] to-purple-500 transition-all duration-500 group-hover:w-full" />
-                </div>
-              </div>
-            </div>
-          </motion.div>
+            key={i}
+            className="absolute h-2 w-2 rounded-full bg-blue-400/20"
+            style={{
+              left: `${20 + i * 15}%`,
+              top: `${30 + (i % 3) * 20}%`,
+            }}
+            animate={{
+              y: [-20, 20, -20],
+              opacity: [0.3, 0.8, 0.3],
+            }}
+            transition={{
+              duration: 4 + i,
+              repeat: Infinity,
+              delay: i * 0.5,
+            }}
+          />
         ))}
       </div>
-    );
-  });
-  Features.displayName = 'Features';
 
-  // Main content component
-  const Content = () => (
-    <section className="relative overflow-hidden py-20">
-      {/* Background decoration - subtle gradient overlay */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/30 via-transparent to-transparent"></div>
-        <div className="absolute top-1/4 left-1/4 h-64 w-64 rounded-full bg-blue-100 opacity-20 blur-3xl"></div>
-        <div className="absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full bg-[#44BCFF] opacity-10 blur-3xl"></div>
-      </div>
+      {/* Mouse follow light effect */}
 
-      <div className="relative px-4 sm:px-6 lg:px-8">
+      <div className="relative px-8">
         {/* Title Section */}
         <div className="mb-16 text-center">
-          <div className="mb-4 inline-flex items-center rounded-full bg-blue-50/50 px-4 py-2 backdrop-blur-sm">
+          <div className="mb-4 inline-flex items-center rounded-full bg-blue-100 px-4 py-2">
             <Code2 className="mr-2 h-4 w-4 text-[#44BCFF]" />
             <span className="text-sm font-medium text-[#44BCFF]">DevBox</span>
           </div>
@@ -265,7 +282,7 @@ function DevBoxShowcase({ lang = 'en' as languagesType }) {
         <Features />
 
         {/* Demo Section */}
-        <div className="mt-20 grid gap-12 lg:grid-cols-2 lg:items-center">
+        <div className="mt-20 grid grid-cols-1 gap-12 xl:grid-cols-2 xl:items-center">
           {/* Left: Capabilities */}
           <div>
             <h3 className="mb-6 text-2xl font-bold text-gray-900">
@@ -280,92 +297,159 @@ function DevBoxShowcase({ lang = 'en' as languagesType }) {
               ))}
             </ul>
 
-            {/* Optimized Stats Section */}
-            <LazyIntersection>
-              <div className="mt-8 overflow-hidden rounded-2xl bg-gray-50/50 p-6">
-                <div className="grid grid-cols-3 gap-6">
-                  {/* Setup Time */}
-                  <div className="text-center transition-transform hover:scale-105">
-                    <div className="mb-2 inline-flex rounded-full bg-white p-2 shadow-md">
-                      <Zap className="h-5 w-5 text-[#44BCFF]" />
-                    </div>
-                    <div className="text-3xl font-bold text-[#44BCFF]">
-                      <AnimatedCounter value={95} suffix="%" duration={2000} />
-                    </div>
-                    <div className="mt-1 text-xs font-medium text-gray-600">
-                      Faster Setup
-                    </div>
-                  </div>
+            {/* Enhanced animated stats */}
+            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
+              <AnimatedCounter
+                value="95%"
+                label="Faster Setup"
+                icon={<Zap className="h-4 w-4" />}
+                delay={0}
+              />
+              <AnimatedCounter
+                value="45%"
+                label="Higher Satisfaction"
+                icon={<TrendingUp className="h-4 w-4" />}
+                delay={1}
+              />
+              <AnimatedCounter
+                value="40%"
+                label="Less IT Overhead"
+                icon={<Shield className="h-4 w-4" />}
+                delay={2}
+              />
+            </div>
 
-                  {/* Developer Satisfaction */}
-                  <div className="text-center transition-transform hover:scale-105">
-                    <div className="mb-2 inline-flex rounded-full bg-white p-2 shadow-md">
-                      <TrendingUp className="h-5 w-5 text-purple-500" />
-                    </div>
-                    <div className="text-3xl font-bold text-purple-500">
-                      <AnimatedCounter
-                        value={45}
-                        suffix="%"
-                        prefix="+"
-                        duration={2000}
-                        delay={300}
-                      />
-                    </div>
-                    <div className="mt-1 text-xs font-medium text-gray-600">
-                      Satisfaction
-                    </div>
-                  </div>
-
-                  {/* IT Overhead */}
-                  <div className="text-center transition-transform hover:scale-105">
-                    <div className="mb-2 inline-flex rounded-full bg-white p-2 shadow-md">
-                      <Shield className="h-5 w-5 text-emerald-500" />
-                    </div>
-                    <div className="text-3xl font-bold text-emerald-500">
-                      <AnimatedCounter
-                        value={40}
-                        suffix="%"
-                        prefix="-"
-                        duration={2000}
-                        delay={600}
-                      />
-                    </div>
-                    <div className="mt-1 text-xs font-medium text-gray-600">
-                      IT Overhead
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </LazyIntersection>
-
-            {/* CTA Buttons */}
+            {/* Enhanced CTA Buttons */}
             <div className="mt-8 flex flex-wrap gap-4">
-              <CustomButton
-                href={`${lang === 'zh-cn' ? 'https://cloud.sealos.run' : 'https://os.sealos.io'}/?openapp=system-devbox`}
-                className="inline-flex items-center justify-center rounded-md bg-[#44BCFF] px-6 py-3 text-white shadow-lg transition-all hover:bg-[#0090FF] hover:shadow-xl"
-                title={t.cta.primary}
-                actionType="url"
-                location="devbox-showcase-primary-cta"
+              <motion.div
+                whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                whileTap={{ scale: 0.98 }}
+                className="group"
               >
-                {t.cta.primary}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </CustomButton>
-              <CustomButton
-                href={`/${lang === 'zh-cn' ? 'zh-cn/' : ''}products/devbox`}
-                className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-6 py-3 text-gray-700 transition-all hover:border-gray-400 hover:bg-gray-50"
-                title={t.cta.secondary}
-                actionType="url"
-                location="devbox-showcase-secondary-cta"
+                <CustomButton
+                  href={`${lang === 'zh-cn' ? 'https://cloud.sealos.run' : 'https://os.sealos.io'}/?openapp=system-devbox`}
+                  className="relative inline-flex items-center overflow-hidden rounded-xl bg-gradient-to-r from-[#44BCFF] to-[#0090FF] px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:from-[#0090FF] hover:to-[#0070CC] hover:shadow-xl"
+                  title={t.cta.primary}
+                  actionType="url"
+                  location="devbox-showcase-primary-cta"
+                >
+                  <span className="relative z-10 flex items-center">
+                    {t.cta.primary}
+                    <motion.div
+                      className="ml-2"
+                      animate={{ x: [0, 3, 0] }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                      }}
+                    >
+                      <ArrowRight className="h-4 w-4" />
+                    </motion.div>
+                  </span>
+                  {/* Subtle glow effect */}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#44BCFF]/40 to-[#0090FF]/40 opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-50" />
+                </CustomButton>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                whileTap={{ scale: 0.98 }}
+                className="group"
               >
-                {t.cta.secondary}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </CustomButton>
+                <CustomButton
+                  href={`/${lang === 'zh-cn' ? 'zh-cn/' : ''}products/devbox`}
+                  className="relative inline-flex items-center overflow-hidden rounded-xl border-2 border-blue-100 bg-gradient-to-r from-white to-blue-50/30 px-8 py-4 font-semibold text-gray-700 shadow-lg transition-all duration-300 hover:border-[#44BCFF]/30 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100/50 hover:text-[#44BCFF] hover:shadow-xl"
+                  title={t.cta.secondary}
+                  actionType="url"
+                  location="devbox-showcase-secondary-cta"
+                >
+                  <span className="relative z-10 flex items-center">
+                    {t.cta.secondary}
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                </CustomButton>
+              </motion.div>
             </div>
           </div>
 
-          {/* Right: Terminal Demo */}
-          <div className="relative flex items-center">
-            <TerminalDemo />
+          {/* Right: Enhanced Demo with Real Code Editor Interface */}
+          <div className="relative">
+            {/* Main editor window */}
+            <motion.div
+              className="relative rounded-xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-1 shadow-2xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              {/* Window glow effect */}
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 blur-sm" />
+
+              <div className="relative overflow-hidden rounded-lg bg-gray-900">
+                {/* Enhanced title bar */}
+                <div className="flex items-center justify-between border-b border-gray-700 bg-gray-800 px-4 py-3">
+                  <div className="flex items-center space-x-2">
+                    <div className="flex space-x-2">
+                      <div className="h-3 w-3 rounded-full bg-red-500"></div>
+                      <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
+                      <div className="h-3 w-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span className="ml-4 text-sm text-gray-300">
+                      Local IDE - Remote DevBox
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <motion.div
+                      className="h-2 w-2 rounded-full bg-green-400"
+                      animate={{ opacity: [1, 0.3, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    <span className="text-xs text-green-400">Connected</span>
+                  </div>
+                </div>
+
+                {/* Code area with typewriter effect */}
+                <div className="scrollbar-hide min-h-[160px] p-3 font-mono text-sm sm:min-h-[200px] sm:p-4">
+                  <TypewriterCode />
+                </div>
+
+                {/* Terminal area */}
+                <div className="scrollbar-hide h-[160px] border-t border-gray-700 bg-black/50 p-3 sm:h-[160px] sm:p-4">
+                  <TerminalAnimation />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Floating status card */}
+            <motion.div
+              className="absolute -right-6 -bottom-6 rounded-lg border border-gray-100 bg-white p-4 shadow-xl"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.8 }}
+            >
+              <div className="flex items-center space-x-3">
+                <motion.div
+                  className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#44BCFF] to-[#0090FF]"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                >
+                  <Rocket className="h-5 w-5 text-white" />
+                </motion.div>
+                <div>
+                  <div className="text-xs text-gray-500">DevBox Status</div>
+                  <motion.div
+                    className="space-y-1 text-xs"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.2 }}
+                  >
+                    <div className="text-green-600">✓ Environment Ready</div>
+                    <div className="text-green-600">✓ IDE Connected</div>
+                    <div className="text-blue-600">→ Developing...</div>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
 
@@ -373,7 +457,31 @@ function DevBoxShowcase({ lang = 'en' as languagesType }) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData),
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              name: 'Sealos DevBox',
+              applicationCategory: 'DeveloperApplication',
+              description: t.subtitle,
+              operatingSystem: 'Web',
+              offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'USD',
+              },
+              aggregateRating: {
+                '@type': 'AggregateRating',
+                ratingValue: '4.8',
+                reviewCount: '2000',
+              },
+              featureList: [
+                'Instant environment provisioning',
+                'Zero dependency conflicts',
+                'Version-controlled environments',
+                'One-click deployment',
+                'Auto-scaling infrastructure',
+              ],
+            }),
           }}
         />
       </div>
@@ -381,23 +489,18 @@ function DevBoxShowcase({ lang = 'en' as languagesType }) {
   );
 
   return (
-    <div className="relative">
-      <Suspense
-        fallback={
-          <div className="flex min-h-[600px] items-center justify-center">
-            <div className="text-center text-gray-500">
-              Loading DevBox showcase...
-            </div>
+    <Suspense
+      fallback={
+        <div className="mt-[140px] flex min-h-[600px] items-center justify-center">
+          <div className="text-center text-gray-500">
+            Loading DevBox showcase...
           </div>
-        }
-      >
-        <AnimateElement type="slideUp">
-          <Content />
-        </AnimateElement>
-      </Suspense>
-    </div>
+        </div>
+      }
+    >
+      <AnimateElement type="slideUp">
+        <Content />
+      </AnimateElement>
+    </Suspense>
   );
 }
-
-// Export with memo for optimal performance
-export default memo(DevBoxShowcase);
