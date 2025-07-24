@@ -27,7 +27,7 @@ export const siteConfig: SiteConfig = {
     discord: 'https://discord.gg/wdUn538zVP',
     youtube: 'https://www.youtube.com/@sealos_io',
     bilibili: 'https://space.bilibili.com/1803388873',
-    wechat: 'https://oss.laf.run/htr4n1-images/sealos-qr-code.jpg',
+    wechat: 'https://objectstorageapi.hzh.sealos.run/inmu3p0p-sealos/images/sealos-qr-code.jpg',
   },
   ogImage: `${
     process.env.NEXT_PUBLIC_APP_URL

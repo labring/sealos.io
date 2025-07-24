@@ -1,10 +1,21 @@
 import { createMDX } from 'fumadocs-mdx/next';
-import bundleAnalyzer from '@next/bundle-analyzer';
 
 const withMDX = createMDX();
-const withBundleAnalyzer = bundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-});
+
+// Only import and use bundle analyzer when needed to avoid production dependency issues
+let withBundleAnalyzer = (config) => config;
+if (process.env.ANALYZE === 'true') {
+  try {
+    // Use dynamic import with require for compatibility
+    const bundleAnalyzer = require('@next/bundle-analyzer');
+    withBundleAnalyzer = bundleAnalyzer({
+      enabled: true,
+    });
+  } catch (error) {
+    console.warn('Bundle analyzer not available, skipping analysis:', error.message);
+    withBundleAnalyzer = (config) => config;
+  }
+}
 
 const securityHeaders = [
   {
@@ -77,7 +88,8 @@ const config = {
     ];
   },
   images: {
-    // unoptimized: true,
+    // Only disable image optimization during Docker builds
+    unoptimized: process.env.DOCKER_BUILD === 'true',
     remotePatterns: [
       {
         protocol: 'https',
@@ -96,6 +108,13 @@ const config = {
       {
         protocol: 'https',
         hostname: 'cdn.jsdelivr.net',
+        port: '',
+        pathname: '/**',
+        search: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.sealos.run',
         port: '',
         pathname: '/**',
         search: '',
