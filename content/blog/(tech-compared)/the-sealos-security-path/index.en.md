@@ -145,6 +145,8 @@ Zero Trust security shouldn't be complex or reserved for large enterprises. Seal
 -   Security built-in, not bolted on: Experience inherent security, not a layered service.
     
 
-> 💬 Experience streamlined security: [https://cloud.sealos.io](https://cloud.sealos.io/) 
+> 💬 Experience streamlined security: [https://cloud.sealos.io](https://os.sealos.io/) 
 
 > 🧑💻 Connect & contribute: [Join GitHub Discussions](https://github.com/labring/sealos/discussions)
+
+> 🚀 Discord: [Join Discord Channels](https://go.sealos.io/discord)
