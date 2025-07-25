@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 
 interface TypewriterCodeProps {
   className?: string;
+  onProgress?: (lineIndex: number) => void;
 }
 
 const codeLines = [
@@ -40,6 +41,7 @@ const codeLines = [
 
 export default function TypewriterCode({
   className = '',
+  onProgress,
 }: TypewriterCodeProps) {
   const [displayedLines, setDisplayedLines] = useState<string[]>([]);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
@@ -68,8 +70,13 @@ export default function TypewriterCode({
           if (currentCharIndex === targetText.length) {
             // Move to next line after a brief pause
             setTimeout(() => {
-              setCurrentLineIndex((prev) => prev + 1);
+              const nextLineIndex = currentLineIndex + 1;
+              setCurrentLineIndex(nextLineIndex);
               setCurrentCharIndex(0);
+              // Notify progress
+              if (onProgress) {
+                onProgress(nextLineIndex);
+              }
             }, 100);
           } else {
             setCurrentCharIndex((prev) => prev + 1);

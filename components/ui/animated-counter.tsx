@@ -62,7 +62,7 @@ export default function AnimatedCounter({
       className={`relative overflow-hidden rounded-xl border border-blue-100/50 bg-gradient-to-br from-blue-50 via-white to-purple-50 px-2 py-6 text-center shadow-lg ${className}`}
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ delay: delay * 0.1, duration: 0.6 }}
+      transition={{ delay: delay * 0.1, duration: 0.2 }}
       whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.2 } }}
     >
       {/* Background pulse effect */}

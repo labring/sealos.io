@@ -10,13 +10,15 @@ import {
   TrendingUp,
   Shield,
 } from 'lucide-react';
-import { Suspense } from 'react';
+import { Suspense, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { languagesType } from '@/lib/i18n';
 import { CustomButton } from '@/components/ui/button-custom';
 import TypewriterCode from '@/components/ui/typewriter-code';
-import TerminalAnimation from '@/components/ui/terminal-animation';
+import TerminalAnimation, {
+  TerminalAnimationRef,
+} from '@/components/ui/terminal-animation';
 import AnimatedCounter from '@/components/ui/animated-counter';
 
 // Lazy load the AnimateElement component
@@ -134,80 +136,82 @@ const iconMap = {
 
 export default function DevBoxShowcase({ lang = 'en' as languagesType }) {
   const t = translations[lang];
+  const terminalStartedRef = useRef(false);
+  const terminalComponentRef = useRef<TerminalAnimationRef | null>(null);
+
+  // Handle progress from TypewriterCode
+  const handleCodeProgress = (lineIndex: number) => {
+    // Start terminal when we reach line 7 (// 3. Develop in Cloud Environment)
+    if (lineIndex >= 7 && !terminalStartedRef.current) {
+      terminalStartedRef.current = true;
+      // Directly call the terminal component's start method
+      if (terminalComponentRef.current) {
+        terminalComponentRef.current.startAnimation();
+      }
+    }
+  };
 
   // Enhanced Features component with 3D effects and animations
   const Features = () => (
-    <div className="grid gap-8 xl:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 xl:grid-cols-3 xl:gap-8">
       {t.features.map((feature, index) => (
         <motion.div
           key={index}
-          className="group relative overflow-hidden rounded-2xl border border-blue-100/50 bg-gradient-to-br from-white via-blue-50/30 to-purple-50/20 p-8 backdrop-blur-sm"
+          className="group relative flex h-full overflow-hidden rounded-xl border border-blue-100/50 bg-gradient-to-br from-white via-blue-50/30 to-purple-50/20 p-4 backdrop-blur-sm xl:rounded-2xl xl:p-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.2, duration: 0.6 }}
+          transition={{
+            delay: index * 0.2,
+            duration: 0.6,
+            y: { duration: 0.2 },
+            scale: { duration: 0.2 },
+            boxShadow: { duration: 0.2 },
+          }}
           whileHover={{
             y: -8,
             scale: 1.02,
             boxShadow: '0 25px 50px -12px rgba(59, 130, 246, 0.25)',
-            transition: { duration: 0.2 },
           }}
         >
           {/* Dynamic background decoration */}
-          <motion.div className="absolute inset-0 bg-gradient-to-r from-blue-400/5 via-purple-400/5 to-cyan-400/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+          <motion.div className="absolute inset-0 bg-gradient-to-r from-blue-400/5 via-purple-400/5 to-cyan-400/5 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
           {/* Border glow effect */}
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 opacity-0 blur-sm transition-opacity duration-500 group-hover:opacity-100" />
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 opacity-0 blur-sm transition-opacity duration-200 group-hover:opacity-100" />
 
-          {/* Floating particles */}
-          {[...Array(3)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute h-1 w-1 rounded-full bg-blue-400/30"
-              style={{
-                left: `${20 + i * 30}%`,
-                top: `${20 + i * 20}%`,
-              }}
-              animate={{
-                y: [-10, 10, -10],
-                opacity: [0.3, 0.8, 0.3],
-              }}
-              transition={{
-                duration: 2 + i,
-                repeat: Infinity,
-                delay: index * 0.2 + i * 0.3,
-              }}
-            />
-          ))}
-
-          <div className="relative z-10">
-            {/* Enhanced icon container */}
-            <motion.div
-              className="relative mb-6 inline-flex rounded-xl bg-gradient-to-br from-white to-blue-50 p-4 shadow-lg"
-              whileHover={{
-                rotate: [0, -5, 5, 0],
-                scale: 1.1,
-              }}
-              transition={{ duration: 0.2 }}
-            >
-              {/* Icon glow effect */}
-              <div className="absolute inset-0 rounded-xl bg-blue-400/20 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
-
+          <div className="relative z-10 flex h-full flex-col xl:h-auto">
+            <div className="grid grid-cols-[auto_1fr] items-center gap-4 xl:grid-cols-1 xl:gap-0">
+              {/* Enhanced icon container */}
               <motion.div
-                whileHover={{ scale: 1.2 }}
+                className="relative flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl xl:mb-6 xl:h-16 xl:w-16 xl:bg-gradient-to-br xl:from-white xl:to-blue-50 xl:shadow-lg"
+                whileHover={{
+                  rotate: [0, -5, 5, 0],
+                  scale: 1.1,
+                }}
                 transition={{ duration: 0.2 }}
               >
-                {iconMap[feature.icon as keyof typeof iconMap](
-                  'h-8 w-8 text-[#44BCFF] relative z-10',
-                )}
-              </motion.div>
-            </motion.div>
+                {/* Icon glow effect */}
+                <div className="absolute inset-0 rounded-xl bg-blue-400/20 opacity-0 blur-md transition-opacity duration-200 group-hover:opacity-100" />
 
-            <h3 className="mb-3 text-xl font-bold text-gray-900">
-              {feature.title}
-            </h3>
-            <p className="leading-relaxed text-gray-600">
-              {feature.description}
-            </p>
+                <motion.div
+                  whileHover={{ scale: 1.2 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {iconMap[feature.icon as keyof typeof iconMap](
+                    'h-8 w-8 text-[#44BCFF] relative z-10',
+                  )}
+                </motion.div>
+              </motion.div>
+
+              <div>
+                <h3 className="mb-1 text-xl font-bold text-gray-900 xl:mb-3">
+                  {feature.title}
+                </h3>
+                <p className="leading-relaxed text-gray-600">
+                  {feature.description}
+                </p>
+              </div>
+            </div>
           </div>
         </motion.div>
       ))}
@@ -288,9 +292,9 @@ export default function DevBoxShowcase({ lang = 'en' as languagesType }) {
             <h3 className="mb-6 text-2xl font-bold text-gray-900">
               {t.capabilities.title}
             </h3>
-            <ul className="space-y-4">
+            <ul className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-1">
               {t.capabilities.items.map((item, index) => (
-                <li key={index} className="flex items-start">
+                <li key={index} className="flex">
                   <CheckCircle className="mt-0.5 mr-3 h-5 w-5 flex-shrink-0 text-[#44BCFF]" />
                   <span className="text-gray-700">{item}</span>
                 </li>
@@ -298,7 +302,7 @@ export default function DevBoxShowcase({ lang = 'en' as languagesType }) {
             </ul>
 
             {/* Enhanced animated stats */}
-            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
+            <div className="mt-8 grid grid-cols-3 gap-4 sm:grid-cols-3 sm:gap-6">
               <AnimatedCounter
                 value="95%"
                 label="Faster Setup"
@@ -320,7 +324,7 @@ export default function DevBoxShowcase({ lang = 'en' as languagesType }) {
             </div>
 
             {/* Enhanced CTA Buttons */}
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-wrap justify-center gap-4 xl:justify-start">
               <motion.div
                 whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
                 whileTap={{ scale: 0.98 }}
@@ -380,7 +384,7 @@ export default function DevBoxShowcase({ lang = 'en' as languagesType }) {
               className="relative rounded-xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-1 shadow-2xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.3, duration: 0.2 }}
             >
               {/* Window glow effect */}
               <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 blur-sm" />
@@ -410,12 +414,12 @@ export default function DevBoxShowcase({ lang = 'en' as languagesType }) {
 
                 {/* Code area with typewriter effect */}
                 <div className="scrollbar-hide min-h-[160px] p-3 font-mono text-sm sm:min-h-[200px] sm:p-4">
-                  <TypewriterCode />
+                  <TypewriterCode onProgress={handleCodeProgress} />
                 </div>
 
                 {/* Terminal area */}
                 <div className="scrollbar-hide h-[160px] border-t border-gray-700 bg-black/50 p-3 sm:h-[160px] sm:p-4">
-                  <TerminalAnimation />
+                  <TerminalAnimation ref={terminalComponentRef} />
                 </div>
               </div>
             </motion.div>
@@ -425,7 +429,7 @@ export default function DevBoxShowcase({ lang = 'en' as languagesType }) {
               className="absolute -right-6 -bottom-6 rounded-lg border border-gray-100 bg-white p-4 shadow-xl"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 0.8, duration: 0.2 }}
             >
               <div className="flex items-center space-x-3">
                 <motion.div
@@ -441,7 +445,7 @@ export default function DevBoxShowcase({ lang = 'en' as languagesType }) {
                     className="space-y-1 text-xs"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 1.2 }}
+                    transition={{ delay: 1.2, duration: 0.2 }}
                   >
                     <div className="text-green-600">✓ Environment Ready</div>
                     <div className="text-green-600">✓ IDE Connected</div>

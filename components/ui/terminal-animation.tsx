@@ -1,10 +1,20 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import {
+  useState,
+  useEffect,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
 import { motion } from 'framer-motion';
 
 interface TerminalAnimationProps {
   className?: string;
+}
+
+export interface TerminalAnimationRef {
+  startAnimation: () => void;
 }
 
 const terminalCommands = [
@@ -30,16 +40,25 @@ const terminalCommands = [
   },
 ];
 
-export default function TerminalAnimation({
-  className = '',
-}: TerminalAnimationProps) {
+const TerminalAnimation = forwardRef<
+  TerminalAnimationRef,
+  TerminalAnimationProps
+>(({ className = '' }, ref) => {
   const [currentCommandIndex, setCurrentCommandIndex] = useState(0);
   const [displayedCommand, setDisplayedCommand] = useState('');
   const [displayedOutput, setDisplayedOutput] = useState<string[]>([]);
   const [isTypingCommand, setIsTypingCommand] = useState(true);
   const [currentOutputIndex, setCurrentOutputIndex] = useState(0);
+  const [shouldStart, setShouldStart] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
+
+  // Expose methods to parent component
+  useImperativeHandle(ref, () => ({
+    startAnimation: () => {
+      setShouldStart(true);
+    },
+  }));
 
   // Reset animation
   const resetAnimation = () => {
@@ -52,7 +71,11 @@ export default function TerminalAnimation({
 
   // Type command effect
   useEffect(() => {
-    if (!isTypingCommand || currentCommandIndex >= terminalCommands.length)
+    if (
+      !shouldStart ||
+      !isTypingCommand ||
+      currentCommandIndex >= terminalCommands.length
+    )
       return;
 
     const currentCommand = terminalCommands[currentCommandIndex];
@@ -75,11 +98,15 @@ export default function TerminalAnimation({
         setIsTypingCommand(false);
       }, 150);
     }
-  }, [displayedCommand, isTypingCommand, currentCommandIndex]);
+  }, [displayedCommand, isTypingCommand, currentCommandIndex, shouldStart]);
 
   // Display output effect
   useEffect(() => {
-    if (isTypingCommand || currentCommandIndex >= terminalCommands.length)
+    if (
+      !shouldStart ||
+      isTypingCommand ||
+      currentCommandIndex >= terminalCommands.length
+    )
       return;
 
     const currentCommand = terminalCommands[currentCommandIndex];
@@ -118,7 +145,7 @@ export default function TerminalAnimation({
         }
       }, currentCommand.delay);
     }
-  }, [currentOutputIndex, isTypingCommand, currentCommandIndex]);
+  }, [currentOutputIndex, isTypingCommand, currentCommandIndex, shouldStart]);
 
   return (
     <div
@@ -182,4 +209,8 @@ export default function TerminalAnimation({
       </div>
     </div>
   );
-}
+});
+
+TerminalAnimation.displayName = 'TerminalAnimation';
+
+export default TerminalAnimation;
