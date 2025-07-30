@@ -96,8 +96,11 @@ Ready to try?
 [Sign in now at Sealos.io](https://sealos.io) and make your first deployment a real one.
 
   
+> 💬 Further reading: [What is DevBox](https://sealos.io/blog/what-is-devbox)
 
-  
+> 🧑‍💻 Connect & contribute: [Join GitHub Discussions](https://github.com/labring/sealos/discussions)
+
+> 🚀 Discord: [Join our Discord Channels](https://discord.com/invite/wdUn538zVP)
 
   
 
