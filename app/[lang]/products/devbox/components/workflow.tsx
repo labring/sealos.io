@@ -1,6 +1,7 @@
 import { AnimateElement } from '@/components/ui/animated-wrapper';
 import { Code, Hammer, Rocket, TrendingUp, ArrowRight } from 'lucide-react';
 import { languagesType } from '@/lib/i18n';
+import { appDomain } from '@/config/site';
 
 const translations = {
   en: {
@@ -188,7 +189,7 @@ export default function Workflow({ lang }: WorkflowProps) {
                 : 'Ready to experience seamless development workflow?'}
             </p>
             <a
-              href={`${process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://cloud.sealos.io'}/?openapp=system-devbox`}
+              href={`${appDomain}/?openapp=system-devbox`}
               className="group inline-flex transform items-center rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-4 font-semibold text-white transition-all hover:scale-105 hover:from-blue-700 hover:to-purple-700"
             >
               {lang === 'zh-cn' ? '立即开始开发' : 'Start Developing Now'}
