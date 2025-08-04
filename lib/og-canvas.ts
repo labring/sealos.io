@@ -133,6 +133,17 @@ function getContentConfig(type: string) {
         'email.svg',
       );
       break;
+    case 'app':
+      tagText = 'Sealos App';
+      iconPath = join(
+        process.cwd(),
+        'public',
+        'images',
+        'og',
+        'icons',
+        'app.svg',
+      );
+      break;
     case 'website':
       // For website type, we'll use a different approach
       showTag = false;

@@ -1,4 +1,9 @@
-import { getAppBySlug, loadAllApps, getAppBySlugSync, appsConfig } from '@/config/apps';
+import {
+  getAppBySlug,
+  loadAllApps,
+  getAppBySlugSync,
+  appsConfig,
+} from '@/config/apps';
 import { notFound } from 'next/navigation';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import { languagesType } from '@/lib/i18n';
@@ -47,7 +52,8 @@ export async function generateMetadata({
     description: app.description,
     keywords: app.tags,
     pathname: `/products/app-store/${params.slug}`,
-    lang: params.lang
+    lang: params.lang,
+    ogType: 'app',
   });
 }
 

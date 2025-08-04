@@ -12,7 +12,6 @@ const siteName = siteConfig.name;
 export async function generateBlogMetadata(props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const blogImageApi = `${ogImageApi}/blog/`;
   const params = await props.params;
   const page = blog.getPage([params.slug]);
   const isRootPage = !params.slug || params.slug.length === 0;
@@ -21,13 +20,14 @@ export async function generateBlogMetadata(props: {
 
   let url = `${siteConfig.url.base}/blog`;
   let docTitle = 'Sealos Blog';
-  let imageUrl = blogImageApi + docTitle;
+  let imageUrl = `${ogImageApi}/blog/${encodeURIComponent(docTitle)}`;
   let description = 'Sealos Blog';
   let keywords = ['Sealos', 'Blog'];
 
   if (page) {
     url = `${siteConfig.url.base}/blog/${page.slugs.join('/')}`;
-    imageUrl = blogImageApi + (page.data.imageTitle || page.data.title);
+    const blogTitle = page.data.imageTitle || page.data.title;
+    imageUrl = `${ogImageApi}/blog/${encodeURIComponent(blogTitle)}`;
     docTitle = `${page.data.title} | Sealos Blog`;
     description = page.data.description;
   }
@@ -111,8 +111,6 @@ export function generateDocsMetadata({
 }: {
   params: { lang: string; slug?: string[] };
 }) {
-  const docsImageApi = `${ogImageApi}/docs/`;
-
   const page = source.getPage(params.slug, params.lang);
   if (!page) notFound();
 
@@ -121,9 +119,8 @@ export function generateDocsMetadata({
     .join(' > ');
 
   const url = `${siteConfig.url.base}/docs/${page.slugs.join('/')}`;
-  const imageUrl =
-    docsImageApi +
-    (fullPathTitle ? fullPathTitle.toUpperCase() : 'Sealos Docs');
+  const docsTitle = fullPathTitle ? fullPathTitle.toUpperCase() : 'Sealos Docs';
+  const imageUrl = `${ogImageApi}/docs/${encodeURIComponent(docsTitle)}`;
 
   const isRootPage = !params.slug || params.slug.length === 0;
   const docTitle = isRootPage
@@ -136,7 +133,14 @@ export function generateDocsMetadata({
       absolute: docTitle,
     },
     description: page.data.description,
-    keywords: ['sealos', 'documentation', 'kubernetes', 'cloud platform', 'devops', 'container'],
+    keywords: [
+      'sealos',
+      'documentation',
+      'kubernetes',
+      'cloud platform',
+      'devops',
+      'container',
+    ],
     authors: [{ name: siteConfig.author }],
     creator: siteConfig.author,
     publisher: siteConfig.author,
@@ -207,6 +211,7 @@ export function generatePageMetadata(
     modifiedTime?: string;
     section?: string;
     tags?: string[];
+    ogType?: string;
   } = {},
 ): Metadata {
   const title = options.title
@@ -218,38 +223,18 @@ export function generatePageMetadata(
   const keywords = options.keywords ? options.keywords : siteConfig.keywords;
   const lang = options.lang || 'en';
 
-  // Determine the correct image API endpoint based on the pathname
-  let imageApi = `${ogImageApi}/website/`;
-  let imagePath = 'default';
+  let ogType = options.ogType || 'website';
+  let ogTitle = options.title || 'Sealos';
 
-  if (options.pathname) {
-    const path = options.pathname.replace(/^\/*/, '');
+  // Construct the image URL using the new API structure: /api/og/[type]/[title]
+  const imageUrl = `${ogImageApi}/${ogType}/${encodeURIComponent(ogTitle)}`;
 
-    // Extract the language and the rest of the path
-    const pathParts = path.split('/');
-    const restPath = pathParts.slice(1).join('/');
-
-    if (restPath.startsWith('customers/')) {
-      // For customer case pages
-      imageApi = `${ogImageApi}/customers/`;
-      imagePath = restPath.replace('customers/', '');
-    } else if (restPath === 'customers') {
-      // For main customers page
-      imageApi = `${ogImageApi}/customers/`;
-      imagePath = 'default';
-    } else {
-      // For other pages
-      imagePath = restPath || path; // Use restPath if available, otherwise use the full path
-    }
-  }
-
-  const imageUrl = imageApi + imagePath;
-
-  // Generate hreflang links if pathname is provided
-  const hreflangLinks = options.pathname ? generateHreflangLinks(options.pathname) : [];
+  const hreflangLinks = options.pathname
+    ? generateHreflangLinks(options.pathname)
+    : [];
   const alternateLanguages: Record<string, string> = {};
 
-  hreflangLinks.forEach(link => {
+  hreflangLinks.forEach((link) => {
     alternateLanguages[link.hrefLang] = link.href;
   });
 
@@ -257,7 +242,9 @@ export function generatePageMetadata(
     title: title,
     description: description,
     keywords: keywords,
-    authors: options.author ? [{ name: options.author }] : [{ name: siteConfig.author }],
+    authors: options.author
+      ? [{ name: options.author }]
+      : [{ name: siteConfig.author }],
     creator: siteConfig.author,
     publisher: siteConfig.author,
     robots: {
@@ -275,8 +262,13 @@ export function generatePageMetadata(
       google: process.env.GOOGLE_SITE_VERIFICATION,
     },
     alternates: {
-      canonical: options.pathname ? `${siteConfig.url.base}${options.pathname}` : siteConfig.url.base,
-      languages: Object.keys(alternateLanguages).length > 0 ? alternateLanguages : undefined,
+      canonical: options.pathname
+        ? `${siteConfig.url.base}${options.pathname}`
+        : siteConfig.url.base,
+      languages:
+        Object.keys(alternateLanguages).length > 0
+          ? alternateLanguages
+          : undefined,
       types: {
         'application/rss+xml': [
           {
@@ -288,7 +280,9 @@ export function generatePageMetadata(
     },
     openGraph: {
       type: 'website',
-      url: options.pathname ? `${siteConfig.url.base}${options.pathname}` : siteConfig.url.base,
+      url: options.pathname
+        ? `${siteConfig.url.base}${options.pathname}`
+        : siteConfig.url.base,
       siteName: siteName,
       title: title,
       description: description,
@@ -323,16 +317,14 @@ export function generatePageMetadata(
 /**
  * Generate metadata for product pages with enhanced SEO
  */
-export function generateProductMetadata(
-  options: {
-    productName: string;
-    description: string;
-    pathname: string;
-    lang?: string;
-    features?: string[];
-    category?: string;
-  }
-): Metadata {
+export function generateProductMetadata(options: {
+  productName: string;
+  description: string;
+  pathname: string;
+  lang?: string;
+  features?: string[];
+  category?: string;
+}): Metadata {
   const lang = options.lang || 'en';
   const isZhCn = lang === 'zh-cn';
 
@@ -345,17 +337,17 @@ export function generateProductMetadata(
     'container',
     'devops',
     'cloud native',
-    ...(options.features || [])
+    ...(options.features || []),
   ];
 
   const imageApi = `${ogImageApi}/products/`;
-  const imageUrl = imageApi + options.productName.toLowerCase().replace(/\s+/g, '-');
+  const imageUrl = `${ogImageApi}/products/${encodeURIComponent(options.productName.toLowerCase().replace(/\s+/g, '-'))}`;
 
   // Generate hreflang links
   const hreflangLinks = generateHreflangLinks(options.pathname);
   const alternateLanguages: Record<string, string> = {};
 
-  hreflangLinks.forEach(link => {
+  hreflangLinks.forEach((link) => {
     alternateLanguages[link.hrefLang] = link.href;
   });
 
@@ -379,7 +371,10 @@ export function generateProductMetadata(
     },
     alternates: {
       canonical: `${siteConfig.url.base}${options.pathname}`,
-      languages: Object.keys(alternateLanguages).length > 0 ? alternateLanguages : undefined,
+      languages:
+        Object.keys(alternateLanguages).length > 0
+          ? alternateLanguages
+          : undefined,
       types: {
         'application/rss+xml': [
           {
@@ -429,17 +424,19 @@ export function generateProductMetadata(
  * @returns Array of hreflang link objects
  */
 export function generateHreflangLinks(
-  currentPath: string = ''
+  currentPath: string = '',
 ): Array<{ hrefLang: string; href: string }> {
   const links: Array<{ hrefLang: string; href: string }> = [];
 
   // Clean the current path - remove leading slash and language prefix
-  const cleanPath = currentPath.replace(/^\/?(en|zh-cn)\/?/, '').replace(/^\/+/, '');
+  const cleanPath = currentPath
+    .replace(/^\/?(en|zh-cn)\/?/, '')
+    .replace(/^\/+/, '');
 
   // Domain mapping based on language
   const domainMap = {
-    'en': 'https://sealos.io',
-    'zh-cn': 'https://sealos.run'
+    en: 'https://sealos.io',
+    'zh-cn': 'https://sealos.run',
   };
 
   // Generate hreflang links for each supported language
@@ -455,7 +452,7 @@ export function generateHreflangLinks(
     // Add the hreflang link
     links.push({
       hrefLang: lang === 'zh-cn' ? 'zh-CN' : lang,
-      href: href
+      href: href,
     });
   });
 
@@ -468,7 +465,7 @@ export function generateHreflangLinks(
 
   links.push({
     hrefLang: 'x-default',
-    href: defaultHref
+    href: defaultHref,
   });
 
   return links;
