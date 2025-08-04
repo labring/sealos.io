@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { AppConfig } from '@/config/apps-loader';
-import { downloadImage, cleanupUnusedImages } from '@/lib/image-downloader';
 
 // Cache configuration
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache TTL
@@ -73,15 +72,25 @@ async function convertTemplateToAppConfig(template: any): Promise<AppConfig | nu
     DevOps: 'from-slate-50/70 to-gray-50/70',
   };
   
-  // Download icon and get local path
+  // Use pre-downloaded icon path
   const slug = metadata.name || '';
-  let iconPath = '/icons/default.svg';
+  let iconPath = `/images/apps/${slug}.png`; // Default to .png extension
   
-  if (spec.icon && spec.icon.startsWith('http')) {
-    // Download the icon to local storage
-    iconPath = await downloadImage(spec.icon, slug);
-  } else if (spec.icon) {
-    iconPath = spec.icon;
+  // Check common extensions for the icon
+  const possibleExtensions = ['.png', '.jpg', '.jpeg', '.svg', '.ico', '.webp', '.gif'];
+  for (const ext of possibleExtensions) {
+    // In production, these icons should already be downloaded by generate-apps script
+    const testPath = `/images/apps/${slug}${ext}`;
+    // We'll use the path that matches the slug, but we can't check file existence in Edge runtime
+    if (spec.icon && spec.icon.includes(ext)) {
+      iconPath = testPath;
+      break;
+    }
+  }
+  
+  // Fallback to default if no icon
+  if (!spec.icon || !slug) {
+    iconPath = '/icons/default.svg';
   }
   
   // Create i18n object if available
@@ -188,23 +197,13 @@ async function fetchAppsFromAPI(language: string = 'en'): Promise<AppConfig[]> {
     
     // Convert templates to app configs
     const apps: AppConfig[] = [];
-    const activeImages = new Set<string>();
     
     for (const template of data.data.templates) {
       const appConfig = await convertTemplateToAppConfig(template);
       if (appConfig) {
         apps.push(appConfig);
-        // Track active images
-        if (appConfig.icon && appConfig.icon.startsWith('/images/apps/')) {
-          activeImages.add(appConfig.icon);
-        }
       }
     }
-    
-    // Clean up unused images in the background
-    cleanupUnusedImages(activeImages).catch(err => 
-      console.error('Error cleaning up images:', err)
-    );
     
     // Sort apps by deploy count (descending) and then by name
     apps.sort((a, b) => {

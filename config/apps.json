@@ -34,45 +34,6 @@
     }
   },
   {
-    "name": "AList",
-    "slug": "alist",
-    "description": "A file list/WebDAV program that supports multiple storages, powered by Gin and Solidjs.",
-    "icon": "/images/apps/alist.svg",
-    "category": "Tools",
-    "features": [
-      "User-Friendly Interface",
-      "Easy Configuration",
-      "Multi-Platform Support",
-      "Extensible"
-    ],
-    "benefits": [
-      "Easy to deploy and manage",
-      "Self-hosted solution",
-      "Open source and free",
-      "Community supported"
-    ],
-    "useCases": [
-      "Business Operations",
-      "Development Workflow",
-      "Data Management",
-      "Team Collaboration"
-    ],
-    "gradient": "from-green-50/70 to-emerald-50/70",
-    "github": "https://github.com/alist-org/alist",
-    "website": "https://github.com/alist-org/alist",
-    "tags": [
-      "tool"
-    ],
-    "source": {
-      "deployCount": 0
-    },
-    "i18n": {
-      "zh": {
-        "description": "一个支持多种存储的文件列表/WebDAV程序，由 Gin 和 Solidjs 提供支持。"
-      }
-    }
-  },
-  {
     "name": "anki-sync-server",
     "slug": "anki-sync-server",
     "description": "Self-Hosted Anki Sync Server",
@@ -743,6 +704,45 @@
     }
   },
   {
+    "name": "Glance",
+    "slug": "glance",
+    "description": "A self-hosted dashboard that puts all your feeds in one place",
+    "icon": "/images/apps/glance.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/glanceapp/glance",
+    "website": "https://github.com/glanceapp/glance",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "一个自托管的仪表板，将您所有的订阅源集中在一个地方"
+      }
+    }
+  },
+  {
     "name": "glitchtip",
     "slug": "glitchtip",
     "description": "GlitchTip makes monitoring software easy.",
@@ -924,6 +924,45 @@
     }
   },
   {
+    "name": "Immich",
+    "slug": "immich",
+    "description": "High performance self-hosted photo and video management solution. Store, organize, and share your memories with machine learning-powered features like face recognition and smart search.",
+    "icon": "/images/apps/immich.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/immich-app/immich",
+    "website": "https://immich.app/",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "高性能自托管照片和视频管理解决方案。通过人脸识别和智能搜索等机器学习功能，存储、整理和分享您的回忆。"
+      }
+    }
+  },
+  {
     "name": "influxdb",
     "slug": "influxdb",
     "description": "Real-time insights from any time series data with a single, purpose-built database. Run at any scale in any environment in the cloud, on-premises, or at the edge.",
@@ -1084,6 +1123,40 @@
     "gradient": "from-green-50/70 to-emerald-50/70",
     "github": "https://github.com/jupyter/docker-stacks",
     "website": "https://jupyter-docker-stacks.readthedocs.io/en/latest/",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    }
+  },
+  {
+    "name": "Kaneo",
+    "slug": "kaneo",
+    "description": "A modern, self-hosted project management platform that gets out of your way.",
+    "icon": "/images/apps/kaneo.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/usekaneo/kaneo",
+    "website": "https://kaneo.app/",
     "tags": [
       "tool"
     ],
@@ -1768,6 +1841,45 @@
     }
   },
   {
+    "name": "Paperless-ngx",
+    "slug": "paperless-ngx",
+    "description": "Paperless-ngx is a community-supported open-source document management system that transforms your physical documents into a searchable online archive so you can keep, well, less paper.",
+    "icon": "/images/apps/paperless-ngx.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/paperless-ngx/paperless-ngx",
+    "website": "https://paperless-ngx.com/",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Paperless-ngx 是一个社区支持的开源文档管理系统，可以将您的纸质文档转换为可搜索的在线档案，让您减少纸张使用。"
+      }
+    }
+  },
+  {
     "name": "PDFMathTranslate",
     "slug": "pdf2zh",
     "description": "PDFMathTranslate is an open-source PDF scientific paper translation with preserved formats.",
@@ -2292,6 +2404,84 @@
     }
   },
   {
+    "name": "Rocket.Chat",
+    "slug": "rocketchat",
+    "description": "Rocket.Chat is an open-source fully customizable communications platform developed in JavaScript for organizations with high standards of data protection.",
+    "icon": "/images/apps/rocketchat.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/RocketChat/Rocket.Chat",
+    "website": "https://rocket.chat/",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Rocket.Chat 是一个开源的、完全可定制的通信平台，使用 JavaScript 开发，适用于对数据保护有高标准要求的组织。"
+      }
+    }
+  },
+  {
+    "name": "Rocket.Chat Microservices",
+    "slug": "rocketchat-micro",
+    "description": "Rocket.Chat Microservices is an enterprise-grade, open-source communication platform built with a microservices architecture for superior scalability and performance. Ideal for organizations requiring high availability and horizontal scaling capabilities.",
+    "icon": "/images/apps/rocketchat-micro.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/RocketChat/Rocket.Chat",
+    "website": "https://rocket.chat/",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Rocket.Chat 微服务版本是一个开源的、完全可定制的通信平台，采用微服务架构提供更好的可扩展性和性能。适用于对数据保护有高标准要求的组织。"
+      }
+    }
+  },
+  {
     "name": "RSSHub",
     "slug": "rsshub",
     "description": "🍰 Everything is RSSible",
@@ -2582,7 +2772,7 @@
     "name": "Tianji",
     "slug": "tianji",
     "description": "Tianji: Insight into everything, Website Analytics + Uptime Monitor + Server Status. not only another GA alternatives",
-    "icon": "/icons/default.svg",
+    "icon": "/images/apps/tianji.svg",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
