@@ -71,13 +71,8 @@ export function getPageCategory(page: Page) {
 }
 
 export function getBlogImage(title: string, category?: string) {
-  if (process.env.NODE_ENV === 'production') {
-    return `/images/og-blog/${title}.webp`
-      .replaceAll(' ', '')
-      .replaceAll('?', '');
-  }
   const baseUrl = `/api/og/blog/${encodeURIComponent(title)}`;
-  return category ? `${baseUrl}?category=${encodeURI(category)}` : baseUrl;
+  return category ? `${baseUrl}/${encodeURI(category)}` : baseUrl;
 }
 
 export function getPostsByLanguage(lang: languagesType) {
@@ -97,9 +92,7 @@ export function getPostsByLanguage(lang: languagesType) {
         return path.includes('.zh-cn.');
       }
       // English articles typically don't have language identifiers or have .en.
-      return (
-        !path.includes('.zh-cn.') || path.includes('.en.')
-      );
+      return !path.includes('.zh-cn.') || path.includes('.en.');
     });
   }
 
