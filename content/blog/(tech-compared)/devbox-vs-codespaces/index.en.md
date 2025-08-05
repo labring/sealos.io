@@ -125,7 +125,7 @@ Codespaces simplifies GitHub-centered workflows and makes onboarding fast. Repli
 If you’re building something where isolation, ownership, and infrastructure flexibility matter, DevBox offers a foundation that’s not just convenient - it’s yours.
 
 ----------
-> 💬 Experience Sealos right now: [https://cloud.sealos.io](https://cloud.sealos.io/) 
+> 💬 Experience Sealos right now: [https://cloud.sealos.io](https://os.sealos.io/) 
 
 > 🧑💻 Connect & contribute: [Join GitHub Discussions](https://github.com/labring/sealos/discussions)
 
