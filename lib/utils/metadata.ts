@@ -4,6 +4,7 @@ import { source } from '@/lib/source';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { i18n } from '@/lib/i18n';
+import { getBlogImage, getPageCategory } from '@/lib/utils/blog-utils';
 
 const ogImageApi = `${siteConfig.url.base}/api/og`;
 
@@ -26,8 +27,8 @@ export async function generateBlogMetadata(props: {
 
   if (page) {
     url = `${siteConfig.url.base}/blog/${page.slugs.join('/')}`;
-    const blogTitle = page.data.imageTitle || page.data.title;
-    imageUrl = `${ogImageApi}/blog/${encodeURIComponent(blogTitle)}`;
+    const category = getPageCategory(page);
+    imageUrl = `${siteConfig.url.base}${getBlogImage(page, category)}`;
     docTitle = `${page.data.title} | Sealos Blog`;
     description = page.data.description;
   }
