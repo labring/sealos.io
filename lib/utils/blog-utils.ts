@@ -70,8 +70,8 @@ export function getPageCategory(page: Page) {
   return match ? match[1] : 'uncategorized';
 }
 
-export function getBlogImage(title: string, category?: string) {
-  const baseUrl = `/api/og/blog/${encodeURIComponent(title)}`;
+export function getBlogImage(page: Page, category?: string) {
+  const baseUrl = `/api/og/blog/${encodeURIComponent(page.slugs[0] + '.' + page.locale)}`;
   return category ? `${baseUrl}/${encodeURI(category)}` : baseUrl;
 }
 

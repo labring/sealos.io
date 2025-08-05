@@ -1,5 +1,4 @@
 import { generateBlogMetadata } from '@/lib/utils/metadata';
-import BlogItem from './components/BlogItem';
 import BlogHeader from './components/BlogHeader';
 import {
   getCategories,
@@ -45,14 +44,20 @@ export default async function BlogIndex({
     : [];
 
   // Pass selected tags to filter posts
-  const posts = getSortedBlogPosts({ 
-    tags: selectedTags, 
-    lang: lang
+  const posts = getSortedBlogPosts({
+    tags: selectedTags,
+    lang: lang,
   });
 
   return (
     <BlogContainer>
-      <BlogHeader title={translations[lang].title} description={translations[lang].description} lang={lang} categories={categories} tags={tags} />
+      <BlogHeader
+        title={translations[lang].title}
+        description={translations[lang].description}
+        lang={lang}
+        categories={categories}
+        tags={tags}
+      />
       <BlogGrid posts={posts} lang={lang} />
     </BlogContainer>
   );

@@ -4,7 +4,7 @@ import { languagesType } from '@/lib/i18n';
 
 interface BlogGridProps {
   posts: BlogPost[];
-  lang: languagesType
+  lang: languagesType;
 }
 
 export default function BlogGrid({ posts, lang }: BlogGridProps) {
@@ -16,7 +16,7 @@ export default function BlogGrid({ posts, lang }: BlogGridProps) {
         ))
       ) : (
         <div className="col-span-3 py-10 text-center">
-          <p className="text-lg text-muted-foreground">No posts found.</p>
+          <p className="text-muted-foreground text-lg">No posts found.</p>
         </div>
       )}
     </div>

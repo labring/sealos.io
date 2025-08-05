@@ -16,21 +16,18 @@ export default function BlogItem({
   return (
     <Link
       href={page.url}
-      className="group flex flex-col rounded-xl bg-card text-card-foreground shadow-md transition-all hover:-translate-y-1 hover:bg-accent hover:text-accent-foreground hover:shadow-xl"
+      className="group bg-card text-card-foreground hover:bg-accent hover:text-accent-foreground flex flex-col rounded-xl shadow-md transition-all hover:-translate-y-1 hover:shadow-xl"
     >
       <div className="relative aspect-video h-auto w-full overflow-visible">
         <Image
-          src={
-            page.data?.image ??
-            getBlogImage(page.data.imageTitle || page.data.title, category)
-          }
+          src={page.data?.image ?? getBlogImage(page, category)}
           alt={page.data.title}
           className="h-full object-cover"
           fill
           priority={priorityImage ? true : false}
           sizes="(max-width: 760px) 90vw, 400px"
         />
-        <div className="absolute bottom-2 right-2 flex items-center gap-2 overflow-visible">
+        <div className="absolute right-2 bottom-2 flex items-center gap-2 overflow-visible">
           {page.data.authors.length > 0 && (
             <div className="flex -space-x-2 overflow-visible">
               {page.data.authors.flatMap((author, i) => {
@@ -47,9 +44,9 @@ export default function BlogItem({
                       alt={info.name}
                       width={24}
                       height={24}
-                      className="rounded-full border-2 border-background bg-white"
+                      className="border-background rounded-full border-2 bg-white"
                     />
-                    <div className="absolute left-1/2 top-0 z-50 mb-2 -translate-x-1/2 -translate-y-[120%] whitespace-nowrap rounded bg-black/75 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover/author:opacity-100">
+                    <div className="absolute top-0 left-1/2 z-50 mb-2 -translate-x-1/2 -translate-y-[120%] rounded bg-black/75 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover/author:opacity-100">
                       {info.name}
                     </div>
                   </div>
@@ -66,7 +63,7 @@ export default function BlogItem({
             <p className="line-clamp-2 font-semibold">{page.data.title}</p>
           </div>
         </div>
-        <p className="line-clamp-2 text-sm text-muted-foreground">
+        <p className="text-muted-foreground line-clamp-2 text-sm">
           {page.data.description}
         </p>
       </div>

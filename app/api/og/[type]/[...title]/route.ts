@@ -12,20 +12,23 @@ export async function generateStaticParams() {
     // Blog images
     const posts = blog.getPages(lang);
     for (const post of posts) {
-      const title = post.data.imageTitle || post.data.title;
+      const slug = post.slugs[0];
       const category = getPageCategory(post);
 
       // Each blog needs two images (with and without category tag)
       if (category !== 'uncategorized') {
         params.push({
           type: 'blog',
-          title: [encodeURIComponent(title), encodeURIComponent(category)],
+          title: [
+            encodeURIComponent(slug + '.' + lang),
+            encodeURIComponent(category),
+          ],
         });
       }
 
       params.push({
         type: 'blog',
-        title: [encodeURIComponent(title)],
+        title: [encodeURIComponent(slug + '.' + lang)],
       });
     }
   }
@@ -40,17 +43,60 @@ export async function GET(
   try {
     const { type, title } = params;
 
-    // We use `/title/category` for OG links, and the category part can be omitted.
-    const decodedTitle = decodeURIComponent(title[0]).toUpperCase();
+    // We use `/slug/category` for OG links, and the category part can be omitted.
+    const decodedSlug = decodeURIComponent(title[0]);
     const formattedCategory = title[1]
       ? decodeURIComponent(title[1]).toUpperCase()
       : undefined;
 
-    const canvasBuffer = await drawCanvas(
-      type,
-      decodedTitle,
-      formattedCategory,
-    );
+    let ogTitle = decodedSlug.toUpperCase(); // Default fallback
+    let ogCategory = formattedCategory;
+
+    // Special handling for blog type: use slug to find the actual title
+    if (type === 'blog') {
+      // Extract slug and locale from the decoded slug (format: slug.locale)
+      const slugParts = decodedSlug.split('.');
+      const slug = slugParts[0];
+      const locale = slugParts[1];
+
+      // Find the blog post by slug and locale
+      let found = false;
+      if (locale && ['en', 'zh-cn'].includes(locale)) {
+        const posts = blog.getPages(locale as languagesType);
+        const post = posts.find((p) => p.slugs[0] === slug);
+        if (post) {
+          ogTitle = (post.data.imageTitle || post.data.title).toUpperCase();
+          ogCategory = formattedCategory;
+          found = true;
+        }
+      }
+
+      // If not found, try to find by slug in any language
+      if (!found) {
+        for (const lang of ['en', 'zh-cn'] as languagesType[]) {
+          const posts = blog.getPages(lang);
+          const post = posts.find((p) => p.slugs[0] === slug);
+          if (post) {
+            ogTitle = (post.data.imageTitle || post.data.title).toUpperCase();
+            ogCategory = formattedCategory;
+            found = true;
+            break;
+          }
+        }
+      }
+
+      // If still not found, use the slug as title (fallback)
+      if (!found) {
+        ogTitle = slug.toUpperCase();
+        ogCategory = formattedCategory;
+      }
+    } else {
+      // For non-blog types, use the slug directly as title
+      ogTitle = decodedSlug.toUpperCase();
+      ogCategory = formattedCategory;
+    }
+
+    const canvasBuffer = await drawCanvas(type, ogTitle, ogCategory);
 
     // All major platforms support WebP Open Graph images.
     const webpBuffer = await sharp(canvasBuffer)

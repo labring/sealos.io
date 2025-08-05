@@ -75,7 +75,7 @@ export default async function BlogLayout({
     new Date(page.data.date).toISOString(),
     new Date(page.data.date).toISOString(), // Use same date if no modified date
     page.data.authors,
-    getBlogImage(page.data.imageTitle || page.data.title, category),
+    getBlogImage(page, category),
     page.data.tags,
     params.lang,
   );
@@ -151,10 +151,7 @@ export default async function BlogLayout({
             <div className="from-primary/10 to-background mb-10 overflow-hidden rounded-2xl bg-linear-to-b">
               <div className="relative h-[250px] w-full">
                 <Image
-                  src={getBlogImage(
-                    page.data.imageTitle || page.data.title,
-                    category,
-                  )}
+                  src={getBlogImage(page, category)}
                   alt={page.data.title}
                   fill
                   className="object-cover object-[center_60%]"
