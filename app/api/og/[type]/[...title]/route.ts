@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { blog } from '@/lib/source';
 import { languagesType } from '@/lib/i18n';
 import { getPageCategory } from '@/lib/utils/blog-utils';
+import sharp from 'sharp';
 
 export async function generateStaticParams() {
   const params = [];
@@ -45,10 +46,20 @@ export async function GET(
       ? decodeURIComponent(title[1]).toUpperCase()
       : undefined;
 
-    const buffer = await drawCanvas(type, decodedTitle, formattedCategory);
-    return new NextResponse(buffer, {
+    const canvasBuffer = await drawCanvas(
+      type,
+      decodedTitle,
+      formattedCategory,
+    );
+
+    // All major platforms support WebP Open Graph images.
+    const webpBuffer = await sharp(canvasBuffer)
+      .webp({ quality: 90 })
+      .toBuffer();
+
+    return new NextResponse(webpBuffer, {
       headers: {
-        'Content-Type': 'image/png',
+        'Content-Type': 'image/webp',
         'Cache-Control': 'public, max-age=86400',
       },
     });
