@@ -2,6 +2,7 @@
 language: en
 category: (best-practices)
 title: Deploy Your First App in 5 Minutes on Sealos - A Beginner’s Guide
+imageTitle: 'Deploy Your First App in 5 Minutes on Sealos'
 slug: a-guide-for-beginner
 description: Deploy your first full-stack app on Sealos in under 5 minutes using
   GitHub and cloud-native templates. No DevOps skills needed - fast, free, and
@@ -17,6 +18,7 @@ tags:
 authors:
   - default
 ---
+
 # Deploy Your First App in 5 Minutes on Sealos - A Beginner’s Guide
 
 For many new developers, deploying an app to the cloud often feels like the hardest part of the journey. Between container orchestration, YAML files, networking configurations, and cost planning, the learning curve quickly becomes a wall. **Sealos** changes that.
@@ -37,14 +39,10 @@ For example, if you want to deploy a personal blog, you can choose a static site
 
 **Popular starter templates include:**
 
--   **Hugo Static Site** – great for personal blogs or portfolios.
-    
--   **Next.js App** – suitable for dynamic frontends with server-side rendering.
-    
--   **Python FastAPI** – a solid choice for simple APIs or chatbot backends.
-    
--   **Flask/Docusaurus** – for documentation sites or lightweight web tools.
-    
+- **Hugo Static Site** – great for personal blogs or portfolios.
+- **Next.js App** – suitable for dynamic frontends with server-side rendering.
+- **Python FastAPI** – a solid choice for simple APIs or chatbot backends.
+- **Flask/Docusaurus** – for documentation sites or lightweight web tools.
 
 What’s worth noting is that Sealos uses **[MicroVM](https://sealos.io/blog/what-is-microvm)** technology under the hood - a modern virtualization method that ensures your apps start faster, consume fewer resources, and remain isolated from each other for better security. But as a user, you don’t need to configure any of this. The runtime decision happens automatically when you click “Deploy.”
 
@@ -92,16 +90,13 @@ There’s no better way to understand cloud-native development than by experienc
 
 > Further reading: [Cursor Free Student Plan](https://sealos.io/blog/cursor-free-for-students)
 
-Ready to try? 
+Ready to try?
 [Sign in now at Sealos.io](https://sealos.io) and make your first deployment a real one.
 
-  
 > 💬 Further reading: [What is DevBox](https://sealos.io/blog/what-is-devbox)
 
 > 🧑‍💻 Connect & contribute: [Join GitHub Discussions](https://github.com/labring/sealos/discussions)
 
 > 🚀 Discord: [Join our Discord Channels](https://discord.com/invite/wdUn538zVP)
 
-  
-
-----------
+---
