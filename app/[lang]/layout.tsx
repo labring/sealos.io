@@ -80,8 +80,8 @@ export default function LocaleLayout({
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://hm.baidu.com" />
-        <link rel="dns-prefetch" href="https://analytics.sealos.io" />
-        <link rel="dns-prefetch" href="https://engage.sealos.io" />
+        <link rel="dns-prefetch" href="https://analytics.sealos.in" />
+        <link rel="dns-prefetch" href="https://engage.sealos.in" />
 
         {/* Preconnect to critical third-party domains */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />

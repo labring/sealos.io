@@ -2,7 +2,7 @@
 title: 'The Windsurf DevBox Workflow: Unleashing Agentic AI on an Unbreakable Cloud Environment'
 imageTitle: 'Windsurf DevBox'
 description: 'Discover how DevBox links seamlessly with Windsurf, the AI-powered code editor, providing users with a purpose-built Cloud Development Environment.'
-date: 2025-08-29
+date: 2025-07-29
 tags: ['windsurf', 'ai tools', 'devbox', 'coding tools', 'server', 'hosting']
 authors: ['default']
 ---

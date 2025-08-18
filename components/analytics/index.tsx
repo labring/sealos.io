@@ -26,7 +26,7 @@ const loadRybbitAnalytics = (siteId: string) => {
   const s = d.createElement('script');
   s.async = true;
   s.defer = true;
-  s.src = 'https://analytics.sealos.io/api/script.js';
+  s.src = 'https://analytics.sealos.in/api/script.js';
   s.setAttribute('data-site-id', siteId);
   const firstScript = d.getElementsByTagName('script')[0];
   firstScript?.parentNode?.insertBefore(s, firstScript);
@@ -46,13 +46,13 @@ export function Analytics() {
 
       // Initialize dataLayer immediately
       window.dataLayer = window.dataLayer || [];
-      
+
       let gtmLoaded = false;
-      
+
       const loadGTM = () => {
         if (gtmLoaded) return;
         gtmLoaded = true;
-        
+
         window.dataLayer.push({
           'gtm.start': new Date().getTime(),
           event: 'gtm.js',
@@ -71,38 +71,46 @@ export function Analytics() {
       };
 
       // Strategy 1: Load on user interaction (scroll, click, or touch)
-      const interactionEvents = ['scroll', 'mousedown', 'touchstart', 'keydown'];
+      const interactionEvents = [
+        'scroll',
+        'mousedown',
+        'touchstart',
+        'keydown',
+      ];
       let interactionTriggered = false;
-      
+
       const handleInteraction = () => {
         if (!interactionTriggered) {
           interactionTriggered = true;
           // Small delay to ensure interaction doesn't block
           setTimeout(loadGTM, 100);
-          
+
           // Remove all listeners once triggered
-          interactionEvents.forEach(event => {
+          interactionEvents.forEach((event) => {
             window.removeEventListener(event, handleInteraction);
           });
         }
       };
-      
+
       // Add interaction listeners
-      interactionEvents.forEach(event => {
-        window.addEventListener(event, handleInteraction, { passive: true, once: true });
+      interactionEvents.forEach((event) => {
+        window.addEventListener(event, handleInteraction, {
+          passive: true,
+          once: true,
+        });
       });
-      
+
       // Strategy 2: Fallback - load after 5 seconds if no interaction
       const fallbackTimer = setTimeout(() => {
         if (!gtmLoaded) {
           loadGTM();
         }
       }, 5000);
-      
+
       // Cleanup
       return () => {
         clearTimeout(fallbackTimer);
-        interactionEvents.forEach(event => {
+        interactionEvents.forEach((event) => {
           window.removeEventListener(event, handleInteraction);
         });
       };
@@ -186,7 +194,7 @@ export function Analytics() {
             (function(w,d,t,u,n,a,m){w['MauticTrackingObject']=n;
               w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments)},a=d.createElement(t),
               m=d.getElementsByTagName(t)[0];a.async=1;a.src=u;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','https://engage.sealos.io/mtc.js','mt');
+            })(window,document,'script','https://engage.sealos.in/mtc.js','mt');
             mt('send', 'pageview');
           `}
         </Script>
