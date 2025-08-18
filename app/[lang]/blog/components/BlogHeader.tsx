@@ -2,6 +2,7 @@ import { languagesType } from '@/lib/i18n';
 import CategoryBar from './CategoryBar';
 import TagBar from './TagBar';
 import { RSSButton } from '@/components/ui/button-rss';
+import { Suspense } from 'react';
 
 interface BlogHeaderProps {
   lang: languagesType;
@@ -64,7 +65,13 @@ export default function BlogHeader({
       </div>
       <CategoryBar categories={categories} text={text} />
       <div className="hidden sm:block">
-        <TagBar tags={tags} text={text} />
+        <Suspense
+          fallback={
+            <div className="bg-muted/20 h-16 animate-pulse rounded-md" />
+          }
+        >
+          <TagBar tags={tags} text={text} />
+        </Suspense>
       </div>
     </div>
   );

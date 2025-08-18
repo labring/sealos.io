@@ -9,7 +9,7 @@ import {
   getAllTags,
 } from '@/lib/utils/blog-utils';
 import BlogContainer from '../../components/BlogContainer';
-import { languagesType } from '@/lib/i18n';
+import { languagesType, LANGUAGES } from '@/lib/i18n';
 
 export default async function CategoryPage({
   params,
@@ -24,10 +24,10 @@ export default async function CategoryPage({
     redirect(`../../blog/`);
   }
 
-  const allPosts = getSortedBlogPosts({ 
-    category: category, 
-    tags: [], 
-    lang: lang
+  const allPosts = getSortedBlogPosts({
+    category: category,
+    tags: [],
+    lang: lang,
   });
   const posts = allPosts;
   const tags = await getAllTags(allPosts);
@@ -60,6 +60,41 @@ export default async function CategoryPage({
       <BlogGrid posts={posts} lang={lang} />
     </BlogContainer>
   );
+}
+
+export async function generateStaticParams(): Promise<
+  Array<{ lang?: languagesType; category: string }>
+> {
+  try {
+    const categories = await getCategories();
+    const params: Array<{ lang?: languagesType; category: string }> = [];
+
+    // Generate all combinations of languages and categories
+    for (const lang of LANGUAGES) {
+      for (const category of categories) {
+        // URL encode category names to handle special characters
+        const encodedCategory = encodeURIComponent(category);
+        params.push({
+          lang,
+          category: encodedCategory,
+        });
+      }
+    }
+
+    // Generate params without lang for default language pages
+    for (const category of categories) {
+      const encodedCategory = encodeURIComponent(category);
+      params.push({
+        category: encodedCategory,
+      });
+    }
+
+    return params;
+  } catch (error) {
+    console.error('Error generating static params for blog categories:', error);
+    // Return empty array to allow build to continue
+    return [];
+  }
 }
 
 export const generateMetadata = generateBlogMetadata;
