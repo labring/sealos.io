@@ -3,6 +3,8 @@
 @import 'fumadocs-ui/css/preset.css';
 @import 'tailwindcss-animated';
 
+@custom-variant dark (&:is(.dark *));
+
 /* path of `fumadocs-ui` relative to the CSS file */
 /* @import 'tailwindcss/theme' layer(theme);
 @import 'tailwindcss/preflight' layer(base); */
@@ -96,7 +98,7 @@
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
-  
+
   --animate-blob: blob 7s infinite;
   --animate-tilt: tilt 10s infinite linear;
 
@@ -396,4 +398,13 @@
 
 .animate-tilt {
   animation: tilt 10s infinite linear;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
