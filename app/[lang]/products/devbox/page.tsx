@@ -3,6 +3,7 @@ import Solutions from './components/solutions';
 import Workflow from './components/workflow';
 import TechGrid from './components/techgrid';
 import FooterCta from './components/footerCta';
+import SocialProof from './components/social-proof';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import Hero from '@/components/header/hero';
@@ -21,21 +22,21 @@ import {
 const translations = {
   en: {
     title: {
-      main: 'Focus on Your Code, Not Configuration',
-      sub: 'Streamlined development flow so you can build, test, and ship faster.',
+      main: 'Ship 10x Faster with Cloud Development Environments',
+      sub: 'Join 10,000+ developers who eliminated setup time. Start coding in 60 seconds.',
     },
     description:
       'Eliminate development environment friction with ready-to-code cloud workstations. Instant setup, perfect isolation, enterprise security.',
-    watchDemo: 'Watch Demo',
+    watchDemo: 'Live Demo (2 min)',
   },
   'zh-cn': {
     title: {
-      main: '专注代码，无需配置',
-      sub: '简化开发流程，让您更快地构建、测试和发布。',
+      main: '使用云端开发环境，交付速度提升10倍',
+      sub: '加入10,000+开发者，消除环境配置时间。60秒内开始编码。',
     },
     description:
       '使用即开即用的云工作站消除开发环境摩擦。即时设置，完美隔离，企业级安全。',
-    watchDemo: '观看演示',
+    watchDemo: '在线演示 (2分钟)',
   },
 };
 
@@ -79,12 +80,12 @@ export default function HomePage({
       {/* Structured Data for SEO */}
       <StructuredDataComponent data={[devboxSchema, breadcrumbSchema]} />
 
-      <div className="h-full bg-[#EBF2FF]">
+      <div className="h-full min-h-screen bg-white">
         <Header lang={params.lang} />
         <main className="custom-container px-8 pt-14 md:px-[15%]">
           <Hero
             title={t.title}
-            mainTitleEmphasis={1}
+            mainTitleEmphasis={3}
             getStartedLink={`${appDomain}/?openapp=system-devbox`}
             lang={params.lang}
             videoCta={true}
@@ -100,6 +101,9 @@ export default function HomePage({
               location="hero"
             />
           </Hero>
+
+          {/* Social Proof Section */}
+          <SocialProof lang={params.lang} />
 
           {/* Problem-Solution Structure */}
           <Problems lang={params.lang} />
