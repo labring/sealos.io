@@ -1,6 +1,7 @@
 import Problems from './components/problems';
-import Solutions from './components/solutions';
-import Workflow from './components/workflow';
+import Solutions from './components/solutions-v2';
+import Workflow from './components/workflow-v2';
+import MetricsVisualization from './components/metrics-visualization';
 import TechGrid from './components/techgrid';
 import FooterCta from './components/footerCta';
 import SocialProof from './components/social-proof';
@@ -111,6 +112,9 @@ export default function HomePage({
 
           {/* Development Workflow */}
           <Workflow lang={params.lang} />
+
+          {/* Metrics Visualization */}
+          <MetricsVisualization lang={params.lang} />
 
           {/* Template Deployment Section */}
           <div id="one-click-deployment" className="scroll-mt-20" />
