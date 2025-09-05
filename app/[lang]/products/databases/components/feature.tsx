@@ -10,7 +10,7 @@ const features = [
     icon: <Zap className="h-8 w-8" />,
     benefits: [
       'Automatic resource scaling',
-      'Pay-per-use pricing',
+      'Transparent subscription pricing',
       'Zero downtime scaling',
       'Performance optimization',
     ],

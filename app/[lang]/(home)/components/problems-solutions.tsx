@@ -41,7 +41,7 @@ const translations = {
         {
           title: '90% Cost Reduction',
           description:
-            'Pay only for what you use. No hidden fees. Free SSL, monitoring, and basic features included.',
+            'Predictable subscription pricing. No hidden fees. Free SSL, monitoring, and basic features included.',
           benefit: 'Save significantly vs traditional platforms',
         },
         {
@@ -97,7 +97,7 @@ const translations = {
         {
           title: '成本降低 90%',
           description:
-            '只为使用的资源付费。无隐藏费用。免费 SSL、监控和基础功能。',
+            '可预测的订阅制定价。无隐藏费用。免费 SSL、监控和基础功能。',
           benefit: '相比传统平台显著节省成本',
         },
         {

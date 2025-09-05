@@ -180,7 +180,8 @@ export const footerTranslations: Record<
     databasesUrl: '/products/databases',
     fastgptUrl: 'https://fastgpt.cn',
     aiproxyUrl: '/aiproxy',
-    pricingUrl: 'https://sealos.run/pricing',
+    // Use internal subscription pricing page
+    pricingUrl: '/pricing',
     contactUsUrl:
       'https://fael3z0zfze.feishu.cn/share/base/form/shrcn5oHHTKCf3VREMKOhEy6fmf',
     caseUrl: '/customers',

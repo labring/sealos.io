@@ -143,7 +143,8 @@ export const navTranslations: Record<languagesType, Record<string, string>> = {
     docsUrl: '/docs',
     caseUrl: '/customers',
     blogUrl: '/blog',
-    pricingUrl: 'https://sealos.run/pricing',
+    // Use internal subscription pricing page
+    pricingUrl: '/pricing',
     contactUrl:
       'https://fael3z0zfze.feishu.cn/share/base/form/shrcn5oHHTKCf3VREMKOhEy6fmf',
   },

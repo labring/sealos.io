@@ -89,7 +89,7 @@ export default function Hero({
           <p className="font-inter mx-auto max-w-3xl px-6 text-lg leading-relaxed text-slate-600">
             {title.sub}
           </p>
-          <h1 className="font-pj mt-5 text-4xl leading-tight font-bold text-slate-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight">
+          <h1 className="font-pj mt-5 text-4xl leading-tight font-bold text-slate-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight whitespace-pre-line">
             {partialTitle}
             <span className="relative inline-flex sm:inline">
               <span className="absolute inset-0 h-full w-full animate-pulse bg-gradient-to-r from-emerald-500 via-emerald-600 to-teal-600 opacity-30 blur-lg filter"></span>
@@ -161,18 +161,25 @@ export default function Hero({
 }
 
 function splitTitle(str: string, numLastWords: number) {
-  let words = str.trim().split(/\s+/); // Split string into words
-  if (words.length === 0 || numLastWords <= 0)
-    return { partialTitle: str, extractedWord: '' };
+  const input = str.trim();
+  // Collect positions of each word without destroying original whitespace/newlines
+  const re = /\S+/g;
+  const positions: { index: number; length: number }[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(input)) !== null) {
+    positions.push({ index: m.index, length: m[0].length });
+  }
 
-  // Ensure we don't try to take more words than exist
-  numLastWords = Math.min(numLastWords, words.length);
+  if (positions.length === 0 || numLastWords <= 0) {
+    return { partialTitle: input, highlightTitle: '' };
+  }
 
-  // Get the last numLastWords words
-  let extractedWords = words.splice(-numLastWords);
+  const count = Math.min(numLastWords, positions.length);
+  const startIndex = positions[positions.length - count].index;
 
   return {
-    partialTitle: words.join(' '),
-    highlightTitle: extractedWords.join(' '),
+    // Preserve original whitespace (including newlines) before the highlighted chunk
+    partialTitle: input.slice(0, startIndex).trimEnd(),
+    highlightTitle: input.slice(startIndex).trimStart(),
   };
 }
