@@ -18,25 +18,27 @@ import {
   generateDevBoxSchema,
   generateBreadcrumbSchema,
 } from '@/lib/utils/structured-data';
+import USPChips from './components/usp-chips';
+import PositioningStrip from './components/positioning-strip';
 
 // Define translations for different languages
 const translations = {
   en: {
     title: {
       main: 'Ship 10x Faster with Cloud Development Environments',
-      sub: 'Join 10,000+ developers who eliminated setup time. Start coding in 60 seconds.',
+      sub: 'Beyond cloud IDE: code, package, and deploy in one platform.',
     },
     description:
-      'Eliminate development environment friction with ready-to-code cloud workstations. Instant setup, perfect isolation, enterprise security.',
+      'Standard image-based releases, one-click deploy, IDE-agnostic, 100% environment parity.',
     watchDemo: 'Live Demo (2 min)',
   },
   'zh-cn': {
     title: {
       main: '使用云端开发环境，交付速度提升10倍',
-      sub: '加入10,000+开发者，消除环境配置时间。60秒内开始编码。',
+      sub: '不仅是云 IDE：在一个平台上完成编码、打包与部署。',
     },
     description:
-      '使用即开即用的云工作站消除开发环境摩擦。即时设置，完美隔离，企业级安全。',
+      '标准镜像发布，一键部署，IDE 不限，环境 100% 一致。',
     watchDemo: '在线演示 (2分钟)',
   },
 };
@@ -49,7 +51,7 @@ export function generateMetadata({
 }) {
   const t = translations[params.lang] || translations.en;
   return generatePageMetadata({
-    title: 'DevBox' + ' | ' + t.title.sub,
+    title: 'Sealos DevBox — ' + t.title.sub,
     description: t.description,
     pathname: '/products/devbox',
     lang: params.lang,
@@ -88,6 +90,11 @@ export default function HomePage({
             title={t.title}
             mainTitleEmphasis={3}
             getStartedLink={`${appDomain}/?openapp=system-devbox`}
+            getStartedText={
+              params.lang === 'zh-cn'
+                ? '免费开始（无需信用卡）'
+                : 'Start Free – No Credit Card'
+            }
             lang={params.lang}
             videoCta={true}
             secondaryCta={{
@@ -95,13 +102,19 @@ export default function HomePage({
               href: '#video-section',
             }}
           >
-            <Video
-              url="https://www.youtube.com/watch?v=TrEsUMwWtDg"
-              placeholderImage={placeholderImage}
-              title="Sealos DevBox"
-              location="hero"
-            />
+            <USPChips lang={params.lang} />
+            <div id="video-section" className="mt-8">
+              <Video
+                url="https://www.youtube.com/watch?v=TrEsUMwWtDg"
+                placeholderImage={placeholderImage}
+                title="Sealos DevBox"
+                location="hero"
+              />
+            </div>
           </Hero>
+
+          {/* Positioning Strip */}
+          <PositioningStrip lang={params.lang} />
 
           {/* Social Proof Section */}
           <SocialProof lang={params.lang} />
@@ -120,7 +133,7 @@ export default function HomePage({
           <div id="one-click-deployment" className="scroll-mt-20" />
           <TechGrid />
 
-          <FooterCta />
+          <FooterCta lang={params.lang} />
         </main>
         <div className="mt-[140px] h-[1px] bg-[#DDE7F7]"></div>
         <Footer lang={params.lang} />

@@ -11,6 +11,7 @@ interface SocialProofProps {
 const translations = {
   en: {
     trustedBy: 'Trusted by industry leaders',
+    tagline: 'From code to production faster with DevBox',
     githubStars: 'GitHub Stars',
     developers: 'Active Developers',
     testimonialAuthor: 'Bieber, CEO at Teable',
@@ -19,6 +20,7 @@ const translations = {
   },
   'zh-cn': {
     trustedBy: '深受行业领导者信赖',
+    tagline: '用 DevBox 更快从代码到生产',
     githubStars: 'GitHub Stars',
     developers: '活跃开发者',
     testimonialAuthor: 'Sarah Chen，TechCorp 工程负责人',
@@ -78,6 +80,7 @@ export default function SocialProof({ lang = 'en' }: SocialProofProps) {
           <p className="mb-8 text-sm font-semibold tracking-wider text-slate-500 uppercase">
             {t.trustedBy}
           </p>
+          <p className="-mt-4 mb-6 text-xs text-slate-500">{t.tagline}</p>
           <div className="flex flex-wrap items-center justify-center gap-12">
             {logos.map((logo) => (
               <motion.div
@@ -114,7 +117,7 @@ export default function SocialProof({ lang = 'en' }: SocialProofProps) {
                 <GitBranch className="h-6 w-6 text-white" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">4.5K+</p>
+                <p className="text-2xl font-bold text-gray-900">16K+</p>
                 <p className="text-sm text-gray-600">{t.githubStars}</p>
               </div>
             </motion.div>

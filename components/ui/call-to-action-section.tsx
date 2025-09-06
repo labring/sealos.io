@@ -12,6 +12,7 @@ interface CallToActionSectionProps {
   className?: string;
   showImage?: boolean;
   trackingLocation?: string;
+  newWindow?: boolean;
 }
 
 export function CallToActionSection({
@@ -20,6 +21,7 @@ export function CallToActionSection({
   buttonHref = appDomain,
   className = 'mt-[100px]',
   showImage = true,
+  newWindow = true,
 }: CallToActionSectionProps) {
   return (
     <div
@@ -45,7 +47,7 @@ export function CallToActionSection({
             className="text-custom-primary-text shadow-button flex w-fit cursor-pointer items-center justify-center gap-[6px] rounded-md bg-[#FAFCFF] py-2 pr-4 pl-5 font-medium hover:bg-[#F1F5FB]"
             title={buttonText}
             href={buttonHref}
-            newWindow={true}
+            newWindow={newWindow}
             location="footer-cta"
           >
             {buttonText}

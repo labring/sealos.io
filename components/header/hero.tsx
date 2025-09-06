@@ -14,6 +14,7 @@ interface HeroProps {
   };
   mainTitleEmphasis: number;
   getStartedLink?: string;
+  getStartedText?: string;
   lang?: languagesType;
   testimonial?: boolean;
   videoCta?: boolean;
@@ -28,6 +29,7 @@ export default function Hero({
   title,
   mainTitleEmphasis,
   getStartedLink,
+  getStartedText,
   lang = 'en',
   testimonial = true,
   videoCta = true,
@@ -55,6 +57,7 @@ export default function Hero({
 
   const t =
     translations[lang as keyof typeof translations] || translations['en'];
+  const ctaLabel = getStartedText || t.getStarted;
 
   return (
     <section className="relative overflow-hidden pt-12 sm:pt-16">
@@ -106,7 +109,7 @@ export default function Hero({
                   <GetStartedButton
                     className="relative flex w-auto items-center rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-10 py-5 text-lg leading-none font-bold text-white shadow-xl shadow-orange-500/25 transition-all hover:shadow-orange-500/40"
                     link={getStartedLink}
-                    title={t.getStarted}
+                    title={ctaLabel}
                     location="hero"
                   />
                 </div>

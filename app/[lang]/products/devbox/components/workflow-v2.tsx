@@ -25,6 +25,7 @@ import { appDomain } from '@/config/site';
 import { cn } from '@/lib/utils';
 import { Particles } from '@/components/ui/particles';
 import { BorderBeam } from '@/components/ui/border-beam';
+import { CustomButton } from '@/components/ui/button-custom';
 
 const translations = {
   en: {
@@ -32,7 +33,7 @@ const translations = {
     subtitle: 'From project creation to production deployment - experience the streamlined workflow',
     cta: {
       title: 'Ready to transform your development workflow?',
-      button: 'Start with DevBox Today',
+      button: 'Start Free – No Credit Card',
       subtext: 'Join 10,000+ developers building faster with cloud-native development'
     },
     timeline: [
@@ -82,8 +83,8 @@ const translations = {
         time: 'Step 3',
         emoji: '📦',
         icon: Package,
-        title: 'Release as OCI Image',
-        description: 'When ready, release your application as a versioned OCI image. DevBox packages everything - code, dependencies, and runtime.',
+        title: 'Package & Release (Image)',
+        description: 'When ready, package your app into a standard container image. DevBox bundles code, dependencies, and runtime.',
         comparison: {
           before: 'Previously: Complex Docker builds, dependency management nightmares',
           after: 'Now: One-click release with automatic packaging'
@@ -94,7 +95,7 @@ const translations = {
           label: 'to create release'
         },
         details: [
-          'Automatic OCI image creation',
+          'Automatic image creation',
           'Version management built-in',
           'Shareable with team or registry'
         ]
@@ -104,7 +105,7 @@ const translations = {
         emoji: '🚀',
         icon: RocketIcon,
         title: 'Deploy to Production',
-        description: 'Deploy your OCI image to Sealos App Launchpad. Configure resources, environment variables, and networking - then go live.',
+        description: 'One-click deploy your release to Sealos App Launchpad. Configure resources, environment variables, and networking — then go live.',
         comparison: {
           before: 'Previously: Complex Kubernetes configs, CI/CD pipeline setup',
           after: 'Now: Visual deployment with auto-scaling built-in'
@@ -169,7 +170,7 @@ const translations = {
     subtitle: '从项目创建到生产部署 - 体验简化的工作流程',
     cta: {
       title: '准备好改变您的开发工作流了吗？',
-      button: '立即开始使用 DevBox',
+      button: '免费开始（无需信用卡）',
       subtext: '加入 10,000+ 使用云原生开发更快构建的开发者'
     },
     timeline: [
@@ -219,8 +220,8 @@ const translations = {
         time: '步骤 3',
         emoji: '📦',
         icon: Package,
-        title: '发布为 OCI 镜像',
-        description: '准备就绪后，将您的应用程序发布为版本化的 OCI 镜像。DevBox 打包所有内容 - 代码、依赖项和运行时。',
+        title: '打包并发布（镜像）',
+        description: '准备就绪后，将应用打包为标准容器镜像。DevBox 会打包代码、依赖与运行时。',
         comparison: {
           before: '以前：复杂的 Docker 构建，依赖管理噩梦',
           after: '现在：一键发布，自动打包'
@@ -231,7 +232,7 @@ const translations = {
           label: '创建发布'
         },
         details: [
-          '自动 OCI 镜像创建',
+          '自动镜像创建',
           '内置版本管理',
           '可与团队或注册表共享'
         ]
@@ -241,7 +242,7 @@ const translations = {
         emoji: '🚀',
         icon: RocketIcon,
         title: '部署到生产环境',
-        description: '将您的 OCI 镜像部署到 Sealos App Launchpad。配置资源、环境变量和网络 - 然后上线。',
+        description: '一键将发布部署到 Sealos App Launchpad。配置资源、环境变量与网络——然后上线。',
         comparison: {
           before: '以前：复杂的 Kubernetes 配置，CI/CD 管道设置',
           after: '现在：可视化部署，内置自动扩展'
@@ -495,14 +496,17 @@ export default function Workflow({ lang }: WorkflowProps) {
               <p className="mb-8 text-lg opacity-90">
                 {t.cta.subtext}
               </p>
-              <a
+              <CustomButton
+                className="group inline-flex items-center rounded-lg border-2 border-white/70 bg-transparent px-8 py-4 font-semibold text-white transition-all hover:bg-white hover:text-blue-600 hover:shadow-xl"
+                title={t.cta.button}
                 href={`${appDomain}/?openapp=system-devbox`}
-                className="group inline-flex transform items-center rounded-lg bg-white px-8 py-4 font-semibold text-blue-600 transition-all hover:scale-105 hover:shadow-xl"
+                location="workflow-cta"
+                newWindow={false}
               >
                 <Zap className="mr-2 h-5 w-5" />
                 {t.cta.button}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </a>
+              </CustomButton>
             </div>
             <BorderBeam 
               size={300}

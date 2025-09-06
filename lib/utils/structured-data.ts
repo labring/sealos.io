@@ -254,8 +254,8 @@ export function generateDevBoxSchema(lang: string = 'en'): StructuredData {
     '@type': 'SoftwareApplication',
     name: 'Sealos DevBox',
     description: isZhCn 
-      ? '使用即开即用的云工作站消除开发环境摩擦。即时设置，完美隔离，企业级安全。'
-      : 'Eliminate development environment friction with ready-to-code cloud workstations. Instant setup, perfect isolation, enterprise security.',
+      ? '标准镜像发布，一键部署，IDE 不限，环境 100% 一致。'
+      : 'Standard image-based releases, one-click deploy, IDE-agnostic, 100% environment parity.',
     url: `${siteConfig.url.base}/products/devbox`,
     applicationCategory: 'DeveloperApplication',
     applicationSubCategory: 'Cloud Development Environment',
@@ -287,21 +287,21 @@ export function generateDevBoxSchema(lang: string = 'en'): StructuredData {
     softwareVersion: '2.0',
     installUrl: `${siteConfig.url.base}/docs/quick-start`,
     featureList: isZhCn ? [
-      '即时开发环境设置',
-      '完美的环境隔离',
-      '内置终端和代码编辑器',
-      'Kubernetes 原生架构',
+      '标准镜像发布',
       '一键部署到生产环境',
-      '团队协作和共享',
-      '多语言支持（Python, Go, Java, Node.js等）',
+      'IDE 不限（VS Code、JetBrains、Vim 等）',
+      '环境 100% 一致（团队标准化）',
+      '即时开发环境设置',
+      'Kubernetes 原生架构',
+      '多语言支持（Python, Go, Java, Node.js 等）',
       '预配置开发模板'
     ] : [
-      'Instant development environment setup',
-      'Perfect environment isolation',
-      'Built-in terminal and code editor',
-      'Kubernetes native architecture',
+      'Standard image-based releases',
       'One-click deployment to production',
-      'Team collaboration and sharing',
+      'IDE-agnostic (VS Code, JetBrains, Vim, etc.)',
+      '100% environment parity (team standardization)',
+      'Instant development environment setup',
+      'Kubernetes native architecture',
       'Multi-language support (Python, Go, Java, Node.js, etc.)',
       'Pre-configured development templates'
     ],
