@@ -1,11 +1,7 @@
 import { AnimateElement } from '@/components/ui/animated-wrapper';
-import { 
-  ClockIcon,
-  ShieldCheckIcon,
-  AlertCircle,
-  Zap
-} from './animated-icons';
+import { ClockIcon, ShieldCheckIcon } from '@/components/animated-icons';
 import { languagesType } from '@/lib/i18n';
+import { AlertCircle, Zap } from 'lucide-react';
 
 const translations = {
   en: {

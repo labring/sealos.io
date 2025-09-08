@@ -2,24 +2,19 @@
 
 import React from 'react';
 import { AnimateElement } from '@/components/ui/animated-wrapper';
-import { 
-  ClockIcon,
-  ShieldCheckIcon,
-  RocketIcon,
-  TrendingDownIcon,
-  ArrowRightIcon,
-  CircleCheckIcon,
-  XIcon,
-  UsersIcon,
-  Zap,
-  DollarSign,
-  GitBranch
-} from './animated-icons';
-import { CheckCircle2, XCircle } from 'lucide-react';
 import { languagesType } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 import { BorderBeam } from '@/components/ui/border-beam';
 import { MagicCard } from '@/components/ui/magic-card';
+import {
+  ShieldCheckIcon,
+  RocketIcon,
+  TrendingDownIcon,
+  ClockIcon,
+  XIcon,
+  CircleCheckIcon,
+} from '@/components/animated-icons';
+import { Zap } from 'lucide-react';
 
 const translations = {
   en: {
@@ -33,33 +28,35 @@ const translations = {
         color: 'blue',
         tagline: 'Setup Revolution',
         title: 'From 3-Day Setup Hell to 60-Second Magic',
-        story: 'Remember your last job\'s first week? Installing Node, Python, Docker, databases, configuring environment variables, debugging version conflicts... It was a nightmare that took days.',
-        transformation: 'With DevBox, new team members push their first commit within 10 minutes of joining. One link, one click, and they\'re coding.',
+        story:
+          "Remember your last job's first week? Installing Node, Python, Docker, databases, configuring environment variables, debugging version conflicts... It was a nightmare that took days.",
+        transformation:
+          "With DevBox, new team members push their first commit within 10 minutes of joining. One link, one click, and they're coding.",
         before: {
           title: 'The Old Way',
           items: [
             'Day 1: Installing dependencies',
             'Day 2: Fixing version conflicts',
-            'Day 3: Still debugging setup'
+            'Day 3: Still debugging setup',
           ],
           metric: '72 hours',
-          metricLabel: 'average setup time'
+          metricLabel: 'average setup time',
         },
         after: {
           title: 'The DevBox Way',
           items: [
             'Click the project link',
             'Environment ready in 60 seconds',
-            'Start coding immediately'
+            'Start coding immediately',
           ],
           metric: '60 seconds',
-          metricLabel: 'to first line of code'
+          metricLabel: 'to first line of code',
         },
         proof: {
           metric: '95%',
           label: 'faster onboarding',
-          source: 'Based on 500+ teams'
-        }
+          source: 'Based on 500+ teams',
+        },
       },
       {
         id: 'reliability',
@@ -67,33 +64,35 @@ const translations = {
         color: 'green',
         tagline: 'Zero Conflicts',
         title: 'End the "Works on My Machine" Era Forever',
-        story: 'How many hours have you wasted in meetings where someone says "but it works on my machine"? Different OS versions, missing dependencies, environment variables...',
-        transformation: 'DevBox gives everyone the exact same environment. Every dependency, every configuration, every time. Your code works everywhere because everywhere is identical.',
+        story:
+          'How many hours have you wasted in meetings where someone says "but it works on my machine"? Different OS versions, missing dependencies, environment variables...',
+        transformation:
+          'DevBox gives everyone the exact same environment. Every dependency, every configuration, every time. Your code works everywhere because everywhere is identical.',
         before: {
           title: 'The Chaos',
           items: [
             'Debugging environment differences',
             'Maintaining setup documentation',
-            'Losing work to system crashes'
+            'Losing work to system crashes',
           ],
           metric: '8 hours/week',
-          metricLabel: 'wasted on env issues'
+          metricLabel: 'wasted on env issues',
         },
         after: {
           title: 'Perfect Harmony',
           items: [
             'Identical environments for all',
             'Version-controlled configs',
-            'Instant restore from snapshots'
+            'Instant restore from snapshots',
           ],
           metric: '100%',
-          metricLabel: 'environment parity'
+          metricLabel: 'environment parity',
         },
         proof: {
           metric: 'Zero',
           label: 'environment conflicts',
-          source: 'Guaranteed isolation'
-        }
+          source: 'Guaranteed isolation',
+        },
       },
       {
         id: 'deployment',
@@ -101,33 +100,35 @@ const translations = {
         color: 'purple',
         tagline: 'Ship Fearlessly',
         title: 'From Deployment Anxiety to One-Click Confidence',
-        story: 'Remember the last production deployment? The checklist, the manual steps, the prayer circle, staying late "just in case"...',
-        transformation: 'With DevBox, deployment is just another push. Automated pipelines handle everything. If something goes wrong, auto-rollback kicks in. You can deploy on Friday afternoon.',
+        story:
+          'Remember the last production deployment? The checklist, the manual steps, the prayer circle, staying late "just in case"...',
+        transformation:
+          'With DevBox, deployment is just another push. Automated pipelines handle everything. If something goes wrong, auto-rollback kicks in. You can deploy on Friday afternoon.',
         before: {
           title: 'Deployment Dread',
           items: [
             'Manual deployment checklists',
             'Late night emergency fixes',
-            'Fear of Friday deployments'
+            'Fear of Friday deployments',
           ],
           metric: '2-4 hours',
-          metricLabel: 'per deployment'
+          metricLabel: 'per deployment',
         },
         after: {
           title: 'Push & Relax',
           items: [
             'Git push triggers everything',
             'Auto-rollback on failures',
-            'Deploy anytime, anywhere'
+            'Deploy anytime, anywhere',
           ],
           metric: '10x',
-          metricLabel: 'faster deployments'
+          metricLabel: 'faster deployments',
         },
         proof: {
           metric: '99.99%',
           label: 'deployment success',
-          source: 'With auto-rollback'
-        }
+          source: 'With auto-rollback',
+        },
       },
       {
         id: 'costs',
@@ -135,35 +136,37 @@ const translations = {
         color: 'emerald',
         tagline: 'Smart Economics',
         title: 'Turn Your Laptop into a Supercomputer (Without Buying One)',
-        story: 'High-end developer laptops cost $3000+. They still struggle with large builds. Your fans sound like a jet engine. Battery life? What battery life?',
-        transformation: 'DevBox turns any device into a development powerhouse. Code on a Chromebook with 32-core cloud power. Your laptop stays cool, your battery lasts all day, and you save thousands.',
+        story:
+          'High-end developer laptops cost $3000+. They still struggle with large builds. Your fans sound like a jet engine. Battery life? What battery life?',
+        transformation:
+          'DevBox turns any device into a development powerhouse. Code on a Chromebook with 32-core cloud power. Your laptop stays cool, your battery lasts all day, and you save thousands.',
         before: {
           title: 'Hardware Hunger',
           items: [
             '$3000+ per developer laptop',
             'Constant hardware upgrades',
-            'IT overhead and maintenance'
+            'IT overhead and maintenance',
           ],
           metric: '$5000/year',
-          metricLabel: 'per developer'
+          metricLabel: 'per developer',
         },
         after: {
           title: 'Cloud Efficiency',
           items: [
             'Use any device to code',
             'Pay only when coding',
-            'Zero maintenance overhead'
+            'Zero maintenance overhead',
           ],
           metric: '40%',
-          metricLabel: 'cost reduction'
+          metricLabel: 'cost reduction',
         },
         proof: {
           metric: '$2M',
           label: 'saved annually',
-          source: 'Fortune 500 client'
-        }
-      }
-    ]
+          source: 'Fortune 500 client',
+        },
+      },
+    ],
   },
   'zh-cn': {
     title: '改变您的开发体验',
@@ -176,33 +179,31 @@ const translations = {
         color: 'blue',
         tagline: '环境配置革命',
         title: '从3天配置地狱到60秒魔法',
-        story: '还记得上一份工作的第一周吗？安装 Node、Python、Docker、数据库，配置环境变量，调试版本冲突...这是一个耗时数天的噩梦。',
-        transformation: '使用 DevBox，新团队成员在加入后10分钟内就能提交第一个代码。一个链接，一次点击，就能开始编码。',
+        story:
+          '还记得上一份工作的第一周吗？安装 Node、Python、Docker、数据库，配置环境变量，调试版本冲突...这是一个耗时数天的噩梦。',
+        transformation:
+          '使用 DevBox，新团队成员在加入后10分钟内就能提交第一个代码。一个链接，一次点击，就能开始编码。',
         before: {
           title: '传统方式',
           items: [
             '第1天：安装依赖',
-            '第2天：修复版本冲突', 
-            '第3天：仍在调试配置'
+            '第2天：修复版本冲突',
+            '第3天：仍在调试配置',
           ],
           metric: '72小时',
-          metricLabel: '平均配置时间'
+          metricLabel: '平均配置时间',
         },
         after: {
           title: 'DevBox 方式',
-          items: [
-            '点击项目链接',
-            '60秒环境就绪',
-            '立即开始编码'
-          ],
+          items: ['点击项目链接', '60秒环境就绪', '立即开始编码'],
           metric: '60秒',
-          metricLabel: '写下第一行代码'
+          metricLabel: '写下第一行代码',
         },
         proof: {
           metric: '95%',
           label: '更快的入职',
-          source: '基于500+团队'
-        }
+          source: '基于500+团队',
+        },
       },
       {
         id: 'reliability',
@@ -210,33 +211,27 @@ const translations = {
         color: 'green',
         tagline: '零冲突',
         title: '永远结束"在我机器上能运行"的时代',
-        story: '有多少小时浪费在有人说"但在我机器上能运行"的会议上？不同的操作系统版本、缺失的依赖、环境变量...',
-        transformation: 'DevBox 给每个人提供完全相同的环境。每个依赖、每个配置、每一次都一样。您的代码在任何地方都能运行，因为每个地方都是相同的。',
+        story:
+          '有多少小时浪费在有人说"但在我机器上能运行"的会议上？不同的操作系统版本、缺失的依赖、环境变量...',
+        transformation:
+          'DevBox 给每个人提供完全相同的环境。每个依赖、每个配置、每一次都一样。您的代码在任何地方都能运行，因为每个地方都是相同的。',
         before: {
           title: '混乱状态',
-          items: [
-            '调试环境差异',
-            '维护配置文档',
-            '系统崩溃丢失工作'
-          ],
+          items: ['调试环境差异', '维护配置文档', '系统崩溃丢失工作'],
           metric: '8小时/周',
-          metricLabel: '浪费在环境问题上'
+          metricLabel: '浪费在环境问题上',
         },
         after: {
           title: '完美和谐',
-          items: [
-            '所有人环境相同',
-            '版本控制的配置',
-            '从快照即时恢复'
-          ],
+          items: ['所有人环境相同', '版本控制的配置', '从快照即时恢复'],
           metric: '100%',
-          metricLabel: '环境一致性'
+          metricLabel: '环境一致性',
         },
         proof: {
           metric: '零',
           label: '环境冲突',
-          source: '保证隔离'
-        }
+          source: '保证隔离',
+        },
       },
       {
         id: 'deployment',
@@ -244,33 +239,27 @@ const translations = {
         color: 'purple',
         tagline: '无畏发布',
         title: '从部署焦虑到一键信心',
-        story: '还记得上次生产部署吗？检查清单、手动步骤、祈祷圈、"以防万一"加班...',
-        transformation: '使用 DevBox，部署只是另一次推送。自动化管道处理一切。如果出现问题，自动回滚启动。您可以在周五下午部署。',
+        story:
+          '还记得上次生产部署吗？检查清单、手动步骤、祈祷圈、"以防万一"加班...',
+        transformation:
+          '使用 DevBox，部署只是另一次推送。自动化管道处理一切。如果出现问题，自动回滚启动。您可以在周五下午部署。',
         before: {
           title: '部署恐惧',
-          items: [
-            '手动部署清单',
-            '深夜紧急修复',
-            '害怕周五部署'
-          ],
+          items: ['手动部署清单', '深夜紧急修复', '害怕周五部署'],
           metric: '2-4小时',
-          metricLabel: '每次部署'
+          metricLabel: '每次部署',
         },
         after: {
           title: '推送并放松',
-          items: [
-            'Git推送触发一切',
-            '失败时自动回滚',
-            '随时随地部署'
-          ],
+          items: ['Git推送触发一切', '失败时自动回滚', '随时随地部署'],
           metric: '10倍',
-          metricLabel: '更快的部署'
+          metricLabel: '更快的部署',
         },
         proof: {
           metric: '99.99%',
           label: '部署成功率',
-          source: '带自动回滚'
-        }
+          source: '带自动回滚',
+        },
       },
       {
         id: 'costs',
@@ -278,36 +267,30 @@ const translations = {
         color: 'emerald',
         tagline: '智能经济',
         title: '将您的笔记本变成超级计算机（无需购买）',
-        story: '高端开发笔记本售价3000美元以上。它们仍然在大型构建时吃力。风扇声音像喷气发动机。电池寿命？什么电池寿命？',
-        transformation: 'DevBox 将任何设备变成开发强国。在 Chromebook 上使用32核云计算能力编码。您的笔记本保持凉爽，电池持续一整天，您节省数千美元。',
+        story:
+          '高端开发笔记本售价3000美元以上。它们仍然在大型构建时吃力。风扇声音像喷气发动机。电池寿命？什么电池寿命？',
+        transformation:
+          'DevBox 将任何设备变成开发强国。在 Chromebook 上使用32核云计算能力编码。您的笔记本保持凉爽，电池持续一整天，您节省数千美元。',
         before: {
           title: '硬件饥渴',
-          items: [
-            '每位开发者3000美元+笔记本',
-            '持续硬件升级',
-            'IT开销和维护'
-          ],
+          items: ['每位开发者3000美元+笔记本', '持续硬件升级', 'IT开销和维护'],
           metric: '5000美元/年',
-          metricLabel: '每位开发者'
+          metricLabel: '每位开发者',
         },
         after: {
           title: '云效率',
-          items: [
-            '使用任何设备编码',
-            '仅在编码时付费',
-            '零维护开销'
-          ],
+          items: ['使用任何设备编码', '仅在编码时付费', '零维护开销'],
           metric: '40%',
-          metricLabel: '成本降低'
+          metricLabel: '成本降低',
         },
         proof: {
           metric: '200万美元',
           label: '年度节省',
-          source: '财富500强客户'
-        }
-      }
-    ]
-  }
+          source: '财富500强客户',
+        },
+      },
+    ],
+  },
 };
 
 interface SolutionsProps {
@@ -318,7 +301,7 @@ export default function Solutions({ lang }: SolutionsProps) {
   const t = translations[lang] || translations.en;
 
   return (
-    <section className="py-20 overflow-hidden">
+    <section className="overflow-hidden py-20">
       <div className="mx-auto max-w-7xl px-4">
         <AnimateElement type="slideUp">
           <div className="mb-16 text-center">
@@ -338,7 +321,7 @@ export default function Solutions({ lang }: SolutionsProps) {
               blue: 'from-blue-500 to-indigo-600',
               green: 'from-green-500 to-emerald-600',
               purple: 'from-purple-500 to-pink-600',
-              emerald: 'from-emerald-500 to-teal-600'
+              emerald: 'from-emerald-500 to-teal-600',
             };
 
             return (
@@ -347,20 +330,24 @@ export default function Solutions({ lang }: SolutionsProps) {
                   {/* Story Header */}
                   <div className="mb-8">
                     <div className="mb-4 flex items-center gap-4">
-                      <div className={cn(
-                        "flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-lg",
-                        colorClasses[story.color as keyof typeof colorClasses]
-                      )}>
+                      <div
+                        className={cn(
+                          'flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-lg',
+                          colorClasses[
+                            story.color as keyof typeof colorClasses
+                          ],
+                        )}
+                      >
                         <Icon size={32} />
                       </div>
-                      <span className="text-sm font-semibold uppercase tracking-wider text-gray-500">
+                      <span className="text-sm font-semibold tracking-wider text-gray-500 uppercase">
                         {story.tagline}
                       </span>
                     </div>
                     <h3 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
                       {story.title}
                     </h3>
-                    <p className="mb-4 text-lg text-gray-600 leading-relaxed">
+                    <p className="mb-4 text-lg leading-relaxed text-gray-600">
                       {story.story}
                     </p>
                     <p className="text-lg font-medium text-gray-800">
@@ -371,8 +358,8 @@ export default function Solutions({ lang }: SolutionsProps) {
                   {/* Before/After Comparison */}
                   <div className="grid gap-6 md:grid-cols-2">
                     {/* Before Card */}
-                    <MagicCard 
-                      className="rounded-2xl" 
+                    <MagicCard
+                      className="rounded-2xl"
                       gradientColor="rgba(239, 68, 68, 0.1)"
                       gradientFrom="#ef4444"
                       gradientTo="#dc2626"
@@ -405,15 +392,18 @@ export default function Solutions({ lang }: SolutionsProps) {
 
                     {/* After Card */}
                     <div className="relative">
-                      <MagicCard 
-                        className="rounded-2xl overflow-hidden"
+                      <MagicCard
+                        className="overflow-hidden rounded-2xl"
                         gradientColor="rgba(34, 197, 94, 0.1)"
                         gradientFrom="#22c55e"
                         gradientTo="#16a34a"
                       >
                         <div className="relative rounded-2xl border-2 border-green-100 bg-green-50 p-6">
                           <div className="mb-4 flex items-center gap-3">
-                            <CircleCheckIcon className="h-6 w-6 text-green-500" size={24} />
+                            <CircleCheckIcon
+                              className="h-6 w-6 text-green-500"
+                              size={24}
+                            />
                             <h4 className="text-xl font-semibold text-gray-900">
                               {story.after.title}
                             </h4>
@@ -437,8 +427,8 @@ export default function Solutions({ lang }: SolutionsProps) {
                         </div>
                       </MagicCard>
                       {/* BorderBeam outside of card */}
-                      <div className="pointer-events-none absolute inset-0 rounded-2xl overflow-hidden">
-                        <BorderBeam 
+                      <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+                        <BorderBeam
                           size={150}
                           duration={12}
                           delay={index * 2}
@@ -467,8 +457,8 @@ export default function Solutions({ lang }: SolutionsProps) {
                         </span>
                       </div>
                       {/* BorderBeam wrapper with proper overflow */}
-                      <div className="pointer-events-none absolute inset-0 rounded-full overflow-hidden">
-                        <BorderBeam 
+                      <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
+                        <BorderBeam
                           size={80}
                           duration={8}
                           delay={index * 1.5}

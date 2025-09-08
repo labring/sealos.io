@@ -1,38 +1,57 @@
 'use client';
 
-import type { Variants } from 'motion/react';
+import type { Transition, Variants } from 'motion/react';
 import { motion, useAnimation } from 'motion/react';
 import type { HTMLAttributes } from 'react';
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
-export interface CoffeeIconHandle {
+export interface ClockIconHandle {
   startAnimation: () => void;
   stopAnimation: () => void;
 }
 
-interface CoffeeIconProps extends HTMLAttributes<HTMLDivElement> {
+interface ClockIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
 
-const pathVariants: Variants = {
-  normal: {
-    y: 0,
-    opacity: 1,
-  },
-  animate: (custom: number) => ({
-    y: -3,
-    opacity: [0, 1, 0],
-    transition: {
-      repeat: Infinity,
-      duration: 1.5,
-      ease: 'easeInOut',
-      delay: 0.2 * custom,
-    },
-  }),
+const handTransition: Transition = {
+  duration: 0.6,
+  ease: [0.4, 0, 0.2, 1],
 };
 
-const CoffeeIcon = forwardRef<CoffeeIconHandle, CoffeeIconProps>(
+const handVariants: Variants = {
+  normal: {
+    rotate: 0,
+    originX: '0%',
+    originY: '100%',
+  },
+  animate: {
+    rotate: 360,
+    originX: '0%',
+    originY: '100%',
+  },
+};
+
+const minuteHandTransition: Transition = {
+  duration: 0.5,
+  ease: 'easeInOut',
+};
+
+const minuteHandVariants: Variants = {
+  normal: {
+    rotate: 0,
+    originX: '0%',
+    originY: '100%',
+  },
+  animate: {
+    rotate: 45,
+    originX: '0%',
+    originY: '100%',
+  },
+};
+
+const ClockIcon = forwardRef<ClockIconHandle, ClockIconProps>(
   ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
     const controls = useAnimation();
     const isControlledRef = useRef(false);
@@ -54,7 +73,7 @@ const CoffeeIcon = forwardRef<CoffeeIconHandle, CoffeeIconProps>(
           onMouseEnter?.(e);
         }
       },
-      [controls, onMouseEnter]
+      [controls, onMouseEnter],
     );
 
     const handleMouseLeave = useCallback(
@@ -65,7 +84,7 @@ const CoffeeIcon = forwardRef<CoffeeIconHandle, CoffeeIconProps>(
           onMouseLeave?.(e);
         }
       },
-      [controls, onMouseLeave]
+      [controls, onMouseLeave],
     );
 
     return (
@@ -85,33 +104,34 @@ const CoffeeIcon = forwardRef<CoffeeIconHandle, CoffeeIconProps>(
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          style={{ overflow: 'visible' }}
         >
-          <motion.path
-            d="M10 2v2"
+          <circle cx="12" cy="12" r="10" />
+          <motion.line
+            x1="12"
+            y1="12"
+            x2="12"
+            y2="6"
+            variants={handVariants}
             animate={controls}
-            variants={pathVariants}
-            custom={0.2}
+            initial="normal"
+            transition={handTransition}
           />
-          <motion.path
-            d="M14 2v2"
+          <motion.line
+            x1="12"
+            y1="12"
+            x2="16"
+            y2="12"
+            variants={minuteHandVariants}
             animate={controls}
-            variants={pathVariants}
-            custom={0.4}
+            initial="normal"
+            transition={minuteHandTransition}
           />
-          <motion.path
-            d="M6 2v2"
-            animate={controls}
-            variants={pathVariants}
-            custom={0}
-          />
-          <path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1" />
         </svg>
       </div>
     );
-  }
+  },
 );
 
-CoffeeIcon.displayName = 'CoffeeIcon';
+ClockIcon.displayName = 'ClockIcon';
 
-export { CoffeeIcon };
+export { ClockIcon };
