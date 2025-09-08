@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/accordion';
 import { languagesType } from '@/lib/i18n';
 import { trackCustomEvent } from '@/lib/gtm';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Plus } from 'lucide-react';
 import { useCallback } from 'react';
 

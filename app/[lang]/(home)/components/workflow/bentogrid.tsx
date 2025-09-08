@@ -1,7 +1,7 @@
 'use client';
 
 import { clsx } from 'clsx';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Subheading } from '@/components/ui/text';
 
 export function BentoCard({

@@ -1,7 +1,7 @@
 'use client';
 
 import { clsx } from 'clsx';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Blocks, Cloud, Code, Database, File, Package } from 'lucide-react';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';

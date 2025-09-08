@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'motion/react';
 import { Star, Users, GitBranch } from 'lucide-react';
 import { languagesType } from '@/lib/i18n';
 
@@ -43,7 +43,7 @@ export default function SocialProof({ lang = 'en' }: SocialProofProps) {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,

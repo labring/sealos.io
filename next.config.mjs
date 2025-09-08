@@ -12,7 +12,10 @@ if (process.env.ANALYZE === 'true') {
       enabled: true,
     });
   } catch (error) {
-    console.warn('Bundle analyzer not available, skipping analysis:', error.message);
+    console.warn(
+      'Bundle analyzer not available, skipping analysis:',
+      error.message,
+    );
     withBundleAnalyzer = (config) => config;
   }
 }
@@ -59,7 +62,7 @@ const config = {
       'fumadocs-ui',
       'fumadocs-core',
       'lucide-react',
-      'framer-motion',
+      'motion',
       '@radix-ui/react-dialog',
       '@radix-ui/react-dropdown-menu',
       '@radix-ui/react-slot',

@@ -7,7 +7,7 @@ import {
   forwardRef,
   useImperativeHandle,
 } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 interface TerminalAnimationProps {
   className?: string;

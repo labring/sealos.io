@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { Suspense, useRef } from 'react';
 import dynamic from 'next/dynamic';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { languagesType } from '@/lib/i18n';
 import { CustomButton } from '@/components/ui/button-custom';
 import TypewriterCode from '@/components/ui/typewriter-code';

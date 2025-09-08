@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'motion/react';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
@@ -10,7 +10,10 @@ interface ScrollProgressProps {
   color?: string;
 }
 
-export function ScrollProgress({ className, color = 'bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E]' }: ScrollProgressProps) {
+export function ScrollProgress({
+  className,
+  color = 'bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E]',
+}: ScrollProgressProps) {
   const { scrollYProgress } = useScroll();
 
   const scaleX = useSpring(scrollYProgress, {
@@ -38,7 +41,10 @@ interface ScrollDownIndicatorProps {
   onClick?: () => void;
 }
 
-export function ScrollDownIndicator({ className, onClick }: ScrollDownIndicatorProps) {
+export function ScrollDownIndicator({
+  className,
+  onClick,
+}: ScrollDownIndicatorProps) {
   const [isVisible, setIsVisible] = useState(true);
 
   // Hide the indicator when user scrolls down
@@ -65,25 +71,27 @@ export function ScrollDownIndicator({ className, onClick }: ScrollDownIndicatorP
   return (
     <motion.div
       className={cn(
-        'absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center cursor-pointer',
-        isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
-        className
+        'absolute bottom-8 left-1/2 flex -translate-x-1/2 cursor-pointer flex-col items-center justify-center',
+        isVisible ? 'opacity-100' : 'pointer-events-none opacity-0',
+        className,
       )}
       initial={{ opacity: 0, y: 10 }}
-      animate={{ 
-        opacity: isVisible ? 1 : 0, 
+      animate={{
+        opacity: isVisible ? 1 : 0,
         y: isVisible ? 0 : 10,
         transition: {
           delay: 1,
           duration: 0.5,
-        }
+        },
       }}
       onClick={handleClick}
     >
-      <span className="text-sm font-medium text-gray-600 mb-2">Scroll for more</span>
+      <span className="mb-2 text-sm font-medium text-gray-600">
+        Scroll for more
+      </span>
       <motion.div
-        className="flex items-center justify-center size-10 rounded-full bg-white/80 shadow-md backdrop-blur-sm"
-        animate={{ 
+        className="flex size-10 items-center justify-center rounded-full bg-white/80 shadow-md backdrop-blur-sm"
+        animate={{
           y: [0, 5, 0],
         }}
         transition={{

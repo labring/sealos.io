@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { List, ChevronRight, ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -22,19 +22,24 @@ interface TocSidebarProps {
  */
 export default function TocSidebar({
   className = '',
-  title = '目录导航'
+  title = '目录导航',
 }: TocSidebarProps) {
   const [tocItems, setTocItems] = useState<TocItem[]>([]);
   const [activeId, setActiveId] = useState<string>('');
   const [isVisible, setIsVisible] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [contentBounds, setContentBounds] = useState<{ top: number; bottom: number } | null>(null);
+  const [contentBounds, setContentBounds] = useState<{
+    top: number;
+    bottom: number;
+  } | null>(null);
 
   // Extract headings from the case study content area only
   useEffect(() => {
     const extractHeadings = () => {
       // Find the main content area that contains case study sections
-      const contentArea = document.querySelector('#case-study-content') || document.querySelector('.space-y-10');
+      const contentArea =
+        document.querySelector('#case-study-content') ||
+        document.querySelector('.space-y-10');
       if (!contentArea) {
         setIsVisible(false);
         return;
@@ -74,14 +79,17 @@ export default function TocSidebar({
   useEffect(() => {
     const calculateContentBounds = () => {
       // Find the main content wrapper (the div with relative class that contains all content)
-      const contentWrapper = document.querySelector('main > div.relative:last-child');
+      const contentWrapper = document.querySelector(
+        'main > div.relative:last-child',
+      );
       if (contentWrapper) {
         const rect = contentWrapper.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
 
         setContentBounds({
           top: rect.top + scrollTop + 100, // Add some top margin
-          bottom: rect.bottom + scrollTop - 100 // Add some bottom margin
+          bottom: rect.bottom + scrollTop - 100, // Add some bottom margin
         });
       }
     };
@@ -110,9 +118,9 @@ export default function TocSidebar({
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 100; // Offset for better UX
-      
+
       let currentActiveId = '';
-      
+
       for (const item of tocItems) {
         const element = document.getElementById(item.id);
         if (element) {
@@ -124,13 +132,13 @@ export default function TocSidebar({
           }
         }
       }
-      
+
       setActiveId(currentActiveId);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Set initial active item
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, [tocItems]);
 
@@ -141,7 +149,7 @@ export default function TocSidebar({
       const offsetTop = element.offsetTop - 80; // Account for fixed header
       window.scrollTo({
         top: offsetTop,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   }, []);
@@ -158,7 +166,10 @@ export default function TocSidebar({
 
       // Calculate visible content area
       const contentTop = Math.max(contentBounds.top - scrollTop, 0);
-      const contentBottom = Math.min(contentBounds.bottom - scrollTop, viewportHeight);
+      const contentBottom = Math.min(
+        contentBounds.bottom - scrollTop,
+        viewportHeight,
+      );
 
       // Only show TOC if content area is visible and has sufficient height
       if (contentBottom - contentTop < 200) {
@@ -166,13 +177,16 @@ export default function TocSidebar({
       }
 
       const tocTop = Math.max(contentTop + 20, 100); // 20px margin from content top, minimum 100px from viewport top
-      const maxTocHeight = Math.min(contentBottom - tocTop - 20, viewportHeight * 0.6); // 20px margin from content bottom
+      const maxTocHeight = Math.min(
+        contentBottom - tocTop - 20,
+        viewportHeight * 0.6,
+      ); // 20px margin from content bottom
 
       return {
         right: 'max(1.5rem, calc((100vw - 1280px) / 2 + 1rem))',
         top: `${tocTop}px`,
         maxHeight: `${maxTocHeight}px`,
-        position: 'fixed' as const
+        position: 'fixed' as const,
       };
     }
 
@@ -181,7 +195,7 @@ export default function TocSidebar({
       right: 'max(1.5rem, calc((100vw - 1280px) / 2 + 1rem))',
       top: '200px',
       maxHeight: '50vh',
-      position: 'fixed' as const
+      position: 'fixed' as const,
     };
   };
 
@@ -189,28 +203,25 @@ export default function TocSidebar({
     <motion.div
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-      className={cn(
-        "z-40 hidden xl:block",
-        className
-      )}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+      className={cn('z-40 hidden xl:block', className)}
       style={getTocStyle()}
     >
-      <nav className="w-64 h-full overflow-hidden">
-        <div className="bg-card/95 backdrop-blur-sm rounded-xl shadow-lg border border-border/50 overflow-hidden">
+      <nav className="h-full w-64 overflow-hidden">
+        <div className="bg-card/95 border-border/50 overflow-hidden rounded-xl border shadow-lg backdrop-blur-sm">
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="w-full px-4 py-3 flex items-center justify-between text-sm font-medium text-foreground hover:bg-accent/10 transition-colors duration-200"
+            className="text-foreground hover:bg-accent/10 flex w-full items-center justify-between px-4 py-3 text-sm font-medium transition-colors duration-200"
           >
             <div className="flex items-center gap-2">
-              <List className="w-4 h-4 text-primary" />
+              <List className="text-primary h-4 w-4" />
               <span>{title}</span>
             </div>
             <motion.div
               animate={{ rotate: isCollapsed ? 0 : 180 }}
               transition={{ duration: 0.2 }}
             >
-              <ChevronUp className="w-4 h-4 text-muted-foreground" />
+              <ChevronUp className="text-muted-foreground h-4 w-4" />
             </motion.div>
           </button>
 
@@ -218,12 +229,12 @@ export default function TocSidebar({
             {!isCollapsed && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
+                animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
                 className="overflow-hidden"
               >
-                <div className="px-2 pb-3 max-h-[50vh] overflow-y-auto scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent">
+                <div className="scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent max-h-[50vh] overflow-y-auto px-2 pb-3">
                   <ul className="space-y-0.5">
                     {tocItems.map((item) => (
                       <motion.li
@@ -232,38 +243,45 @@ export default function TocSidebar({
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.2 }}
                         style={{
-                          transitionDelay: `${tocItems.indexOf(item) * 0.03}s`
+                          transitionDelay: `${tocItems.indexOf(item) * 0.03}s`,
                         }}
                       >
                         <button
                           onClick={() => scrollToHeading(item.id)}
                           className={cn(
-                            "group w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200",
-                            "flex items-center gap-1.5",
-                            "hover:bg-accent/10 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-1",
+                            'group w-full rounded-lg px-3 py-2 text-left text-sm transition-all duration-200',
+                            'flex items-center gap-1.5',
+                            'hover:bg-accent/10 hover:text-primary focus:ring-primary/20 focus:ring-2 focus:ring-offset-1 focus:outline-none',
                             activeId === item.id
-                              ? "bg-primary/10 text-primary font-medium"
-                              : "text-muted-foreground hover:text-foreground"
+                              ? 'bg-primary/10 text-primary font-medium'
+                              : 'text-muted-foreground hover:text-foreground',
                           )}
                           style={{
                             // Adjust indentation: h2=12px, h3=24px, h4=36px, etc.
-                            paddingLeft: item.level > 2 ? `${(item.level - 2) * 12 + 24}px` : '12px'
+                            paddingLeft:
+                              item.level > 2
+                                ? `${(item.level - 2) * 12 + 24}px`
+                                : '12px',
                           }}
                         >
                           {activeId === item.id && (
                             <motion.div
                               layoutId="activeIndicator"
-                              className="absolute left-0 w-1 h-5 bg-primary rounded-r-full"
+                              className="bg-primary absolute left-0 h-5 w-1 rounded-r-full"
                               transition={{ duration: 0.2 }}
                             />
                           )}
 
                           {item.level > 2 && (
-                            <ChevronRight className={cn(
-                              "w-3 h-3 opacity-50 transition-transform duration-200",
-                              "group-hover:text-primary group-hover:opacity-100",
-                              activeId === item.id ? "text-primary opacity-100" : ""
-                            )} />
+                            <ChevronRight
+                              className={cn(
+                                'h-3 w-3 opacity-50 transition-transform duration-200',
+                                'group-hover:text-primary group-hover:opacity-100',
+                                activeId === item.id
+                                  ? 'text-primary opacity-100'
+                                  : '',
+                              )}
+                            />
                           )}
 
                           <span className="block truncate" title={item.title}>

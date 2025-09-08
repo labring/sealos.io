@@ -3,7 +3,7 @@
 import { getHeaderLinks, navTranslations } from '@/app/layout.config';
 import { appDomain, siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
-import { useMotionValueEvent, useScroll } from 'framer-motion';
+import { useMotionValueEvent, useScroll } from 'motion/react';
 import Link from 'fumadocs-core/link';
 import { ExternalLink, Menu, X } from 'lucide-react';
 import { useState, useMemo, useCallback, memo } from 'react';
@@ -27,7 +27,7 @@ const Header = memo<HeaderProps>(({ lang }) => {
 
   // Memoize event handlers
   const handleMenuToggle = useCallback(() => {
-    setIsMenuOpen(prev => !prev);
+    setIsMenuOpen((prev) => !prev);
   }, []);
 
   const handleMenuClose = useCallback(() => {

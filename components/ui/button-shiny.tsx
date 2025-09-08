@@ -110,7 +110,9 @@ export const GetStartedButton = ({
     <>
       <div className="z-10">{title ? title : 'Get Started'}</div>
       <ArrowRight className="relative h-4 w-4" />
-      <div className="animate-shine-effect absolute -top-1/2 left-0 h-[200%] w-[40px] bg-white/60" />
+      <div className="animate-shine-effect absolute -top-1/2 left-0 h-full w-full">
+        <div className="h-[200%] w-[40px] bg-white/60" />
+      </div>
     </>
   );
 

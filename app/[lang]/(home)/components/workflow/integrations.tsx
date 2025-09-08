@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { motion, useAnimation, useInView } from 'motion/react';
 import { useEffect, useId, useRef, useState, useMemo, memo } from 'react';
 import { cn } from '@/lib/utils';
 import { Marquee } from '../marquee';

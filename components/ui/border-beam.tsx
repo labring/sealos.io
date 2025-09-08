@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import { motion, MotionStyle, Transition } from "framer-motion";
+import { cn } from '@/lib/utils';
+import { motion, MotionStyle, Transition } from 'motion/react';
 
 interface BorderBeamProps {
   size?: number;
@@ -22,8 +22,8 @@ export const BorderBeam = ({
   size = 50,
   delay = 0,
   duration = 6,
-  colorFrom = "#ffaa40",
-  colorTo = "#9c40ff",
+  colorFrom = '#ffaa40',
+  colorTo = '#9c40ff',
   transition,
   style,
   reverse = false,
@@ -32,23 +32,25 @@ export const BorderBeam = ({
 }: BorderBeamProps) => {
   return (
     <div
-      className="pointer-events-none absolute inset-0 rounded-[inherit] border-transparent [mask-clip:padding-box,border-box] [mask-composite:intersect] [mask-image:linear-gradient(transparent,transparent),linear-gradient(#000,#000)]"
-      style={{
-        borderWidth: `${borderWidth}px`,
-      } as React.CSSProperties}
+      className="pointer-events-none absolute inset-0 rounded-[inherit] border-transparent [mask-image:linear-gradient(transparent,transparent),linear-gradient(#000,#000)] [mask-composite:intersect] [mask-clip:padding-box,border-box]"
+      style={
+        {
+          borderWidth: `${borderWidth}px`,
+        } as React.CSSProperties
+      }
     >
       <motion.div
         className={cn(
-          "absolute aspect-square",
-          "bg-gradient-to-l from-[var(--color-from)] via-[var(--color-to)] to-transparent",
+          'absolute aspect-square',
+          'bg-gradient-to-l from-[var(--color-from)] via-[var(--color-to)] to-transparent',
           className,
         )}
         style={
           {
             width: size,
             offsetPath: `rect(0 auto auto 0 round ${size}px)`,
-            "--color-from": colorFrom,
-            "--color-to": colorTo,
+            '--color-from': colorFrom,
+            '--color-to': colorTo,
             ...style,
           } as MotionStyle
         }
@@ -60,7 +62,7 @@ export const BorderBeam = ({
         }}
         transition={{
           repeat: Infinity,
-          ease: "linear",
+          ease: 'linear',
           duration,
           delay: -delay,
           ...transition,
