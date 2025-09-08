@@ -434,6 +434,7 @@ export default function Solutions({ lang }: SolutionsProps) {
                           delay={index * 2}
                           colorFrom="#22c55e"
                           colorTo="#16a34a"
+                          borderWidth={2}
                         />
                       </div>
                     </div>

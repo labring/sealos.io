@@ -220,7 +220,7 @@ export default function MetricsVisualization({
   };
 
   return (
-    <section className="bg-gradient-to-b from-white to-gray-50 py-12 sm:py-16 lg:py-20">
+    <section className="bg-gradient-to-b py-12 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <AnimateElement type="slideUp">
           <div className="mb-12 text-center sm:mb-16">
@@ -251,58 +251,57 @@ export default function MetricsVisualization({
             return (
               <AnimateElement key={index} type="slideUp" delay={index * 0.1}>
                 <MagicCard
-                  className="relative h-full border-0 bg-white p-6 shadow-xl transition-all hover:-translate-y-2 hover:shadow-2xl sm:p-8"
+                  className="relative h-full rounded-xl border-0 bg-white shadow-xl transition-all hover:-translate-y-2 hover:shadow-2xl"
                   gradientSize={250}
                   gradientColor={gradient.from}
                   gradientOpacity={0.15}
                   gradientFrom={gradient.from}
                   gradientTo={gradient.to}
                 >
-                  {/* Highlight first metric with BorderBeam */}
-                  {index === 0 && (
-                    <BorderBeam
-                      size={150}
-                      duration={10}
-                      delay={0}
-                      colorFrom={gradient.from}
-                      colorTo={gradient.to}
-                    />
-                  )}
-
-                  {/* Icon */}
-                  <div
-                    className={cn(
-                      'mb-3 inline-flex rounded-lg p-2.5 sm:mb-4 sm:p-3',
-                      colors.split(' ')[3],
-                    )}
-                  >
-                    <Icon
+                  <div className="p-6 sm:p-8">
+                    {/* Icon */}
+                    <div
                       className={cn(
-                        'h-5 w-5 sm:h-6 sm:w-6',
-                        colors.split(' ')[2],
+                        'mb-3 inline-flex rounded-lg p-2.5 sm:mb-4 sm:p-3',
+                        colors.split(' ')[3],
                       )}
-                    />
+                    >
+                      <Icon
+                        className={cn(
+                          'h-5 w-5 sm:h-6 sm:w-6',
+                          colors.split(' ')[2],
+                        )}
+                      />
+                    </div>
+
+                    {/* Animated Value */}
+                    <div className="mb-2 flex items-baseline">
+                      <span className="text-3xl font-bold text-gray-900 sm:text-4xl">
+                        {isVisible && <AnimatedNumber value={metric.value} />}
+                      </span>
+                      <span className="ml-1 text-xl font-semibold text-gray-700 sm:text-2xl">
+                        {metric.unit}
+                      </span>
+                    </div>
+
+                    {/* Label */}
+                    <div className="mb-1 text-sm font-semibold text-gray-900 sm:text-base">
+                      {metric.label}
+                    </div>
+
+                    {/* Description */}
+                    <div className="text-xs text-gray-600 sm:text-sm">
+                      {metric.description}
+                    </div>
                   </div>
 
-                  {/* Animated Value */}
-                  <div className="mb-2 flex items-baseline">
-                    <span className="text-3xl font-bold text-gray-900 sm:text-4xl">
-                      {isVisible && <AnimatedNumber value={metric.value} />}
-                    </span>
-                    <span className="ml-1 text-xl font-semibold text-gray-700 sm:text-2xl">
-                      {metric.unit}
-                    </span>
-                  </div>
-
-                  {/* Label */}
-                  <div className="mb-1 text-sm font-semibold text-gray-900 sm:text-base">
-                    {metric.label}
-                  </div>
-
-                  {/* Description */}
-                  <div className="text-xs text-gray-600 sm:text-sm">
-                    {metric.description}
-                  </div>
+                  <BorderBeam
+                    size={150}
+                    duration={10}
+                    delay={0}
+                    colorFrom={gradient.from}
+                    colorTo={gradient.to}
+                  />
                 </MagicCard>
               </AnimateElement>
             );
@@ -402,8 +401,8 @@ export default function MetricsVisualization({
                   {isVisible && (
                     <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
                       <BorderBeam
-                        size={60}
-                        duration={3}
+                        size={30}
+                        duration={8}
                         delay={0}
                         colorFrom="#10b981"
                         colorTo="#14b8a6"

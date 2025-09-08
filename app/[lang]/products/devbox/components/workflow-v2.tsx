@@ -312,9 +312,23 @@ export default function Workflow({ lang }: WorkflowProps) {
   const t = translations[lang] || translations.en;
 
   return (
-    <section className="relative overflow-hidden py-20">
+    <section className="relative py-20">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white" />
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-gray-50 to-white" />
+      {/* Gradient border overlay */}
+      <div
+        className="pointer-events-none absolute inset-0 rounded-3xl"
+        style={{
+          background:
+            'linear-gradient(to bottom, var(--color-gray-200), var(--color-white))',
+          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+          maskComposite: 'xor',
+          WebkitMask:
+            'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+          WebkitMaskComposite: 'xor',
+          padding: '2px',
+        }}
+      />
 
       <div className="relative mx-auto max-w-7xl px-4">
         <AnimateElement type="slideUp">
@@ -356,7 +370,7 @@ export default function Workflow({ lang }: WorkflowProps) {
                       <div
                         className={cn(
                           'relative overflow-hidden rounded-2xl bg-white p-8 shadow-xl',
-                          'border-2 border-gray-100 transition-colors hover:border-blue-200',
+                          'border-gray-100 transition-colors hover:border-blue-200',
                         )}
                       >
                         {/* Time Badge */}
@@ -473,6 +487,7 @@ export default function Workflow({ lang }: WorkflowProps) {
                             delay={0}
                             colorFrom="#3b82f6"
                             colorTo="#a855f7"
+                            borderWidth={2}
                           />
                         )}
                       </div>
@@ -532,14 +547,6 @@ export default function Workflow({ lang }: WorkflowProps) {
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </CustomButton>
             </div>
-            <BorderBeam
-              size={300}
-              duration={15}
-              delay={0}
-              colorFrom="#ffffff"
-              colorTo="#ffffff"
-              borderWidth={2}
-            />
           </div>
         </AnimateElement>
       </div>
