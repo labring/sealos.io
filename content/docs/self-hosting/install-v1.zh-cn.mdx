@@ -1,5 +1,5 @@
 ---
-title: "Sealos 集群部署"
+title: "Sealos 集群部署 - 旧版"
 description: "了解如何使用 Sealos 一键部署 Kubernetes 集群，支持多种安装方式，确保通信安全，适用于大规模集群和企业生产环境。"
 ---
 
@@ -55,90 +55,178 @@ Sealos 需要使用证书来保证通信安全，默认在您不提供证书的�
 
 ## 安装步骤
 
-为了便于部署，Sealos 提供了一键安装脚本，支持从零开始部署 Sealos 集群，也可在已安装的 Kubernetes 集群上部署（仅支持 Sealos 安装的 Kubernetes）。
+为了便于部署，我们提供了一个一键安装脚本。该脚本可以从零开始部署 Sealos 集群，也可以在已有的 Kubernetes 集群上部署 Sealos
+集群 (在已有集群上执行时请谨慎操作)。
 
 <Callout type="info">
-建议直接使用一键安装脚本完成 Kubernetes 和 Sealos 集群的部署，避免环境兼容性问题。
+该脚本只支持在“使用 Sealos 安装的 Kubernetes 集群”上部署 Sealos 集群，暂不支持其他方式部署的 Kubernetes。
+
+关于如何使用 Sealos 部署 Kubernetes
+集群，可以参考：[安装 Kubernetes 集群](/developer-guide/lifecycle-management/quick-start/deploy-kubernetes.md)
+，支持 [Docker Hub](https://hub.docker.com/r/labring/kubernetes/tags) 中的几乎所有 Kubernetes 版本 (**暂不支持 1.28 及以上版本**)。
+
 </Callout>
 
-### 一键安装脚本说明
+如果您的机器还没有安装过 Kubernetes，**建议直接使用该脚本连同 Kubernetes 和 Sealos 集群一起安装。**
 
-- 支持大多数主流 Linux 发行版。
-- 推荐使用 Ubuntu 22.04 LTS，内核版本 ≥ 5.4。
-- 仅支持在 Sealos 安装的 Kubernetes 集群上部署 Sealos Cloud。
+由于国内网络的特殊原因，访问 GitHub 可能会受限，建议先到以下几个网站寻找最新可用的 GitHub 代理：
 
-### 安装方式选择
+- https://ghproxy.link/
+- https://ghproxy.net/
 
-根据您的域名情况，选择合适的安装方式：
+找到可用的 GitHub 代理之后，将其设置为环境变量 `PROXY_PREFIX`，例如：
 
-| 场景 | 域名 | 证书 | 主要操作 |
-|------|------|------|----------|
-| 1. 无公网域名 | nip.io | 自签名 | 使用 nip.io 域名，直接一键安装 |
-| 2. 有公网域名+证书 | 自有域名 | 已有证书 | 配置 A 记录和泛解析，上传证书后安装 |
-| 3. 有公网域名+acme自动签发 | 自有域名 | 无证书 | 配置 CNAME，安装时自动签发证书 |
-
-
-#### 1. 无公网域名，使用 nip.io
-
-适用于本地开发或无公网域名场景，自动生成自签名证书。
-
-安装命令：
 ```bash
-curl -sfL https://raw.githubusercontent.com/labring/sealos/refs/heads/main/scripts/cloud/install-v2.sh | \
-  SEALOS_V2_CLOUD_VERSION=latest SEALOS_V2_PROXY=true bash -
+export PROXY_PREFIX=https://ghfast.top
 ```
 
-输入域名时，格式为 `[ip].nip.io`，其中 `[ip]` 为 Master 节点 IP。
+接下来根据您的域名情况，可以分为以下几种安装方式：
 
-安装完成后，终端输出示例：
+### 1、无公网域名，也不想自定义域名
+
+如果您没有公网域名，也不需要自定义域名，可以选择直接使用 `nip.io` 提供的免费域名服务。`nip.io` 是一个免费的通配符 DNS 服务，它可以将动态分配的 IP 地址映射到一个固定的子域名上，特别适合用于本地开发环境。具体的工作原理为：
+
+您可以使用任何 IP 地址作为 `nip.io` 子域名的一部分，而 `nip.io` 会将它解析回相应的 IP 地址。例如，如果你有一个内网 IP 地址 `192.168.1.10`，你可以使用 `192.168.1.10.nip.io` 作为域名，所有向这个域名发送的请求都会被解析到 `192.168.1.10` 这个 IP 地址上。这样就无需修改本地 hosts 文件，也不需要搭建内网 DNS 服务，直接通过这个域名就能访问内网服务了。
+
+使用 nip.io 作为 Sealos 的域名非常简单，只需在第一个 Master 节点上执行以下命令，并根据提示输入参数：
+
 ```bash
-INFO [...] >> Installation complete!
-INFO [...] >> Kubernetes version: 1.28.15
-INFO [...] >> Sealos Cloud version: latest
-INFO [...] >> Access URL: https://192.168.64.4.nip.io:443
-INFO [...] >> Default admin credentials:
-INFO [...] >>   Username: admin
-INFO [...] >>   Password: sealos2023
+$ curl -sfL $PROXY_PREFIX/https://raw.githubusercontent.com/labring/sealos/v5.0.1/scripts/cloud/install.sh -o /tmp/install.sh && SEALOS_VERSION=v5.0.1 && bash /tmp/install.sh \
+  --cloud-version=v5.0.1 \
+  --image-registry=registry.cn-shanghai.aliyuncs.com --zh \
+  --proxy-prefix=$PROXY_PREFIX
 ```
 
-#### 2. 有公网域名，已拥有证书
+当需要你输入 Sealos Cloud 域名时，你需要输入这种格式的域名：`[ip].nip.io`，其中 [ip] 是你的 Master 节点 IP。
 
-适用于已备案域名且已获取受信任证书的场景。
+安装完成后，终端会输出 Sealos 访问域名以及用户名和密码，例如：
 
-- 在域名服务商处添加 A 记录和泛解析记录，指向 Master 节点公网 IP。
-- 将证书文件上传至服务器指定目录。
-
-安装命令：
 ```bash
-curl -sfL https://raw.githubusercontent.com/labring/sealos/refs/heads/main/scripts/cloud/install-v2.sh | \
-  SEALOS_V2_CLOUD_VERSION=latest SEALOS_V2_PROXY=true \
-  SEALOS_V2_CLOUD_DOMAIN=<your_domain> \
-  SEALOS_V2_CERT_PATH=<your_crt> \
-  SEALOS_V2_KEY_PATH=<your_key> bash -
+Sealos cloud login info:
+Cloud Version: latest
+URL: https://10.214.210.102.nip.io
+admin Username: admin
+admin Password: sealos2023
 ```
 
-参数说明：
-- `<your_domain>`：你的公网域名
-- `<your_crt>`：证书文件路径，如 `/root/certs/example.crt`
-- `<your_key>`：私钥文件路径，如 `/root/certs/example.key`
+### 2、有公网域名，想公网访问
 
-#### 3. 有公网域名，acme 自动签发证书
+如果你有自己的公网域名，并且想通过公网访问 Sealos，那你就需要准备好公网受信任的 SSL/TLS 证书。你可以通过 acme.sh 等工具自动签发证书，也可以从域名提供商处下载免费证书或者购买商业证书。
 
-适用于有公网域名但无证书的场景，安装脚本会自动申请证书。
+<Callout type="info">
+如果你的公网 IP 在国内，那么域名必须要备案！
+</Callout>
 
-- 在域名服务商处添加主域名 A 记录，指向 Master 节点公网 IP。
-- 按安装脚本提示，添加 `_acme-challenge` 的 CNAME 记录，指向自动生成的 acme-dns 地址。
+准备好域名证书后，需要将证书放到第一个 Master 节点的某个目录中，例如 `/root/certs/`。
 
-安装命令：
+<Callout type="info">
+您还需要在域名服务商处添加一条该域名的 A 记录，地址解析到第一个 Master 节点的公网 IP 地址。同时还需要添加一条泛解析记录，将该域名的子域名也解析到第一个 Master 节点的公网 IP 地址。
+
+例如 (假设你的域名是 `cloud.example.io`，假设你的 Master 节点公网地址是 `192.168.1.10`)：
+
 ```bash
-curl -sfL https://raw.githubusercontent.com/labring/sealos/refs/heads/main/scripts/cloud/install-v2.sh | \
-  SEALOS_V2_CLOUD_VERSION=latest SEALOS_V2_PROXY=true \
-  SEALOS_V2_CLOUD_DOMAIN=<your_domain> \
-  SEALOS_V2_ENABLE_ACME=true bash -
+cloud.example.io   A   192.168.1.10
+*.cloud.example.io   A   192.168.1.10
+```
+</Callout>
+
+然后在第一个 Master 节点上执行以下命令，并根据提示输入参数：
+
+```bash
+$ curl -sfL $PROXY_PREFIX/https://raw.githubusercontent.com/labring/sealos/v5.0.1/scripts/cloud/install.sh -o /tmp/install.sh && SEALOS_VERSION=v5.0.1 && bash /tmp/install.sh \
+  --cloud-version=v5.0.1 \
+  --image-registry=registry.cn-shanghai.aliyuncs.com --zh \
+  --proxy-prefix=$PROXY_PREFIX \
+  --cloud-domain=<your_domain> \
+  --cert-path=<your_crt> \
+  --key-path=<your_key>
 ```
 
-安装过程中 Sealos 会自动生成 ACME DNS 验证所需的 CNAME 信息，请根据提示完成配置，否则证书签发会失败。
++ `<your_domain>` 需要替换成你自己的公网域名。
++ `<your_crt>` 需要替换成你的证书位置，通常是 `.crt` 或 `.pem` 文件。例如：`/root/certs/example.crt`。
++ `<your_key>` 需要替换成你的私钥位置，通常是 `.key` 或 `.pem` 文件。例如：`/root/certs/example.key`。
 
+### 3、有公网域名，想内网访问
+
+如果您有自己的公网域名，但是只有内网 IP，或者只想在内网访问 Sealos，那您只需要在域名服务商处添加一条该域名的 A 记录，地址解析到第一个 Master 节点的内网 IP 地址。同时还需要添加一条泛解析记录，将该域名的子域名也解析到第一个 Master 节点的内网 IP 地址。
+
+例如 (假设你的域名是 `cloud.example.io`，假设你的 Master 节点内网地址是 `192.168.1.10`)：
+
+```bash
+cloud.example.io   A   192.168.1.10
+*.cloud.example.io   A   192.168.1.10
+```
+
+然后在第一个 Master 节点上执行以下命令，并根据提示输入参数：
+
+```bash
+$ curl -sfL $PROXY_PREFIX/https://raw.githubusercontent.com/labring/sealos/v5.0.1/scripts/cloud/install.sh -o /tmp/install.sh && SEALOS_VERSION=v5.0.1 && bash /tmp/install.sh \
+  --cloud-version=v5.0.1 \
+  --image-registry=registry.cn-shanghai.aliyuncs.com --zh \
+  --proxy-prefix=$PROXY_PREFIX \
+  --cloud-domain=<your_domain>
+```
+
+其中 `<your_domain>` 需要替换成你自己的公网域名。
+
+安装过程中 Sealos 会使用 [cert-manager](https://cert-manager.io/docs/) 来自签名证书。
+
+### 4、无公网域名，但想自定义域名
+
+如果您没有公网域名，但是需要自定义域名，那么就需要在内网自建 DNS，然后将自定义域名解析到第一个 Master 节点的内网 IP 地址。
+
+<Callout type="info">
+假设您的第一个 Master 节点的内网 IP 地址为 `192.168.1.10`。假设您的域名为 `cloud.example.io`。
+</Callout>
+
+可以考虑使用 CoreDNS 来自建 DNS 服务，参考配置：
+
+```nginx
+(global_cache) {
+    cache {
+        # [5, 60]
+        success 65536 3600 300
+        # [1, 10]
+        denial 8192 600 60
+        prefetch 1 60m 10%
+    }
+}
+
+.:53 {
+  errors
+  health
+  ready
+
+  import global_cache
+
+  template IN A cloud.example.io {
+    answer "{{ .Name }} 60 IN A 192.168.1.10"
+    fallthrough
+  }
+
+  forward . 223.5.5.5
+
+  log
+  loop
+  reload 6s
+}
+```
+
+这样不管您访问 `cloud.example.io` 还是 `*.cloud.example.io` 都会解析到第一个 Master 节点的内网 IP 地址。
+
+然后在第一个 Master 节点上执行以下命令，并根据提示输入参数：
+
+```bash
+$ curl -sfL $PROXY_PREFIX/https://raw.githubusercontent.com/labring/sealos/v5.0.1/scripts/cloud/install.sh -o /tmp/install.sh && SEALOS_VERSION=v5.0.1 && bash /tmp/install.sh \
+  --cloud-version=v5.0.1 \
+  --image-registry=registry.cn-shanghai.aliyuncs.com --zh \
+  --proxy-prefix=$PROXY_PREFIX \
+  --cloud-domain=<your_domain>
+```
+
+其中 `<your_domain>` 需要替换成你自己的自定义域名。
+
+安装过程中 Sealos 会使用 [cert-manager](https://cert-manager.io/docs/) 来自签名证书。
 
 ## 信任自签名证书
 
