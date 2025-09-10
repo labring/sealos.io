@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Check, Sparkles, Zap, Crown, Rocket } from 'lucide-react';
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
+import { motion, AnimatePresence, LayoutGroup } from 'motion/react';
 // Removed PricingSwitch: pricing is monthly-only now
 import { TimelineContent } from './timeline-animation';
 import NumberFlow from '@number-flow/react';
@@ -57,8 +57,7 @@ const pricingTiers: PricingTier[] = [
   {
     id: 'pro',
     name: 'Pro',
-    description:
-      'For professionals and teams shipping production apps.',
+    description: 'For professionals and teams shipping production apps.',
     monthlyPrice: 512,
     yearlyPrice: Math.floor(512 * 12 * 0.8),
     icon: <Crown className="h-6 w-6" />,
@@ -95,7 +94,7 @@ export function SubscriptionPricing() {
       <LayoutGroup>
         <div
           className={cn(
-            'mx-auto grid max-w-7xl grid-cols-2 gap-6 lg:grid-cols-4',
+            'mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4',
             !isLoaded && 'opacity-0',
           )}
         >
@@ -112,13 +111,13 @@ export function SubscriptionPricing() {
                   whileHover={!isMorePlansSelected ? { scale: 1.02 } : {}}
                   whileTap={!isMorePlansSelected ? { scale: 0.98 } : {}}
                   className={cn(
-                    'relative h-full rounded-2xl p-6 transition-all duration-300 flex flex-col',
+                    'relative flex h-full flex-col rounded-2xl p-6 transition-all duration-300',
                     'backdrop-blur-sm',
-                    isMorePlansSelected 
-                      ? 'opacity-50 pointer-events-none grayscale border border-gray-200 bg-gray-50'
+                    isMorePlansSelected
+                      ? 'pointer-events-none border border-gray-200 bg-gray-50 opacity-50 grayscale'
                       : tier.highlighted
-                      ? 'border-2 border-orange-400/60 bg-gradient-to-br from-orange-50/95 via-amber-50/90 to-yellow-50/80 shadow-2xl shadow-orange-300/40'
-                      : 'border border-stone-200/60 bg-gradient-to-b from-white/95 to-stone-50/50 hover:border-emerald-300/50 hover:shadow-xl hover:shadow-emerald-100/30',
+                        ? 'border-2 border-orange-400/60 bg-gradient-to-br from-orange-50/95 via-amber-50/90 to-yellow-50/80 shadow-2xl shadow-orange-300/40'
+                        : 'border border-stone-200/60 bg-gradient-to-b from-white/95 to-stone-50/50 hover:border-emerald-300/50 hover:shadow-xl hover:shadow-emerald-100/30',
                     'group',
                   )}
                 >
@@ -132,7 +131,7 @@ export function SubscriptionPricing() {
                     >
                       <motion.span
                         whileHover={{ scale: 1.05 }}
-                        className="inline-block whitespace-nowrap rounded-full bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-1 text-xs font-semibold leading-none text-white shadow-lg shadow-orange-300/50"
+                        className="inline-block rounded-full bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-1 text-xs leading-none font-semibold whitespace-nowrap text-white shadow-lg shadow-orange-300/50"
                       >
                         {tier.badge}
                       </motion.span>
@@ -165,27 +164,31 @@ export function SubscriptionPricing() {
 
                   {/* Price */}
                   <div className="mt-auto mb-6">
-                    <div className="flex flex-wrap items-baseline gap-3">
-                      {tier.oldMonthlyPrice && (
-                        <span className="text-lg text-gray-400 line-through">
-                          ${tier.oldMonthlyPrice}
+                    <div className="flex flex-wrap items-baseline gap-x-3">
+                      {/* a trick to prevent inconsistent line wrapping under xl size */}
+                      <div className="flex w-auto flex-nowrap items-baseline gap-3 xl:w-full 2xl:w-auto">
+                        {tier.oldMonthlyPrice && (
+                          <span className="text-lg text-gray-400 line-through">
+                            ${tier.oldMonthlyPrice}
+                          </span>
+                        )}
+                        <span className="text-3xl font-bold text-gray-900">
+                          $
+                          <NumberFlow
+                            value={tier.monthlyPrice}
+                            format={{
+                              minimumFractionDigits: 0,
+                              maximumFractionDigits: 0,
+                            }}
+                            animated
+                            transformTiming={{
+                              duration: 400,
+                              easing: 'ease-out',
+                            }}
+                          />
                         </span>
-                      )}
-                      <span className="text-3xl font-bold text-gray-900">
-                        $
-                        <NumberFlow
-                          value={tier.monthlyPrice}
-                          format={{
-                            minimumFractionDigits: 0,
-                            maximumFractionDigits: 0,
-                          }}
-                          animated
-                          transformTiming={{
-                            duration: 400,
-                            easing: 'ease-out',
-                          }}
-                        />
-                      </span>
+                      </div>
+
                       <span className="text-gray-600">/month</span>
                     </div>
                   </div>
@@ -245,9 +248,9 @@ export function SubscriptionPricing() {
                     whileTap={{ scale: 0.98 }}
                     className={cn(
                       'w-full rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-200',
-                      'group relative overflow-hidden block text-center',
+                      'group relative block overflow-hidden text-center',
                       tier.highlighted
-                        ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg shadow-orange-300/50 hover:shadow-xl hover:from-orange-600 hover:to-amber-600'
+                        ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg shadow-orange-300/50 hover:from-orange-600 hover:to-amber-600 hover:shadow-xl'
                         : 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700 hover:shadow-lg',
                     )}
                   >
@@ -265,7 +268,7 @@ export function SubscriptionPricing() {
           </AnimatePresence>
         </div>
       </LayoutGroup>
-      
+
       {/* More Plans Selector */}
       <div className="mt-8">
         <MorePlansSelector onCheckboxChange={setIsMorePlansSelected} />

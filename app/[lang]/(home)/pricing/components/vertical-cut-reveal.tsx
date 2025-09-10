@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView } from 'motion/react';
 import { ReactNode, useRef, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -91,7 +91,9 @@ export function VerticalCutReveal({
           className={cn(
             'inline-block overflow-hidden',
             // Ensure visible spacing between words
-            splitBy === 'words' && index !== content.length - 1 && 'mr-[0.25em]'
+            splitBy === 'words' &&
+              index !== content.length - 1 &&
+              'mr-[0.25em]',
           )}
         >
           <motion.span className="inline-block" variants={itemVariants}>

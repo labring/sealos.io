@@ -8,8 +8,14 @@ import { FeatureCard } from './components/feature-card';
 import { TimelineContent } from './components/timeline-animation';
 import { VerticalCutReveal } from './components/vertical-cut-reveal';
 import GetStarted from './components/get-started';
-// Icons are resolved inside FeatureCard on the client. Pass names only.
-// Note: Pricing is subscription-only. No usage-based logic here.
+import {
+  BarChart3,
+  Code2,
+  Database,
+  Headphones,
+  Rocket,
+  RotateCcw,
+} from 'lucide-react';
 
 const title = {
   main: '7-Day free trial\nNo credit card required',
@@ -39,7 +45,7 @@ export default function PricingPage({
       <main className="custom-container px-8 pt-14 md:px-[15%]">
         {/* Hero Section */}
         <Hero title={title} mainTitleEmphasis={2}>
-          <p className="text-center font-medium text-slate-600 mb-12">
+          <p className="mb-12 text-center font-medium text-slate-600">
             {description.sub}
           </p>
         </Hero>
@@ -70,7 +76,7 @@ export default function PricingPage({
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             <TimelineContent delay={0.3} variant="fadeUp">
               <FeatureCard
-                icon="rocket"
+                icon={<Rocket />}
                 title="Instant Deployment"
                 description="Deploy your applications in seconds. Just push your code and it works - no complex CI/CD setup required."
                 bgColor="bg-blue-100"
@@ -80,7 +86,7 @@ export default function PricingPage({
 
             <TimelineContent delay={0.35} variant="fadeUp">
               <FeatureCard
-                icon="rotateCcw"
+                icon={<RotateCcw />}
                 title="Auto Scaling"
                 description="Automatically scale your resources up or down based on demand to optimize performance and costs."
                 bgColor="bg-green-100"
@@ -90,7 +96,7 @@ export default function PricingPage({
 
             <TimelineContent delay={0.4} variant="fadeUp">
               <FeatureCard
-                icon="database"
+                icon={<Database />}
                 title="Managed Databases"
                 description="Built-in support for PostgreSQL, MongoDB, Redis, and more with automated backups and scaling."
                 bgColor="bg-purple-100"
@@ -100,7 +106,7 @@ export default function PricingPage({
 
             <TimelineContent delay={0.45} variant="fadeUp">
               <FeatureCard
-                icon="barChart3"
+                icon={<BarChart3 />}
                 title="Real-time Monitoring"
                 description="Comprehensive monitoring, logging, and alerting to keep your applications running smoothly."
                 bgColor="bg-red-100"
@@ -110,7 +116,7 @@ export default function PricingPage({
 
             <TimelineContent delay={0.5} variant="fadeUp">
               <FeatureCard
-                icon="code2"
+                icon={<Code2 />}
                 title="DevBox IDE"
                 description="Cloud-based development environment with pre-configured tools and instant collaboration."
                 bgColor="bg-yellow-100"
@@ -120,7 +126,7 @@ export default function PricingPage({
 
             <TimelineContent delay={0.55} variant="fadeUp">
               <FeatureCard
-                icon="headphones"
+                icon={<Headphones />}
                 title="24/7 Support"
                 description="Expert support team available around the clock to help you succeed with your projects."
                 bgColor="bg-pink-100"

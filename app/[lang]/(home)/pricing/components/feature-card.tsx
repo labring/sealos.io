@@ -1,21 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { BarChart3, Code2, Database, Headphones, Rocket, RotateCcw, type LucideIcon } from 'lucide-react';
-
-type IconName = 'rocket' | 'rotateCcw' | 'database' | 'barChart3' | 'code2' | 'headphones';
-
-const ICONS: Record<IconName, LucideIcon> = {
-  rocket: Rocket,
-  rotateCcw: RotateCcw,
-  database: Database,
-  barChart3: BarChart3,
-  code2: Code2,
-  headphones: Headphones,
-};
+import { motion } from 'motion/react';
 
 interface FeatureCardProps {
-  icon: IconName;
+  icon?: React.ReactNode;
   title: string;
   description: string;
   bgColor: string;
@@ -29,8 +17,6 @@ export function FeatureCard({
   bgColor,
   iconColor,
 }: FeatureCardProps) {
-  const Icon = ICONS[icon];
-
   return (
     <motion.div
       whileHover={{ scale: 1.03, y: -5 }}
@@ -44,7 +30,7 @@ export function FeatureCard({
           transition={{ duration: 0.5 }}
           className={`flex h-10 w-10 items-center justify-center rounded-lg ${bgColor}`}
         >
-          {Icon ? <Icon className={`h-5 w-5 ${iconColor}`} /> : null}
+          <div className={`h-5 w-5 ${iconColor}`}>{icon}</div>
         </motion.div>
         <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
       </div>
