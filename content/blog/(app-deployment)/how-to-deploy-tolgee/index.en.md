@@ -1,6 +1,6 @@
 ---
 title: 'How to Deploy Tolgee Localization Platform on Sealos'
-imgTItle: 'Deploy Tolgee on Sealos with one click'
+imageTitle: 'Deploy Tolgee on Sealos with one click'
 description: Deploy Tolgee, the open-source localization platform, on Sealos with one click. Get automatic SSL, custom domains, backups, and scaling without complex setup.
 date: 2025-06-16
 tags:

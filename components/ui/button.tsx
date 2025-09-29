@@ -57,7 +57,7 @@ Button.displayName = "Button"
 
 export { Button, buttonVariants }
 
-export function DeployButton({ imageUrl='https://cdn.jsdelivr.net/gh/labring-actions/templates@main/Deploy-on-Sealos.svg', deployUrl, alt }: {
+export function DeployButton({ imageUrl='/Deploy-on-Sealos.svg', deployUrl, alt }: {
   deployUrl: string;
   imageUrl?: string;
   alt?: string;
@@ -69,16 +69,16 @@ export function DeployButton({ imageUrl='https://cdn.jsdelivr.net/gh/labring-act
       rel="noopener noreferrer"
       className="inline-block hover:opacity-90 transition-opacity"
     >
-      <div className="relative">
+      <div className="relative w-[200px] h-[60px]">
         <Image
           src={imageUrl}
           alt={alt || 'Deploy on Sealos'}
           width={200}
           height={60}
           className="rounded-xl mt-1 mb-1"
-          style={{ width: 'auto', height: 'auto' }}
           loading="lazy"
           sizes="200px"
+          priority={false}
         />
       </div>
     </a>
