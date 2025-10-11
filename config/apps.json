@@ -34,6 +34,46 @@
     }
   },
   {
+    "name": "Agora Token Service",
+    "slug": "agora",
+    "description": "Agora Token Service for generating RTC and RTM tokens to authenticate users before they access the Agora service or join an RTC channel",
+    "icon": "/images/apps/agora.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/AgoraIO/Tools/tree/master/DynamicKey/AgoraDynamicKey",
+    "website": "https://github.com/AgoraIO/Tools/tree/master/DynamicKey/AgoraDynamicKey",
+    "tags": [
+      "tool",
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Agora Token 服务用于生成 RTC 和 RTM Token，在用户访问 Agora 服务或加入 RTC 频道之前进行身份验证"
+      }
+    }
+  },
+  {
     "name": "anki-sync-server",
     "slug": "anki-sync-server",
     "description": "Self-Hosted Anki Sync Server",
@@ -141,6 +181,46 @@
     }
   },
   {
+    "name": "Budibase",
+    "slug": "budibase",
+    "description": "Budibase is an open-source low-code platform that helps you build and deploy modern business apps in minutes",
+    "icon": "/images/apps/budibase.png",
+    "category": "Low-Code",
+    "features": [
+      "Visual Interface",
+      "Drag & Drop",
+      "No Coding Required",
+      "Integrations"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-teal-50/70 to-cyan-50/70",
+    "github": "https://github.com/Budibase/budibase",
+    "website": "https://budibase.com/",
+    "tags": [
+      "low-code",
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Budibase 是一个开源的低代码平台，帮助您在几分钟内构建和部署现代化的业务应用"
+      }
+    }
+  },
+  {
     "name": "Bytebase",
     "slug": "bytebase",
     "description": "Bytebase is GitLab/GitHub for Database DevOps, built for developers, DBAs and platform teams.",
@@ -172,6 +252,85 @@
     ],
     "source": {
       "deployCount": 0
+    }
+  },
+  {
+    "name": "Cap",
+    "slug": "cap",
+    "description": "Open source alternative to Loom. Record, edit and share videos in seconds.",
+    "icon": "/images/apps/cap.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/CapSoftware/Cap",
+    "website": "https://github.com/CapSoftware/Cap",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Loom 的开源替代品。快速录制、编辑和分享视频。"
+      }
+    }
+  },
+  {
+    "name": "Casdoor",
+    "slug": "casdoor",
+    "description": "Casdoor is a UI-first Identity Access Management (IAM) / Single-Sign-On (SSO) platform based on OAuth 2.0, OIDC, SAML and CAS.",
+    "icon": "/images/apps/casdoor.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/casdoor/casdoor",
+    "website": "https://casdoor.org/",
+    "tags": [
+      "tool",
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Casdoor 是一个基于 OAuth 2.0、OIDC、SAML 和 CAS 的 UI 优先的身份访问管理（IAM）/单点登录（SSO）平台。"
+      }
     }
   },
   {
@@ -317,6 +476,45 @@
     }
   },
   {
+    "name": "Coze Studio",
+    "slug": "coze-studio",
+    "description": "An AI agent development platform with all-in-one visual tools, simplifying agent creation, debugging, and deployment like never before.",
+    "icon": "/images/apps/coze-studio.png",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/coze-dev/coze-studio",
+    "website": "https://github.com/coze-dev/coze-studio",
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Coze Studio 是一站式 AI Agent 开发工具"
+      }
+    }
+  },
+  {
     "name": "Cronicle",
     "slug": "cronicle",
     "description": "Cronicle is a multi-server task scheduler and runner, with a web based front-end UI.It handles both scheduled, repeating and on-demand jobs, targeting any number of slave servers, with real-time stats and live log viewer.Written in Node.js, proudly open source and MIT licensed.default username and password is admin",
@@ -454,6 +652,84 @@
     "i18n": {
       "zh": {
         "description": "Dify 是一个开源的 LLM 应用开发平台"
+      }
+    }
+  },
+  {
+    "name": "DocuSeal",
+    "slug": "docuseal",
+    "description": "Open source document signing solution. Create, fill, and sign digital documents with legally binding eSignatures.",
+    "icon": "/images/apps/docuseal.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/docusealco/docuseal",
+    "website": "https://www.docuseal.com/",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源文档签名解决方案。创建、填写和签署具有法律约束力的电子签名数字文档。"
+      }
+    }
+  },
+  {
+    "name": "Drizzle Studio (Gateway)",
+    "slug": "drizzle-studio",
+    "description": "Drizzle Studio (Gateway) is a self-hosted, browser-based interface for exploring and managing your database schema using the Drizzle ORM ecosystem. It acts as a gateway between your database and Drizzle Studio’s frontend, enabling secure connections, schema introspection, and query execution directly from your own infrastructure instead of relying on a public service.",
+    "icon": "/images/apps/drizzle-studio.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/drizzle-team/drizzle-orm",
+    "website": "https://gateway.drizzle.team/",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Drizzle Studio (Gateway) 是一款现代化的 TypeScript ORM，主打轻量与强类型体验。它兼容 PostgreSQL、MySQL、SQLite 等主流数据库，并对多种 Serverless/边缘数据库提供现成适配。"
       }
     }
   },
@@ -597,6 +873,45 @@
     }
   },
   {
+    "name": "Firefox Browser",
+    "slug": "firefox",
+    "description": "Firefox browser running in a container with web-based (noVNC) UI.",
+    "icon": "/images/apps/firefox.ico",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/jlesage/docker-firefox",
+    "website": "https://github.com/jlesage/docker-firefox",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "运行在容器中的 Firefox 浏览器，通过 noVNC 在浏览器中访问。"
+      }
+    }
+  },
+  {
     "name": "Flarum",
     "slug": "flarum",
     "description": "Flarum is a delightfully simple discussion platform for your website.",
@@ -634,7 +949,7 @@
     "name": "Flowise",
     "slug": "flowise",
     "description": "Drag & drop UI to build your customized LLM flow.",
-    "icon": "/images/apps/flowise.ico",
+    "icon": "/images/apps/flowise.png",
     "category": "AI",
     "features": [
       "AI Processing",
@@ -662,6 +977,91 @@
     ],
     "source": {
       "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "拖放式 UI 构建您的自定义 LLM 流程"
+      }
+    }
+  },
+  {
+    "name": "Formbricks",
+    "slug": "formbricks",
+    "description": "Formbricks provides a free and open source surveying platform. Gather feedback at every point in the user journey with beautiful in-app, website, link and email surveys.",
+    "icon": "/images/apps/formbricks.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/formbricks/formbricks",
+    "website": "https://formbricks.com",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Formbricks 是一个免费的开源问卷调研平台，旨在帮助你轻松获取用户反馈，深入了解他们的体验。"
+      }
+    }
+  },
+  {
+    "name": "Full Stack FastAPI",
+    "slug": "full-stack-fastapi",
+    "description": "Production-ready FastAPI + PostgreSQL + Frontend stack",
+    "icon": "/images/apps/full-stack-fastapi.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/yangchuansheng/full-stack-fastapi-template",
+    "website": "https://github.com/yangchuansheng/full-stack-fastapi-template",
+    "tags": [
+      "backend",
+      "frontend",
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "生产可用的 FastAPI + PostgreSQL + 前端全栈模板"
+      }
     }
   },
   {
@@ -775,6 +1175,45 @@
     ],
     "source": {
       "deployCount": 0
+    }
+  },
+  {
+    "name": "Happy Server",
+    "slug": "happy-server",
+    "description": "Minimal backend for open-source end-to-end encrypted Claude Code clients.",
+    "icon": "/images/apps/happy-server.png",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/your-org/happy-server",
+    "website": "https://github.com/your-org/happy-server",
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "专为 Claude Code 开源、端到端加密客户端打造的极简后端。"
+      }
     }
   },
   {
@@ -1165,6 +1604,127 @@
     }
   },
   {
+    "name": "Keycloak",
+    "slug": "keycloak",
+    "description": "Open Source Identity and Access Management solution for modern Applications and Services",
+    "icon": "/images/apps/keycloak.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/keycloak/keycloak",
+    "website": "https://www.keycloak.org/",
+    "tags": [
+      "tool",
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "面向现代应用和服务的开源身份和访问管理解决方案"
+      }
+    }
+  },
+  {
+    "name": "Kitten TTS",
+    "slug": "kitten-tts",
+    "description": "Kitten-TTS-Server hosts the Kitten TTS model behind a small, fast API. It includes a built-in Web UI, audiobook-grade text handling, and GPU support. Use it for prototypes, research, or self-hosted TTS services.",
+    "icon": "/images/apps/kitten-tts.ico",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/SamThinks-Com/Kitten-TTS-Server",
+    "website": "https://github.com/SamThinks-Com/Kitten-TTS-Server",
+    "tags": [
+      "ai",
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Kitten-TTS-Server 是一个文本转语音（TTS）服务，提供语音合成功能。"
+      }
+    }
+  },
+  {
+    "name": "Langflow",
+    "slug": "langflow",
+    "description": "Langflow is a low-code app builder for RAG and multi-agent AI applications. Build, iterate, and deploy AI workflows with a drag-and-drop interface.",
+    "icon": "/images/apps/langflow.png",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/langflow-ai/langflow",
+    "website": "https://www.langflow.org/",
+    "tags": [
+      "ai",
+      "low-code",
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Langflow 是一个用于 RAG 和多代理 AI 应用的低代码应用构建器。通过拖放界面构建、迭代和部署 AI 工作流。"
+      }
+    }
+  },
+  {
     "name": "LibreChat",
     "slug": "librechat",
     "description": "Enhanced ChatGPT Clone",
@@ -1350,6 +1910,85 @@
     }
   },
   {
+    "name": "Loki",
+    "slug": "loki",
+    "description": "Loki is a horizontally scalable, highly available, multi-tenant log aggregation system inspired by Prometheus.",
+    "icon": "/images/apps/loki.svg",
+    "category": "Monitoring",
+    "features": [
+      "Real-time Monitoring",
+      "Alerting System",
+      "Dashboard Views",
+      "Historical Data"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-yellow-50/70 to-orange-50/70",
+    "github": "https://github.com/grafana/loki",
+    "website": "https://grafana.com/oss/loki/",
+    "tags": [
+      "monitor"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Loki 是一个水平可扩展、高可用、多租户的日志聚合系统，灵感来自 Prometheus。"
+      }
+    }
+  },
+  {
+    "name": "Matomo",
+    "slug": "matomo",
+    "description": "Matomo is the leading open source web analytics platform that gives you valuable insights into your website visitors",
+    "icon": "/images/apps/matomo.png",
+    "category": "Monitoring",
+    "features": [
+      "Real-time Monitoring",
+      "Alerting System",
+      "Dashboard Views",
+      "Historical Data"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-yellow-50/70 to-orange-50/70",
+    "github": "https://github.com/matomo-org/matomo",
+    "website": "https://matomo.org/",
+    "tags": [
+      "monitor",
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Matomo 是领先的开源网站分析平台，为您提供关于网站访客的宝贵洞察"
+      }
+    }
+  },
+  {
     "name": "mautic",
     "slug": "mautic",
     "description": "Mautic is the world’s largest open source marketing automation software.",
@@ -1524,6 +2163,46 @@
     }
   },
   {
+    "name": "MLflow",
+    "slug": "mlflow",
+    "description": "MLflow is an open-source developer platform to build AI/LLM applications and models with confidence.",
+    "icon": "/images/apps/mlflow.png",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/mlflow/mlflow",
+    "website": "https://mlflow.org/",
+    "tags": [
+      "ai",
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源机器学习生命周期平台 - 跟踪实验、打包代码为可重现运行、共享和部署模型"
+      }
+    }
+  },
+  {
     "name": "mongo-express",
     "slug": "mongo-express",
     "description": "A web-based MongoDB admin interface written with Node.js, Express, and Bootstrap3",
@@ -1562,12 +2241,12 @@
     "slug": "n8n",
     "description": "n8n is a workflow automation platform that gives technical teams the flexibility of code with the speed of no-code.",
     "icon": "/images/apps/n8n.ico",
-    "category": "Tools",
+    "category": "AI",
     "features": [
-      "User-Friendly Interface",
-      "Easy Configuration",
-      "Multi-Platform Support",
-      "Extensible"
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
     ],
     "benefits": [
       "Easy to deploy and manage",
@@ -1581,11 +2260,12 @@
       "Data Management",
       "Team Collaboration"
     ],
-    "gradient": "from-green-50/70 to-emerald-50/70",
+    "gradient": "from-purple-50/70 to-pink-50/70",
     "github": "https://github.com/n8n-io/n8n",
     "website": "https://n8n.io/",
     "tags": [
-      "tool"
+      "ai",
+      "low-code"
     ],
     "source": {
       "deployCount": 0
@@ -1597,10 +2277,10 @@
     }
   },
   {
-    "name": "N8N PostgreSQL",
-    "slug": "n8n-pg",
-    "description": "n8n is a workflow automation platform that gives technical teams the flexibility of code with the speed of no-code.",
-    "icon": "/images/apps/n8n-pg.ico",
+    "name": "Nacos",
+    "slug": "nacos",
+    "description": "Dynamic Naming and Configuration Service - an easy-to-use platform designed for dynamic service discovery and configuration and service management",
+    "icon": "/images/apps/nacos.ico",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1621,17 +2301,18 @@
       "Team Collaboration"
     ],
     "gradient": "from-green-50/70 to-emerald-50/70",
-    "github": "https://github.com/n8n-io/n8n",
-    "website": "https://n8n.io/",
+    "github": "https://github.com/nacos-group/nacos-docker",
+    "website": "https://nacos.io/",
     "tags": [
-      "tool"
+      "tool",
+      "dev-ops"
     ],
     "source": {
       "deployCount": 0
     },
     "i18n": {
       "zh": {
-        "description": "n8n 是一个工作流自动化平台，通过将代码的灵活性与无代码的速度相结合，帮助技术团队构建自动化流程。"
+        "description": "动态命名和配置服务 - 一个易于使用的平台，专为动态服务发现、配置和服务管理而设计"
       }
     }
   },
@@ -1807,6 +2488,45 @@
     }
   },
   {
+    "name": "Outline",
+    "slug": "outline",
+    "description": "The fastest knowledge base for growing teams. Beautiful, realtime collaborative, feature packed, and markdown compatible.",
+    "icon": "/images/apps/outline.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/outline/outline",
+    "website": "https://www.getoutline.com/",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "为成长型团队打造的最快速的知识库。美观、实时协作、功能丰富且兼容 Markdown。"
+      }
+    }
+  },
+  {
     "name": "Overleaf",
     "slug": "overleaf",
     "description": "Overleaf is an open-source online real-time collaborative LaTeX editor.",
@@ -1838,6 +2558,46 @@
     ],
     "source": {
       "deployCount": 0
+    }
+  },
+  {
+    "name": "PalaCMS",
+    "slug": "palacms",
+    "description": "PalaCMS is a modern content management system built for developers and content creators",
+    "icon": "/images/apps/palacms.png",
+    "category": "Blog",
+    "features": [
+      "Content Creation",
+      "Publishing Tools",
+      "Comment System",
+      "RSS Support"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-indigo-50/70",
+    "github": "https://github.com/palacms/palacms",
+    "website": "https://palacms.org",
+    "tags": [
+      "blog",
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "PalaCMS 是一个为开发者和内容创作者构建的现代内容管理系统"
+      }
     }
   },
   {
@@ -2160,6 +2920,86 @@
     ],
     "source": {
       "deployCount": 0
+    }
+  },
+  {
+    "name": "PocketBase",
+    "slug": "pocketbase",
+    "description": "Open source backend consisting of embedded database (SQLite) with realtime subscriptions, built-in auth management, convenient dashboard UI and simple REST-ish API",
+    "icon": "/images/apps/pocketbase.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/adrianmusante/docker-pocketbase",
+    "website": "https://pocketbase.io/",
+    "tags": [
+      "backend",
+      "low-code"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源后端服务，包含嵌入式数据库(SQLite)、实时订阅、内置认证管理、便捷的仪表盘UI和简单的REST API"
+      }
+    }
+  },
+  {
+    "name": "Postiz",
+    "slug": "${{ defaults.app_name }}",
+    "description": "Postiz is an open source social media management platform.",
+    "icon": "/icons/default.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/gitroomhq/postiz-app",
+    "website": "https://postiz.com/",
+    "tags": [
+      "backend",
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "部署包含 PostgreSQL 与 Redis 的 Postiz 自托管版本。"
+      }
     }
   },
   {
@@ -2550,6 +3390,46 @@
     }
   },
   {
+    "name": "RustFS",
+    "slug": "rustfs",
+    "description": "RustFS is a high-performance, S3-compatible object storage system built with Rust, offering distributed storage capabilities with multiple volume support.",
+    "icon": "/images/apps/rustfs.ico",
+    "category": "Storage",
+    "features": [
+      "File Storage",
+      "Data Backup",
+      "Access Control",
+      "Synchronization"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-orange-50/70 to-amber-50/70",
+    "github": "https://github.com/rustfs/rustfs",
+    "website": "https://github.com/rustfs/rustfs",
+    "tags": [
+      "storage",
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "RustFS 是一个使用 Rust 构建的高性能 S3 兼容对象存储系统，提供分布式存储能力，支持多卷存储。"
+      }
+    }
+  },
+  {
     "name": "Rybbit",
     "slug": "rybbit",
     "description": "Rybbit is the modern open source and privacy friendly alternative to Google Analytics.",
@@ -2655,6 +3535,46 @@
     ],
     "source": {
       "deployCount": 0
+    }
+  },
+  {
+    "name": "Strapi",
+    "slug": "strapi",
+    "description": "Strapi is the leading open-source headless CMS. 100% JavaScript/TypeScript and fully customizable.",
+    "icon": "/images/apps/strapi.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/strapi/strapi",
+    "website": "https://strapi.io/",
+    "tags": [
+      "backend",
+      "low-code"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Strapi 是领先的开源无头 CMS。100% JavaScript/TypeScript，完全可定制。"
+      }
     }
   },
   {
@@ -2766,6 +3686,40 @@
       "zh": {
         "description": "Teable 是一款企业级高性能多维表格解决方案，通过无代码方式快速构建业务管理系统，支持私有部署和精细权限管理。"
       }
+    }
+  },
+  {
+    "name": "tentix",
+    "slug": "tentix",
+    "description": "A FastGPT-powered AI customer service platform with 10x accelerated resolution.",
+    "icon": "/images/apps/tentix.svg",
+    "category": "DevOps",
+    "features": [
+      "CI/CD Pipeline",
+      "Container Management",
+      "Infrastructure as Code",
+      "Monitoring"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-slate-50/70 to-gray-50/70",
+    "github": "https://github.com/labring/tentix",
+    "website": "https://github.com/labring/tentix",
+    "tags": [
+      "dev-ops"
+    ],
+    "source": {
+      "deployCount": 0
     }
   },
   {
