@@ -23,6 +23,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# AI
+.claude
+.taskmaster
+.playwright-mcp
+
 # others
 .env*.local
 .env
@@ -32,3 +37,5 @@ next-env.d.ts
 
 pnpm-lock.yaml
 bun.lock
+
+seo
