@@ -1,32 +1,133 @@
+import { ReactNode } from 'react';
 import { GradientText } from '../components/GradientText';
+import { Circle, CircleHelp, CodeXml, GitCompare, Info } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { GradientCircleCheck } from '../components/GradientCircleCheck';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+
+// 对比数据类型定义
+interface Platform {
+  name: string;
+  icon?: ReactNode;
+}
+
+interface ComparisonValue {
+  name: string;
+  icon?: ReactNode;
+}
+
+interface ComparisonItem {
+  feature: string;
+  help?: ReactNode;
+  values: ComparisonValue[];
+}
+
+interface ComparisonCategory {
+  name: string;
+  icon?: ReactNode;
+  items: ComparisonItem[];
+}
+
+interface ComparisonData {
+  platforms: Platform[];
+  categories: ComparisonCategory[];
+}
 
 // 对比数据结构
-const comparisonData = {
-  platforms: ['Sealos', 'Railway', 'Render', 'Supabase', 'Vercel'],
+const comparisonData: ComparisonData = {
+  platforms: [
+    { name: 'Sealos', icon: <Circle size={24} /> },
+    { name: 'Railway', icon: <Circle size={24} /> },
+    { name: 'Render', icon: <Circle size={24} /> },
+    { name: 'Supabase', icon: <Circle size={24} /> },
+    { name: 'Vercel', icon: <Circle size={24} /> },
+  ],
   categories: [
     {
       name: 'DEPLOYMENT & WORKFLOW',
+      icon: <GitCompare size={20} />,
       items: [
         {
           feature: 'Deployment Flexibility',
-          values: ['✓', '✓', '✓', '—', '✓'],
+          help: 'Help Text',
+          values: [
+            {
+              name: 'AI Pilot, K8s YAML, Docker',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Git Repo',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Git Repo',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Limited',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Git Repo',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+          ],
         },
         {
           feature: 'Native Kubernetes API',
-          values: ['✓', '—', '—', '—', '—'],
+          help: 'Help Text',
+          values: [
+            {
+              name: 'Full Compatibility',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+          ],
         },
       ],
     },
     {
       name: 'DEVELOPER EXPERIENCE',
+      icon: <CodeXml size={20} />,
       items: [
         {
-          feature: 'AI-Powered Development',
-          values: ['✓', '—', '—', '—', '—'],
+          feature: 'Unified Dev Environment',
+          values: [
+            { name: '' },
+            { name: '' },
+            { name: '' },
+            { name: '' },
+            { name: '' },
+          ],
         },
         {
-          feature: 'Built-in Database',
-          values: ['✓', '✓', '—', '✓', '—'],
+          feature: 'Real-time Dev Workflow',
+          values: [
+            { name: '' },
+            { name: '' },
+            { name: '' },
+            { name: '' },
+            { name: '' },
+          ],
         },
       ],
     },
@@ -43,92 +144,129 @@ export function ComparisonSection() {
             <GradientText>Sealos unifies your entire cloud.</GradientText>
           </h2>
           <p className="mt-3 text-zinc-400">
-            Focus on your code, not the underlying complexity. Sealos provides an
-            integrated, AI-powered experience from development to production, all
-            in one place.
+            Focus on your code, not the underlying complexity. Sealos provides
+            an integrated, AI-powered experience from development to production,
+            all in one place.
           </p>
         </div>
+      </div>
 
-        {/* 对比表格 */}
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
-            {/* 表头 */}
-            <thead>
-              <tr>
-                <th className="border border-zinc-800 bg-zinc-900/50 p-4 text-left text-sm font-medium text-zinc-400">
-                  Feature
+      {/* 对比表格 */}
+      <div className="mt-14 overflow-x-auto">
+        <table className="w-full border-collapse">
+          {/* 表头 */}
+          <thead>
+            <tr>
+              <th className="border-b border-zinc-800 px-4 py-9" />
+              {comparisonData.platforms.map((platform, index) => (
+                <th
+                  key={platform.name}
+                  className={cn(
+                    'relative border-b border-zinc-800 px-4 py-2.5 text-base font-semibold',
+                    index === 0
+                      ? 'text-zinc-200 before:pointer-events-none before:absolute before:inset-0 before:rounded-t-lg before:border before:border-b-0 before:border-zinc-800 before:bg-white/5'
+                      : 'text-zinc-400',
+                  )}
+                >
+                  <span className="relative flex items-center gap-2">
+                    {platform.icon}
+                    {platform.name}
+                  </span>
                 </th>
-                {comparisonData.platforms.map((platform, index) => (
-                  <th
-                    key={platform}
-                    className={`border border-zinc-800 p-4 text-center text-sm font-semibold ${
-                      index === 0
-                        ? 'bg-gradient-to-b from-purple-500/10 to-pink-500/10 text-white relative'
-                        : 'bg-zinc-900/50 text-zinc-300'
-                    }`}
-                  >
-                    {index === 0 && (
-                      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-pink-500/20 pointer-events-none" />
-                    )}
-                    <span className="relative z-10">{platform}</span>
-                  </th>
-                ))}
-              </tr>
-            </thead>
+              ))}
+            </tr>
+          </thead>
 
-            {/* 表格内容 */}
-            <tbody>
-              {comparisonData.categories.map((category, categoryIndex) => (
-                <>
-                  {/* 分类标题行 */}
-                  <tr key={`category-${categoryIndex}`}>
-                    <td
-                      colSpan={comparisonData.platforms.length + 1}
-                      className="border border-zinc-800 bg-zinc-900/70 p-3 text-xs font-bold text-purple-400 tracking-wider"
-                    >
+          {/* 表格内容 */}
+          <tbody>
+            {comparisonData.categories.map((category, categoryIndex) => (
+              <>
+                {/* 分类标题行 */}
+                <tr key={`category-${categoryIndex}`}>
+                  <td className="border-b border-zinc-800 px-4 py-5 text-lg font-medium text-zinc-200">
+                    <div className="flex items-center gap-2">
+                      {category.icon}
                       {category.name}
-                    </td>
-                  </tr>
+                    </div>
+                  </td>
+                  {comparisonData.platforms.map((platform, platformIndex) => (
+                    <td
+                      key={platform.name}
+                      className={cn(
+                        'relative border-b border-zinc-800 px-4 py-5',
+                        platformIndex === 0 &&
+                          'bg-white/5 before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
+                      )}
+                    />
+                  ))}
+                </tr>
 
-                  {/* 分类下的对比项 */}
-                  {category.items.map((item, itemIndex) => (
+                {/* 分类下的对比项 */}
+                {category.items.map((item, itemIndex) => {
+                  const isLastCategory =
+                    categoryIndex === comparisonData.categories.length - 1;
+                  const isLastItem = itemIndex === category.items.length - 1;
+                  const isLastRow = isLastCategory && isLastItem;
+
+                  return (
                     <tr key={`${categoryIndex}-${itemIndex}`}>
-                      <td className="border border-zinc-800 bg-zinc-900/30 p-4 text-sm text-zinc-300">
-                        {item.feature}
+                      <td className="border-b border-zinc-800 px-4 py-5 text-base text-zinc-400">
+                        <div className="flex items-center gap-2">
+                          {item.feature}
+                          {item.help && (
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <CircleHelp size={20} />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>{item.help}</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          )}
+                        </div>
                       </td>
                       {item.values.map((value, valueIndex) => (
                         <td
                           key={valueIndex}
-                          className={`border border-zinc-800 p-4 text-center relative ${
-                            valueIndex === 0
-                              ? 'bg-gradient-to-b from-purple-500/5 to-pink-500/5'
-                              : 'bg-zinc-900/30'
-                          }`}
-                        >
-                          {valueIndex === 0 && (
-                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-pink-500/10 pointer-events-none" />
+                          className={cn(
+                            'relative border-b border-zinc-800 px-4 py-5',
+                            valueIndex === 0 && 'bg-white/5',
+                            valueIndex === 0 &&
+                              'before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
                           )}
+                        >
                           <span
-                            className={`relative z-10 text-lg ${
-                              value === '✓'
-                                ? valueIndex === 0
-                                  ? 'text-purple-400'
-                                  : 'text-green-500'
-                                : 'text-zinc-600'
-                            }`}
+                            className={cn(
+                              'relative flex items-center gap-2 text-base',
+                              valueIndex === 0
+                                ? 'text-zinc-200'
+                                : 'text-zinc-400',
+                            )}
                           >
-                            {value}
+                            {value.icon}
+                            {value.name}
                           </span>
                         </td>
                       ))}
                     </tr>
-                  ))}
-                </>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  );
+                })}
+              </>
+            ))}
+          </tbody>
+        </table>
       </div>
+
+      <ol className="mt-8 text-sm text-zinc-600">
+        <li className="">
+          [1] Vercel: Preview deployments are generated based on Git commits,
+          which still involves a CI/CD-like waiting period for builds.
+        </li>
+        <li>
+          [2] Vercel: Optimized for front-end frameworks; backend support is
+          primarily through Serverless Functions.
+        </li>
+      </ol>
     </section>
   );
 }

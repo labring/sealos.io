@@ -1,6 +1,8 @@
 import React from 'react';
 
 export function FramedText({ children }: { children?: React.ReactNode }) {
+  const gradientId = React.useId();
+
   return (
     <span className="relative inline-block overflow-visible">
       <svg
@@ -12,7 +14,7 @@ export function FramedText({ children }: { children?: React.ReactNode }) {
         <defs>
           {/* 定义渐变色 - 从 white 到 blue-600 */}
           <linearGradient
-            id="gradient-border"
+            id={gradientId}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -30,12 +32,12 @@ export function FramedText({ children }: { children?: React.ReactNode }) {
           width="100%"
           height="100%"
           fill="rgba(255, 255, 255, 0.05)"
-          stroke="url(#gradient-border)"
+          stroke={`url(#${gradientId})`}
           strokeWidth="1"
         />
 
         {/* 左上角实心矩形 - 中心在边框上 */}
-        <rect x="-2" y="-2" width="4" height="4" fill="url(#gradient-border)" />
+        <rect x="-2" y="-2" width="4" height="4" fill={`url(#${gradientId})`} />
 
         {/* 右上角实心矩形 - 中心在边框上 */}
         <rect
@@ -43,7 +45,7 @@ export function FramedText({ children }: { children?: React.ReactNode }) {
           y="-2"
           width="4"
           height="4"
-          fill="url(#gradient-border)"
+          fill={`url(#${gradientId})`}
         />
 
         {/* 左下角实心矩形 - 中心在边框上 */}
@@ -52,7 +54,7 @@ export function FramedText({ children }: { children?: React.ReactNode }) {
           y="calc(100% - 2px)"
           width="4"
           height="4"
-          fill="url(#gradient-border)"
+          fill={`url(#${gradientId})`}
         />
 
         {/* 右下角实心矩形 - 中心在边框上 */}
@@ -61,7 +63,7 @@ export function FramedText({ children }: { children?: React.ReactNode }) {
           y="calc(100% - 2px)"
           width="4"
           height="4"
-          fill="url(#gradient-border)"
+          fill={`url(#${gradientId})`}
         />
       </svg>
 

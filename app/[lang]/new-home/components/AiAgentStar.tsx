@@ -1,9 +1,13 @@
+import React from 'react';
+
 export function AiAgentStar(
   props: React.DetailedHTMLProps<
     React.SVGAttributes<SVGSVGElement>,
     SVGSVGElement
   >,
 ) {
+  const gradientId = React.useId();
+
   return (
     <svg
       width="7"
@@ -15,11 +19,11 @@ export function AiAgentStar(
     >
       <path
         d="M3.66858 0.0819092C4.21764 1.56572 5.38753 2.73561 6.87134 3.28467C5.38753 3.83373 4.21764 5.00362 3.66858 6.48743C3.11952 5.00362 1.94963 3.83373 0.46582 3.28467C1.94963 2.73561 3.11952 1.56572 3.66858 0.0819092Z"
-        fill="url(#paint0_linear_399_2901)"
+        fill={`url(#${gradientId})`}
       />
       <defs>
         <linearGradient
-          id="paint0_linear_399_2901"
+          id={gradientId}
           x1="3.66858"
           y1="0.0819092"
           x2="3.66858"

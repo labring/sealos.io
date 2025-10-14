@@ -1,6 +1,10 @@
+import React from 'react';
 import { FeatureStepper } from '../components/FeatureStepper';
 
 export function DemoSection() {
+  const filterId = React.useId();
+  const gradientId = React.useId();
+
   return (
     <section className="relative mt-28">
       {/* Light */}
@@ -10,16 +14,16 @@ export function DemoSection() {
           viewBox="0 0 1263 532"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g filter="url(#b)">
+          <g filter={`url(#${filterId})`}>
             <path
               d="M632.021 150L1112.43 381.267H150L632.021 150Z"
-              fill="url(#a)"
+              fill={`url(#${gradientId})`}
               fillOpacity=".3"
             />
           </g>
           <defs>
             <filter
-              id="b"
+              id={filterId}
               x="0"
               y="0"
               width="1262.4"
@@ -39,7 +43,7 @@ export function DemoSection() {
               />
             </filter>
             <radialGradient
-              id="a"
+              id={gradientId}
               cx="0"
               cy="0"
               r="1"
