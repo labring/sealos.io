@@ -1,0 +1,35 @@
+import { Check } from 'lucide-react';
+
+interface Feature {
+  label: string;
+}
+
+interface FeatureStepperProps {
+  features?: Feature[];
+}
+
+const defaultFeatures: Feature[] = [
+  { label: '7 days free trial' },
+  { label: 'No credit card required to get started' },
+  { label: 'Cancel anytime' },
+];
+
+export function FeatureStepper({
+  features = defaultFeatures,
+}: FeatureStepperProps) {
+  return (
+    <div className="flex justify-center gap-20">
+      {/* Line */}
+      <div className="absolute top-2.5 h-px w-full bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+
+      {features.map((feature, index) => (
+        <div key={index} className="flex flex-col items-center gap-2">
+          <div className="flex size-5 items-center justify-center rounded-full bg-slate-200 text-zinc-950 outline-1 outline-offset-3 outline-zinc-500">
+            <Check size={16} />
+          </div>
+          <span className="text-lg text-zinc-200">{feature.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}

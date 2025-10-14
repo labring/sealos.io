@@ -43,7 +43,11 @@ export default function LocaleLayout({
   const homepageSchema = generateHomepageSchema(htmlLang);
 
   return (
-    <html lang={htmlLang} className={inter.className} suppressHydrationWarning>
+    <html
+      lang={htmlLang}
+      className={`dark ${inter.className}`}
+      suppressHydrationWarning
+    >
       <head>
         {/* Favicon and App Icons */}
         <link

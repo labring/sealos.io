@@ -1,0 +1,36 @@
+import { GradientText } from '../components/GradientText';
+import { FramedText } from '../components/FramedText';
+import { PromptInput } from '../components/PromptInput';
+import { AiAgentStar } from '../components/AiAgentStar';
+
+export function HeroSection() {
+  return (
+    <section className="mt-16 xl:max-w-1/2">
+      <div className="flex w-fit rounded-full border border-white/5 bg-white/5 px-3 py-2 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),_0_2px_4px_-1px_rgba(0,0,0,0.02)]">
+        Sealos is the&nbsp;<GradientText>intelligent</GradientText>
+        <AiAgentStar className="mt-1 self-start" />
+        &nbsp;Cloud OS
+      </div>
+
+      <h1 className="mt-5 text-[3.25rem] leading-[1.2]">
+        <div>
+          Ship any&nbsp;
+          <FramedText>
+            <GradientText>AI Agent</GradientText>
+          </FramedText>
+        </div>
+        <div>with just a prompt.</div>
+      </h1>
+
+      <p className="mt-5 text-zinc-400">
+        Sealos is the intelligent Cloud OS. Describe your needs, and our AI
+        Pilot will build the environment, configure the database, and deploy it
+        globally.
+      </p>
+
+      <div className="mt-10">
+        <PromptInput />
+      </div>
+    </section>
+  );
+}
