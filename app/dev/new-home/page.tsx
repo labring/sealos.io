@@ -4,6 +4,7 @@ import { HeroSection } from './sections/HeroSection';
 import { DemoSection } from './sections/DemoSection';
 import { ChoicesSection } from './sections/ChoicesSection';
 import { ComparisonSection } from './sections/ComparisonSection';
+import { SequenceSection } from './sections/SequenceSection';
 
 const translations = {
   en: {},
@@ -28,6 +29,7 @@ export default function HomePage({
         <DemoSection />
         <ChoicesSection />
         <ComparisonSection />
+        <SequenceSection />
       </main>
     </>
   );

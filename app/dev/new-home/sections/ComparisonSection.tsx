@@ -257,8 +257,8 @@ export function ComparisonSection() {
         </table>
       </div>
 
-      <ol className="mt-8 text-sm text-zinc-600">
-        <li className="">
+      <ol className="mt-8 space-y-1 text-sm text-zinc-600">
+        <li>
           [1] Vercel: Preview deployments are generated based on Git commits,
           which still involves a CI/CD-like waiting period for builds.
         </li>
