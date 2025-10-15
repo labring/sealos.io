@@ -15,8 +15,8 @@ export function ChoicesSection() {
       </div>
 
       <div className="flex gap-6">
-        <div className="inset-shadow-bubble w-full rounded-xl border border-zinc-700">
-          <div className="border-b border-zinc-700 p-8">
+        <div className="inset-shadow-bubble flex w-full flex-col rounded-xl border border-zinc-700">
+          <div className="grow border-b border-zinc-700 p-8">
             <h3 className="flex items-center text-2xl font-medium text-zinc-200">
               <span>Bear the bottleneck</span>
               <TriangleAlert size={24} className="ml-2 text-red-500" />
@@ -38,7 +38,7 @@ export function ChoicesSection() {
         </div>
 
         <div className="inset-shadow-bubble w-full rounded-xl border border-zinc-700">
-          <div className="border-b border-zinc-700 p-8">
+          <div className="grow border-b border-zinc-700 p-8">
             <h3 className="flex items-center text-2xl font-medium text-zinc-200">
               <span>Or use Sealos</span>
               <CheckCheck size={24} className="ml-2 text-emerald-500" />
