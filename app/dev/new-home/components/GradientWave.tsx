@@ -47,38 +47,21 @@ export function GradientWave({ progress }: GradientWaveProps) {
     >
       <defs>
         {lines.map((i) => {
-          const distanceInLines = Math.abs(i - progressLineIndex);
-
-          // idle 状态下所有线都需要渐变，否则只有中心区域需要
-          if (isIdle || distanceInLines <= 5) {
-            // 为每条线创建独立的垂直渐变
-            const fadeFactorInRange = isIdle
-              ? 0.8
-              : 1 - (distanceInLines / 5) * 0.7;
-            return (
-              <linearGradient
-                key={i}
-                id={`${gradientId}-${i}`}
-                x1="0%"
-                y1="100%"
-                x2="0%"
-                y2="0%"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop
-                  offset="0"
-                  stopColor="#146DFF"
-                  stopOpacity={fadeFactorInRange}
-                />
-                <stop
-                  offset="1"
-                  stopColor="#fff"
-                  stopOpacity={fadeFactorInRange}
-                />
-              </linearGradient>
-            );
-          }
-          return null;
+          // 为所有线创建渐变
+          return (
+            <linearGradient
+              key={i}
+              id={`${gradientId}-${i}`}
+              x1="0%"
+              y1="100%"
+              x2="0%"
+              y2="0%"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0" stopColor="#146DFF" />
+              <stop offset="1" stopColor="#fff" />
+            </linearGradient>
+          );
         })}
       </defs>
       {lines.map((i) => {
@@ -88,30 +71,25 @@ export function GradientWave({ progress }: GradientWaveProps) {
 
         // idle 状态：所有线都最长，都使用渐变
         let height;
-        let stroke;
         let opacity;
 
         if (isIdle) {
           // idle 状态：所有线最长，使用渐变颜色
           height = 90;
-          stroke = `url(#${gradientId}-${i})`;
-          opacity = 0.9;
+          opacity = 0.85;
         } else {
           // 正常状态：计算高度，距离进度越近越高
           const heightFactor = Math.exp(-distanceFromProgress * 12);
           height = 20 + heightFactor * 70;
 
-          // 计算颜色和不透明度
+          // 计算不透明度
           if (distanceInLines <= 5) {
-            // 在当前进度左右5根线内使用渐变
-            stroke = `url(#${gradientId}-${i})`;
-            opacity = 0.7 + heightFactor * 0.3;
+            // 在当前进度左右5根线内使用较高不透明度
+            const fadeFactor = 1 - (distanceInLines / 5) * 0.4;
+            opacity = (0.6 + heightFactor * 0.3) * fadeFactor;
           } else {
-            // 超过5根线，使用低饱和度的单色
-            const saturation = Math.max(15, 50 - distanceInLines * 2);
-            const lightness = Math.max(25, 45 - distanceInLines);
-            stroke = `hsl(215, ${saturation}%, ${lightness}%)`;
-            opacity = 0.3 + heightFactor * 0.5;
+            // 超过5根线，使用较低不透明度
+            opacity = (0.15 + heightFactor * 0.25) * 0.5;
           }
         }
 
@@ -122,7 +100,7 @@ export function GradientWave({ progress }: GradientWaveProps) {
             y1={100}
             x2={x}
             y2={100 - height}
-            stroke={stroke}
+            stroke={`url(#${gradientId}-${i})`}
             strokeWidth="2"
             strokeLinecap="round"
             opacity={opacity}
