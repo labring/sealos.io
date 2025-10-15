@@ -138,17 +138,15 @@ export function ComparisonSection() {
   return (
     <section className="mt-48 mb-32">
       <div className="flex flex-col gap-8">
-        <div>
-          <h2 className="text-[2.5rem] leading-tight">
-            <span>Other platforms simplify deployment.</span>&nbsp;
-            <GradientText>Sealos unifies your entire cloud.</GradientText>
-          </h2>
-          <p className="mt-3 text-zinc-400">
-            Focus on your code, not the underlying complexity. Sealos provides
-            an integrated, AI-powered experience from development to production,
-            all in one place.
-          </p>
-        </div>
+        <h2 className="text-[2.5rem] leading-tight">
+          <span>Other platforms simplify deployment.</span>&nbsp;
+          <GradientText>Sealos unifies your entire cloud.</GradientText>
+        </h2>
+        <p className="mt-3 text-zinc-400">
+          Focus on your code, not the underlying complexity. Sealos provides an
+          integrated, AI-powered experience from development to production, all
+          in one place.
+        </p>
       </div>
 
       {/* 对比表格 */}
