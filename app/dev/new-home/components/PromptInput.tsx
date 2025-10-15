@@ -1,9 +1,107 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowUp, ChevronRight } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { ArrowUp, ChevronRight, Bot, Database, Code } from 'lucide-react';
 import { Glare } from './Glare';
+import { ReactNode, useState } from 'react';
+
+interface PromptOption {
+  icon: ReactNode;
+  name: string;
+  prompt: string;
+}
+
+interface CategoryConfig {
+  name: string;
+  icon: ReactNode;
+  prompts: PromptOption[];
+}
+
+// 预制的 prompt 数据配置
+const PROMPT_CATEGORIES: CategoryConfig[] = [
+  {
+    name: 'AI Agent',
+    icon: <Bot size={14} />,
+    prompts: [
+      {
+        icon: <Bot size={16} />,
+        name: 'Dify AI Agent',
+        prompt:
+          'I want to deploy Dify AI Agent from the app store to build my own AI assistant.',
+      },
+      {
+        icon: <Bot size={16} />,
+        name: 'FastGPT',
+        prompt: 'I want to deploy FastGPT to create a knowledge base chatbot.',
+      },
+      {
+        icon: <Bot size={16} />,
+        name: 'Langfuse',
+        prompt:
+          'I want to deploy Langfuse for LLM observability and monitoring.',
+      },
+    ],
+  },
+  {
+    name: 'Database',
+    icon: <Database size={14} />,
+    prompts: [
+      {
+        icon: <Database size={16} />,
+        name: 'PostgreSQL',
+        prompt: 'I want to create a PostgreSQL database for my application.',
+      },
+      {
+        icon: <Database size={16} />,
+        name: 'MongoDB',
+        prompt: 'I want to deploy MongoDB for document-based data storage.',
+      },
+      {
+        icon: <Database size={16} />,
+        name: 'Redis',
+        prompt: 'I want to set up Redis for caching and session management.',
+      },
+    ],
+  },
+  {
+    name: 'Dev Runtime',
+    icon: <Code size={14} />,
+    prompts: [
+      {
+        icon: <Code size={16} />,
+        name: 'Node.js App',
+        prompt:
+          'I want to deploy a Node.js application with custom runtime environment.',
+      },
+      {
+        icon: <Code size={16} />,
+        name: 'Python App',
+        prompt:
+          'I want to deploy a Python application with required dependencies.',
+      },
+      {
+        icon: <Code size={16} />,
+        name: 'Go App',
+        prompt: 'I want to deploy a Go application with optimized performance.',
+      },
+    ],
+  },
+];
 
 export function PromptInput() {
+  const [promptText, setPromptText] = useState('');
+
+  const handlePromptSelect = (prompt: string) => {
+    setPromptText(prompt);
+  };
+
   return (
     <div className="border-gradient-glass relative flex flex-col rounded-2xl px-3 py-4 inset-shadow-[0_0_8px_0_rgba(255,255,255,0.25)]">
       <Glare className="absolute -top-[4.25rem] -left-[4.25rem] size-36" />
@@ -22,6 +120,8 @@ export function PromptInput() {
           placeholder="Describe what you want to ship. e.g., I want to deploy N8N from app store."
           rows={5}
           className="w-full resize-none border-none bg-transparent shadow-none placeholder:text-zinc-400 focus-visible:ring-0"
+          value={promptText}
+          onChange={(e) => setPromptText(e.target.value)}
         />
 
         <Button
@@ -36,18 +136,29 @@ export function PromptInput() {
         <div className="text-sm text-zinc-500">Some ideas to get started:</div>
 
         <div className="flex gap-2">
-          <span className="flex items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-sm text-zinc-400">
-            <ChevronRight size={14} />
-            <span>AI Agent</span>
-          </span>
-          <span className="flex items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-sm text-zinc-400">
-            <ChevronRight size={14} />
-            <span>Database</span>
-          </span>
-          <span className="flex items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-sm text-zinc-400">
-            <ChevronRight size={14} />
-            <span>Dev Runtime</span>
-          </span>
+          {PROMPT_CATEGORIES.map((category) => (
+            <DropdownMenu key={category.name}>
+              <DropdownMenuTrigger asChild>
+                <button className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-sm text-zinc-400 transition-colors hover:bg-white/[0.1]">
+                  {category.icon}
+                  <span>{category.name}</span>
+                  <ChevronRight size={14} />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-64">
+                {category.prompts.map((prompt) => (
+                  <DropdownMenuItem
+                    key={prompt.name}
+                    onClick={() => handlePromptSelect(prompt.prompt)}
+                    className="cursor-pointer"
+                  >
+                    <span className="mr-2">{prompt.icon}</span>
+                    <span>{prompt.name}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ))}
         </div>
       </div>
     </div>
