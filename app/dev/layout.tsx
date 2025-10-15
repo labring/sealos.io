@@ -66,9 +66,7 @@ export default function LocaleLayout({ children }: { children: ReactNode }) {
 
         <meta name="referrer" content="strict-origin-when-cross-origin" />
       </head>
-      <body className="flex min-h-screen flex-col overflow-x-hidden">
-        {children}
-      </body>
+      <body className="min-h-screen overflow-x-hidden">{children}</body>
     </html>
   );
 }

@@ -7,6 +7,15 @@ export function PromptInput() {
   return (
     <div className="border-gradient-glass relative flex flex-col rounded-2xl px-3 py-4 inset-shadow-[0_0_8px_0_rgba(255,255,255,0.25)]">
       <Glare className="absolute -top-[4.25rem] -left-[4.25rem] size-36" />
+      {/* Not bright enough */}
+      <div
+        className="pointer-events-none absolute inset-0 -top-16 -left-16 -z-5 h-32 w-32"
+        style={{
+          background: `radial-gradient(48px circle, rgba(255,255,255,1), transparent 70%)`,
+          mixBlendMode: 'overlay',
+        }}
+      />
+
       {/* Textarea */}
       <div className="relative rounded-lg bg-white/[0.07]">
         <Textarea

@@ -20,12 +20,15 @@ export default function HomePage({
 
   return (
     <>
-      <div className="sticky top-8 z-50 container">
+      <div className="sticky top-0 z-50 container pt-8">
         <Header />
       </div>
 
-      <main className="container pt-8">
+      <div className="-mt-24">
         <HeroSection />
+      </div>
+
+      <main className="container pt-8">
         <DemoSection />
         <ChoicesSection />
         <ComparisonSection />
