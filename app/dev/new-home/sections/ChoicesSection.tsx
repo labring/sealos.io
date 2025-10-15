@@ -1,5 +1,6 @@
 import { CheckCheck, TriangleAlert } from 'lucide-react';
 import { GradientText } from '../components/GradientText';
+import { FallingTags } from '../components/FallingTags';
 
 export function ChoicesSection() {
   return (
@@ -27,13 +28,13 @@ export function ChoicesSection() {
             </p>
           </div>
           <div className="relative h-96">
-            <span className="absolute bottom-10 left-8 text-lg text-zinc-400">
+            <span className="absolute bottom-10 left-8 z-10 rounded-full px-3 py-0.5 text-lg text-zinc-400 backdrop-blur-lg">
               💥 Something broke...
             </span>
-            <span className="absolute right-8 bottom-10 text-lg text-zinc-400">
+            <span className="absolute right-8 bottom-10 z-10 rounded-full px-3 py-0.5 text-lg text-zinc-400 backdrop-blur-lg">
               ⏰ 3 hours later...
             </span>
-            Image here.
+            <FallingTags />
           </div>
         </div>
 
