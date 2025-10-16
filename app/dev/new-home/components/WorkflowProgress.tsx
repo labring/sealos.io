@@ -166,7 +166,11 @@ interface WorkflowProgressProps {
 }
 
 export const WorkflowProgress = memo(
-  ({ progress, isLastStageActive, onProgressChange }: WorkflowProgressProps) => {
+  ({
+    progress,
+    isLastStageActive,
+    onProgressChange,
+  }: WorkflowProgressProps) => {
     // 跟踪当前激活的阶段索引
     const [activeStageIndex, setActiveStageIndex] = useState<number>(-1);
     const prevActiveIndexRef = useRef<number>(-1);

@@ -58,26 +58,26 @@ export function FallingTags() {
         },
       },
     });
-    
+
     // 添加拖拽阈值，需要移动一定距离才开始拖拽
     let dragStartPos: { x: number; y: number } | null = null;
     let isDragging = false;
     const dragThreshold = 5; // 拖拽阈值（像素）
-    
+
     Matter.Events.on(mouseConstraint, 'startdrag', (event) => {
-      dragStartPos = { 
-        x: mouse.position.x, 
-        y: mouse.position.y 
+      dragStartPos = {
+        x: mouse.position.x,
+        y: mouse.position.y,
       };
       isDragging = false;
     });
-    
+
     Matter.Events.on(mouseConstraint, 'mousemove', () => {
       if (dragStartPos && !isDragging && mouseConstraint.body) {
         const dx = mouse.position.x - dragStartPos.x;
         const dy = mouse.position.y - dragStartPos.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        
+
         // 只有当移动超过阈值时才真正开始拖拽
         if (distance < dragThreshold) {
           mouseConstraint.constraint.stiffness = 0;
@@ -87,13 +87,13 @@ export function FallingTags() {
         }
       }
     });
-    
+
     Matter.Events.on(mouseConstraint, 'enddrag', () => {
       dragStartPos = null;
       isDragging = false;
       mouseConstraint.constraint.stiffness = 0.15;
     });
-    
+
     mouseConstraintRef.current = mouseConstraint;
     Matter.Composite.add(engine.world, mouseConstraint);
 

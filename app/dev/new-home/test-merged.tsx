@@ -1,47 +1,14 @@
-import { languagesType } from '@/lib/i18n';
-import { Header } from './components/Header';
-import { HeroSection } from './sections/HeroSection';
-import { DemoSection } from './sections/DemoSection';
-import { ChoicesSection } from './sections/ChoicesSection';
-import { ComparisonSection } from './sections/ComparisonSection';
-import { SequenceSection } from './sections/SequenceSection';
-import { CapsSection } from './sections/CapsSection';
+'use client';
+
 import SourceAvailSection from './merged-components/SourceAvailSection';
 import FAQSection from './merged-components/FAQSection';
 import Footer from './merged-components/Footer';
 import Image from 'next/image';
 import light4 from './assets/liht4.png';
 
-const translations = {
-  en: {},
-  'zh-cn': {},
-};
-
-export default function HomePage({
-  params,
-}: {
-  params: { lang: languagesType };
-}) {
-  const t = translations[params.lang] || translations.en;
-
+export default function TestMergedPage() {
   return (
-    <>
-      <div className="sticky top-0 z-50 container pt-8">
-        <Header />
-      </div>
-
-      <div className="-mt-24">
-        <HeroSection />
-      </div>
-
-      <main className="container pt-8">
-        <DemoSection />
-        <ChoicesSection />
-        <ComparisonSection />
-        <SequenceSection />
-        <CapsSection />
-      </main>
-
+    <div className="h-full bg-black">
       {/* 第六屏、七屏与页脚 - 整体统一黑色背景 */}
       <div className="bg-black">
         <div
@@ -52,7 +19,7 @@ export default function HomePage({
             paddingRight: '64px',
           }}
         >
-          <SourceAvailSection lang={'en'} />
+          <SourceAvailSection lang="en" />
         </div>
         <FAQSection />
         {/* 第七屏与页脚之间的光照背景 */}
@@ -71,8 +38,8 @@ export default function HomePage({
           {/* 间距容器，确保光照有展示空间 */}
           <div className="h-[330px]"></div>
         </div>
-        <Footer lang={'en'} />
+        <Footer lang="en" />
       </div>
-    </>
+    </div>
   );
 }

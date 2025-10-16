@@ -13,13 +13,7 @@ export function FramedText({ children }: { children?: React.ReactNode }) {
       >
         <defs>
           {/* 定义渐变色 - 从 white 到 blue-600 */}
-          <linearGradient
-            id={gradientId}
-            x1="0%"
-            y1="0%"
-            x2="100%"
-            y2="0%"
-          >
+          <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="white" />
             <stop offset="100%" stopColor="#2563eb" />
           </linearGradient>

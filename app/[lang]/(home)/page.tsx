@@ -27,7 +27,6 @@ const Desktop = dynamic(() => import('./components/desktop'), {
   ssr: false,
 });
 
-
 const WorkflowShowcase = dynamic(
   () => import('./components/workflow-showcase'),
   {
@@ -131,11 +130,14 @@ export default function HomePage({
         <FAQSection />
         {/* 第七屏与页脚之间的光照背景 */}
         <div className="relative mt-[140px] bg-black">
-          <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 w-screen z-10" style={{ top: '-140px' }}>
+          <div
+            className="pointer-events-none absolute left-1/2 z-10 w-screen -translate-x-1/2"
+            style={{ top: '-140px' }}
+          >
             <img
               src="/images/liht4.png"
               alt=""
-              className="w-full h-auto select-none"
+              className="h-auto w-full select-none"
             />
           </div>
           {/* 间距容器，确保光照有展示空间 */}

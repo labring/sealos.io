@@ -7,7 +7,11 @@ export function AiAgentCard() {
     <div className="relative flex h-full w-full justify-center overflow-hidden">
       {/* AI Agent 图片 - 顶部对齐 */}
       <div className="absolute top-0 flex justify-center">
-        <Image src={AiAgentImage} alt="" className="pointer-events-none h-auto" />
+        <Image
+          src={AiAgentImage}
+          alt=""
+          className="pointer-events-none h-auto"
+        />
       </div>
     </div>
   );

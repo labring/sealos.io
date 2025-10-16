@@ -10,26 +10,50 @@
   width: 100%;
   overflow: hidden;
   padding: 0 64px; /* keep page margins 64px */
-  min-height: calc((100vw - 128px) * 0.19493 * 1.262); /* ensure S not clipped */
+  min-height: calc(
+    (100vw - 128px) * 0.19493 * 1.262
+  ); /* ensure S not clipped */
   z-index: 1; /* below the sticky legal bar */
 }
 
-.sealos-letter { flex: 0 0 auto; }
-.sealos-letter svg { display: block; width: 100%; height: auto; }
+.sealos-letter {
+  flex: 0 0 auto;
+}
+.sealos-letter svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
 /* Total base width at 1440 with 64px margins on both sides → available 1312px.
    Sum of letter widths in design at 1440: 1270.181px.
    Each width scales as ratio * (viewportWidth - 128px) so proportions stay constant. */
-.sealos-letter-s       { width: calc((100vw - 128px) * 0.19493); }
-.sealos-letter-e       { width: calc((100vw - 128px) * 0.18040); }
-.sealos-letter-a       { width: calc((100vw - 128px) * 0.18411); }
-.sealos-letter-l       { width: calc((100vw - 128px) * 0.08594); }
-.sealos-letter-o       { width: calc((100vw - 128px) * 0.18411); }
-.sealos-letter-last-s  { width: calc((100vw - 128px) * 0.17050); }
+.sealos-letter-s {
+  width: calc((100vw - 128px) * 0.19493);
+}
+.sealos-letter-e {
+  width: calc((100vw - 128px) * 0.1804);
+}
+.sealos-letter-a {
+  width: calc((100vw - 128px) * 0.18411);
+}
+.sealos-letter-l {
+  width: calc((100vw - 128px) * 0.08594);
+}
+.sealos-letter-o {
+  width: calc((100vw - 128px) * 0.18411);
+}
+.sealos-letter-last-s {
+  width: calc((100vw - 128px) * 0.1705);
+}
 
 /* Sticky behavior for the legal/social bar over the big letters */
-.sealos-sticky-wrapper { position: relative; }
-.sealos-sticky-wrapper { --sealosCoverH: 0px; }
+.sealos-sticky-wrapper {
+  position: relative;
+}
+.sealos-sticky-wrapper {
+  --sealosCoverH: 0px;
+}
 .sealos-top-mask {
   position: sticky;
   top: 0;
@@ -50,7 +74,7 @@
 
 /* Create a top-to-bottom clipping window effect: a solid black overlay that grows from top */
 .sealos-sticky-wrapper::before {
-  content: "";
+  content: '';
   position: sticky;
   top: 0;
   left: 0;
@@ -325,10 +349,21 @@
   }
 
   /* Why Source Available Matters responsive */
-  .wsam-left { width: 432px; }
-  .wsam-wrapper { display: flex; justify-content: space-between; align-items: flex-start; height: 612px; width: 100%; }
-  .wsam-right { width: 704px; height: 612px; }
-  
+  .wsam-left {
+    width: 432px;
+  }
+  .wsam-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 612px;
+    width: 100%;
+  }
+  .wsam-right {
+    width: 704px;
+    height: 612px;
+  }
+
   /* Feature component styles */
   .feature-container {
     display: flex;
@@ -338,11 +373,11 @@
     gap: 48px;
     flex-shrink: 0;
   }
-  
+
   .feature-title {
     width: 166px;
     flex-shrink: 0;
-    color: var(--tailwind-colors-zinc-200, #E4E4E7);
+    color: var(--tailwind-colors-zinc-200, #e4e4e7);
     font-family: 'Geist', sans-serif;
     font-size: 17.545px;
     font-style: normal;
@@ -350,11 +385,11 @@
     line-height: 25.065px;
     margin: 0;
   }
-  
+
   .feature-description {
     width: 166px;
     height: 80px;
-    color: var(--tailwind-colors-zinc-400, #A1A1AA);
+    color: var(--tailwind-colors-zinc-400, #a1a1aa);
     font-family: var(--typography-font-family-font-sans, Geist);
     font-weight: 400;
     font-style: normal;
@@ -368,16 +403,16 @@
 
   /* Mobile responsive - 当屏幕≤1024px时，让左右两部分都占满宽度 */
   @media (max-width: 1024px) {
-    .wsam-left { 
-      width: 100%; 
+    .wsam-left {
+      width: 100%;
       max-width: 100%;
     }
-    .wsam-right { 
-      width: 100%; 
+    .wsam-right {
+      width: 100%;
       max-width: 100%;
     }
   }
-  
+
   /* 当屏幕<1024px时，三个模块变为左右布局（水平排列） */
   @media (max-width: 1023px) {
     .wsam-left .space-y-0 {
@@ -386,92 +421,107 @@
       gap: 80px;
       justify-content: flex-start;
     }
-    
+
     .wsam-left .mb-12 {
       margin-bottom: 0;
       flex: 1;
     }
-    
+
     .feature-container {
       flex-direction: column;
       height: auto;
       gap: 12px;
       text-align: left;
     }
-    
+
     .feature-title {
       width: 100%;
       text-align: left;
     }
-    
+
     .feature-description {
       width: 100%;
       height: auto;
       text-align: left;
     }
   }
-  .wsam-grid { padding-top: 62.7px; padding-left: 56px; padding-right: 56px; padding-bottom: 32px; }
-  
+  .wsam-grid {
+    padding-top: 62.7px;
+    padding-left: 56px;
+    padding-right: 56px;
+    padding-bottom: 32px;
+  }
+
   /* Individual testimonial positioning - 宽度为所在小矩形的0.7倍 */
   /* 左上和左下人物框: 小矩形宽度 = 50% - 0% = 50% */
-  .wsam-testimonial-1, .wsam-testimonial-3 {
+  .wsam-testimonial-1,
+  .wsam-testimonial-3 {
     width: calc(50% * 0.7);
   }
-  
+
   /* 右上和右下人物框: 小矩形宽度 = 100% - 50% = 50% */
-  .wsam-testimonial-2, .wsam-testimonial-4 {
+  .wsam-testimonial-2,
+  .wsam-testimonial-4 {
     width: calc(50% * 0.7);
   }
-  
+
   /* Dynamic positioning formula for testimonials - 使用动态宽度 */
   /* 左上人物框: 在矩形左线框(0)到中间竖线(50%)之间居中 */
   .wsam-testimonial-1 {
     left: calc((50% - calc(50% * 0.7)) / 2);
   }
-  
+
   /* 右上人物框: 在矩形上线框(0%)与水平分割线(63.398%)之间居中 */
   .wsam-testimonial-2 {
     left: calc(50% + (50% - calc(50% * 0.7)) / 2);
     top: calc((63.398% - 0%) / 2);
     transform: translateY(-50%);
   }
-  
+
   /* 左下人物框: 左右position与左上相同，上下在矩形下线框(100%)与水平分割线(45.588%)之间居中 */
   .wsam-testimonial-3 {
     left: calc((50% - calc(50% * 0.7)) / 2);
     top: calc(45.588% + (100% - 45.588%) / 2);
     transform: translateY(-50%);
   }
-  
+
   /* 右下人物框: 在水平分割线(63.398%)与矩形下线框(100%)之间居中 */
   .wsam-testimonial-4 {
     left: calc(50% + (50% - calc(50% * 0.7)) / 2);
     top: calc(63.398% + (100% - 63.398%) / 2);
     transform: translateY(-50%);
   }
-  
+
   @media (min-width: 1440px) {
     /* scale proportionally from sample */
-    .wsam-right { width: 790.3804931640625px; }
+    .wsam-right {
+      width: 790.3804931640625px;
+    }
   }
   @media (min-width: 1536px) {
-    .wsam-right { width: 844px; }
+    .wsam-right {
+      width: 844px;
+    }
   }
   @media (min-width: 1920px) {
-    .wsam-right { width: 1055px; }
+    .wsam-right {
+      width: 1055px;
+    }
   }
   @media (max-width: 1280px) and (min-width: 1024px) {
-    .wsam-right { width: 704px; }
+    .wsam-right {
+      width: 704px;
+    }
   }
   @media (max-width: 1024px) {
-    .wsam-wrapper { 
-      flex-direction: column; 
-      height: auto; 
+    .wsam-wrapper {
+      flex-direction: column;
+      height: auto;
       align-items: center;
     }
-    .wsam-right { 
-      height: 612px; 
-      margin-top: 32px; 
+    .wsam-right {
+      height: 612px;
+      margin-top: 32px;
     }
   }
 }
@@ -499,9 +549,11 @@
   align-items: center;
   gap: 8px;
   border-radius: 54px;
-  border: 1px solid #FFF;
-  background: linear-gradient(191.74deg, #FFFFFF 8.86%, #CECECE 91.87%);
-  box-shadow: 0px 4px 6px -2px rgba(255, 255, 255, 0.05), 0px 10px 15px -3px rgba(255, 255, 255, 0.16);
+  border: 1px solid #fff;
+  background: linear-gradient(191.74deg, #ffffff 8.86%, #cecece 91.87%);
+  box-shadow:
+    0px 4px 6px -2px rgba(255, 255, 255, 0.05),
+    0px 10px 15px -3px rgba(255, 255, 255, 0.16);
 }
 
 .footer-button-text {
@@ -512,7 +564,7 @@
   line-height: 20px;
   letter-spacing: 0%;
   vertical-align: middle;
-  color: #18181B;
+  color: #18181b;
 }
 
 .footer-button-arrow {
@@ -522,7 +574,7 @@
 
 /* Footer Title Gradient */
 .footer-title-gradient {
-  background: linear-gradient(90deg, #FFF 0%, #146DFF 100%);
+  background: linear-gradient(90deg, #fff 0%, #146dff 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -557,7 +609,11 @@
   font-family: 'Geist', sans-serif;
   font-size: clamp(120px, 15vw, 280px);
   font-weight: 900;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) -13.59%, rgba(153, 153, 153, 0) 94.84%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.4) -13.59%,
+    rgba(153, 153, 153, 0) 94.84%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -571,11 +627,11 @@
   .footer-title h2 {
     white-space: nowrap;
   }
-  
+
   .footer-title h2 div:first-child {
     white-space: nowrap;
   }
-  
+
   .footer-title h2 div:last-child {
     white-space: nowrap;
   }
@@ -605,7 +661,7 @@
 }
 
 .faq-title {
-  color: #FFF;
+  color: #fff;
   font-family: 'Geist', sans-serif;
   font-size: 36px;
   font-weight: 500;
@@ -619,14 +675,14 @@
   font-style: normal;
   font-weight: 500;
   line-height: 150%; /* 54px */
-  background: linear-gradient(90deg, #FFF 0%, #146DFF 100%);
+  background: linear-gradient(90deg, #fff 0%, #146dff 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .faq-description {
-  color: var(--tailwind-colors-zinc-400, #A1A1AA);
+  color: var(--tailwind-colors-zinc-400, #a1a1aa);
   font-family: var(--typography-font-family-font-sans, 'Geist');
   font-weight: var(--font-weight-normal, 400);
   font-style: normal;
@@ -656,7 +712,7 @@
   width: 100%;
   background: none;
   border: none;
-  color: #FFF;
+  color: #fff;
   font-family: 'Geist', sans-serif;
   font-size: 18px;
   font-weight: 500;
@@ -672,14 +728,14 @@
 }
 
 .faq-question:hover {
-  color: #E4E4E7;
-  background-color: rgba(113,113,122,0.3); /* zinc-500 with opacity */
+  color: #e4e4e7;
+  background-color: rgba(113, 113, 122, 0.3); /* zinc-500 with opacity */
 }
 
 .faq-question-text {
   flex: 1;
   margin-right: 16px;
-  color: #FFF;
+  color: #fff;
   font-family: 'Geist', sans-serif;
   font-size: 18px;
   font-style: normal;
@@ -688,18 +744,18 @@
 }
 
 .faq-icon {
-  color: #A1A1AA;
+  color: #a1a1aa;
   font-size: 16px;
   font-weight: bold;
   transition: transform 0.2s ease;
 }
 
-.faq-question[aria-expanded="true"] .faq-icon {
+.faq-question[aria-expanded='true'] .faq-icon {
   transform: rotate(180deg);
 }
 
 .faq-answer {
-  color: #52525B;
+  color: #52525b;
   font-family: 'Geist', sans-serif;
   font-size: 14px;
   font-style: normal;
@@ -722,11 +778,11 @@
     padding-left: 32px;
     padding-right: 32px;
   }
-  
+
   .faq-title {
     font-size: 28px;
   }
-  
+
   .faq-title-highlight {
     font-size: 28px;
   }
@@ -738,31 +794,31 @@
     align-items: flex-start;
     gap: 48px;
   }
-  
+
   .faq-right {
     max-width: 100%;
     width: 100%;
   }
-  
+
   .faq-title {
     font-size: 24px;
   }
-  
+
   .faq-title-highlight {
     font-size: 24px;
   }
-  
+
   .faq-description {
     font-size: 16px;
     line-height: 24px;
     max-width: 100%;
   }
-  
+
   .faq-question {
     font-size: 16px;
     line-height: 24px;
   }
-  
+
   .faq-answer {
     font-size: 14px;
     line-height: 20px;

@@ -1,26 +1,32 @@
 'use client';
 
 import Image from 'next/image';
-import HeroSection from '@/components/ui/hero-section';
-import StatsCards from '@/components/ui/stats-cards';
-import WhySourceAvailableMatters from '@/components/ui/why-source-available-matters';
+import OSSSection from './OSSSection';
+import StatsCards from './StatsCards';
+import WhySourceAvailableMatters from './WhySourceAvailableMatters';
+import light1 from '../assets/light1.png';
+import light2 from '../assets/light2.png';
+import light3 from '../assets/light3.png';
 
-interface SixthScreenProps {
+interface SourceAvailSectionProps {
   lang?: string;
 }
 
-export default function SixthScreen({ lang = 'en' }: SixthScreenProps) {
+export default function SourceAvailSection({
+  lang = 'en',
+}: SourceAvailSectionProps) {
   return (
-    <div className="relative">
+    <div className="relative container">
       {/* Background Light Image */}
       <div
         className="pointer-events-none absolute left-1/2 z-50 w-screen -translate-x-1/2"
         style={{ top: '-114px' }}
       >
-        <img
-          src="/images/light1.png"
+        <Image
+          src={light1}
           alt=""
           className="h-auto w-full select-none"
+          priority
         />
       </div>
       {/* Tertiary Background Light Image (same as light1) */}
@@ -28,10 +34,11 @@ export default function SixthScreen({ lang = 'en' }: SixthScreenProps) {
         className="pointer-events-none absolute left-1/2 z-50 w-screen -translate-x-1/2"
         style={{ top: '-114px' }}
       >
-        <img
-          src="/images/light3.png"
+        <Image
+          src={light3}
           alt=""
           className="h-auto w-full select-none"
+          priority
         />
       </div>
       {/* Secondary Background Light Image */}
@@ -39,15 +46,16 @@ export default function SixthScreen({ lang = 'en' }: SixthScreenProps) {
         className="pointer-events-none absolute right-0 z-40 w-[50vw]"
         style={{ top: '-114px' }}
       >
-        <img
-          src="/images/light2.png"
+        <Image
+          src={light2}
           alt=""
           className="h-auto w-full select-none"
+          priority
         />
       </div>
       {/* Hero Section */}
       <div className="relative z-30">
-        <HeroSection lang={lang} />
+        <OSSSection lang={lang} />
       </div>
 
       {/* Stats Cards Section (80px gap from hero) */}
