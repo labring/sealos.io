@@ -3,6 +3,8 @@ import Trusted from './components/trusted';
 import WhyChooseUs from './components/why-choose-us';
 import ProblemsAndSolutions from './components/problems-solutions';
 import HeroBenefits from './components/hero-benefits';
+import SixthScreen from './components/sixth-screen';
+import FAQSection from '@/components/ui/faq-section';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import Hero from '@/components/header/hero';
@@ -25,9 +27,6 @@ const Desktop = dynamic(() => import('./components/desktop'), {
   ssr: false,
 });
 
-const FAQ = dynamic(() => import('./components/faq'), {
-  loading: () => <div className="min-h-[400px]" />,
-});
 
 const WorkflowShowcase = dynamic(
   () => import('./components/workflow-showcase'),
@@ -78,7 +77,7 @@ export default function HomePage({
       <Header lang={params.lang} />
       <ScrollProgressWrapper />
 
-      <main className="custom-container px-8 pt-14 pb-20 md:px-[15%]">
+      <main className="custom-container px-4 pt-14 pb-20 md:px-[5%]">
         <Hero
           title={t.title}
           mainTitleEmphasis={2}
@@ -96,36 +95,40 @@ export default function HomePage({
       </main>
 
       <div className="space-y-20">
-        <div className="custom-container px-8 md:px-[15%]">
+        <div className="custom-container px-4 md:px-[5%]">
           <ProblemsAndSolutions lang={params.lang} />
         </div>
 
-        <div className="custom-container px-8 md:px-[15%]">
+        <div className="custom-container px-4 md:px-[5%]">
           <DevBoxShowcase lang={params.lang} />
         </div>
 
-        <div className="custom-container px-8 md:px-[15%]">
+        <div className="custom-container px-4 md:px-[5%]">
           <Trusted lang={params.lang} />
         </div>
 
-        <div className="custom-container px-8 md:px-[15%]">
+        <div className="custom-container px-4 md:px-[5%]">
           <WorkflowShowcase lang={params.lang} />
         </div>
 
-        <div className="custom-container px-8 md:px-[15%]">
+        <div className="custom-container px-4 md:px-[5%]">
           <WhyChooseUs lang={params.lang} />
         </div>
 
-        <div className="custom-container px-8 md:px-[15%]">
-          <FAQ lang={params.lang} />
-        </div>
-
-        <div className="custom-container px-8 md:px-[15%]">
+        <div className="custom-container px-4 md:px-[5%]">
           <CallToActionSection
             title="Develop, Build, Deploy, and Scale Without Limits"
             buttonText="Get Started"
           />
         </div>
+      </div>
+
+      {/* 第六屏和第七屏 - 统一黑色背景 */}
+      <div className="bg-black">
+        <div className="site-shell">
+          <SixthScreen lang={params.lang} />
+        </div>
+        <FAQSection />
       </div>
 
       <div className="mt-[140px] h-[1px] bg-[#DDE7F7]"></div>
