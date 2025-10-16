@@ -129,8 +129,8 @@ export default function HomePage({
           <SixthScreen lang={params.lang} />
         </div>
         <FAQSection />
-        {/* 取消浅色分隔线，保持纯黑过渡 */}
-        <div className="mt-[140px] h-[1px] bg-black"></div>
+        {/* 黑色间距占位，保持与光照效果的预留距离 */}
+        <div className="mt-[140px] h-[330px] bg-black"></div>
         <Footer lang={params.lang} />
       </div>
       <TailwindIndicator />
