@@ -652,11 +652,12 @@
 
 .faq-item {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 24px 0;
+  padding: 0; /* move vertical padding to button so hover background covers full height */
 }
 
-.faq-item:last-child {
-  border-bottom: none;
+/* add top divider for first item, keep bottom divider for last item */
+.faq-item:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .faq-question {
@@ -673,7 +674,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 12px; /* constant padding to avoid height change on hover */
+  padding: 24px 12px; /* take over vertical spacing from .faq-item so bg spans full block */
   border-radius: 8px; /* constant radius */
   transition: color 0.2s ease;
 }
