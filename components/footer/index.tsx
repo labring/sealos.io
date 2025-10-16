@@ -279,39 +279,7 @@ const Footer = async ({
 
   return (
     <div className="relative w-full bg-black pt-0">
-      {/* Glow light effect overlapping with bottom of seventh screen (kept behind letters) */}
-      <div
-        className="pointer-events-none absolute"
-        style={{
-          left: '26.78px',
-          top: '-260px',
-          width: '1485.289px',
-          height: '804.603px',
-          opacity: 1,
-          transform: 'rotate(-180deg)',
-          zIndex: 0,
-          background: 'linear-gradient(357.43deg, rgba(217, 217, 217, 0.1) 8.78%, rgba(217, 217, 217, 0) 71.74%)',
-          backdropFilter: 'blur(30px)'
-        }}
-        aria-hidden
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="1440" height="631" viewBox="0 0 1440 631" fill="none" style={{ filter: 'blur(15px)' }}>
-          <g filter="url(#filter0_f_565_14670)">
-            <path d="M1458.56 23.9094C1457.61 20.2426 1433.57 -88.8287 1421.67 -116.329L1407.4 -116.329L1408.59 136.879L1408.59 450.869L1371.7 -58.592L1301.6 -24.9803L1306.58 198.009L1321.98 522.948L1312.21 450.869L1306.58 198.009L1294.72 -52.1297L1249.15 -44.8417L1249.15 500.795L1208.7 -52.4807L1181.33 510.725L1173 -39.4944L1135.58 536.987L1147.95 -39.4944L1095.67 8.72202L1095.67 522.948L1080.2 -52.4807L1054.02 -24.9802L1075.92 433.356L1025.31 -6.64662L1005.38 379.113L962.408 -18.1051L962.409 600.604L950.893 -8.93831L881.649 -18.1051L861.984 335.271L861.984 499.783L847.585 -84.2851C844.096 -84.1973 840.625 -84.1168 837.172 -84.0438L827.833 -52.1296L818.442 433.356L818.442 536.987L772.909 -83.5718C763.618 -83.6087 754.213 -83.673 744.71 -83.763L705.174 161.736L705.174 450.869L693.512 559.124L668.401 -18.1051L656.502 -8.93828L624.503 463.148L616.545 -86.2538C606.478 -86.5354 596.38 -86.8355 586.265 -87.1523L528.095 -6.64658L500.763 536.987L500.763 -24.9802L481.189 -57.2071L435.169 244.459L416.534 500.795L443.002 -57.7447L421.163 -93.5819C400.447 -94.5282 380.026 -95.5078 360.041 -96.5052L312.635 557.076L302.624 433.356L288.354 -100.247C276.824 -100.874 265.526 -101.501 254.493 -102.124L175.02 -39.4943L70.9761 557.076L105.231 335.271L134.171 -44.8416L26.7835 291.107L26.7835 244.459L29.6382 -116.329C29.6382 -116.329 123.253 -109.53 254.493 -102.124L287.606 -128.219L288.354 -100.247C311.409 -98.9924 335.393 -97.7353 360.041 -96.5052L366.353 -183.524L421.163 -93.5819C475.033 -91.1212 530.897 -88.8861 586.265 -87.1523L615.937 -128.219L616.545 -86.2538C660.282 -85.0301 703.419 -84.154 744.71 -83.763L764.073 -203.999L772.909 -83.5718C779.049 -83.5474 785.139 -83.535 791.176 -83.535C806.052 -83.535 821.416 -83.7109 837.172 -84.0438L846.781 -116.879L847.585 -84.2851C1123.93 -91.2411 1512.07 -144.231 1512.07 -144.231L1475.05 23.9094L1458.56 23.9094Z" fill="url(#paint0_linear_565_14670)" fillOpacity="0.1"/>
-          </g>
-          <defs>
-            <filter id="filter0_f_565_14670" x="-3.21646" y="-233.998" width="1545.29" height="864.602" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-              <feFlood floodOpacity="0" result="BackgroundImageFix"/>
-              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-              <feGaussianBlur stdDeviation="15" result="effect1_foregroundBlur_565_14670"/>
-            </filter>
-            <linearGradient id="paint0_linear_565_14670" x1="688.677" y1="-146.261" x2="701.536" y2="382.761" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#D9D9D9"/>
-              <stop offset="1" stopColor="#D9D9D9" stopOpacity="0"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
+      {/* Removed previous inline SVG glow */}
       <div className="relative z-10 flex flex-col items-start justify-between px-16 text-sm lg:flex-row">
         <div className="flex w-full flex-col items-center lg:items-start">
           <h2 className="footer-title text-[32px] font-medium leading-[48px] mb-4 font-['Geist']">

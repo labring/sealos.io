@@ -129,8 +129,18 @@ export default function HomePage({
           <SixthScreen lang={params.lang} />
         </div>
         <FAQSection />
-        {/* 黑色间距占位，保持与光照效果的预留距离 */}
-        <div className="mt-[140px] h-[330px] bg-black"></div>
+        {/* 第七屏与页脚之间的光照背景 */}
+        <div className="relative mt-[140px] bg-black">
+          <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 w-screen z-10" style={{ top: '-140px' }}>
+            <img
+              src="/images/liht4.png"
+              alt=""
+              className="w-full h-auto select-none"
+            />
+          </div>
+          {/* 间距容器，确保光照有展示空间 */}
+          <div className="h-[330px]"></div>
+        </div>
         <Footer lang={params.lang} />
       </div>
       <TailwindIndicator />
