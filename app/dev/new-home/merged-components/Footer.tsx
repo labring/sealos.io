@@ -241,7 +241,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
   const footerLinks = getFooterLinks(lang);
 
   return (
-    <div className="relative w-full bg-black pt-0">
+    <div className="relative w-full pt-0">
       <div className="relative z-10 container flex items-start justify-between px-16 text-sm">
         <div className="flex w-full flex-col items-start">
           <h2 className="mb-4 text-[32px] leading-[48px] font-medium">

@@ -100,7 +100,7 @@ export default function WhySourceAvailableMatters() {
   ];
 
   return (
-    <div className="mt-[104px] bg-black pt-0 pb-20">
+    <div className="mt-[104px] pt-0 pb-20">
       <div className="w-full px-0">
         {/* Two-column wrapper */}
         <div className="flex h-[612px] w-full items-start justify-between gap-8">
@@ -138,8 +138,8 @@ export default function WhySourceAvailableMatters() {
               }}
             />
             {/* Hide right/bottom borders */}
-            <div className="pointer-events-none absolute top-0 right-0 z-[4] h-full w-px bg-black" />
-            <div className="pointer-events-none absolute bottom-0 left-0 z-[4] h-px w-full bg-black" />
+            <div className="pointer-events-none absolute top-0 right-0 z-[4] h-full w-px" />
+            <div className="pointer-events-none absolute bottom-0 left-0 z-[4] h-px w-full" />
 
             {/* Inner dividers */}
             <div className="absolute top-[45.588%] left-0 z-[2] h-0 w-1/2 border-t border-white/20" />

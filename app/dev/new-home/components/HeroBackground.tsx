@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef, useEffect } from 'react';
 import Image from 'next/image';
 import HeroGrid from './assets/hero-grid.svg';
 import HeroCards from './assets/hero-cards.svg';
@@ -9,6 +10,17 @@ interface HeroBackgroundProps {
 }
 
 export function HeroBackground({ mousePosition }: HeroBackgroundProps) {
+  // 保存最后的鼠标位置，避免在淡出时跳回 (0, 0)
+  const lastPositionRef = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    if (mousePosition) {
+      lastPositionRef.current = mousePosition;
+    }
+  }, [mousePosition]);
+
+  const displayPosition = mousePosition || lastPositionRef.current;
+
   return (
     <>
       {/* 背景网格 - 铺满整个容器 */}
@@ -39,7 +51,7 @@ export function HeroBackground({ mousePosition }: HeroBackgroundProps) {
       <div
         className="pointer-events-none absolute inset-0 -z-8 transition-opacity duration-500 ease-in-out"
         style={{
-          background: `radial-gradient(500px circle at ${mousePosition?.x ?? 0}px ${mousePosition?.y ?? 0}px, transparent, rgba(0,0,0,0.7) 70%)`,
+          background: `radial-gradient(500px circle at ${displayPosition.x}px ${displayPosition.y}px, transparent, rgba(0,0,0,0.7) 70%)`,
           mixBlendMode: 'multiply',
           opacity: mousePosition ? 1 : 0,
         }}
@@ -49,7 +61,7 @@ export function HeroBackground({ mousePosition }: HeroBackgroundProps) {
       <div
         className="pointer-events-none absolute inset-0 -z-5 transition-opacity duration-500 ease-in-out"
         style={{
-          background: `radial-gradient(250px circle at ${mousePosition?.x ?? 0}px ${mousePosition?.y ?? 0}px, rgba(255,255,255,0.8), transparent 70%)`,
+          background: `radial-gradient(250px circle at ${displayPosition.x}px ${displayPosition.y}px, rgba(255,255,255,0.8), transparent 70%)`,
           mixBlendMode: 'overlay',
           opacity: mousePosition ? 1 : 0,
         }}

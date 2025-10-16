@@ -9,6 +9,7 @@ import {
   GradientDatabase,
 } from '../components/GradientIcon';
 import { GradientText } from '../components/GradientText';
+import { GodRays } from '../components/GodRays';
 
 interface CardData {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -65,8 +66,47 @@ const cardsData: CardData[] = [
 
 export function CapsSection() {
   return (
-    <section className="mt-48 mb-32">
-      <div className="flex flex-col gap-8">
+    <section className="relative pt-28 pb-32">
+      {/* 顶部渐变遮罩 - 灰到黑，覆盖整个屏幕宽度 */}
+      <div
+        className="pointer-events-none absolute top-0 -z-5 h-96"
+        style={{
+          left: '50%',
+          right: '50%',
+          marginLeft: '-50vw',
+          marginRight: '-50vw',
+          width: '100vw',
+          background: 'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
+        }}
+      />
+
+      {/* GodRays 效果 */}
+      <GodRays
+        sources={[
+          {
+            x: -0.05,
+            y: -0.1,
+            angle: 70,
+            spread: 115,
+            count: 12,
+            color: '220, 220, 220',
+          },
+          {
+            x: 0.5,
+            y: -0.15,
+            angle: 70,
+            spread: 105,
+            count: 11,
+            color: '225, 225, 225',
+          },
+        ]}
+        speed={0.0018}
+        maxWidth={85}
+        minLength={1000}
+        maxLength={2200}
+        blur={18}
+      />
+      <div className="flex flex-col">
         <h2 className="text-[2.5rem] leading-tight">
           <span>Built for the</span>&nbsp;
           <GradientText>Modern Application.</GradientText>

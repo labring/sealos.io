@@ -22,6 +22,7 @@ import { DevelopmentCard } from '../components/carousel-image/DevelopmentCard';
 import { DeploymentCard } from '../components/carousel-image/DeploymentCard';
 import { DataCard } from '../components/carousel-image/DataCard';
 import { AiAgentCard } from '../components/carousel-image/AiAgentCard';
+import { GodRays } from '../components/GodRays';
 
 export function SequenceSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -184,13 +185,52 @@ export function SequenceSection() {
   };
 
   return (
-    <section ref={containerRef} className="mt-48 mb-32">
-      <div className="flex flex-col gap-8">
-        <h2 className="text-[2.5rem] leading-tight">
+    <section ref={containerRef} className="relative pt-28 pb-32">
+      {/* 顶部渐变遮罩 - 灰到黑，覆盖整个屏幕宽度 */}
+      <div
+        className="pointer-events-none absolute top-0 -z-5 h-96"
+        style={{
+          left: '50%',
+          right: '50%',
+          marginLeft: '-50vw',
+          marginRight: '-50vw',
+          width: '100vw',
+          background: 'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
+        }}
+      />
+
+      {/* GodRays 效果 */}
+      <GodRays
+        sources={[
+          {
+            x: -0.08,
+            y: -0.12,
+            angle: 70,
+            spread: 125,
+            count: 13,
+            color: '220, 220, 220',
+          },
+          {
+            x: 0.5,
+            y: -0.08,
+            angle: 70,
+            spread: 110,
+            count: 12,
+            color: '225, 225, 225',
+          },
+        ]}
+        speed={0.0022}
+        maxWidth={90}
+        minLength={900}
+        maxLength={2100}
+        blur={17}
+      />
+      <div className="flex max-w-2/3 items-center gap-8">
+        <h2 className="w-full text-[2.5rem] leading-tight">
           <span>More Than a Platform. It's</span>&nbsp;
           <GradientText>Your Entire Cloud Workflow, Reimagined.</GradientText>
         </h2>
-        <p className="mt-3 text-zinc-400">
+        <p className="mt-3 w-full text-zinc-400">
           A sequence of modules that appear as the user scrolls.
         </p>
       </div>

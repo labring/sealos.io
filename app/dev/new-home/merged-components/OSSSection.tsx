@@ -29,7 +29,7 @@ export default function OSSSection({ lang = 'en' }: OSSSectionProps) {
   const t = translations[lang as keyof typeof translations] || translations.en;
 
   return (
-    <div className="relative overflow-hidden bg-black">
+    <div className="relative overflow-hidden">
       {/* Main content */}
       <div className="relative z-10 h-[184px] w-full">
         <div className="flex items-start justify-between">

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { PromptInput } from '../components/PromptInput';
 import { HeroBackground } from '../components/HeroBackground';
 import { HeroTitle } from '../components/HeroTitle';
+import { GodRays } from '../components/GodRays';
 import Cursor from '../components/assets/cursor.svg';
 
 export function HeroSection() {
@@ -41,13 +42,40 @@ export function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative overflow-hidden pt-24 pb-32"
+      className="relative pt-36 pb-32"
       style={{
         cursor: `url(${Cursor.src}) 12 12, auto`,
       }}
     >
       {/* 背景组件 */}
       <HeroBackground mousePosition={mousePosition} />
+
+      {/* GodRays 效果 */}
+      <GodRays
+        sources={[
+          {
+            x: -0.1,
+            y: -0.15,
+            angle: 70,
+            spread: 120,
+            count: 16,
+            color: '220, 220, 220',
+          },
+          {
+            x: 0.5,
+            y: -0.2,
+            angle: 70,
+            spread: 110,
+            count: 14,
+            color: '225, 225, 225',
+          },
+        ]}
+        speed={0.002}
+        maxWidth={100}
+        minLength={1200}
+        maxLength={2800}
+        blur={16}
+      />
 
       {/* 左侧内容区域 */}
       <div className="z-10 container">

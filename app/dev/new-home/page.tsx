@@ -42,8 +42,8 @@ export default function HomePage({
         <CapsSection />
       </main>
 
-      {/* 第六屏、七屏与页脚 - 整体统一黑色背景 */}
-      <div className="bg-black">
+      {/* 第六屏、七屏与页脚 */}
+      <div>
         <div
           style={{
             paddingTop: '114px',
@@ -56,7 +56,7 @@ export default function HomePage({
         </div>
         <FAQSection />
         {/* 第七屏与页脚之间的光照背景 */}
-        <div className="relative mt-[140px] bg-black">
+        <div className="relative mt-[140px]">
           <div
             className="pointer-events-none absolute left-1/2 z-10 w-screen -translate-x-1/2"
             style={{ top: '-140px' }}

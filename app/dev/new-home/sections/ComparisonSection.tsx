@@ -8,6 +8,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { GradientCircleCheck } from '../components/GradientIcon';
+import { GodRays } from '../components/GodRays';
 
 // 对比数据类型定义
 interface Platform {
@@ -136,13 +137,52 @@ const comparisonData: ComparisonData = {
 
 export function ComparisonSection() {
   return (
-    <section className="mt-48 mb-32">
-      <div className="flex flex-col gap-8">
-        <h2 className="text-[2.5rem] leading-tight">
+    <section className="relative pt-28 pb-32">
+      {/* 顶部渐变遮罩 - 灰到黑，覆盖整个屏幕宽度 */}
+      <div
+        className="pointer-events-none absolute top-0 -z-5 h-96"
+        style={{
+          left: '50%',
+          right: '50%',
+          marginLeft: '-50vw',
+          marginRight: '-50vw',
+          width: '100vw',
+          background: 'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
+        }}
+      />
+
+      {/* GodRays 效果 */}
+      <GodRays
+        sources={[
+          {
+            x: -0.02,
+            y: -0.18,
+            angle: 70,
+            spread: 118,
+            count: 14,
+            color: '220, 220, 220',
+          },
+          {
+            x: 0.52,
+            y: -0.1,
+            angle: 70,
+            spread: 108,
+            count: 13,
+            color: '225, 225, 225',
+          },
+        ]}
+        speed={0.002}
+        maxWidth={88}
+        minLength={950}
+        maxLength={2300}
+        blur={19}
+      />
+      <div className="flex max-w-2/3 items-center gap-8">
+        <h2 className="w-full text-[2.5rem] leading-tight">
           <span>Other platforms simplify deployment.</span>&nbsp;
           <GradientText>Sealos unifies your entire cloud.</GradientText>
         </h2>
-        <p className="mt-3 text-zinc-400">
+        <p className="mt-3 w-full text-zinc-400">
           Focus on your code, not the underlying complexity. Sealos provides an
           integrated, AI-powered experience from development to production, all
           in one place.
