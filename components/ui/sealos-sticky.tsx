@@ -17,11 +17,14 @@ export default function SealosSticky({ letters, bar }: SealosStickyProps) {
     if (!el || !lettersEl) return;
 
     const update = () => {
-      const rect = el.getBoundingClientRect();
       const lettersHeight = lettersEl.offsetHeight;
-      // amount the wrapper's top has moved past the viewport top
-      const passed = Math.max(0, -rect.top);
-      const cover = Math.min(lettersHeight, passed);
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const viewportH = window.innerHeight || document.documentElement.clientHeight;
+      const docH = document.documentElement.scrollHeight;
+      // 剩余可滚动距离（越靠近底部越小，向上滚动越大）
+      const remaining = docH - (scrollTop + viewportH);
+      // 将剩余距离映射为遮罩高度：从 0 → lettersHeight
+      const cover = Math.max(0, Math.min(lettersHeight, remaining * 0.5));
       el.style.setProperty('--sealosCoverH', `${cover}px`);
     };
 
@@ -37,10 +40,10 @@ export default function SealosSticky({ letters, bar }: SealosStickyProps) {
   return (
     <div ref={wrapperRef} className="sealos-sticky-wrapper">
       <div className="sealos-top-mask" />
+      {bar ? <div className="footer-sticky">{bar}</div> : null}
       <div ref={lettersRef} className="sealos-background-text">
         {letters}
       </div>
-      <div className="footer-sticky">{bar}</div>
     </div>
   );
 }

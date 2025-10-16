@@ -1,9 +1,10 @@
 /* Sealos background word - responsive proportional sizing */
 .sealos-background-text {
-  position: sticky;
-  top: 0; /* stick to top so it gets covered from the top as you scroll */
-  margin-top: 80px;
-  margin-bottom: 20px;
+  position: sticky; /* stick letters */
+  bottom: 0; /* bottom fixed */
+  top: auto;
+  margin-top: 0;
+  margin-bottom: 0;
   display: flex;
   align-items: flex-end; /* bottom-align letters of different heights */
   justify-content: center;
@@ -56,6 +57,7 @@
 }
 .sealos-top-mask {
   position: sticky;
+  /* 将遮罩固定在视口顶部以下，制造“自上而下”覆盖效果 */
   top: 0;
   left: 0;
   right: 0;
@@ -79,10 +81,15 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 0; /* starts at 0, then as we scroll the wrapper, this sticky element stays at top covering content above */
   background: #000;
-  z-index: 2; /* higher than letters, below footer-sticky if needed */
+  z-index: 2;
 }
+
+/* 保持 footer 内容与大字母之间固定的黑色间距，避免随遮罩或 sticky 抖动 */
+/* .sealos-gap removed */
+
+/* Create a top-to-bottom clipping window effect: a solid black overlay that grows from top */
+.sealos-sticky-wrapper::before { content: none; }
 @import 'tailwindcss' layer(base);
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
@@ -576,9 +583,10 @@
 
 /* Sealos Background Text */
 .sealos-background-text {
-  position: relative;
-  margin-top: 80px;
-  margin-bottom: 20px;
+  position: sticky;
+  bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;

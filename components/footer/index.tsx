@@ -467,7 +467,6 @@ const Footer = async ({
         </div>
           </>
         }
-        bar={null}
       />
       </div>
     </div>
