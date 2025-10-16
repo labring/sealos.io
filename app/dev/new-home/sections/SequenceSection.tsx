@@ -96,9 +96,8 @@ export function SequenceSection() {
   const lastStageStartProgress = getLastStageStartProgress();
 
   useEffect(() => {
-    // 10秒从0到1的循环动画
     const controls = animate(mockProgress, 1, {
-      duration: 10,
+      duration: 30,
       ease: 'linear',
       repeat: Infinity,
       repeatType: 'loop',
@@ -163,14 +162,14 @@ export function SequenceSection() {
 
     // 先播放到 1
     const controls = animate(mockProgress, 1, {
-      duration: 10 * (1 - targetProgress), // 根据剩余进度调整时间
+      duration: 30 * (1 - targetProgress), // 根据剩余进度调整时间
       ease: 'linear',
       onComplete: () => {
         // 播放完成后，如果是手动触发的，从头开始循环播放
         if (isManualControlRef.current) {
           mockProgress.set(0);
           const loopControls = animate(mockProgress, 1, {
-            duration: 10,
+            duration: 30,
             ease: 'linear',
             repeat: Infinity,
             repeatType: 'loop',

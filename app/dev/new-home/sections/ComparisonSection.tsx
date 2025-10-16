@@ -2,12 +2,12 @@ import { ReactNode } from 'react';
 import { GradientText } from '../components/GradientText';
 import { Circle, CircleHelp, CodeXml, GitCompare, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { GradientCircleCheck } from '../components/GradientCircleCheck';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { GradientCircleCheck } from '../components/GradientIcon';
 
 // 对比数据类型定义
 interface Platform {
