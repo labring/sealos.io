@@ -85,7 +85,7 @@ Sealos 需要使用证书来保证通信安全，默认在您不提供证书的�
 安装命令：
 ```bash
 curl -sfL https://raw.githubusercontent.com/labring/sealos/refs/heads/main/scripts/cloud/install-v2.sh | \
-  SEALOS_V2_CLOUD_VERSION=latest SEALOS_V2_PROXY=true bash -
+  SEALOS_V2_CLOUD_VERSION=latest SEALOS_V2_PROXY=true SEALOS_V2_CLOUD_DOMAIN=<your_domain> bash -
 ```
 
 输入域名时，格式为 `[ip].nip.io`，其中 `[ip]` 为 Master 节点 IP。

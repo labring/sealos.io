@@ -1,3 +1,64 @@
+/* Sealos background word - responsive proportional sizing */
+.sealos-background-text {
+  position: sticky;
+  top: 0; /* stick to top so it gets covered from the top as you scroll */
+  margin-top: 80px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-end; /* bottom-align letters of different heights */
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  padding: 0 64px; /* keep page margins 64px */
+  min-height: calc((100vw - 128px) * 0.19493 * 1.262); /* ensure S not clipped */
+  z-index: 1; /* below the sticky legal bar */
+}
+
+.sealos-letter { flex: 0 0 auto; }
+.sealos-letter svg { display: block; width: 100%; height: auto; }
+
+/* Total base width at 1440 with 64px margins on both sides → available 1312px.
+   Sum of letter widths in design at 1440: 1270.181px.
+   Each width scales as ratio * (viewportWidth - 128px) so proportions stay constant. */
+.sealos-letter-s       { width: calc((100vw - 128px) * 0.19493); }
+.sealos-letter-e       { width: calc((100vw - 128px) * 0.18040); }
+.sealos-letter-a       { width: calc((100vw - 128px) * 0.18411); }
+.sealos-letter-l       { width: calc((100vw - 128px) * 0.08594); }
+.sealos-letter-o       { width: calc((100vw - 128px) * 0.18411); }
+.sealos-letter-last-s  { width: calc((100vw - 128px) * 0.17050); }
+
+/* Sticky behavior for the legal/social bar over the big letters */
+.sealos-sticky-wrapper { position: relative; }
+.sealos-sticky-wrapper { --sealosCoverH: 0px; }
+.sealos-top-mask {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--sealosCoverH);
+  background: #000;
+  z-index: 2;
+}
+.footer-sticky {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #000; /* ensure pure black while sticky so letters are not visible behind */
+  z-index: 2; /* above letters */
+}
+
+/* Create a top-to-bottom clipping window effect: a solid black overlay that grows from top */
+.sealos-sticky-wrapper::before {
+  content: "";
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0; /* starts at 0, then as we scroll the wrapper, this sticky element stays at top covering content above */
+  background: #000;
+  z-index: 2; /* higher than letters, below footer-sticky if needed */
+}
 @import 'tailwindcss' layer(base);
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
@@ -228,13 +289,491 @@
     padding-right: 16px;
   }
 
+  /* Remove default padding to allow Tailwind classes to take effect */
+  .custom-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   /* Ensure containers don't cause horizontal overflow on small screens */
   @media (max-width: 640px) {
     .custom-container,
     .custom-container-header {
-      padding-left: 12px;
-      padding-right: 12px;
+      padding-left: 0;
+      padding-right: 0;
     }
+  }
+
+  /* Global page spacing: top 114px, horizontal responsive, bottom 0 */
+  .site-shell {
+    padding-top: 114px;
+    padding-bottom: 0;
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+  @media (max-width: 1280px) {
+    .site-shell {
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+  }
+  @media (max-width: 1024px) {
+    .site-shell {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+  }
+
+  /* Why Source Available Matters responsive */
+  .wsam-left { width: 432px; }
+  .wsam-wrapper { display: flex; justify-content: space-between; align-items: flex-start; height: 612px; width: 100%; }
+  .wsam-right { width: 704px; height: 612px; }
+  
+  /* Feature component styles */
+  .feature-container {
+    display: flex;
+    width: 100%;
+    height: 80px;
+    align-items: flex-start;
+    gap: 48px;
+    flex-shrink: 0;
+  }
+  
+  .feature-title {
+    width: 166px;
+    flex-shrink: 0;
+    color: var(--tailwind-colors-zinc-200, #E4E4E7);
+    font-family: 'Geist', sans-serif;
+    font-size: 17.545px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 25.065px;
+    margin: 0;
+  }
+  
+  .feature-description {
+    width: 166px;
+    height: 80px;
+    color: var(--tailwind-colors-zinc-400, #A1A1AA);
+    font-family: var(--typography-font-family-font-sans, Geist);
+    font-weight: 400;
+    font-style: normal;
+    font-size: var(--typography-base-sizes-small-font-size, 14px);
+    line-height: var(--typography-base-sizes-small-line-height, 20px);
+    letter-spacing: 0%;
+    display: block;
+    flex: none;
+    margin: 0;
+  }
+
+  /* Mobile responsive - 当屏幕≤1024px时，让左右两部分都占满宽度 */
+  @media (max-width: 1024px) {
+    .wsam-left { 
+      width: 100%; 
+      max-width: 100%;
+    }
+    .wsam-right { 
+      width: 100%; 
+      max-width: 100%;
+    }
+  }
+  
+  /* 当屏幕<1024px时，三个模块变为左右布局（水平排列） */
+  @media (max-width: 1023px) {
+    .wsam-left .space-y-0 {
+      display: flex;
+      flex-direction: row;
+      gap: 80px;
+      justify-content: flex-start;
+    }
+    
+    .wsam-left .mb-12 {
+      margin-bottom: 0;
+      flex: 1;
+    }
+    
+    .feature-container {
+      flex-direction: column;
+      height: auto;
+      gap: 12px;
+      text-align: left;
+    }
+    
+    .feature-title {
+      width: 100%;
+      text-align: left;
+    }
+    
+    .feature-description {
+      width: 100%;
+      height: auto;
+      text-align: left;
+    }
+  }
+  .wsam-grid { padding-top: 62.7px; padding-left: 56px; padding-right: 56px; padding-bottom: 32px; }
+  
+  /* Individual testimonial positioning - 宽度为所在小矩形的0.7倍 */
+  /* 左上和左下人物框: 小矩形宽度 = 50% - 0% = 50% */
+  .wsam-testimonial-1, .wsam-testimonial-3 {
+    width: calc(50% * 0.7);
+  }
+  
+  /* 右上和右下人物框: 小矩形宽度 = 100% - 50% = 50% */
+  .wsam-testimonial-2, .wsam-testimonial-4 {
+    width: calc(50% * 0.7);
+  }
+  
+  /* Dynamic positioning formula for testimonials - 使用动态宽度 */
+  /* 左上人物框: 在矩形左线框(0)到中间竖线(50%)之间居中 */
+  .wsam-testimonial-1 {
+    left: calc((50% - calc(50% * 0.7)) / 2);
+  }
+  
+  /* 右上人物框: 在矩形上线框(0%)与水平分割线(63.398%)之间居中 */
+  .wsam-testimonial-2 {
+    left: calc(50% + (50% - calc(50% * 0.7)) / 2);
+    top: calc((63.398% - 0%) / 2);
+    transform: translateY(-50%);
+  }
+  
+  /* 左下人物框: 左右position与左上相同，上下在矩形下线框(100%)与水平分割线(45.588%)之间居中 */
+  .wsam-testimonial-3 {
+    left: calc((50% - calc(50% * 0.7)) / 2);
+    top: calc(45.588% + (100% - 45.588%) / 2);
+    transform: translateY(-50%);
+  }
+  
+  /* 右下人物框: 在水平分割线(63.398%)与矩形下线框(100%)之间居中 */
+  .wsam-testimonial-4 {
+    left: calc(50% + (50% - calc(50% * 0.7)) / 2);
+    top: calc(63.398% + (100% - 63.398%) / 2);
+    transform: translateY(-50%);
+  }
+  
+  @media (min-width: 1440px) {
+    /* scale proportionally from sample */
+    .wsam-right { width: 790.3804931640625px; }
+  }
+  @media (min-width: 1536px) {
+    .wsam-right { width: 844px; }
+  }
+  @media (min-width: 1920px) {
+    .wsam-right { width: 1055px; }
+  }
+  @media (max-width: 1280px) and (min-width: 1024px) {
+    .wsam-right { width: 704px; }
+  }
+  @media (max-width: 1024px) {
+    .wsam-wrapper { 
+      flex-direction: column; 
+      height: auto; 
+      align-items: center;
+    }
+    .wsam-right { 
+      height: 612px; 
+      margin-top: 32px; 
+    }
+  }
+}
+
+/* Use the existing inset box-shadow and animate its vertical offset once from bottom to top when in view */
+.shadow-rise-once {
+  animation: shadowRiseOnce 1400ms ease-out 0s 1 forwards;
+}
+
+@keyframes shadowRiseOnce {
+  0% {
+    box-shadow: inset 0px 48px 56.1px -25px rgba(255, 255, 255, 0.25); /* start lower (reverse Y) */
+  }
+  100% {
+    box-shadow: inset 0px -48px 56.1px -25px rgba(255, 255, 255, 0.25); /* end higher (original) */
+  }
+}
+
+/* Footer CTA Button */
+.footer-cta-button {
+  display: flex;
+  height: 40px;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 54px;
+  border: 1px solid #FFF;
+  background: linear-gradient(191.74deg, #FFFFFF 8.86%, #CECECE 91.87%);
+  box-shadow: 0px 4px 6px -2px rgba(255, 255, 255, 0.05), 0px 10px 15px -3px rgba(255, 255, 255, 0.16);
+}
+
+.footer-button-text {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #18181B;
+}
+
+.footer-button-arrow {
+  width: 12px;
+  height: 12px;
+}
+
+/* Footer Title Gradient */
+.footer-title-gradient {
+  background: linear-gradient(90deg, #FFF 0%, #146DFF 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Sealos Background Text */
+.sealos-background-text {
+  position: relative;
+  margin-top: 80px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  padding: 0 64px;
+}
+
+.sealos-letter-s {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.sealos-letter-s svg {
+  width: 100%;
+  height: auto;
+}
+
+.sealos-letter {
+  font-family: 'Geist', sans-serif;
+  font-size: clamp(120px, 15vw, 280px);
+  font-weight: 900;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) -13.59%, rgba(153, 153, 153, 0) 94.84%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-right: 0;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Footer Layout */
+@media (min-width: 1024px) {
+  .footer-title h2 {
+    white-space: nowrap;
+  }
+  
+  .footer-title h2 div:first-child {
+    white-space: nowrap;
+  }
+  
+  .footer-title h2 div:last-child {
+    white-space: nowrap;
+  }
+}
+.faq-section {
+  margin-top: 100px;
+  padding-left: 64px;
+  padding-right: 64px;
+}
+
+.faq-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+  gap: 80px;
+  justify-content: space-between;
+}
+
+.faq-left {
+  display: flex;
+  padding-top: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.faq-title {
+  color: #FFF;
+  font-family: 'Geist', sans-serif;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 150%; /* 54px */
+  margin: 0 0 24px 0;
+}
+
+.faq-title-highlight {
+  font-family: 'Geist', sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 54px */
+  background: linear-gradient(90deg, #FFF 0%, #146DFF 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.faq-description {
+  color: var(--tailwind-colors-zinc-400, #A1A1AA);
+  font-family: var(--typography-font-family-font-sans, 'Geist');
+  font-weight: var(--font-weight-normal, 400);
+  font-style: normal;
+  font-size: var(--typography-base-sizes-base-font-size, 16px);
+  line-height: var(--typography-base-sizes-base-line-height, 24px);
+  letter-spacing: 0%;
+  margin: 0;
+  max-width: 100%;
+}
+
+.faq-right {
+  flex: 1;
+  min-width: 0;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0; /* move vertical padding to button so hover background covers full height */
+}
+
+/* add top divider for first item, keep bottom divider for last item */
+.faq-item:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #FFF;
+  font-family: 'Geist', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 28px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 12px; /* take over vertical spacing from .faq-item so bg spans full block */
+  border-radius: 8px; /* constant radius */
+  transition: color 0.2s ease;
+}
+
+.faq-question:hover {
+  color: #E4E4E7;
+  background-color: rgba(113,113,122,0.3); /* zinc-500 with opacity */
+}
+
+.faq-question-text {
+  flex: 1;
+  margin-right: 16px;
+  color: #FFF;
+  font-family: 'Geist', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.faq-icon {
+  color: #A1A1AA;
+  font-size: 16px;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.faq-question[aria-expanded="true"] .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  color: #52525B;
+  font-family: 'Geist', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin-top: 16px;
+  padding-right: 32px;
+}
+
+/* Responsive Design */
+@media (max-width: 1280px) {
+  .faq-section {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .faq-section {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  
+  .faq-title {
+    font-size: 28px;
+  }
+  
+  .faq-title-highlight {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .faq-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 48px;
+  }
+  
+  .faq-right {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .faq-title {
+    font-size: 24px;
+  }
+  
+  .faq-title-highlight {
+    font-size: 24px;
+  }
+  
+  .faq-description {
+    font-size: 16px;
+    line-height: 24px;
+    max-width: 100%;
+  }
+  
+  .faq-question {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .faq-answer {
+    font-size: 14px;
+    line-height: 20px;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .faq-section {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
 
@@ -285,6 +824,19 @@
   color: hsl(var(--muted-foreground));
   text-align: center;
   max-width: 90%;
+}
+
+/* Stat Card Responsive Styles - 使用更精确的选择器 */
+@media (max-width: 1280px) {
+  div.stat-card.backdrop-blur-sm {
+    width: 298px !important; /* 只修改宽度 */
+  }
+}
+
+@media (max-width: 1024px) {
+  div.stat-card.backdrop-blur-sm {
+    width: 236px !important; /* 只修改宽度 */
+  }
 }
 
 /* Custom animations */
