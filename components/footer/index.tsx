@@ -279,7 +279,7 @@ const Footer = async ({
 
   return (
     <div className="relative w-full bg-black pt-0">
-      {/* Glow light effect overlapping with bottom of seventh screen */}
+      {/* Glow light effect overlapping with bottom of seventh screen (kept behind letters) */}
       <div
         className="pointer-events-none absolute"
         style={{
@@ -289,7 +289,7 @@ const Footer = async ({
           height: '804.603px',
           opacity: 1,
           transform: 'rotate(-180deg)',
-          zIndex: 5,
+          zIndex: 0,
           background: 'linear-gradient(357.43deg, rgba(217, 217, 217, 0.1) 8.78%, rgba(217, 217, 217, 0) 71.74%)',
           backdropFilter: 'blur(30px)'
         }}
@@ -378,6 +378,7 @@ const Footer = async ({
       </div>
 
       {/* Large Sealos Background Text + Sticky Legal Bar Wrapper */}
+      <div className="relative z-10">
       <SealosSticky
         letters={
           <>
@@ -555,6 +556,7 @@ const Footer = async ({
           </>
         }
       />
+      </div>
     </div>
   );
 };
