@@ -10,6 +10,7 @@ import {
 } from '../components/GradientIcon';
 import { GradientText } from '../components/GradientText';
 import { GodRays } from '../components/GodRays';
+import { GlowingEffect } from '../components/GlowingContainer';
 
 interface CardData {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -76,7 +77,8 @@ export function CapsSection() {
           marginLeft: '-50vw',
           marginRight: '-50vw',
           width: '100vw',
-          background: 'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
+          background:
+            'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
         }}
       />
 
@@ -125,7 +127,19 @@ export function CapsSection() {
               key={index}
               className={card.colSpan === 2 ? 'col-span-2' : 'col-span-3'}
             >
-              <div className="flex h-full flex-col">
+              <div className="relative flex h-full flex-col rounded-2xl p-6">
+                {/* Glowing Effect */}
+                <GlowingEffect
+                  color="#ffffff"
+                  proximity={300}
+                  spread={60}
+                  blur={0}
+                  glow
+                  borderWidth={3}
+                  inactiveZone={0.3}
+                  disabled={false}
+                />
+
                 {/* Section Tag */}
                 <div className="flex w-fit items-center rounded-full border border-white/5 bg-white/5 px-3 py-2 text-zinc-200 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),_0_2px_4px_-1px_rgba(0,0,0,0.02)]">
                   <Icon className="mr-2 size-5" />

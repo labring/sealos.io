@@ -1,53 +1,20 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-
-interface FAQItemProps {
-  question: string;
-  answer: string;
-  isOpen: boolean;
-  onToggle: () => void;
-}
-
-function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
-  return (
-    <div className="border-b border-white/10 p-0">
-      <button
-        className="flex w-full cursor-pointer items-center justify-between rounded-lg border-none bg-transparent px-3 py-6 text-left text-lg leading-7 font-medium text-white transition-all duration-200 hover:bg-zinc-500/30 hover:text-zinc-200"
-        onClick={onToggle}
-        aria-expanded={isOpen}
-      >
-        <span className="mr-4 flex-1 text-lg leading-7 font-normal text-white">
-          {question}
-        </span>
-        <span
-          className={`text-base font-bold text-zinc-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
-        >
-          {isOpen ? '^' : '>'}
-        </span>
-      </button>
-      {isOpen && (
-        <div className="mt-4 pr-8 pb-6 pl-3 text-sm leading-5 font-normal text-zinc-600">
-          {answer}
-        </div>
-      )}
-    </div>
-  );
-}
+import { useEffect, useRef, useState } from 'react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 export default function FAQSection() {
-  const [openItems, setOpenItems] = useState<number[]>([0]); // 默认展开第一个
+  const [openItems, setOpenItems] = useState<string[]>(['item-0']); // 默认展开第一个
   const [leftContainerWidth, setLeftContainerWidth] =
     useState<string>('491.924px');
   const titleRef = useRef<HTMLHeadingElement>(null);
   const frequentlyAskedRef = useRef<HTMLSpanElement>(null);
   const questionsRef = useRef<HTMLSpanElement>(null);
-
-  const toggleItem = (index: number) => {
-    setOpenItems((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
-    );
-  };
 
   useEffect(() => {
     const updateLeftContainerWidth = () => {
@@ -145,17 +112,27 @@ export default function FAQSection() {
 
         {/* Right Section */}
         <div className="min-w-0 flex-1">
-          <div className="border-t border-white/10">
+          <Accordion
+            type="multiple"
+            value={openItems}
+            onValueChange={setOpenItems}
+            className="border-t border-white/10"
+          >
             {faqData.map((item, index) => (
-              <FAQItem
+              <AccordionItem
                 key={index}
-                question={item.question}
-                answer={item.answer}
-                isOpen={openItems.includes(index)}
-                onToggle={() => toggleItem(index)}
-              />
+                value={`item-${index}`}
+                className="border-b border-white/10"
+              >
+                <AccordionTrigger className="px-3 py-6 text-left text-lg leading-7 font-normal text-white hover:bg-zinc-500/30 hover:text-zinc-200 hover:no-underline [&>svg]:text-zinc-400">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="pr-8 pb-6 pl-3 text-sm leading-5 font-normal text-zinc-600">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </div>
+          </Accordion>
         </div>
       </div>
     </div>
