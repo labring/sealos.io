@@ -1,6 +1,7 @@
 import { CheckCheck, TriangleAlert } from 'lucide-react';
 import { GradientText } from '../components/GradientText';
 import { FallingTags } from '../components/FallingTags';
+import { SealosChoiceCard } from '../components/SealosChoiceCard';
 
 export function ChoicesSection() {
   return (
@@ -53,7 +54,9 @@ export function ChoicesSection() {
             <span className="absolute right-8 bottom-10 text-lg text-zinc-400">
               ✨ Done in 30 seconds
             </span>
-            Image here.
+            <div className="flex h-full w-full items-center justify-center">
+              <SealosChoiceCard />
+            </div>
           </div>
         </div>
       </div>
