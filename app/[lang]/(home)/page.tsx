@@ -14,6 +14,7 @@ import RedirectSuggest from '@/components/redirectSuggest';
 import { languagesType } from '@/lib/i18n';
 import ScrollProgressWrapper from '@/components/scroll-progress-wrapper';
 import { CallToActionSection } from '@/components/ui/call-to-action-section';
+import HorizonImageFade from './components/horizon-image-fade';
 
 // Dynamic imports for heavy components
 const Desktop = dynamic(() => import('./components/desktop'), {
@@ -129,19 +130,14 @@ export default function HomePage({
           <SixthScreen lang={params.lang} />
         </div>
         <FAQSection />
-        {/* 第七屏与页脚之间的光照背景 */}
-        <div className="relative mt-[140px] bg-black">
-          <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 w-screen z-10" style={{ top: '-140px' }}>
-            <img
-              src="/images/liht4.png"
-              alt=""
-              className="w-full h-auto select-none"
-            />
-          </div>
-          {/* 间距容器，确保光照有展示空间 */}
-          <div className="h-[330px]"></div>
+        {/* 第七屏与页脚之间的 Horizon 图层 */}
+        <div className="relative bg-black">
+          <HorizonImageFade />
+          <div className="h-[500px]"></div>
         </div>
-        <Footer lang={params.lang} />
+        <div className="relative z-50">
+          <Footer lang={params.lang} />
+        </div>
       </div>
       <TailwindIndicator />
       <RedirectSuggest />
