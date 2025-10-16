@@ -123,16 +123,16 @@ export default function HomePage({
         </div>
       </div>
 
-      {/* 第六屏和第七屏 - 统一黑色背景 */}
+      {/* 第六屏、七屏与页脚 - 整体统一黑色背景 */}
       <div className="bg-black">
         <div className="site-shell">
           <SixthScreen lang={params.lang} />
         </div>
         <FAQSection />
+        {/* 取消浅色分隔线，保持纯黑过渡 */}
+        <div className="mt-[140px] h-[1px] bg-black"></div>
+        <Footer lang={params.lang} />
       </div>
-
-      <div className="mt-[140px] h-[1px] bg-[#DDE7F7]"></div>
-      <Footer lang={params.lang} />
       <TailwindIndicator />
       <RedirectSuggest />
     </div>
