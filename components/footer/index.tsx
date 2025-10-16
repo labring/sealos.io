@@ -345,7 +345,51 @@ const Footer = async ({
         </div>
       </div>
 
-      {/* Large Sealos Background Text + Sticky Legal Bar Wrapper */}
+      {/* Sticky legal bar between CTA grid and Sealos letters, fixed 30px gap below CTA */}
+      <div className="footer-sticky mt-[30px]">
+        <div className="mt-16 h-[1px] w-full bg-[#52525B]"></div>
+        <div className="relative z-10 flex flex-col items-center gap-2 px-16 pt-4 pb-4 text-center text-xs lg:flex-row lg:items-center lg:justify-between lg:gap-0">
+          <div className="text-[#A1A1AA] order-1 flex flex-wrap justify-center gap-2 font-normal lg:order-none">
+            {footerLinks.legal.links.map((link, index) => (
+              <FooterLink key={index} className="text-[#A1A1AA] font-normal" href={link.url}>
+                {link.text}
+              </FooterLink>
+            ))}
+          </div>
+          <div className="text-[#A1A1AA] order-3 font-normal lg:order-none lg:px-4">
+            {footerLinks.copyright}
+          </div>
+          <div className="order-2 flex justify-center space-x-4 lg:order-none">
+            <CustomButton className="flex size-8 items-center justify-center rounded-full bg-[rgba(82,82,91,0.35)] object-center hover:bg-[rgba(161,161,170,0.6)]" href={siteConfig.links.github} title="GitHub" location="footer_social" newWindow={true}>
+              <span className="text-white"><GithubIcon /></span>
+            </CustomButton>
+            <CustomButton className="flex size-8 items-center justify-center rounded-full bg-[rgba(82,82,91,0.35)] object-center hover:bg-[rgba(161,161,170,0.6)]" href={siteConfig.links.discord} title="Discord" location="footer_social" newWindow={true}>
+              <DiscordIcon />
+            </CustomButton>
+            <CustomButton className="flex size-8 items-center justify-center rounded-full bg-[rgba(82,82,91,0.35)] object-center hover:bg-[rgba(161,161,170,0.6)]" href={siteConfig.links.twitter} title="Twitter" location="footer_social" newWindow={true}>
+              <XIcon className="h-4 w-4 text-white" />
+            </CustomButton>
+            <CustomButton className="flex size-8 items-center justify-center rounded-full bg-[rgba(82,82,91,0.35)] object-center hover:bg-[rgba(161,161,170,0.6)]" href={siteConfig.links.youtube} title="YouTube" location="footer_social" newWindow={true}>
+              <img src="/icons/youtube.svg" alt="YouTube" width={16} height={16} className="h-4 w-4" />
+            </CustomButton>
+            {lang === 'zh-cn' && (
+              <CustomButton className="flex size-8 items-center justify-center rounded-full bg-[#52525B] object-center hover:bg-[#A1A1AA]" href={siteConfig.links.bilibili} title="Bilibili" location="footer_social" newWindow={true}>
+                <BilibiliIcon />
+              </CustomButton>
+            )}
+            {lang === 'zh-cn' && (
+              <CustomButton className="flex size-8 items-center justify-center rounded-full bg-[#52525B] object-center hover:bg-[#A1A1AA]" href={siteConfig.links.wechat} title="WeChat" location="footer_social" newWindow={true}>
+                <WechatIcon />
+              </CustomButton>
+            )}
+            <CustomButton className="flex size-8 items-center justify-center rounded-full bg-[rgba(82,82,91,0.35)] object-center hover:bg-[rgba(161,161,170,0.6)]" href="/rss.xml" title="RSS Feed" location="footer_social" newWindow={true}>
+              <RSSIcon className="text-white" />
+            </CustomButton>
+          </div>
+        </div>
+      </div>
+
+      {/* Large Sealos Background Text only */}
       <div className="relative z-10">
       <SealosSticky
         letters={
@@ -423,106 +467,7 @@ const Footer = async ({
         </div>
           </>
         }
-        bar={
-          <>
-        <div className="mt-16 h-[1px] w-full bg-[#52525B]"></div>
-        {/* Legal links, copyright, and social icons row */}
-        <div className="relative z-10 flex flex-col items-center gap-2 px-16 pt-4 pb-4 text-center text-xs lg:flex-row lg:items-center lg:justify-between lg:gap-0">
-        {/* Legal links */}
-        <div className="text-[#A1A1AA] order-1 flex flex-wrap justify-center gap-2 font-normal lg:order-none">
-          {footerLinks.legal.links.map((link, index) => (
-            <FooterLink
-              key={index}
-              className="text-[#A1A1AA] font-normal"
-              href={link.url}
-            >
-              {link.text}
-            </FooterLink>
-          ))}
-        </div>
-        {/* Copyright */}
-        <div className="text-[#A1A1AA] order-3 font-normal lg:order-none lg:px-4">
-          {footerLinks.copyright}
-        </div>
-        {/* Social icons */}
-        <div className="order-2 flex justify-center space-x-4 lg:order-none">
-          <CustomButton
-            className="flex size-8 items-center justify-center rounded-full bg-[rgba(82,82,91,0.35)] object-center hover:bg-[rgba(161,161,170,0.6)]"
-            href={siteConfig.links.github}
-            title="GitHub"
-            location="footer_social"
-            newWindow={true}
-          >
-            <span className="text-white"><GithubIcon /></span>
-          </CustomButton>
-          <CustomButton
-            className="flex size-8 items-center justify-center rounded-full bg-[rgba(82,82,91,0.35)] object-center hover:bg-[rgba(161,161,170,0.6)]"
-            href={siteConfig.links.discord}
-            title="Discord"
-            location="footer_social"
-            newWindow={true}
-          >
-            <DiscordIcon />
-          </CustomButton>
-          <CustomButton
-            className="flex size-8 items-center justify-center rounded-full bg-[rgba(82,82,91,0.35)] object-center hover:bg-[rgba(161,161,170,0.6)]"
-            href={siteConfig.links.twitter}
-            title="Twitter"
-            location="footer_social"
-            newWindow={true}
-          >
-            <XIcon className="h-4 w-4 text-white" />
-          </CustomButton>
-          <CustomButton
-            className="flex size-8 items-center justify-center rounded-full bg-[rgba(82,82,91,0.35)] object-center hover:bg-[rgba(161,161,170,0.6)]"
-            href={siteConfig.links.youtube}
-            title="YouTube"
-            location="footer_social"
-            newWindow={true}
-          >
-            <img
-              src="/icons/youtube.svg"
-              alt="YouTube"
-              width={16}
-              height={16}
-              className="h-4 w-4"
-            />
-          </CustomButton>
-          {lang === 'zh-cn' && (
-            <CustomButton
-              className="flex size-8 items-center justify-center rounded-full bg-[#52525B] object-center hover:bg-[#A1A1AA]"
-              href={siteConfig.links.bilibili}
-              title="Bilibili"
-              location="footer_social"
-              newWindow={true}
-            >
-              <BilibiliIcon />
-            </CustomButton>
-          )}
-          {lang === 'zh-cn' && (
-            <CustomButton
-              className="flex size-8 items-center justify-center rounded-full bg-[#52525B] object-center hover:bg-[#A1A1AA]"
-              href={siteConfig.links.wechat}
-              title="WeChat"
-              location="footer_social"
-              newWindow={true}
-            >
-              <WechatIcon />
-            </CustomButton>
-          )}
-          <CustomButton
-            className="flex size-8 items-center justify-center rounded-full bg-[rgba(82,82,91,0.35)] object-center hover:bg-[rgba(161,161,170,0.6)]"
-            href="/rss.xml"
-            title="RSS Feed"
-            location="footer_social"
-            newWindow={true}
-          >
-            <RSSIcon className="text-white" />
-          </CustomButton>
-        </div>
-        </div>
-          </>
-        }
+        bar={null}
       />
       </div>
     </div>
