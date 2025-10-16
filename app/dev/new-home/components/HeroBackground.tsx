@@ -36,7 +36,7 @@ export function HeroBackground({ mousePosition }: HeroBackgroundProps) {
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="container h-full">
           <div className="flex h-full items-center justify-end">
-            <div className="flex h-full w-1/2 items-center justify-end">
+            <div className="flex h-full w-1/2 min-w-[540px] items-center justify-end">
               <Image
                 src={HeroCards}
                 alt="Hero Cards"

@@ -18,7 +18,10 @@ interface CardData {
   title: string;
   description: string;
   tags: string[];
-  colSpan: 2 | 3;
+  colSpan: {
+    '2xl': 4 | 6;
+    md: 9 | 11;
+  };
   image: React.ReactNode;
 }
 
@@ -30,7 +33,7 @@ const cardsData: CardData[] = [
     description:
       'Your workflow is our workflow. Deploy instantly from a GitHub repo, run any public or private image from Docker Hub, or integrate Sealos into your existing CI/CD pipeline with GitHub Actions.',
     tags: ['GPU-Ready', 'AI Proxy', 'Auto Scale'],
-    colSpan: 2,
+    colSpan: { '2xl': 4, md: 9 },
     image: <AiRuntimeCard />,
   },
   {
@@ -40,7 +43,7 @@ const cardsData: CardData[] = [
     description:
       'Go beyond static sites. Seamlessly deploy both your React/Vue frontend and your Node.js/Go backend in a unified environment. We automate the build, containerization, and networking for you.',
     tags: ['Frontend + Backend', 'Auto Build', 'Unified Deploy'],
-    colSpan: 3,
+    colSpan: { '2xl': 6, md: 11 },
     image: <StacksCard />,
   },
   {
@@ -50,7 +53,7 @@ const cardsData: CardData[] = [
     description:
       'Your workflow is our workflow. Deploy instantly from a GitHub repo, run any public or private image from Docker Hub, or integrate Sealos into your existing CI/CD pipeline with GitHub Actions.',
     tags: ['GitHub Deploy', 'Docker Images', 'CI/CD Ready'],
-    colSpan: 3,
+    colSpan: { '2xl': 6, md: 11 },
     image: <DeploymentCard />,
   },
   {
@@ -60,7 +63,7 @@ const cardsData: CardData[] = [
     description:
       'Stop wasting time on database ops. Launch a high-availability PostgreSQL or MySQL cluster with a single click. Need a mobile backend API or a Redis cache? Deploy it as a container in seconds.',
     tags: ['One-Click DB', 'High Availability', 'Instant Deploy'],
-    colSpan: 2,
+    colSpan: { '2xl': 4, md: 9 },
     image: <DBCard />,
   },
 ];
@@ -113,20 +116,21 @@ export function CapsSection() {
           <span>Built for the</span>&nbsp;
           <GradientText>Modern Application.</GradientText>
         </h2>
-        <p className="mt-3 text-zinc-400">
+        <p className="mt-3 max-w-xl text-zinc-400">
           Whether you're building next-gen AI agents or battle-tested web apps,
           our unified platform is designed to amplify your workflow.
         </p>
       </div>
 
-      <div className="mt-16 grid grid-cols-5 grid-rows-2 gap-9">
+      <div className="mt-16 grid grid-cols-1 gap-9 md:grid-cols-20 2xl:grid-cols-10">
         {cardsData.map((card, index) => {
           const Icon = card.icon;
+          const colSpanClasses = {
+            4: 'md:col-span-9 2xl:col-span-4',
+            6: 'md:col-span-11 2xl:col-span-6',
+          }[card.colSpan['2xl']];
           return (
-            <div
-              key={index}
-              className={card.colSpan === 2 ? 'col-span-2' : 'col-span-3'}
-            >
+            <div key={index} className={`col-span-1 ${colSpanClasses}`}>
               <div className="relative flex h-full flex-col rounded-2xl p-6">
                 {/* Glowing Effect */}
                 <GlowingEffect

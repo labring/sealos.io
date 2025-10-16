@@ -195,7 +195,8 @@ export function SequenceSection() {
           marginLeft: '-50vw',
           marginRight: '-50vw',
           width: '100vw',
-          background: 'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
+          background:
+            'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
         }}
       />
 
@@ -225,7 +226,7 @@ export function SequenceSection() {
         maxLength={2100}
         blur={17}
       />
-      <div className="flex max-w-2/3 items-center gap-8">
+      <div className="flex max-w-4xl items-center gap-8">
         <h2 className="w-full text-[2.5rem] leading-tight">
           <span>More Than a Platform. It's</span>&nbsp;
           <GradientText>Your Entire Cloud Workflow, Reimagined.</GradientText>

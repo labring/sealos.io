@@ -18,7 +18,8 @@ export function ChoicesSection() {
           marginLeft: '-50vw',
           marginRight: '-50vw',
           width: '100vw',
-          background: 'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
+          background:
+            'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
         }}
       />
 
@@ -49,7 +50,7 @@ export function ChoicesSection() {
         blur={20}
       />
       <div className="relative pb-16">
-        <div className="w-1/2">
+        <div className="w-full">
           <h2 className="text-[2.5rem] leading-tight">
             <div>Want to ship your next feature</div>
             <div>
@@ -68,8 +69,8 @@ export function ChoicesSection() {
         </div>
       </div>
 
-      <div className="flex gap-6">
-        <div className="inset-shadow-bubble flex w-full flex-col rounded-xl border border-zinc-700">
+      <div className="grid grid-cols-2 gap-6">
+        <div className="inset-shadow-bubble flex flex-col rounded-xl border border-zinc-700">
           <div className="grow border-b border-zinc-700 p-8">
             <h3 className="flex items-center text-2xl font-medium text-zinc-200">
               <span>Bear the bottleneck</span>
@@ -91,7 +92,7 @@ export function ChoicesSection() {
           </div>
         </div>
 
-        <div className="inset-shadow-bubble w-full rounded-xl border border-zinc-700">
+        <div className="inset-shadow-bubble flex flex-col rounded-xl border border-zinc-700">
           <div className="grow border-b border-zinc-700 p-8">
             <h3 className="flex items-center text-2xl font-medium text-zinc-200">
               <span>Or use Sealos</span>
@@ -107,7 +108,7 @@ export function ChoicesSection() {
               ✨ Done in 30 seconds
             </span>
             <div className="flex h-full w-full items-center justify-center">
-              <SealosChoiceCard />
+              <SealosChoiceCard className="p-4" />
             </div>
           </div>
         </div>

@@ -147,7 +147,8 @@ export function ComparisonSection() {
           marginLeft: '-50vw',
           marginRight: '-50vw',
           width: '100vw',
-          background: 'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
+          background:
+            'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
         }}
       />
 
@@ -177,7 +178,7 @@ export function ComparisonSection() {
         maxLength={2300}
         blur={19}
       />
-      <div className="flex max-w-2/3 items-center gap-8">
+      <div className="flex max-w-4xl items-center gap-8">
         <h2 className="w-full text-[2.5rem] leading-tight">
           <span>Other platforms simplify deployment.</span>&nbsp;
           <GradientText>Sealos unifies your entire cloud.</GradientText>
@@ -191,7 +192,7 @@ export function ComparisonSection() {
 
       {/* 对比表格 */}
       <div className="mt-14 overflow-x-auto">
-        <table className="w-full border-collapse">
+        <table className="w-full min-w-[800px] border-collapse">
           {/* 表头 */}
           <thead>
             <tr>
@@ -249,7 +250,7 @@ export function ComparisonSection() {
                   return (
                     <tr key={`${categoryIndex}-${itemIndex}`}>
                       <td className="border-b border-zinc-800 px-4 py-5 text-base text-zinc-400">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 whitespace-nowrap">
                           {item.feature}
                           {item.help && (
                             <Tooltip>
@@ -275,7 +276,7 @@ export function ComparisonSection() {
                         >
                           <span
                             className={cn(
-                              'relative flex items-center gap-2 text-base',
+                              'relative flex items-center gap-2 text-base whitespace-nowrap',
                               valueIndex === 0
                                 ? 'text-zinc-200'
                                 : 'text-zinc-400',
