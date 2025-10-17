@@ -346,7 +346,7 @@ const Footer = async ({
       </div>
 
       {/* Sticky legal bar between CTA grid and Sealos letters, fixed 30px gap below CTA */}
-      <div className="footer-sticky mt-[30px]">
+      <div className="copyright mt-[30px]">
         <div className="mt-16 h-[1px] w-full bg-[#52525B]"></div>
         <div className="relative z-10 flex flex-col items-center gap-2 px-16 pt-4 pb-4 text-center text-xs lg:flex-row lg:items-center lg:justify-between lg:gap-0">
           <div className="text-[#A1A1AA] order-1 flex flex-wrap justify-center gap-2 font-normal lg:order-none">

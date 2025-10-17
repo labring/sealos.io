@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 
 type SealosStickyProps = {
   letters: React.ReactNode;
-  bar: React.ReactNode;
+  bar?: React.ReactNode;
 };
 
 export default function SealosSticky({ letters, bar }: SealosStickyProps) {
@@ -38,7 +38,7 @@ export default function SealosSticky({ letters, bar }: SealosStickyProps) {
   }, []);
 
   return (
-    <div ref={wrapperRef} className="sealos-sticky-wrapper">
+    <div ref={wrapperRef} className="footer">
       <div className="sealos-top-mask" />
       {bar ? <div className="footer-sticky">{bar}</div> : null}
       <div ref={lettersRef} className="sealos-background-text">
