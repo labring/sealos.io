@@ -73,13 +73,8 @@ export function CapsSection() {
     <section className="relative pt-28 pb-32">
       {/* 顶部渐变遮罩 - 灰到黑，覆盖整个屏幕宽度 */}
       <div
-        className="pointer-events-none absolute top-0 -z-5 h-96"
+        className="pointer-events-none absolute top-0 -z-5 h-96 left-1/2 -translate-x-1/2 w-screen"
         style={{
-          left: '50%',
-          right: '50%',
-          marginLeft: '-50vw',
-          marginRight: '-50vw',
-          width: '100vw',
           background:
             'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
         }}

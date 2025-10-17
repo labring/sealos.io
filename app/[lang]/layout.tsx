@@ -110,7 +110,7 @@ export default function LocaleLayout({
 
         <Analytics />
       </head>
-      <body className="flex min-h-screen flex-col overflow-x-hidden">
+      <body className="flex min-h-screen flex-col overflow-x-hidden max-w-[100vw]">
         <GTMBody />
         <RootProvider
           i18n={{

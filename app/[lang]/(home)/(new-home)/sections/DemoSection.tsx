@@ -138,14 +138,13 @@ export function DemoSection() {
   );
 
   return (
-    <section className="relative overflow-visible">
+    <section className="relative w-screen overflow-x-clip overflow-y-visible object-top">
       {/* Light */}
-      <div className="pointer-events-none absolute top-0 left-1/2 -mt-36 -translate-x-1/2">
+      <div className="pointer-events-none absolute top-0 left-1/2 h-96 w-full -translate-x-1/2">
         <Image
           src={DemoLightSvg}
           alt=""
-          className="w-auto"
-          style={{ minWidth: `${DemoLightSvg.width}px` }}
+          className="h-full w-auto object-cover object-top"
           priority
         />
       </div>
@@ -160,7 +159,7 @@ export function DemoSection() {
         style={{ height: '800vh' }}
       >
         {/* 固定容器 - 在视口中心固定显示 */}
-        <div className="sticky top-0 flex h-screen w-full justify-center overflow-visible">
+        <div className="sticky top-0 flex h-screen w-screen justify-center overflow-visible">
           {/* Video容器 */}
           <motion.div
             className="absolute perspective-midrange perspective-origin-top"

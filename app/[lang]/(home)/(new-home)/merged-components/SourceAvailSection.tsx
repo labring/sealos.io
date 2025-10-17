@@ -45,13 +45,8 @@ export default function SourceAvailSection({
 
       {/* 顶部渐变遮罩 - 在 GodRays 上方 */}
       <div
-        className="pointer-events-none absolute top-0 -z-10 h-96"
+        className="pointer-events-none absolute top-0 -z-10 h-96 left-1/2 -translate-x-1/2 w-screen"
         style={{
-          left: '50%',
-          right: '50%',
-          marginLeft: '-50vw',
-          marginRight: '-50vw',
-          width: '100vw',
           background:
             'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
         }}

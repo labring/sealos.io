@@ -30,12 +30,13 @@ export default function HomePage({
         <Header />
       </div>
 
-      <div className="-mt-24">
+      <div className="-mt-24 overflow-x-clip">
         <HeroSection />
       </div>
 
-      <main className="container pt-8">
-        <DemoSection />
+      <DemoSection />
+
+      <main className="container pt-8 overflow-x-clip">
         <ChoicesSection />
         <ComparisonSection />
         <SequenceSection />
