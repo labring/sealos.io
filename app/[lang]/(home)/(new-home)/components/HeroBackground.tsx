@@ -33,7 +33,7 @@ export function HeroBackground({ mousePosition }: HeroBackgroundProps) {
       </div>
 
       {/* 右侧卡片 - 限制在 container 内 */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
+      <div className="pointer-events-none absolute inset-0 -z-10 blur-sm lg:blur-none">
         <div className="container h-full">
           <div className="flex h-full items-center justify-end">
             <div className="flex h-full w-1/2 min-w-[540px] items-center justify-end">

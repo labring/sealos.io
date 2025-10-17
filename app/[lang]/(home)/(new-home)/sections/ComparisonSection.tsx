@@ -54,7 +54,6 @@ const comparisonData: ComparisonData = {
       items: [
         {
           feature: 'Deployment Flexibility',
-          help: 'Help Text',
           values: [
             {
               name: 'AI Pilot, K8s YAML, Docker',
@@ -80,7 +79,6 @@ const comparisonData: ComparisonData = {
         },
         {
           feature: 'Native Kubernetes API',
-          help: 'Help Text',
           values: [
             {
               name: 'Full Compatibility',
@@ -113,21 +111,263 @@ const comparisonData: ComparisonData = {
         {
           feature: 'Unified Dev Environment',
           values: [
-            { name: '' },
-            { name: '' },
-            { name: '' },
-            { name: '' },
-            { name: '' },
+            {
+              name: 'Cloud Env with Local IDE Connect',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
           ],
         },
         {
           feature: 'Real-time Dev Workflow',
           values: [
-            { name: '' },
-            { name: '' },
-            { name: '' },
-            { name: '' },
-            { name: '' },
+            {
+              name: 'No more waiting for CI/CD',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Preview Deployments [1]',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+          ],
+        },
+        {
+          feature: 'Universal Language Support',
+          values: [
+            {
+              name: 'Any language or framework',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Full Support',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Full Support',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Limited',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Frontend Focused [2]',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'AI & DATA CAPABILITIES',
+      icon: <CodeXml size={20} />,
+      items: [
+        {
+          feature: 'Managed Databases',
+          values: [
+            {
+              name: 'PG, MySQL, Mongo, Redis',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'PG, Redis',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'PG, Redis',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'PostgreSQL',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'PG, Redis',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+          ],
+        },
+        {
+          feature: 'One-Click High Availability',
+          values: [
+            {
+              name: 'Automated Failover',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Available',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Available',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Available',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+          ],
+        },
+        {
+          feature: 'AI-Powered Data Query',
+          values: [
+            {
+              name: 'Chat2DB (Natural Language)',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'AI SQL Editor',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+          ],
+        },
+        {
+          feature: 'Built-in Vector Database',
+          values: [
+            {
+              name: 'pgvector & Milvus',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'pgvector',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+          ],
+        },
+        {
+          feature: 'Unified AI Model API',
+          values: [
+            {
+              name: 'Available',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'INFRASTRUCTURE & ARCHITECTURE',
+      icon: <CodeXml size={20} />,
+      items: [
+        {
+          feature: 'S3-Compatible Object Storage',
+          values: [
+            {
+              name: 'Available',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Not Available',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Available',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Available',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Blob Storage',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+          ],
+        },
+        {
+          feature: 'Core Trust Advantage',
+          values: [
+            {
+              name: '100% Source Available',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Proprietary',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Proprietary',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
+            {
+              name: 'Available',
+              icon: <GradientCircleCheck className="size-5" />,
+            },
+            {
+              name: 'Proprietary',
+              icon: <Info size={20} className="text-zinc-600" />,
+            },
           ],
         },
       ],

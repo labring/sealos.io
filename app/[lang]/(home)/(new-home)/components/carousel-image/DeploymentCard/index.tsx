@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { FileCode } from 'lucide-react';
 import ContainerImage from './container.svg';
 import SealosLogo from './logo/sealos.svg';
@@ -31,6 +31,10 @@ export function DeploymentCard({
   baseDistance = 110, // 100 * 1.1
   containerHeight = 198, // 180 * 1.1
 }: DeploymentCardProps = {}) {
+  // 自动hover动画状态
+  const [hoveredIndex, setHoveredIndex] = useState<number>(-1);
+  const [isManualHover, setIsManualHover] = useState<boolean>(false);
+
   // 默认配置：完整的3x3网格容器展开
   const defaultContainers: ContainerConfig[] = [
     // 第一层 (z=0) - 3x3网格，每个位置都可以独立配置
@@ -145,6 +149,28 @@ export function DeploymentCard({
 
   const containers = customContainers || defaultContainers;
 
+  // 自动触发hover动画效果 - 按顺序每1.5秒切换
+  useEffect(() => {
+    // 初始延迟0.5秒后开始自动动画
+    const initialDelay = setTimeout(() => {
+      let currentIndex = 0;
+      const totalContainers = containers.filter(
+        (c) => c.visible !== false,
+      ).length;
+
+      const interval = setInterval(() => {
+        if (!isManualHover) {
+          setHoveredIndex(currentIndex);
+          currentIndex = (currentIndex + 1) % totalContainers;
+        }
+      }, 750); // 每0.75秒切换一次
+
+      return () => clearInterval(interval);
+    }, 1000); // 初始延迟1秒
+
+    return () => clearTimeout(initialDelay);
+  }, [containers, isManualHover]);
+
   // 根据角度计算偏移量
   const calculateIsometricOffset = (
     angleDeg: number,
@@ -228,7 +254,7 @@ export function DeploymentCard({
         preserveAspectRatio="xMidYMid meet"
         style={{ overflow: 'visible' }}
       >
-        {sortedContainers.map((container) => {
+        {sortedContainers.map((container, index) => {
           // 正交视角位置计算（isometric）
           // screenX = (x - y) * deltaX
           // screenY = (x + y) * deltaY - z * zHeight
@@ -240,6 +266,9 @@ export function DeploymentCard({
           // hover 动画会向上移动 15%，所以需要额外的空间
           const extraSpace = containerDisplayHeight * 0.2; // 20% 额外空间用于动画
           const foreignObjectHeight = containerDisplayHeight + extraSpace;
+
+          // 判断当前容器是否应该显示hover状态
+          const isHovered = hoveredIndex === index;
 
           return (
             <foreignObject
@@ -254,11 +283,20 @@ export function DeploymentCard({
               overflow="visible"
             >
               <div
-                xmlns="http://www.w3.org/1999/xhtml"
                 className="relative h-full w-full"
                 style={{ paddingTop: `${extraSpace}px` }}
+                onMouseEnter={() => setIsManualHover(true)}
+                onMouseLeave={() => setIsManualHover(false)}
               >
-                <div className="group relative transition-all duration-300 ease-out hover:-translate-y-[15%]">
+                <div
+                  className="group relative transition-all delay-100 duration-300 ease-out hover:-translate-y-[15%]"
+                  style={{
+                    transform:
+                      isHovered && !isManualHover
+                        ? 'translateY(-15%)'
+                        : undefined,
+                  }}
+                >
                   {/* 背景模糊层 - 使用CSS backdrop-filter */}
                   <div
                     className="absolute inset-0"

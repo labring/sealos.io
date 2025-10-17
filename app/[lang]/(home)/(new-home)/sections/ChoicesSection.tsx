@@ -8,7 +8,7 @@ import { GodRays } from '../components/GodRays';
 
 export function ChoicesSection() {
   return (
-    <section className="relative pt-28 pb-32">
+    <section className="relative -mt-[150vh] pt-28 pb-32">
       {/* 顶部渐变遮罩 - 灰到黑，覆盖整个屏幕宽度 */}
       <div
         className="pointer-events-none absolute top-0 -z-5 h-96"

@@ -35,8 +35,6 @@ export function GradientWave({ progress }: GradientWaveProps) {
     };
   }, []);
 
-  // 判断是否处于 idle 状态（progress >= 0.99，给一点容错空间）
-  const isIdle = currentProgress >= 0.99;
   const progressLineIndex = Math.round(currentProgress * (lineCount - 1));
 
   return (
@@ -69,28 +67,19 @@ export function GradientWave({ progress }: GradientWaveProps) {
         const distanceFromProgress = Math.abs(i / lineCount - currentProgress);
         const distanceInLines = Math.abs(i - progressLineIndex);
 
-        // idle 状态：所有线都最长，都使用渐变
-        let height;
+        // 计算高度，距离进度越近越高
+        const heightFactor = Math.exp(-distanceFromProgress * 12);
+        const height = 20 + heightFactor * 70;
+
+        // 计算不透明度
         let opacity;
-
-        if (isIdle) {
-          // idle 状态：所有线最长，使用渐变颜色
-          height = 90;
-          opacity = 0.85;
+        if (distanceInLines <= 5) {
+          // 在当前进度左右5根线内使用较高不透明度
+          const fadeFactor = 1 - (distanceInLines / 5) * 0.4;
+          opacity = (0.6 + heightFactor * 0.3) * fadeFactor;
         } else {
-          // 正常状态：计算高度，距离进度越近越高
-          const heightFactor = Math.exp(-distanceFromProgress * 12);
-          height = 20 + heightFactor * 70;
-
-          // 计算不透明度
-          if (distanceInLines <= 5) {
-            // 在当前进度左右5根线内使用较高不透明度
-            const fadeFactor = 1 - (distanceInLines / 5) * 0.4;
-            opacity = (0.6 + heightFactor * 0.3) * fadeFactor;
-          } else {
-            // 超过5根线，使用较低不透明度
-            opacity = (0.15 + heightFactor * 0.25) * 0.5;
-          }
+          // 超过5根线，使用更高的基础不透明度，让未亮起的线更明显
+          opacity = (0.3 + heightFactor * 0.3) * 0.7;
         }
 
         return (

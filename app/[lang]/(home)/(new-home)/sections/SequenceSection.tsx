@@ -9,19 +9,13 @@ import {
 } from 'framer-motion';
 import { GradientText } from '../components/GradientText';
 import { GradientWave } from '../components/GradientWave';
-import {
-  WorkflowProgress,
-  LastStage,
-  getLastStageStartProgress,
-  stages,
-} from '../components/WorkflowProgress';
+import { WorkflowProgress, stages } from '../components/WorkflowProgress';
 import { IdeaCard } from '../components/carousel-image/IdeaCard';
 import { CarouselCard } from '../components/CarouselCard';
 import { AnimatedCarouselContainer } from '../components/AnimatedCarouselContainer';
 import { DevelopmentCard } from '../components/carousel-image/DevelopmentCard';
 import { DeploymentCard } from '../components/carousel-image/DeploymentCard';
 import { DataCard } from '../components/carousel-image/DataCard';
-import { AiAgentCard } from '../components/carousel-image/AiAgentCard';
 import { GodRays } from '../components/GodRays';
 
 export function SequenceSection() {
@@ -33,10 +27,6 @@ export function SequenceSection() {
   // 动画控制器引用
   const animationControlsRef = useRef<any>(null);
   const isManualControlRef = useRef(false); // 标记是否是手动控制
-
-  // 跟踪最后阶段是否激活
-  const [isLastStageActive, setIsLastStageActive] = useState(false);
-  const prevLastStageActiveRef = useRef(false);
 
   // 卡片内容配置（不包含组件，避免重复创建）
   const cardContents = [
@@ -64,12 +54,6 @@ export function SequenceSection() {
         'Launch a high-availability database cluster... Then, use Chat2DB to interact with your data using plain English...',
       buttonText: 'Try Database',
     },
-    {
-      title: 'From one sentence, to a complete system.',
-      description:
-        'Remember that sentence you started with? The AI Pilot is what makes it possible... automating thousands of complex tasks...',
-      buttonText: 'Try AI Pilot',
-    },
   ];
 
   // 根据索引渲染对应的卡片组件
@@ -83,8 +67,6 @@ export function SequenceSection() {
         return <DeploymentCard />;
       case 3:
         return <DataCard />;
-      case 4:
-        return <AiAgentCard />;
       default:
         return <IdeaCard />;
     }
@@ -92,9 +74,6 @@ export function SequenceSection() {
 
   // 跟踪当前激活的卡片索引
   const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
-
-  // 获取最后阶段的开始位置
-  const lastStageStartProgress = getLastStageStartProgress();
 
   useEffect(() => {
     const controls = animate(mockProgress, 1, {
@@ -116,21 +95,11 @@ export function SequenceSection() {
   // 使用 mockProgress 作为进度
   const progress = mockProgress;
 
-  // GradientWave 进度：最后阶段之前映射到 0-1，最后阶段保持为 1 (idle状态)
-  const waveProgress = useTransform(progress, (value) => {
-    if (value >= lastStageStartProgress) return 1; // idle 状态
-    return value / lastStageStartProgress; // 映射到 0-1
-  });
+  // GradientWave 进度：直接使用 progress
+  const waveProgress = progress;
 
-  // 监听进度变化，更新最后阶段激活状态和当前卡片索引
+  // 监听进度变化，更新当前卡片索引
   useMotionValueEvent(progress, 'change', (latest) => {
-    // 更新最后阶段激活状态
-    const newIsActive = latest >= lastStageStartProgress;
-    if (newIsActive !== prevLastStageActiveRef.current) {
-      prevLastStageActiveRef.current = newIsActive;
-      setIsLastStageActive(newIsActive);
-    }
-
     // 更新当前激活的卡片索引
     let newActiveIndex: number;
     if (latest >= 1) {
@@ -239,20 +208,10 @@ export function SequenceSection() {
         {/* 波形可视化 */}
         <GradientWave progress={waveProgress} />
 
-        {/* 常规工作流阶段 */}
+        {/* 工作流阶段 */}
         <div className="mt-4">
           <WorkflowProgress
             progress={progress}
-            isLastStageActive={isLastStageActive}
-            onProgressChange={handleProgressChange}
-          />
-        </div>
-
-        {/* 最后阶段 - 单独一行 */}
-        <div className="mt-4">
-          <LastStage
-            progress={progress}
-            isActive={isLastStageActive}
             onProgressChange={handleProgressChange}
           />
         </div>

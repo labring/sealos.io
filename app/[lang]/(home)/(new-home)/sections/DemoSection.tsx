@@ -1,13 +1,41 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { useRef, useState, useEffect } from 'react';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+} from 'motion/react';
 import { FeatureStepper } from '../components/FeatureStepper';
 import DemoLightSvg from '../assets/demo-light.svg';
 import Image from 'next/image';
 
 export function DemoSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLDivElement>(null);
+  const patternRef = useRef<HTMLDivElement>(null);
+  const videoHeightMV = useMotionValue(0);
+  const patternHeightMV = useMotionValue(0);
+
+  // 动态读取视频和图案容器的高度
+  useEffect(() => {
+    const updateHeights = () => {
+      if (videoRef.current) {
+        const height = videoRef.current.offsetHeight;
+        videoHeightMV.set(height);
+      }
+      if (patternRef.current) {
+        const height = patternRef.current.offsetHeight;
+        patternHeightMV.set(height);
+      }
+    };
+
+    updateHeights();
+    window.addEventListener('resize', updateHeights);
+    return () => window.removeEventListener('resize', updateHeights);
+  }, [videoHeightMV, patternHeightMV]);
 
   // 跟踪整个动画容器的滚动进度
   const { scrollYProgress } = useScroll({
@@ -29,40 +57,84 @@ export function DemoSection() {
 
   // 2. 视频容器的Y轴位置（从上方移动到中心，最后移出屏幕）
   // 计算初始位置：从中心向上移动，但留出空间给 Stepper
-  // 视频宽度是 80vw，aspect-ratio 16:9，所以高度约为 45vw
-  // 在较宽屏幕上，max-width 1200px 限制了宽度，对应高度约 675px
-  // 初始位置：-30vh 让视频上边缘在屏幕上方，避免遮挡 Stepper
-  const videoY = useTransform(
-    scrollYProgress,
-    [0, 0.125, 0.8125, 1],
-    ['-30vh', '0vh', '0vh', '-100vh'],
+  // 动态计算：50vh - 50%视频高度，使视频垂直居中
+  const videoYRaw = useTransform(
+    [scrollYProgress, videoHeightMV],
+    ([progress, height]) => {
+      const progressValue = progress as number;
+      const heightValue = height as number;
+      const initialY =
+        heightValue > 0 ? window.innerHeight / 2 - heightValue / 2 : 0;
+
+      if (progressValue <= 0.125) {
+        // 阶段1：从 0 移动到 initialY
+        return initialY * (progressValue / 0.125);
+      } else if (progressValue <= 0.8125) {
+        // 阶段2-3：保持在 initialY
+        return initialY;
+      } else {
+        // 阶段4：从 initialY 移动到 -100vh
+        const t = (progressValue - 0.8125) / (1 - 0.8125);
+        return initialY + (-window.innerHeight - initialY) * t;
+      }
+    },
   );
 
   // 3. 视频容器的scale（阶段4一起缩小）
-  const videoScale = useTransform(scrollYProgress, [0, 0.5, 0.75], [1, 1, 0.1]);
+  const videoScaleRaw = useTransform(
+    scrollYProgress,
+    [0, 0.5, 0.75],
+    [1, 1, 0.1],
+  );
+  const videoScale = useSpring(videoScaleRaw, {
+    stiffness: 100,
+    damping: 30,
+    mass: 0.8,
+  });
 
   // 4. 视频容器的透明度（阶段4一起渐隐）
   const videoOpacity = useTransform(scrollYProgress, [0.5, 0.75], [1, 0]);
 
   // 5. 图案的scale（阶段3放大到120vw，阶段4缩小到0.5）
-  const patternScale = useTransform(
+  const patternScaleRaw = useTransform(
     scrollYProgress,
     [0, 0.25, 0.5, 0.75],
     [1, 1, 56, 0.5],
   );
+  const patternScale = useSpring(patternScaleRaw, {
+    stiffness: 100,
+    damping: 30,
+    mass: 0.8,
+  });
 
-  // 6. 图案的Y轴位置（阶段7随文档流滚动）
-  const patternY = useTransform(
-    scrollYProgress,
-    [0, 0.875, 1],
-    ['0vh', '0vh', '0vh'],
+  // 6. 图案的Y轴位置（使用50vh - 50%图案高度计算）
+  const patternYRaw = useTransform(
+    [scrollYProgress, patternHeightMV],
+    ([progress, height]) => {
+      const progressValue = progress as number;
+      const heightValue = height as number;
+      const initialY =
+        heightValue > 0 ? window.innerHeight / 2 - heightValue / 2 : 0;
+
+      if (progressValue <= 0.125) {
+        // 阶段1：从 0 移动到 initialY
+        return initialY * (progressValue / 0.125);
+      } else if (progressValue <= 0.8125) {
+        // 阶段2-3：保持在 initialY
+        return initialY;
+      } else {
+        // 阶段4：从 initialY 移动到 -100vh
+        const t = (progressValue - 0.8125) / (1 - 0.8125);
+        return initialY + (0 - initialY) * t;
+      }
+    },
   );
 
   // 7. 图案的透明度（阶段2时从0变为1）
   const patternOpacity = useTransform(
     scrollYProgress,
-    [0, 0.125, 0.25],
-    [0, 0, 1],
+    [0, 0.125, 0.25, 0.8125, 0.9],
+    [0, 0, 1, 1, 0],
   );
 
   return (
@@ -88,15 +160,16 @@ export function DemoSection() {
         style={{ height: '800vh' }}
       >
         {/* 固定容器 - 在视口中心固定显示 */}
-        <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-visible">
+        <div className="sticky top-0 flex h-screen w-full justify-center overflow-visible">
           {/* Video容器 */}
           <motion.div
-            className="absolute perspective-midrange perspective-origin-center"
+            className="absolute perspective-midrange perspective-origin-top"
             style={{
-              y: videoY,
+              y: videoYRaw,
             }}
           >
             <motion.div
+              ref={videoRef}
               className="bg-background aspect-video w-[80vw] max-w-[1200px] origin-center overflow-hidden rounded-4xl border-4"
               style={{
                 rotateX: rotateAngle,
@@ -124,13 +197,14 @@ export function DemoSection() {
 
           {/* 图案容器 */}
           <motion.div
-            className="absolute flex items-center justify-center"
+            className="absolute -z-10 flex items-center justify-center"
             style={{
-              y: patternY,
+              y: patternYRaw,
             }}
           >
             <motion.div
-              className="relative -z-10"
+              ref={patternRef}
+              className="relative"
               style={{
                 scale: patternScale,
                 opacity: patternOpacity,
