@@ -42,8 +42,8 @@ interface FeatureProps {
 function Feature({ title, description }: FeatureProps) {
   return (
     <div className="mb-12">
-      <div className="flex flex-col lg:flex-row w-full items-start gap-2 lg:gap-12">
-        <h3 className="m-0 w-auto lg:w-[166px] shrink-0 text-[17.5px] leading-[25px] font-medium text-zinc-200">
+      <div className="flex w-full flex-col items-start gap-2 lg:flex-row lg:gap-12">
+        <h3 className="m-0 w-auto shrink-0 text-[17.5px] leading-[25px] font-medium text-zinc-200 lg:w-[166px]">
           {title}
         </h3>
         <p className="m-0 block text-sm leading-5 font-normal text-zinc-400">
@@ -103,7 +103,7 @@ export default function WhySourceAvailableMatters() {
     <div className="mt-[104px] pt-0 pb-0">
       <div className="w-full px-0">
         {/* Two-column wrapper */}
-        <div className="flex flex-col lg:flex-row w-full items-start justify-between gap-8">
+        <div className="flex w-full flex-col items-start justify-between gap-8 lg:flex-row">
           {/* Left Column */}
           <div className="w-full lg:w-[40%]">
             <h2 className="mb-16 text-left text-3xl leading-none font-medium text-white">
@@ -127,9 +127,9 @@ export default function WhySourceAvailableMatters() {
           </div>
 
           {/* Right Column - Testimonials */}
-          <div className="relative h-auto sm:h-[780px] md:h-[700px] lg:h-[612px] w-full lg:w-[60%] lg:shrink-0 overflow-hidden rounded-tl-3xl">
+          <div className="relative h-auto w-full overflow-hidden rounded-tl-3xl sm:h-[780px] md:h-[700px] lg:h-[612px] lg:w-[60%] lg:shrink-0">
             {/* >=640: 原绝对定位布局 */}
-            <div className="hidden sm:block relative h-full w-full">
+            <div className="relative hidden h-full w-full sm:block">
               {/* Border */}
               <div
                 className="pointer-events-none absolute inset-0 z-[3] rounded-tl-3xl border border-white/30"
@@ -205,7 +205,7 @@ export default function WhySourceAvailableMatters() {
             </div>
 
             {/* <640: 纵向列表，条目之间分隔线；保留上/左边框与左上圆角 */}
-            <div className="sm:hidden relative rounded-tl-3xl border-t border-l border-white/30">
+            <div className="relative rounded-tl-3xl border-t border-l border-white/30 sm:hidden">
               <div className="w-full divide-y divide-white/10">
                 {testimonials.map((t, i) => (
                   <div key={i} className="px-5 py-6">

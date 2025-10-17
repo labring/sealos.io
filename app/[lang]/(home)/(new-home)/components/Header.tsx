@@ -247,7 +247,9 @@ export function Header() {
             variant="landing-primary"
             className="hidden h-10 lg:flex"
           >
-            <a href="#">Start for free</a>
+            <a href="https://usw.sealos.io/?openapp=system-brain">
+              Start for free
+            </a>
           </Button>
 
           {/* Mobile Menu Button */}
@@ -429,7 +431,10 @@ export function Header() {
                     variant="landing-primary"
                     className="h-12 w-full text-base"
                   >
-                    <a href="#" onClick={closeMobileMenu}>
+                    <a
+                      href="https://usw.sealos.io/?openapp=system-brain"
+                      onClick={closeMobileMenu}
+                    >
                       Start for free
                     </a>
                   </Button>

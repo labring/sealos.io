@@ -55,10 +55,22 @@ interface ComparisonData {
 const comparisonData: ComparisonData = {
   platforms: [
     { name: 'Sealos', icon: <Circle size={24} /> },
-    { name: 'Railway', icon: <Image src={RailwayIcon} alt="Railway" width={24} height={24} /> },
-    { name: 'Render', icon: <Image src={RenderIcon} alt="Render" width={24} height={24} /> },
-    { name: 'Supabase', icon: <Image src={SupabaseIcon} alt="Supabase" width={24} height={24} /> },
-    { name: 'Vercel', icon: <Image src={VercelIcon} alt="Vercel" width={24} height={24} /> },
+    {
+      name: 'Railway',
+      icon: <Image src={RailwayIcon} alt="Railway" width={24} height={24} />,
+    },
+    {
+      name: 'Render',
+      icon: <Image src={RenderIcon} alt="Render" width={24} height={24} />,
+    },
+    {
+      name: 'Supabase',
+      icon: <Image src={SupabaseIcon} alt="Supabase" width={24} height={24} />,
+    },
+    {
+      name: 'Vercel',
+      icon: <Image src={VercelIcon} alt="Vercel" width={24} height={24} />,
+    },
   ],
   categories: [
     {

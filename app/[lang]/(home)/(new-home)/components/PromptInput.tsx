@@ -27,6 +27,7 @@ import RedisIcon from '../assets/db-appicons/redisicon.svg';
 // Dev Runtime icons
 import AstroIcon from '../assets/stacks-appicons/astro.svg';
 import DjangoIcon from '../assets/stacks-appicons/django.svg';
+import FlaskIcon from '../assets/stacks-appicons/flask.svg';
 import GolangIcon from '../assets/stacks-appicons/golang.svg';
 import JavaIcon from '../assets/stacks-appicons/java.svg';
 import NextjsIcon from '../assets/stacks-appicons/nextjs.svg';
@@ -55,24 +56,26 @@ const PROMPT_CATEGORIES: CategoryConfig[] = [
     icon: <Bot size={14} />,
     prompts: [
       {
+        icon: <Image src={N8NIcon} alt="N8N" width={16} height={16} />,
+        name: 'N8N',
+        prompt: 'I want to deploy N8N from app store.',
+      },
+      {
         icon: <Image src={DifyIcon} alt="Dify" width={16} height={16} />,
         name: 'Dify',
-        prompt: '',
+        prompt: 'I want to deploy Dify from app store.',
       },
       {
         icon: <Image src={FastGPTIcon} alt="FastGPT" width={16} height={16} />,
         name: 'FastGPT',
-        prompt: '',
+        prompt: 'I want to deploy FastGPT from app store.',
       },
       {
-        icon: <Image src={LobechatIcon} alt="LobeChat" width={16} height={16} />,
-        name: 'LobeChat',
-        prompt: '',
-      },
-      {
-        icon: <Image src={N8NIcon} alt="N8N" width={16} height={16} />,
-        name: 'N8N',
-        prompt: '',
+        icon: (
+          <Image src={LobechatIcon} alt="Lobe Chat" width={16} height={16} />
+        ),
+        name: 'Lobe Chat',
+        prompt: 'I want to deploy Lobe Chat from app store.',
       },
     ],
   },
@@ -83,32 +86,32 @@ const PROMPT_CATEGORIES: CategoryConfig[] = [
       {
         icon: <Image src={PgIcon} alt="PostgreSQL" width={16} height={16} />,
         name: 'PostgreSQL',
-        prompt: '',
-      },
-      {
-        icon: <Image src={MysqlIcon} alt="MySQL" width={16} height={16} />,
-        name: 'MySQL',
-        prompt: '',
+        prompt: 'I want to deploy only PostgreSQL.',
       },
       {
         icon: <Image src={MongoIcon} alt="MongoDB" width={16} height={16} />,
         name: 'MongoDB',
-        prompt: '',
+        prompt: 'I want to deploy only MongoDB.',
+      },
+      {
+        icon: <Image src={MysqlIcon} alt="MySQL" width={16} height={16} />,
+        name: 'MySQL',
+        prompt: 'I want to deploy only MySQL.',
       },
       {
         icon: <Image src={RedisIcon} alt="Redis" width={16} height={16} />,
         name: 'Redis',
-        prompt: '',
+        prompt: 'I want to deploy only Redis.',
       },
       {
         icon: <Image src={KafkaIcon} alt="Kafka" width={16} height={16} />,
         name: 'Kafka',
-        prompt: '',
+        prompt: 'I want to deploy only Kafka.',
       },
       {
         icon: <Image src={MilvusIcon} alt="Milvus" width={16} height={16} />,
         name: 'Milvus',
-        prompt: '',
+        prompt: 'I want to deploy only Milvus.',
       },
     ],
   },
@@ -119,52 +122,64 @@ const PROMPT_CATEGORIES: CategoryConfig[] = [
       {
         icon: <Image src={NextjsIcon} alt="Next.js" width={16} height={16} />,
         name: 'Next.js',
-        prompt: '',
+        prompt: 'I want to build an app using Next.js devbox runtime.',
       },
       {
         icon: <Image src={ReactIcon} alt="React" width={16} height={16} />,
         name: 'React',
-        prompt: '',
-      },
-      {
-        icon: <Image src={PythonIcon} alt="Python" width={16} height={16} />,
-        name: 'Python',
-        prompt: '',
-      },
-      {
-        icon: <Image src={DjangoIcon} alt="Django" width={16} height={16} />,
-        name: 'Django',
-        prompt: '',
-      },
-      {
-        icon: <Image src={GolangIcon} alt="Golang" width={16} height={16} />,
-        name: 'Golang',
-        prompt: '',
-      },
-      {
-        icon: <Image src={JavaIcon} alt="Java" width={16} height={16} />,
-        name: 'Java',
-        prompt: '',
-      },
-      {
-        icon: <Image src={SpringbootIcon} alt="Spring Boot" width={16} height={16} />,
-        name: 'Spring Boot',
-        prompt: '',
-      },
-      {
-        icon: <Image src={PhpIcon} alt="PHP" width={16} height={16} />,
-        name: 'PHP',
-        prompt: '',
-      },
-      {
-        icon: <Image src={RustIcon} alt="Rust" width={16} height={16} />,
-        name: 'Rust',
-        prompt: '',
+        prompt: 'I want to build an app using React devbox runtime.',
       },
       {
         icon: <Image src={AstroIcon} alt="Astro" width={16} height={16} />,
         name: 'Astro',
-        prompt: '',
+        prompt: 'I want to build an app using Astro devbox runtime.',
+      },
+      {
+        icon: <Image src={DjangoIcon} alt="Django" width={16} height={16} />,
+        name: 'Django',
+        prompt: 'I want to build an app using Django devbox runtime.',
+      },
+      {
+        icon: <Image src={FlaskIcon} alt="Flask" width={16} height={16} />,
+        name: 'Flask',
+        prompt: 'I want to build an app using Flask devbox runtime.',
+      },
+      {
+        icon: (
+          <Image
+            src={SpringbootIcon}
+            alt="Spring Boot"
+            width={16}
+            height={16}
+          />
+        ),
+        name: 'Spring Boot',
+        prompt: 'I want to build an app using Spring Boot devbox runtime.',
+      },
+      {
+        icon: <Image src={PythonIcon} alt="Python" width={16} height={16} />,
+        name: 'Python',
+        prompt: 'I want to build an app using python devbox runtime.',
+      },
+      {
+        icon: <Image src={GolangIcon} alt="Go" width={16} height={16} />,
+        name: 'Go',
+        prompt: 'I want to build an app using golang devbox runtime.',
+      },
+      {
+        icon: <Image src={PhpIcon} alt="PHP" width={16} height={16} />,
+        name: 'PHP',
+        prompt: 'I want to build an app using PHP devbox runtime.',
+      },
+      {
+        icon: <Image src={JavaIcon} alt="Java" width={16} height={16} />,
+        name: 'Java',
+        prompt: 'I want to build an app using Java devbox runtime.',
+      },
+      {
+        icon: <Image src={RustIcon} alt="Rust" width={16} height={16} />,
+        name: 'Rust',
+        prompt: 'I want to build an app using Rust devbox runtime.',
       },
     ],
   },
@@ -179,7 +194,7 @@ export function PromptInput() {
 
   const handleSendPrompt = () => {
     if (promptText.trim()) {
-      const url = `https://brain.usw.sealos.io/tutorial?query=${encodeURIComponent(promptText)}`;
+      const url = `https://brain.usw.sealos.io/?query=${encodeURIComponent(promptText)}`;
       window.open(url, '_blank');
     }
   };
@@ -222,7 +237,7 @@ export function PromptInput() {
 
         <div className="flex flex-wrap gap-2">
           {PROMPT_CATEGORIES.map((category) => (
-            <DropdownMenu key={category.name}>
+            <DropdownMenu key={category.name} modal={false}>
               <DropdownMenuTrigger asChild>
                 <button className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-xs whitespace-nowrap text-zinc-400 transition-colors hover:bg-white/[0.1] sm:text-sm">
                   {category.icon}
