@@ -71,6 +71,7 @@ export default function HomePage({
           <div className="h-[330px]"></div>
 
         </div>
+         
         <Footer lang={'en'} />
       </div>
       </main>
