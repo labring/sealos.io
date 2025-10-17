@@ -390,7 +390,7 @@ const Footer = async ({
       </div>
 
       {/* Large Sealos Background Text only */}
-      <div className="relative z-10">
+      <div className="relative -z-10">
       <SealosSticky
         letters={
           <>

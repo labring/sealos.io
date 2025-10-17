@@ -31,8 +31,8 @@ export default function OSSSection({ lang = 'en' }: OSSSectionProps) {
   return (
     <div className="relative overflow-hidden">
       {/* Main content */}
-      <div className="relative z-10 h-[184px] w-full">
-        <div className="flex items-start justify-between">
+      <div className="relative z-10 h-auto lg:h-[184px] w-full">
+        <div className="flex flex-col lg:flex-row items-start justify-between">
           {/* Left side - Main content */}
           <div className="max-w-2xl flex-1">
             {/* Badge */}
@@ -79,21 +79,21 @@ export default function OSSSection({ lang = 'en' }: OSSSectionProps) {
             {/* Main heading - 根据设计稿样式 */}
             <div className="mb-8">
               {/* 仅左侧标题与描述，不包含按钮 */}
-              <h1 className="mb-4 text-[40px] leading-[150%] font-medium whitespace-nowrap">
+              <h1 className="mb-4 text-[40px] leading-[150%] font-medium lg:whitespace-nowrap">
                 <span className="text-white">{t.title}</span>{' '}
                 <span className="bg-gradient-to-r from-white to-blue-600 bg-clip-text text-transparent">
                   {t.titleHighlight}
                 </span>
               </h1>
 
-              <p className="w-[492px] text-base leading-6 font-normal text-zinc-400">
+              <p className="w-full lg:w-[492px] text-base leading-6 font-normal text-zinc-400">
                 {t.description}
               </p>
             </div>
           </div>
 
           {/* Right side - Action buttons 仅下移与标题同一水平线 */}
-          <div className="mt-[72px] ml-8 flex h-10 w-[305px] items-center gap-3">
+          <div className="mt-6 lg:mt-[72px] ml-0 lg:ml-8 flex h-10 w-full lg:w-[305px] items-start lg:items-center gap-3">
             {/* View Source Code */}
             <a
               href="https://github.com/labring/sealos"

@@ -40,16 +40,15 @@ export default function HomePage({
         <ComparisonSection />
         <SequenceSection />
         <CapsSection />
-      </main>
 
-      {/* 第六屏、七屏与页脚 */}
+              {/* 第六屏、七屏与页脚 */}
       <div>
         <div
           style={{
             paddingTop: '114px',
             paddingBottom: 0,
-            paddingLeft: '64px',
-            paddingRight: '64px',
+            paddingLeft: '0px',
+            paddingRight: '0px',
           }}
         >
           <SourceAvailSection lang={'en'} />
@@ -58,7 +57,7 @@ export default function HomePage({
         {/* 第七屏与页脚之间的光照背景 */}
         <div className="relative mt-[140px]">
           <div
-            className="pointer-events-none absolute left-1/2 z-10 w-screen -translate-x-1/2"
+            className="pointer-events-none absolute left-1/2 z-30 w-screen -translate-x-1/2"
             style={{ top: '-140px' }}
           >
             <Image
@@ -70,9 +69,13 @@ export default function HomePage({
           </div>
           {/* 间距容器，确保光照有展示空间 */}
           <div className="h-[330px]"></div>
+
         </div>
         <Footer lang={'en'} />
       </div>
+      </main>
+
+
     </>
   );
 }
