@@ -11,6 +11,30 @@ import {
 import { ArrowUp, ChevronRight, Bot, Database, Code } from 'lucide-react';
 import { Glare } from './Glare';
 import { ReactNode, useState } from 'react';
+import Image from 'next/image';
+// AI Agent icons
+import DifyIcon from '../assets/aiagent-appicons/dify.svg';
+import FastGPTIcon from '../assets/aiagent-appicons/fastgpt.svg';
+import LobechatIcon from '../assets/aiagent-appicons/lobechat.svg';
+import N8NIcon from '../assets/aiagent-appicons/n8n.svg';
+// Database icons
+import KafkaIcon from '../assets/db-appicons/kafkaicon.svg';
+import MilvusIcon from '../assets/db-appicons/milvus.svg';
+import MongoIcon from '../assets/db-appicons/mongoicon.svg';
+import MysqlIcon from '../assets/db-appicons/mysqlicon.svg';
+import PgIcon from '../assets/db-appicons/pgicon.svg';
+import RedisIcon from '../assets/db-appicons/redisicon.svg';
+// Dev Runtime icons
+import AstroIcon from '../assets/stacks-appicons/astro.svg';
+import DjangoIcon from '../assets/stacks-appicons/django.svg';
+import GolangIcon from '../assets/stacks-appicons/golang.svg';
+import JavaIcon from '../assets/stacks-appicons/java.svg';
+import NextjsIcon from '../assets/stacks-appicons/nextjs.svg';
+import PhpIcon from '../assets/stacks-appicons/php.svg';
+import PythonIcon from '../assets/stacks-appicons/python.svg';
+import ReactIcon from '../assets/stacks-appicons/react.svg';
+import RustIcon from '../assets/stacks-appicons/rust.svg';
+import SpringbootIcon from '../assets/stacks-appicons/springboot.svg';
 
 interface PromptOption {
   icon: ReactNode;
@@ -31,21 +55,24 @@ const PROMPT_CATEGORIES: CategoryConfig[] = [
     icon: <Bot size={14} />,
     prompts: [
       {
-        icon: <Bot size={16} />,
-        name: 'Dify AI Agent',
-        prompt:
-          'I want to deploy Dify AI Agent from the app store to build my own AI assistant.',
+        icon: <Image src={DifyIcon} alt="Dify" width={16} height={16} />,
+        name: 'Dify',
+        prompt: '',
       },
       {
-        icon: <Bot size={16} />,
+        icon: <Image src={FastGPTIcon} alt="FastGPT" width={16} height={16} />,
         name: 'FastGPT',
-        prompt: 'I want to deploy FastGPT to create a knowledge base chatbot.',
+        prompt: '',
       },
       {
-        icon: <Bot size={16} />,
-        name: 'Langfuse',
-        prompt:
-          'I want to deploy Langfuse for LLM observability and monitoring.',
+        icon: <Image src={LobechatIcon} alt="LobeChat" width={16} height={16} />,
+        name: 'LobeChat',
+        prompt: '',
+      },
+      {
+        icon: <Image src={N8NIcon} alt="N8N" width={16} height={16} />,
+        name: 'N8N',
+        prompt: '',
       },
     ],
   },
@@ -54,19 +81,34 @@ const PROMPT_CATEGORIES: CategoryConfig[] = [
     icon: <Database size={14} />,
     prompts: [
       {
-        icon: <Database size={16} />,
+        icon: <Image src={PgIcon} alt="PostgreSQL" width={16} height={16} />,
         name: 'PostgreSQL',
-        prompt: 'I want to create a PostgreSQL database for my application.',
+        prompt: '',
       },
       {
-        icon: <Database size={16} />,
+        icon: <Image src={MysqlIcon} alt="MySQL" width={16} height={16} />,
+        name: 'MySQL',
+        prompt: '',
+      },
+      {
+        icon: <Image src={MongoIcon} alt="MongoDB" width={16} height={16} />,
         name: 'MongoDB',
-        prompt: 'I want to deploy MongoDB for document-based data storage.',
+        prompt: '',
       },
       {
-        icon: <Database size={16} />,
+        icon: <Image src={RedisIcon} alt="Redis" width={16} height={16} />,
         name: 'Redis',
-        prompt: 'I want to set up Redis for caching and session management.',
+        prompt: '',
+      },
+      {
+        icon: <Image src={KafkaIcon} alt="Kafka" width={16} height={16} />,
+        name: 'Kafka',
+        prompt: '',
+      },
+      {
+        icon: <Image src={MilvusIcon} alt="Milvus" width={16} height={16} />,
+        name: 'Milvus',
+        prompt: '',
       },
     ],
   },
@@ -75,21 +117,54 @@ const PROMPT_CATEGORIES: CategoryConfig[] = [
     icon: <Code size={14} />,
     prompts: [
       {
-        icon: <Code size={16} />,
-        name: 'Node.js App',
-        prompt:
-          'I want to deploy a Node.js application with custom runtime environment.',
+        icon: <Image src={NextjsIcon} alt="Next.js" width={16} height={16} />,
+        name: 'Next.js',
+        prompt: '',
       },
       {
-        icon: <Code size={16} />,
-        name: 'Python App',
-        prompt:
-          'I want to deploy a Python application with required dependencies.',
+        icon: <Image src={ReactIcon} alt="React" width={16} height={16} />,
+        name: 'React',
+        prompt: '',
       },
       {
-        icon: <Code size={16} />,
-        name: 'Go App',
-        prompt: 'I want to deploy a Go application with optimized performance.',
+        icon: <Image src={PythonIcon} alt="Python" width={16} height={16} />,
+        name: 'Python',
+        prompt: '',
+      },
+      {
+        icon: <Image src={DjangoIcon} alt="Django" width={16} height={16} />,
+        name: 'Django',
+        prompt: '',
+      },
+      {
+        icon: <Image src={GolangIcon} alt="Golang" width={16} height={16} />,
+        name: 'Golang',
+        prompt: '',
+      },
+      {
+        icon: <Image src={JavaIcon} alt="Java" width={16} height={16} />,
+        name: 'Java',
+        prompt: '',
+      },
+      {
+        icon: <Image src={SpringbootIcon} alt="Spring Boot" width={16} height={16} />,
+        name: 'Spring Boot',
+        prompt: '',
+      },
+      {
+        icon: <Image src={PhpIcon} alt="PHP" width={16} height={16} />,
+        name: 'PHP',
+        prompt: '',
+      },
+      {
+        icon: <Image src={RustIcon} alt="Rust" width={16} height={16} />,
+        name: 'Rust',
+        prompt: '',
+      },
+      {
+        icon: <Image src={AstroIcon} alt="Astro" width={16} height={16} />,
+        name: 'Astro',
+        prompt: '',
       },
     ],
   },
