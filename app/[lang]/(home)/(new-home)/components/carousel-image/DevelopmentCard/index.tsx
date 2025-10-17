@@ -1,14 +1,14 @@
 'use client';
-import EditorImage from './editor.svg';
-import CodeBuddyLogo from './logo/codebuddy.svg';
-import CursorLogo from './logo/cursor.svg';
-import JBRemoteLogo from './logo/jbremote.svg';
-import JBToolboxLogo from './logo/jbtoolbox.svg';
-import KiroLogo from './logo/kiro.svg';
-import LingmaLogo from './logo/lingma.svg';
-import QoderLogo from './logo/qoder.svg';
-import TraeLogo from './logo/trae.svg';
-import VSCodeLogo from './logo/vscode.svg';
+import EditorImage from './assets/editor.svg';
+import CodeBuddyLogo from '../../../assets/ide-icons/codebuddy.svg';
+import CursorLogo from '../../../assets/ide-icons/cursor.svg';
+import JBRemoteLogo from '../../../assets/ide-icons/jbremote.svg';
+import JBToolboxLogo from '../../../assets/ide-icons/jbtoolbox.svg';
+import KiroLogo from '../../../assets/ide-icons/kiro.svg';
+import LingmaLogo from '../../../assets/ide-icons/lingma.svg';
+import QoderLogo from '../../../assets/ide-icons/qoder.svg';
+import TraeLogo from '../../../assets/ide-icons/trae.svg';
+import VSCodeLogo from '../../../assets/ide-icons/vscode.svg';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 

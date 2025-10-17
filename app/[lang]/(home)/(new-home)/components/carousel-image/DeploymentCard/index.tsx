@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { ReactNode, useEffect, useState } from 'react';
 import { FileCode } from 'lucide-react';
-import ContainerImage from './container.svg';
-import SealosLogo from './logo/sealos.svg';
+import ContainerImage from './assets/container.svg';
+import SealosLogo from '../../../assets/shared-icons/sealos.svg';
 import K8sLogo from './logo/k8s.svg';
 import DockerLogo from './logo/docker.svg';
 import GithubLogo from './logo/github.svg';

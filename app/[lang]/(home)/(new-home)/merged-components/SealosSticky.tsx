@@ -17,7 +17,7 @@ export default function SealosSticky({ letters, children }: SealosStickyProps) {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ['start end', 'end start'],
   });
 
   // 全局滚动（像素）用于计算距底部剩余距离
@@ -30,17 +30,18 @@ export default function SealosSticky({ letters, children }: SealosStickyProps) {
 
       // 1. 获取 SealosSticky 组件顶部位置
       const sealosStickyTop = containerRef.current.getBoundingClientRect().top;
-      
+
       // 2. 获取主内容区域底部位置（即 Footer 链接栏底部）
-      const mainContentBottom = mainContentRef.current.getBoundingClientRect().bottom;
-      
+      const mainContentBottom =
+        mainContentRef.current.getBoundingClientRect().bottom;
+
       // 3. 计算两者之间的距离
       const distance = mainContentBottom - sealosStickyTop;
-      
+
       // 4. 当距离为 0 时（重合），不再允许上滑
       // translateY 为负值表示向上移动
       const maxTranslateY = Math.max(0, -distance);
-      
+
       setTranslateY(maxTranslateY);
     };
 
@@ -91,10 +92,10 @@ export default function SealosSticky({ letters, children }: SealosStickyProps) {
       >
         {children}
       </motion.div>
-      
+
       {/* Sealos 字母 - 固定在底部 */}
       <motion.div
-        className="fixed bottom-0 left-0 right-0 h-[400px] z-20 flex items-end justify-center px-16"
+        className="fixed right-0 bottom-0 left-0 z-20 flex h-[400px] items-end justify-center px-16"
         style={{ opacity }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >

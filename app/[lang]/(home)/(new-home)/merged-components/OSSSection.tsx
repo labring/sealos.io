@@ -31,8 +31,8 @@ export default function OSSSection({ lang = 'en' }: OSSSectionProps) {
   return (
     <div className="relative overflow-hidden">
       {/* Main content */}
-      <div className="relative z-10 h-auto lg:h-[184px] w-full">
-        <div className="flex flex-col lg:flex-row items-start justify-between">
+      <div className="relative z-10 h-auto w-full lg:h-[184px]">
+        <div className="flex flex-col items-start justify-between lg:flex-row">
           {/* Left side - Main content */}
           <div className="max-w-2xl flex-1">
             {/* Badge */}
@@ -86,14 +86,14 @@ export default function OSSSection({ lang = 'en' }: OSSSectionProps) {
                 </span>
               </h1>
 
-              <p className="w-full lg:w-[492px] text-base leading-6 font-normal text-zinc-400">
+              <p className="w-full text-base leading-6 font-normal text-zinc-400 lg:w-[492px]">
                 {t.description}
               </p>
             </div>
           </div>
 
           {/* Right side - Action buttons 仅下移与标题同一水平线 */}
-          <div className="mt-6 lg:mt-[72px] ml-0 lg:ml-8 flex h-10 w-full lg:w-[305px] items-start lg:items-center gap-3">
+          <div className="mt-6 ml-0 flex h-10 w-full items-start gap-3 lg:mt-[72px] lg:ml-8 lg:w-[305px] lg:items-center">
             {/* View Source Code */}
             <a
               href="https://github.com/labring/sealos"

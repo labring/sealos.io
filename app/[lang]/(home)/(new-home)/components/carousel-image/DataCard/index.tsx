@@ -2,13 +2,13 @@
 import { DBCard } from './DBCard';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import KafkaIcon from './kafkaicon.svg';
-import MilvusIcon from './milvus.svg';
-import MongoIcon from './mongoicon.svg';
-import MysqlIcon from './mysqlicon.svg';
-import PgIcon from './pgicon.svg';
-import RedisIcon from './redisicon.svg';
-import ChatInputImage from './chat-input.svg';
+import KafkaIcon from '../../../assets/db-appicons/kafkaicon.svg';
+import MilvusIcon from '../../../assets/db-appicons/milvus.svg';
+import MongoIcon from '../../../assets/db-appicons/mongoicon.svg';
+import MysqlIcon from '../../../assets/db-appicons/mysqlicon.svg';
+import PgIcon from '../../../assets/db-appicons/pgicon.svg';
+import RedisIcon from '../../../assets/db-appicons/redisicon.svg';
+import ChatInputImage from '../IdeaCard/assets/chat-input.svg';
 
 // 数据库配置
 const databases = [

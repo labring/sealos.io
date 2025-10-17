@@ -41,42 +41,38 @@ export default function HomePage({
         <SequenceSection />
         <CapsSection />
 
-              {/* 第六屏、七屏与页脚 */}
-      <div>
-        <div
-          style={{
-            paddingTop: '114px',
-            paddingBottom: 0,
-            paddingLeft: '0px',
-            paddingRight: '0px',
-          }}
-        >
-          <SourceAvailSection lang={'en'} />
-        </div>
-        <FAQSection />
-        {/* 第七屏与页脚之间的光照背景 */}
-        <div className="relative mt-[140px]">
+        {/* 第六屏、七屏与页脚 */}
+        <div>
           <div
-            className="pointer-events-none absolute left-1/2 z-30 w-screen -translate-x-1/2"
-            style={{ top: '-140px' }}
+            style={{
+              paddingTop: '114px',
+              paddingBottom: 0,
+              paddingLeft: '0px',
+              paddingRight: '0px',
+            }}
           >
-            <Image
-              src={light4}
-              alt=""
-              className="h-auto w-full select-none"
-              priority
-            />
+            <SourceAvailSection lang={'en'} />
           </div>
-          {/* 间距容器，确保光照有展示空间 */}
-          <div className="h-[330px]"></div>
-
+          <FAQSection />
+          {/* 第七屏与页脚之间的光照背景 */}
+          <div className="relative mt-[140px]">
+            <div
+              className="pointer-events-none absolute left-1/2 z-30 w-screen -translate-x-1/2"
+              style={{ top: '-140px' }}
+            >
+              <Image
+                src={light4}
+                alt=""
+                className="h-auto w-full select-none"
+                priority
+              />
+            </div>
+            {/* 间距容器，确保光照有展示空间 */}
+            <div className="h-[330px]"></div>
+          </div>
+          <Footer lang={'en'} />
         </div>
-         
-        <Footer lang={'en'} />
-      </div>
       </main>
-
-
     </>
   );
 }

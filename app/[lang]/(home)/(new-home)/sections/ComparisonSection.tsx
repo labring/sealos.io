@@ -1,6 +1,19 @@
 import { ReactNode } from 'react';
 import { GradientText } from '../components/GradientText';
-import { Circle, CircleHelp, CodeXml, GitCompare, Info } from 'lucide-react';
+import {
+  Bot,
+  Circle,
+  CircleHelp,
+  CodeXml,
+  GitCompare,
+  Info,
+  Network,
+} from 'lucide-react';
+import Image from 'next/image';
+import RailwayIcon from '../assets/platform-icons/railway.svg';
+import RenderIcon from '../assets/platform-icons/render.svg';
+import SupabaseIcon from '../assets/platform-icons/supabase.svg';
+import VercelIcon from '../assets/platform-icons/vercel.svg';
 import { cn } from '@/lib/utils';
 import {
   Tooltip,
@@ -42,10 +55,22 @@ interface ComparisonData {
 const comparisonData: ComparisonData = {
   platforms: [
     { name: 'Sealos', icon: <Circle size={24} /> },
-    { name: 'Railway', icon: <Circle size={24} /> },
-    { name: 'Render', icon: <Circle size={24} /> },
-    { name: 'Supabase', icon: <Circle size={24} /> },
-    { name: 'Vercel', icon: <Circle size={24} /> },
+    {
+      name: 'Railway',
+      icon: <Image src={RailwayIcon} alt="Railway" width={24} height={24} />,
+    },
+    {
+      name: 'Render',
+      icon: <Image src={RenderIcon} alt="Render" width={24} height={24} />,
+    },
+    {
+      name: 'Supabase',
+      icon: <Image src={SupabaseIcon} alt="Supabase" width={24} height={24} />,
+    },
+    {
+      name: 'Vercel',
+      icon: <Image src={VercelIcon} alt="Vercel" width={24} height={24} />,
+    },
   ],
   categories: [
     {
@@ -54,6 +79,7 @@ const comparisonData: ComparisonData = {
       items: [
         {
           feature: 'Deployment Flexibility',
+          help: 'Deployment Flexibility: "Sealos lets you deploy with a simple sentence using AI Pilot, from any Docker Image, or directly from standard Kubernetes YAML files, offering maximum flexibility.',
           values: [
             {
               name: 'AI Pilot, K8s YAML, Docker',
@@ -79,6 +105,7 @@ const comparisonData: ComparisonData = {
         },
         {
           feature: 'Native Kubernetes API',
+          help: 'Native Kubernetes API: "You can use your existing kubectl and other standard cloud native tools to interact with Sealos directly. No proprietary CLI or vendor lock-in."',
           values: [
             {
               name: 'Full Compatibility',
@@ -187,7 +214,7 @@ const comparisonData: ComparisonData = {
     },
     {
       name: 'AI & DATA CAPABILITIES',
-      icon: <CodeXml size={20} />,
+      icon: <Bot size={20} />,
       items: [
         {
           feature: 'Managed Databases',
@@ -318,7 +345,7 @@ const comparisonData: ComparisonData = {
     },
     {
       name: 'INFRASTRUCTURE & ARCHITECTURE',
-      icon: <CodeXml size={20} />,
+      icon: <Network size={20} />,
       items: [
         {
           feature: 'S3-Compatible Object Storage',
@@ -347,6 +374,7 @@ const comparisonData: ComparisonData = {
         },
         {
           feature: 'Core Trust Advantage',
+          help: 'One-Click High Availability: "Launch a database cluster with master-slave replication and automated failover with a single click, a task that often requires expert configuration on other platforms."',
           values: [
             {
               name: '100% Source Available',

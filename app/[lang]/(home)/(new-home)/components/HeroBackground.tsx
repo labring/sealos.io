@@ -2,8 +2,8 @@
 
 import { useRef, useEffect } from 'react';
 import Image from 'next/image';
-import HeroGrid from './assets/hero-grid.svg';
-import HeroCards from './assets/hero-cards.svg';
+import HeroGrid from './HeroBackground/assets/hero-grid.svg';
+import HeroCards from './HeroBackground/assets/hero-cards.svg';
 
 interface HeroBackgroundProps {
   mousePosition: { x: number; y: number } | null;

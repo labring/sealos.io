@@ -1,7 +1,7 @@
 'use client';
-import InputCard from './input-card.svg';
-import ResponseCard from './response-card.svg';
-import ReportCard from './report-card.svg';
+import InputCard from './assets/input-card.svg';
+import ResponseCard from './assets/response-card.svg';
+import ReportCard from './assets/report-card.svg';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 

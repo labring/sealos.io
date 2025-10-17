@@ -92,8 +92,8 @@ export function DemoSection() {
     mass: 0.8,
   });
 
-  // 4. 视频容器的透明度（阶段4一起渐隐）
-  const videoOpacity = useTransform(scrollYProgress, [0.5, 0.75], [1, 0]);
+  // 4. 视频容器的透明度（阶段4一起渐隐, 但比图案快一点）
+  const videoOpacity = useTransform(scrollYProgress, [0.5, 0.725], [1, 0]);
 
   // 5. 图案的scale（阶段3放大到120vw，阶段4缩小到0.5）
   const patternScaleRaw = useTransform(
