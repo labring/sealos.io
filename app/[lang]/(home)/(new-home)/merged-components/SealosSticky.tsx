@@ -12,11 +12,16 @@ export default function SealosSticky({ letters, children }: SealosStickyProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mainContentRef = useRef<HTMLDivElement>(null);
   const [translateY, setTranslateY] = useState(0);
+  const [viewportHeight, setViewportHeight] = useState(0);
+  const [docScrollHeight, setDocScrollHeight] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
   });
+
+  // 全局滚动（像素）用于计算距底部剩余距离
+  const { scrollY } = useScroll();
 
   // 动态计算 translateY 值
   useEffect(() => {
@@ -57,8 +62,28 @@ export default function SealosSticky({ letters, children }: SealosStickyProps) {
     };
   }, []);
 
+  // 监听窗口尺寸变化，记录 viewport 和文档高度
+  useEffect(() => {
+    const measure = () => {
+      const doc = document.documentElement;
+      setViewportHeight(window.innerHeight);
+      setDocScrollHeight(doc.scrollHeight);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
+
+  // 使用 motion 的派生值计算透明度：默认 0，距底部 ≤ 400px 为 1
+  const opacity = useTransform(scrollY, (y) => {
+    // 尚未测量完成时保持隐藏
+    if (!viewportHeight || !docScrollHeight) return 0;
+    const remaining = Math.max(docScrollHeight - (y + viewportHeight), 0);
+    return remaining <= 400 ? 1 : 0;
+  });
+
   return (
-    <div ref={containerRef} className="relative min-h-[200vh]">
+    <div ref={containerRef} className="relative mb-[400px]">
       {/* 主体内容 - 跟随滚动向上移动 */}
       <motion.div
         ref={mainContentRef}
@@ -69,9 +94,13 @@ export default function SealosSticky({ letters, children }: SealosStickyProps) {
       </motion.div>
 
       {/* Sealos 字母 - 固定在底部 */}
-      <div className="fixed right-0 bottom-0 left-0 z-20 flex h-[400px] items-end justify-center px-16">
+      <motion.div
+        className="fixed right-0 bottom-0 left-0 z-20 flex h-[400px] items-end justify-center px-16"
+        style={{ opacity }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+      >
         {letters}
-      </div>
+      </motion.div>
     </div>
   );
 }

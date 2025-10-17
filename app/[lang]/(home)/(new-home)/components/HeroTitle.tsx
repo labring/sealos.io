@@ -3,6 +3,7 @@
 import { GradientText } from './GradientText';
 import { FramedText } from './FramedText';
 import { AiAgentStar } from './AiAgentStar';
+import { RotatingWords } from './RotatingWords';
 
 export function HeroTitle() {
   return (
@@ -19,7 +20,10 @@ export function HeroTitle() {
         <div>
           Ship any&nbsp;
           <FramedText>
-            <GradientText>AI Agent</GradientText>
+            <RotatingWords
+              words={['AI Agent', 'Web App', 'Database']}
+              interval={2000}
+            />
           </FramedText>
         </div>
         <div>with just a prompt.</div>
