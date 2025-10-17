@@ -53,7 +53,12 @@ export function RotatingWords({
             initial={{ y: '100%', opacity: 0 }}
             animate={{ y: '0%', opacity: 1 }}
             exit={{ y: '-100%', opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 40, mass: 0.6 }}
+            transition={{
+              type: 'spring',
+              stiffness: 500,
+              damping: 40,
+              mass: 0.6,
+            }}
             style={{ display: 'inline-block' }}
           >
             <GradientText>{words[index]}</GradientText>
@@ -64,12 +69,14 @@ export function RotatingWords({
       {/* 隐藏测量元素：继承父级字体尺寸，保证测量准确 */}
       <span
         ref={measureRef}
-        style={{ position: 'absolute', visibility: 'hidden', whiteSpace: 'nowrap' }}
+        style={{
+          position: 'absolute',
+          visibility: 'hidden',
+          whiteSpace: 'nowrap',
+        }}
       >
         {words[index]}
       </span>
     </span>
   );
 }
-
-

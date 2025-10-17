@@ -20,7 +20,10 @@ export function HeroTitle() {
         <div>
           Ship any&nbsp;
           <FramedText>
-            <RotatingWords words={["AI Agent", "Web App", "Database"]} interval={3500} />
+            <RotatingWords
+              words={['AI Agent', 'Web App', 'Database']}
+              interval={2000}
+            />
           </FramedText>
         </div>
         <div>with just a prompt.</div>
