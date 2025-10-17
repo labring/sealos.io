@@ -313,18 +313,12 @@
     padding-right: 16px;
   }
 
-  /* Remove default padding to allow Tailwind classes to take effect */
-  .custom-container {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
   /* Ensure containers don't cause horizontal overflow on small screens */
   @media (max-width: 640px) {
     .custom-container,
     .custom-container-header {
-      padding-left: 0;
-      padding-right: 0;
+      padding-left: 12px;
+      padding-right: 12px;
     }
   }
 

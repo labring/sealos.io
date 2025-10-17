@@ -8,6 +8,7 @@ import { generatePageMetadata } from '@/lib/utils/metadata';
 import StructuredDataComponent from '@/components/structured-data';
 import { generateHomepageSchema } from '@/lib/utils/structured-data';
 import { DefaultSearchDialog } from '@/components/docs/Search';
+import { headers } from 'next/headers';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -42,12 +43,17 @@ export default function LocaleLayout({
   const htmlLang = params.lang || 'en';
   const homepageSchema = generateHomepageSchema(htmlLang);
 
+  // 检查是否为主页路由
+  const headersList = headers();
+  const isHomePage = headersList.get('x-is-homepage') === 'true';
+
+  // 根据是否为主页添加 dark 类名
+  const htmlClassName = isHomePage
+    ? `${inter.className} dark`
+    : inter.className;
+
   return (
-    <html
-      lang={htmlLang}
-      className={`dark ${inter.className}`}
-      suppressHydrationWarning
-    >
+    <html lang={htmlLang} className={htmlClassName} suppressHydrationWarning>
       <head>
         {/* Favicon and App Icons */}
         <link

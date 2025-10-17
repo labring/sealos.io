@@ -35,7 +35,19 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
   const i18nMiddleware = createI18nMiddleware(i18n);
 
   // @ts-ignore
-  return i18nMiddleware(request, event);
+  const response = i18nMiddleware(request, event);
+
+  // 检查是否为主页路由（/, /en, /zh 等）
+  const isHomePage =
+    pathname === '/' ||
+    /^\/[a-z]{2}(-[a-z]{2})?$/.test(pathname) ||
+    /^\/[a-z]{2}(-[a-z]{2})?\/$/.test(pathname);
+  if (isHomePage && response) {
+    const resp = await response;
+    resp?.headers.set('x-is-homepage', 'true');
+  }
+
+  return response;
 }
 
 export const config = {
