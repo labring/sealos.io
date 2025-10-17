@@ -165,7 +165,6 @@ export function DeploymentCard({
   const svgAspectRatio = 215 / 251;
   const containerDisplayHeight = containerHeight; // 使用props传入的高度
   const containerDisplayWidth = containerDisplayHeight * svgAspectRatio; // 保持宽高比
-  const containerWidth = 500;
 
   // 动态计算z轴高度偏移
   // z轴堆叠高度应该综合考虑baseDistance和容器高度
@@ -174,10 +173,6 @@ export function DeploymentCard({
 
   // 找到所有可见容器的边界
   const visibleContainers = containers.filter((c) => c.visible !== false);
-  const minX = Math.min(...visibleContainers.map((c) => (c.x - c.y) * deltaX));
-  const maxX = Math.max(...visibleContainers.map((c) => (c.x - c.y) * deltaX));
-  const layoutWidth = maxX - minX + containerDisplayWidth;
-  const offsetX = (containerWidth - layoutWidth) / 2 - minX;
 
   // 按照z坐标和屏幕y坐标排序，确保正确的绘制顺序
   const sortedContainers = [...visibleContainers].sort((a, b) => {
@@ -185,6 +180,24 @@ export function DeploymentCard({
     const renderOrderB = b.z * 1000 + (b.x + b.y) * deltaY;
     return renderOrderA - renderOrderB;
   });
+
+  // 计算所有容器的屏幕坐标以确定 viewBox 边界
+  const positions = sortedContainers.map((container) => ({
+    x: (container.x - container.y) * deltaX,
+    y: (container.x + container.y) * deltaY - container.z * zHeight,
+  }));
+
+  const minX = Math.min(...positions.map((p) => p.x));
+  const maxX = Math.max(...positions.map((p) => p.x)) + containerDisplayWidth;
+  const minY = Math.min(...positions.map((p) => p.y));
+  const maxY = Math.max(...positions.map((p) => p.y)) + containerDisplayHeight;
+
+  // 添加一些边距
+  const padding = 50;
+  const viewBoxWidth = maxX - minX + padding * 2;
+  const viewBoxHeight = maxY - minY + padding * 2;
+  const viewBoxX = minX - padding;
+  const viewBoxY = minY - padding;
 
   // 计算顶面图标的变换和位置
   // 根据SVG路径：顶点在 (107.511, 1.37109)，左右顶点在 y=63.1211
@@ -206,9 +219,15 @@ export function DeploymentCard({
   };
 
   return (
-    <div className="relative flex h-auto w-full items-center justify-center overflow-hidden">
-      {/* 通过定位模拟正交视角 */}
-      <div className="relative h-[400px] w-[500px]">
+    <div className="relative flex h-full w-full items-center justify-center overflow-visible">
+      <svg
+        viewBox={`${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-full w-full"
+        preserveAspectRatio="xMidYMid meet"
+        style={{ overflow: 'visible' }}
+      >
         {sortedContainers.map((container) => {
           // 正交视角位置计算（isometric）
           // screenX = (x - y) * deltaX
@@ -217,72 +236,89 @@ export function DeploymentCard({
           const screenY =
             (container.x + container.y) * deltaY - container.z * zHeight;
 
+          // 为了避免裁切，扩大 foreignObject 的尺寸
+          // hover 动画会向上移动 15%，所以需要额外的空间
+          const extraSpace = containerDisplayHeight * 0.2; // 20% 额外空间用于动画
+          const foreignObjectHeight = containerDisplayHeight + extraSpace;
+
           return (
-            <div
+            <foreignObject
               key={container.id}
+              x={screenX}
+              y={screenY - extraSpace}
+              width={containerDisplayWidth}
+              height={foreignObjectHeight}
               data-x={container.x}
               data-y={container.y}
               data-z={container.z}
-              className="group absolute transition-all duration-300 ease-out hover:-translate-y-[15%]"
-              style={{
-                left: `${screenX + offsetX}px`,
-                top: `${screenY}px`,
-                width: `${containerDisplayWidth}px`,
-                height: `${containerDisplayHeight}px`,
-              }}
+              overflow="visible"
             >
-              {/* 背景模糊层 - 使用CSS backdrop-filter */}
               <div
-                className="absolute inset-0"
-                style={{
-                  backdropFilter: 'blur(14px)',
-                  WebkitBackdropFilter: 'blur(14px)',
-                  clipPath: `polygon(
-                    0.26% 25.14%,
-                    50% 0.55%,
-                    99.74% 25.14%,
-                    99.74% 74.95%,
-                    50% 99.56%,
-                    0.26% 74.95%
-                  )`,
-                }}
-              />
+                xmlns="http://www.w3.org/1999/xhtml"
+                className="relative h-full w-full"
+                style={{ paddingTop: `${extraSpace}px` }}
+              >
+                <div className="group relative transition-all duration-300 ease-out hover:-translate-y-[15%]">
+                  {/* 背景模糊层 - 使用CSS backdrop-filter */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backdropFilter: 'blur(14px)',
+                      WebkitBackdropFilter: 'blur(14px)',
+                      clipPath: `polygon(
+                        0.26% 25.14%,
+                        50% 0.55%,
+                        99.74% 25.14%,
+                        99.74% 74.95%,
+                        50% 99.56%,
+                        0.26% 74.95%
+                      )`,
+                    }}
+                  />
 
-              {/* 容器图像 */}
-              <div className="relative h-full w-full">
-                <Image
-                  src={ContainerImage}
-                  alt=""
-                  width={containerDisplayWidth}
-                  height={containerDisplayHeight}
-                  className="drop-shadow-lg"
-                />
+                  {/* 容器图像 */}
+                  <div
+                    className="relative"
+                    style={{
+                      width: `${containerDisplayWidth}px`,
+                      height: `${containerDisplayHeight}px`,
+                    }}
+                  >
+                    <Image
+                      src={ContainerImage}
+                      alt=""
+                      width={containerDisplayWidth}
+                      height={containerDisplayHeight}
+                      className="drop-shadow-lg"
+                    />
+                  </div>
+
+                  {/* 顶面图标 - 需要变换以匹配等轴测视角 */}
+                  {container.topIcon && (
+                    <div
+                      className="absolute"
+                      style={{
+                        ...getTopIconPosition(),
+                        transform: getTopIconTransform(angle),
+                        transformStyle: 'preserve-3d',
+                      }}
+                    >
+                      {container.topIcon}
+                    </div>
+                  )}
+
+                  {/* 中心贴图 - 居中显示，不需要变换 */}
+                  {container.centerDecal && (
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                      {container.centerDecal}
+                    </div>
+                  )}
+                </div>
               </div>
-
-              {/* 顶面图标 - 需要变换以匹配等轴测视角 */}
-              {container.topIcon && (
-                <div
-                  className="absolute"
-                  style={{
-                    ...getTopIconPosition(),
-                    transform: getTopIconTransform(angle),
-                    transformStyle: 'preserve-3d',
-                  }}
-                >
-                  {container.topIcon}
-                </div>
-              )}
-
-              {/* 中心贴图 - 居中显示，不需要变换 */}
-              {container.centerDecal && (
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                  {container.centerDecal}
-                </div>
-              )}
-            </div>
+            </foreignObject>
           );
         })}
-      </div>
+      </svg>
     </div>
   );
 }

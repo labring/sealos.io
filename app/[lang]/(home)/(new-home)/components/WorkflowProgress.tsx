@@ -25,11 +25,31 @@ interface StageConfig extends StageDefinition {
 // 阶段定义：name, icon, weight（权重）
 // 权重会被归一化为 0-1 的范围
 const stageDefinitions: StageDefinition[] = [
-  { name: 'Idea', icon: <Lightbulb size={24} />, weight: 1 },
-  { name: 'Development', icon: <CodeXml size={24} />, weight: 1 },
-  { name: 'Deployment', icon: <Rocket size={24} />, weight: 1 },
-  { name: 'Data', icon: <Database size={24} />, weight: 1 },
-  { name: 'AI Agent', icon: <Bot size={24} />, weight: 1.71 }, // 最后阶段，约占30%
+  {
+    name: 'Idea',
+    icon: <Lightbulb className="size-4 sm:size-5 md:size-6" />,
+    weight: 1,
+  },
+  {
+    name: 'Development',
+    icon: <CodeXml className="size-4 sm:size-5 md:size-6" />,
+    weight: 1,
+  },
+  {
+    name: 'Deployment',
+    icon: <Rocket className="size-4 sm:size-5 md:size-6" />,
+    weight: 1,
+  },
+  {
+    name: 'Data',
+    icon: <Database className="size-4 sm:size-5 md:size-6" />,
+    weight: 1,
+  },
+  {
+    name: 'AI Agent',
+    icon: <Bot className="size-4 sm:size-5 md:size-6" />,
+    weight: 1.71,
+  }, // 最后阶段，约占30%
 ];
 
 // 根据权重计算每个阶段的 range
@@ -110,7 +130,7 @@ const StageItem = memo(
     return (
       <motion.div
         className={cn(
-          'relative flex w-full cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-xl px-2 py-6 text-xl',
+          'relative flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl px-2 py-6 text-xs font-normal sm:text-base md:gap-2 md:text-xl md:font-medium',
           isLastStage && 'flex-col', // 最后阶段使用垂直布局
         )}
         animate={{
@@ -141,7 +161,12 @@ const StageItem = memo(
           </motion.div>
         )}
 
-        <div className="relative z-10 flex items-center gap-2">
+        <div
+          className={cn(
+            'relative z-10 flex flex-col items-center gap-1 sm:flex-row sm:gap-2',
+            isLastStage && 'flex-row', // 最后阶段使用横向布局
+          )}
+        >
           <div className="text-zinc-400">{stage.icon}</div>
           <span>{stage.name}</span>
         </div>

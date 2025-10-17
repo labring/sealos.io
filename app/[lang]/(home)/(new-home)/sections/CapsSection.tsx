@@ -111,23 +111,23 @@ export function CapsSection() {
         maxLength={2200}
         blur={18}
       />
-      <div className="flex flex-col">
-        <h2 className="text-[2.5rem] leading-tight">
+      <div className="flex flex-col pb-8 lg:pb-16">
+        <h2 className="text-2xl leading-tight sm:text-4xl md:text-[2.5rem]">
           <span>Built for the</span>&nbsp;
           <GradientText>Modern Application.</GradientText>
         </h2>
-        <p className="mt-3 max-w-xl text-zinc-400">
+        <p className="mt-3 max-w-xl text-sm text-zinc-400 sm:text-base">
           Whether you're building next-gen AI agents or battle-tested web apps,
           our unified platform is designed to amplify your workflow.
         </p>
       </div>
 
-      <div className="mt-16 grid grid-cols-1 gap-9 md:grid-cols-20 2xl:grid-cols-10">
+      <div className="grid grid-cols-1 gap-9 lg:grid-cols-20 2xl:grid-cols-10">
         {cardsData.map((card, index) => {
           const Icon = card.icon;
           const colSpanClasses = {
-            4: 'md:col-span-9 2xl:col-span-4',
-            6: 'md:col-span-11 2xl:col-span-6',
+            4: 'lg:col-span-9 2xl:col-span-4',
+            6: 'lg:col-span-11 2xl:col-span-6',
           }[card.colSpan['2xl']];
           return (
             <div key={index} className={`col-span-1 ${colSpanClasses}`}>
@@ -156,11 +156,11 @@ export function CapsSection() {
                 <p className="mt-2 text-sm text-zinc-500">{card.description}</p>
 
                 {/* Tags */}
-                <div className="mt-6 flex gap-2">
+                <div className="mt-6 flex flex-wrap gap-2">
                   {card.tags.map((tag, tagIndex) => (
                     <span
                       key={tagIndex}
-                      className="flex items-center rounded-lg border border-dashed border-white/15 px-2 py-1 text-zinc-400"
+                      className="flex items-center rounded-lg border border-dashed border-white/15 px-2 py-1 text-sm whitespace-nowrap text-zinc-400 sm:text-base"
                     >
                       <div className="mr-2 size-2 rounded-full bg-blue-400" />
                       <span>{tag}</span>

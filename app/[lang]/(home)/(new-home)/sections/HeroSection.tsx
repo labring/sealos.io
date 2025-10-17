@@ -79,7 +79,7 @@ export function HeroSection() {
 
       {/* 左侧内容区域 */}
       <div className="z-10 container">
-        <div className="w-full py-10 lg:w-1/2">
+        <div className="w-full py-10 md:w-4/5 lg:w-1/2">
           <HeroTitle />
 
           <div className="mt-10">

@@ -88,79 +88,80 @@ export function DevelopmentCard() {
             }}
           />
         ))}
-      </svg>
 
-      {/* Editor 图片 - 居中显示，不需要动画 */}
-      <div className="absolute flex items-center justify-center">
-        <Image src={EditorImage} alt="" className="pointer-events-none h-2/3" />
-      </div>
-
-      {/* 应用图标层 */}
-      <div className="absolute inset-0 flex items-center justify-center">
+        {/* 应用图标层 - 使用 foreignObject 统一坐标系统 */}
         {appPositions.map((circle, circleIdx) =>
           circle.apps.map((app, appIdx) => {
             const radius = circle.radius;
             const angleRad = (app.angle * Math.PI) / 180;
             const delay = getCircleDelay(radius);
+            const x = Math.cos(angleRad) * radius;
+            const y = Math.sin(angleRad) * radius;
+
+            // 扩大 foreignObject 尺寸以容纳动画和旋转，避免裁切
+            // 旋转45度时对角线长度约为 size * 1.414，再加上动画偏移量的余量
+            const containerSize = app.size * 1.6;
+            const offset = containerSize / 2;
 
             return (
-              <motion.div
+              <foreignObject
                 key={`${circleIdx}-${appIdx}`}
-                className="absolute"
-                style={{
-                  width: app.size,
-                  height: app.size,
-                }}
-                initial={{
-                  x: 0,
-                  y: 0,
-                  rotate: 0,
-                }}
-                animate={{
-                  x: [
-                    Math.cos(angleRad) * radius,
-                    Math.cos(angleRad) * radius * 1.05,
-                    Math.cos(angleRad) * radius,
-                  ],
-                  y: [
-                    Math.sin(angleRad) * radius,
-                    Math.sin(angleRad) * radius * 1.05,
-                    Math.sin(angleRad) * radius,
-                  ],
-                  rotate: [-3, 3, -3, 3, -3],
-                }}
-                transition={{
-                  x: {
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                    delay: delay,
-                  },
-                  y: {
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                    delay: delay,
-                  },
-                  rotate: {
-                    duration: 0.8,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                    repeatType: 'reverse',
-                  },
-                }}
+                x={x - offset}
+                y={y - offset}
+                width={containerSize}
+                height={containerSize}
+                overflow="visible"
               >
-                <Image
-                  src={app.logo}
-                  alt=""
-                  width={app.size}
-                  height={app.size}
-                  className="rounded-lg"
-                />
-              </motion.div>
+                <motion.div
+                  className="flex h-full w-full items-center justify-center"
+                  initial={{
+                    x: 0,
+                    y: 0,
+                    rotate: 0,
+                  }}
+                  animate={{
+                    x: [0, x * 0.05, 0],
+                    y: [0, y * 0.05, 0],
+                    rotate: [-3, 3, -3, 3, -3],
+                  }}
+                  transition={{
+                    x: {
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                      delay: delay,
+                    },
+                    y: {
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                      delay: delay,
+                    },
+                    rotate: {
+                      duration: 0.8,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                      repeatType: 'reverse',
+                    },
+                  }}
+                >
+                  <Image
+                    src={app.logo}
+                    alt=""
+                    width={app.size}
+                    height={app.size}
+                    className="rounded-lg"
+                  />
+                </motion.div>
+              </foreignObject>
             );
           }),
         )}
+      </svg>
+
+      {/* Editor 图片 - 居中显示，不需要动画 */}
+      <div className="absolute flex w-1/2 items-center justify-center">
+        <Image src={EditorImage} alt="" className="pointer-events-none h-2/3" />
       </div>
     </div>
   );

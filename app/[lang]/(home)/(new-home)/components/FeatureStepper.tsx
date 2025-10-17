@@ -18,7 +18,7 @@ export function FeatureStepper({
   features = defaultFeatures,
 }: FeatureStepperProps) {
   return (
-    <div className="flex justify-center gap-20">
+    <div className="flex justify-center gap-8 lg:gap-20">
       {/* Line */}
       <div className="absolute top-2.5 h-px w-full bg-gradient-to-r from-transparent via-white/40 to-transparent" />
 
@@ -27,7 +27,9 @@ export function FeatureStepper({
           <div className="flex size-5 items-center justify-center rounded-full bg-slate-200 text-zinc-950 outline-1 outline-offset-3 outline-zinc-500">
             <Check size={16} />
           </div>
-          <span className="text-lg text-zinc-200">{feature.label}</span>
+          <span className="text-center text-sm text-zinc-200 sm:text-base 2xl:text-lg">
+            {feature.label}
+          </span>
         </div>
       ))}
     </div>

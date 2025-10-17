@@ -178,12 +178,12 @@ export function ComparisonSection() {
         maxLength={2300}
         blur={19}
       />
-      <div className="flex max-w-4xl items-center gap-8">
-        <h2 className="w-full text-[2.5rem] leading-tight">
+      <div className="flex max-w-full flex-col items-center pb-8 md:gap-8 lg:max-w-4xl lg:flex-row lg:pb-16">
+        <h2 className="w-full text-2xl leading-tight sm:text-4xl md:text-[2.5rem]">
           <span>Other platforms simplify deployment.</span>&nbsp;
           <GradientText>Sealos unifies your entire cloud.</GradientText>
         </h2>
-        <p className="mt-3 w-full text-zinc-400">
+        <p className="mt-3 w-full text-sm text-zinc-400 sm:text-base">
           Focus on your code, not the underlying complexity. Sealos provides an
           integrated, AI-powered experience from development to production, all
           in one place.
@@ -191,7 +191,7 @@ export function ComparisonSection() {
       </div>
 
       {/* 对比表格 */}
-      <div className="mt-14 overflow-x-auto">
+      <div className="overflow-x-auto">
         <table className="w-full min-w-[800px] border-collapse">
           {/* 表头 */}
           <thead>

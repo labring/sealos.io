@@ -13,7 +13,7 @@ export function AnimatedCarouselContainer({
   children,
 }: AnimatedCarouselContainerProps) {
   return (
-    <div className="relative pb-[35rem]">
+    <div className="relative pb-[35rem] sm:pb-[38rem] lg:pb-[40rem] 2xl:pb-[44rem]">
       <AnimatePresence initial={false} mode="popLayout">
         <motion.div
           key={`carousel-item-${activeIndex}`}

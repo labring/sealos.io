@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { FeatureStepper } from '../components/FeatureStepper';
 import DemoLightSvg from '../assets/demo-light.svg';
+import Image from 'next/image';
 
 export function DemoSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,22 +16,26 @@ export function DemoSection() {
   });
 
   // 动画阶段划分（基于scrollYProgress 0-1）：
-  // 阶段1 (0-0.125): 视频从24度旋转到0度，回正
-  // 阶段2 (0.125-0.25): 视频保持在屏幕中心100vh不动
-  // 阶段3 (0.25-0.50): 图案放大200vh，视频不动
-  // 阶段4 (0.50-0.75): 图案+视频一起缩小200vh
-  // 阶段5 (0.75-0.8125): 视频渐隐50vh
-  // 阶段6 (0.8125-0.875): 图案静止50vh
-  // 阶段7 (0.875-1.0): 图案随文档流滚动离开
+  // 阶段1: 视频从24度旋转到0度，回正
+  // 阶段2: 视频保持在屏幕中心不动
+  // 阶段3: 图案放大，视频不动
+  // 阶段4: 图案+视频一起缩小
+  // 阶段5: 视频渐隐
+  // 阶段6: 图案静止
+  // 阶段7: 图案随文档流滚动离开
 
   // 1. 视频旋转动画（阶段1）
   const rotateAngle = useTransform(scrollYProgress, [0, 0.125], [24, 0]);
 
-  // 2. 视频容器的Y轴位置（调整初始位置使其紧贴容器顶部）
+  // 2. 视频容器的Y轴位置（从上方移动到中心，最后移出屏幕）
+  // 计算初始位置：从中心向上移动，但留出空间给 Stepper
+  // 视频宽度是 80vw，aspect-ratio 16:9，所以高度约为 45vw
+  // 在较宽屏幕上，max-width 1200px 限制了宽度，对应高度约 675px
+  // 初始位置：-30vh 让视频上边缘在屏幕上方，避免遮挡 Stepper
   const videoY = useTransform(
     scrollYProgress,
     [0, 0.125, 0.8125, 1],
-    ['-35vh', '0vh', '0vh', '-100vh'],
+    ['-30vh', '0vh', '0vh', '-100vh'],
   );
 
   // 3. 视频容器的scale（阶段4一起缩小）
@@ -53,11 +58,24 @@ export function DemoSection() {
     ['0vh', '0vh', '0vh'],
   );
 
+  // 7. 图案的透明度（阶段2时从0变为1）
+  const patternOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.125, 0.25],
+    [0, 0, 1],
+  );
+
   return (
     <section className="relative overflow-visible">
       {/* Light */}
-      <div className="absolute top-0 -z-10 -mt-36 w-full">
-        <img src={DemoLightSvg.src} alt="" className="w-full" />
+      <div className="pointer-events-none absolute top-0 left-1/2 -mt-36 -translate-x-1/2">
+        <Image
+          src={DemoLightSvg}
+          alt=""
+          className="w-auto"
+          style={{ minWidth: `${DemoLightSvg.width}px` }}
+          priority
+        />
       </div>
 
       {/* Stepper */}
@@ -79,14 +97,28 @@ export function DemoSection() {
             }}
           >
             <motion.div
-              className="bg-background aspect-video w-[80vw] max-w-[1200px] origin-center rounded-4xl border-4"
+              className="bg-background aspect-video w-[80vw] max-w-[1200px] origin-center overflow-hidden rounded-4xl border-4"
               style={{
                 rotateX: rotateAngle,
                 scale: videoScale,
                 opacity: videoOpacity,
+                transformStyle: 'preserve-3d',
               }}
             >
-              Video here
+              <iframe
+                className="block h-full w-full"
+                style={{
+                  transformStyle: 'preserve-3d',
+                  border: 'none',
+                  display: 'block',
+                }}
+                src="https://www.youtube.com/embed/TrEsUMwWtDg?si=eev83pkuZvKTY3C4"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
             </motion.div>
           </motion.div>
 
@@ -101,6 +133,7 @@ export function DemoSection() {
               className="relative -z-10"
               style={{
                 scale: patternScale,
+                opacity: patternOpacity,
               }}
             >
               <div className="size-[4rem] rounded-full bg-neutral-600" />

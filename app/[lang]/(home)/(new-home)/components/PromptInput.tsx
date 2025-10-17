@@ -102,6 +102,13 @@ export function PromptInput() {
     setPromptText(prompt);
   };
 
+  const handleSendPrompt = () => {
+    if (promptText.trim()) {
+      const url = `https://brain.usw.sealos.io/tutorial?query=${encodeURIComponent(promptText)}`;
+      window.open(url, '_blank');
+    }
+  };
+
   return (
     <div className="border-gradient-glass relative flex flex-col rounded-2xl px-3 py-4 inset-shadow-[0_0_8px_0_rgba(255,255,255,0.25)]">
       <Glare className="absolute -top-[4.25rem] -left-[4.25rem] size-36" />
@@ -119,27 +126,30 @@ export function PromptInput() {
         <Textarea
           placeholder="Describe what you want to ship. e.g., I want to deploy N8N from app store."
           rows={5}
-          className="w-full resize-none border-none bg-transparent shadow-none placeholder:text-zinc-400 focus-visible:ring-0"
+          className="w-full resize-none border-none bg-transparent text-sm shadow-none placeholder:text-zinc-400 focus-visible:ring-0 sm:text-base"
           value={promptText}
           onChange={(e) => setPromptText(e.target.value)}
         />
 
         <Button
           className="absolute right-3 bottom-3 z-10 size-10 rounded-lg bg-zinc-600 p-0 text-white disabled:opacity-40"
-          disabled
+          disabled={!promptText.trim()}
+          onClick={handleSendPrompt}
         >
           <ArrowUp size={20} />
         </Button>
       </div>
 
       <div className="flex flex-col gap-2 p-2">
-        <div className="text-sm text-zinc-500">Some ideas to get started:</div>
+        <div className="text-xs text-zinc-500 sm:text-sm">
+          Some ideas to get started:
+        </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {PROMPT_CATEGORIES.map((category) => (
             <DropdownMenu key={category.name}>
               <DropdownMenuTrigger asChild>
-                <button className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-sm text-zinc-400 transition-colors hover:bg-white/[0.1]">
+                <button className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-xs whitespace-nowrap text-zinc-400 transition-colors hover:bg-white/[0.1] sm:text-sm">
                   {category.icon}
                   <span>{category.name}</span>
                   <ChevronRight size={14} />

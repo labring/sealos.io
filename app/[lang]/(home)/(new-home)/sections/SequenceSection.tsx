@@ -226,16 +226,16 @@ export function SequenceSection() {
         maxLength={2100}
         blur={17}
       />
-      <div className="flex max-w-4xl items-center gap-8">
-        <h2 className="w-full text-[2.5rem] leading-tight">
+      <div className="flex max-w-full flex-col items-center pb-8 md:gap-8 lg:max-w-4xl lg:flex-row lg:pb-16">
+        <h2 className="w-full text-2xl leading-tight sm:text-4xl md:text-[2.5rem]">
           <span>More Than a Platform. It's</span>&nbsp;
           <GradientText>Your Entire Cloud Workflow, Reimagined.</GradientText>
         </h2>
-        <p className="mt-3 w-full text-zinc-400">
+        <p className="mt-3 w-full text-sm text-zinc-400 sm:text-base">
           A sequence of modules that appear as the user scrolls.
         </p>
       </div>
-      <div className="mt-12">
+      <div>
         {/* 波形可视化 */}
         <GradientWave progress={waveProgress} />
 

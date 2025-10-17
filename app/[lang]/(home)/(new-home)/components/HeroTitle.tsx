@@ -15,7 +15,7 @@ export function HeroTitle() {
       </div>
 
       {/* 主标题 */}
-      <h1 className="mt-5 text-[3.25rem] leading-[1.2]">
+      <h1 className="mt-5 text-4xl leading-[1.2] sm:text-[3.25rem]">
         <div>
           Ship any&nbsp;
           <FramedText>
@@ -26,7 +26,7 @@ export function HeroTitle() {
       </h1>
 
       {/* 描述文字 */}
-      <p className="mt-5 text-zinc-400">
+      <p className="mt-5 text-sm text-zinc-400 sm:text-base">
         Sealos is the intelligent Cloud OS. Describe your needs, and our AI
         Pilot will build the environment, configure the database, and deploy it
         globally.

@@ -49,43 +49,45 @@ export function ChoicesSection() {
         maxLength={2400}
         blur={20}
       />
-      <div className="relative pb-16">
+      <div className="relative pb-8 lg:pb-16">
         <div className="w-full">
-          <h2 className="text-[2.5rem] leading-tight">
+          <h2 className="text-2xl leading-tight sm:text-4xl md:text-[2.5rem]">
             <div>Want to ship your next feature</div>
             <div>
               <GradientText>in minutes</GradientText>, not months?
             </div>
           </h2>
-          <p className="mt-3 text-zinc-400">You have two choices.</p>
+          <p className="mt-3 text-sm text-zinc-400 sm:text-base">
+            You have two choices.
+          </p>
         </div>
-        <div className="absolute top-0 right-0 h-full w-1/2">
+        <div className="pointer-events-none absolute top-0 right-0 -z-10 h-full w-full md:w-1/2">
           <Image
             src={ChoicesBeamGrid}
             alt=""
-            className="w-full object-cover object-right"
+            className="h-full w-full object-contain object-right-bottom"
             fill
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div className="inset-shadow-bubble flex flex-col rounded-xl border border-zinc-700">
-          <div className="grow border-b border-zinc-700 p-8">
-            <h3 className="flex items-center text-2xl font-medium text-zinc-200">
+          <div className="grow border-b border-zinc-700 p-6 sm:p-8">
+            <h3 className="flex items-center text-base font-medium text-zinc-200 sm:text-2xl">
               <span>Bear the bottleneck</span>
-              <TriangleAlert size={24} className="ml-2 text-red-500" />
+              <TriangleAlert className="ml-2 size-4 text-red-500 sm:size-6" />
             </h3>
-            <p className="mt-2 text-lg text-zinc-400">
+            <p className="mt-2 text-xs text-zinc-400 sm:text-lg">
               A chaotic, physics-based cascade of 10 blocks crashing into a
               messy pile.
             </p>
           </div>
           <div className="relative h-96">
-            <span className="absolute bottom-10 left-8 z-10 rounded-full px-3 py-0.5 text-lg text-zinc-400 backdrop-blur-lg">
+            <span className="absolute bottom-10 left-8 z-10 rounded-full px-3 py-0.5 text-xs text-zinc-400 backdrop-blur-lg sm:text-lg">
               💥 Something broke...
             </span>
-            <span className="absolute right-8 bottom-10 z-10 rounded-full px-3 py-0.5 text-lg text-zinc-400 backdrop-blur-lg">
+            <span className="absolute right-8 bottom-10 z-10 rounded-full px-3 py-0.5 text-xs text-zinc-400 backdrop-blur-lg sm:text-lg">
               ⏰ 3 hours later...
             </span>
             <FallingTags />
@@ -93,18 +95,18 @@ export function ChoicesSection() {
         </div>
 
         <div className="inset-shadow-bubble flex flex-col rounded-xl border border-zinc-700">
-          <div className="grow border-b border-zinc-700 p-8">
-            <h3 className="flex items-center text-2xl font-medium text-zinc-200">
+          <div className="grow border-b border-zinc-700 p-6 sm:p-8">
+            <h3 className="flex items-center text-base font-medium text-zinc-200 sm:text-2xl">
               <span>Or use Sealos</span>
-              <CheckCheck size={24} className="ml-2 text-emerald-500" />
+              <CheckCheck className="ml-2 size-4 text-emerald-500 sm:size-6" />
             </h3>
-            <p className="mt-2 text-lg text-zinc-400">
+            <p className="mt-2 text-xs text-zinc-400 sm:text-lg">
               A smooth, elegant stack of 3 blocks, with each new block appearing
               as the previous one hops neatly on top.
             </p>
           </div>
           <div className="relative h-96">
-            <span className="absolute right-8 bottom-10 text-lg text-zinc-400">
+            <span className="absolute right-8 bottom-10 text-xs text-zinc-400 sm:text-lg">
               ✨ Done in 30 seconds
             </span>
             <div className="flex h-full w-full items-center justify-center">
