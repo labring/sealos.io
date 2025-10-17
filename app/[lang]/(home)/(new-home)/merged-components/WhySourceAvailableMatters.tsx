@@ -42,11 +42,11 @@ interface FeatureProps {
 function Feature({ title, description }: FeatureProps) {
   return (
     <div className="mb-12">
-      <div className="flex h-20 w-full shrink-0 items-start gap-12">
-        <h3 className="m-0 w-[166px] shrink-0 text-[17.5px] leading-[25px] font-medium text-zinc-200">
+      <div className="flex flex-col lg:flex-row w-full items-start gap-2 lg:gap-12">
+        <h3 className="m-0 w-auto lg:w-[166px] shrink-0 text-[17.5px] leading-[25px] font-medium text-zinc-200">
           {title}
         </h3>
-        <p className="m-0 block h-20 text-sm leading-5 font-normal text-zinc-400">
+        <p className="m-0 block text-sm leading-5 font-normal text-zinc-400">
           {description}
         </p>
       </div>
@@ -100,17 +100,17 @@ export default function WhySourceAvailableMatters() {
   ];
 
   return (
-    <div className="mt-[104px] pt-0 pb-20">
+    <div className="mt-[104px] pt-0 pb-0">
       <div className="w-full px-0">
         {/* Two-column wrapper */}
-        <div className="flex h-[612px] w-full items-start justify-between gap-8">
+        <div className="flex flex-col lg:flex-row w-full items-start justify-between gap-8">
           {/* Left Column */}
-          <div className="w-full">
+          <div className="w-full lg:w-[40%]">
             <h2 className="mb-16 text-left text-3xl leading-none font-medium text-white">
               Why Source Available Matters
             </h2>
 
-            <div className="space-y-0">
+            <div className="grid grid-cols-3 gap-8 lg:grid-cols-1 lg:gap-0">
               <Feature
                 title="Transparency"
                 description="Audit our code, understand our architecture, and verify our security practices."
@@ -127,78 +127,92 @@ export default function WhySourceAvailableMatters() {
           </div>
 
           {/* Right Column - Testimonials */}
-          <div className="relative h-[612px] w-[704px] shrink-0 overflow-hidden rounded-tl-3xl">
-            {/* Border */}
-            <div
-              className="pointer-events-none absolute inset-0 z-[3] rounded-tl-3xl border border-white/30"
-              style={{
-                borderImage:
-                  'linear-gradient(153.43deg, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.3) 83.33%)',
-                borderImageSlice: 1,
-              }}
-            />
-            {/* Hide right/bottom borders */}
-            <div className="pointer-events-none absolute top-0 right-0 z-[4] h-full w-px" />
-            <div className="pointer-events-none absolute bottom-0 left-0 z-[4] h-px w-full" />
+          <div className="relative h-auto sm:h-[780px] md:h-[700px] lg:h-[612px] w-full lg:w-[60%] lg:shrink-0 overflow-hidden rounded-tl-3xl">
+            {/* >=640: 原绝对定位布局 */}
+            <div className="hidden sm:block relative h-full w-full">
+              {/* Border */}
+              <div
+                className="pointer-events-none absolute inset-0 z-[3] rounded-tl-3xl border border-white/30"
+                style={{
+                  borderImage:
+                    'linear-gradient(153.43deg, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.3) 83.33%)',
+                  borderImageSlice: 1,
+                }}
+              />
+              {/* Hide right/bottom borders */}
+              <div className="pointer-events-none absolute top-0 right-0 z-[4] h-full w-px bg-black" />
+              <div className="pointer-events-none absolute bottom-0 left-0 z-[4] h-px w-full" />
 
-            {/* Inner dividers */}
-            <div className="absolute top-[45.588%] left-0 z-[2] h-0 w-1/2 border-t border-white/20" />
-            <div className="absolute top-[63.398%] left-1/2 z-[2] h-0 w-1/2 border-t border-white/15" />
-            <div
-              className="absolute top-0 left-1/2 z-[2] h-full w-0 border-l"
-              style={{
-                borderImage:
-                  'linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%)',
-                borderImageSlice: 1,
-              }}
-            />
+              {/* Inner dividers */}
+              <div className="absolute top-[45.588%] left-0 z-[2] h-0 w-1/2 border-t border-white/20" />
+              <div className="absolute top-[63.398%] left-1/2 z-[2] h-0 w-1/2 border-t border-white/15" />
+              <div
+                className="absolute top-0 left-1/2 z-[2] h-full w-0 border-l"
+                style={{
+                  borderImage:
+                    'linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%)',
+                  borderImageSlice: 1,
+                }}
+              />
 
-            {/* Testimonial 1 - Top Left */}
-            <div
-              className="absolute z-[1]"
-              style={{
-                top: '62.7px',
-                left: 'calc((50% - calc(50% * 0.7)) / 2)',
-                width: 'calc(50% * 0.7)',
-              }}
-            >
-              <Testimonial {...testimonials[0]} />
+              {/* Testimonial 1 - Top Left */}
+              <div
+                className="absolute z-[1]"
+                style={{
+                  top: '62.7px',
+                  left: 'calc((50% - calc(50% * 0.7)) / 2)',
+                  width: 'calc(50% * 0.7)',
+                }}
+              >
+                <Testimonial {...testimonials[0]} />
+              </div>
+
+              {/* Testimonial 2 - Top Right */}
+              <div
+                className="absolute z-[1] -translate-y-1/2"
+                style={{
+                  left: 'calc(50% + (50% - calc(50% * 0.7)) / 2)',
+                  top: 'calc((63.398% - 0%) / 2)',
+                  width: 'calc(50% * 0.7)',
+                }}
+              >
+                <Testimonial {...testimonials[1]} />
+              </div>
+
+              {/* Testimonial 3 - Bottom Left */}
+              <div
+                className="absolute z-[1] -translate-y-1/2"
+                style={{
+                  left: 'calc((50% - calc(50% * 0.7)) / 2)',
+                  top: 'calc(45.588% + (100% - 45.588%) / 2)',
+                  width: 'calc(50% * 0.7)',
+                }}
+              >
+                <Testimonial {...testimonials[2]} />
+              </div>
+
+              {/* Testimonial 4 - Bottom Right */}
+              <div
+                className="absolute z-[1] -translate-y-1/2"
+                style={{
+                  left: 'calc(50% + (50% - calc(50% * 0.7)) / 2)',
+                  top: 'calc(63.398% + (100% - 63.398%) / 2)',
+                  width: 'calc(50% * 0.7)',
+                }}
+              >
+                <Testimonial {...testimonials[3]} />
+              </div>
             </div>
 
-            {/* Testimonial 2 - Top Right */}
-            <div
-              className="absolute z-[1] -translate-y-1/2"
-              style={{
-                left: 'calc(50% + (50% - calc(50% * 0.7)) / 2)',
-                top: 'calc((63.398% - 0%) / 2)',
-                width: 'calc(50% * 0.7)',
-              }}
-            >
-              <Testimonial {...testimonials[1]} />
-            </div>
-
-            {/* Testimonial 3 - Bottom Left */}
-            <div
-              className="absolute z-[1] -translate-y-1/2"
-              style={{
-                left: 'calc((50% - calc(50% * 0.7)) / 2)',
-                top: 'calc(45.588% + (100% - 45.588%) / 2)',
-                width: 'calc(50% * 0.7)',
-              }}
-            >
-              <Testimonial {...testimonials[2]} />
-            </div>
-
-            {/* Testimonial 4 - Bottom Right */}
-            <div
-              className="absolute z-[1] -translate-y-1/2"
-              style={{
-                left: 'calc(50% + (50% - calc(50% * 0.7)) / 2)',
-                top: 'calc(63.398% + (100% - 63.398%) / 2)',
-                width: 'calc(50% * 0.7)',
-              }}
-            >
-              <Testimonial {...testimonials[3]} />
+            {/* <640: 纵向列表，条目之间分隔线；保留上/左边框与左上圆角 */}
+            <div className="sm:hidden relative rounded-tl-3xl border-t border-l border-white/30">
+              <div className="w-full divide-y divide-white/10">
+                {testimonials.map((t, i) => (
+                  <div key={i} className="px-5 py-6">
+                    <Testimonial {...t} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

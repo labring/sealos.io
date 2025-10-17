@@ -85,11 +85,11 @@ export default function FAQSection() {
   ];
 
   return (
-    <div className="container pt-24 pb-16">
-      <div className="flex w-full flex-row items-start justify-between gap-20">
+    <div className="container px-0 pt-8 pb-16">
+      <div className="flex w-full flex-col lg:flex-row items-start justify-between gap-10 lg:gap-20">
         {/* Left Section */}
         <div
-          className="flex shrink-0 flex-col items-start gap-5 pt-5"
+          className="w-full flex shrink-0 flex-col items-start gap-5 pt-5"
           style={{ width: leftContainerWidth }}
         >
           <h2
@@ -111,7 +111,7 @@ export default function FAQSection() {
         </div>
 
         {/* Right Section */}
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 w-full">
           <Accordion
             type="multiple"
             value={openItems}

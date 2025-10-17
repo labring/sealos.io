@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react';
 import HeroSection from '@/components/ui/hero-section';
 import StatsCards from '@/components/ui/stats-cards';
 import WhySourceAvailableMatters from '@/components/ui/why-source-available-matters';
@@ -10,6 +11,42 @@ interface SixthScreenProps {
 }
 
 export default function SixthScreen({ lang = 'en' }: SixthScreenProps) {
+  const light1Ref = useRef<HTMLDivElement | null>(null);
+  const light2Ref = useRef<HTMLDivElement | null>(null);
+  const light3Ref = useRef<HTMLDivElement | null>(null);
+  const [visible1, setVisible1] = useState(false);
+  const [visible2, setVisible2] = useState(false);
+  const [visible3, setVisible3] = useState(false);
+
+  useEffect(() => {
+    const elements: Array<{ el: HTMLDivElement | null; setVisible: (v: boolean) => void }> = [
+      { el: light1Ref.current, setVisible: setVisible1 },
+      { el: light2Ref.current, setVisible: setVisible2 },
+      { el: light3Ref.current, setVisible: setVisible3 },
+    ];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const target = entry.target as HTMLDivElement;
+            if (target === light1Ref.current) setVisible1(true);
+            if (target === light2Ref.current) setVisible2(true);
+            if (target === light3Ref.current) setVisible3(true);
+            observer.unobserve(target);
+          }
+        });
+      },
+      { root: null, threshold: 0.1 }
+    );
+
+    elements.forEach(({ el }) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="relative">
       {/* Background Light Image */}
