@@ -17,6 +17,7 @@ import { DevelopmentCard } from '../components/carousel-image/DevelopmentCard';
 import { DeploymentCard } from '../components/carousel-image/DeploymentCard';
 import { DataCard } from '../components/carousel-image/DataCard';
 import { GodRays } from '../components/GodRays';
+import { Bot } from 'lucide-react';
 
 export function SequenceSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -214,6 +215,17 @@ export function SequenceSection() {
             progress={progress}
             onProgressChange={handleProgressChange}
           />
+
+          <div className="relative mt-4 flex w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-white/5 px-2 py-6">
+            <div className="relative z-10 flex flex-col items-center gap-1 text-xs font-normal sm:flex-row sm:gap-2 sm:text-base md:text-xl md:font-medium">
+              <div className="text-zinc-400">
+                <Bot />
+              </div>
+              <span>AI Agent</span>
+            </div>
+
+            <div className="text-sm text-zinc-400">Across all modules</div>
+          </div>
         </div>
       </div>
 

@@ -3,15 +3,15 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 // Import logos
-import AnthropicLogo from './logo/anthropic.svg';
-import AwsLogo from './logo/aws.svg';
-import AzureLogo from './logo/azure.svg';
-import ClaudeLogo from './logo/claude.svg';
-import DeepseekLogo from './logo/deepseek.svg';
-import GeminiLogo from './logo/gemini.svg';
-import OpenaiLogo from './logo/openai.svg';
-import QwenLogo from './logo/qwen.svg';
-import SealosLogo from './logo/sealos.svg';
+import AnthropicLogo from '../../../assets/aiagent-appicons/anthropic.svg';
+import AwsLogo from '../../../assets/aiagent-appicons/aws.svg';
+import AzureLogo from '../../../assets/aiagent-appicons/azure.svg';
+import ClaudeLogo from '../../../assets/aiagent-appicons/claude.svg';
+import DeepseekLogo from '../../../assets/aiagent-appicons/deepseek.svg';
+import GeminiLogo from '../../../assets/aiagent-appicons/gemini.svg';
+import OpenaiLogo from '../../../assets/aiagent-appicons/openai.svg';
+import QwenLogo from '../../../assets/aiagent-appicons/qwen.svg';
+import SealosLogo from '../../../assets/shared-icons/sealos.svg';
 
 // 定义每行的图标配置 - 增加图标数量确保无空白
 const logoRows = [

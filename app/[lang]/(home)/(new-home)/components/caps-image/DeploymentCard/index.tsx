@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import DeploymentImage from './image.svg';
+import DeploymentImage from './assets/image.svg';
 
 export function DeploymentCard() {
   // 渐变动画：从左侧区域外开始，移动到右侧区域外

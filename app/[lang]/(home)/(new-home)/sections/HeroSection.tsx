@@ -5,7 +5,7 @@ import { PromptInput } from '../components/PromptInput';
 import { HeroBackground } from '../components/HeroBackground';
 import { HeroTitle } from '../components/HeroTitle';
 import { GodRays } from '../components/GodRays';
-import Cursor from '../components/assets/cursor.svg';
+import Cursor from '../components/HeroBackground/assets/cursor.svg';
 
 export function HeroSection() {
   const [mousePosition, setMousePosition] = useState<{

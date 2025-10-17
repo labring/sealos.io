@@ -2,12 +2,12 @@
 import { StackCard } from './StackCard';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import ClaudeCodeIcon from './logo/claude-code.svg';
-import EchoIcon from './logo/echo.svg';
-import McpIcon from './logo/mcp.svg';
-import NextjsIcon from './logo/nextjs.svg';
-import SpringBootIcon from './logo/spring-boot.svg';
-import UbuntuIcon from './logo/ubuntu.svg';
+import ClaudeCodeIcon from '../../../assets/stacks-appicons/claude-code.svg';
+import EchoIcon from '../../../assets/stacks-appicons/echo.svg';
+import McpIcon from '../../../assets/stacks-appicons/mcp.svg';
+import NextjsIcon from '../../../assets/stacks-appicons/nextjs-caps.svg';
+import SpringBootIcon from '../../../assets/stacks-appicons/spring-boot.svg';
+import UbuntuIcon from '../../../assets/stacks-appicons/ubuntu.svg';
 
 // 技术栈配置
 const stacks = [
