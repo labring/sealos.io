@@ -46,7 +46,7 @@ function Feature({ title, description }: FeatureProps) {
         <h3 className="m-0 w-auto shrink-0 text-[17.5px] leading-[25px] font-medium text-zinc-200 lg:w-[166px]">
           {title}
         </h3>
-        <p className="m-0 block text-sm leading-5 font-normal text-zinc-400">
+        <p className="m-0 block text-sm leading-5 font-normal text-zinc-400" style={{ width: '166px', height: '80px' }}>
           {description}
         </p>
       </div>
@@ -131,14 +131,7 @@ export default function WhySourceAvailableMatters() {
             {/* >=640: 原绝对定位布局 */}
             <div className="relative hidden h-full w-full sm:block">
               {/* Border */}
-              <div
-                className="pointer-events-none absolute inset-0 z-[3] rounded-tl-3xl border border-white/30"
-                style={{
-                  borderImage:
-                    'linear-gradient(153.43deg, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.3) 83.33%)',
-                  borderImageSlice: 1,
-                }}
-              />
+              <div className="pointer-events-none absolute inset-0 z-[3] rounded-tl-3xl border-t border-l border-white/30" />
               {/* Hide right/bottom borders */}
               <div className="pointer-events-none absolute top-0 right-0 z-[4] h-full w-px bg-black" />
               <div className="pointer-events-none absolute bottom-0 left-0 z-[4] h-px w-full" />
