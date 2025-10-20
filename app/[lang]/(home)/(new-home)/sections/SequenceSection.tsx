@@ -36,24 +36,28 @@ export function SequenceSection() {
       description:
         'Describe your concept to Jotlin... automatically generating a comprehensive product spec...',
       buttonText: 'Try Jotlin',
+      buttonLink: 'https://usw.sealos.io/?openapp=system-jotlin',
     },
     {
       title: 'If it runs in a container, it runs on Sealos.',
       description:
         '...Securely connect your local VS Code or Cursor... without ever leaving the tools you know and love.',
       buttonText: 'Try DevBox',
+      buttonLink: 'https://usw.sealos.io/?openapp=system-devbox',
     },
     {
       title: 'Your favorite IDE, supercharged by the cloud.',
       description:
         'Deploy from a Git repo, a Docker image, or even a Docker Compose file... We manage the Kubernetes complexity...',
       buttonText: 'Try App Launchpad',
+      buttonLink: 'https://usw.sealos.io/?openapp=system-applaunchpad',
     },
     {
       title: 'Production databases, simplified and intelligent.',
       description:
         'Launch a high-availability database cluster... Then, use Chat2DB to interact with your data using plain English...',
       buttonText: 'Try Database',
+      buttonLink: 'https://usw.sealos.io/?openapp=system-dbprovider',
     },
   ];
 
@@ -155,10 +159,13 @@ export function SequenceSection() {
   };
 
   return (
-    <section ref={containerRef} className="relative pt-28 pb-32">
+    <section
+      ref={containerRef}
+      className="relative w-screen overflow-x-clip pt-28 pb-32"
+    >
       {/* 顶部渐变遮罩 - 灰到黑，覆盖整个屏幕宽度 */}
       <div
-        className="pointer-events-none absolute top-0 -z-5 h-96 left-1/2 -translate-x-1/2 w-screen"
+        className="pointer-events-none absolute top-0 left-1/2 -z-5 h-96 w-screen -translate-x-1/2"
         style={{
           background:
             'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
@@ -191,48 +198,52 @@ export function SequenceSection() {
         maxLength={2100}
         blur={17}
       />
-      <div className="flex max-w-full flex-col items-center pb-8 md:gap-8 lg:max-w-4xl lg:flex-row lg:pb-16">
-        <h2 className="w-full text-2xl leading-tight sm:text-4xl md:text-[2.5rem]">
-          <span>More Than a Platform. It's</span>&nbsp;
-          <GradientText>Your Entire Cloud Workflow, Reimagined.</GradientText>
-        </h2>
-        <p className="mt-3 w-full text-sm text-zinc-400 sm:text-base">
-          A sequence of modules that appear as the user scrolls.
-        </p>
-      </div>
-      <div>
-        {/* 波形可视化 */}
-        <GradientWave progress={waveProgress} />
 
-        {/* 工作流阶段 */}
-        <div className="mt-4">
-          <WorkflowProgress
-            progress={progress}
-            onProgressChange={handleProgressChange}
-          />
+      <div className="container">
+        <div className="flex max-w-full flex-col items-center pb-8 md:gap-8 lg:max-w-4xl lg:flex-row lg:pb-16">
+          <h2 className="w-full text-2xl leading-tight sm:text-4xl md:text-[2.5rem]">
+            <span>More Than a Platform. It's</span>&nbsp;
+            <GradientText>Your Entire Cloud Workflow, Reimagined.</GradientText>
+          </h2>
+          <p className="mt-3 w-full text-sm text-zinc-400 sm:text-base">
+            A sequence of modules that appear as the user scrolls.
+          </p>
+        </div>
+        <div>
+          {/* 波形可视化 */}
+          <GradientWave progress={waveProgress} />
 
-          <div className="relative mt-4 flex w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-white/5 px-2 py-6">
-            <div className="relative z-10 flex flex-col items-center gap-1 text-xs font-normal sm:flex-row sm:gap-2 sm:text-base md:text-xl md:font-medium">
-              <div className="text-zinc-400">
-                <Bot />
+          {/* 工作流阶段 */}
+          <div className="mt-4">
+            <WorkflowProgress
+              progress={progress}
+              onProgressChange={handleProgressChange}
+            />
+
+            <div className="relative mt-4 flex w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-white/5 px-2 py-6">
+              <div className="relative z-10 flex flex-col items-center gap-1 text-xs font-normal sm:flex-row sm:gap-2 sm:text-base md:text-xl md:font-medium">
+                <div className="text-zinc-400">
+                  <Bot />
+                </div>
+                <span>AI Agent</span>
               </div>
-              <span>AI Agent</span>
-            </div>
 
-            <div className="text-sm text-zinc-400">Across all modules</div>
+              <div className="text-sm text-zinc-400">Across all modules</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <AnimatedCarouselContainer activeIndex={activeCardIndex}>
-        <CarouselCard
-          title={cardContents[activeCardIndex].title}
-          description={cardContents[activeCardIndex].description}
-          buttonText={cardContents[activeCardIndex].buttonText}
-        >
-          {renderCardComponent(activeCardIndex)}
-        </CarouselCard>
-      </AnimatedCarouselContainer>
+        <AnimatedCarouselContainer activeIndex={activeCardIndex}>
+          <CarouselCard
+            title={cardContents[activeCardIndex].title}
+            description={cardContents[activeCardIndex].description}
+            buttonText={cardContents[activeCardIndex].buttonText}
+            buttonLink={cardContents[activeCardIndex].buttonLink}
+          >
+            {renderCardComponent(activeCardIndex)}
+          </CarouselCard>
+        </AnimatedCarouselContainer>
+      </div>
     </section>
   );
 }

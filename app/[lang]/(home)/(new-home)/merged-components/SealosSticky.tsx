@@ -95,7 +95,7 @@ export default function SealosSticky({ letters, children }: SealosStickyProps) {
 
       {/* Sealos 字母 - 固定在底部 */}
       <motion.div
-        className="fixed right-0 bottom-0 left-0 z-0 flex h-[400px] items-end justify-center px-16 pointer-events-none"
+        className="pointer-events-none fixed right-0 bottom-0 left-0 z-0 flex h-[400px] items-end justify-center px-16"
         style={{ opacity }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >

@@ -7,7 +7,7 @@ interface CarouselCardProps {
   title: string;
   description: string;
   buttonText: string;
-  onButtonClick?: () => void;
+  buttonLink: string;
 }
 
 export function CarouselCard({
@@ -15,7 +15,7 @@ export function CarouselCard({
   title,
   description,
   buttonText,
-  onButtonClick,
+  buttonLink,
 }: CarouselCardProps) {
   return (
     <div className="relative mt-6 flex flex-col border-zinc-700">
@@ -30,9 +30,11 @@ export function CarouselCard({
         </div>
 
         <div>
-          <Button variant="landing-primary" onClick={onButtonClick}>
-            <span>{buttonText}</span>
-            <ArrowRight size={16} className="ml-2" />
+          <Button variant="landing-primary" asChild>
+            <a href={buttonLink}>
+              <span>{buttonText}</span>
+              <ArrowRight size={16} className="ml-2" />
+            </a>
           </Button>
         </div>
       </div>

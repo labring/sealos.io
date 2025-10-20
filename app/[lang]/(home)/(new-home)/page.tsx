@@ -36,44 +36,42 @@ export default function HomePage({
 
       <DemoSection />
 
-      <main className="container pt-8 overflow-x-clip">
-        <ChoicesSection />
-        <ComparisonSection />
-        <SequenceSection />
-        <CapsSection />
+      <ChoicesSection />
+      <ComparisonSection />
+      <SequenceSection />
+      <CapsSection />
 
-        {/* 第六屏、七屏与页脚 */}
-        <div>
-          <div
-            style={{
-              paddingTop: '114px',
-              paddingBottom: 0,
-              paddingLeft: '0px',
-              paddingRight: '0px',
-            }}
-          >
-            <SourceAvailSection lang={'en'} />
-          </div>
-          <FAQSection />
-          {/* 第七屏与页脚之间的光照背景 */}
-          <div className="relative mt-[140px]">
-            <div
-              className="pointer-events-none absolute left-1/2 z-30 w-screen -translate-x-1/2"
-              style={{ top: '-140px' }}
-            >
-              <Image
-                src={light4}
-                alt=""
-                className="h-auto w-full select-none"
-                priority
-              />
-            </div>
-            {/* 间距容器，确保光照有展示空间 */}
-            <div className="h-[330px]"></div>
-          </div>
-          <Footer lang={'en'} />
+      {/* 第六屏、七屏与页脚 */}
+      <div className="w-screen overflow-x-clip">
+        <div
+          style={{
+            paddingTop: '114px',
+            paddingBottom: 0,
+            paddingLeft: '0px',
+            paddingRight: '0px',
+          }}
+        >
+          <SourceAvailSection lang={'en'} />
         </div>
-      </main>
+        <FAQSection />
+        {/* 第七屏与页脚之间的光照背景 */}
+        <div className="relative mt-[140px]">
+          <div
+            className="pointer-events-none absolute left-1/2 z-30 w-screen -translate-x-1/2"
+            style={{ top: '-140px' }}
+          >
+            <Image
+              src={light4}
+              alt=""
+              className="h-auto w-full select-none"
+              priority
+            />
+          </div>
+          {/* 间距容器，确保光照有展示空间 */}
+          <div className="h-[330px]"></div>
+        </div>
+        <Footer lang={'en'} />
+      </div>
     </>
   );
 }

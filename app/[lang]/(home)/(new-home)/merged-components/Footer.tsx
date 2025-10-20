@@ -222,11 +222,12 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
   return (
     <>
       {/* 主体内容 - Footer 的链接部分 */}
-      <div className="relative z-99 w-full pt-0">
+      {/* Workaround for footer height */}
+      <div className="relative z-99 -mt-32 w-full py-64">
         {/* 底部遮罩 */}
         <div className="pointer-events-none absolute bottom-0 left-1/2 z-0 h-full w-screen -translate-x-1/2 bg-black bg-gradient-to-t from-black to-transparent"></div>
         <div className="relative z-10 container flex flex-col items-start justify-between gap-10 px-0 text-sm lg:flex-row lg:gap-0">
-          <div className="flex w-full flex-col items-start">
+          <div className="flex w-full flex-col items-start px-4">
             <h2 className="mb-4 text-[32px] leading-[48px] font-medium">
               <div style={{ color: 'white' }}>
                 Ready to Stop Configuring and
@@ -283,7 +284,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
             </Link>
           </div>
           {/* Footer Links */}
-          <div className="mt-10 grid w-full grid-cols-4 items-start gap-6 text-left lg:mt-0 lg:grid-cols-4 lg:gap-10">
+          <div className="mt-10 grid w-full grid-cols-4 items-start gap-6 px-4 text-left lg:mt-0 lg:grid-cols-4 lg:gap-10">
             {[
               footerLinks.resources,
               footerLinks.products,

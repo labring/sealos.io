@@ -138,13 +138,13 @@ export function DemoSection() {
   );
 
   return (
-    <section className="relative w-screen overflow-x-clip overflow-y-visible object-top">
+    <section className="relative w-screen overflow-x-clip overflow-y-visible object-top pt-8">
       {/* Light */}
       <div className="pointer-events-none absolute top-0 left-1/2 h-96 w-full -translate-x-1/2">
         <Image
           src={DemoLightSvg}
           alt=""
-          className="h-full w-auto object-cover object-top"
+          className="mx-auto h-full w-auto object-cover object-top"
           priority
         />
       </div>

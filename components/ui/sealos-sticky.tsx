@@ -4,10 +4,9 @@ import React, { useEffect, useRef } from 'react';
 
 type SealosStickyProps = {
   letters: React.ReactNode;
-  bar: React.ReactNode;
 };
 
-export default function SealosSticky({ letters, bar }: SealosStickyProps) {
+export default function SealosSticky({ letters }: SealosStickyProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const lettersRef = useRef<HTMLDivElement>(null);
 
@@ -18,8 +17,10 @@ export default function SealosSticky({ letters, bar }: SealosStickyProps) {
 
     const update = () => {
       const lettersHeight = lettersEl.offsetHeight;
-      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-      const viewportH = window.innerHeight || document.documentElement.clientHeight;
+      const scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      const viewportH =
+        window.innerHeight || document.documentElement.clientHeight;
       const docH = document.documentElement.scrollHeight;
       // 剩余可滚动距离（越靠近底部越小，向上滚动越大）
       const remaining = docH - (scrollTop + viewportH);
@@ -40,12 +41,9 @@ export default function SealosSticky({ letters, bar }: SealosStickyProps) {
   return (
     <div ref={wrapperRef} className="sealos-sticky-wrapper">
       <div className="sealos-top-mask" />
-      {bar ? <div className="footer-sticky">{bar}</div> : null}
       <div ref={lettersRef} className="sealos-background-text">
         {letters}
       </div>
     </div>
   );
 }
-
-

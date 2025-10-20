@@ -70,10 +70,10 @@ const cardsData: CardData[] = [
 
 export function CapsSection() {
   return (
-    <section className="relative pt-28 pb-32">
+    <section className="relative w-screen overflow-x-clip pt-28 pb-32">
       {/* 顶部渐变遮罩 - 灰到黑，覆盖整个屏幕宽度 */}
       <div
-        className="pointer-events-none absolute top-0 -z-5 h-96 left-1/2 -translate-x-1/2 w-screen"
+        className="pointer-events-none absolute top-0 left-1/2 -z-5 h-96 w-screen -translate-x-1/2"
         style={{
           background:
             'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
@@ -106,69 +106,74 @@ export function CapsSection() {
         maxLength={2200}
         blur={18}
       />
-      <div className="flex flex-col pb-8 lg:pb-16">
-        <h2 className="text-2xl leading-tight sm:text-4xl md:text-[2.5rem]">
-          <span>Built for the</span>&nbsp;
-          <GradientText>Modern Application.</GradientText>
-        </h2>
-        <p className="mt-3 max-w-xl text-sm text-zinc-400 sm:text-base">
-          Whether you're building next-gen AI agents or battle-tested web apps,
-          our unified platform is designed to amplify your workflow.
-        </p>
-      </div>
 
-      <div className="grid grid-cols-1 gap-9 lg:grid-cols-20 2xl:grid-cols-10">
-        {cardsData.map((card, index) => {
-          const Icon = card.icon;
-          const colSpanClasses = {
-            4: 'lg:col-span-9 2xl:col-span-4',
-            6: 'lg:col-span-11 2xl:col-span-6',
-          }[card.colSpan['2xl']];
-          return (
-            <div key={index} className={`col-span-1 ${colSpanClasses}`}>
-              <div className="relative flex h-full flex-col rounded-2xl p-6">
-                {/* Glowing Effect */}
-                <GlowingEffect
-                  color="#ffffff"
-                  proximity={300}
-                  spread={60}
-                  blur={0}
-                  glow
-                  borderWidth={3}
-                  inactiveZone={0.3}
-                  disabled={false}
-                />
+      <div className="container">
+        <div className="flex flex-col pb-8 lg:pb-16">
+          <h2 className="text-2xl leading-tight sm:text-4xl md:text-[2.5rem]">
+            <span>Built for the</span>&nbsp;
+            <GradientText>Modern Application.</GradientText>
+          </h2>
+          <p className="mt-3 max-w-xl text-sm text-zinc-400 sm:text-base">
+            Whether you're building next-gen AI agents or battle-tested web
+            apps, our unified platform is designed to amplify your workflow.
+          </p>
+        </div>
 
-                {/* Section Tag */}
-                <div className="flex w-fit items-center rounded-full border border-white/5 bg-white/5 px-3 py-2 text-zinc-200 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),_0_2px_4px_-1px_rgba(0,0,0,0.02)]">
-                  <Icon className="mr-2 size-5" />
-                  <span>{card.label}</span>
+        <div className="grid grid-cols-1 gap-9 lg:grid-cols-20 2xl:grid-cols-10">
+          {cardsData.map((card, index) => {
+            const Icon = card.icon;
+            const colSpanClasses = {
+              4: 'lg:col-span-9 2xl:col-span-4',
+              6: 'lg:col-span-11 2xl:col-span-6',
+            }[card.colSpan['2xl']];
+            return (
+              <div key={index} className={`col-span-1 ${colSpanClasses}`}>
+                <div className="relative flex h-full flex-col rounded-2xl p-6">
+                  {/* Glowing Effect */}
+                  <GlowingEffect
+                    color="#ffffff"
+                    proximity={300}
+                    spread={60}
+                    blur={0}
+                    glow
+                    borderWidth={3}
+                    inactiveZone={0.3}
+                    disabled={false}
+                  />
+
+                  {/* Section Tag */}
+                  <div className="flex w-fit items-center rounded-full border border-white/5 bg-white/5 px-3 py-2 text-zinc-200 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),_0_2px_4px_-1px_rgba(0,0,0,0.02)]">
+                    <Icon className="mr-2 size-5" />
+                    <span>{card.label}</span>
+                  </div>
+
+                  <h3 className="mt-6 text-xl text-zinc-200">{card.title}</h3>
+
+                  {/* Description */}
+                  <p className="mt-2 text-sm text-zinc-500">
+                    {card.description}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {card.tags.map((tag, tagIndex) => (
+                      <span
+                        key={tagIndex}
+                        className="flex items-center rounded-lg border border-dashed border-white/15 px-2 py-1 text-sm whitespace-nowrap text-zinc-400 sm:text-base"
+                      >
+                        <div className="mr-2 size-2 rounded-full bg-blue-400" />
+                        <span>{tag}</span>
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Card Image */}
+                  <div className="mt-4 h-[16rem] grow">{card.image}</div>
                 </div>
-
-                <h3 className="mt-6 text-xl text-zinc-200">{card.title}</h3>
-
-                {/* Description */}
-                <p className="mt-2 text-sm text-zinc-500">{card.description}</p>
-
-                {/* Tags */}
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {card.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tagIndex}
-                      className="flex items-center rounded-lg border border-dashed border-white/15 px-2 py-1 text-sm whitespace-nowrap text-zinc-400 sm:text-base"
-                    >
-                      <div className="mr-2 size-2 rounded-full bg-blue-400" />
-                      <span>{tag}</span>
-                    </span>
-                  ))}
-                </div>
-
-                {/* Card Image */}
-                <div className="mt-4 h-[16rem] grow">{card.image}</div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

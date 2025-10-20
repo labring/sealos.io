@@ -42,7 +42,7 @@ export function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative pt-36 pb-32 overflow-x-clip"
+      className="relative overflow-x-clip pt-36 pb-32"
       style={{
         cursor: `url(${Cursor.src}) 12 12, auto`,
       }}

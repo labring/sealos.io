@@ -405,10 +405,10 @@ const comparisonData: ComparisonData = {
 
 export function ComparisonSection() {
   return (
-    <section className="relative pt-28 pb-32">
+    <section className="relative w-screen overflow-x-clip pt-28 pb-32">
       {/* 顶部渐变遮罩 - 灰到黑，覆盖整个屏幕宽度 */}
       <div
-        className="pointer-events-none absolute top-0 -z-5 h-96 left-1/2 -translate-x-1/2 w-screen"
+        className="pointer-events-none absolute top-0 left-1/2 -z-5 h-96 w-screen -translate-x-1/2"
         style={{
           background:
             'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
@@ -441,134 +441,137 @@ export function ComparisonSection() {
         maxLength={2300}
         blur={19}
       />
-      <div className="flex max-w-full flex-col items-center pb-8 md:gap-8 lg:max-w-4xl lg:flex-row lg:pb-16">
-        <h2 className="w-full text-2xl leading-tight sm:text-4xl md:text-[2.5rem]">
-          <span>Other platforms simplify deployment.</span>&nbsp;
-          <GradientText>Sealos unifies your entire cloud.</GradientText>
-        </h2>
-        <p className="mt-3 w-full text-sm text-zinc-400 sm:text-base">
-          Focus on your code, not the underlying complexity. Sealos provides an
-          integrated, AI-powered experience from development to production, all
-          in one place.
-        </p>
-      </div>
 
-      {/* 对比表格 */}
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[800px] border-collapse">
-          {/* 表头 */}
-          <thead>
-            <tr>
-              <th className="border-b border-zinc-800 px-4 py-9" />
-              {comparisonData.platforms.map((platform, index) => (
-                <th
-                  key={platform.name}
-                  className={cn(
-                    'relative border-b border-zinc-800 px-4 py-2.5 text-base font-semibold',
-                    index === 0
-                      ? 'text-zinc-200 before:pointer-events-none before:absolute before:inset-0 before:rounded-t-lg before:border before:border-b-0 before:border-zinc-800 before:bg-white/5'
-                      : 'text-zinc-400',
-                  )}
-                >
-                  <span className="relative flex items-center gap-2">
-                    {platform.icon}
-                    {platform.name}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          </thead>
+      <div className="container">
+        <div className="flex max-w-full flex-col items-center pb-8 md:gap-8 lg:max-w-4xl lg:flex-row lg:pb-16">
+          <h2 className="w-full text-2xl leading-tight sm:text-4xl md:text-[2.5rem]">
+            <span>Other platforms simplify deployment.</span>&nbsp;
+            <GradientText>Sealos unifies your entire cloud.</GradientText>
+          </h2>
+          <p className="mt-3 w-full text-sm text-zinc-400 sm:text-base">
+            Focus on your code, not the underlying complexity. Sealos provides
+            an integrated, AI-powered experience from development to production,
+            all in one place.
+          </p>
+        </div>
 
-          {/* 表格内容 */}
-          <tbody>
-            {comparisonData.categories.map((category, categoryIndex) => (
-              <>
-                {/* 分类标题行 */}
-                <tr key={`category-${categoryIndex}`}>
-                  <td className="border-b border-zinc-800 px-4 py-5 text-lg font-medium text-zinc-200">
-                    <div className="flex items-center gap-2">
-                      {category.icon}
-                      {category.name}
-                    </div>
-                  </td>
-                  {comparisonData.platforms.map((platform, platformIndex) => (
-                    <td
-                      key={platform.name}
-                      className={cn(
-                        'relative border-b border-zinc-800 px-4 py-5',
-                        platformIndex === 0 &&
-                          'bg-white/5 before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
-                      )}
-                    />
-                  ))}
-                </tr>
+        {/* 对比表格 */}
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[800px] border-collapse">
+            {/* 表头 */}
+            <thead>
+              <tr>
+                <th className="border-b border-zinc-800 px-4 py-9" />
+                {comparisonData.platforms.map((platform, index) => (
+                  <th
+                    key={platform.name}
+                    className={cn(
+                      'relative border-b border-zinc-800 px-4 py-2.5 text-base font-semibold',
+                      index === 0
+                        ? 'text-zinc-200 before:pointer-events-none before:absolute before:inset-0 before:rounded-t-lg before:border before:border-b-0 before:border-zinc-800 before:bg-white/5'
+                        : 'text-zinc-400',
+                    )}
+                  >
+                    <span className="relative flex items-center gap-2">
+                      {platform.icon}
+                      {platform.name}
+                    </span>
+                  </th>
+                ))}
+              </tr>
+            </thead>
 
-                {/* 分类下的对比项 */}
-                {category.items.map((item, itemIndex) => {
-                  const isLastCategory =
-                    categoryIndex === comparisonData.categories.length - 1;
-                  const isLastItem = itemIndex === category.items.length - 1;
-                  const isLastRow = isLastCategory && isLastItem;
+            {/* 表格内容 */}
+            <tbody>
+              {comparisonData.categories.map((category, categoryIndex) => (
+                <>
+                  {/* 分类标题行 */}
+                  <tr key={`category-${categoryIndex}`}>
+                    <td className="border-b border-zinc-800 px-4 py-5 text-lg font-medium text-zinc-200">
+                      <div className="flex items-center gap-2">
+                        {category.icon}
+                        {category.name}
+                      </div>
+                    </td>
+                    {comparisonData.platforms.map((platform, platformIndex) => (
+                      <td
+                        key={platform.name}
+                        className={cn(
+                          'relative border-b border-zinc-800 px-4 py-5',
+                          platformIndex === 0 &&
+                            'bg-white/5 before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
+                        )}
+                      />
+                    ))}
+                  </tr>
 
-                  return (
-                    <tr key={`${categoryIndex}-${itemIndex}`}>
-                      <td className="border-b border-zinc-800 px-4 py-5 text-base text-zinc-400">
-                        <div className="flex items-center gap-2 whitespace-nowrap">
-                          {item.feature}
-                          {item.help && (
-                            <Tooltip>
-                              <TooltipTrigger>
-                                <CircleHelp size={20} />
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>{item.help}</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          )}
-                        </div>
-                      </td>
-                      {item.values.map((value, valueIndex) => (
-                        <td
-                          key={valueIndex}
-                          className={cn(
-                            'relative border-b border-zinc-800 px-4 py-5',
-                            valueIndex === 0 && 'bg-white/5',
-                            valueIndex === 0 &&
-                              'before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
-                          )}
-                        >
-                          <span
+                  {/* 分类下的对比项 */}
+                  {category.items.map((item, itemIndex) => {
+                    const isLastCategory =
+                      categoryIndex === comparisonData.categories.length - 1;
+                    const isLastItem = itemIndex === category.items.length - 1;
+                    const isLastRow = isLastCategory && isLastItem;
+
+                    return (
+                      <tr key={`${categoryIndex}-${itemIndex}`}>
+                        <td className="border-b border-zinc-800 px-4 py-5 text-base text-zinc-400">
+                          <div className="flex items-center gap-2 whitespace-nowrap">
+                            {item.feature}
+                            {item.help && (
+                              <Tooltip>
+                                <TooltipTrigger>
+                                  <CircleHelp size={20} />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>{item.help}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            )}
+                          </div>
+                        </td>
+                        {item.values.map((value, valueIndex) => (
+                          <td
+                            key={valueIndex}
                             className={cn(
-                              'relative flex items-center gap-2 text-base whitespace-nowrap',
-                              valueIndex === 0
-                                ? 'text-zinc-200'
-                                : 'text-zinc-400',
+                              'relative border-b border-zinc-800 px-4 py-5',
+                              valueIndex === 0 && 'bg-white/5',
+                              valueIndex === 0 &&
+                                'before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
                             )}
                           >
-                            {value.icon}
-                            {value.name}
-                          </span>
-                        </td>
-                      ))}
-                    </tr>
-                  );
-                })}
-              </>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                            <span
+                              className={cn(
+                                'relative flex items-center gap-2 text-base whitespace-nowrap',
+                                valueIndex === 0
+                                  ? 'text-zinc-200'
+                                  : 'text-zinc-400',
+                              )}
+                            >
+                              {value.icon}
+                              {value.name}
+                            </span>
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      <ol className="mt-8 space-y-1 text-sm text-zinc-600">
-        <li>
-          [1] Vercel: Preview deployments are generated based on Git commits,
-          which still involves a CI/CD-like waiting period for builds.
-        </li>
-        <li>
-          [2] Vercel: Optimized for front-end frameworks; backend support is
-          primarily through Serverless Functions.
-        </li>
-      </ol>
+        <ol className="mt-8 space-y-1 text-sm text-zinc-600">
+          <li>
+            [1] Vercel: Preview deployments are generated based on Git commits,
+            which still involves a CI/CD-like waiting period for builds.
+          </li>
+          <li>
+            [2] Vercel: Optimized for front-end frameworks; backend support is
+            primarily through Serverless Functions.
+          </li>
+        </ol>
+      </div>
     </section>
   );
 }
