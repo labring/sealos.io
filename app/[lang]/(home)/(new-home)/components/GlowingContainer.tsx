@@ -2,7 +2,7 @@
 
 import { memo, useCallback, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { animate } from 'motion/react';
+import { animate, useInView } from 'motion/react';
 
 interface GlowingEffectProps {
   blur?: number;
@@ -33,9 +33,15 @@ const GlowingEffect = memo(
     const lastPosition = useRef({ x: 0, y: 0 });
     const animationFrameRef = useRef<number>(0);
 
+    // 使用 useInView 检测组件是否在视口内
+    const isInView = useInView(containerRef, {
+      margin: '0px 0px -10% 0px',
+      amount: 0.1,
+    });
+
     const handleMove = useCallback(
       (e?: MouseEvent | { x: number; y: number }) => {
-        if (!containerRef.current) return;
+        if (!containerRef.current || !isInView) return; // 不在视口时不处理
 
         if (animationFrameRef.current) {
           cancelAnimationFrame(animationFrameRef.current);
@@ -94,11 +100,11 @@ const GlowingEffect = memo(
           });
         });
       },
-      [inactiveZone, proximity, movementDuration],
+      [inactiveZone, proximity, movementDuration, isInView],
     );
 
     useEffect(() => {
-      if (disabled) return;
+      if (disabled || !isInView) return; // 不在视口时不监听事件
 
       const handleScroll = () => handleMove();
       const handlePointerMove = (e: PointerEvent) => handleMove(e);
@@ -115,7 +121,7 @@ const GlowingEffect = memo(
         window.removeEventListener('scroll', handleScroll);
         document.body.removeEventListener('pointermove', handlePointerMove);
       };
-    }, [handleMove, disabled]);
+    }, [handleMove, disabled, isInView]);
 
     return (
       <>

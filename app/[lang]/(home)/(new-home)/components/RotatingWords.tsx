@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion, useInView } from 'motion/react';
 import { GradientText } from './GradientText';
 
 export function RotatingWords({
@@ -16,14 +16,20 @@ export function RotatingWords({
   const [index, setIndex] = useState(0);
   const [measuredWidth, setMeasuredWidth] = useState<number | null>(null);
   const measureRef = useRef<HTMLSpanElement>(null);
+  const containerRef = useRef<HTMLSpanElement>(null);
+
+  // 使用 useInView 检测组件是否在视口内
+  const isInView = useInView(containerRef, {
+    margin: '0px 0px -10% 0px', // 提前 10% 开始动画
+  });
 
   useEffect(() => {
-    if (!words?.length) return;
+    if (!words?.length || !isInView) return; // 只在视口内时运行动画
     const id = setInterval(() => {
       setIndex((i) => (i + 1) % words.length);
     }, interval);
     return () => clearInterval(id);
-  }, [words, interval]);
+  }, [words, interval, isInView]);
 
   useEffect(() => {
     // 测量当前词的宽度，用于外层宽度动画
@@ -38,6 +44,7 @@ export function RotatingWords({
 
   return (
     <span
+      ref={containerRef}
       className={className}
       style={{ display: 'inline-block', whiteSpace: 'nowrap' }}
       aria-live="polite"

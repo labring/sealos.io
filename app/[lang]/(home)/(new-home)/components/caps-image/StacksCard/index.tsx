@@ -1,7 +1,8 @@
 'use client';
 import { StackCard } from './StackCard';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
+import { useRef } from 'react';
 import ClaudeCodeIcon from '../../../assets/stacks-appicons/claude-code.svg';
 import EchoIcon from '../../../assets/stacks-appicons/echo.svg';
 import McpIcon from '../../../assets/stacks-appicons/mcp.svg';
@@ -63,8 +64,17 @@ const column3Data = [
 ];
 
 export function StacksCard() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // 使用 useInView 检测组件是否在视口内
+  const isInView = useInView(containerRef, { 
+    margin: '0px 0px -10% 0px',
+    amount: 0.2 
+  });
+
   return (
     <div
+      ref={containerRef}
       className="relative h-full w-full overflow-hidden"
       style={{ isolation: 'isolate' }}
     >
@@ -74,7 +84,7 @@ export function StacksCard() {
         <motion.div
           className="flex flex-1 flex-col gap-4"
           initial={{ y: '0%' }}
-          animate={{ y: '-50%' }}
+          animate={isInView ? { y: '-50%' } : undefined}
           transition={{
             duration: 20,
             repeat: Infinity,
@@ -96,7 +106,7 @@ export function StacksCard() {
         <motion.div
           className="flex flex-1 flex-col gap-4"
           initial={{ y: '-50%' }}
-          animate={{ y: '0%' }}
+          animate={isInView ? { y: '0%' } : undefined}
           transition={{
             duration: 20,
             repeat: Infinity,
@@ -118,7 +128,7 @@ export function StacksCard() {
         <motion.div
           className="flex flex-1 flex-col gap-4"
           initial={{ y: '0%' }}
-          animate={{ y: '-50%' }}
+          animate={isInView ? { y: '-50%' } : undefined}
           transition={{
             duration: 20,
             repeat: Infinity,

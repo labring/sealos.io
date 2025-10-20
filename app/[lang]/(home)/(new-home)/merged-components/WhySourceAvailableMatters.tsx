@@ -51,7 +51,10 @@ const Feature = memo(function Feature({ title, description }: FeatureProps) {
         <h3 className="m-0 w-auto shrink-0 text-[17.5px] leading-[25px] font-medium text-zinc-200 lg:w-[166px]">
           {title}
         </h3>
-        <p className="m-0 block text-sm leading-5 font-normal text-zinc-400" style={{ width: '166px', height: '80px' }}>
+        <p
+          className="m-0 block text-sm leading-5 font-normal text-zinc-400"
+          style={{ width: '166px', height: '80px' }}
+        >
           {description}
         </p>
       </div>

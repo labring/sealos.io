@@ -1,9 +1,18 @@
 'use client';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 import DeploymentImage from './assets/image.svg';
 
 export function DeploymentCard() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // 使用 useInView 检测组件是否在视口内
+  const isInView = useInView(containerRef, { 
+    margin: '0px 0px -10% 0px',
+    amount: 0.2 
+  });
+
   // 渐变动画：从左侧区域外开始，移动到右侧区域外
   // 原始范围 x1=217, x2=339，总长度 122
   // 扩展范围：在左边多加 150，在右边多加 800
@@ -15,7 +24,7 @@ export function DeploymentCard() {
   const endX2 = 339 + rightExtend; // 619
 
   return (
-    <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
+    <div ref={containerRef} className="relative flex h-full w-full items-center justify-center overflow-hidden">
       {/* 原始 SVG 图片 */}
       <Image src={DeploymentImage} alt="Deployment" className="h-full w-auto" />
 
@@ -53,10 +62,10 @@ export function DeploymentCard() {
             y1="106.43"
             y2="106.43"
             gradientUnits="userSpaceOnUse"
-            animate={{
+            animate={isInView ? {
               x1: [startX1, endX1],
               x2: [startX2, endX2],
-            }}
+            } : undefined}
             transition={{
               duration: 3,
               repeat: Infinity,

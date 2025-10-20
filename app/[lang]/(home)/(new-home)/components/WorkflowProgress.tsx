@@ -7,6 +7,7 @@ import {
   useTransform,
   useMotionValueEvent,
   MotionValue,
+  useInView,
 } from 'framer-motion';
 import { ProgressIndicator } from './ProgressIndicator';
 import { cn } from '@/lib/utils';
@@ -141,9 +142,18 @@ export const WorkflowProgress = memo(
     // 跟踪当前激活的阶段索引
     const [activeStageIndex, setActiveStageIndex] = useState<number>(-1);
     const prevActiveIndexRef = useRef<number>(-1);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    // 使用 useInView 检测组件是否在视口内
+    const isInView = useInView(containerRef, {
+      margin: '0px 0px -20% 0px',
+      amount: 0.3,
+    });
 
     // 监听进度变化，更新激活的阶段
     useMotionValueEvent(progress, 'change', (latest) => {
+      if (!isInView) return; // 不在视口时不更新状态
+
       let newActiveIndex: number;
 
       // 找到当前进度对应的阶段
@@ -173,7 +183,7 @@ export const WorkflowProgress = memo(
     };
 
     return (
-      <div className="flex w-full gap-2.5">
+      <div ref={containerRef} className="flex w-full gap-2.5">
         {stages.map((stage, index) => (
           <StageItem
             key={stage.name}

@@ -3757,7 +3757,7 @@
   {
     "name": "Tolgee",
     "slug": "tolgee",
-    "description": "Tolgee is an open-source localization platform developers enjoy to working with.",
+    "description": "An open-source localization platform that developers enjoy working with.",
     "icon": "/images/apps/tolgee.svg",
     "category": "Tools",
     "features": [
@@ -3779,7 +3779,7 @@
       "Team Collaboration"
     ],
     "gradient": "from-green-50/70 to-emerald-50/70",
-    "github": "https://github.com/tolgee-io/tolgee",
+    "github": "https://github.com/tolgee/tolgee-platform",
     "website": "https://tolgee.io/",
     "tags": [
       "tool"

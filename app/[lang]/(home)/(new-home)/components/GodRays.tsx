@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { useInView } from 'motion/react';
 
 interface Ray {
   sourceX: number;
@@ -46,6 +47,10 @@ interface GodRaysProps {
   maxLength?: number;
   /** 模糊程度 (px) */
   blur?: number;
+  /**
+   * Cap X axis to container width
+   */
+  capWidth?: boolean;
 }
 
 function getRandomInt(min: number, max: number): number {
@@ -68,11 +73,18 @@ export function GodRays({
   minLength = 800,
   maxLength = 2000,
   blur = 10,
+  capWidth = true,
 }: GodRaysProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const raysRef = useRef<Ray[]>([]);
   const animationFrameRef = useRef<number>();
   const dimensionsRef = useRef({ width: 0, height: 0 });
+
+  // 使用 useInView 检测组件是否在视口内
+  const isInView = useInView(canvasRef, {
+    margin: '0px 0px -10% 0px',
+    amount: 0.1,
+  });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -107,8 +119,24 @@ export function GodRays({
 
       const { width, height } = dimensionsRef.current;
 
+      // cap x axis to container dimension
+      const cappedWidth =
+        width > 1440
+          ? 1440
+          : width > 1280
+            ? 1280
+            : width > 1024
+              ? 1024
+              : width > 768
+                ? 768
+                : width > 640
+                  ? 640
+                  : width;
+
       // 计算光源的实际位置
-      const sourceX = width * source.x;
+      const sourceX = capWidth
+        ? (width - cappedWidth) / 2 + cappedWidth * source.x
+        : width;
       const sourceY = height * source.y;
 
       // 计算照射方向
@@ -205,6 +233,12 @@ export function GodRays({
 
     // 动画循环
     const animate = () => {
+      if (!isInView) {
+        // 不在视口时停止动画，但保持 RAF 循环以便重新进入时恢复
+        animationFrameRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
       context.clearRect(0, 0, canvas.width, canvas.height);
       init();
       animationFrameRef.current = requestAnimationFrame(animate);
@@ -228,7 +262,7 @@ export function GodRays({
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [sources, speed, maxWidth, minLength, maxLength]);
+  }, [sources, speed, maxWidth, minLength, maxLength, isInView]);
 
   return (
     <canvas

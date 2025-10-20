@@ -25,26 +25,26 @@ export function HeroSection() {
       <GodRays
         sources={[
           {
-            x: 0.1,
+            x: 0.2,
             y: -0.15,
             angle: 70,
-            spread: 40,
+            spread: 30,
             count: 16,
             color: '220, 220, 220',
           },
           {
-            x: 0.5,
+            x: 0.4,
             y: -0.2,
             angle: 70,
-            spread: 60,
+            spread: 30,
             count: 14,
-            color: '225, 225, 225',
+            color: '180, 180, 180',
           },
         ]}
         speed={0.002}
         maxWidth={100}
         minLength={1200}
-        maxLength={2800}
+        maxLength={2000}
         blur={16}
       />
 

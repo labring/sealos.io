@@ -27,7 +27,7 @@ export default function SourceAvailSection({
               color: '220, 220, 220',
             },
             {
-              x: 0.55,
+              x: 0.65,
               y: -0.15,
               angle: 70,
               spread: 45,

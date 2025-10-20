@@ -223,7 +223,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
     <>
       {/* 主体内容 - Footer 的链接部分 */}
       {/* Workaround for footer height */}
-      <div className="relative -mt-32 w-full pt-24 pb-64">
+      <div className="relative -mt-32 w-screen overflow-x-clip pt-24 pb-64">
         {/* 底部遮罩 */}
         <div className="pointer-events-none absolute bottom-0 left-1/2 z-0 h-full w-screen -translate-x-1/2 bg-black bg-gradient-to-t from-black to-transparent"></div>
         <div className="relative z-10 container flex flex-col items-start justify-between gap-10 px-0 text-sm lg:flex-row lg:gap-0">
@@ -306,7 +306,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
         </div>
 
         {/* Footer 链接栏 - 作为主内容的一部分 */}
-        <div className="relative z-99 container mt-[30px] grid grid-cols-1 grid-rows-3 items-center border-t border-gray-600 px-0 py-4 text-sm sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-3 lg:grid-rows-1">
+        <div className="relative container mt-[30px] grid grid-cols-1 grid-rows-3 items-center border-t border-gray-600 px-0 py-4 text-sm sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-3 lg:grid-rows-1">
           <div className="col-start-1 row-start-1 flex items-center gap-6 justify-self-center sm:justify-self-start">
             {footerLinks.legal.links.map((link: any, index: number) => (
               <FooterLink key={index} href={link.url}>
