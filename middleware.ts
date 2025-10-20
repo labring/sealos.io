@@ -37,14 +37,9 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
   // @ts-ignore
   const response = i18nMiddleware(request, event);
 
-  // 检查是否为主页路由（/, /en, /zh 等）
-  const isHomePage =
-    pathname === '/' ||
-    /^\/[a-z]{2}(-[a-z]{2})?$/.test(pathname) ||
-    /^\/[a-z]{2}(-[a-z]{2})?\/$/.test(pathname);
-  if (isHomePage && response) {
-    const resp = await response;
-    resp?.headers.set('x-is-homepage', 'true');
+  // 将路径信息添加到 headers，供服务端 layout 使用
+  if (response) {
+    response.headers.set('x-pathname', pathname);
   }
 
   return response;
@@ -52,6 +47,6 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|images/|icons/|favicon/|favicon.ico|logo.svg|Deploy-on-Sealos.svg|sitemap.xml|llms.txt|rss.xml|dev).*)/',
+    '/((?!api|_next/static|_next/image|images/|icons/|favicon/|favicon.ico|logo.svg|Deploy-on-Sealos.svg|sitemap.xml|llms.txt|rss.xml).*)/',
   ],
 };
