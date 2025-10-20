@@ -85,7 +85,7 @@ export default function FAQSection() {
   ];
 
   return (
-    <div className="container px-4 pt-8 pb-16">
+    <div className="container px-4 pt-8 pb-8">
       <div className="flex w-full flex-col items-start justify-between gap-10 lg:flex-row lg:gap-20">
         {/* Left Section */}
         <div

@@ -223,7 +223,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
     <>
       {/* 主体内容 - Footer 的链接部分 */}
       {/* Workaround for footer height */}
-      <div className="relative z-99 -mt-32 w-full py-64">
+      <div className="relative z-99 -mt-32 w-full pb-64 pt-10">
         {/* 底部遮罩 */}
         <div className="pointer-events-none absolute bottom-0 left-1/2 z-0 h-full w-screen -translate-x-1/2 bg-black bg-gradient-to-t from-black to-transparent"></div>
         <div className="relative z-10 container flex flex-col items-start justify-between gap-10 px-0 text-sm lg:flex-row lg:gap-0">
