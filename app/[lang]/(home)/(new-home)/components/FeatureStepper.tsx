@@ -20,7 +20,7 @@ export function FeatureStepper({
   return (
     <div className="flex justify-center gap-8 lg:gap-20">
       {/* Line */}
-      <div className="absolute top-2.5 h-px w-full bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+      <div className="absolute top-[2.625rem] h-px w-full bg-gradient-to-r from-transparent via-white/40 to-transparent" />
 
       {features.map((feature, index) => (
         <div key={index} className="flex flex-col items-center gap-2">

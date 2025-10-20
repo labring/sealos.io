@@ -39,7 +39,8 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
 
   // 将路径信息添加到 headers，供服务端 layout 使用
   if (response) {
-    response.headers.set('x-pathname', pathname);
+    const resp = await response;
+    resp?.headers.set('x-pathname', pathname);
   }
 
   return response;

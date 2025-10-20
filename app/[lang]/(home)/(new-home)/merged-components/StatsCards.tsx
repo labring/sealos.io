@@ -1,8 +1,60 @@
 'use client';
 
 import { Users, GitBranch } from 'lucide-react';
+import { memo } from 'react';
 import CountUp from './CountUp';
 import { useInView } from 'react-intersection-observer';
+
+// Memo 化单个统计卡片，避免其他卡片数字变化时重新渲染
+const StatCard = memo(function StatCard({
+  icon,
+  title,
+  description,
+  value,
+  suffix,
+  inView,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  value: number;
+  suffix: string;
+  inView: boolean;
+}) {
+  return (
+    <div
+      className={`flex h-[196px] flex-col items-end gap-7 overflow-hidden rounded-[20px] border border-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-black/30`}
+      style={{
+        boxShadow: inView
+          ? 'inset 0px -48px 56.1px -25px rgba(255, 255, 255, 0.25)'
+          : 'inset 0px 48px 56.1px -25px rgba(255, 255, 255, 0.25)',
+        animation: inView
+          ? 'shadowRiseOnce 1400ms ease-out 0s 1 forwards'
+          : 'none',
+      }}
+    >
+      <div className="w-full">
+        <div className="flex items-center gap-2">
+          {/* icon container sizing */}
+          <div className="h-4 w-4 shrink-0">{icon}</div>
+          <span className="text-[17.5px] leading-[25px] font-medium text-zinc-200">
+            {title}
+          </span>
+        </div>
+        <div className="mt-2">
+          <span className="text-sm leading-5 font-normal text-zinc-400">
+            {description}
+          </span>
+        </div>
+      </div>
+
+      <div className="h-14 w-[138px] bg-gradient-to-b from-white to-gray-400 bg-clip-text text-right text-[56px] leading-none font-medium text-transparent">
+        <CountUp to={value} duration={2} className="count-up-text" />
+        {suffix}
+      </div>
+    </div>
+  );
+});
 
 export default function StatsCards() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
@@ -84,41 +136,20 @@ export default function StatsCards() {
   ];
 
   return (
-    <div className="grid w-full grid-cols-1 gap-6 px-0 sm:grid-cols-2 lg:grid-cols-4">
+    <div
+      ref={ref}
+      className="grid w-full grid-cols-1 gap-6 px-0 sm:grid-cols-2 lg:grid-cols-4"
+    >
       {stats.map((stat, index) => (
-        <div
+        <StatCard
           key={index}
-          ref={ref}
-          className={`flex h-[196px] flex-col items-end gap-7 overflow-hidden rounded-[20px] border border-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-black/30`}
-          style={{
-            boxShadow: inView
-              ? 'inset 0px -48px 56.1px -25px rgba(255, 255, 255, 0.25)'
-              : 'inset 0px 48px 56.1px -25px rgba(255, 255, 255, 0.25)',
-            animation: inView
-              ? 'shadowRiseOnce 1400ms ease-out 0s 1 forwards'
-              : 'none',
-          }}
-        >
-          <div className="w-full">
-            <div className="flex items-center gap-2">
-              {/* icon container sizing */}
-              <div className="h-4 w-4 shrink-0">{stat.icon}</div>
-              <span className="text-[17.5px] leading-[25px] font-medium text-zinc-200">
-                {stat.title}
-              </span>
-            </div>
-            <div className="mt-2">
-              <span className="text-sm leading-5 font-normal text-zinc-400">
-                {stat.description}
-              </span>
-            </div>
-          </div>
-
-          <div className="h-14 w-[138px] bg-gradient-to-b from-white to-gray-400 bg-clip-text text-right text-[56px] leading-none font-medium text-transparent">
-            <CountUp to={stat.value} duration={2} className="count-up-text" />
-            {stat.suffix}
-          </div>
-        </div>
+          icon={stat.icon}
+          title={stat.title}
+          description={stat.description}
+          value={stat.value}
+          suffix={stat.suffix}
+          inView={inView}
+        />
       ))}
       <style jsx>{`
         @keyframes shadowRiseOnce {

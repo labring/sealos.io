@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useInView } from 'motion/react';
 import * as Matter from 'matter-js';
 
 interface Tag {
@@ -44,6 +45,9 @@ const CONFIG = {
     drainDuration: 2500, // 流出时间
     resetDelay: 500, // 重置延迟
   },
+  rendering: {
+    updateInterval: 1000 / 10, // update at 10 fps
+  },
 };
 
 export function FallingTags() {
@@ -54,11 +58,17 @@ export function FallingTags() {
   const bodiesRef = useRef<BodyItem[]>([]);
   const animationIdRef = useRef<number>(0);
   const [phase, setPhase] = useState<Phase>('dropping');
-  const [landedCount, setLandedCount] = useState(0);
   const elementsRef = useRef<Map<number, HTMLElement>>(new Map());
 
+  // 使用 motion/react 的 useInView 检测组件是否进入视口
+  const inView = useInView(containerRef, {
+    once: true, // 只触发一次
+    amount: 0.1, // 10% 可见时触发
+  });
+
   useEffect(() => {
-    if (!containerRef.current) return;
+    // 只有进入视口时才启动动画
+    if (!inView || !containerRef.current) return;
 
     const container = containerRef.current;
     const containerWidth = container.clientWidth;
@@ -122,7 +132,7 @@ export function FallingTags() {
       tags.forEach((tag, index) => {
         const elem = document.createElement('span');
         elem.className =
-          'inset-shadow-bubble absolute rounded-full border border-white/5 bg-neutral-950/30 px-4 py-3 text-lg backdrop-blur-md';
+          'inset-shadow-bubble absolute rounded-full border border-white/5 bg-neutral-950/30 px-4 py-3 text-lg backdrop-blur-md transition-transform ease-linear will-change-transform';
         elem.textContent = tag.text;
         elem.style.opacity = '1';
         elem.style.left = '0';
@@ -181,46 +191,53 @@ export function FallingTags() {
 
     dropElements();
 
-    // 更新循环
     const startUpdateLoop = () => {
       let localLandedCount = 0;
+      let lastUpdateTime = 0;
 
-      const update = () => {
-        bodiesRef.current.forEach((item) => {
-          if (!item || !item.body || !item.elem) return;
+      const update = (currentTime: number) => {
+        // Throttle updates
+        const timeSinceLastUpdate = currentTime - lastUpdateTime;
 
-          const { x, y } = item.body.position;
-          const angle = item.body.angle;
+        if (timeSinceLastUpdate >= CONFIG.rendering.updateInterval) {
+          bodiesRef.current.forEach((item) => {
+            if (!item || !item.body || !item.elem) return;
 
-          item.elem.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${angle}rad)`;
+            const { x, y } = item.body.position;
+            const angle = item.body.angle;
 
-          // 添加淡出效果
-          if (phase === 'draining') {
-            const fadeStart = containerHeight * 0.8;
-            if (y > fadeStart) {
-              const opacity = Math.max(
-                0,
-                1 - (y - fadeStart) / (containerHeight * 0.3),
-              );
-              item.elem.style.opacity = opacity.toString();
+            item.elem.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${angle}rad)`;
+
+            // 添加淡出效果
+            if (phase === 'draining') {
+              const fadeStart = containerHeight * 0.8;
+              if (y > fadeStart) {
+                const opacity = Math.max(
+                  0,
+                  1 - (y - fadeStart) / (containerHeight * 0.3),
+                );
+                item.elem.style.opacity = opacity.toString();
+              }
             }
-          }
 
-          // 检测着陆
-          if (!item.landed && item.body.isSleeping) {
-            item.landed = true;
-            localLandedCount++;
-            setLandedCount(localLandedCount);
+            // 检测着陆
+            if (!item.landed && item.body.isSleeping) {
+              item.landed = true;
+              localLandedCount++;
 
-            if (localLandedCount === tags.length) {
-              onAllLanded();
+              if (localLandedCount === tags.length) {
+                onAllLanded();
+              }
             }
-          }
-        });
+          });
+
+          lastUpdateTime = currentTime;
+        }
 
         animationIdRef.current = requestAnimationFrame(update);
       };
-      update();
+
+      animationIdRef.current = requestAnimationFrame(update);
     };
 
     startUpdateLoop();
@@ -289,7 +306,6 @@ export function FallingTags() {
       Matter.Composite.remove(engine.world, currentBodies);
 
       setPhase('dropping');
-      setLandedCount(0);
       bodiesRef.current = [];
 
       // 重新开始
@@ -320,7 +336,7 @@ export function FallingTags() {
       });
       elementsRef.current.clear();
     };
-  }, []);
+  }, [inView]);
 
   return (
     <div

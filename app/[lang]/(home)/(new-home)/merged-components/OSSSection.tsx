@@ -1,10 +1,12 @@
 'use client';
 
+import { memo } from 'react';
+
 interface OSSSectionProps {
   lang?: string;
 }
 
-export default function OSSSection({ lang = 'en' }: OSSSectionProps) {
+export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
   const translations = {
     en: {
       badge: '100% source available',
@@ -137,4 +139,4 @@ export default function OSSSection({ lang = 'en' }: OSSSectionProps) {
       </div>
     </div>
   );
-}
+});

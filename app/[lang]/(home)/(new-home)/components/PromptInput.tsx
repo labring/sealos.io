@@ -194,7 +194,7 @@ export function PromptInput() {
 
   const handleSendPrompt = () => {
     if (promptText.trim()) {
-      const url = `https://brain.usw.sealos.io/?query=${encodeURIComponent(promptText)}`;
+      const url = `https://brain.usw.sealos.io/trial?query=${encodeURIComponent(promptText)}`;
       window.open(url, '_blank');
     }
   };

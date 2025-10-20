@@ -18,9 +18,21 @@ export function DemoSection() {
   const patternRef = useRef<HTMLDivElement>(null);
   const videoHeightMV = useMotionValue(0);
   const patternHeightMV = useMotionValue(0);
+  const [isAnimationReady, setIsAnimationReady] = useState(false);
+
+  // Show video after scripts loaded.
+  useEffect(() => {
+    const initAnimation = () => {
+      setIsAnimationReady(true);
+    };
+
+    requestAnimationFrame(initAnimation);
+  }, []);
 
   // 动态读取视频和图案容器的高度
   useEffect(() => {
+    if (!isAnimationReady) return;
+
     const updateHeights = () => {
       if (videoRef.current) {
         const height = videoRef.current.offsetHeight;
@@ -35,7 +47,7 @@ export function DemoSection() {
     updateHeights();
     window.addEventListener('resize', updateHeights);
     return () => window.removeEventListener('resize', updateHeights);
-  }, [videoHeightMV, patternHeightMV]);
+  }, [videoHeightMV, patternHeightMV, isAnimationReady]);
 
   // 跟踪整个动画容器的滚动进度
   const { scrollYProgress } = useScroll({
@@ -160,60 +172,64 @@ export function DemoSection() {
       >
         {/* 固定容器 - 在视口中心固定显示 */}
         <div className="sticky top-0 flex h-screen w-screen justify-center overflow-visible">
-          {/* Video容器 */}
-          <motion.div
-            className="absolute perspective-midrange perspective-origin-top"
-            style={{
-              y: videoYRaw,
-            }}
-          >
+          {/* Video容器 - 仅在动画准备好后渲染 */}
+          {isAnimationReady && (
             <motion.div
-              ref={videoRef}
-              className="bg-background aspect-video w-[80vw] max-w-[1200px] origin-center overflow-hidden rounded-4xl border-4"
+              className="absolute will-change-transform perspective-midrange perspective-origin-top"
               style={{
-                rotateX: rotateAngle,
-                scale: videoScale,
-                opacity: videoOpacity,
-                transformStyle: 'preserve-3d',
+                y: videoYRaw,
               }}
             >
-              <iframe
-                className="block h-full w-full"
+              <motion.div
+                ref={videoRef}
+                className="bg-background aspect-video w-[80vw] max-w-[1200px] origin-center overflow-hidden rounded-4xl border-4"
                 style={{
+                  rotateX: rotateAngle,
+                  scale: videoScale,
+                  opacity: videoOpacity,
                   transformStyle: 'preserve-3d',
-                  border: 'none',
-                  display: 'block',
                 }}
-                src="https://www.youtube.com/embed/TrEsUMwWtDg?si=eev83pkuZvKTY3C4"
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
+              >
+                <iframe
+                  className="block h-full w-full"
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    border: 'none',
+                    display: 'block',
+                  }}
+                  src="https://www.youtube.com/embed/TrEsUMwWtDg?si=eev83pkuZvKTY3C4"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </motion.div>
             </motion.div>
-          </motion.div>
+          )}
 
-          {/* 图案容器 */}
-          <motion.div
-            className="absolute -z-10 flex items-center justify-center"
-            style={{
-              y: patternYRaw,
-            }}
-          >
+          {/* 图案容器 - 仅在动画准备好后渲染 */}
+          {isAnimationReady && (
             <motion.div
-              ref={patternRef}
-              className="relative"
+              className="absolute -z-10 flex items-center justify-center"
               style={{
-                scale: patternScale,
-                opacity: patternOpacity,
+                y: patternYRaw,
               }}
             >
-              <div className="size-[4rem] rounded-full bg-neutral-600" />
-              <div className="absolute top-1/2 left-1/2 size-[5.32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-neutral-600 opacity-60" />
-              <div className="absolute top-1/2 left-1/2 size-[6.384rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-neutral-600 opacity-20" />
+              <motion.div
+                ref={patternRef}
+                className="relative"
+                style={{
+                  scale: patternScale,
+                  opacity: patternOpacity,
+                }}
+              >
+                <div className="size-[4rem] rounded-full bg-neutral-600" />
+                <div className="absolute top-1/2 left-1/2 size-[5.32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-neutral-600 opacity-60" />
+                <div className="absolute top-1/2 left-1/2 size-[6.384rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-neutral-600 opacity-20" />
+              </motion.div>
             </motion.div>
-          </motion.div>
+          )}
         </div>
       </div>
     </section>

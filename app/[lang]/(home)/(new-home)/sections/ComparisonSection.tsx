@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import { GradientText } from '../components/GradientText';
 import {
   Bot,
-  Circle,
   CircleHelp,
   CodeXml,
   GitCompare,
@@ -10,6 +9,7 @@ import {
   Network,
 } from 'lucide-react';
 import Image from 'next/image';
+import SealosIcon from '../assets/shared-icons/sealos.svg';
 import RailwayIcon from '../assets/platform-icons/railway.svg';
 import RenderIcon from '../assets/platform-icons/render.svg';
 import SupabaseIcon from '../assets/platform-icons/supabase.svg';
@@ -54,7 +54,10 @@ interface ComparisonData {
 // 对比数据结构
 const comparisonData: ComparisonData = {
   platforms: [
-    { name: 'Sealos', icon: <Circle size={24} /> },
+    {
+      name: 'Sealos',
+      icon: <Image src={SealosIcon} alt="Sealos" width={24} height={24} />,
+    },
     {
       name: 'Railway',
       icon: <Image src={RailwayIcon} alt="Railway" width={24} height={24} />,

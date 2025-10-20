@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { memo } from 'react';
 import ltAvatar from '../assets/lt.png';
 import rtAvatar from '../assets/rt.png';
 import lbAvatar from '../assets/lb.png';
@@ -12,7 +13,11 @@ interface TestimonialProps {
   quote: string;
 }
 
-function Testimonial({ avatar, name, quote }: TestimonialProps) {
+const Testimonial = memo(function Testimonial({
+  avatar,
+  name,
+  quote,
+}: TestimonialProps) {
   return (
     <div className="flex w-full flex-col items-start gap-4">
       <div className="flex items-center gap-3">
@@ -32,14 +37,14 @@ function Testimonial({ avatar, name, quote }: TestimonialProps) {
       </p>
     </div>
   );
-}
+});
 
 interface FeatureProps {
   title: string;
   description: string;
 }
 
-function Feature({ title, description }: FeatureProps) {
+const Feature = memo(function Feature({ title, description }: FeatureProps) {
   return (
     <div className="mb-12">
       <div className="flex w-full flex-col items-start gap-2 lg:flex-row lg:gap-12">
@@ -52,9 +57,9 @@ function Feature({ title, description }: FeatureProps) {
       </div>
     </div>
   );
-}
+});
 
-export default function WhySourceAvailableMatters() {
+export default memo(function WhySourceAvailableMatters() {
   const features = [
     {
       title: 'Transparency',
@@ -219,4 +224,4 @@ export default function WhySourceAvailableMatters() {
       </div>
     </div>
   );
-}
+});

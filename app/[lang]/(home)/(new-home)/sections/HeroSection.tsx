@@ -8,36 +8,7 @@ import { GodRays } from '../components/GodRays';
 import Cursor from '../components/HeroBackground/assets/cursor.svg';
 
 export function HeroSection() {
-  const [mousePosition, setMousePosition] = useState<{
-    x: number;
-    y: number;
-  } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleGlobalMouseMove = (e: MouseEvent) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        // 检查鼠标是否在Hero区域的水平范围和navbar+Hero的垂直范围内
-        const isInHorizontalRange = x >= 0 && x <= rect.width;
-        const isInVerticalRange = e.clientY >= 0 && y <= rect.height;
-
-        if (isInHorizontalRange && isInVerticalRange) {
-          setMousePosition({ x, y });
-        } else {
-          setMousePosition(null);
-        }
-      }
-    };
-
-    window.addEventListener('mousemove', handleGlobalMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', handleGlobalMouseMove);
-    };
-  }, []);
 
   return (
     <section
@@ -48,7 +19,7 @@ export function HeroSection() {
       }}
     >
       {/* 背景组件 */}
-      <HeroBackground mousePosition={mousePosition} />
+      <HeroBackground containerRef={containerRef} />
 
       {/* GodRays 效果 */}
       <GodRays

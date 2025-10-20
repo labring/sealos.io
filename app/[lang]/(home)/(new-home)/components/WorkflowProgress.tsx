@@ -85,21 +85,22 @@ const StageItem = memo(
 
     // useTransform 必须在组件顶层调用
     const stageProgress = useTransform(progress, [start, end], [0, 1]);
-    const indicatorLeft = useTransform(stageProgress, [0, 1], ['0%', '100%']);
 
-    const backgroundColor = isActive ? 'rgb(38, 38, 38)' : 'rgb(23, 23, 23)';
+    // 使用 MotionValue 直接计算位置，避免字符串转换触发重新渲染
+    const indicatorLeftPercent = useTransform(stageProgress, [0, 1], [0, 100]);
+    const indicatorLeft = useTransform(indicatorLeftPercent, (v) => `${v}%`);
+
+    // 使用 MotionValue 控制背景色，避免 animate 触发重新渲染
+    const backgroundColor = useTransform(progress, (latest) => {
+      const inRange = latest >= start && latest < end;
+      return inRange ? 'rgb(38, 38, 38)' : 'rgb(23, 23, 23)';
+    });
 
     return (
       <motion.div
         className="relative flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl px-2 py-6 text-xs font-normal sm:text-base md:gap-2 md:text-xl md:font-medium"
-        animate={{
+        style={{
           backgroundColor,
-        }}
-        transition={{
-          backgroundColor: {
-            duration: 0.25,
-            ease: 'easeInOut',
-          },
         }}
         onClick={() => onStageClick(index)}
       >

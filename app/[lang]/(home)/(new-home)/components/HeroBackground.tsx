@@ -1,25 +1,72 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, RefObject } from 'react';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import Image from 'next/image';
 import HeroGrid from './HeroBackground/assets/hero-grid.svg';
 import HeroCards from './HeroBackground/assets/hero-cards.svg';
 
 interface HeroBackgroundProps {
-  mousePosition: { x: number; y: number } | null;
+  containerRef: RefObject<HTMLDivElement>;
 }
 
-export function HeroBackground({ mousePosition }: HeroBackgroundProps) {
+export function HeroBackground({ containerRef }: HeroBackgroundProps) {
+  // 使用 MotionValue 跟踪鼠标位置，避免触发 React 重新渲染
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const isActiveRaw = useMotionValue(0); // 0 = inactive, 1 = active
+
+  // 使用 useSpring 为 opacity 添加过渡效果
+  const isActive = useSpring(isActiveRaw, {
+    stiffness: 100,
+    damping: 25,
+    mass: 0.5,
+  });
+
   // 保存最后的鼠标位置，避免在淡出时跳回 (0, 0)
   const lastPositionRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
-    if (mousePosition) {
-      lastPositionRef.current = mousePosition;
-    }
-  }, [mousePosition]);
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
 
-  const displayPosition = mousePosition || lastPositionRef.current;
+        // 检查鼠标是否在Hero区域的水平范围和navbar+Hero的垂直范围内
+        const isInHorizontalRange = x >= 0 && x <= rect.width;
+        const isInVerticalRange = e.clientY >= 0 && y <= rect.height;
+
+        if (isInHorizontalRange && isInVerticalRange) {
+          // 更新 MotionValue - 不触发重新渲染
+          mouseX.set(x);
+          mouseY.set(y);
+          isActiveRaw.set(1);
+          lastPositionRef.current = { x, y };
+        } else {
+          isActiveRaw.set(0);
+        }
+      }
+    };
+
+    window.addEventListener('mousemove', handleGlobalMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleGlobalMouseMove);
+    };
+  }, [containerRef, mouseX, mouseY, isActiveRaw]);
+
+  // 使用 useTransform 创建渐变背景字符串
+  const darkenBackground = useTransform(
+    [mouseX, mouseY],
+    ([x, y]) =>
+      `radial-gradient(500px circle at ${x}px ${y}px, transparent, rgba(0,0,0,0.7) 70%)`,
+  );
+
+  const highlightBackground = useTransform(
+    [mouseX, mouseY],
+    ([x, y]) =>
+      `radial-gradient(250px circle at ${x}px ${y}px, rgba(255,255,255,0.8), transparent 70%)`,
+  );
 
   return (
     <>
@@ -47,23 +94,23 @@ export function HeroBackground({ mousePosition }: HeroBackgroundProps) {
         </div>
       </div>
 
-      {/* 暗化遮罩层 - 带淡入淡出效果 */}
-      <div
-        className="pointer-events-none absolute inset-0 -z-8 transition-opacity duration-500 ease-in-out"
+      {/* 暗化遮罩层 - 使用 MotionValue + useSpring 实现渐变 */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 -z-8"
         style={{
-          background: `radial-gradient(500px circle at ${displayPosition.x}px ${displayPosition.y}px, transparent, rgba(0,0,0,0.7) 70%)`,
+          background: darkenBackground,
           mixBlendMode: 'multiply',
-          opacity: mousePosition ? 1 : 0,
+          opacity: isActive,
         }}
       />
 
-      {/* 高亮层 - 带淡入淡出效果 */}
-      <div
-        className="pointer-events-none absolute inset-0 -z-5 transition-opacity duration-500 ease-in-out"
+      {/* 高亮层 - 使用 MotionValue + useSpring 实现渐变 */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 -z-5"
         style={{
-          background: `radial-gradient(250px circle at ${displayPosition.x}px ${displayPosition.y}px, rgba(255,255,255,0.8), transparent 70%)`,
+          background: highlightBackground,
           mixBlendMode: 'overlay',
-          opacity: mousePosition ? 1 : 0,
+          opacity: isActive,
         }}
       />
     </>

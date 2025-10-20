@@ -1,41 +1,70 @@
 'use client';
 
-import { useId, useState, useRef, useEffect } from 'react';
-import { motion, MotionValue, useMotionValueEvent } from 'framer-motion';
+import { useId, memo } from 'react';
+import { motion, MotionValue, useTransform } from 'framer-motion';
 
 interface GradientWaveProps {
   progress: MotionValue<number>; // 0-1
 }
 
+interface WaveLineProps {
+  progress: MotionValue<number>;
+  lineIndex: number;
+  lineCount: number;
+  x: number;
+  gradientId: string;
+}
+
+// 单条波形线组件 - 使用 MotionValue 避免重新渲染
+const WaveLine = memo(
+  ({ progress, lineIndex, lineCount, x, gradientId }: WaveLineProps) => {
+    const lineProgress = lineIndex / lineCount;
+
+    // 在组件内部使用 useTransform - 完全符合 Hooks 规则
+    const y2 = useTransform(progress, (latest) => {
+      const distanceFromProgress = Math.abs(lineProgress - latest);
+      const heightFactor = Math.exp(-distanceFromProgress * 12);
+      const height = 20 + heightFactor * 70;
+      return 100 - height;
+    });
+
+    const opacity = useTransform(progress, (latest) => {
+      const progressLineIndex = Math.round(latest * (lineCount - 1));
+      const distanceInLines = Math.abs(lineIndex - progressLineIndex);
+      const distanceFromProgress = Math.abs(lineProgress - latest);
+      const heightFactor = Math.exp(-distanceFromProgress * 12);
+
+      if (distanceInLines <= 5) {
+        const fadeFactor = 1 - (distanceInLines / 5) * 0.4;
+        return (0.6 + heightFactor * 0.3) * fadeFactor;
+      } else {
+        return (0.3 + heightFactor * 0.3) * 0.7;
+      }
+    });
+
+    return (
+      <motion.line
+        x1={x}
+        y1={100}
+        x2={x}
+        y2={y2}
+        stroke={`url(#${gradientId}-${lineIndex})`}
+        strokeWidth="2"
+        strokeLinecap="round"
+        style={{
+          opacity: opacity,
+        }}
+      />
+    );
+  },
+);
+
+WaveLine.displayName = 'WaveLine';
+
 export function GradientWave({ progress }: GradientWaveProps) {
   const gradientId = useId();
   const lineCount = 64;
   const lines = Array.from({ length: lineCount }, (_, i) => i);
-
-  // 跟踪当前进度值用于计算
-  const [currentProgress, setCurrentProgress] = useState(0);
-  const rafRef = useRef<number | null>(null);
-
-  // 使用 requestAnimationFrame 优化渲染性能
-  useMotionValueEvent(progress, 'change', (latest) => {
-    if (rafRef.current !== null) {
-      cancelAnimationFrame(rafRef.current);
-    }
-    rafRef.current = requestAnimationFrame(() => {
-      setCurrentProgress(latest);
-    });
-  });
-
-  // 清理未完成的 requestAnimationFrame
-  useEffect(() => {
-    return () => {
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-      }
-    };
-  }, []);
-
-  const progressLineIndex = Math.round(currentProgress * (lineCount - 1));
 
   return (
     <svg
@@ -44,65 +73,31 @@ export function GradientWave({ progress }: GradientWaveProps) {
       preserveAspectRatio="none"
     >
       <defs>
-        {lines.map((i) => {
-          // 为所有线创建渐变
-          return (
-            <linearGradient
-              key={i}
-              id={`${gradientId}-${i}`}
-              x1="0%"
-              y1="100%"
-              x2="0%"
-              y2="0%"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop offset="0" stopColor="#146DFF" />
-              <stop offset="1" stopColor="#fff" />
-            </linearGradient>
-          );
-        })}
+        {lines.map((i) => (
+          <linearGradient
+            key={i}
+            id={`${gradientId}-${i}`}
+            x1="0%"
+            y1="100%"
+            x2="0%"
+            y2="0%"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stopColor="#146DFF" />
+            <stop offset="1" stopColor="#fff" />
+          </linearGradient>
+        ))}
       </defs>
       {lines.map((i) => {
         const x = (i / (lineCount - 1)) * 1000;
-        const distanceFromProgress = Math.abs(i / lineCount - currentProgress);
-        const distanceInLines = Math.abs(i - progressLineIndex);
-
-        // 计算高度，距离进度越近越高
-        const heightFactor = Math.exp(-distanceFromProgress * 12);
-        const height = 20 + heightFactor * 70;
-
-        // 计算不透明度
-        let opacity;
-        if (distanceInLines <= 5) {
-          // 在当前进度左右5根线内使用较高不透明度
-          const fadeFactor = 1 - (distanceInLines / 5) * 0.4;
-          opacity = (0.6 + heightFactor * 0.3) * fadeFactor;
-        } else {
-          // 超过5根线，使用更高的基础不透明度，让未亮起的线更明显
-          opacity = (0.3 + heightFactor * 0.3) * 0.7;
-        }
-
         return (
-          <motion.line
+          <WaveLine
             key={i}
-            x1={x}
-            y1={100}
-            x2={x}
-            y2={100 - height}
-            stroke={`url(#${gradientId}-${i})`}
-            strokeWidth="2"
-            strokeLinecap="round"
-            opacity={opacity}
-            transition={{
-              y2: {
-                duration: 0.3,
-                ease: 'easeOut',
-              },
-              opacity: {
-                duration: 0.2,
-                ease: 'easeInOut',
-              },
-            }}
+            progress={progress}
+            lineIndex={i}
+            lineCount={lineCount}
+            x={x}
+            gradientId={gradientId}
           />
         );
       })}

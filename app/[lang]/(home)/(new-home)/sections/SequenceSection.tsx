@@ -79,6 +79,7 @@ export function SequenceSection() {
 
   // 跟踪当前激活的卡片索引
   const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
+  const prevActiveIndexRef = useRef<number>(0);
 
   useEffect(() => {
     const controls = animate(mockProgress, 1, {
@@ -103,7 +104,7 @@ export function SequenceSection() {
   // GradientWave 进度：直接使用 progress
   const waveProgress = progress;
 
-  // 监听进度变化，更新当前卡片索引
+  // 监听进度变化，更新当前卡片索引（只在真正改变时触发状态更新）
   useMotionValueEvent(progress, 'change', (latest) => {
     // 更新当前激活的卡片索引
     let newActiveIndex: number;
@@ -118,7 +119,9 @@ export function SequenceSection() {
       if (newActiveIndex === -1) newActiveIndex = 0;
     }
 
-    if (newActiveIndex !== activeCardIndex) {
+    // 只在索引真正改变时才更新状态，避免不必要的重新渲染
+    if (newActiveIndex !== prevActiveIndexRef.current) {
+      prevActiveIndexRef.current = newActiveIndex;
       setActiveCardIndex(newActiveIndex);
     }
   });

@@ -17,7 +17,7 @@ export function AnimatedCarouselContainer({
       <AnimatePresence initial={false} mode="popLayout">
         <motion.div
           key={`carousel-item-${activeIndex}`}
-          className="bg-background absolute w-full"
+          className="absolute w-full"
           initial={{
             opacity: 0,
             scale: 1.05,
