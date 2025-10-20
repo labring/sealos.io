@@ -123,7 +123,7 @@ export default function OSSSection({ lang = 'en' }: OSSSectionProps) {
 
             {/* Start for free */}
             <a
-              href="https://cloud.sealos.io"
+              href="https://usw.sealos.io/?openapp=system-brain"
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-10 w-[117px] items-center justify-center gap-2 rounded-[54px] border border-white bg-gradient-to-br from-white to-gray-300 px-1 py-2 shadow-lg"

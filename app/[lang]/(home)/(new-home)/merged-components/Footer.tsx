@@ -111,13 +111,13 @@ export const footerTranslations: Record<string, Record<string, string>> = {
     blogUrl: '/blog',
     devboxUrl: '/devbox',
     databasesUrl: '/databases',
-    appStoreUrl: 'https://cloud.sealos.io',
+    appStoreUrl: 'https://template.usw.sealos.io/',
     pricingUrl: '/pricing',
     fastgptUrl: 'https://fastgpt.in',
-    contactUsUrl: 'https://cloud.sealos.io',
-    termsOfServiceUrl: '/legal/terms',
-    privacyPolicyUrl: '/legal/privacy',
-    cookiePolicyUrl: '/legal/cookies',
+    contactUsUrl: '/contact',
+    termsOfServiceUrl: '/docs/msa/terms-of-service',
+    privacyPolicyUrl: '/docs/msa/privacy-policy',
+    cookiePolicyUrl: '/legal/cookie-policy',
   },
   'zh-cn': {
     resourcesTitle: '资源',
@@ -142,13 +142,13 @@ export const footerTranslations: Record<string, Record<string, string>> = {
     blogUrl: '/blog',
     devboxUrl: '/devbox',
     databasesUrl: '/databases',
-    appStoreUrl: 'https://cloud.sealos.io',
+    appStoreUrl: 'https://template.usw.sealos.io/',
     pricingUrl: '/pricing',
     fastgptUrl: 'https://fastgpt.in',
-    contactUsUrl: 'https://cloud.sealos.io',
-    termsOfServiceUrl: '/legal/terms',
-    privacyPolicyUrl: '/legal/privacy',
-    cookiePolicyUrl: '/legal/cookies',
+    contactUsUrl: '/contact',
+    termsOfServiceUrl: '/docs/msa/terms-of-service',
+    privacyPolicyUrl: '/docs/msa/privacy-policy',
+    cookiePolicyUrl: '/legal/cookie-policy',
   },
 };
 
@@ -253,7 +253,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
               Get started for free. No credit card required.
             </p>
             <Link
-              href="https://cloud.sealos.io"
+              href="https://usw.sealos.io/?openapp=system-brain"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
