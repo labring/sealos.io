@@ -19,10 +19,10 @@ export default function SourceAvailSection({
         <GodRays
           sources={[
             {
-              x: 0.05,
+              x: 0.1,
               y: -0.2,
               angle: 70,
-              spread: 115,
+              spread: 60,
               count: 15,
               color: '220, 220, 220',
             },
@@ -30,7 +30,7 @@ export default function SourceAvailSection({
               x: 0.55,
               y: -0.15,
               angle: 70,
-              spread: 105,
+              spread: 45,
               count: 13,
               color: '225, 225, 225',
             },

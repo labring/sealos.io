@@ -22,10 +22,10 @@ export function ChoicesSection() {
       <GodRays
         sources={[
           {
-            x: 0,
+            x: 0.05,
             y: -0.14,
             angle: 70,
-            spread: 120,
+            spread: 60,
             count: 13,
             color: '220, 220, 220',
           },
@@ -33,7 +33,7 @@ export function ChoicesSection() {
             x: 0.52,
             y: -0.12,
             angle: 70,
-            spread: 112,
+            spread: 50,
             count: 12,
             color: '225, 225, 225',
           },

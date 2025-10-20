@@ -422,10 +422,10 @@ export function ComparisonSection() {
       <GodRays
         sources={[
           {
-            x: -0.02,
+            x: 0.15,
             y: -0.18,
             angle: 70,
-            spread: 118,
+            spread: 60,
             count: 14,
             color: '220, 220, 220',
           },
@@ -433,7 +433,7 @@ export function ComparisonSection() {
             x: 0.52,
             y: -0.1,
             angle: 70,
-            spread: 108,
+            spread: 60,
             count: 13,
             color: '225, 225, 225',
           },

@@ -25,10 +25,10 @@ export function HeroSection() {
       <GodRays
         sources={[
           {
-            x: -0.1,
+            x: 0.1,
             y: -0.15,
             angle: 70,
-            spread: 120,
+            spread: 40,
             count: 16,
             color: '220, 220, 220',
           },
@@ -36,7 +36,7 @@ export function HeroSection() {
             x: 0.5,
             y: -0.2,
             angle: 70,
-            spread: 110,
+            spread: 60,
             count: 14,
             color: '225, 225, 225',
           },

@@ -179,10 +179,10 @@ export function SequenceSection() {
       <GodRays
         sources={[
           {
-            x: -0.08,
+            x: 0.08,
             y: -0.12,
             angle: 70,
-            spread: 125,
+            spread: 60,
             count: 13,
             color: '220, 220, 220',
           },
@@ -190,7 +190,7 @@ export function SequenceSection() {
             x: 0.5,
             y: -0.08,
             angle: 70,
-            spread: 110,
+            spread: 70,
             count: 12,
             color: '225, 225, 225',
           },
