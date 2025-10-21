@@ -70,8 +70,8 @@ export function DataCard() {
         {/* 第一列 - 向下滚动 */}
         <motion.div
           className="flex flex-1 flex-col gap-4 will-change-transform"
-          initial={{ y: '0%' }}
-          animate={{ y: '-50%' }}
+          initial={{ transform: 'translateY(0)' }}
+          animate={{ transform: 'translateY(-400px)' }}
           transition={{
             duration: 20,
             repeat: Infinity,
@@ -92,8 +92,8 @@ export function DataCard() {
         {/* 第二列 - 向上滚动 */}
         <motion.div
           className="flex flex-1 flex-col gap-4 will-change-transform"
-          initial={{ y: '-50%' }}
-          animate={{ y: '0%' }}
+          initial={{ transform: 'translateY(-400px)' }}
+          animate={{ transform: 'translateY(0)' }}
           transition={{
             duration: 20,
             repeat: Infinity,
@@ -114,8 +114,8 @@ export function DataCard() {
         {/* 第三列 - 向下滚动 */}
         <motion.div
           className="flex flex-1 flex-col gap-4 will-change-transform"
-          initial={{ y: '0%' }}
-          animate={{ y: '-50%' }}
+          initial={{ transform: 'translateY(0)' }}
+          animate={{ transform: 'translateY(-400px)' }}
           transition={{
             duration: 20,
             repeat: Infinity,

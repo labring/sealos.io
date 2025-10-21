@@ -83,8 +83,8 @@ export function StacksCard() {
         {/* 第一列 - 向下滚动 */}
         <motion.div
           className="flex flex-1 flex-col gap-4 will-change-transform"
-          initial={{ y: '0%' }}
-          animate={isInView ? { y: '-50%' } : undefined}
+          initial={{ transform: 'translateY(0px)' }}
+          animate={isInView ? { transform: 'translateY(-816px)' } : undefined}
           transition={{
             duration: 20,
             repeat: Infinity,
@@ -105,8 +105,8 @@ export function StacksCard() {
         {/* 第二列 - 向上滚动 */}
         <motion.div
           className="flex flex-1 flex-col gap-4 will-change-transform"
-          initial={{ y: '-50%' }}
-          animate={isInView ? { y: '0%' } : undefined}
+          initial={{ transform: 'translateY(-816px)' }}
+          animate={isInView ? { transform: 'translateY(0px)' } : undefined}
           transition={{
             duration: 20,
             repeat: Infinity,
@@ -127,8 +127,8 @@ export function StacksCard() {
         {/* 第三列 - 向下滚动 */}
         <motion.div
           className="flex flex-1 flex-col gap-4 will-change-transform"
-          initial={{ y: '0%' }}
-          animate={isInView ? { y: '-50%' } : undefined}
+          initial={{ transform: 'translateY(0px)' }}
+          animate={isInView ? { transform: 'translateY(-816px)' } : undefined}
           transition={{
             duration: 20,
             repeat: Infinity,

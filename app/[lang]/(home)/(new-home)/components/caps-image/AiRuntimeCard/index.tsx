@@ -125,8 +125,10 @@ export function AiRuntimeCard() {
                 animate={
                   isInView
                     ? {
-                        x:
-                          row.direction === 'right' ? [0, '-25%'] : ['-25%', 0],
+                        transform:
+                          row.direction === 'right'
+                            ? ['translateX(0px)', 'translateX(-352px)']
+                            : ['translateX(-352px)', 'translateX(0px)'],
                       }
                     : undefined
                 }

@@ -76,9 +76,10 @@ export function DevelopmentCard() {
             r={circle.radius}
             stroke={circle.stroke}
             strokeWidth={circle.strokeWidth}
-            initial={{ r: circle.radius }}
+            style={{ transformOrigin: 'center' }}
+            initial={{ transform: 'scale(1)' }}
             animate={{
-              r: [circle.radius, circle.radius * 1.05, circle.radius],
+              transform: ['scale(1)', 'scale(1.05)', 'scale(1)'],
             }}
             transition={{
               duration: 5,

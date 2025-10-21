@@ -11,24 +11,24 @@ export function IdeaCard() {
       <foreignObject x="0" y="0" width="100%" height="100%">
         <div className="relative h-full w-full overflow-hidden">
           <motion.div
-            initial={{ opacity: 0, y: -80 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, transform: 'translateY(-80px)' }}
+            animate={{ opacity: 1, transform: 'translateY(0px)' }}
             transition={{ duration: 0.6, delay: 0.6 }}
             className="absolute top-[10%] left-[30%] w-[65%] will-change-transform"
           >
             <Image src={ReportCard} alt="" className="h-auto w-full" />
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, y: -80 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, transform: 'translateY(-80px)' }}
+            animate={{ opacity: 1, transform: 'translateY(0px)' }}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="absolute top-[30%] left-[15%] w-[65%] will-change-transform"
           >
             <Image src={ResponseCard} alt="" className="h-auto w-full" />
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, y: -80 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, transform: 'translateY(-80px)' }}
+            animate={{ opacity: 1, transform: 'translateY(0px)' }}
             transition={{ duration: 0.6, delay: 0 }}
             className="absolute top-[50%] left-[5%] w-[65%] will-change-transform"
           >

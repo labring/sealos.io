@@ -65,13 +65,14 @@ export function DeploymentCard() {
             y1="106.43"
             y2="106.43"
             gradientUnits="userSpaceOnUse"
+            initial={{ x1: startX1, x2: startX2 }}
             animate={
               isInView
                 ? {
                     x1: [startX1, endX1],
                     x2: [startX2, endX2],
                   }
-                : undefined
+                : { x1: startX1, x2: startX2 }
             }
             transition={{
               duration: 3,
