@@ -113,7 +113,7 @@ export function DevelopmentCard() {
                 overflow="visible"
               >
                 <motion.div
-                  className="flex h-full w-full items-center justify-center"
+                  className="flex h-full w-full items-center justify-center will-change-transform"
                   initial={{
                     x: 0,
                     y: 0,

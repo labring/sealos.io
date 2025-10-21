@@ -270,31 +270,6 @@ const comparisonData: ComparisonData = {
           ],
         },
         {
-          feature: 'AI-Powered Data Query',
-          values: [
-            {
-              name: 'Chat2DB (Natural Language)',
-              icon: <GradientCircleCheck className="size-5" />,
-            },
-            {
-              name: 'Not Available',
-              icon: <Info size={20} className="text-zinc-600" />,
-            },
-            {
-              name: 'Not Available',
-              icon: <Info size={20} className="text-zinc-600" />,
-            },
-            {
-              name: 'AI SQL Editor',
-              icon: <GradientCircleCheck className="size-5" />,
-            },
-            {
-              name: 'Not Available',
-              icon: <Info size={20} className="text-zinc-600" />,
-            },
-          ],
-        },
-        {
           feature: 'Built-in Vector Database',
           values: [
             {
@@ -424,24 +399,16 @@ export function ComparisonSection() {
           {
             x: 0.15,
             y: -0.18,
-            angle: 70,
-            spread: 60,
+            angle: 60,
+            spread: 45,
             count: 14,
             color: '220, 220, 220',
-          },
-          {
-            x: 0.52,
-            y: -0.1,
-            angle: 70,
-            spread: 60,
-            count: 13,
-            color: '225, 225, 225',
           },
         ]}
         speed={0.002}
         maxWidth={88}
         minLength={950}
-        maxLength={2300}
+        maxLength={1800}
         blur={19}
       />
 

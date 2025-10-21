@@ -181,16 +181,16 @@ export function SequenceSection() {
           {
             x: 0.08,
             y: -0.12,
-            angle: 70,
-            spread: 60,
+            angle: 60,
+            spread: 30,
             count: 13,
             color: '220, 220, 220',
           },
           {
-            x: 0.5,
+            x: 0.8,
             y: -0.08,
-            angle: 70,
-            spread: 70,
+            angle: 60,
+            spread: 40,
             count: 12,
             color: '225, 225, 225',
           },
@@ -198,7 +198,7 @@ export function SequenceSection() {
         speed={0.0022}
         maxWidth={90}
         minLength={900}
-        maxLength={2100}
+        maxLength={1900}
         blur={17}
       />
 
@@ -223,15 +223,13 @@ export function SequenceSection() {
               onProgressChange={handleProgressChange}
             />
 
-            <div className="relative mt-4 flex w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-white/5 px-2 py-6">
-              <div className="relative z-10 flex flex-col items-center gap-1 text-xs font-normal sm:flex-row sm:gap-2 sm:text-base md:text-xl md:font-medium">
-                <div className="text-zinc-400">
-                  <Bot />
-                </div>
-                <span>AI Agent</span>
+            <div className="relative z-10 mt-4 flex w-full flex-col items-center gap-4 text-xs text-zinc-400 sm:flex-row sm:gap-2 sm:text-base">
+              <div className="w-full border-b border-dashed border-zinc-400" />
+              <div className="flex shrink-0 items-center gap-2">
+                <Bot />
+                <span>AI across all modules</span>
               </div>
-
-              <div className="text-sm text-zinc-400">Across all modules</div>
+              <div className="w-full border-b border-dashed border-zinc-400" />
             </div>
           </div>
         </div>

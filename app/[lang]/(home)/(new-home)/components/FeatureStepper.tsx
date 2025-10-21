@@ -20,10 +20,12 @@ export function FeatureStepper({
   return (
     <div className="flex justify-center gap-8 lg:gap-20">
       {/* Line */}
-      <div className="absolute top-[2.625rem] h-px w-full bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+      <div className="absolute top-[2.625rem] w-full max-w-4xl">
+        <div className="mx-auto h-px w-3/4 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+      </div>
 
       {features.map((feature, index) => (
-        <div key={index} className="flex flex-col items-center gap-2">
+        <div key={index} className="flex max-w-4xl flex-col items-center gap-2">
           <div className="flex size-5 items-center justify-center rounded-full bg-slate-200 text-zinc-950 outline-1 outline-offset-3 outline-zinc-500">
             <Check size={16} />
           </div>

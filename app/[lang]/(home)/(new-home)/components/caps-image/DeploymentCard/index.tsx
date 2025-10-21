@@ -6,11 +6,11 @@ import DeploymentImage from './assets/image.svg';
 
 export function DeploymentCard() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // 使用 useInView 检测组件是否在视口内
-  const isInView = useInView(containerRef, { 
+  const isInView = useInView(containerRef, {
     margin: '0px 0px -10% 0px',
-    amount: 0.2 
+    amount: 0.2,
   });
 
   // 渐变动画：从左侧区域外开始，移动到右侧区域外
@@ -24,7 +24,10 @@ export function DeploymentCard() {
   const endX2 = 339 + rightExtend; // 619
 
   return (
-    <div ref={containerRef} className="relative flex h-full w-full items-center justify-center overflow-hidden">
+    <div
+      ref={containerRef}
+      className="relative flex h-full w-full items-center justify-center overflow-hidden"
+    >
       {/* 原始 SVG 图片 */}
       <Image src={DeploymentImage} alt="Deployment" className="h-full w-auto" />
 
@@ -62,10 +65,14 @@ export function DeploymentCard() {
             y1="106.43"
             y2="106.43"
             gradientUnits="userSpaceOnUse"
-            animate={isInView ? {
-              x1: [startX1, endX1],
-              x2: [startX2, endX2],
-            } : undefined}
+            animate={
+              isInView
+                ? {
+                    x1: [startX1, endX1],
+                    x2: [startX2, endX2],
+                  }
+                : undefined
+            }
             transition={{
               duration: 3,
               repeat: Infinity,

@@ -223,9 +223,9 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
     <>
       {/* 主体内容 - Footer 的链接部分 */}
       {/* Workaround for footer height */}
-      <div className="relative -mt-32 w-screen overflow-x-clip pt-24 pb-64">
+      <div className="relative -mt-32 w-screen overflow-x-clip pt-24">
         {/* 底部遮罩 */}
-        <div className="pointer-events-none absolute bottom-0 left-1/2 z-0 h-full w-screen -translate-x-1/2 bg-black bg-gradient-to-t from-black to-transparent"></div>
+        <div className="pointer-events-none absolute bottom-0 left-1/2 z-0 h-full w-screen -translate-x-1/2 bg-gradient-to-b from-black to-transparent"></div>
         <div className="relative z-10 container flex flex-col items-start justify-between gap-10 px-0 text-sm lg:flex-row lg:gap-0">
           <div className="flex w-full flex-col items-start px-4">
             <h2 className="mb-4 text-[32px] leading-[48px] font-medium">
@@ -469,7 +469,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
             {/* S Letter SVG */}
             <div
               style={{
-                width: 'calc((100vw - 128px) * 0.19493)',
+                width: 'calc((100% - 128px) * 0.19493)',
                 flex: '0 0 auto',
               }}
             >
@@ -496,7 +496,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
             {/* E Letter SVG */}
             <div
               style={{
-                width: 'calc((100vw - 128px) * 0.18040)',
+                width: 'calc((100% - 128px) * 0.18040)',
                 flex: '0 0 auto',
               }}
             >
@@ -529,7 +529,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
             {/* A Letter SVG */}
             <div
               style={{
-                width: 'calc((100vw - 128px) * 0.18411)',
+                width: 'calc((100% - 128px) * 0.18411)',
                 flex: '0 0 auto',
               }}
             >
@@ -562,7 +562,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
             {/* L Letter SVG */}
             <div
               style={{
-                width: 'calc((100vw - 128px) * 0.08594)',
+                width: 'calc((100% - 128px) * 0.08594)',
                 flex: '0 0 auto',
               }}
             >
@@ -595,7 +595,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
             {/* O Letter SVG */}
             <div
               style={{
-                width: 'calc((100vw - 128px) * 0.18411)',
+                width: 'calc((100% - 128px) * 0.18411)',
                 flex: '0 0 auto',
               }}
             >
@@ -628,7 +628,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
             {/* S Letter SVG */}
             <div
               style={{
-                width: 'calc((100vw - 128px) * 0.17050)',
+                width: 'calc((100% - 128px) * 0.17050)',
                 flex: '0 0 auto',
               }}
             >

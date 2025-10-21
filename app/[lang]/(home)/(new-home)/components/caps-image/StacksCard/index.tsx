@@ -65,11 +65,11 @@ const column3Data = [
 
 export function StacksCard() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // 使用 useInView 检测组件是否在视口内
-  const isInView = useInView(containerRef, { 
+  const isInView = useInView(containerRef, {
     margin: '0px 0px -10% 0px',
-    amount: 0.2 
+    amount: 0.2,
   });
 
   return (
@@ -82,7 +82,7 @@ export function StacksCard() {
       <div className="flex h-full gap-4 px-4 py-8">
         {/* 第一列 - 向下滚动 */}
         <motion.div
-          className="flex flex-1 flex-col gap-4"
+          className="flex flex-1 flex-col gap-4 will-change-transform"
           initial={{ y: '0%' }}
           animate={isInView ? { y: '-50%' } : undefined}
           transition={{
@@ -104,7 +104,7 @@ export function StacksCard() {
 
         {/* 第二列 - 向上滚动 */}
         <motion.div
-          className="flex flex-1 flex-col gap-4"
+          className="flex flex-1 flex-col gap-4 will-change-transform"
           initial={{ y: '-50%' }}
           animate={isInView ? { y: '0%' } : undefined}
           transition={{
@@ -126,7 +126,7 @@ export function StacksCard() {
 
         {/* 第三列 - 向下滚动 */}
         <motion.div
-          className="flex flex-1 flex-col gap-4"
+          className="flex flex-1 flex-col gap-4 will-change-transform"
           initial={{ y: '0%' }}
           animate={isInView ? { y: '-50%' } : undefined}
           transition={{

@@ -69,7 +69,7 @@ export function DataCard() {
       <div className="flex h-full gap-4 px-4 py-8">
         {/* 第一列 - 向下滚动 */}
         <motion.div
-          className="flex flex-1 flex-col gap-4"
+          className="flex flex-1 flex-col gap-4 will-change-transform"
           initial={{ y: '0%' }}
           animate={{ y: '-50%' }}
           transition={{
@@ -91,7 +91,7 @@ export function DataCard() {
 
         {/* 第二列 - 向上滚动 */}
         <motion.div
-          className="flex flex-1 flex-col gap-4"
+          className="flex flex-1 flex-col gap-4 will-change-transform"
           initial={{ y: '-50%' }}
           animate={{ y: '0%' }}
           transition={{
@@ -113,7 +113,7 @@ export function DataCard() {
 
         {/* 第三列 - 向下滚动 */}
         <motion.div
-          className="flex flex-1 flex-col gap-4"
+          className="flex flex-1 flex-col gap-4 will-change-transform"
           initial={{ y: '0%' }}
           animate={{ y: '-50%' }}
           transition={{

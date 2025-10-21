@@ -59,7 +59,7 @@ export function HeroBackground({ containerRef }: HeroBackgroundProps) {
   const darkenBackground = useTransform(
     [mouseX, mouseY],
     ([x, y]) =>
-      `radial-gradient(500px circle at ${x}px ${y}px, transparent, rgba(0,0,0,0.7) 70%)`,
+      `radial-gradient(500px circle at ${x}px ${y}px, transparent, rgba(0,0,0,0.4) 70%)`,
   );
 
   const highlightBackground = useTransform(

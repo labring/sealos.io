@@ -79,11 +79,11 @@ export default function SealosSticky({ letters, children }: SealosStickyProps) {
     // 尚未测量完成时保持隐藏
     if (!viewportHeight || !docScrollHeight) return 0;
     const remaining = Math.max(docScrollHeight - (y + viewportHeight), 0);
-    return remaining <= 400 ? 1 : 0;
+    return remaining <= 400 ? 1 - remaining / 400 : 0;
   });
 
   return (
-    <div ref={containerRef} className="relative mb-[400px]">
+    <div ref={containerRef} className="relative mb-[min(300px,100vw)]">
       {/* 主体内容 - 跟随滚动向上移动 */}
       <motion.div
         ref={mainContentRef}
@@ -95,7 +95,7 @@ export default function SealosSticky({ letters, children }: SealosStickyProps) {
 
       {/* Sealos 字母 - 固定在底部 */}
       <motion.div
-        className="pointer-events-none fixed right-0 bottom-0 left-0 z-0 flex h-[400px] items-end justify-center px-16"
+        className="pointer-events-none fixed right-0 bottom-0 left-0 -z-10 container flex h-[400px] items-end justify-center px-16"
         style={{ opacity }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >

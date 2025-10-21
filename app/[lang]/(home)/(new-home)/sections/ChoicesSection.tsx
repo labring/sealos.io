@@ -9,42 +9,6 @@ import { GodRays } from '../components/GodRays';
 export function ChoicesSection() {
   return (
     <section className="relative -mt-[150vh] w-screen overflow-x-clip pt-28 pb-32">
-      {/* 顶部渐变遮罩 - 灰到黑，覆盖整个屏幕宽度 */}
-      <div
-        className="pointer-events-none absolute top-0 left-1/2 -z-5 h-96 w-screen -translate-x-1/2"
-        style={{
-          background:
-            'linear-gradient(to bottom, rgba(30, 30, 30, 0.6) 0%, rgba(20, 20, 20, 0.4) 40%, transparent 100%)',
-        }}
-      />
-
-      {/* GodRays 效果 */}
-      <GodRays
-        sources={[
-          {
-            x: 0.05,
-            y: -0.14,
-            angle: 70,
-            spread: 60,
-            count: 13,
-            color: '220, 220, 220',
-          },
-          {
-            x: 0.52,
-            y: -0.12,
-            angle: 70,
-            spread: 50,
-            count: 12,
-            color: '225, 225, 225',
-          },
-        ]}
-        speed={0.0017}
-        maxWidth={86}
-        minLength={1050}
-        maxLength={2400}
-        blur={20}
-      />
-
       <div className="container">
         <div className="relative pb-8 lg:pb-16">
           <div className="w-full">

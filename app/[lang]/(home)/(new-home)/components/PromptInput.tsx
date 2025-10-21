@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ArrowUp, ChevronRight, Bot, Database, Code } from 'lucide-react';
 import { Glare } from './Glare';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import Image from 'next/image';
 // AI Agent icons
 import DifyIcon from '../assets/aiagent-appicons/dify.svg';
@@ -187,6 +187,13 @@ const PROMPT_CATEGORIES: CategoryConfig[] = [
 
 export function PromptInput() {
   const [promptText, setPromptText] = useState('');
+  const [isFirefox, setIsFirefox] = useState(false);
+
+  useEffect(() => {
+    // 检测是否为 Firefox 浏览器
+    const userAgent = navigator.userAgent.toLowerCase();
+    setIsFirefox(userAgent.indexOf('firefox') > -1);
+  }, []);
 
   const handlePromptSelect = (prompt: string) => {
     setPromptText(prompt);
@@ -201,28 +208,32 @@ export function PromptInput() {
 
   return (
     <div className="border-gradient-glass relative flex flex-col rounded-2xl px-3 py-4 inset-shadow-[0_0_8px_0_rgba(255,255,255,0.25)]">
-      <Glare className="absolute -top-[4.25rem] -left-[4.25rem] size-36" />
-      {/* Not bright enough */}
-      <div
-        className="pointer-events-none absolute inset-0 -top-16 -left-16 -z-5 h-32 w-32"
-        style={{
-          background: `radial-gradient(48px circle, rgba(255,255,255,1), transparent 70%)`,
-          mixBlendMode: 'overlay',
-        }}
-      />
+      {!isFirefox && (
+        <>
+          <Glare className="absolute -top-[4.25rem] -left-[4.25rem] size-36" />
+          {/* Not bright enough */}
+          <div
+            className="pointer-events-none absolute inset-0 -top-16 -left-16 -z-5 h-32 w-32"
+            style={{
+              background: `radial-gradient(48px circle, rgba(255,255,255,1), transparent 70%)`,
+              mixBlendMode: 'overlay',
+            }}
+          />
+        </>
+      )}
 
       {/* Textarea */}
       <div className="relative rounded-lg bg-white/[0.07]">
         <Textarea
           placeholder="Describe what you want to ship. e.g., I want to deploy N8N from app store."
           rows={5}
-          className="w-full resize-none border-none bg-transparent text-sm shadow-none placeholder:text-zinc-400 focus-visible:ring-0 sm:text-base"
+          className="w-full resize-none border-none bg-transparent text-base shadow-none placeholder:text-zinc-400 focus-visible:ring-0 md:text-base"
           value={promptText}
           onChange={(e) => setPromptText(e.target.value)}
         />
 
         <Button
-          className="absolute right-3 bottom-3 z-10 size-10 rounded-lg bg-zinc-600 p-0 text-white disabled:opacity-40"
+          className="absolute right-3 bottom-3 z-10 size-10 rounded-lg bg-zinc-600 p-0 text-white hover:bg-zinc-500 disabled:opacity-40"
           disabled={!promptText.trim()}
           onClick={handleSendPrompt}
         >

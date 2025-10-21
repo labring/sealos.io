@@ -86,15 +86,18 @@ const logoRows = [
 
 export function AiRuntimeCard() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // 使用 useInView 检测组件是否在视口内
-  const isInView = useInView(containerRef, { 
+  const isInView = useInView(containerRef, {
     margin: '0px 0px -10% 0px',
-    amount: 0.2 
+    amount: 0.2,
   });
 
   return (
-    <div ref={containerRef} className="relative h-full w-full overflow-hidden rounded-2xl">
+    <div
+      ref={containerRef}
+      className="relative h-full w-full overflow-hidden rounded-2xl"
+    >
       {/* 暗角特效 */}
       <div
         className="pointer-events-none absolute inset-0 z-10"
@@ -118,10 +121,15 @@ export function AiRuntimeCard() {
           >
             <div className="absolute top-0 left-1/2 h-full -translate-x-1/2">
               <motion.div
-                className="flex gap-4"
-                animate={isInView ? {
-                  x: row.direction === 'right' ? [0, '-25%'] : ['-25%', 0],
-                } : undefined}
+                className="flex gap-4 will-change-transform"
+                animate={
+                  isInView
+                    ? {
+                        x:
+                          row.direction === 'right' ? [0, '-25%'] : ['-25%', 0],
+                      }
+                    : undefined
+                }
                 transition={{
                   duration: 15,
                   repeat: Infinity,

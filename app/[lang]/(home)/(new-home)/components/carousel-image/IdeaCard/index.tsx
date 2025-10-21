@@ -14,7 +14,7 @@ export function IdeaCard() {
             initial={{ opacity: 0, y: -80 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="absolute top-[10%] left-[30%] w-[65%]"
+            className="absolute top-[10%] left-[30%] w-[65%] will-change-transform"
           >
             <Image src={ReportCard} alt="" className="h-auto w-full" />
           </motion.div>
@@ -22,7 +22,7 @@ export function IdeaCard() {
             initial={{ opacity: 0, y: -80 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="absolute top-[30%] left-[15%] w-[65%]"
+            className="absolute top-[30%] left-[15%] w-[65%] will-change-transform"
           >
             <Image src={ResponseCard} alt="" className="h-auto w-full" />
           </motion.div>
@@ -30,7 +30,7 @@ export function IdeaCard() {
             initial={{ opacity: 0, y: -80 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0 }}
-            className="absolute top-[50%] left-[5%] w-[65%]"
+            className="absolute top-[50%] left-[5%] w-[65%] will-change-transform"
           >
             <Image src={InputCard} alt="" className="h-auto w-full" />
           </motion.div>

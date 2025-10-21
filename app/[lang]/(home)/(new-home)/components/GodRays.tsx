@@ -11,6 +11,7 @@ interface Ray {
   width: number;
   fading: boolean;
   opacity: number;
+  opacityMin: number;
   threshold: number;
   color: string;
   gradient: CanvasGradient;
@@ -32,6 +33,8 @@ interface LightSource {
   count: number;
   /** 光线颜色 (rgba 格式，不含透明度) */
   color?: string;
+  opacityMin?: number;
+  opacityMax?: number;
 }
 
 interface GodRaysProps {
@@ -147,7 +150,19 @@ export function GodRays({
       const randomAngle = baseAngle + (Math.random() - 0.5) * spreadRad;
 
       // 计算光线长度
-      const rayLength = minLength + Math.random() * (maxLength - minLength);
+      let rayLength = minLength + Math.random() * (maxLength - minLength);
+
+      // 限制光线不照射到 70vh 以下
+      const maxY = height * 0.7;
+      const sinAngle = Math.sin(randomAngle);
+
+      // 如果光线向下（sin > 0），计算到达 33vh 边界的最大长度
+      if (sinAngle > 0) {
+        const maxLengthToLimit = (maxY - sourceY) / sinAngle;
+        if (maxLengthToLimit > 0) {
+          rayLength = Math.min(rayLength, maxLengthToLimit);
+        }
+      }
 
       // 计算目标点
       const targetX = sourceX + Math.cos(randomAngle) * rayLength;
@@ -162,6 +177,7 @@ export function GodRays({
       const rayWidth = Math.random() * maxWidth;
       const rayColor = source.color || '128, 192, 255';
 
+      const randomThres = Math.random() * 0.5 * 2;
       raysRef.current.push({
         sourceX,
         sourceY,
@@ -169,8 +185,12 @@ export function GodRays({
         targetY,
         width: rayWidth,
         fading: false,
-        opacity: 0,
-        threshold: Math.random() * 0.5 * 2, // 进一步提高最大不透明度阈值
+        opacity: source.opacityMin ?? 0,
+        opacityMin: source.opacityMin ?? 0,
+        threshold:
+          (source.opacityMax ?? randomThres > (source.opacityMin ?? 0))
+            ? randomThres
+            : 1,
         color: rayColor,
         gradient,
       });
@@ -182,7 +202,7 @@ export function GodRays({
         ray.fading = true;
       }
 
-      if (ray.opacity < 0 && ray.fading) {
+      if (ray.opacity < ray.opacityMin && ray.fading) {
         ray.fading = false;
       }
 

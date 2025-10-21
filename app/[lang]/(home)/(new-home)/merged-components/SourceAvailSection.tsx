@@ -19,18 +19,18 @@ export default function SourceAvailSection({
         <GodRays
           sources={[
             {
-              x: 0.1,
+              x: 0.4,
               y: -0.2,
-              angle: 70,
-              spread: 60,
+              angle: 60,
+              spread: 30,
               count: 15,
               color: '220, 220, 220',
             },
             {
-              x: 0.65,
+              x: 0.85,
               y: -0.15,
-              angle: 70,
-              spread: 45,
+              angle: 60,
+              spread: 25,
               count: 13,
               color: '225, 225, 225',
             },
@@ -38,7 +38,7 @@ export default function SourceAvailSection({
           speed={0.0019}
           maxWidth={90}
           minLength={1100}
-          maxLength={2400}
+          maxLength={1700}
           blur={17}
         />
       </div>

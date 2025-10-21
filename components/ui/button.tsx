@@ -21,7 +21,7 @@ const buttonVariants = cva(
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
         'landing-primary':
-          'rounded-full bg-gradient-to-b from-white from-10% to-gray-300 to-90% shadow-[0_10px_15px_-3px_rgba(255,255,255,0.16),0_4px_6px_-2px_rgba(255,255,255,0.05)] hover:from-gray-200 hover:to-gray-400 text-zinc-900',
+          'rounded-full bg-gradient-to-b from-white from-10% to-gray-300 to-90% shadow-[0_10px_15px_-3px_rgba(255,255,255,0.16),0_4px_6px_-2px_rgba(255,255,255,0.05)] hover:from-[#eaeaea] hover:to-[#9e9e9e] text-zinc-900',
       },
       size: {
         default: 'h-9 px-4 py-2',
