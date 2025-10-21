@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { ReactNode, useEffect, useState } from 'react';
 import { FileCode } from 'lucide-react';
 import ContainerImage from './assets/container.svg';
+import FilledContainerImage from './assets/container-filled.svg';
 import SealosLogo from '../../../assets/shared-icons/sealos.svg';
 import K8sLogo from './logo/k8s.svg';
 import DockerLogo from './logo/docker.svg';
@@ -16,6 +17,7 @@ export interface ContainerConfig {
   visible?: boolean; // 是否显示
   topIcon?: ReactNode; // 顶面图标
   centerDecal?: ReactNode; // 中心贴图
+  bgImage?: any; // 背景图
 }
 
 interface DeploymentCardProps {
@@ -144,6 +146,7 @@ export function DeploymentCard({
           />
         </div>
       ),
+      bgImage: ContainerImage,
     },
   ];
 
@@ -297,23 +300,6 @@ export function DeploymentCard({
                         : undefined,
                   }}
                 >
-                  {/* 背景模糊层 - 使用CSS backdrop-filter */}
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      backdropFilter: 'blur(14px)',
-                      WebkitBackdropFilter: 'blur(14px)',
-                      clipPath: `polygon(
-                        0.26% 25.14%,
-                        50% 0.55%,
-                        99.74% 25.14%,
-                        99.74% 74.95%,
-                        50% 99.56%,
-                        0.26% 74.95%
-                      )`,
-                    }}
-                  />
-
                   {/* 容器图像 */}
                   <div
                     className="relative"
@@ -323,7 +309,7 @@ export function DeploymentCard({
                     }}
                   >
                     <Image
-                      src={ContainerImage}
+                      src={container.bgImage ?? FilledContainerImage}
                       alt=""
                       width={containerDisplayWidth}
                       height={containerDisplayHeight}

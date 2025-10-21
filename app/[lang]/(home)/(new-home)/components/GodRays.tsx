@@ -35,6 +35,8 @@ interface LightSource {
   color?: string;
   opacityMin?: number;
   opacityMax?: number;
+  minWidth?: number;
+  maxWidth?: number;
 }
 
 interface GodRaysProps {
@@ -69,6 +71,8 @@ export function GodRays({
       spread: 60,
       count: 32,
       color: '128, 192, 255',
+      minWidth: 40,
+      maxWidth: 100,
     },
   ],
   speed = 0.01,
@@ -152,8 +156,8 @@ export function GodRays({
       // 计算光线长度
       let rayLength = minLength + Math.random() * (maxLength - minLength);
 
-      // 限制光线不照射到 70vh 以下
-      const maxY = height * 0.7;
+      // 限制光线不照射到 80vh 以下
+      const maxY = height * 0.8;
       const sinAngle = Math.sin(randomAngle);
 
       // 如果光线向下（sin > 0），计算到达 33vh 边界的最大长度
@@ -174,7 +178,9 @@ export function GodRays({
         targetX,
         targetY,
       );
-      const rayWidth = Math.random() * maxWidth;
+      const rayWidth =
+        (source.minWidth ?? 0) +
+        Math.random() * ((source.maxWidth ?? 100) - (source.minWidth ?? 0));
       const rayColor = source.color || '128, 192, 255';
 
       const randomThres = Math.random() * 0.5 * 2;

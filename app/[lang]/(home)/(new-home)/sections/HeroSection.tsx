@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { PromptInput } from '../components/PromptInput';
 import { HeroBackground } from '../components/HeroBackground';
 import { HeroTitle } from '../components/HeroTitle';
@@ -27,29 +27,45 @@ export function HeroSection() {
           {
             x: -0.05,
             y: -0.05,
-            angle: 50,
-            spread: 30,
-            count: 8,
-            color: '250, 250, 250',
-            opacityMin: 0.55,
-            opacityMax: 1,
+            angle: 60,
+            spread: 20,
+            count: 12,
+            color: '220, 220, 220',
+            opacityMin: 0.24,
+            opacityMax: 0.25,
+            minWidth: 120,
+            maxWidth: 180,
+          },
+          {
+            x: -0.05,
+            y: -0.05,
+            angle: 60,
+            spread: 8,
+            count: 6,
+            color: '255, 255, 255',
+            opacityMin: 0.89,
+            opacityMax: 0.9,
+            minWidth: 12,
+            maxWidth: 24,
           },
           {
             x: 0.25,
-            y: -0.02,
+            y: -0.06,
             angle: 50,
-            spread: 30,
-            count: 14,
-            color: '200, 200, 200',
-            opacityMin: 0.3,
-            opacityMax: 0.7,
+            spread: 20,
+            count: 6,
+            color: '180, 180, 180',
+            opacityMin: 0.14,
+            opacityMax: 0.15,
+            minWidth: 60,
+            maxWidth: 120,
           },
         ]}
-        speed={0.002}
-        maxWidth={100}
+        speed={0.0}
+        maxWidth={48}
         minLength={1200}
         maxLength={2000}
-        blur={16}
+        blur={8}
       />
 
       {/* 左侧内容区域 */}

@@ -74,12 +74,12 @@ export default function SealosSticky({ letters, children }: SealosStickyProps) {
     return () => window.removeEventListener('resize', measure);
   }, []);
 
-  // 使用 motion 的派生值计算透明度：默认 0，距底部 ≤ 400px 为 1
+  // 使用 motion 的派生值计算透明度：默认 0，距底部 ≤ 200 为 1
   const opacity = useTransform(scrollY, (y) => {
     // 尚未测量完成时保持隐藏
     if (!viewportHeight || !docScrollHeight) return 0;
     const remaining = Math.max(docScrollHeight - (y + viewportHeight), 0);
-    return remaining <= 400 ? 1 - remaining / 400 : 0;
+    return remaining <= 200 ? 1 - remaining / 200 : 0;
   });
 
   return (

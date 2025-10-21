@@ -10,7 +10,7 @@ import SourceAvailSection from './merged-components/SourceAvailSection';
 import FAQSection from './merged-components/FAQSection';
 import Footer from './merged-components/Footer';
 import Image from 'next/image';
-import light5 from '/public/images/light5.svg';
+import BottomLightImage from '../(new-home)/assets/bottom-light.svg';
 
 const translations = {
   en: {},
@@ -55,21 +55,19 @@ export default function HomePage({
         </div>
         <FAQSection />
         {/* 第七屏与页脚之间的光照背景 */}
-        <div className="relative mt-[80px]">
-          <div
-            //className="pointer-events-none absolute left-1/2 z-30 w-screen -translate-x-1/2"
-            style={{ top: '-140px' }}
-          >
+        <div className="relative mt-[80px] mb-[400px] h-[800px]">
+          <div className="w-full">
             <Image
-              src={light5}
+              src={BottomLightImage}
               alt=""
-              className="h-auto w-full select-none"
+              className="h-auto w-full object-cover select-none"
               priority
+              fill
             />
           </div>
-          {/* 间距容器，确保光照有展示空间 */}
+
+          <Footer lang={'en'} />
         </div>
-        <Footer lang={'en'} />
       </div>
     </>
   );

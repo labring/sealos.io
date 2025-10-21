@@ -89,7 +89,9 @@
 /* .sealos-gap removed */
 
 /* Create a top-to-bottom clipping window effect: a solid black overlay that grows from top */
-.sealos-sticky-wrapper::before { content: none; }
+.sealos-sticky-wrapper::before {
+  content: none;
+}
 @import 'tailwindcss' layer(base);
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
