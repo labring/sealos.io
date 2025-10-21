@@ -25,7 +25,7 @@ const FooterLink: React.FC<FooterLinkProps> = ({
 }) => (
   <Link
     href={href}
-    className={`font-medium text-zinc-400 transition-colors hover:text-blue-600 hover:underline hover:underline-offset-4 ${className || ''}`}
+    className={`font-medium text-zinc-400 transition-colors hover:text-white hover:underline hover:underline-offset-4 ${className || ''}`}
   >
     {children}
   </Link>

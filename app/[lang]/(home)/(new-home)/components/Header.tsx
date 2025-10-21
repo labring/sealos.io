@@ -246,6 +246,10 @@ export function Header() {
             asChild
             variant="landing-primary"
             className="hidden h-10 lg:flex"
+            // [FIXME] Workaround for global CSS override for borders.
+            style={{
+              border: '1px solid #ffffff',
+            }}
           >
             <a href="https://usw.sealos.io/?openapp=system-brain">
               Start for free
@@ -427,9 +431,8 @@ export function Header() {
                     </a>
                   </Button>
                   <Button
-                    asChild
                     variant="landing-primary"
-                    className="h-12 w-full text-base"
+                    className="h-12 w-full border border-white text-base"
                   >
                     <a
                       href="https://usw.sealos.io/?openapp=system-brain"
