@@ -1,7 +1,8 @@
 'use client';
 import { DBCard } from './DBCard';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useAnimate } from 'framer-motion';
+import { useEffect } from 'react';
 import KafkaIcon from '../../../assets/db-appicons/kafkaicon.svg';
 import MilvusIcon from '../../../assets/db-appicons/milvus.svg';
 import MongoIcon from '../../../assets/db-appicons/mongoicon.svg';
@@ -60,24 +61,59 @@ const column3Data = [
 ];
 
 export function DataCard() {
+  const [scope, animate] = useAnimate();
+
+  // 使用 useAnimate 实现动画，直接启动
+  useEffect(() => {
+    // 第一列 - 向下滚动
+    animate(
+      '[data-column="1"]',
+      { transform: ['translateY(0)', 'translateY(-400px)'] },
+      {
+        duration: 20,
+        repeat: Infinity,
+        ease: 'linear',
+        repeatType: 'loop',
+      },
+    );
+
+    // 第二列 - 向上滚动
+    animate(
+      '[data-column="2"]',
+      { transform: ['translateY(-400px)', 'translateY(0)'] },
+      {
+        duration: 20,
+        repeat: Infinity,
+        ease: 'linear',
+        repeatType: 'loop',
+      },
+    );
+
+    // 第三列 - 向下滚动
+    animate(
+      '[data-column="3"]',
+      { transform: ['translateY(0)', 'translateY(-400px)'] },
+      {
+        duration: 20,
+        repeat: Infinity,
+        ease: 'linear',
+        repeatType: 'loop',
+      },
+    );
+  }, [animate]);
+
   return (
     <div
+      ref={scope}
       className="relative h-full w-full overflow-hidden"
       style={{ isolation: 'isolate' }}
     >
       {/* 三列瀑布流容器 */}
       <div className="flex h-full gap-4 px-4 py-8">
         {/* 第一列 - 向下滚动 */}
-        <motion.div
+        <div
+          data-column="1"
           className="flex flex-1 flex-col gap-4 will-change-transform"
-          initial={{ transform: 'translateY(0)' }}
-          animate={{ transform: 'translateY(-400px)' }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'linear',
-            repeatType: 'loop',
-          }}
         >
           {column1Data.map((db, index) => (
             <DBCard
@@ -87,19 +123,12 @@ export function DataCard() {
               icon={db.icon}
             />
           ))}
-        </motion.div>
+        </div>
 
         {/* 第二列 - 向上滚动 */}
-        <motion.div
+        <div
+          data-column="2"
           className="flex flex-1 flex-col gap-4 will-change-transform"
-          initial={{ transform: 'translateY(-400px)' }}
-          animate={{ transform: 'translateY(0)' }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'linear',
-            repeatType: 'loop',
-          }}
         >
           {column2Data.map((db, index) => (
             <DBCard
@@ -109,19 +138,12 @@ export function DataCard() {
               icon={db.icon}
             />
           ))}
-        </motion.div>
+        </div>
 
         {/* 第三列 - 向下滚动 */}
-        <motion.div
+        <div
+          data-column="3"
           className="flex flex-1 flex-col gap-4 will-change-transform"
-          initial={{ transform: 'translateY(0)' }}
-          animate={{ transform: 'translateY(-400px)' }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'linear',
-            repeatType: 'loop',
-          }}
         >
           {column3Data.map((db, index) => (
             <DBCard
@@ -131,7 +153,7 @@ export function DataCard() {
               icon={db.icon}
             />
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* 暗角特效 - 使用 darken 混合模式 */}

@@ -427,16 +427,16 @@ export function ComparisonSection() {
 
         {/* 对比表格 */}
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[800px] border-collapse">
+          <table className="w-full border-collapse">
             {/* 表头 */}
             <thead>
               <tr>
-                <th className="border-b border-zinc-800 px-4 py-9" />
+                <th className="border-b border-zinc-800 px-2 py-9" />
                 {comparisonData.platforms.map((platform, index) => (
                   <th
                     key={platform.name}
                     className={cn(
-                      'relative border-b border-zinc-800 px-4 py-2.5 text-base font-semibold',
+                      'relative border-b border-zinc-800 px-2 py-2.5 text-base font-semibold',
                       index === 0
                         ? 'text-zinc-200 before:pointer-events-none before:absolute before:inset-0 before:rounded-t-lg before:border before:border-b-0 before:border-zinc-800 before:bg-white/5'
                         : 'text-zinc-400',
@@ -457,7 +457,7 @@ export function ComparisonSection() {
                 <>
                   {/* 分类标题行 */}
                   <tr key={`category-${categoryIndex}`}>
-                    <td className="border-b border-zinc-800 px-4 py-5 text-lg font-medium text-zinc-200">
+                    <td className="w-60 border-b border-zinc-800 px-2 py-3 text-sm font-medium text-zinc-200">
                       <div className="flex items-center gap-2">
                         {category.icon}
                         {category.name}
@@ -467,7 +467,7 @@ export function ComparisonSection() {
                       <td
                         key={platform.name}
                         className={cn(
-                          'relative border-b border-zinc-800 px-4 py-5',
+                          'relative border-b border-zinc-800 px-2 py-3 text-sm',
                           platformIndex === 0 &&
                             'bg-white/5 before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
                         )}
@@ -484,7 +484,7 @@ export function ComparisonSection() {
 
                     return (
                       <tr key={`${categoryIndex}-${itemIndex}`}>
-                        <td className="border-b border-zinc-800 px-4 py-5 text-base text-zinc-400">
+                        <td className="border-b border-zinc-800 px-2 py-3 text-sm text-zinc-400">
                           <div className="flex items-center gap-2 whitespace-nowrap">
                             {item.feature}
                             {item.help && (
@@ -503,7 +503,7 @@ export function ComparisonSection() {
                           <td
                             key={valueIndex}
                             className={cn(
-                              'relative border-b border-zinc-800 px-4 py-5',
+                              'relative border-b border-zinc-800 px-2 py-3 text-sm',
                               valueIndex === 0 && 'bg-white/5',
                               valueIndex === 0 &&
                                 'before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
@@ -511,7 +511,7 @@ export function ComparisonSection() {
                           >
                             <span
                               className={cn(
-                                'relative flex items-center gap-2 text-base whitespace-nowrap',
+                                'relative flex items-center gap-2 text-sm whitespace-nowrap',
                                 valueIndex === 0
                                   ? 'text-zinc-200'
                                   : 'text-zinc-400',

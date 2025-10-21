@@ -4,11 +4,10 @@ import { GradientText } from '../components/GradientText';
 import { FallingTags } from '../components/FallingTags';
 import { SealosChoiceCard } from '../components/SealosChoiceCard';
 import ChoicesBeamGrid from '../assets/choices-beam-grid.svg';
-import { GodRays } from '../components/GodRays';
 
 export function ChoicesSection() {
   return (
-    <section className="relative -mt-[150vh] w-screen overflow-x-clip pt-28 pb-32">
+    <section className="relative -mt-[100vh] w-screen overflow-x-clip pt-28 pb-32">
       <div className="container">
         <div className="relative pb-8 lg:pb-16">
           <div className="w-full">
@@ -39,10 +38,6 @@ export function ChoicesSection() {
                 <span>Bear the bottleneck</span>
                 <TriangleAlert className="ml-2 size-4 text-red-500 sm:size-6" />
               </h3>
-              <p className="mt-2 text-xs text-zinc-400 sm:text-lg">
-                A chaotic, physics-based cascade of 10 blocks crashing into a
-                messy pile.
-              </p>
             </div>
             <div className="relative h-96">
               <span className="absolute bottom-10 left-8 z-10 rounded-full px-3 py-0.5 text-xs text-zinc-400 backdrop-blur-lg sm:text-lg">
@@ -61,10 +56,6 @@ export function ChoicesSection() {
                 <span>Or use Sealos</span>
                 <CheckCheck className="ml-2 size-4 text-emerald-500 sm:size-6" />
               </h3>
-              <p className="mt-2 text-xs text-zinc-400 sm:text-lg">
-                A smooth, elegant stack of 3 blocks, with each new block
-                appearing as the previous one hops neatly on top.
-              </p>
             </div>
             <div className="relative h-96">
               <span className="absolute right-8 bottom-10 text-xs text-zinc-400 sm:text-lg">

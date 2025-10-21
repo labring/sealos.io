@@ -10,7 +10,8 @@ import QoderLogo from '../../../assets/ide-icons/qoder.svg';
 import TraeLogo from '../../../assets/ide-icons/trae.svg';
 import VSCodeLogo from '../../../assets/ide-icons/vscode.svg';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { useAnimate } from 'framer-motion';
+import { useEffect } from 'react';
 
 // 圆环配置
 const circles = [
@@ -53,14 +54,78 @@ const appPositions = [
 ];
 
 export function DevelopmentCard() {
+  const [scope, animate] = useAnimate();
+
   // 获取圆环索引以同步延迟
   const getCircleDelay = (radius: number) => {
     const circleIndex = circles.findIndex((c) => c.radius === radius);
     return circleIndex >= 0 ? circleIndex * 0.2 : 0;
   };
 
+  useEffect(() => {
+    // 为圆环添加动画
+    circles.forEach((_, index) => {
+      animate(
+        `[data-circle="${index}"]`,
+        { transform: ['scale(1)', 'scale(1.05)', 'scale(1)'] },
+        {
+          duration: 5,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: index * 0.2,
+        },
+      );
+    });
+
+    // 为应用图标添加动画
+    let appIndex = 0;
+    appPositions.forEach((circle) => {
+      circle.apps.forEach((app) => {
+        const radius = circle.radius;
+        const angleRad = (app.angle * Math.PI) / 180;
+        const delay = getCircleDelay(radius);
+        const x = Math.cos(angleRad) * radius;
+        const y = Math.sin(angleRad) * radius;
+
+        const selector = `[data-app="${appIndex}"]`;
+
+        // 位移动画
+        animate(
+          selector,
+          {
+            x: [0, x * 0.05, 0],
+            y: [0, y * 0.05, 0],
+          },
+          {
+            duration: 5,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: delay,
+          },
+        );
+
+        // 旋转动画
+        animate(
+          selector,
+          { rotate: [-3, 3, -3, 3, -3] },
+          {
+            duration: 0.8,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            repeatType: 'reverse',
+          },
+        );
+
+        appIndex++;
+      });
+    });
+  }, [animate]);
+
   return (
-    <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
+    <div
+      ref={scope}
+      className="relative flex h-full w-full items-center justify-center overflow-hidden"
+    >
       <svg
         viewBox="-670 -670 1340 1340"
         fill="none"
@@ -69,24 +134,15 @@ export function DevelopmentCard() {
         preserveAspectRatio="xMidYMid slice"
       >
         {circles.map((circle, index) => (
-          <motion.circle
+          <circle
             key={index}
+            data-circle={index}
             cx="0"
             cy="0"
             r={circle.radius}
             stroke={circle.stroke}
             strokeWidth={circle.strokeWidth}
             style={{ transformOrigin: 'center' }}
-            initial={{ transform: 'scale(1)' }}
-            animate={{
-              transform: ['scale(1)', 'scale(1.05)', 'scale(1)'],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: index * 0.2,
-            }}
           />
         ))}
 
@@ -95,7 +151,6 @@ export function DevelopmentCard() {
           circle.apps.map((app, appIdx) => {
             const radius = circle.radius;
             const angleRad = (app.angle * Math.PI) / 180;
-            const delay = getCircleDelay(radius);
             const x = Math.cos(angleRad) * radius;
             const y = Math.sin(angleRad) * radius;
 
@@ -103,6 +158,8 @@ export function DevelopmentCard() {
             // 旋转45度时对角线长度约为 size * 1.414，再加上动画偏移量的余量
             const containerSize = app.size * 1.6;
             const offset = containerSize / 2;
+
+            const appIndex = circleIdx * circle.apps.length + appIdx;
 
             return (
               <foreignObject
@@ -113,38 +170,9 @@ export function DevelopmentCard() {
                 height={containerSize}
                 overflow="visible"
               >
-                <motion.div
+                <div
+                  data-app={appIndex}
                   className="flex h-full w-full items-center justify-center will-change-transform"
-                  initial={{
-                    x: 0,
-                    y: 0,
-                    rotate: 0,
-                  }}
-                  animate={{
-                    x: [0, x * 0.05, 0],
-                    y: [0, y * 0.05, 0],
-                    rotate: [-3, 3, -3, 3, -3],
-                  }}
-                  transition={{
-                    x: {
-                      duration: 5,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                      delay: delay,
-                    },
-                    y: {
-                      duration: 5,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                      delay: delay,
-                    },
-                    rotate: {
-                      duration: 0.8,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                      repeatType: 'reverse',
-                    },
-                  }}
                 >
                   <Image
                     src={app.logo}
@@ -153,7 +181,7 @@ export function DevelopmentCard() {
                     height={app.size}
                     className="rounded-lg"
                   />
-                </motion.div>
+                </div>
               </foreignObject>
             );
           }),

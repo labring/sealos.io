@@ -292,11 +292,11 @@ export function DeploymentCard({
                 onMouseLeave={() => setIsManualHover(false)}
               >
                 <div
-                  className="group relative transition-all delay-100 duration-300 ease-out hover:-translate-y-[32px]"
+                  className="group relative transition-transform delay-100 duration-300 ease-out hover:-translate-y-[32px]"
                   style={{
                     transform:
                       isHovered && !isManualHover
-                        ? 'translateY(32px)'
+                        ? 'translateY(-32px)'
                         : undefined,
                   }}
                 >

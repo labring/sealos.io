@@ -99,9 +99,9 @@ export function DemoSection() {
     [1, 1, 0.1],
   );
   const videoScale = useSpring(videoScaleRaw, {
-    stiffness: 100,
+    stiffness: 150,
     damping: 30,
-    mass: 0.8,
+    mass: 0.6,
   });
 
   // 4. 视频容器的透明度（阶段4一起渐隐, 但比图案快一点）
@@ -114,9 +114,9 @@ export function DemoSection() {
     [1, 1, 56, 0.5],
   );
   const patternScale = useSpring(patternScaleRaw, {
-    stiffness: 100,
+    stiffness: 150,
     damping: 30,
-    mass: 0.8,
+    mass: 0.6,
   });
 
   // 6. 图案的Y轴位置（使用50vh - 50%图案高度计算）
@@ -164,11 +164,11 @@ export function DemoSection() {
       {/* Stepper */}
       <FeatureStepper />
 
-      {/* 滚动容器 - 设置800vh的高度来触发所有动画 */}
+      {/* 滚动容器 - 设置400vh的高度来触发所有动画 */}
       <div
         ref={containerRef}
         className="relative mt-12 overflow-visible"
-        style={{ height: '800vh' }}
+        style={{ height: '400vh' }}
       >
         {/* 固定容器 - 在视口中心固定显示 */}
         <div className="sticky top-0 flex h-screen w-screen justify-center overflow-visible">

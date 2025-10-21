@@ -1,17 +1,12 @@
 'use client';
 import Image from 'next/image';
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useAnimate, useInView } from 'framer-motion';
+import { useEffect } from 'react';
 import DeploymentImage from './assets/image.svg';
 
 export function DeploymentCard() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // 使用 useInView 检测组件是否在视口内
-  const isInView = useInView(containerRef, {
-    margin: '0px 0px -10% 0px',
-    amount: 0.2,
-  });
+  const [scope, animate] = useAnimate();
+  const isInView = useInView(scope, { once: false, amount: 0 });
 
   // 渐变动画：从左侧区域外开始，移动到右侧区域外
   // 原始范围 x1=217, x2=339，总长度 122
@@ -23,9 +18,24 @@ export function DeploymentCard() {
   const endX1 = 339; // 339
   const endX2 = 339 + rightExtend; // 619
 
+  // 使用 useAnimate 实现渐变动画
+  useEffect(() => {
+    if (isInView) {
+      animate(
+        '#paint0_linear_animated',
+        { x1: [startX1, endX1], x2: [startX2, endX2] },
+        {
+          duration: 3,
+          repeat: Infinity,
+          ease: 'linear',
+        },
+      );
+    }
+  }, [isInView, animate, startX1, startX2, endX1, endX2]);
+
   return (
     <div
-      ref={containerRef}
+      ref={scope}
       className="relative flex h-full w-full items-center justify-center overflow-hidden"
     >
       {/* 原始 SVG 图片 */}
@@ -60,31 +70,19 @@ export function DeploymentCard() {
         />
 
         <defs>
-          <motion.linearGradient
+          <linearGradient
             id="paint0_linear_animated"
+            x1={startX1}
             y1="106.43"
+            x2={startX2}
             y2="106.43"
             gradientUnits="userSpaceOnUse"
-            initial={{ x1: startX1, x2: startX2 }}
-            animate={
-              isInView
-                ? {
-                    x1: [startX1, endX1],
-                    x2: [startX2, endX2],
-                  }
-                : { x1: startX1, x2: startX2 }
-            }
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
           >
             <stop stopColor="#6B7280" />
             <stop offset="0.3" stopColor="white" />
             <stop offset="0.7" stopColor="#146DFF" />
             <stop offset="1" stopColor="#6B7280" />
-          </motion.linearGradient>
+          </linearGradient>
         </defs>
       </svg>
     </div>

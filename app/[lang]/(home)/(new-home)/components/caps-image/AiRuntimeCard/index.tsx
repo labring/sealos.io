@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useAnimate, useInView } from 'framer-motion';
+import { useEffect } from 'react';
 
 // Import logos
 import AnthropicLogo from '../../../assets/aiagent-appicons/anthropic.svg';
@@ -85,17 +85,36 @@ const logoRows = [
 ];
 
 export function AiRuntimeCard() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [scope, animate] = useAnimate();
+  const isInView = useInView(scope, { once: false, amount: 0 });
 
-  // 使用 useInView 检测组件是否在视口内
-  const isInView = useInView(containerRef, {
-    margin: '0px 0px -10% 0px',
-    amount: 0.2,
-  });
+  useEffect(() => {
+    if (isInView) {
+      // 为每一行启动动画
+      logoRows.forEach((row, index) => {
+        const rowSelector = `[data-row="${index}"]`;
+        const keyframes =
+          row.direction === 'right'
+            ? ['translateX(0px)', 'translateX(-352px)']
+            : ['translateX(-352px)', 'translateX(0px)'];
+
+        animate(
+          rowSelector,
+          { transform: keyframes },
+          {
+            duration: 15,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: 'linear',
+          },
+        );
+      });
+    }
+  }, [isInView, animate]);
 
   return (
     <div
-      ref={containerRef}
+      ref={scope}
       className="relative h-full w-full overflow-hidden rounded-2xl"
     >
       {/* 暗角特效 */}
@@ -120,24 +139,9 @@ export function AiRuntimeCard() {
             }}
           >
             <div className="absolute top-0 left-1/2 h-full -translate-x-1/2">
-              <motion.div
+              <div
+                data-row={rowIndex}
                 className="flex gap-4 will-change-transform"
-                animate={
-                  isInView
-                    ? {
-                        transform:
-                          row.direction === 'right'
-                            ? ['translateX(0px)', 'translateX(-352px)']
-                            : ['translateX(-352px)', 'translateX(0px)'],
-                      }
-                    : undefined
-                }
-                transition={{
-                  duration: 15,
-                  repeat: Infinity,
-                  repeatType: 'reverse',
-                  ease: 'linear',
-                }}
                 style={{
                   width: 'max-content',
                 }}
@@ -159,7 +163,7 @@ export function AiRuntimeCard() {
                     />
                   </div>
                 ))}
-              </motion.div>
+              </div>
             </div>
           </div>
         ))}

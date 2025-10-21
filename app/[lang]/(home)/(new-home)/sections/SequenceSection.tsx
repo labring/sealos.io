@@ -209,7 +209,7 @@ export function SequenceSection() {
             <GradientText>Your Entire Cloud Workflow, Reimagined.</GradientText>
           </h2>
           <p className="mt-3 w-full text-sm text-zinc-400 sm:text-base">
-            A sequence of modules that appear as the user scrolls.
+            {/* description content */}
           </p>
         </div>
         <div>

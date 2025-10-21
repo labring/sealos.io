@@ -28,13 +28,26 @@ const WaveLine = memo(
   }: WaveLineProps) => {
     const lineProgress = lineIndex / lineCount;
 
-    // 在组件内部使用 useTransform - 完全符合 Hooks 规则
-    const y2 = useTransform(progress, (latest) => {
-      if (!isInView) return 100 - 20; // 不在视口时保持静止状态
+    // 使用 transform 替代 y2 变化
+    // 计算缩放和平移来模拟高度变化
+    const transform = useTransform(progress, (latest) => {
+      if (!isInView) {
+        // 不在视口时保持静止状态 (高度 20)
+        const scale = 20 / 90; // 基准高度是90
+        const translateY = 100 - 20 - (90 * (1 - scale)) / 2;
+        return `translate(${x}px, ${translateY}px) scaleY(${scale})`;
+      }
       const distanceFromProgress = Math.abs(lineProgress - latest);
       const heightFactor = Math.exp(-distanceFromProgress * 12);
       const height = 20 + heightFactor * 70;
-      return 100 - height;
+
+      // 将高度变化转换为 scaleY
+      // 基准线: y1=100, y2=10 (高度90)
+      const scale = height / 90;
+      // 计算平移量以保持底部固定在 y=100
+      const translateY = 100 - height - (90 * (1 - scale)) / 2;
+
+      return `translate(${x}px, ${translateY}px) scaleY(${scale})`;
     });
 
     const opacity = useTransform(progress, (latest) => {
@@ -54,15 +67,17 @@ const WaveLine = memo(
 
     return (
       <motion.line
-        x1={x}
-        y1={100}
-        x2={x}
-        y2={y2}
+        x1={0}
+        y1={90}
+        x2={0}
+        y2={0}
         stroke={`url(#${gradientId}-${lineIndex})`}
         strokeWidth="2"
         strokeLinecap="round"
         style={{
           opacity: opacity,
+          transform: transform,
+          transformOrigin: 'center bottom',
         }}
       />
     );
@@ -79,8 +94,8 @@ export function GradientWave({ progress }: GradientWaveProps) {
 
   // 使用 useInView 检测组件是否在视口内
   const isInView = useInView(containerRef, {
-    margin: '0px 0px -20% 0px',
-    amount: 0.3,
+    margin: '0px 0px 0px 0px',
+    amount: 0,
   });
 
   return (

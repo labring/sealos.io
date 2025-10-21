@@ -17,8 +17,8 @@ export function AnimatedCarouselContainer({
 
   // 使用 useInView 检测组件是否在视口内
   const isInView = useInView(containerRef, {
-    margin: '0px 0px -10% 0px',
-    amount: 0.2,
+    margin: '0px 0px 0px 0px',
+    amount: 0,
   });
 
   // 检测是否为 Firefox 浏览器

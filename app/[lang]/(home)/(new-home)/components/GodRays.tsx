@@ -89,8 +89,8 @@ export function GodRays({
 
   // 使用 useInView 检测组件是否在视口内
   const isInView = useInView(canvasRef, {
-    margin: '0px 0px -10% 0px',
-    amount: 0.1,
+    margin: '0px 0px 0px 0px',
+    amount: 0,
   });
 
   useEffect(() => {

@@ -146,8 +146,8 @@ export const WorkflowProgress = memo(
 
     // 使用 useInView 检测组件是否在视口内
     const isInView = useInView(containerRef, {
-      margin: '0px 0px -20% 0px',
-      amount: 0.3,
+      margin: '0px 0px 0px 0px',
+      amount: 0,
     });
 
     // 监听进度变化，更新激活的阶段

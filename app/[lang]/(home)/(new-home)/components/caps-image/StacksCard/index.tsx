@@ -1,8 +1,8 @@
 'use client';
 import { StackCard } from './StackCard';
-import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useAnimate, useInView } from 'framer-motion';
+import { useEffect } from 'react';
 import ClaudeCodeIcon from '../../../assets/stacks-appicons/claude-code.svg';
 import EchoIcon from '../../../assets/stacks-appicons/echo.svg';
 import McpIcon from '../../../assets/stacks-appicons/mcp.svg';
@@ -64,33 +64,61 @@ const column3Data = [
 ];
 
 export function StacksCard() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [scope, animate] = useAnimate();
+  const isInView = useInView(scope, { once: false, amount: 0 });
 
-  // 使用 useInView 检测组件是否在视口内
-  const isInView = useInView(containerRef, {
-    margin: '0px 0px -10% 0px',
-    amount: 0.2,
-  });
+  useEffect(() => {
+    if (isInView) {
+      // 第一列 - 向下滚动
+      animate(
+        '[data-column="1"]',
+        { transform: ['translateY(0px)', 'translateY(-816px)'] },
+        {
+          duration: 20,
+          repeat: Infinity,
+          ease: 'linear',
+          repeatType: 'loop',
+        },
+      );
+
+      // 第二列 - 向上滚动
+      animate(
+        '[data-column="2"]',
+        { transform: ['translateY(-816px)', 'translateY(0px)'] },
+        {
+          duration: 20,
+          repeat: Infinity,
+          ease: 'linear',
+          repeatType: 'loop',
+        },
+      );
+
+      // 第三列 - 向下滚动
+      animate(
+        '[data-column="3"]',
+        { transform: ['translateY(0px)', 'translateY(-816px)'] },
+        {
+          duration: 20,
+          repeat: Infinity,
+          ease: 'linear',
+          repeatType: 'loop',
+        },
+      );
+    }
+  }, [isInView, animate]);
 
   return (
     <div
-      ref={containerRef}
+      ref={scope}
       className="relative h-full w-full overflow-hidden"
       style={{ isolation: 'isolate' }}
     >
       {/* 三列瀑布流容器 */}
       <div className="flex h-full gap-4 px-4 py-8">
         {/* 第一列 - 向下滚动 */}
-        <motion.div
+        <div
+          data-column="1"
           className="flex flex-1 flex-col gap-4 will-change-transform"
-          initial={{ transform: 'translateY(0px)' }}
-          animate={isInView ? { transform: 'translateY(-816px)' } : undefined}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'linear',
-            repeatType: 'loop',
-          }}
         >
           {column1Data.map((stack, index) => (
             <StackCard
@@ -100,19 +128,12 @@ export function StacksCard() {
               icon={stack.icon}
             />
           ))}
-        </motion.div>
+        </div>
 
         {/* 第二列 - 向上滚动 */}
-        <motion.div
+        <div
+          data-column="2"
           className="flex flex-1 flex-col gap-4 will-change-transform"
-          initial={{ transform: 'translateY(-816px)' }}
-          animate={isInView ? { transform: 'translateY(0px)' } : undefined}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'linear',
-            repeatType: 'loop',
-          }}
         >
           {column2Data.map((stack, index) => (
             <StackCard
@@ -122,19 +143,12 @@ export function StacksCard() {
               icon={stack.icon}
             />
           ))}
-        </motion.div>
+        </div>
 
         {/* 第三列 - 向下滚动 */}
-        <motion.div
+        <div
+          data-column="3"
           className="flex flex-1 flex-col gap-4 will-change-transform"
-          initial={{ transform: 'translateY(0px)' }}
-          animate={isInView ? { transform: 'translateY(-816px)' } : undefined}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'linear',
-            repeatType: 'loop',
-          }}
         >
           {column3Data.map((stack, index) => (
             <StackCard
@@ -144,7 +158,7 @@ export function StacksCard() {
               icon={stack.icon}
             />
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* 暗角特效 - 使用 darken 混合模式 */}
