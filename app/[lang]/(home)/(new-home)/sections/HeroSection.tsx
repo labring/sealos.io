@@ -5,7 +5,7 @@ import { PromptInput } from '../components/PromptInput';
 import { HeroBackground } from '../components/HeroBackground';
 import { HeroTitle } from '../components/HeroTitle';
 import { GodRays } from '../components/GodRays';
-import Cursor from '../components/HeroBackground/assets/cursor.svg';
+import Cursor from '../assets/cursor.svg';
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,7 +15,7 @@ export function HeroSection() {
       ref={containerRef}
       className="relative overflow-x-clip pt-36 pb-32"
       style={{
-        cursor: `url(${Cursor.src}) 12 12, auto`,
+        cursor: `url(${Cursor.src}) 0 0, auto`,
       }}
     >
       {/* 背景组件 */}

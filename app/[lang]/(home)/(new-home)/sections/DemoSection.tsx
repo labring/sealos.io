@@ -11,14 +11,18 @@ import {
 import { FeatureStepper } from '../components/FeatureStepper';
 import DemoLightSvg from '../assets/demo-light.svg';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { Play } from 'lucide-react';
 
 export function DemoSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
   const patternRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const videoHeightMV = useMotionValue(0);
   const patternHeightMV = useMotionValue(0);
   const [isAnimationReady, setIsAnimationReady] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(true);
 
   // Show video after scripts loaded.
   useEffect(() => {
@@ -149,6 +153,18 @@ export function DemoSection() {
     [0, 0, 1, 1, 0],
   );
 
+  // 处理播放按钮点击
+  const handlePlayClick = () => {
+    setShowOverlay(false);
+    // 使用 postMessage API 向 YouTube iframe 发送播放命令
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      iframeRef.current.contentWindow.postMessage(
+        '{"event":"command","func":"playVideo","args":""}',
+        '*',
+      );
+    }
+  };
+
   return (
     <section className="relative w-screen overflow-x-clip overflow-y-visible object-top pt-8">
       {/* Light */}
@@ -182,7 +198,7 @@ export function DemoSection() {
             >
               <motion.div
                 ref={videoRef}
-                className="bg-background aspect-video w-[80vw] max-w-[1200px] origin-center overflow-hidden rounded-4xl border-4"
+                className="bg-background relative aspect-video w-[80vw] max-w-[1200px] origin-center overflow-hidden rounded-4xl border-4"
                 style={{
                   rotateX: rotateAngle,
                   scale: videoScale,
@@ -190,14 +206,34 @@ export function DemoSection() {
                   transformStyle: 'preserve-3d',
                 }}
               >
+                <motion.div
+                  className="absolute z-10 flex h-full w-full items-center justify-center bg-black/60 backdrop-blur-md"
+                  initial={false}
+                  animate={{
+                    opacity: showOverlay ? 1 : 0,
+                    pointerEvents: showOverlay ? 'auto' : 'none',
+                  }}
+                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                >
+                  <Button
+                    variant="landing-primary"
+                    size="lg"
+                    className="rounded-full"
+                    onClick={handlePlayClick}
+                  >
+                    <Play size={16} />
+                    <span>Watch Demo</span>
+                  </Button>
+                </motion.div>
                 <iframe
+                  ref={iframeRef}
                   className="block h-full w-full"
                   style={{
                     transformStyle: 'preserve-3d',
                     border: 'none',
                     display: 'block',
                   }}
-                  src="https://www.youtube.com/embed/TrEsUMwWtDg?si=eev83pkuZvKTY3C4"
+                  src="https://www.youtube.com/embed/OgeF1WhpO44?si=Ud4Gw_-gLsrBevqg&enablejsapi=1"
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

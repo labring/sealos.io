@@ -188,6 +188,11 @@ const PROMPT_CATEGORIES: CategoryConfig[] = [
 export function PromptInput() {
   const [promptText, setPromptText] = useState('');
   const [isFirefox, setIsFirefox] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
+  const [typewriterText, setTypewriterText] = useState('');
+
+  const fullPlaceholder =
+    'Describe what you want to ship. e.g., I want to deploy N8N from app store.';
 
   useEffect(() => {
     // 检测是否为 Firefox 浏览器
@@ -195,7 +200,29 @@ export function PromptInput() {
     setIsFirefox(userAgent.indexOf('firefox') > -1);
   }, []);
 
+  // 打字机效果
+  useEffect(() => {
+    if (isTouched) return;
+
+    let currentIndex = 0;
+    const typingSpeed = 50; // 每个字符的打字速度（毫秒）
+
+    const typeNextChar = () => {
+      if (currentIndex <= fullPlaceholder.length) {
+        setTypewriterText(fullPlaceholder.slice(0, currentIndex));
+        setPromptText(fullPlaceholder); // promptText 始终保持完整值
+        currentIndex++;
+      }
+    };
+
+    // 立即开始打字
+    const interval = setInterval(typeNextChar, typingSpeed);
+
+    return () => clearInterval(interval);
+  }, [isTouched, fullPlaceholder]);
+
   const handlePromptSelect = (prompt: string) => {
+    setIsTouched(true);
     setPromptText(prompt);
   };
 
@@ -203,6 +230,18 @@ export function PromptInput() {
     if (promptText.trim()) {
       const url = `https://brain.usw.sealos.io/trial?query=${encodeURIComponent(promptText)}`;
       window.open(url, '_blank');
+    }
+  };
+
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setIsTouched(true);
+    setPromptText(e.target.value);
+  };
+
+  const handleTextareaInteraction = () => {
+    if (!isTouched) {
+      setIsTouched(true);
+      setPromptText('');
     }
   };
 
@@ -225,12 +264,28 @@ export function PromptInput() {
       {/* Textarea */}
       <div className="relative rounded-lg bg-white/[0.07]">
         <Textarea
-          placeholder="Describe what you want to ship. e.g., I want to deploy N8N from app store."
+          placeholder={
+            isTouched
+              ? 'Describe what you want to ship. e.g., I want to deploy N8N from app store.'
+              : ''
+          }
           rows={5}
           className="w-full resize-none border-none bg-transparent text-base shadow-none placeholder:text-zinc-400 focus-visible:ring-0 md:text-base"
-          value={promptText}
-          onChange={(e) => setPromptText(e.target.value)}
+          value={isTouched ? promptText : ''}
+          onChange={handleTextareaChange}
+          onFocus={handleTextareaInteraction}
+          onClick={handleTextareaInteraction}
         />
+
+        {/* 打字机效果叠加层 */}
+        {!isTouched && (
+          <div className="pointer-events-none absolute inset-0 flex items-start p-3 pt-2">
+            <div className="text-base text-zinc-400 md:text-base">
+              {typewriterText}
+              <span className="animate-pulse">|</span>
+            </div>
+          </div>
+        )}
 
         <Button
           className="absolute right-3 bottom-3 z-10 size-10 rounded-lg bg-zinc-600 p-0 text-white hover:bg-zinc-500 disabled:opacity-40"
