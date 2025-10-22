@@ -50,7 +50,11 @@ const CONFIG = {
   },
 };
 
-export function FallingTags() {
+export function FallingTags({
+  resetAfterAllLanded = false,
+}: {
+  resetAfterAllLanded?: boolean;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<Matter.Engine | null>(null);
   const runnerRef = useRef<Matter.Runner | null>(null);
@@ -93,7 +97,8 @@ export function FallingTags() {
 
       const floor = Matter.Bodies.rectangle(
         containerWidth / 2,
-        containerHeight + 5,
+        // 64px bottom margin for description texts
+        containerHeight + 5 - 64,
         containerWidth,
         wallThickness,
         { ...wallStyle, label: 'floor' },
@@ -225,7 +230,7 @@ export function FallingTags() {
               item.landed = true;
               localLandedCount++;
 
-              if (localLandedCount === tags.length) {
+              if (resetAfterAllLanded && localLandedCount === tags.length) {
                 onAllLanded();
               }
             }

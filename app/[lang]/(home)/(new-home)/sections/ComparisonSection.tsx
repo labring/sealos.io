@@ -493,7 +493,7 @@ export function ComparisonSection() {
                                   <CircleHelp size={20} />
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                  <p>{item.help}</p>
+                                  <p className="max-w-xl">{item.help}</p>
                                 </TooltipContent>
                               </Tooltip>
                             )}
