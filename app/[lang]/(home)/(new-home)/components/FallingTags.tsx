@@ -132,7 +132,7 @@ export function FallingTags() {
       tags.forEach((tag, index) => {
         const elem = document.createElement('span');
         elem.className =
-          'inset-shadow-bubble absolute rounded-full border border-white/5 bg-neutral-950/30 px-3 py-2 xl:px-4 xl:py-3 text-sm md:text-md xl:text-lg backdrop-blur-md transition-transform ease-linear will-change-transform';
+          'inset-shadow-bubble absolute rounded-full border border-white/5 bg-neutral-950/30 px-3 py-2 xl:px-4 xl:py-3 font-light text-base backdrop-blur-md transition-transform ease-linear will-change-transform';
         elem.textContent = tag.text;
         elem.style.opacity = '1';
         elem.style.left = '0';

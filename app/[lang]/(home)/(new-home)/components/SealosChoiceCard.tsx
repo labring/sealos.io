@@ -165,13 +165,16 @@ export function SealosChoiceCard(
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="502"
-      height="266"
       fill="none"
-      viewBox="0 0 502 266"
+      viewBox="-16 0 500 266"
       {...props}
     >
-      <g filter={`url(#${idA})`}>
+      <g
+        filter={`url(#${idA})`}
+        style={{
+          transform: 'translateX(-30px)',
+        }}
+      >
         <rect
           width="226"
           height="52"
@@ -206,8 +209,16 @@ export function SealosChoiceCard(
         strokeDasharray="6 6"
         strokeWidth="3"
         d="m387.56 61.459.045 18.134.045 18.135"
+        style={{
+          transform: 'translateX(-30px)',
+        }}
       ></path>
-      <g filter={`url(#${idC})`}>
+      <g
+        filter={`url(#${idC})`}
+        style={{
+          transform: 'translateX(-30px)',
+        }}
+      >
         <rect
           width="226"
           height="52"
@@ -244,8 +255,16 @@ export function SealosChoiceCard(
         strokeDasharray="6 6"
         strokeWidth="3"
         d="m387.56 167.728.045 18.134.045 18.134"
+        style={{
+          transform: 'translateX(-30px)',
+        }}
       ></path>
-      <g filter={`url(#${idF})`}>
+      <g
+        filter={`url(#${idF})`}
+        style={{
+          transform: 'translateX(-30px)',
+        }}
+      >
         <rect
           width="226"
           height="52"
@@ -290,7 +309,7 @@ export function SealosChoiceCard(
         cx="64.098"
         cy="135.808"
         r="63.547"
-        stroke="#1A1A1A"
+        stroke="#444444"
         strokeWidth="0.906"
         className="pingingRing"
       ></circle>
@@ -345,6 +364,9 @@ export function SealosChoiceCard(
       </g>
       <path
         fill={`url(#${idP})`}
+        style={{
+          transform: 'scaleX(0.9)',
+        }}
         d="m153.606 129.509.145.25-.145.25-4.255 7.37-.865-.5 4.109-7.12-4.109-7.12.865-.5zm11.255 0 .145.25-.145.25-4.255 7.37-.865-.5 4.109-7.12-4.109-7.12.865-.5zm11.255 0 .144.25-.144.25-4.255 7.37-.865-.5 4.109-7.12-4.109-7.12.865-.5zm11.255 0 .144.25-.144.25-4.255 7.37-.865-.5 4.109-7.12-4.109-7.12.865-.5zm11.255 0 .144.25-.144.25-4.255 7.37-.865-.5 4.109-7.12-4.109-7.12.865-.5zm11.254 0 .144.25-.144.25-4.255 7.37-.865-.5 4.109-7.12-4.109-7.12.865-.5zm11.255 0 .144.25-.144.25-4.255 7.37-.866-.5 4.11-7.12-4.11-7.12.866-.5zm11.254 0 .145.25-.145.25-4.254 7.37-.866-.5 4.11-7.12-4.11-7.12.866-.5zm11.255 0 .145.25-.145.25-4.255 7.37-.865-.5 4.11-7.12-4.11-7.12.865-.5zm11.255 0 .145.25-.145.25-4.255 7.37-.865-.5 4.109-7.12-4.109-7.12.865-.5z"
       ></path>
       <defs>

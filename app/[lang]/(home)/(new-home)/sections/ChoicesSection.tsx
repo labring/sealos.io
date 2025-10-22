@@ -39,7 +39,7 @@ export function ChoicesSection() {
                 <TriangleAlert className="ml-2 size-4 text-red-500 sm:size-6" />
               </h3>
             </div>
-            <div className="relative h-96">
+            <div className="relative h-[32rem]">
               <span className="absolute bottom-10 left-8 z-10 rounded-full px-3 py-0.5 text-xs text-zinc-400 backdrop-blur-lg sm:text-lg">
                 💥 Something broke...
               </span>
@@ -57,12 +57,12 @@ export function ChoicesSection() {
                 <CheckCheck className="ml-2 size-4 text-emerald-500 sm:size-6" />
               </h3>
             </div>
-            <div className="relative h-96">
+            <div className="relative h-[32rem]">
               <span className="absolute right-8 bottom-10 text-xs text-zinc-400 sm:text-lg">
                 ✨ Done in 30 seconds
               </span>
               <div className="flex h-full w-full items-center justify-center">
-                <SealosChoiceCard className="p-4" />
+                <SealosChoiceCard className="p-2 pb-12 xl:px-6" />
               </div>
             </div>
           </div>
