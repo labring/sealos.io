@@ -43,15 +43,36 @@ interface PromptOption {
   prompt: string;
 }
 
-interface CategoryConfig {
+type CategoryConfig = {
   name: string;
-  icon: ReactNode;
-  prompts: PromptOption[];
-}
+  icon?: ReactNode;
+} & (
+  | {
+      type: 'list';
+      prompts: PromptOption[];
+    }
+  | {
+      type: 'single';
+      prompt: string;
+    }
+);
 
 // 预制的 prompt 数据配置
 const PROMPT_CATEGORIES: CategoryConfig[] = [
   {
+    type: 'single',
+    name: 'Build Saas & Database',
+    prompt:
+      'I want to build a SaaS platform using Next.js, with a database backend for managing essential data.',
+  },
+  {
+    type: 'single',
+    name: 'Build Chrome extension & n8n',
+    prompt:
+      "I need to deploy n8n from an app store. The goal is to build a Node.js Chrome extension that triggers its workflows.\n\nCan you first help me with the n8n deployment?\n\nLater, I'll need you to prepare a Node.js cloud development environment.",
+  },
+  {
+    type: 'list',
     name: 'AI Agent',
     icon: <Bot size={14} />,
     prompts: [
@@ -80,6 +101,7 @@ const PROMPT_CATEGORIES: CategoryConfig[] = [
     ],
   },
   {
+    type: 'list',
     name: 'Database',
     icon: <Database size={14} />,
     prompts: [
@@ -116,6 +138,7 @@ const PROMPT_CATEGORIES: CategoryConfig[] = [
     ],
   },
   {
+    type: 'list',
     name: 'Dev Runtime',
     icon: <Code size={14} />,
     prompts: [
@@ -191,8 +214,7 @@ export function PromptInput() {
   const [isTouched, setIsTouched] = useState(false);
   const [typewriterText, setTypewriterText] = useState('');
 
-  const fullPlaceholder =
-    'Describe what you want to ship. e.g., I want to deploy N8N from app store.';
+  const fullPlaceholder = 'I want to deploy N8N from app store.';
 
   useEffect(() => {
     // 检测是否为 Firefox 浏览器
@@ -303,27 +325,41 @@ export function PromptInput() {
 
         <div className="flex flex-wrap gap-2">
           {PROMPT_CATEGORIES.map((category) => (
-            <DropdownMenu key={category.name} modal={false}>
-              <DropdownMenuTrigger asChild>
-                <button className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-xs whitespace-nowrap text-zinc-400 transition-colors hover:bg-white/[0.1] sm:text-sm">
+            <>
+              {category.type === 'list' && (
+                <DropdownMenu key={category.name} modal={false}>
+                  <DropdownMenuTrigger asChild>
+                    <button className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-xs whitespace-nowrap text-zinc-400 transition-colors hover:bg-white/[0.1] sm:text-sm">
+                      {category.icon}
+                      <span>{category.name}</span>
+                      <ChevronRight size={14} />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="w-64">
+                    {category.prompts.map((prompt) => (
+                      <DropdownMenuItem
+                        key={prompt.name}
+                        onClick={() => handlePromptSelect(prompt.prompt)}
+                        className="cursor-pointer"
+                      >
+                        <span className="mr-2">{prompt.icon}</span>
+                        <span>{prompt.name}</span>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
+
+              {category.type === 'single' && (
+                <button
+                  className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-xs whitespace-nowrap text-zinc-400 transition-colors hover:bg-white/[0.1] sm:text-sm"
+                  onClick={() => handlePromptSelect(category.prompt)}
+                >
                   {category.icon}
                   <span>{category.name}</span>
-                  <ChevronRight size={14} />
                 </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-64">
-                {category.prompts.map((prompt) => (
-                  <DropdownMenuItem
-                    key={prompt.name}
-                    onClick={() => handlePromptSelect(prompt.prompt)}
-                    className="cursor-pointer"
-                  >
-                    <span className="mr-2">{prompt.icon}</span>
-                    <span>{prompt.name}</span>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+              )}
+            </>
           ))}
         </div>
       </div>
