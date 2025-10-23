@@ -10,19 +10,20 @@ import {
 } from 'motion/react';
 import { FeatureStepper } from '../components/FeatureStepper';
 import DemoLightSvg from '../assets/demo-light.svg';
+import VideoThumbnailSvg from '../assets/video-thumbnail.svg';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Play } from 'lucide-react';
+import { VideoModal } from '../components/VideoModal';
 
 export function DemoSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
   const patternRef = useRef<HTMLDivElement>(null);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
   const videoHeightMV = useMotionValue(0);
   const patternHeightMV = useMotionValue(0);
   const [isAnimationReady, setIsAnimationReady] = useState(false);
-  const [showOverlay, setShowOverlay] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Show video after scripts loaded.
   useEffect(() => {
@@ -155,14 +156,7 @@ export function DemoSection() {
 
   // 处理播放按钮点击
   const handlePlayClick = () => {
-    setShowOverlay(false);
-    // 使用 postMessage API 向 YouTube iframe 发送播放命令
-    if (iframeRef.current && iframeRef.current.contentWindow) {
-      iframeRef.current.contentWindow.postMessage(
-        '{"event":"command","func":"playVideo","args":""}',
-        '*',
-      );
-    }
+    setIsModalOpen(true);
   };
 
   return (
@@ -198,48 +192,33 @@ export function DemoSection() {
             >
               <motion.div
                 ref={videoRef}
-                className="bg-background relative aspect-video w-[80vw] max-w-[1200px] origin-center overflow-hidden rounded-4xl border-4"
+                className="bg-background relative aspect-video w-[80vw] max-w-[1200px] origin-center cursor-pointer overflow-hidden rounded-4xl border-4"
                 style={{
                   rotateX: rotateAngle,
                   scale: videoScale,
                   opacity: videoOpacity,
                   transformStyle: 'preserve-3d',
                 }}
+                onClick={handlePlayClick}
               >
-                <motion.div
-                  className="absolute z-10 flex h-full w-full items-center justify-center bg-black/60 backdrop-blur-md"
-                  initial={false}
-                  animate={{
-                    opacity: showOverlay ? 1 : 0,
-                    pointerEvents: showOverlay ? 'auto' : 'none',
-                  }}
-                  transition={{ duration: 0.5, ease: 'easeOut' }}
-                >
+                {/* 缩略图背景 */}
+                <Image
+                  src={VideoThumbnailSvg}
+                  alt="Video thumbnail"
+                  className="absolute inset-0 size-full object-cover"
+                  priority
+                />
+                {/* 播放按钮覆盖层 */}
+                <div className="absolute z-10 flex h-full w-full items-center justify-center">
                   <Button
                     variant="landing-primary"
-                    size="lg"
-                    className="rounded-full"
+                    size="icon"
+                    className="size-16 cursor-pointer rounded-full"
                     onClick={handlePlayClick}
                   >
-                    <Play size={16} />
-                    <span>Watch Demo</span>
+                    <Play size={24} fill="inherit" />
                   </Button>
-                </motion.div>
-                <iframe
-                  ref={iframeRef}
-                  className="block h-full w-full"
-                  style={{
-                    transformStyle: 'preserve-3d',
-                    border: 'none',
-                    display: 'block',
-                  }}
-                  src="https://www.youtube.com/embed/OgeF1WhpO44?si=Ud4Gw_-gLsrBevqg&enablejsapi=1"
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                />
+                </div>
               </motion.div>
             </motion.div>
           )}
@@ -268,6 +247,13 @@ export function DemoSection() {
           )}
         </div>
       </div>
+
+      {/* 视频模态框 */}
+      <VideoModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        videoUrl="https://www.youtube.com/embed/OgeF1WhpO44?si=Ud4Gw_-gLsrBevqg&enablejsapi=1"
+      />
     </section>
   );
 }
