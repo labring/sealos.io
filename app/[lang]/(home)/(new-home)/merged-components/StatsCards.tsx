@@ -80,7 +80,7 @@ export default function StatsCards() {
       ),
       title: 'GitHub Stars',
       description: 'Developers trust our code',
-      value: 23,
+      value: 16.5,
       suffix: 'k+',
     },
     {
@@ -93,7 +93,7 @@ export default function StatsCards() {
       ),
       title: 'Contributors',
       description: 'Global community builders',
-      value: 500,
+      value: 150,
       suffix: '+',
     },
     {
@@ -106,7 +106,7 @@ export default function StatsCards() {
       ),
       title: 'Commits',
       description: 'Lines of transparent code',
-      value: 15,
+      value: 4,
       suffix: 'k+',
     },
     {
@@ -130,7 +130,7 @@ export default function StatsCards() {
       ),
       title: 'Countries',
       description: 'Worldwide adoption',
-      value: 80,
+      value: 10,
       suffix: '+',
     },
   ];

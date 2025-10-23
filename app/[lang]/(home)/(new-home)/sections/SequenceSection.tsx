@@ -36,28 +36,28 @@ export function SequenceSection() {
       description:
         'Describe your concept to Jotlin... automatically generating a comprehensive product spec...',
       buttonText: 'Try Jotlin',
-      buttonLink: 'https://usw.sealos.io/?openapp=system-jotlin',
+      buttonLink: 'https://os.sealos.io/?openapp=system-jotlin',
     },
     {
       title: 'If it runs in a container, it runs on Sealos.',
       description:
         '...Securely connect your local VS Code or Cursor... without ever leaving the tools you know and love.',
       buttonText: 'Try DevBox',
-      buttonLink: 'https://usw.sealos.io/?openapp=system-devbox',
+      buttonLink: 'https://os.sealos.io/?openapp=system-devbox',
     },
     {
       title: 'Your favorite IDE, supercharged by the cloud.',
       description:
         'Deploy from a Git repo, a Docker image, or even a Docker Compose file... We manage the Kubernetes complexity...',
       buttonText: 'Try App Launchpad',
-      buttonLink: 'https://usw.sealos.io/?openapp=system-applaunchpad',
+      buttonLink: 'https://os.sealos.io/?openapp=system-applaunchpad',
     },
     {
       title: 'Production databases, simplified and intelligent.',
       description:
         'Launch a high-availability database cluster... Then, use Chat2DB to interact with your data using plain English...',
       buttonText: 'Try Database',
-      buttonLink: 'https://usw.sealos.io/?openapp=system-dbprovider',
+      buttonLink: 'https://os.sealos.io/?openapp=system-dbprovider',
     },
   ];
 

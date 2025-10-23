@@ -241,7 +241,7 @@ export function SubscriptionPricing() {
 
                   {/* CTA Button */}
                   <motion.a
-                    href={`https://usw.sealos.io/?openapp=system-costcenter?mode%3Dcreate%26plan%3D${tier.id}`}
+                    href={`https://os.sealos.io/?openapp=system-costcenter?mode%3Dcreate%26plan%3D${tier.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.02 }}

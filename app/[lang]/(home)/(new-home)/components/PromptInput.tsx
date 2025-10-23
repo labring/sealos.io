@@ -67,9 +67,8 @@ const PROMPT_CATEGORIES: CategoryConfig[] = [
   },
   {
     type: 'single',
-    name: 'Build Chrome extension & n8n',
-    prompt:
-      "I need to deploy n8n from an app store. The goal is to build a Node.js Chrome extension that triggers its workflows.\n\nCan you first help me with the n8n deployment?\n\nLater, I'll need you to prepare a Node.js cloud development environment.",
+    name: 'Deploy N8N',
+    prompt: 'I need to deploy n8n from an app store with queue mode.',
   },
   {
     type: 'list',

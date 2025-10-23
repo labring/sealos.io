@@ -251,7 +251,7 @@ export function Header() {
               border: '1px solid #ffffff',
             }}
           >
-            <a href="https://usw.sealos.io/?openapp=system-brain">
+            <a href="https://os.sealos.io/?openapp=system-brain">
               Start for free
             </a>
           </Button>
@@ -435,7 +435,7 @@ export function Header() {
                     className="h-12 w-full border border-white text-base"
                   >
                     <a
-                      href="https://usw.sealos.io/?openapp=system-brain"
+                      href="https://os.sealos.io/?openapp=system-brain"
                       onClick={closeMobileMenu}
                     >
                       Start for free

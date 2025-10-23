@@ -253,7 +253,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
               Get started for free. No credit card required.
             </p>
             <Link
-              href="https://usw.sealos.io/?openapp=system-brain"
+              href="https://os.sealos.io/?openapp=system-brain"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
