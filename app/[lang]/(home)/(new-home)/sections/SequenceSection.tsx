@@ -39,14 +39,14 @@ export function SequenceSection() {
       buttonLink: 'https://os.sealos.io/?openapp=system-jotlin',
     },
     {
-      title: 'If it runs in a container, it runs on Sealos.',
+      title: 'Your favorite IDE, supercharged by the cloud.',
       description:
         '...Securely connect your local VS Code or Cursor... without ever leaving the tools you know and love.',
       buttonText: 'Try DevBox',
       buttonLink: 'https://os.sealos.io/?openapp=system-devbox',
     },
     {
-      title: 'Your favorite IDE, supercharged by the cloud.',
+      title: 'If it runs in a container, it runs on Sealos.',
       description:
         'Deploy from a Git repo, a Docker image, or even a Docker Compose file... We manage the Kubernetes complexity...',
       buttonText: 'Try App Launchpad',
