@@ -10,8 +10,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ArrowUp, ChevronRight, Bot, Database, Code } from 'lucide-react';
 import { Glare } from './Glare';
-import { ReactNode, useState, useEffect } from 'react';
+import React, { ReactNode, useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useTypewriterEffect } from '@/hooks/useTypewriterEffect';
 // AI Agent icons
 import DifyIcon from '../assets/aiagent-appicons/dify.svg';
 import FastGPTIcon from '../assets/aiagent-appicons/fastgpt.svg';
@@ -61,14 +62,19 @@ type CategoryConfig = {
 const PROMPT_CATEGORIES: CategoryConfig[] = [
   {
     type: 'single',
-    name: 'Build Saas & Database',
+    name: 'Build full-stack application',
     prompt:
-      'I want to build a SaaS platform using Next.js, with a database backend for managing essential data.',
+      'I want to create a full-stack application using Next.js and database.',
   },
   {
     type: 'single',
     name: 'Deploy N8N',
     prompt: 'I need to deploy n8n from an app store with queue mode.',
+  },
+  {
+    type: 'single',
+    name: 'Build Django application',
+    prompt: 'I want to build a Python Django web application.',
   },
   {
     type: 'list',
@@ -211,36 +217,26 @@ export function PromptInput() {
   const [promptText, setPromptText] = useState('');
   const [isFirefox, setIsFirefox] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
-  const [typewriterText, setTypewriterText] = useState('');
 
-  const fullPlaceholder = 'I want to deploy N8N from app store.';
+  // Get current language from URL
+  const [currentLanguage, setCurrentLanguage] = useState('en');
+
+  // Use typewriter effect
+  const typewriterText = useTypewriterEffect(!isTouched, currentLanguage);
 
   useEffect(() => {
     // 检测是否为 Firefox 浏览器
     const userAgent = navigator.userAgent.toLowerCase();
     setIsFirefox(userAgent.indexOf('firefox') > -1);
+
+    // 检测当前语言
+    const pathLang = window.location.pathname.split('/')[1];
+    if (pathLang === 'zh-cn') {
+      setCurrentLanguage('zh-cn');
+    } else {
+      setCurrentLanguage('en');
+    }
   }, []);
-
-  // 打字机效果
-  useEffect(() => {
-    if (isTouched) return;
-
-    let currentIndex = 0;
-    const typingSpeed = 50; // 每个字符的打字速度（毫秒）
-
-    const typeNextChar = () => {
-      if (currentIndex <= fullPlaceholder.length) {
-        setTypewriterText(fullPlaceholder.slice(0, currentIndex));
-        setPromptText(fullPlaceholder); // promptText 始终保持完整值
-        currentIndex++;
-      }
-    };
-
-    // 立即开始打字
-    const interval = setInterval(typeNextChar, typingSpeed);
-
-    return () => clearInterval(interval);
-  }, [isTouched, fullPlaceholder]);
 
   const handlePromptSelect = (prompt: string) => {
     setIsTouched(true);
@@ -248,8 +244,10 @@ export function PromptInput() {
   };
 
   const handleSendPrompt = () => {
-    if (promptText.trim()) {
-      const url = `https://brain.usw.sealos.io/trial?query=${encodeURIComponent(promptText)}`;
+    // Get the current text - either user input or typewriter text
+    const currentText = isTouched ? promptText : typewriterText;
+    if (currentText.trim()) {
+      const url = `https://brain.usw.sealos.io/trial?query=${encodeURIComponent(currentText)}`;
       window.open(url, '_blank');
     }
   };
@@ -308,7 +306,7 @@ export function PromptInput() {
           onKeyDown={handleKeyDown}
         />
 
-        {/* 打字机效果叠加层 */}
+        {/* 循环打字机效果叠加层 */}
         {!isTouched && (
           <div className="pointer-events-none absolute inset-0 flex items-start p-3 pt-2">
             <div className="text-base text-zinc-400 md:text-base">
@@ -320,7 +318,7 @@ export function PromptInput() {
 
         <Button
           className="absolute right-3 bottom-3 z-10 size-10 rounded-lg bg-zinc-200 p-0 text-zinc-950 hover:bg-white disabled:opacity-40"
-          disabled={!promptText.trim()}
+          disabled={!isTouched && !typewriterText.trim()}
           onClick={handleSendPrompt}
         >
           <ArrowUp size={20} />
@@ -334,9 +332,9 @@ export function PromptInput() {
 
         <div className="flex flex-wrap gap-2">
           {PROMPT_CATEGORIES.map((category) => (
-            <>
+            <React.Fragment key={category.name}>
               {category.type === 'list' && (
-                <DropdownMenu key={category.name} modal={false}>
+                <DropdownMenu modal={false}>
                   <DropdownMenuTrigger asChild>
                     <button className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-xs whitespace-nowrap text-zinc-400 transition-colors hover:bg-white/[0.1] sm:text-sm">
                       {category.icon}
@@ -368,7 +366,7 @@ export function PromptInput() {
                   <span>{category.name}</span>
                 </button>
               )}
-            </>
+            </React.Fragment>
           ))}
         </div>
       </div>

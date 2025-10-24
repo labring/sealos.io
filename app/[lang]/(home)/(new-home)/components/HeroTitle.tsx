@@ -21,7 +21,7 @@ export function HeroTitle() {
           Ship any&nbsp;
           <FramedText>
             <RotatingWords
-              words={['AI Agent', 'Web App', 'Database']}
+              words={['AI Agent', 'Dev Runtime', 'Web App', 'Database']}
               interval={2000}
             />
           </FramedText>

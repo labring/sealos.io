@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { GradientText } from '../components/GradientText';
 import {
   Bot,
@@ -454,9 +454,9 @@ export function ComparisonSection() {
             {/* 表格内容 */}
             <tbody>
               {comparisonData.categories.map((category, categoryIndex) => (
-                <>
+                <React.Fragment key={`category-${categoryIndex}`}>
                   {/* 分类标题行 */}
-                  <tr key={`category-${categoryIndex}`}>
+                  <tr>
                     <td className="w-60 border-b border-zinc-800 px-2 py-3 text-sm font-medium text-zinc-200">
                       <div className="flex items-center gap-2">
                         {category.icon}
@@ -525,7 +525,7 @@ export function ComparisonSection() {
                       </tr>
                     );
                   })}
-                </>
+                </React.Fragment>
               ))}
             </tbody>
           </table>
