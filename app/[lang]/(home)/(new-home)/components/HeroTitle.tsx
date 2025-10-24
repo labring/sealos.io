@@ -31,9 +31,8 @@ export function HeroTitle() {
 
       {/* 描述文字 */}
       <p className="mt-5 text-sm text-zinc-400 sm:text-base">
-        Sealos is the intelligent Cloud OS. Describe your needs, and our AI
-        Pilot will build the environment, configure the database, and deploy it
-        globally.
+        Describe your needs, and our AI will build the environment, configure
+        the database, deploy and scale it globally.
       </p>
     </div>
   );

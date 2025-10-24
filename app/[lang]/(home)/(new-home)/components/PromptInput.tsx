@@ -266,6 +266,15 @@ export function PromptInput() {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Enter key (without Shift) triggers send
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendPrompt();
+    }
+    // Shift+Enter allows new line creation (default behavior)
+  };
+
   return (
     <div className="border-gradient-glass relative flex flex-col rounded-2xl px-3 py-4 inset-shadow-[0_0_8px_0_rgba(255,255,255,0.25)]">
       {!isFirefox && (
@@ -287,7 +296,7 @@ export function PromptInput() {
         <Textarea
           placeholder={
             isTouched
-              ? 'Describe what you want to ship. e.g., I want to deploy N8N from app store.'
+              ? 'Describe what you want to ship. e.g., I want to deploy N8N from app store. (Press Enter to send, Shift+Enter for new line)'
               : ''
           }
           rows={5}
@@ -296,6 +305,7 @@ export function PromptInput() {
           onChange={handleTextareaChange}
           onFocus={handleTextareaInteraction}
           onClick={handleTextareaInteraction}
+          onKeyDown={handleKeyDown}
         />
 
         {/* 打字机效果叠加层 */}
