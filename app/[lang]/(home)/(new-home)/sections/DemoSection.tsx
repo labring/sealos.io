@@ -11,6 +11,7 @@ import {
 import { FeatureStepper } from '../components/FeatureStepper';
 import DemoLightSvg from '../assets/demo-light.svg';
 import VideoThumbnailSvg from '../assets/video-thumbnail.svg';
+import DemoIndicatorArrowImage from '../assets/demo-indicator-arrow.svg';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Play } from 'lucide-react';
@@ -147,6 +148,13 @@ export function DemoSection() {
     },
   );
 
+  // Scroll down indicator opacity
+  const scrollDownIndicatorOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.7, 0.775],
+    [1, 1, 0],
+  );
+
   // 7. 图案的透明度（阶段2时从0变为1）
   const patternOpacity = useTransform(
     scrollYProgress,
@@ -190,9 +198,38 @@ export function DemoSection() {
                 y: videoYRaw,
               }}
             >
+              {/* Indicator arrow */}
+              <motion.div
+                className="absolute left-1/2 z-20 -translate-x-1/2 translate-y-[calc(min(39.375vw,675px)+1.5rem)] overflow-visible"
+                style={{
+                  opacity: scrollDownIndicatorOpacity,
+                }}
+              >
+                <motion.div
+                  initial={{
+                    opacity: 1,
+                  }}
+                  animate={{
+                    opacity: [0.5, 1, 0.5],
+                    scale: [1, 1.1, 1],
+                    y: ['0rem', '1rem', '0rem'],
+                  }}
+                  transition={{
+                    type: 'keyframes',
+                    repeat: Infinity,
+                    duration: 1.5,
+                  }}
+                >
+                  <Image
+                    src={DemoIndicatorArrowImage}
+                    alt="Scroll down indicator"
+                  />
+                </motion.div>
+              </motion.div>
+
               <motion.div
                 ref={videoRef}
-                className="bg-background relative aspect-video w-[80vw] max-w-[1200px] origin-center cursor-pointer overflow-hidden rounded-4xl border-4"
+                className="bg-background relative aspect-video w-[70vw] max-w-[1200px] origin-center cursor-pointer overflow-hidden rounded-4xl border-4"
                 style={{
                   rotateX: rotateAngle,
                   scale: videoScale,

@@ -319,7 +319,7 @@ export function PromptInput() {
         )}
 
         <Button
-          className="absolute right-3 bottom-3 z-10 size-10 rounded-lg bg-zinc-600 p-0 text-white hover:bg-zinc-500 disabled:opacity-40"
+          className="absolute right-3 bottom-3 z-10 size-10 rounded-lg bg-zinc-200 p-0 text-zinc-950 hover:bg-white disabled:opacity-40"
           disabled={!promptText.trim()}
           onClick={handleSendPrompt}
         >
