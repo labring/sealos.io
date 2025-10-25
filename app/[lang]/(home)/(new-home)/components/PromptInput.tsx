@@ -222,7 +222,7 @@ export function PromptInput() {
   const [currentLanguage, setCurrentLanguage] = useState('en');
 
   // Use typewriter effect
-  const typewriterText = useTypewriterEffect(!isTouched, currentLanguage);
+  const { currentText: typewriterText, fullText: typewriterFullText } = useTypewriterEffect(!isTouched, currentLanguage);
 
   useEffect(() => {
     // 检测是否为 Firefox 浏览器
@@ -244,8 +244,8 @@ export function PromptInput() {
   };
 
   const handleSendPrompt = () => {
-    // Get the current text - either user input or typewriter text
-    const currentText = isTouched ? promptText : typewriterText;
+    // Get the current text - either user input or full typewriter text
+    const currentText = isTouched ? promptText : typewriterFullText;
     if (currentText.trim()) {
       const url = `https://brain.usw.sealos.io/trial?query=${encodeURIComponent(currentText)}`;
       window.open(url, '_blank');
@@ -318,7 +318,7 @@ export function PromptInput() {
 
         <Button
           className="absolute right-3 bottom-3 z-10 size-10 rounded-lg bg-zinc-200 p-0 text-zinc-950 hover:bg-white disabled:opacity-40"
-          disabled={!isTouched && !typewriterText.trim()}
+          disabled={!isTouched && !typewriterFullText.trim()}
           onClick={handleSendPrompt}
         >
           <ArrowUp size={20} />

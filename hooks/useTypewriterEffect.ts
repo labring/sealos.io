@@ -13,18 +13,19 @@ const { TYPING_SPEED, PAUSE_DURATION } = DEFAULT_TYPEWRITER_CONFIG;
  * Custom hook for cyclic typewriter effect with multi-language support
  * @param isActive - Whether the typewriter effect should be active
  * @param language - Language code ('en' or 'zh-cn')
- * @returns Current typewriter text string
+ * @returns Object with current typewriter text and full text
  */
 export function useTypewriterEffect(
   isActive: boolean,
   language: string = 'en',
 ) {
   const [currentText, setCurrentText] = useState('');
+  const [fullText, setFullText] = useState('');
   const textIndexRef = useRef(0);
   const charIndexRef = useRef(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const texts = TYPEWRITER_TEXTS[language as keyof typeof TYPEWRITER_TEXTS];
+  const texts = TYPEWRITER_TEXTS[language as keyof typeof TYPEWRITER_TEXTS] || TYPEWRITER_TEXTS.en;
 
   /**
    * Clear any pending timeout to prevent memory leaks
@@ -37,15 +38,17 @@ export function useTypewriterEffect(
   };
 
   const startTyping = () => {
-    if (!isActive) return;
+    if (!isActive || !texts || texts.length === 0) return;
 
     textIndexRef.current = 0;
     charIndexRef.current = 0;
+    // Set the initial full text
+    setFullText(texts[0]);
     typeNextChar();
   };
 
   const typeNextChar = () => {
-    if (!isActive) return;
+    if (!isActive || !texts || texts.length === 0) return;
 
     const currentFullText = texts[textIndexRef.current];
 
@@ -62,14 +65,17 @@ export function useTypewriterEffect(
   };
 
   const startNextText = () => {
-    if (!isActive) return;
+    if (!isActive || !texts || texts.length === 0) return;
 
     // Move to next text and reset character index
     textIndexRef.current = (textIndexRef.current + 1) % texts.length;
     charIndexRef.current = 0;
 
-    // Clear current text and start typing next one
+    // Set the new full text and clear current text
+    const nextFullText = texts[textIndexRef.current];
+    setFullText(nextFullText);
     setCurrentText('');
+
     timeoutRef.current = setTimeout(() => {
       typeNextChar();
     }, 300);
@@ -81,6 +87,7 @@ export function useTypewriterEffect(
     } else {
       clearAllTimeouts();
       setCurrentText('');
+      setFullText('');
     }
 
     return () => {
@@ -88,5 +95,8 @@ export function useTypewriterEffect(
     };
   }, [isActive, language]);
 
-  return currentText;
+  return {
+    currentText,
+    fullText,
+  };
 }
