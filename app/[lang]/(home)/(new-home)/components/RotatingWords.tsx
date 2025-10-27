@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useInView } from 'motion/react';
+import { motion, useInView, AnimatePresence } from 'motion/react';
 import { GradientText } from './GradientText';
 
 export function RotatingWords({
@@ -32,10 +32,9 @@ export function RotatingWords({
   }, [words, interval, isInView]);
 
   useEffect(() => {
-    // 测量当前词的宽度，用于外层宽度动画
+    // 测量当前词的宽度
     const el = measureRef.current;
     if (!el) return;
-    // 下一帧测量，确保 DOM 已更新
     const raf = requestAnimationFrame(() => {
       setMeasuredWidth(el.offsetWidth);
     });
@@ -46,43 +45,57 @@ export function RotatingWords({
     <span
       ref={containerRef}
       className={className}
-      style={{ display: 'inline-block', whiteSpace: 'nowrap' }}
+      style={{
+        display: 'inline-block',
+        position: 'relative',
+      }}
       aria-live="polite"
     >
       <motion.span
-        style={{ display: 'inline-block' }}
+        style={{
+          display: 'inline-block',
+          overflow: 'hidden',
+          verticalAlign: 'top',
+        }}
         animate={measuredWidth != null ? { width: measuredWidth } : undefined}
-        transition={{ type: 'spring', stiffness: 200, damping: 26, mass: 0.6 }}
+        transition={{
+          duration: 0.3,
+          ease: [0.4, 0, 0.2, 1],
+        }}
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
             key={words[index]}
-            initial={{ y: '100%', opacity: 0 }}
-            animate={{ y: '0%', opacity: 1 }}
-            exit={{ y: '-100%', opacity: 0 }}
+            initial={{ opacity: 0, transform: 'translateY(100%)' }}
+            animate={{ opacity: 1, transform: 'translateY(0%)' }}
+            exit={{ opacity: 0, transform: 'translateY(-100%)' }}
             transition={{
-              type: 'spring',
-              stiffness: 500,
-              damping: 40,
-              mass: 0.6,
+              duration: 0.3,
+              ease: [0.4, 0, 0.2, 1],
             }}
-            style={{ display: 'inline-block' }}
+            style={{
+              display: 'inline-block',
+              whiteSpace: 'nowrap',
+              willChange: 'transform, opacity',
+            }}
           >
             <GradientText>{words[index]}</GradientText>
           </motion.span>
         </AnimatePresence>
       </motion.span>
 
-      {/* 隐藏测量元素：继承父级字体尺寸，保证测量准确 */}
+      {/* 隐藏测量元素 */}
       <span
         ref={measureRef}
         style={{
           position: 'absolute',
           visibility: 'hidden',
           whiteSpace: 'nowrap',
+          pointerEvents: 'none',
         }}
+        aria-hidden="true"
       >
-        {words[index]}
+        <GradientText>{words[index]}</GradientText>
       </span>
     </span>
   );
