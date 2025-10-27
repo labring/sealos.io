@@ -8,99 +8,81 @@ import {
   useMotionValue,
   useSpring,
 } from 'motion/react';
+import Image from 'next/image';
+import { Play } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { FeatureStepper } from '../components/FeatureStepper';
+import { VideoModal } from '../components/VideoModal';
 import DemoLightSvg from '../assets/demo-light.svg';
 import VideoThumbnailSvg from '../assets/video-thumbnail.svg';
 import DemoIndicatorArrowImage from '../assets/demo-indicator-arrow.svg';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Play } from 'lucide-react';
-import { VideoModal } from '../components/VideoModal';
 
 export function DemoSection() {
+  // Refs
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
   const patternRef = useRef<HTMLDivElement>(null);
-  const videoHeightMV = useMotionValue(0);
-  const patternHeightMV = useMotionValue(0);
+
+  // State
   const [isAnimationReady, setIsAnimationReady] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Show video after scripts loaded.
-  useEffect(() => {
-    const initAnimation = () => {
-      setIsAnimationReady(true);
-    };
+  // Motion values for dynamic measurements
+  const viewportHeightMV = useMotionValue(0);
+  const videoHeightMV = useMotionValue(0);
+  const patternHeightMV = useMotionValue(0);
 
-    requestAnimationFrame(initAnimation);
+  // Initialize animation after mount
+  useEffect(() => {
+    requestAnimationFrame(() => setIsAnimationReady(true));
   }, []);
 
-  // 动态读取视频和图案容器的高度
+  // Update element heights on resize
   useEffect(() => {
     if (!isAnimationReady) return;
 
     const updateHeights = () => {
-      if (videoRef.current) {
-        const height = videoRef.current.offsetHeight;
-        videoHeightMV.set(height);
-      }
-      if (patternRef.current) {
-        const height = patternRef.current.offsetHeight;
-        patternHeightMV.set(height);
-      }
+      viewportHeightMV.set(window.innerHeight);
+      if (videoRef.current) videoHeightMV.set(videoRef.current.offsetHeight);
+      if (patternRef.current)
+        patternHeightMV.set(patternRef.current.offsetHeight);
     };
 
     updateHeights();
     window.addEventListener('resize', updateHeights);
     return () => window.removeEventListener('resize', updateHeights);
-  }, [videoHeightMV, patternHeightMV, isAnimationReady]);
+  }, [videoHeightMV, patternHeightMV, viewportHeightMV, isAnimationReady]);
 
-  // 跟踪整个动画容器的滚动进度
+  // Scroll progress tracking
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end end'],
   });
 
-  // 动画阶段划分（基于scrollYProgress 0-1）：
-  // 阶段1: 视频从24度旋转到0度，回正
-  // 阶段2: 视频保持在屏幕中心不动
-  // 阶段3: 图案放大，视频不动
-  // 阶段4: 图案+视频一起缩小
-  // 阶段5: 视频渐隐
-  // 阶段6: 图案静止
-  // 阶段7: 图案随文档流滚动离开
+  // Smooth scroll progress with spring physics
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 300,
+    damping: 40,
+    mass: 0.5,
+  });
 
-  // 1. 视频旋转动画（阶段1）
-  const rotateAngle = useTransform(scrollYProgress, [0, 0.125], [24, 0]);
+  // Video animations
+  const videoRotateX = useTransform(smoothProgress, [0, 0.125], [24, 0]);
+  const videoY = useTransform(
+    [smoothProgress, videoHeightMV, viewportHeightMV],
+    ([p, h, vh]) => {
+      const progress = p as number;
+      const height = h as number;
+      const viewportH = vh as number;
+      const centerY = height > 0 ? viewportH / 2 - height / 2 : 0;
 
-  // 2. 视频容器的Y轴位置（从上方移动到中心，最后移出屏幕）
-  // 计算初始位置：从中心向上移动，但留出空间给 Stepper
-  // 动态计算：50vh - 50%视频高度，使视频垂直居中
-  const videoYRaw = useTransform(
-    [scrollYProgress, videoHeightMV],
-    ([progress, height]) => {
-      const progressValue = progress as number;
-      const heightValue = height as number;
-      const initialY =
-        heightValue > 0 ? window.innerHeight / 2 - heightValue / 2 : 0;
-
-      if (progressValue <= 0.125) {
-        // 阶段1：从 0 移动到 initialY
-        return initialY * (progressValue / 0.125);
-      } else if (progressValue <= 0.8125) {
-        // 阶段2-3：保持在 initialY
-        return initialY;
-      } else {
-        // 阶段4：从 initialY 移动到 -100vh
-        const t = (progressValue - 0.8125) / (1 - 0.8125);
-        return initialY + (-window.innerHeight - initialY) * t;
-      }
+      if (progress <= 0.125) return centerY * (progress / 0.125);
+      if (progress <= 0.8125) return centerY;
+      return centerY + (-viewportH - centerY) * ((progress - 0.8125) / 0.1875);
     },
   );
-
-  // 3. 视频容器的scale（阶段4一起缩小）
   const videoScaleRaw = useTransform(
-    scrollYProgress,
+    smoothProgress,
     [0, 0.5, 0.75],
     [1, 1, 0.1],
   );
@@ -109,67 +91,48 @@ export function DemoSection() {
     damping: 30,
     mass: 0.6,
   });
+  const videoOpacity = useTransform(smoothProgress, [0.5, 0.725], [1, 0]);
 
-  // 4. 视频容器的透明度（阶段4一起渐隐, 但比图案快一点）
-  const videoOpacity = useTransform(scrollYProgress, [0.5, 0.725], [1, 0]);
+  // Pattern animations
+  const patternY = useTransform(
+    [smoothProgress, patternHeightMV, viewportHeightMV],
+    ([p, h, vh]) => {
+      const progress = p as number;
+      const height = h as number;
+      const viewportH = vh as number;
+      const centerY = height > 0 ? viewportH / 2 - height / 2 : 0;
 
-  // 5. 图案的scale（阶段3放大到120vw，阶段4缩小到0.5）
-  const patternScaleRaw = useTransform(
-    scrollYProgress,
-    [0, 0.25, 0.5, 0.75],
-    [1, 1, 56, 0.5],
-  );
-  const patternScale = useSpring(patternScaleRaw, {
-    stiffness: 150,
-    damping: 30,
-    mass: 0.6,
-  });
-
-  // 6. 图案的Y轴位置（使用50vh - 50%图案高度计算）
-  const patternYRaw = useTransform(
-    [scrollYProgress, patternHeightMV],
-    ([progress, height]) => {
-      const progressValue = progress as number;
-      const heightValue = height as number;
-      const initialY =
-        heightValue > 0 ? window.innerHeight / 2 - heightValue / 2 : 0;
-
-      if (progressValue <= 0.125) {
-        // 阶段1：从 0 移动到 initialY
-        return initialY * (progressValue / 0.125);
-      } else if (progressValue <= 0.8125) {
-        // 阶段2-3：保持在 initialY
-        return initialY;
-      } else {
-        // 阶段4：从 initialY 移动到 -100vh
-        const t = (progressValue - 0.8125) / (1 - 0.8125);
-        return initialY + (0 - initialY) * t;
-      }
+      if (progress <= 0.125) return centerY * (progress / 0.125);
+      if (progress <= 0.8125) return centerY;
+      return centerY - centerY * ((progress - 0.8125) / 0.1875);
     },
   );
-
-  // Scroll down indicator opacity
-  const scrollDownIndicatorOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.7, 0.775],
-    [1, 1, 0],
+  const patternScaleRaw = useTransform(
+    smoothProgress,
+    [0, 0.25, 0.5, 0.75],
+    [0.333, 0.333, 18.667, 0.167],
   );
-
-  // 7. 图案的透明度（阶段2时从0变为1）
+  const patternScale = useSpring(patternScaleRaw, {
+    stiffness: 200,
+    damping: 35,
+    mass: 0.5,
+  });
   const patternOpacity = useTransform(
-    scrollYProgress,
+    smoothProgress,
     [0, 0.125, 0.25, 0.8125, 0.9],
     [0, 0, 1, 1, 0],
   );
 
-  // 处理播放按钮点击
-  const handlePlayClick = () => {
-    setIsModalOpen(true);
-  };
+  // Indicator animations
+  const indicatorOpacity = useTransform(
+    smoothProgress,
+    [0, 0.7, 0.775],
+    [1, 1, 0],
+  );
 
   return (
     <section className="relative w-screen overflow-x-clip overflow-y-visible object-top pt-8">
-      {/* Light */}
+      {/* Background light */}
       <div className="pointer-events-none absolute top-0 left-1/2 h-96 w-full -translate-x-1/2">
         <Image
           src={DemoLightSvg}
@@ -179,43 +142,34 @@ export function DemoSection() {
         />
       </div>
 
-      {/* Stepper */}
       <FeatureStepper />
 
-      {/* 滚动容器 - 设置400vh的高度来触发所有动画 */}
+      {/* Scroll container */}
       <div
         ref={containerRef}
         className="relative mt-12 overflow-visible"
         style={{ height: '400vh' }}
       >
-        {/* 固定容器 - 在视口中心固定显示 */}
+        {/* Sticky viewport */}
         <div className="sticky top-0 flex h-screen w-screen justify-center overflow-visible">
-          {/* Video容器 - 仅在动画准备好后渲染 */}
+          {/* Video container */}
           {isAnimationReady && (
             <motion.div
               className="absolute will-change-transform perspective-midrange perspective-origin-top"
-              style={{
-                y: videoYRaw,
-              }}
+              style={{ y: videoY }}
             >
-              {/* Indicator arrow */}
+              {/* Scroll indicator */}
               <motion.div
                 className="absolute left-1/2 z-20 -translate-x-1/2 translate-y-[calc(min(39.375vw,675px)+1.5rem)] overflow-visible"
-                style={{
-                  opacity: scrollDownIndicatorOpacity,
-                }}
+                style={{ opacity: indicatorOpacity }}
               >
                 <motion.div
-                  initial={{
-                    opacity: 1,
-                  }}
                   animate={{
                     opacity: [0.5, 1, 0.5],
                     scale: [1, 1.1, 1],
                     y: ['0rem', '1rem', '0rem'],
                   }}
                   transition={{
-                    type: 'keyframes',
                     repeat: Infinity,
                     duration: 1.5,
                   }}
@@ -227,31 +181,29 @@ export function DemoSection() {
                 </motion.div>
               </motion.div>
 
+              {/* Video player */}
               <motion.div
                 ref={videoRef}
-                className="bg-background relative aspect-video w-[70vw] max-w-[1200px] origin-center cursor-pointer overflow-hidden rounded-4xl border-4"
+                className="bg-background relative aspect-video w-[70vw] max-w-[1200px] origin-center cursor-pointer overflow-hidden rounded-4xl border-4 will-change-[transform,opacity]"
                 style={{
-                  rotateX: rotateAngle,
+                  rotateX: videoRotateX,
                   scale: videoScale,
                   opacity: videoOpacity,
                   transformStyle: 'preserve-3d',
                 }}
-                onClick={handlePlayClick}
+                onClick={() => setIsModalOpen(true)}
               >
-                {/* 缩略图背景 */}
                 <Image
                   src={VideoThumbnailSvg}
                   alt="Video thumbnail"
                   className="absolute inset-0 size-full object-cover"
                   priority
                 />
-                {/* 播放按钮覆盖层 */}
                 <div className="absolute z-10 flex h-full w-full items-center justify-center">
                   <Button
                     variant="landing-primary"
                     size="icon"
                     className="size-16 cursor-pointer rounded-full"
-                    onClick={handlePlayClick}
                   >
                     <Play size={24} fill="inherit" />
                   </Button>
@@ -260,32 +212,29 @@ export function DemoSection() {
             </motion.div>
           )}
 
-          {/* 图案容器 - 仅在动画准备好后渲染 */}
+          {/* Pattern background */}
           {isAnimationReady && (
             <motion.div
-              className="absolute -z-10 flex items-center justify-center"
-              style={{
-                y: patternYRaw,
-              }}
+              className="absolute -z-10 flex items-center justify-center will-change-transform"
+              style={{ y: patternY }}
             >
               <motion.div
                 ref={patternRef}
-                className="relative"
+                className="relative will-change-[transform,opacity]"
                 style={{
                   scale: patternScale,
                   opacity: patternOpacity,
                 }}
               >
-                <div className="size-[4rem] rounded-full bg-neutral-600" />
-                <div className="absolute top-1/2 left-1/2 size-[5.32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-neutral-600 opacity-60" />
-                <div className="absolute top-1/2 left-1/2 size-[6.384rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-neutral-600 opacity-20" />
+                <div className="size-[12rem] rounded-full bg-neutral-600" />
+                <div className="absolute top-1/2 left-1/2 size-[calc(1.333_*_12rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-neutral-600 opacity-60" />
+                <div className="absolute top-1/2 left-1/2 size-[calc(1.596_*_12rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-neutral-600 opacity-20" />
               </motion.div>
             </motion.div>
           )}
         </div>
       </div>
 
-      {/* 视频模态框 */}
       <VideoModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
