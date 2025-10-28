@@ -62,13 +62,11 @@ const CARD_COMPONENTS = [
 // 单个卡片包装器 - 处理首次渲染的动画
 const CardWrapper = memo(
   ({
-    index,
     isActive,
     cardContent,
     Component,
     id,
   }: {
-    index: number;
     isActive: boolean;
     cardContent: (typeof CARD_CONTENTS)[number];
     Component: (typeof CARD_COMPONENTS)[number]['Component'];
@@ -138,7 +136,6 @@ const AllCardsContainer = memo(({ activeIndex }: { activeIndex: number }) => {
         return (
           <CardWrapper
             key={id}
-            index={index}
             isActive={isActive}
             cardContent={cardContent}
             Component={Component}
@@ -176,14 +173,27 @@ export function SequenceSection() {
       return;
     }
 
-    // Start/resume animation when in view
+    // 获取当前进度值
+    const currentProgress = mockProgress.get();
+
+    // 计算剩余进度和对应的时间
+    const remainingProgress = 1 - currentProgress;
+    const remainingDuration = 30 * remainingProgress;
+
+    // Start/resume animation when in view from current progress
     const controls = animate(mockProgress, 1, {
-      duration: 30,
+      duration: remainingDuration,
       ease: 'linear',
-      repeat: Infinity,
-      repeatType: 'loop',
       onComplete: () => {
-        // 动画完成时重置标记
+        // 完成一轮后，重置并开始无限循环
+        mockProgress.set(0);
+        const loopControls = animate(mockProgress, 1, {
+          duration: 30,
+          ease: 'linear',
+          repeat: Infinity,
+          repeatType: 'loop',
+        });
+        animationControlsRef.current = loopControls;
         isManualControlRef.current = false;
       },
     });
