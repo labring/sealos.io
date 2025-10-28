@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 
 // Import logos
 import AnthropicLogo from '../../../assets/aiagent-appicons/anthropic.svg';
@@ -33,8 +34,14 @@ const logoRows = [
 ];
 
 export function AiRuntimeCard() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.1 });
+
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-2xl">
+    <div
+      ref={ref}
+      className="relative h-full w-full overflow-hidden rounded-2xl"
+    >
       {/* 暗角特效 - SVG 径向渐变叠加层 */}
       <svg
         className="pointer-events-none absolute inset-0 z-10 h-full w-full"
@@ -63,9 +70,11 @@ export function AiRuntimeCard() {
             <motion.div
               className="flex gap-4 will-change-transform"
               animate={
-                row.direction === 'right'
-                  ? { x: ['0%', '-50%'] }
-                  : { x: ['-50%', '0%'] }
+                isInView
+                  ? row.direction === 'right'
+                    ? { x: ['0%', '-50%'] }
+                    : { x: ['-50%', '0%'] }
+                  : {}
               }
               transition={{
                 duration: 15,

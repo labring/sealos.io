@@ -5,7 +5,7 @@ import { FramedText } from './FramedText';
 import { AiAgentStar } from './AiAgentStar';
 import { RotatingWords } from './RotatingWords';
 
-export function HeroTitle() {
+export function HeroTitle({ isInView }: { isInView: boolean }) {
   return (
     <div>
       {/* 顶部标签 */}
@@ -23,6 +23,7 @@ export function HeroTitle() {
             <RotatingWords
               words={['AI Agent', 'Dev Runtime', 'Web App', 'Database']}
               interval={2000}
+              isInView={isInView}
             />
           </FramedText>
         </div>

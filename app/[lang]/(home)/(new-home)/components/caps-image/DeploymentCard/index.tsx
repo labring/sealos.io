@@ -21,7 +21,7 @@ export function DeploymentCard() {
   // 使用 useAnimate 实现渐变动画
   useEffect(() => {
     if (isInView) {
-      animate(
+      const animation = animate(
         '#paint0_linear_animated',
         { x1: [startX1, endX1], x2: [startX2, endX2] },
         {
@@ -30,6 +30,7 @@ export function DeploymentCard() {
           ease: 'linear',
         },
       );
+      return () => animation.stop();
     }
   }, [isInView, animate, startX1, startX2, endX1, endX2]);
 

@@ -1,7 +1,12 @@
 'use client';
 
 import { useRef, useEffect, useState, memo } from 'react';
-import { useMotionValue, animate, useMotionValueEvent } from 'framer-motion';
+import {
+  useMotionValue,
+  animate,
+  useMotionValueEvent,
+  useInView,
+} from 'framer-motion';
 import { GradientText } from '../components/GradientText';
 import { GradientWave } from '../components/GradientWave';
 import { WorkflowProgress, stages } from '../components/WorkflowProgress';
@@ -156,12 +161,22 @@ export function SequenceSection() {
   // 动画控制器引用
   const animationControlsRef = useRef<any>(null);
   const isManualControlRef = useRef(false); // 标记是否是手动控制
+  const isInView = useInView(containerRef, { once: false, amount: 0.1 });
 
   // 跟踪当前激活的卡片索引
   const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
   const prevActiveIndexRef = useRef<number>(0);
 
   useEffect(() => {
+    if (!isInView) {
+      // Stop animation when not in view
+      if (animationControlsRef.current) {
+        animationControlsRef.current.stop();
+      }
+      return;
+    }
+
+    // Start/resume animation when in view
     const controls = animate(mockProgress, 1, {
       duration: 30,
       ease: 'linear',
@@ -176,7 +191,7 @@ export function SequenceSection() {
     animationControlsRef.current = controls;
 
     return controls.stop;
-  }, [mockProgress]);
+  }, [mockProgress, isInView]);
 
   // 使用 mockProgress 作为进度
   const progress = mockProgress;
@@ -205,6 +220,8 @@ export function SequenceSection() {
 
   // 手动设置进度
   const handleProgressChange = (targetProgress: number) => {
+    if (!isInView) return; // Don't start animation if not in view
+
     // 停止当前动画
     if (animationControlsRef.current) {
       animationControlsRef.current.stop();
@@ -252,32 +269,34 @@ export function SequenceSection() {
         }}
       />
 
-      {/* GodRays 效果 */}
-      <GodRays
-        sources={[
-          {
-            x: 0.08,
-            y: -0.12,
-            angle: 60,
-            spread: 30,
-            count: 13,
-            color: '220, 220, 220',
-          },
-          {
-            x: 0.8,
-            y: -0.08,
-            angle: 60,
-            spread: 40,
-            count: 12,
-            color: '225, 225, 225',
-          },
-        ]}
-        speed={0.0022}
-        maxWidth={90}
-        minLength={900}
-        maxLength={1900}
-        blur={17}
-      />
+      {/* GodRays 效果 - only render when in view */}
+      {isInView && (
+        <GodRays
+          sources={[
+            {
+              x: 0.08,
+              y: -0.12,
+              angle: 60,
+              spread: 30,
+              count: 13,
+              color: '220, 220, 220',
+            },
+            {
+              x: 0.8,
+              y: -0.08,
+              angle: 60,
+              spread: 40,
+              count: 12,
+              color: '225, 225, 225',
+            },
+          ]}
+          speed={0.0022}
+          maxWidth={90}
+          minLength={900}
+          maxLength={1900}
+          blur={17}
+        />
+      )}
 
       <div className="container">
         <div className="flex max-w-full flex-col items-center pb-8 md:gap-8 lg:max-w-4xl lg:flex-row lg:pb-16">

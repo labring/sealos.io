@@ -1,8 +1,8 @@
 'use client';
 import { DBCard } from './DBCard';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { memo } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { memo, useRef } from 'react';
 import KafkaIcon from '../../../assets/db-appicons/kafkaicon.svg';
 import MilvusIcon from '../../../assets/db-appicons/milvus.svg';
 import MongoIcon from '../../../assets/db-appicons/mongoicon.svg';
@@ -52,8 +52,12 @@ interface DataCardProps {
 export const DataCard = memo(function DataCard({
   isActive = false,
 }: DataCardProps = {}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.1 });
+
   return (
     <div
+      ref={ref}
       className="relative h-full w-full overflow-hidden"
       style={{ isolation: 'isolate' }}
     >
@@ -63,7 +67,7 @@ export const DataCard = memo(function DataCard({
         <div className="relative flex min-w-48 flex-1 overflow-hidden">
           <motion.div
             className="flex w-full flex-col gap-4 will-change-transform"
-            animate={{ y: ['0%', '-50%'] }}
+            animate={isInView ? { y: ['0%', '-50%'] } : {}}
             transition={{
               duration: 20,
               repeat: Infinity,
@@ -86,7 +90,7 @@ export const DataCard = memo(function DataCard({
         <div className="relative flex min-w-48 flex-1 overflow-hidden">
           <motion.div
             className="flex w-full flex-col gap-4 will-change-transform"
-            animate={{ y: ['-50%', '0%'] }}
+            animate={isInView ? { y: ['-50%', '0%'] } : {}}
             transition={{
               duration: 20,
               repeat: Infinity,
@@ -114,7 +118,7 @@ export const DataCard = memo(function DataCard({
         <div className="relative flex min-w-48 flex-1 overflow-hidden">
           <motion.div
             className="flex w-full flex-col gap-4 will-change-transform"
-            animate={{ y: ['0%', '-50%'] }}
+            animate={isInView ? { y: ['0%', '-50%'] } : {}}
             transition={{
               duration: 20,
               repeat: Infinity,

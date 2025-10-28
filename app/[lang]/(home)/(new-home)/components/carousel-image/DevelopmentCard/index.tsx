@@ -10,8 +10,8 @@ import QoderLogo from '../../../assets/ide-icons/qoder.svg';
 import TraeLogo from '../../../assets/ide-icons/trae.svg';
 import VSCodeLogo from '../../../assets/ide-icons/vscode.svg';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { memo } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { memo, useRef } from 'react';
 
 // 圆环配置
 const circles = [
@@ -60,8 +60,14 @@ interface DevelopmentCardProps {
 export const DevelopmentCard = memo(function DevelopmentCard({
   isActive = false,
 }: DevelopmentCardProps = {}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.1 });
+
   return (
-    <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
+    <div
+      ref={ref}
+      className="relative flex h-full w-full items-center justify-center overflow-hidden"
+    >
       <svg
         viewBox="-670 -670 1340 1340"
         fill="none"
@@ -79,9 +85,13 @@ export const DevelopmentCard = memo(function DevelopmentCard({
             strokeWidth={circle.strokeWidth}
             className="will-change-transform"
             style={{ transformOrigin: 'center' }}
-            animate={{
-              scale: [1, 1.05, 1],
-            }}
+            animate={
+              isInView
+                ? {
+                    scale: [1, 1.05, 1],
+                  }
+                : {}
+            }
             transition={{
               duration: 5,
               repeat: Infinity,
@@ -119,11 +129,15 @@ export const DevelopmentCard = memo(function DevelopmentCard({
               >
                 <motion.div
                   className="flex h-full w-full items-center justify-center will-change-transform"
-                  animate={{
-                    x: [0, x * 0.05, 0],
-                    y: [0, y * 0.05, 0],
-                    rotate: [-3, 3, -3, 3, -3],
-                  }}
+                  animate={
+                    isInView
+                      ? {
+                          x: [0, x * 0.05, 0],
+                          y: [0, y * 0.05, 0],
+                          rotate: [-3, 3, -3, 3, -3],
+                        }
+                      : {}
+                  }
                   transition={{
                     x: {
                       duration: 5,

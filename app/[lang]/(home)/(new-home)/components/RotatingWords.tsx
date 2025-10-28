@@ -8,20 +8,27 @@ export function RotatingWords({
   words,
   interval = 2000,
   className,
+  isInView: parentIsInView,
 }: {
   words: string[];
   interval?: number;
   className?: string;
+  isInView?: boolean;
 }) {
   const [index, setIndex] = useState(0);
   const [measuredWidth, setMeasuredWidth] = useState<number | null>(null);
   const measureRef = useRef<HTMLSpanElement>(null);
   const containerRef = useRef<HTMLSpanElement>(null);
 
-  // 使用 useInView 检测组件是否在视口内
-  const isInView = useInView(containerRef, {
-    margin: '0px 0px -10% 0px', // 提前 10% 开始动画
+  // 使用 useInView 检测组件是否在视口内，once: false 确保离开视口时停止动画
+  const localIsInView = useInView(containerRef, {
+    once: false,
+    amount: 0.5, // 至少 50% 可见时才开始动画
   });
+
+  // 优先使用父组件传递的 isInView，如果没有则使用本地的
+  const isInView =
+    parentIsInView !== undefined ? parentIsInView : localIsInView;
 
   useEffect(() => {
     if (!words?.length || !isInView) return; // 只在视口内时运行动画

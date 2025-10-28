@@ -140,18 +140,15 @@ export function FallingTags({
         elem.textContent = tag.text;
 
         // 使用内联样式设置轻量外观（渐变背景替代内阴影）
-        elem.style.background =
-          'linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05) 15%, #141414 40%, #141414 60%, rgba(255, 255, 255, 0.05) 85%, rgba(255, 255, 255, 0.15))';
-        elem.style.border = '1px solid rgba(255, 255, 255, 0.08)';
-        elem.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.3)';
-
-        // 性能优化：独立合成层
-        elem.style.willChange = 'transform, opacity';
-        elem.style.contain = 'layout style paint';
-
-        // 初始位置（绝对定位，不使用 left: 50%）
-        elem.style.transform = 'translate3d(0px, -200px, 0) rotate(0deg)';
-        elem.style.opacity = '1';
+        elem.style.cssText = `
+          background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05) 15%, #141414 40%, #141414 60%, rgba(255, 255, 255, 0.05) 85%, rgba(255, 255, 255, 0.15));
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+          will-change: transform;
+          contain: layout style paint;
+          transform: translate3d(0px, -200px, 0) rotate(0deg);
+          opacity: 1;
+        `;
 
         container.appendChild(elem);
         const rect = elem.getBoundingClientRect();
@@ -221,7 +218,7 @@ export function FallingTags({
           Matter.Engine.update(engineRef.current, clampedDelta);
         }
 
-        // 同步 DOM
+        // 同步 DOM - 批量更新减少重排
         bodiesRef.current.forEach((item) => {
           if (!item || !item.body || !item.element) return;
 
@@ -233,9 +230,6 @@ export function FallingTags({
           const offsetX = x - (item.rect?.width || 0) / 2;
           const offsetY = y;
 
-          // 使用 translate3d 强制 GPU 加速
-          const transform = `translate3d(${offsetX}px, ${offsetY}px, 0) rotate(${angle}rad)`;
-
           // 添加淡出效果
           if (phaseRef.current === 'draining') {
             const fadeStart = containerHeightRef.current * 0.8;
@@ -244,13 +238,21 @@ export function FallingTags({
                 0,
                 1 - (y - fadeStart) / (containerHeightRef.current * 0.3),
               );
-              item.element.style.transform = transform;
-              item.element.style.opacity = opacity.toString();
+              // 使用 cssText 一次性更新多个属性，减少样式重算
+              item.element.style.cssText = `
+                background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05) 15%, #141414 40%, #141414 60%, rgba(255, 255, 255, 0.05) 85%, rgba(255, 255, 255, 0.15));
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                will-change: transform;
+                contain: layout style paint;
+                transform: translate3d(${offsetX}px, ${offsetY}px, 0) rotate(${angle}rad);
+                opacity: ${opacity};
+              `;
             } else {
-              item.element.style.transform = transform;
+              item.element.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0) rotate(${angle}rad)`;
             }
           } else {
-            item.element.style.transform = transform;
+            item.element.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0) rotate(${angle}rad)`;
           }
 
           // 检测着陆
@@ -318,7 +320,6 @@ export function FallingTags({
             const angle = item.body.angle;
             const offsetX = x - (item.rect?.width || 0) / 2;
             const offsetY = y;
-            const transform = `translate3d(${offsetX}px, ${offsetY}px, 0) rotate(${angle}rad)`;
 
             if (phaseRef.current === 'draining') {
               const fadeStart = containerHeightRef.current * 0.8;
@@ -327,13 +328,20 @@ export function FallingTags({
                   0,
                   1 - (y - fadeStart) / (containerHeightRef.current * 0.3),
                 );
-                item.element.style.transform = transform;
-                item.element.style.opacity = opacity.toString();
+                item.element.style.cssText = `
+                  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05) 15%, #141414 40%, #141414 60%, rgba(255, 255, 255, 0.05) 85%, rgba(255, 255, 255, 0.15));
+                  border: 1px solid rgba(255, 255, 255, 0.08);
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                  will-change: transform;
+                  contain: layout style paint;
+                  transform: translate3d(${offsetX}px, ${offsetY}px, 0) rotate(${angle}rad);
+                  opacity: ${opacity};
+                `;
               } else {
-                item.element.style.transform = transform;
+                item.element.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0) rotate(${angle}rad)`;
               }
             } else {
-              item.element.style.transform = transform;
+              item.element.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0) rotate(${angle}rad)`;
             }
           });
 
@@ -389,9 +397,15 @@ export function FallingTags({
         item.body = null;
         item.landed = false;
         if (item.element) {
-          item.element.style.transform =
-            'translate3d(0px, -200px, 0px) rotate(0deg)';
-          item.element.style.opacity = '1';
+          item.element.style.cssText = `
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05) 15%, #141414 40%, #141414 60%, rgba(255, 255, 255, 0.05) 85%, rgba(255, 255, 255, 0.15));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            will-change: transform;
+            contain: layout style paint;
+            transform: translate3d(0px, -200px, 0) rotate(0deg);
+            opacity: 1;
+          `;
         }
       });
 

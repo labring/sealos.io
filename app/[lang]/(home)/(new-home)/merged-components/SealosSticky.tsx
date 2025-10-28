@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, useScroll, useTransform, useInView } from 'motion/react';
 
 type SealosStickyProps = {
   letters: React.ReactNode;
@@ -12,8 +12,15 @@ export default function SealosSticky({ letters, children }: SealosStickyProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mainContentRef = useRef<HTMLDivElement>(null);
   const [translateY, setTranslateY] = useState(0);
-  const [viewportHeight, setViewportHeight] = useState(0);
-  const [docScrollHeight, setDocScrollHeight] = useState(0);
+  const rafIdRef = useRef<number>(0);
+  const tickingRef = useRef(false);
+
+  // 使用 Intersection Observer 检测组件是否接近视口
+  // 提前 400px 开始监听，确保平滑过渡
+  const isNearViewport = useInView(containerRef, {
+    margin: '400px 0px 0px 0px',
+    once: false,
+  });
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -23,10 +30,34 @@ export default function SealosSticky({ letters, children }: SealosStickyProps) {
   // 全局滚动（像素）用于计算距底部剩余距离
   const { scrollY } = useScroll();
 
-  // 动态计算 translateY 值
+  // 使用 motion 的派生值计算透明度：默认 0，距底部 ≤ 200 为 1
+  const opacity = useTransform(scrollY, (latest) => {
+    if (typeof window === 'undefined' || !isNearViewport) return 0;
+    const doc = document.documentElement;
+    const viewportHeight = window.innerHeight;
+    const docScrollHeight = doc.scrollHeight;
+    const remaining = Math.max(docScrollHeight - (latest + viewportHeight), 0);
+    return remaining <= 200 ? 1 - remaining / 200 : 0;
+  });
+
+  // 动态计算 translateY 值 - 使用 rAF 节流，仅在接近视口时启用
   useEffect(() => {
+    // 只有在接近视口时才启用监听器
+    if (!isNearViewport) {
+      // 清理可能存在的 rAF
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = 0;
+      }
+      tickingRef.current = false;
+      return;
+    }
+
     const updateTranslateY = () => {
-      if (!containerRef.current || !mainContentRef.current) return;
+      if (!containerRef.current || !mainContentRef.current) {
+        tickingRef.current = false;
+        return;
+      }
 
       // 1. 获取 SealosSticky 组件顶部位置
       const sealosStickyTop = containerRef.current.getBoundingClientRect().top;
@@ -43,44 +74,39 @@ export default function SealosSticky({ letters, children }: SealosStickyProps) {
       const maxTranslateY = Math.max(0, -distance);
 
       setTranslateY(maxTranslateY);
+      tickingRef.current = false;
+    };
+
+    const requestUpdate = () => {
+      if (!tickingRef.current) {
+        tickingRef.current = true;
+        rafIdRef.current = requestAnimationFrame(updateTranslateY);
+      }
     };
 
     // 初始计算
     updateTranslateY();
 
-    // 监听滚动事件
+    // 使用 passive 监听器和 rAF 节流
     const handleScroll = () => {
-      updateTranslateY();
+      requestUpdate();
     };
 
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', updateTranslateY);
+    const handleResize = () => {
+      requestUpdate();
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', updateTranslateY);
+      window.removeEventListener('resize', handleResize);
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
     };
-  }, []);
-
-  // 监听窗口尺寸变化，记录 viewport 和文档高度
-  useEffect(() => {
-    const measure = () => {
-      const doc = document.documentElement;
-      setViewportHeight(window.innerHeight);
-      setDocScrollHeight(doc.scrollHeight);
-    };
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
-  }, []);
-
-  // 使用 motion 的派生值计算透明度：默认 0，距底部 ≤ 200 为 1
-  const opacity = useTransform(scrollY, (y) => {
-    // 尚未测量完成时保持隐藏
-    if (!viewportHeight || !docScrollHeight) return 0;
-    const remaining = Math.max(docScrollHeight - (y + viewportHeight), 0);
-    return remaining <= 200 ? 1 - remaining / 200 : 0;
-  });
+  }, [isNearViewport]);
 
   return (
     <div ref={containerRef} className="relative mb-[min(300px,100vw)]">

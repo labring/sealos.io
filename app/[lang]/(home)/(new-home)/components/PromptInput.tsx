@@ -18,6 +18,7 @@ import React, {
   useCallback,
 } from 'react';
 import Image from 'next/image';
+import { useInView } from 'framer-motion';
 import { useTypewriterEffect } from '@/hooks/useTypewriterEffect';
 // AI Agent icons
 import DifyIcon from '../assets/aiagent-appicons/dify.svg';
@@ -224,8 +225,16 @@ const PROMPT_CATEGORIES: CategoryConfig[] = [
 // Isolated typewriter component with its own hook
 // This component manages its own state and only re-renders itself
 const TypewriterOverlay = memo(
-  ({ isActive, language }: { isActive: boolean; language: string }) => {
-    const { currentText } = useTypewriterEffect(isActive, language);
+  ({
+    isActive,
+    language,
+    isInView,
+  }: {
+    isActive: boolean;
+    language: string;
+    isInView: boolean;
+  }) => {
+    const { currentText } = useTypewriterEffect(isActive && isInView, language);
 
     if (!isActive) return null;
 
@@ -319,6 +328,8 @@ export function PromptInput() {
   const [isFirefox, setIsFirefox] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('en');
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: false, amount: 0.3 });
 
   // Use typewriter effect
   const { currentText: typewriterText, fullText: typewriterFullText } =
@@ -378,7 +389,10 @@ export function PromptInput() {
   );
 
   return (
-    <div className="border-gradient-glass relative flex flex-col rounded-2xl px-3 py-4 inset-shadow-[0_0_8px_0_rgba(255,255,255,0.25)]">
+    <div
+      ref={containerRef}
+      className="border-gradient-glass relative flex flex-col rounded-2xl px-3 py-4 inset-shadow-[0_0_8px_0_rgba(255,255,255,0.25)]"
+    >
       <GlareEffect isFirefox={isFirefox} />
 
       {/* Textarea */}
@@ -404,7 +418,11 @@ export function PromptInput() {
         />
 
         {/* 循环打字机效果叠加层 - 完全隔离的组件 */}
-        <TypewriterOverlay isActive={!isTouched} language={currentLanguage} />
+        <TypewriterOverlay
+          isActive={!isTouched}
+          language={currentLanguage}
+          isInView={isInView}
+        />
 
         <Button
           className="absolute right-3 bottom-3 z-10 size-10 cursor-pointer rounded-lg bg-zinc-200 p-0 text-zinc-950 hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"

@@ -86,11 +86,23 @@ const StageItem = memo(
     const containerRef = useRef<HTMLDivElement>(null);
     const [isAnimating, setIsAnimating] = useState(false);
     const prevProgressRef = useRef<number>(0);
+    const containerWidthRef = useRef<number>(0);
 
-    // 获取容器宽度
-    const getContainerWidth = () => {
-      return containerRef.current?.offsetWidth || 0;
-    };
+    // 缓存容器宽度，只在挂载和 resize 时更新
+    useEffect(() => {
+      const updateWidth = () => {
+        if (containerRef.current) {
+          containerWidthRef.current = containerRef.current.offsetWidth;
+        }
+      };
+
+      // 初始化宽度
+      updateWidth();
+
+      // 监听窗口 resize
+      window.addEventListener('resize', updateWidth, { passive: true });
+      return () => window.removeEventListener('resize', updateWidth);
+    }, []);
 
     // 监听全局进度，当进入当前 stage 时触发动画
     useMotionValueEvent(progress, 'change', (latest) => {
@@ -99,7 +111,7 @@ const StageItem = memo(
       const inRange = latest >= start && latest < end;
       const wasInRange =
         prevProgressRef.current >= start && prevProgressRef.current < end;
-      const containerWidth = getContainerWidth();
+      const containerWidth = containerWidthRef.current;
 
       if (inRange && !wasInRange && !isAnimating) {
         // 刚进入当前 stage，开始动画

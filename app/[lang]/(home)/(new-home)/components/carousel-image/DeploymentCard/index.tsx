@@ -1,6 +1,7 @@
 import Image from 'next/image';
-import { ReactNode, useEffect, useState, memo } from 'react';
+import { ReactNode, useEffect, useState, memo, useRef } from 'react';
 import { FileCode } from 'lucide-react';
+import { useInView } from 'framer-motion';
 import ContainerImage from './assets/container.svg';
 import FilledContainerImage from './assets/container-filled.svg';
 import SealosLogo from '../../../assets/shared-icons/sealos.svg';
@@ -154,8 +155,16 @@ export const DeploymentCard = memo(function DeploymentCard({
 
   const containers = customContainers || defaultContainers;
 
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.1 });
+
   // 自动触发hover动画效果 - 按顺序每1.5秒切换
   useEffect(() => {
+    if (!isInView) {
+      setHoveredIndex(-1);
+      return;
+    }
+
     // 初始延迟0.5秒后开始自动动画
     const initialDelay = setTimeout(() => {
       let currentIndex = 0;
@@ -174,7 +183,7 @@ export const DeploymentCard = memo(function DeploymentCard({
     }, 1000); // 初始延迟1秒
 
     return () => clearTimeout(initialDelay);
-  }, [containers, isManualHover]);
+  }, [containers, isManualHover, isInView]);
 
   // 根据角度计算偏移量
   const calculateIsometricOffset = (
@@ -250,7 +259,10 @@ export const DeploymentCard = memo(function DeploymentCard({
   };
 
   return (
-    <div className="relative flex h-full w-full items-center justify-center overflow-visible">
+    <div
+      ref={ref}
+      className="relative flex h-full w-full items-center justify-center overflow-visible"
+    >
       <svg
         viewBox={`${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`}
         fill="none"

@@ -3,8 +3,8 @@ import InputCard from './assets/input-card.svg';
 import ResponseCard from './assets/response-card.svg';
 import ReportCard from './assets/report-card.svg';
 import Image from 'next/image';
-import { useAnimate } from 'framer-motion';
-import { useEffect, memo } from 'react';
+import { useAnimate, useInView } from 'framer-motion';
+import { useEffect, memo, useRef } from 'react';
 
 interface IdeaCardProps {
   isActive?: boolean;
@@ -14,9 +14,11 @@ export const IdeaCard = memo(function IdeaCard({
   isActive = false,
 }: IdeaCardProps) {
   const [scope, animate] = useAnimate();
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.1 });
 
   useEffect(() => {
-    if (!isActive) return;
+    if (!isActive || !isInView) return;
 
     // 使用 useAnimate 实现卡片入场动画
     const animations = [
@@ -50,10 +52,10 @@ export const IdeaCard = memo(function IdeaCard({
     return () => {
       animations.forEach((anim) => anim.stop());
     };
-  }, [animate, isActive]);
+  }, [animate, isActive, isInView]);
 
   return (
-    <svg className="h-full w-full overflow-visible">
+    <svg ref={ref} className="h-full w-full overflow-visible">
       <foreignObject x="0" y="0" width="100%" height="100%">
         <div ref={scope} className="relative h-full w-full overflow-hidden">
           <div

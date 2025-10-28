@@ -1,7 +1,8 @@
 'use client';
 import { StackCard } from './StackCard';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 import ClaudeCodeIcon from '../../../assets/stacks-appicons/claude-code.svg';
 import EchoIcon from '../../../assets/stacks-appicons/echo.svg';
 import McpIcon from '../../../assets/stacks-appicons/mcp.svg';
@@ -48,8 +49,12 @@ const stacks = [
 ];
 
 export function StacksCard() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.1 });
+
   return (
     <div
+      ref={ref}
       className="relative h-full w-full overflow-hidden"
       style={{ isolation: 'isolate' }}
     >
@@ -59,7 +64,7 @@ export function StacksCard() {
         <div className="relative flex min-w-36 flex-1 overflow-hidden">
           <motion.div
             className="flex w-full flex-col gap-4 will-change-transform"
-            animate={{ y: ['0%', '-50%'] }}
+            animate={isInView ? { y: ['0%', '-50%'] } : {}}
             transition={{
               duration: 10,
               repeat: Infinity,
@@ -82,7 +87,7 @@ export function StacksCard() {
         <div className="relative flex min-w-36 flex-1 overflow-hidden">
           <motion.div
             className="flex w-full flex-col gap-4 will-change-transform"
-            animate={{ y: ['-50%', '0%'] }}
+            animate={isInView ? { y: ['-50%', '0%'] } : {}}
             transition={{
               duration: 10,
               repeat: Infinity,
@@ -110,7 +115,7 @@ export function StacksCard() {
         <div className="relative flex min-w-36 flex-1 overflow-hidden">
           <motion.div
             className="flex w-full flex-col gap-4 will-change-transform"
-            animate={{ y: ['0%', '-50%'] }}
+            animate={isInView ? { y: ['0%', '-50%'] } : {}}
             transition={{
               duration: 10,
               repeat: Infinity,
