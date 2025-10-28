@@ -62,7 +62,9 @@ export function ChoicesSection() {
                 ✨ Done in 30 seconds
               </span>
               <div className="flex h-full w-full items-center justify-center">
-                {/* <SealosChoiceCard className="p-2 pb-12 xl:px-6" /> */}
+                <div className="w-full p-2 pb-12 xl:px-6">
+                  <SealosChoiceCard className="w-full" />
+                </div>
               </div>
             </div>
           </div>
