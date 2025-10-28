@@ -37,12 +37,12 @@ let dynamicAppsCache: AppConfig[] | null = null;
 let lastDynamicFetch = 0;
 const DYNAMIC_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
-
-
 /**
  * Load apps for a specific category
  */
-export async function loadAppsByCategory(category: string): Promise<AppConfig[]> {
+export async function loadAppsByCategory(
+  category: string,
+): Promise<AppConfig[]> {
   // Check cache first
   if (categoryCache.has(category)) {
     return categoryCache.get(category)!;
@@ -51,14 +51,16 @@ export async function loadAppsByCategory(category: string): Promise<AppConfig[]>
   try {
     // Load all apps and filter by category
     const allApps = await loadAllApps();
-    const categoryApps = allApps.filter(app => app.category === category);
+    const categoryApps = allApps.filter((app) => app.category === category);
 
     // Cache the result
     categoryCache.set(category, categoryApps);
     return categoryApps;
   } catch (error) {
     console.error(`Failed to load apps for category ${category}:`, error);
-    throw new Error(`Category "${category}" not available. Please run "npm run generate-apps" first.`);
+    throw new Error(
+      `category: "${category}" not available. Please run "npm run generate-apps" first.`,
+    );
   }
 }
 
@@ -73,9 +75,9 @@ async function fetchDynamicApps(): Promise<AppConfig[]> {
     }
 
     const now = Date.now();
-    
+
     // Check cache
-    if (dynamicAppsCache && (now - lastDynamicFetch) < DYNAMIC_CACHE_TTL) {
+    if (dynamicAppsCache && now - lastDynamicFetch < DYNAMIC_CACHE_TTL) {
       return dynamicAppsCache;
     }
 
@@ -85,9 +87,9 @@ async function fetchDynamicApps(): Promise<AppConfig[]> {
     }
 
     const data = await response.json();
-    const apps = (data.apps as AppConfig[]).map(app => ({
+    const apps = (data.apps as AppConfig[]).map((app) => ({
       ...app,
-      deployUrl: app.deployUrl || getDeployUrl(app.slug)
+      deployUrl: app.deployUrl || getDeployUrl(app.slug),
     }));
 
     // Update cache
@@ -110,15 +112,17 @@ async function loadStaticApps(): Promise<AppConfig[]> {
   try {
     // Load from main apps.json file
     const appsModule = await import('./apps.json');
-    const apps = (appsModule.default as AppConfig[]).map(app => ({
+    const apps = (appsModule.default as AppConfig[]).map((app) => ({
       ...app,
-      deployUrl: getDeployUrl(app.slug)
+      deployUrl: getDeployUrl(app.slug),
     }));
 
     return apps;
   } catch (error) {
     console.error('Failed to load apps from apps.json:', error);
-    throw new Error('Apps configuration not available. Please run "npm run generate-apps" first.');
+    throw new Error(
+      'Apps configuration not available. Please run "npm run generate-apps" first.',
+    );
   }
 }
 
@@ -131,7 +135,7 @@ export async function loadAllApps(): Promise<AppConfig[]> {
   }
 
   let apps: AppConfig[];
-  
+
   if (USE_DYNAMIC_LOADING) {
     apps = await fetchDynamicApps();
   } else {
@@ -142,14 +146,12 @@ export async function loadAllApps(): Promise<AppConfig[]> {
   return apps;
 }
 
-
-
 /**
  * Get all available categories
  */
 export async function getAllCategories(): Promise<string[]> {
   const allApps = await loadAllApps();
-  const categories = [...new Set(allApps.map(app => app.category))];
+  const categories = [...new Set(allApps.map((app) => app.category))];
   return ['All', ...categories];
 }
 
@@ -159,7 +161,7 @@ export async function getAllCategories(): Promise<string[]> {
 export async function searchApps(query: string): Promise<AppConfig[]> {
   const allApps = await loadAllApps();
   const lowercaseQuery = query.toLowerCase();
-  
+
   return allApps.filter(
     (app) =>
       app.name.toLowerCase().includes(lowercaseQuery) ||
@@ -171,7 +173,9 @@ export async function searchApps(query: string): Promise<AppConfig[]> {
 /**
  * Get app by slug
  */
-export async function getAppBySlug(slug: string): Promise<AppConfig | undefined> {
+export async function getAppBySlug(
+  slug: string,
+): Promise<AppConfig | undefined> {
   const allApps = await loadAllApps();
   const lowerSlug = slug.toLowerCase();
   return allApps.find((app) => app.slug.toLowerCase() === lowerSlug);
@@ -180,7 +184,9 @@ export async function getAppBySlug(slug: string): Promise<AppConfig | undefined>
 /**
  * Get apps by category with 'All' support
  */
-export async function getAppsByCategory(category: string): Promise<AppConfig[]> {
+export async function getAppsByCategory(
+  category: string,
+): Promise<AppConfig[]> {
   if (category === 'All') {
     return loadAllApps();
   }
@@ -221,6 +227,6 @@ export function getCacheStats() {
     allAppsCached: allAppsCache !== null,
     dynamicAppsCached: dynamicAppsCache !== null,
     lastDynamicFetch: lastDynamicFetch,
-    usingDynamicLoading: USE_DYNAMIC_LOADING
+    usingDynamicLoading: USE_DYNAMIC_LOADING,
   };
 }
