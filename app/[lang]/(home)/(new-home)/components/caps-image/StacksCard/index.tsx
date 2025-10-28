@@ -1,8 +1,7 @@
 'use client';
 import { StackCard } from './StackCard';
 import Image from 'next/image';
-import { useAnimate, useInView } from 'framer-motion';
-import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import ClaudeCodeIcon from '../../../assets/stacks-appicons/claude-code.svg';
 import EchoIcon from '../../../assets/stacks-appicons/echo.svg';
 import McpIcon from '../../../assets/stacks-appicons/mcp.svg';
@@ -48,128 +47,107 @@ const stacks = [
   },
 ];
 
-// 为每一列复制数据以实现无限滚动
-const column1Data = [...stacks, ...stacks];
-const column2Data = [
-  ...stacks.slice(2),
-  ...stacks.slice(0, 2),
-  ...stacks.slice(2),
-  ...stacks.slice(0, 2),
-];
-const column3Data = [
-  ...stacks.slice(1),
-  ...stacks.slice(0, 1),
-  ...stacks.slice(1),
-  ...stacks.slice(0, 1),
-];
-
 export function StacksCard() {
-  const [scope, animate] = useAnimate();
-  const isInView = useInView(scope, { once: false, amount: 0 });
-
-  useEffect(() => {
-    if (isInView) {
-      // 第一列 - 向下滚动
-      animate(
-        '[data-column="1"]',
-        { transform: ['translateY(0px)', 'translateY(-816px)'] },
-        {
-          duration: 20,
-          repeat: Infinity,
-          ease: 'linear',
-          repeatType: 'loop',
-        },
-      );
-
-      // 第二列 - 向上滚动
-      animate(
-        '[data-column="2"]',
-        { transform: ['translateY(-816px)', 'translateY(0px)'] },
-        {
-          duration: 20,
-          repeat: Infinity,
-          ease: 'linear',
-          repeatType: 'loop',
-        },
-      );
-
-      // 第三列 - 向下滚动
-      animate(
-        '[data-column="3"]',
-        { transform: ['translateY(0px)', 'translateY(-816px)'] },
-        {
-          duration: 20,
-          repeat: Infinity,
-          ease: 'linear',
-          repeatType: 'loop',
-        },
-      );
-    }
-  }, [isInView, animate]);
-
   return (
     <div
-      ref={scope}
       className="relative h-full w-full overflow-hidden"
       style={{ isolation: 'isolate' }}
     >
       {/* 三列瀑布流容器 */}
       <div className="flex h-full gap-4 px-4 py-8">
         {/* 第一列 - 向下滚动 */}
-        <div
-          data-column="1"
-          className="flex flex-1 flex-col gap-4 will-change-transform"
-        >
-          {column1Data.map((stack, index) => (
-            <StackCard
-              key={index}
-              name={stack.name}
-              version={stack.version}
-              icon={stack.icon}
-            />
-          ))}
+        <div className="relative flex min-w-36 flex-1 overflow-hidden">
+          <motion.div
+            className="flex w-full flex-col gap-4 will-change-transform"
+            animate={{ y: ['0%', '-50%'] }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: 'linear',
+            }}
+          >
+            {/* 渲染两批相同内容 */}
+            {[...stacks, ...stacks].map((stack, index) => (
+              <StackCard
+                key={index}
+                name={stack.name}
+                version={stack.version}
+                icon={stack.icon}
+              />
+            ))}
+          </motion.div>
         </div>
 
         {/* 第二列 - 向上滚动 */}
-        <div
-          data-column="2"
-          className="flex flex-1 flex-col gap-4 will-change-transform"
-        >
-          {column2Data.map((stack, index) => (
-            <StackCard
-              key={index}
-              name={stack.name}
-              version={stack.version}
-              icon={stack.icon}
-            />
-          ))}
+        <div className="relative flex min-w-36 flex-1 overflow-hidden">
+          <motion.div
+            className="flex w-full flex-col gap-4 will-change-transform"
+            animate={{ y: ['-50%', '0%'] }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: 'linear',
+            }}
+          >
+            {/* 渲染两批相同内容，起始位置不同 */}
+            {[
+              ...stacks.slice(2),
+              ...stacks.slice(0, 2),
+              ...stacks.slice(2),
+              ...stacks.slice(0, 2),
+            ].map((stack, index) => (
+              <StackCard
+                key={index}
+                name={stack.name}
+                version={stack.version}
+                icon={stack.icon}
+              />
+            ))}
+          </motion.div>
         </div>
 
         {/* 第三列 - 向下滚动 */}
-        <div
-          data-column="3"
-          className="flex flex-1 flex-col gap-4 will-change-transform"
-        >
-          {column3Data.map((stack, index) => (
-            <StackCard
-              key={index}
-              name={stack.name}
-              version={stack.version}
-              icon={stack.icon}
-            />
-          ))}
+        <div className="relative flex min-w-36 flex-1 overflow-hidden">
+          <motion.div
+            className="flex w-full flex-col gap-4 will-change-transform"
+            animate={{ y: ['0%', '-50%'] }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: 'linear',
+            }}
+          >
+            {/* 渲染两批相同内容，起始位置不同 */}
+            {[
+              ...stacks.slice(1),
+              ...stacks.slice(0, 1),
+              ...stacks.slice(1),
+              ...stacks.slice(0, 1),
+            ].map((stack, index) => (
+              <StackCard
+                key={index}
+                name={stack.name}
+                version={stack.version}
+                icon={stack.icon}
+              />
+            ))}
+          </motion.div>
         </div>
       </div>
 
-      {/* 暗角特效 - 使用 darken 混合模式 */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, transparent 20%, rgba(0, 0, 0, 0.8) 100%)',
-          mixBlendMode: 'darken',
-        }}
-      />
+      {/* 暗角特效 - SVG 径向渐变叠加层 */}
+      <svg
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <radialGradient id="vignette-stacks" cx="50%" cy="50%" r="50%">
+            <stop offset="20%" stopColor="black" stopOpacity="0" />
+            <stop offset="100%" stopColor="black" stopOpacity="0.8" />
+          </radialGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#vignette-stacks)" />
+      </svg>
     </div>
   );
 }
