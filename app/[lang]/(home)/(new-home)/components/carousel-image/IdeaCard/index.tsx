@@ -6,10 +6,18 @@ import Image from 'next/image';
 import { useAnimate } from 'framer-motion';
 import { useEffect, memo } from 'react';
 
-export const IdeaCard = memo(function IdeaCard() {
+interface IdeaCardProps {
+  isActive?: boolean;
+}
+
+export const IdeaCard = memo(function IdeaCard({
+  isActive = false,
+}: IdeaCardProps) {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
+    if (!isActive) return;
+
     // 使用 useAnimate 实现卡片入场动画
     const animations = [
       animate(
@@ -42,7 +50,7 @@ export const IdeaCard = memo(function IdeaCard() {
     return () => {
       animations.forEach((anim) => anim.stop());
     };
-  }, [animate]);
+  }, [animate, isActive]);
 
   return (
     <svg className="h-full w-full overflow-visible">

@@ -45,7 +45,13 @@ const databases = [
   },
 ];
 
-export const DataCard = memo(function DataCard() {
+interface DataCardProps {
+  isActive?: boolean;
+}
+
+export const DataCard = memo(function DataCard({
+  isActive = false,
+}: DataCardProps = {}) {
   return (
     <div
       className="relative h-full w-full overflow-hidden"

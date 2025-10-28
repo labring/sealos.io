@@ -53,7 +53,13 @@ const appPositions = [
   },
 ];
 
-export const DevelopmentCard = memo(function DevelopmentCard() {
+interface DevelopmentCardProps {
+  isActive?: boolean;
+}
+
+export const DevelopmentCard = memo(function DevelopmentCard({
+  isActive = false,
+}: DevelopmentCardProps = {}) {
   return (
     <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
       <svg

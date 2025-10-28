@@ -52,47 +52,73 @@ const CARD_COMPONENTS = [
   { Component: DevelopmentCard, id: 'development' },
   { Component: DeploymentCard, id: 'deployment' },
   { Component: DataCard, id: 'data' },
-];
+] as const;
+
+// 单个卡片包装器 - 处理首次渲染的动画
+const CardWrapper = memo(
+  ({
+    index,
+    isActive,
+    cardContent,
+    Component,
+    id,
+  }: {
+    index: number;
+    isActive: boolean;
+    cardContent: (typeof CARD_CONTENTS)[number];
+    Component: (typeof CARD_COMPONENTS)[number]['Component'];
+    id: string;
+  }) => {
+    const [isReady, setIsReady] = useState(false);
+
+    useEffect(() => {
+      // 延迟一帧让浏览器先渲染初始状态
+      const timer = requestAnimationFrame(() => {
+        setIsReady(true);
+      });
+      return () => cancelAnimationFrame(timer);
+    }, []);
+
+    return (
+      <div
+        key={id}
+        className="absolute inset-0 will-change-transform"
+        style={{
+          opacity: isActive && isReady ? 1 : 0,
+          transform:
+            isActive && isReady
+              ? 'translateY(0px) scale(1)'
+              : 'translateY(-20px) scale(0.95)',
+          transition:
+            'opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          pointerEvents: isActive ? 'auto' : 'none',
+        }}
+      >
+        <CarouselCard
+          title={cardContent.title}
+          description={cardContent.description}
+          buttonText={cardContent.buttonText}
+          buttonLink={cardContent.buttonLink}
+        >
+          <Component isActive={isActive} />
+        </CarouselCard>
+      </div>
+    );
+  },
+);
+
+CardWrapper.displayName = 'CardWrapper';
 
 // 所有卡片容器 - 管理卡片的渲染和过渡动画
 const AllCardsContainer = memo(({ activeIndex }: { activeIndex: number }) => {
-  const [renderedCards, setRenderedCards] = useState<Set<number>>(
-    new Set([activeIndex]),
-  );
-  const [mountedCards, setMountedCards] = useState<Set<number>>(
-    new Set([activeIndex]),
-  );
+  const [renderedCards, setRenderedCards] = useState<Set<number>>(new Set([0]));
 
   useEffect(() => {
-    // 立即添加新卡片到已渲染列表
     setRenderedCards((prev) => {
       const next = new Set(prev);
       next.add(activeIndex);
       return next;
     });
-
-    // 延迟挂载新卡片，让容器先淡入
-    const mountTimer = setTimeout(() => {
-      setMountedCards((prev) => {
-        const next = new Set(prev);
-        next.add(activeIndex);
-        return next;
-      });
-    }, 50);
-
-    // 延迟卸载旧卡片，等待淡出动画完成
-    const unmountTimer = setTimeout(() => {
-      setMountedCards((prev) => {
-        const next = new Set<number>();
-        next.add(activeIndex);
-        return next;
-      });
-    }, 450); // 略长于 transition duration (400ms)
-
-    return () => {
-      clearTimeout(mountTimer);
-      clearTimeout(unmountTimer);
-    };
   }, [activeIndex]);
 
   return (
@@ -100,34 +126,19 @@ const AllCardsContainer = memo(({ activeIndex }: { activeIndex: number }) => {
       {CARD_COMPONENTS.map(({ Component, id }, index) => {
         const isActive = activeIndex === index;
         const shouldRender = renderedCards.has(index);
-        const shouldMount = mountedCards.has(index);
         const cardContent = CARD_CONTENTS[index];
 
         if (!shouldRender) return null;
 
         return (
-          <div
+          <CardWrapper
             key={id}
-            className="absolute inset-0 transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)]"
-            style={{
-              opacity: isActive ? 1 : 0,
-              transform: isActive
-                ? 'translateY(0px) scale(1)'
-                : 'translateY(-20px) scale(0.95)',
-              pointerEvents: isActive ? 'auto' : 'none',
-            }}
-          >
-            {shouldMount && (
-              <CarouselCard
-                title={cardContent.title}
-                description={cardContent.description}
-                buttonText={cardContent.buttonText}
-                buttonLink={cardContent.buttonLink}
-              >
-                <Component key={`card-${index}`} />
-              </CarouselCard>
-            )}
-          </div>
+            index={index}
+            isActive={isActive}
+            cardContent={cardContent}
+            Component={Component}
+            id={id}
+          />
         );
       })}
     </div>

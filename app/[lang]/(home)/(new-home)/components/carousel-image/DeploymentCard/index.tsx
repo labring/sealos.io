@@ -25,6 +25,7 @@ interface DeploymentCardProps {
   angle?: number; // 观测角度（度）
   baseDistance?: number; // 基础间距
   containerHeight?: number; // 容器显示高度
+  isActive?: boolean;
 }
 
 export const DeploymentCard = memo(function DeploymentCard({
@@ -32,6 +33,7 @@ export const DeploymentCard = memo(function DeploymentCard({
   angle = 30,
   baseDistance = 110, // 100 * 1.1
   containerHeight = 198, // 180 * 1.1
+  isActive = false,
 }: DeploymentCardProps = {}) {
   // 自动hover动画状态
   const [hoveredIndex, setHoveredIndex] = useState<number>(-1);
