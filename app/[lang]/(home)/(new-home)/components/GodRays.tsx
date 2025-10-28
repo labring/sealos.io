@@ -261,13 +261,13 @@ export function GodRays({
     const animate = () => {
       if (!isInView) {
         // 不在视口时停止动画，但保持 RAF 循环以便重新进入时恢复
-        animationFrameRef.current = requestAnimationFrame(animate);
+        // animationFrameRef.current = requestAnimationFrame(animate);
         return;
       }
 
       context.clearRect(0, 0, canvas.width, canvas.height);
       init();
-      animationFrameRef.current = requestAnimationFrame(animate);
+      // animationFrameRef.current = requestAnimationFrame(animate);
     };
 
     animate();

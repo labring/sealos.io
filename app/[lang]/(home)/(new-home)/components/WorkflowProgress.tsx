@@ -1,16 +1,15 @@
 'use client';
 
-import { useState, memo, useRef } from 'react';
-import { Bot, CodeXml, Database, Lightbulb, Rocket } from 'lucide-react';
+import { useState, memo, useRef, useEffect } from 'react';
+import { CodeXml, Database, Lightbulb, Rocket } from 'lucide-react';
 import {
   motion,
-  useTransform,
   useMotionValueEvent,
   MotionValue,
   useInView,
+  useAnimate,
 } from 'framer-motion';
 import { ProgressIndicator } from './ProgressIndicator';
-import { cn } from '@/lib/utils';
 
 interface StageDefinition {
   name: string;
@@ -83,26 +82,80 @@ interface StageItemProps {
 const StageItem = memo(
   ({ stage, index, isActive, progress, onStageClick }: StageItemProps) => {
     const [start, end] = stage.range;
+    const [scope, animate] = useAnimate();
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [isAnimating, setIsAnimating] = useState(false);
+    const prevProgressRef = useRef<number>(0);
 
-    // useTransform 必须在组件顶层调用
-    const stageProgress = useTransform(progress, [start, end], [0, 1]);
+    // 获取容器宽度
+    const getContainerWidth = () => {
+      return containerRef.current?.offsetWidth || 0;
+    };
 
-    // 使用 MotionValue 直接计算位置，避免字符串转换触发重新渲染
-    const indicatorLeftPercent = useTransform(stageProgress, [0, 1], [0, 100]);
-    const indicatorLeft = useTransform(indicatorLeftPercent, (v) => `${v}%`);
+    // 监听全局进度，当进入当前 stage 时触发动画
+    useMotionValueEvent(progress, 'change', (latest) => {
+      if (!scope.current) return; // 确保 ref 已挂载
 
-    // 使用 MotionValue 控制背景色，避免 animate 触发重新渲染
-    const backgroundColor = useTransform(progress, (latest) => {
       const inRange = latest >= start && latest < end;
-      return inRange ? 'rgb(38, 38, 38)' : 'rgb(23, 23, 23)';
+      const wasInRange =
+        prevProgressRef.current >= start && prevProgressRef.current < end;
+      const containerWidth = getContainerWidth();
+
+      if (inRange && !wasInRange && !isAnimating) {
+        // 刚进入当前 stage，开始动画
+        setIsAnimating(true);
+        const stageDuration = (end - start) * 10; // 假设总时长 10 秒
+
+        animate(
+          scope.current,
+          { x: containerWidth },
+          {
+            duration: stageDuration,
+            ease: 'linear',
+          },
+        ).then(() => {
+          setIsAnimating(false);
+        });
+      } else if (!inRange && wasInRange) {
+        // 离开当前 stage，停止动画并重置
+        animate(scope.current, { x: 0 }, { duration: 0 });
+        setIsAnimating(false);
+      } else if (inRange && wasInRange) {
+        // 在当前 stage 内跳转（用户点击）
+        const stageProgress = (latest - start) / (end - start);
+        animate(
+          scope.current,
+          { x: stageProgress * containerWidth },
+          { duration: 0 },
+        );
+
+        if (!isAnimating) {
+          setIsAnimating(true);
+          const remainingDuration = (end - latest) * 10;
+          animate(
+            scope.current,
+            { x: containerWidth },
+            {
+              duration: remainingDuration,
+              ease: 'linear',
+            },
+          ).then(() => {
+            setIsAnimating(false);
+          });
+        }
+      }
+
+      prevProgressRef.current = latest;
     });
 
     return (
       <motion.div
+        ref={containerRef}
         className="relative flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl px-2 py-6 text-xs font-normal sm:text-base md:gap-2 md:text-xl md:font-medium"
-        style={{
-          backgroundColor,
+        animate={{
+          backgroundColor: isActive ? 'rgb(38, 38, 38)' : 'rgb(23, 23, 23)',
         }}
+        transition={{ duration: 0.3 }}
         onClick={() => onStageClick(index)}
       >
         {isActive && (
@@ -111,12 +164,11 @@ const StageItem = memo(
             initial={false}
           >
             <motion.div
-              className="absolute top-0 h-full"
-              style={{
-                left: indicatorLeft,
-              }}
+              ref={scope}
+              className="absolute top-0 left-0 h-full -translate-x-1/2 will-change-transform"
+              initial={{ x: '0%' }}
             >
-              <ProgressIndicator className="h-full -translate-x-1/2" />
+              <ProgressIndicator className="h-full" />
             </motion.div>
           </motion.div>
         )}

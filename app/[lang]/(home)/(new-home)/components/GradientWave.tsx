@@ -74,6 +74,7 @@ const WaveLine = memo(
         stroke={`url(#${gradientId}-${lineIndex})`}
         strokeWidth="2"
         strokeLinecap="round"
+        className="will-change-[transform,opacity]"
         style={{
           opacity: opacity,
           transform: transform,
