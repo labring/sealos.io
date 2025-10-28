@@ -1,7 +1,5 @@
 'use client';
 
-import { motion, MotionStyle, Transition } from 'motion/react';
-
 import { cn } from '@/lib/utils';
 
 interface BorderBeamProps {
@@ -26,10 +24,6 @@ interface BorderBeamProps {
    */
   colorTo?: string;
   /**
-   * The motion transition of the border beam.
-   */
-  transition?: Transition;
-  /**
    * The class name of the border beam.
    */
   className?: string;
@@ -41,10 +35,6 @@ interface BorderBeamProps {
    * Whether to reverse the animation direction.
    */
   reverse?: boolean;
-  /**
-   * The initial offset position (0-100).
-   */
-  initialOffset?: number;
   /**
    * The border width of the beam.
    */
@@ -58,10 +48,8 @@ export const BorderBeam = ({
   duration = 6,
   colorFrom = '#ffaa40',
   colorTo = '#9c40ff',
-  transition,
   style,
   reverse = false,
-  initialOffset = 0,
   borderWidth = 1,
 }: BorderBeamProps) => {
   return (
@@ -73,7 +61,7 @@ export const BorderBeam = ({
         } as React.CSSProperties
       }
     >
-      <motion.div
+      <div
         className={cn(
           'absolute aspect-square',
           'bg-gradient-to-l from-[var(--color-from)] via-[var(--color-to)] to-transparent',
@@ -85,23 +73,19 @@ export const BorderBeam = ({
             offsetPath: `rect(0 auto auto 0 round ${size}px)`,
             '--color-from': colorFrom,
             '--color-to': colorTo,
+            animation: `border-beam ${duration}s linear ${-delay}s infinite`,
+            animationDirection: reverse ? 'reverse' : 'normal',
             ...style,
-          } as MotionStyle
+          } as React.CSSProperties
         }
-        initial={{ offsetDistance: `${initialOffset}%` }}
-        animate={{
-          offsetDistance: reverse
-            ? [`${100 - initialOffset}%`, `${-initialOffset}%`]
-            : [`${initialOffset}%`, `${100 + initialOffset}%`],
-        }}
-        transition={{
-          repeat: Infinity,
-          ease: 'linear',
-          duration,
-          delay: -delay,
-          ...transition,
-        }}
       />
+      <style jsx>{`
+        @keyframes border-beam {
+          to {
+            offset-distance: 100%;
+          }
+        }
+      `}</style>
     </div>
   );
 };

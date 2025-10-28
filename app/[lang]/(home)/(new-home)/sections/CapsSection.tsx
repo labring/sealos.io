@@ -84,10 +84,8 @@ function CardWithBeam({
       <div className="relative flex h-full flex-col overflow-hidden border border-white/10 p-6">
         {children}
 
-        {/* BorderBeam Effect - 只在悬浮时显示流光，使用 opacity 避免边框叠加 */}
-        <div
-          className={`transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-        >
+        {/* BorderBeam Effect - 只在悬浮时显示流光 */}
+        {isHovered && (
           <BorderBeam
             duration={8}
             size={150}
@@ -95,7 +93,7 @@ function CardWithBeam({
             colorFrom="#777777"
             colorTo="#ffffff"
           />
-        </div>
+        )}
       </div>
     </div>
   );
