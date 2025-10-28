@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ReactNode } from 'react';
+import { ReactNode, memo } from 'react';
 
 interface CarouselCardProps {
   children: ReactNode;
@@ -10,7 +10,7 @@ interface CarouselCardProps {
   buttonLink: string;
 }
 
-export function CarouselCard({
+export const CarouselCard = memo(function CarouselCard({
   children,
   title,
   description,
@@ -40,4 +40,4 @@ export function CarouselCard({
       </div>
     </div>
   );
-}
+});

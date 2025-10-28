@@ -88,20 +88,20 @@ export default async function LocaleLayout({
         <meta name="referrer" content="strict-origin-when-cross-origin" />
 
         {/* Performance and Resource Hints */}
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        {/* <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://hm.baidu.com" />
         <link rel="dns-prefetch" href="https://analytics.sealos.in" />
-        <link rel="dns-prefetch" href="https://engage.sealos.in" />
+        <link rel="dns-prefetch" href="https://engage.sealos.in" /> */}
 
         {/* Preconnect to critical third-party domains */}
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        {/* <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
-        />
+        /> */}
 
         {/* Language and Locale */}
         <meta httpEquiv="Content-Language" content={htmlLang} />
@@ -109,7 +109,7 @@ export default async function LocaleLayout({
         {/* Structured Data for SEO */}
         <StructuredDataComponent data={homepageSchema} />
 
-        <Analytics />
+        {/* <Analytics /> */}
       </head>
       <body className="flex min-h-screen max-w-[100vw] flex-col overflow-x-hidden">
         <GTMBody />

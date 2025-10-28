@@ -4,30 +4,44 @@ import ResponseCard from './assets/response-card.svg';
 import ReportCard from './assets/report-card.svg';
 import Image from 'next/image';
 import { useAnimate } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, memo } from 'react';
 
-export function IdeaCard() {
+export const IdeaCard = memo(function IdeaCard() {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
     // 使用 useAnimate 实现卡片入场动画
-    animate(
-      '[data-card="report"]',
-      { opacity: [0, 1], transform: ['translateY(-80px)', 'translateY(0px)'] },
-      { duration: 0.6, delay: 0.6 },
-    );
+    const animations = [
+      animate(
+        '[data-card="report"]',
+        {
+          opacity: [0, 1],
+          transform: ['translateY(-80px)', 'translateY(0px)'],
+        },
+        { duration: 0.6, delay: 0.6 },
+      ),
+      animate(
+        '[data-card="response"]',
+        {
+          opacity: [0, 1],
+          transform: ['translateY(-80px)', 'translateY(0px)'],
+        },
+        { duration: 0.6, delay: 0.3 },
+      ),
+      animate(
+        '[data-card="input"]',
+        {
+          opacity: [0, 1],
+          transform: ['translateY(-80px)', 'translateY(0px)'],
+        },
+        { duration: 0.6, delay: 0 },
+      ),
+    ];
 
-    animate(
-      '[data-card="response"]',
-      { opacity: [0, 1], transform: ['translateY(-80px)', 'translateY(0px)'] },
-      { duration: 0.6, delay: 0.3 },
-    );
-
-    animate(
-      '[data-card="input"]',
-      { opacity: [0, 1], transform: ['translateY(-80px)', 'translateY(0px)'] },
-      { duration: 0.6, delay: 0 },
-    );
+    // 清理函数：停止所有动画
+    return () => {
+      animations.forEach((anim) => anim.stop());
+    };
   }, [animate]);
 
   return (
@@ -59,4 +73,4 @@ export function IdeaCard() {
       </foreignObject>
     </svg>
   );
-}
+});

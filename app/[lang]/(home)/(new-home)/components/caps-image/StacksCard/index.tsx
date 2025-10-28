@@ -61,7 +61,7 @@ export function StacksCard() {
             className="flex w-full flex-col gap-4 will-change-transform"
             animate={{ y: ['0%', '-50%'] }}
             transition={{
-              duration: 20,
+              duration: 10,
               repeat: Infinity,
               ease: 'linear',
             }}
@@ -84,7 +84,7 @@ export function StacksCard() {
             className="flex w-full flex-col gap-4 will-change-transform"
             animate={{ y: ['-50%', '0%'] }}
             transition={{
-              duration: 20,
+              duration: 10,
               repeat: Infinity,
               ease: 'linear',
             }}
@@ -112,7 +112,7 @@ export function StacksCard() {
             className="flex w-full flex-col gap-4 will-change-transform"
             animate={{ y: ['0%', '-50%'] }}
             transition={{
-              duration: 20,
+              duration: 10,
               repeat: Infinity,
               ease: 'linear',
             }}

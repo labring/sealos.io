@@ -17,7 +17,7 @@ export function HeroTitle() {
 
       {/* 主标题 */}
       <h1 className="mt-5 text-4xl leading-[1.2] sm:text-[3.25rem]">
-        <div>
+        <div className="text-nowrap whitespace-nowrap">
           Ship any&nbsp;
           <FramedText>
             <RotatingWords

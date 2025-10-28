@@ -10,7 +10,13 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ArrowUp, ChevronRight, Bot, Database, Code } from 'lucide-react';
 import { Glare } from './Glare';
-import React, { ReactNode, useState, useEffect } from 'react';
+import React, {
+  ReactNode,
+  useState,
+  useEffect,
+  memo,
+  useCallback,
+} from 'react';
 import Image from 'next/image';
 import { useTypewriterEffect } from '@/hooks/useTypewriterEffect';
 // AI Agent icons
@@ -215,14 +221,103 @@ const PROMPT_CATEGORIES: CategoryConfig[] = [
   },
 ];
 
+// Isolated typewriter component with its own hook
+// This component manages its own state and only re-renders itself
+const TypewriterOverlay = memo(
+  ({ isActive, language }: { isActive: boolean; language: string }) => {
+    const { currentText } = useTypewriterEffect(isActive, language);
+
+    if (!isActive) return null;
+
+    return (
+      <div className="pointer-events-none absolute inset-0 flex items-start p-3 pt-2">
+        <div className="text-base text-zinc-400 md:text-base">
+          {currentText}
+          <span className="animate-pulse">|</span>
+        </div>
+      </div>
+    );
+  },
+);
+TypewriterOverlay.displayName = 'TypewriterOverlay';
+
+// Memoized prompt categories component
+const PromptCategories = memo(
+  ({ onPromptSelect }: { onPromptSelect: (prompt: string) => void }) => (
+    <div className="flex flex-col gap-2 p-2">
+      <div className="text-xs text-zinc-500 sm:text-sm">
+        Some ideas to get started:
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {PROMPT_CATEGORIES.map((category) => (
+          <React.Fragment key={category.name}>
+            {category.type === 'list' && (
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-xs whitespace-nowrap text-zinc-400 transition-colors hover:bg-white/[0.1] sm:text-sm">
+                    {category.icon}
+                    <span>{category.name}</span>
+                    <ChevronRight size={14} />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-64">
+                  {category.prompts.map((prompt) => (
+                    <DropdownMenuItem
+                      key={prompt.name}
+                      onClick={() => onPromptSelect(prompt.prompt)}
+                      className="cursor-pointer"
+                    >
+                      <span className="mr-2">{prompt.icon}</span>
+                      <span>{prompt.name}</span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+
+            {category.type === 'single' && (
+              <button
+                className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-xs whitespace-nowrap text-zinc-400 transition-colors hover:bg-white/[0.1] sm:text-sm"
+                onClick={() => onPromptSelect(category.prompt)}
+              >
+                {category.icon}
+                <span>{category.name}</span>
+              </button>
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  ),
+);
+PromptCategories.displayName = 'PromptCategories';
+
+// Memoized glare effect component
+const GlareEffect = memo(({ isFirefox }: { isFirefox: boolean }) => {
+  if (isFirefox) return null;
+
+  return (
+    <>
+      <Glare className="absolute -top-[4.25rem] -left-[4.25rem] size-36" />
+      <div
+        className="pointer-events-none absolute inset-0 -top-16 -left-16 -z-5 h-32 w-32"
+        style={{
+          background: `radial-gradient(48px circle, rgba(255,255,255,1), transparent 70%)`,
+          mixBlendMode: 'overlay',
+        }}
+      />
+    </>
+  );
+});
+GlareEffect.displayName = 'GlareEffect';
+
 export function PromptInput() {
   const { trackButton, trackCustom } = useGTM();
 
   const [promptText, setPromptText] = useState('');
   const [isFirefox, setIsFirefox] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
-
-  // Get current language from URL
   const [currentLanguage, setCurrentLanguage] = useState('en');
 
   // Use typewriter effect
@@ -243,66 +338,48 @@ export function PromptInput() {
     }
   }, []);
 
-  const handlePromptSelect = (prompt: string) => {
+  const handlePromptSelect = useCallback((prompt: string) => {
     setIsTouched(true);
     setPromptText(prompt);
-  };
+  }, []);
 
-  const handleSendPrompt = () => {
-    // Get the current text - either user input or full typewriter text
-    const currentText = isTouched ? promptText : typewriterFullText;
-    if (currentText.trim()) {
-      const url = `https://brain.usw.sealos.io/trial?query=${encodeURIComponent(currentText)}`;
+  const handleSendPrompt = useCallback(() => {
+    if (promptText.trim()) {
+      const url = `https://brain.usw.sealos.io/trial?query=${encodeURIComponent(promptText)}`;
       window.open(url, '_blank');
     }
-  };
+  }, [promptText]);
 
-  const handleSendClick = () => {
-    const promptContent = isTouched
-      ? promptText.trim()
-      : typewriterFullText.trim();
-    trackButton('Send Prompt', 'prompt_box', 'custom', 'send_prompt', {
-      prompt_text: promptContent,
-    });
-    handleSendPrompt();
-  };
+  const handleTextareaChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setIsTouched(true);
+      setPromptText(e.target.value);
+    },
+    [],
+  );
 
-  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setIsTouched(true);
-    setPromptText(e.target.value);
-  };
-
-  const handleTextareaInteraction = () => {
+  const handleTextareaInteraction = useCallback(() => {
     if (!isTouched) {
       setIsTouched(true);
       setPromptText('');
     }
-  };
+  }, [isTouched]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    // Enter key (without Shift) triggers send
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendPrompt();
-    }
-    // Shift+Enter allows new line creation (default behavior)
-  };
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      // Enter key (without Shift) triggers send
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSendPrompt();
+      }
+      // Shift+Enter allows new line creation (default behavior)
+    },
+    [handleSendPrompt],
+  );
 
   return (
     <div className="border-gradient-glass relative flex flex-col rounded-2xl px-3 py-4 inset-shadow-[0_0_8px_0_rgba(255,255,255,0.25)]">
-      {!isFirefox && (
-        <>
-          <Glare className="absolute -top-[4.25rem] -left-[4.25rem] size-36" />
-          {/* Not bright enough */}
-          <div
-            className="pointer-events-none absolute inset-0 -top-16 -left-16 -z-5 h-32 w-32"
-            style={{
-              background: `radial-gradient(48px circle, rgba(255,255,255,1), transparent 70%)`,
-              mixBlendMode: 'overlay',
-            }}
-          />
-        </>
-      )}
+      <GlareEffect isFirefox={isFirefox} />
 
       {/* Textarea */}
       <div className="relative rounded-lg bg-white/[0.07]">
@@ -326,70 +403,19 @@ export function PromptInput() {
           onKeyDown={handleKeyDown}
         />
 
-        {/* 循环打字机效果叠加层 */}
-        {!isTouched && (
-          <div className="pointer-events-none absolute inset-0 flex items-start p-3 pt-2">
-            <div className="text-base text-zinc-400 md:text-base">
-              {typewriterText}
-              <span className="animate-pulse">|</span>
-            </div>
-          </div>
-        )}
+        {/* 循环打字机效果叠加层 - 完全隔离的组件 */}
+        <TypewriterOverlay isActive={!isTouched} language={currentLanguage} />
 
         <Button
           className="absolute right-3 bottom-3 z-10 size-10 cursor-pointer rounded-lg bg-zinc-200 p-0 text-zinc-950 hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
-          disabled={isTouched ? !promptText.trim() : !typewriterFullText.trim()}
-          onClick={handleSendClick}
+          disabled={!promptText.trim()}
+          onClick={handleSendPrompt}
         >
           <ArrowUp size={20} />
         </Button>
       </div>
 
-      <div className="flex flex-col gap-2 p-2">
-        <div className="text-xs text-zinc-500 sm:text-sm">
-          Some ideas to get started:
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          {PROMPT_CATEGORIES.map((category) => (
-            <React.Fragment key={category.name}>
-              {category.type === 'list' && (
-                <DropdownMenu modal={false}>
-                  <DropdownMenuTrigger asChild>
-                    <button className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-xs whitespace-nowrap text-zinc-400 transition-colors hover:bg-white/[0.1] sm:text-sm">
-                      {category.icon}
-                      <span>{category.name}</span>
-                      <ChevronRight size={14} />
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-64">
-                    {category.prompts.map((prompt) => (
-                      <DropdownMenuItem
-                        key={prompt.name}
-                        onClick={() => handlePromptSelect(prompt.prompt)}
-                        className="cursor-pointer"
-                      >
-                        <span className="mr-2">{prompt.icon}</span>
-                        <span>{prompt.name}</span>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              )}
-
-              {category.type === 'single' && (
-                <button
-                  className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-xs whitespace-nowrap text-zinc-400 transition-colors hover:bg-white/[0.1] sm:text-sm"
-                  onClick={() => handlePromptSelect(category.prompt)}
-                >
-                  {category.icon}
-                  <span>{category.name}</span>
-                </button>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
+      <PromptCategories onPromptSelect={handlePromptSelect} />
     </div>
   );
 }

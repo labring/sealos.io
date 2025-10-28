@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState, memo } from 'react';
 import { FileCode } from 'lucide-react';
 import ContainerImage from './assets/container.svg';
 import FilledContainerImage from './assets/container-filled.svg';
@@ -27,7 +27,7 @@ interface DeploymentCardProps {
   containerHeight?: number; // 容器显示高度
 }
 
-export function DeploymentCard({
+export const DeploymentCard = memo(function DeploymentCard({
   containers: customContainers,
   angle = 30,
   baseDistance = 110, // 100 * 1.1
@@ -345,4 +345,4 @@ export function DeploymentCard({
       </svg>
     </div>
   );
-}
+});

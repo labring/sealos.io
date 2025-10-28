@@ -2,6 +2,7 @@
 import { DBCard } from './DBCard';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { memo } from 'react';
 import KafkaIcon from '../../../assets/db-appicons/kafkaicon.svg';
 import MilvusIcon from '../../../assets/db-appicons/milvus.svg';
 import MongoIcon from '../../../assets/db-appicons/mongoicon.svg';
@@ -44,7 +45,7 @@ const databases = [
   },
 ];
 
-export function DataCard() {
+export const DataCard = memo(function DataCard() {
   return (
     <div
       className="relative h-full w-full overflow-hidden"
@@ -152,4 +153,4 @@ export function DataCard() {
       </div>
     </div>
   );
-}
+});

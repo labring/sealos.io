@@ -11,6 +11,7 @@ import TraeLogo from '../../../assets/ide-icons/trae.svg';
 import VSCodeLogo from '../../../assets/ide-icons/vscode.svg';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { memo } from 'react';
 
 // 圆环配置
 const circles = [
@@ -52,7 +53,7 @@ const appPositions = [
   },
 ];
 
-export function DevelopmentCard() {
+export const DevelopmentCard = memo(function DevelopmentCard() {
   return (
     <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
       <svg
@@ -158,4 +159,4 @@ export function DevelopmentCard() {
       </div>
     </div>
   );
-}
+});

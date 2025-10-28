@@ -1,12 +1,7 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import {
-  useTransform,
-  useMotionValue,
-  animate,
-  useMotionValueEvent,
-} from 'framer-motion';
+import { useRef, useEffect, useState, memo } from 'react';
+import { useMotionValue, animate, useMotionValueEvent } from 'framer-motion';
 import { GradientText } from '../components/GradientText';
 import { GradientWave } from '../components/GradientWave';
 import { WorkflowProgress, stages } from '../components/WorkflowProgress';
@@ -19,6 +14,128 @@ import { DataCard } from '../components/carousel-image/DataCard';
 import { GodRays } from '../components/GodRays';
 import { Bot } from 'lucide-react';
 
+// 卡片内容配置 - 移到组件外部避免重复创建
+const CARD_CONTENTS = [
+  {
+    title: 'It starts with an idea. Not a blank page.',
+    description:
+      'Describe your concept to Jotlin... automatically generating a comprehensive product spec...',
+    buttonText: 'Try Jotlin',
+    buttonLink: 'https://os.sealos.io/?openapp=system-jotlin',
+  },
+  {
+    title: 'Your favorite IDE, supercharged by the cloud.',
+    description:
+      '...Securely connect your local VS Code or Cursor... without ever leaving the tools you know and love.',
+    buttonText: 'Try DevBox',
+    buttonLink: 'https://os.sealos.io/?openapp=system-devbox',
+  },
+  {
+    title: 'If it runs in a container, it runs on Sealos.',
+    description:
+      'Deploy from a Git repo, a Docker image, or even a Docker Compose file... We manage the Kubernetes complexity...',
+    buttonText: 'Try App Launchpad',
+    buttonLink: 'https://os.sealos.io/?openapp=system-applaunchpad',
+  },
+  {
+    title: 'Production databases, simplified and intelligent.',
+    description:
+      'Launch a high-availability database cluster... Then, use Chat2DB to interact with your data using plain English...',
+    buttonText: 'Try Database',
+    buttonLink: 'https://os.sealos.io/?openapp=system-dbprovider',
+  },
+] as const;
+
+// 卡片组件映射
+const CARD_COMPONENTS = [
+  { Component: IdeaCard, id: 'idea' },
+  { Component: DevelopmentCard, id: 'development' },
+  { Component: DeploymentCard, id: 'deployment' },
+  { Component: DataCard, id: 'data' },
+];
+
+// 所有卡片容器 - 管理卡片的渲染和过渡动画
+const AllCardsContainer = memo(({ activeIndex }: { activeIndex: number }) => {
+  const [renderedCards, setRenderedCards] = useState<Set<number>>(
+    new Set([activeIndex]),
+  );
+  const [mountedCards, setMountedCards] = useState<Set<number>>(
+    new Set([activeIndex]),
+  );
+
+  useEffect(() => {
+    // 立即添加新卡片到已渲染列表
+    setRenderedCards((prev) => {
+      const next = new Set(prev);
+      next.add(activeIndex);
+      return next;
+    });
+
+    // 延迟挂载新卡片，让容器先淡入
+    const mountTimer = setTimeout(() => {
+      setMountedCards((prev) => {
+        const next = new Set(prev);
+        next.add(activeIndex);
+        return next;
+      });
+    }, 50);
+
+    // 延迟卸载旧卡片，等待淡出动画完成
+    const unmountTimer = setTimeout(() => {
+      setMountedCards((prev) => {
+        const next = new Set<number>();
+        next.add(activeIndex);
+        return next;
+      });
+    }, 450); // 略长于 transition duration (400ms)
+
+    return () => {
+      clearTimeout(mountTimer);
+      clearTimeout(unmountTimer);
+    };
+  }, [activeIndex]);
+
+  return (
+    <div className="relative h-full w-full">
+      {CARD_COMPONENTS.map(({ Component, id }, index) => {
+        const isActive = activeIndex === index;
+        const shouldRender = renderedCards.has(index);
+        const shouldMount = mountedCards.has(index);
+        const cardContent = CARD_CONTENTS[index];
+
+        if (!shouldRender) return null;
+
+        return (
+          <div
+            key={id}
+            className="absolute inset-0 transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)]"
+            style={{
+              opacity: isActive ? 1 : 0,
+              transform: isActive
+                ? 'translateY(0px) scale(1)'
+                : 'translateY(-20px) scale(0.95)',
+              pointerEvents: isActive ? 'auto' : 'none',
+            }}
+          >
+            {shouldMount && (
+              <CarouselCard
+                title={cardContent.title}
+                description={cardContent.description}
+                buttonText={cardContent.buttonText}
+                buttonLink={cardContent.buttonLink}
+              >
+                <Component key={`card-${index}`} />
+              </CarouselCard>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+});
+
+AllCardsContainer.displayName = 'AllCardsContainer';
+
 export function SequenceSection() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -28,54 +145,6 @@ export function SequenceSection() {
   // 动画控制器引用
   const animationControlsRef = useRef<any>(null);
   const isManualControlRef = useRef(false); // 标记是否是手动控制
-
-  // 卡片内容配置（不包含组件，避免重复创建）
-  const cardContents = [
-    {
-      title: 'It starts with an idea. Not a blank page.',
-      description:
-        'Describe your concept to Jotlin... automatically generating a comprehensive product spec...',
-      buttonText: 'Try Jotlin',
-      buttonLink: 'https://os.sealos.io/?openapp=system-jotlin',
-    },
-    {
-      title: 'Your favorite IDE, supercharged by the cloud.',
-      description:
-        '...Securely connect your local VS Code or Cursor... without ever leaving the tools you know and love.',
-      buttonText: 'Try DevBox',
-      buttonLink: 'https://os.sealos.io/?openapp=system-devbox',
-    },
-    {
-      title: 'If it runs in a container, it runs on Sealos.',
-      description:
-        'Deploy from a Git repo, a Docker image, or even a Docker Compose file... We manage the Kubernetes complexity...',
-      buttonText: 'Try App Launchpad',
-      buttonLink: 'https://os.sealos.io/?openapp=system-applaunchpad',
-    },
-    {
-      title: 'Production databases, simplified and intelligent.',
-      description:
-        'Launch a high-availability database cluster... Then, use Chat2DB to interact with your data using plain English...',
-      buttonText: 'Try Database',
-      buttonLink: 'https://os.sealos.io/?openapp=system-dbprovider',
-    },
-  ];
-
-  // 根据索引渲染对应的卡片组件
-  const renderCardComponent = (index: number) => {
-    switch (index) {
-      case 0:
-        return <IdeaCard />;
-      case 1:
-        return <DevelopmentCard />;
-      case 2:
-        return <DeploymentCard />;
-      case 3:
-        return <DataCard />;
-      default:
-        return <IdeaCard />;
-    }
-  };
 
   // 跟踪当前激活的卡片索引
   const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
@@ -100,9 +169,6 @@ export function SequenceSection() {
 
   // 使用 mockProgress 作为进度
   const progress = mockProgress;
-
-  // GradientWave 进度：直接使用 progress
-  const waveProgress = progress;
 
   // 监听进度变化，更新当前卡片索引（只在真正改变时触发状态更新）
   useMotionValueEvent(progress, 'change', (latest) => {
@@ -214,7 +280,7 @@ export function SequenceSection() {
         </div>
         <div>
           {/* 波形可视化 */}
-          <GradientWave progress={waveProgress} />
+          <GradientWave progress={progress} />
 
           {/* 工作流阶段 */}
           <div className="mt-4">
@@ -235,14 +301,7 @@ export function SequenceSection() {
         </div>
 
         <AnimatedCarouselContainer activeIndex={activeCardIndex}>
-          <CarouselCard
-            title={cardContents[activeCardIndex].title}
-            description={cardContents[activeCardIndex].description}
-            buttonText={cardContents[activeCardIndex].buttonText}
-            buttonLink={cardContents[activeCardIndex].buttonLink}
-          >
-            {renderCardComponent(activeCardIndex)}
-          </CarouselCard>
+          <AllCardsContainer activeIndex={activeCardIndex} />
         </AnimatedCarouselContainer>
       </div>
     </section>
