@@ -335,6 +335,12 @@ export function PromptInput() {
   const { currentText: typewriterText, fullText: typewriterFullText } =
     useTypewriterEffect(!isTouched, currentLanguage);
 
+  // Store the typewriter full text in a ref for send handler
+  const typewriterFullTextRef = React.useRef('');
+  useEffect(() => {
+    typewriterFullTextRef.current = typewriterFullText;
+  }, [typewriterFullText]);
+
   useEffect(() => {
     // 检测是否为 Firefox 浏览器
     const userAgent = navigator.userAgent.toLowerCase();
@@ -355,11 +361,14 @@ export function PromptInput() {
   }, []);
 
   const handleSendPrompt = useCallback(() => {
-    if (promptText.trim()) {
-      const url = `https://brain.usw.sealos.io/trial?query=${encodeURIComponent(promptText)}`;
+    // Use typewriter text if user hasn't touched the textarea, otherwise use promptText
+    const textToSend = isTouched ? promptText : typewriterFullTextRef.current;
+
+    if (textToSend.trim()) {
+      const url = `https://brain.usw.sealos.io/trial?query=${encodeURIComponent(textToSend)}`;
       window.open(url, '_blank');
     }
-  }, [promptText]);
+  }, [promptText, isTouched]);
 
   const handleTextareaChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -426,7 +435,7 @@ export function PromptInput() {
 
         <Button
           className="absolute right-3 bottom-3 z-10 size-10 cursor-pointer rounded-lg bg-zinc-200 p-0 text-zinc-950 hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
-          disabled={!promptText.trim()}
+          disabled={isTouched ? !promptText.trim() : !typewriterFullText.trim()}
           onClick={handleSendPrompt}
         >
           <ArrowUp size={20} />
