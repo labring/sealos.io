@@ -24,23 +24,25 @@ export function DemoSection() {
   const patternRef = useRef<HTMLDivElement>(null);
 
   // State
-  const [isAnimationReady, setIsAnimationReady] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isSpringReady, setIsSpringReady] = useState(false);
 
   // Motion values for dynamic measurements
-  const viewportHeightMV = useMotionValue(0);
+  const viewportHeightMV = useMotionValue(
+    typeof window !== 'undefined' ? window.innerHeight : 0,
+  );
   const videoHeightMV = useMotionValue(0);
   const patternHeightMV = useMotionValue(0);
 
-  // Initialize animation after mount
+  // Mount check
   useEffect(() => {
-    requestAnimationFrame(() => setIsAnimationReady(true));
+    console.log('[DemoSection] Component mounted, setting isMounted to true');
+    setIsMounted(true);
   }, []);
 
-  // Update element heights on resize
+  // Update element heights on mount and resize
   useEffect(() => {
-    if (!isAnimationReady) return;
-
     const updateHeights = () => {
       viewportHeightMV.set(window.innerHeight);
       if (videoRef.current) videoHeightMV.set(videoRef.current.offsetHeight);
@@ -49,9 +51,11 @@ export function DemoSection() {
     };
 
     updateHeights();
+    requestAnimationFrame(updateHeights);
+
     window.addEventListener('resize', updateHeights);
     return () => window.removeEventListener('resize', updateHeights);
-  }, [videoHeightMV, patternHeightMV, viewportHeightMV, isAnimationReady]);
+  }, [videoHeightMV, patternHeightMV, viewportHeightMV]);
 
   // Scroll progress tracking
   const { scrollYProgress } = useScroll({
@@ -64,7 +68,67 @@ export function DemoSection() {
     stiffness: 300,
     damping: 40,
     mass: 0.5,
+    restDelta: 0.001,
   });
+
+  // Initialize spring to current scroll position immediately (during render)
+  const isInitializedRef = useRef(false);
+  if (!isInitializedRef.current && typeof window !== 'undefined') {
+    const currentProgress = scrollYProgress.get();
+    console.log(
+      '[DemoSection] Initializing smoothProgress to:',
+      currentProgress,
+    );
+    smoothProgress.jump(currentProgress);
+    isInitializedRef.current = true;
+  }
+
+  // Wait for spring to settle before showing content
+  useEffect(() => {
+    console.log(
+      '[DemoSection] Initial scrollYProgress:',
+      scrollYProgress.get(),
+    );
+    console.log('[DemoSection] Initial smoothProgress:', smoothProgress.get());
+
+    let changeCount = 0;
+    let settleTimeout: NodeJS.Timeout;
+
+    const unsubscribe = smoothProgress.on('change', (latest) => {
+      changeCount++;
+      console.log(
+        '[DemoSection] smoothProgress changed to:',
+        latest,
+        'count:',
+        changeCount,
+      );
+
+      // Clear previous timeout
+      clearTimeout(settleTimeout);
+
+      // Wait for spring to settle (no changes for 100ms)
+      settleTimeout = setTimeout(() => {
+        if (!isSpringReady) {
+          console.log('[DemoSection] Spring settled, showing content');
+          setIsSpringReady(true);
+        }
+      }, 100);
+    });
+
+    // Fallback: show after 500ms regardless
+    const fallbackTimeout = setTimeout(() => {
+      if (!isSpringReady) {
+        console.log('[DemoSection] Fallback timeout, showing content');
+        setIsSpringReady(true);
+      }
+    }, 500);
+
+    return () => {
+      unsubscribe();
+      clearTimeout(settleTimeout);
+      clearTimeout(fallbackTimeout);
+    };
+  }, [scrollYProgress, smoothProgress, isSpringReady]);
 
   // Video animations
   const videoRotateX = useTransform(smoothProgress, [0, 0.125], [24, 0]);
@@ -76,9 +140,24 @@ export function DemoSection() {
       const viewportH = vh as number;
       const centerY = height > 0 ? viewportH / 2 - height / 2 : 0;
 
-      if (progress <= 0.125) return centerY * (progress / 0.125);
-      if (progress <= 0.8125) return centerY;
-      return centerY + (-viewportH - centerY) * ((progress - 0.8125) / 0.1875);
+      let result;
+      if (progress <= 0.125) result = centerY * (progress / 0.125);
+      else if (progress <= 0.8125) result = centerY;
+      else
+        result =
+          centerY + (-viewportH - centerY) * ((progress - 0.8125) / 0.1875);
+
+      if (Math.random() < 0.05) {
+        // Log 5% of the time to avoid spam
+        console.log(
+          '[DemoSection] videoY - progress:',
+          progress.toFixed(3),
+          'result:',
+          result.toFixed(1),
+        );
+      }
+
+      return result;
     },
   );
   const videoScaleRaw = useTransform(
@@ -90,7 +169,23 @@ export function DemoSection() {
     stiffness: 150,
     damping: 30,
     mass: 0.6,
+    restDelta: 0.001,
   });
+
+  // Initialize video scale spring
+  const isVideoScaleInitializedRef = useRef(false);
+  if (!isVideoScaleInitializedRef.current && typeof window !== 'undefined') {
+    const currentScale = videoScaleRaw.get();
+    console.log('[DemoSection] Initializing videoScale to:', currentScale);
+    videoScale.jump(currentScale);
+    isVideoScaleInitializedRef.current = true;
+  }
+
+  // Debug: Log scale changes
+  useEffect(() => {
+    console.log('[DemoSection] Initial videoScaleRaw:', videoScaleRaw.get());
+    console.log('[DemoSection] Initial videoScale:', videoScale.get());
+  }, [videoScaleRaw, videoScale]);
   const videoOpacity = useTransform(smoothProgress, [0.5, 0.725], [1, 0]);
 
   // Pattern animations
@@ -116,7 +211,17 @@ export function DemoSection() {
     stiffness: 200,
     damping: 35,
     mass: 0.5,
+    restDelta: 0.001,
   });
+
+  // Initialize pattern scale spring
+  const isPatternScaleInitializedRef = useRef(false);
+  if (!isPatternScaleInitializedRef.current && typeof window !== 'undefined') {
+    const currentScale = patternScaleRaw.get();
+    console.log('[DemoSection] Initializing patternScale to:', currentScale);
+    patternScale.jump(currentScale);
+    isPatternScaleInitializedRef.current = true;
+  }
   const patternOpacity = useTransform(
     smoothProgress,
     [0, 0.125, 0.25, 0.8125, 0.9],
@@ -153,10 +258,19 @@ export function DemoSection() {
         {/* Sticky viewport */}
         <div className="sticky top-0 flex h-screen w-screen justify-center overflow-visible">
           {/* Video container */}
-          {isAnimationReady && (
+          {isMounted && (
             <motion.div
               className="absolute will-change-transform perspective-midrange perspective-origin-top"
               style={{ y: videoY }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isSpringReady ? 1 : 0 }}
+              transition={{ duration: 0.3 }}
+              onAnimationStart={() =>
+                console.log('[DemoSection] Video container animation started')
+              }
+              onAnimationComplete={() =>
+                console.log('[DemoSection] Video container animation completed')
+              }
             >
               {/* Scroll indicator */}
               <motion.div
@@ -213,10 +327,13 @@ export function DemoSection() {
           )}
 
           {/* Pattern background */}
-          {isAnimationReady && (
+          {isMounted && (
             <motion.div
               className="absolute -z-10 flex items-center justify-center will-change-transform"
               style={{ y: patternY }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isSpringReady ? 1 : 0 }}
+              transition={{ duration: 0.3 }}
             >
               <motion.div
                 ref={patternRef}
