@@ -23,6 +23,8 @@ import DevBoxIcon from '../assets/sealos-appicons/devbox.svg';
 import DatabaseIcon from '../assets/sealos-appicons/database.svg';
 import AppStoreIcon from '../assets/sealos-appicons/appstore.svg';
 import GitHubIcon from '../assets/github.svg';
+import { useGTM } from '@/hooks/use-gtm';
+import { siteConfig } from '@/config/site';
 
 // 产品图标映射
 const productIcons: Record<string, any> = {
@@ -100,6 +102,8 @@ const navigationLinks = [
 ];
 
 export function Header() {
+  const { trackButton } = useGTM();
+
   const { scrollY } = useScroll();
   const [hideLogotype, setHideLogotype] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -233,10 +237,13 @@ export function Header() {
             className="hidden h-10 rounded-full lg:flex"
           >
             <a
-              href="https://github.com/labring/sealos"
+              href={siteConfig.links.github}
               target="_blank"
               rel="noopener noreferrer"
               className="flex gap-2"
+              onClick={() =>
+                trackButton('GitHub', 'header', 'url', siteConfig.links.github)
+              }
             >
               <Image src={GitHubIcon} alt="GitHub" width={16} height={16} />
               <span>16.4k</span>
@@ -251,7 +258,17 @@ export function Header() {
               border: '1px solid #ffffff',
             }}
           >
-            <a href="https://os.sealos.io/?openapp=system-brain">
+            <a
+              href={siteConfig.links.mainCta}
+              onClick={() =>
+                trackButton(
+                  'Get Started',
+                  'header',
+                  'url',
+                  siteConfig.links.mainCta,
+                )
+              }
+            >
               Start for free
             </a>
           </Button>

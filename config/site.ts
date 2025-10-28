@@ -27,6 +27,7 @@ export const siteConfig: SiteConfig = {
   },
   twitterHandle: '@Sealos_io',
   links: {
+    mainCta: 'https://os.sealos.io/?openapp=system-brain',
     github: 'https://github.com/labring/sealos',
     twitter: 'https://x.com/Sealos_io',
     discord: 'https://discord.gg/wdUn538zVP',

@@ -38,6 +38,8 @@ import ReactIcon from '../assets/stacks-appicons/react.svg';
 import RustIcon from '../assets/stacks-appicons/rust.svg';
 import SpringbootIcon from '../assets/stacks-appicons/springboot.svg';
 
+import { useGTM } from '@/hooks/use-gtm';
+
 interface PromptOption {
   icon: ReactNode;
   name: string;
@@ -214,6 +216,8 @@ const PROMPT_CATEGORIES: CategoryConfig[] = [
 ];
 
 export function PromptInput() {
+  const { trackButton, trackCustom } = useGTM();
+
   const [promptText, setPromptText] = useState('');
   const [isFirefox, setIsFirefox] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
@@ -222,7 +226,8 @@ export function PromptInput() {
   const [currentLanguage, setCurrentLanguage] = useState('en');
 
   // Use typewriter effect
-  const { currentText: typewriterText, fullText: typewriterFullText } = useTypewriterEffect(!isTouched, currentLanguage);
+  const { currentText: typewriterText, fullText: typewriterFullText } =
+    useTypewriterEffect(!isTouched, currentLanguage);
 
   useEffect(() => {
     // 检测是否为 Firefox 浏览器
@@ -250,6 +255,16 @@ export function PromptInput() {
       const url = `https://brain.usw.sealos.io/trial?query=${encodeURIComponent(currentText)}`;
       window.open(url, '_blank');
     }
+  };
+
+  const handleSendClick = () => {
+    const promptContent = isTouched
+      ? promptText.trim()
+      : typewriterFullText.trim();
+    trackButton('Send Prompt', 'prompt_box', 'custom', 'send_prompt', {
+      prompt_text: promptContent,
+    });
+    handleSendPrompt();
   };
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -301,7 +316,12 @@ export function PromptInput() {
           className="w-full resize-none border-none bg-transparent text-base shadow-none placeholder:text-zinc-400 focus-visible:ring-0 md:text-base"
           value={isTouched ? promptText : ''}
           onChange={handleTextareaChange}
-          onFocus={handleTextareaInteraction}
+          onFocus={(e) => {
+            handleTextareaInteraction();
+            trackCustom('prompt_focus', {
+              interaction_location: 'prompt_textarea',
+            });
+          }}
           onClick={handleTextareaInteraction}
           onKeyDown={handleKeyDown}
         />
@@ -317,9 +337,9 @@ export function PromptInput() {
         )}
 
         <Button
-          className="absolute right-3 bottom-3 z-10 size-10 cursor-pointer rounded-lg bg-zinc-200 p-0 text-zinc-950 hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed"
-          disabled={isTouched ? (!promptText.trim()) : (!typewriterFullText.trim())}
-          onClick={handleSendPrompt}
+          className="absolute right-3 bottom-3 z-10 size-10 cursor-pointer rounded-lg bg-zinc-200 p-0 text-zinc-950 hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
+          disabled={isTouched ? !promptText.trim() : !typewriterFullText.trim()}
+          onClick={handleSendClick}
         >
           <ArrowUp size={20} />
         </Button>

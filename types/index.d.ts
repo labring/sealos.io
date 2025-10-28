@@ -10,6 +10,7 @@ export type SiteConfig = {
   };
   twitterHandle: string;
   links: {
+    mainCta: string;
     github: string;
     twitter: string;
     discord: string;
