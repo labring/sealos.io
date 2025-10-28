@@ -1,141 +1,136 @@
 'use client';
 
-import { useId, memo, useRef } from 'react';
-import { motion, MotionValue, useTransform, useInView } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import { MotionValue } from 'framer-motion';
 
 interface GradientWaveProps {
   progress: MotionValue<number>; // 0-1
 }
 
-interface WaveLineProps {
-  progress: MotionValue<number>;
-  lineIndex: number;
-  lineCount: number;
-  x: number;
-  gradientId: string;
-  isInView: boolean;
-}
-
-// 单条波形线组件 - 使用 MotionValue 避免重新渲染
-const WaveLine = memo(
-  ({
-    progress,
-    lineIndex,
-    lineCount,
-    x,
-    gradientId,
-    isInView,
-  }: WaveLineProps) => {
-    const lineProgress = lineIndex / lineCount;
-
-    // 使用 transform 替代 y2 变化
-    // 计算缩放和平移来模拟高度变化
-    const transform = useTransform(progress, (latest) => {
-      if (!isInView) {
-        // 不在视口时保持静止状态 (高度 20)
-        const scale = 20 / 90; // 基准高度是90
-        const translateY = 100 - 20 - (90 * (1 - scale)) / 2;
-        return `translate(${x}px, ${translateY}px) scaleY(${scale})`;
-      }
-      const distanceFromProgress = Math.abs(lineProgress - latest);
-      const heightFactor = Math.exp(-distanceFromProgress * 12);
-      const height = 20 + heightFactor * 70;
-
-      // 将高度变化转换为 scaleY
-      // 基准线: y1=100, y2=10 (高度90)
-      const scale = height / 90;
-      // 计算平移量以保持底部固定在 y=100
-      const translateY = 100 - height - (90 * (1 - scale)) / 2;
-
-      return `translate(${x}px, ${translateY}px) scaleY(${scale})`;
-    });
-
-    const opacity = useTransform(progress, (latest) => {
-      if (!isInView) return 0.3; // 不在视口时保持低透明度
-      const progressLineIndex = Math.round(latest * (lineCount - 1));
-      const distanceInLines = Math.abs(lineIndex - progressLineIndex);
-      const distanceFromProgress = Math.abs(lineProgress - latest);
-      const heightFactor = Math.exp(-distanceFromProgress * 12);
-
-      if (distanceInLines <= 5) {
-        const fadeFactor = 1 - (distanceInLines / 5) * 0.4;
-        return (0.6 + heightFactor * 0.3) * fadeFactor;
-      } else {
-        return (0.3 + heightFactor * 0.3) * 0.7;
-      }
-    });
-
-    return (
-      <motion.line
-        x1={0}
-        y1={90}
-        x2={0}
-        y2={0}
-        stroke={`url(#${gradientId}-${lineIndex})`}
-        strokeWidth="2"
-        strokeLinecap="round"
-        className="will-change-[transform,opacity]"
-        style={{
-          opacity: opacity,
-          transform: transform,
-          transformOrigin: 'center bottom',
-        }}
-      />
-    );
-  },
-);
-
-WaveLine.displayName = 'WaveLine';
-
 export function GradientWave({ progress }: GradientWaveProps) {
-  const gradientId = useId();
-  const lineCount = 64;
-  const lines = Array.from({ length: lineCount }, (_, i) => i);
-  const containerRef = useRef<SVGSVGElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const rafRef = useRef<number>();
+  const isInViewRef = useRef(true);
 
-  // 使用 useInView 检测组件是否在视口内
-  const isInView = useInView(containerRef, {
-    margin: '0px 0px 0px 0px',
-    amount: 0,
-  });
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-  return (
-    <svg
-      ref={containerRef}
-      className="h-8 w-full"
-      viewBox="0 0 1000 100"
-      preserveAspectRatio="none"
-    >
-      <defs>
-        {lines.map((i) => (
-          <linearGradient
-            key={i}
-            id={`${gradientId}-${i}`}
-            x1="0%"
-            y1="100%"
-            x2="0%"
-            y2="0%"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop offset="0" stopColor="#146DFF" />
-            <stop offset="1" stopColor="#fff" />
-          </linearGradient>
-        ))}
-      </defs>
-      {lines.map((i) => {
-        const x = (i / (lineCount - 1)) * 1000;
-        return (
-          <WaveLine
-            key={i}
-            progress={progress}
-            lineIndex={i}
-            lineCount={lineCount}
-            x={x}
-            gradientId={gradientId}
-            isInView={isInView}
-          />
-        );
-      })}
-    </svg>
-  );
+    const ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
+
+    const lineCount = 64;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2); // 限制最大 DPR 为 2
+
+    // 设置 canvas 尺寸
+    const updateSize = () => {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+    };
+
+    updateSize();
+
+    // 创建渐变缓存
+    const createGradient = (x: number, height: number) => {
+      const gradient = ctx.createLinearGradient(x, height, x, 0);
+      gradient.addColorStop(0, '#146DFF');
+      gradient.addColorStop(1, '#ffffff');
+      return gradient;
+    };
+
+    // 渲染函数
+    const render = () => {
+      if (!isInViewRef.current) return;
+
+      const rect = canvas.getBoundingClientRect();
+      const width = rect.width;
+      const height = rect.height;
+      const progressValue = progress.get();
+
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < lineCount; i++) {
+        const lineProgress = i / lineCount;
+        const x = (i / (lineCount - 1)) * width;
+
+        // 计算高度
+        const distanceFromProgress = Math.abs(lineProgress - progressValue);
+        const heightFactor = Math.exp(-distanceFromProgress * 12);
+        const lineHeight = (20 + heightFactor * 70) * (height / 100);
+
+        // 计算透明度
+        const progressLineIndex = Math.round(progressValue * (lineCount - 1));
+        const distanceInLines = Math.abs(i - progressLineIndex);
+        let opacity: number;
+
+        if (distanceInLines <= 5) {
+          const fadeFactor = 1 - (distanceInLines / 5) * 0.4;
+          opacity = (0.6 + heightFactor * 0.3) * fadeFactor;
+        } else {
+          opacity = (0.3 + heightFactor * 0.3) * 0.7;
+        }
+
+        // 绘制线条
+        ctx.beginPath();
+        ctx.moveTo(x, height);
+        ctx.lineTo(x, height - lineHeight);
+        ctx.strokeStyle = createGradient(x, lineHeight);
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.globalAlpha = opacity;
+        ctx.stroke();
+      }
+
+      ctx.globalAlpha = 1;
+      rafRef.current = requestAnimationFrame(render);
+    };
+
+    // 监听 progress 变化
+    const unsubscribe = progress.on('change', () => {
+      if (!rafRef.current && isInViewRef.current) {
+        rafRef.current = requestAnimationFrame(render);
+      }
+    });
+
+    // Intersection Observer
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isInViewRef.current = entry.isIntersecting;
+        if (entry.isIntersecting) {
+          rafRef.current = requestAnimationFrame(render);
+        } else {
+          if (rafRef.current) {
+            cancelAnimationFrame(rafRef.current);
+            rafRef.current = undefined;
+          }
+        }
+      },
+      { threshold: 0 },
+    );
+
+    observer.observe(canvas);
+
+    // 初始渲染
+    render();
+
+    // Resize observer
+    const resizeObserver = new ResizeObserver(() => {
+      updateSize();
+      render();
+    });
+    resizeObserver.observe(canvas);
+
+    return () => {
+      unsubscribe();
+      observer.disconnect();
+      resizeObserver.disconnect();
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, [progress]);
+
+  return <canvas ref={canvasRef} className="h-8 w-full" />;
 }
