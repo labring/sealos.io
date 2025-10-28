@@ -9,7 +9,7 @@ import MongoIcon from '../../../assets/db-appicons/mongoicon.svg';
 import MysqlIcon from '../../../assets/db-appicons/mysqlicon.svg';
 import PgIcon from '../../../assets/db-appicons/pgicon.svg';
 import RedisIcon from '../../../assets/db-appicons/redisicon.svg';
-import ChatInputImage from '../IdeaCard/assets/chat-input.svg';
+import ChatInputImage from './assets/chat-input.svg';
 
 // 数据库配置
 const databases = [

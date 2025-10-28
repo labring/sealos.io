@@ -6,7 +6,7 @@ import ClaudeCodeIcon from '../../../assets/stacks-appicons/claude-code.svg';
 import EchoIcon from '../../../assets/stacks-appicons/echo.svg';
 import McpIcon from '../../../assets/stacks-appicons/mcp.svg';
 import NextjsIcon from '../../../assets/stacks-appicons/nextjs-caps.svg';
-import SpringBootIcon from '../../../assets/stacks-appicons/spring-boot.svg';
+import SpringBootIcon from '../../../assets/stacks-appicons/springboot.svg';
 import UbuntuIcon from '../../../assets/stacks-appicons/ubuntu.svg';
 
 // 技术栈配置
