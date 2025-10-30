@@ -7,7 +7,7 @@ import { ComparisonSection } from './sections/ComparisonSection';
 import { SequenceSection } from './sections/SequenceSection';
 import { CapsSection } from './sections/CapsSection';
 import SourceAvailSection from './merged-components/SourceAvailSection';
-import FAQSection from './merged-components/FAQSection';
+import FAQSection from './sections/FAQSection';
 import Footer from './merged-components/Footer';
 import Image from 'next/image';
 import BottomLightImage from '../(new-home)/assets/bottom-light.svg';

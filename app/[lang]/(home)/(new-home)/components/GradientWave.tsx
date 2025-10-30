@@ -11,6 +11,8 @@ export function GradientWave({ progress }: GradientWaveProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number>();
   const isInViewRef = useRef(true);
+  const widthRef = useRef<number>(0);
+  const heightRef = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -25,9 +27,13 @@ export function GradientWave({ progress }: GradientWaveProps) {
     // 设置 canvas 尺寸
     const updateSize = () => {
       const rect = canvas.getBoundingClientRect();
+      widthRef.current = rect.width;
+      heightRef.current = rect.height;
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
+      // 重置变换矩阵后按 DPR 设定缩放，避免重复 scale 累积
+      // 使用 setTransform 确保每次 resize 后状态正确
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     updateSize();
@@ -44,9 +50,8 @@ export function GradientWave({ progress }: GradientWaveProps) {
     const render = () => {
       if (!isInViewRef.current) return;
 
-      const rect = canvas.getBoundingClientRect();
-      const width = rect.width;
-      const height = rect.height;
+      const width = widthRef.current;
+      const height = heightRef.current;
       const progressValue = progress.get();
 
       ctx.clearRect(0, 0, width, height);
