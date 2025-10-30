@@ -96,6 +96,8 @@ const CardWrapper = memo(
             'opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
           pointerEvents: isActive ? 'auto' : 'none',
         }}
+        aria-hidden={!isActive}
+        aria-live={isActive ? 'polite' : 'off'}
       >
         <CarouselCard
           title={cardContent.title}
@@ -310,7 +312,10 @@ export function SequenceSection() {
 
       <div className="container">
         <div className="flex max-w-full flex-col items-center pb-8 md:gap-8 lg:max-w-4xl lg:flex-row lg:pb-16">
-          <h2 className="w-full text-2xl leading-tight sm:text-4xl md:text-[2.5rem]">
+          <h2
+            className="w-full text-2xl leading-tight sm:text-4xl md:text-[2.5rem]"
+            aria-label="More Than a Platform. It's Your Entire Cloud Workflow, Reimagined."
+          >
             <span>More Than a Platform. It's</span>&nbsp;
             <GradientText>Your Entire Cloud Workflow, Reimagined.</GradientText>
           </h2>
@@ -332,7 +337,7 @@ export function SequenceSection() {
             <div className="relative z-10 mt-4 flex w-full flex-col items-center gap-4 text-xs text-zinc-400 sm:flex-row sm:gap-2 sm:text-base">
               <div className="w-full border-b border-dashed border-zinc-400" />
               <div className="flex shrink-0 items-center gap-2">
-                <Bot />
+                <Bot aria-hidden="true" />
                 <span>AI across all modules</span>
               </div>
               <div className="w-full border-b border-dashed border-zinc-400" />

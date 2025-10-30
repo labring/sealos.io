@@ -109,7 +109,11 @@ export default function SealosSticky({ letters, children }: SealosStickyProps) {
   }, [isNearViewport]);
 
   return (
-    <div ref={containerRef} className="relative mb-[min(300px,100vw)]">
+    <div
+      ref={containerRef}
+      className="relative mb-[min(300px,100vw)]"
+      aria-hidden="true"
+    >
       {/* 主体内容 - 跟随滚动向上移动 */}
       <motion.div
         ref={mainContentRef}

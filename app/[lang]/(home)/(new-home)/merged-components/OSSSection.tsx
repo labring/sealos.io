@@ -48,6 +48,7 @@ export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
                   viewBox="0 0 21 21"
                   fill="none"
                   className="aspect-square shrink-0"
+                  aria-hidden="true"
                 >
                   <path
                     d="M12.7362 18.4909V15.1576C12.8521 14.1136 12.5528 13.066 11.9029 12.2409C14.4029 12.2409 16.9029 10.5742 16.9029 7.65755C16.9695 6.61589 16.6779 5.59089 16.0695 4.74089C16.3029 3.78255 16.3029 2.78255 16.0695 1.82422C16.0695 1.82422 15.2362 1.82422 13.5695 3.07422C11.3695 2.65755 9.10286 2.65755 6.90286 3.07422C5.2362 1.82422 4.40286 1.82422 4.40286 1.82422C4.15286 2.78255 4.15286 3.78255 4.40286 4.74089C3.79609 5.58746 3.50159 6.61821 3.56953 7.65755C3.56953 10.5742 6.06953 12.2409 8.56953 12.2409C8.24453 12.6492 8.00286 13.1159 7.8612 13.6159C7.71953 14.1159 7.67786 14.6409 7.7362 15.1576M7.7362 15.1576V18.4909M7.7362 15.1576C3.97786 16.8242 3.5695 13.4909 1.90283 13.4909"
@@ -81,12 +82,15 @@ export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
             {/* Main heading - 根据设计稿样式 */}
             <div className="mb-8">
               {/* 仅左侧标题与描述，不包含按钮 */}
-              <h1 className="mb-4 text-[40px] leading-[150%] font-medium lg:whitespace-nowrap">
+              <h2
+                className="mb-4 text-[40px] leading-[150%] font-medium lg:whitespace-nowrap"
+                aria-label="Built for the Modern Application."
+              >
                 <span className="text-white">{t.title}</span>{' '}
                 <span className="bg-gradient-to-r from-white to-blue-600 bg-clip-text text-transparent">
                   {t.titleHighlight}
                 </span>
-              </h1>
+              </h2>
 
               <p className="w-full text-base leading-6 font-normal text-zinc-400 lg:w-[492px]">
                 {t.description}

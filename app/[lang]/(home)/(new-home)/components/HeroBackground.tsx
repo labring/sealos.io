@@ -3,8 +3,8 @@
 import { useRef, useEffect, RefObject } from 'react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import Image from 'next/image';
-import HeroGrid from './HeroBackground/assets/hero-grid.svg';
-import HeroCards from './HeroBackground/assets/hero-cards.svg';
+import HeroGrid from '../assets/hero-grid.svg';
+import HeroCards from '../assets/hero-cards.svg';
 
 interface HeroBackgroundProps {
   containerRef: RefObject<HTMLDivElement>;
@@ -71,22 +71,28 @@ export function HeroBackground({ containerRef }: HeroBackgroundProps) {
   return (
     <>
       {/* 背景网格 - 铺满整个容器 */}
-      <div className="pointer-events-none absolute inset-0 -z-20">
+      <div
+        className="pointer-events-none absolute inset-0 -z-20"
+        aria-hidden="true"
+      >
         <Image
           src={HeroGrid}
-          alt="Hero Grid"
           className="h-full w-full object-cover opacity-30"
+          alt=""
         />
       </div>
 
       {/* 右侧卡片 - 限制在 container 内 */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden blur-sm lg:blur-none">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden blur-sm lg:blur-none"
+        aria-hidden="true"
+      >
         <div className="container h-full">
           <div className="flex h-full items-center justify-end">
             <div className="flex h-full w-full items-center justify-end md:w-1/2 md:min-w-[540px]">
               <Image
                 src={HeroCards}
-                alt="Hero Cards"
+                alt=""
                 className="h-auto max-h-full w-full object-contain p-4 pt-28 opacity-100"
               />
             </div>
@@ -102,6 +108,7 @@ export function HeroBackground({ containerRef }: HeroBackgroundProps) {
           mixBlendMode: 'multiply',
           opacity: isActive,
         }}
+        aria-hidden="true"
       />
 
       {/* 高亮层 - 使用 MotionValue + useSpring 实现渐变 */}
@@ -112,6 +119,7 @@ export function HeroBackground({ containerRef }: HeroBackgroundProps) {
           mixBlendMode: 'overlay',
           opacity: isActive,
         }}
+        aria-hidden="true"
       />
     </>
   );

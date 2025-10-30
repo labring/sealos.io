@@ -305,6 +305,7 @@ export function GodRays({
         height: `calc(100% + ${blur * 2}px)`,
         clipPath: `inset(${blur}px -100vw -100vh -100vw)`,
       }}
+      aria-hidden="true"
     />
   );
 }

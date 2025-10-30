@@ -26,10 +26,16 @@ export function FeatureStepper({
 
       {features.map((feature, index) => (
         <div key={index} className="flex max-w-4xl flex-col items-center gap-2">
-          <div className="flex size-5 items-center justify-center rounded-full bg-slate-200 text-zinc-950 outline-1 outline-offset-3 outline-zinc-500">
+          <div
+            className="flex size-5 items-center justify-center rounded-full bg-slate-200 text-zinc-950 outline-1 outline-offset-3 outline-zinc-500"
+            aria-hidden="true"
+          >
             <Check size={16} />
           </div>
-          <span className="text-center text-sm text-zinc-200 sm:text-base 2xl:text-lg">
+          <span
+            className="text-center text-sm text-zinc-200 sm:text-base 2xl:text-lg"
+            aria-label={'Sealos feature: ' + feature.label}
+          >
             {feature.label}
           </span>
         </div>

@@ -11,7 +11,10 @@ export function ChoicesSection() {
       <div className="container">
         <div className="relative pb-8 lg:pb-16">
           <div className="w-full">
-            <h2 className="text-2xl leading-tight sm:text-4xl md:text-[2.5rem]">
+            <h2
+              className="text-2xl leading-tight sm:text-4xl md:text-[2.5rem]"
+              aria-label="Want to ship your next feature in minutes, not months?"
+            >
               <div>Want to ship your next feature</div>
               <div>
                 <GradientText>in minutes</GradientText>, not months?

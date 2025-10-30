@@ -95,6 +95,7 @@ export default function FAQSection() {
           <h2
             ref={titleRef}
             className="m-0 mb-6 text-4xl leading-[150%] font-medium text-white"
+            aria-label="Frequently Asked Questions"
           >
             <span ref={frequentlyAskedRef}>Frequently Asked</span>{' '}
             <span

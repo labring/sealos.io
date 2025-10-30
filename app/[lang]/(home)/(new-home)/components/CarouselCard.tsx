@@ -19,8 +19,14 @@ export const CarouselCard = memo(function CarouselCard({
 }: CarouselCardProps) {
   return (
     <div className="relative mt-6 flex flex-col border-zinc-700">
-      <div className="inset-shadow-bubble pointer-events-none absolute z-10 h-full w-full rounded-2xl" />
-      <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden border-b border-zinc-700 md:aspect-[16/9] lg:aspect-[24/9]">
+      <div
+        className="inset-shadow-bubble pointer-events-none absolute z-10 h-full w-full rounded-2xl"
+        aria-hidden="true"
+      />
+      <div
+        className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden border-b border-zinc-700 md:aspect-[16/9] lg:aspect-[24/9]"
+        aria-hidden="true"
+      >
         {children}
       </div>
       <div className="flex flex-col gap-6 px-12 pt-6 pb-8 sm:flex-row md:items-center md:justify-between">

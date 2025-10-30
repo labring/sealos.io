@@ -32,8 +32,9 @@ const StatCard = memo(function StatCard({
           ? 'shadowRiseOnce 1400ms ease-out 0s 1 forwards'
           : 'none',
       }}
+      aria-label={`Statistics card: ${title}: ${value}${suffix}. ${description}`}
     >
-      <div className="w-full">
+      <div className="w-full" aria-hidden="true">
         <div className="flex items-center gap-2">
           {/* icon container sizing */}
           <div className="h-4 w-4 shrink-0">{icon}</div>
@@ -48,7 +49,10 @@ const StatCard = memo(function StatCard({
         </div>
       </div>
 
-      <div className="h-14 w-[138px] bg-gradient-to-b from-white to-gray-400 bg-clip-text text-right text-[56px] leading-none font-medium text-transparent">
+      <div
+        className="h-14 w-[138px] bg-gradient-to-b from-white to-gray-400 bg-clip-text text-right text-[56px] leading-none font-medium text-transparent"
+        aria-hidden="true"
+      >
         <CountUp to={value} duration={2} className="count-up-text" />
         {suffix}
       </div>

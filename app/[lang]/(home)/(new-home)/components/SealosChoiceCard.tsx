@@ -8,7 +8,10 @@ interface SealosChoiceCardProps {
 
 export function SealosChoiceCard({ className = '' }: SealosChoiceCardProps) {
   return (
-    <div className={`relative ${className}`}>
+    <div
+      className={`relative ${className}`}
+      aria-label="Have an idea, describe it to Sealos, and it's live"
+    >
       {/* 静态SVG背景 - 保持原始尺寸 */}
       <Image
         src={ChoiceSVG}
@@ -113,16 +116,16 @@ export function SealosChoiceCard({ className = '' }: SealosChoiceCardProps) {
           {/* 第一条竖线 - 灰色底 */}
           <path
             stroke="#717171"
-            stroke-dasharray="6 6"
-            stroke-width="3"
+            strokeDasharray="6 6"
+            strokeWidth="3"
             d="M387.6 61.5v36.2"
             style={{ transform: 'translateX(-30px)' }}
           />
           {/* 第一条竖线 - 蓝色动画层 */}
           <path
             stroke="#5C9AFF"
-            stroke-dasharray="6 6"
-            stroke-width="3"
+            strokeDasharray="6 6"
+            strokeWidth="3"
             d="M387.6 61.5v36.2"
             style={{
               transform: 'translateX(-30px)',
@@ -133,16 +136,16 @@ export function SealosChoiceCard({ className = '' }: SealosChoiceCardProps) {
           {/* 第二条竖线 - 灰色底 */}
           <path
             stroke="#717171"
-            stroke-dasharray="6 6"
-            stroke-width="3"
+            strokeDasharray="6 6"
+            strokeWidth="3"
             d="M387.6 167.7V204"
             style={{ transform: 'translateX(-30px)' }}
           />
           {/* 第二条竖线 - 蓝色动画层 */}
           <path
             stroke="#5C9AFF"
-            stroke-dasharray="6 6"
-            stroke-width="3"
+            strokeDasharray="6 6"
+            strokeWidth="3"
             d="M387.6 167.7V204"
             style={{
               transform: 'translateX(-30px)',
@@ -156,7 +159,7 @@ export function SealosChoiceCard({ className = '' }: SealosChoiceCardProps) {
             cy="135.8"
             r="63.5"
             stroke="#444"
-            stroke-width=".9"
+            strokeWidth=".9"
             style={{
               transformOrigin: '64.098px 135.808px',
               animation: 'pingingRing 2s ease-in-out infinite',

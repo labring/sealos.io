@@ -149,7 +149,10 @@ export function CapsSection() {
 
       <div className="container">
         <div className="flex flex-col pb-8 lg:pb-16">
-          <h2 className="text-2xl leading-tight sm:text-4xl md:text-[2.5rem]">
+          <h2
+            className="text-2xl leading-tight sm:text-4xl md:text-[2.5rem]"
+            aria-label="Built for the Modern Application."
+          >
             <span>Built for the</span>&nbsp;
             <GradientText>Modern Application.</GradientText>
           </h2>
@@ -171,7 +174,7 @@ export function CapsSection() {
               <CardWithBeam key={index} colSpanClasses={colSpanClasses}>
                 {/* Section Tag */}
                 <div className="flex w-fit items-center rounded-full border border-white/5 bg-white/5 px-3 py-2 text-zinc-200 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),_0_2px_4px_-1px_rgba(0,0,0,0.02)]">
-                  <Icon className="mr-2 size-5" />
+                  <Icon className="mr-2 size-5" aria-hidden="true" />
                   <span>{card.label}</span>
                 </div>
 
@@ -194,7 +197,9 @@ export function CapsSection() {
                 </div>
 
                 {/* Card Image */}
-                <div className="mt-4 h-[16rem] grow">{card.image}</div>
+                <div className="mt-4 h-[16rem] grow" aria-hidden="true">
+                  {card.image}
+                </div>
               </CardWithBeam>
             );
           })}
@@ -212,7 +217,7 @@ export function CapsSection() {
               <CardWithBeam key={index} colSpanClasses={colSpanClasses}>
                 {/* Section Tag */}
                 <div className="flex w-fit items-center rounded-full border border-white/5 bg-white/5 px-3 py-2 text-zinc-200 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),_0_2px_4px_-1px_rgba(0,0,0,0.02)]">
-                  <Icon className="mr-2 size-5" />
+                  <Icon className="mr-2 size-5" aria-hidden="true" />
                   <span>{card.label}</span>
                 </div>
 
@@ -235,7 +240,9 @@ export function CapsSection() {
                 </div>
 
                 {/* Card Image */}
-                <div className="mt-4 h-[16rem] grow">{card.image}</div>
+                <div className="mt-4 h-[16rem] grow" aria-hidden="true">
+                  {card.image}
+                </div>
               </CardWithBeam>
             );
           })}

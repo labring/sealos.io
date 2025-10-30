@@ -239,7 +239,10 @@ const TypewriterOverlay = memo(
     if (!isActive) return null;
 
     return (
-      <div className="pointer-events-none absolute inset-0 flex items-start p-3 pt-2">
+      <div
+        className="pointer-events-none absolute inset-0 flex items-start p-3 pt-2"
+        aria-hidden="true"
+      >
         <div className="text-base text-zinc-400 md:text-base">
           {currentText}
           <span className="animate-pulse">|</span>
@@ -264,7 +267,11 @@ const PromptCategories = memo(
             {category.type === 'list' && (
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
-                  <button className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-xs whitespace-nowrap text-zinc-400 transition-colors hover:bg-white/[0.1] sm:text-sm">
+                  <button
+                    className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-xs whitespace-nowrap text-zinc-400 transition-colors hover:bg-white/[0.1] sm:text-sm"
+                    aria-label={'Predefined prompt list: ' + category.name}
+                    aria-description="Click to see available prompts"
+                  >
                     {category.icon}
                     <span>{category.name}</span>
                     <ChevronRight size={14} />
@@ -276,6 +283,8 @@ const PromptCategories = memo(
                       key={prompt.name}
                       onClick={() => onPromptSelect(prompt.prompt)}
                       className="cursor-pointer"
+                      aria-label={'Predefined prompt: ' + category.name}
+                      aria-description="Click to fill this prompt"
                     >
                       <span className="mr-2">{prompt.icon}</span>
                       <span>{prompt.name}</span>
@@ -289,6 +298,8 @@ const PromptCategories = memo(
               <button
                 className="flex cursor-pointer items-center gap-1 rounded-full bg-white/[0.07] px-2 py-1 text-xs whitespace-nowrap text-zinc-400 transition-colors hover:bg-white/[0.1] sm:text-sm"
                 onClick={() => onPromptSelect(category.prompt)}
+                aria-label={'Predefined prompt: ' + category.name}
+                aria-description="Click to fill this prompt"
               >
                 {category.icon}
                 <span>{category.name}</span>
@@ -308,13 +319,17 @@ const GlareEffect = memo(({ isFirefox }: { isFirefox: boolean }) => {
 
   return (
     <>
-      <Glare className="absolute -top-[4.25rem] -left-[4.25rem] size-36" />
+      <Glare
+        className="absolute -top-[4.25rem] -left-[4.25rem] size-36"
+        aria-hidden="true"
+      />
       <div
         className="pointer-events-none absolute inset-0 -top-16 -left-16 -z-5 h-32 w-32"
         style={{
           background: `radial-gradient(48px circle, rgba(255,255,255,1), transparent 70%)`,
           mixBlendMode: 'overlay',
         }}
+        aria-hidden="true"
       />
     </>
   );
@@ -424,6 +439,8 @@ export function PromptInput() {
           }}
           onClick={handleTextareaInteraction}
           onKeyDown={handleKeyDown}
+          aria-live="polite"
+          aria-label="Prompt input"
         />
 
         {/* 循环打字机效果叠加层 - 完全隔离的组件 */}
@@ -437,6 +454,11 @@ export function PromptInput() {
           className="absolute right-3 bottom-3 z-10 size-10 cursor-pointer rounded-lg bg-zinc-200 p-0 text-zinc-950 hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
           disabled={isTouched ? !promptText.trim() : !typewriterFullText.trim()}
           onClick={handleSendPrompt}
+          aria-label={
+            'Send prompt ' +
+            (isTouched ? promptText : typewriterFullText) +
+            ' to Sealos Brain.'
+          }
         >
           <ArrowUp size={20} />
         </Button>

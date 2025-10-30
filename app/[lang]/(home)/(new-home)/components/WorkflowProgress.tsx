@@ -174,6 +174,7 @@ const StageItem = memo(
           <motion.div
             className="absolute inset-0 overflow-hidden rounded-xl"
             initial={false}
+            aria-hidden="true"
           >
             <motion.div
               ref={scope}
@@ -186,7 +187,9 @@ const StageItem = memo(
         )}
 
         <div className="relative z-10 flex flex-col items-center gap-1 sm:flex-row sm:gap-2">
-          <div className="text-zinc-400">{stage.icon}</div>
+          <div className="text-zinc-400" aria-hidden="true">
+            {stage.icon}
+          </div>
           <span>{stage.name}</span>
         </div>
       </motion.div>

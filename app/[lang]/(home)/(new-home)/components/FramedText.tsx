@@ -10,6 +10,7 @@ export function FramedText({ children }: { children?: React.ReactNode }) {
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="none"
         style={{ overflow: 'visible' }}
+        aria-hidden="true"
       >
         <defs>
           {/* 定义渐变色 - 从 white 到 blue-600 */}

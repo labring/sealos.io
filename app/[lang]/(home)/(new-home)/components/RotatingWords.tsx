@@ -56,7 +56,7 @@ export function RotatingWords({
         display: 'inline-block',
         position: 'relative',
       }}
-      aria-live="polite"
+      aria-hidden="true"
     >
       <motion.span
         style={{

@@ -28,9 +28,9 @@ const Testimonial = memo(function Testimonial({
           height={36}
           className="aspect-square rounded-full object-cover"
         />
-        <h4 className="m-0 self-stretch text-lg leading-7 font-medium text-zinc-200">
+        <h5 className="m-0 self-stretch text-lg leading-7 font-medium text-zinc-200">
           {name}
-        </h4>
+        </h5>
       </div>
       <p className="m-0 self-stretch text-sm leading-5 font-normal text-zinc-400">
         {`"${quote}"`}
@@ -48,9 +48,9 @@ const Feature = memo(function Feature({ title, description }: FeatureProps) {
   return (
     <div className="mb-12">
       <div className="flex w-full flex-col items-start gap-2 lg:flex-row lg:gap-12">
-        <h3 className="m-0 w-auto shrink-0 text-[17.5px] leading-[25px] font-medium text-zinc-200 lg:w-[166px]">
+        <h4 className="m-0 w-auto shrink-0 text-[17.5px] leading-[25px] font-medium text-zinc-200 lg:w-[166px]">
           {title}
-        </h3>
+        </h4>
         <p
           className="m-0 block text-sm leading-5 font-normal text-zinc-400"
           style={{ width: '166px', height: '80px' }}
@@ -114,9 +114,9 @@ export default memo(function WhySourceAvailableMatters() {
         <div className="flex w-full flex-col items-start justify-between gap-8 lg:flex-row">
           {/* Left Column */}
           <div className="w-full lg:w-[40%]">
-            <h2 className="mb-16 text-left text-3xl leading-none font-medium text-white">
+            <h3 className="mb-16 text-left text-3xl leading-none font-medium text-white">
               Why Source Available Matters
-            </h2>
+            </h3>
 
             <div className="grid grid-cols-3 gap-8 lg:grid-cols-1 lg:gap-0">
               <Feature

@@ -414,7 +414,11 @@ export function ComparisonSection() {
 
       <div className="container">
         <div className="flex max-w-full flex-col items-center pb-8 md:gap-8 lg:max-w-4xl lg:flex-row lg:pb-16">
-          <h2 className="w-full text-2xl leading-tight sm:text-4xl md:text-[2.5rem]">
+          <h2
+            className="w-full text-2xl leading-tight sm:text-4xl md:text-[2.5rem]"
+            aria-label="
+          Other platforms simplify deployment. Sealos unifies your entire cloud."
+          >
             <span>Other platforms simplify deployment.</span>&nbsp;
             <GradientText>Sealos unifies your entire cloud.</GradientText>
           </h2>
@@ -426,8 +430,22 @@ export function ComparisonSection() {
         </div>
 
         {/* 对比表格 */}
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
+        <div className="overflow-x-auto" aria-label="Feature comparison table">
+          <table
+            className="w-full border-collapse"
+            aria-label=" This table compares multiple platforms (Sealos, Railway, Render, Supabase, and Vercel) across different categories, 
+            including Deployment & Workflow, Developer Experience, AI & Data Capabilities, and Infrastructure & Architecture.
+            Each category includes various features, such as Deployment Flexibility, Native Kubernetes API, Managed Databases, and S3-Compatible Object Storage.
+            The comparison indicates which platforms support specific features, with a green checkmark representing support and a gray info icon indicating lack of support.
+
+            Key features compared include:
+            [1] Deployment Flexibility: Sealos allows deployment using AI Pilot, K8s YAML, or Docker, offering maximum flexibility, while other platforms provide limited deployment options.
+            [2] Native Kubernetes API: Sealos supports full compatibility with Kubernetes tools, while other platforms do not support this feature.
+            [3] Unified Development Environment: Sealos offers cloud environments with local IDE connection, while other platforms do not provide this feature.
+            [4] Managed Databases: Sealos offers support for PostgreSQL, MySQL, MongoDB, and Redis, while other platforms have more limited database support.
+            [5] S3-Compatible Object Storage: Sealos and other platforms support S3-compatible storage, with varying levels of availability.
+            [6] Each platform’s support for the listed features is indicated by a green checkmark for availability or a gray info icon for lack of support. Some features also include additional help text for further clarification."
+          >
             {/* 表头 */}
             <thead>
               <tr>
@@ -442,7 +460,10 @@ export function ComparisonSection() {
                         : 'text-zinc-400',
                     )}
                   >
-                    <span className="relative flex items-center gap-2">
+                    <span
+                      className="relative flex items-center gap-2"
+                      aria-hidden="true"
+                    >
                       {platform.icon}
                       {platform.name}
                     </span>

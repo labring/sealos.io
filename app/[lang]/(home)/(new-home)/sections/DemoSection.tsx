@@ -37,7 +37,6 @@ export function DemoSection() {
 
   // Mount check
   useEffect(() => {
-    console.log('[DemoSection] Component mounted, setting isMounted to true');
     setIsMounted(true);
   }, []);
 
@@ -75,41 +74,21 @@ export function DemoSection() {
   const isInitializedRef = useRef(false);
   if (!isInitializedRef.current && typeof window !== 'undefined') {
     const currentProgress = scrollYProgress.get();
-    console.log(
-      '[DemoSection] Initializing smoothProgress to:',
-      currentProgress,
-    );
     smoothProgress.jump(currentProgress);
     isInitializedRef.current = true;
   }
 
   // Wait for spring to settle before showing content
   useEffect(() => {
-    console.log(
-      '[DemoSection] Initial scrollYProgress:',
-      scrollYProgress.get(),
-    );
-    console.log('[DemoSection] Initial smoothProgress:', smoothProgress.get());
-
-    let changeCount = 0;
     let settleTimeout: NodeJS.Timeout;
 
     const unsubscribe = smoothProgress.on('change', (latest) => {
-      changeCount++;
-      console.log(
-        '[DemoSection] smoothProgress changed to:',
-        latest,
-        'count:',
-        changeCount,
-      );
-
       // Clear previous timeout
       clearTimeout(settleTimeout);
 
       // Wait for spring to settle (no changes for 100ms)
       settleTimeout = setTimeout(() => {
         if (!isSpringReady) {
-          console.log('[DemoSection] Spring settled, showing content');
           setIsSpringReady(true);
         }
       }, 100);
@@ -118,7 +97,6 @@ export function DemoSection() {
     // Fallback: show after 500ms regardless
     const fallbackTimeout = setTimeout(() => {
       if (!isSpringReady) {
-        console.log('[DemoSection] Fallback timeout, showing content');
         setIsSpringReady(true);
       }
     }, 500);
@@ -147,16 +125,6 @@ export function DemoSection() {
         result =
           centerY + (-viewportH - centerY) * ((progress - 0.8125) / 0.1875);
 
-      if (Math.random() < 0.05) {
-        // Log 5% of the time to avoid spam
-        console.log(
-          '[DemoSection] videoY - progress:',
-          progress.toFixed(3),
-          'result:',
-          result.toFixed(1),
-        );
-      }
-
       return result;
     },
   );
@@ -176,16 +144,10 @@ export function DemoSection() {
   const isVideoScaleInitializedRef = useRef(false);
   if (!isVideoScaleInitializedRef.current && typeof window !== 'undefined') {
     const currentScale = videoScaleRaw.get();
-    console.log('[DemoSection] Initializing videoScale to:', currentScale);
     videoScale.jump(currentScale);
     isVideoScaleInitializedRef.current = true;
   }
 
-  // Debug: Log scale changes
-  useEffect(() => {
-    console.log('[DemoSection] Initial videoScaleRaw:', videoScaleRaw.get());
-    console.log('[DemoSection] Initial videoScale:', videoScale.get());
-  }, [videoScaleRaw, videoScale]);
   const videoOpacity = useTransform(smoothProgress, [0.5, 0.725], [1, 0]);
 
   // Pattern animations
@@ -218,7 +180,6 @@ export function DemoSection() {
   const isPatternScaleInitializedRef = useRef(false);
   if (!isPatternScaleInitializedRef.current && typeof window !== 'undefined') {
     const currentScale = patternScaleRaw.get();
-    console.log('[DemoSection] Initializing patternScale to:', currentScale);
     patternScale.jump(currentScale);
     isPatternScaleInitializedRef.current = true;
   }
@@ -238,7 +199,10 @@ export function DemoSection() {
   return (
     <section className="relative w-screen overflow-x-clip overflow-y-visible object-top pt-8">
       {/* Background light */}
-      <div className="pointer-events-none absolute top-0 left-1/2 h-96 w-full -translate-x-1/2">
+      <div
+        className="pointer-events-none absolute top-0 left-1/2 h-96 w-full -translate-x-1/2"
+        aria-hidden="true"
+      >
         <Image
           src={DemoLightSvg}
           alt=""
@@ -265,17 +229,13 @@ export function DemoSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: isSpringReady ? 1 : 0 }}
               transition={{ duration: 0.3 }}
-              onAnimationStart={() =>
-                console.log('[DemoSection] Video container animation started')
-              }
-              onAnimationComplete={() =>
-                console.log('[DemoSection] Video container animation completed')
-              }
+              aria-hidden="true"
             >
               {/* Scroll indicator */}
               <motion.div
                 className="absolute left-1/2 z-20 -translate-x-1/2 translate-y-[calc(min(39.375vw,675px)+1.5rem)] overflow-visible"
                 style={{ opacity: indicatorOpacity }}
+                aria-hidden="true"
               >
                 <motion.div
                   animate={{
@@ -312,12 +272,14 @@ export function DemoSection() {
                   alt="Video thumbnail"
                   className="absolute inset-0 size-full object-cover"
                   priority
+                  aria-hidden="true"
                 />
                 <div className="absolute z-10 flex h-full w-full items-center justify-center">
                   <Button
                     variant="landing-primary"
                     size="icon"
                     className="size-16 cursor-pointer rounded-full"
+                    aria-label="Click to play the demo video."
                   >
                     <Play size={24} fill="inherit" />
                   </Button>
