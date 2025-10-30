@@ -30,7 +30,7 @@ export default function HomePage({
         <Header />
       </div>
 
-      <div className="-mt-24 overflow-x-clip">
+      <div className="-mt-24 overflow-x-clip" role="main">
         <HeroSection />
       </div>
 

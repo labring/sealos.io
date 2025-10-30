@@ -94,6 +94,7 @@ export function HeroBackground({ containerRef }: HeroBackgroundProps) {
                 src={HeroCards}
                 alt=""
                 className="h-auto max-h-full w-full object-contain p-4 pt-28 opacity-100"
+                priority
               />
             </div>
           </div>

@@ -125,10 +125,10 @@ export default function FAQSection() {
                 value={`item-${index}`}
                 className="border-b border-white/10"
               >
-                <AccordionTrigger className="px-3 py-6 text-left text-lg leading-7 font-normal text-white hover:bg-zinc-500/30 hover:text-zinc-200 hover:no-underline [&>svg]:text-zinc-400">
+                <AccordionTrigger className="px-3 py-6 text-left text-lg leading-7 font-normal text-white hover:bg-zinc-500/30 hover:text-zinc-200 hover:no-underline [&>svg]:text-zinc-200">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="pr-8 pb-6 pl-3 text-sm leading-5 font-normal text-zinc-600">
+                <AccordionContent className="pr-8 pb-6 pl-3 text-sm leading-5 font-normal text-zinc-400">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>

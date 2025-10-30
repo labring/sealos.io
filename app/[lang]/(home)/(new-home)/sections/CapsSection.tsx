@@ -181,7 +181,7 @@ export function CapsSection() {
                 <h3 className="mt-6 text-xl text-zinc-200">{card.title}</h3>
 
                 {/* Description */}
-                <p className="mt-2 text-sm text-zinc-500">{card.description}</p>
+                <p className="mt-2 text-sm text-zinc-400">{card.description}</p>
 
                 {/* Tags */}
                 <div className="mt-6 flex flex-wrap gap-2">
@@ -224,7 +224,7 @@ export function CapsSection() {
                 <h3 className="mt-6 text-xl text-zinc-200">{card.title}</h3>
 
                 {/* Description */}
-                <p className="mt-2 text-sm text-zinc-500">{card.description}</p>
+                <p className="mt-2 text-sm text-zinc-400">{card.description}</p>
 
                 {/* Tags */}
                 <div className="mt-6 flex flex-wrap gap-2">

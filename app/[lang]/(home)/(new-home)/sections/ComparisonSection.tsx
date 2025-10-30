@@ -416,8 +416,7 @@ export function ComparisonSection() {
         <div className="flex max-w-full flex-col items-center pb-8 md:gap-8 lg:max-w-4xl lg:flex-row lg:pb-16">
           <h2
             className="w-full text-2xl leading-tight sm:text-4xl md:text-[2.5rem]"
-            aria-label="
-          Other platforms simplify deployment. Sealos unifies your entire cloud."
+            aria-label="Other platforms simplify deployment. Sealos unifies your entire cloud."
           >
             <span>Other platforms simplify deployment.</span>&nbsp;
             <GradientText>Sealos unifies your entire cloud.</GradientText>
@@ -505,12 +504,18 @@ export function ComparisonSection() {
 
                     return (
                       <tr key={`${categoryIndex}-${itemIndex}`}>
-                        <td className="border-b border-zinc-800 px-2 py-3 text-sm text-zinc-400">
+                        <td
+                          className="border-b border-zinc-800 px-2 py-3 text-sm text-zinc-400"
+                          aria-label={'Feature: ' + item.feature}
+                          aria-description={
+                            item.help ? String(item.help) : undefined
+                          }
+                        >
                           <div className="flex items-center gap-2 whitespace-nowrap">
                             {item.feature}
                             {item.help && (
                               <Tooltip>
-                                <TooltipTrigger>
+                                <TooltipTrigger aria-label="Expand tooltip: ">
                                   <CircleHelp size={20} />
                                 </TooltipTrigger>
                                 <TooltipContent>

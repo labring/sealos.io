@@ -229,7 +229,6 @@ export function DemoSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: isSpringReady ? 1 : 0 }}
               transition={{ duration: 0.3 }}
-              aria-hidden="true"
             >
               {/* Scroll indicator */}
               <motion.div
@@ -280,6 +279,7 @@ export function DemoSection() {
                     size="icon"
                     className="size-16 cursor-pointer rounded-full"
                     aria-label="Click to play the demo video."
+                    aria-hidden="false"
                   >
                     <Play size={24} fill="inherit" />
                   </Button>

@@ -33,6 +33,7 @@ const StatCard = memo(function StatCard({
           : 'none',
       }}
       aria-label={`Statistics card: ${title}: ${value}${suffix}. ${description}`}
+      role="region"
     >
       <div className="w-full" aria-hidden="true">
         <div className="flex items-center gap-2">

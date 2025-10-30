@@ -139,6 +139,7 @@ export function Header() {
           <div
             className="mr-4 flex items-center justify-center"
             aria-label="Sealos Logotype"
+            role="banner"
           >
             <Image
               alt="Sealos Logo"
@@ -167,7 +168,11 @@ export function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <NavigationMenu className="hidden lg:flex" viewport={false}>
+          <NavigationMenu
+            className="hidden lg:flex"
+            viewport={false}
+            role="navigation"
+          >
             <NavigationMenuList>
               {navigationLinks.map((link, index) => (
                 <NavigationMenuItem key={index}>
@@ -315,7 +320,7 @@ export function Header() {
               <div className="h-screen overflow-y-auto bg-gradient-to-br from-gray-900 to-black p-6">
                 {/* Mobile Menu Header */}
                 <div className="mb-8 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2" role="banner">
                     <Image
                       alt="Sealos Logo"
                       src="/logo.svg"
@@ -338,7 +343,7 @@ export function Header() {
                 </div>
 
                 {/* Mobile Menu Items */}
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2" role="navigation">
                   {navigationLinks.map((link, index) => (
                     <div key={index} className="border-b border-white/10">
                       {link.children ? (
