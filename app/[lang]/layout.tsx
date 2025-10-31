@@ -1,7 +1,6 @@
 import { locales } from '@/lib/i18n';
 import { RootProvider } from 'fumadocs-ui/provider';
 import type { ReactNode } from 'react';
-import { Inter } from 'next/font/google';
 import { Analytics } from '@/components/analytics';
 import { GTMBody } from '@/components/analytics/gtm-body';
 import { generatePageMetadata } from '@/lib/utils/metadata';
@@ -11,20 +10,6 @@ import { DefaultSearchDialog } from '@/components/docs/Search';
 import { headers } from 'next/headers';
 import { HomepageDarkMode } from './homepage-dark-mode';
 import { isHomepage } from './utils/is-homepage';
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  preload: true,
-  fallback: [
-    'system-ui',
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'Segoe UI',
-    'Roboto',
-    'sans-serif',
-  ],
-});
 
 export const metadata = generatePageMetadata();
 
@@ -51,7 +36,7 @@ export default async function LocaleLayout({
   const isHome = isHomepage(pathname);
 
   // 构建 html className
-  const htmlClassName = isHome ? `${inter.className} dark` : inter.className;
+  const htmlClassName = isHome ? 'font-sans dark' : 'font-sans';
 
   return (
     <html lang={htmlLang} className={htmlClassName} suppressHydrationWarning>

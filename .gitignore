@@ -27,6 +27,11 @@ yarn-error.log*
 .claude
 .taskmaster
 .playwright-mcp
+.shrimp
+openspec
+docs
+CLAUDE.md
+AGENTS.md
 
 # others
 .env*.local

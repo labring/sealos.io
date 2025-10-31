@@ -24,6 +24,29 @@ const CONFIG_DIR = path.join(__dirname, '..', 'config');
 const APPS_CONFIG_PATH = path.join(CONFIG_DIR, 'apps.json');
 const IMAGES_DIR = path.join(__dirname, '..', 'public', 'images', 'apps');
 
+function isNetworkError(error) {
+  if (!error) {
+    return false;
+  }
+
+  const message = typeof error.message === 'string' ? error.message : '';
+  const code = error.code || error.cause?.code;
+
+  if (message.toLowerCase().includes('fetch failed')) {
+    return true;
+  }
+
+  const networkErrorCodes = new Set([
+    'EAI_AGAIN',
+    'ENOTFOUND',
+    'ECONNREFUSED',
+    'ECONNRESET',
+    'ETIMEDOUT',
+  ]);
+
+  return code ? networkErrorCodes.has(code) : false;
+}
+
 /**
  * Fetch templates from API
  */
@@ -270,7 +293,16 @@ async function processTemplates() {
     }
     
     // Fetch templates from API
-    const templates = await fetchTemplates(language);
+    let templates;
+    try {
+      templates = await fetchTemplates(language);
+    } catch (error) {
+      if (isNetworkError(error)) {
+        console.warn('⚠️ Network unavailable. Skipping remote template refresh and keeping existing config.');
+        return;
+      }
+      throw error;
+    }
     
     if (templates.length === 0) {
       console.log('⚠️ No templates found');

@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "lint": "tsc --noEmit",
     "build": "npm run generate-apps && next build",
     "build:analyze": "npm run generate-apps && ANALYZE=true next build",
     "dev": "next dev",

@@ -1,4 +1,6 @@
 import { blog } from '@/lib/source';
+import RelatedArticles from '@/app/[lang]/blog/components/RelatedArticles';
+import { getRelatedArticles } from '@/lib/utils/blog-utils';
 import { DocsBody } from 'fumadocs-ui/page';
 import { notFound } from 'next/navigation';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
@@ -11,8 +13,16 @@ export default async function BlogPage({
 }: {
   params: Promise<{ lang: string; slug: string }>;
 }) {
-  const page = blog.getPage([(await params).slug], (await params).lang);
+  const resolvedParams = await params;
+  const { lang, slug } = resolvedParams;
+
+  const page = blog.getPage([slug], lang);
   if (!page) notFound();
+
+  const candidateArticles = blog.getPages(lang);
+  const recommendedArticles = getRelatedArticles(page, candidateArticles);
+  const relatedArticlesToRender =
+    recommendedArticles.length > 0 ? recommendedArticles : candidateArticles;
 
   const Content = page.data.body;
 
@@ -41,6 +51,11 @@ export default async function BlogPage({
             return <p {...props}>{children}</p>;
           },
         }}
+      />
+      <RelatedArticles
+        currentArticle={page}
+        relatedArticles={relatedArticlesToRender}
+        lang={lang}
       />
     </DocsBody>
   );

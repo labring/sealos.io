@@ -25,13 +25,14 @@ export const blog = defineCollections({
   }),
 });
 
+const enableRemoteImageProcessing = process.env.ENABLE_REMARK_IMAGE === 'true';
+
 export default defineConfig({
   lastModifiedTime: 'git',
   mdxOptions: {
     remarkPlugins: [remarkInstall],
-    // Disable remarkImage during Docker builds to prevent network failures
-    // The remarkImage plugin tries to fetch external images to get dimensions,
-    // which fails in Docker build environments due to network restrictions
-    remarkImageOptions: process.env.DOCKER_BUILD === 'true' ? false : undefined,
+    // Disable remarkImage by default to keep builds deterministic in restricted environments.
+    // When remote image metadata is required, set ENABLE_REMARK_IMAGE=true.
+    remarkImageOptions: enableRemoteImageProcessing ? undefined : false,
   },
 });

@@ -146,3 +146,127 @@ export function formatTagTitle(tag: string) {
 
 // Alias for backward compatibility
 export const formatCategoryTitle = formatTagTitle;
+
+export function getRelatedArticles(
+  currentArticle: BlogPost,
+  allArticles: BlogPost[],
+  options?: {
+    maxRecommendations?: number;
+    categoryWeight?: number;
+    tagWeight?: number;
+  },
+): BlogPost[] {
+  if (!currentArticle || !Array.isArray(allArticles) || allArticles.length === 0) {
+    return [];
+  }
+
+  const {
+    maxRecommendations = 4,
+    categoryWeight = 2,
+    tagWeight = 1,
+  } = options ?? {};
+
+  const limit = Math.max(0, Math.floor(maxRecommendations));
+  if (limit === 0) {
+    return [];
+  }
+
+  const currentLocale = currentArticle.locale;
+  const currentCategory = getPageCategory(currentArticle).toLowerCase();
+  const currentTags = new Set(
+    (currentArticle.data.tags ?? [])
+      .filter((tag): tag is string => typeof tag === 'string' && tag.trim().length > 0)
+      .map((tag) => tag.toLowerCase().trim()),
+  );
+
+  const candidates = allArticles.filter((article) => {
+    if (!article || article === currentArticle) return false;
+    if (article.file?.path && currentArticle.file?.path) {
+      return article.file.path !== currentArticle.file.path;
+    }
+    return article.data.title !== currentArticle.data.title;
+  });
+
+  if (candidates.length === 0) {
+    return [];
+  }
+
+  const scoreCandidate = (article: BlogPost) => {
+    const candidateCategory = getPageCategory(article).toLowerCase();
+    const categoryMatch = candidateCategory === currentCategory;
+
+    const candidateTags = new Set(
+      (article.data.tags ?? [])
+        .filter((tag): tag is string => typeof tag === 'string' && tag.trim().length > 0)
+        .map((tag) => tag.toLowerCase().trim()),
+    );
+
+    let sharedTagsCount = 0;
+    if (currentTags.size > 0 && candidateTags.size > 0) {
+      currentTags.forEach((tag) => {
+        if (candidateTags.has(tag)) {
+          sharedTagsCount += 1;
+        }
+      });
+    }
+
+    const tagSimilarity =
+      currentTags.size === 0 || candidateTags.size === 0
+        ? 0
+        : sharedTagsCount / currentTags.size;
+
+    const score =
+      (categoryMatch ? categoryWeight : 0) + tagWeight * tagSimilarity;
+
+    const updatedAt = (() => {
+      const rawDate = article.data.date ?? article.file?.name;
+      const normalizedDate = rawDate instanceof Date ? rawDate.toISOString() : rawDate;
+      const timestamp = normalizedDate ? Date.parse(normalizedDate) : Number.NaN;
+      return Number.isNaN(timestamp) ? 0 : timestamp;
+    })();
+
+    return {
+      article,
+      categoryMatch,
+      sharedTagsCount,
+      tagSimilarity,
+      score,
+      updatedAt,
+      sameLocale: article.locale === currentLocale,
+    };
+  };
+
+  const rankedCandidates = candidates.map(scoreCandidate);
+
+  const sortByRelevance = (a: ReturnType<typeof scoreCandidate>, b: ReturnType<typeof scoreCandidate>) => {
+    if (b.score !== a.score) return b.score - a.score;
+    if (b.sharedTagsCount !== a.sharedTagsCount) return b.sharedTagsCount - a.sharedTagsCount;
+    if (b.updatedAt !== a.updatedAt) return b.updatedAt - a.updatedAt;
+    return a.article.data.title.localeCompare(b.article.data.title, currentLocale ?? 'en');
+  };
+
+  const sameLocale = rankedCandidates.filter((item) => item.sameLocale);
+  const otherLocales = rankedCandidates.filter((item) => !item.sameLocale);
+
+  // Smart fallback order: same locale & category first, then progressively relax constraints.
+  const pickOrder: ReturnType<typeof scoreCandidate>[][] = [
+    sameLocale.filter((item) => item.categoryMatch),
+    sameLocale.filter((item) => !item.categoryMatch),
+    otherLocales.filter((item) => item.categoryMatch),
+    otherLocales.filter((item) => !item.categoryMatch),
+  ];
+
+  const recommendations: BlogPost[] = [];
+  for (const group of pickOrder) {
+    if (recommendations.length >= limit) break;
+
+    group.sort(sortByRelevance);
+
+    for (const { article } of group) {
+      if (recommendations.length >= limit) break;
+      recommendations.push(article);
+    }
+  }
+
+  return recommendations.slice(0, limit);
+}
