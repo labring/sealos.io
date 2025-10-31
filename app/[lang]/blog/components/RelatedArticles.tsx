@@ -60,7 +60,10 @@ export default function RelatedArticles({
         maxRecommendations: 4,
       });
     } catch (error) {
-      console.error('RelatedArticles: failed to compute recommendations', error);
+      console.error(
+        'RelatedArticles: failed to compute recommendations',
+        error,
+      );
       errorKey = 'computeFailed';
       articlesToRender = [];
     }
@@ -107,7 +110,7 @@ export default function RelatedArticles({
               <Link
                 key={article.url ?? article.data.title}
                 href={article.url}
-                className="bg-card text-card-foreground group flex flex-col overflow-hidden rounded-xl border shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 no-underline hover:no-underline"
+                className="bg-card text-card-foreground group focus-visible:ring-ring flex flex-col overflow-hidden rounded-xl border no-underline shadow-sm transition-all duration-500 hover:-translate-y-1 hover:no-underline hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
                 prefetch={false}
               >
                 <div className="relative aspect-[16/9] w-full overflow-hidden">
@@ -115,20 +118,21 @@ export default function RelatedArticles({
                     src={imageSrc}
                     alt={article.data.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="m-0! object-cover transition-transform"
                     priority={false}
                   />
                 </div>
 
                 <div className="flex flex-1 flex-col gap-3 p-5">
-                  <Badge
-                    variant="secondary"
-                    className="bg-secondary/70 text-xs uppercase tracking-wide"
-                  >
-                    {formatCategoryTitle(category)}
-                  </Badge>
-                  <h3 className="line-clamp-2 text-lg font-semibold leading-snug">
+                  <div>
+                    <Badge
+                      variant="secondary"
+                      className="bg-secondary/70 text-xs tracking-wide uppercase"
+                    >
+                      {formatCategoryTitle(category)}
+                    </Badge>
+                  </div>
+                  <h3 className="mt-0 mb-0 line-clamp-2 text-lg leading-snug font-semibold">
                     {article.data.title}
                   </h3>
                   <p className="text-muted-foreground line-clamp-2 text-sm leading-relaxed">
