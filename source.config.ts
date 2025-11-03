@@ -25,14 +25,9 @@ export const blog = defineCollections({
   }),
 });
 
-const enableRemoteImageProcessing = process.env.ENABLE_REMARK_IMAGE === 'true';
-
 export default defineConfig({
   lastModifiedTime: 'git',
   mdxOptions: {
     remarkPlugins: [remarkInstall],
-    // Disable remarkImage by default to keep builds deterministic in restricted environments.
-    // When remote image metadata is required, set ENABLE_REMARK_IMAGE=true.
-    remarkImageOptions: enableRemoteImageProcessing ? undefined : false,
   },
 });
