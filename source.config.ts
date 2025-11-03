@@ -29,5 +29,8 @@ export default defineConfig({
   lastModifiedTime: 'git',
   mdxOptions: {
     remarkPlugins: [remarkInstall],
+    remarkImageOptions: {
+      external: process.env.DOCKER_BUILD === 'true' ? false : undefined,
+    },
   },
 });
