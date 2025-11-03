@@ -21,7 +21,7 @@ This case study is a real-world story from the Sealos platform engineering team.
 
 ### TL;DR
 
-We tackled critical container image bloat on our Sealos platform, fixing a severe disk space exhaustion issue by shrinking an 800GB, 272-layer image to just 2.05GB. Our solution involved a custom tool, `image-manip`, to surgically remove files and squash the image layers. This 390:1 reduction not only resolved all production alerts but also provides a powerful strategy to reduce container image size.
+We had a problem with runaway container image bloat, which was causing critical disk exhaustion on our production nodes. We fixed it by building a custom tool to remove a problematic 11GB file and squash 272 image layers into one, and the result was a 99.7% reduction in image size, from 800GB down to 2.05GB.
 
 ### 1. The Problem: Critical Disk Exhaustion Caused by Container Image Bloat
 
@@ -31,22 +31,29 @@ Our initial reaction was to treat the symptom. We expanded the node's storage to
 
 ### 2. Why It Matters: The Business Context
 
-The **[Sealos devbox feature](/products/devbox)** is a cornerstone of our value proposition: providing developers with isolated, one-click, reproducible cloud-based environments. This persistent disk space exhaustion, a problem often linked to scenarios where a Docker image is too large, wasn't just a technical nuisance; it was a direct threat to that core promise. Unreliable environments lead to frustrated developers, lost productivity, and ultimately, customer churn. The stability of this single feature was directly tied to user trust and our platform's reputation in a competitive market. We weren't just fixing a disk; we were defending our product's integrity.
+The [Sealos devbox feature](/products/devbox) is supposed to give developers one-click, isolated, cloud-based environments that feel just like working locally. To make that happen, we had to meet a few tough product requirements:
+1.  **Keep existing habits:** Developers should be able to use their local IDEs like VS Code without changing their workflow.
+2.  **No new concepts:** Users shouldn't need to learn Docker or Kubernetes to write code.
+3.  **Simplicity is key:** The whole experience needs to be dead simple.
+
+This led us to a design that bends some of the typical rules for containers. For example, we put an `sshd` server in the container to support IDE connections. We also let developers "commit" their changes, which treats the container more like a persistent, stateful workspace than an immutable artifact. In a development context, this is a great feature.
+
+But that's where we ran into trouble. We were building a user-friendly abstraction on top of Kubernetes, which isn't really designed for this kind of stateful, VM-like behavior. The persistent disk space exhaustion wasn't just a technical bug; it was a direct result of the trade-offs we made between our user-centric design and the mechanics of container runtimes. Unreliable environments mean frustrated developers, and we weren't just fixing a disk issue—we were protecting the core promise of our product.
 
 ### 3. Investigation: Pinpointing the I/O Storm with iotop and du
 
-Our hands-on investigation began by hunting for the source of the bleeding. The first tool we reached for was `iotop` to identify any processes with abnormal I/O activity. The culprit was immediately apparent: multiple **[containerd](https://containerd.io/)** processes were writing to disk at a sustained, alarming rate of over 100MB/s. For a container runtime managing mostly idle development environments, this was a massive red flag.
+We started the hands-on investigation by trying to find what was causing all the I/O. The first tool we reached for was `iotop`, and it gave us a clear signal right away: several **[containerd](https://containerd.io/)** processes were writing to disk at a sustained rate of over 100MB/s. For a runtime managing mostly idle dev environments, that was way too high.
 
 ![Terminal output from the iotop command showing containerd processes with disk write speeds over 100MB/s.](./images/containerd-high-disk-io-iotop.png)
 
-This pointed to a problem within the containers themselves. We began hunting for the largest offenders within containerd's storage directory, using `du` to scan the overlayfs snapshots.
+This told us the problem was inside the containers. We started digging through containerd's storage directory, using `du` to find the biggest directories in the overlayfs snapshots.
 
 ```bash
 du -h -d4 /var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/ \
   | sort -hr | head -20
 ```
 
-The output was not what we expected. Instead of a mix of large user files, a single filename appeared repeatedly, each instance a monstrous 11GB.
+The output was strange. We expected to see large user files, but instead, we saw the same 11GB file over and over again.
 
 ```plain
 11G     /var/lib/containerd/.../snapshots/560660/fs/var/log/btmp
@@ -56,13 +63,13 @@ The output was not what we expected. Instead of a mix of large user files, a sin
 11G     /var/lib/containerd/.../snapshots/560620/fs/var/log/btmp
 ```
 
-The file `/var/log/btmp` is a standard Linux system file that records failed login attempts. On a healthy system, it measures in kilobytes. An 11GB `btmp` file is unheard of. We inspected the contents of one of these files using the `last` command.
+The file `/var/log/btmp` records failed login attempts in Linux. It should be a few kilobytes, maybe. An 11GB `btmp` file is completely unheard of. We took a look inside one of them with the `last` command.
 
 ```bash
 last -f /var/lib/containerd/.../snapshots/560576/fs/var/log/btmp | tail -10
 ```
 
-The terminal was flooded with a scrolling wall of failed SSH login attempts, timestamped at a rate of dozens per second. This was clear evidence of a persistent, months-long brute-force attack. Our system had been dutifully recording every single failed attempt.
+Our terminals filled with a constant stream of failed SSH login attempts, with timestamps showing dozens of attempts per second. It was obvious the container had been under a brute-force attack for months, and our system had recorded every single attempt.
 
 ### 4. Root Cause: How OverlayFS Copy-on-Write Amplified a Brute-Force Attack
 
@@ -82,30 +89,29 @@ Here's how the disaster unfolded:
 4.  Because of CoW, OverlayFS doesn't just write the new line. It copies the *entire 11GB file* into the new, upper layer.
 5.  This process repeated 271 times.
 
-Even if the user deleted the `btmp` file in the newest layer, the 271 copies of the 11GB file would remain immutably stored in the layers underneath. The disk space was fundamentally unrecoverable through standard container operations.
+Even if the user deleted the `btmp` file in the latest layer, the 271 copies of the 11GB file would still exist in the layers underneath. The disk space was locked away, impossible to recover with standard container commands.
 
-**Compounding Factors: The Swiss Cheese Model**
+This technical problem was made possible by a few oversights in our platform design:
 
-This technical failure was enabled by three distinct oversights in our platform's design:
-
-  * **Defense #1 (Missing): A Cap on Image Layer Growth.** We had no safeguards to prevent an image's layer count from ballooning. This allowed the CoW problem to compound exponentially.
-  * **Defense #2 (Missing): Secure Base Image Configuration.** Our early `devbox` base images prioritized ease-of-use, leaving SSH password authentication enabled and exposed to the public internet without rate-limiting tools like `fail2ban`.
-  * **Defense #3 (Missing): Log Rotation.** Believing containers to be ephemeral, we omitted a standard `logrotate` configuration for system logs like `btmp`. This fatal assumption allowed a single log file to grow without bounds.
+  * **Defense #1 (Missing): A Cap on Image Layers.** We had no guardrails to stop a user's image from growing to hundreds of layers, which allowed the CoW issue to multiply.
+  * **Defense #2 (Missing): Secure Base Image.** Our early `devbox` images left SSH password authentication enabled and exposed to the internet, without any rate-limiting tools like `fail2ban`.
+  * **Defense #3 (Missing): Log Rotation.** We assumed containers were ephemeral and didn't configure `logrotate` for system logs like `btmp`. This let the log file grow without any limits.
 
 ### 5. Solution: Building a Custom OCI Tool to Squash 272 Image Layers
 
-Standard `docker` commands were insufficient; we had to perform surgical **[OCI image](https://github.com/opencontainers/image-spec)** manipulation on its immutable history. This required building our own specialized tooling and a dedicated, high-performance processing environment to truly reduce the container image size.
+Standard `docker` commands couldn't fix this. We had to manipulate the [OCI image](https://github.com/opencontainers/image-spec)'s immutable history directly. This meant building our own tool and a dedicated environment to perform the operation.
 
-**Architecture Rework: The `image-manip` Scalpel**
+**Architecture Rework: The `image-manip` Tool**
 
-We developed a new CLI tool, `image-manip`, to treat OCI images as manipulable data structures. For this task, we leveraged two of its core functions:
+We wrote a small CLI tool called `image-manip` that lets us treat OCI images like data structures we can modify. We used two of its functions for this job:
 
-1.  **`image-manip remove /var/log/btmp <image>`**: This command adds a new top layer containing an OverlayFS "whiteout" file. This special marker instructs the container runtime to ignore the `btmp` file in all underlying layers, effectively deleting it from the merged view without altering the original layers.
-2.  **`image-manip squash`**: This is the key to reclaiming disk space and the core of our strategy to squash the image layers. The tool creates a temporary container, applies all 272 layers in sequence to an empty root filesystem, and then exports the final, merged filesystem as a single new layer. This flattens the image's bloated history into a lean, optimized final state.
+1. **`image-manip remove /var/log/btmp <image>`**: This command adds a new layer with an OverlayFS "whiteout" file. This marker tells the container runtime to ignore `/var/log/btmp` in all the lower layers, effectively deleting it from the merged filesystem.
 
-**Tool Innovation: The High-Performance Operating Room**
+2. **`image-manip squash`**: This was the most important part. The tool spins up a temporary container, applies all 272 layers to an empty filesystem, and then exports the final result as a single, new layer. This flattens the entire bloated history into one clean state.
 
-Performing these intensive operations on production nodes was not an option. We built dedicated `devbox-image-squash-server` nodes in three regions using `ecs.c7a.2xlarge` instances (8-core CPU, 16GB RAM). To handle the I/O storm, we configured a striped **[LVM (Logical Volume Management)](https://www.redhat.com/sysadmin/lvm-logical-volume-management)** volume across two 1TB ESSD cloud disks.
+**Tool Innovation: A High-Performance Environment**
+
+We couldn't run these intensive operations on our production nodes. We set up dedicated `devbox-image-squash-server` nodes (8-core CPU, 16GB RAM). To handle the I/O, we created a striped [LVM (Logical Volume Management)](https://www.redhat.com/sysadmin/lvm-logical-volume-management) volume across two 1TB ESSD cloud disks.
 
 ```bash
 # Create LVM volume group
@@ -115,7 +121,7 @@ lvcreate -i 2 -I 4 -l 100%Free -n lv_containerd vg_containerd
 mkfs.xfs /dev/vg_containerd/lv_containerd
 ```
 
-A **[`fio`](https://fio.readthedocs.io/en/latest/)** benchmark confirmed our setup could handle the load, achieving 90.1k random write IOPS.
+We ran a [`fio`](https://fio.readthedocs.io/en/latest/) benchmark to make sure the setup could handle the load, and it hit 90.1k random write IOPS.
 
 ```bash
 fio -direct=1 -iodepth=32 -rw=randwrite -ioengine=libaio \
@@ -123,7 +129,7 @@ fio -direct=1 -iodepth=32 -rw=randwrite -ioengine=libaio \
     -group_reporting -filename=/var/lib/containerd/fio -size=10G
 ```
 
-Finally, we fine-tuned the OS to give `containerd` maximum I/O priority.
+Finally, we tweaked the OS to give `containerd` the highest I/O priority possible.
 
 ```bash
 # Prioritize containerd I/O
@@ -138,14 +144,14 @@ echo none > /sys/block/vdb/queue/scheduler
 echo none > /sys/block/vdc/queue/scheduler
 ```
 
-At 10:00 AM on September 11, we began the procedure on the most critical image: 800GB spread across 272 layers. The `remove` operation, which adds a "whiteout" layer, was nearly instantaneous:
+On September 11 at 10:00 AM, we started the process on the 800GB, 272-layer image. The `remove` operation, which adds a "whiteout" layer,  was instant.
 
 ```bash
 # 💀 The old way: a mountain of layers
 create diff for snapshot file-removal-514774748-OJFv cost 12.555249ms
 ```
 
-The `squash` operation was the main event. After an hour of intense processing, the logs delivered the news we were hoping for.
+Then came the `squash` operation. After an hour of the machine working hard, the logs showed us what we wanted to see.
 
 ```plain
 INFO[0000] start to squash 272 layers...
@@ -159,9 +165,9 @@ INFO[3756] rebase image successfully, cost 1h2m36.074285014s
 
 ### 6. Validation: The Proof Is in the Data
 
-The new, squashed image was a mere **2.05GB**. We had achieved a staggering 390:1 compression ratio.
+The new, squashed image was only **2.05GB**. That's a 390-to-1 reduction.
 
-After pushing the optimized image, we restarted the user's `devbox`. It started successfully. A quick check confirmed the operation's success: the user's environment was perfectly intact, and the `btmp` monster was gone.
+We pushed the new image and restarted the user's `devbox`. It came up without any issues. We checked the filesystem to confirm the `btmp` file was gone.
 
 ```bash
 devbox@linux:~$ ls -lah /var/log/
@@ -170,7 +176,7 @@ total 84K
 -rw-r--r-- 1 root root  6.0K Nov 19  2024 alternatives.log
 ```
 
-The quantitative impact on the platform was dramatic and immediate. The data unequivocally demonstrates the success of our approach to optimize a container image, leading to massive savings in storage, cost, and developer time.
+The impact on the platform was immediate and easy to measure. The numbers speak for themselves.
 
 | Metric | Before Fix | After Fix | Improvement |
 | :--- | :--- | :--- | :--- |
@@ -184,18 +190,18 @@ The quantitative impact on the platform was dramatic and immediate. The data une
 
 ### 7. Lessons Learned & Next Steps
 
-This incident was a painful but invaluable lesson in the hidden complexities of containerized systems. Our solution was effective, but it was a reactive, manual procedure—a complex surgery to fix a preventable disease. Here are our key takeaways and future preventative measures, framed as a quick FAQ.
+This whole incident was a tough but important lesson. Our fix worked, but it was a manual, reactive fix for a problem that shouldn't have happened in the first place. Here are our main takeaways.
 
 **Q: What was the primary cause of the extreme container image bloat?**
 
-**A:** The primary cause was the interaction between OverlayFS's Copy-on-Write (CoW) mechanism and a large, frequently updated log file (`/var/log/btmp`). Each minor update caused the entire 11GB file to be copied into a new image layer, a process that repeated over 270 times, compounding the storage consumption.
+**A:** It was the combination of OverlayFS's Copy-on-Write (CoW) behavior and a large, frequently updated log file (`/var/log/btmp`). Every small update to the 11GB file caused the entire file to be copied into a new layer, and this happened over 270 times.
 
 **Q: Why couldn't you just delete the file with a standard `docker commit`?**
 
-**A:** Deleting a file in a new layer only adds a "whiteout" marker that hides the file from the final view. The original 271 copies of the 11GB file would remain immutably stored in the underlying layers, continuing to consume disk space. A full layer squash was necessary to create a new, clean filesystem and truly reclaim the space.
+**A:** Deleting a file in a new layer only adds a "whiteout" marker that hides the file. The original 271 copies of the 11GB file would still be stored in the underlying layers, taking up disk space. We had to do a full layer squash to actually get rid of the data and reclaim the space.
 
 **Q: What is the key lesson for other platform engineers from this experience?**
 
-**A:** The key insight is to treat container images not as opaque black boxes, but as structured, manipulable archives. Deeply understanding the underlying technology, like the OCI image specification, allows for advanced optimization and troubleshooting that goes far beyond standard tooling. This knowledge is essential for preventing issues like **Kubernetes disk space exhaustion** before they start.
+**A:** The key insight is to treat container images not as black boxes, but as structured archives that you can manipulate. If you understand the underlying tech, like the OCI image spec, you can do advanced optimizations that go way beyond what standard tools offer. This is crucial for preventing problems like this before they start.
 
-Our immediate next step is to move from firefighting to fire prevention. We have already implemented automated monitoring that triggers an alert if any user image exceeds 50 layers or 10GB in size. Furthermore, all new `devbox` base images now ship with password authentication disabled by default and a properly configured `logrotate` service.
+Our next step is to move from firefighting to fire prevention. We've already put automated monitoring in place to alert us if any user image grows beyond 50 layers or 10GB. More importantly, all new `devbox` base images now ship with password authentication disabled by default and a proper `logrotate` configuration.
