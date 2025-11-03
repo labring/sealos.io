@@ -190,7 +190,7 @@ sealos run labring/kubernetes:v1.24.0
 出现此问题时，可通过以下命令解决：
 
 ```shell
-wget https://github.com/labring/sealos/releases/download/v4.2.0/sealos_4.2.0_linux_amd64.tar.gz && tar xvf sealos_4.2.0_linux_amd64.tar.gz image-cri-shim
+wget https://github.com/labring/sealos/releases/download/v5.1.0/sealos_5.1.0_linux_amd64.tar.gz && tar xvf sealos_5.1.0_linux_amd64.tar.gz image-cri-shim
 sealos exec -r master,node "systemctl stop image-cri-shim"
 sealos scp "./image-cri-shim" "/usr/bin/image-cri-shim"
 sealos exec -r master,node "systemctl start image-cri-shim"
