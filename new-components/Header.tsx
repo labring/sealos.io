@@ -19,10 +19,10 @@ import {
 } from 'motion/react';
 import Image from 'next/image';
 import React from 'react';
-import DevBoxIcon from '../assets/sealos-appicons/devbox.svg';
-import DatabaseIcon from '../assets/sealos-appicons/database.svg';
-import AppStoreIcon from '../assets/sealos-appicons/appstore.svg';
-import GitHubIcon from '../assets/github.svg';
+import DevBoxIcon from '@/assets/sealos-appicons/devbox.svg';
+import DatabaseIcon from '@/assets/sealos-appicons/database.svg';
+import AppStoreIcon from '@/assets/sealos-appicons/appstore.svg';
+import GitHubIcon from '@/assets/github.svg';
 import { useGTM } from '@/hooks/use-gtm';
 import { siteConfig } from '@/config/site';
 import { getBrainUrl } from '@/lib/utils/brain';

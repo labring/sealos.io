@@ -4,7 +4,7 @@ import { FileCode } from 'lucide-react';
 import { useInView } from 'framer-motion';
 import ContainerImage from './assets/container.svg';
 import FilledContainerImage from './assets/container-filled.svg';
-import SealosLogo from '../../../assets/shared-icons/sealos.svg';
+import SealosLogo from '@/assets/shared-icons/sealos.svg';
 import K8sLogo from './logo/k8s.svg';
 import DockerLogo from './logo/docker.svg';
 import GithubLogo from './logo/github.svg';

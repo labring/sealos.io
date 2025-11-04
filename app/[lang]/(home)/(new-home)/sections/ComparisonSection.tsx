@@ -9,11 +9,11 @@ import {
   Network,
 } from 'lucide-react';
 import Image from 'next/image';
-import SealosIcon from '../assets/shared-icons/sealos.svg';
-import RailwayIcon from '../assets/platform-icons/railway.svg';
-import RenderIcon from '../assets/platform-icons/render.svg';
-import SupabaseIcon from '../assets/platform-icons/supabase.svg';
-import VercelIcon from '../assets/platform-icons/vercel.svg';
+import SealosIcon from '@/assets/shared-icons/sealos.svg';
+import RailwayIcon from '@/assets/platform-icons/railway.svg';
+import RenderIcon from '@/assets/platform-icons/render.svg';
+import SupabaseIcon from '@/assets/platform-icons/supabase.svg';
+import VercelIcon from '@/assets/platform-icons/vercel.svg';
 import { cn } from '@/lib/utils';
 import {
   Tooltip,

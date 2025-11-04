@@ -2,10 +2,10 @@
 
 import Image from 'next/image';
 import { memo } from 'react';
-import ltAvatar from '../assets/lt.png';
-import rtAvatar from '../assets/rt.png';
-import lbAvatar from '../assets/lb.png';
-import rbAvatar from '../assets/rb.png';
+import ltAvatar from '@/assets/lt.png';
+import rtAvatar from '@/assets/rt.png';
+import lbAvatar from '@/assets/lb.png';
+import rbAvatar from '@/assets/rb.png';
 
 interface TestimonialProps {
   avatar: any;

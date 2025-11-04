@@ -3,12 +3,12 @@ import { DBCard } from './DBCard';
 import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 import { memo, useRef } from 'react';
-import KafkaIcon from '../../../assets/db-appicons/kafkaicon.svg';
-import MilvusIcon from '../../../assets/db-appicons/milvus.svg';
-import MongoIcon from '../../../assets/db-appicons/mongoicon.svg';
-import MysqlIcon from '../../../assets/db-appicons/mysqlicon.svg';
-import PgIcon from '../../../assets/db-appicons/pgicon.svg';
-import RedisIcon from '../../../assets/db-appicons/redisicon.svg';
+import KafkaIcon from '@/assets/db-appicons/kafkaicon.svg';
+import MilvusIcon from '@/assets/db-appicons/milvus.svg';
+import MongoIcon from '@/assets/db-appicons/mongoicon.svg';
+import MysqlIcon from '@/assets/db-appicons/mysqlicon.svg';
+import PgIcon from '@/assets/db-appicons/pgicon.svg';
+import RedisIcon from '@/assets/db-appicons/redisicon.svg';
 import ChatInputImage from './assets/chat-input.svg';
 
 // 数据库配置

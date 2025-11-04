@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { GradientText } from '../components/GradientText';
 import { FallingTags } from '../components/FallingTags';
 import { SealosChoiceCard } from '../components/SealosChoiceCard';
-import ChoicesBeamGrid from '../assets/choices-beam-grid.svg';
+import ChoicesBeamGrid from '@/assets/choices-beam-grid.svg';
 
 export function ChoicesSection() {
   return (

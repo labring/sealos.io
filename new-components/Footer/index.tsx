@@ -217,7 +217,7 @@ interface FooterProps {
   lang?: string;
 }
 
-const Footer = async ({ lang = 'en' }: FooterProps) => {
+export const Footer = async ({ lang = 'en' }: FooterProps) => {
   const footerLinks = getFooterLinks(lang);
 
   return (
@@ -326,17 +326,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
               href="https://github.com/labring/sealos"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: 'flex',
-                width: '32px',
-                height: '32px',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: '9999px',
-                background: '#FFFFFF1A',
-                color: 'white',
-                textDecoration: 'none',
-              }}
+              className="flex size-8 items-center justify-center rounded-full bg-white/10 text-white no-underline"
               title="GitHub"
             >
               <GithubIcon />
@@ -345,17 +335,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
               href="https://discord.gg/Sealos"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: 'flex',
-                width: '32px',
-                height: '32px',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: '9999px',
-                background: '#FFFFFF1A',
-                color: ' #6688FF',
-                textDecoration: 'none',
-              }}
+              className="flex size-8 items-center justify-center rounded-full bg-white/10 text-[#6688FF] no-underline"
               title="Discord"
             >
               <DiscordIcon />
@@ -364,17 +344,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
               href="https://x.com/sealos_io"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: 'flex',
-                width: '32px',
-                height: '32px',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: '9999px',
-                background: '#FFFFFF1A',
-                color: 'white',
-                textDecoration: 'none',
-              }}
+              className="flex size-8 items-center justify-center rounded-full bg-white/10 text-white no-underline"
               title="X (Twitter)"
             >
               <XIcon />
@@ -383,17 +353,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
               href="https://www.youtube.com/channel/UC-mC1Q_z2wK70vQGGVX5amg"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: 'flex',
-                width: '32px',
-                height: '32px',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: '9999px',
-                background: '#FFFFFF1A',
-                color: 'white',
-                textDecoration: 'none',
-              }}
+              className="flex size-8 items-center justify-center rounded-full bg-white/10 text-white no-underline"
               title="X (Twitter)"
             >
               <img
@@ -408,17 +368,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
                   href="https://space.bilibili.com/1775707947"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{
-                    display: 'flex',
-                    width: '32px',
-                    height: '32px',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: '9999px',
-                    background: '#FFFFFF1A',
-                    color: 'white',
-                    textDecoration: 'none',
-                  }}
+                  className="flex size-8 items-center justify-center rounded-full bg-white/10 text-white no-underline"
                   title="Bilibili"
                 >
                   <BilibiliIcon />
@@ -427,17 +377,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
                   href="https://mp.weixin.qq.com/s/GNv9N5vXqXRKPvhVJB9aGw"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{
-                    display: 'flex',
-                    width: '32px',
-                    height: '32px',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: '9999px',
-                    background: '#FFFFFF1A',
-                    color: 'white',
-                    textDecoration: 'none',
-                  }}
+                  className="flex size-8 items-center justify-center rounded-full bg-white/10 text-white no-underline"
                   title="WeChat"
                 >
                   <WechatIcon />
@@ -448,17 +388,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
               href="/rss.xml"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: 'flex',
-                width: '32px',
-                height: '32px',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: '9999px',
-                background: 'rgba(82,82,91,0.35)',
-                color: 'white',
-                textDecoration: 'none',
-              }}
+              className="flex size-8 items-center justify-center rounded-full bg-white/10 text-white no-underline"
               title="RSS Feed"
             >
               <RSSIcon className="text-white" />
@@ -668,5 +598,3 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
     </>
   );
 };
-
-export default Footer;

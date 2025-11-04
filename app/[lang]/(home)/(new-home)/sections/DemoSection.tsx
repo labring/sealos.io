@@ -13,9 +13,9 @@ import { Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FeatureStepper } from '../components/FeatureStepper';
 import { VideoModal } from '../components/VideoModal';
-import DemoLightSvg from '../assets/demo-light.svg';
-import VideoThumbnailSvg from '../assets/video-thumbnail.svg';
-import DemoIndicatorArrowImage from '../assets/demo-indicator-arrow.svg';
+import DemoLightSvg from '@/assets/demo-light.svg';
+import VideoThumbnailSvg from '@/assets/video-thumbnail.svg';
+import DemoIndicatorArrowImage from '@/assets/demo-indicator-arrow.svg';
 
 export function DemoSection() {
   // Refs

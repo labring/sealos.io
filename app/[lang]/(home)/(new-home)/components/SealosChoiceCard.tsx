@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import ChoiceSVG from '../assets/choose-sealos-card.svg';
+import ChoiceSVG from '@/assets/choose-sealos-card.svg';
 
 interface SealosChoiceCardProps {
   className?: string;

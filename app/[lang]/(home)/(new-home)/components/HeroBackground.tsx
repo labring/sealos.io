@@ -3,8 +3,8 @@
 import { useRef, useEffect, RefObject } from 'react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import Image from 'next/image';
-import HeroGrid from '../assets/hero-grid.svg';
-import HeroCards from '../assets/hero-cards.svg';
+import HeroGrid from '@/assets/hero-grid.svg';
+import HeroCards from '@/assets/hero-cards.svg';
 
 interface HeroBackgroundProps {
   containerRef: RefObject<HTMLDivElement>;
