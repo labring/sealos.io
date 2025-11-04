@@ -1,80 +1,101 @@
-import { ChevronLeft, ChevronRight, ArrowRight, ArrowLeft } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
+import React from 'react';
+import { DocsBody } from 'fumadocs-ui/page';
+import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { GradientText } from '../../(new-home)/components/GradientText';
 import { FAQTag } from '@/new-components/FAQTag';
 import { FAQCard } from '@/new-components/FAQCard';
 import { siteConfig } from '@/config/site';
+import {
+  getFAQBySlug,
+  findRelatedFAQs,
+  getAdjacentFAQs,
+  getAllFAQs,
+  getFAQsByCategory,
+  pageToFAQItem,
+  getCategory,
+} from '@/lib/utils/faq-utils';
 import { Button } from '@/components/ui/button';
+import { faqSource } from '@/lib/source';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
     lang: string;
-  };
+  }>;
 }
 
-export default function FAQDetailPage({ params }: PageProps) {
-  const langPrefix = `/${params.lang}`;
+export default async function FAQDetailPage({ params }: PageProps) {
+  const { slug, lang } = await params;
+  const langPrefix = `/${lang}`;
 
-  // TODO: 从实际数据源获取数据
-  const faqData = {
-    tag: {
-      label: 'Platform Value & Trends',
-      color: 'bg-blue-400',
-    },
-    title: "What exactly is an 'Intelligent Cloud OS'?",
-  };
+  // Get FAQ page from source
+  const faqPage = getFAQBySlug(slug, lang);
+  if (!faqPage) {
+    notFound();
+  }
 
-  const relatedQuestions = [
-    {
-      tag: { label: 'Platform Value & Trends', color: 'bg-blue-400' },
-      title: 'How does Sealos compare to traditional cloud providers?',
-      description:
-        'Sealos offers a more intelligent and integrated approach to cloud computing, combining AI assistance with seamless infrastructure management.',
-      href: `${langPrefix}/ai-quick-reference/how-does-sealos-compare`,
-    },
-    {
-      tag: { label: 'Features', color: 'bg-green-400' },
-      title: 'What programming languages are supported?',
-      description:
-        'Sealos supports a wide range of programming languages and frameworks, making it easy to deploy applications regardless of your tech stack.',
-      href: `${langPrefix}/ai-quick-reference/supported-languages`,
-    },
-    {
-      tag: { label: 'Pricing', color: 'bg-purple-400' },
-      title: 'What is the pricing model?',
-      description:
-        'Our pricing is transparent and flexible, designed to scale with your needs. Start free and only pay for what you use.',
-      href: `${langPrefix}/ai-quick-reference/pricing`,
-    },
-    {
-      tag: { label: 'Security', color: 'bg-red-400' },
-      title: 'How secure is my data?',
-      description:
-        'Security is our top priority. We implement industry-leading security measures to protect your applications and data.',
-      href: `${langPrefix}/ai-quick-reference/security`,
-    },
-  ];
+  const faqItem = pageToFAQItem(faqPage);
+  const category = faqItem.category;
 
-  const keepReading = [
-    {
-      title: 'Understanding Cloud OS Architecture',
-      href: `${langPrefix}/ai-quick-reference/cloud-os-architecture`,
-    },
-    {
-      title: 'Getting Started with AI Pilot',
-      href: `${langPrefix}/ai-quick-reference/ai-pilot-guide`,
-    },
-    {
-      title: 'Deployment Best Practices',
-      href: `${langPrefix}/ai-quick-reference/deployment-best-practices`,
-    },
-    {
-      title: 'Database Management Tips',
-      href: `${langPrefix}/ai-quick-reference/database-management`,
-    },
-  ];
+  // Get related FAQs
+  const relatedPages = findRelatedFAQs(slug, lang, 4);
+  const relatedQuestions = relatedPages.map((page) => {
+    const item = pageToFAQItem(page);
+    return {
+      tag: {
+        label: item.category,
+      },
+      title: item.title,
+      description: item.description,
+      href: `${langPrefix}${page.url}`,
+    };
+  });
+
+  // Get adjacent FAQs
+  const { previous, next } = getAdjacentFAQs(slug, lang);
+
+  // Get keep reading from the same category, excluding current page and related questions
+  const relatedSlugs = new Set(
+    relatedPages.map((p) => p.url.split('/').pop() || ''),
+  );
+  const keepReadingPages = getFAQsByCategory(category, lang)
+    .filter((page) => {
+      const pageSlug = page.url.split('/').pop() || '';
+      return (
+        pageSlug !== slug &&
+        pageSlug.replace(/^\d+-/, '') !== slug.replace(/^\d+-/, '') &&
+        !relatedSlugs.has(pageSlug)
+      );
+    })
+    .slice(0, 4);
+
+  // If not enough from same category, fill with other categories
+  if (keepReadingPages.length < 4) {
+    const additionalPages = getAllFAQs(lang)
+      .filter((page) => {
+        const pageSlug = page.url.split('/').pop() || '';
+        const pageCategory = getCategory(page);
+        return (
+          pageCategory !== category &&
+          pageSlug !== slug &&
+          pageSlug.replace(/^\d+-/, '') !== slug.replace(/^\d+-/, '') &&
+          !relatedSlugs.has(pageSlug)
+        );
+      })
+      .slice(0, 4 - keepReadingPages.length);
+    keepReadingPages.push(...additionalPages);
+  }
+  const keepReading = keepReadingPages.map((page) => ({
+    title: (page.data.title as string) || '',
+    href: `${langPrefix}${page.url}`,
+  }));
+
+  // Get the MDX content component
+  const Content = (faqPage.data as any).body as React.ComponentType<any>;
 
   return (
     <div className="container -mt-24 pt-44 pb-20">
@@ -83,7 +104,7 @@ export default function FAQDetailPage({ params }: PageProps) {
         href={`${langPrefix}/ai-quick-reference`}
         className="text-muted-foreground hover:text-foreground mb-14 inline-flex items-center gap-2 text-sm transition-colors"
       >
-        <ArrowLeft size={16} />
+        <ChevronLeft size={16} />
         <span>Back to FAQ</span>
       </Link>
 
@@ -93,52 +114,50 @@ export default function FAQDetailPage({ params }: PageProps) {
           <div className="mb-12 flex flex-col gap-5">
             {/* Tag */}
             <div>
-              <FAQTag label={faqData.tag.label} color={faqData.tag.color} />
+              <FAQTag label={category} color="bg-blue-400" />
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl font-semibold">{faqData.title}</h1>
+            <h1 className="text-4xl leading-[40px] font-semibold">
+              <GradientText>{faqItem.title}</GradientText>
+            </h1>
           </div>
 
-          {/* Main Content */}
-          <div className="text-muted-foreground mb-14 flex flex-col gap-5 text-base">
-            <p>
-              It means we're more than just a hosting platform. Sealos is an
-              integrated system where an AI core (our AI Pilot) understands how
-              development, deployment, and databases should work together. You
-              describe what you want, and the OS intelligently handles the how.
-            </p>
-            <p>
-              Our Intelligent Cloud OS combines the power of AI with cloud
-              infrastructure, creating a seamless experience where developers
-              can focus on building rather than managing infrastructure. The
-              system learns from your patterns and preferences, making
-              intelligent suggestions and automating routine tasks.
-            </p>
-            <p>
-              This approach fundamentally changes how you interact with cloud
-              resources. Instead of manually configuring servers, databases, and
-              deployment pipelines, you simply express your intent, and the OS
-              handles the complexity behind the scenes.
-            </p>
+          {/* Main Content - Render MDX */}
+          <div className="mb-14">
+            <DocsBody>
+              <Content
+                components={{
+                  ...defaultMdxComponents,
+                }}
+              />
+            </DocsBody>
           </div>
 
           {/* Prev/Next Navigation */}
           <div className="mb-14 flex gap-3">
-            <Link
-              href={`${langPrefix}/ai-quick-reference/previous`}
-              className="flex flex-1 items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/15"
-            >
-              <ArrowLeft size={16} />
-              <span>Previous</span>
-            </Link>
-            <Link
-              href={`${langPrefix}/ai-quick-reference/next`}
-              className="flex flex-1 items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/15"
-            >
-              <span>Next</span>
-              <ArrowRight size={16} />
-            </Link>
+            {previous ? (
+              <Link
+                href={`${langPrefix}${previous.url}`}
+                className="flex flex-1 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/15"
+              >
+                <ChevronLeft size={16} />
+                <span>Previous</span>
+              </Link>
+            ) : (
+              <div className="flex flex-1" />
+            )}
+            {next ? (
+              <Link
+                href={`${langPrefix}${next.url}`}
+                className="flex flex-1 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/15"
+              >
+                <span>Next</span>
+                <ChevronRight size={16} />
+              </Link>
+            ) : (
+              <div className="flex flex-1" />
+            )}
           </div>
 
           {/* Related Questions */}
@@ -222,4 +241,26 @@ export default function FAQDetailPage({ params }: PageProps) {
       </div>
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  // Generate params for all languages
+  // Since we only have English content, we'll generate params for both languages
+  // but the content will fallback to English
+  const languages = ['en', 'zh-cn'];
+  const params: Array<{ lang: string; slug: string }> = [];
+
+  // Get all pages from the default language (English)
+  const defaultPages = faqSource.getPages('en');
+
+  for (const lang of languages) {
+    for (const page of defaultPages) {
+      const slug = page.slugs[0];
+      if (slug) {
+        params.push({ lang, slug });
+      }
+    }
+  }
+
+  return params;
 }

@@ -1,4 +1,4 @@
-import { docs, meta, blog as blogPosts } from '@/.source';
+import { docs, meta, blog as blogPosts, aiQuickReference } from '@/.source';
 import { createMDXSource } from 'fumadocs-mdx';
 import { loader } from 'fumadocs-core/source';
 import { icons } from 'lucide-react';
@@ -23,4 +23,10 @@ export const blog = loader({
   i18n,
   baseUrl: '/blog',
   source: createMDXSource(blogPosts, []),
+});
+
+export const faqSource = loader({
+  i18n,
+  baseUrl: '/ai-quick-reference',
+  source: createMDXSource(aiQuickReference, []),
 });

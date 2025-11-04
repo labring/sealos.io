@@ -23,7 +23,8 @@ export function FAQCard({
   className,
 }: FAQCardProps) {
   return (
-    <div
+    <Link
+      href={href}
       className={cn(
         'border-border bg-card group flex flex-col gap-4 rounded-xl border p-6 transition-colors hover:border-zinc-700 hover:bg-zinc-900',
         className,
@@ -45,13 +46,13 @@ export function FAQCard({
         </p>
       </div>
 
-      <Link href={href} className="flex items-center gap-2 text-sm">
+      <div className="flex items-center gap-2 text-sm">
         <span>Read Detail</span>
         <ArrowRightIcon
           size={16}
           className="transition-transform group-hover:translate-x-1"
         />
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }
