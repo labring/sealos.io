@@ -1,0 +1,19 @@
+---
+title: "How does cloud-native storage handle the needs of high-availability systems?-Sealos"
+description: "Cloud-native storage provides persistent and scalable data services, specifically designed for containerized environments. By decoupling storage and computing resources, it ensures the reliability and"
+category: "Data Management and Storage"
+keywords:
+  - "One-Click Deployment"
+  - "Cloud Operating System"
+  - "IT Infrastructure"
+  - "Cluster Management"
+  - "Application Deployment"
+---
+
+Cloud-native storage provides persistent and scalable data services, specifically designed for containerized environments. By decoupling storage and computing resources, it ensures the reliability and accessibility of critical application data, serving as the cornerstone for building high-availability (HA) business systems. It is suitable for scenarios with strict fault tolerance requirements such as financial transactions and online services.
+
+
+Its core lies in dynamic storage provisioning, persistent volume (PV) claims, and storage class abstractions. It achieves deep integration with Kubernetes through the Container Storage Interface (CSI) and supports data replication across availability zones (AZs) or regions. Distributed file systems/block storage (e.g., Ceph, Longhorn) offer data redundancy and fault self-healing capabilities. Combined with topology-aware scheduling, they ensure that pods and data are located in optimal positions, minimizing the risk of single points of failure.
+
+
+To achieve high availability, the following steps are required: 1) Select a storage backend that supports multi-replica synchronization; 2) Define a StorageClass to enable volume topology constraints and dynamic expansion; 3) Applications request PVs through PVCs; 4) Deploy StatefulSets and configure anti-affinity rules to distribute pods. This solution ensures automatic replica switching in the event of node or AZ failures, guarantees service continuity and zero data loss, and achieves an SLA of 99.95%+.

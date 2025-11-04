@@ -1,0 +1,19 @@
+---
+title: "How do you monitor and analyze business-critical metrics in cloud-native environments?-Sealos"
+description: "Monitoring business-critical metrics in cloud-native environments is crucial, as traditional monitoring fails due to characteristics such as microservices and dynamicity. Effective monitoring ensures "
+category: "Monitoring and Observability"
+keywords:
+  - "One-Click Deployment"
+  - "Cluster Management"
+  - "Open-Source Cloud"
+  - "Cloud Platform"
+  - "Cloud Operating System"
+---
+
+Monitoring business-critical metrics in cloud-native environments is crucial, as traditional monitoring fails due to characteristics such as microservices and dynamicity. Effective monitoring ensures SLAs, quickly identifies issues affecting user experience, and provides insights for capacity planning and optimization, serving as a key guarantee for business continuity.
+
+
+The core lies in adopting a cloud-native monitoring stack: 1) Metric monitoring tools (e.g., Prometheus): Automatically scrape metrics from dynamic targets through service discovery and support exposure of custom business metrics; 2) Log aggregation (e.g., Loki, ELK): Centrally collect and analyze application and infrastructure logs; 3) Distributed tracing (e.g., Jaeger, Zipkin): Visualize the flow path and performance of requests between microservices; 4) Unified visualization and alerting (e.g., Grafana): Integrate the above data sources, create business dashboards, and set up SLO-based intelligent alerts.
+
+
+Implementation steps: 1) Define business KPIs/SLOs (e.g., order success rate, API latency); 2) Select and deploy monitoring tools, ensuring coverage of application, infrastructure, and business layers; 3) Implement application instrumentation and expose metrics; 4) Create business dashboards in Grafana, focusing on core KPIs; 5) Set up alerts based on business SLOs; 6) Correlate metrics, logs, and trace data for root cause analysis. This enables proactive运维, optimizes resource utilization, and enhances business resilience.

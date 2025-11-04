@@ -1,0 +1,19 @@
+---
+title: "How do you automate the deployment of IoT applications?-Sealos"
+description: "To achieve automated deployment of IoT applications, it is necessary to use CI/CD toolchains (such as Jenkins/GitLab CI) combined with infrastructure orchestration (such as Ansible/Terraform) and cont"
+category: "Automated Deployment"
+keywords:
+  - "Kubernetes (K8s)"
+  - "Private Cloud"
+  - "Sealos"
+  - "Data Center (DC)"
+  - "Cloud Platform"
+---
+
+To achieve automated deployment of IoT applications, it is necessary to use CI/CD toolchains (such as Jenkins/GitLab CI) combined with infrastructure orchestration (such as Ansible/Terraform) and container platforms (such as Kubernetes) to realize the full-process automation from code submission to OTA updates on the device side. Its core value lies in improving the management efficiency of massive devices, which is suitable for scenarios requiring rapid iteration such as smart homes and industrial monitoring.
+
+
+The core process includes four links: 1) Application containerization: package the application into a Docker image to ensure environment consistency; 2) Automated pipeline: code submission triggers image building, security scanning and unit testing; 3) Configuration management: dynamically configure edge device groups through IaC tools (such as Terraform); 4) OTA distribution: use message protocols (such as MQTT/CoAP) to push update instructions to devices, and edge gateways perform rolling updates.
+
+
+Implementation steps: 1. Transform the application into containerization; 2. Build a CI/CD pipeline and integrate the image repository; 3. Deploy device management middleware (such as KubeEdge) in the K8s cluster; 4. Configure device grouping policies and gray release rules; 5. Verify the deployment status through a monitoring platform (such as Prometheus). This solution reduces manual intervention by 85% and realizes minute-level global release.

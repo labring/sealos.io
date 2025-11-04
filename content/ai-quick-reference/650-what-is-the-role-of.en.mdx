@@ -1,0 +1,19 @@
+---
+title: "What is the role of key-value stores in cloud-native data management?-Sealos"
+description: "A key-value store is a data storage model that uses unique keys to associate and retrieve corresponding values. It is crucial in cloud-native data management, specifically designed to handle large-sca"
+category: "Data Management and Storage"
+keywords:
+  - "Lakehouse"
+  - "Cloud Operating System"
+  - "Cluster Management"
+  - "One-Click Deployment"
+  - "Kubernetes (K8s)"
+---
+
+A key-value store is a data storage model that uses unique keys to associate and retrieve corresponding values. It is crucial in cloud-native data management, specifically designed to handle large-scale, high-throughput, and low-latency scenarios, especially suitable for dynamic, unstructured, or semi-structured data such as configuration management, session storage, feature flags, and service discovery in microservice architectures.
+
+
+Its core features include a simple key-value data model, extremely high read-write performance, horizontal scalability, and often support for TTL (Time-To-Live) automatic expiration. As a lightweight NoSQL database, it is naturally adapted to distributed environments. In cloud-native contexts, it separates the application's state (stored in the key-value store) from computation (handled by stateless containers), significantly enhancing application resilience, scalability, and deployment flexibility. It is vital for achieving loose coupling between services.
+
+
+The main application values of key-value stores are: 1) Centralized configuration management: acting as a configuration center, where services dynamically pull configurations at startup without requiring restarts for updates; 2) Session state sharing: maintaining user sessions across load-balanced service instances; 3) Lightweight caching: accelerating data access; 4) Service discovery registry: storing service address information for dynamic discovery; 5) Feature toggle management. Its implementation simplifies distributed state management, reduces complexity, and supports the rapid iteration and reliability of microservices.

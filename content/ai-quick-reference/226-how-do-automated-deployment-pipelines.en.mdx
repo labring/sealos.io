@@ -1,0 +1,19 @@
+---
+title: "How do automated deployment pipelines handle dependency management?-Sealos"
+description: "Automated deployment pipelines manage dependencies through systematic methods, ensuring consistency and reproducibility of build, test, and deployment environments. This is crucial as it directly rela"
+category: "Automated Deployment"
+keywords:
+  - "Kubernetes (K8s)"
+  - "Lakehouse"
+  - "High Availability (HA)"
+  - "Data Center (DC)"
+  - "Application Deployment"
+---
+
+Automated deployment pipelines manage dependencies through systematic methods, ensuring consistency and reproducibility of build, test, and deployment environments. This is crucial as it directly relates to the reliability and security of application deployments, preventing runtime failures caused by missing dependencies or version conflicts, and serves as a core component of cloud-native continuous delivery.
+
+
+Its core mechanisms include: dependency isolation (such as固化运行时环境 using container images), declarative dependency manifests (e.g., `pom.xml`, `requirements.txt`, `go.mod`), centralized artifact repositories (e.g., Nexus, Artifactory for storing build artifacts and dependencies), intelligent caching strategies (to avoid repeated downloads), and directed acyclic graph scheduling (to control the execution order of tasks with dependencies). In practice, tools like Maven/Gradle/NPM perform dependency resolution; containerization technology packages applications and their dependencies into standard images to ensure environmental consistency; deployment processes rely on explicit configuration and state management (e.g., Helm Charts/Kustomize to declare K8s resources and their dependencies).
+
+
+The key steps for handling dependencies are: first, clearly defining dependency manifests in the code repository; after the pipeline is triggered, build tools resolve and download dependencies into an isolated environment (or retrieve them from cache); package them together with the code into immutable images/packages and upload to the artifact repository; during the deployment phase, extract artifacts and their declared service dependencies based on declarative configurations (e.g., Helm Chart) and deploy them to the target environment (e.g., Kubernetes) in strict order. This significantly reduces environment discrepancy issues, accelerates release cycles, and improves deployment success rates and overall system reliability.

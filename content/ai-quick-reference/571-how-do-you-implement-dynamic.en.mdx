@@ -1,0 +1,19 @@
+---
+title: "How do you implement dynamic scaling for microservices applications?-Sealos"
+description: "Dynamic scaling of microservices refers to automatically adjusting the number of application instances based on real-time load to ensure resource utilization and responsiveness. Its importance lies in"
+category: "Microservices Architecture"
+keywords:
+  - "Application Deployment"
+  - "Data Center (DC)"
+  - "Open-Source Cloud"
+  - "Sealos"
+  - "Lakehouse"
+---
+
+Dynamic scaling of microservices refers to automatically adjusting the number of application instances based on real-time load to ensure resource utilization and responsiveness. Its importance lies in coping with traffic fluctuations, optimizing costs, and ensuring SLAs, applicable to scenarios such as e-commerce promotions and online services.
+
+
+It primarily relies on Kubernetes' HPA (Horizontal Pod Autoscaler) controller, combined with cluster autoscaling (e.g., Cluster Autoscaler). HPA triggers scaling decisions based on CPU/memory or custom metrics (via Prometheus Adapter): when metrics exceed the target threshold, it automatically increases Pod replicas; when below the threshold, it scales down. Service and Ingress ensure traffic is automatically distributed to new Pods.
+
+
+Implementation steps: 1) Define Deployment and configure resource requests; 2) Create HPA policy, specifying metrics (e.g., 50% CPU utilization) and Pod scaling range; 3) Deploy Metrics Server/Prometheus to collect metrics; 4) Verify scaling behavior (e.g., stress testing). This solution improves application elasticity and reduces costs by 20%-50%.

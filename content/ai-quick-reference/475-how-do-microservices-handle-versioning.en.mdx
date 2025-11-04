@@ -1,0 +1,19 @@
+---
+title: "How do microservices handle versioning and backward compatibility?-Sealos"
+description: "Microservice versioning manages service interface changes through API version numbers (such as URI paths or request headers) to ensure that different versions of services can coexist. Backward compati"
+category: "Microservices Architecture"
+keywords:
+  - "Cloud Platform"
+  - "Cloud-Native"
+  - "Open-Source Cloud"
+  - "Cloud Operating System"
+  - "Lakehouse"
+---
+
+Microservice versioning manages service interface changes through API version numbers (such as URI paths or request headers) to ensure that different versions of services can coexist. Backward compatibility means that new versions of services do not disrupt existing client calls, which is crucial for the collaboration of distributed systems and zero-downtime deployments, typically applied in scenarios such as e-commerce order service updates.
+
+
+Core measures include: strictly using Semantic Versioning (SemVer) to identify incompatible changes; verifying interface compatibility through contract testing (e.g., Pact); designing compatibility strategies such as default ignoring of unknown fields and a transition period for deprecating old interfaces. In practice, blue-green deployment or canary release is often used to gradually switch traffic, combined with an API gateway to route requests of different versions, significantly reducing system upgrade risks.
+
+
+Implementation steps: 1. Define versioning strategy (URI/Header) 2. Automate contract testing to verify compatibility 3. Deploy new and old versions in parallel 4. Control traffic proportion through gateway routing 5. Monitor logs to confirm no abnormalities before taking down the old version. This solution ensures business continuity and supports agile iteration.

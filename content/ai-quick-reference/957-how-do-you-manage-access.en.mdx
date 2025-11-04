@@ -1,0 +1,19 @@
+---
+title: "How do you manage access control for cloud-native applications in Kubernetes?-Sealos"
+description: "Kubernetes is an open-source container orchestration platform used for automating the deployment and management of containerized applications. Cloud-native applications refer to applications designed "
+category: "Security and Permission Management"
+keywords:
+  - "IT Infrastructure"
+  - "Cloud-Native"
+  - "Sealos"
+  - "Kubernetes (K8s)"
+  - "Open-Source Cloud"
+---
+
+Kubernetes is an open-source container orchestration platform used for automating the deployment and management of containerized applications. Cloud-native applications refer to applications designed for cloud environments that support elasticity and scalability. Access control management is crucial in Kubernetes to ensure resource security, prevent unauthorized access, and is applicable in multi-tenant deployments, microservice architectures, and sensitive data processing scenarios.
+
+
+The core principle is based on Role-Based Access Control (RBAC), involving Roles (permissions within a specified namespace), ClusterRoles (global permissions), RoleBindings (associating roles with namespace subjects), and ClusterRoleBindings (global bindings). A feature is fine-grained authorization, such as defining who can create Pods or access Secrets. In practical applications, it enhances security, reduces the attack surface, and ensures compliance by limiting the operation scope of users or service accounts.
+
+
+Implementation steps include: 1. Defining Roles or ClusterRoles to specify permissions. 2. Creating RoleBindings or ClusterRoleBindings to link subjects (such as users or service accounts). 3. Applying configurations and monitoring permissions. Typical scenarios include assigning specific namespace access rights to teams or restricting service accounts to read-only operations. Business values include enhanced security protection, reduced risk of data leakage, and facilitation of audit and compliance management.

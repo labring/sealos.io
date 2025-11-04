@@ -1,0 +1,19 @@
+---
+title: "What is eventual consistency, and how does it work in cloud-native applications?-Sealos"
+description: "Eventual consistency is a distributed data model that ensures data replicas, despite not being consistent in real-time, eventually reach a consistent state through delayed synchronization. It is cruci"
+category: "Data Management and Storage"
+keywords:
+  - "Open-Source Cloud"
+  - "Cloud-Native"
+  - "IT Infrastructure"
+  - "Cloud Operating System"
+  - "Data Center (DC)"
+---
+
+Eventual consistency is a distributed data model that ensures data replicas, despite not being consistent in real-time, eventually reach a consistent state through delayed synchronization. It is crucial for cloud-native applications, supporting high availability, elasticity, and tolerance for network partitions. It is typically applied in microservices architectures, NoSQL databases (such as Cassandra), and event-driven systems to ensure continuous service availability.
+
+
+Its core features include asynchronous replication, event-driven protocols, and AP systems based on the CAP theorem (prioritizing availability and partition tolerance). The principle involves write operations being broadcast and then processed asynchronously rather than using mandatory synchronous locks. In cloud-native practices, it is implemented through tools like Kafka message queues. The impacts include simplifying system scaling and reducing latency, but it may introduce the risk of temporary data inconsistency, prompting the adoption of the CQRS pattern to optimize queries.
+
+
+In cloud-native applications, the working method involves asynchronous communication: write operations are distributed through a queue, and consumers update replicas after consumption, resulting in delays. Typical scenarios include user configuration updates or e-commerce order processing, with steps including event publishing, transmission, and consumer confirmation. The business value lies in enhancing system resilience and performance, adapting to large-scale deployments, while ensuring eventual reliable data synchronization.

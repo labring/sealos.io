@@ -1,0 +1,19 @@
+---
+title: "How do cloud-native environments handle data storage for machine learning applications?-Sealos"
+description: "The key to handling machine learning data storage in cloud-native environments lies in leveraging containers, microservices, and cloud services to achieve elastic management of large-scale data. This "
+category: "Data Management and Storage"
+keywords:
+  - "Containerization"
+  - "Cloud-Native"
+  - "One-Click Deployment"
+  - "IT Infrastructure"
+  - "Data Center (DC)"
+---
+
+The key to handling machine learning data storage in cloud-native environments lies in leveraging containers, microservices, and cloud services to achieve elastic management of large-scale data. This approach is crucial as it supports the scalability, high-performance data access, and high availability of ML applications, applied in scenarios such as model training and real-time inference, like financial risk prediction or image recognition services.
+
+
+Core components include object storage services (e.g., AWS S3 or Google Cloud Storage) for raw data storage, combined with Kubernetes' Persistent Volumes (PV) and Persistent Volume Claims (PVC) to ensure data persistence and sharing between containers. Features encompass data version control, auto-scaling, and CI/CD integration, which in practical applications accelerate ML pipelines, reduce storage costs, and improve model deployment efficiency.
+
+
+Implementation steps: 1. Select a cloud storage service to store datasets; 2. Define PVCs in the Kubernetes cluster to mount data volumes to ML containers; 3. Integrate data management tools (such as DVC) for versioning. Typical scenarios involve training tasks or inference pipelines, with business values including rapid iteration of model development, resource optimization, and improved ML ROI.

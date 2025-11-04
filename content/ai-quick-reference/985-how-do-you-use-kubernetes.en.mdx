@@ -1,0 +1,19 @@
+---
+title: "How do you use Kubernetes role-based access control (RBAC) for security?-Sealos"
+description: "Kubernetes Role-Based Access Control (RBAC) is a security model used to granularly authorize users, groups, or service accounts to access cluster resources. Its importance lies in preventing unauthori"
+category: "Security and Permission Management"
+keywords:
+  - "Containerization"
+  - "Kubernetes (K8s)"
+  - "DevOps"
+  - "High Performance"
+  - "One-Click Deployment"
+---
+
+Kubernetes Role-Based Access Control (RBAC) is a security model used to granularly authorize users, groups, or service accounts to access cluster resources. Its importance lies in preventing unauthorized operations, reducing security risks, and its application scenarios include multi-tenant environments, development-operations isolation, and compliance management to ensure the protection of sensitive data such as Secrets.
+
+
+The core components of RBAC include Roles (Role or ClusterRole, which define permission sets such as API verbs and resources) and Role Bindings (RoleBinding or ClusterRoleBinding, which associate roles with entities), supporting namespace-level or cluster-level permissions. The principle is based on the least privilege principle, with features such as fine-grained control and audit logs. In practical applications, restricting developers to only deploy applications or granting monitoring tools only read-only permissions reduces human errors and improves system resilience.
+
+
+Implementation steps: 1. Create a role to specify permissions (e.g., kubectl create role); 2. Assign the role to target entities through binding; 3. Verify and apply the policy. Typical scenarios include isolating service account access to cluster resources, and business values include enhancing security compliance, complying with regulations such as GDPR, and reducing the risk of data leakage.

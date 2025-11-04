@@ -1,0 +1,19 @@
+---
+title: "How do you implement end-to-end tracing for microservices architectures?-Sealos"
+description: "End-to-end tracing is a technology that monitors the full path of requests from entry to exit in microservice architectures. Its importance lies in solving debugging challenges in distributed systems"
+category: "Monitoring and Observability"
+keywords:
+  - "Lakehouse"
+  - "Cloud Operating System"
+  - "Cloud Platform"
+  - "Open-Source Cloud"
+  - "Private Cloud"
+---
+
+End-to-end tracing is a technology that monitors the full path of requests from entry to exit in microservice architectures. Its importance lies in solving debugging challenges in distributed systems, optimizing performance, and enhancing reliability. Application scenarios include e-commerce transactions and financial systems to ensure service continuity.
+
+
+Core components include unique trace IDs, Spans representing operation units, and context propagation standards such as OpenTelemetry. It features a distributed tracing model and works by recording time-series data through toolchains. In practical applications, integrating Jaeger or Zipkin to collect Span logs and visualize trace chains improves system observability and shortens MTTR.
+
+
+Implementation steps: 1. Select a framework such as OpenTelemetry; 2. Integrate SDK in services to generate Spans; 3. Deploy collectors and UI tools; 4. Inject initial trace IDs at gateways. Typical scenarios include order processing flow tracing. Business value includes accelerating fault localization, improving user experience, and reducing operational costs.

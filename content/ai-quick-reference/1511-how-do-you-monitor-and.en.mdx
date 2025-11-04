@@ -1,0 +1,19 @@
+---
+title: "How do you monitor and manage cloud-native application dependencies?-Sealos"
+description: "Cloud-native application dependencies refer to the services, databases, or external resources that an application relies on to run, such as API calls between microservices. Their importance lies in en"
+category: "Monitoring and Observability"
+keywords:
+  - "DevOps"
+  - "Sealos"
+  - "Open-Source Cloud"
+  - "One-Click Deployment"
+  - "High Performance"
+---
+
+Cloud-native application dependencies refer to the services, databases, or external resources that an application relies on to run, such as API calls between microservices. Their importance lies in ensuring application reliability, scalability, and resilience, as well as preventing single points of failure; application scenarios include distributed systems with multiple services in Kubernetes clusters.
+
+
+Core components include service discovery (e.g., Consul), health monitoring (e.g., Prometheus), and distributed tracing (e.g., Jaeger). Features include real-time detection, fault isolation, and dynamic configuration; the principle is to achieve dependency visualization by monitoring endpoints and log analysis. In practical applications, dependency management improves application SLOs, optimizes performance, and supports seamless scaling, such as reducing operational complexity in service meshes like Istio.
+
+
+Implementation steps: 1. Deploy a service mesh or API gateway to control dependency calls; 2. Integrate monitoring tools to collect metrics and logs; 3. Configure alerts for automated response to anomalies; 4. Use chaos engineering to test dependency resilience. A typical scenario is rolling updates in containerized environments, with business values including a 20-30% reduction in downtime, improved user experience, and resource utilization.

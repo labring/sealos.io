@@ -1,0 +1,19 @@
+---
+title: "How do you handle security for cloud-native applications?-Sealos"
+description: "The security of cloud-native applications requires a multi-layered defense-in-depth strategy, as their dynamic, distributed, and microservices architecture transcends traditional perimeter protection "
+category: "Cloud-Native Application Development"
+keywords:
+  - "Data Center (DC)"
+  - "IT Infrastructure"
+  - "High Availability (HA)"
+  - "DevOps"
+  - "One-Click Deployment"
+---
+
+The security of cloud-native applications requires a multi-layered defense-in-depth strategy, as their dynamic, distributed, and microservices architecture transcends traditional perimeter protection models. The key objectives are to protect the software supply chain, runtime workloads, infrastructure configurations, and network communications, applicable to containers, K8s clusters, and Serverless environments.
+
+
+Core security measures include: 1. Supply chain security: scanning image vulnerabilities, verifying signatures, and managing SBOM; 2. Infrastructure hardening: strengthening K8s API and etcd, implementing RBAC and Pod Security Policies/Policy as Code; 3. Runtime protection: network policy micro-segmentation, secure Secrets management, and runtime threat detection (e.g., Falco); 4. API security: authentication/authorization (OIDC, OAuth2), rate limiting, and WAF; 5. Compliance and auditing: continuous configuration validation (e.g., OPA/Gatekeeper) and centralized log monitoring.
+
+
+By shifting security left to automate vulnerability scanning in CI/CD pipelines, combined with continuous runtime monitoring and automated response mechanisms (CNAPP tools), risks can be effectively managed while ensuring development agility, achieving a DevSecOps closed loop, and ensuring business resilience and compliance.

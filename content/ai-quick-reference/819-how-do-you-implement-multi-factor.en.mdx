@@ -1,0 +1,19 @@
+---
+title: "How do you implement multi-factor authentication (MFA) in cloud-native environments?-Sealos"
+description: "Multi-factor Authentication (MFA) significantly enhances the security of cloud-native environments by requiring users to provide multiple independent credentials (such as a password plus a one-time ve"
+category: "Security and Permission Management"
+keywords:
+  - "Cloud Operating System"
+  - "DevOps"
+  - "Cloud Platform"
+  - "Open-Source Cloud"
+  - "High Availability (HA)"
+---
+
+Multi-factor Authentication (MFA) significantly enhances the security of cloud-native environments by requiring users to provide multiple independent credentials (such as a password plus a one-time verification code) during login or critical operations. Its importance lies in mitigating the risk of credential leakage, making it suitable for user access under a zero-trust architecture, privileged operations, and sensitive API calls, especially in multi-tenant Kubernetes clusters or microservice scenarios.
+
+
+The core components include three types of authentication factors: knowledge-based (passwords), possession-based (hardware tokens/mobile apps), and biometric-based. Cloud-native implementation requires integration with identity providers (such as Keycloak or Azure AD) and collaboration with service meshes (such as Istio) or API gateways using standard protocols (OIDC/SAML). The principle is to force authentication requests to be verified by the MFA service before authorizing resource access, enabling fine-grained control and compliance with requirements (such as GDPR).
+
+
+Implementation steps: 1. Select an MFA solution (TOTP, WebAuthn, etc.); 2. Configure policies through an Identity Provider (IdP) and bind user directories; 3. Implement authentication interception at the entry gateway or service proxy layer (such as Envoy); 4. Inject Sidecar proxies into Kubernetes applications to enforce policies. Typical scenarios include cluster management console logins or financial transaction services, with the value of reducing the account attack surface by 90% and supporting audits such as PCI DSS.

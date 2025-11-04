@@ -1,0 +1,19 @@
+---
+title: "How do you ensure high availability with automated deployments?-Sealos"
+description: "Automated deployment uses tools to automatically execute the application release process, ensuring consistency and speed; high availability refers to the system maintaining service availability during"
+category: "Automated Deployment"
+keywords:
+  - "Cloud Platform"
+  - "IT Infrastructure"
+  - "Data Center (DC)"
+  - "Kubernetes (K8s)"
+  - "Containerization"
+---
+
+Automated deployment uses tools to automatically execute the application release process, ensuring consistency and speed; high availability refers to the system maintaining service availability during failures and avoiding downtime. This is crucial for business continuity and user experience, especially in cloud-native applications such as e-commerce and financial services to support 24/7 operation.
+
+
+The core includes CI/CD pipelines (e.g., GitLab CI), container orchestration tools (e.g., Kubernetes), and strategies like blue-green deployment. Features include rolling updates for zero downtime, automatic rollbacks to handle failures, combined with health checks and redundant instances. In practical applications, these reduce human errors, increase release frequency and system resilience, and promote stable scaling of cloud-native architectures.
+
+
+Implementation steps: 1. Integrate automation tools to establish a CI/CD pipeline; 2. Configure rolling updates using Deployment objects in Kubernetes; 3. Add monitoring and auto-scaling mechanisms. Business values include reducing recovery time to seconds, ensuring service availability under high traffic, improving customer satisfaction, and optimizing resource costs.

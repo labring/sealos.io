@@ -1,0 +1,19 @@
+---
+title: "How do you implement auto-scaling for cloud-native applications?-Sealos"
+description: "Automatic scaling of cloud-native applications is the process of dynamically adjusting computing resources to match real-time workload demands. It is crucial for ensuring high availability, optimizing"
+category: "Cloud-Native Application Development"
+keywords:
+  - "IT Infrastructure"
+  - "Cloud Operating System"
+  - "High Performance"
+  - "Cluster Management"
+  - "Cloud Platform"
+---
+
+Automatic scaling of cloud-native applications is the process of dynamically adjusting computing resources to match real-time workload demands. It is crucial for ensuring high availability, optimizing resource utilization, and handling sudden traffic spikes, widely used in scenarios such as e-commerce promotions and online services.
+
+
+Implementing automatic scaling relies on Kubernetes core components: Horizontal Pod Autoscaler (HPA) and Cluster Autoscaler. HPA monitors application-specific metrics (such as CPU, memory utilization, or custom metrics like QPS) and responds by increasing or decreasing the number of Pod replicas. It queries the metrics-server or custom metrics API for data and triggers scaling based on set thresholds. Cluster Autoscaler is responsible for automatically adjusting the number of nodes when node resources are insufficient or idle, integrating with cloud provider APIs to实现底层资源的弹性供给. Vertical Pod Autoscaler (VPA) can assist in adjusting resource requests and limits for individual Pods.
+
+
+Key implementation steps are: 1. Define the application's Deployment/DaemonSet in Kubernetes and configure resource requests/limits; 2. Create an HPA policy specifying the target deployment, target metrics (e.g., CPU utilization maintained at 50%), and minimum/maximum number of Pods; 3. Deploy and configure metrics-server or a monitoring stack (such as Prometheus Adapter) to provide metrics; 4. Enable and configure Cluster Autoscaler to manage node pools; 5. Validate scaling policies through stress testing and continuously monitor and adjust. This brings core values of stable response speed, cost optimization, and seamless handling of peak and valley traffic.

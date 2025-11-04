@@ -1,0 +1,19 @@
+---
+title: "How do you manage network policies in cloud-native applications?-Sealos"
+description: "In cloud-native environments, network policies are a critical security mechanism for controlling traffic between Pods and between Pods and external networks, used to implement zero-trust networking an"
+category: "Security and Permission Management"
+keywords:
+  - "Cloud Operating System"
+  - "One-Click Deployment"
+  - "DevOps"
+  - "High Availability (HA)"
+  - "Open-Source Cloud"
+---
+
+In cloud-native environments, network policies are a critical security mechanism for controlling traffic between Pods and between Pods and external networks, used to implement zero-trust networking and the principle of least privilege among microservices. Their importance lies in isolating sensitive workloads, preventing the spread of east-west threats, and meeting compliance requirements (such as PCI DSS), with wide application in security-sensitive scenarios like multi-tenancy, financial transactions, and medical data processing.
+
+
+Network policy management is primarily implemented through Kubernetes' `NetworkPolicy` API resource, whose core elements include: podSelector (to select target Pods to which the policy applies), namespaceSelector (to limit the namespaces where the policy takes effect), and ingress/egress rules (to respectively define allowed inbound/outbound traffic sources/destinations, ports, and protocols). Typical practices require enhancing capabilities with CNI plugins (such as Calico, Cilium) and adopting Policy-as-Code tools for automated validation and deployment. The core value is fine-grained control over the network plane to reduce the attack surface.
+
+
+Implementation steps are: 1) Clarify application communication requirements and plan security boundaries; 2) Create `NetworkPolicy` resources, defining allowed traffic based on label selectors (recommending a default-deny-all policy); 3) Continuously verify policy effectiveness through CNI plugins and network tools (such as `kubectl describe networkpolicy` or `cilium connectivity test`). This significantly improves application resilience, ensures business continuity and data privacy, while simplifying compliance audits.

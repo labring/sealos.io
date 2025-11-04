@@ -1,0 +1,19 @@
+---
+title: "How do you handle the provisioning of serverless functions using IaC tools?-Sealos"
+description: "IaC (Infrastructure as Code) tools define and automate infrastructure deployment through code, serving as an efficient method for configuring serverless functions (e.g., AWS Lambda, Azure Functions). "
+category: "Automation and Infrastructure as Code"
+keywords:
+  - "Data Center (DC)"
+  - "Kubernetes (K8s)"
+  - "High Availability (HA)"
+  - "IT Infrastructure"
+  - "High Performance"
+---
+
+IaC (Infrastructure as Code) tools define and automate infrastructure deployment through code, serving as an efficient method for configuring serverless functions (e.g., AWS Lambda, Azure Functions). They ensure environmental consistency, reproducibility, and version control, playing a crucial role in implementing Continuous Integration/Continuous Deployment (CI/CD) workflows.
+
+
+The core lies in declarative configuration files (such as Terraform's HCL or CloudFormation's YAML/JSON). These files need to define the function code location (typically pointing to packaged code or container images), runtime environment, memory size, execution timeout, IAM execution role permissions, and function triggers (e.g., API Gateway, S3 events, message queues). Configurations are stored in version control systems (e.g., Git), with each change triggering an automated deployment pipeline to validate and apply updates.
+
+
+Typical steps include: 1) Using the selected IaC tool to declare the serverless resource type (e.g., `aws_lambda_function`). 2) Within the resource declaration, specifying the function name, runtime, code entry point, deployment package path or image URI, memory settings, timeout, and execution role ARN. 3) Defining associated resources that trigger the function (e.g., `aws_lambda_permission` and event sources like `aws_api_gateway_resource`). 4) Running `terraform apply` or similar commands to apply the configuration and automatically create/update the function. This greatly simplifies large-scale function management, enhances reliability and auditability, and accelerates application iteration.

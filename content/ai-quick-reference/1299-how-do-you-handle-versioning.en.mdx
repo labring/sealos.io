@@ -1,0 +1,19 @@
+---
+title: "How do you handle versioning and rollback of Kubernetes deployments in CI/CD pipelines?-Sealos"
+description: "In the CI/CD pipeline, version control and rollback of Kubernetes deployments are key operational practices to ensure the reliability and recoverability of application updates. Their importance lies i"
+category: "Continuous Integration and Continuous Deployment"
+keywords:
+  - "Application Deployment"
+  - "One-Click Deployment"
+  - "Cloud-Native"
+  - "Data Center (DC)"
+  - "Cluster Management"
+---
+
+In the CI/CD pipeline, version control and rollback of Kubernetes deployments are key operational practices to ensure the reliability and recoverability of application updates. Their importance lies in reducing release risks, responding quickly to failures, and supporting the continuous delivery process. Typical application scenarios include the implementation of strategies such as blue-green deployment and canary release.
+
+
+Kubernetes natively manages version control through Deployment objects, with each update generating a new ReplicaSet and recording revision history. The core mechanisms include: 1. Revision numbers automatically tracking changes; 2. The rollback command `kubectl rollout undo deployment/<name>` enabling recovery to historical versions; 3. Integration with GitOps tools (such as Argo CD) to automatically synchronize Git repository states. Practical impacts include reducing the Recovery Time Objective (RTO) for deployment failures and ensuring environmental consistency.
+
+
+Implementation steps: 1. Declarative management: Store YAML manifests in a Git repository, with each commit triggering the CI pipeline; 2. Version tagging: Use semantic versioning labels for images (e.g., v1.2.3), with Deployments referencing these labels; 3. Automated rollback: When pipeline integration tests fail, invoke Kubectl or the Kubernetes API to roll back; 4. History retention: Retain a sufficient number of ReplicaSet replicas (configured via `spec.revisionHistoryLimit`). Business values include enabling minute-level failure recovery and audit traceability.

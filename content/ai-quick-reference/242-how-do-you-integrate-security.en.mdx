@@ -1,0 +1,19 @@
+---
+title: "How do you integrate security testing into an automated deployment pipeline?-Sealos"
+description: "Security testing identifies software vulnerabilities, and automated deployment pipelines such as CI/CD enable rapid code release. Integration is crucial to detect risks before deployment, prevent data"
+category: "Automated Deployment"
+keywords:
+  - "One-Click Deployment"
+  - "Kubernetes (K8s)"
+  - "High Availability (HA)"
+  - "Cluster Management"
+  - "High Performance"
+---
+
+Security testing identifies software vulnerabilities, and automated deployment pipelines such as CI/CD enable rapid code release. Integration is crucial to detect risks before deployment, prevent data leaks, apply to cloud-native and DevOps environments, and enhance security compliance and efficiency.
+
+
+Core components include Static Application Security Testing (SAST) for scanning source code, Dynamic Application Security Testing (DAST) for evaluating runtime applications, and Software Composition Analysis (SCA) for checking dependency vulnerabilities. Features include automated triggering and continuous feedback. In practical applications, integration through tools like Jenkins or AWS CodePipeline supports the DevSecOps model, enabling security shifting left and enhancing early vulnerability remediation.
+
+
+Implementation steps: First, select tools such as OWASP ZAP (DAST) and Snyk (SCA). Then, add security tasks in the pipeline stages, such as performing scans after building. If failed, block deployment; otherwise, proceed. A typical scenario is microservice deployment, with business value in reducing security incident costs and accelerating market release.

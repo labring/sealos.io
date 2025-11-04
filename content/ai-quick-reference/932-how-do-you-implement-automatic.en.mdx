@@ -1,0 +1,19 @@
+---
+title: "How do you implement automatic encryption of data in cloud-native applications?-Sealos"
+description: "Implementing automatic data encryption in cloud-native applications is crucial for protecting the security of data at rest and in transit, especially for meeting compliance requirements in multi-tenan"
+category: "Security and Permission Management"
+keywords:
+  - "Data Center (DC)"
+  - "Application Deployment"
+  - "DevOps"
+  - "Cluster Management"
+  - "Private Cloud"
+---
+
+Implementing automatic data encryption in cloud-native applications is crucial for protecting the security of data at rest and in transit, especially for meeting compliance requirements in multi-tenant, microservice architectures. Its importance lies in eliminating security risks associated with manual management, safeguarding data privacy, and complying with regulations such as GDPR and HIPAA.
+
+
+The core mechanisms include three aspects: storage layer encryption (e.g., cloud providers' disk encryption APIs), transport layer encryption (using TLS/SSL), and runtime encryption (utilizing Kubernetes Secrets or dedicated key management services). Key components consist of CSI storage encryption drivers, service mesh sidecar proxies implementing mTLS, and integration with external key management systems (e.g., HashiCorp Vault) for centralized key rotation management.
+
+
+Implementation steps are as follows: 1. Configure volume-level encryption policies via CSI drivers; 2. Deploy a service mesh (e.g., Istio) to enforce end-to-end TLS; 3. Manage encryption keys using Kubernetes Secrets (KMS plugins are recommended); 4. Applications automatically handle encryption and decryption when accessing data through encryption SDKs; 5. Audit logs record key access events. This process significantly enhances the baseline data security while maintaining the elasticity of the application architecture.

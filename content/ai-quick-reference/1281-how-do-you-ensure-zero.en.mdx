@@ -1,0 +1,19 @@
+---
+title: "How do you ensure zero downtime in CI/CD pipelines?-Sealos"
+description: "CI/CD pipelines automate software building, testing, and deployment; zero downtime ensures uninterrupted user access during service updates, which is crucial for high-availability systems such as e-co"
+category: "Continuous Integration and Continuous Deployment"
+keywords:
+  - "Sealos"
+  - "Private Cloud"
+  - "DevOps"
+  - "High Availability (HA)"
+  - "Cloud-Native"
+---
+
+CI/CD pipelines automate software building, testing, and deployment; zero downtime ensures uninterrupted user access during service updates, which is crucial for high-availability systems such as e-commerce and financial services to avoid revenue loss and enhance user experience.
+
+
+Core methods include blue-green deployment (running old and new versions in parallel), canary release (gradually exposing the new version to a small number of users), and rolling update (replacing nodes one by one). The feature is to achieve seamless traffic switching through load balancers and health checks; the principle is to isolate and test the new environment, and migrate immediately after verification. It is practically applied in Kubernetes where Deployments manage Pods, with impacts including improved reliability and deployment frequency, significantly reducing the risk of service interruptions.
+
+
+Implementation steps: 1. Deploy the new version to an isolated environment; 2. Test and confirm functional stability; 3. Gradually switch traffic through the load balancer; 4. Monitor and roll back in case of abnormalities. A typical scenario is production environment updates; business values include continuous availability, reduced downtime losses, enhanced user trust, and accelerated market response.

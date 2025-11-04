@@ -1,0 +1,19 @@
+---
+title: "How do you use monitoring data to improve the reliability of cloud-native applications?-Sealos"
+description: "Monitoring data refers to performance metrics (such as latency, error rate, resource usage) collected from cloud-native applications, serving as the core basis for ensuring reliability. Its importance"
+category: "Monitoring and Observability"
+keywords:
+  - "DevOps"
+  - "Cloud-Native"
+  - "IT Infrastructure"
+  - "Lakehouse"
+  - "Open-Source Cloud"
+---
+
+Monitoring data refers to performance metrics (such as latency, error rate, resource usage) collected from cloud-native applications, serving as the core basis for ensuring reliability. Its importance lies in real-time detection of anomalies and rapid identification of root causes, with application scenarios including microservice tracing, container cluster status monitoring, and auto-scaling decisions.
+
+
+The core components include metric collection (Prometheus), log aggregation (Loki), distributed tracing (Jaeger), and alerting systems (Alertmanager). By setting SLOs (Service Level Objectives) and error budgets, combined with baseline analysis, behaviors deviating from normal status are detected. Practical impacts include reducing Mean Time to Recovery (MTTR), preventing cascading failures, and optimizing resource allocation through historical data to enhance system resilience.
+
+
+Implementation steps are: 1. Deploy monitoring toolchains (e.g., Prometheus+Grafana); 2. Define key business metrics (e.g., HTTP error rate > 5%); 3. Configure real-time alerts to be pushed to response channels; 4. Integrate fault self-healing mechanisms (e.g., Kubernetes HPA auto-scaling); 5. Periodically analyze metric trends to optimize architectural bottlenecks. A typical scenario is triggering scaling based on CPU usage predictions to ensure service availability under sudden traffic spikes.

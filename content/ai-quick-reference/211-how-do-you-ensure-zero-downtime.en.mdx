@@ -1,0 +1,19 @@
+---
+title: "How do you ensure zero-downtime deployments using automation?-Sealos"
+description: "Zero-downtime deployment ensures continuous availability of user services during application updates through an automated toolchain (such as CI/CD pipelines) combined with specific release strategies"
+category: "Automated Deployment"
+keywords:
+  - "High Performance"
+  - "DevOps"
+  - "Application Deployment"
+  - "IT Infrastructure"
+  - "High Availability (HA)"
+---
+
+Zero-downtime deployment ensures continuous availability of user services during application updates through an automated toolchain (such as CI/CD pipelines) combined with specific release strategies, and is crucial for high-availability businesses (e.g., e-commerce, financial systems).
+
+
+The core principles include blue-green deployment or canary release. The automated process first deploys the new version to an independent environment (such as a new Kubernetes replica set), then gradually switches traffic through a load balancer (such as an Ingress Controller), and monitors application health in real-time. If an anomaly is detected, it automatically rolls back to the old version.
+
+
+Implementation steps: 1. Integrate automated testing into the CI/CD pipeline; 2. Configure a progressive traffic switching strategy (e.g., weight allocation); 3. Deploy health check probes and monitoring alerts; 4. Set automated rollback thresholds. This solution significantly reduces release risks and improves business continuity.

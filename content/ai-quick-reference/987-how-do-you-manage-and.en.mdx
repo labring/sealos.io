@@ -1,0 +1,19 @@
+---
+title: "How do you manage and protect encryption keys in cloud-native environments?-Sealos"
+description: "In a cloud-native environment, encryption key management is responsible for securely generating, storing, distributing, rotating, and revoking keys to protect sensitive data. It is crucial for prevent"
+category: "Security and Permission Management"
+keywords:
+  - "Containerization"
+  - "IT Infrastructure"
+  - "High Availability (HA)"
+  - "DevOps"
+  - "Cloud Operating System"
+---
+
+In a cloud-native environment, encryption key management is responsible for securely generating, storing, distributing, rotating, and revoking keys to protect sensitive data. It is crucial for preventing data breaches, meeting compliance requirements (such as GDPR and HIPAA), and ensuring secure communication and storage in scenarios like microservices and distributed databases.
+
+
+The core principle is to use specialized key management systems instead of hardcoding keys directly in applications or configurations. Kubernetes Secrets provide basic capabilities but store data in an unencrypted state, requiring integration with encryption providers such as KMS plugins (AWS KMS, GCP Cloud KMS, Azure Key Vault) or external secret managers (e.g., HashiCorp Vault) to encrypt Secrets at rest. Solutions must support automatic rotation, identity-based fine-grained access control (RBAC/IAM), audit logging, and tamper-proof storage (e.g., HSMs). This ensures key security and reduces the risk of credential leakage.
+
+
+Implementation steps include: 1) Evaluating and selecting professional key management services (KMS or secret management tools); 2) Configuring EncryptionConfiguration in K8s to use the selected KMS plugin; 3) Strictly defining RBAC policies and service account permissions for key access; 4) Implementing automated key rotation policies; 5) Deploying auditing and monitoring for key usage; 6) Ensuring secure key backup and recovery mechanisms. This significantly enhances the data security posture, supports compliance audits, and reduces business risks.

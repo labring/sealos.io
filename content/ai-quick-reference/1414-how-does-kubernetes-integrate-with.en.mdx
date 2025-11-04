@@ -1,0 +1,19 @@
+---
+title: "How does Kubernetes integrate with monitoring tools like Prometheus and Grafana?-Sealos"
+description: "Kubernetes serves as a container orchestration platform, Prometheus is used for time series metrics collection, and Grafana provides data visualization. This integration is crucial for cloud-native en"
+category: "Monitoring and Observability"
+keywords:
+  - "Open-Source Cloud"
+  - "DevOps"
+  - "High Availability (HA)"
+  - "Cloud-Native"
+  - "High Performance"
+---
+
+Kubernetes serves as a container orchestration platform, Prometheus is used for time series metrics collection, and Grafana provides data visualization. This integration is crucial for cloud-native environments, enabling real-time monitoring of cluster health, resource utilization, and performance bottlenecks, applicable to microservice deployment, troubleshooting, and observability scenarios.
+
+
+The core principle involves Prometheus dynamically discovering Kubernetes resources (e.g., through ServiceMonitor objects) to scrape metric data; Grafana, as a dashboard tool, integrates with Prometheus data sources. Features include automated service discovery and alert management. Practical applications improve operational efficiency, enabling automated monitoring, resource optimization, and rapid problem diagnosis, driving high-availability architecture optimization.
+
+
+Implementation steps: First, deploy Prometheus Operator to manage monitoring components; then, configure ServiceMonitors to monitor Pods and services; next, install Grafana and add Prometheus data sources; finally, create dashboards to visualize core metrics. The business value lies in reducing downtime, improving application reliability, and supporting agile operational decision-making.

@@ -1,0 +1,19 @@
+---
+title: "How do you ensure that monitoring tools do not impact the performance of cloud-native applications?-Sealos"
+description: "Monitoring tools are used to track application performance and health in real-time in cloud-native environments, and their optimization is crucial because improper use may introduce latency or resourc"
+category: "Monitoring and Observability"
+keywords:
+  - "Cluster Management"
+  - "Private Cloud"
+  - "Cloud Platform"
+  - "High Availability (HA)"
+  - "Containerization"
+---
+
+Monitoring tools are used to track application performance and health in real-time in cloud-native environments, and their optimization is crucial because improper use may introduce latency or resource contention, affecting application responsiveness and scalability. This is particularly critical in highly dynamic containerized scenarios such as Kubernetes clusters to ensure reliable operation and efficient resource utilization.
+
+
+Core components include lightweight collection agents (such as eBPF or OpenTelemetry), configurable sampling strategies to reduce data volume, and resource isolation mechanisms like quota limits. The principle is to minimize performance overhead using asynchronous data transmission and efficient processing algorithms. In practical applications, by integrating Kubernetes-native tools such as Prometheus and Grafana, monitoring data can seamlessly feed back into DevOps processes, enhancing observability with almost no impact on application throughput.
+
+
+Implementation steps include selecting optimization tools (e.g., Prometheus), configuring sampling frequency and metric filtering, isolating resources (such as sidecar container deployment), and continuous performance tuning. In typical scenarios like service mesh environments, this strategy delivers business value: significantly reducing latency to the microsecond level, improving application availability, while supporting rapid fault diagnosis and automatic scaling, ensuring that monitoring does not compromise user experience.

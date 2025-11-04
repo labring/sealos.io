@@ -1,0 +1,19 @@
+---
+title: "How do you handle database schema migrations in automated deployments?-Sealos"
+description: "Database schema migration refers to the process of versioned changes to the database structure in automated deployment. It is crucial for ensuring consistency between applications and data models, and"
+category: "Automated Deployment"
+keywords:
+  - "DevOps"
+  - "Cloud Operating System"
+  - "Kubernetes (K8s)"
+  - "Open-Source Cloud"
+  - "Cloud Platform"
+---
+
+Database schema migration refers to the process of versioned changes to the database structure in automated deployment. It is crucial for ensuring consistency between applications and data models, and is applicable in CI/CD pipelines, such as avoiding deployment failures caused by manual operations and ensuring the continuity of production environments.
+
+
+The core includes tool-based script management (e.g., Flyway or Liquibase), where each change is executed in an atomic transaction, and rollback mechanisms are supported to prevent data corruption. In practice, migration scripts are version-controlled to track the change history, and strategies like blue-green deployment are combined to achieve zero downtime, enhancing deployment reliability.
+
+
+Processing steps: 1) Create SQL version scripts and store them in the code repository; 2) Integrate migration tools into the CI/CD pipeline, prioritizing database migration before application deployment; 3) Verify in the test environment; 4) Automate execution to ensure transaction integrity. Business values include accelerating release frequency, reducing the risk of human errors, and supporting the evolution of large-scale applications.

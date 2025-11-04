@@ -1,0 +1,19 @@
+---
+title: "How does a microservices architecture affect application security strategies?-Sealos"
+description: "Microservices architecture splits monolithic applications into independently deployable microservices, enhancing scalability and development efficiency, and is commonly used in cloud-native environmen"
+category: "Microservices Architecture"
+keywords:
+  - "Cluster Management"
+  - "Containerization"
+  - "One-Click Deployment"
+  - "Kubernetes (K8s)"
+  - "Open-Source Cloud"
+---
+
+Microservices architecture splits monolithic applications into independently deployable microservices, enhancing scalability and development efficiency, and is commonly used in cloud-native environments such as containerized deployments. Its distributed nature requires security strategies to address inter-service communication risks.
+
+
+Core components include inter-service API calls and independent security contexts for each microservice, necessitating the implementation of fine-grained authentication (e.g., OAuth2), authorization controls, and transport layer encryption. In practical applications, this enhances security isolation but increases the network-level attack surface, requiring integration with the zero-trust model.
+
+
+Implementation involves deploying an API gateway to handle request authentication and utilizing a service mesh (e.g., Istio) for automated policy enforcement. Typical steps: define service identities, configure TLS, and set up RBAC. Business values include improved system resilience and compliance fulfillment, but management complexity must be balanced.

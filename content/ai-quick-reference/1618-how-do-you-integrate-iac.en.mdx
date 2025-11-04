@@ -1,0 +1,19 @@
+---
+title: "How do you integrate IaC into a CI/CD pipeline?-Sealos"
+description: "Infrastructure as Code (IaC) defines and manages infrastructure resources through code, while CI/CD pipelines automate the building, testing, and deployment of software. Integrating IaC into CI/CD is "
+category: "Automation and Infrastructure as Code"
+keywords:
+  - "Data Center (DC)"
+  - "IT Infrastructure"
+  - "High Availability (HA)"
+  - "DevOps"
+  - "Cluster Management"
+---
+
+Infrastructure as Code (IaC) defines and manages infrastructure resources through code, while CI/CD pipelines automate the building, testing, and deployment of software. Integrating IaC into CI/CD is crucial as it automates the provisioning, configuration, and updating of infrastructure, ensuring environmental consistency, repeatability, and auditability, and significantly improving the efficiency and reliability of software delivery, widely used in cloud environment deployments and microservices architectures.
+
+
+The core of the integration is incorporating IaC scripts into version control (such as Git) as the source of the pipeline. The core processes include: 1) Submitting IaC changes to trigger the pipeline; 2) Performing static analysis, linting, and security scanning of IaC code; 3) Executing planning/previews in an isolated environment (such as a staging environment) to verify changes; 4) Applying changes to deploy the infrastructure; 5) Running integration/end-to-end tests against the new infrastructure. This enables the collaboration and automation of infrastructure changes and application code changes.
+
+
+Key implementation steps: 1) Use IaC tools such as Terraform, CloudFormation, or ARM; 2) Configure pipeline stages in CI/CD tools; 3) Automatically perform linting, security scanning, and previews after submitting changes; 4) Manually approve critical changes; 5) Automatically apply changes to the target environment; 6) Verify the infrastructure. This integration accelerates delivery, reduces human errors, enhances compliance, and optimizes resource allocation, thereby providing fast, stable, and traceable services.

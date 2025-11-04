@@ -1,0 +1,19 @@
+---
+title: "How do you handle testing of containerized applications in CI/CD pipelines?-Sealos"
+description: "Handling testing of containerized applications in CI/CD pipelines verifies application integrity and performance through automation, ensuring high quality before deployment. This is crucial for accele"
+category: "Continuous Integration and Continuous Deployment"
+keywords:
+  - "Private Cloud"
+  - "Cloud-Native"
+  - "Data Center (DC)"
+  - "Cloud Operating System"
+  - "Lakehouse"
+---
+
+Handling testing of containerized applications in CI/CD pipelines verifies application integrity and performance through automation, ensuring high quality before deployment. This is crucial for accelerating delivery, reducing production risks, and is applied in cloud-native environments such as microservice architectures supported by Kubernetes.
+
+
+Core components include unit testing (verifying single components), integration testing (checking multi-service interactions), and end-to-end testing (simulating full workflows). Features involve executing tests in container-isolated environments using tools like Docker and CI platforms (e.g., Jenkins or GitLab CI), with practical applications deploying to temporary Kubernetes clusters for validation. This process enhances reliability, reduces errors, and drives automated development workflows.
+
+
+Implementation steps: First, build container images during the CI phase; second, run automated test suites (e.g., using pytest or Selenium); finally, automatically deploy to staging or production environments after test passing. A typical scenario is triggering tests upon code submission, with business value in efficient and reliable continuous delivery.

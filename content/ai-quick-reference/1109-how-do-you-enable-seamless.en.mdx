@@ -1,0 +1,19 @@
+---
+title: "How do you enable seamless data migration between private and public clouds?-Sealos"
+description: "Seamless data migration between private and public clouds relies on a unified hybrid cloud architecture and automation tools. Its core values lie in supporting business agility, disaster recovery, cos"
+category: "Multi-Cloud and Hybrid Cloud Deployment"
+keywords:
+  - "Application Deployment"
+  - "One-Click Deployment"
+  - "DevOps"
+  - "Cluster Management"
+  - "IT Infrastructure"
+---
+
+Seamless data migration between private and public clouds relies on a unified hybrid cloud architecture and automation tools. Its core values lie in supporting business agility, disaster recovery, cost optimization, and avoiding vendor lock-in. Application scenarios include cross-cloud application deployment, load balancing, data backup and archiving, and meeting compliance requirements.
+
+
+The key to seamless migration is establishing network connectivity, a unified data plane, and an application abstraction layer. Core components include: 1. A secure and high-speed network (VPN/dedicated line/Direct Connect) to ensure connectivity; 2. Compatible storage interfaces (such as S3 API object storage); 3. Containerized applications (Docker/Kubernetes) to eliminate environmental differences; 4. Cloud management platforms (such as Terraform) to implement infrastructure as code. The toolchain typically integrates Velero, Rclone, and cloud-native storage plugins (CSI) to achieve application state and data synchronization migration.
+
+
+Implementation process: 1. Network interconnection: Configure VPN or cloud provider dedicated lines (such as AWS Direct Connect); 2. Data layer integration: Deploy MinIO/S3 compatible middleware or enable cloud storage gateway; 3. Application migration: After containerizing applications, use Velero to back up K8s cluster state to hybrid storage; 4. Incremental synchronization: Perform continuous object storage synchronization through Rclone; 5. Verification and switching: Restore K8s workloads in the public cloud and update DNS or load balancing policies. Attention should be paid to encrypted transmission and verification of application state consistency during migration.

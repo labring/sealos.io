@@ -1,0 +1,19 @@
+---
+title: "How does Kubernetes help with persistent data storage in cloud-native applications?-Sealos"
+description: "Kubernetes resolves the contradiction between the stateless nature of cloud-native applications and the requirement for persistent data storage through the abstraction of Volumes and Persistent Volume"
+category: "Data Management and Storage"
+keywords:
+  - "Private Cloud"
+  - "High Performance"
+  - "Application Deployment"
+  - "Cloud-Native"
+  - "Cluster Management"
+---
+
+Kubernetes resolves the contradiction between the stateless nature of cloud-native applications and the requirement for persistent data storage through the abstraction of Volumes and Persistent Volumes. This is crucial for stateful applications such as databases, message queues, and file storage to run reliably in container environments, supporting true cloud-native architectures.
+
+
+Its core components include: PersistentVolume, which defines cluster storage resources; PersistentVolumeClaim, through which Pods declare required storage resources and characteristics; and StorageClass, which enables dynamic volume provisioning to automatically create PVs on demand. Kubernetes is responsible for binding PVCs with appropriate PVs and ensures that volumes can be remounted to the correct nodes after Pod reconstruction or migration through controllers, maintaining data persistence and availability. This allows applications to be unaware of underlying storage details.
+
+
+In implementation, the typical steps are: administrators configure StorageClass; developers define PVCs specifying capacity and access modes; mount the PVC in the Pod template; and Kubernetes automatically completes volume binding and mounting. The business values are: achieving separation of storage and computing, improving the degree of operational automation; enhancing application portability and elasticity; and ensuring the persistence and reliability of critical business data.

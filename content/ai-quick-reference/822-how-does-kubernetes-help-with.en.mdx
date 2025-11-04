@@ -1,0 +1,19 @@
+---
+title: "How does Kubernetes help with securing cloud-native applications?-Sealos"
+description: "As the de facto standard for container orchestration, Kubernetes provides critical security mechanisms for cloud-native applications. Its ability to manage containerized workloads throughout the softw"
+category: "Security and Permission Management"
+keywords:
+  - "Open-Source Cloud"
+  - "Private Cloud"
+  - "Lakehouse"
+  - "One-Click Deployment"
+  - "DevOps"
+---
+
+As the de facto standard for container orchestration, Kubernetes provides critical security mechanisms for cloud-native applications. Its ability to manage containerized workloads throughout the software delivery lifecycle makes it a core platform for protecting application confidentiality, integrity, and availability. It addresses specific security challenges introduced by container orchestration, such as dynamic environments and communication between microservices.
+
+
+Its core security components include: fine-grained role-based access control to ensure the principle of least privilege; network policies to enforce isolation between microservices; Secrets for secure management of sensitive configurations; security contexts and Pod security policies/standards to control container runtime permissions; and automated TLS certificate management to ensure encrypted communication. These features work together to enhance security through configuration rather than application modification, reducing the risk of misconfiguration and supporting the implementation of zero-trust architecture.
+
+
+By defining and enforcing security policies (such as network isolation and runtime restrictions), centrally managing secrets, and mandating communication encryption. Typical implementation steps include: enabling RBAC and minimizing authorization; defining network rules based on policies; using Secrets to store sensitive data; configuring Pod security admission control and scanning images for vulnerabilities. These measures significantly improve the overall security posture of applications, meet compliance requirements, protect applications from internal threats and external attacks, and serve as a critical infrastructure layer for cloud-native security.

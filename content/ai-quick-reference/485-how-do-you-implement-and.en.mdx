@@ -1,0 +1,19 @@
+---
+title: "How do you implement and manage cross-service transactions in microservices?-Sealos"
+description: "A cross-service transaction refers to transaction operations involving multiple independent services in a microservices architecture, ensuring cross-service data consistency. Its importance lies in th"
+category: "Microservices Architecture"
+keywords:
+  - "Cloud Platform"
+  - "High Performance"
+  - "Private Cloud"
+  - "DevOps"
+  - "IT Infrastructure"
+---
+
+A cross-service transaction refers to transaction operations involving multiple independent services in a microservices architecture, ensuring cross-service data consistency. Its importance lies in the fact that the distributed nature of microservices disrupts traditional ACID transactions. Application scenarios include e-commerce order processing (such as inventory deduction and payment coordination) and financial transfers, ensuring business continuity while addressing challenges like service failures and network delays.
+
+
+The core principle relies on event-driven mechanisms and compensation logic, such as the Saga pattern, avoiding strong consistency tools like 2PC. Components include inter-service event publishing, compensation transaction rollback, and coordinators (such as message queues). The feature emphasizes eventual consistency rather than atomicity. In practical applications, this pattern improves system resilience and scalability but introduces complexity and additional development costs to microservice design (such as the division of transaction boundaries).
+
+
+During implementation, the steps for adopting the Saga pattern are as follows: define the transaction sequence (e.g., order creation, inventory deduction); services publish events (e.g., via Kafka); and trigger compensation when failures occur (e.g., return events). Typical scenarios cover order lifecycle management. The business value is to reliably achieve eventual consistency, reduce cross-service coupling, and support fault-tolerant processing in high-throughput scenarios such as retail peak periods.

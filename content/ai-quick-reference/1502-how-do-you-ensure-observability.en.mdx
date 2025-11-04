@@ -1,0 +1,19 @@
+---
+title: "How do you ensure observability for microservices running in different cloud providers?-Sealos"
+description: "Observability is the ability to monitor the state of distributed systems through logs, metrics, and traces, which is particularly crucial in cross-cloud microservice architectures. It supports end-to-"
+category: "Monitoring and Observability"
+keywords:
+  - "Sealos"
+  - "Cloud-Native"
+  - "Kubernetes (K8s)"
+  - "One-Click Deployment"
+  - "DevOps"
+---
+
+Observability is the ability to monitor the state of distributed systems through logs, metrics, and traces, which is particularly crucial in cross-cloud microservice architectures. It supports end-to-end visibility for troubleshooting, performance optimization, and compliance auditing, ensuring system reliability and seamless integration across providers.
+
+
+Core components include logs that record event details, metrics that quantify performance (such as latency and error rates), and distributed traces that track request flows. Based on standardized protocols like OpenTelemetry, these components enable real-time data collection and visualization tools (e.g., Prometheus and Jaeger). In practical applications, they simplify monitoring in multi-cloud environments, enhance diagnostic efficiency, and reduce downtime.
+
+
+To implement a unified observability framework: first, deploy agents (such as OpenTelemetry Collector) to each microservice; second, integrate toolchains (such as ELK stack or Datadog) to aggregate cross-cloud data; finally, standardize metadata tags and monitor alerts. Typical scenarios include Kubernetes clusters on AWS, Azure, and GCP. The business value lies in reducing MTTR, improving system resilience, and supporting highly available services.

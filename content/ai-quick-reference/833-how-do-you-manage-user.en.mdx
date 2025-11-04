@@ -1,0 +1,19 @@
+---
+title: "How do you manage user permissions for cloud-native applications using Kubernetes?-Sealos"
+description: "Kubernetes manages user permissions for cloud-native applications through Role-Based Access Control (RBAC), ensuring authorized users access cluster resources. This is crucial to prevent unauthorized "
+category: "Security and Permission Management"
+keywords:
+  - "Application Deployment"
+  - "Cloud Platform"
+  - "Kubernetes (K8s)"
+  - "Open-Source Cloud"
+  - "Cloud Operating System"
+---
+
+Kubernetes manages user permissions for cloud-native applications through Role-Based Access Control (RBAC), ensuring authorized users access cluster resources. This is crucial to prevent unauthorized operations, protect data security, and meet compliance requirements, especially in multi-tenant microservice deployments such as applications in the financial or healthcare industries.
+
+
+Core components include Roles (defining permissions within a namespace) and ClusterRoles (cluster-level permissions), which are assigned to users, groups, or ServiceAccounts via RoleBindings or ClusterRoleBindings. The principle is fine-grained authorization (e.g., read-only access to Pods), with practical applications supporting team isolation, enhanced security, and simplified operations. Impacts include reduced vulnerability risks and accelerated DevOps processes.
+
+
+Implementation steps: 1. Create a Role to define permissions (such as verbs and resources). 2. Establish a Binding to associate the role with subjects (such as users or ServiceAccounts). 3. Test and iterate. A typical scenario is restricting development teams' access to production environments. Business values include enhanced security governance, reduced operational errors, and ensured regulatory compliance.

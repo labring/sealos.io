@@ -1,0 +1,19 @@
+---
+title: "How do you ensure data integrity when using CI/CD for cloud-native apps?-Sealos"
+description: "CI/CD (Continuous Integration/Continuous Deployment) is an automated software development practice used to accelerate the building, testing, and deployment of cloud-native applications. Ensuring data "
+category: "Continuous Integration and Continuous Deployment"
+keywords:
+  - "Sealos"
+  - "Private Cloud"
+  - "High Performance"
+  - "IT Infrastructure"
+  - "Cloud-Native"
+---
+
+CI/CD (Continuous Integration/Continuous Deployment) is an automated software development practice used to accelerate the building, testing, and deployment of cloud-native applications. Ensuring data integrity is crucial in cloud-native environments as it prevents data from being corrupted or lost during migration, testing, or deployment processes. Application scenarios include database updates, configuration file synchronization, and microservice deployments, avoiding service disruptions or security risks.
+
+
+Core components include version control for all data definitions (such as using Git to manage database migration scripts), automated testing (such as unit and integration tests to verify data logic), and rollback mechanisms (achieving rapid recovery through CI/CD tools like Jenkins or Argo CD). In practical applications, the GitOps approach codifies infrastructure and data schemas to ensure consistency and auditability. This enhances system reliability, reduces production incidents, and impacts team efficiency and compliance.
+
+
+Implementation steps include: 1. Integrating data change scripts into the CI/CD pipeline. 2. Running data validation tests and environment simulations before deployment. 3. Ensuring data source authenticity using signatures or encryption. 4. Setting up monitoring and rollback strategies. Typical scenarios involve database migrations or configuration updates, bringing business values such as reduced downtime, improved customer trust, and business continuity.

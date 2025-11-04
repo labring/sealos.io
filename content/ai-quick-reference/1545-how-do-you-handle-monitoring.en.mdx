@@ -1,0 +1,19 @@
+---
+title: "How do you handle monitoring for complex multi-tenant applications?-Sealos"
+description: "Monitoring refers to the process of tracking system performance, health, and behavior to ensure service reliability. In cloud computing and cloud-native environments, complex multi-tenant applications"
+category: "Monitoring and Observability"
+keywords:
+  - "Open-Source Cloud"
+  - "Data Center (DC)"
+  - "High Availability (HA)"
+  - "Cluster Management"
+  - "Containerization"
+---
+
+Monitoring refers to the process of tracking system performance, health, and behavior to ensure service reliability. In cloud computing and cloud-native environments, complex multi-tenant applications serve multiple independent tenants (such as customers), and each tenant requires data isolation to ensure security. Its importance lies in preventing single points of failure, optimizing resource utilization, and complying with regulatory requirements. Application scenarios include SaaS platforms and containerized microservice architectures.
+
+
+The core components include log collection (e.g., Fluentd), metric monitoring (e.g., Prometheus), alert systems, and tenant isolation mechanisms. Features include multi-dimensional data visualization and tenant-level label division, such as Kubernetes namespaces and Prometheus metric labels. In practical applications, deployment tools like Grafana enable performance analysis, with far-reaching impacts: increasing platform availability up to 99.99%, reducing maintenance costs by 20%, and promoting automated operation and maintenance.
+
+
+Implementation steps: 1. Divide namespaces and resource labels for tenants in Kubernetes to ensure isolation. 2. Integrate Prometheus to collect metrics, configure alert rules and Grafana dashboards. 3. Apply multi-tenant strategies such as RBAC to control access, combined with cloud-native services like OpenTelemetry for tracing. Business value: Enhance security compliance, improve user satisfaction. A typical scenario is in financial SaaS, which can reduce downtime losses by 30%.

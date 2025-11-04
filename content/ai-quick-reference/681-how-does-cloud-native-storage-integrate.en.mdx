@@ -1,0 +1,19 @@
+---
+title: "How does cloud-native storage integrate with container orchestration tools like Kubernetes?-Sealos"
+description: "Cloud-native storage is a dynamically scalable storage service designed specifically for containerized environments, such as object storage or block storage. Its importance lies in supporting stateful"
+category: "Data Management and Storage"
+keywords:
+  - "Sealos"
+  - "Lakehouse"
+  - "IT Infrastructure"
+  - "Open-Source Cloud"
+  - "Application Deployment"
+---
+
+Cloud-native storage is a dynamically scalable storage service designed specifically for containerized environments, such as object storage or block storage. Its importance lies in supporting stateful applications (like databases or logging systems) to persist data and overcoming the ephemeral nature of containers. Application scenarios include state management in microservice architectures, real-time data processing, and disaster recovery.
+
+
+Core components include Kubernetes' PersistentVolumes (PV), PersistentVolumeClaims (PVC), and StorageClasses. Through declarative configuration, PVCs request storage resources, while StorageClasses describe cloud provider services (such as AWS EBS or Azure Disk), enabling automatic binding and dynamic provisioning. Features include elastic scalability and plug-in drivers, with practical impacts of simplifying cloud storage management, ensuring data consistency, and accelerating deployment.
+
+
+Implementation steps: 1. Create a StorageClass to define storage type parameters; 2. Deploy a PVC to specify capacity and access modes; 3. Mount the volume in the Pod via volumeMounts. A typical scenario is the automatic provisioning of persistent storage when deploying a StatefulSet, with business value in improving application reliability and scalability.

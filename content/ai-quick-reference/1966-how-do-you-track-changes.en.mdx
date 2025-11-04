@@ -1,0 +1,19 @@
+---
+title: "How do you track changes in cloud-native applications and microservices configurations?-Sealos"
+description: "Tracking changes in configurations of cloud-native applications and microservices involves monitoring and recording modifications to configuration files to ensure consistency and reliability. This con"
+category: "Cloud-Native Application Development"
+keywords:
+  - "Open-Source Cloud"
+  - "Cluster Management"
+  - "Cloud Operating System"
+  - "Lakehouse"
+  - "Kubernetes (K8s)"
+---
+
+Tracking changes in configurations of cloud-native applications and microservices involves monitoring and recording modifications to configuration files to ensure consistency and reliability. This concept is crucial because frequent configuration updates in microservices can lead to failures; application scenarios include maintaining service availability in automated deployments and audits.
+
+
+Core components include declarative configurations (such as Kubernetes ConfigMaps) and version control systems (such as Git). In principle, the GitOps workflow is adopted: all configurations are stored in Git repositories, and changes are automatically deployed through CI/CD pipelines (such as Argo CD), enabling version control, rollbacks, and audits. The practical impact is improved efficiency, reduced human errors, and enhanced compliance.
+
+
+Implementation steps: First, store configuration files in a Git repository for version management; second, integrate CI/CD tools to automatically detect changes and deploy them to the cluster; finally, set up alerts through monitoring tools (such as Prometheus). Typical business values include accelerating release cycles, improving system reliability, and reducing security risks.

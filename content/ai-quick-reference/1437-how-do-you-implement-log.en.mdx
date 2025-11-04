@@ -1,0 +1,19 @@
+---
+title: "How do you implement log shipping for cloud-native applications?-Sealos"
+description: "Log shipping is the process of reliably transporting scattered application logs to central storage in a cloud-native environment, with key terms including log agents and storage backends. Its importan"
+category: "Monitoring and Observability"
+keywords:
+  - "Cloud Platform"
+  - "Data Center (DC)"
+  - "Kubernetes (K8s)"
+  - "One-Click Deployment"
+  - "Application Deployment"
+---
+
+Log shipping is the process of reliably transporting scattered application logs to central storage in a cloud-native environment, with key terms including log agents and storage backends. Its importance lies in providing real-time observability, supporting fault diagnosis and compliance monitoring, and its application scenarios involve centralized log management in container-based microservice architectures such as Kubernetes clusters.
+
+
+The core components include log agents (e.g., Fluent Bit or Fluentd), log storage systems (e.g., Elasticsearch or Loki), routing configurations, and filtering rules. The principle is based on collecting logs from container standard output, which are then processed by the agent and forwarded to the target storage. Its features include efficient processing, scalability, and low latency. In practical applications, it improves operational efficiency, with impacts including simplified monitoring, accelerated problem localization, and data-driven decision-making.
+
+
+Implementation steps: 1. Deploy the log agent as a DaemonSet in Kubernetes, for example, using Fluent Bit to collect Pod logs. 2. Configure the agent to connect log sources and target storage applications, such as AWS S3 or an Elasticsearch cluster. 3. Define filtering rules to parse and optimize the log format. 4. Deploy visualization tools such as Grafana for query and analysis. Typical scenarios are used for troubleshooting or security auditing, with business value including enabling rapid debugging, reducing MTTR, and enhancing compliance to lower costs.

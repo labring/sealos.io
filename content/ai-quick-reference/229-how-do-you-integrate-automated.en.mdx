@@ -1,0 +1,43 @@
+---
+title: "How do you integrate automated testing into your deployment pipeline?-Sealos"
+description: "Integrating automated testing into the deployment pipeline (such as CI/CD pipelines) is core to DevOps practices. It ensures that code changes are automatically validated before deployment, significan"
+category: "Automated Deployment"
+keywords:
+  - "Open-Source Cloud"
+  - "One-Click Deployment"
+  - "Lakehouse"
+  - "Cloud-Native"
+  - "Application Deployment"
+---
+
+Integrating automated testing into the deployment pipeline (such as CI/CD pipelines) is core to DevOps practices. It ensures that code changes are automatically validated before deployment, significantly improving software quality and delivery speed. This is crucial in cloud-native environments with frequent deliveries, enabling early detection and blocking of defects.
+
+
+The core lies in orchestrating different levels of testing into various pipeline stages:
+
+
+Build phase: Perform Static Application Security Testing (SAST) and unit tests to quickly feedback basic errors.
+
+
+After deployment to a pre-production environment (e.g., staging environment): Run integration tests to verify module interactions and execute API tests.
+
+
+Before release approval: Conduct end-to-end (E2E) or user interface (UI) tests to simulate real user flows, typically in an isolated sandbox replicating the production environment (often implemented using temporary namespaces in Kubernetes).
+
+
+Typical implementation steps:
+
+
+1. Configure CI tools: Define pipelines in tools like Jenkins, GitLab CI, or GitHub Actions.
+
+
+2. Write automated test cases: Create repeatable test scripts for each level.
+
+
+3. Trigger tests: The pipeline automatically triggers corresponding test suites at relevant stages (after code commit, after image building, after deployment to the test environment).
+
+
+4. Quality gates: Set test pass rates or key case success thresholds as ""quality gates""; failure to pass automatically blocks the pipeline, preventing defects from flowing to subsequent environments or production.
+
+
+After implementation, the business value lies in faster release frequency, lower defect escape rate, higher team confidence, and improved efficiency.

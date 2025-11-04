@@ -1,0 +1,19 @@
+---
+title: "How do you handle legacy systems integration with microservices?-Sealos"
+description: "Legacy systems are traditional IT applications inherited from the past, typically using outdated technologies and being difficult to maintain; microservices, on the other hand, are a modern architectu"
+category: "Microservices Architecture"
+keywords:
+  - "Cloud Platform"
+  - "Open-Source Cloud"
+  - "One-Click Deployment"
+  - "Cluster Management"
+  - "High Availability (HA)"
+---
+
+Legacy systems are traditional IT applications inherited from the past, typically using outdated technologies and being difficult to maintain; microservices, on the other hand, are a modern architectural pattern that splits applications into independent deployable units. The importance of this integration lies in helping enterprises protect existing investments while gradually migrating to cloud-native environments, enhancing system resilience and scalability. Application scenarios include industries requiring rapid response such as finance and healthcare, enabling the coexistence of old and new systems to support digital transformation.
+
+
+Core integration components involve API gateways (e.g., Kong or AWS API Gateway), message queues (e.g., Kafka), and adapter layers (e.g., wrapped as RESTful APIs), achieving decoupling through event-driven or request-response patterns. The principle is to abstract legacy systems into service interfaces, ensuring secure invocation by microservices. In practical applications, for example, e-commerce platforms wrap legacy inventory systems through adapters, allowing order microservices to integrate and invoke them; this approach improves deployment speed, reduces coupling risks, and promotes architectural modernization.
+
+
+Implementation steps include: 1. Identify legacy system interfaces; 2. Develop API wrapper adapters; 3. Integrate into API gateways or service meshes (e.g., Istio); 4. Gradually migrate key functions to microservices. A typical scenario is a banking system adding payment microservices to invoke traditional settlement APIs. Business value is reflected in accelerating innovation, reducing technical debt risks, and optimizing resource utilization.

@@ -1,0 +1,19 @@
+---
+title: "How does cloud-native storage support scaling of databases?-Sealos"
+description: "Cloud-native storage is a persistent storage solution designed specifically for cloud-native environments, providing elasticity, high availability, and dynamic scalability. It is crucial for database "
+category: "Data Management and Storage"
+keywords:
+  - "Cloud-Native"
+  - "Containerization"
+  - "Private Cloud"
+  - "Cluster Management"
+  - "Cloud Platform"
+---
+
+Cloud-native storage is a persistent storage solution designed specifically for cloud-native environments, providing elasticity, high availability, and dynamic scalability. It is crucial for database scaling, especially in microservices architectures, supporting databases in handling sudden traffic surges, growing data demands, and ensuring high application performance and continuous availability.
+
+
+Its core components include distributed file systems (such as Ceph), CSI drivers integrated with Kubernetes to enable automated storage management and IOPS adjustment. Features include snapshots, multiple replicas, and data recovery, with principles based on dynamic volume provisioning and declarative APIs. In practical applications, it enables database storage to automatically scale with load, reducing manual intervention and improving overall performance and availability.
+
+
+Implementation steps: 1. Integrate CSI plugins and configure auto-scaling policies; 2. Deploy elastic storage volumes, triggering capacity adjustments based on metric monitoring. Typical scenarios include increased load during e-commerce peak periods. Business values include reducing operational costs, optimizing resource utilization, enhancing database reliability, and improving business agility.

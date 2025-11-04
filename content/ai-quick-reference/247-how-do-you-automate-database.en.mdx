@@ -1,0 +1,19 @@
+---
+title: "How do you automate database migrations during deployment?-Sealos"
+description: "Automated database migration refers to the automatic execution of database structure or data changes in the application deployment process. Its significance lies in ensuring that application code upda"
+category: "Automated Deployment"
+keywords:
+  - "High Performance"
+  - "Cloud Operating System"
+  - "IT Infrastructure"
+  - "Sealos"
+  - "DevOps"
+---
+
+Automated database migration refers to the automatic execution of database structure or data changes in the application deployment process. Its significance lies in ensuring that application code updates are synchronized with database changes, eliminating human operation errors. It is a core环节 of continuous delivery and适用于 frequent release scenarios.
+
+
+The core implementation relies on the integration of migration scripts (such as SQL or code-based scripts from Liquibase/Flyway) with CI/CD pipelines. Developers submit change scripts to the version repository, and CI tools (such as Jenkins/GitLab CI) trigger migration tools after building to automatically verify and execute changes in the pre-release environment, ultimately completing the database upgrade before deploying the new version of the application.
+
+
+Implementation steps: First, use migration tools to manage versioned scripts; configure CI/CD to call migration commands (such as `flyway migrate`) in the deployment process; after verification through the pre-production environment, automatically execute during the production deployment phase. The key values are achieving zero-downtime updates, ensuring data consistency, and significantly improving release speed and reliability.

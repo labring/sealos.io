@@ -1,0 +1,19 @@
+---
+title: "How do you handle database schema updates during automated deployments?-Sealos"
+description: "Handling database schema updates in automated deployment refers to the core process of securely and consistently integrating database structural changes (such as adding/removing tables, modifying colu"
+category: "Automated Deployment"
+keywords:
+  - "Sealos"
+  - "Cloud-Native"
+  - "One-Click Deployment"
+  - "Open-Source Cloud"
+  - "Containerization"
+---
+
+Handling database schema updates in automated deployment refers to the core process of securely and consistently integrating database structural changes (such as adding/removing tables, modifying columns, adjusting indexes) into the CI/CD pipeline. Its importance lies in ensuring that application code changes and the underlying data model evolve synchronously, avoiding serious failures caused by data incompatibility after deployment, which is crucial for achieving true end-to-end automated deployment.
+
+
+The core method is to use database versioned migration tools (such as Flyway, Liquibase) to define schema changes as incremental, version-controllable SQL or declarative scripts. These scripts are stored in the version repository along with application code. During deployment, the migration tool automatically detects and sequentially executes unapplied migration scripts on the target database, ensuring that the schema state precisely matches the application version. Features include: atomic changes (transaction support), reliable version tracking, environmental consistency guarantees, and most importantly, rollback capability (or switching in blue-green deployment).
+
+
+Implementation steps include: 1) Script development and storage: Developers write (and test) SQL migration scripts for each schema modification and store them in the source code repository. 2) Integrate deployment pipeline: Add steps to execute migration scripts in the pipeline, usually running before application deployment. 3) Sequential execution and state management: The tool executes only pending scripts in version order in the target environment and records the success status. 4) Environment isolation and rollback: Strictly implement pre-production environment verification; adopt blue-green deployment for critical changes (keep old and new databases running in parallel and switch connections), or ensure scripts support rollback scripts for quick recovery, significantly reducing production risks. The core business value is to achieve reliable continuous deployment, greatly reducing manual intervention and potential downtime.

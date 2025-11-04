@@ -1,0 +1,19 @@
+---
+title: "How do you manage quality assurance in CI/CD for cloud-native apps?-Sealos"
+description: "Cloud-native applications are deployed in microservices architectures and cloud environments, emphasizing elasticity and scalability. CI/CD enables continuous integration and deployment, facilitating "
+category: "Continuous Integration and Continuous Deployment"
+keywords:
+  - "Lakehouse"
+  - "Cluster Management"
+  - "High Availability (HA)"
+  - "One-Click Deployment"
+  - "Containerization"
+---
+
+Cloud-native applications are deployed in microservices architectures and cloud environments, emphasizing elasticity and scalability. CI/CD enables continuous integration and deployment, facilitating rapid iteration. Quality Assurance (QA) ensures code reliability and security throughout the process, preventing defects from entering the production environment, which is crucial for supporting agile development and high-availability scenarios such as Kubernetes deployments.
+
+
+Core components include automated testing (e.g., unit, integration, and end-to-end testing), static code analysis (e.g., SonarQube), and security scanning (e.g., OWASP ZAP). These are embedded in CI pipelines, such as running test tasks via GitHub Actions, to ensure automatic validation upon code commits. After deployment, canary releases and monitoring tools like Prometheus are used to track performance, significantly reducing production failures and improving user experience.
+
+
+Implementation steps: Define QA strategies and standards, integrate automated testing and scanning tools in the CI phase; deploy using progressive strategies such as blue-green deployment; continuously monitor feedback. Business value includes accelerating release cycles, reducing operational risks, and enhancing customer satisfaction.

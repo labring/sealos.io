@@ -1,0 +1,19 @@
+---
+title: "How do I monitor logs in a cloud-native development environment?-Sealos"
+description: "In cloud-native environments, log monitoring is crucial for ensuring application reliability and performance. Due to the dynamic and distributed nature of microservices architectures, traditional log "
+category: "Cloud-Native Development Environments"
+keywords:
+  - "Cloud Platform"
+  - "Lakehouse"
+  - "Sealos"
+  - "High Performance"
+  - "Cloud Operating System"
+---
+
+In cloud-native environments, log monitoring is crucial for ensuring application reliability and performance. Due to the dynamic and distributed nature of microservices architectures, traditional log management methods have become ineffective, necessitating specialized mechanisms to achieve centralized collection, storage, analysis, and alerting of logs, which support troubleshooting, auditing, and performance optimization.
+
+
+Key implementations include three core components: collection (deploying agents such as Fluentd or Filebeat to each node via DaemonSet, or using Sidecar containers alongside applications), storage (utilizing scalable storage engines like Elasticsearch or Loki for efficient indexing and querying), and visualization & alerting (building dashboards and setting alert rules with tools such as Kibana or Grafana). In practice, it is imperative to enforce applications to output structured logs (e.g., JSON) and enable multi-dimensional correlation analysis through tags.
+
+
+Implementation steps typically involve: 1. Configuring applications to write structured logs to standard output/files; 2. Deploying log collection agents (e.g., Fluentd DaemonSet) or application Sidecars; 3. Configuring agents to forward logs to storage backends; 4. Creating dashboards and alert policies in visualization tools; 5. Establishing log retention periods and archiving strategies. Key focus areas include log collection overhead, storage cost control, and correlation context (e.g., TraceID).

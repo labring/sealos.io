@@ -1,0 +1,19 @@
+---
+title: "How do you handle cross-cutting concerns in microservices, like logging and security?-Sealos"
+description: "In a microservices architecture, cross-cutting concerns are non-functional requirements shared across multiple services, such as logging, security, and monitoring. The importance of these concerns lie"
+category: "Microservices Architecture"
+keywords:
+  - "Cloud-Native"
+  - "Cluster Management"
+  - "IT Infrastructure"
+  - "One-Click Deployment"
+  - "Private Cloud"
+---
+
+In a microservices architecture, cross-cutting concerns are non-functional requirements shared across multiple services, such as logging, security, and monitoring. The importance of these concerns lies in avoiding code redundancy, ensuring system consistency, security compliance, and observability. They are widely used in distributed systems, especially cloud-native environments, to uniformly handle authentication, authorization, and diagnostic issues.
+
+
+Core processing mechanisms include API gateways and service meshes (e.g., Istio or Linkerd), which centrally manage request routing, traffic control, and policy enforcement through an abstraction layer. Service meshes use sidecar proxies (e.g., Envoy) to inject security (e.g., mTLS) and telemetry capabilities, while centralized logging systems (e.g., ELK Stack) aggregate data for auditing. This improves development efficiency, reduces coupling, enhances system resilience, and supports rapid iteration and secure operations in business scenarios.
+
+
+During implementation, first deploy a service mesh to handle authentication and routing control. Second, configure sidecar proxies to implement log collection and metrics monitoring. Finally, integrate central tools (e.g., Prometheus and Grafana) for data analysis and alerting. This delivers business value including simplified maintenance, enhanced security situational awareness, and accelerated fault diagnosis, making it suitable for containerized platforms like Kubernetes.

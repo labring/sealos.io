@@ -1,0 +1,19 @@
+---
+title: "How do you secure data in transit and at rest in cloud-native applications?-Sealos"
+description: "In cloud-native applications, data in transit refers to information moving through networks (such as API calls), and data at rest refers to data in storage (such as databases). Protecting this data is"
+category: "Data Management and Storage"
+keywords:
+  - "Containerization"
+  - "Open-Source Cloud"
+  - "High Availability (HA)"
+  - "DevOps"
+  - "IT Infrastructure"
+---
+
+In cloud-native applications, data in transit refers to information moving through networks (such as API calls), and data at rest refers to data in storage (such as databases). Protecting this data is crucial to prevent unauthorized access and leakage, ensure compliance (e.g., GDPR), apply to containerized environments and microservices architectures, and guarantee data privacy and integrity.
+
+
+Core components include: transport security using TLS/SSL encryption (e.g., HTTPs APIs), and at-rest security through Key Management Services (KMS) and storage encryption (e.g., disk encryption). Features involve end-to-end encryption, authentication, and least privilege access control. In practical applications, service meshes (e.g., Istio) implement inter-service mTLS encryption, which impacts enhancing the overall security posture and meeting cloud-native compliance requirements.
+
+
+Implementation steps: 1. Configure the service mesh to enable mTLS for transport security. 2. Enable encryption (e.g., KMS) for databases and object storage. 3. Manage keys using Vault or cloud platform tools. Typical scenarios include microservices processing payment data. Business values include reducing leakage risks, enhancing trust, and avoiding regulatory fines.

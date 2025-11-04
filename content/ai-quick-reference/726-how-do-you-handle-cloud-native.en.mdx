@@ -1,0 +1,19 @@
+---
+title: "How do you handle cloud-native storage for AI-driven applications?-Sealos"
+description: "Handling cloud-native storage for artificial intelligence applications requires attention to dynamism, high performance, and scalability. The core is to utilize container orchestration (such as Kubern"
+category: "Data Management and Storage"
+keywords:
+  - "Open-Source Cloud"
+  - "DevOps"
+  - "Cloud-Native"
+  - "Cloud Operating System"
+  - "Application Deployment"
+---
+
+Handling cloud-native storage for artificial intelligence applications requires attention to dynamism, high performance, and scalability. The core is to utilize container orchestration (such as Kubernetes) and cloud-native storage technologies to provide persistent, scalable, and high-performance data access for AI workloads (such as model training, inference, and data processing), supporting large-scale datasets, frequent read/write operations, and elastic demands.
+
+
+Its core components include: 1. Container Storage Interface (CSI): a standardized storage plugin that enables dynamic provisioning, mounting, and management of volumes; 2. Distributed storage systems (such as Ceph, MinIO, cloud-based object storage/file services): providing shared, highly available storage pools; 3. StorageClass: defining storage backend characteristics and provisioning policies (SSD performance levels, number of replicas); 4. PersistentVolumeClaim (PVC): applications declare storage resources on demand; 5. Data volume types: supporting access modes like ReadWriteOnce (RWO) and ReadWriteMany (RWX); training often requires RWX to allow multiple Pods to share datasets. Features include on-demand provisioning, snapshots, cloning, elastic scaling, and data locality optimization (such as Topology-Aware volumes). AI application scenarios include: large dataset storage (object storage), training model checkpoints/shared data (high-performance shared file systems like GPFS/Lustre/CephFS), and low-latency model inference (local SSD volumes/HostPath).
+
+
+Implementation steps: 1. Define StorageClass: create an SSD/high IOPS StorageClass based on performance requirements; 2. Declare PersistentVolume (PVC): AI application Pods request storage resources through PVC; 3. Mount data volumes: mount PVC to container paths; 4. Select storage types: use RWX shared file storage (NFS/CephFS) for training; use low-latency RWO block storage or local ephemeral volumes for inference; use object storage (S3 interface) for massive data; 5. Optimize performance: combine node affinity/local PV to reduce network latency; use Kubernetes snapshots to back up model states; 6. Operation and maintenance management: monitor storage usage and expand capacity on demand. This model improves resource utilization, accelerates the iteration of AI experiments, and ensures data reliability and cross-environment portability.

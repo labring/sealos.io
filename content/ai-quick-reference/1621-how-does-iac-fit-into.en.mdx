@@ -1,0 +1,19 @@
+---
+title: "How does IaC fit into a DevOps strategy for continuous delivery?-Sealos"
+description: "Infrastructure as Code (IaC) is a method of managing infrastructure definitions (computing, networking, storage, etc.) using versionable and executable code (such as Terraform, CloudFormation). It is "
+category: "Automation and Infrastructure as Code"
+keywords:
+  - "Sealos"
+  - "Application Deployment"
+  - "IT Infrastructure"
+  - "Kubernetes (K8s)"
+  - "Cloud-Native"
+---
+
+Infrastructure as Code (IaC) is a method of managing infrastructure definitions (computing, networking, storage, etc.) using versionable and executable code (such as Terraform, CloudFormation). It is crucial for DevOps continuous delivery. By unifying the management of resources and applications at the code level, it eliminates environment configuration differences, making infrastructure deployment predictable, repeatable, and automated, supporting fast and reliable application delivery in cloud-native environments.
+
+
+The core of IaC is treating infrastructure as software. Code definitions ensure the idempotency (consistent results upon multiple executions) and consistency (high similarity across development, testing, and production environments) of the environment. It seamlessly integrates into CI/CD pipelines, enabling coordinated orchestration of infrastructure changes and application deployments, automated testing (e.g., compliance checks), version control, and audit trails. This significantly improves delivery speed, quality, and reliability, while reducing the risks of manual errors and configuration drift.
+
+
+Integration steps: 1) Define all environment infrastructure using IaC tools; 2) Manage versioned IaC scripts alongside application code; 3) Incorporate IaC steps (such as `terraform apply`) into CI/CD pipelines to trigger automated deployments and testing; 4) Apply the principle of immutable infrastructure, updating environments by replacement rather than modification. Business values include second-level environment provisioning, reliable and consistent releases, significant reduction in configuration errors, efficient resource governance, and faster time-to-market.

@@ -1,0 +1,19 @@
+---
+title: "How do you set up monitoring for third-party services integrated with cloud-native apps?-Sealos"
+description: "Setting up monitoring for third-party services involves observing their operational status and ensuring collaborative reliability with cloud-native applications. The importance lies in safeguarding sy"
+category: "Monitoring and Observability"
+keywords:
+  - "Cloud Operating System"
+  - "Kubernetes (K8s)"
+  - "Cloud Platform"
+  - "Data Center (DC)"
+  - "DevOps"
+---
+
+Setting up monitoring for third-party services involves observing their operational status and ensuring collaborative reliability with cloud-native applications. The importance lies in safeguarding system availability and performance, as well as preventing fault propagation; common scenarios include the integration of payment gateways or SaaS services.
+
+
+The core components include metric exporters (such as Prometheus exporters), service discovery mechanisms, and alerting rules. The principle is based on collecting key metrics like response time and error rate; in practical applications, automatic integration through Kubernetes Operators or OpenTelemetry improves fault response efficiency.
+
+
+Implementation steps: Define service SLOs; deploy exporters or use APIs to collect data; visualize on monitoring platforms (such as Grafana); set threshold alerts. Typical scenarios include database monitoring; the business value is reducing downtime risks and ensuring SLA compliance.

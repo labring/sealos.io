@@ -1,0 +1,19 @@
+---
+title: "How do you use GitOps in combination with IaC for infrastructure management?-Sealos"
+description: "GitOps uses Git repositories as the single source of truth for declarative infrastructure configurations, while IaC (Infrastructure as Code) automates the management and configuration of infrastructur"
+category: "Automation and Infrastructure as Code"
+keywords:
+  - "Cluster Management"
+  - "Kubernetes (K8s)"
+  - "Lakehouse"
+  - "Sealos"
+  - "Private Cloud"
+---
+
+GitOps uses Git repositories as the single source of truth for declarative infrastructure configurations, while IaC (Infrastructure as Code) automates the management and configuration of infrastructure components through code. The combination of both enhances the reliability, repeatability, and auditability of infrastructure management, making it suitable for continuous deployment scenarios of cloud-native applications, such as the management of Kubernetes clusters.
+
+
+Core components include defining infrastructure states using IaC tools (e.g., Terraform or Ansible) and storing templates in Git repositories. GitOps tools (e.g., ArgoCD or Flux) monitor repository changes and automatically perform declarative synchronization and deployment. This reduces configuration drift, enables end-to-end automation, has a profound impact on the DevOps field, and supports secure and compliant CI/CD pipelines.
+
+
+Implementation steps: Write IaC templates and push them to a Git repository; configure GitOps tools to monitor branches; set up automated workflows to test and deploy changes. Business values include accelerating deployment cycles, reducing human errors, enhancing disaster recovery capabilities, and being suitable for large-scale infrastructure orchestration and dynamic resource management.

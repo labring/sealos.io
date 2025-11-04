@@ -1,0 +1,19 @@
+---
+title: "How do you optimize cloud-native application performance through infrastructure monitoring?-Sealos"
+description: "Infrastructure monitoring enables visualization of resource bottlenecks by collecting operational metrics of underlying resources in cloud environments, such as node computing load, storage IOPS, and "
+category: "Cloud-Native Application Development"
+keywords:
+  - "High Performance"
+  - "Open-Source Cloud"
+  - "Data Center (DC)"
+  - "Application Deployment"
+  - "Containerization"
+---
+
+Infrastructure monitoring enables visualization of resource bottlenecks by collecting operational metrics of underlying resources in cloud environments, such as node computing load, storage IOPS, and network bandwidth. It is crucial for cloud-native performance optimization because containerized applications highly depend on infrastructure stability, which directly impacts application latency, throughput, and availability.
+
+
+The core includes multi-level data collection (metrics, logs, distributed tracing), real-time analysis, and intelligent alerting. The key is to correlate infrastructure metrics (such as node CPU steal time and disk latency) with application performance metrics (such as API latency and error rate) for root cause identification. For example, identifying that network bandwidth saturation on a node causes a surge in Pod network latency, or insufficient storage volume IOPS leads to degraded database performance, thereby enabling precise optimization.
+
+
+Implementation steps: 1) Define key metrics (e.g., node resource utilization, network packet loss rate); 2) Deploy full-stack monitoring tools (e.g., Prometheus+Node Exporter); 3) Establish a关联 dashboard for infrastructure and application layer metrics; 4) Set up dynamic threshold alerts; 5) Make data-driven decisions: scale up nodes, adjust Pod resource limits, or optimize storage configurations. This process continuously reduces performance fluctuations and improves resource utilization efficiency.

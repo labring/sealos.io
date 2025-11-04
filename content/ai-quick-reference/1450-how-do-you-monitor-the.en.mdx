@@ -1,0 +1,19 @@
+---
+title: "How do you monitor the health of cloud-native services in a hybrid cloud environment?-Sealos"
+description: "Health monitoring of cloud-native services in a hybrid cloud environment refers to real-time status tracking and anomaly detection of applications based on container and microservice architectures acr"
+category: "Monitoring and Observability"
+keywords:
+  - "Cluster Management"
+  - "DevOps"
+  - "Private Cloud"
+  - "Cloud Operating System"
+  - "Cloud-Native"
+---
+
+Health monitoring of cloud-native services in a hybrid cloud environment refers to real-time status tracking and anomaly detection of applications based on container and microservice architectures across public clouds, private clouds, and edge infrastructures. Its importance lies in ensuring the reliability, elasticity, and performance of distributed systems, with application scenarios covering cross-cloud disaster recovery, resource optimization, and SLA compliance.
+
+
+Core components include: unified metrics collection (e.g., Prometheus scraping container metrics), distributed tracing (Jaeger enabling visualization of cross-service call chains), log aggregation (EFK/ELK stack for log analysis), and intelligent alerting (Alertmanager integrated with PagerDuty). The key principle is to build full-stack observability by integrating monitoring data from multi-cloud platforms via APIs. The practical impact is reducing MTTR (Mean Time to Recovery) by over 50% and enabling dynamic optimization of resource utilization.
+
+
+Implementation steps: 1) Deploy a CNCF-standard compatible monitoring toolchain (e.g., Thanos for multi-cluster Prometheus); 2) Configure multi-cloud service discovery and metrics scraping rules; 3) Establish unified log indexing and alerting policies; 4) Build hybrid cloud monitoring dashboards via Grafana. Business value is reflected in a 30% improvement in operational efficiency through automated fault localization, while reducing business interruption risks through health prediction. A typical scenario includes保障 for cross-regional transaction systems in the financial industry, requiring closed-loop anomaly alerting within 4 seconds.

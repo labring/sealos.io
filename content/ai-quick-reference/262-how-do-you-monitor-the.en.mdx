@@ -1,0 +1,19 @@
+---
+title: "How do you monitor the health of applications during automated deployment?-Sealos"
+description: "Monitoring the health of an application is the process of evaluating its operational status, which is crucial in automated deployments to quickly detect failures and ensure high availability. This is "
+category: "Automated Deployment"
+keywords:
+  - "DevOps"
+  - "Containerization"
+  - "Kubernetes (K8s)"
+  - "Data Center (DC)"
+  - "Private Cloud"
+---
+
+Monitoring the health of an application is the process of evaluating its operational status, which is crucial in automated deployments to quickly detect failures and ensure high availability. This is applied in CI/CD pipelines to prevent downtime and optimize deployment reliability in cloud-native environments such as Kubernetes.
+
+
+Core components include health probes (e.g., Kubernetes readiness and liveness probes) for real-time detection of service availability, key performance indicators (e.g., response time and error rate), and log analysis. Tools like Prometheus integrate monitoring data collection, and Alertmanager triggers alerts. In practical applications, this improves deployment success rates through automatic detection and shortens recovery time.
+
+
+Implementation steps: configure health check endpoints (e.g., HTTP paths); deploy monitoring systems to collect metrics; set alert rules to notify teams; integrate into CI/CD pipelines for automated responses (e.g., rollbacks). Business value: reduces mean time to repair, improves application stability and user experience.

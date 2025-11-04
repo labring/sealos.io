@@ -1,0 +1,19 @@
+---
+title: "How do cloud-native environments support automation of infrastructure provisioning?-Sealos"
+description: "Cloud-native environments are based on containers, microservices, and dynamic orchestration (such as Kubernetes), enabling configuration automation through Infrastructure as Code (IaC) and declarative"
+category: "Cloud-Native Development Environments"
+keywords:
+  - "DevOps"
+  - "One-Click Deployment"
+  - "High Availability (HA)"
+  - "Lakehouse"
+  - "High Performance"
+---
+
+Cloud-native environments are based on containers, microservices, and dynamic orchestration (such as Kubernetes), enabling configuration automation through Infrastructure as Code (IaC) and declarative APIs. Their importance lies in eliminating manual operations, ensuring environmental consistency, being suitable for scenarios such as multi-cloud deployment and elastic scaling, and significantly improving operational efficiency.
+
+
+Core mechanisms include: 1) GitOps model: storing infrastructure configurations in Git repositories, with version control and automatic synchronization ensuring auditability; 2) Operator model: using custom controllers to monitor resource status and automatically repair deviations; 3) Service mesh integration: such as Istio automatically injecting network policies. Combined with CI/CD pipelines, it achieves end-to-end automation from code submission to infrastructure changes.
+
+
+Implementation steps: 1) Define Kubernetes resources using YAML/JSON; 2) Deploy Operators to manage stateful applications; 3) Orchestrate cloud services through Crossplane or Terraform; 4) Use tools like Argo CD to monitor Git changes and apply them automatically. The value lies in accelerating iterations (minute-level deployments), reducing configuration error rates, and reducing annual operational costs by more than 30%.

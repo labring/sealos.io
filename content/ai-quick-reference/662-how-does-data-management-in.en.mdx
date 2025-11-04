@@ -1,0 +1,19 @@
+---
+title: "How does data management in cloud-native applications ensure low latency for real-time applications?-Sealos"
+description: "Cloud-native applications achieve low-latency data management through specialized technologies and architectural strategies, which are crucial for real-time financial transactions, online gaming, the "
+category: "Data Management and Storage"
+keywords:
+  - "Cluster Management"
+  - "Cloud Operating System"
+  - "Lakehouse"
+  - "High Availability (HA)"
+  - "IT Infrastructure"
+---
+
+Cloud-native applications achieve low-latency data management through specialized technologies and architectural strategies, which are crucial for real-time financial transactions, online gaming, the Internet of Things, and interactive services. Millisecond-level latency directly impacts user experience and business decisions.
+
+
+The core lies in the adoption of distributed caching (e.g., Redis), stream processing (e.g., Kafka Streams, Flink), in-memory databases, and local ephemeral storage volumes (e.g., Kubernetes CSI ephemeral volumes). The principles focus on: in-memory-first computing to reduce disk I/O; data localization close to computing nodes (deployed via StatefulSet or DaemonSet); real-time data pipelines (stream processing replacing batch processing); and dynamic resource allocation (automatic scaling by Operators). These technologies shorten data access paths and processing time.
+
+
+Implementation requires: 1) Using in-memory databases or distributed caching as the primary data layer; 2) Building an event-driven stream architecture to achieve end-to-end real-time processing; 3) Utilizing local ephemeral volumes to store intermediate states and avoid network overhead; 4) Distributing loads through data sharding and replication strategies; 5) Configuring Quality of Service (QoS) to ensure resource priority. The values include supporting sub-millisecond responses, increasing system throughput, and optimizing real-time decision-making capabilities.

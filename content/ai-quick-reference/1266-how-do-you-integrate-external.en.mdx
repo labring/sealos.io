@@ -1,0 +1,19 @@
+---
+title: "How do you integrate external dependencies into a CI/CD pipeline?-Sealos"
+description: "A CI/CD pipeline is an automated process for building, testing, and deploying software, designed to improve delivery efficiency and reliability. External dependencies include third-party libraries, se"
+category: "Continuous Integration and Continuous Deployment"
+keywords:
+  - "Sealos"
+  - "Data Center (DC)"
+  - "Cloud Operating System"
+  - "DevOps"
+  - "IT Infrastructure"
+---
+
+A CI/CD pipeline is an automated process for building, testing, and deploying software, designed to improve delivery efficiency and reliability. External dependencies include third-party libraries, services, or databases that need to be integrated to ensure environmental consistency. Its importance lies in avoiding manual errors, supporting reproducible builds, and being applicable to scenarios such as microservices, where it may depend on container registries or message queues.
+
+
+Core components include dependency management tools (e.g., Maven, npm) and artifact repositories (e.g., JFrog Artifactory), with dependencies defined through declarative files. The principle involves CI scripts automatically resolving and caching dependencies, which are downloaded during the build phase. In practical applications, it ensures version control during compilation and testing, reduces configuration drift, thereby accelerating the development cycle and enhancing the stability of cross-environment deployments.
+
+
+Implementation steps: 1. Configure dependency files (e.g., pom.xml) in the source code. 2. Add installation commands (e.g., pip install) to the CI pipeline. 3. Connect repository management permissions and caching. 4. Automate testing of dependency compatibility. Typical scenarios include dynamically loading API services during multi-branch deployments. Business value includes reducing failure rates, shortening delivery times, and supporting continuous innovation.

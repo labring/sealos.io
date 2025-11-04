@@ -1,0 +1,31 @@
+---
+title: "What are the key metrics to monitor in a cloud-native development environment?-Sealos"
+description: "In cloud-native environments, monitoring key metrics is crucial for ensuring application performance, availability, and resource efficiency. These dynamic, distributed systems require granular observa"
+category: "Cloud-Native Development Environments"
+keywords:
+  - "One-Click Deployment"
+  - "Cluster Management"
+  - "Lakehouse"
+  - "Cloud Platform"
+  - "Sealos"
+---
+
+In cloud-native environments, monitoring key metrics is crucial for ensuring application performance, availability, and resource efficiency. These dynamic, distributed systems require granular observation of infrastructure, platform layers, application layers, and business health to quickly detect failures, optimize capacity, and ensure SLAs.
+
+
+Key monitoring metrics are categorized into four types:
+
+
+1. Infrastructure metrics: Utilization and saturation of node CPU, memory, disk I/O, and network bandwidth, directly related to the stability of underlying resources;
+
+
+2. Orchestration platform metrics: Kubernetes Pod status (e.g., running, failed, restart count), desired vs. actual status of Deployments/StatefulSets, API server latency, and etcd performance, reflecting platform health;
+
+
+3. Application performance metrics: Service request rate, error rate, request duration (RED metrics), and process resource consumption (CPU/memory);
+
+
+4. Business and service metrics: Service availability, critical transaction throughput, end-to-end latency, and frequency of specific error codes (e.g., 5xx HTTP errors).
+
+
+These metrics are collected and visualized using tools like Prometheus and Grafana, and alerting strategies must be established. Monitoring data guides scaling decisions, identifies performance bottlenecks, optimizes resource utilization (costs), ensures SLO compliance, and accelerates root cause analysis of anomalies. It is a core means of achieving observability,保障 user experience, and business continuity.

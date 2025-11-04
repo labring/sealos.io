@@ -1,0 +1,46 @@
+---
+title: "What tools are available for securing cloud-native infrastructure?-Sealos"
+description: "Tools for protecting cloud-native infrastructure are crucial because their dynamic, microservices-based, and containerized nature introduces new security challenges such as image vulnerabilities, misc"
+category: "Security and Permission Management"
+keywords:
+  - "Sealos"
+  - "Application Deployment"
+  - "IT Infrastructure"
+  - "Kubernetes (K8s)"
+  - "DevOps"
+---
+
+Tools for protecting cloud-native infrastructure are crucial because their dynamic, microservices-based, and containerized nature introduces new security challenges such as image vulnerabilities, misconfigurations, network threats, and runtime attacks. They ensure the confidentiality, integrity, and availability of applications, applied in scenarios like Kubernetes environments, service meshes, and CI/CD pipelines.
+
+
+Tools are categorized into multiple types that work collaboratively:
+
+
+1. Infrastructure Security: CSPM (Cloud Security Posture Management) tools (e.g., Wiz, Lacework, Palo Alto Prisma Cloud) scan for cloud misconfigurations.
+
+
+2. Workload Security:
+
+
+Image Scanning (Trivy, Clair): Detect image vulnerabilities/malware before deployment.
+
+
+Runtime Protection (Falco, Aqua Security, Sysdig Secure): Monitor container behavior in real-time and detect anomalies.
+
+
+3. Network Security:
+
+
+Service Meshes (Istio, Linkerd): Provide fine-grained authentication, authorization, and encryption for inter-service communication.
+
+
+K8s-native/CNI Network Security Policies: Calico, Cilium enforce network policies and micro-segmentation.
+
+
+WAF/API Gateways: Protect application entry points.
+
+
+4. Policy and Compliance: OPA/Gatekeeper enforce security policies in Kubernetes.
+
+
+Collaborative integration of these tools is essential: scanning tools are embedded in CI/CD, runtime protection monitors production environments, and policy engines联动 with network control layers. This enables early vulnerability blocking, continuous configuration compliance, zero-trust network micro-segmentation, and rapid threat response, ensuring a closed loop for the delivery and operation of resilient, compliant, and secure cloud-native applications.

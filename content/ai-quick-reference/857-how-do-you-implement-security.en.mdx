@@ -1,0 +1,19 @@
+---
+title: "How do you implement security testing in a cloud-native CI/CD pipeline?-Sealos"
+description: "Cloud-native CI/CD pipelines accelerate software delivery by automating build and deployment processes. Implementing security testing is crucial to prevent code vulnerabilities, container risks, and d"
+category: "Security and Permission Management"
+keywords:
+  - "Data Center (DC)"
+  - "Containerization"
+  - "Kubernetes (K8s)"
+  - "Application Deployment"
+  - "Cloud-Native"
+---
+
+Cloud-native CI/CD pipelines accelerate software delivery by automating build and deployment processes. Implementing security testing is crucial to prevent code vulnerabilities, container risks, and data breaches, ensuring applications are securely deployed in containerized environments, avoiding attacks and compliance issues, and applied in cloud-native development such as Kubernetes platforms.
+
+
+The core includes Static Application Security Testing (SAST) to scan source code, Dynamic Testing (DAST) to inspect running applications, and container image scanning (e.g., Trivy or Clair) to evaluate dependency risks. These tools are integrated into the pipeline, such as automatically running detection during the build phase, based on the principle of continuous monitoring to detect threats early. Practical applications include integrating with platforms like GitHub Actions or Jenkins to enhance team responsiveness and significantly reduce production risks.
+
+
+Implementation steps: Select tools such as Snyk; Add tasks to the pipeline (code scanning during build, container scanning before deployment); Configure thresholds to trigger alerts or failures. Typical scenarios include automatic vulnerability detection during the development phase, with business values of accelerating fixes, reducing downtime, and improving compliance.

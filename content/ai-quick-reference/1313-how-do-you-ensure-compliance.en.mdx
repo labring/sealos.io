@@ -1,0 +1,19 @@
+---
+title: "How do you ensure compliance with security best practices in CI/CD pipelines?-Sealos"
+description: "Ensuring the security of CI/CD pipelines is crucial for the rapid delivery of trusted software. These pipelines automate the processes of code building, testing, and deployment, protecting the integri"
+category: "Continuous Integration and Continuous Deployment"
+keywords:
+  - "Cloud-Native"
+  - "Cloud Operating System"
+  - "One-Click Deployment"
+  - "High Availability (HA)"
+  - "Open-Source Cloud"
+---
+
+Ensuring the security of CI/CD pipelines is crucial for the rapid delivery of trusted software. These pipelines automate the processes of code building, testing, and deployment, protecting the integrity of the software supply chain and preventing vulnerabilities from being introduced into production environments. Their importance lies in mitigating risks such as malicious code injection, credential leakage, insecure deployments, and configuration errors.
+
+
+The core of security is the ""Shift Left Security"" principle: integrating security measures into the early stages of development. Key practices include using trusted sources (e.g., SCA scanning), dependency verification, Infrastructure as Code (IaC) security scanning, container image scanning (CVE detection), least privilege access control (RBAC), key management (e.g., Vault), and environment isolation (separation of production and testing). Threat modeling and code quality gates are also core defense layers.
+
+
+Typical implementation steps: 1) Adopt Infrastructure as Code for unified configuration management; 2) Integrate static/dynamic code scanning tools and block high-risk commits; 3) Automatically scan container images and dependency libraries; 4) Dynamically manage credentials using KMS/Secrets Manager; 5) Enforce strict identity authentication and least privilege access policies; 6) Isolate build environments and implement log audit tracking. This process increases vulnerability detection rates, reduces the risk of data breaches, and shortens patching cycles.

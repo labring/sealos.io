@@ -1,0 +1,19 @@
+---
+title: "How do you use Kubernetes namespaces for security isolation?-Sealos"
+description: "Kubernetes namespaces are logical isolation units within a cluster, used to separate resources of different teams or projects, avoid naming conflicts, and enhance security. Their importance lies in su"
+category: "Security and Permission Management"
+keywords:
+  - "High Availability (HA)"
+  - "High Performance"
+  - "Cloud Operating System"
+  - "IT Infrastructure"
+  - "Cloud-Native"
+---
+
+Kubernetes namespaces are logical isolation units within a cluster, used to separate resources of different teams or projects, avoid naming conflicts, and enhance security. Their importance lies in supporting multi-tenant scenarios, such as isolating development and production resources in enterprise development environments, simplifying management, and strengthening access control.
+
+
+The core components of namespaces include resource grouping (e.g., independent scopes for Pods and Services), features like network isolation which need to be combined with Network Policies, and the principle of limiting CPU/memory through ResourceQuotas. In practical applications, they partition environments (such as dev/test) and reduce accident rates; in terms of impact, they promote DevOps processes and enhance Kubernetes' scalability and security framework.
+
+
+Implementation steps: First, create a namespace (kubectl create namespace myns), then configure Role-Based Access Control (RBAC) roles to restrict user permissions, and finally apply ResourceQuotas to limit resource usage. A typical scenario is isolating sensitive production workloads; business values include reducing resource conflicts, enhancing compliance (e.g., GDPR), and optimizing operational efficiency.

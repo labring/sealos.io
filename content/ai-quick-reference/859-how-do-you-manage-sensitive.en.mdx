@@ -1,0 +1,19 @@
+---
+title: "How do you manage sensitive data in cloud-native storage systems?-Sealos"
+description: "Cloud-native storage systems protect sensitive data through encryption, access control, and policy management to ensure compliance with requirements such as GDPR. Their importance lies in preventing d"
+category: "Security and Permission Management"
+keywords:
+  - "One-Click Deployment"
+  - "Sealos"
+  - "DevOps"
+  - "Application Deployment"
+  - "Data Center (DC)"
+---
+
+Cloud-native storage systems protect sensitive data through encryption, access control, and policy management to ensure compliance with requirements such as GDPR. Their importance lies in preventing data breaches and they are suitable for scenarios handling confidential information such as finance and healthcare.
+
+
+Core measures include: 1) Encryption of data at rest (e.g., Kubernetes CSI driver integrating storage-level encryption) and encryption in transit (TLS/service mesh); 2) Key lifecycle management (Vault or KMS); 3) Role-based access control (RBAC) and OPA/Gatekeeper policy engines; 4) Native Secret management tools (e.g., Kubernetes Secrets or external solutions like HashiCorp Vault). In practice, a zero-trust architecture should be implemented, with data access tracked through audit logs.
+
+
+Implementation steps: First, identify the location of sensitive data and configure storage backend encryption; second, centrally manage keys through tools like Vault to ensure secure rotation; then, define RBAC policies and network policies to restrict access; finally, enable auditing and continuously scan for vulnerabilities. Typical scenarios include protecting database credentials or payment information, with business values including reducing breach risks and passing compliance audits.

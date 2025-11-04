@@ -1,0 +1,19 @@
+---
+title: "What is data sharding, and how does it work in distributed systems?-Sealos"
+description: "Data sharding is a technique that horizontally partitions large datasets into smaller parts called shards, used in distributed systems to improve performance, scalability, and availability. Its import"
+category: "Data Management and Storage"
+keywords:
+  - "High Availability (HA)"
+  - "IT Infrastructure"
+  - "One-Click Deployment"
+  - "Data Center (DC)"
+  - "High Performance"
+---
+
+Data sharding is a technique that horizontally partitions large datasets into smaller parts called shards, used in distributed systems to improve performance, scalability, and availability. Its importance lies in handling large data volumes and concurrent requests, with common application scenarios including distributed databases like MongoDB and real-time data processing in social networking platforms.
+
+
+The core components include the shard key (a selected field that guides data distribution), sharding strategy (such as hash or range partitioning), and routing layer (responsible for query distribution). Features involve decentralized data storage, reducing single-node bottlenecks, and supporting parallel processing. In principle, data is allocated to different nodes based on the shard key to ensure system load balancing. Practical impacts include improved read and write speeds, achieving high throughput in streaming services, while posing challenges to data consistency mechanisms.
+
+
+In distributed systems, data sharding operates based on the following steps: first, define the shard key and distribute data across multiple servers; queries are directed to the corresponding shard through a router; the system coordinates inter-node communication to process requests. Typical scenarios include e-commerce inventory management, enabling load balancing and fault recovery, bringing business values such as high scalability and support for 99.9% uptime.

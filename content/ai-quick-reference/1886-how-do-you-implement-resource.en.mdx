@@ -1,0 +1,19 @@
+---
+title: "How do you implement resource quotas and limits in cloud-native applications?-Sealos"
+description: "Implementing resource quotas and limits in a cloud-native environment involves managing the allocation caps of computing resources (such as CPU and memory) through tools like Kubernetes. This ensures "
+category: "Cloud-Native Application Development"
+keywords:
+  - "Cloud-Native"
+  - "Application Deployment"
+  - "IT Infrastructure"
+  - "Cloud Operating System"
+  - "Containerization"
+---
+
+Implementing resource quotas and limits in a cloud-native environment involves managing the allocation caps of computing resources (such as CPU and memory) through tools like Kubernetes. This ensures cluster stability and multi-tenant fairness, preventing a single application from exhausting resources and causing system disruptions, and is applicable to production environments of microservice architectures and managed services.
+
+
+Core mechanisms include ResourceQuota objects defining namespace-level quotas, Pod's Requests (minimum guaranteed resources), and Limits (maximum resource usage). Based on the resource isolation principle implemented by cgroups, parameters such as CPU cores and memory GiB/MiB are applied through YAML configuration files. Practical impacts include improved resource utilization, guaranteed service quality, and automatic handling of resource conflicts.
+
+
+Implementation steps: 1. Create a ResourceQuota object, specifying namespace quotas such as total CPU; 2. Define Requests and Limits parameters for Pods to control resource boundaries. Business values include cost optimization and prevention of service disruptions; typical scenarios include elastic scaling deployments in microservice load balancing.

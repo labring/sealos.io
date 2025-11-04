@@ -1,0 +1,19 @@
+---
+title: "How do you automate and scale network resource provisioning with IaC?-Sealos"
+description: "With IaC (Infrastructure as Code), you can define and manage network resources (such as VPCs, subnets, firewall rules, and load balancers) using code instead of manual configuration. This enables auto"
+category: "Automation and Infrastructure as Code"
+keywords:
+  - "Open-Source Cloud"
+  - "Data Center (DC)"
+  - "Containerization"
+  - "DevOps"
+  - "Cloud Operating System"
+---
+
+With IaC (Infrastructure as Code), you can define and manage network resources (such as VPCs, subnets, firewall rules, and load balancers) using code instead of manual configuration. This enables automated deployment, version control, and error-free replication, which are crucial for large-scale, dynamic cloud environments.
+
+
+At its core are declarative languages (such as Terraform's HCL, AWS CDK) and tools (such as Terraform, Pulumi). You write code files that define network topologies and policies. When executed, IaC tools automatically call cloud platform APIs to create, update, or delete resources as needed, ensuring that the actual state matches the code definition. It supports version control (Git), modular reuse, security policy as code, and integration with CI/CD pipelines.
+
+
+Specific steps: 1) Select an IaC tool; 2) Declare the required network resources and configurations with code; 3) Store the code in a version repository for management; 4) Automate the validation and application of the code in the CI/CD pipeline; 5) Achieve large-scale deployment through environment variables or modules. This greatly improves deployment speed, consistency, auditability, and cross-environment replication capabilities, supporting agile development and operations.

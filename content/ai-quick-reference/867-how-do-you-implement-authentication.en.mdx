@@ -1,0 +1,19 @@
+---
+title: "How do you implement authentication and authorization for serverless functions?-Sealos"
+description: "Serverless function authentication and authorization ensure that only authorized users access function resources, preventing data leakage and abuse, which is crucial in API backends and event-driven a"
+category: "Security and Permission Management"
+keywords:
+  - "Cloud Operating System"
+  - "One-Click Deployment"
+  - "Data Center (DC)"
+  - "Cluster Management"
+  - "High Availability (HA)"
+---
+
+Serverless function authentication and authorization ensure that only authorized users access function resources, preventing data leakage and abuse, which is crucial in API backends and event-driven architectures.
+
+
+The core integrates standard protocols such as OIDC or JWT through API gateways (e.g., AWS API Gateway or Auth0) to verify identities, and combines cloud IAM services (e.g., roles or policies) to manage permission authorization, enhancing security and simplifying permission management.
+
+
+Implementation steps: 1. Configure the API gateway to add authentication (e.g., API keys). 2. Set IAM roles for functions to define access policies. 3. Implement authorization logic in the function code (e.g., check JWT claims). It is typically used to protect API endpoints, bringing business values such as strengthened compliance and reduced operational risks.

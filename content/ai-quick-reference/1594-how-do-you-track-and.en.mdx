@@ -1,0 +1,19 @@
+---
+title: "How do you track and monitor cloud-native service dependencies?-Sealos"
+description: "Cloud-native service dependencies refer to the dynamic, networked invocation dependencies between microservices, such as API calls or data flows. Their importance lies in ensuring system reliability, "
+category: "Monitoring and Observability"
+keywords:
+  - "Kubernetes (K8s)"
+  - "DevOps"
+  - "Application Deployment"
+  - "Open-Source Cloud"
+  - "High Availability (HA)"
+---
+
+Cloud-native service dependencies refer to the dynamic, networked invocation dependencies between microservices, such as API calls or data flows. Their importance lies in ensuring system reliability, rapid fault recovery, and performance optimization; application scenarios include CI/CD pipelines in microservice architectures, service mesh monitoring, and Kubernetes cluster management.
+
+
+Core components include service discovery (e.g., Consul), distributed tracing (e.g., Jaeger), and metrics collection (e.g., Prometheus), with features such as dynamic topology mapping and request flow tracking. Real-time monitoring is achieved through service meshes (e.g., Istio), based on the principles of tag propagation and data analysis. Practical applications involve visualizing service graphs (e.g., Kiali) to identify bottlenecks; impacts include improved observability, reduced MTTR, and enhanced resilience of distributed systems.
+
+
+Implementation steps: 1. Deploy service mesh tools (e.g., Istio or Linkerd) for traffic control. 2. Integrate tracing systems (e.g., Jaeger or Zipkin) to record request links. 3. Configure metrics monitoring (e.g., Prometheus/Grafana) to collect performance data. 4. Visualize dependency graphs (e.g., Kiali) for real-time analysis. Business value includes reducing downtime risks and optimizing resource efficiency; typical scenarios involve运维 automation for multi-service orchestration in Kubernetes.

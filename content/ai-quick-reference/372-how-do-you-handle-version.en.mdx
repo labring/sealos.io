@@ -1,0 +1,19 @@
+---
+title: "How do you handle version control for Kubernetes configurations in automated deployment?-Sealos"
+description: "Kubernetes configuration version control is a key practice in automated deployment, referring to the management of change history for Kubernetes resource files (such as YAML manifests). It ensures dep"
+category: "Automated Deployment"
+keywords:
+  - "Cloud Operating System"
+  - "DevOps"
+  - "Data Center (DC)"
+  - "One-Click Deployment"
+  - "Private Cloud"
+---
+
+Kubernetes configuration version control is a key practice in automated deployment, referring to the management of change history for Kubernetes resource files (such as YAML manifests). It ensures deployments are traceable, consistent, and reliable, preventing configuration drift. Its importance lies in supporting continuous integration/continuous deployment (CI/CD) pipelines, with application scenarios including multi-environment deployment and disaster recovery to reduce human errors and accelerate the release process.
+
+
+Core components include using Git repositories to store all configuration files, enabling change tracking, branch management, and rollback functionalities. Features involve version tagging (e.g., Git tags), audit logs, and integration with automation tools (such as Argo CD or Flux). The principle combines CI systems (e.g., Jenkins) to automatically apply updates after code commits. In practical applications, it implements blue-green deployments or canary releases, enhancing system resilience and development efficiency while ensuring compliance and security.
+
+
+Implementation steps: 1. Store all Kubernetes manifests in a version control system like Git. 2. Integrate commands (e.g., `kubectl apply`) in CI/CD pipelines to automatically deploy changes. 3. Manage versions using tags and regularly test rollbacks. Typical scenarios include rolling updates or A/B testing; business values include deployment consistency, rapid failure recovery, reduced operational risks, and improved business continuity.

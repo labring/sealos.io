@@ -1,0 +1,19 @@
+---
+title: "How do you monitor and visualize Kubernetes pods' health and metrics?-Sealos"
+description: "A Kubernetes Pod is the smallest deployment unit of an application, and monitoring its health and metrics (such as CPU and memory) is crucial to ensure high availability and performance optimization. "
+category: "Monitoring and Observability"
+keywords:
+  - "Cluster Management"
+  - "Application Deployment"
+  - "Cloud Platform"
+  - "Kubernetes (K8s)"
+  - "Lakehouse"
+---
+
+A Kubernetes Pod is the smallest deployment unit of an application, and monitoring its health and metrics (such as CPU and memory) is crucial to ensure high availability and performance optimization. This helps detect failures and maintain service continuity in cloud-native environments, widely used in microservices architectures and DevOps practices.
+
+
+The core includes liveness probes to check the container's survival status, readiness probes to determine traffic reception, and Metrics Server or Prometheus to collect metric data. In practical applications, combining Prometheus to collect Pod metrics and set up alerts, and using Grafana to visualize data dashboards significantly improves system reliability and automated recovery efficiency.
+
+
+During implementation, first add probe configurations such as livenessProbe in the Pod YAML definition. Then deploy the Prometheus exporter to obtain metric data. Finally, integrate Grafana to create dashboards for monitoring key metrics. The value is reflected in rapid fault diagnosis, resource optimization, and business continuity assurance.

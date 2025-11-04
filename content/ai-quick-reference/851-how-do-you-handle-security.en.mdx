@@ -1,0 +1,19 @@
+---
+title: "How do you handle security in serverless applications?-Sealos"
+description: "Serverless applications run code in the cloud without managing infrastructure, relying on event-driven models such as AWS Lambda or Azure Functions. Security is crucial as they handle sensitive data a"
+category: "Security and Permission Management"
+keywords:
+  - "One-Click Deployment"
+  - "High Performance"
+  - "High Availability (HA)"
+  - "Cloud Operating System"
+  - "Cloud Platform"
+---
+
+Serverless applications run code in the cloud without managing infrastructure, relying on event-driven models such as AWS Lambda or Azure Functions. Security is crucial as they handle sensitive data and user interactions, preventing unauthorized access and data breaches, and are applied in microservices, API gateways, and data processing scenarios.
+
+
+Core components include fine-grained permission models (such as IAM roles implementing least privilege), event input validation, runtime protection (code sandboxing), API security configurations, and data encryption. These features abstract servers but introduce configuration risks, which affect system integrity in practical applications, such as preventing injection attacks and reducing the attack surface.
+
+
+Implementation steps: 1. Assign restricted IAM permissions to function roles. 2. Encrypt data at rest and in transit (e.g., using KMS). 3. Validate all event source inputs and filter malicious payloads. 4. Enable logging monitoring and auditing tools. Business value enhances compliance, reduces costs, and improves resilience.

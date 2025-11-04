@@ -1,0 +1,19 @@
+---
+title: "How do you manage cloud-native database resources with Infrastructure as Code?-Sealos"
+description: "Managing cloud-native databases using Infrastructure as Code refers to automating the creation, configuration, updates, and lifecycle management of database resources through declarative configuration"
+category: "Automation and Infrastructure as Code"
+keywords:
+  - "Lakehouse"
+  - "Open-Source Cloud"
+  - "High Availability (HA)"
+  - "One-Click Deployment"
+  - "DevOps"
+---
+
+Managing cloud-native databases using Infrastructure as Code refers to automating the creation, configuration, updates, and lifecycle management of database resources through declarative configuration files (such as Terraform, Pulumi, or Kubernetes Operators). Its importance lies in enhancing consistency, repeatability, and auditability, serving as a core means to achieve reliable database operations and GitOps practices in cloud-native environments. Typical applications include automated deployment and configuration synchronization of database instances across environments (development/production).
+
+
+The core is defining database resources (such as Cloud SQL, Aurora, or K8s StatefulSet), network policies, access control rules, and backup strategies through code. Key features include version control (Git management), idempotent execution (ensuring result consistency), and integration with CI/CD pipelines. This method significantly improves configuration traceability and change security, reduces manual operation errors and configuration drift, and simplifies management workflows for complex database clusters.
+
+
+Implementation steps are: 1) Select an IaC tool (such as Terraform Provider or Kubernetes Operator); 2) Write declarative resource manifests to define database instance types, storage, and user permissions; 3) Integrate version control; 4) Automate testing and deployment configurations through CI/CD pipelines; 5) Strengthen compliance checks using Policy as Code. Its business value is reflected in rapid elastic scaling, reduction of human errors, improvement of security compliance, and lowering of operational costs.

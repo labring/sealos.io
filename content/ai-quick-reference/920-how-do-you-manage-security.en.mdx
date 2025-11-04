@@ -1,0 +1,34 @@
+---
+title: "How do you manage security in hybrid cloud-native architectures?-Sealos"
+description: "Managing security in hybrid cloud-native architectures involves protecting containerized applications and services running across public clouds, private clouds, and edge environments. The core challen"
+category: "Security and Permission Management"
+keywords:
+  - "Cluster Management"
+  - "One-Click Deployment"
+  - "Data Center (DC)"
+  - "Sealos"
+  - "DevOps"
+---
+
+Managing security in hybrid cloud-native architectures involves protecting containerized applications and services running across public clouds, private clouds, and edge environments. The core challenge lies in unifying the governance of decentralized infrastructure, workloads, and data to ensure consistent policy enforcement, compliance, and vulnerability protection, which is crucial for safeguarding business continuity and data privacy.
+
+
+Key elements of security management include: a unified security policy engine (e.g., OPA/Kyverno) for cross-cluster access control; service meshes (e.g., Istio/Linkerd) for managing inter-service mTLS encryption and traffic policies; container image scanning and supply chain security (e.g., Trivy/Snyk); secrets management (e.g., HashiCorp Vault/Secrets Store CSI); runtime security monitoring (e.g., Falco); and network policies (e.g., Cilium/Calico) for microservice segmentation. This requires integrating zero-trust principles with DevSecOps processes, embedding security checkpoints in CI/CD pipelines, and implementing continuous auditing and automated remediation.
+
+
+Implementation steps typically involve:
+
+
+1. Defining security baselines via policy-as-code and automatically deploying them to all clusters;
+
+
+2. Enabling service mesh for automatic communication encryption and centralized certificate management;
+
+
+3. Enforcing image scanning and signature verification in CI pipelines to block high-risk deployments;
+
+
+4. Deploying runtime threat detection tools and integrating with cloud-native firewalls to block abnormal traffic;
+
+
+5. Implementing centralized log and event management (SIEM) for cross-environment visualization and response. The core value lies in reducing the risk of configuration drift, accelerating compliance audits, and proactively protecting cross-cloud attack surfaces.

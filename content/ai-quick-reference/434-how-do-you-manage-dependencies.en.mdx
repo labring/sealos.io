@@ -1,0 +1,19 @@
+---
+title: "How do you manage dependencies between microservices?-Sealos"
+description: "Microservice dependency management refers to the mechanism that controls inter-service calls and communication, ensuring system reliability and decoupling. It is crucial in cloud-native architectures"
+category: "Microservices Architecture"
+keywords:
+  - "Cloud Platform"
+  - "Cloud-Native"
+  - "Cloud Operating System"
+  - "One-Click Deployment"
+  - "Containerization"
+---
+
+Microservice dependency management refers to the mechanism that controls inter-service calls and communication, ensuring system reliability and decoupling. It is crucial in cloud-native architectures, supporting high availability and scalable development, and is commonly used in containerized environments such as Kubernetes to prevent single points of failure.
+
+
+The core components include service discovery (e.g., Consul), API gateways (e.g., Kong), circuit breakers (e.g., Hystrix), and message queues (e.g., Kafka). Its features include automatic retry, timeout control, and elastic processing. In practical applications, service meshes like Istio automatically manage dependencies through sidecar proxies, reducing error propagation, enhancing system resilience, and thereby simplifying microservice deployment and maintenance.
+
+
+Implementation steps: 1. Deploy service mesh tools; 2. Configure circuit breakers and load balancing; 3. Integrate API gateways for routing management. A typical scenario is in Kubernetes clusters, with business values including improving 99.9% availability, reducing failure impact, achieving seamless scaling, and optimizing costs.

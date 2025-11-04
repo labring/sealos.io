@@ -1,0 +1,19 @@
+---
+title: "How do you implement identity and access management (IAM) in cloud-native systems?-Sealos"
+description: "Identity and Access Management (IAM) is a mechanism for controlling digital identities and resource access permissions in cloud-native systems, ensuring that only authorized entities (such as users or"
+category: "Security and Permission Management"
+keywords:
+  - "DevOps"
+  - "Lakehouse"
+  - "Kubernetes (K8s)"
+  - "Data Center (DC)"
+  - "Cloud-Native"
+---
+
+Identity and Access Management (IAM) is a mechanism for controlling digital identities and resource access permissions in cloud-native systems, ensuring that only authorized entities (such as users or services) can operate sensitive resources. Its importance lies in enhancing the security and compliance of distributed architectures, preventing data breaches or unauthorized access. Application scenarios include communication between microservices, container orchestration such as Kubernetes Pod management, and protection of sensitive APIs.
+
+
+The core of IAM includes authentication (such as multi-factor authentication), authorization (e.g., Role-Based Access Control, RBAC), and auditing (recording access logs). Features involve protocol integration such as OAuth2 and OpenID Connect, supporting fine-grained permission definition. In practical applications, identity providers (such as Keycloak or cloud service IAM) can be integrated for unified authentication; in Kubernetes, Service Accounts and RoleBindings are configured to finely manage access. This significantly improves system security, simplifies compliance auditing, and facilitates multi-tenant deployment.
+
+
+Implementation steps include: first, selecting and integrating an identity provider (such as AWS IAM or open-source tools), and setting up user and service identity sources. Second, defining RBAC policies to determine roles, permission scopes, and resource bindings (e.g., creating Roles in K8s). Third, enabling auditing functions to monitor access events. Typical scenarios include secure calls in service meshes (such as Istio). Business value lies in reducing security risks, improving operational efficiency, and supporting agile business expansion.

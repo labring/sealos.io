@@ -1,0 +1,19 @@
+---
+title: "How do you secure cloud-native applications against insider threats?-Sealos"
+description: "Protecting cloud-native applications from insider threats requires focusing on risks posed by malicious or negligent internal users, service accounts, or scripts. Such threats can compromise data conf"
+category: "Security and Permission Management"
+keywords:
+  - "Cloud Operating System"
+  - "Containerization"
+  - "Cloud Platform"
+  - "Cloud-Native"
+  - "Sealos"
+---
+
+Protecting cloud-native applications from insider threats requires focusing on risks posed by malicious or negligent internal users, service accounts, or scripts. Such threats can compromise data confidentiality, service continuity, or compliance, and are particularly critical as cloud-native dynamic microservice architectures expand the attack surface. Application scenarios include multi-tenant Kubernetes clusters, CI/CD pipelines, and cloud service account management.
+
+
+Core protection is based on the zero-trust principle: identity and access management (RBAC, fine-grained authorization for service accounts), the principle of least privilege, and continuous auditing (log monitoring of API calls, resource changes). Features include service identity authentication (e.g., SPIFFE), network segmentation (service mesh policies), sensitive data encryption (at rest/in transit), and runtime threat detection (e.g., Falco). Reduce the risk of configuration errors through automated policy enforcement (e.g., OPA) and ensure integration of security controls throughout the development and operations workflow (DevSecOps) to minimize potential internal abuse.
+
+
+Implementation steps: 1) Enforce least-privilege access and regularly review permissions; 2) Isolate sensitive workloads (namespace/cluster level); 3) Enable audit logs and real-time anomaly detection (e.g., unusual data exfiltration); 4) Automatic response mechanisms (e.g., session revocation upon violations). Business values include preventing data breach losses, ensuring business resilience, achieving compliance standards, and maintaining customer trust.

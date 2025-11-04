@@ -1,0 +1,19 @@
+---
+title: "How do you manage artifacts and builds in CI/CD pipelines?-Sealos"
+description: "In CI/CD pipelines, artifacts (such as binary packages and container images) are the outputs of the build process, which refers to the automated phase of code compilation, testing, and packaging. Mana"
+category: "Continuous Integration and Continuous Deployment"
+keywords:
+  - "Containerization"
+  - "Kubernetes (K8s)"
+  - "Cloud-Native"
+  - "Cloud Operating System"
+  - "DevOps"
+---
+
+In CI/CD pipelines, artifacts (such as binary packages and container images) are the outputs of the build process, which refers to the automated phase of code compilation, testing, and packaging. Managing them is crucial for ensuring the traceability, consistency, and security of software delivery, applied in scenarios like cloud-native application deployment.
+
+
+Core components include artifact repositories (e.g., Nexus, Artifactory, or container image registries) and build tools (e.g., Jenkins, GitLab CI). Key features are versioned storage (based on Git commit hashes or semantic versions), dependency management, metadata recording, and vulnerability scanning. In practical applications, built artifacts are published to repositories through automated pipelines, ensuring that downstream environments (such as Kubernetes clusters) only use trusted, version-specific artifacts. This significantly reduces environment discrepancies and security risks while accelerating release speed.
+
+
+Implementation steps: 1) Integrate the artifact repository into CI tools; 2) Define artifact generation rules in build scripts; 3) Automatically publish artifacts to the repository with version tags via pipelines; 4) Scan artifacts for security issues; 5) In the CD phase, only pull and deploy validated artifacts from the repository. A typical scenario is microservice updates, with business values including improved audit compliance, optimized deployment rollback efficiency, and reduced infrastructure costs.

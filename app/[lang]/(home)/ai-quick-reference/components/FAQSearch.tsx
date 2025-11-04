@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
-import { FAQList } from './FAQList';
 
 export interface FAQData {
   url: string;

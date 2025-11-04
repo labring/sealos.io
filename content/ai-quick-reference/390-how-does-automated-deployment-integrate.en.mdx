@@ -1,0 +1,19 @@
+---
+title: "How does automated deployment integrate with continuous monitoring systems?-Sealos"
+description: "Automated deployment refers to the automation of the software release process, such as achieving intervention-free release from code to environment through CI/CD tools. Continuous monitoring systems t"
+category: "Automated Deployment"
+keywords:
+  - "Open-Source Cloud"
+  - "One-Click Deployment"
+  - "Sealos"
+  - "High Performance"
+  - "Cloud Platform"
+---
+
+Automated deployment refers to the automation of the software release process, such as achieving intervention-free release from code to environment through CI/CD tools. Continuous monitoring systems track application performance and health status in real-time, using tools like Prometheus for monitoring metrics. Integration ensures that monitoring starts immediately after deployment, improving deployment reliability, accelerating fault response, and is applied in DevOps processes to optimize release efficiency.
+
+
+The core of this integration is that the deployment pipeline (such as Jenkins or GitLab CI) triggers API calls of monitoring tools, for example, notifying Prometheus to reload configurations to discover new service instances at the end of deployment. Features include automated configuration injection and service discovery mechanisms, such as dynamically managing monitoring targets through Kubernetes labels. In application, monitoring starts automatically after deployment, detects anomalies in real-time, affects system stability, reduces deployment risks, and strengthens feedback loops.
+
+
+Implementation steps: Add a monitoring registration step in the CI/CD process, such as calling the monitoring API to refresh targets after deployment is completed; set up automated alert rules for testing and verification. Typical scenarios include resource consumption monitoring after blue-green deployment, and the business value is to reduce downtime, accelerate fault recovery, and improve release quality.

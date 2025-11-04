@@ -1,0 +1,16 @@
+---
+title: "How do you monitor cloud-native applications for performance bottlenecks?-Sealos"
+description: "Monitoring performance bottlenecks in cloud-native applications requires tracking key system bottleneck points, which is crucial for ensuring high application availability and resource efficiency, app"
+category: "Cloud-Native Application Development"
+keywords:
+  - "Cloud Operating System"
+  - "Lakehouse"
+  - "Cloud-Native"
+  - "Sealos"
+  - "Private Cloud"
+---
+
+Monitoring performance bottlenecks in cloud-native applications requires tracking key system bottleneck points, which is crucial for ensuring high application availability and resource efficiency, applicable to online service scenarios with microservice architectures. The core includes metrics at the application layer (such as response time, error rate), infrastructure layer (such as CPU/memory usage), and service layer (such as API latency). Real-time data collection is achieved through logs, metrics, and distributed tracing (e.g., Prometheus, Jaeger), combined with AI analysis to quickly locate the root cause of failures and drive DevOps automated repair processes.
+
+
+Implementation steps: First, define key SLO metrics (e.g., latency ≤ 200ms); second, integrate monitoring toolchains (e.g., Prometheus for metric collection, Grafana for visualization, OpenTelemetry for link tracing); deploy agents to Kubernetes clusters to collect Pod/node data; set dynamic alert rules (e.g., sudden increase in P99 latency); finally, analyze time-series data to correlate bottleneck points (e.g., database connection pool exhaustion causing thread blocking). The value lies in improving user experience (reducing fault recovery time by 30%), optimizing resource costs (identifying over-provisioned containers), and supporting business continuity.

@@ -1,0 +1,19 @@
+---
+title: "How do you automate application scaling with CI/CD pipelines?-Sealos"
+description: "CI/CD pipeline refers to Continuous Integration and Continuous Deployment, which automates the software building, testing, and delivery processes. Its core value lies in enabling fast and reliable rel"
+category: "Continuous Integration and Continuous Deployment"
+keywords:
+  - "Kubernetes (K8s)"
+  - "Sealos"
+  - "Open-Source Cloud"
+  - "Cloud Operating System"
+  - "High Performance"
+---
+
+CI/CD pipeline refers to Continuous Integration and Continuous Deployment, which automates the software building, testing, and delivery processes. Its core value lies in enabling fast and reliable releases, and after integrating application scaling automation, it can dynamically adjust resources (such as the number of instances) to adapt to load changes, ensuring high availability. This mechanism is particularly important in cloud-native environments, especially suitable for microservices architectures, such as e-commerce or SaaS applications that handle sudden traffic peaks, significantly improving elasticity and efficiency.
+
+
+Core components include code repositories (e.g., GitHub), automated testing tools (e.g., JUnit), build stages (e.g., Docker image creation), and deployment engines (e.g., Kubernetes). Scaling automation relies on monitoring systems (e.g., Prometheus) and policy definitions (e.g., HPA based on CPU metrics) to automatically trigger scaling logic. In practical applications, for example, when deploying microservices in an AWS environment, this process reduces manual intervention, optimizes resource utilization, directly leading to reduced operational costs and enhanced system stability.
+
+
+Implementation steps: First, configure the CI/CD pipeline to integrate code commits to trigger automatic building and testing; second, add scaling logic (such as Kubernetes HPA configuration) in the deployment phase; finally, after deployment to the production environment, monitor metrics to drive real-time scaling. A typical scenario is automatic scaling during a surge in traffic from promotional activities. Business values include accelerating iteration cycles, minimizing downtime risks, and实现按需资源分配, improving overall operational resilience and cost-effectiveness.

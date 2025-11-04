@@ -1,0 +1,19 @@
+---
+title: "What security measures should be taken during automated deployment?-Sealos"
+description: "Security measures for automated deployment are crucial for protecting software delivery pipelines, covering the entire process from code submission to production release, aiming to prevent malicious t"
+category: "Automated Deployment"
+keywords:
+  - "DevOps"
+  - "High Availability (HA)"
+  - "Cloud Platform"
+  - "Containerization"
+  - "Private Cloud"
+---
+
+Security measures for automated deployment are crucial for protecting software delivery pipelines, covering the entire process from code submission to production release, aiming to prevent malicious tampering, configuration errors, data leakage, and unauthorized access. This is essential for ensuring the integrity of CI/CD pipelines, the confidentiality and availability of applications, and compliance with security requirements in cloud-native environments.
+
+
+Core measures include layered protection: secure code analysis (SAST, DAST, SCA) to detect vulnerabilities and dependency risks; credential management (Secrets) using tools (such as HashiCorp Vault/Kubernetes Secrets) to securely store sensitive data like application API keys; minimal base images containing only necessary runtime components; container image scanning and signing to scan for vulnerabilities before deployment and verify digital signatures to prevent tampering; deployment access control and least privilege (RBAC/IAM) to strictly limit pipeline triggering and execution permissions; Infrastructure as Code (IaC) security scanning; runtime security configurations (Pod security policies/network policies); and comprehensive logging and auditing to track all changes and activities.
+
+
+Implementation steps include: 1. Integrating security scanning tools into the CI phase to automatically detect code and dependency vulnerabilities; 2. Securely managing Secrets by prohibiting hardcoding, using dedicated secure storage, and strictly controlling access; 3. Hardening container images by building based on minimal trusted base images, scanning and signing images, and verifying signatures during deployment; 4. Enforcing the principle of least privilege by strictly limiting access permissions for pipeline tools, services, and deployment targets (RBAC, IAM); 5. Adopting IaC and scanning templates to ensure secure infrastructure configurations; 6. Enabling detailed audit logs to monitor pipeline activities; 7. Implementing network isolation and security policies (such as Kubernetes network policies). This significantly reduces the risk of supply chain attacks and accelerates the delivery of secure and compliant applications.

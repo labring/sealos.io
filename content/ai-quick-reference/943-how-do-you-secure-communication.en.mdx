@@ -1,0 +1,19 @@
+---
+title: "How do you secure communication between cloud-native services using mutual TLS?-Sealos"
+description: "Mutual TLS is an extension of the TLS protocol that requires both communicating parties to provide and verify digital certificates. It is crucial in cloud-native environments for encrypting inter-serv"
+category: "Security and Permission Management"
+keywords:
+  - "IT Infrastructure"
+  - "One-Click Deployment"
+  - "Containerization"
+  - "Cloud Platform"
+  - "Data Center (DC)"
+---
+
+Mutual TLS is an extension of the TLS protocol that requires both communicating parties to provide and verify digital certificates. It is crucial in cloud-native environments for encrypting inter-service communications, preventing man-in-the-middle attacks, and establishing strong authentication, serving as the foundation for zero-trust architectures and microservice security.
+
+
+Its core lies in mutual authentication and encryption. Each service (both client and server) has its own certificate and private key. When initiating a connection, both parties exchange certificates and verify whether the other party's certificate is signed by a trusted Certificate Authority and contains the expected identity (such as a hostname or service account name). In Kubernetes, certificate issuance, distribution, rotation, and policy enforcement are typically managed automatically by service meshes or Sidecar proxies, ensuring that only authorized services can communicate.
+
+
+Application process: The Certificate Authority is automatically managed by the service mesh or components to issue service identity certificates; transmission policies enforcing the use of mTLS are configured in service proxies; mutual authentication and encrypted communication are automatically initiated during service interactions. Typical scenarios include calls between Kubernetes Pods, with the value of providing end-to-end encryption, reliable service identity authentication, and meeting data security and compliance requirements.

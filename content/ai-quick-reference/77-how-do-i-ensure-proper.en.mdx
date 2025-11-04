@@ -1,0 +1,19 @@
+---
+title: "How do I ensure proper logging in a cloud-native development environment?-Sealos"
+description: "In cloud-native environments, due to the characteristics of microservices, containerization, and dynamic scheduling, logs are scattered and have short lifecycles, rendering traditional log collection "
+category: "Cloud-Native Development Environments"
+keywords:
+  - "Cluster Management"
+  - "Kubernetes (K8s)"
+  - "Application Deployment"
+  - "Open-Source Cloud"
+  - "Cloud Operating System"
+---
+
+In cloud-native environments, due to the characteristics of microservices, containerization, and dynamic scheduling, logs are scattered and have short lifecycles, rendering traditional log collection methods ineffective. Proper logging is crucial for fault diagnosis, performance monitoring, security auditing, and system observability, serving as the foundation for ensuring application health and efficient operation and maintenance.
+
+
+The core principles for ensuring proper logging include standardization (JSON structuring), centralization, contextual correlation, and non-intrusiveness. Specific measures are: applications output logs to `stdout/stderr` (no local files); use lightweight agents (such as Fluent Bit DaemonSet, Filebeat Sidecar) to collect container logs in real-time; filter and enrich context (such as Pod labels) through log pipelines (such as Fluentd); store in scalable backends (such as Loki, Elasticsearch); query and analyze via visualization tools (Grafana, Kibana). Additionally, log level specifications should be defined and sampling strategies implemented.
+
+
+Implementation steps: 1. Development specifications: Mandate applications to output structured logs (JSON) to the console. 2. Infrastructure: Deploy log collectors in DaemonSet or Sidecar mode (e.g., Fluent Bit). 3. Aggregation and processing: Configure log routing, parsing, and enrichment (e.g., adding K8s metadata). 4. Storage and visualization: Integrate storage such as Loki/ES and analysis tools like Grafana. 5. Monitoring and alerting: Set up alerts based on log metrics (e.g., ERROR rate). The value lies in achieving second-level fault localization, full-link tracing, and business insights.

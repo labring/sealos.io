@@ -1,0 +1,19 @@
+---
+title: "How do you implement self-healing capabilities in an automated deployment pipeline?-Sealos"
+description: "An automated deployment pipeline is a component of Continuous Integration/Continuous Delivery (CI/CD) used to automatically build, test, and release applications. Self-healing capability refers to the"
+category: "Automated Deployment"
+keywords:
+  - "Private Cloud"
+  - "Cloud-Native"
+  - "Cloud Operating System"
+  - "One-Click Deployment"
+  - "Sealos"
+---
+
+An automated deployment pipeline is a component of Continuous Integration/Continuous Delivery (CI/CD) used to automatically build, test, and release applications. Self-healing capability refers to the system's ability to automatically detect and repair failures (such as deployment failures). Its importance lies in improving system reliability and availability, especially suitable for cloud-native environments (such as Kubernetes clusters), which can reduce downtime and operational burden.
+
+
+The core of self-healing capability includes health monitoring (such as using Prometheus to collect metrics), alarm systems (such as setting abnormal thresholds), and automatic repair mechanisms (such as Kubernetes' liveness probes triggering pod restarts). Its principle is based on an event-driven model, with a rule engine for rapid response. In automated deployment, the system can automatically roll back failed versions, retry deployments, or adjust resources, thereby improving deployment success rates, reducing human intervention, and enhancing the resilience and agility of cloud-native applications.
+
+
+Implementation steps: 1. Deploy monitoring tools (such as integrating Prometheus and Grafana); 2. Configure probes and auto-scaling policies in Kubernetes; 3. Add testing phases and automatic rollback logic in the CI/CD pipeline (such as using Argo CD); 4. Test failure scenarios through chaos engineering. Business value: Accelerate failure recovery (to the minute level), increase application SLA to over 99.9%, reduce operational costs, and support efficient continuous deployment.

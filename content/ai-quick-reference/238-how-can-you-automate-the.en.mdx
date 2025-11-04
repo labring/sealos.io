@@ -1,0 +1,19 @@
+---
+title: "How can you automate the rollback process in case of a failed deployment?-Sealos"
+description: "The automatic rollback process automatically restores the system to the previous stable version when deployment fails, ensuring high system availability and business continuity and avoiding service in"
+category: "Automated Deployment"
+keywords:
+  - "Containerization"
+  - "Kubernetes (K8s)"
+  - "High Performance"
+  - "Application Deployment"
+  - "Cloud Operating System"
+---
+
+The automatic rollback process automatically restores the system to the previous stable version when deployment fails, ensuring high system availability and business continuity and avoiding service interruptions. Its importance lies in improving deployment reliability and resilience, with application scenarios including Kubernetes deployments in cloud-native environments and continuous delivery pipelines.
+
+
+The core components include deployment strategies (such as Kubernetes' RollingUpdate), health probes (such as readiness and liveness probes), and triggering mechanisms (such as deployment status monitoring). The principle is that when the health check of the new version fails or times out, the system automatically rolls back to the previous version. The practical application impacts include reducing operational complexity, enhancing fault recovery capabilities, and enabling efficient release management in CI/CD.
+
+
+Implementation steps are: configure deployment resources to set rolling update strategies and health check thresholds; integrate failure detection logic into the CI/CD pipeline to trigger rollback commands such as kubectl rollout undo. Typical scenarios apply to exception handling in canary or blue-green deployments, with business values including reducing downtime, accelerating recovery, and ensuring user experience.

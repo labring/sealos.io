@@ -1,0 +1,19 @@
+---
+title: "How do you implement logging for cloud-native applications in Kubernetes?-Sealos"
+description: "Implementing efficient logging for cloud-native applications in Kubernetes is crucial because these applications are typically distributed and have short lifecycles, rendering traditional logging meth"
+category: "Cloud-Native Application Development"
+keywords:
+  - "Kubernetes (K8s)"
+  - "Cluster Management"
+  - "Sealos"
+  - "IT Infrastructure"
+  - "DevOps"
+---
+
+Implementing efficient logging for cloud-native applications in Kubernetes is crucial because these applications are typically distributed and have short lifecycles, rendering traditional logging methods ineffective. This capability serves as the foundation for monitoring, troubleshooting, security auditing, and performance analysis, directly impacting operational efficiency and system reliability.
+
+
+Core solutions include: 1) Node-level log agents: such as Fluentd or Filebeat, running on each node as a DaemonSet to collect logs from the `/var/log` directory of all containers on the node and forward them to centralized storage (e.g., Elasticsearch, Loki). 2) Sidecar containers: co-located with application containers in the same POD, specifically designed to read application-specific log files (other than stdout) or process log formats, then output them for collection by node agents or send directly to the backend. 3) Direct application output: applications proactively write structured logs to stdout/stderr or send them directly to the log backend (e.g., cloud services) via SDK/API. Standard solutions include EFK (Elasticsearch+Fluentd+Kibana) or PLG (Promtail/Loki+Grafana).
+
+
+Implementation steps: 1) Evaluate requirements and select a solution (recommending prioritizing node-level agents + stdout). 2) Deploy DaemonSet log agents (configured to point to backend storage). 3) Ensure application logs are output to stdout/stderr (optimized to JSON format). 4) Optional: Deploy Sidecar containers for special logging requirements. 5) Configure log backend storage and deploy visualization tools (Kibana/Grafana). 6) Unify log formats and develop indexing and retention policies. This solution delivers business value through centralized visibility, fast retrieval, and persistent storage.

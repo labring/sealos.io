@@ -1,0 +1,34 @@
+---
+title: "How do you use security information and event management (SIEM) in cloud-native environments?-Sealos"
+description: "In cloud-native environments, Security Information and Event Management (SIEM) centrally collects and analyzes security logs and event data from dynamic containers, microservices, and orchestration pl"
+category: "Security and Permission Management"
+keywords:
+  - "Containerization"
+  - "One-Click Deployment"
+  - "IT Infrastructure"
+  - "Cloud Platform"
+  - "DevOps"
+---
+
+In cloud-native environments, Security Information and Event Management (SIEM) centrally collects and analyzes security logs and event data from dynamic containers, microservices, and orchestration platforms (such as Kubernetes). Its importance lies in providing global security visibility across complex, distributed infrastructures, supporting threat detection, incident response, and compliance requirements, making it a key tool to address cloud-native-specific security challenges (e.g., ephemerality, API-driven nature).
+
+
+The core lies in integration and intelligent analysis. Lightweight log collectors (e.g., Fluentd, Filebeat) need to be deployed to clusters and workloads to efficiently transport logs to the SIEM platform. SIEM must support cloud-native data source formats (e.g., JSON logs, audit logs, metrics) and integrate information from Cloud Workload Protection Platforms (CWPP) and Kubernetes Security Posture Management (KSPM). Key features include: correlating heterogeneous data from container runtime, orchestration layer, network layer, and application layer; utilizing machine learning to detect abnormal behaviors (e.g., suspicious Pod creation, privilege escalation); supporting fast querying of massive logs for investigation purposes.
+
+
+Implementation steps:
+
+
+1. Configure log collection: Deploy DaemonSet or Sidecar proxies to capture node, Pod, control plane (API Server, etcd, etc.) and network policy logs.
+
+
+2. Log normalization: Parse and standardize logs during collection or within SIEM, unifying fields (e.g., Pod name, namespace, timestamp).
+
+
+3. Define detection rules: Develop scenario-based rules for cloud-native threats (e.g., abnormal container escape attempts, sensitive ConfigMap access, unauthorized API calls) and integrate runtime security alerts.
+
+
+4. Automated alerting and response: Configure notifications for critical alerts and leverage SIEM orchestration capabilities to联动 SOAR tools or APIs for automated response (e.g., isolating problematic Pods).
+
+
+5. Dashboards and compliance: Create visual dashboards to monitor cluster security posture and generate audit reports to meet compliance requirements (e.g., PCI-DSS, SOC2).

@@ -1,0 +1,19 @@
+---
+title: "How do you monitor database performance in cloud-native applications?-Sealos"
+description: "Monitoring database performance in cloud-native applications involves real-time tracking of key metrics to ensure efficient operation, which is crucial for maintaining application responsiveness and r"
+category: "Monitoring and Observability"
+keywords:
+  - "Cluster Management"
+  - "Cloud Platform"
+  - "Sealos"
+  - "DevOps"
+  - "Lakehouse"
+---
+
+Monitoring database performance in cloud-native applications involves real-time tracking of key metrics to ensure efficient operation, which is crucial for maintaining application responsiveness and reliability. In cloud-native environments, databases often become bottlenecks, so monitoring is applied to the dynamic management of containerized databases such as PostgreSQL in Kubernetes clusters.
+
+
+Core components include database metrics like query latency, connection count, and error rate. Tools such as Prometheus Exporter are used to collect data, combined with Grafana for visualization. The principle is to achieve automatic discovery through integration of Prometheus' pull model with Kubernetes. Practical applications support fault detection, performance optimization, and auto-scaling, enhancing system resilience and maintainability.
+
+
+Implementation steps include: 1. Deploying a database exporter (e.g., Postgres Exporter); 2. Configuring Prometheus to scrape metrics and define alerts; 3. Using Grafana to build dashboards for data analysis. Typical scenarios include monitoring production environment databases, with business values including reduced downtime, optimized resource costs, and improved user experience.

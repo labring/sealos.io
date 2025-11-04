@@ -1,0 +1,19 @@
+---
+title: "How do you integrate cloud-native tools with hybrid cloud infrastructure?-Sealos"
+description: "Cloud-native tools such as Kubernetes and service meshes enhance application portability by standardizing container orchestration and service governance. Hybrid cloud infrastructure combines the scala"
+category: "Multi-Cloud and Hybrid Cloud Deployment"
+keywords:
+  - "One-Click Deployment"
+  - "Application Deployment"
+  - "Cloud Platform"
+  - "High Performance"
+  - "Open-Source Cloud"
+---
+
+Cloud-native tools such as Kubernetes and service meshes enhance application portability by standardizing container orchestration and service governance. Hybrid cloud infrastructure combines the scalability of public clouds with the security controls of private clouds. Integrating these two is crucial, enabling unified management of application deployments across different environments, while meeting compliance requirements (such as handling financial or medical sensitive data) and achieving flexible resource allocation and elastic scaling.
+
+
+The core lies in establishing an abstraction layer and a unified management plane. Kubernetes serves as the cornerstone of integration, utilizing its federated clusters or multi-cloud K8s distributions to manage nodes distributed across hybrid clouds. Service meshes like Istio provide unified traffic management, security policies, and service discovery across clouds. Immutable infrastructure and GitOps practices ensure configuration consistency. Integration needs to address technical challenges such as network connectivity, identity authentication (e.g., SPIFFE), persistent storage access policies, and consistent monitoring and log collection.
+
+
+The main implementation steps include: first, deploying a consistent Kubernetes cluster management plane across all points of the hybrid cloud. Second, using a service mesh to bridge different cloud networks, enabling cross-cloud service access and security control. Third, adopting declarative GitOps processes (such as Argo CD) to automate cross-cloud application deployment and configuration. Finally, deploying a unified monitoring (e.g., Prometheus + Thanos) and logging (e.g., Loki) platform. This integration significantly improves business agility, reduces costs, enhances disaster recovery capabilities, and simplifies operational complexity.

@@ -1,0 +1,19 @@
+---
+title: "How do you use monitoring tools to track cloud-native application scaling and performance?-Sealos"
+description: "Monitoring of cloud-native applications is crucial for ensuring performance and resilience, relying on specialized tools to collect and analyze metrics, logs, and traces. This supports auto-scaling, f"
+category: "Monitoring and Observability"
+keywords:
+  - "High Performance"
+  - "Sealos"
+  - "Containerization"
+  - "Kubernetes (K8s)"
+  - "Open-Source Cloud"
+---
+
+Monitoring of cloud-native applications is crucial for ensuring performance and resilience, relying on specialized tools to collect and analyze metrics, logs, and traces. This supports auto-scaling, fault diagnosis, and application health assurance. Core scenarios include dynamic resource management, performance optimization, and SLA guarantee.
+
+
+The core lies in multi-dimensional data collection: using time-series databases like Prometheus to scrape container, node, and application business metrics; combining Fluentd/Loki for log collection; and leveraging Jaeger/Zipkin for distributed tracing. Key metrics include resource utilization (CPU/Mem), request latency/QPS, error rates, and Kubernetes-specific metrics (Pod status, replica count). Alertmanager sets threshold alerts and integrates with visualization tools (Grafana).
+
+
+Implementation steps: 1) Deploy monitoring agents (e.g., Prometheus Operator) and configure ServiceMonitors to collect targets; 2) Embed Exporters in applications or expose OpenMetrics endpoints; 3) Establish dashboards linking resource and application metrics; 4) Define HPA policies based on performance or business metrics; 5) Set up automatic alert rules. This enables real-time triggering of auto-scaling (K8s HPA), optimizes resource utilization, quickly identifies bottlenecks, and significantly improves system reliability and efficiency.

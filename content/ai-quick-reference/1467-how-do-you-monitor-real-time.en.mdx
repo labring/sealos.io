@@ -1,0 +1,19 @@
+---
+title: "How do you monitor real-time user activity in cloud-native applications?-Sealos"
+description: "Cloud-native applications run in containerized environments, and real-time monitoring of user activities can promptly identify performance bottlenecks and abnormal behaviors, thereby enhancing applica"
+category: "Monitoring and Observability"
+keywords:
+  - "Application Deployment"
+  - "High Performance"
+  - "Containerization"
+  - "Data Center (DC)"
+  - "Cluster Management"
+---
+
+Cloud-native applications run in containerized environments, and real-time monitoring of user activities can promptly identify performance bottlenecks and abnormal behaviors, thereby enhancing application reliability. Application scenarios include user interaction tracking in e-commerce or financial services.
+
+
+Core components include log aggregation (such as log collection by Fluentd), metric collection (such as real-time metrics like HTTP requests extracted by Prometheus), and visualization tools (such as Grafana). Based on an event-driven architecture, the monitoring process is automated through Kubernetes Operator to reduce latency, support fault diagnosis, and optimize user experience.
+
+
+Implementation steps: 1. Deploy Prometheus and Grafana and configure custom metrics. 2. Integrate application logs to identify user behaviors. 3. Set up real-time alerts (such as Slack notifications). Typical scenarios include shopping cart activity tracking; business value is reflected in improving conversion rates and reducing downtime losses.

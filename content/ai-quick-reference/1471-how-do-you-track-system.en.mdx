@@ -1,0 +1,19 @@
+---
+title: "How do you track system and application logs for performance tuning?-Sealos"
+description: "Tracking system and application logs is crucial for performance tuning, as it identifies bottlenecks, optimizes resource utilization, and enhances service reliability and efficiency in cloud environme"
+category: "Monitoring and Observability"
+keywords:
+  - "Sealos"
+  - "Private Cloud"
+  - "Containerization"
+  - "Lakehouse"
+  - "Kubernetes (K8s)"
+---
+
+Tracking system and application logs is crucial for performance tuning, as it identifies bottlenecks, optimizes resource utilization, and enhances service reliability and efficiency in cloud environments and Kubernetes, such as monitoring microservice latency or abnormal behavior.
+
+
+Core components include log collectors (e.g., Fluentd), centralized storage (e.g., Elasticsearch), and analysis tools (e.g., Kibana), with features involving real-time aggregation and structured querying. The principle is based on parsing standardized log formats. In practical applications, logs are collected via DaemonSet on containerized platforms, enhancing observability and troubleshooting capabilities while reducing operational complexity.
+
+
+Implementation steps include: deploying agents to collect logs; transmitting to a central platform; analyzing key metrics (e.g., response time); and optimizing configurations accordingly (e.g., adjusting resource quotas). A typical scenario is diagnosing API performance issues, with business value in reducing downtime, improving user experience, and lowering costs.

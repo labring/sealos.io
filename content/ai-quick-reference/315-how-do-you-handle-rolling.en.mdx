@@ -1,0 +1,19 @@
+---
+title: "How do you handle rolling updates in an automated deployment pipeline?-Sealos"
+description: "Rolling update is a key strategy in automated deployment pipelines, used to gradually replace old version application instances, ensuring zero service downtime and reducing deployment risks. Its impor"
+category: "Automated Deployment"
+keywords:
+  - "High Performance"
+  - "One-Click Deployment"
+  - "Cloud Operating System"
+  - "Cluster Management"
+  - "Lakehouse"
+---
+
+Rolling update is a key strategy in automated deployment pipelines, used to gradually replace old version application instances, ensuring zero service downtime and reducing deployment risks. Its importance lies in supporting continuous delivery and high-availability systems, applicable to cloud-native and microservice environments, such as Kubernetes cluster deployment.
+
+
+The core principle includes deploying new instances in batches; after new instances start and are healthy, old instances are gradually phased out. Features involve health checks, traffic management, and parameter control such as maxSurge (exceeding the number of replicas) and maxUnavailable (allowed unavailable ratio). In Kubernetes, the Deployment resource is automatically implemented to ensure smooth upgrades and fault isolation, and practical applications improve deployment reliability and rollback capabilities.
+
+
+Processing steps: Configure deployment strategies to set batch size and health verification; define update parameters in the pipeline, trigger batch deployment and monitor status; automatically roll back in case of exceptions. A typical scenario is updating microservices in CI/CD pipelines, with business values including zero downtime, risk minimization, accelerated iteration, and high system availability.

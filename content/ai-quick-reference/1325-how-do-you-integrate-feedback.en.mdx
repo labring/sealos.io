@@ -1,0 +1,19 @@
+---
+title: "How do you integrate feedback loops into your CI/CD pipeline?-Sealos"
+description: "Feedback loops in CI/CD pipelines are mechanisms that automatically collect development process data and quickly respond to improvements. They are crucial for cloud-native and Kubernetes environments"
+category: "Continuous Integration and Continuous Deployment"
+keywords:
+  - "Application Deployment"
+  - "Cloud-Native"
+  - "IT Infrastructure"
+  - "Lakehouse"
+  - "Cloud Operating System"
+---
+
+Feedback loops in CI/CD pipelines are mechanisms that automatically collect development process data and quickly respond to improvements. They are crucial for cloud-native and Kubernetes environments, accelerating problem detection, enhancing software quality and iteration efficiency, and are applied in continuous delivery scenarios such as microservice deployment.
+
+
+The core includes monitoring tool integration (e.g., Prometheus for metric collection), automated testing phases (unit and end-to-end testing), and post-deployment feedback points (log analysis via ELK stack). The principle is to achieve a real-time data closed loop through CI/CD toolchains (Jenkins or GitLab CI), directly feeding back failures or performance issues to the team; in practical applications, the impact is shortening the repair cycle, reducing downtime, and promoting DevOps collaboration.
+
+
+Implementation steps: 1. Add automated testing and code scanning in the CI phase; 2. Integrate monitoring and alerting after CD deployment; 3. Collect user feedback using dashboards or tools; 4. Iterative optimization driven by feedback data analysis. A typical scenario is using Helm for Kubernetes deployment, with business value in reducing failure rates, increasing release frequency, and improving user satisfaction.

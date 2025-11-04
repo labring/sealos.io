@@ -1,0 +1,19 @@
+---
+title: "How do you implement health checks for microservices?-Sealos"
+description: "Health checks are mechanisms for monitoring the operational status of microservices, ensuring that instances are detected and recovered in case of failure to prevent system paralysis. In a microservic"
+category: "Microservices Architecture"
+keywords:
+  - "Data Center (DC)"
+  - "One-Click Deployment"
+  - "Cloud Operating System"
+  - "Private Cloud"
+  - "Sealos"
+---
+
+Health checks are mechanisms for monitoring the operational status of microservices, ensuring that instances are detected and recovered in case of failure to prevent system paralysis. In a microservices architecture, they are crucial for enhancing resilience and availability, commonly used in load balancing and automatic recovery scenarios, such as controlling traffic and restarting failed containers in Kubernetes clusters.
+
+
+The core components include liveness probes (checking if a container is running) and readiness probes (verifying if a service is ready to receive requests), implemented through HTTP endpoints, TCP sockets, or command execution. Their characteristics involve periodic requests and timeout settings, which affect microservice coordination: for example, abnormal statuses trigger restarts or removal from load balancing, improving the overall stability of the system.
+
+
+Implementation steps are: exposing a health check endpoint during development (e.g., GET /health returning a 200 status code), then configuring probes in deployment description files (e.g., setting paths, ports, and intervals for livenessProbe and readinessProbe in Kubernetes). Typical applications bring business value in auto-scaling or rolling updates, ensuring high availability, reducing downtime, and supporting zero-downtime maintenance.
