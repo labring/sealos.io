@@ -9,7 +9,7 @@ import { generateHomepageSchema } from '@/lib/utils/structured-data';
 import { DefaultSearchDialog } from '@/components/docs/Search';
 import { headers } from 'next/headers';
 import { HomepageDarkMode } from './homepage-dark-mode';
-import { isHomepage } from './utils/is-homepage';
+import { isForcedDarkMode } from './utils/is-forced-dark-mode';
 
 export const metadata = generatePageMetadata();
 
@@ -33,7 +33,7 @@ export default async function LocaleLayout({
   // 在服务端获取路径并判断是否是主页
   const headersList = await headers();
   const pathname = headersList.get('x-pathname') || '/';
-  const isHome = isHomepage(pathname);
+  const isHome = isForcedDarkMode(pathname);
 
   // 构建 html className
   const htmlClassName = isHome ? 'font-sans dark' : 'font-sans';

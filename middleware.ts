@@ -1,6 +1,11 @@
 import { createI18nMiddleware } from 'fumadocs-core/i18n';
 import { i18n } from '@/lib/i18n';
-import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
+import {
+  NextFetchEvent,
+  NextRequest,
+  NextResponse,
+  URLPattern,
+} from 'next/server';
 
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
   const { pathname } = request.nextUrl;
