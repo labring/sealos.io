@@ -16,7 +16,7 @@ import { AnimatedCarouselContainer } from '../components/AnimatedCarouselContain
 import { DevelopmentCard } from '../components/carousel-image/DevelopmentCard';
 import { DeploymentCard } from '../components/carousel-image/DeploymentCard';
 import { DataCard } from '../components/carousel-image/DataCard';
-import { GodRays } from '../components/GodRays';
+import { GodRays } from '../../../../../new-components/GodRays';
 import { Bot } from 'lucide-react';
 
 // 卡片内容配置 - 移到组件外部避免重复创建

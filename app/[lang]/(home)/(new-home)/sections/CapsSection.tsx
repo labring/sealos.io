@@ -13,7 +13,7 @@ import {
   GradientDatabase,
 } from '../components/GradientIcon';
 import { GradientText } from '../components/GradientText';
-import { GodRays } from '../components/GodRays';
+import { GodRays } from '../../../../../new-components/GodRays';
 import { BorderBeam } from '../components/BorderBeam';
 
 interface CardData {

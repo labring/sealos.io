@@ -21,7 +21,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { GradientCircleCheck } from '../components/GradientIcon';
-import { GodRays } from '../components/GodRays';
+import { GodRays } from '../../../../../new-components/GodRays';
 
 // 对比数据类型定义
 interface Platform {

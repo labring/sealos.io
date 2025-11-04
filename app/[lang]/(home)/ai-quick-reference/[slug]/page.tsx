@@ -20,6 +20,7 @@ import {
 } from '@/lib/utils/faq-utils';
 import { Button } from '@/components/ui/button';
 import { faqSource } from '@/lib/source';
+import { GodRays } from '@/new-components/GodRays';
 
 interface PageProps {
   params: Promise<{
@@ -98,148 +99,195 @@ export default async function FAQDetailPage({ params }: PageProps) {
   const Content = (faqPage.data as any).body as React.ComponentType<any>;
 
   return (
-    <div className="container -mt-24 pt-44 pb-20">
-      {/* Back Button */}
-      <Link
-        href={`${langPrefix}/ai-quick-reference`}
-        className="text-muted-foreground hover:text-foreground mb-14 inline-flex items-center gap-2 text-sm transition-colors"
-      >
-        <ChevronLeft size={16} />
-        <span>Back to FAQ</span>
-      </Link>
+    <>
+      <GodRays
+        sources={[
+          {
+            x: -0.05,
+            y: -0.05,
+            angle: 60,
+            spread: 20,
+            count: 12,
+            color: '220, 220, 220',
+            opacityMin: 0.24,
+            opacityMax: 0.25,
+            minWidth: 120,
+            maxWidth: 180,
+          },
+          {
+            x: -0.05,
+            y: -0.05,
+            angle: 60,
+            spread: 8,
+            count: 6,
+            color: '255, 255, 255',
+            opacityMin: 0.89,
+            opacityMax: 0.9,
+            minWidth: 12,
+            maxWidth: 24,
+          },
+          {
+            x: 0.25,
+            y: -0.06,
+            angle: 50,
+            spread: 20,
+            count: 6,
+            color: '180, 180, 180',
+            opacityMin: 0.14,
+            opacityMax: 0.15,
+            minWidth: 60,
+            maxWidth: 120,
+          },
+        ]}
+        speed={0.0}
+        maxWidth={48}
+        minLength={1200}
+        maxLength={2000}
+        blur={8}
+      />
+      <div className="container -mt-24 pt-44 pb-20">
+        {/* Back Button */}
+        <Link
+          href={`${langPrefix}/ai-quick-reference`}
+          className="text-muted-foreground hover:text-foreground mb-14 inline-flex items-center gap-2 text-sm transition-colors"
+        >
+          <ChevronLeft size={16} />
+          <span>Back to FAQ</span>
+        </Link>
 
-      <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_360px]">
-        {/* Main Content */}
-        <article>
-          <div className="mb-12 flex flex-col gap-5">
-            {/* Tag */}
-            <div>
-              <FAQTag label={category} color="bg-blue-400" />
-            </div>
-
-            {/* Title */}
-            <h1 className="text-4xl leading-[40px] font-semibold">
-              <GradientText>{faqItem.title}</GradientText>
-            </h1>
-          </div>
-
-          {/* Main Content - Render MDX */}
-          <div className="mb-14">
-            <DocsBody>
-              <Content
-                components={{
-                  ...defaultMdxComponents,
-                }}
-              />
-            </DocsBody>
-          </div>
-
-          {/* Prev/Next Navigation */}
-          <div className="mb-14 flex gap-3">
-            {previous ? (
-              <Link
-                href={`${langPrefix}${previous.url}`}
-                className="flex flex-1 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/15"
-              >
-                <ChevronLeft size={16} />
-                <span>Previous</span>
-              </Link>
-            ) : (
-              <div className="flex flex-1" />
-            )}
-            {next ? (
-              <Link
-                href={`${langPrefix}${next.url}`}
-                className="flex flex-1 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/15"
-              >
-                <span>Next</span>
-                <ChevronRight size={16} />
-              </Link>
-            ) : (
-              <div className="flex flex-1" />
-            )}
-          </div>
-
-          {/* Related Questions */}
-          <div className="mt-20">
-            <h2 className="mb-8 text-2xl font-semibold">Related Questions</h2>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-              {relatedQuestions.map((question, index) => (
-                <FAQCard
-                  key={index}
-                  tag={question.tag}
-                  title={question.title}
-                  description={question.description}
-                  href={question.href}
-                />
-              ))}
-            </div>
-          </div>
-        </article>
-
-        {/* Sidebar */}
-        <aside className="flex flex-col gap-12 lg:sticky lg:top-24 lg:h-fit">
-          {/* Sealos Brand Card */}
-          <div className="border-border bg-card rounded-xl border p-8">
-            <div className="mb-8 flex flex-col gap-6">
-              <div className="flex items-center gap-1">
-                <Image
-                  alt="Sealos Logo"
-                  src="/logo.svg"
-                  className="h-6 w-6"
-                  width={24}
-                  height={24}
-                />
-                <span className="text-base font-bold text-white">Sealos</span>
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_360px]">
+          {/* Main Content */}
+          <article>
+            <div className="mb-12 flex flex-col gap-5">
+              {/* Tag */}
+              <div>
+                <FAQTag label={category} color="bg-blue-400" />
               </div>
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-medium">
-                  <GradientText>
-                    Ready to Stop Configuring and Start Creating?
-                  </GradientText>
-                </p>
-                <p className="text-muted-foreground text-center text-sm">
-                  Get started for free. No credit card required.
-                </p>
-              </div>
+
+              {/* Title */}
+              <h1 className="text-4xl leading-[40px] font-semibold">
+                <GradientText>{faqItem.title}</GradientText>
+              </h1>
             </div>
 
-            <Button variant="landing-primary" asChild>
-              <Link href={siteConfig.links.mainCta}>
-                <span>Start Building for Free</span>
-                <ArrowRight size={16} />
-              </Link>
-            </Button>
-          </div>
+            {/* Main Content - Render MDX */}
+            <div className="mb-14">
+              <DocsBody>
+                <Content
+                  components={{
+                    ...defaultMdxComponents,
+                  }}
+                />
+              </DocsBody>
+            </div>
 
-          {/* Keep Reading */}
-          <div className="flex flex-col gap-6">
-            <h2 className="text-lg font-bold">Keep Reading</h2>
-            <div className="flex flex-col gap-3">
-              {keepReading.map((item, index) => (
+            {/* Prev/Next Navigation */}
+            <div className="mb-14 flex gap-3">
+              {previous ? (
                 <Link
-                  key={index}
-                  href={item.href}
-                  className="border-border bg-card text-muted-foreground hover:text-foreground rounded-xl border p-4 text-sm transition-colors"
+                  href={`${langPrefix}${previous.url}`}
+                  className="flex flex-1 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/15"
                 >
-                  <span className="line-clamp-1">{item.title}</span>
+                  <ChevronLeft size={16} />
+                  <span>Previous</span>
                 </Link>
-              ))}
+              ) : (
+                <div className="flex flex-1" />
+              )}
+              {next ? (
+                <Link
+                  href={`${langPrefix}${next.url}`}
+                  className="flex flex-1 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/15"
+                >
+                  <span>Next</span>
+                  <ChevronRight size={16} />
+                </Link>
+              ) : (
+                <div className="flex flex-1" />
+              )}
             </div>
-            <Link
-              href={`${langPrefix}/ai-quick-reference`}
-              className="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-sm font-medium transition-colors"
-            >
-              <span>All Frequently Asked Questions</span>
-              <ArrowRight
-                size={16}
-                className="transition-transform group-hover:translate-x-1"
-              />
-            </Link>
-          </div>
-        </aside>
+
+            {/* Related Questions */}
+            <div className="mt-20">
+              <h2 className="mb-8 text-2xl font-semibold">Related Questions</h2>
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                {relatedQuestions.map((question, index) => (
+                  <FAQCard
+                    key={index}
+                    tag={question.tag}
+                    title={question.title}
+                    description={question.description}
+                    href={question.href}
+                  />
+                ))}
+              </div>
+            </div>
+          </article>
+
+          {/* Sidebar */}
+          <aside className="flex flex-col gap-12 lg:sticky lg:top-28 lg:h-fit">
+            {/* Sealos Brand Card */}
+            <div className="border-border bg-card rounded-xl border p-8">
+              <div className="mb-8 flex flex-col gap-6">
+                <div className="flex items-center gap-1">
+                  <Image
+                    alt="Sealos Logo"
+                    src="/logo.svg"
+                    className="h-6 w-6"
+                    width={24}
+                    height={24}
+                  />
+                  <span className="text-base font-bold text-white">Sealos</span>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <p className="text-xl font-medium">
+                    <GradientText>
+                      Ready to Stop Configuring and Start Creating?
+                    </GradientText>
+                  </p>
+                  <p className="text-muted-foreground text-center text-sm">
+                    Get started for free. No credit card required.
+                  </p>
+                </div>
+              </div>
+
+              <Button variant="landing-primary" asChild>
+                <Link href={siteConfig.links.mainCta}>
+                  <span>Start Building for Free</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </Button>
+            </div>
+
+            {/* Keep Reading */}
+            <div className="flex flex-col gap-6">
+              <h2 className="text-lg font-bold">Keep Reading</h2>
+              <div className="flex flex-col gap-3">
+                {keepReading.map((item, index) => (
+                  <Link
+                    key={index}
+                    href={item.href}
+                    className="border-border bg-card text-muted-foreground hover:text-foreground rounded-xl border p-4 text-sm transition-colors"
+                  >
+                    <span className="line-clamp-1">{item.title}</span>
+                  </Link>
+                ))}
+              </div>
+              <Link
+                href={`${langPrefix}/ai-quick-reference`}
+                className="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-sm font-medium transition-colors"
+              >
+                <span>All Frequently Asked Questions</span>
+                <ArrowRight
+                  size={16}
+                  className="transition-transform group-hover:translate-x-1"
+                />
+              </Link>
+            </div>
+          </aside>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

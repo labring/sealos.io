@@ -5,7 +5,7 @@ import { useInView } from 'framer-motion';
 import { PromptInput } from '../components/PromptInput';
 import { HeroBackground } from '../components/HeroBackground';
 import { HeroTitle } from '../components/HeroTitle';
-import { GodRays } from '../components/GodRays';
+import { GodRays } from '../../../../../new-components/GodRays';
 import Cursor from '@/assets/cursor.svg';
 
 export function HeroSection() {

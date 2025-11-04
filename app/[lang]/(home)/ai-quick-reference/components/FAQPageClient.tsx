@@ -169,7 +169,7 @@ export function FAQPageClient({ lang, langPrefix }: FAQPageClientProps) {
       <section className="relative container mt-14 min-h-[calc(100vh-800px)] pt-11">
         {/* Loading overlay - shown during any network request */}
         {(loading || isSearching) && (
-          <div className="absolute inset-0 z-10 flex items-start justify-center bg-black/30 pt-20 backdrop-blur-sm">
+          <div className="absolute inset-0 z-10 flex items-start justify-center pt-20 backdrop-blur-sm">
             <div className="flex flex-col items-center gap-3">
               <div className="size-6 animate-spin rounded-full border-2 border-white/80 border-t-transparent" />
               <span className="text-sm text-white/90">
