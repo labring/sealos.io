@@ -1,5 +1,6 @@
 'use client';
 
+import { getBrainUrl } from '@/lib/utils/brain';
 import { memo } from 'react';
 
 interface OSSSectionProps {
@@ -129,7 +130,7 @@ export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
 
             {/* Start for free */}
             <a
-              href="https://os.sealos.io/?openapp=system-brain"
+              href={getBrainUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-10 w-[117px] items-center justify-center gap-2 rounded-[54px] border border-white bg-gradient-to-br from-white to-gray-300 px-1 py-2 shadow-lg"

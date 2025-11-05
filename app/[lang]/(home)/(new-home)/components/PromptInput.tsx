@@ -46,6 +46,7 @@ import RustIcon from '../assets/stacks-appicons/rust.svg';
 import SpringbootIcon from '../assets/stacks-appicons/springboot.svg';
 
 import { useGTM } from '@/hooks/use-gtm';
+import { getBrainUrl } from '@/lib/utils/brain';
 
 interface PromptOption {
   icon: ReactNode;
@@ -380,8 +381,7 @@ export function PromptInput() {
     const textToSend = isTouched ? promptText : typewriterFullTextRef.current;
 
     if (textToSend.trim()) {
-      const url = `https://brain.usw.sealos.io/trial?query=${encodeURIComponent(textToSend)}`;
-      window.open(url, '_blank');
+      window.open(getBrainUrl(textToSend), '_blank');
     }
   }, [promptText, isTouched]);
 

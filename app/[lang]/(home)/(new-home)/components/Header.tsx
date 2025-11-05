@@ -25,6 +25,7 @@ import AppStoreIcon from '../assets/sealos-appicons/appstore.svg';
 import GitHubIcon from '../assets/github.svg';
 import { useGTM } from '@/hooks/use-gtm';
 import { siteConfig } from '@/config/site';
+import { getBrainUrl } from '@/lib/utils/brain';
 
 // 产品图标映射
 const productIcons: Record<string, any> = {
@@ -465,10 +466,7 @@ export function Header() {
                     className="h-12 w-full border border-white text-base"
                     aria-label="Start using Sealos for free."
                   >
-                    <a
-                      href="https://os.sealos.io/?openapp=system-brain"
-                      onClick={closeMobileMenu}
-                    >
+                    <a href={getBrainUrl()} onClick={closeMobileMenu}>
                       Start for free
                     </a>
                   </Button>

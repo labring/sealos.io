@@ -9,6 +9,7 @@ import {
   RSSIcon,
   XIcon,
 } from './FooterIcons';
+import { getBrainUrl } from '@/lib/utils/brain';
 
 const year = new Date().getFullYear();
 
@@ -253,7 +254,7 @@ const Footer = async ({ lang = 'en' }: FooterProps) => {
               Get started for free. No credit card required.
             </p>
             <Link
-              href="https://os.sealos.io/?openapp=system-brain"
+              href={getBrainUrl()}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
