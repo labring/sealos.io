@@ -123,7 +123,7 @@ export function FAQPageClient({ langPrefix }: FAQPageClientProps) {
     <>
       <div className="border-gradient-glass mx-auto mt-11 flex max-w-2xl rounded-xl p-2">
         <DropdownMenu modal={false}>
-          <DropdownMenuTrigger className="flex h-full w-fit shrink-0 items-center gap-2 rounded-lg px-3 py-2 hover:bg-white/5">
+          <DropdownMenuTrigger className="flex h-full w-fit shrink-0 items-center gap-2 rounded-lg px-1 py-2 hover:bg-white/5 sm:px-3">
             <span>{selectedCategory}</span>
             <ChevronDownIcon size={16} />
           </DropdownMenuTrigger>
@@ -142,7 +142,7 @@ export function FAQPageClient({ langPrefix }: FAQPageClientProps) {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <div className="mx-3 my-2 border-r" />
+        <div className="mx-1 my-2 border-r sm:mx-3" />
 
         <input
           type="text"

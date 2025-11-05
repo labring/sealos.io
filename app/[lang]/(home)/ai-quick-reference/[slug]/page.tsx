@@ -182,7 +182,7 @@ export default async function FAQDetailPage({ params }: PageProps) {
             </div>
 
             {/* Prev/Next Navigation */}
-            <div className="mb-14 flex gap-3">
+            <div className="flex gap-3">
               {previous ? (
                 <Link
                   href={`${langPrefix}${previous.url}`}
@@ -206,28 +206,12 @@ export default async function FAQDetailPage({ params }: PageProps) {
                 <div className="flex flex-1" />
               )}
             </div>
-
-            {/* Related Questions */}
-            <div className="mt-20">
-              <h2 className="mb-8 text-2xl font-semibold">Related Questions</h2>
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                {relatedQuestions.map((question, index) => (
-                  <FAQCard
-                    key={index}
-                    tag={question.tag}
-                    title={question.title}
-                    description={question.description}
-                    href={question.href}
-                  />
-                ))}
-              </div>
-            </div>
           </article>
 
           {/* Sidebar */}
-          <aside className="flex flex-col gap-12 lg:sticky lg:top-28 lg:h-fit">
+          <aside className="flex flex-col gap-10 sm:flex-row sm:gap-6 lg:sticky lg:top-28 lg:h-fit lg:flex-col lg:gap-12">
             {/* Sealos Brand Card */}
-            <div className="border-border bg-card rounded-xl border p-8">
+            <div className="border-border bg-primary-foreground w-full rounded-xl border p-8">
               <div className="mb-8 flex flex-col gap-6">
                 <div className="flex items-center gap-1">
                   <Image
@@ -260,7 +244,7 @@ export default async function FAQDetailPage({ params }: PageProps) {
             </div>
 
             {/* Keep Reading */}
-            <div className="flex flex-col gap-6">
+            <div className="flex w-full flex-col gap-6">
               <h2 className="text-lg font-bold">Keep Reading</h2>
               <div className="flex flex-col gap-3">
                 {keepReading.map((item, index) => (
@@ -285,6 +269,24 @@ export default async function FAQDetailPage({ params }: PageProps) {
               </Link>
             </div>
           </aside>
+
+          {/* Related Questions */}
+          <div className="order-1 mt-4 lg:order-2">
+            <h2 className="mb-8 text-2xl font-semibold">Related Questions</h2>
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+              {relatedQuestions.map((question, index) => (
+                <FAQCard
+                  key={index}
+                  tag={question.tag}
+                  title={question.title}
+                  description={question.description}
+                  href={question.href}
+                  // Show only 2 entries when screen width < sm
+                  className="not-nth-[-n_+_2]:hidden sm:not-nth-[-n_+_2]:block"
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>

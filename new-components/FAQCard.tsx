@@ -33,7 +33,7 @@ export function FAQCard({
       <FAQTag label={tag.label} color={tag.color} />
 
       <div>
-        <h3 className="mb-2 line-clamp-1 font-semibold">
+        <h3 className="mb-2 line-clamp-2 font-semibold">
           <GradientText>
             <span className="text-foreground transition-colors group-hover:text-transparent">
               {title}
