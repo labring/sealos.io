@@ -72,7 +72,7 @@ export default async function AiFaqPage({ params }: PageProps) {
           Find answers to common questions about Sealos
         </p>
 
-        <FAQPageClient lang={lang} langPrefix={langPrefix} />
+        <FAQPageClient langPrefix={langPrefix} />
       </section>
     </>
   );

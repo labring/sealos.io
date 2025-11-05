@@ -245,7 +245,7 @@ export default async function FAQDetailPage({ params }: PageProps) {
                       Ready to Stop Configuring and Start Creating?
                     </GradientText>
                   </p>
-                  <p className="text-muted-foreground text-center text-sm">
+                  <p className="text-muted-foreground text-sm">
                     Get started for free. No credit card required.
                   </p>
                 </div>

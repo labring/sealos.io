@@ -4,12 +4,10 @@ import { FAQCard } from '@/new-components/FAQCard';
 import { cn } from '@/lib/utils';
 
 interface FAQData {
-  url: string;
-  slug: string;
-  title: string;
-  description: string;
   category: string;
-  keywords: string[];
+  question: string;
+  description: string;
+  slug: string;
 }
 
 interface FAQListProps {
@@ -36,14 +34,14 @@ export function FAQList({ faqs, langPrefix, className }: FAQListProps) {
     >
       {faqs.map((faq) => (
         <FAQCard
-          key={faq.url}
+          key={faq.slug}
           tag={{
             label: faq.category,
             color: 'bg-blue-400',
           }}
-          title={faq.title}
+          title={faq.question}
           description={faq.description}
-          href={`${langPrefix}${faq.url}`}
+          href={`${langPrefix}/ai-quick-reference/${faq.slug}`}
         />
       ))}
     </div>

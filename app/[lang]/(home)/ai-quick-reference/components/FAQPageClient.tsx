@@ -25,19 +25,15 @@ import { useFAQSearch, type FAQData } from './FAQSearch';
 import NoResultImage from '@/assets/no-result.svg';
 
 interface FAQPageClientProps {
-  lang: string;
   langPrefix: string;
 }
 
 const ITEMS_PER_PAGE = 12;
 
-export function FAQPageClient({ lang, langPrefix }: FAQPageClientProps) {
+export function FAQPageClient({ langPrefix }: FAQPageClientProps) {
   const [filteredFAQs, setFilteredFAQs] = useState<FAQData[]>([]);
   const [totalCount, setTotalCount] = useState(0);
-  const setCurrentPageRef = useRef<((page: number) => void) | null>(null);
 
-  // Create stable callback that doesn't reset page automatically
-  // Page reset is handled inside the hook when search/category changes
   const handleFilteredFAQsChange = useCallback(
     (faqs: FAQData[], total: number) => {
       setFilteredFAQs(faqs);
@@ -53,18 +49,11 @@ export function FAQPageClient({ lang, langPrefix }: FAQPageClientProps) {
     setSelectedCategory,
     categories,
     loading,
-    isSearching,
-    currentPage: searchCurrentPage,
-    setCurrentPage: setSearchCurrentPage,
+    currentPage,
+    setCurrentPage,
   } = useFAQSearch({
-    lang,
     onFilteredFAQsChange: handleFilteredFAQsChange,
   });
-
-  // Store setCurrentPage ref
-  setCurrentPageRef.current = setSearchCurrentPage;
-
-  const currentPage = searchCurrentPage;
 
   // Calculate pagination
   const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
@@ -111,31 +100,29 @@ export function FAQPageClient({ lang, langPrefix }: FAQPageClientProps) {
   const handleCategoryChange = useCallback(
     (category: string) => {
       setSelectedCategory(category);
-      setSearchCurrentPage(1);
     },
-    [setSelectedCategory, setSearchCurrentPage],
+    [setSelectedCategory],
   );
 
   const handleSearchChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchQuery(e.target.value);
-      setSearchCurrentPage(1);
     },
-    [setSearchQuery, setSearchCurrentPage],
+    [setSearchQuery],
   );
 
   const handlePageChange = useCallback(
     (page: number) => {
-      setSearchCurrentPage(page);
+      setCurrentPage(page);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
-    [setSearchCurrentPage],
+    [setCurrentPage],
   );
 
   return (
     <>
       <div className="border-gradient-glass mx-auto mt-11 flex max-w-2xl rounded-xl p-2">
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger className="flex h-full w-fit shrink-0 items-center gap-2 rounded-lg px-3 py-2 hover:bg-white/5">
             <span>{selectedCategory}</span>
             <ChevronDownIcon size={16} />
@@ -167,19 +154,14 @@ export function FAQPageClient({ lang, langPrefix }: FAQPageClientProps) {
       </div>
 
       <section className="relative container mt-14 min-h-[calc(100vh-800px)] pt-11">
-        {/* Loading overlay - shown during any network request */}
-        {(loading || isSearching) && (
-          <div className="absolute inset-0 z-10 flex items-start justify-center pt-20 backdrop-blur-sm">
+        {loading ? (
+          <div className="flex items-start justify-center pt-20">
             <div className="flex flex-col items-center gap-3">
               <div className="size-6 animate-spin rounded-full border-2 border-white/80 border-t-transparent" />
-              <span className="text-sm text-white/90">
-                {isSearching ? 'Searching...' : 'Loading...'}
-              </span>
+              <span className="text-sm text-white/90">Loading...</span>
             </div>
           </div>
-        )}
-
-        {!loading && (
+        ) : (
           <>
             <div className="text-muted-foreground mb-8 flex items-center gap-2">
               <ListIcon size={16} />
@@ -190,8 +172,7 @@ export function FAQPageClient({ lang, langPrefix }: FAQPageClientProps) {
               </span>
             </div>
 
-            {/* Empty state only when not searching */}
-            {!isSearching && filteredFAQs.length === 0 ? (
+            {filteredFAQs.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20">
                 <Image
                   src={NoResultImage}
@@ -209,13 +190,10 @@ export function FAQPageClient({ lang, langPrefix }: FAQPageClientProps) {
               </div>
             ) : (
               <>
-                {/* List stays rendered while searching */}
-                <div>
-                  <FAQList faqs={filteredFAQs} langPrefix={langPrefix} />
-                </div>
+                <FAQList faqs={filteredFAQs} langPrefix={langPrefix} />
 
                 {totalPages > 1 && (
-                  <div className={`mt-12 flex justify-center`}>
+                  <div className="mt-12 flex justify-center">
                     <Pagination>
                       <PaginationContent>
                         <PaginationItem>
@@ -223,12 +201,12 @@ export function FAQPageClient({ lang, langPrefix }: FAQPageClientProps) {
                             href="#"
                             onClick={(e) => {
                               e.preventDefault();
-                              if (currentPage > 1 && !isSearching) {
+                              if (currentPage > 1) {
                                 handlePageChange(currentPage - 1);
                               }
                             }}
                             className={
-                              currentPage === 1 || isSearching
+                              currentPage === 1
                                 ? 'pointer-events-none opacity-50'
                                 : 'cursor-pointer'
                             }
@@ -250,16 +228,10 @@ export function FAQPageClient({ lang, langPrefix }: FAQPageClientProps) {
                                 href="#"
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  if (!isSearching) {
-                                    handlePageChange(page);
-                                  }
+                                  handlePageChange(page);
                                 }}
                                 isActive={currentPage === page}
-                                className={
-                                  isSearching
-                                    ? 'pointer-events-none opacity-50'
-                                    : 'cursor-pointer'
-                                }
+                                className="cursor-pointer"
                               >
                                 {page}
                               </PaginationLink>
@@ -272,12 +244,12 @@ export function FAQPageClient({ lang, langPrefix }: FAQPageClientProps) {
                             href="#"
                             onClick={(e) => {
                               e.preventDefault();
-                              if (currentPage < totalPages && !isSearching) {
+                              if (currentPage < totalPages) {
                                 handlePageChange(currentPage + 1);
                               }
                             }}
                             className={
-                              currentPage === totalPages || isSearching
+                              currentPage === totalPages
                                 ? 'pointer-events-none opacity-50'
                                 : 'cursor-pointer'
                             }
