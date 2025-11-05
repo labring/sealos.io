@@ -1,37 +1,29 @@
 ---
-title: "How do you implement security monitoring in cloud-native applications?"
-description: "Cloud-native security monitoring refers to continuous threat detection and response for applications, infrastructure, and network traffic in dynamic environments such as containerization and microserv"
-category: "Security and Permission Management"
+title: 'How do you implement security monitoring in cloud-native applications?'
+description: 'Cloud-native security monitoring refers to continuous threat detection and response for applications, infrastructure, and network traffic in dynamic environments such as containerization and microserv'
+category: 'Security and Permission Management'
 keywords:
-  - "Open-Source Cloud"
-  - "Kubernetes (K8s)"
-  - "Application Deployment"
-  - "Sealos"
-  - "Cloud-Native"
+  - 'Open-Source Cloud'
+  - 'Kubernetes (K8s)'
+  - 'Application Deployment'
+  - 'Sealos'
+  - 'Cloud-Native'
 ---
 
 Cloud-native security monitoring refers to continuous threat detection and response for applications, infrastructure, and network traffic in dynamic environments such as containerization and microservices. It ensures the observability and compliance of distributed architectures, and enables rapid intervention in the event of attacks or configuration errors, which is crucial for protecting sensitive data and business continuity.
 
-
 Its core components include: 1. Host/container runtime security (monitoring of abnormal processes and file activities); 2. K8s API audit logging and network policy enforcement (Service Mesh); 3. Integrated security toolchain (e.g., Falco, Prometheus for alerting on abnormal metrics); 4. Dynamic key management; 5. Image scanning integrated into CI/CD pipelines. This constructs a defense-in-depth strategy covering the build, deployment, and runtime phases.
-
 
 Implementation steps:
 
-
 1. Deploy lightweight agents: Install tools like Falco on nodes to monitor system calls.
-
 
 2. Configure auditing and network policies: Enable K8s audit logs and implement micro-segmentation with Calico/Cilium.
 
-
 3. Integrate SIEM/SOAR platforms: Aggregate logs (e.g., EFK stack) and link with automated response.
-
 
 4. Shift security left: Scan for image vulnerabilities (Trivy) and IaC configuration risks (Checkov) during the CI phase.
 
-
 5. Continuously optimize rules: Adjust alert thresholds based on AI analysis to reduce false positives.
-
 
 This practice enables rapid threat detection, automatic compliance reporting, and significantly reduces the risk of data breaches.

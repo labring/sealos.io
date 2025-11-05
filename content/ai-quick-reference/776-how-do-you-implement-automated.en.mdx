@@ -1,19 +1,17 @@
 ---
-title: "How do you implement automated data archiving for cloud-native applications?"
-description: "Cloud-native applications leverage containers, microservices, and Kubernetes to achieve dynamic scalability. Automated data archiving automatically migrates inactive data (such as old logs or backups)"
-category: "Data Management and Storage"
+title: 'How do you implement automated data archiving for cloud-native applications?'
+description: 'Cloud-native applications leverage containers, microservices, and Kubernetes to achieve dynamic scalability. Automated data archiving automatically migrates inactive data (such as old logs or backups)'
+category: 'Data Management and Storage'
 keywords:
-  - "Kubernetes (K8s)"
-  - "Private Cloud"
-  - "Cloud Operating System"
-  - "Containerization"
-  - "Cloud-Native"
+  - 'Kubernetes (K8s)'
+  - 'Private Cloud'
+  - 'Cloud Operating System'
+  - 'Containerization'
+  - 'Cloud-Native'
 ---
 
 Cloud-native applications leverage containers, microservices, and Kubernetes to achieve dynamic scalability. Automated data archiving automatically migrates inactive data (such as old logs or backups) to low-cost storage tiers. This is crucial for optimizing storage costs, ensuring compliance, and enabling long-term retention, applicable to scenarios like data lakes or historical analysis.
 
-
 The core lies in Kubernetes StorageClasses defining archiving policies, combined with PersistentVolumeClaims to implement rule-based migration (e.g., access frequency). Features include seamless integration with CI/CD pipelines and cloud storage services (such as AWS S3 Glacier). In practice, CronJobs are used to run custom scripts or tools (e.g., Velero) to automatically trigger archiving operations, significantly reducing storage overhead and improving resource efficiency.
-
 
 Implementation steps include: defining a tiered storage strategy (e.g., setting cold/hot tiers); deploying automated scripts or controllers to schedule tasks (e.g., Kubernetes Jobs); monitoring the archiving process. Typical business scenarios such as historical data management bring value such as cost savings, scalable storage, and compliance assurance.

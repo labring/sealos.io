@@ -1,19 +1,17 @@
 ---
-title: "How do you secure cloud-native databases from external threats?"
-description: "The core of protecting cloud-native databases lies in implementing a defense-in-depth strategy, as they host critical business data and have a wide attack surface. Its importance lies in preventing da"
-category: "Data Management and Storage"
+title: 'How do you secure cloud-native databases from external threats?'
+description: 'The core of protecting cloud-native databases lies in implementing a defense-in-depth strategy, as they host critical business data and have a wide attack surface. Its importance lies in preventing da'
+category: 'Data Management and Storage'
 keywords:
-  - "Private Cloud"
-  - "High Performance"
-  - "Cloud Platform"
-  - "Kubernetes (K8s)"
-  - "Containerization"
+  - 'Private Cloud'
+  - 'High Performance'
+  - 'Cloud Platform'
+  - 'Kubernetes (K8s)'
+  - 'Containerization'
 ---
 
 The core of protecting cloud-native databases lies in implementing a defense-in-depth strategy, as they host critical business data and have a wide attack surface. Its importance lies in preventing data breaches, service disruptions, and compliance risks, and it is applied in highly sensitive scenarios such as finance and e-commerce.
 
-
 Core measures include: network isolation (Kubernetes Network Policies, Service Mesh zero trust), least privilege access control (RBAC, IAM policies), data encryption (TLS encryption in transit and KMS encryption at rest), runtime security (vulnerability scanning, audit log collection), and configuration security management (CSPM tools for continuous detection of configuration drift).
-
 
 Implementation steps: 1) Configure fine-grained network policies to restrict database Pod access sources; 2) Enable automatic certificate rotation and Transparent Data Encryption (TDE); 3) Deploy database audit logs and integrate with SIEM; 4) Conduct regular penetration testing and backup recovery verification; 5) Use service mesh to implement mTLS inter-service communication and WAF protection against injection attacks.

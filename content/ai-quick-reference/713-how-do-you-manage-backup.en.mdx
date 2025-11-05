@@ -1,19 +1,17 @@
 ---
-title: "How do you manage backup and replication of containerized databases?"
-description: "Backup and replication of containerized databases are critical practices to ensure data persistence, high availability, and disaster recovery. In cloud-native environments, where databases run in cont"
-category: "Data Management and Storage"
+title: 'How do you manage backup and replication of containerized databases?'
+description: 'Backup and replication of containerized databases are critical practices to ensure data persistence, high availability, and disaster recovery. In cloud-native environments, where databases run in cont'
+category: 'Data Management and Storage'
 keywords:
-  - "IT Infrastructure"
-  - "High Performance"
-  - "Open-Source Cloud"
-  - "Sealos"
-  - "Lakehouse"
+  - 'IT Infrastructure'
+  - 'High Performance'
+  - 'Open-Source Cloud'
+  - 'Sealos'
+  - 'Lakehouse'
 ---
 
 Backup and replication of containerized databases are critical practices to ensure data persistence, high availability, and disaster recovery. In cloud-native environments, where databases run in containers/Pods that may migrate or restart at any time, their importance is particularly prominent, involving the protection of data assets and meeting business continuity requirements.
 
-
 The core is to implement backups through Persistent Volume (PV) snapshots and application consistency hooks to ensure data integrity; replication utilizes database native mechanisms (such as master-slave replication) or Operator-based state management, and needs to collaborate with Kubernetes scheduling. Key components include: CSI volume snapshots supported by storage classes, backup tools (such as Velero, Kubedump) to capture PV states and cluster objects, init containers or Operators for configuring replication topology, and monitoring logs. The Kubernetes environment needs to handle the decoupling of storage and computing, data consistency assurance (such as pre-snapshot quiesce), network policies, and configuration drift prevention.
-
 
 Implementation steps: 1) Backup: Configure CSI-compatible storage, deploy tools like Velero, define scheduled snapshot policies and inject application freeze hooks; 2) Replication: Configure environment variables within the database StatefulSet or use Operators (such as K8ssandra) to automate master-slave synchronization and expose read-only replica services; 3) Verify recovery: Regularly test拉起新实例 from snapshots, and verify replication latency and failover. The values include achieving minute-level RPO/RTO, cross-cloud/availability zone migration capabilities, and compliance audit support.

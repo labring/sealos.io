@@ -1,19 +1,17 @@
 ---
-title: "How do you implement versioned APIs in a microservices-based architecture?"
-description: "In a microservices-based architecture, versioning APIs involves assigning version identifiers to APIs, such as URI or header version numbers, to manage changes without disrupting client integrations. "
-category: "Microservices Architecture"
+title: 'How do you implement versioned APIs in a microservices-based architecture?'
+description: 'In a microservices-based architecture, versioning APIs involves assigning version identifiers to APIs, such as URI or header version numbers, to manage changes without disrupting client integrations. '
+category: 'Microservices Architecture'
 keywords:
-  - "Lakehouse"
-  - "Sealos"
-  - "One-Click Deployment"
-  - "High Performance"
-  - "Cloud Operating System"
+  - 'Lakehouse'
+  - 'Sealos'
+  - 'One-Click Deployment'
+  - 'High Performance'
+  - 'Cloud Operating System'
 ---
 
 In a microservices-based architecture, versioning APIs involves assigning version identifiers to APIs, such as URI or header version numbers, to manage changes without disrupting client integrations. Its importance lies in supporting independent deployment and evolution of services, being applied in high-frequency update scenarios (e.g., e-commerce platforms), and avoiding service interruptions or compatibility issues caused by API changes.
 
-
 The core components include versioning strategies (URI versioning like /v1/resource, request header versioning like Accept-Version), API gateway handling routing distribution, and server-side multi-version coexistence mechanisms (such as semantic versioning). The principle emphasizes backward compatibility and gradual deprecation. In practical applications, it reduces integration errors, facilitates non-disruptive releases, and improves the reliability of the microservice ecosystem.
-
 
 Implementation steps are: 1. Select a versioning strategy (prioritizing URI or header). 2. Configure version routing in the API gateway (e.g., Nginx or Kubernetes Ingress). 3. Implement multi-version logic in services (retaining old APIs). 4. Define a deprecation plan and monitor. Typical scenarios include canary releases or blue-green deployments. The business value is seamless upgrades, improved customer experience, and accelerated iteration cycles.

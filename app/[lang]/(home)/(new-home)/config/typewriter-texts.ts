@@ -1,9 +1,5 @@
 import type { languagesType } from '@/lib/i18n';
 
-export interface TypewriterTextsConfig {
-  [key: string]: string[];
-}
-
 export const TYPEWRITER_TEXTS: Record<languagesType, string[]> = {
   en: [
     'I want to create a full-stack application using Next.js and database.',
@@ -29,12 +25,3 @@ export const DEFAULT_TYPEWRITER_CONFIG = {
   CLEAR_DURATION: 300, // ms for clearing animation
   CURSOR_BLINK_SPEED: 1000, // ms for cursor blink
 } as const;
-
-export function getRandomText(lang: languagesType): string {
-  const texts = TYPEWRITER_TEXTS[lang];
-  return texts[Math.floor(Math.random() * texts.length)];
-}
-
-export function getTextsByLanguage(lang: string): string[] {
-  return TYPEWRITER_TEXTS[lang as languagesType] || TYPEWRITER_TEXTS.en;
-}

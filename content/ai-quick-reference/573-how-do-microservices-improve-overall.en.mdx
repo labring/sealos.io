@@ -1,37 +1,29 @@
 ---
-title: "How do microservices improve overall application resilience?"
-description: "Microservices enhance application resilience through distributed architecture. By decomposing monolithic applications into independently deployable and loosely coupled services, failures of individual"
-category: "Microservices Architecture"
+title: 'How do microservices improve overall application resilience?'
+description: 'Microservices enhance application resilience through distributed architecture. By decomposing monolithic applications into independently deployable and loosely coupled services, failures of individual'
+category: 'Microservices Architecture'
 keywords:
-  - "Lakehouse"
-  - "Data Center (DC)"
-  - "One-Click Deployment"
-  - "Cloud-Native"
-  - "High Availability (HA)"
+  - 'Lakehouse'
+  - 'Data Center (DC)'
+  - 'One-Click Deployment'
+  - 'Cloud-Native'
+  - 'High Availability (HA)'
 ---
 
 Microservices enhance application resilience through distributed architecture. By decomposing monolithic applications into independently deployable and loosely coupled services, failures of individual services can be isolated, preventing overall system collapse. This is crucial for scenarios requiring high availability such as e-commerce and finance.
 
-
 The core lies in isolation, fault tolerance mechanisms, and automated运维 (operations and maintenance). Services run independently, so failures do not propagate; circuit breakers quickly block problematic services, degrade to provide basic functions, and retries and timeouts prevent cascading failures; container platforms (such as Kubernetes) provide health checks, automatic restarts, rolling updates, and elastic scaling to ensure continuous availability and rapid recovery of service instances.
-
 
 Key steps to improve resilience:
 
-
 1. Service decomposition and boundary definition: Clearly divide microservices to ensure independent operation capabilities.
-
 
 2. Integrate resilience patterns: Implement circuit breaking (e.g., Hystrix), rate limiting, retries, service discovery/load balancing.
 
-
 3. Containerization and orchestration: Use Docker and Kubernetes for deployment, enabling health checks, automatic restarts, rolling updates, and auto-scaling.
-
 
 4. Distributed monitoring and alerting: Monitor the status of each service in real-time to quickly locate faults.
 
-
 5. Chaos engineering practices: Proactively inject failures to test system resilience and verify recovery capabilities.
-
 
 This brings business value: significantly reducing downtime, maintaining availability of critical functions, and improving user experience.

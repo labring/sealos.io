@@ -1,19 +1,17 @@
 ---
-title: "How do you implement access control for cloud-native microservices using OAuth2?"
-description: "OAuth2 is an authorization framework that allows microservices to securely delegate access rights without exposing user credentials. In cloud-native environments, such as Kubernetes-based microservice"
-category: "Security and Permission Management"
+title: 'How do you implement access control for cloud-native microservices using OAuth2?'
+description: 'OAuth2 is an authorization framework that allows microservices to securely delegate access rights without exposing user credentials. In cloud-native environments, such as Kubernetes-based microservice'
+category: 'Security and Permission Management'
 keywords:
-  - "Cluster Management"
-  - "Sealos"
-  - "Cloud Operating System"
-  - "Data Center (DC)"
-  - "Containerization"
+  - 'Cluster Management'
+  - 'Sealos'
+  - 'Cloud Operating System'
+  - 'Data Center (DC)'
+  - 'Containerization'
 ---
 
 OAuth2 is an authorization framework that allows microservices to securely delegate access rights without exposing user credentials. In cloud-native environments, such as Kubernetes-based microservice architectures, it ensures the security of cross-service API calls, prevents unauthorized access and vulnerabilities, and is applicable to scenarios like API gateways and service meshes.
 
-
 The core components include the client (microservice), resource server (service hosting resources), and authorization server (issuing tokens such as JWT). It features token-based stateless authentication and supports client credentials and implicit flows. In practical applications, the authorization server verifies user identity, and the resource server validates tokens to authorize requests, enhancing security, supporting zero-trust architecture, and reducing the attack surface.
-
 
 Implementation steps: 1. Deploy an authorization server (e.g., Keycloak); 2. Configure microservices as clients or resource servers; 3. Generate and propagate access tokens for requests. Typical scenarios include API authorization between microservices, such as an order service accessing an inventory service. Business value: Achieves fine-grained access control, enhances compliance and scalability, and simplifies cross-service integration.

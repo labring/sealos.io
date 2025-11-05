@@ -19,7 +19,7 @@ export function FAQTag({
         className,
       )}
     >
-      <div className={cn('mr-2 shrink-0 size-2 rounded-full', color)} />
+      <div className={cn('mr-2 size-2 shrink-0 rounded-full', color)} />
       <span className="truncate">{label}</span>
     </span>
   );

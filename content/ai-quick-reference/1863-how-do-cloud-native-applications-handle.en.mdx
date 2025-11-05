@@ -1,19 +1,17 @@
 ---
-title: "How do cloud-native applications handle failures and self-healing?"
-description: "Cloud-native applications achieve fault handling and self-healing through built-in elastic mechanisms and automated management. The core lies in leveraging the features of container orchestration plat"
-category: "Cloud-Native Application Development"
+title: 'How do cloud-native applications handle failures and self-healing?'
+description: 'Cloud-native applications achieve fault handling and self-healing through built-in elastic mechanisms and automated management. The core lies in leveraging the features of container orchestration plat'
+category: 'Cloud-Native Application Development'
 keywords:
-  - "Kubernetes (K8s)"
-  - "Cluster Management"
-  - "Cloud-Native"
-  - "High Performance"
-  - "High Availability (HA)"
+  - 'Kubernetes (K8s)'
+  - 'Cluster Management'
+  - 'Cloud-Native'
+  - 'High Performance'
+  - 'High Availability (HA)'
 ---
 
 Cloud-native applications achieve fault handling and self-healing through built-in elastic mechanisms and automated management. The core lies in leveraging the features of container orchestration platforms (such as Kubernetes) and microservices architecture to minimize service disruptions and ensure business continuity and high availability when infrastructure or application components fail.
 
-
 Its core principles include: 1) Declarative management: The system continuously monitors whether the actual state of the application is consistent with the declared desired state; 2) Health probes (Readiness/Liveness Probes): Kubernetes periodically checks the running status of containers or services; 3) Controller pattern: When a failure is detected (such as container crash, node failure, or service unreachability), the system automatically triggers repair actions. Typical actions include: automatically restarting unhealthy containers, rescheduling failed Pods on healthy nodes (eviction and reconstruction), isolating faulty instances using service discovery and load balancing, and performing rolling updates and rollbacks on demand.
-
 
 The processing flow is usually: 1) Detection: Identify faults through probes or monitoring systems; 2) Isolation: Remove faulty instances from service traffic; 3) Repair: Perform automated operations such as restart, reconstruction, or rescheduling to restore the desired state. This significantly reduces the need for manual intervention, shortens the Mean Time to Recovery (MTTR), improves application resilience and business availability, which is a key value embodiment of cloud-native architecture.

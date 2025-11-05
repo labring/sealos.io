@@ -1,19 +1,17 @@
 ---
-title: "How do you manage access control and permissions in IaC workflows?"
-description: "In the Infrastructure as Code (IaC) workflow, managing access control and permissions fundamentally involves treating permission policy definitions and assignments as code. This ensures environmental "
-category: "Automation and Infrastructure as Code"
+title: 'How do you manage access control and permissions in IaC workflows?'
+description: 'In the Infrastructure as Code (IaC) workflow, managing access control and permissions fundamentally involves treating permission policy definitions and assignments as code. This ensures environmental '
+category: 'Automation and Infrastructure as Code'
 keywords:
-  - "High Performance"
-  - "Private Cloud"
-  - "Sealos"
-  - "Containerization"
-  - "DevOps"
+  - 'High Performance'
+  - 'Private Cloud'
+  - 'Sealos'
+  - 'Containerization'
+  - 'DevOps'
 ---
 
 In the Infrastructure as Code (IaC) workflow, managing access control and permissions fundamentally involves treating permission policy definitions and assignments as code. This ensures environmental consistency, auditability, and enhances security through the principle of least privilege, which is crucial for safeguarding cloud resource security and compliance, and is widely applied in cloud-native deployments and automation pipelines.
 
-
 Core strategies include: defining RBAC policies as IaC code files to ensure they share the same source and version control as resource definitions; using independent service accounts with limited permission scopes to perform deployment operations instead of human accounts; integrating Source Control Management (SCM) triggering mechanisms; and implementing automated validation to check if permission policies are secure and compliant. In practice, permission relationships are modularly defined through policy-as-code, combined with mechanisms like OIDC to achieve dynamic, short-lived credential assignment and rotation.
-
 
 Implementation steps: 1) Define fine-grained IAM roles and policies as code using tools such as Terraform, CloudFormation, or Pulumi; 2) Configure protected branches on the SCM platform to enforce that all permission changes undergo Pull/Merge Request reviews; 3) Pipelines use temporary, scoped credentials for deployment; 4) After deployment, automatically scan policy configuration compliance using OPA or cloud service provider tools. This approach significantly reduces the risk of human misconfiguration, improves audit efficiency, and achieves repeatability and traceability in permission management.

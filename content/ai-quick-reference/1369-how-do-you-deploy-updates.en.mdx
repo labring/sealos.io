@@ -1,19 +1,17 @@
 ---
-title: "How do you deploy updates with minimal downtime in CI/CD pipelines?"
-description: "Deploying updates in a CI/CD pipeline with minimal downtime has the core goal of achieving seamless and reliable application releases, enhancing user experience, and ensuring business continuity. Thro"
-category: "Continuous Integration and Continuous Deployment"
+title: 'How do you deploy updates with minimal downtime in CI/CD pipelines?'
+description: 'Deploying updates in a CI/CD pipeline with minimal downtime has the core goal of achieving seamless and reliable application releases, enhancing user experience, and ensuring business continuity. Thro'
+category: 'Continuous Integration and Continuous Deployment'
 keywords:
-  - "Application Deployment"
-  - "Kubernetes (K8s)"
-  - "Containerization"
-  - "Lakehouse"
-  - "IT Infrastructure"
+  - 'Application Deployment'
+  - 'Kubernetes (K8s)'
+  - 'Containerization'
+  - 'Lakehouse'
+  - 'IT Infrastructure'
 ---
 
 Deploying updates in a CI/CD pipeline with minimal downtime has the core goal of achieving seamless and reliable application releases, enhancing user experience, and ensuring business continuity. Through automated deployment strategies such as blue-green deployment, canary release, and rolling update, version iterations can be completed without user awareness or with minimal impact, which is particularly crucial for mission-critical business systems requiring high availability.
 
-
 Achieving minimal downtime deployment relies on three core elements: automated deployment strategies, effective traffic management mechanisms, and instant rollback capabilities. Blue-green deployment maintains two identical environments (production blue and pending release green), and switches all traffic instantaneously after the green environment passes verification. Canary release gradually routes a small amount of user traffic to the new version for validation and expands the scope incrementally once stable. Rolling update (natively supported by K8s) replaces Pod instances in a controlled manner. Continuous health checks and monitoring are key enablers, used to automatically trigger rollbacks to handle failure situations and ensure ultimate business non-interruption.
-
 
 Implementing minimal downtime deployment involves the following steps: first, building and testing new version artifacts during the CI phase; second, deploying to a staging environment (such as green or canary environment) for automated validation; third, using traffic management tools (e.g., Service Mesh, Ingress, Load Balancer) to smoothly switch traffic from old instances to new ones; fourth, continuously monitoring metrics (latency, error rate) and health status; fifth, immediately triggering automated rollback in case of issues and switching business traffic back to the old version. Its value lies in significantly reducing上线风险, increasing release confidence, and improving system availability.

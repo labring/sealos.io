@@ -1,19 +1,17 @@
 ---
-title: "How do you configure network security for Kubernetes clusters?"
-description: "Kubernetes network security refers to controlling network traffic within a cluster through policies and tools to prevent unauthorized access and data leakage. Its importance lies in ensuring the confi"
-category: "Security and Permission Management"
+title: 'How do you configure network security for Kubernetes clusters?'
+description: 'Kubernetes network security refers to controlling network traffic within a cluster through policies and tools to prevent unauthorized access and data leakage. Its importance lies in ensuring the confi'
+category: 'Security and Permission Management'
 keywords:
-  - "Open-Source Cloud"
-  - "Cluster Management"
-  - "High Availability (HA)"
-  - "Containerization"
-  - "Private Cloud"
+  - 'Open-Source Cloud'
+  - 'Cluster Management'
+  - 'High Availability (HA)'
+  - 'Containerization'
+  - 'Private Cloud'
 ---
 
 Kubernetes network security refers to controlling network traffic within a cluster through policies and tools to prevent unauthorized access and data leakage. Its importance lies in ensuring the confidentiality and integrity of containerized applications, applicable to scenarios such as multi-tenant deployments, microservice isolation, and compliance requirements in cloud-native environments.
 
-
 Core components include network policies (using label selectors to define traffic rules between Pods), service meshes (e.g., Istio, which provides encryption and authentication), and CNI plugins (e.g., Calico for fine-grained control). In practical applications, configuring and limiting intrusion paths can improve the overall security level of enterprise clusters, significantly reduce the risk of lateral attacks, and support the implementation of zero-trust architecture.
-
 
 Configuration steps: 1. Define the network policy YAML file and apply kubectl to set ingress/egress rules. 2. Deploy a service mesh to encrypt inter-service communication. 3. Enable the Pod security context to restrict permissions. A typical scenario is isolating sensitive service traffic; business values include reducing operational risks, ensuring data protection, and meeting regulatory compliance such as GDPR.

@@ -1,19 +1,17 @@
 ---
-title: "How do you automate scaling decisions in CI/CD pipelines?"
-description: "CI/CD pipeline is an automated process for continuous integration/continuous deployment, and scaling decision refers to dynamically adjusting resource scale (such as server instances) based on applica"
-category: "Continuous Integration and Continuous Deployment"
+title: 'How do you automate scaling decisions in CI/CD pipelines?'
+description: 'CI/CD pipeline is an automated process for continuous integration/continuous deployment, and scaling decision refers to dynamically adjusting resource scale (such as server instances) based on applica'
+category: 'Continuous Integration and Continuous Deployment'
 keywords:
-  - "One-Click Deployment"
-  - "IT Infrastructure"
-  - "Application Deployment"
-  - "Cloud Platform"
-  - "DevOps"
+  - 'One-Click Deployment'
+  - 'IT Infrastructure'
+  - 'Application Deployment'
+  - 'Cloud Platform'
+  - 'DevOps'
 ---
 
 CI/CD pipeline is an automated process for continuous integration/continuous deployment, and scaling decision refers to dynamically adjusting resource scale (such as server instances) based on application load. Its importance lies in enhancing system elasticity, optimizing costs, and achieving efficient operation and maintenance. It is suitable for cloud-native environments such as microservice architecture to ensure application availability in high-concurrency scenarios.
 
-
 The core components include performance monitoring tools (such as Prometheus or Datadog) that collect metrics (CPU/memory) in real time, and auto-scalers (such as Kubernetes' Horizontal Pod Autoscaler) that trigger decisions based on predefined thresholds. It is characterized by algorithmic dynamic scaling (such as increasing/decreasing replicas). The application impact is automatically balancing loads, reducing downtime risks, and simplifying resource management, which significantly improves reliability and efficiency especially in containerized deployments.
-
 
 Implementation steps: 1) Integrate monitoring systems into the pipeline; 2) Configure scaling policies (such as setting minimum/maximum number of instances); 3) Automate deployment trigger scripts. A typical scenario is automatic scaling during e-commerce peak hours. Business values include quickly responding to traffic fluctuations, reducing operational burden, optimizing cloud costs, and achieving agile delivery.

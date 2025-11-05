@@ -1,19 +1,17 @@
 ---
-title: "How do you implement policy-driven governance in IaC?"
-description: "Infrastructure as Code (IaC) manages infrastructure resources through code, and policy-driven governance applies automated rules to ensure security, compliance, and cost optimization. Its importance l"
-category: "Automation and Infrastructure as Code"
+title: 'How do you implement policy-driven governance in IaC?'
+description: 'Infrastructure as Code (IaC) manages infrastructure resources through code, and policy-driven governance applies automated rules to ensure security, compliance, and cost optimization. Its importance l'
+category: 'Automation and Infrastructure as Code'
 keywords:
-  - "Cloud-Native"
-  - "One-Click Deployment"
-  - "Cloud Platform"
-  - "Private Cloud"
-  - "Sealos"
+  - 'Cloud-Native'
+  - 'One-Click Deployment'
+  - 'Cloud Platform'
+  - 'Private Cloud'
+  - 'Sealos'
 ---
 
 Infrastructure as Code (IaC) manages infrastructure resources through code, and policy-driven governance applies automated rules to ensure security, compliance, and cost optimization. Its importance lies in reducing human errors, enhancing consistency, and being applied in cloud migration and DevOps scenarios to meet regulatory requirements.
 
-
 Core components include policy engines such as Open Policy Agent (OPA), policy definition languages (e.g., Rego), and IaC tools (e.g., Terraform). The principle is to scan code in CI/CD pipelines to detect violations, with practical impacts including preventing misconfigurations and permission abuse, improving security posture, and enabling automatic compliance.
-
 
 Implementation steps: 1. Define policy rules (e.g., based on CIS benchmarks). 2. Integrate the policy engine into the IaC workflow (e.g., OPA pre-commit hooks). 3. Automate checks in the CI phase (e.g., code scanning). 4. Set up alert or rejection mechanisms. Business values include risk reduction, cost optimization, and auditable governance.

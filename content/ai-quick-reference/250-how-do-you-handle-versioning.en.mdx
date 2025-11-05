@@ -1,19 +1,17 @@
 ---
-title: "How do you handle versioning of deployment artifacts in an automated pipeline?"
-description: "Deployment artifacts such as container images or binary files require version control to ensure environmental consistency and traceability. This is crucial in automated pipelines, supporting reliable "
-category: "Automated Deployment"
+title: 'How do you handle versioning of deployment artifacts in an automated pipeline?'
+description: 'Deployment artifacts such as container images or binary files require version control to ensure environmental consistency and traceability. This is crucial in automated pipelines, supporting reliable '
+category: 'Automated Deployment'
 keywords:
-  - "Private Cloud"
-  - "Kubernetes (K8s)"
-  - "High Performance"
-  - "One-Click Deployment"
-  - "Containerization"
+  - 'Private Cloud'
+  - 'Kubernetes (K8s)'
+  - 'High Performance'
+  - 'One-Click Deployment'
+  - 'Containerization'
 ---
 
 Deployment artifacts such as container images or binary files require version control to ensure environmental consistency and traceability. This is crucial in automated pipelines, supporting reliable deployments, rollback operations, and compliance audits, applicable to CI/CD environments.
 
-
 The core includes artifact repositories (e.g., Dartifactory or Docker Hub) and versioning strategies (e.g., semantic versioning). CI tools (e.g., Jenkins or GitLab CI) automatically generate unique version numbers,关联代码提交以实现标准化. In practical applications, this optimizes the release process, reduces configuration drift, and improves team collaboration efficiency.
-
 
 Processing methods include defining version formats (e.g., major.minor.patch); integrating scripts in pipelines to generate versions (e.g., based on Git tags); pushing artifacts to repositories for multi-environment deployment. Steps: add version tags during the build phase; automated storage; monitor artifact flow. The value lies in reducing deployment errors, accelerating fault recovery, and optimizing resource utilization.

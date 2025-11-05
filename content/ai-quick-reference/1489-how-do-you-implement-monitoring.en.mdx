@@ -1,19 +1,17 @@
 ---
-title: "How do you implement monitoring for dynamic scaling in cloud-native applications?"
-description: "To implement dynamic scaling monitoring for cloud-native applications, it is necessary to track changes in the number of application instances and performance metrics in real-time. Its importance lies"
-category: "Monitoring and Observability"
+title: 'How do you implement monitoring for dynamic scaling in cloud-native applications?'
+description: 'To implement dynamic scaling monitoring for cloud-native applications, it is necessary to track changes in the number of application instances and performance metrics in real-time. Its importance lies'
+category: 'Monitoring and Observability'
 keywords:
-  - "Sealos"
-  - "Open-Source Cloud"
-  - "Cloud Platform"
-  - "Data Center (DC)"
-  - "High Availability (HA)"
+  - 'Sealos'
+  - 'Open-Source Cloud'
+  - 'Cloud Platform'
+  - 'Data Center (DC)'
+  - 'High Availability (HA)'
 ---
 
 To implement dynamic scaling monitoring for cloud-native applications, it is necessary to track changes in the number of application instances and performance metrics in real-time. Its importance lies in ensuring accurate and timely scaling decisions, guaranteeing application stability and resource efficiency, and it is a core component of elastic architecture operation and maintenance.
 
-
 The core lies in collecting and aggregating key metrics: 1. Resource metrics (CPU, memory) are exposed through `kubelet` and aggregated by `Metrics Server` for use by Horizontal Pod Autoscaler (HPA); 2. Custom application metrics (such as QPS, latency) are provided through Prometheus Adapter or custom APIs; 3. Dynamic discovery: Service discovery mechanisms like Prometheus automatically identify newly added or scaled-down Pods to ensure monitoring continuity; 4. Metric storage and alerting: Time-series databases like Prometheus persist data, Grafana visualizes it, and Alertmanager is used to alert on abnormal fluctuations (such as scaling failures, insufficient resources).
-
 
 Implementation steps: 1. Deploy a monitoring component chain (e.g., Prometheus Operator + Metrics Server + Grafana); 2. Expose a Prometheus-format custom metrics endpoint in the application; 3. Configure HPA to drive scaling based on target metrics (CPU utilization or custom metrics); 4. Set up key alert rules (e.g., target resource limits exceeded, continuous scaling failures); 5. Track scaling trends and resource utilization through dashboards. This achieves automated scaling, optimizing resource costs and application responsiveness.

@@ -1,19 +1,17 @@
 ---
-title: "How do you implement blue-green and canary deployments in CI/CD pipelines?"
-description: "Blue-green deployment and canary deployment are key deployment strategies in CI/CD pipelines, aiming to reduce release risks and ensure high availability. Their importance lies in enabling zero-downti"
-category: "Continuous Integration and Continuous Deployment"
+title: 'How do you implement blue-green and canary deployments in CI/CD pipelines?'
+description: 'Blue-green deployment and canary deployment are key deployment strategies in CI/CD pipelines, aiming to reduce release risks and ensure high availability. Their importance lies in enabling zero-downti'
+category: 'Continuous Integration and Continuous Deployment'
 keywords:
-  - "Cluster Management"
-  - "Application Deployment"
-  - "Cloud Operating System"
-  - "IT Infrastructure"
-  - "Cloud Platform"
+  - 'Cluster Management'
+  - 'Application Deployment'
+  - 'Cloud Operating System'
+  - 'IT Infrastructure'
+  - 'Cloud Platform'
 ---
 
 Blue-green deployment and canary deployment are key deployment strategies in CI/CD pipelines, aiming to reduce release risks and ensure high availability. Their importance lies in enabling zero-downtime updates, suitable for scenarios requiring high reliability, such as microservices and cloud-native application delivery.
 
-
 The core principle of blue-green deployment is maintaining two identical environments (blue as production and green as the test version), and switching all traffic after verification to achieve atomic release; canary deployment, on the other hand, gradually shifts traffic to the new version (e.g., 10% of users) and promotes it after monitoring for errors to progressively reduce risks. These strategies, through automated monitoring and rollback mechanisms, significantly improve software reliability, accelerate iteration speed, and minimize user disruption impact.
-
 
 Implementation steps include: configuring CI/CD tools (such as Kubernetes or Spinnaker) to automatically create new environments; for blue-green deployment, deploying the new version, testing health, and then switching routes; for canary deployment, gradually transferring traffic based on weights and triggering rollbacks combined with log monitoring. Typical values include business continuity and efficient risk mitigation.

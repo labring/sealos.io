@@ -1,19 +1,17 @@
 ---
 title: "How do you monitor cloud-native applications' resource utilization, such as CPU and memory?"
-description: "Monitoring resource utilization of cloud-native applications involves real-time tracking of CPU and memory consumption of containers like Pods, which is crucial for optimizing performance, controlling"
-category: "Monitoring and Observability"
+description: 'Monitoring resource utilization of cloud-native applications involves real-time tracking of CPU and memory consumption of containers like Pods, which is crucial for optimizing performance, controlling'
+category: 'Monitoring and Observability'
 keywords:
-  - "Lakehouse"
-  - "IT Infrastructure"
-  - "Cloud-Native"
-  - "DevOps"
-  - "Application Deployment"
+  - 'Lakehouse'
+  - 'IT Infrastructure'
+  - 'Cloud-Native'
+  - 'DevOps'
+  - 'Application Deployment'
 ---
 
 Monitoring resource utilization of cloud-native applications involves real-time tracking of CPU and memory consumption of containers like Pods, which is crucial for optimizing performance, controlling costs, and ensuring reliability, especially in supporting application scalability in Kubernetes environments.
 
-
 Core tools include Prometheus for collecting time-series metrics, Grafana for building visualization dashboards, and Kubernetes Metrics Server for providing basic API data; the principle is based on metric exposure and aggregation mechanisms, and practical applications are used for auto-scaling decisions and fault diagnosis, significantly improving resource utilization.
-
 
 Implementation steps: Deploy monitoring stacks such as installing Prometheus-Grafana via helm; configure metric collection to export Pod resource data; set up alerts and views through Grafana. A typical scenario is during high-traffic business hours, where the business value lies in reducing costs and enhancing system resilience through dynamic scaling.

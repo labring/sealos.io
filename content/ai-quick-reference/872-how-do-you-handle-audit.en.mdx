@@ -1,19 +1,17 @@
 ---
-title: "How do you handle audit logs for cloud-native applications?"
-description: "Cloud-native applications are built on containerization and microservice architectures, with audit logs recording critical system operations such as API calls and user activities. Their importance lie"
-category: "Security and Permission Management"
+title: 'How do you handle audit logs for cloud-native applications?'
+description: 'Cloud-native applications are built on containerization and microservice architectures, with audit logs recording critical system operations such as API calls and user activities. Their importance lie'
+category: 'Security and Permission Management'
 keywords:
-  - "Cloud-Native"
-  - "Kubernetes (K8s)"
-  - "Sealos"
-  - "IT Infrastructure"
-  - "High Performance"
+  - 'Cloud-Native'
+  - 'Kubernetes (K8s)'
+  - 'Sealos'
+  - 'IT Infrastructure'
+  - 'High Performance'
 ---
 
 Cloud-native applications are built on containerization and microservice architectures, with audit logs recording critical system operations such as API calls and user activities. Their importance lies in ensuring security, meeting compliance requirements (such as GDPR/HIPAA), and supporting troubleshooting, applied in regulated scenarios like finance and healthcare.
 
-
 The core components of audit logs include log generators (e.g., events from the Kubernetes API Server), collection agents (e.g., Fluentd or Fluent Bit), central storage (e.g., Elasticsearch), and analysis tools (e.g., Kibana). Features involve tamper-proof formats and real-time aggregation, with principles based on event-driven architecture and standardized log models (e.g., JSON). In practical applications, Kubernetes audit logs monitor cluster behavior, enhancing transparency and incident response capabilities while reducing the risk of security vulnerabilities.
-
 
 Processing steps are: 1. Configure audit policies to define events to be recorded; 2. Deploy log agents to collect log streams; 3. Store logs in secure databases; 4. Integrate analysis tools for querying and alerting. Typical scenarios include real-time intrusion detection and compliance reporting. Business values include reducing audit costs, accelerating fault recovery, and strengthening governance compliance.

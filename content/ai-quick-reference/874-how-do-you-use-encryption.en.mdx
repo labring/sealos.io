@@ -1,19 +1,17 @@
 ---
-title: "How do you use encryption for securing cloud-native APIs?"
-description: "Cloud-native APIs refer to interfaces exposed in cloud-native environments for communication between services. Encrypting and protecting APIs is crucial to prevent data breaches, ensure data integrity"
-category: "Security and Permission Management"
+title: 'How do you use encryption for securing cloud-native APIs?'
+description: 'Cloud-native APIs refer to interfaces exposed in cloud-native environments for communication between services. Encrypting and protecting APIs is crucial to prevent data breaches, ensure data integrity'
+category: 'Security and Permission Management'
 keywords:
-  - "High Availability (HA)"
-  - "Lakehouse"
-  - "Cloud-Native"
-  - "DevOps"
-  - "Private Cloud"
+  - 'High Availability (HA)'
+  - 'Lakehouse'
+  - 'Cloud-Native'
+  - 'DevOps'
+  - 'Private Cloud'
 ---
 
 Cloud-native APIs refer to interfaces exposed in cloud-native environments for communication between services. Encrypting and protecting APIs is crucial to prevent data breaches, ensure data integrity and privacy, and is commonly used in microservice architectures and container orchestration such as Kubernetes.
 
-
 The core components include transport layer encryption (e.g., TLS/SSL), data encryption (e.g., AES symmetric or RSA asymmetric encryption), API key management, and certificate authentication. In practical applications, end-to-end security is ensured by configuring HTTPS certificates through API gateways and service meshes (e.g., Istio implementing mTLS), enhancing compliance and defending against man-in-the-middle attacks.
-
 
 Implementation steps: 1. Enable HTTPS and configure TLS certificates for APIs (e.g., Let's Encrypt); 2. Apply strong encryption algorithms (e.g., AES-256) to encrypt request/response data; 3. Securely store API keys in secret vaults (e.g., Kubernetes Secrets); 4. Deploy mTLS at the API gateway to verify all traffic; 5. Regularly rotate keys. Business value: Reduce security risks, enhance user trust, and meet regulatory requirements such as GDPR.

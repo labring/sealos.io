@@ -1,19 +1,17 @@
 ---
-title: "How do you automate CI/CD for applications deployed on Kubernetes?"
-description: "CI/CD automation enables rapid iteration and reliable delivery by automatically building, testing, and deploying software. In a Kubernetes environment, its importance lies in supporting continuous upd"
-category: "Continuous Integration and Continuous Deployment"
+title: 'How do you automate CI/CD for applications deployed on Kubernetes?'
+description: 'CI/CD automation enables rapid iteration and reliable delivery by automatically building, testing, and deploying software. In a Kubernetes environment, its importance lies in supporting continuous upd'
+category: 'Continuous Integration and Continuous Deployment'
 keywords:
-  - "IT Infrastructure"
-  - "Lakehouse"
-  - "Cluster Management"
-  - "Private Cloud"
-  - "Cloud Operating System"
+  - 'IT Infrastructure'
+  - 'Lakehouse'
+  - 'Cluster Management'
+  - 'Private Cloud'
+  - 'Cloud Operating System'
 ---
 
 CI/CD automation enables rapid iteration and reliable delivery by automatically building, testing, and deploying software. In a Kubernetes environment, its importance lies in supporting continuous updates of containerized applications, improving cluster resource utilization, and adapting to cloud-native scenarios such as rolling releases in microservices architectures.
 
-
 The core components include code repositories (e.g., Git), CI tools (e.g., Jenkins or GitHub Actions), container image building (Docker), and CD tools (e.g., Helm or Argo CD). Features involve pipeline definitions (Jenkinsfile) and deployment strategies (blue-green deployment), with the principle being a trigger-based pipeline to ensure changes are automatically applied to the cluster. In practical applications, the GitOps model is used to reduce manual intervention, enhancing DevOps efficiency and observability.
-
 
 Implementation steps: First, integrate the CI/CD platform and configure source code and testing tasks; second, use Kubectl or Helm to define deployment scripts and automate Kubernetes application deployment; third, set trigger rules, such as executing the pipeline after code submission. Typical scenarios include frequent updates of non-disruptive services, and business values are reflected in shortening release cycles, reducing error rates, and cost optimization.

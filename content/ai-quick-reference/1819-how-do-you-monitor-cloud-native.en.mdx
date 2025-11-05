@@ -1,40 +1,31 @@
 ---
-title: "How do you monitor cloud-native applications for performance and errors?"
-description: "Monitoring the performance and errors of cloud-native applications is crucial for ensuring high availability and enabling rapid troubleshooting. Cloud-native applications are characterized by their di"
-category: "Cloud-Native Application Development"
+title: 'How do you monitor cloud-native applications for performance and errors?'
+description: 'Monitoring the performance and errors of cloud-native applications is crucial for ensuring high availability and enabling rapid troubleshooting. Cloud-native applications are characterized by their di'
+category: 'Cloud-Native Application Development'
 keywords:
-  - "Kubernetes (K8s)"
-  - "High Performance"
-  - "High Availability (HA)"
-  - "Open-Source Cloud"
-  - "Cloud-Native"
+  - 'Kubernetes (K8s)'
+  - 'High Performance'
+  - 'High Availability (HA)'
+  - 'Open-Source Cloud'
+  - 'Cloud-Native'
 ---
 
 Monitoring the performance and errors of cloud-native applications is crucial for ensuring high availability and enabling rapid troubleshooting. Cloud-native applications are characterized by their distributed, dynamic, and ephemeral nature, making traditional monitoring methods unsuitable. Instead, full-stack observability must be implemented across the application, infrastructure, and orchestration layers to ensure stable business operations and a good user experience.
 
-
 The core lies in collecting and analyzing three types of telemetry data: Metrics for quantifying performance (such as request latency and CPU usage); Logs for recording event details to locate errors; and Traces for analyzing cross-service request flows to identify bottlenecks. It is necessary to use Prometheus for metric collection, Loki/Fluentd for log aggregation, Jaeger/Zipkin for implementing distributed tracing, and enhance monitoring with Kubernetes resource metric APIs and Service Mesh (e.g., Istio). Alert rules and runtime health checks (Liveness/Readiness probes) are the foundation for automatically detecting anomalies.
-
 
 The implementation steps are:
 
-
 1. Deploy monitoring agents/collectors (e.g., Prometheus Operator, OpenTelemetry agent) and configure target auto-discovery.
-
 
 2. Integrate the log pipeline: container logs → Fluentd → Elasticsearch/Loki → Grafana.
 
-
 3. Instrument tracing libraries and configure trace collection.
-
 
 4. Define Kubernetes health checks and Service Level Objectives (SLOs).
 
-
 5. Set up threshold-based intelligent alerts (e.g., Prometheus Alertmanager) to avoid false positives.
 
-
 6. Create a unified dashboard (Grafana) to enable correlated analysis of metrics, logs, and traces.
-
 
 This solution can achieve second-level anomaly detection, improve the efficiency of cross-service fault localization by more than 50%, and support automated recovery.

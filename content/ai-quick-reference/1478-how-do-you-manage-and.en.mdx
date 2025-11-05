@@ -1,19 +1,17 @@
 ---
-title: "How do you manage and visualize Kubernetes metrics using Prometheus and Grafana?"
-description: "Prometheus is an open-source monitoring system responsible for collecting and storing metrics data of Kubernetes clusters, such as CPU and memory usage; Grafana is a visualization tool used to create "
-category: "Monitoring and Observability"
+title: 'How do you manage and visualize Kubernetes metrics using Prometheus and Grafana?'
+description: 'Prometheus is an open-source monitoring system responsible for collecting and storing metrics data of Kubernetes clusters, such as CPU and memory usage; Grafana is a visualization tool used to create '
+category: 'Monitoring and Observability'
 keywords:
-  - "Open-Source Cloud"
-  - "Cloud-Native"
-  - "Lakehouse"
-  - "Private Cloud"
-  - "Data Center (DC)"
+  - 'Open-Source Cloud'
+  - 'Cloud-Native'
+  - 'Lakehouse'
+  - 'Private Cloud'
+  - 'Data Center (DC)'
 ---
 
 Prometheus is an open-source monitoring system responsible for collecting and storing metrics data of Kubernetes clusters, such as CPU and memory usage; Grafana is a visualization tool used to create dynamic dashboards. They are crucial for ensuring cluster health, with application scenarios including real-time performance monitoring and fault alerting, enhancing observability and operational efficiency in cloud-native environments.
 
-
 Core components: Prometheus uses a Pull model to scrape metrics and stores them in a time-series database; Grafana connects to Prometheus through data source plugins to build visual charts. Features include high scalability and real-time querying. In practical applications, monitoring metrics such as Pod status and resource utilization significantly improve cluster reliability and reduce operational costs.
-
 
 Implementation steps: 1. Deploy Prometheus Operator in Kubernetes; 2. Configure Prometheus data source in Grafana; 3. Design dashboards to visualize metrics. A typical scenario is anomaly detection in production environment monitoring, with business values including resource optimization, rapid fault response, and risk reduction.

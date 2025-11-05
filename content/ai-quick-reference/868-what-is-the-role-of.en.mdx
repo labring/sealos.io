@@ -1,19 +1,17 @@
 ---
-title: "What is the role of security policies in Kubernetes clusters?"
-description: "Security policies provide critical防护 mechanisms in Kubernetes clusters to restrict improper access, prevent unauthorized operations, protect sensitive data security, and meet compliance requirements. "
-category: "Security and Permission Management"
+title: 'What is the role of security policies in Kubernetes clusters?'
+description: 'Security policies provide critical防护 mechanisms in Kubernetes clusters to restrict improper access, prevent unauthorized operations, protect sensitive data security, and meet compliance requirements. '
+category: 'Security and Permission Management'
 keywords:
-  - "High Availability (HA)"
-  - "Cloud-Native"
-  - "IT Infrastructure"
-  - "DevOps"
-  - "One-Click Deployment"
+  - 'High Availability (HA)'
+  - 'Cloud-Native'
+  - 'IT Infrastructure'
+  - 'DevOps'
+  - 'One-Click Deployment'
 ---
 
 Security policies provide critical防护 mechanisms in Kubernetes clusters to restrict improper access, prevent unauthorized operations, protect sensitive data security, and meet compliance requirements. They are particularly important in multi-tenant environments, when handling sensitive data, and in scenarios following regulatory standards such as GDPR and HIPAA.
 
-
 Their core includes multiple layers: Network policies control network traffic between Pods to achieve fine-grained isolation (e.g., by namespace or label); Role-Based Access Control (RBAC) finely manages the permissions of users/service accounts to perform operations on API resources; Secret management securely stores and uses sensitive information such as passwords and tokens; Pod Security Policies/Standards restrict Pod runtime configurations (e.g., prohibiting privileged mode, limiting host resource access) to prevent privilege escalation risks. Together, these form a defense-in-depth system.
-
 
 The role of Kubernetes security policies is to significantly reduce the attack surface and the risk of data leakage. They enforce the principle of least privilege, prevent the spread of misoperations and malicious intrusions, and ensure the confidentiality and integrity of applications and infrastructure. By defining and auditing security boundaries, they establish a trusted runtime environment for the cluster, support the secure and stable operation of critical businesses, and are a core component of enterprise security governance.

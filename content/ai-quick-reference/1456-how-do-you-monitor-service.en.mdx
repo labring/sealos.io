@@ -1,19 +1,17 @@
 ---
-title: "How do you monitor service availability in a cloud-native application?"
+title: 'How do you monitor service availability in a cloud-native application?'
 description: "Monitoring service availability involves evaluating an application's ability to function properly and respond to requests, which is particularly crucial in cloud-native environments. Its significance "
-category: "Monitoring and Observability"
+category: 'Monitoring and Observability'
 keywords:
-  - "DevOps"
-  - "Data Center (DC)"
-  - "Kubernetes (K8s)"
-  - "Sealos"
-  - "Cloud-Native"
+  - 'DevOps'
+  - 'Data Center (DC)'
+  - 'Kubernetes (K8s)'
+  - 'Sealos'
+  - 'Cloud-Native'
 ---
 
 Monitoring service availability involves evaluating an application's ability to function properly and respond to requests, which is particularly crucial in cloud-native environments. Its significance lies in ensuring business continuity and user experience, applicable to scenarios such as microservices architecture and containerized deployments (e.g., Kubernetes), to guarantee high availability and fault tolerance.
 
-
 Core components include metrics collection (such as response time and error rate), health check probes (liveness/readiness), and distributed tracing, utilizing tools like Prometheus and Grafana for real-time analysis. Features are based on automated monitoring and SLOs (Service Level Objectives), driving rapid fault detection and recovery. Impacts include reducing Mean Time to Recovery (MTTR) and improving system reliability.
-
 
 Implementation steps: 1. Deploy monitoring agents (e.g., Prometheus Operator). 2. Define service endpoints and configure probes. 3. Set SLO alert rules (e.g., based on p99 latency). 4. Create dashboard visualizations. Typical scenarios include Kubernetes probe monitoring; business value lies in minimizing downtime, optimizing operational efficiency, and meeting user expectations.

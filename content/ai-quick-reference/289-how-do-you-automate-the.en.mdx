@@ -1,19 +1,17 @@
 ---
-title: "How do you automate the testing of APIs during deployment?"
-description: "Automated testing of APIs in the Continuous Integration/Deployment (CI/CD) pipeline is crucial as it can quickly verify the functionality, performance, and compatibility of new API versions, ensuring "
-category: "Automated Deployment"
+title: 'How do you automate the testing of APIs during deployment?'
+description: 'Automated testing of APIs in the Continuous Integration/Deployment (CI/CD) pipeline is crucial as it can quickly verify the functionality, performance, and compatibility of new API versions, ensuring '
+category: 'Automated Deployment'
 keywords:
-  - "Lakehouse"
-  - "Open-Source Cloud"
-  - "Kubernetes (K8s)"
-  - "Application Deployment"
-  - "High Performance"
+  - 'Lakehouse'
+  - 'Open-Source Cloud'
+  - 'Kubernetes (K8s)'
+  - 'Application Deployment'
+  - 'High Performance'
 ---
 
 Automated testing of APIs in the Continuous Integration/Deployment (CI/CD) pipeline is crucial as it can quickly verify the functionality, performance, and compatibility of new API versions, ensuring that updates do not introduce regression defects and improving the speed and quality of software delivery. Typical scenarios include pre-deployment validation and frequent microservice updates.
 
-
 The core of automated API testing involves: 1) Writing repeatable API test scripts (using tools like Postman, RestAssured) that cover core use cases, boundary values, and error scenarios; 2) Integrating tests into the Pipeline of CI/CD tools (e.g., Jenkins, GitLab CI), usually executed after building the image and before deployment; 3) Using Kubernetes' rolling update strategy or testing namespace to deploy temporary instances for test isolation; 4) Automatically analyzing test reports and result notifications (such as integrating Prometheus/Grafana monitoring metrics or sending Slack notifications).
-
 
 The main steps are as follows: 1) Select an API testing framework to write scripts and manage them with version control; 2) Configure the test execution phase in the CI/CD pipeline (e.g., running `newman run collection.json` in a container); 3) Configure the test environment (K8s Job or temporary Pod can be used); 4) Execute tests and obtain detailed reports; 5) Decide on automatic deployment or abort the process based on test results. This practice significantly reduces deployment risks, accelerates feedback loops, and enhances DevOps efficiency.

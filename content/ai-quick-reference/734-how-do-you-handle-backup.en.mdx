@@ -1,19 +1,17 @@
 ---
-title: "How do you handle backup and restore strategies for distributed cloud-native databases?"
-description: "Distributed cloud-native database backup and recovery strategies ensure the persistence and disaster recovery capabilities of cross-node data, which are crucial for business continuity and compliance"
-category: "Data Management and Storage"
+title: 'How do you handle backup and restore strategies for distributed cloud-native databases?'
+description: 'Distributed cloud-native database backup and recovery strategies ensure the persistence and disaster recovery capabilities of cross-node data, which are crucial for business continuity and compliance'
+category: 'Data Management and Storage'
 keywords:
-  - "Data Center (DC)"
-  - "Kubernetes (K8s)"
-  - "Private Cloud"
-  - "Cloud Operating System"
-  - "Application Deployment"
+  - 'Data Center (DC)'
+  - 'Kubernetes (K8s)'
+  - 'Private Cloud'
+  - 'Cloud Operating System'
+  - 'Application Deployment'
 ---
 
 Distributed cloud-native database backup and recovery strategies ensure the persistence and disaster recovery capabilities of cross-node data, which are crucial for business continuity and compliance, applicable to high-availability scenarios such as financial transactions and e-commerce.
 
-
 The core lies in combining logical/physical backups, snapshots, and log streams: first, perform periodic full backups (such as daily snapshots), supplemented by real-time transaction logs (such as WAL) to capture incremental changes. Backup data needs to be stored分散 in object storage (such as S3) or cross-availability zone persistent volumes, and use ETCD to store topology metadata. Point recovery relies on precise replay of log timestamps, while global recovery requires coordinating consistent states between nodes.
-
 
 Implementation steps: 1) Define RTO/RPO targets; 2) Configure automatic snapshot and log archiving tools (such as Velero or cloud vendor native services); 3) Regularly verify the recovery process; 4) Test fault tolerance through Chaos Engineering. The value lies in minute-level recovery (RPO≈0), multi-region disaster recovery, and cost optimization (hot-cold tiered storage).

@@ -1,19 +1,17 @@
 ---
-title: "How do you use Kubernetes manifests and Helm charts as part of Infrastructure as Code?"
-description: "Kubernetes manifests are YAML files that define cluster resources such as Deployments and Services, while Helm charts are collections of predefined templates used for package management. As the core o"
-category: "Automation and Infrastructure as Code"
+title: 'How do you use Kubernetes manifests and Helm charts as part of Infrastructure as Code?'
+description: 'Kubernetes manifests are YAML files that define cluster resources such as Deployments and Services, while Helm charts are collections of predefined templates used for package management. As the core o'
+category: 'Automation and Infrastructure as Code'
 keywords:
-  - "DevOps"
-  - "High Performance"
-  - "Data Center (DC)"
-  - "Cloud-Native"
-  - "Sealos"
+  - 'DevOps'
+  - 'High Performance'
+  - 'Data Center (DC)'
+  - 'Cloud-Native'
+  - 'Sealos'
 ---
 
 Kubernetes manifests are YAML files that define cluster resources such as Deployments and Services, while Helm charts are collections of predefined templates used for package management. As the core of Infrastructure as Code (IaC), they enable automated, repeatable deployments, ensure environmental consistency, and are suitable for CI/CD pipelines and multi-cloud management of cloud-native applications.
 
-
 Their core includes declarative resource definitions, parameterized templates (such as Helm's values.yaml), and version control capabilities. Combined with tools like Git, they support auditable change management, improve deployment reliability and repeatability, and are widely used in microservice architectures to simplify lifecycle operations of complex applications.
-
 
 Implementation steps include: writing Kubernetes manifests or using Helm to create chart-templated configurations; version-controlling the code in a Git repository; integrating CI/CD tools like Argo CD or Jenkins for automated pushes and rollbacks. Typical scenarios include one-click deployment from development to production environments, with business values covering accelerating release cycles, reducing the risk of human errors, and improving resource efficiency.

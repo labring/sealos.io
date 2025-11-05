@@ -1,19 +1,17 @@
 ---
-title: "How do I manage application secrets in a cloud-native environment?"
-description: "In cloud-native environments, application secrets such as API keys or database passwords are sensitive credentials used for authentication and secure access. Their management is crucial to ensure data"
-category: "Cloud-Native Development Environments"
+title: 'How do I manage application secrets in a cloud-native environment?'
+description: 'In cloud-native environments, application secrets such as API keys or database passwords are sensitive credentials used for authentication and secure access. Their management is crucial to ensure data'
+category: 'Cloud-Native Development Environments'
 keywords:
-  - "Data Center (DC)"
-  - "High Availability (HA)"
-  - "DevOps"
-  - "Cloud-Native"
-  - "High Performance"
+  - 'Data Center (DC)'
+  - 'High Availability (HA)'
+  - 'DevOps'
+  - 'Cloud-Native'
+  - 'High Performance'
 ---
 
 In cloud-native environments, application secrets such as API keys or database passwords are sensitive credentials used for authentication and secure access. Their management is crucial to ensure data confidentiality and compliance, prevent unauthorized disclosure, and they are widely used in microservice architectures such as Kubernetes deployments to avoid hardcoding risks.
 
-
 Core components include Kubernetes Secrets (for encrypted storage of key-value pairs) or external tools like HashiCorp Vault (for centralized management), characterized by dynamic updates, least privilege access, and application injection mechanisms. In practical applications, secrets are injected into application containers via Pod volume mounts or environment variables, simplifying configuration changes and enhancing the overall security posture. Impact areas include reducing the attack surface and facilitating agile development.
-
 
 Implementation steps: 1. Create Secret resources using kubectl or YAML definitions. 2. Reference Secrets in Pod deployments (volume mounts or envFrom). 3. Automate secret rotation and audit access logs. Typical scenarios include managing API keys between microservices, with business values of supporting GDPR compliance, reducing data breach risks, and accelerating DevSecOps processes.

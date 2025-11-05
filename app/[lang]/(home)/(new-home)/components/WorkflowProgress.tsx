@@ -65,10 +65,7 @@ function calculateStageRanges(definitions: StageDefinition[]): StageConfig[] {
   });
 }
 
-const stages: StageConfig[] = calculateStageRanges(stageDefinitions);
-
-// 导出配置供外部使用
-export { stages, stageDefinitions };
+export const stages: StageConfig[] = calculateStageRanges(stageDefinitions);
 
 interface StageItemProps {
   stage: StageConfig;

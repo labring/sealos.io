@@ -1,19 +1,17 @@
 ---
-title: "How do you implement log retention policies for cloud-native applications?"
-description: "Log retention policy refers to the method of managing the lifecycle of cloud-native application logs, ensuring that logs meet compliance, troubleshooting, and auditing requirements while controlling s"
-category: "Monitoring and Observability"
+title: 'How do you implement log retention policies for cloud-native applications?'
+description: 'Log retention policy refers to the method of managing the lifecycle of cloud-native application logs, ensuring that logs meet compliance, troubleshooting, and auditing requirements while controlling s'
+category: 'Monitoring and Observability'
 keywords:
-  - "Application Deployment"
-  - "Containerization"
-  - "Cluster Management"
-  - "IT Infrastructure"
-  - "Cloud Operating System"
+  - 'Application Deployment'
+  - 'Containerization'
+  - 'Cluster Management'
+  - 'IT Infrastructure'
+  - 'Cloud Operating System'
 ---
 
 Log retention policy refers to the method of managing the lifecycle of cloud-native application logs, ensuring that logs meet compliance, troubleshooting, and auditing requirements while controlling storage costs. Its importance lies in addressing the massive volume of logs in dynamic microservice environments and is applicable to all Kubernetes cluster applications.
 
-
 The core lies in the collaborative configuration of log agents (such as Fluentd/Fluent Bit) and log storage systems (such as Loki, ES). Key aspects include: defining retention periods (time/size), establishing indexing strategies to accelerate retrieval, and setting up tiered storage (hot/cold data). Practical application needs to integrate with security policies, such as encrypting sensitive fields and achieving multi-tenant isolation through labels.
-
 
 Implementation steps: 1) Analyze compliance and business requirements (such as retention periods required by GDPR/SLA); 2) Declare retention rules in the log collector configuration (e.g., Fluentd's TTL parameters or ES lifecycle policies); 3) Enable automatic cleanup in the storage backend (e.g., Loki's compactor); 4) Monitor log volume and storage costs. This strategy can reduce storage overhead by 30% while ensuring event traceability.

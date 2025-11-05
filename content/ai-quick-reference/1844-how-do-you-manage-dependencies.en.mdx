@@ -1,19 +1,17 @@
 ---
-title: "How do you manage dependencies in cloud-native application development?"
-description: "In cloud-native development, dependency management refers to ensuring the reliable availability of libraries, services (databases, message queues), and infrastructure (configurations, secrets) require"
-category: "Cloud-Native Application Development"
+title: 'How do you manage dependencies in cloud-native application development?'
+description: 'In cloud-native development, dependency management refers to ensuring the reliable availability of libraries, services (databases, message queues), and infrastructure (configurations, secrets) require'
+category: 'Cloud-Native Application Development'
 keywords:
-  - "Lakehouse"
-  - "Cloud-Native"
-  - "Data Center (DC)"
-  - "Cluster Management"
-  - "Cloud Platform"
+  - 'Lakehouse'
+  - 'Cloud-Native'
+  - 'Data Center (DC)'
+  - 'Cluster Management'
+  - 'Cloud Platform'
 ---
 
 In cloud-native development, dependency management refers to ensuring the reliable availability of libraries, services (databases, message queues), and infrastructure (configurations, secrets) required for application runtime. Its core lies in achieving service decoupling, environment consistency, and elastic scaling, which are crucial for ensuring efficient collaboration, rapid deployment, and reliable operation of microservice architectures. Common application scenarios include inter-microservice calls, external data source integration, and middleware usage.
 
-
 The core methods are containerization, service discovery, and declarative configuration. Container images (OCI) package applications and their library dependencies into immutable units. Service discovery (such as Kubernetes Service, DNS) dynamically resolves and connects to required backend services. Declarative APIs (such as Kustomize, Helm Chart) define and version required infrastructure dependencies (such as storage volumes, config maps, external database instances). The Operator pattern can manage the lifecycle of complex stateful dependencies.
-
 
 Implementation steps: First, containerize the application and its direct library dependencies. Second, use service discovery mechanisms to locate network-dependent service endpoints. Third, declare all resource dependencies (K8s objects, configurations) required by the application through Helm Charts or Kustomize. Fourth, integrate external cloud services using CNCF projects (such as ExternalDNS, Crossplane). Finally, adopt Operators to automate the deployment and management of stateful services. The value lies in ensuring cross-environment consistency and dependency self-healing capabilities.

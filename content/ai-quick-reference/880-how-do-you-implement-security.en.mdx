@@ -1,19 +1,17 @@
 ---
-title: "How do you implement security patches in a Kubernetes-based cloud-native environment?"
-description: "Security patches are updates that fix software vulnerabilities and are crucial in dynamic Kubernetes environments. They protect against attacks targeting containers, Kubernetes components, or their de"
-category: "Security and Permission Management"
+title: 'How do you implement security patches in a Kubernetes-based cloud-native environment?'
+description: 'Security patches are updates that fix software vulnerabilities and are crucial in dynamic Kubernetes environments. They protect against attacks targeting containers, Kubernetes components, or their de'
+category: 'Security and Permission Management'
 keywords:
-  - "Cluster Management"
-  - "High Availability (HA)"
-  - "Open-Source Cloud"
-  - "Cloud Operating System"
-  - "Lakehouse"
+  - 'Cluster Management'
+  - 'High Availability (HA)'
+  - 'Open-Source Cloud'
+  - 'Cloud Operating System'
+  - 'Lakehouse'
 ---
 
 Security patches are updates that fix software vulnerabilities and are crucial in dynamic Kubernetes environments. They protect against attacks targeting containers, Kubernetes components, or their dependencies (such as container runtimes, operating systems), preventing data breaches, service disruptions, and compliance risks. This applies to all container-based production application scenarios.
 
-
 The core implementation includes continuous vulnerability scanning (e.g., using Trivy, Clair), adhering to the immutable infrastructure principle (only deploying updated images), declarative deployment (managing manifests through GitOps), canary release/rolling update to control the blast radius, and combining policy as code (OPA/Gatekeeper) to ensure post-patch compliance. Automation is key and needs to be integrated into CI/CD pipelines. Zero-trust network policies reduce the impact of the attack surface.
-
 
 Practical operation steps: 1) Continuously monitor CVE databases and scan images/nodes; 2) Build a new version of the base image containing the patch; 3) Update the image tag in the deployment manifest and commit it to version control (GitOps); 4) Automatically deploy to development/test clusters through the pipeline for verification; 5) Gradually push updates to production using a canary release strategy (e.g., with Argo Rollouts or Flagger); 6) Monitor application performance and stability; 7) Finally complete the rolling update and verify policy compliance. Automated processes significantly shorten the patch window and reduce risks.

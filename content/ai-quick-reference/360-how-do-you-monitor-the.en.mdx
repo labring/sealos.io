@@ -1,19 +1,17 @@
 ---
-title: "How do you monitor the resource consumption during automated deployments?"
-description: "Monitoring resource consumption in automated deployment refers to tracking CPU, memory, storage, and network usage during CI/CD processes to ensure stable and efficient deployments. This monitoring is"
-category: "Automated Deployment"
+title: 'How do you monitor the resource consumption during automated deployments?'
+description: 'Monitoring resource consumption in automated deployment refers to tracking CPU, memory, storage, and network usage during CI/CD processes to ensure stable and efficient deployments. This monitoring is'
+category: 'Automated Deployment'
 keywords:
-  - "Open-Source Cloud"
-  - "Cloud Platform"
-  - "One-Click Deployment"
-  - "Containerization"
-  - "IT Infrastructure"
+  - 'Open-Source Cloud'
+  - 'Cloud Platform'
+  - 'One-Click Deployment'
+  - 'Containerization'
+  - 'IT Infrastructure'
 ---
 
 Monitoring resource consumption in automated deployment refers to tracking CPU, memory, storage, and network usage during CI/CD processes to ensure stable and efficient deployments. This monitoring is crucial for preventing resource bottlenecks, optimizing costs, and ensuring service quality, especially applicable in cloud-native environments with frequent deployments.
 
-
 Core components include: resource metric collection tools (e.g., Prometheus), logging systems (e.g., EFK), and Application Performance Management (APM). It is necessary to monitor build node resources, pipeline execution duration, container startup time, and temporary resource recycling efficiency. Key features include real-time data visualization and baseline threshold alerts (e.g., memory exceeding 80%), which directly impact deployment success rates and rollback decisions.
-
 
 Implementation steps: 1) Integrate monitoring agents into CI/CD toolchains (e.g., Jenkins/GitLab); 2) Configure exporters to expose deployment-related metrics; 3) Establish dashboards to track key resource curves; 4) Set up anomaly alerts (e.g., Pod crashes during rolling updates). This practice can reduce deployment failures caused by insufficient resources and improve release efficiency by over 30%.

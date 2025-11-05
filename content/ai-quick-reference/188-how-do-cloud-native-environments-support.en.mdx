@@ -1,19 +1,17 @@
 ---
-title: "How do cloud-native environments support microservices scaling?"
-description: "Cloud-native environments provide infrastructure and tooling保障 for microservice scaling. Through containerization, dynamic orchestration, and elastic infrastructure, they support rapid, automatic hori"
-category: "Cloud-Native Development Environments"
+title: 'How do cloud-native environments support microservices scaling?'
+description: 'Cloud-native environments provide infrastructure and tooling保障 for microservice scaling. Through containerization, dynamic orchestration, and elastic infrastructure, they support rapid, automatic hori'
+category: 'Cloud-Native Development Environments'
 keywords:
-  - "Lakehouse"
-  - "Cloud Operating System"
-  - "Private Cloud"
-  - "Cloud-Native"
-  - "One-Click Deployment"
+  - 'Lakehouse'
+  - 'Cloud Operating System'
+  - 'Private Cloud'
+  - 'Cloud-Native'
+  - 'One-Click Deployment'
 ---
 
 Cloud-native environments provide infrastructure and tooling保障 for microservice scaling. Through containerization, dynamic orchestration, and elastic infrastructure, they support rapid, automatic horizontal scaling of microservices in response to traffic changes. This is crucial for high-concurrency businesses and rapid iteration scenarios.
 
-
 Core supports include: 1) Kubernetes implements replica-level automatic scaling (HPA/VPA), adjusting the number of instances based on CPU, memory, or custom metrics; 2) Service meshes (e.g., Istio) provide fine-grained traffic management, circuit breaking, and service discovery to ensure reliable communication during scaling; 3) Infrastructure as Code (IaC) and declarative configurations enable rapid resource provisioning and environmental consistency; 4) Stateless design and configuration separation (ConfigMap/Secret) simplify instance creation.
-
 
 Implementation steps include: defining business metric thresholds -> configuring HPA policies -> enabling service mesh traffic control -> optimizing container images and resource requests. The value lies in: elastically responding to peaks to reduce costs, improving system availability, supporting agile delivery, and reducing operational burdens through automation.

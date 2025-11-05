@@ -1,19 +1,17 @@
 ---
-title: "How do you automate the provisioning of logging and monitoring infrastructure using IaC?"
-description: "Infrastructure as Code (IaC) defines and configures infrastructure resources (such as log storage, collectors, and monitoring systems) through code, enabling automation, consistency, and version contr"
-category: "Automation and Infrastructure as Code"
+title: 'How do you automate the provisioning of logging and monitoring infrastructure using IaC?'
+description: 'Infrastructure as Code (IaC) defines and configures infrastructure resources (such as log storage, collectors, and monitoring systems) through code, enabling automation, consistency, and version contr'
+category: 'Automation and Infrastructure as Code'
 keywords:
-  - "Lakehouse"
-  - "Open-Source Cloud"
-  - "IT Infrastructure"
-  - "High Availability (HA)"
-  - "Cloud Platform"
+  - 'Lakehouse'
+  - 'Open-Source Cloud'
+  - 'IT Infrastructure'
+  - 'High Availability (HA)'
+  - 'Cloud Platform'
 ---
 
 Infrastructure as Code (IaC) defines and configures infrastructure resources (such as log storage, collectors, and monitoring systems) through code, enabling automation, consistency, and version control of deployments. This is crucial for efficient operation and maintenance, ensuring complete log collection and real-time operation of monitoring systems, supporting fault troubleshooting and performance optimization.
 
-
 Its core is to use IaC tools (such as Terraform, AWS CDK) to define resources: configure log collection pipelines (such as target addresses of Fluentd, Logstash), deploy monitoring agents (such as Prometheus exporters, CloudWatch Agent), create log storage (such as S3 buckets, Cloud Logging) and monitoring data storage (such as Prometheus, CloudWatch), and set alarm rules (such as Prometheus Alertmanager, CloudWatch Alarms).
-
 
 Implementation steps: 1) Use IaC tool code to define log collectors (Agent configuration and transmission targets), required monitoring repositories, and related alarm rules; 2) Store the code in a versioned manner; 3) Automatically execute the code through CI/CD pipelines and uniformly deploy it to various environments (Dev/Prod); 4) Configurations can be updated repeatedly and consistently when versions are updated. This greatly improves operation and maintenance efficiency and ensures the baseline of system observability.

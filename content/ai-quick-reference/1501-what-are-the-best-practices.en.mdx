@@ -1,19 +1,17 @@
 ---
-title: "What are the best practices for configuring Prometheus for monitoring Kubernetes environments?"
-description: "Prometheus is a core tool in Kubernetes monitoring. It automatically collects time-series metrics, ensuring cluster health, performance, and reliability, and is suitable for cloud-native environments "
-category: "Monitoring and Observability"
+title: 'What are the best practices for configuring Prometheus for monitoring Kubernetes environments?'
+description: 'Prometheus is a core tool in Kubernetes monitoring. It automatically collects time-series metrics, ensuring cluster health, performance, and reliability, and is suitable for cloud-native environments '
+category: 'Monitoring and Observability'
 keywords:
-  - "Data Center (DC)"
-  - "One-Click Deployment"
-  - "Open-Source Cloud"
-  - "IT Infrastructure"
-  - "Sealos"
+  - 'Data Center (DC)'
+  - 'One-Click Deployment'
+  - 'Open-Source Cloud'
+  - 'IT Infrastructure'
+  - 'Sealos'
 ---
 
 Prometheus is a core tool in Kubernetes monitoring. It automatically collects time-series metrics, ensuring cluster health, performance, and reliability, and is suitable for cloud-native environments such as fault detection and performance optimization. Its importance lies in providing real-time visibility, supporting alerts, and analyzing application status.
 
-
 The core components of Prometheus include the service itself, Exporters (such as node-exporter and kube-state-metrics), and configuration components. It collects data through a pull model, with principles relying on service discovery and labeling mechanisms. Practical applications include metric querying, alert triggering, and visualization. Its impact is to improve operational efficiency, enable automatic monitoring, and facilitate fault diagnosis and resource optimization.
-
 
 Best practice steps: 1. Deploy Prometheus Operator to simplify management; 2. Configure ServiceMonitors to automatically discover monitoring targets; 3. Set up Alertmanager to define alert rules; 4. Integrate Grafana for data visualization; 5. Regularly review and optimize resources. A typical scenario is production cluster monitoring, with business values including rapid fault response, cost reduction, and improved service availability.

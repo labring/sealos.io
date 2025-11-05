@@ -12,7 +12,7 @@ interface BlogHeaderProps {
   tags: string[];
 }
 
-export const translations: Record<
+const translations: Record<
   languagesType,
   Record<'cats' | 'all_cats' | 'filter_tag' | 'clear' | 'all_tag', string>
 > = {

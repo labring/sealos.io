@@ -1,19 +1,17 @@
 ---
-title: "How do you ensure that monitoring tools cover all layers of the cloud-native stack?"
-description: "Full-stack monitoring of the cloud-native stack involves covering key layers such as infrastructure, container runtime, orchestration layers like Kubernetes, and application services. It ensures high "
-category: "Monitoring and Observability"
+title: 'How do you ensure that monitoring tools cover all layers of the cloud-native stack?'
+description: 'Full-stack monitoring of the cloud-native stack involves covering key layers such as infrastructure, container runtime, orchestration layers like Kubernetes, and application services. It ensures high '
+category: 'Monitoring and Observability'
 keywords:
-  - "Kubernetes (K8s)"
-  - "Open-Source Cloud"
-  - "Cloud Operating System"
-  - "Cluster Management"
-  - "Lakehouse"
+  - 'Kubernetes (K8s)'
+  - 'Open-Source Cloud'
+  - 'Cloud Operating System'
+  - 'Cluster Management'
+  - 'Lakehouse'
 ---
 
 Full-stack monitoring of the cloud-native stack involves covering key layers such as infrastructure, container runtime, orchestration layers like Kubernetes, and application services. It ensures high availability, performance optimization, and rapid fault diagnosis in distributed cloud environments, suitable for microservices architectures and containerized applications to enhance system reliability and operational efficiency.
 
-
 The core of monitoring coverage includes collecting infrastructure metrics (such as CPU/memory), container health status (via cAdvisor or similar tools), orchestration component data (such as Kubernetes Pod resources), application logs and tracing information (using Jaeger or OpenTelemetry). Integrating Prometheus or Grafana enables unified data analysis and provides real-time visualization, improving operational response speed and system stability.
-
 
 Implementation steps: 1. Define each monitoring layer (from infrastructure to business logic). 2. Deploy complementary tools (such as Prometheus for metrics, Loki for logs). 3. Standardize data formats and correlate context. 4. Configure comprehensive dashboards and alert rules. Typical scenarios include multi-cluster Kubernetes environments. Business values include reducing Mean Time to Repair (MTTR), optimizing resource utilization, lowering costs, and enhancing user satisfaction.

@@ -1,19 +1,17 @@
 ---
-title: "How do you handle service discovery in cloud-native applications?"
-description: "Service discovery is a mechanism in cloud-native applications that automatically manages the network locations of services, ensuring reliable communication in dynamic environments. It is crucial in mi"
-category: "Cloud-Native Application Development"
+title: 'How do you handle service discovery in cloud-native applications?'
+description: 'Service discovery is a mechanism in cloud-native applications that automatically manages the network locations of services, ensuring reliable communication in dynamic environments. It is crucial in mi'
+category: 'Cloud-Native Application Development'
 keywords:
-  - "DevOps"
-  - "Lakehouse"
-  - "Data Center (DC)"
-  - "Cloud Operating System"
-  - "Kubernetes (K8s)"
+  - 'DevOps'
+  - 'Lakehouse'
+  - 'Data Center (DC)'
+  - 'Cloud Operating System'
+  - 'Kubernetes (K8s)'
 ---
 
 Service discovery is a mechanism in cloud-native applications that automatically manages the network locations of services, ensuring reliable communication in dynamic environments. It is crucial in microservices architectures as it supports elastic scaling, rolling updates, and failure recovery, and is applied in service orchestration platforms like Kubernetes to simplify interactions between containers.
 
-
 The core components include service registries (such as Etcd), service query mechanisms (via DNS or API), and built-in load balancing (like the virtual IP of Kubernetes Service). Features include dynamic updates and label matching to avoid hard-coded IPs. In practical applications, Kubernetes Service resources abstract Pod endpoints to enable seamless routing; combining with service meshes (such as Istio) enhances traffic control and security, significantly improving system resilience and operational efficiency.
-
 
 Processing steps include: 1. Define a Kubernetes Service YAML, configuring selectors to match target Pod labels. 2. Automatically register endpoints and handle changes after deployment. 3. Applications access via DNS resolution of service names. Typical scenarios include HTTP request load balancing; business values are automated scaling, reduced configuration errors, and ensuring high availability to support continuous delivery.

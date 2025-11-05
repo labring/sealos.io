@@ -1,19 +1,17 @@
 ---
-title: "How do you implement metrics collection for cloud-native applications?"
-description: "Metric collection is the core of cloud-native application observability, used to monitor application performance, resource usage, and health status, ensuring efficient operation and maintenance as wel"
-category: "Monitoring and Observability"
+title: 'How do you implement metrics collection for cloud-native applications?'
+description: 'Metric collection is the core of cloud-native application observability, used to monitor application performance, resource usage, and health status, ensuring efficient operation and maintenance as wel'
+category: 'Monitoring and Observability'
 keywords:
-  - "High Availability (HA)"
-  - "High Performance"
-  - "Cluster Management"
-  - "One-Click Deployment"
-  - "Containerization"
+  - 'High Availability (HA)'
+  - 'High Performance'
+  - 'Cluster Management'
+  - 'One-Click Deployment'
+  - 'Containerization'
 ---
 
 Metric collection is the core of cloud-native application observability, used to monitor application performance, resource usage, and health status, ensuring efficient operation and maintenance as well as rapid fault response. Its importance lies in supporting auto-scaling, cost optimization, and business continuity, and it is commonly found in Kubernetes environments, such as real-time monitoring scenarios for e-commerce or microservice architectures.
 
-
 The core of this process includes exposing application metric endpoints (e.g., HTTP /metrics), using tools like Prometheus to automatically scrape data, and integrating with a tagging system to support multi-dimensional analysis. Features such as service discovery integration (via ServiceMonitor) and the PromQL query language enable flexible filtering and aggregation. In practical applications, metric data is integrated with Grafana to build visual dashboards and support alarm rule configuration, significantly improving operation and maintenance efficiency, optimizing resource allocation, and enhancing fault diagnosis capabilities.
-
 
 Implementation steps: 1. Embed a metrics library (e.g., Prometheus client) in the application to expose interfaces; 2. Configure Prometheus scraping targets and deploy collectors (DaemonSet or Operator); 3. Dynamically update monitoring targets through service discovery. Typical business values include reducing downtime by 30%-50%, improving application reliability, and enabling data-driven optimization decisions to reduce cloud resource costs.

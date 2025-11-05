@@ -1,19 +1,17 @@
 ---
-title: "How do you secure cloud-native applications from cross-site scripting (XSS)?"
-description: "Cross-Site Scripting (XSS) is a security vulnerability where malicious scripts are injected into web pages and executed, threatening user data and system integrity. Protecting cloud-native application"
-category: "Security and Permission Management"
+title: 'How do you secure cloud-native applications from cross-site scripting (XSS)?'
+description: 'Cross-Site Scripting (XSS) is a security vulnerability where malicious scripts are injected into web pages and executed, threatening user data and system integrity. Protecting cloud-native application'
+category: 'Security and Permission Management'
 keywords:
-  - "Application Deployment"
-  - "Lakehouse"
-  - "High Performance"
-  - "Cloud-Native"
-  - "Containerization"
+  - 'Application Deployment'
+  - 'Lakehouse'
+  - 'High Performance'
+  - 'Cloud-Native'
+  - 'Containerization'
 ---
 
 Cross-Site Scripting (XSS) is a security vulnerability where malicious scripts are injected into web pages and executed, threatening user data and system integrity. Protecting cloud-native applications is crucial because these applications are based on microservices and containerized environments (such as Kubernetes), widely used in dynamic scenarios like e-commerce and financial services, ensuring business continuity and compliance.
 
-
 Core防护机制包括严格的输入验证、安全的输出编码以及内容安全策略（CSP）。在云原生栈中，集成本地化工具如Web应用防火墙（WAF）和服务网格（如Istio），能隔离攻击并监控流量。此措施强化了整体安全态势，减少数据泄露风险并提升系统韧性。
-
 
 Implementation steps: 1. Validate and sanitize all user inputs; 2. Encode HTML or JavaScript for web page outputs; 3. Deploy Content Security Policy headers to restrict script sources; 4. Apply network policies and security contexts in Kubernetes. Typical scenarios such as API gateway configuration can automate defense, bringing business value: reducing attack exposure, enhancing customer trust, and complying with standards like GDPR.

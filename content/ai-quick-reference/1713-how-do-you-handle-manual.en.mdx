@@ -1,19 +1,17 @@
 ---
-title: "How do you handle manual overrides in automated IaC workflows?"
-description: "In the automated Infrastructure as Code (IaC) workflow, manual overrides refer to administrators directly modifying the infrastructure environment without updating the code definitions, which may lead"
-category: "Automation and Infrastructure as Code"
+title: 'How do you handle manual overrides in automated IaC workflows?'
+description: 'In the automated Infrastructure as Code (IaC) workflow, manual overrides refer to administrators directly modifying the infrastructure environment without updating the code definitions, which may lead'
+category: 'Automation and Infrastructure as Code'
 keywords:
-  - "One-Click Deployment"
-  - "Cloud Operating System"
-  - "Sealos"
-  - "Kubernetes (K8s)"
-  - "Application Deployment"
+  - 'One-Click Deployment'
+  - 'Cloud Operating System'
+  - 'Sealos'
+  - 'Kubernetes (K8s)'
+  - 'Application Deployment'
 ---
 
 In the automated Infrastructure as Code (IaC) workflow, manual overrides refer to administrators directly modifying the infrastructure environment without updating the code definitions, which may lead to configuration drift. Its importance lies in maintaining consistency and auditability to avoid operational risks; application scenarios include cloud-native deployments in Kubernetes to ensure synchronization between infrastructure and code.
 
-
 The core principle is based on state management tools (such as Terraform state files) to detect differences and integrate version control systems (such as Git) to track changes. Features include automated pipeline validation and alert mechanisms. In practical applications, manual overrides introduce security vulnerabilities and operational complexity, affecting DevOps efficiency and compliance; in cloud environments, continuous monitoring is required to minimize drift.
-
 
 Steps to handle manual overrides include: 1. Use scanning tools to automatically detect override differences. 2. Audit the source of changes, risks, and business necessity. 3. Restore consistency, such as through code merging or configuration rollback. Typical scenarios include integration back into the pipeline after emergency fixes; business value is to reduce errors, improve system reliability, and cost-effectiveness.

@@ -1,19 +1,17 @@
 ---
-title: "How does Kubernetes integrate with CI/CD pipelines?"
-description: "Integrating Kubernetes with CI/CD pipelines refers to embedding the automation of Kubernetes deployment and management processes into continuous integration and continuous deployment workflows. This i"
-category: "Continuous Integration and Continuous Deployment"
+title: 'How does Kubernetes integrate with CI/CD pipelines?'
+description: 'Integrating Kubernetes with CI/CD pipelines refers to embedding the automation of Kubernetes deployment and management processes into continuous integration and continuous deployment workflows. This i'
+category: 'Continuous Integration and Continuous Deployment'
 keywords:
-  - "Cloud-Native"
-  - "Lakehouse"
-  - "Application Deployment"
-  - "Open-Source Cloud"
-  - "IT Infrastructure"
+  - 'Cloud-Native'
+  - 'Lakehouse'
+  - 'Application Deployment'
+  - 'Open-Source Cloud'
+  - 'IT Infrastructure'
 ---
 
 Integrating Kubernetes with CI/CD pipelines refers to embedding the automation of Kubernetes deployment and management processes into continuous integration and continuous deployment workflows. This integration is crucial as it significantly enhances the speed, reliability, and frequency of software delivery by automating the building, testing, and deployment of containerized applications, serving as a core practice for enabling rapid iteration of cloud-native applications. Typical use cases include automated rollout and environment management for microservices architecture applications.
 
-
 The core of the integration lies in several key环节: First, CI tools (such as Jenkins, GitLab CI) build application container images and push them to image registries (such as Harbor, Docker Hub). Second, CD tools (such as Argo CD, Flux, Spinnaker, or Jenkins itself) deploy the updated images to target clusters using Kubernetes' declarative API (via `kubectl`, client libraries, or GitOps tools). Configurations are typically managed through version-controlled Kubernetes manifest files (YAML/Helm Charts). The GitOps pattern (e.g., Flux/Argo CD) is often adopted, using a Git repository as the single source of truth for the desired state to enable automatic synchronization and auditing. This integration ensures environmental consistency, rapid rollbacks, and continuous delivery.
-
 
 Practical integration steps usually include: 1. Code commits trigger the CI process; 2. CI builds, tests, and pushes the image; 3. CD retrieves the new image and updates the deployment manifest (e.g., modifying the image tag in the Helm Chart); 4. CD tools apply the updated manifest to the Kubernetes cluster; 5. Kubernetes performs a rolling update. This brings business values such as shortening release cycles, reducing human errors, increasing deployment frequency (multiple times per day), and simplifying environment management.

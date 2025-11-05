@@ -1,19 +1,17 @@
 ---
-title: "How do microservices handle data consistency across different services?"
-description: "In a microservices architecture, data consistency refers to maintaining consistent data states across different services, especially since each service has its own independent database. Its importance"
-category: "Microservices Architecture"
+title: 'How do microservices handle data consistency across different services?'
+description: 'In a microservices architecture, data consistency refers to maintaining consistent data states across different services, especially since each service has its own independent database. Its importance'
+category: 'Microservices Architecture'
 keywords:
-  - "Cloud Platform"
-  - "Cluster Management"
-  - "Private Cloud"
-  - "IT Infrastructure"
-  - "Lakehouse"
+  - 'Cloud Platform'
+  - 'Cluster Management'
+  - 'Private Cloud'
+  - 'IT Infrastructure'
+  - 'Lakehouse'
 ---
 
 In a microservices architecture, data consistency refers to maintaining consistent data states across different services, especially since each service has its own independent database. Its importance lies in avoiding business logic errors, such as conflicts between orders and inventory, and ensuring transaction reliability; application scenarios include distributed systems requiring cross-service collaboration like e-commerce transactions and financial payments.
 
-
 The core mechanism is based on the eventual consistency model, supporting asynchronous processing to avoid performance bottlenecks of strong consistency. Key features include the Saga pattern (rolling back partial operations through compensating transactions), event sourcing (recording sequences of state changes), and message queues (e.g., Kafka for event-driven communication). In practical applications, this achieves service decoupling but introduces increased complexity and latency risks, such as the need for fault-tolerant handling when updating inventory.
-
 
 Processing steps: First, design the Saga flow by splitting the transaction into ordered sub-steps, with each step defining a compensation action (e.g., reversing inventory deductions if an order fails); second, adopt an event-driven architecture where services publish domain events and subscribers respond asynchronously; a typical scenario is an order service triggering updates in a payment service. This improves system resilience and supports high concurrency but requires monitoring of eventual consistency latency. Business values include reducing distributed transaction overhead and enhancing scalability.

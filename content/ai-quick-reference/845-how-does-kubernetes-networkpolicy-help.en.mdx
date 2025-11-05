@@ -1,19 +1,17 @@
 ---
-title: "How does Kubernetes NetworkPolicy help with security in cloud-native applications?"
-description: "Kubernetes NetworkPolicy is an API resource used to define network access rules between Pods. It is crucial because it prevents lateral security threats by enforcing traffic isolation within a Kuberne"
-category: "Security and Permission Management"
+title: 'How does Kubernetes NetworkPolicy help with security in cloud-native applications?'
+description: 'Kubernetes NetworkPolicy is an API resource used to define network access rules between Pods. It is crucial because it prevents lateral security threats by enforcing traffic isolation within a Kuberne'
+category: 'Security and Permission Management'
 keywords:
-  - "Containerization"
-  - "Data Center (DC)"
-  - "Sealos"
-  - "Cloud Operating System"
-  - "Cluster Management"
+  - 'Containerization'
+  - 'Data Center (DC)'
+  - 'Sealos'
+  - 'Cloud Operating System'
+  - 'Cluster Management'
 ---
 
 Kubernetes NetworkPolicy is an API resource used to define network access rules between Pods. It is crucial because it prevents lateral security threats by enforcing traffic isolation within a Kubernetes cluster. In cloud-native applications, this applies to microservice architectures, ensuring that only authorized services can communicate and enhancing the overall security baseline.
 
-
 Its core components include namespace association, Pod selector labels, ingress and egress rules, supporting port, protocol, and source/destination filtering. Features such as default denial of all traffic and label-based matching enable fine-grained control. In practical applications, NetworkPolicy restricts access between services, such as blocking non-frontend Pods from connecting to the database, reducing the attack surface; this promotes a zero-trust network and improves cluster compliance and robustness.
-
 
 Implementation steps include: first, creating a NetworkPolicy resource file that defines rules such as allowing communication only between specific Pods; second, applying the policy to the cluster. Typical scenarios include isolating sensitive services or restricting external access. Business value is reflected in enhanced data protection, reduced vulnerability risks, and meeting compliance requirements such as PCI DSS.

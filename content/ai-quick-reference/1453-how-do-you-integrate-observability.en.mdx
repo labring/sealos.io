@@ -1,19 +1,17 @@
 ---
-title: "How do you integrate observability tools with cloud-native infrastructure tools like Kubernetes and Terraform?"
-description: "Observability tools (such as Prometheus, Grafana) collect metrics, logs, and tracing data to provide insights into system operation. In cloud-native environments, integration with Kubernetes (containe"
-category: "Monitoring and Observability"
+title: 'How do you integrate observability tools with cloud-native infrastructure tools like Kubernetes and Terraform?'
+description: 'Observability tools (such as Prometheus, Grafana) collect metrics, logs, and tracing data to provide insights into system operation. In cloud-native environments, integration with Kubernetes (containe'
+category: 'Monitoring and Observability'
 keywords:
-  - "IT Infrastructure"
-  - "Cloud Platform"
-  - "Kubernetes (K8s)"
-  - "Containerization"
-  - "Sealos"
+  - 'IT Infrastructure'
+  - 'Cloud Platform'
+  - 'Kubernetes (K8s)'
+  - 'Containerization'
+  - 'Sealos'
 ---
 
 Observability tools (such as Prometheus, Grafana) collect metrics, logs, and tracing data to provide insights into system operation. In cloud-native environments, integration with Kubernetes (container orchestration platform) and Terraform (Infrastructure as Code tool) is crucial, enabling automated monitoring, rapid troubleshooting, and resource optimization, suitable for large-scale microservice applications.
 
-
 The core includes deploying observability agents (such as Prometheus Operator) in Kubernetes and automatically configuring monitoring resources (such as S3 bucket log output) through Terraform. This integration enhances the visualization of infrastructure and applications, promotes DevOps practices, and improves reliability. Impacts include real-time alerting, cost control, and meeting the dynamic scaling requirements of cloud-native environments.
-
 
 Implementation steps: 1. Orchestrate infrastructure (such as EKS clusters) with Terraform; 2. Deploy Prometheus/Grafana to Kubernetes using Helm to collect metrics; 3. Integrate logging services (such as CloudWatch) with Terraform; 4. Configure dashboard alerts. Typical scenarios achieve second-level monitoring, with business value of accelerating fault recovery by more than 30%.

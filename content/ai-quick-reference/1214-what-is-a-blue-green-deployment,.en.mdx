@@ -1,19 +1,17 @@
 ---
-title: "What is a blue-green deployment, and how does it work in CI/CD pipelines?"
-description: "Blue-green deployment is a software release strategy used to achieve zero-downtime updates by maintaining two separate production environments (blue running the current version and green running the n"
-category: "Continuous Integration and Continuous Deployment"
+title: 'What is a blue-green deployment, and how does it work in CI/CD pipelines?'
+description: 'Blue-green deployment is a software release strategy used to achieve zero-downtime updates by maintaining two separate production environments (blue running the current version and green running the n'
+category: 'Continuous Integration and Continuous Deployment'
 keywords:
-  - "Kubernetes (K8s)"
-  - "Private Cloud"
-  - "Cloud Operating System"
-  - "Cluster Management"
-  - "DevOps"
+  - 'Kubernetes (K8s)'
+  - 'Private Cloud'
+  - 'Cloud Operating System'
+  - 'Cluster Management'
+  - 'DevOps'
 ---
 
 Blue-green deployment is a software release strategy used to achieve zero-downtime updates by maintaining two separate production environments (blue running the current version and green running the new version). It is crucial in CI/CD pipelines, ensuring a seamless deployment process with minimized risk, suitable for systems with high availability requirements such as microservices architectures and cloud-native applications.
 
-
 The core principle involves installing the new version into the green environment before deployment and switching user traffic from blue to green through a load balancer or routing mechanism (such as Kubernetes' Ingress); quick rollback is possible in case of failure. Its characteristics include zero downtime and efficient rollback capability. In practical applications, it is often combined with automated testing to optimize the release process, improving system reliability and deployment frequency.
-
 
 In the CI/CD process, the steps for blue-green deployment are: build the new version and deploy it to the green environment, run automated tests; if passed, switch traffic to the green environment. This brings business values such as imperceptible updates, rapid failure recovery, and increased development iteration speed and user experience.

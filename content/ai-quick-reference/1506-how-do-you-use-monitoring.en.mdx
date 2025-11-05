@@ -1,19 +1,17 @@
 ---
-title: "How do you use monitoring data to optimize cloud-native application performance?"
-description: "Monitoring data is the core basis for performance optimization of cloud-native applications. It comprehensively reflects the health status and performance bottlenecks of applications by collecting rea"
-category: "Monitoring and Observability"
+title: 'How do you use monitoring data to optimize cloud-native application performance?'
+description: 'Monitoring data is the core basis for performance optimization of cloud-native applications. It comprehensively reflects the health status and performance bottlenecks of applications by collecting rea'
+category: 'Monitoring and Observability'
 keywords:
-  - "DevOps"
-  - "Sealos"
-  - "Cloud Platform"
-  - "Lakehouse"
-  - "High Availability (HA)"
+  - 'DevOps'
+  - 'Sealos'
+  - 'Cloud Platform'
+  - 'Lakehouse'
+  - 'High Availability (HA)'
 ---
 
 Monitoring data is the core basis for performance optimization of cloud-native applications. It comprehensively reflects the health status and performance bottlenecks of applications by collecting real-time runtime metrics (such as CPU, memory, latency, error rate), logs, and distributed tracing information. In dynamic environments with microservices and containerization, proactive and continuous monitoring is crucial for ensuring service reliability, improving user experience, optimizing resource utilization, and quickly locating issues.
 
-
 The core optimization process includes: 1. Data collection and aggregation: Use tools such as Prometheus, Fluentd, and Jaeger to collect metrics, logs, and tracing data to form a unified view. 2. Bottleneck identification and analysis: Visualize data through dashboards (such as Grafana) and alert systems (such as Alertmanager), and conduct correlation analysis of anomalies (e.g., high latency accompanied by sudden CPU spikes or frequent GC). 3. Root cause localization: Delve into logs and call chain tracing to identify issues in specific services, APIs, or code modules (such as slow SQL queries, inter-service communication blockages). 4. Data-driven optimization: Implement precise optimizations based on identified issues.
-
 
 Optimization measures may include: Resource adjustment: Optimize Pod requests/limits based on actual usage and enable HPA/VPA for automatic scaling. Code/configuration optimization: Fix inefficient algorithms and database queries, adjust connection pools, caching strategies, and service mesh timeout settings. Architecture improvement: Split services with performance hotspots or introduce asynchronous processing. The continuous iterative optimization loop (monitoring -> analysis -> optimization -> verification) can significantly improve application throughput, reduce latency, reduce resource waste, ultimately enhancing user experience and controlling costs.

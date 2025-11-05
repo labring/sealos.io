@@ -1,19 +1,17 @@
 ---
-title: "How do you ensure cloud-native applications are highly available and fault-tolerant?"
-description: "Cloud-native applications are designed based on container and microservice architectures. High availability ensures continuous service operation, and fault tolerance handles failures without interrupt"
-category: "Cloud-Native Application Development"
+title: 'How do you ensure cloud-native applications are highly available and fault-tolerant?'
+description: 'Cloud-native applications are designed based on container and microservice architectures. High availability ensures continuous service operation, and fault tolerance handles failures without interrupt'
+category: 'Cloud-Native Application Development'
 keywords:
-  - "Cloud Operating System"
-  - "Sealos"
-  - "Private Cloud"
-  - "Lakehouse"
-  - "Data Center (DC)"
+  - 'Cloud Operating System'
+  - 'Sealos'
+  - 'Private Cloud'
+  - 'Lakehouse'
+  - 'Data Center (DC)'
 ---
 
 Cloud-native applications are designed based on container and microservice architectures. High availability ensures continuous service operation, and fault tolerance handles failures without interruption, which is crucial in business scenarios such as e-commerce and finance to avoid losses and enhance user experience.
 
-
 Leveraging Kubernetes core components: deploying multiple replica Pods for redundancy; using liveness and readiness probes to monitor health; load balancing and auto-scaling to handle traffic peaks. Features include self-healing and elasticity, which reduce downtime and improve system reliability in practical applications.
-
 
 Implementation steps: define Deployments to set multiple replicas and rolling updates; configure resource limits and probes; use Services to expose ports; integrate HPA for automatic scaling. Typical scenarios include handling peak traffic, achieving business continuity and user satisfaction.

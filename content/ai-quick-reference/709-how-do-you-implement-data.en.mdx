@@ -1,37 +1,29 @@
 ---
-title: "How do you implement data synchronization across microservices?"
-description: "Data synchronization in a microservices architecture refers to ensuring that data replicas maintained by different services meet consistency requirements, which is crucial for business correctness (e."
-category: "Data Management and Storage"
+title: 'How do you implement data synchronization across microservices?'
+description: 'Data synchronization in a microservices architecture refers to ensuring that data replicas maintained by different services meet consistency requirements, which is crucial for business correctness (e.'
+category: 'Data Management and Storage'
 keywords:
-  - "Kubernetes (K8s)"
-  - "Data Center (DC)"
-  - "Cloud Platform"
-  - "DevOps"
-  - "Cluster Management"
+  - 'Kubernetes (K8s)'
+  - 'Data Center (DC)'
+  - 'Cloud Platform'
+  - 'DevOps'
+  - 'Cluster Management'
 ---
 
 Data synchronization in a microservices architecture refers to ensuring that data replicas maintained by different services meet consistency requirements, which is crucial for business correctness (e.g., order-inventory). It addresses the data silo problem caused by independent databases in distributed systems and serves as the foundation for core scenarios such as inventory deduction and cross-service queries.
 
-
 Core solutions are divided into synchronous and asynchronous categories:
 
+1. Synchronous: Directly reading and writing each other's data through API calls (e.g., REST/gRPC), which is simple but highly coupled and prone to cascading failures;
 
-1) Synchronous: Directly reading and writing each other's data through API calls (e.g., REST/gRPC), which is simple but highly coupled and prone to cascading failures;
-
-
-2) Asynchronous event-driven (mainstream): Services publish domain events (e.g., ""OrderCreated"") to message brokers (Kafka/RabbitMQ), and subscribers update local data after consumption, achieving decoupling with eventual consistency. Common technologies include Change Data Capture (CDC) and Saga transaction patterns (compensation transactions to handle failures).
-
+2. Asynchronous event-driven (mainstream): Services publish domain events (e.g., ""OrderCreated"") to message brokers (Kafka/RabbitMQ), and subscribers update local data after consumption, achieving decoupling with eventual consistency. Common technologies include Change Data Capture (CDC) and Saga transaction patterns (compensation transactions to handle failures).
 
 Implementation steps:
 
-
 1. Evaluate consistency requirements: Choose Saga for strong consistency scenarios (e.g., payments) and CDC for weak consistency scenarios (e.g., user profile updates);
-
 
 2. Deploy event bus: Deploy Kafka clusters via Operators in Kubernetes, configure Topics and ACLs;
 
-
 3. Integrate frameworks: Embed Debezium (CDC) or Axon Framework in applications to publish events, and have consumers listen for updates;
-
 
 4. Monitor and replay: Use Prometheus to track message latency, and leverage Kafka's retained logs to support failure replay. Value: Improves system resilience and supports independent scalability.

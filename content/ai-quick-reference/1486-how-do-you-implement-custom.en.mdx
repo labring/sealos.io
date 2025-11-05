@@ -1,19 +1,17 @@
 ---
-title: "How do you implement custom metrics in cloud-native observability?"
-description: "Cloud-native observability is the practice of monitoring system health through logs, traces, and metrics to ensure transparent application operation. Custom metrics extend standard monitoring to meet "
-category: "Monitoring and Observability"
+title: 'How do you implement custom metrics in cloud-native observability?'
+description: 'Cloud-native observability is the practice of monitoring system health through logs, traces, and metrics to ensure transparent application operation. Custom metrics extend standard monitoring to meet '
+category: 'Monitoring and Observability'
 keywords:
-  - "Cloud-Native"
-  - "Sealos"
-  - "Data Center (DC)"
-  - "DevOps"
-  - "Containerization"
+  - 'Cloud-Native'
+  - 'Sealos'
+  - 'Data Center (DC)'
+  - 'DevOps'
+  - 'Containerization'
 ---
 
 Cloud-native observability is the practice of monitoring system health through logs, traces, and metrics to ensure transparent application operation. Custom metrics extend standard monitoring to meet specific business needs, improving fault localization efficiency and performance optimization. They are widely used in microservice architectures such as Kubernetes, supporting real-time business insights and service reliability assurance.
 
-
 The core components include metric definition tools (e.g., Prometheus client libraries), data collection mechanisms (HTTP endpoints/scraping), and visualization platforms (Grafana). In principle, users define business-related KPIs (such as request latency or user activity) and expose data through APIs; Prometheus scrapes and stores metrics, and analyzes anomalies in conjunction with alert rules. This directly influences operational decisions, accelerates problem resolution and resource optimization, and enhances cloud environment resilience.
-
 
 Implementation steps: 1. Integrate libraries (e.g., prometheus/client_python) in applications to define custom metrics. 2. Expose /metrics endpoints for scraping. 3. Configure Prometheus target discovery rules. 4. Create dashboards in Grafana for visualization. Typical scenarios include monitoring API success rates or e-commerce sales metrics, with business values of reducing operational costs by 20% and improving user retention.

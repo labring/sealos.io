@@ -1,19 +1,17 @@
 ---
-title: "How do you handle containerized application deployment with IaC tools?"
-description: "Managing containerized application deployment using Infrastructure as Code (IaC) tools is a process of defining and automating the configuration of computing resources (such as Kubernetes clusters, ne"
-category: "Automation and Infrastructure as Code"
+title: 'How do you handle containerized application deployment with IaC tools?'
+description: 'Managing containerized application deployment using Infrastructure as Code (IaC) tools is a process of defining and automating the configuration of computing resources (such as Kubernetes clusters, ne'
+category: 'Automation and Infrastructure as Code'
 keywords:
-  - "Kubernetes (K8s)"
-  - "Containerization"
-  - "Sealos"
-  - "IT Infrastructure"
-  - "One-Click Deployment"
+  - 'Kubernetes (K8s)'
+  - 'Containerization'
+  - 'Sealos'
+  - 'IT Infrastructure'
+  - 'One-Click Deployment'
 ---
 
 Managing containerized application deployment using Infrastructure as Code (IaC) tools is a process of defining and automating the configuration of computing resources (such as Kubernetes clusters, networks) and application deployments through versioned, repeatable code. It ensures environment consistency, reduces human errors, improves efficiency, and is a core practice in modern CI/CD and cloud-native operations.
 
-
 The core流程 of IaC tools (e.g., Terraform, AWS CDK, Pulumi) includes: 1) Codifying infrastructure layer definitions (such as creating K8s clusters, load balancers); 2) Container image management (declaring sources like ECR); 3) Application deployment definitions (using Helm charts, Kustomize, or native K8s manifests); 4) Configuration management (Secrets/ConfigMaps IaC-ization). The流程 is typically triggered automatically in CI pipelines to achieve end-to-end automation from code submission to production release.
-
 
 Implementation steps: 1) Select an IaC tool and define infrastructure resources; 2) Version and store application deployment manifests (YAML/Helm); 3) In the CI流程, the IaC tool creates/updates infrastructure as needed; 4) Trigger image building and push to the repository; 5) K8s orchestration tools (e.g., Argo CD) or the IaC itself execute rolling update deployments; 6) Continuously monitor and version changes. The value lies in increasing deployment speed, enabling audit trails and environment consistency, and significantly reducing operational complexity.

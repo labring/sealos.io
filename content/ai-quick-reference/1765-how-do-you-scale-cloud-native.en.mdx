@@ -1,19 +1,17 @@
 ---
-title: "How do you scale cloud-native applications dynamically with IaC tools?"
-description: "Dynamically scaling cloud-native applications using Infrastructure as Code (IaC) tools refers to automating the management of infrastructure resources (such as computing instances, networks, and stora"
-category: "Automation and Infrastructure as Code"
+title: 'How do you scale cloud-native applications dynamically with IaC tools?'
+description: 'Dynamically scaling cloud-native applications using Infrastructure as Code (IaC) tools refers to automating the management of infrastructure resources (such as computing instances, networks, and stora'
+category: 'Automation and Infrastructure as Code'
 keywords:
-  - "Cluster Management"
-  - "Sealos"
-  - "Cloud Operating System"
-  - "High Performance"
-  - "Application Deployment"
+  - 'Cluster Management'
+  - 'Sealos'
+  - 'Cloud Operating System'
+  - 'High Performance'
+  - 'Application Deployment'
 ---
 
 Dynamically scaling cloud-native applications using Infrastructure as Code (IaC) tools refers to automating the management of infrastructure resources (such as computing instances, networks, and storage) required for application operation by writing executable definition files (code), and enabling the ability to automatically scale resources based on predefined policies (such as CPU utilization). Its core value lies in enhancing elasticity, optimizing resource utilization and operational efficiency, and is particularly suitable for scenarios with large traffic fluctuations.
 
-
 The core principles are as follows: 1) Define the required infrastructure state and scaling policies (maximum/minimum number of replicas, trigger metrics, cooldown period) of the application through declarative templates (such as Terraform HCL, AWS CDK); 2) Integrate IaC tools with cloud platform APIs (such as AWS Auto Scaling, Azure VMSS) or Kubernetes orchestrators (through HPA/VPA); 3) Monitoring systems (such as Prometheus, cloud-native monitoring) collect performance metrics (CPU, memory, QPS) in real-time. When the metrics trigger thresholds, the scaling controller automatically invokes IaC logic or cloud APIs to increase or decrease instances (Pod node groups) without manual intervention.
-
 
 Typical steps: 1) Use IaC to define basic resources and application stacks; 2) Configure automatic scaling policies and dependent alarm metric sources in IaC; 3) Integrate monitoring systems and declare scaling rules (such as scaling out when CPU >70%); 4) Deploy and test the effectiveness of the rules. This brings business values such as agile response to demands, avoiding overload to ensure SLA, and accurate pay-as-you-go.

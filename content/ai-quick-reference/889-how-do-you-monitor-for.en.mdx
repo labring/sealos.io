@@ -1,19 +1,17 @@
 ---
-title: "How do you monitor for vulnerabilities in container images used in cloud-native applications?"
-description: "Monitoring container image vulnerabilities in cloud-native applications is a critical step in ensuring application security. Container images are read-only templates for applications and their depende"
-category: "Security and Permission Management"
+title: 'How do you monitor for vulnerabilities in container images used in cloud-native applications?'
+description: 'Monitoring container image vulnerabilities in cloud-native applications is a critical step in ensuring application security. Container images are read-only templates for applications and their depende'
+category: 'Security and Permission Management'
 keywords:
-  - "Lakehouse"
-  - "Data Center (DC)"
-  - "One-Click Deployment"
-  - "Sealos"
-  - "Cluster Management"
+  - 'Lakehouse'
+  - 'Data Center (DC)'
+  - 'One-Click Deployment'
+  - 'Sealos'
+  - 'Cluster Management'
 ---
 
 Monitoring container image vulnerabilities in cloud-native applications is a critical step in ensuring application security. Container images are read-only templates for applications and their dependencies, and vulnerabilities may be maliciously exploited to cause data breaches or service disruptions. In cloud-native environments, due to the dynamic nature and scale of containers, automated monitoring of image vulnerabilities is crucial for maintaining supply chain security and compliance, applied in CI/CD pipelines, image registries, and runtime environments.
 
-
 The core process includes: 1. Using container image scanning tools (such as Trivy, Clair, Anchore, Snyk) to perform static analysis on images and detect included software packages and their known vulnerabilities (CVE); 2. Scanning is usually triggered automatically after the image is built and pushed to the registry (such as Harbor, ECR), or executed during the Kubernetes admission controller phase; 3. Integrating vulnerability databases (such as NVD) to provide the latest threat intelligence; 4. Defining and enforcing security policies based on severity levels. The practical impact is: continuously blocking the deployment of images with high-risk vulnerabilities and reducing runtime risks.
-
 
 Implementation steps are: 1. Tool selection: Integrate Trivy or Clair into the CI pipeline; 2. Automated scanning: Configure automatic scanning after image building and before pushing to the registry; 3. Policy enforcement: Set policies (such as rejecting Critical vulnerabilities) in the registry or K8s admission controller; 4. Centralized visualization and alerting: Aggregate results through security platforms (such as Prisma Cloud, StackRox) and configure alerts; 5. Regular database updates: Ensure that scanners use the latest vulnerability data. Its value lies in significantly reducing the attack surface, meeting security compliance requirements (such as PCI DSS), and maintaining business continuity.

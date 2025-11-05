@@ -1,19 +1,17 @@
 ---
-title: "How do you handle application and service monitoring for cloud-native applications?"
-description: "Application and service monitoring for cloud-native applications refers to the process of tracking service performance, logs, and health status in dynamic cloud environments. It is crucial for observa"
-category: "Cloud-Native Application Development"
+title: 'How do you handle application and service monitoring for cloud-native applications?'
+description: 'Application and service monitoring for cloud-native applications refers to the process of tracking service performance, logs, and health status in dynamic cloud environments. It is crucial for observa'
+category: 'Cloud-Native Application Development'
 keywords:
-  - "High Availability (HA)"
-  - "Private Cloud"
-  - "Sealos"
-  - "Cluster Management"
-  - "Cloud Platform"
+  - 'High Availability (HA)'
+  - 'Private Cloud'
+  - 'Sealos'
+  - 'Cluster Management'
+  - 'Cloud Platform'
 ---
 
 Application and service monitoring for cloud-native applications refers to the process of tracking service performance, logs, and health status in dynamic cloud environments. It is crucial for observability, troubleshooting, and high availability, and is widely used in Kubernetes and microservices architectures.
 
-
 Core components include log aggregation (such as Loki or ELK), metrics monitoring (such as Prometheus), and distributed tracing (such as Jaeger). Real-time data collection and analysis are implemented through service meshes (e.g., Istio) or the Operator pattern to ensure end-to-end visibility, optimize resource utilization, and support rapid recovery. In practical applications, it improves system resilience and performance, and reduces potential failures.
-
 
 The processing steps are as follows: first, deploy a monitoring agent (such as Prometheus Operator); second, configure automatic service discovery and metrics collection; then, set up a dashboard (such as Grafana) and alert rules; finally, integrate logging and tracing tools to cover the container environment. Typical scenarios involve microservices or serverless architectures, and the business values include enhancing system reliability, shortening MTTR, and improving user experience.

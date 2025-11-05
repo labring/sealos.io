@@ -1,19 +1,17 @@
 ---
-title: "How do you implement infrastructure provisioning as part of a CI/CD pipeline?"
-description: "Infrastructure as Code (IaC) is a method of defining and managing infrastructure configurations through code, such as using tools like Terraform or Ansible. Its importance lies in enabling automated, "
-category: "Continuous Integration and Continuous Deployment"
+title: 'How do you implement infrastructure provisioning as part of a CI/CD pipeline?'
+description: 'Infrastructure as Code (IaC) is a method of defining and managing infrastructure configurations through code, such as using tools like Terraform or Ansible. Its importance lies in enabling automated, '
+category: 'Continuous Integration and Continuous Deployment'
 keywords:
-  - "Sealos"
-  - "High Availability (HA)"
-  - "Open-Source Cloud"
-  - "Containerization"
-  - "Application Deployment"
+  - 'Sealos'
+  - 'High Availability (HA)'
+  - 'Open-Source Cloud'
+  - 'Containerization'
+  - 'Application Deployment'
 ---
 
 Infrastructure as Code (IaC) is a method of defining and managing infrastructure configurations through code, such as using tools like Terraform or Ansible. Its importance lies in enabling automated, repeatable deployments, reducing human errors, and improving operational efficiency. Application scenarios include the automated deployment of servers and network resources in cloud environments.
 
-
 Core components include IaC scripts (such as declarative YAML files), CI/CD pipeline tools (such as GitHub Actions or Jenkins), and testing frameworks. Features emphasize version control, atomic changes, and state management. The principle is to store infrastructure as code in a repository, triggering CI/CD for automated testing, validation (e.g., Tfsec), and deployment. In practical applications, this enhances system reliability, ensures environmental consistency, and supports advanced patterns like blue-green deployments.
-
 
 Implementation steps: 1) Write IaC configuration files; 2) Integrate into CI/CD tools and add testing phases; 3) Automatically validate changes; 4) Perform security scans. Typical scenario: When a development team submits code, a test environment is automatically created. Business value: Accelerates time to market, reduces risks, and optimizes resource utilization, for example, reducing manual intervention in Kubernetes cluster deployments.

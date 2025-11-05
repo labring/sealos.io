@@ -1,19 +1,17 @@
 ---
-title: "How does encryption work in cloud-native environments?"
-description: "Encryption is a technical process for protecting data and communications in cloud-native environments, using algorithms such as symmetric encryption (AES) and asymmetric encryption (RSA) to ensure con"
-category: "Security and Permission Management"
+title: 'How does encryption work in cloud-native environments?'
+description: 'Encryption is a technical process for protecting data and communications in cloud-native environments, using algorithms such as symmetric encryption (AES) and asymmetric encryption (RSA) to ensure con'
+category: 'Security and Permission Management'
 keywords:
-  - "Lakehouse"
-  - "Data Center (DC)"
-  - "Open-Source Cloud"
-  - "Sealos"
-  - "One-Click Deployment"
+  - 'Lakehouse'
+  - 'Data Center (DC)'
+  - 'Open-Source Cloud'
+  - 'Sealos'
+  - 'One-Click Deployment'
 ---
 
 Encryption is a technical process for protecting data and communications in cloud-native environments, using algorithms such as symmetric encryption (AES) and asymmetric encryption (RSA) to ensure confidentiality. Its importance lies in preventing unauthorized access and compliance risks, and it is applied in microservice communications, sensitive data storage (e.g., Kubernetes Secrets), and containerized workflows to enhance the overall security posture.
 
-
 Core components include transport layer encryption (e.g., TLS/SSL) to achieve end-to-end security, application layer encryption to protect data at rest, and Key Management Service (KMS) to automate key storage and rotation. Features involve Public Key Infrastructure (PKI) and secret injection mechanisms; the principle is to verify identities through certificate authorities. Practical impacts are reflected in the application of mTLS in service meshes (e.g., Istio), enhancing zero-trust architecture and reducing vulnerability risks.
-
 
 Implementation steps involve configuring certificate managers (e.g., cert-manager) to generate certificates, encrypting storage volumes (e.g., Kubernetes CSI driver integration), and binding KMS (e.g., AWS KMS) to manage secrets. Typical scenarios include encrypting API calls between microservices, with business values of strengthening compliance (e.g., GDPR), enhancing customer trust, and reducing data breach costs.

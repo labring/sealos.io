@@ -1,19 +1,17 @@
 ---
-title: "How do you configure network security for cloud-native applications using Kubernetes NetworkPolicy?"
-description: "Kubernetes NetworkPolicy is a key mechanism for implementing container network security isolation, controlling east-west network communication by defining traffic rules that allow ingress/egress to/fr"
-category: "Security and Permission Management"
+title: 'How do you configure network security for cloud-native applications using Kubernetes NetworkPolicy?'
+description: 'Kubernetes NetworkPolicy is a key mechanism for implementing container network security isolation, controlling east-west network communication by defining traffic rules that allow ingress/egress to/fr'
+category: 'Security and Permission Management'
 keywords:
-  - "Lakehouse"
-  - "Data Center (DC)"
-  - "DevOps"
-  - "Cloud Platform"
-  - "Private Cloud"
+  - 'Lakehouse'
+  - 'Data Center (DC)'
+  - 'DevOps'
+  - 'Cloud Platform'
+  - 'Private Cloud'
 ---
 
 Kubernetes NetworkPolicy is a key mechanism for implementing container network security isolation, controlling east-west network communication by defining traffic rules that allow ingress/egress to/from Pods. Its importance lies in implementing a ""zero-trust"" security model to prevent lateral spread of attacks within containers in the cluster. Main application scenarios include isolating sensitive applications (such as databases), dividing development/testing/production environments, and meeting compliance requirements.
 
-
 Core components include: 1. Pod Selector (`.spec.podSelector`): Identifies the target Pods to which the policy applies. 2. Policy Types (`ingress`/`egress`): Control traffic entering and exiting Pods, respectively. 3. Rules (`from`/`to`): Explicitly allowed traffic sources or destinations based on IP blocks, namespace selectors, or specific Pod selectors. Its characteristics are declarative configuration, namespace-scoped, and a default policy that allows all traffic by default. Its application has profoundly influenced cloud-native security architecture, enabling fine-grained network isolation between microservices.
-
 
 Configuration steps: 1. Define the policy object: Create a YAML file declaring the namespace, target Pods, and type (Ingress/Egress). 2. Configure rules: Set `ingress`/`egress` rules, using `namespaceSelector`, `podSelector`, and `ipBlock` to specify permitted traffic. 3. Apply the policy: `kubectl apply -f <policy-file>.yaml`. The business value lies in implementing the principle of least privilege for network access, significantly reducing the risk of unauthorized access and data leakage, and supporting the security foundation of advanced architectures such as service meshes.

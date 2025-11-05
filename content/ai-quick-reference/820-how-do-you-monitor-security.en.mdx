@@ -1,19 +1,17 @@
 ---
-title: "How do you monitor security in cloud-native environments?"
-description: "Monitoring the security of cloud-native environments requires integrating multiple tools and processes. The core lies in achieving runtime visibility, threat detection, compliance verification, and co"
-category: "Security and Permission Management"
+title: 'How do you monitor security in cloud-native environments?'
+description: 'Monitoring the security of cloud-native environments requires integrating multiple tools and processes. The core lies in achieving runtime visibility, threat detection, compliance verification, and co'
+category: 'Security and Permission Management'
 keywords:
-  - "Lakehouse"
-  - "One-Click Deployment"
-  - "Sealos"
-  - "Open-Source Cloud"
-  - "Cloud Platform"
+  - 'Lakehouse'
+  - 'One-Click Deployment'
+  - 'Sealos'
+  - 'Open-Source Cloud'
+  - 'Cloud Platform'
 ---
 
 Monitoring the security of cloud-native environments requires integrating multiple tools and processes. The core lies in achieving runtime visibility, threat detection, compliance verification, and continuous protection, which is particularly crucial in dynamic, auto-scaling microservices and container environments.
 
-
 Key practices include: enabling and collecting Kubernetes audit logs at the cluster level; deploying runtime security tools (such as Falco) to monitor abnormal container behavior; using service meshes to implement network policy monitoring; scanning images and configurations in CI/CD pipelines (e.g., using Trivy, Checkov); and implementing admission control (e.g., OPA/Gatekeeper). A centralized SIEM/SOAR platform is used to aggregate, correlate, analyze alerts, and automate responses.
-
 
 Specific implementation steps: First, establish security baselines (such as CIS benchmarks). Then deploy necessary monitoring and security agents. Next, enforce scanning and policies through CI/CD. Finally, centralize logs and events to the security platform for real-time analysis, alerting, and automated processing. Continuously hardening the image supply chain and configurations is key to success.

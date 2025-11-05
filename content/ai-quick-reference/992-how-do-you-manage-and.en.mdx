@@ -1,19 +1,17 @@
 ---
-title: "How do you manage and secure cloud-native secrets using vault systems?"
-description: "Vault is a secret management tool developed by HashiCorp, used for securely storing and accessing sensitive data such as API keys and certificates. In cloud-native environments, it is crucial as it pr"
-category: "Security and Permission Management"
+title: 'How do you manage and secure cloud-native secrets using vault systems?'
+description: 'Vault is a secret management tool developed by HashiCorp, used for securely storing and accessing sensitive data such as API keys and certificates. In cloud-native environments, it is crucial as it pr'
+category: 'Security and Permission Management'
 keywords:
-  - "Cloud Operating System"
-  - "Kubernetes (K8s)"
-  - "Data Center (DC)"
-  - "DevOps"
-  - "Cloud-Native"
+  - 'Cloud Operating System'
+  - 'Kubernetes (K8s)'
+  - 'Data Center (DC)'
+  - 'DevOps'
+  - 'Cloud-Native'
 ---
 
 Vault is a secret management tool developed by HashiCorp, used for securely storing and accessing sensitive data such as API keys and certificates. In cloud-native environments, it is crucial as it provides centralized control to reduce leakage risks, and is applied in Kubernetes and containerized services to ensure key isolation and compliance.
 
-
 Its core components include secret engines (such as dynamic key generation and encryption services), access policies, and audit logs, with features of high availability and automatic rotation. In practical applications, it integrates with Kubernetes to inject secrets through sidecar containers, enabling automated management and replacing local storage, thereby enhancing the security of the cloud-native ecosystem.
-
 
 Implementation steps: Deploy a Vault cluster, configure identity authentication (such as AppRole or Kubernetes service account), store keys through secret engines, and call APIs in microservices to retrieve them. A typical scenario is CI/CD pipelines, and the business value lies in enhancing security compliance, simplifying operations and maintenance, and reducing the risk of manual errors.

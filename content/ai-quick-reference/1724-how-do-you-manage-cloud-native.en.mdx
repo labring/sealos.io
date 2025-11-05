@@ -1,19 +1,17 @@
 ---
-title: "How do you manage cloud-native networking resources (like VPNs and firewalls) with IaC?"
-description: "Infrastructure as Code (IaC) uses code to define and manage infrastructure resources (such as VPN gateways and firewall rules in cloud-native networks) instead of manual operations. It is crucial beca"
-category: "Automation and Infrastructure as Code"
+title: 'How do you manage cloud-native networking resources (like VPNs and firewalls) with IaC?'
+description: 'Infrastructure as Code (IaC) uses code to define and manage infrastructure resources (such as VPN gateways and firewall rules in cloud-native networks) instead of manual operations. It is crucial beca'
+category: 'Automation and Infrastructure as Code'
 keywords:
-  - "High Availability (HA)"
-  - "Open-Source Cloud"
-  - "Application Deployment"
-  - "IT Infrastructure"
-  - "Cloud Operating System"
+  - 'High Availability (HA)'
+  - 'Open-Source Cloud'
+  - 'Application Deployment'
+  - 'IT Infrastructure'
+  - 'Cloud Operating System'
 ---
 
 Infrastructure as Code (IaC) uses code to define and manage infrastructure resources (such as VPN gateways and firewall rules in cloud-native networks) instead of manual operations. It is crucial because it enables automation, consistency, version control, reduces human errors, and can efficiently and repeatably orchestrate complex cloud network topologies to support microservice communication and security policies.
 
-
 At its core, it utilizes IaC tools such as Terraform, Pulumi, Ansible, or specific cloud platform IaC tools (e.g., AWS CDK, Azure Bicep, GCP Deployment Manager). Users define network resource states, connection relationships, and policies (such as routing, security groups, VPC peering, cloud firewall rules, VPN tunnel configurations) using declarative or imperative code. Through automated workflows (CI/CD), the code is applied to the target cloud environment to create or update resources, ensuring that the actual state matches the desired state defined by the code.
-
 
 Implementation steps include: 1) Selecting an IaC tool; 2) Precisely describing the required VPN, firewall rules, and routing policies in code; 3) Integrating the code into a version control system; 4) Executing deployment (such as `terraform apply`) in conjunction with an automated pipeline. Typical scenarios include quickly deploying firewall rules for isolated application environments, automating cross-cloud VPN connection configurations, and batch updating security policies. The main value lies in improving network operation and maintenance efficiency, consistency, security, supporting agile iterations, and achieving the auditability of infrastructure as an asset.

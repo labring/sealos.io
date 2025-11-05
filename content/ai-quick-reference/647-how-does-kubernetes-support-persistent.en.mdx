@@ -1,19 +1,17 @@
 ---
-title: "How does Kubernetes support persistent volumes for stateful applications?"
-description: "Kubernetes provides persistent storage for stateful applications (such as databases) through the mechanisms of Persistent Volumes (PV) and Persistent Volume Claims (PVC). This is crucial for ensuring "
-category: "Data Management and Storage"
+title: 'How does Kubernetes support persistent volumes for stateful applications?'
+description: 'Kubernetes provides persistent storage for stateful applications (such as databases) through the mechanisms of Persistent Volumes (PV) and Persistent Volume Claims (PVC). This is crucial for ensuring '
+category: 'Data Management and Storage'
 keywords:
-  - "Cloud Platform"
-  - "Private Cloud"
-  - "High Availability (HA)"
-  - "Sealos"
-  - "Lakehouse"
+  - 'Cloud Platform'
+  - 'Private Cloud'
+  - 'High Availability (HA)'
+  - 'Sealos'
+  - 'Lakehouse'
 ---
 
 Kubernetes provides persistent storage for stateful applications (such as databases) through the mechanisms of Persistent Volumes (PV) and Persistent Volume Claims (PVC). This is crucial for ensuring that data is not lost when containers restart or migrate, and is suitable for application scenarios that require stable storage states.
 
-
 PVs are storage resources in the cluster, pre-provisioned by administrators or dynamically provisioned through StorageClasses. PVCs are user requests for storage, which are mounted to Pods after binding. PVs support multiple backend storage options (such as cloud disks, NFS) and enable automated provisioning and lifecycle management through storage classes, ensuring data persistence.
-
 
 Implementation steps: 1. Create a StorageClass to define the storage type. 2. Developers request storage resources through PVCs. 3. Kubernetes automatically binds a matching PV or dynamically creates one. 4. Mount the PVC to the specified path in the Pod. This solution provides data reliability and supports uninterrupted operation and maintenance of critical services such as databases.

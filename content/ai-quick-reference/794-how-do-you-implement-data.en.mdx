@@ -1,19 +1,17 @@
 ---
-title: "How do you implement data archiving for long-term retention in cloud-native systems?"
-description: "Data archiving refers to moving infrequently accessed data to low-cost storage for long-term retention. In cloud-native systems, its importance lies in ensuring compliance, reducing storage costs, and"
-category: "Data Management and Storage"
+title: 'How do you implement data archiving for long-term retention in cloud-native systems?'
+description: 'Data archiving refers to moving infrequently accessed data to low-cost storage for long-term retention. In cloud-native systems, its importance lies in ensuring compliance, reducing storage costs, and'
+category: 'Data Management and Storage'
 keywords:
-  - "High Performance"
-  - "Cluster Management"
-  - "Application Deployment"
-  - "Lakehouse"
-  - "DevOps"
+  - 'High Performance'
+  - 'Cluster Management'
+  - 'Application Deployment'
+  - 'Lakehouse'
+  - 'DevOps'
 ---
 
 Data archiving refers to moving infrequently accessed data to low-cost storage for long-term retention. In cloud-native systems, its importance lies in ensuring compliance, reducing storage costs, and optimizing resource usage, especially suitable for microservice applications managed by Kubernetes, such as archiving historical logs or audit data.
 
-
 Core components include object storage services (e.g., AWS S3 Glacier or S3-compatible buckets), combined with data lifecycle policies to automatically transfer data. Features include durability, scalability, and automated management, such as handling backups of Kubernetes persistent volumes through tools like Velero. In practical applications, it improves data governance efficiency and reduces primary storage load by over 50%.
-
 
 Implementation steps: First, select a cloud storage service (e.g., configure AWS S3); second, set up archiving policies to define retention rules (e.g., automatic archiving after 30 days); third, integrate tools (e.g., Velero scripts) to achieve automation; finally, monitor the archiving status. Typical scenarios include regulatory data retention, with business values of reducing storage costs by 70% and ensuring compliance such as GDPR.

@@ -1,19 +1,17 @@
 ---
-title: "How do you manage dependencies in IaC scripts and modules?"
-description: "Dependency management involves handling the resource order and compatibility between IaC scripts and modules to ensure reliable and consistent deployment. Its importance lies in preventing conflicts, "
-category: "Automation and Infrastructure as Code"
+title: 'How do you manage dependencies in IaC scripts and modules?'
+description: 'Dependency management involves handling the resource order and compatibility between IaC scripts and modules to ensure reliable and consistent deployment. Its importance lies in preventing conflicts, '
+category: 'Automation and Infrastructure as Code'
 keywords:
-  - "Cloud-Native"
-  - "Open-Source Cloud"
-  - "Data Center (DC)"
-  - "Private Cloud"
-  - "Kubernetes (K8s)"
+  - 'Cloud-Native'
+  - 'Open-Source Cloud'
+  - 'Data Center (DC)'
+  - 'Private Cloud'
+  - 'Kubernetes (K8s)'
 ---
 
 Dependency management involves handling the resource order and compatibility between IaC scripts and modules to ensure reliable and consistent deployment. Its importance lies in preventing conflicts, ensuring reproducible infrastructure, and is applied in cloud-native environments such as automated configuration for Kubernetes.
 
-
 Core components include module dependency declaration, version locking (such as semantic versioning), and dependency resolution mechanisms (such as Terraform's dependency graph). Features include explicit definition and atomic updates. In practical applications, it improves collaboration efficiency and affects deployment maintainability and scalability.
-
 
 Implementation steps: design scripts modularly; use Git for version management; integrate dependency tools for automatic resolution. A typical scenario is in CI/CD pipelines, such as pre-deployment testing. Business values include reducing errors, accelerating iterations, and enhancing infrastructure compliance.

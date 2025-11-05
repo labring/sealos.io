@@ -1,19 +1,17 @@
 ---
-title: "How do you improve cloud-native application resilience to failure?"
-description: "Cloud-native applications achieve rapid deployment and scaling through technologies such as containerization and microservices. Fault recovery capability refers to automatically restoring system avail"
-category: "Cloud-Native Application Development"
+title: 'How do you improve cloud-native application resilience to failure?'
+description: 'Cloud-native applications achieve rapid deployment and scaling through technologies such as containerization and microservices. Fault recovery capability refers to automatically restoring system avail'
+category: 'Cloud-Native Application Development'
 keywords:
-  - "Cloud Operating System"
-  - "DevOps"
-  - "Application Deployment"
-  - "Containerization"
-  - "Sealos"
+  - 'Cloud Operating System'
+  - 'DevOps'
+  - 'Application Deployment'
+  - 'Containerization'
+  - 'Sealos'
 ---
 
 Cloud-native applications achieve rapid deployment and scaling through technologies such as containerization and microservices. Fault recovery capability refers to automatically restoring system availability when partial failures occur, which is crucial for high-availability businesses such as e-commerce and financial transactions, and can minimize downtime losses.
 
-
 The core includes Kubernetes' self-healing mechanisms, such as health probes (Liveness/Readiness) to monitor container status and automatically restart failed instances, combined with service meshes (such as Istio) to implement traffic management. In practical applications, it improves application resilience, reduces the impact of single points of failure through redundant multiple replicas and distributed architecture, and promotes business continuity.
-
 
 Implementation steps: 1. Microservice-based application to isolate fault sources; 2. Deploy to Kubernetes to enable health detection; 3. Configure automatic scaling and multi-availability zone redundancy; 4. Integrate log monitoring (such as Prometheus). Business values include enhancing user experience and reducing cost losses.

@@ -1,19 +1,17 @@
 ---
-title: "How do you implement network performance monitoring in cloud-native environments?"
-description: "In cloud-native environments, network performance monitoring is crucial for ensuring high reliability and low latency of distributed applications, applicable to communication and traffic management sc"
-category: "Monitoring and Observability"
+title: 'How do you implement network performance monitoring in cloud-native environments?'
+description: 'In cloud-native environments, network performance monitoring is crucial for ensuring high reliability and low latency of distributed applications, applicable to communication and traffic management sc'
+category: 'Monitoring and Observability'
 keywords:
-  - "Kubernetes (K8s)"
-  - "Open-Source Cloud"
-  - "Private Cloud"
-  - "Cloud-Native"
-  - "Sealos"
+  - 'Kubernetes (K8s)'
+  - 'Open-Source Cloud'
+  - 'Private Cloud'
+  - 'Cloud-Native'
+  - 'Sealos'
 ---
 
 In cloud-native environments, network performance monitoring is crucial for ensuring high reliability and low latency of distributed applications, applicable to communication and traffic management scenarios under microservice architectures.
 
-
 The core components include using tools like Prometheus to collect metrics, eBPF for network tracing, and combining with distributed tracing systems to achieve end-to-end visibility; in practical applications, it can diagnose bottlenecks, optimize topology, enhance observability, and reduce fault risks.
-
 
 Implementation steps: Deploy a service mesh (such as Istio), enable network monitoring, set up monitoring agents (such as CNI plugins) in the Kubernetes cluster, and configure metric alerts; typical scenarios monitor inter-service latency to bring business value such as reducing downtime and improving user experience.

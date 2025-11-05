@@ -1,19 +1,17 @@
 ---
-title: "How does cloud-native development support continuous integration pipelines?"
-description: "Cloud-native development strongly supports continuous integration (CI) pipelines through its core technology stack (containers, microservices, Kubernetes orchestration, and declarative APIs). It enhan"
-category: "Cloud-Native Development Environments"
+title: 'How does cloud-native development support continuous integration pipelines?'
+description: 'Cloud-native development strongly supports continuous integration (CI) pipelines through its core technology stack (containers, microservices, Kubernetes orchestration, and declarative APIs). It enhan'
+category: 'Cloud-Native Development Environments'
 keywords:
-  - "Data Center (DC)"
-  - "Open-Source Cloud"
-  - "High Performance"
-  - "Lakehouse"
-  - "One-Click Deployment"
+  - 'Data Center (DC)'
+  - 'Open-Source Cloud'
+  - 'High Performance'
+  - 'Lakehouse'
+  - 'One-Click Deployment'
 ---
 
 Cloud-native development strongly supports continuous integration (CI) pipelines through its core technology stack (containers, microservices, Kubernetes orchestration, and declarative APIs). It enhances software delivery speed, reliability, and adaptability, and is particularly crucial in microservice architectures that require rapid iteration, elastic scaling, and complex deployments.
 
-
 Its core lies in microservice decomposition enabling independent component building and testing; containerization ensuring environmental consistency and eliminating the ""it works on my machine"" issue; and orchestration tools like Kubernetes dynamically providing temporary testing environments and managing resources. This achieves seamless integration from automated building and testing to environment deployment, significantly shortening feedback cycles, improving software quality, and optimizing resource utilization.
-
 
 In practice, developers submit code to a Git repository to trigger the CI process. Container images are built and pushed to a repository (e.g., Harbor), and Kubernetes automatically deploys them to an isolated namespace for testing based on declarative configurations. Combined with the GitOps model, the pipeline automates rolling updates through IaC, enabling frequent, secure, and rollback-capable releases, which greatly accelerates time-to-market and ensures stability.

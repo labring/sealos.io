@@ -1,19 +1,17 @@
 ---
-title: "How do cloud-native environments handle persistent storage for stateful applications?"
-description: "In a cloud-native environment, persistent storage is a key mechanism to ensure data consistency for stateful applications such as databases or message queues. Its importance lies in supporting data pe"
-category: "Cloud-Native Development Environments"
+title: 'How do cloud-native environments handle persistent storage for stateful applications?'
+description: 'In a cloud-native environment, persistent storage is a key mechanism to ensure data consistency for stateful applications such as databases or message queues. Its importance lies in supporting data pe'
+category: 'Cloud-Native Development Environments'
 keywords:
-  - "Application Deployment"
-  - "Cloud Operating System"
-  - "Kubernetes (K8s)"
-  - "Data Center (DC)"
-  - "Cloud-Native"
+  - 'Application Deployment'
+  - 'Cloud Operating System'
+  - 'Kubernetes (K8s)'
+  - 'Data Center (DC)'
+  - 'Cloud-Native'
 ---
 
 In a cloud-native environment, persistent storage is a key mechanism to ensure data consistency for stateful applications such as databases or message queues. Its importance lies in supporting data persistence during container restarts, migrations, or failures to prevent data loss. Application scenarios include running stateful services like MySQL and Redis in Kubernetes clusters, which are used in critical business systems for e-commerce or financial services.
 
-
 Core components include Kubernetes' Persistent Volume (PV), Persistent Volume Claim (PVC), and Storage Classes. PV represents actual storage resources (such as cloud disks or NFS), PVC declares storage requirements by applications, and Storage Classes dynamically configure storage backends. This abstracts and automates storage resource management, supporting high availability, scalability, and seamless integration with multiple storage providers (such as AWS EBS or Azure Disk).
-
 
 Implementation steps: Define a Storage Class to describe storage characteristics; create a PVC specifying size and access mode; the application Pod uses persistent storage by mounting the PVC through a Volume. A typical scenario is deploying stateful applications (such as MongoDB). Business values include data persistence supporting zero-downtime upgrades, easy horizontal scaling, cost reduction, and improved overall reliability.

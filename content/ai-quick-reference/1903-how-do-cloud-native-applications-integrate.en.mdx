@@ -1,19 +1,17 @@
 ---
-title: "How do cloud-native applications integrate with cloud-native logging solutions?"
-description: "Cloud-native applications are microservice architectures that dynamically scale in cloud environments, emphasizing containerization and elasticity. Cloud-native logging solutions such as Prometheus an"
-category: "Cloud-Native Application Development"
+title: 'How do cloud-native applications integrate with cloud-native logging solutions?'
+description: 'Cloud-native applications are microservice architectures that dynamically scale in cloud environments, emphasizing containerization and elasticity. Cloud-native logging solutions such as Prometheus an'
+category: 'Cloud-Native Application Development'
 keywords:
-  - "Open-Source Cloud"
-  - "High Performance"
-  - "IT Infrastructure"
-  - "Kubernetes (K8s)"
-  - "Cloud Platform"
+  - 'Open-Source Cloud'
+  - 'High Performance'
+  - 'IT Infrastructure'
+  - 'Kubernetes (K8s)'
+  - 'Cloud Platform'
 ---
 
 Cloud-native applications are microservice architectures that dynamically scale in cloud environments, emphasizing containerization and elasticity. Cloud-native logging solutions such as Prometheus and Loki provide log collection, storage, and analysis capabilities. Integration is crucial for monitoring, ensuring observability, rapid fault diagnosis, and compliance fulfillment, and is widely used in production environments of Kubernetes platforms.
 
-
 Core components include log collectors (e.g., Fluentd or OpenTelemetry), centralized storage (e.g., Elasticsearch or Loki), and analysis tools (e.g., Grafana). Features include real-time log stream processing, tag-based querying, and alert mechanisms, with the principle of capturing logs through container standard output and proxy transmission. In practical applications, deploying DaemonSet in Kubernetes enables automated integration, significantly improving operational efficiency and supporting rapid incident response and performance optimization.
-
 
 Implementation steps include: 1) Applications output logs to standard output or files; 2) Deploy log agent components (e.g., collecting using Fluentd DaemonSet); 3) Configure backend storage integration (e.g., pushing to Loki or Elasticsearch); 4) Use dashboard tools for querying and analysis. Typical scenarios include troubleshooting of online services, with business values involving reducing downtime, enhancing system reliability, and lowering operational costs.

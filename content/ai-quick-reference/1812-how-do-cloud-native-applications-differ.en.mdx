@@ -1,19 +1,17 @@
 ---
-title: "How do cloud-native applications differ in terms of deployment compared to traditional monolithic applications?"
-description: "Cloud-native application deployment is based on microservice architecture and containerization (such as Docker), emphasizing independent release, on-demand scaling, and automation. Traditional monolit"
-category: "Cloud-Native Application Development"
+title: 'How do cloud-native applications differ in terms of deployment compared to traditional monolithic applications?'
+description: 'Cloud-native application deployment is based on microservice architecture and containerization (such as Docker), emphasizing independent release, on-demand scaling, and automation. Traditional monolit'
+category: 'Cloud-Native Application Development'
 keywords:
-  - "Sealos"
-  - "One-Click Deployment"
-  - "IT Infrastructure"
-  - "Private Cloud"
-  - "Lakehouse"
+  - 'Sealos'
+  - 'One-Click Deployment'
+  - 'IT Infrastructure'
+  - 'Private Cloud'
+  - 'Lakehouse'
 ---
 
 Cloud-native application deployment is based on microservice architecture and containerization (such as Docker), emphasizing independent release, on-demand scaling, and automation. Traditional monolithic application deployment involves the overall release or update of a single codebase. Cloud-native deployment is crucial for achieving rapid iteration, high availability, and efficient resource utilization, and is suitable for scenarios requiring elastic scaling and continuous delivery.
 
-
 The core difference lies in the deployment unit and process. Cloud-native applications use independently containerized microservices as deployment units, supporting rolling updates and blue-green deployments; automation is achieved through CI/CD pipelines; orchestrators like Kubernetes are relied on to manage declarative configurations and service discovery. Traditional applications are deployed as entire application packages or virtual machines, requiring downtime for updates, scaling by overall replication, relying on manual operations or simple scripts, resulting in poor flexibility.
-
 
 Cloud-native deployment achieves agility and resilience. Typical practical steps are usually: 1) Independently building container images for microservices; 2) Automating testing and pushing images through CI/CD pipelines; 3) Orchestration platforms (such as K8s) automatically deploying/updating instances according to declarative configurations; 4) Dynamically scaling based on traffic. Compared with monolithic applications, it significantly shortens the release time window, supports fine-grained scaling to reduce costs, and ensures business continuity.

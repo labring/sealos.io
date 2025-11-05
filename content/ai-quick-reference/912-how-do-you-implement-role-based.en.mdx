@@ -1,19 +1,17 @@
 ---
-title: "How do you implement role-based access control (RBAC) for serverless applications?"
-description: "Role-Based Access Control (RBAC) is a permission management mechanism that assigns access rights based on user roles rather than individuals. It simplifies security management and ensures minimal reso"
-category: "Security and Permission Management"
+title: 'How do you implement role-based access control (RBAC) for serverless applications?'
+description: 'Role-Based Access Control (RBAC) is a permission management mechanism that assigns access rights based on user roles rather than individuals. It simplifies security management and ensures minimal reso'
+category: 'Security and Permission Management'
 keywords:
-  - "Lakehouse"
-  - "High Performance"
-  - "Cloud Platform"
-  - "Private Cloud"
-  - "Cluster Management"
+  - 'Lakehouse'
+  - 'High Performance'
+  - 'Cloud Platform'
+  - 'Private Cloud'
+  - 'Cluster Management'
 ---
 
 Role-Based Access Control (RBAC) is a permission management mechanism that assigns access rights based on user roles rather than individuals. It simplifies security management and ensures minimal resource access in serverless applications, applicable to scenarios involving cloud functions such as AWS Lambda.
 
-
 The core components of RBAC include role definition, permission mapping, and policy enforcement. It achieves granular control by creating roles (e.g., administrator or read-only user) and binding specific permissions (e.g., API calls or data access). Integration with cloud services like AWS IAM Roles or Azure AD enables automatic permission verification during function execution, reducing the risk of configuration errors and supporting compliance auditing.
-
 
 Implementation steps: Identify role and permission requirements; create roles on the cloud platform and attach policy documents; bind roles to users or service accounts; test permissions using tools such as CLI or UI. Application scenarios include API authorization, and the business value lies in enhancing security and operational efficiency.

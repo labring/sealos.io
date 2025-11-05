@@ -1,19 +1,17 @@
 ---
-title: "How do you handle large monolithic applications in CI/CD pipelines?"
-description: "Large monolithic applications handle complex deployments in CI/CD pipelines. Due to their large scale and high coupling, they result in slow build testing and increased risks. Their importance lies in"
-category: "Continuous Integration and Continuous Deployment"
+title: 'How do you handle large monolithic applications in CI/CD pipelines?'
+description: 'Large monolithic applications handle complex deployments in CI/CD pipelines. Due to their large scale and high coupling, they result in slow build testing and increased risks. Their importance lies in'
+category: 'Continuous Integration and Continuous Deployment'
 keywords:
-  - "Cloud Platform"
-  - "Cloud-Native"
-  - "Cloud Operating System"
-  - "Kubernetes (K8s)"
-  - "DevOps"
+  - 'Cloud Platform'
+  - 'Cloud-Native'
+  - 'Cloud Operating System'
+  - 'Kubernetes (K8s)'
+  - 'DevOps'
 ---
 
 Large monolithic applications handle complex deployments in CI/CD pipelines. Due to their large scale and high coupling, they result in slow build testing and increased risks. Their importance lies in accelerating software delivery, supporting the stable evolution of enterprise-level systems, and being applied in e-commerce platforms or the modernization migration of traditional enterprise software.
 
-
 Core strategies include incremental refactoring into microservices, optimizing test layering (such as prioritizing unit tests), and utilizing containerization (such as Docker) for isolated deployments. In practical applications, shortening cycles through phased deployments (such as blue-green deployment) and parallel builds significantly increases deployment frequency, reduces downtime, and supports cloud-native transformation.
-
 
 Implementation steps: 1) Evaluate the potential for application module division; 2) Refactor in chunks and enable partial CI/CD automation; 3) Integrate monitoring tools to ensure rollback security. Typical scenarios involve reducing monolithic dependencies and achieving progressive delivery. Business values include rapid iteration, high availability, and cost optimization.

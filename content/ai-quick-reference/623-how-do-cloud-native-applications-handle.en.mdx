@@ -1,19 +1,17 @@
 ---
-title: "How do cloud-native applications handle backups and restores?"
-description: "Backup and recovery of cloud-native applications involves protecting the configuration, data, and application state of containerized applications to ensure system resilience, data persistence, and com"
-category: "Data Management and Storage"
+title: 'How do cloud-native applications handle backups and restores?'
+description: 'Backup and recovery of cloud-native applications involves protecting the configuration, data, and application state of containerized applications to ensure system resilience, data persistence, and com'
+category: 'Data Management and Storage'
 keywords:
-  - "High Performance"
-  - "Cloud Platform"
-  - "Private Cloud"
-  - "Cloud Operating System"
-  - "Application Deployment"
+  - 'High Performance'
+  - 'Cloud Platform'
+  - 'Private Cloud'
+  - 'Cloud Operating System'
+  - 'Application Deployment'
 ---
 
 Backup and recovery of cloud-native applications involves protecting the configuration, data, and application state of containerized applications to ensure system resilience, data persistence, and compliance. Its importance lies in supporting high-availability architectures and disaster recovery scenarios, applicable to critical business systems and multi-environment deployments such as public clouds or multi-cloud platforms.
 
-
 Core components include persistent volume snapshots, Kubernetes resource backups (e.g., etcd), and tools like Velero or Kasten K10. The principle is based on API-driven automated scheduling and version control to achieve instantaneous freezing and recovery of data and applications. In practical applications, this supports rapid migration, failover, and reconstruction of test environments, significantly enhancing the data recovery capabilities and operational efficiency of the cloud-native ecosystem.
-
 
 Implementation steps: Select and configure backup tools, set policies (such as periodic full/incremental backups), store to object storage (e.g., S3 buckets), and regularly test recovery processes. Typical scenarios include disaster recovery or cross-cluster migration. The business value is to reduce the risk of downtime and data loss, and optimize Recovery Point Objectives (RPO) and Recovery Time Objectives (RTO).
