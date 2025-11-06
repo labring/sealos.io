@@ -21,6 +21,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { faqSource } from '@/lib/source';
 import { GodRays } from '@/new-components/GodRays';
+import FacebookIconImage from '@/assets/social-icons/facebook.svg';
+import XIconImage from '@/assets/social-icons/x.svg';
+import LinkedinIconImage from '@/assets/social-icons/linkedin.svg';
+import YcombinatorIconImage from '@/assets/social-icons/ycombinator.svg';
+import RedditIconImage from '@/assets/social-icons/reddit.svg';
 
 interface PageProps {
   params: Promise<{
@@ -40,6 +45,12 @@ export default async function FAQDetailPage({ params }: PageProps) {
   }
 
   const faqItem = pageToFAQItem(faqPage);
+
+  // Generate full page URL for social sharing
+  const baseUrl = lang === 'zh-cn' ? 'https://sealos.run' : 'https://sealos.io';
+  const pageUrl = `${baseUrl}${langPrefix}${faqPage.url}`;
+  const encodedUrl = encodeURIComponent(pageUrl);
+  const encodedTitle = encodeURIComponent(faqItem.title);
   const category = faqItem.category;
 
   // Get related FAQs
@@ -211,36 +222,139 @@ export default async function FAQDetailPage({ params }: PageProps) {
           {/* Sidebar */}
           <aside className="flex flex-col gap-10 sm:flex-row sm:gap-6 lg:sticky lg:top-28 lg:h-fit lg:flex-col lg:gap-12">
             {/* Sealos Brand Card */}
-            <div className="border-border bg-primary-foreground w-full rounded-xl border p-8">
-              <div className="mb-8 flex flex-col gap-6">
-                <div className="flex items-center gap-1">
-                  <Image
-                    alt="Sealos Logo"
-                    src="/logo.svg"
-                    className="h-6 w-6"
-                    width={24}
-                    height={24}
-                  />
-                  <span className="text-base font-bold text-white">Sealos</span>
+            <div>
+              <div className="border-border bg-primary-foreground w-full rounded-xl border p-8">
+                <div className="mb-8 flex flex-col gap-6">
+                  <div className="flex items-center gap-1">
+                    <Image
+                      alt="Sealos Logo"
+                      src="/logo.svg"
+                      className="h-6 w-6"
+                      width={24}
+                      height={24}
+                    />
+                    <span className="text-base font-bold text-white">
+                      Sealos
+                    </span>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <p className="text-xl font-medium">
+                      <GradientText>Unify Your Entire Workflow.</GradientText>
+                    </p>
+                    <p className="text-muted-foreground text-sm">
+                      Code in a ready-to-use cloud environment, deploy with a
+                      click. Sealos combines the entire dev-to-prod lifecycle
+                      into one seamless platform. No more context switching.
+                    </p>
+                  </div>
                 </div>
-                <div className="flex flex-col gap-3">
-                  <p className="text-xl font-medium">
-                    <GradientText>Unify Your Entire Workflow.</GradientText>
-                  </p>
-                  <p className="text-muted-foreground text-sm">
-                    Code in a ready-to-use cloud environment, deploy with a
-                    click. Sealos combines the entire dev-to-prod lifecycle into
-                    one seamless platform. No more context switching.
-                  </p>
-                </div>
+
+                <Button variant="landing-primary" asChild className="w-full">
+                  <Link href={siteConfig.links.mainCta}>
+                    <span>Try Free</span>
+                    <ArrowRight size={16} className="ml-1" />
+                  </Link>
+                </Button>
               </div>
 
-              <Button variant="landing-primary" asChild>
-                <Link href={siteConfig.links.mainCta}>
-                  <span>Try Free</span>
-                  <ArrowRight size={16} className="ml-1" />
-                </Link>
-              </Button>
+              {/* Social Links */}
+              <div className="mt-6 flex gap-6 text-white">
+                <Button
+                  variant="secondary"
+                  className="h-10 w-10 rounded-full p-0"
+                  asChild
+                >
+                  <a
+                    href={`https://linkedin.com/shareArticle?url=${encodedUrl}&mini=true&title=${encodedTitle}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src={LinkedinIconImage}
+                      alt="Share to Linkedin"
+                      className="size-4"
+                      width={24}
+                      height={24}
+                    />
+                  </a>
+                </Button>
+                <Button
+                  variant="secondary"
+                  className="h-10 w-10 rounded-full p-0"
+                  asChild
+                >
+                  <a
+                    href={`https://x.com/intent/post?url=${encodedUrl}&text=${encodedTitle}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src={XIconImage}
+                      alt="Share to X"
+                      className="size-4"
+                      width={24}
+                      height={24}
+                    />
+                  </a>
+                </Button>
+                <Button
+                  variant="secondary"
+                  className="h-10 w-10 rounded-full p-0"
+                  asChild
+                >
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src={FacebookIconImage}
+                      alt="Share to Facebook"
+                      className="size-4"
+                      width={24}
+                      height={24}
+                    />
+                  </a>
+                </Button>
+                <Button
+                  variant="secondary"
+                  className="h-10 w-10 rounded-full p-0"
+                  asChild
+                >
+                  <a
+                    href={`https://www.reddit.com/submit?url=${encodedUrl}&type=LINK`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src={RedditIconImage}
+                      alt="Share to Reddit"
+                      className="size-6"
+                      width={24}
+                      height={24}
+                    />
+                  </a>
+                </Button>
+                <Button
+                  variant="secondary"
+                  className="h-10 w-10 rounded-full p-0"
+                  asChild
+                >
+                  <a
+                    href={`https://news.ycombinator.com/submitlink?t=${encodedTitle}&u=${encodedUrl}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src={YcombinatorIconImage}
+                      alt="Share to Hacker News"
+                      className="size-4"
+                      width={24}
+                      height={24}
+                    />
+                  </a>
+                </Button>
+              </div>
             </div>
 
             {/* Keep Reading */}
