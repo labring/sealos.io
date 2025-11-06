@@ -26,6 +26,7 @@ import XIconImage from '@/assets/social-icons/x.svg';
 import LinkedinIconImage from '@/assets/social-icons/linkedin.svg';
 import YcombinatorIconImage from '@/assets/social-icons/ycombinator.svg';
 import RedditIconImage from '@/assets/social-icons/reddit.svg';
+import SealosLogoImage from '@/assets/shared-icons/sealos.svg';
 
 interface PageProps {
   params: Promise<{
@@ -228,12 +229,12 @@ export default async function FAQDetailPage({ params }: PageProps) {
                   <div className="flex items-center gap-1">
                     <Image
                       alt="Sealos Logo"
-                      src="/logo.svg"
-                      className="h-8 w-8"
+                      src={SealosLogoImage}
+                      className="mr-2 h-10 w-10"
                       width={24}
                       height={24}
                     />
-                    <span className="text-base font-bold text-white">
+                    <span className="text-2xl font-medium text-white">
                       Sealos
                     </span>
                   </div>
