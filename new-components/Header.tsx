@@ -137,7 +137,8 @@ export function Header() {
       <nav className="flex w-full justify-between rounded-full bg-white/5 px-6 py-3 inset-shadow-[0_0_20px_0_rgba(255,255,255,0.10),_0_-1px_4px_0_rgba(255,255,255,0.25)] backdrop-blur-lg">
         {/* Left */}
         <div className="flex">
-          <div
+          <a
+            href="/"
             className="mr-4 flex items-center justify-center"
             aria-label="Sealos Logotype"
             role="banner"
@@ -166,7 +167,7 @@ export function Header() {
                 Sealos
               </span>
             </motion.div>
-          </div>
+          </a>
 
           {/* Desktop Navigation */}
           <NavigationMenu

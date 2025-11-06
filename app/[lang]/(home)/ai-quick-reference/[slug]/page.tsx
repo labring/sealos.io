@@ -229,7 +229,7 @@ export default async function FAQDetailPage({ params }: PageProps) {
                     <Image
                       alt="Sealos Logo"
                       src="/logo.svg"
-                      className="h-6 w-6"
+                      className="h-8 w-8"
                       width={24}
                       height={24}
                     />
