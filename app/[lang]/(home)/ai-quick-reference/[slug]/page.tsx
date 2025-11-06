@@ -225,20 +225,20 @@ export default async function FAQDetailPage({ params }: PageProps) {
                 </div>
                 <div className="flex flex-col gap-3">
                   <p className="text-xl font-medium">
-                    <GradientText>
-                      Ready to Stop Configuring and Start Creating?
-                    </GradientText>
+                    <GradientText>Unify Your Entire Workflow.</GradientText>
                   </p>
                   <p className="text-muted-foreground text-sm">
-                    Get started for free. No credit card required.
+                    Code in a ready-to-use cloud environment, deploy with a
+                    click. Sealos combines the entire dev-to-prod lifecycle into
+                    one seamless platform. No more context switching.
                   </p>
                 </div>
               </div>
 
               <Button variant="landing-primary" asChild>
                 <Link href={siteConfig.links.mainCta}>
-                  <span>Start Building for Free</span>
-                  <ArrowRight size={16} />
+                  <span>Try Free</span>
+                  <ArrowRight size={16} className="ml-1" />
                 </Link>
               </Button>
             </div>
