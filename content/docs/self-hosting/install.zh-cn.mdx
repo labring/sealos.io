@@ -85,7 +85,7 @@ Sealos 需要使用证书来保证通信安全，默认在您不提供证书的�
 安装命令：
 ```bash
 curl -sfL https://raw.githubusercontent.com/labring/sealos/refs/heads/main/scripts/cloud/install-v2.sh | \
-  SEALOS_V2_CLOUD_VERSION=latest SEALOS_V2_PROXY=true SEALOS_V2_CLOUD_DOMAIN=<your_domain> bash -
+  SEALOS_V2_CLOUD_VERSION=latest SEALOS_V2_PROXY=false SEALOS_V2_CLOUD_DOMAIN=<your_domain> bash -
 ```
 
 输入域名时，格式为 `[ip].nip.io`，其中 `[ip]` 为 Master 节点 IP。
@@ -111,7 +111,7 @@ INFO [...] >>   Password: sealos2023
 安装命令：
 ```bash
 curl -sfL https://raw.githubusercontent.com/labring/sealos/refs/heads/main/scripts/cloud/install-v2.sh | \
-  SEALOS_V2_CLOUD_VERSION=latest SEALOS_V2_PROXY=true \
+  SEALOS_V2_CLOUD_VERSION=latest SEALOS_V2_PROXY=false \
   SEALOS_V2_CLOUD_DOMAIN=<your_domain> \
   SEALOS_V2_CERT_PATH=<your_crt> \
   SEALOS_V2_KEY_PATH=<your_key> bash -
@@ -121,6 +121,7 @@ curl -sfL https://raw.githubusercontent.com/labring/sealos/refs/heads/main/scrip
 - `<your_domain>`：你的公网域名
 - `<your_crt>`：证书文件路径，如 `/root/certs/example.crt`
 - `<your_key>`：私钥文件路径，如 `/root/certs/example.key`
+- SEALOS_V2_PROXY=true：启用代理模式
 
 #### 3. 有公网域名，acme 自动签发证书
 
