@@ -14,24 +14,18 @@ const escapeXmlChars = (url: string): string => {
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // 生成两种语言下的所有 FAQ 页面链接
-  const languages = ['en', 'zh-cn'];
-  const items: MetadataRoute.Sitemap = [];
+  // [TODO] English only, will add `alternatives.languages.<lang>` later.
+  const pages = faqSource.getPages('en');
+  const domain = 'https://sealos.io';
 
-  for (const lang of languages) {
-    const pages = faqSource.getPages(lang);
-    const langDomain =
-      lang === 'zh-cn' ? 'https://sealos.run' : 'https://sealos.io';
-
-    for (const page of pages) {
-      const pageUrl = new URL(page.url, langDomain).toString();
-      items.push({
-        url: escapeXmlChars(pageUrl),
-        changeFrequency: 'weekly',
-        priority: 0.6,
-      });
-    }
-  }
+  const items: MetadataRoute.Sitemap = pages.map((page) => {
+    const pageUrl = new URL(page.url, domain).toString();
+    return {
+      url: escapeXmlChars(pageUrl),
+      changeFrequency: 'weekly',
+      priority: 0.6,
+    };
+  });
 
   return items;
 }
