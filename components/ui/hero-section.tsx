@@ -10,32 +10,34 @@ interface HeroSectionProps {
 export default function HeroSection({ lang = 'en' }: HeroSectionProps) {
   const translations = {
     en: {
-      badge: "100% source available",
-      title: "Built for the",
-      titleHighlight: "Modern Application.",
-      description: "Whether you're building next-gen AI agents or battle-tested web apps, our unified platform is designed to amplify your workflow.",
-      viewSourceCode: "View Source Code",
-      startForFree: "Start for free"
+      badge: '100% source available',
+      title: 'Built for the',
+      titleHighlight: 'Modern Application.',
+      description:
+        "Whether you're building next-gen AI agents or battle-tested web apps, our unified platform is designed to amplify your workflow.",
+      viewSourceCode: 'View Source Code',
+      getStarted: 'Get Started Free',
     },
     'zh-cn': {
-      badge: "100% 开源可用",
-      title: "为",
-      titleHighlight: "现代应用而生。",
-      description: "无论您是在构建下一代AI代理还是经过实战考验的Web应用，我们的统一平台都旨在增强您的工作流程。",
-      viewSourceCode: "查看源代码",
-      startForFree: "免费开始"
-    }
+      badge: '100% 开源可用',
+      title: '为',
+      titleHighlight: '现代应用而生。',
+      description:
+        '无论您是在构建下一代AI代理还是经过实战考验的Web应用，我们的统一平台都旨在增强您的工作流程。',
+      viewSourceCode: '查看源代码',
+      getStarted: '免费开始',
+    },
   };
 
   const t = translations[lang as keyof typeof translations] || translations.en;
 
   return (
-    <div className="relative bg-black overflow-hidden">
+    <div className="relative overflow-hidden bg-black">
       {/* Main content */}
       <div className="relative z-10 w-full" style={{ height: '184px' }}>
         <div className="flex items-start justify-between">
           {/* Left side - Main content */}
-          <div className="flex-1 max-w-2xl">
+          <div className="max-w-2xl flex-1">
             {/* Badge */}
             <div className="mb-6">
               <div
@@ -54,9 +56,10 @@ export default function HeroSection({ lang = 'en' }: HeroSectionProps) {
                   borderRadius: '9999px', // border radius/full
                   border: '1px solid #FFFFFF0D',
                   background: '#FFFFFF0D',
-                  boxShadow: '0px 2px 4px -1px #00000005, 0px 4px 6px -1px #0000000D',
+                  boxShadow:
+                    '0px 2px 4px -1px #00000005, 0px 4px 6px -1px #0000000D',
                   backdropFilter: 'blur(4px)',
-                  opacity: 1
+                  opacity: 1,
                 }}
               >
                 {/* Icon */}
@@ -66,9 +69,9 @@ export default function HeroSection({ lang = 'en' }: HeroSectionProps) {
                   height="20"
                   viewBox="0 0 21 21"
                   fill="none"
-                  style={{ 
+                  style={{
                     flex: '0 0 auto',
-                    aspectRatio: '1/1'
+                    aspectRatio: '1/1',
                   }}
                 >
                   <path
@@ -97,14 +100,16 @@ export default function HeroSection({ lang = 'en' }: HeroSectionProps) {
                 <span
                   style={{
                     color: 'var(--tailwind-colors-base-white, #FFF)',
-                    fontFamily: 'var(--typography-font-family-font-sans, Geist)',
-                    fontSize: 'var(--typography-base-sizes-base-font-size, 16px)',
+                    fontFamily:
+                      'var(--typography-font-family-font-sans, Geist)',
+                    fontSize:
+                      'var(--typography-base-sizes-base-font-size, 16px)',
                     fontStyle: 'normal',
                     fontWeight: 'var(--font-weight-medium, 500)',
                     lineHeight: '100%',
                     letterSpacing: '0%',
                     opacity: 1,
-                    whiteSpace: 'nowrap' // 确保文字不换行
+                    whiteSpace: 'nowrap', // 确保文字不换行
                   }}
                 >
                   {t.badge}
@@ -115,38 +120,41 @@ export default function HeroSection({ lang = 'en' }: HeroSectionProps) {
             {/* Main heading - 根据设计稿样式 */}
             <div className="mb-8">
               {/* 仅左侧标题与描述，不包含按钮 */}
-              <h1 
+              <h1
                 className="mb-4 whitespace-nowrap"
                 style={{
                   fontFamily: 'var(--font-sans)',
                   fontWeight: '500', // medium
                   fontSize: '40px',
                   lineHeight: '150%',
-                  letterSpacing: '0%'
+                  letterSpacing: '0%',
                 }}
               >
                 <span style={{ color: '#FFFFFF' }}>{t.title}</span>{' '}
-                <span 
+                <span
                   style={{
-                    background: 'linear-gradient(90deg, #FFFFFF 0%, #146DFF 100%)',
+                    background:
+                      'linear-gradient(90deg, #FFFFFF 0%, #146DFF 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text'
+                    backgroundClip: 'text',
                   }}
                 >
                   {t.titleHighlight}
                 </span>
               </h1>
 
-              <p className="leading-relaxed"
+              <p
+                className="leading-relaxed"
                 style={{
                   color: 'var(--tailwind-colors-zinc-400, #A1A1AA)',
                   fontFamily: 'var(--typography-font-family-font-sans, Geist) ',
                   fontSize: 'var(--typography-base-sizes-base-font-size, 16px)',
                   fontStyle: 'normal',
                   fontWeight: 'var(--font-weight-normal, 400)',
-                  lineHeight: 'var(--typography-base-sizes-base-line-height, 24px)',
-                  width: '491.924px'
+                  lineHeight:
+                    'var(--typography-base-sizes-base-line-height, 24px)',
+                  width: '491.924px',
                 }}
               >
                 {t.description}
@@ -164,7 +172,7 @@ export default function HeroSection({ lang = 'en' }: HeroSectionProps) {
               gap: '12px',
               alignItems: 'center',
               opacity: 1,
-              marginTop: '72.32px' // 徽标高度(≈40.31) + 与标题间距(≈32)
+              marginTop: '72.32px', // 徽标高度(≈40.31) + 与标题间距(≈32)
             }}
           >
             {/* View Source Code */}
@@ -186,30 +194,43 @@ export default function HeroSection({ lang = 'en' }: HeroSectionProps) {
                 paddingBottom: '8px',
                 paddingLeft: '4px',
                 background: '#FFFFFF1A',
-                boxShadow: '0px 4px 6px -2px #00000005'
+                boxShadow: '0px 4px 6px -2px #00000005',
               }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
-                <path d="M11.9999 10.8242L14.6666 8.15755L11.9999 5.49089M3.99992 5.49089L1.33325 8.15755L3.99992 10.8242M9.66659 2.82422L6.33325 13.4909" stroke="#E4E4E7" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="17"
+                viewBox="0 0 16 17"
+                fill="none"
+              >
+                <path
+                  d="M11.9999 10.8242L14.6666 8.15755L11.9999 5.49089M3.99992 5.49089L1.33325 8.15755L3.99992 10.8242M9.66659 2.82422L6.33325 13.4909"
+                  stroke="#E4E4E7"
+                  strokeWidth="1.33"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               <span
                 style={{
                   color: 'var(--tailwind-colors-base-white, #FFF)',
                   fontFamily: 'var(--typography-font-family-font-sans, Geist)',
-                  fontSize: 'var(--typography-base-sizes-small-font-size, 14px)',
+                  fontSize:
+                    'var(--typography-base-sizes-small-font-size, 14px)',
                   fontStyle: 'normal',
                   fontWeight: 'var(--font-weight-medium, 500)',
-                  lineHeight: 'var(--typography-base-sizes-small-line-height, 20px)',
+                  lineHeight:
+                    'var(--typography-base-sizes-small-line-height, 20px)',
                   width: '120px',
                   height: '20px',
-                  whiteSpace: 'nowrap'
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {t.viewSourceCode}
               </span>
             </a>
-            
-            {/* Start for free */}
+
             <a
               href="https://cloud.sealos.io"
               target="_blank"
@@ -227,24 +248,28 @@ export default function HeroSection({ lang = 'en' }: HeroSectionProps) {
                 paddingRight: '4px',
                 paddingBottom: '8px',
                 paddingLeft: '4px',
-                background: 'linear-gradient(191.74deg, #FFFFFF 8.86%, #CECECE 91.87%)',
-                boxShadow: '0px 4px 6px -2px #FFFFFF0D, 0px 10px 15px -3px #FFFFFF29'
+                background:
+                  'linear-gradient(191.74deg, #FFFFFF 8.86%, #CECECE 91.87%)',
+                boxShadow:
+                  '0px 4px 6px -2px #FFFFFF0D, 0px 10px 15px -3px #FFFFFF29',
               }}
             >
               <span
                 style={{
                   color: 'var(--tailwind-colors-zinc-900, #18181B)',
                   fontFamily: 'var(--typography-font-family-font-sans, Geist)',
-                  fontSize: 'var(--typography-base-sizes-small-font-size, 14px)',
+                  fontSize:
+                    'var(--typography-base-sizes-small-font-size, 14px)',
                   fontStyle: 'normal',
                   fontWeight: 'var(--font-weight-medium, 500)',
-                  lineHeight: 'var(--typography-base-sizes-small-line-height, 20px)',
+                  lineHeight:
+                    'var(--typography-base-sizes-small-line-height, 20px)',
                   width: '85px',
                   height: '20px',
-                  whiteSpace: 'nowrap'
+                  whiteSpace: 'nowrap',
                 }}
               >
-                {t.startForFree}
+                {t.getStarted}
               </span>
             </a>
           </div>

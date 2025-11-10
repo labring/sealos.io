@@ -283,7 +283,7 @@ export function Header() {
                 )
               }
             >
-              Start for free
+              Get Started Free
             </a>
           </Button>
 
@@ -468,7 +468,7 @@ export function Header() {
                     aria-label="Start using Sealos for free."
                   >
                     <a href={getBrainUrl()} onClick={closeMobileMenu}>
-                      Start for free
+                      Get Started Free
                     </a>
                   </Button>
                 </div>

@@ -16,8 +16,12 @@ import { VideoModal } from '../components/VideoModal';
 import DemoLightSvg from '@/assets/demo-light.svg';
 import VideoThumbnailSvg from '@/assets/video-thumbnail.svg';
 import DemoIndicatorArrowImage from '@/assets/demo-indicator-arrow.svg';
+import { siteConfig } from '@/config/site';
+import { useGTM } from '@/hooks/use-gtm';
 
 export function DemoSection() {
+  const { trackButton } = useGTM();
+
   // Refs
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
@@ -212,6 +216,33 @@ export function DemoSection() {
       </div>
 
       <FeatureStepper />
+
+      <div className="mt-12 flex w-full justify-center">
+        <Button
+          asChild
+          variant="landing-primary"
+          className="mx-auto h-11 w-48"
+          // [FIXME] Workaround for global CSS override for borders.
+          style={{
+            border: '1px solid #ffffff',
+          }}
+          aria-label="Start using Sealos for free."
+        >
+          <a
+            href={siteConfig.links.mainCta}
+            onClick={() =>
+              trackButton(
+                'Get Started',
+                'header',
+                'url',
+                siteConfig.links.mainCta,
+              )
+            }
+          >
+            Get Started Free
+          </a>
+        </Button>
+      </div>
 
       {/* Scroll container */}
       <div

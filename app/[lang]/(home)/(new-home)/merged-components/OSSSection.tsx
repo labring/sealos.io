@@ -16,7 +16,7 @@ export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
       description:
         "Whether you're building next-gen AI agents or battle-tested web apps, our unified platform is designed to amplify your workflow.",
       viewSourceCode: 'View Source Code',
-      startForFree: 'Start for free',
+      startForFree: 'Get Started Free',
     },
     'zh-cn': {
       badge: '100% 开源可用',
@@ -128,7 +128,6 @@ export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
               </span>
             </a>
 
-            {/* Start for free */}
             <a
               href={getBrainUrl()}
               target="_blank"
