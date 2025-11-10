@@ -100,13 +100,13 @@ export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
           </div>
 
           {/* Right side - Action buttons 仅下移与标题同一水平线 */}
-          <div className="mt-6 ml-0 flex h-10 w-full items-start gap-3 lg:mt-[72px] lg:ml-8 lg:w-[305px] lg:items-center">
+          <div className="mt-6 ml-0 flex h-10 w-full items-start justify-end gap-3 lg:mt-[72px] lg:ml-8 lg:items-center">
             {/* View Source Code */}
             <a
               href="https://github.com/labring/sealos"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-10 w-44 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/10 px-1 py-2 shadow-sm"
+              className="flex h-10 w-44 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 shadow-sm"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +123,7 @@ export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="h-5 w-[120px] text-sm leading-5 font-medium whitespace-nowrap text-white">
+              <span className="h-5 text-sm leading-5 font-medium whitespace-nowrap text-white">
                 {t.viewSourceCode}
               </span>
             </a>
@@ -132,9 +132,9 @@ export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
               href={getBrainUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-10 w-[117px] items-center justify-center gap-2 rounded-[54px] border border-white bg-gradient-to-br from-white to-gray-300 px-1 py-2 shadow-lg"
+              className="flex h-10 items-center justify-center gap-2 rounded-[54px] border border-white bg-gradient-to-br from-white to-gray-300 px-4 py-2 shadow-lg"
             >
-              <span className="h-5 w-[85px] text-sm leading-5 font-medium whitespace-nowrap text-zinc-900">
+              <span className="text-sm leading-5 font-medium whitespace-nowrap text-zinc-900">
                 {t.startForFree}
               </span>
             </a>
