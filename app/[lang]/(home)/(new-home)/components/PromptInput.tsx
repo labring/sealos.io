@@ -72,6 +72,11 @@ type CategoryConfig = {
 const PROMPT_CATEGORIES: CategoryConfig[] = [
   {
     type: 'single',
+    name: 'Claude Code',
+    prompt: 'Give me a cloud dev environment with claude code.',
+  },
+  {
+    type: 'single',
     name: 'Build full-stack application',
     prompt:
       'I want to create a full-stack application using Next.js and database.',
