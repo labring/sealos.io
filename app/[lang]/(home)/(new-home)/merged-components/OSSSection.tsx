@@ -8,9 +8,9 @@ interface OSSSectionProps {
   lang?: string;
 }
 
-const { trackButton } = useGTM();
-
 export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
+  const { trackButton } = useGTM();
+
   const translations = {
     en: {
       badge: '100% source available',
