@@ -1,6 +1,9 @@
+'use client';
+
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ReactNode, memo } from 'react';
+import { useGTM } from '@/hooks/use-gtm';
 
 interface CarouselCardProps {
   children: ReactNode;
@@ -17,6 +20,8 @@ export const CarouselCard = memo(function CarouselCard({
   buttonText,
   buttonLink,
 }: CarouselCardProps) {
+  const { trackButton } = useGTM();
+
   return (
     <div className="relative mt-6 flex flex-col border-zinc-700">
       <div
@@ -37,7 +42,17 @@ export const CarouselCard = memo(function CarouselCard({
 
         <div>
           <Button variant="landing-primary" asChild>
-            <a href={buttonLink}>
+            <a
+              href={buttonLink}
+              onClick={() =>
+                trackButton(
+                  'Get Started',
+                  'sequence-carousel',
+                  'url',
+                  buttonLink,
+                )
+              }
+            >
               <span>{buttonText}</span>
               <ArrowRight size={16} className="ml-2" />
             </a>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'fumadocs-core/link';
 import SealosSticky from './SealosSticky';
+import { StartBuildingButton } from './StartBuildingButton';
 import {
   GithubIcon,
   DiscordIcon,
@@ -9,7 +10,6 @@ import {
   RSSIcon,
   XIcon,
 } from './FooterIcons';
-import { getBrainUrl } from '@/lib/utils/brain';
 
 const year = new Date().getFullYear();
 
@@ -253,36 +253,7 @@ export const Footer = async ({ lang = 'en' }: FooterProps) => {
             >
               Get started for free. No credit card required.
             </p>
-            <Link
-              href={getBrainUrl()}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '8px 16px',
-                borderRadius: '54px',
-                fontWeight: 500,
-                transition: 'colors',
-                border: '1px solid #FFF',
-                background:
-                  'linear-gradient(191.74deg, #FFFFFF 8.86%, #CECECE 91.87%)',
-                boxShadow:
-                  '0px 4px 6px -2px rgba(255, 255, 255, 0.05), 0px 10px 15px -3px rgba(255, 255, 255, 0.16)',
-                color: '#18181B',
-                textDecoration: 'none',
-              }}
-            >
-              <span>Start Building for Free</span>
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path
-                  d="M1.33333 6.00065H10.6667M10.6667 6.00065L6 1.33398M10.6667 6.00065L6 10.6673"
-                  stroke="#18181B"
-                  strokeWidth="1.33"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Link>
+            <StartBuildingButton />
           </div>
           {/* Footer Links */}
           <div className="mt-10 grid w-full grid-cols-4 items-start gap-6 px-4 text-left lg:mt-0 lg:grid-cols-4 lg:gap-10">

@@ -233,7 +233,7 @@ export function DemoSection() {
             onClick={() =>
               trackButton(
                 'Get Started',
-                'header',
+                'demo-section',
                 'url',
                 siteConfig.links.mainCta,
               )

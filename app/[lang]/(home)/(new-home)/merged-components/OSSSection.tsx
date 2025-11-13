@@ -2,10 +2,13 @@
 
 import { getBrainUrl } from '@/lib/utils/brain';
 import { memo } from 'react';
+import { useGTM } from '@/hooks/use-gtm';
 
 interface OSSSectionProps {
   lang?: string;
 }
+
+const { trackButton } = useGTM();
 
 export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
   const translations = {
@@ -133,6 +136,9 @@ export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-10 items-center justify-center gap-2 rounded-[54px] border border-white bg-gradient-to-br from-white to-gray-300 px-4 py-2 shadow-lg"
+              onClick={() =>
+                trackButton('Get Started', 'oss-section', 'url', getBrainUrl())
+              }
             >
               <span className="text-sm leading-5 font-medium whitespace-nowrap text-zinc-900">
                 {t.startForFree}

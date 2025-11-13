@@ -467,7 +467,13 @@ export function Header() {
                     className="h-12 w-full border border-white text-base"
                     aria-label="Start using Sealos for free."
                   >
-                    <a href={getBrainUrl()} onClick={closeMobileMenu}>
+                    <a
+                      href={getBrainUrl()}
+                      onClick={() => {
+                        trackButton('Get Started', 'header-mobile', 'url', getBrainUrl());
+                        closeMobileMenu();
+                      }}
+                    >
                       Get Started Free
                     </a>
                   </Button>

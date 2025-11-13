@@ -381,9 +381,18 @@ export function PromptInput() {
     const textToSend = isTouched ? promptText : typewriterFullTextRef.current;
 
     if (textToSend.trim()) {
-      window.open(getBrainUrl(textToSend), '_blank');
+      const brainUrl = getBrainUrl(textToSend);
+
+      trackButton(
+        'Get Started',
+        'hero-section',
+        'url',
+        brainUrl,
+      );
+
+      window.open(brainUrl, '_blank');
     }
-  }, [promptText, isTouched]);
+  }, [promptText, isTouched, trackButton]);
 
   const handleTextareaChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
