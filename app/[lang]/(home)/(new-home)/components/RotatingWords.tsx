@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'motion/react';
-import { GradientText } from './GradientText';
+import { GradientText } from '@/new-components/GradientText';
 
 export function RotatingWords({
   words,

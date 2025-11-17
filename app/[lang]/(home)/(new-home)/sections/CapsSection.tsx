@@ -12,8 +12,8 @@ import {
   GradientRocket,
   GradientDatabase,
 } from '../components/GradientIcon';
-import { GradientText } from '../components/GradientText';
-import { GodRays } from '../../../../../new-components/GodRays';
+import { GradientText } from '@/new-components/GradientText';
+import { GodRays } from '@/new-components/GodRays';
 import { BorderBeam } from '../components/BorderBeam';
 
 interface CardData {

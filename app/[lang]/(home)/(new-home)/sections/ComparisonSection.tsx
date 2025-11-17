@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { GradientText } from '../components/GradientText';
+import { GradientText } from '@/new-components/GradientText';
 import {
   Bot,
   CircleHelp,
@@ -21,7 +21,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { GradientCircleCheck } from '../components/GradientIcon';
-import { GodRays } from '../../../../../new-components/GodRays';
+import { GodRays } from '@/new-components/GodRays';
 
 // 对比数据类型定义
 interface Platform {
@@ -432,7 +432,7 @@ export function ComparisonSection() {
         <div className="overflow-x-auto" aria-label="Feature comparison table">
           <table
             className="w-full border-collapse"
-            aria-label=" This table compares multiple platforms (Sealos, Railway, Render, Supabase, and Vercel) across different categories, 
+            aria-label=" This table compares multiple platforms (Sealos, Railway, Render, Supabase, and Vercel) across different categories,
             including Deployment & Workflow, Developer Experience, AI & Data Capabilities, and Infrastructure & Architecture.
             Each category includes various features, such as Deployment Flexibility, Native Kubernetes API, Managed Databases, and S3-Compatible Object Storage.
             The comparison indicates which platforms support specific features, with a green checkmark representing support and a gray info icon indicating lack of support.

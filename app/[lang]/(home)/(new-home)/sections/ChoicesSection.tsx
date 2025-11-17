@@ -1,6 +1,6 @@
 import { CheckCheck, TriangleAlert } from 'lucide-react';
 import Image from 'next/image';
-import { GradientText } from '../components/GradientText';
+import { GradientText } from '@/new-components/GradientText';
 import { FallingTags } from '../components/FallingTags';
 import { SealosChoiceCard } from '../components/SealosChoiceCard';
 import ChoicesBeamGrid from '@/assets/choices-beam-grid.svg';
