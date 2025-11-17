@@ -1,15 +1,14 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
-import { ChevronDown, Layers } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ChevronDown } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 export default function CategoryBar({
   categories = [],
-  text
 }: {
   categories?: string[];
-  text: Record<string, string>
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -68,19 +67,12 @@ export default function CategoryBar({
   return (
     <div className="relative my-6 w-full">
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
-          <Layers className="h-5 w-5 text-primary" />
-          <h3 className="whitespace-nowrap font-medium">{text.cats}</h3>
-        </div>
-
-        <div className="h-8 border-l border-muted-foreground/20"></div>
-
         <div className="flex-1">
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center border-b">
             {visibleCategories.map((category) => {
               const categoryTitle =
                 category === 'all'
-                  ? text.all_cats
+                  ? 'All Categories'
                   : category
                       .split('-')
                       .map(
@@ -91,12 +83,14 @@ export default function CategoryBar({
               return (
                 <button
                   key={category}
+                  type="button"
                   onClick={() => handleCategoryChange(category)}
-                  className={`whitespace-nowrap border-b-2 px-4 py-2 font-medium transition-all ${
+                  className={cn(
+                    'relative -mb-px cursor-pointer border-b px-4 py-2 whitespace-nowrap transition-all',
                     activeCategory === category
-                      ? 'border-primary text-primary'
-                      : 'border-transparent hover:border-primary/40 hover:text-primary/80'
-                  }`}
+                      ? 'text-primary before:bg-primary before:absolute before:bottom-0 before:left-0 before:-mb-px before:h-0.5 before:w-full'
+                      : 'hover:border-primary/40 hover:text-primary/80 text-muted-foreground border-transparent',
+                  )}
                 >
                   {categoryTitle}
                 </button>
@@ -105,15 +99,17 @@ export default function CategoryBar({
 
             {hasMoreCategories && (
               <button
+                type="button"
                 onClick={() => setExpanded(!expanded)}
-                className="flex items-center gap-1 whitespace-nowrap border-b-2 border-transparent px-4 py-2 text-sm font-medium transition-all hover:border-primary/40 hover:text-primary/80"
+                className="hover:border-primary/40 hover:text-primary/80 flex cursor-pointer items-center gap-1 border-b-2 border-transparent px-4 py-2 text-sm font-medium whitespace-nowrap transition-all"
                 aria-expanded={expanded}
               >
                 {expanded ? 'Less' : 'More'}{' '}
                 <ChevronDown
-                  className={`h-4 w-4 transition-transform ${
-                    expanded ? 'rotate-180' : ''
-                  }`}
+                  className={cn(
+                    'h-4 w-4 transition-transform',
+                    expanded ? 'rotate-180' : '',
+                  )}
                 />
               </button>
             )}
@@ -121,9 +117,10 @@ export default function CategoryBar({
 
           {hasMoreCategories && (
             <div
-              className={`mt-2 flex flex-wrap gap-2 overflow-hidden transition-all duration-300 ${
-                expanded ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
-              }`}
+              className={cn(
+                'mt-2 flex flex-wrap gap-2 overflow-hidden transition-all duration-300',
+                expanded ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0',
+              )}
             >
               {expandableCategories.map((category) => {
                 const categoryTitle = category
@@ -132,13 +129,15 @@ export default function CategoryBar({
                   .join(' ');
                 return (
                   <button
+                    type="button"
                     key={category}
                     onClick={() => handleCategoryChange(category)}
-                    className={`whitespace-nowrap border-b-2 px-4 py-2 text-sm font-medium transition-all ${
+                    className={cn(
+                      'cursor-pointer border-b-2 px-4 py-2 text-sm font-medium whitespace-nowrap transition-all',
                       activeCategory === category
                         ? 'border-primary text-primary'
-                        : 'border-transparent hover:border-primary/40 hover:text-primary/80'
-                    }`}
+                        : 'hover:border-primary/40 hover:text-primary/80 border-transparent',
+                    )}
                   >
                     {categoryTitle}
                   </button>

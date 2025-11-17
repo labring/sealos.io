@@ -1,6 +1,6 @@
 import { languagesType } from '@/lib/i18n';
-import CategoryBar from './CategoryBar';
-import TagBar from './TagBar';
+import CategoryBar from '../../(home)/blog/components/CategoryBar';
+import TagBar from '../../(home)/blog/components/TagBar';
 import { RSSButton } from '@/components/ui/button-rss';
 import { Suspense } from 'react';
 
@@ -63,14 +63,14 @@ export default function BlogHeader({
           <RSSButton lang={lang} />
         </div>
       </div>
-      <CategoryBar categories={categories} text={text} />
+      <CategoryBar categories={categories} />
       <div className="hidden sm:block">
         <Suspense
           fallback={
             <div className="bg-muted/20 h-16 animate-pulse rounded-md" />
           }
         >
-          <TagBar tags={tags} text={text} />
+          <TagBar tags={tags} />
         </Suspense>
       </div>
     </div>

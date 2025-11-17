@@ -2,8 +2,23 @@ import { Button } from '@/components/ui/button';
 import { GodRays } from '@/new-components/GodRays';
 import { GradientText } from '@/new-components/GradientText';
 import { RssIcon } from 'lucide-react';
+import CategoryBar from './components/CategoryBar';
+import { getAllTags, getCategories } from '@/lib/utils/blog-utils';
+import TagsBar from './components/TagBar';
+import { languagesType } from '@/lib/i18n';
 
-export default function BlogPage() {
+type BlogIndexProps = {
+  params: { lang: languagesType };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export default async function BlogPage({
+  params: { lang },
+  searchParams,
+}: BlogIndexProps) {
+  const categories = await getCategories();
+  const tags = await getAllTags(undefined, lang);
+
   return (
     <>
       <GodRays
@@ -70,6 +85,11 @@ export default function BlogPage() {
             <span>Subscribe</span>
           </Button>
         </div>
+      </section>
+
+      <section className="container">
+        <CategoryBar categories={categories} />
+        <TagsBar tags={tags} />
       </section>
     </>
   );
