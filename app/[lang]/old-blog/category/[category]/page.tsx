@@ -1,6 +1,6 @@
 import { generateBlogMetadata } from '@/lib/utils/metadata';
 import BlogHeader from '../../components/BlogHeader';
-import BlogGrid from '../../components/BlogGrid';
+import BlogGrid from '../../../(home)/blog/components/BlogGrid';
 import { redirect } from 'next/navigation';
 import {
   getCategories,

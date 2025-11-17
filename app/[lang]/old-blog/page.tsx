@@ -5,7 +5,7 @@ import {
   getAllTags,
   getSortedBlogPosts,
 } from '@/lib/utils/blog-utils';
-import BlogGrid from './components/BlogGrid';
+import BlogGrid from '../(home)/blog/components/BlogGrid';
 import BlogContainer from './components/BlogContainer';
 import { languagesType } from '@/lib/i18n';
 

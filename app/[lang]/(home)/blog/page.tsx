@@ -3,9 +3,14 @@ import { GodRays } from '@/new-components/GodRays';
 import { GradientText } from '@/new-components/GradientText';
 import { RssIcon } from 'lucide-react';
 import CategoryBar from './components/CategoryBar';
-import { getAllTags, getCategories } from '@/lib/utils/blog-utils';
+import {
+  getAllTags,
+  getCategories,
+  getSortedBlogPosts,
+} from '@/lib/utils/blog-utils';
 import TagsBar from './components/TagBar';
 import { languagesType } from '@/lib/i18n';
+import BlogGrid from './components/BlogGrid';
 
 type BlogIndexProps = {
   params: { lang: languagesType };
@@ -18,6 +23,19 @@ export default async function BlogPage({
 }: BlogIndexProps) {
   const categories = await getCategories();
   const tags = await getAllTags(undefined, lang);
+
+  // Extract tags from URL search params
+  const selectedTags = searchParams.tag
+    ? Array.isArray(searchParams.tag)
+      ? searchParams.tag
+      : [searchParams.tag]
+    : [];
+
+  // Pass selected tags to filter posts
+  const posts = getSortedBlogPosts({
+    tags: selectedTags,
+    lang: lang,
+  });
 
   return (
     <>
@@ -90,6 +108,10 @@ export default async function BlogPage({
       <section className="container">
         <CategoryBar categories={categories} />
         <TagsBar tags={tags} />
+      </section>
+
+      <section className="container mt-10">
+        <BlogGrid posts={posts} lang={lang} />
       </section>
     </>
   );

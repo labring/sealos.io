@@ -16,9 +16,9 @@ export default function BlogItem({
   return (
     <Link
       href={page.url}
-      className="group bg-card text-card-foreground hover:bg-accent hover:text-accent-foreground flex flex-col rounded-xl shadow-md transition-all hover:-translate-y-1 hover:shadow-xl"
+      className="group bg-card text-card-foreground hover:bg-accent/50 hover:text-accent-foreground hover:border-border flex flex-col rounded-xl border border-transparent transition-colors duration-300"
     >
-      <div className="relative aspect-video h-auto w-full overflow-visible">
+      <div className="relative aspect-video h-auto w-full overflow-clip rounded-xl border transition-colors duration-300 group-hover:border-transparent">
         <Image
           src={page.data?.image ?? getBlogImage(page, category)}
           alt={page.data.title}

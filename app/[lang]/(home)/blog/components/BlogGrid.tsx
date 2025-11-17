@@ -9,7 +9,7 @@ interface BlogGridProps {
 
 export default function BlogGrid({ posts, lang }: BlogGridProps) {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-x-5 gap-y-12 sm:grid-cols-2 md:gap-x-8 md:gap-y-16 lg:grid-cols-3">
       {posts.length > 0 ? (
         posts.map((page, index) => (
           <BlogItem key={index} page={page} priorityImage={index < 9} />
