@@ -11,8 +11,8 @@ export const runtime = 'edge';
 const DEFAULT_WIDTH = 384;
 const DEFAULT_HEIGHT = 256;
 const MIN_DIM = 128;
-const MAX_DIM = 1024;
-const MAX_DPR = 2;
+const MAX_DIM = 4000;
+const MAX_DPR = 3;
 const FORMAT_REGEX =
   /^(?<type>svg|png)(?:@(?<width>\d{2,5})x(?<height>\d{2,5}))?(?:@(?<dpr>\d(?:\.\d+)?)x)?$/i;
 const PREGENERATED_FORMATS = [
@@ -23,10 +23,16 @@ const PREGENERATED_FORMATS = [
     dpr: 1,
   },
   {
+    type: 'svg' as const,
+    width: 400,
+    height: 210,
+    dpr: 1,
+  },
+  {
     type: 'png' as const,
-    width: DEFAULT_WIDTH * 2,
-    height: DEFAULT_HEIGHT * 2,
-    dpr: 2,
+    width: 1200,
+    height: 630,
+    dpr: 3,
   },
 ];
 
@@ -143,7 +149,7 @@ export async function GET(
       return NextResponse.json(
         {
           error:
-            'Invalid format. Use png|svg@<width>x<height>[@dpr] with width/height 128-1024 and dpr up to 2.',
+            'Invalid format. Use png|svg@<width>x<height>[@dpr] with width/height 128-4000 and dpr up to 3.',
         },
         { status: 400 },
       );

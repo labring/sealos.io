@@ -70,9 +70,26 @@ export function getPageCategory(page: Page) {
   return match ? match[1] : 'uncategorized';
 }
 
-export function getBlogImage(page: Page, category?: string) {
-  const baseUrl = `/api/og/blog/${encodeURIComponent(page.slugs[0] + '.' + page.locale)}`;
-  return category ? `${baseUrl}/${encodeURI(category)}` : baseUrl;
+export type BlogImageFormat = 'svg-card' | 'svg-header' | 'png-og';
+
+export function getBlogImage(
+  page: { slugs: string[]; locale?: string },
+  _category?: string,
+  format: BlogImageFormat = 'png-og',
+) {
+  const formatMap: Record<BlogImageFormat, string> = {
+    'svg-card': 'svg@384x256',
+    'svg-header': 'svg@400x210',
+    'png-og': 'png@1200x630@3x',
+  };
+
+  const locale = page.locale ?? 'en';
+  const slug = page.slugs[0];
+  const formatString = formatMap[format] ?? formatMap['png-og'];
+
+  return `/api/blog/${encodeURIComponent(locale)}/${encodeURIComponent(
+    slug,
+  )}/thumbnail/${formatString}`;
 }
 
 export function getPostsByLanguage(lang: languagesType) {
