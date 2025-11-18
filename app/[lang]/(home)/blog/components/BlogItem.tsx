@@ -4,6 +4,7 @@ import { blog } from '@/lib/source';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getBlogImage, getPageCategory } from '@/lib/utils/blog-utils';
+import { GradientText } from '@/new-components/GradientText';
 
 export default function BlogItem({
   page,
@@ -16,9 +17,9 @@ export default function BlogItem({
   return (
     <Link
       href={page.url}
-      className="group bg-card text-card-foreground hover:bg-accent/50 hover:text-accent-foreground hover:border-border flex flex-col rounded-xl border border-transparent transition-colors duration-300"
+      className="group text-card-foreground flex flex-col rounded-xl"
     >
-      <div className="relative aspect-video h-auto w-full overflow-clip rounded-xl border transition-colors duration-300 group-hover:border-transparent">
+      <div className="relative aspect-video h-auto w-full overflow-clip rounded-xl border">
         <Image
           src={page.data?.image ?? getBlogImage(page, category)}
           alt={page.data.title}
@@ -57,11 +58,15 @@ export default function BlogItem({
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col gap-2.5 p-5">
+      <div className="flex flex-1 flex-col gap-2.5 pt-4">
         <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <p className="line-clamp-2 font-semibold">{page.data.title}</p>
-          </div>
+          <h3 className="line-clamp-2 flex-1 font-semibold">
+            <GradientText>
+              <span className="text-foreground transition-colors group-hover:text-transparent">
+                {page.data.title}
+              </span>
+            </GradientText>
+          </h3>
         </div>
         <p className="text-muted-foreground line-clamp-2 text-sm">
           {page.data.description}

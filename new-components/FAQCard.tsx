@@ -1,6 +1,6 @@
 import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
-import { GradientText } from '@/app/[lang]/(home)/(new-home)/components/GradientText';
+import { GradientText } from '@/new-components/GradientText';
 import { FAQTag } from './FAQTag';
 import { cn } from '@/lib/utils';
 

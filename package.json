@@ -49,6 +49,7 @@
     "react-player": "^2.16.0",
     "react-responsive": "^10.0.0",
     "remark-gfm": "^4.0.1",
+    "satori": "^0.18.3",
     "sharp": "^0.33.5",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animated": "^2.0.0",
