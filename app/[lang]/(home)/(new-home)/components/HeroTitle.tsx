@@ -24,10 +24,9 @@ export function HeroTitle({ isInView }: { isInView: boolean }) {
         <div>with just a prompt.</div>
       </h1>
 
-      {/* 描述文字 */}
       <p className="mt-5 text-sm text-zinc-400 sm:text-base">
-        Describe your needs, and our AI will build the environment, configure
-        the database, deploy and scale it globally.
+        Generate fully managed web apps and agents with AI simply by describing
+        them.
       </p>
     </div>
   );

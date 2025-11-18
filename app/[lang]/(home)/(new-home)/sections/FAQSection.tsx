@@ -10,9 +10,9 @@ import {
 export default function FAQSection() {
   const faqData = [
     {
-      question: 'What exactly is an "Intelligent Cloud OS"?',
+      question: 'What is Sealos?',
       answer:
-        "It means we're more than just a hosting platform. Sealos is an integrated system where an AI core (our AI Pilot) understands how development, deployment, and databases should work together. You describe what you want, and the OS intelligently handles the how.",
+        'Sealos is an AI-assisted Cloud Operating System built on Kubernetes that unifies the entire application lifecycle, from development in cloud IDEs to production deployment and management. It is perfect for building and scaling modern AI applications, SaaS platforms, and complex microservice architectures. The platform is source-available, and for production you can choose either a fully managed cloud service or deploy privately.',
     },
     {
       question: "Can I use Sealos if I'm not a Kubernetes expert?",
