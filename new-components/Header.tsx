@@ -105,10 +105,18 @@ const navigationLinks = [
 export function Header() {
   const { trackButton } = useGTM();
 
+  const [brainUrl, setBrainUrl] = React.useState('');
+
   const { scrollY } = useScroll();
   const [hideLogotype, setHideLogotype] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [openMenus, setOpenMenus] = React.useState<Record<string, boolean>>({});
+
+  React.useEffect(() => {
+    setBrainUrl(getBrainUrl());
+  }, []);
+
+  const resolveBrainUrl = React.useCallback(() => brainUrl || getBrainUrl(), [brainUrl]);
 
   useMotionValueEvent(scrollY, 'change', (current) => {
     if (current > 0 && scrollY.getPrevious() !== 0) {
@@ -273,14 +281,9 @@ export function Header() {
             aria-label="Start using Sealos for free."
           >
             <a
-              href={siteConfig.links.mainCta}
+              href={brainUrl || '#'}
               onClick={() =>
-                trackButton(
-                  'Get Started',
-                  'header',
-                  'url',
-                  siteConfig.links.mainCta,
-                )
+                trackButton('Get Started', 'header', 'url', resolveBrainUrl())
               }
             >
               Get Started Free
@@ -468,9 +471,10 @@ export function Header() {
                     aria-label="Start using Sealos for free."
                   >
                     <a
-                      href={getBrainUrl()}
+                      href={brainUrl || '#'}
                       onClick={() => {
-                        trackButton('Get Started', 'header-mobile', 'url', getBrainUrl());
+                        const url = resolveBrainUrl();
+                        trackButton('Get Started', 'header-mobile', 'url', url);
                         closeMobileMenu();
                       }}
                     >

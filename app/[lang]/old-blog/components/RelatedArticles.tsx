@@ -1,13 +1,5 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Badge } from '@/components/ui/badge';
-import {
-  BlogPost,
-  formatCategoryTitle,
-  getBlogImage,
-  getPageCategory,
-  getRelatedArticles,
-} from '@/lib/utils/blog-utils';
+import { BlogPost, getRelatedArticles } from '@/lib/utils/blog-utils';
+import BlogItem from '@/app/[lang]/(home)/blog/components/BlogItem';
 
 interface RelatedArticlesProps {
   currentArticle: BlogPost;
@@ -95,53 +87,14 @@ export default function RelatedArticles({
           {labels.empty}
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {articlesToRender.map((article) => {
-            const category = getPageCategory(article);
-            const imageSrc =
-              article.data?.image ?? getBlogImage(article, category);
-            const description =
-              article.data?.description ??
-              (locale === 'zh-cn'
-                ? '欢迎阅读完整文章以了解更多内容。'
-                : 'Read the full article to learn more.');
-
-            return (
-              <Link
-                key={article.url ?? article.data.title}
-                href={article.url}
-                className="bg-card text-card-foreground group focus-visible:ring-ring flex flex-col overflow-hidden rounded-xl border no-underline shadow-sm transition-all duration-500 hover:-translate-y-1 hover:no-underline hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-                prefetch={false}
-              >
-                <div className="relative aspect-[16/9] w-full overflow-hidden">
-                  <Image
-                    src={imageSrc}
-                    alt={article.data.title}
-                    fill
-                    className="m-0! object-cover transition-transform"
-                    priority={false}
-                  />
-                </div>
-
-                <div className="flex flex-1 flex-col gap-3 p-5">
-                  <div>
-                    <Badge
-                      variant="secondary"
-                      className="bg-secondary/70 text-xs tracking-wide uppercase"
-                    >
-                      {formatCategoryTitle(category)}
-                    </Badge>
-                  </div>
-                  <h3 className="mt-0 mb-0 line-clamp-2 text-lg leading-snug font-semibold">
-                    {article.data.title}
-                  </h3>
-                  <p className="text-muted-foreground line-clamp-2 text-sm leading-relaxed">
-                    {description}
-                  </p>
-                </div>
-              </Link>
-            );
-          })}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          {articlesToRender.map((article) => (
+            <BlogItem
+              key={article.url ?? article.data.title}
+              page={article}
+              priorityImage={false}
+            />
+          ))}
         </div>
       )}
     </section>

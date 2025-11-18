@@ -11,6 +11,7 @@ import {
 import TagsBar from './components/TagBar';
 import { languagesType } from '@/lib/i18n';
 import BlogGrid from './components/BlogGrid';
+import { BlogHeader } from './components/BlogHeader';
 
 type BlogIndexProps = {
   params: { lang: languagesType };
@@ -86,23 +87,7 @@ export default async function BlogPage({
       />
 
       <section className="container -mt-24 pt-44 pb-14">
-        <h1
-          aria-label="Sealos Blog"
-          className="mb-4 text-center text-4xl font-medium"
-        >
-          <span>Sealos </span>
-          <GradientText>Blog</GradientText>
-        </h1>
-        <p className="text-center text-zinc-400">
-          Sharing our technical insights, product updates and industry news
-        </p>
-
-        <div className="mt-10 flex w-full justify-center">
-          <Button variant="landing-primary" className="h-10">
-            <RssIcon size={16} className="mr-2" />
-            <span>Subscribe</span>
-          </Button>
-        </div>
+        <BlogHeader />
       </section>
 
       <section className="container">

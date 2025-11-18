@@ -5,10 +5,8 @@ import { notFound } from 'next/navigation';
 import React from 'react';
 import { DocsBody } from 'fumadocs-ui/page';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
-import { GradientText } from '../../(new-home)/components/GradientText';
 import { FAQTag } from '@/new-components/FAQTag';
 import { FAQCard } from '@/new-components/FAQCard';
-import { siteConfig } from '@/config/site';
 import {
   getFAQBySlug,
   findRelatedFAQs,
@@ -26,7 +24,8 @@ import XIconImage from '@/assets/social-icons/x.svg';
 import LinkedinIconImage from '@/assets/social-icons/linkedin.svg';
 import YcombinatorIconImage from '@/assets/social-icons/ycombinator.svg';
 import RedditIconImage from '@/assets/social-icons/reddit.svg';
-import SealosLogoImage from '@/assets/shared-icons/sealos.svg';
+import { SealosBrandCard } from '@/new-components/SealosBrandCard';
+import { GradientText } from '@/new-components/GradientText';
 
 interface PageProps {
   params: Promise<{
@@ -222,41 +221,8 @@ export default async function FAQDetailPage({ params }: PageProps) {
 
           {/* Sidebar */}
           <aside className="flex flex-col gap-10 sm:flex-row sm:gap-6 lg:sticky lg:top-28 lg:h-fit lg:flex-col lg:gap-12">
-            {/* Sealos Brand Card */}
             <div>
-              <div className="border-border bg-primary-foreground w-full rounded-xl border p-8">
-                <div className="mb-8 flex flex-col gap-6">
-                  <div className="flex items-center gap-1">
-                    <Image
-                      alt="Sealos Logo"
-                      src={SealosLogoImage}
-                      className="mr-2 h-10 w-10"
-                      width={24}
-                      height={24}
-                    />
-                    <span className="text-2xl font-medium text-white">
-                      Sealos
-                    </span>
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    <p className="text-xl font-medium">
-                      <GradientText>Unify Your Entire Workflow.</GradientText>
-                    </p>
-                    <p className="text-muted-foreground text-sm">
-                      Code in a ready-to-use cloud environment, deploy with a
-                      click. Sealos combines the entire dev-to-prod lifecycle
-                      into one seamless platform. No more context switching.
-                    </p>
-                  </div>
-                </div>
-
-                <Button variant="landing-primary" asChild className="w-full">
-                  <Link href={siteConfig.links.mainCta}>
-                    <span>Try Free</span>
-                    <ArrowRight size={16} className="ml-1" />
-                  </Link>
-                </Button>
-              </div>
+              <SealosBrandCard />
 
               {/* Social Links */}
               <div className="mt-6 flex gap-6 text-white">

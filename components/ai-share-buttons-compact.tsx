@@ -1,14 +1,20 @@
 'use client';
 
 import { languagesType } from '@/lib/i18n';
-import { AIShareButton, SocialShareButton } from '@/components/ui/share-buttons';
+import {
+  AIShareButton,
+  SocialShareButton,
+} from '@/components/ui/share-buttons';
 
 interface AIShareButtonsCompactProps {
   lang: languagesType;
   className?: string;
 }
 
-export default function AIShareButtonsCompact({ lang, className = '' }: AIShareButtonsCompactProps) {
+export default function AIShareButtonsCompact({
+  lang,
+  className = '',
+}: AIShareButtonsCompactProps) {
   // Translations
   const translations = {
     en: {
@@ -17,7 +23,7 @@ export default function AIShareButtonsCompact({ lang, className = '' }: AIShareB
       perplexity: 'Perplexity',
       claude: 'Claude',
       gemini: 'Google AI',
-      grok: 'Grok'
+      grok: 'Grok',
     },
     'zh-cn': {
       title: '分享到：',
@@ -25,18 +31,20 @@ export default function AIShareButtonsCompact({ lang, className = '' }: AIShareB
       perplexity: 'Perplexity',
       claude: 'Claude',
       gemini: 'Google AI',
-      grok: 'Grok'
-    }
+      grok: 'Grok',
+    },
   };
 
   const t = translations[lang];
 
   return (
-    <div className={`flex flex-col xl:flex-row xl:items-center gap-1.5 text-sm ${className}`}>
-      <span className="font-medium text-gray-700 shrink-0 text-xs">{t.title}</span>
+    <div
+      className={`flex flex-col gap-4 text-sm xl:flex-row xl:items-center ${className}`}
+    >
+      <span className="text-muted-foreground shrink-0 text-sm">{t.title}</span>
 
       {/* AI share button group */}
-      <div className="flex flex-wrap gap-1">
+      <div className="flex flex-wrap gap-2">
         <AIShareButton
           platform="chatgpt"
           label={t.chatgpt}
@@ -67,25 +75,10 @@ export default function AIShareButtonsCompact({ lang, className = '' }: AIShareB
           variant="compact"
           lang={lang}
         />
-      </div>
 
-      {/* Separator */}
-      <span className="text-gray-400 mx-0.5 hidden xl:inline shrink-0 text-xs">|</span>
-
-      {/* Social share button group */}
-      <div className="flex flex-wrap gap-1">
-        <SocialShareButton
-          platform="linkedin"
-          variant="compact"
-        />
-        <SocialShareButton
-          platform="x"
-          variant="compact"
-        />
-        <SocialShareButton
-          platform="whatsapp"
-          variant="compact"
-        />
+        <SocialShareButton platform="linkedin" variant="compact" />
+        <SocialShareButton platform="x" variant="compact" />
+        <SocialShareButton platform="whatsapp" variant="compact" />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { GodRays } from '@/new-components/GodRays';
-import { GradientText } from '../(new-home)/components/GradientText';
 import { FAQPageClient } from './components/FAQPageClient';
+import { GradientText } from '@/new-components/GradientText';
 
 interface PageProps {
   params: Promise<{
