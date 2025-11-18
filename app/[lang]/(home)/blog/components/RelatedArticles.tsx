@@ -87,7 +87,7 @@ export default function RelatedArticles({
           {labels.empty}
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-x-5 sm:gap-y-8 md:gap-x-8">
           {articlesToRender.map((article) => (
             <BlogItem
               key={article.url ?? article.data.title}

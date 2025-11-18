@@ -90,7 +90,7 @@ export default function TagsBar({ tags = [] }: TagsBarProps) {
   return (
     <div className="relative mt-6 w-full">
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
+        <div className="hidden items-center gap-2 sm:flex">
           <Tag className="text-muted-foreground h-4 w-4" />
           <h4 className="text-muted-foreground text-sm font-medium whitespace-nowrap">
             Filter by Tags

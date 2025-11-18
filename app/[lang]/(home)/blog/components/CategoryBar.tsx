@@ -66,9 +66,9 @@ export default function CategoryBar({
 
   return (
     <div className="relative my-6 w-full">
-      <div className="flex items-center gap-4">
+      <div className="scrollbar-hide flex items-center gap-4 overflow-x-auto">
         <div className="flex-1">
-          <div className="flex flex-wrap items-center border-b">
+          <div className="flex items-center border-b">
             {visibleCategories.map((category) => {
               const categoryTitle =
                 category === 'all'

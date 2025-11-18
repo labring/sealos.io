@@ -125,11 +125,14 @@ export default async function BlogLayout({
         }
 
         #nd-docs-layout {
-          margin-left: auto;
-          margin-right: auto;
           gap: 4rem;
-          --fd-toc-width: 360px !important;
           --fd-nav-height: 96px !important;
+
+          @media (width >= 80rem) {
+            --fd-toc-width: 360px !important;
+            margin-left: auto;
+            margin-right: auto;
+          }
         }
 
         #nd-page > article {
@@ -203,6 +206,10 @@ export default async function BlogLayout({
             component: (
               <>
                 <BlogFooter adjacentPosts={adjacentPosts} />
+
+                <div className="mt-20">
+                  <SealosBrandCard />
+                </div>
 
                 <RelatedArticles
                   currentArticle={page}

@@ -110,7 +110,7 @@ export default function AIShareButtons({
         />
       </div>
 
-      <div className="mt-6 flex items-center gap-4 border-t pt-4">
+      <div className="mt-6 flex flex-col gap-4 border-t pt-4 sm:flex-row sm:items-center">
         <h4 className="text-muted-foreground text-sm">{t.shareTitle}</h4>
         <div className="flex flex-wrap gap-2">
           <SocialShareButton platform="linkedin" variant="full" />
