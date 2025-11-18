@@ -19,7 +19,7 @@ import {
 } from '@/lib/utils/structured-data';
 
 import { languagesType } from '@/lib/i18n';
-import RelatedArticles from '@/app/[lang]/old-blog/components/RelatedArticles';
+import RelatedArticles from '@/app/[lang]/(home)/blog/components/RelatedArticles';
 import AIShareButtons from '@/components/ai-share-buttons';
 import { BlogFooter } from '../components/BlogFooter';
 import Link from 'next/link';
