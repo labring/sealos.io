@@ -1,4 +1,3 @@
-import { siteConfig } from '@/config/site';
 import { blog } from '@/lib/source';
 import {
   getBlogImage,
@@ -18,7 +17,7 @@ import {
   generateBreadcrumbSchema,
 } from '@/lib/utils/structured-data';
 
-import { languagesType } from '@/lib/i18n';
+import { getLanguageSlug, languagesType } from '@/lib/i18n';
 import RelatedArticles from '@/app/[lang]/(home)/blog/components/RelatedArticles';
 import AIShareButtons from '@/components/ai-share-buttons';
 import { BlogFooter } from '../components/BlogFooter';
@@ -26,7 +25,7 @@ import Link from 'next/link';
 import { ChevronLeftIcon } from 'lucide-react';
 import { SealosBrandCard } from '@/new-components/SealosBrandCard';
 import { SocialLinks } from '@/new-components/SocialLinks';
-import { getBaseUrl } from '@/lib/utils/metadata';
+import { getBaseUrl, getPageUrl } from '@/lib/utils/metadata';
 
 function getAdjacentBlog(
   page: ReturnType<typeof blog.getPage>,
@@ -65,11 +64,16 @@ export default async function BlogLayout({
   const category = getPageCategory(page);
   const adjacentPosts = getAdjacentBlog(page, params.lang);
 
+  // Generate full page URL for social sharing and structured data
+  const pageUrl = getPageUrl(params.lang, page.url);
+  const baseUrl = getBaseUrl(params.lang);
+  const langPrefix = getLanguageSlug(params.lang);
+
   // Generate structured data for the blog post
   const articleSchema = generateArticleSchema(
     page.data.title,
     page.data.description,
-    `${siteConfig.url.base}${page.url}`,
+    pageUrl,
     new Date(page.data.date).toISOString(),
     new Date(page.data.date).toISOString(), // Use same date if no modified date
     page.data.authors,
@@ -81,9 +85,9 @@ export default async function BlogLayout({
   // Generate breadcrumb structured data
   const breadcrumbSchema = generateBreadcrumbSchema(
     [
-      { name: 'Home', url: siteConfig.url.base },
-      { name: 'Blog', url: `${siteConfig.url.base}/blog` },
-      { name: page.data.title, url: `${siteConfig.url.base}${page.url}` },
+      { name: 'Home', url: baseUrl },
+      { name: 'Blog', url: `${baseUrl}${langPrefix}/blog` },
+      { name: page.data.title, url: pageUrl },
     ],
     params.lang,
   );
@@ -92,10 +96,6 @@ export default async function BlogLayout({
   const recommendedArticles = getRelatedArticles(page, candidateArticles);
   const relatedArticlesToRender =
     recommendedArticles.length > 0 ? recommendedArticles : candidateArticles;
-
-  // Generate full page URL for social sharing
-  const baseUrl = getBaseUrl(params.lang);
-  const pageUrl = `${baseUrl}/${params.lang}${page.url}`;
 
   return (
     <>

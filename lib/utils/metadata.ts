@@ -3,7 +3,7 @@ import { blog } from '@/lib/source';
 import { source } from '@/lib/source';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { i18n } from '@/lib/i18n';
+import { i18n, getLanguageSlug } from '@/lib/i18n';
 import { getBlogImage, getPageCategory } from '@/lib/utils/blog-utils';
 
 const ogImageApi = `${siteConfig.url.base}/api/og`;
@@ -430,6 +430,21 @@ export function getBaseUrl(lang: string): string {
     'zh-cn': 'https://sealos.run',
   };
   return domainMap[lang] || domainMap['en'];
+}
+
+/**
+ * Get full page URL for social sharing and OpenGraph
+ * For default locale (en), the language prefix is omitted
+ * @param lang - Language code ('en' or 'zh-cn')
+ * @param pagePath - Page path relative to root (e.g., '/blog/some-slug' or '/ai-quick-reference/some-slug')
+ * @returns Full URL for the page
+ */
+export function getPageUrl(lang: string, pagePath: string): string {
+  const baseUrl = getBaseUrl(lang);
+  const langPrefix = getLanguageSlug(lang);
+  // Ensure pagePath starts with /
+  const normalizedPath = pagePath.startsWith('/') ? pagePath : `/${pagePath}`;
+  return `${baseUrl}${langPrefix}${normalizedPath}`;
 }
 
 /**

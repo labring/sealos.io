@@ -19,7 +19,7 @@ import { GodRays } from '@/new-components/GodRays';
 import { SealosBrandCard } from '@/new-components/SealosBrandCard';
 import { SocialLinks } from '@/new-components/SocialLinks';
 import { GradientText } from '@/new-components/GradientText';
-import { getBaseUrl } from '@/lib/utils/metadata';
+import { getPageUrl } from '@/lib/utils/metadata';
 
 interface PageProps {
   params: Promise<{
@@ -40,8 +40,7 @@ export default async function FAQDetailPage({ params }: PageProps) {
   const faqItem = pageToFAQItem(faqPage);
 
   // Generate full page URL for social sharing
-  const baseUrl = getBaseUrl(lang);
-  const pageUrl = `${baseUrl}/${lang}${faqPage.url}`;
+  const pageUrl = getPageUrl(lang, faqPage.url);
   const category = faqItem.category;
 
   // Get related FAQs

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { faqSource } from '@/lib/source';
+import { getPageUrl } from '@/lib/utils/metadata';
 
 export const revalidate = false;
 
@@ -16,10 +17,10 @@ const escapeXmlChars = (url: string): string => {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // [TODO] English only, will add `alternatives.languages.<lang>` later.
   const pages = faqSource.getPages('en');
-  const domain = 'https://sealos.io';
+  const lang = 'en';
 
   const items: MetadataRoute.Sitemap = pages.map((page) => {
-    const pageUrl = new URL(page.url, domain).toString();
+    const pageUrl = getPageUrl(lang, page.url);
     return {
       url: escapeXmlChars(pageUrl),
       changeFrequency: 'weekly',
