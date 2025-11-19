@@ -28,6 +28,9 @@ export const blog = defineCollections({
 export const aiQuickReference = defineCollections({
   dir: 'content/ai-quick-reference',
   type: 'doc',
+  mdxOptions: {
+    format: 'md',
+  },
   schema: frontmatterSchema.extend({
     title: z.string(),
     description: z.string(),

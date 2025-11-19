@@ -14,7 +14,7 @@ const MIN_DIM = 128;
 const MAX_DIM = 4000;
 const MAX_DPR = 3;
 const FORMAT_REGEX =
-  /^(?<type>svg|png)(?:@(?<width>\d{2,5})x(?<height>\d{2,5}))?(?:@(?<dpr>\d(?:\.\d+)?)x)?$/i;
+  /^(?<width>\d{2,5})x(?<height>\d{2,5})(?:@(?<dpr>\d(?:\.\d+)?))?\.(?<type>png|svg)$/i;
 const PREGENERATED_FORMATS = [
   {
     type: 'svg' as const,
@@ -46,11 +46,11 @@ export function generateStaticParams() {
 
       PREGENERATED_FORMATS.forEach((format) => {
         const dprSuffix =
-          format.dpr && format.dpr !== 1 ? `@${format.dpr}x` : '';
+          format.dpr && format.dpr !== 1 ? `@${format.dpr}` : '';
         params.push({
           lang,
           slug,
-          format: `${format.type}@${format.width}x${format.height}${dprSuffix}`,
+          format: `${format.width}x${format.height}${dprSuffix}.${format.type}`,
         });
       });
     }
@@ -106,13 +106,13 @@ function parseFormatSegment(segment: string) {
   const match = FORMAT_REGEX.exec(segment);
   if (!match?.groups) return null;
 
-  const type = (match.groups.type?.toLowerCase() ?? 'png') as 'svg' | 'png';
   const widthRaw = match.groups.width
     ? Number(match.groups.width)
     : DEFAULT_WIDTH;
   const heightRaw = match.groups.height
     ? Number(match.groups.height)
     : DEFAULT_HEIGHT;
+  const type = (match.groups.type?.toLowerCase() ?? 'png') as 'svg' | 'png';
   const dprRaw = match.groups.dpr ? Number(match.groups.dpr) : 1;
 
   const clamp = (value: number) =>
@@ -149,7 +149,7 @@ export async function GET(
       return NextResponse.json(
         {
           error:
-            'Invalid format. Use png|svg@<width>x<height>[@dpr] with width/height 128-4000 and dpr up to 3.',
+            'Invalid format. Use <width>x<height>[@dpr].(png|svg) with width/height 128-4000 and dpr up to 3.',
         },
         { status: 400 },
       );

@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useRef, memo } from 'react';
-import { useInView } from 'framer-motion';
+import { useInView } from 'motion/react';
 
 interface AnimatedCarouselContainerProps {
   activeIndex: number;

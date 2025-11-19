@@ -78,9 +78,9 @@ export function getBlogImage(
   format: BlogImageFormat = 'png-og',
 ) {
   const formatMap: Record<BlogImageFormat, string> = {
-    'svg-card': 'svg@384x256',
-    'svg-header': 'svg@400x210',
-    'png-og': 'png@1200x630@3x',
+    'svg-card': '384x256.svg',
+    'svg-header': '400x210.svg',
+    'png-og': '1200x630@3x.png',
   };
 
   const locale = page.locale ?? 'en';
@@ -173,7 +173,11 @@ export function getRelatedArticles(
     tagWeight?: number;
   },
 ): BlogPost[] {
-  if (!currentArticle || !Array.isArray(allArticles) || allArticles.length === 0) {
+  if (
+    !currentArticle ||
+    !Array.isArray(allArticles) ||
+    allArticles.length === 0
+  ) {
     return [];
   }
 
@@ -192,7 +196,10 @@ export function getRelatedArticles(
   const currentCategory = getPageCategory(currentArticle).toLowerCase();
   const currentTags = new Set(
     (currentArticle.data.tags ?? [])
-      .filter((tag): tag is string => typeof tag === 'string' && tag.trim().length > 0)
+      .filter(
+        (tag): tag is string =>
+          typeof tag === 'string' && tag.trim().length > 0,
+      )
       .map((tag) => tag.toLowerCase().trim()),
   );
 
@@ -214,7 +221,10 @@ export function getRelatedArticles(
 
     const candidateTags = new Set(
       (article.data.tags ?? [])
-        .filter((tag): tag is string => typeof tag === 'string' && tag.trim().length > 0)
+        .filter(
+          (tag): tag is string =>
+            typeof tag === 'string' && tag.trim().length > 0,
+        )
         .map((tag) => tag.toLowerCase().trim()),
     );
 
@@ -237,8 +247,11 @@ export function getRelatedArticles(
 
     const updatedAt = (() => {
       const rawDate = article.data.date ?? article.file?.name;
-      const normalizedDate = rawDate instanceof Date ? rawDate.toISOString() : rawDate;
-      const timestamp = normalizedDate ? Date.parse(normalizedDate) : Number.NaN;
+      const normalizedDate =
+        rawDate instanceof Date ? rawDate.toISOString() : rawDate;
+      const timestamp = normalizedDate
+        ? Date.parse(normalizedDate)
+        : Number.NaN;
       return Number.isNaN(timestamp) ? 0 : timestamp;
     })();
 
@@ -255,11 +268,18 @@ export function getRelatedArticles(
 
   const rankedCandidates = candidates.map(scoreCandidate);
 
-  const sortByRelevance = (a: ReturnType<typeof scoreCandidate>, b: ReturnType<typeof scoreCandidate>) => {
+  const sortByRelevance = (
+    a: ReturnType<typeof scoreCandidate>,
+    b: ReturnType<typeof scoreCandidate>,
+  ) => {
     if (b.score !== a.score) return b.score - a.score;
-    if (b.sharedTagsCount !== a.sharedTagsCount) return b.sharedTagsCount - a.sharedTagsCount;
+    if (b.sharedTagsCount !== a.sharedTagsCount)
+      return b.sharedTagsCount - a.sharedTagsCount;
     if (b.updatedAt !== a.updatedAt) return b.updatedAt - a.updatedAt;
-    return a.article.data.title.localeCompare(b.article.data.title, currentLocale ?? 'en');
+    return a.article.data.title.localeCompare(
+      b.article.data.title,
+      currentLocale ?? 'en',
+    );
   };
 
   const sameLocale = rankedCandidates.filter((item) => item.sameLocale);

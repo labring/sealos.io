@@ -1,4 +1,3 @@
-import { blogAuthors } from '@/config/site';
 import { InferPageType } from 'fumadocs-core/source';
 import { blog } from '@/lib/source';
 import Image from 'next/image';
@@ -13,8 +12,6 @@ export default function BlogItem({
   page: InferPageType<typeof blog>;
   priorityImage?: Boolean;
 }) {
-  const slug = page.slugs[0];
-  const locale = page.locale;
   const category = getPageCategory(page);
 
   const imageSrc = page.data?.image ?? getBlogImage(page, category, 'svg-card');
