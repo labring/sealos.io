@@ -1,12 +1,11 @@
 import { ImageResponse } from 'next/og';
 import { NextResponse, type NextRequest } from 'next/server';
 import satori, { type SatoriOptions } from 'satori';
-
 import { blog } from '@/lib/source';
 import { languagesType } from '@/lib/i18n';
 import { BlogThumbnailTemplate, renderScaledThumbnail } from './template';
-
-export const runtime = 'edge';
+import { readFile } from 'fs/promises';
+import { join } from 'path';
 
 const DEFAULT_WIDTH = 384;
 const DEFAULT_HEIGHT = 256;
@@ -59,21 +58,21 @@ export function generateStaticParams() {
   return params;
 }
 
-const fontRegular = fetch(
-  new URL('../../../../../../../fonts/arial.ttf', import.meta.url),
-).then((res) => res.arrayBuffer());
-const fontBold = fetch(
-  new URL('../../../../../../../fonts/arial-bold.ttf', import.meta.url),
-).then((res) => res.arrayBuffer());
-const fontHan = fetch(
-  new URL('../../../../../../../fonts/NotoSansSC-Black.ttf', import.meta.url),
-).then((res) => res.arrayBuffer());
+async function loadFont(path: string): Promise<ArrayBuffer> {
+  const fontPath = join(process.cwd(), 'fonts', path);
+  const fontBuffer = await readFile(fontPath);
+  // Convert Buffer to ArrayBuffer by creating a new ArrayBuffer
+  const arrayBuffer = new ArrayBuffer(fontBuffer.length);
+  const view = new Uint8Array(arrayBuffer);
+  view.set(fontBuffer);
+  return arrayBuffer;
+}
 
 async function getFonts(): Promise<SatoriOptions['fonts']> {
   const [regular, bold, han] = await Promise.all([
-    fontRegular,
-    fontBold,
-    fontHan,
+    loadFont('arial.ttf'),
+    loadFont('arial-bold.ttf'),
+    loadFont('NotoSansSC-Black.ttf'),
   ]);
   return [
     {
