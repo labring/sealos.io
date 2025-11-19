@@ -420,6 +420,19 @@ export function generateProductMetadata(options: {
 }
 
 /**
+ * Get base URL based on language
+ * @param lang - Language code ('en' or 'zh-cn')
+ * @returns Base URL for the given language
+ */
+export function getBaseUrl(lang: string): string {
+  const domainMap: Record<string, string> = {
+    en: 'https://sealos.io',
+    'zh-cn': 'https://sealos.run',
+  };
+  return domainMap[lang] || domainMap['en'];
+}
+
+/**
  * Generate hreflang links for international SEO
  * @param currentPath - The current page path (without language prefix)
  * @returns Array of hreflang link objects
@@ -434,15 +447,9 @@ export function generateHreflangLinks(
     .replace(/^\/?(en|zh-cn)\/?/, '')
     .replace(/^\/+/, '');
 
-  // Domain mapping based on language
-  const domainMap = {
-    en: 'https://sealos.io',
-    'zh-cn': 'https://sealos.run',
-  };
-
   // Generate hreflang links for each supported language
   i18n.languages.forEach((lang) => {
-    const domain = domainMap[lang as keyof typeof domainMap];
+    const domain = getBaseUrl(lang);
     let href = domain;
 
     // Add path if it exists
@@ -458,7 +465,7 @@ export function generateHreflangLinks(
   });
 
   // Add x-default (fallback to English domain)
-  const defaultDomain = domainMap['en'];
+  const defaultDomain = getBaseUrl('en');
   let defaultHref = defaultDomain;
   if (cleanPath) {
     defaultHref = `${defaultDomain}/${cleanPath}`;

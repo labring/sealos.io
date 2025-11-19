@@ -1,6 +1,5 @@
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import React from 'react';
 import { DocsBody } from 'fumadocs-ui/page';
@@ -15,16 +14,12 @@ import {
   pageToFAQItem,
   getCategory,
 } from '@/lib/utils/faq-utils';
-import { Button } from '@/components/ui/button';
 import { faqSource } from '@/lib/source';
 import { GodRays } from '@/new-components/GodRays';
-import FacebookIconImage from '@/assets/social-icons/facebook.svg';
-import XIconImage from '@/assets/social-icons/x.svg';
-import LinkedinIconImage from '@/assets/social-icons/linkedin.svg';
-import YcombinatorIconImage from '@/assets/social-icons/ycombinator.svg';
-import RedditIconImage from '@/assets/social-icons/reddit.svg';
 import { SealosBrandCard } from '@/new-components/SealosBrandCard';
+import { SocialLinks } from '@/new-components/SocialLinks';
 import { GradientText } from '@/new-components/GradientText';
+import { getBaseUrl } from '@/lib/utils/metadata';
 
 interface PageProps {
   params: Promise<{
@@ -35,7 +30,6 @@ interface PageProps {
 
 export default async function FAQDetailPage({ params }: PageProps) {
   const { slug, lang } = await params;
-  const langPrefix = `/${lang}`;
 
   // Get FAQ page from source
   const faqPage = getFAQBySlug(slug, lang);
@@ -46,10 +40,8 @@ export default async function FAQDetailPage({ params }: PageProps) {
   const faqItem = pageToFAQItem(faqPage);
 
   // Generate full page URL for social sharing
-  const baseUrl = lang === 'zh-cn' ? 'https://sealos.run' : 'https://sealos.io';
-  const pageUrl = `${baseUrl}${langPrefix}${faqPage.url}`;
-  const encodedUrl = encodeURIComponent(pageUrl);
-  const encodedTitle = encodeURIComponent(faqItem.title);
+  const baseUrl = getBaseUrl(lang);
+  const pageUrl = `${baseUrl}/${lang}${faqPage.url}`;
   const category = faqItem.category;
 
   // Get related FAQs
@@ -62,7 +54,7 @@ export default async function FAQDetailPage({ params }: PageProps) {
       },
       title: item.title,
       description: item.description,
-      href: `${langPrefix}${page.url}`,
+      href: `/${lang}${page.url}`,
     };
   });
 
@@ -102,7 +94,7 @@ export default async function FAQDetailPage({ params }: PageProps) {
   }
   const keepReading = keepReadingPages.map((page) => ({
     title: (page.data.title as string) || '',
-    href: `${langPrefix}${page.url}`,
+    href: `/${lang}${page.url}`,
   }));
 
   // Get content from page data (from fumadocs collections)
@@ -164,7 +156,7 @@ export default async function FAQDetailPage({ params }: PageProps) {
       <div className="container -mt-24 pt-44 pb-20">
         {/* Back Button */}
         <Link
-          href={`${langPrefix}/ai-quick-reference`}
+          href={`/${lang}/ai-quick-reference`}
           className="text-muted-foreground hover:text-foreground mb-14 inline-flex items-center gap-2 text-sm transition-colors"
         >
           <ChevronLeft size={16} />
@@ -206,7 +198,7 @@ export default async function FAQDetailPage({ params }: PageProps) {
             <div className="flex gap-3">
               {previous ? (
                 <Link
-                  href={`${langPrefix}${previous.url}`}
+                  href={`/${lang}${previous.url}`}
                   className="flex flex-1 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/15"
                 >
                   <ChevronLeft size={16} />
@@ -217,7 +209,7 @@ export default async function FAQDetailPage({ params }: PageProps) {
               )}
               {next ? (
                 <Link
-                  href={`${langPrefix}${next.url}`}
+                  href={`/${lang}${next.url}`}
                   className="flex flex-1 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/15"
                 >
                   <span>Next</span>
@@ -233,105 +225,7 @@ export default async function FAQDetailPage({ params }: PageProps) {
           <aside className="flex flex-col gap-10 sm:flex-row sm:gap-6 lg:sticky lg:top-28 lg:h-fit lg:flex-col lg:gap-12">
             <div>
               <SealosBrandCard />
-
-              {/* Social Links */}
-              <div className="mt-6 flex gap-6 text-white">
-                <Button
-                  variant="secondary"
-                  className="h-10 w-10 rounded-full p-0"
-                  asChild
-                >
-                  <a
-                    href={`https://linkedin.com/shareArticle?url=${encodedUrl}&mini=true&title=${encodedTitle}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src={LinkedinIconImage}
-                      alt="Share to Linkedin"
-                      className="size-4"
-                      width={24}
-                      height={24}
-                    />
-                  </a>
-                </Button>
-                <Button
-                  variant="secondary"
-                  className="h-10 w-10 rounded-full p-0"
-                  asChild
-                >
-                  <a
-                    href={`https://x.com/intent/post?url=${encodedUrl}&text=${encodedTitle}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src={XIconImage}
-                      alt="Share to X"
-                      className="size-4"
-                      width={24}
-                      height={24}
-                    />
-                  </a>
-                </Button>
-                <Button
-                  variant="secondary"
-                  className="h-10 w-10 rounded-full p-0"
-                  asChild
-                >
-                  <a
-                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src={FacebookIconImage}
-                      alt="Share to Facebook"
-                      className="size-4"
-                      width={24}
-                      height={24}
-                    />
-                  </a>
-                </Button>
-                <Button
-                  variant="secondary"
-                  className="h-10 w-10 rounded-full p-0"
-                  asChild
-                >
-                  <a
-                    href={`https://www.reddit.com/submit?url=${encodedUrl}&type=LINK`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src={RedditIconImage}
-                      alt="Share to Reddit"
-                      className="size-6"
-                      width={24}
-                      height={24}
-                    />
-                  </a>
-                </Button>
-                <Button
-                  variant="secondary"
-                  className="h-10 w-10 rounded-full p-0"
-                  asChild
-                >
-                  <a
-                    href={`https://news.ycombinator.com/submitlink?t=${encodedTitle}&u=${encodedUrl}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src={YcombinatorIconImage}
-                      alt="Share to Hacker News"
-                      className="size-4"
-                      width={24}
-                      height={24}
-                    />
-                  </a>
-                </Button>
-              </div>
+              <SocialLinks url={pageUrl} title={faqItem.title} />
             </div>
 
             {/* Keep Reading */}
@@ -349,7 +243,7 @@ export default async function FAQDetailPage({ params }: PageProps) {
                 ))}
               </div>
               <Link
-                href={`${langPrefix}/ai-quick-reference`}
+                href={`/${lang}/ai-quick-reference`}
                 className="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-sm font-medium transition-colors"
               >
                 <span>All Frequently Asked Questions</span>

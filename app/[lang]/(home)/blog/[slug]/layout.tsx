@@ -25,6 +25,8 @@ import { BlogFooter } from '../components/BlogFooter';
 import Link from 'next/link';
 import { ChevronLeftIcon } from 'lucide-react';
 import { SealosBrandCard } from '@/new-components/SealosBrandCard';
+import { SocialLinks } from '@/new-components/SocialLinks';
+import { getBaseUrl } from '@/lib/utils/metadata';
 
 function getAdjacentBlog(
   page: ReturnType<typeof blog.getPage>,
@@ -90,6 +92,10 @@ export default async function BlogLayout({
   const recommendedArticles = getRelatedArticles(page, candidateArticles);
   const relatedArticlesToRender =
     recommendedArticles.length > 0 ? recommendedArticles : candidateArticles;
+
+  // Generate full page URL for social sharing
+  const baseUrl = getBaseUrl(params.lang);
+  const pageUrl = `${baseUrl}/${params.lang}${page.url}`;
 
   return (
     <>
@@ -191,6 +197,7 @@ export default async function BlogLayout({
             header: (
               <div className="mb-4">
                 <SealosBrandCard />
+                <SocialLinks url={pageUrl} title={page.data.title} />
               </div>
             ),
           }}
@@ -207,8 +214,9 @@ export default async function BlogLayout({
               <>
                 <BlogFooter adjacentPosts={adjacentPosts} />
 
-                <div className="mt-20">
+                <div className="mt-20 block xl:hidden">
                   <SealosBrandCard />
+                  <SocialLinks url={pageUrl} title={page.data.title} />
                 </div>
 
                 <RelatedArticles
