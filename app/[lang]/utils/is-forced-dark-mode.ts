@@ -12,6 +12,10 @@ export function isForcedDarkMode(pathname: string): boolean {
       path: '/blog',
       match: 'prefix',
     },
+    {
+      path: '/docs',
+      match: 'prefix',
+    },
   ];
 
   // Match 2-letter language codes at the start of the path (temporary solution)

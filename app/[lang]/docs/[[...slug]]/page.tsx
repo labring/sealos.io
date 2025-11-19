@@ -11,7 +11,7 @@ import { notFound } from 'next/navigation';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import { generateDocsMetadata } from '@/lib/utils/metadata';
 import AIShareButtons from '@/components/ai-share-buttons';
-import AIShareButtonsCompact from '@/components/ai-share-buttons-compact';
+import PageActions from '@/components/page-actions';
 import { languagesType } from '@/lib/i18n';
 
 /**
@@ -43,6 +43,8 @@ export default async function Page({
 
   const MDX = page.data.body;
 
+  const githubFilePath = getGithubFilePath(page.file.path, params.lang);
+
   return (
     <DocsPage
       toc={page.data.toc}
@@ -53,17 +55,14 @@ export default async function Page({
       lastUpdate={
         page.data.lastModified ? new Date(page.data.lastModified) : undefined
       }
-      editOnGithub={{
-        owner: 'labring',
-        repo: 'sealos.io',
-        sha: 'main',
-        // Generate correct file path based on language
-        path: `content/docs/${getGithubFilePath(page.file.path, params.lang)}`,
-      }}
     >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
-      <AIShareButtonsCompact lang={params.lang} className="mb-6" />
+      <PageActions
+        lang={params.lang}
+        githubUrl={`https://github.com/labring/sealos.io/blob/main/content/docs/${githubFilePath}`}
+        markdownUrl={`https://raw.githubusercontent.com/labring/sealos.io/main/content/docs/${githubFilePath}`}
+      />
       <DocsBody>
         <MDX
           components={{

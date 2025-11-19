@@ -19,19 +19,23 @@ export default function AIShareButtonsCompact({
   const translations = {
     en: {
       title: 'Share at:',
+      scira: 'Scira AI',
       chatgpt: 'ChatGPT',
       perplexity: 'Perplexity',
       claude: 'Claude',
       gemini: 'Google AI',
       grok: 'Grok',
+      t3chat: 'T3 Chat',
     },
     'zh-cn': {
       title: '分享到：',
+      scira: 'Scira AI',
       chatgpt: 'ChatGPT',
       perplexity: 'Perplexity',
       claude: 'Claude',
       gemini: 'Google AI',
       grok: 'Grok',
+      t3chat: 'T3 Chat',
     },
   };
 
@@ -45,6 +49,12 @@ export default function AIShareButtonsCompact({
 
       {/* AI share button group */}
       <div className="flex flex-wrap gap-2">
+        <AIShareButton
+          platform="scira"
+          label={t.scira}
+          variant="compact"
+          lang={lang}
+        />
         <AIShareButton
           platform="chatgpt"
           label={t.chatgpt}
@@ -72,6 +82,12 @@ export default function AIShareButtonsCompact({
         <AIShareButton
           platform="grok"
           label={t.grok}
+          variant="compact"
+          lang={lang}
+        />
+        <AIShareButton
+          platform="t3chat"
+          label={t.t3chat}
           variant="compact"
           lang={lang}
         />

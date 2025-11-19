@@ -23,37 +23,45 @@ export default function AIShareButtons({
     en: {
       title: 'Explore with AI',
       subtitle: 'Get AI insights on this article',
+      scira: 'Scira AI',
       chatgpt: 'ChatGPT Summary',
       perplexity: 'Perplexity Analysis',
       claude: 'Claude Insights',
       gemini: 'Google AI',
       grok: 'Grok',
+      t3chat: 'T3 Chat',
       shareTitle: 'Share this article',
       tip: 'AI will help you summarize key points and analyze technical details.',
       descriptions: {
+        scira: 'AI Analysis',
         chatgpt: 'Smart Summary',
         perplexity: 'Deep Analysis',
         claude: 'Professional Insights',
         gemini: 'Quick Insights',
         grok: 'X AI Analysis',
+        t3chat: 'Chat Analysis',
       },
     },
     'zh-cn': {
       title: '用AI探索',
       subtitle: '获取这篇文章的AI见解',
+      scira: 'Scira AI',
       chatgpt: 'ChatGPT 总结',
       perplexity: 'Perplexity 分析',
       claude: 'Claude 洞察',
       gemini: 'Google AI',
       grok: 'Grok',
+      t3chat: 'T3 Chat',
       shareTitle: '分享这篇文章',
       tip: 'AI将帮助您总结要点并分析技术细节。',
       descriptions: {
+        scira: 'AI 分析',
         chatgpt: '智能总结',
         perplexity: '深度分析',
         claude: '专业洞察',
         gemini: '快速见解',
         grok: 'X AI 分析',
+        t3chat: '对话分析',
       },
     },
   };
@@ -73,6 +81,13 @@ export default function AIShareButtons({
       </div>
 
       <div className="grid grid-cols-1 gap-x-2.5 gap-y-6 sm:grid-cols-2 md:grid-cols-3">
+        <AIShareButton
+          platform="scira"
+          label={t.scira}
+          description={t.descriptions.scira}
+          variant="full"
+          lang={lang}
+        />
         <AIShareButton
           platform="chatgpt"
           label={t.chatgpt}
@@ -105,6 +120,13 @@ export default function AIShareButtons({
           platform="grok"
           label={t.grok}
           description={t.descriptions.grok}
+          variant="full"
+          lang={lang}
+        />
+        <AIShareButton
+          platform="t3chat"
+          label={t.t3chat}
+          description={t.descriptions.t3chat}
           variant="full"
           lang={lang}
         />
