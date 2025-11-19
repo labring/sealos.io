@@ -1,0 +1,13 @@
+{
+  "title": "What is a canary deployment, and how can it be automated?",
+  "description": "Canary deployment is a deployment strategy that gradually releases a new version of software to a small subset of users to test stability before expanding. Its importance lies in reducing release risk",
+  "category": "Automated Deployment",
+  "keywords": [
+    "Sealos",
+    "Cluster Management",
+    "Private Cloud",
+    "DevOps",
+    "One-Click Deployment"
+  ],
+  "content": "Canary deployment is a deployment strategy that gradually releases a new version of software to a small subset of users to test stability before expanding. Its importance lies in reducing release risks and minimizing the impact of failures, especially suitable for cloud computing, containerization, and cloud-native environments, such as application updates and A/B testing scenarios.\n\nThe core components of canary deployment include new/old version services, traffic control tools (such as load balancers), and monitoring systems. The principle is to split user traffic (e.g., assigning a small number of users to use the new version) and decide whether to fully promote or roll back based on performance metrics (such as error rates). Its application affects the success rate and reliability of cloud computing deployments, for example, used in Kubernetes to safely upgrade microservices and reduce downtime.\n\nBrief steps to implement automated canary deployment include: configuring traffic routing ratios using Kubernetes and tools (such as Istio or Argo Rollouts); integrating CI/CD pipelines to monitor real-time metrics (such as latency or errors); automatically scaling up gradually or rolling back when metrics pass thresholds. A typical scenario is in cloud-native service meshes; business values include accelerating iterations, minimizing failure impact, and improving operational efficiency."
+}

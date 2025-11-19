@@ -1,0 +1,13 @@
+{
+  "title": "How do you set up hybrid cloud networking between data centers and public clouds?",
+  "description": "Hybrid cloud networking is an architecture that integrates enterprise on-premises data centers with public cloud services through secure connections to enable resource sharing and business elasticity.",
+  "category": "Multi-Cloud and Hybrid Cloud Deployment",
+  "keywords": [
+    "Cloud-Native",
+    "High Availability (HA)",
+    "Cluster Management",
+    "Application Deployment",
+    "IT Infrastructure"
+  ],
+  "content": "Hybrid cloud networking is an architecture that integrates enterprise on-premises data centers with public cloud services through secure connections to enable resource sharing and business elasticity. Its importance lies in supporting hybrid workload deployment, disaster recovery, and cost-effective scaling, making it suitable for scenarios such as finance and retail that require both data security and agility.\n\nCore components include Virtual Private Networks (VPN), dedicated connection services like AWS Direct Connect or Azure ExpressRoute, cloud gateway devices (e.g., SD-WAN), and network virtualization technologies. It features high security, guaranteed bandwidth, and low-latency communication, with principles based on encrypted tunnels to achieve interoperability. In practical applications, it supports database synchronization, multi-region load balancing, and hybrid application deployment, enhancing IT agility and resource utilization while optimizing cost structures.\n\nEstablishment steps: First, analyze business requirements to select cloud service providers; second, deploy interconnection solutions such as dedicated lines or VPNs, and configure on-premises routers and cloud virtual networks; third, test connectivity and deploy monitoring tools like Prometheus; finally, continuously optimize performance. Typical scenarios include multi-cloud disaster recovery or development and testing environments, with business values reflected in elastic scaling, reducing hardware investment by up to 50%, and improving operational efficiency."
+}

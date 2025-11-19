@@ -1,0 +1,13 @@
+{
+  "title": "How do you set up multi-cloud IaC infrastructure with tools like Terraform and Ansible?",
+  "description": "Terraform and Ansible are core tools for implementing multi-cloud Infrastructure as Code (IaC), used for automating resource provisioning and configuration management. Their importance lies in ensurin",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Cluster Management",
+    "IT Infrastructure",
+    "Private Cloud",
+    "Containerization",
+    "Sealos"
+  ],
+  "content": "Terraform and Ansible are core tools for implementing multi-cloud Infrastructure as Code (IaC), used for automating resource provisioning and configuration management. Their importance lies in ensuring the consistency and reproducibility of infrastructure deployments, supporting improved efficiency and scalability in scenarios such as cloud migration and hybrid cloud deployment.\n\nThe core components include Terraform's declarative configuration to define infrastructure resources (such as virtual machines and network components), and Ansible's idempotent task execution for software configuration (such as service installation). In practical applications, these tools can automatically deploy and configure resources on cloud platforms like AWS and Azure, reducing human errors and promoting DevOps practices.\n\nImplementation steps: First, use Terraform to define multi-cloud resources and provision them via `terraform apply`; second, utilize Ansible playbooks to configure resources (such as passing Terraform output variables for software settings). Typical scenarios involve deploying application stacks across multiple clouds, providing business values such as accelerating release cycles, optimizing costs, and enhancing disaster recovery capabilities."
+}

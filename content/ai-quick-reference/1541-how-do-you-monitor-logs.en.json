@@ -1,0 +1,13 @@
+{
+  "title": "How do you monitor logs in microservices deployed on Kubernetes?",
+  "description": "Monitoring logs of microservices on Kubernetes is crucial for rapid fault diagnosis, performance optimization, and compliance auditing, ensuring the reliability and operational efficiency of applicati",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Cloud-Native",
+    "High Performance",
+    "Cloud Platform",
+    "Private Cloud",
+    "Open-Source Cloud"
+  ],
+  "content": "Monitoring logs of microservices on Kubernetes is crucial for rapid fault diagnosis, performance optimization, and compliance auditing, ensuring the reliability and operational efficiency of applications in distributed environments. Application scenarios include troubleshooting service outages, tracking request chains, and auditing security events.\n\nThe core components involve log collection agents (such as Fluentd or Filebeat), storage systems (such as Elasticsearch), and visualization tools (such as Kibana). Kubernetes natively supports container log volumes and CRI standards. Log collection deploys agents via DaemonSets to automatically capture container logs and forward them to a central platform. In practical applications, the EFK stack (Elasticsearch, Fluentd, Kibana) enables standardized log analysis, improving team response speed and supporting real-time alerts.\n\nImplementation steps include: 1. Deploying log agent DaemonSets to all nodes to collect logs; 2. Configuring agents to route logs to target systems (e.g., Elasticsearch clusters); 3. Using Kibana to build dashboards for monitoring key metrics. Business values include reducing fault resolution time, improving system observability, and supporting resource optimization decisions."
+}

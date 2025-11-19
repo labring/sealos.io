@@ -1,0 +1,13 @@
+{
+  "title": "What role does CI/CD play in cloud-native development environments?",
+  "description": "CI/CD (Continuous Integration/Continuous Deployment) refers to key practices for automating software build, testing, and deployment processes, used in cloud-native environments to accelerate applicati",
+  "category": "Cloud-Native Development Environments",
+  "keywords": [
+    "Cloud Platform",
+    "High Availability (HA)",
+    "Lakehouse",
+    "Cluster Management",
+    "Containerization"
+  ],
+  "content": "CI/CD (Continuous Integration/Continuous Deployment) refers to key practices for automating software build, testing, and deployment processes, used in cloud-native environments to accelerate application delivery and ensure quality. Its importance lies in supporting microservices architectures and containerized applications, enabling frequent and reliable updates, with applicable scenarios including agile development, auto-scaling, and canary releases.\n\nCore features include automated pipelines (such as building Docker images, unit testing), integration with orchestration tools like Kubernetes to implement rolling deployments, and monitoring feedback mechanisms. In practical applications, CI/CD tools like Jenkins or GitLab CI seamlessly connect to container registries, quickly releasing application versions, significantly improving development efficiency, reducing human errors, and enhancing resilience and observability.\n\nThe application value of CI/CD lies in empowering DevOps culture, shortening time-to-market to the minute level, reducing failure risks through continuous testing, and improving business stability and innovation response capabilities."
+}

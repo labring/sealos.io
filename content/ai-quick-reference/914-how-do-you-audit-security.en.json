@@ -1,0 +1,13 @@
+{
+  "title": "How do you audit security activities in cloud-native environments?",
+  "description": "Auditing security activities in cloud-native environments refers to monitoring and recording security-related events, behaviors, and configuration changes to ensure timely threat detection and maintai",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Kubernetes (K8s)",
+    "Cluster Management",
+    "Open-Source Cloud",
+    "High Availability (HA)",
+    "Containerization"
+  ],
+  "content": "Auditing security activities in cloud-native environments refers to monitoring and recording security-related events, behaviors, and configuration changes to ensure timely threat detection and maintain compliance. Its importance lies in protecting distributed applications from data breaches, unauthorized access, and attacks, while meeting regulations such as GDPR or HIPAA. Application scenarios include security risk assessment in Kubernetes clusters, containerized services, and multi-cloud deployments.\n\nCore components include log sources (e.g., API server audit logs), event collection tools (e.g., Fluentd or Prometheus), and policy engines (e.g., Open Policy Agent). By real-time tracking user operations, system events, and resource changes, it enables abnormal behavior detection (such as privilege escalation or configuration drift), enhances security posture, and supports post-incident investigation and compliance reporting.\n\nImplementation steps: First, enable audit logging (e.g., configure Kubernetes audit policies); second, integrate a centralized logging system (e.g., ELK Stack or Splunk); finally, deploy monitoring tools (e.g., Falco for runtime detection) and set up alerts. Typical scenarios include regular security reviews and incident response, with business values of reducing operational risks, enhancing customer trust, and optimizing compliance costs."
+}

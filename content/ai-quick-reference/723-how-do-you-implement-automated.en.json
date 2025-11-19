@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement automated data scaling in cloud-native applications?",
+  "description": "Automated data scaling in cloud-native applications refers to the ability to dynamically adjust data resources such as storage volumes or database instances based on load. Its importance lies in ensur",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Open-Source Cloud",
+    "IT Infrastructure",
+    "Cloud Platform",
+    "Kubernetes (K8s)",
+    "DevOps"
+  ],
+  "content": "Automated data scaling in cloud-native applications refers to the ability to dynamically adjust data resources such as storage volumes or database instances based on load. Its importance lies in ensuring applications maintain high performance and availability under fluctuating traffic, with use cases including e-commerce promotions and peak demand for big data processing.\n\nCore components include container orchestration tools (e.g., Kubernetes' Horizontal Pod Autoscaler), cloud service providers' elastic storage (e.g., AWS EBS or GCP Persistent Disk auto-scaling), and monitoring systems (e.g., Prometheus) that trigger scaling based on CPU or memory metrics. It is characterized by horizontally scaling resource nodes, with the principle relying on predefined policies to respond to load changes in real time. Practical impacts include improving resource utilization by 50-70%, reducing costs, and supporting elastic business growth, such as avoiding data bottlenecks in real-time analytics platforms.\n\nImplementation steps: Define auto-scaling policies (e.g., CPU utilization thresholds); configure tools like Kubernetes HPA to integrate with storage services; deploy monitoring system alerts. A typical scenario is a database automatically scaling 10 times during traffic peaks. Business value includes optimizing IT spending by 20-30% and enhancing user experience responsiveness."
+}

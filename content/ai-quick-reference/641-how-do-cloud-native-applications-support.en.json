@@ -1,0 +1,13 @@
+{
+  "title": "How do cloud-native applications support large-scale data analytics?",
+  "description": "Cloud-native applications provide strong support for large-scale data analysis through core features such as containerization, microservices, dynamic orchestration, and declarative APIs. Their importa",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "High Performance",
+    "Lakehouse",
+    "Cloud Operating System",
+    "Cluster Management",
+    "Kubernetes (K8s)"
+  ],
+  "content": "Cloud-native applications provide strong support for large-scale data analysis through core features such as containerization, microservices, dynamic orchestration, and declarative APIs. Their importance lies in breaking through the resource bottlenecks of traditional architectures, enabling efficient resource utilization and elastic scaling of analytical workloads, which is particularly suitable for scenarios such as real-time analysis, batch processing, and machine learning that require rapid processing of massive heterogeneous data.\n\nCore technical components include: Kubernetes for container orchestration, enabling automatic scaling of computing nodes; containerization technology ensuring consistency of analytical environments; microservice architecture decoupling data processing pipelines; Service Mesh managing inter-service communication; DevOps/CI/CD pipelines accelerating deployment. Features are reflected in: fine-grained elastic scaling (horizontal scaling triggered based on CPU/Memory or custom metrics such as queue depth), on-demand resource supply, fault self-healing, and high availability. These features allow analytical frameworks such as Spark, Flink, and Presto to run more efficiently and reliably on cloud-native platforms.\n\nIts support methods are reflected as follows: First, using Kubernetes' HPA/VPA/CronHPA to achieve precise resource response to demand fluctuations, significantly improving utilization and reducing costs. Second, simplifying the deployment and management of complex frameworks (such as Spark-on-K8s) through the Operator pattern. Third, combining Serverless computing (such as Knative) or elastic data services to instantly launch large-scale tasks to handle peak loads and then quickly release resources. Finally, using Service Mesh to implement service governance and observability, ensuring the stability of analytical pipelines. These capabilities significantly accelerate the speed of analytical insights and empower real-time business decision-making."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage user identities and access across multiple cloud-native services?",
+  "description": "Managing user identities and access permissions refers to using authentication (such as OIDC) and authorization mechanisms to ensure secure and consistent access among multiple cloud-native services. ",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Application Deployment",
+    "Kubernetes (K8s)",
+    "Cloud Platform",
+    "Cloud-Native",
+    "IT Infrastructure"
+  ],
+  "content": "Managing user identities and access permissions refers to using authentication (such as OIDC) and authorization mechanisms to ensure secure and consistent access among multiple cloud-native services. Its importance lies in enhancing the security of multi-cloud environments, achieving compliance, and preventing unauthorized access, with applications in scenarios like microservice architectures and CI/CD pipelines.\n\nCore components include a central identity provider (such as Keycloak), fine-grained access control (such as Kubernetes RBAC), and service mesh authorization policies. In practice, cross-service permission coordination is achieved through unified policy management tools, improving operational efficiency, supporting the zero-trust model, and reducing security risks and audit complexity.\n\nImplementation steps: 1) Integrate a unified identity source (such as SSO), 2) Declaratively configure roles and permissions, 3) Deploy authorization middleware (such as Istio Envoy). Business values include reducing vulnerability risks, simplifying user lifecycle management, and ensuring the scalability of multi-cloud environments."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you automate scaling of cloud-native applications based on usage patterns?",
+  "description": "Autoscaling is a core capability of cloud-native applications. It dynamically adjusts the number of application instances (Pods) based on real-time metrics (such as CPU, memory, number of requests, or",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Lakehouse",
+    "Cluster Management",
+    "Cloud Platform",
+    "Application Deployment",
+    "Kubernetes (K8s)"
+  ],
+  "content": "Autoscaling is a core capability of cloud-native applications. It dynamically adjusts the number of application instances (Pods) based on real-time metrics (such as CPU, memory, number of requests, or custom metrics) to match changing workload demands. This capability is crucial for optimizing resource utilization, ensuring service responsiveness, and controlling costs, especially suitable for online services with fluctuating traffic, batch processing tasks, and microservice architectures.\n\nIts core lies in the Horizontal Pod Autoscaler (HPA) mechanism: 1) Metric collection: Resources utilization or application-level metrics are collected by tools like Metrics Server or Prometheus. 2) Target setting: Users define scaling targets (e.g., average CPU utilization of 50%, or 100 requests per second). 3) Decision and execution: The HPA controller continuously compares current metrics with target values, calculates the required change in the number of replicas, and triggers scaling up or down via the Kubernetes API. Vertical Pod Autoscaler (VPA) dynamically adjusts the resource requests/limits of individual Pods. The core impact is achieving efficient resource elasticity, improving system stability and cost-effectiveness.\n\nPractical implementation steps: 1) Deploy metric collection services. 2) Define HPA policies (specify target deployment, metric type, and thresholds). 3) Set minimum/maximum replica boundaries. The business value is that it automatically handles traffic spikes to ensure performance (e.g., e-commerce flash sales), reduces resources during troughs to lower costs, requires no manual intervention, and significantly enhances the elastic operation and maintenance capabilities of applications."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do automated deployments handle the scaling of cloud applications?",
+  "description": "Automated deployment automatically executes the application release process through tools, which is crucial in cloud computing and supports rapid iteration and high availability. Its core value lies i",
+  "category": "Automated Deployment",
+  "keywords": [
+    "DevOps",
+    "High Performance",
+    "One-Click Deployment",
+    "Cloud Platform",
+    "Private Cloud"
+  ],
+  "content": "Automated deployment automatically executes the application release process through tools, which is crucial in cloud computing and supports rapid iteration and high availability. Its core value lies in handling application scaling, such as automatically adjusting resources when responding to traffic peaks, and is applied to e-commerce platforms or microservice architectures to maintain service stability.\n\nCore components include CI/CD pipelines (e.g., Jenkins) and infrastructure as code. Automated deployment is initiated through triggers (e.g., code pushes), and in scaling scenarios, dynamically calls cloud APIs or Kubernetes Horizontal Pod Autoscaler to adjust the number of instances. This enables seamless resource scaling, optimizes utilization, and enhances the manageability of resilient architectures.\n\nImplementation steps first define scaling strategies (based on CPU or traffic metrics), and second integrate auto-scaling logic into the deployment process. A typical scenario is configuring auto-scaling rules during Kubernetes deployment: detecting increased load triggers an increase in replicas. Business values include reducing the risk of manual intervention, ensuring high reliability, and lowering operational costs."
+}

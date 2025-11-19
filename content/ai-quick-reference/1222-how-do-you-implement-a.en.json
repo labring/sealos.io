@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement a canary release in a CI/CD pipeline?",
+  "description": "Canary release is a progressive deployment strategy adopted in Continuous Integration/Continuous Deployment (CI/CD), where new versions are first distributed to a small subset of users or traffic to v",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Lakehouse",
+    "Cluster Management",
+    "IT Infrastructure",
+    "Open-Source Cloud",
+    "Sealos"
+  ],
+  "content": "Canary release is a progressive deployment strategy adopted in Continuous Integration/Continuous Deployment (CI/CD), where new versions are first distributed to a small subset of users or traffic to verify stability. Its importance lies in significantly reducing the risk of production failures and avoiding downtime caused by full-scale deployments. Application scenarios include iterative updates of microservice architectures or web applications.\n\nThe core components include a traffic routing system (such as Istio service mesh), monitoring tools (such as Prometheus), and an automated decision-making mechanism. The principle is to gradually increase the proportion of traffic (for example, from 5% to 100%) and dynamically determine whether to continue or roll back based on performance metrics (such as error rate or latency). In practical applications, it improves deployment reliability and reduces the impact of incidents, especially suitable for cloud-native environments managed by Kubernetes.\n\nThe implementation steps first integrate routing configuration automation tools into the CI/CD pipeline. The second step is to define the release strategy (such as a 10% canary group). Then set monitoring alert thresholds. Finally, automatically complete scaling or rollback based on the results. A typical scenario is API updates or new feature launches. The business value is reflected in accelerating innovation, reducing downtime losses, and enhancing customer experience."
+}

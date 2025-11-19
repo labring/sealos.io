@@ -1,0 +1,13 @@
+{
+  "title": "What are the differences between REST APIs and gRPC in microservices?",
+  "description": "In microservice architecture, REST APIs are based on the HTTP/1.1 standard, using text formats such as JSON or XML to implement stateless resource interaction. They are suitable for external API inter",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Private Cloud",
+    "Data Center (DC)",
+    "Lakehouse",
+    "Cloud Platform",
+    "Cloud Operating System"
+  ],
+  "content": "In microservice architecture, REST APIs are based on the HTTP/1.1 standard, using text formats such as JSON or XML to implement stateless resource interaction. They are suitable for external API interfaces and are widely used due to their simplicity and ease of integration. gRPC, based on the HTTP/2 protocol, uses binary Protocol Buffers for serialization and supports bidirectional streaming transmission. It is suitable for internal high-performance scenarios such as inter-service communication, ensuring low latency and high throughput, which is crucial for the scalability of microservices.\n\nThe core differences lie in the transport layer (HTTP/1.1 vs HTTP/2), data format (text vs binary), and features (stateless vs streaming calls). REST is lightweight and flexible, easy to debug and cache; gRPC is strongly typed and efficient, providing asynchronous communication capabilities. In practical applications, REST dominates Web API development; gRPC significantly improves microservice performance by reducing network overhead and affects the internal data flow management of the Kubernetes ecosystem.\n\nWhen choosing, REST is used for simple and cacheable external API development, with the value lying in development convenience; gRPC optimizes efficiency and resource consumption in internal microservices, and its business value is to reduce latency and improve throughput, suitable for data-intensive operations. The decision is based on scenario requirements: choose REST for ease of use and gRPC for performance needs."
+}

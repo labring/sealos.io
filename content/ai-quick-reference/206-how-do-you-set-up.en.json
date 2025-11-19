@@ -1,0 +1,13 @@
+{
+  "title": "How do you set up an automated deployment pipeline?",
+  "description": "An automated deployment pipeline refers to a process chain that automatically builds, tests, and securely deploys code changes to the target environment. It is crucial for implementing continuous inte",
+  "category": "Automated Deployment",
+  "keywords": [
+    "High Performance",
+    "Cluster Management",
+    "Application Deployment",
+    "Containerization",
+    "Cloud Operating System"
+  ],
+  "content": "An automated deployment pipeline refers to a process chain that automatically builds, tests, and securely deploys code changes to the target environment. It is crucial for implementing continuous integration/continuous deployment (CI/CD), significantly improving the speed, reliability, and efficiency of software delivery, and serves as a core enabler for DevOps practices and cloud-native applications. Its application scenarios include frequent feature releases, rapid defect fixes, and consistent deployment across multiple environments.\n\nThe core components of an automated deployment pipeline include version control systems (e.g., Git), continuous integration servers (e.g., Jenkins, GitLab CI), artifact repositories (e.g., Nexus, Harbor), test automation tools, and deployment orchestration tools (e.g., Ansible, Argo CD). The core principle is that after code submission, the pipeline is automatically triggered to sequentially execute building, unit testing, integration testing, packaging into artifacts, deployment to the test environment, acceptance testing, and final production environment deployment (which may include manual approval). Key features include process standardization, full automation, environment consistency, and rollback capabilities.\n\nTypical steps for implementing an automated deployment pipeline are: 1) Incorporating code into version control and defining branch strategies; 2) Configuring CI tools to monitor changes and execute builds and basic tests; 3) Integrating automated testing (unit, API, UI, etc.) into the pipeline; 4) Standardizing deployment environments (e.g., using containers and Kubernetes); 5) Configuring CD tools to execute deployments (supporting strategies like blue-green/canary) and integrating monitoring and alerting. This delivers business value such as rapid delivery (minute-level上线), reduced human errors, improved product quality, fast fault recovery, and enhanced auditability."
+}

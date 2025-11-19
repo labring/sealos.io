@@ -1,0 +1,13 @@
+{
+  "title": "How do cloud-native applications manage and scale databases?",
+  "description": "In cloud-native environments, database management achieves high availability and elastic scalability through Kubernetes, ensuring data consistency and performance. Its importance lies in supporting bu",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Cloud-Native",
+    "Application Deployment",
+    "High Performance",
+    "One-Click Deployment",
+    "Open-Source Cloud"
+  ],
+  "content": "In cloud-native environments, database management achieves high availability and elastic scalability through Kubernetes, ensuring data consistency and performance. Its importance lies in supporting business continuity under dynamic loads, with application scenarios including real-time data processing and high-concurrency applications such as e-commerce platforms.\n\nCore components include StatefulSets for managing stateful databases (e.g., volume persistence) and Operators for automating deployment, backup, and scaling tasks. Features involve dynamic horizontal scaling using Horizontal Pod Autoscaler (HPA) and service discovery. In practical applications, Operators automatically add or remove database nodes to handle traffic spikes, improving operational efficiency and system reliability.\n\nDuring implementation, an Operator (such as PostgreSQL Operator) is deployed, along with configuring HPA policies and storage claims. A typical scenario is the automatic scaling of database instances during peak traffic. The business value lies in cost optimization through elastic resources, ensuring high performance and high availability to support business growth."
+}

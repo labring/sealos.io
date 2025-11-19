@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle scaling of monitoring systems for large cloud-native applications?",
+  "description": "Scaling of large cloud-native application monitoring systems refers to dynamically adjusting monitoring resources to handle high loads, ensuring application performance, reliability, and cost efficien",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "High Availability (HA)",
+    "Cloud Operating System",
+    "High Performance",
+    "Lakehouse",
+    "Open-Source Cloud"
+  ],
+  "content": "Scaling of large cloud-native application monitoring systems refers to dynamically adjusting monitoring resources to handle high loads, ensuring application performance, reliability, and cost efficiency. It is crucial in microservice architectures and dynamic cloud environments for real-time insights into fault prevention and resource optimization.\n\nCore components include distributed data collectors (e.g., Prometheus), elastic storage (e.g., Thanos), and visualization interfaces (e.g., Grafana), featuring auto-scaling, real-time analysis, and federated architecture. Practical applications support instant alerting and observability enhancement for large-scale deployments, significantly improving system resilience and business continuity.\n\nElastic monitoring is achieved through tools like Prometheus's federated mode for data sharding, deploying cluster-level aggregation points, and implementing auto-scaling strategies. Typical scenarios include large-scale microservice monitoring, with business value reflected in reduced downtime, improved operational efficiency, and cost savings."
+}

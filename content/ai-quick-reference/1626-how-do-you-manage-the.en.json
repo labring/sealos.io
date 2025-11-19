@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage the lifecycle of cloud resources using IaC?",
+  "description": "Infrastructure as Code (IaC) defines infrastructure resources as code files, enabling automated configuration and lifecycle management. In cloud computing environments, its importance lies in enhancin",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Cloud Platform",
+    "Data Center (DC)",
+    "Lakehouse",
+    "IT Infrastructure",
+    "Containerization"
+  ],
+  "content": "Infrastructure as Code (IaC) defines infrastructure resources as code files, enabling automated configuration and lifecycle management. In cloud computing environments, its importance lies in enhancing consistency, repeatability, and efficiency. It is applied to deploy resources such as virtual machines, networks, and storage, supporting elasticity and DevOps practices.\n\nCore components include code files (e.g., Terraform or AWS CloudFormation templates), version control systems (e.g., Git), and automation tools. Features like repeatable deployment, state tracking, and dependency management ensure reliable execution. In practical applications, IaC automates resource creation, updates, and recycling, reduces human errors, promotes continuous integration and delivery (CI/CD), and strengthens the reliability and agility of cloud environments.\n\nImplementation steps include defining resource requirements in code, using tools to automate deployment to cloud platforms, version-controlling and testing changes, and continuously monitoring and optimizing. Typical scenarios include multi-environment deployment and rolling updates. Business value lies in reducing operational costs, improving resource utilization, accelerating innovation, and ensuring compliance and security auditing."
+}

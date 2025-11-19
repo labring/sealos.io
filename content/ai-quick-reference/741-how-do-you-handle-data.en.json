@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle data encryption for cloud-native databases?",
+  "description": "Cloud-native database encryption ensures the confidentiality and compliance of sensitive information by protecting data in transit and at rest, which is crucial for scenarios with high security requir",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Cloud Operating System",
+    "Sealos",
+    "Containerization",
+    "Lakehouse",
+    "Private Cloud"
+  ],
+  "content": "Cloud-native database encryption ensures the confidentiality and compliance of sensitive information by protecting data in transit and at rest, which is crucial for scenarios with high security requirements such as finance and healthcare. It defends against unauthorized access and meets regulations like GDPR and HIPAA.\n\nThe core includes transport layer encryption (TLS/SSL) to prevent man-in-the-middle attacks, and data-at-rest encryption (using algorithms like AES-256) to protect persistent data. Encryption keys need to be centrally managed and rotated using Kubernetes Secrets, cloud provider KMS (e.g., AWS KMS/Azure Key Vault), or dedicated tools (HashiCorp Vault). Some databases (e.g., Cassandra, MongoDB Enterprise) offer native column-level or transparent data encryption capabilities.\n\nImplementation involves four steps: 1. Enable transport encryption and configure the database connection protocol to TLS. 2. Enable encryption at rest or rely on automatic encryption of cloud storage volumes (e.g., AWS EBS encryption). 3. Integrate a key management system to ensure keys are stored separately from data and rotated automatically. 4. Strictly control key access permissions through RBAC and audit logs. This significantly reduces the risk of data breaches and supports enterprise-level data governance."
+}

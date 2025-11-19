@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage infrastructure versions and rollbacks in IaC workflows?",
+  "description": "In the IaC workflow, Infrastructure as Code uses scripts to automate the definition, management, and deployment of resources. Its importance lies in ensuring environmental consistency and traceability",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Sealos",
+    "Open-Source Cloud",
+    "One-Click Deployment",
+    "Private Cloud",
+    "Containerization"
+  ],
+  "content": "In the IaC workflow, Infrastructure as Code uses scripts to automate the definition, management, and deployment of resources. Its importance lies in ensuring environmental consistency and traceability, with application scenarios including cloud deployment, server configuration updates, and maintenance of high-availability architectures to reduce human errors.\n\nThe core components involve version control systems (such as Git), configuration management tools (such as Terraform), and CI/CD pipelines. Features include code-based change management and state snapshot storage. In principle, each commit creates a new version to achieve deployment automation; rollback is accomplished by checking out historical versions and reapplying them, significantly improving system reliability and fault tolerance.\n\nImplementation steps: First, store IaC code in a Git repository for version control; second, integrate CI/CD for automated testing and deployment; manage versions through commits when making changes; check out old versions and execute deployment during rollback. A typical scenario is fixing configuration errors, with business value in minimizing downtime and ensuring service continuity."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement automated cloud-native application scaling?",
+  "description": "Automatic scaling of cloud-native applications refers to the ability to dynamically adjust the number of instances based on application load, ensuring efficient resource utilization and high system av",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Cloud Platform",
+    "Private Cloud",
+    "Cloud-Native",
+    "Data Center (DC)",
+    "Lakehouse"
+  ],
+  "content": "Automatic scaling of cloud-native applications refers to the ability to dynamically adjust the number of instances based on application load, ensuring efficient resource utilization and high system availability. This feature is crucial for handling traffic peaks and sudden demands, commonly seen in business scenarios such as e-commerce and finance, to enhance service elasticity and reduce costs.\n\nThe core implementation relies on Kubernetes' Horizontal Pod Autoscaler (HPA), which dynamically increases or decreases Pod replicas by monitoring CPU utilization or custom metrics (e.g., QPS). Features include metrics-driven and stateless processing. In practical applications, tools like Prometheus can be integrated to significantly enhance the resilience and load balancing capabilities of microservice architectures.\n\nImplementation steps include: 1. Deploying the Metrics Server to collect metric data. 2. Configuring HPA policies, setting resource thresholds and replica ranges. 3. Testing and optimizing scaling rules. The business value lies in elastic scaling to reduce operational costs and ensure performance stability."
+}

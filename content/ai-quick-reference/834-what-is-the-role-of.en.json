@@ -1,0 +1,13 @@
+{
+  "title": "What is the role of OAuth and OpenID Connect in securing cloud-native applications?",
+  "description": "OAuth 2.0 is an authorization framework that allows applications to securely obtain limited access to HTTP services on behalf of users. OpenID Connect (OIDC) is an identity layer built on top of OAuth",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Kubernetes (K8s)",
+    "Cloud Platform",
+    "High Performance",
+    "High Availability (HA)",
+    "Data Center (DC)"
+  ],
+  "content": "OAuth 2.0 is an authorization framework that allows applications to securely obtain limited access to HTTP services on behalf of users. OpenID Connect (OIDC) is an identity layer built on top of OAuth 2.0, used to provide identity authentication information. In cloud-native applications (composed of microservices, containers, and dynamic orchestration), they collectively address the challenges of secure authentication and authorization between services and between users and applications, serving as the cornerstone for implementing zero-trust security and centralized identity management.\n\nThe core of OAuth lies in issuing Access Tokens to represent access permissions, defining four roles: client, resource owner, resource server, and authorization server, along with authorization flows (such as the authorization code flow and client credentials flow). OIDC adds a standard ID Token (in JWT format) on top of this, which contains user identity information (e.g., `sub`). Application examples include: users logging into a microservice frontend (identity authentication, OIDC), and the frontend obtaining tokens on behalf of users to access backend APIs (authorization, OAuth); microservices using the client credentials flow to exchange tokens for secure communication (inter-service authorization, OAuth). They delegate complex authentication/authorization logic to dedicated identity infrastructure.\n\nTheir roles are as follows: OAuth provides API access authorization, and OIDC provides user identity authentication information. This significantly enhances the security of cloud-native applications by eliminating the risk of storing passwords within applications, enabling Single Sign-On (SSO), and supporting fine-grained API access control (based on token claims). A typical implementation involves deploying an identity provider (e.g., Keycloak, Auth0, Azure AD) and integrating OIDC/OAuth client libraries in applications to validate tokens. The resulting business value includes unified security governance, improved development efficiency (no need to develop custom authentication), enhanced user experience (SSO), and compliance with regulatory requirements."
+}

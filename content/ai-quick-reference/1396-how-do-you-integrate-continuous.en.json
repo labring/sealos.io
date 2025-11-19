@@ -1,0 +1,13 @@
+{
+  "title": "How do you integrate continuous integration and delivery with GitOps workflows?",
+  "description": "Continuous Integration (CI) automatically builds and tests code changes, Continuous Delivery (CD) automates deployment processes, and the GitOps workflow defines system states with Git repositories as",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Sealos",
+    "Cloud Platform",
+    "High Availability (HA)",
+    "High Performance",
+    "Cloud-Native"
+  ],
+  "content": "Continuous Integration (CI) automatically builds and tests code changes, Continuous Delivery (CD) automates deployment processes, and the GitOps workflow defines system states with Git repositories as the core. Integrating CI/CD with GitOps is crucial as it enhances deployment efficiency, consistency, and reliability in cloud-native environments (such as Kubernetes applications), and is commonly used in DevOps pipelines to achieve zero-touch delivery.\n\nThe core includes CI/CD stages like code building, testing, and artifact generation, as well as GitOps tools (e.g., Argo CD or Flux) that monitor Git commits and synchronize target states. The principle is based on declarative configuration management, where all changes (such as YAML files) are versioned in Git, ensuring automation and auditability. In practical applications, it seamlessly connects development to production, reduces human errors, accelerates iterations, and enhances platform stability.\n\nImplementation steps: First, set up a CI pipeline for building and testing; second, integrate GitOps tools to configure deployment rules into Git; then, push artifacts and declarations to the repository to trigger automatic synchronization. A typical scenario is when CI validates artifacts after branch merging, and GitOps deploys them to the cluster. The business value lies in shortening time-to-market, optimizing resource usage, and improving system resilience."
+}

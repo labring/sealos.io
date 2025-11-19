@@ -1,0 +1,13 @@
+{
+  "title": "How do you monitor cloud-native application usage metrics and behavior?",
+  "description": "Monitoring of cloud-native applications involves tracking usage metrics (such as CPU, memory, and request rates) and behavioral data (such as logs and request flows) to ensure application health, perf",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Cluster Management",
+    "Cloud Platform",
+    "Private Cloud",
+    "High Availability (HA)",
+    "Data Center (DC)"
+  ],
+  "content": "Monitoring of cloud-native applications involves tracking usage metrics (such as CPU, memory, and request rates) and behavioral data (such as logs and request flows) to ensure application health, performance, and resource optimization. In a Kubernetes environment, it supports the auto-scaling and fault recovery of microservices, with typical scenarios including real-time observation of containerized services.\n\nCore components include metric collectors (e.g., Prometheus and Metrics Server), log aggregation tools (e.g., Fluentd or ELK Stack), and distributed tracing systems (e.g., Jaeger). These tools utilize automated collection and real-time analysis principles to enhance observability, facilitating quick diagnosis of bottlenecks or errors, thereby improving service stability and resource utilization.\n\nImplementation steps include deploying monitoring agents, configuring alert rules (using Alertmanager), and integrating dashboards. Typical scenarios include traffic optimization for e-commerce platforms, with business values such as reducing downtime risks, accelerating troubleshooting, and improving user satisfaction."
+}

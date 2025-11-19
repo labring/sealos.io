@@ -1,0 +1,13 @@
+{
+  "title": "How do you use Prometheus to monitor containerized applications in Kubernetes?",
+  "description": "Prometheus is an open-source monitoring and alerting tool designed specifically for cloud-native environments. By collecting time-series data, it can monitor the performance, resource usage, and error",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Cluster Management",
+    "One-Click Deployment",
+    "Lakehouse",
+    "Cloud-Native",
+    "IT Infrastructure"
+  ],
+  "content": "Prometheus is an open-source monitoring and alerting tool designed specifically for cloud-native environments. By collecting time-series data, it can monitor the performance, resource usage, and error rates of containerized applications in Kubernetes, ensuring application reliability and scalability. It is widely used for health checks in microservices architectures.\n\nThe core components include exporters (such as kube-state-metrics, which exposes node and pod status), the PromQL query language, and Alertmanager. In Kubernetes, Prometheus uses service discovery to automatically scrape metrics, supports real-time monitoring of container resource consumption (e.g., CPU, memory), detects outages, and integrates with Grafana for data visualization, thereby improving operational efficiency and reducing downtime.\n\nImplementation steps: First, deploy Prometheus (e.g., using Helm or Operator), configure applications to add metrics endpoints, set up service discovery rules, and define alerting policies. Its typical value lies in optimizing costs, preventing disruptions, and it is suitable for large-scale cluster monitoring scenarios."
+}

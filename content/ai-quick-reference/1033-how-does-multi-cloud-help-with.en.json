@@ -1,0 +1,13 @@
+{
+  "title": "How does multi-cloud help with application resilience?",
+  "description": "Multi-cloud refers to a strategy of using multiple cloud service providers (such as AWS, Azure, Google Cloud) aimed at enhancing application resilience—the ability of applications to maintain availabi",
+  "category": "Multi-Cloud and Hybrid Cloud Deployment",
+  "keywords": [
+    "Sealos",
+    "High Availability (HA)",
+    "Cluster Management",
+    "Cloud Operating System",
+    "One-Click Deployment"
+  ],
+  "content": "Multi-cloud refers to a strategy of using multiple cloud service providers (such as AWS, Azure, Google Cloud) aimed at enhancing application resilience—the ability of applications to maintain availability during failures, outages, or load peaks. Its importance lies in reducing the risk of single points of failure and ensuring business continuity. It is suitable for scenarios with stringent high-availability requirements such as finance and healthcare.\n\nThe resilience core of multi-cloud includes cross-cloud redundant deployment, automatic failover, and load balancing mechanisms. The principle is to分散风险 through geographical distribution and provider independence: when one cloud platform fails, traffic can be seamlessly switched to another. In practical applications, it supports disaster recovery and multi-region expansion, significantly reducing downtime, enhancing system robustness, and mitigating vendor lock-in issues.\n\nImplementing multi-cloud resilience involves steps: 1) Deploying application replicas across multiple cloud platforms; 2) Configuring global load balancers and health checks to monitor status; 3) Automating failover and rollback processes. Typical scenarios include data center outage response and seasonal load peak handling. This brings high availability (99.99%+ uptime), reduces downtime losses, and improves business resilience and compliance."
+}

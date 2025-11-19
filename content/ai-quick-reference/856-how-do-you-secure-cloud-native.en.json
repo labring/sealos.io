@@ -1,0 +1,13 @@
+{
+  "title": "How do you secure cloud-native application workloads using Kubernetes?",
+  "description": "Kubernetes is a key platform for securing cloud-native workloads. Its security is crucial for defending against attacks, ensuring compliance, and maintaining application availability, applicable to va",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Sealos",
+    "Private Cloud",
+    "IT Infrastructure",
+    "High Performance",
+    "Cluster Management"
+  ],
+  "content": "Kubernetes is a key platform for securing cloud-native workloads. Its security is crucial for defending against attacks, ensuring compliance, and maintaining application availability, applicable to various containerized applications that host microservices, APIs, and process sensitive data.\n\nCore protection mechanisms include: 1) Authentication and Authorization (RBAC): Fine-grained control over user/service account access to cluster resources; 2) Network Policies: Define communication rules between Pods to implement network isolation; 3) Security Contexts: Set runtime security parameters for Pods/containers (such as running with non-privileged users, disabling root); 4) Secrets Management: Securely store and distribute sensitive information (passwords, tokens); 5) Runtime Security: Integrate AppArmor/SELinux profiles to restrict container behavior. It is essential to regularly scan images for vulnerabilities and update Kubernetes to fix known issues.\n\nImplementation steps for protecting workloads: 1) Enable and configure RBAC, strictly following the principle of least privilege; 2) Define and implement Network Policies to restrict unnecessary network traffic; 3) Set Security Contexts in Pod/container specifications (e.g., `runAsNonRoot: true`, `readOnlyRootFilesystem: true`); 4) Use Secrets (or external Secrets management tools like Vault) to avoid hardcoding credentials in configurations; 5) Implement Pod security admission control (e.g., PSA, OPA Gatekeeper) to enforce security baselines; 6) Deploy container runtime security monitoring tools and continuously perform image scanning and cluster patch management. This significantly reduces the attack surface and meets audit requirements."
+}

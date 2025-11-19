@@ -1,0 +1,13 @@
+{
+  "title": "How do you use synthetic monitoring for cloud-native applications?",
+  "description": "Synthetic monitoring simulates user behaviors to proactively test critical paths of cloud-native applications (such as API endpoints), verifies application availability, performance, and user experien",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Containerization",
+    "IT Infrastructure",
+    "High Availability (HA)",
+    "Cloud-Native",
+    "Open-Source Cloud"
+  ],
+  "content": "Synthetic monitoring simulates user behaviors to proactively test critical paths of cloud-native applications (such as API endpoints), verifies application availability, performance, and user experience through simulated requests, and is crucial for ensuring the reliability and resilience of distributed systems, suitable for continuous monitoring and fault prevention of microservice architectures.\n\nCore components include detection scripts, alert mechanisms, and time-series data collection, characterized by simulating HTTP or protocol-based interactions, executing tests on a schedule to provide real-time metrics and insights. The principle relies on automated detectors integrated into monitoring stacks (such as Prometheus) to monitor microservice communication, load balancer performance in cloud-native environments, enhance observability, and optimize CI/CD feedback loops.\n\nImplementation steps: 1. Identify critical business paths; 2. Create scripts to simulate user interactions; 3. Deploy monitoring agents; 4. Integrate tools such as Synthetic Monitoring API; 5. Configure alert dashboards. Typical scenarios include monitoring login or payment processes. Business values include preventing downtime, improving user satisfaction, and reducing costs."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement version control for infrastructure configuration in IaC?",
+  "description": "Implementing version control in Infrastructure as Code (IaC) means managing infrastructure definition files (such as Terraform and CloudFormation templates) using version control systems like Git. Its",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "IT Infrastructure",
+    "One-Click Deployment",
+    "Data Center (DC)",
+    "Application Deployment",
+    "Private Cloud"
+  ],
+  "content": "Implementing version control in Infrastructure as Code (IaC) means managing infrastructure definition files (such as Terraform and CloudFormation templates) using version control systems like Git. Its importance lies in providing the ability to track change history, enabling repeatable deployments, supporting collaboration, and ensuring the auditability and consistency of infrastructure states, which is a core practice for team collaboration and environment management.\n\nThe core components include storing IaC definition files in a Git repository, defining clear commit specifications (such as semantic messages), establishing branching strategies (such as GitFlow/Trunk Based), implementing code reviews through merge requests, and using tags to mark production environment versions. Practical applications require integrating CI/CD pipelines to automatically perform code scanning (such as linting), security checks (such as Tfsec), and plan previews upon commits, and execute automated deployments after merging.\n\nImplementation steps: 1) Initialize a Git repository to store IaC code; 2) Develop commit specifications and workflows (such as feature branches + Pull Request); 3) Introduce an automated toolchain (CI/CD platform); 4) Add test validations in the pipeline; 5) Trigger environment deployment after merging; 6) Tag version labels for production environment releases. This brings business value: reducing the risk of configuration drift, improving change collaboration efficiency, enabling rapid failure rollbacks, and ensuring reliable reproduction of infrastructure states."
+}

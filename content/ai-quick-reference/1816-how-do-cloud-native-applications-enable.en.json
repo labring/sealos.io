@@ -1,0 +1,13 @@
+{
+  "title": "How do cloud-native applications enable continuous integration and delivery?",
+  "description": "Cloud-native applications are built based on containerization and microservices architecture. Continuous Integration (CI) automates code building and testing, while Continuous Delivery (CD) enables re",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Containerization",
+    "Private Cloud",
+    "Kubernetes (K8s)",
+    "Sealos",
+    "High Availability (HA)"
+  ],
+  "content": "Cloud-native applications are built based on containerization and microservices architecture. Continuous Integration (CI) automates code building and testing, while Continuous Delivery (CD) enables reliable deployment. This process is crucial in cloud environments as it supports agile development, rapid iteration, elastic scaling, and DevOps practices, making it suitable for application scenarios requiring high availability and dynamic scaling.\n\nThe core components include automated pipelines (integrating Git version control, automated testing, and container image building), toolchains such as Jenkins or GitLab CI, and orchestration systems like Kubernetes combined with Helm charts. Key features emphasize Infrastructure as Code and observability (monitoring and logging). In practical applications, it increases deployment frequency, ensures quality, and enables reliable releases through microservice environments, with impacts including reduced release risks and enhanced system maintainability.\n\nImplementation steps: 1. Set up CI tools to automate code pulling, testing, and image building. 2. Configure deployment to Kubernetes clusters using CD tools such as Argo CD. 3. Implement canary releases to validate changes. A typical scenario is the automated release pipeline for microservices. Business values include shortened time to market, reduced human errors, and improved team collaboration efficiency."
+}

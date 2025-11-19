@@ -1,0 +1,13 @@
+{
+  "title": "How do automated deployment pipelines support continuous testing?",
+  "description": "An automated deployment pipeline is a predefined and automated chain of software delivery processes, consisting of a series of stages (build, test, deployment, etc.). Its core lies in automated proces",
+  "category": "Automated Deployment",
+  "keywords": [
+    "Application Deployment",
+    "Containerization",
+    "Private Cloud",
+    "Open-Source Cloud",
+    "Cloud Operating System"
+  ],
+  "content": "An automated deployment pipeline is a predefined and automated chain of software delivery processes, consisting of a series of stages (build, test, deployment, etc.). Its core lies in automated process orchestration, ensuring that software changes are delivered quickly and reliably from development to production environments. Continuous testing requires validation to be performed early, frequently, and automatically, and the pipeline serves as its key supporting platform.\n\nAutomated pipelines embed different levels of testing (unit, integration, end-to-end, performance, security, etc.) as mandatory stages within the pipeline. Each code commit or merge automatically triggers the pipeline to run and execute the preset test suite. The pipeline manages the provisioning of test environments (such as containerized environments), runs tests, collects reports, and provides fast and standardized quality feedback. This eliminates manual intervention and ensures the consistency and timeliness of testing.\n\nThe pipeline enables the automated triggering and execution of tests. Specific steps typically include: configuring test scripts as pipeline stages, setting up the runtime environment, and defining quality gates (such as test pass rate thresholds). Typical values include: each change receives immediate quality feedback, problems are identified and fixed early, significantly shortening the feedback cycle; ensuring the testing process is repeatable and without omissions; providing a unified view of quality reports, accelerating delivery and enhancing confidence."
+}

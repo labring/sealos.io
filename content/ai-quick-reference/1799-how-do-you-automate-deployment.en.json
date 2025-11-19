@@ -1,0 +1,13 @@
+{
+  "title": "How do you automate deployment of cloud resources across multiple regions using IaC tools?",
+  "description": "Infrastructure as Code (IaC) uses code to define cloud resources and enable automated deployment. It ensures consistency, repeatability, and efficient scaling in environments across multiple regions, ",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Sealos",
+    "Cloud-Native",
+    "One-Click Deployment",
+    "Private Cloud",
+    "Application Deployment"
+  ],
+  "content": "Infrastructure as Code (IaC) uses code to define cloud resources and enable automated deployment. It ensures consistency, repeatability, and efficient scaling in environments across multiple regions, supporting high availability and disaster recovery scenarios.\n\nCore tools like Terraform or AWS CloudFormation manage deployments through declarative configurations. By utilizing modular templates and parameterized variables, resource definitions can be abstracted, and cloud APIs can be automatically invoked to synchronize resources across regions. This eliminates manual errors, improves maintainability, and enhances governance compliance.\n\nImplementation steps: First, create multi-region IaC templates; second, use variable injection for region-specific parameters; finally, execute a continuous integration (CI) process for automated deployment. Business values include reduced operational risk, accelerated release cycles, enabled elastic scaling, and cost optimization."
+}

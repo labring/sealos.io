@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement multi-cloud disaster recovery strategies using IaC?",
+  "description": "IaC (Infrastructure as Code) uses declarative or imperative code to define and manage infrastructure configurations. It is crucial in multi-cloud disaster recovery (DR), ensuring consistency, version ",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Application Deployment",
+    "Private Cloud",
+    "DevOps",
+    "Kubernetes (K8s)",
+    "Cloud Operating System"
+  ],
+  "content": "IaC (Infrastructure as Code) uses declarative or imperative code to define and manage infrastructure configurations. It is crucial in multi-cloud disaster recovery (DR), ensuring consistency, version control, and rapid automated recovery of cloud environments, reducing the risk of human error, and enabling consistent DR plans across different cloud service providers (e.g., AWS, Azure, GCP), thereby enhancing business resilience.\n\nThe core lies in: 1) Writing cross-cloud compatible IaC templates (such as Terraform, Crossplane) to abstract cloud provider-specific APIs; 2) Storing code and state in version control systems (e.g., Git) and protected persistent storage; 3) Defining the logic and triggers for failover/failback processes; 4) Automatically testing, validating, and deploying configurations through pipelines (e.g., CI/CD). This ensures that when the primary site fails, critical resources and applications can be automatically rebuilt on the backup cloud.\n\nImplementation steps: 1) Modeling: Define all infrastructure components (network, computing, storage, security policies) using IaC. 2) Versioning: Store code in a Git repository with strict access control enabled. 3) Testing: Automate testing of deployment and disaster recovery processes in a multi-cloud sandbox environment through CI/CD pipelines. 4) Deployment: Deploy pre-approved infrastructure configurations to the target cloud environment. 5) Orchestration switching: Use monitoring alerts (e.g., Prometheus) to trigger IaC scripts to perform failover (e.g., updating DNS, starting backup resources). The business value is to significantly shorten recovery time (RTO) and reduce data loss (RPO), ensuring business continuity."
+}

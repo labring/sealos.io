@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage and monitor microservices interactions using APIs?",
+  "description": "API management involves controlling the API lifecycle, while monitoring tracks interaction performance, which is crucial in microservices architecture to ensure efficient, secure, and consistent commu",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Cluster Management",
+    "Application Deployment",
+    "DevOps",
+    "Data Center (DC)",
+    "Cloud Platform"
+  ],
+  "content": "API management involves controlling the API lifecycle, while monitoring tracks interaction performance, which is crucial in microservices architecture to ensure efficient, secure, and consistent communication between services. Its importance lies in supporting service decoupling and reducing coupling failures. Application scenarios include microservice calls in e-commerce platforms or financial services, which need to handle high concurrency and low latency requirements.\n\nCore components include API gateways (such as Kong or Apigee) for routing and authentication, service meshes (such as Istio) for managing load balancing and security of internal traffic, and integrated monitoring tools (such as Prometheus and Grafana) to collect metrics like latency and error rates. The principle is to standardize API interactions through centralized management. In practical applications, when deployed on Kubernetes, the service mesh automatically injects sidecar proxies to achieve observability, reducing operational complexity and improving reliability.\n\nImplementation steps: 1. Define API specifications and deploy the gateway; 2. Integrate the monitoring system to collect real-time data; 3. Set up alert policies. A typical scenario is when the order processing service calls the inventory API, managed through dashboard visualization. Business values include rapid fault recovery, optimized resource utilization, and support for elastic scaling."
+}

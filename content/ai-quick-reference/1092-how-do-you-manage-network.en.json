@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage network security in hybrid cloud environments?",
+  "description": "Hybrid cloud network security refers to the unified implementation of protection strategies and control measures in a heterogeneous environment composed of public clouds, private clouds, and on-premis",
+  "category": "Multi-Cloud and Hybrid Cloud Deployment",
+  "keywords": [
+    "High Performance",
+    "Lakehouse",
+    "Cloud Platform",
+    "Containerization",
+    "Private Cloud"
+  ],
+  "content": "Hybrid cloud network security refers to the unified implementation of protection strategies and control measures in a heterogeneous environment composed of public clouds, private clouds, and on-premises infrastructure. Its importance stems from the expanded attack surface, the risk of policy fragmentation, and compliance requirements (such as in the financial and healthcare industries), and it is the core of ensuring cross-platform business continuity.\n\nThe core includes network segmentation (micro-segmentation), unified policy management, encrypted transmission (VPN/IPsec), and centralized monitoring. Key features are the use of cloud-native tools (such as Calico network policies) to achieve automated policy synchronization, the enhancement of east-west traffic control through service meshes (such as Istio), and the integration of SIEM systems to achieve real-time threat detection and response.\n\nImplementation steps: 1. Visualize assets and traffic topology across the entire environment; 2. Develop a centralized zero-trust policy framework; 3. Deploy cloud security brokers (CASB) to uniformly manage and control SaaS applications; 4. Use Kubernetes network policies to implement container-level micro-segmentation; 5. Automate security group rule auditing. Typical values include reducing non-compliance risk costs by 45%, accelerating compliance audit cycles, and supporting the elastic expansion of hybrid clouds."
+}

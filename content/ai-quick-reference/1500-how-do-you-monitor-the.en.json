@@ -1,0 +1,13 @@
+{
+  "title": "How do you monitor the performance of Kubernetes-managed workloads?",
+  "description": "Monitoring Kubernetes workload performance is a critical practice to ensure application reliability and performance. It enables rapid fault localization, performance bottleneck identification, optimiz",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Application Deployment",
+    "Containerization",
+    "Kubernetes (K8s)",
+    "Cloud-Native",
+    "Cloud Operating System"
+  ],
+  "content": "Monitoring Kubernetes workload performance is a critical practice to ensure application reliability and performance. It enables rapid fault localization, performance bottleneck identification, optimized resource configuration, and SLA保障 by continuously tracking resource usage (such as CPU and memory) of Pods, containers, and nodes, as well as application metrics (such as request latency and error rate). This is essential for maintaining service health, optimizing costs, and enhancing user experience.\n\nCore monitoring components include: metric collectors (e.g., Prometheus, which uses Exporters or directly fetches Pod/Node resource data via the Metrics API), log collectors (e.g., Fluentd or Loki to capture container logs), distributed tracing systems (e.g., Jaeger to trace request links), and visualization/alerting platforms (e.g., Grafana for displaying Dashboards, Alertmanager for configuring rules). Monitoring should cover basic resources (CPU, memory, disk IO, network), Kubernetes object statuses (Pod restarts, deployment status), application metrics (HTTP success rate, DB connection pool), and platform component health (kubelet, API Server).\n\nImplementation steps: 1. Deploy a monitoring system (e.g., Prometheus Operator to automatically manage scraping targets). 2. Configure metric collection (integrate applications with SDKs to expose metrics or use ServiceMonitor to define scraping rules). 3. Create visualization dashboards (import preset K8s templates in Grafana or customize them). 4. Set up critical alerts (e.g., node NotReady, Pod OOMKilled, sudden increase in request latency). Typical scenarios include basis for triggering auto-scaling, canary release monitoring, and cost analysis. Business value is reflected in reduced downtime, improved resource utilization, and enhanced release confidence."
+}

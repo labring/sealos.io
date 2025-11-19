@@ -239,5 +239,6 @@ export function pageToFAQItem(page: Page): FAQItem {
     keywords: getKeywords(page),
     slug,
     url: page.url,
+    content: (page.data as any).content || undefined,
   };
 }

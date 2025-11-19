@@ -1,0 +1,13 @@
+{
+  "title": "How do you scale infrastructure deployments with IaC?",
+  "description": "Infrastructure as Code (IaC) is a method of defining and managing IT infrastructure using executable scripts. It is crucial because it provides automation, repeatability, and version control, signific",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Cluster Management",
+    "Application Deployment",
+    "Containerization",
+    "High Availability (HA)",
+    "High Performance"
+  ],
+  "content": "Infrastructure as Code (IaC) is a method of defining and managing IT infrastructure using executable scripts. It is crucial because it provides automation, repeatability, and version control, significantly reducing human errors and accelerating deployments. Key application scenarios include elastic resource scaling in cloud environments, such as handling sudden traffic spikes or growth demands.\n\nIts core components include defining infrastructure states using declarative languages (e.g., Terraform or AWS CloudFormation), supporting modular design, version control (e.g., Git), and test-driven development. This enables dynamic scaling, where tools automatically adjust resources (such as adding virtual machine nodes), enhancing flexibility and resilience to optimize resource utilization and reduce costs.\n\nExtended deployment steps: 1. Write declarative configuration files to define requirements, 2. Integrate CI/CD pipelines to automatically execute updates, 3. Apply policies to monitor and adjust resources (e.g., auto-scaling groups). A typical scenario is seamlessly adding cloud servers when handling peak traffic. Business values include cost savings, high availability, and rapid response to business changes."
+}

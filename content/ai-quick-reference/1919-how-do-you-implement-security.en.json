@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement security controls for cloud-native applications using Kubernetes?",
+  "description": "Kubernetes, as a container orchestration system, manages the dynamic deployment of cloud-native applications. Security controls ensure applications are protected against threats such as unauthorized a",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Cloud Platform",
+    "High Availability (HA)",
+    "Cloud Operating System",
+    "Data Center (DC)",
+    "High Performance"
+  ],
+  "content": "Kubernetes, as a container orchestration system, manages the dynamic deployment of cloud-native applications. Security controls ensure applications are protected against threats such as unauthorized access and data leakage, which are crucial in multi-tenant environments and microservice architectures (e.g., financial services) to maintain compliance and reliability.\n\nCore components include: RBAC to restrict API access permissions, network policies to isolate traffic between Pods, Pod security contexts (such as running as non-root) to constrain privileges, and container image scanning to detect vulnerabilities. Its principle is based on the least privilege principle, reducing the attack surface through runtime protection such as Seccomp, improving the overall security posture, which manifests as reducing the risk of lateral movement and the probability of data leakage.\n\nImplementation steps: 1. Enable RBAC to define role binding permissions. 2. Create network policies to control the scope of communication. 3. Set Pod security contexts to run with limited privileges. 4. Integrate image scanning tools (e.g., Trivy) in CI/CD. 5. Securely store Secrets and encrypt them. Business value: Enhance compliance (e.g., GDPR), reduce attack vulnerabilities, and ensure high availability and business continuity."
+}

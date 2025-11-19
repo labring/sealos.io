@@ -1,0 +1,13 @@
+{
+  "title": "What is the role of firewalls in securing cloud-native applications?",
+  "description": "A firewall is a network security device or software that monitors and controls network traffic to block unauthorized access. It plays a crucial role in cloud-native application security because cloud-",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "High Availability (HA)",
+    "Lakehouse",
+    "IT Infrastructure",
+    "Cluster Management",
+    "Open-Source Cloud"
+  ],
+  "content": "A firewall is a network security device or software that monitors and controls network traffic to block unauthorized access. It plays a crucial role in cloud-native application security because cloud-native environments (such as container-based microservice architectures) are dynamic and widely distributed. Firewalls can isolate communication between services and prevent threats like DDoS attacks or data leaks. Application scenarios include using network policies in Kubernetes clusters to implement traffic filtering, ensuring a highly available and secure environment.\n\nThe core components of a firewall include stateful inspection mechanisms, rule engines, and network layer control. Its features include support for dynamic policy updates to adapt to cloud-native elastic scaling and distributed deployment to ensure comprehensive protection. The principle involves traffic filtering based on IP addresses, ports, and protocols. In practical applications, integrating with service meshes (such as Istio) enables fine-grained access control between microservices, reducing the attack surface, enhancing compliance, and significantly improving the overall security resilience of cloud platforms.\n\nIn cloud-native environments, the application value of firewalls is reflected in isolating sensitive microservices, protecting data privacy, and preventing lateral movement attacks. Their value includes ensuring business continuity, reducing security incidents, meeting regulatory requirements such as GDPR through automated policy management, and ultimately optimizing application reliability and trustworthiness."
+}

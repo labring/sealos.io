@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement versioning for deployments in CI/CD pipelines?",
+  "description": "In cloud-native development, CI/CD pipelines automate the build, test, and deployment processes. Deployment version control ensures each deployment has a unique identifier, supporting tracking, rollba",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "High Performance",
+    "Cloud-Native",
+    "One-Click Deployment",
+    "Open-Source Cloud",
+    "IT Infrastructure"
+  ],
+  "content": "In cloud-native development, CI/CD pipelines automate the build, test, and deployment processes. Deployment version control ensures each deployment has a unique identifier, supporting tracking, rollback, and auditing to prevent production environment errors. Its importance lies in enhancing reliability and compliance, with application scenarios including containerized deployments managed by Kubernetes and critical business updates.\n\nCore components include version control systems (such as Git for code management) and automatic labeling mechanisms (such as Docker image tags or Kubernetes deployment tags). Features involve immutability, version rollback, and deployment history records. In principle, pipeline tools (such as Jenkins or GitHub Actions) are integrated to automatically add version numbers, ensuring deployment consistency. In practical applications, for example, using Helm charts to manage versions in Kubernetes significantly reduces release risks and improves DevOps efficiency.\n\nTo achieve this, the steps are as follows: 1. Code changes are committed to the Git repository as the baseline version; 2. A unique version tag (such as semantic versioning) is generated during the build phase; 3. Deployment tools reference this tag to ensure environment consistency (typical tools like Argo CD support GitOps); 4. Monitoring and rollback mechanisms. Business values include reducing downtime and supporting rapid iteration, with scenarios involving A/B testing or security patch releases."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you set up automated deployments for cross-platform mobile applications?",
+  "description": "Cross-platform mobile application automated deployment refers to the automatic building, testing, and distribution of iOS/Android applications through CI/CD pipelines. Its importance lies in accelerat",
+  "category": "Automated Deployment",
+  "keywords": [
+    "One-Click Deployment",
+    "Lakehouse",
+    "IT Infrastructure",
+    "Containerization",
+    "Sealos"
+  ],
+  "content": "Cross-platform mobile application automated deployment refers to the automatic building, testing, and distribution of iOS/Android applications through CI/CD pipelines. Its importance lies in accelerating release cycles, ensuring version consistency, and reducing human errors, making it suitable for hybrid framework (such as React Native, Flutter) projects that require frequent iterations.\n\nCore components include: 1) Source code repository (Git) to trigger builds; 2) Cloud build environments (such as Jenkins, GitHub Actions, GitLab CI); 3) Dependency management and compilation (such as Gradle, Fastlane); 4) Automated test suites; 5) Secure storage for certificates and keys (such as Vault); 6) App store distribution channels (such as App Store Connect, Google Play Console). The key to achieving cross-platform functionality is parameterized build scripts and multi-target configurations.\n\nImplementation steps: 1) Select CI/CD tools and configure build nodes; 2) Write build scripts to handle platform-specific dependencies and signing; 3) Integrate test frameworks to execute UI/unit tests; 4) Manage release credentials through security mechanisms; 5) Set up multi-environment release processes (beta/production versions). Typical values include enabling daily deliveries, reducing release risks, and supporting phased rollouts."
+}

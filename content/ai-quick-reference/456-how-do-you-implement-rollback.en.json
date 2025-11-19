@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement rollback strategies in microservices?",
+  "description": "In a microservices architecture, a rollback strategy refers to a mechanism for safely and quickly restoring a service to its previously stable version when the deployment of a new version fails or int",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Cloud-Native",
+    "Cloud Platform",
+    "Data Center (DC)",
+    "Application Deployment",
+    "Sealos"
+  ],
+  "content": "In a microservices architecture, a rollback strategy refers to a mechanism for safely and quickly restoring a service to its previously stable version when the deployment of a new version fails or introduces critical defects. Its importance lies in ensuring system availability and business continuity, especially in scenarios with frequent releases.\n\nCore strategies include blue-green deployment (deploying new version instances, switching traffic after successful testing, and rolling back to the old blue environment if it fails) and canary release (gradually routing a small portion of traffic to the new version, stopping and rolling back if verification fails). Implementation relies on: 1) strict version control (image repository tagging); 2) strong API compatibility (ensuring compatibility with old clients); 3) automated deployment and orchestration capabilities (Kubernetes Rollback command); 4) comprehensive monitoring and alerting (rapid fault detection).\n\nImplementation steps: 1) Prepare the ready new version code and container image; 2) Automated deployment tools initiate updates (e.g., Kubectl apply); 3) Monitor new version running metrics and logs in real-time; 4) Detect issues and trigger automatic or manual rollback instructions (e.g., Kubectl rollout undo deployment/[name]); 5) Instantly switch traffic back to the stable version. The greatest value of this approach is minimizing the fault window and business impact."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you monitor cloud-native application dependencies in real time?",
+  "description": "Real-time monitoring of cloud-native application dependencies refers to continuously tracking the health status and performance of components such as inter-service calls, databases, APIs, and message ",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "DevOps",
+    "Open-Source Cloud",
+    "Cloud-Native",
+    "High Performance",
+    "One-Click Deployment"
+  ],
+  "content": "Real-time monitoring of cloud-native application dependencies refers to continuously tracking the health status and performance of components such as inter-service calls, databases, APIs, and message queues. This is crucial in highly dynamic and distributed microservice environments, enabling quick identification of fault sources and ensuring the overall SLA of applications.\n\nThe core lies in establishing unified observability pillars: 1) Service mesh (e.g., Istio/Linkerd) provides request-level traffic monitoring; 2) Metric collection (e.g., Prometheus) standardizes metrics (latency, error rate, throughput); 3) Distributed tracing (e.g., Jaeger) visualizes cross-service call chains; 4) Log aggregation (e.g., Loki) correlates abnormal events. Key features include real-time automatic topology discovery and dynamic mapping of dependencies.\n\nImplementation steps: 1) Deploy the service mesh and enable metric export; 2) Integrate APM tools (e.g., Grafana Stack, Datadog) to collect data; 3) Configure alert rules (e.g., error rate > 1%); 4) Build a dependency topology dashboard. Typical scenario: When an e-commerce payment fails, real-time identification reveals it is caused by a timeout in the downstream inventory service, directly reducing MTTR. Value: Improve system resilience and保障 user experience."
+}

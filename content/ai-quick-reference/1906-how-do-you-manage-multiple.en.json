@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage multiple services in cloud-native applications with Kubernetes?",
+  "description": "Kubernetes (K8s) is an open-source container orchestration platform used for automating the deployment, scaling, and management of containerized applications. It is crucial for managing multiple servi",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "DevOps",
+    "Application Deployment",
+    "Lakehouse",
+    "Open-Source Cloud",
+    "Containerization"
+  ],
+  "content": "Kubernetes (K8s) is an open-source container orchestration platform used for automating the deployment, scaling, and management of containerized applications. It is crucial for managing multiple services in cloud-native environments as it supports the scalability, high availability, and resilience of microservices architectures. Typical use cases include e-commerce backends and distributed systems, ensuring efficient service collaboration and dynamic resource adjustment.\n\nCore components include Deployments (which define service replicas and rolling updates), Services (for load balancing and service discovery), and Pods (the basic units for running containers). Features such as self-healing (automatically restarting failed containers) and autoscaling enhance system resilience. In practical applications, it coordinates communication between multiple services through internal DNS and network policies, improving the agility of cloud-native applications and optimizing resource utilization.\n\nImplementation steps: First, use YAML to define the Deployment and Service for each service; second, deploy the services and apply Kubernetes native tools like kubectl for monitoring; finally, configure Ingress to route external traffic. A typical scenario is unified deployment across clusters, with business values including reduced manual operations, increased deployment speed, and enhanced fault tolerance."
+}

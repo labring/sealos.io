@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement end-to-end monitoring for cloud-native applications?",
+  "description": "Implementing end-to-end monitoring for cloud-native applications involves collecting, correlating, and analyzing metrics, logs, and tracing data across multiple microservices, infrastructure layers, a",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Open-Source Cloud",
+    "One-Click Deployment",
+    "Lakehouse",
+    "High Performance",
+    "Sealos"
+  ],
+  "content": "Implementing end-to-end monitoring for cloud-native applications involves collecting, correlating, and analyzing metrics, logs, and tracing data across multiple microservices, infrastructure layers, and application dependencies to ensure visibility, performance diagnosis, and stability assurance. This is crucial in dynamic, distributed cloud-native environments for quickly locating the root cause of failures, ensuring SLAs, and optimizing resource utilization.\n\nThe core lies in integrating multiple technology stacks: 1. Metrics monitoring (e.g., Prometheus): Real-time collection of system and application metrics such as CPU, memory, latency, and error rates, with dynamic threshold alerting. 2. Distributed tracing (e.g., Jaeger/Zipkin): Injecting unique request IDs to track request paths across service calls and their durations, identifying performance bottlenecks. 3. Log aggregation (e.g., Loki/ELK): Centralized collection, indexing, and analysis of structured/unstructured logs related to applications for easy search and correlation. 4. Service mesh and infrastructure monitoring (e.g., Istio metrics, node/storage monitoring) to provide underlying visibility. Uniform use of tags (such as Kubernetes labels) is required to achieve cross-dimensional correlation of data.\n\nTypical implementation steps are: 1. Define monitoring objectives: Clarify key SLOs/SLIs for applications (e.g., latency, error rates). 2. Deploy collection agents: Deploy metrics, log, and tracing collection tools at the application (Prometheus clients, OTel agents) and infrastructure layers. 3. Configure aggregation platforms: Set up Prometheus/Grafana Stack, Loki/Tempo, or commercial APM platforms for data aggregation and storage. 4. Build alerting rules: Define metric thresholds and critical path tracing alerts based on SLOs. 5. Implement correlated visualization: Integrate metrics, logs, and tracing in dashboards like Grafana, presenting correlated views according to application topology. Its core value lies in significantly improving troubleshooting efficiency and system observability."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you automate the provisioning of cloud-native databases using IaC?",
+  "description": "IaC (Infrastructure as Code) automates cloud resource management using code; cloud-native databases such as PostgreSQL or Cassandra are specifically designed for containerization and microservices. It",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Sealos",
+    "High Availability (HA)",
+    "One-Click Deployment",
+    "Open-Source Cloud",
+    "Cluster Management"
+  ],
+  "content": "IaC (Infrastructure as Code) automates cloud resource management using code; cloud-native databases such as PostgreSQL or Cassandra are specifically designed for containerization and microservices. Its importance lies in improving deployment efficiency, consistency, and scalability, and it is applied in Kubernetes environments to achieve zero-downtime upgrades.\n\nThe core components include declarative code (e.g., Terraform or Helm charts) and version control systems (e.g., Git), characterized by reproducibility and automation-driven processes. In practical applications, IaC automates the configuration of database parameters, storage, and network policies, ensuring high availability, backups, and elastic scaling, reducing human errors, and accelerating the evolution of cloud-native architectures.\n\nImplementation steps: Select tools such as Terraform or Pulumi, define database resource code (e.g., instance size, connection settings), and integrate CI/CD pipelines for automated testing and deployment. Typical scenarios include on-demand scaling of DevOps environments. The business value is to reduce operational costs, enhance agility and compliance, and accelerate iterations."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How does IaC help with multi-region deployments?",
+  "description": "Infrastructure as Code (IaC) uses code to automate the definition and management of infrastructure resources, which is crucial for multi-region deployments; it ensures consistency, repeatability, and ",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "One-Click Deployment",
+    "DevOps",
+    "Cloud Platform",
+    "Sealos",
+    "Application Deployment"
+  ],
+  "content": "Infrastructure as Code (IaC) uses code to automate the definition and management of infrastructure resources, which is crucial for multi-region deployments; it ensures consistency, repeatability, and efficiency, applied to global services requiring high availability such as cloud application scaling.\n\nThe core of IaC lies in version-controlled scripts (e.g., Terraform) and reusable modules, supporting declarative configurations; in multi-region deployments, it automates the deployment of identical environments to different regions, reducing configuration drift, accelerating disaster recovery, and optimizing resource governance.\n\nFor implementation, first create IaC templates to define resource requirements; modular design allows cross-region reuse; use automation tools (e.g., CI/CD) to deploy in parallel to target regions. This shortens time-to-market, enhances business continuity, and reduces operational costs."
+}

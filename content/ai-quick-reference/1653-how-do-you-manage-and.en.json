@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage and provision secrets and credentials securely in IaC workflows?",
+  "description": "In the infrastructure as code workflow, security management and configuration of keys and credentials are core practices for protecting sensitive data such as API keys, database passwords, and certifi",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "One-Click Deployment",
+    "Containerization",
+    "Lakehouse",
+    "IT Infrastructure",
+    "Data Center (DC)"
+  ],
+  "content": "In the infrastructure as code workflow, security management and configuration of keys and credentials are core practices for protecting sensitive data such as API keys, database passwords, and certificates. Their importance lies in preventing credential hardcoding into version control repositories, which is crucial for cloud security, continuous delivery pipelines, and compliance.\n\nThe core components for implementing security management include: dedicated key management services or repositories, dynamic credential issuance mechanisms, and secure variable injection tools. Best practices include: storing secrets using Vault, AWS KSM, Azure Key Vault, or dedicated tools; referencing or using placeholders in infrastructure definition files to point to keys; encrypting少量必要文件 using tools like SOPS; encapsulating credentials using native mechanisms such as Kubernetes Secrets; and automating credential rotation through policy enforcement.\n\nImplementation steps: 1. Clearly identify the sensitive information that needs protection. 2. Select and deploy a key management service. 3. Move plaintext credentials to a secure management center. 4. Use secure variable references in IaC templates. 5. Configure access permissions for CI/CD pipelines. Business values include significantly reducing the risk of credential leakage, enhancing audit compliance, simplifying credential rotation management, and improving the overall infrastructure security posture."
+}

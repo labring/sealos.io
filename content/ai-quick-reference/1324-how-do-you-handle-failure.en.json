@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle failure detection and recovery in CI/CD pipelines?",
+  "description": "CI/CD pipeline automates the software build, testing, and deployment processes. Fault detection identifies build failures or deployment errors to ensure process reliability. Recovery mechanisms respon",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Kubernetes (K8s)",
+    "Cloud-Native",
+    "Containerization",
+    "One-Click Deployment",
+    "Data Center (DC)"
+  ],
+  "content": "CI/CD pipeline automates the software build, testing, and deployment processes. Fault detection identifies build failures or deployment errors to ensure process reliability. Recovery mechanisms respond quickly to issues, reducing downtime risks. Its importance lies in improving the efficiency of DevOps teams and is applied in high-availability cloud environments such as Kubernetes clusters.\n\nCore components include monitoring tools (e.g., Prometheus), log analysis systems, and automated testing frameworks (e.g., unit testing). Features include real-time alerts, self-healing capabilities, and conditional triggering. The principle is to integrate these tools into the pipeline to identify anomalies such as deployment failures and trigger repair actions. Practical applications involve automatic rollbacks in containerized environments, with impacts including reduced Mean Time to Recovery (MTTR) and enhanced deployment stability.\n\nProcessing steps: 1. Integrate monitoring to set up fault detection, such as sending alerts when tests fail. 2. Define recovery strategies like automatic rollback or service restart. 3. Use Infrastructure as Code to ensure environment consistency. A typical scenario is a network failure during deployment triggering a rollback. Business value is reflected in accelerating problem resolution, maintaining Service Level Agreements (SLA), and supporting continuous innovation."
+}

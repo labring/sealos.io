@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage access control for CI/CD pipelines?",
+  "description": "Managing access control for CI/CD pipelines involves defining and enforcing permission policies to ensure users and services can only access authorized resources. This is crucial as it protects code, ",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "High Performance",
+    "Private Cloud",
+    "Kubernetes (K8s)",
+    "High Availability (HA)",
+    "Cloud Platform"
+  ],
+  "content": "Managing access control for CI/CD pipelines involves defining and enforcing permission policies to ensure users and services can only access authorized resources. This is crucial as it protects code, confidential information, and production environments, preventing unauthorized changes, information leakage, and disruptions, especially in multi-team collaboration and sensitive deployment scenarios.\n\nCore components include role-based access control, which assigns permissions to roles rather than directly to users. Implement the principle of least privilege, granting only the minimum access level required to complete tasks. Integrate identity providers for centralized authentication, isolate pipeline environments, and deploy mandatory approval processes for critical operations. Audit logs serve as the foundation for tracking changes and assigning responsibility.\n\nPractical steps include: evaluating pipeline stages, clarifying required roles and their permissions; configuring RBAC policies in CI/CD tools to divide environment permissions; integrating identity providers for unified identity management; assigning credential and key access following the principle of least privilege; setting up change reviews; and establishing regular permission audit mechanisms. This practice significantly reduces security risks, enhances compliance, and improves team collaboration efficiency."
+}

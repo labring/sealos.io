@@ -1,0 +1,13 @@
+{
+  "title": "How do you use observability data to inform business and development decisions?",
+  "description": "Observability data includes logs, metrics, and traces, which are used to monitor system behavior. It is crucial in cloud-native environments such as Kubernetes management, supporting real-time fault d",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Cloud Operating System",
+    "Kubernetes (K8s)",
+    "Lakehouse",
+    "Cloud-Native",
+    "Data Center (DC)"
+  ],
+  "content": "Observability data includes logs, metrics, and traces, which are used to monitor system behavior. It is crucial in cloud-native environments such as Kubernetes management, supporting real-time fault detection and business continuity. Application scenarios include application performance optimization and cost management.\n\nThe core components cover logs (recording events), metrics (quantifying performance such as CPU usage), and traces (mapping request paths). Their characteristics are real-time and aggregatable, and the principle is based on data collection tools such as Prometheus and ELK stack for analysis. In practical applications, it drives performance benchmarking and anomaly warning, with impacts including reducing MTTR and promoting DevOps collaboration.\n\nImplementation steps: integrate tools (e.g., deploy Grafana dashboards), analyze data (identify bottlenecks such as high latency), and apply decisions (e.g., adjust cluster resources according to load). Typical scenarios include identifying slow API points to guide business expansion decisions. The business value is to improve user experience and reduce operating costs by 30%."
+}

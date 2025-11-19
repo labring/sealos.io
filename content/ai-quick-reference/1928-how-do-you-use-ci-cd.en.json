@@ -1,0 +1,13 @@
+{
+  "title": "How do you use CI/CD to support cloud-native application development?",
+  "description": "CI/CD (Continuous Integration/Continuous Delivery) is a practice that automates software building, testing, and deployment. In cloud-native application development, it supports rapid iteration and rel",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Private Cloud",
+    "Kubernetes (K8s)",
+    "IT Infrastructure",
+    "DevOps",
+    "High Performance"
+  ],
+  "content": "CI/CD (Continuous Integration/Continuous Delivery) is a practice that automates software building, testing, and deployment. In cloud-native application development, it supports rapid iteration and reliable release of containerized, microservices architectures, applied in DevOps environments and cloud platform deployments to ensure efficient resource utilization.\n\nThe CI/CD pipeline includes code submission, automatic building, unit/integration testing, container image packaging, and environment deployment. Core features such as continuous feedback and automation integrate container orchestration tools (Kubernetes), reducing manual intervention and enhancing application scalability, resilience, and development agility. Practical impacts include accelerating microservice updates, improving version control, and enhancing fault recovery.\n\nImplementation steps: Configure a code repository (e.g., Git); set up CI tools (e.g., Jenkins or Argo CD) to define build and test pipelines; automate image creation and deployment to cloud environments (e.g., Kubernetes). A typical scenario is team collaboration to fix vulnerabilities, with business value including shortening delivery cycles by 50%, improving product reliability, and increasing customer satisfaction."
+}

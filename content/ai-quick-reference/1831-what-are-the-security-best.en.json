@@ -1,0 +1,13 @@
+{
+  "title": "What are the security best practices for developing cloud-native applications?",
+  "description": "Cloud-native applications are built on containerization, microservices, and dynamic orchestration, emphasizing elastic deployment in cloud environments. Security best practices are key to ensuring con",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Application Deployment",
+    "Open-Source Cloud",
+    "Lakehouse",
+    "DevOps",
+    "Sealos"
+  ],
+  "content": "Cloud-native applications are built on containerization, microservices, and dynamic orchestration, emphasizing elastic deployment in cloud environments. Security best practices are key to ensuring confidentiality, integrity, and availability, preventing data breaches and downtime, and are widely applied in cloud deployments for sensitive sectors such as e-commerce and finance.\n\nCore practices include container image security scanning, least privilege access control, inter-service authentication (e.g., mTLS), network policy definition, and secrets management integration. These drive DevSecOps principles, continuously detecting vulnerabilities through automation, reducing the attack surface, and improving overall security posture and compliance.\n\nImplementation steps involve adopting image scanning tools (such as Clair), configuring role-based access control, integrating HashiCorp Vault for key management, and implementing zero-trust network segmentation. This reduces risks, enhances business resilience and continuity, and optimizes operational costs and regulatory compliance."
+}

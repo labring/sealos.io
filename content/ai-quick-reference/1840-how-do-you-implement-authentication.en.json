@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement authentication and authorization for cloud-native applications?",
+  "description": "Authentication confirms the identity of an entity, and authorization defines access permissions, which are the cornerstones of cloud-native security. Their importance lies in protecting distributed sy",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "One-Click Deployment",
+    "Cloud Platform",
+    "IT Infrastructure",
+    "DevOps",
+    "Cloud Operating System"
+  ],
+  "content": "Authentication confirms the identity of an entity, and authorization defines access permissions, which are the cornerstones of cloud-native security. Their importance lies in protecting distributed systems from unauthorized access and ensuring trusted communication between microservices. Application scenarios include Kubernetes clusters, containerized workloads, and multi-tenant cloud environments to support zero-trust architecture.\n\nCore components include identity providers (such as Keycloak), authentication protocols (OAuth2, JWT), and authorization models (such as RBAC). Features involve centralized management, fine-grained control, and distributed deployment. In cloud-native environments, Kubernetes handles service authentication through ServiceAccounts, and RBAC policies enforce permissions; tools like the Istio service mesh integrate OpenID Connect to strengthen API security and enhance the resilience of cross-service data flows.\n\nImplementation steps: 1. Integrate a central identity provider for a unified identity source; 2. Configure authentication protocols in application code or API gateways (such as Envoy); 3. Define RBAC roles and policies for Kubernetes resources; 4. Continuously audit authorization status. Typical scenarios include inter-service calls or user interface access, with business values including compliance fulfillment (such as GDPR), reduced security risks, and improved scalability."
+}

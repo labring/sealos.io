@@ -1,0 +1,13 @@
+{
+  "title": "How do cloud-native applications integrate with cloud-native authentication tools?",
+  "description": "Cloud-native applications are built on containerized architectures, emphasizing elasticity and scalability. Authentication tools such as Kubernetes service accounts or OIDC providers (e.g., Keycloak) ",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Data Center (DC)",
+    "Kubernetes (K8s)",
+    "Private Cloud",
+    "Open-Source Cloud",
+    "Sealos"
+  ],
+  "content": "Cloud-native applications are built on containerized architectures, emphasizing elasticity and scalability. Authentication tools such as Kubernetes service accounts or OIDC providers (e.g., Keycloak) ensure secure access control, prevent data leakage in cloud computing environments, and are typically applied in microservice interactions and multi-tenant scenarios.\n\nThe core of integration involves service accounts defining application identities, OIDC protocols exchanging tokens, and RBAC policies managing permissions. This automates authentication between services, enhances system reliability and security, with impacts including simplified compliance auditing and implementation of zero-trust architecture.\n\nImplementation steps: 1. Configure service accounts in Kubernetes; 2. Set up identity providers and issue certificates; 3. Define RBAC role bindings; 4. Integrate token authentication into applications. A typical scenario is API gateway security control, with business values including strengthened data protection, reduced operational burden, and accelerated time to market."
+}

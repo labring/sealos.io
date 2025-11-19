@@ -1,0 +1,13 @@
+{
+  "title": "How do you optimize cloud-native applications for high-performance computing?",
+  "description": "Optimizing cloud-native applications for high-performance computing (HPC) involves enhancing computational efficiency in cloud environments. Cloud-native applications are based on containerization (su",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "High Availability (HA)",
+    "Data Center (DC)",
+    "Sealos",
+    "IT Infrastructure",
+    "Lakehouse"
+  ],
+  "content": "Optimizing cloud-native applications for high-performance computing (HPC) involves enhancing computational efficiency in cloud environments. Cloud-native applications are based on containerization (such as Docker) and orchestration tools (such as Kubernetes). Their importance lies in providing elastic infrastructure that supports large-scale parallel tasks, applied in scenarios like scientific simulations, AI training, and big data analytics.\n\nCore components include resource optimization (such as GPU acceleration and auto-scaling), service meshes to reduce latency, and distributed storage. Orchestration via Kubernetes ensures load balancing and node affinity, characterized by high scalability and low overhead. Practical applications, such as accelerating computational fluid dynamics, result in throughput increases by several times, reduced latency, and minimized resource waste.\n\nImplementation steps: 1. Select an appropriate orchestration platform (e.g., Kubernetes); 2. Configure resource limits and requests; 3. Optimize the network (e.g., RDMA); 4. Deploy monitoring tools. Typical scenarios include weather forecasting or genome sequencing, with business values of shortened processing time, reduced costs, and enhanced agile development capabilities."
+}

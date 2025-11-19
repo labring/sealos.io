@@ -1,0 +1,13 @@
+{
+  "title": "How does a microservices architecture help with application modularity?",
+  "description": "Microservices architecture is an approach that splits a monolithic application into multiple small, independently deployable services. Its core value lies in enforcing modularity, where each service e",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "IT Infrastructure",
+    "Kubernetes (K8s)",
+    "Lakehouse",
+    "High Availability (HA)",
+    "Cluster Management"
+  ],
+  "content": "Microservices architecture is an approach that splits a monolithic application into multiple small, independently deployable services. Its core value lies in enforcing modularity, where each service encapsulates a single business function and communicates via APIs. This modularity is crucial for the maintainability, technological heterogeneity, and independent scalability of complex systems, especially suitable for scenarios requiring continuous delivery and high availability.\n\nThe key to achieving modularity in microservices architecture is service autonomy: each service has an independent codebase, database, and lifecycle management, overseen by a dedicated team. Clear business boundaries and lightweight communication (such as REST/gRPC) ensure decoupling between services. In practical applications, this structure supports flexible technology stack selection (e.g., different languages/databases), and updates or failures of individual services do not affect the overall system, significantly enhancing development agility.\n\nMicroservices modularity is implemented by dividing business contexts through Domain-Driven Design (DDD). In specific practice: 1) Define service boundaries based on business capabilities; 2) Develop and deploy each service independently; 3) Use an API gateway to manage interactions. The core business values enabled by this pattern include: rapid iteration capability (parallel team development), improved resilience (failure isolation), resource optimization (independent scaling of specific modules), ultimately reducing the evolution risk of large-scale applications and accelerating market response speed."
+}

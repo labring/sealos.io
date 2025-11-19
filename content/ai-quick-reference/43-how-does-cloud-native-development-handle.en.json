@@ -1,0 +1,13 @@
+{
+  "title": "How does cloud-native development handle database management in the cloud?",
+  "description": "Cloud-native development manages cloud databases using declarative APIs and automation mechanisms. Its importance lies in achieving elastic scaling, high availability, and self-healing capabilities fo",
+  "category": "Cloud-Native Development Environments",
+  "keywords": [
+    "High Availability (HA)",
+    "Application Deployment",
+    "Data Center (DC)",
+    "Cluster Management",
+    "Cloud-Native"
+  ],
+  "content": "Cloud-native development manages cloud databases using declarative APIs and automation mechanisms. Its importance lies in achieving elastic scaling, high availability, and self-healing capabilities for database services, supporting the continuous delivery of microservices. Typical applications include scenarios such as handling peak e-commerce traffic and cross-availability zone disaster recovery.\n\nThe core principle relies on the Kubernetes Operator pattern: database configurations are defined through custom resources, and the Operator controller automatically performs operations such as scaling, backup and recovery, and version upgrades. At the same time, cloud platform managed services (such as AWS RDS or Alibaba Cloud PolarDB) are used to provide the underlying storage engine, combined with service mesh to implement secure connection management. This significantly reduces manual intervention and improves operational efficiency.\n\nImplementation steps include: 1) Selecting a managed database service or deploying a Kubernetes-native database Operator; 2) Declaring database configurations through a GitOps process; 3) Setting up automatic scaling policies and backup policies; 4) Integrating service discovery mechanisms. This solution reduces database deployment time from hours to minutes and lowers operational costs by more than 50% through storage-compute separation."
+}

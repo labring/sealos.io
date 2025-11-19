@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement and monitor cloud-native storage quotas?",
+  "description": "Cloud-native storage quotas refer to limits on the use of persistent volume storage resources in containerized environments such as Kubernetes, aimed at managing fair resource allocation and preventin",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "One-Click Deployment",
+    "High Performance",
+    "Sealos",
+    "Cloud-Native",
+    "DevOps"
+  ],
+  "content": "Cloud-native storage quotas refer to limits on the use of persistent volume storage resources in containerized environments such as Kubernetes, aimed at managing fair resource allocation and preventing excessive consumption. Their importance includes optimizing costs, preventing node resource exhaustion, and improving multi-tenant application performance. Application scenarios include microservice clusters in enterprise cloud platforms and multi-team namespace management.\n\nThe core components of this concept include Kubernetes' ResourceQuotas (used to define quota policies) and StorageClasses (specifying storage types). The principle is to dynamically manage storage allocation by setting request and limit values through API objects. In practical applications, after implementing ResourceQuotas, the storage usage of namespaces is automatically restricted; the impact is optimizing resource utilization, reducing waste, ensuring SLA compliance, and cluster stability.\n\nImplementation steps include: first, creating a ResourceQuotas YAML file to define storage quotas such as requests.storage; second, configuring StorageClasses to support dynamic provisioning; finally, integrating monitoring tools such as Prometheus to collect metrics. A typical scenario is setting strict quotas for development environments. The business value lies in cost control and avoiding performance bottlenecks."
+}

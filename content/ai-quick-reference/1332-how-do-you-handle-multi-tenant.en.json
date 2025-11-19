@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle multi-tenant applications in CI/CD pipelines?",
+  "description": "The core goal of handling multi-tenant applications in a CI/CD pipeline is to ensure isolation, security, and independence for updates across different tenants while maintaining deployment efficiency.",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Cloud Operating System",
+    "Kubernetes (K8s)",
+    "Sealos",
+    "Cloud Platform",
+    "Open-Source Cloud"
+  ],
+  "content": "The core goal of handling multi-tenant applications in a CI/CD pipeline is to ensure isolation, security, and independence for updates across different tenants while maintaining deployment efficiency. This is particularly crucial in SaaS platforms or shared infrastructure environments to prevent changes for one tenant from affecting the availability or performance of others, and to meet tenant-specific SLAs and customization requirements.\n\nCore strategies include: environment isolation (using Kubernetes namespaces, separate database schemas/instances), strict access control (RBAC to limit CI/CD tool permissions), configuration separation (tenant-specific configurations stored in secure repositories like Vault), and pipeline abstraction (designing universal workflows with tenant-specific parameters injected via variables). The code, configurations, and deployment strategies (e.g., blue-green deployment, canary releases) for tenant applications must be managed completely separately, and all deployment operations must be auditable.\n\nSpecific implementation steps: 1. Configure independent code repository branches or paths for each tenant (or tenant group), and store tenant configurations separately from environment variables. 2. Execute shared foundational testing during the CI phase. 3. In the CD phase, identify the target tenant with changes and dynamically retrieve its专属 configurations and security credentials via API. 4. Synthesize shared application code with tenant configurations into independent deployment manifests using declarative IaC (e.g., Helm, Kustomize). 5. Direct deployments to the tenant's isolated environment (namespace/cluster). 6. Execute tenant-specific validation and rollback strategies. This ensures release independence and security while supporting flexible tenant customization."
+}

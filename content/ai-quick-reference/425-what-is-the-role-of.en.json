@@ -1,0 +1,13 @@
+{
+  "title": "What is the role of a gateway in microservices architecture?",
+  "description": "The gateway is an entry component in the microservices architecture that uniformly handles requests from external clients to internal services. Its importance lies in simplifying client interactions, ",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Cloud-Native",
+    "IT Infrastructure",
+    "Containerization",
+    "Application Deployment",
+    "Cluster Management"
+  ],
+  "content": "The gateway is an entry component in the microservices architecture that uniformly handles requests from external clients to internal services. Its importance lies in simplifying client interactions, enhancing security, and optimizing performance. It has wide application scenarios such as API management in e-commerce or financial systems, providing a single access point for multiple services.\n\nCore features include route forwarding, authentication and authorization, load balancing, rate limiting, and circuit breaking. In principle, the gateway decouples clients from services and improves efficiency by centrally handling cross-cutting concerns such as logging and monitoring. In practical applications, integrating Spring Cloud Gateway or Kubernetes Ingress reduces service coupling and supports service discovery, significantly enhancing the maintainability and resilience of the system.\n\nApplications include aggregating API requests and handling authentication; its value lies in providing centralized control, strengthening security protection (such as preventing DDoS attacks), shortening the development cycle (avoiding duplicate coding), and promoting business agility and the implementation of highly available architectures."
+}

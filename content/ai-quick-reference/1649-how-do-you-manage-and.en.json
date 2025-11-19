@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage and deploy database configurations using IaC?",
+  "description": "Infrastructure as Code (IaC) refers to defining, managing, and version-controlling infrastructure configurations in code form to ensure consistency and automation. In database management, this elimina",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Lakehouse",
+    "Kubernetes (K8s)",
+    "Cloud-Native",
+    "High Performance",
+    "Sealos"
+  ],
+  "content": "Infrastructure as Code (IaC) refers to defining, managing, and version-controlling infrastructure configurations in code form to ensure consistency and automation. In database management, this eliminates manual errors, improves efficiency, and is commonly used in cloud-native environments such as AWS RDS or Azure SQL deployments.\n\nCore components include tools like Terraform or Ansible, which are used to write declarative code to define database instances, security groups, backup strategies, and parameter settings. Features such as automated deployment, dynamic scaling, and audit logs enhance reliability and disaster recovery. In practical applications, it supports cross-team collaboration and standardizes configurations to reduce drift.\n\nImplementation steps: Define configuration code and integrate version control; use tools to execute deployment; test and monitor. Typically run automatically in CI/CD pipelines, the business value is to accelerate release cycles, reduce operational costs, and enhance security compliance."
+}

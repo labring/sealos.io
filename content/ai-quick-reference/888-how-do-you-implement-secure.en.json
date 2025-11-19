@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement secure application deployment pipelines in cloud-native environments?",
+  "description": "A secure deployment pipeline refers to a continuous delivery process that integrates automated security practices in a cloud-native environment, ensuring the security of applications throughout the en",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Cluster Management",
+    "Private Cloud",
+    "Cloud Operating System",
+    "Sealos",
+    "High Performance"
+  ],
+  "content": "A secure deployment pipeline refers to a continuous delivery process that integrates automated security practices in a cloud-native environment, ensuring the security of applications throughout the entire lifecycle from code commit to production deployment. It is crucial in modern DevOps processes, capable of preventing supply chain attacks, vulnerability exploitation, and data leakage, and is suitable for high-frequency deployment scenarios of microservices and containerized applications.\n\nThe core components include Static Application Security Testing (SAST), container image scanning, Infrastructure as Code (IaC) policy checking, Dynamic Application Security Testing (DAST), and Kubernetes admission control. A key feature is the enforcement of security baselines through policy-as-code (such as OPA/Rego) and real-time blocking of non-compliant operations in the pipeline. This practice significantly reduces the risk of deploying vulnerabilities to production, improves compliance, and reduces manual audit costs through automation.\n\nImplementation steps: 1) Integrate SAST tools to scan code repositories; 2) Scan container images during the CI phase (using tools like Trivy); 3) Validate infrastructure configurations (e.g., auditing Terraform with Checkov); 4) Enforce Kubernetes security policies using Kyverno or OPA during the deployment phase; 5) Enable service mesh mTLS and audit logs at runtime. The typical value lies in shifting security left, shortening remediation cycles, and enabling the capability to perform hundreds of secure deployments daily."
+}

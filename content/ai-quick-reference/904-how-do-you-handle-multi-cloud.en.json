@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle multi-cloud data security in cloud-native applications?",
+  "description": "In cloud-native applications, multi-cloud data security refers to ensuring the confidentiality, integrity, and availability of data across multiple cloud platforms. Its importance stems from enterpris",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Sealos",
+    "High Availability (HA)",
+    "Cluster Management",
+    "Kubernetes (K8s)",
+    "Cloud Operating System"
+  ],
+  "content": "In cloud-native applications, multi-cloud data security refers to ensuring the confidentiality, integrity, and availability of data across multiple cloud platforms. Its importance stems from enterprises adopting multi-cloud strategies to enhance resilience, with application scenarios including data storage and transmission in distributed microservices and containerized environments to address cross-cloud attacks and compliance requirements such as GDPR.\n\nThe core components include data encryption (at rest and in transit), identity and access management (e.g., role-based RBAC), audit logs, and backup strategies. It is characterized by the implementation of consistent security policies through policy as code, and its principle utilizes tools such as Kubernetes Secrets for secret management. In practical applications, this enhances application resilience, reduces the risk of data leakage, and supports automated deployment, with impacts including improved compliance and optimized cross-cloud resource costs.\n\nThe processing steps are: 1. Classify data sensitivity and location; 2. Deploy a unified encryption strategy (e.g., TLS/SSL); 3. Integrate multi-cloud IAM systems; 4. Configure real-time monitoring and auditing; 5. Regularly evaluate and update policies. A typical scenario is the hybrid deployment of Kubernetes clusters on AWS and Azure; business values include reducing the probability of leakage, ensuring business continuity, and meeting regulatory requirements."
+}

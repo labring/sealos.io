@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement automated rollback and disaster recovery using IaC?",
+  "description": "Infrastructure as Code manages resources through declarative code, with version control at its core. Its importance lies in ensuring environmental consistency and traceability. Application scenarios i",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Private Cloud",
+    "DevOps",
+    "Kubernetes (K8s)",
+    "High Performance",
+    "Sealos"
+  ],
+  "content": "Infrastructure as Code manages resources through declarative code, with version control at its core. Its importance lies in ensuring environmental consistency and traceability. Application scenarios include cloud infrastructure, Kubernetes cluster orchestration, etc., serving as the foundation for achieving automation and reliable disaster recovery.\n\nThe core lies in code versioning (such as Git), automated testing (unit/integration testing), immutable infrastructure, and state management. In practical application, version control allows quick rollback to a stable state, and declarative code ensures the accuracy of environment reconstruction, combined with monitoring tools to trigger automated recovery processes. This method significantly reduces human errors, improves system resilience, and the impact is achieving disaster recovery in minutes rather than hours.\n\nImplementation steps:\n\n1. Version control and GitOps: IaC configurations are stored in Git; to roll back, execute `git revert` and redeploy using the old version of the code.\n\n2. CI/CD integration: Built-in automated testing in the pipeline to verify changes; if it fails, automatically中断 the deployment or trigger the rollback process.\n\n3. Design rollback strategies: Combine immutable infrastructure with blue-green deployment/canary release to instantly switch to a healthy old environment when the new version fails.\n\n4. Disaster drills: Regularly test rollback and recovery processes, including reconstructing the state from backups (such as Terraform state).\n\nIts value lies in improving recovery speed, audit tracking capabilities, and reducing downtime losses."
+}

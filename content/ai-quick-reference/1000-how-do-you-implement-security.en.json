@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement security controls for cloud-native machine learning models?",
+  "description": "Cloud-native machine learning models run in containerized environments and on Kubernetes. Implementing security controls is crucial to protecting sensitive data and models from threats, applicable to ",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "High Performance",
+    "High Availability (HA)",
+    "Containerization",
+    "Lakehouse",
+    "Private Cloud"
+  ],
+  "content": "Cloud-native machine learning models run in containerized environments and on Kubernetes. Implementing security controls is crucial to protecting sensitive data and models from threats, applicable to scenarios such as financial risk control and medical diagnosis to ensure compliance and reliability.\n\nCore components include data encryption (e.g., in transit and at rest), identity authentication (RBAC), access control, model integrity protection (e.g., signing), and continuous monitoring. These measures integrate cloud-native features such as container isolation and microservice security, enhance the resilience of model deployment, and reduce the risks of data leakage and tampering in fields like edge computing.\n\nImplementation steps: Configure Kubernetes security policies (e.g., Pod Security Policies), enable TLS encrypted data transmission, set fine-grained access control, and integrate security scanning into CI/CD processes. Typical scenarios include multi-cluster Kubernetes deployments. The business value lies in enhancing data privacy protection, supporting compliance audits, and optimizing the stability and trustworthiness of prediction services."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you migrate legacy applications to a multi-cloud or hybrid cloud environment?",
+  "description": "Legacy applications are traditional monolithic applications that reside in on-premises data centers, with high maintenance costs and technical dependencies. Migrating to a multi-cloud or hybrid cloud ",
+  "category": "Multi-Cloud and Hybrid Cloud Deployment",
+  "keywords": [
+    "Cloud Platform",
+    "High Performance",
+    "Open-Source Cloud",
+    "Data Center (DC)",
+    "Lakehouse"
+  ],
+  "content": "Legacy applications are traditional monolithic applications that reside in on-premises data centers, with high maintenance costs and technical dependencies. Migrating to a multi-cloud or hybrid cloud environment can enhance business resilience, reduce costs, and adapt to digital trends. Key application scenarios include manufacturing and healthcare, where it is used to avoid vendor lock-in and ensure high availability.\n\nThe core process includes refactoring applications into microservices, containerization packaging, integration of automated deployment tools, and cross-cloud management platforms. Features such as modular design support flexible scaling, based on cloud-native technologies like Kubernetes. In practical applications, it can drive innovation, strengthen security compliance, optimize resource utilization, and significantly reduce on-premises operational burdens.\n\nImplementation steps: Assess application compatibility; design a hybrid architecture; containerize applications and deploy them to multi-cloud platforms; migrate data; test and optimize performance. Typical scenarios involve disaster recovery and elastic scaling, delivering business value such as 20-30% cost reduction, accelerated time-to-market, and continuous operation assurance."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage alerts and thresholds in observability systems?",
+  "description": "Managing alerts and thresholds in an observability system involves defining critical conditions that trigger notifications (such as CPU usage exceeding 90%) to detect anomalies, ensure system availabi",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Cloud Platform",
+    "Cloud Operating System",
+    "Containerization",
+    "Kubernetes (K8s)",
+    "Data Center (DC)"
+  ],
+  "content": "Managing alerts and thresholds in an observability system involves defining critical conditions that trigger notifications (such as CPU usage exceeding 90%) to detect anomalies, ensure system availability, and reduce downtime. Its importance lies in timely response to failures and保障 of service reliability, applicable to monitoring Kubernetes cluster resources or application performance in cloud-native environments.\n\nCore components include alert rule engines (e.g., Prometheus Alertmanager), metric data sources (time-series databases), and notification channels (Slack or email). Features encompass dynamic threshold setting, hierarchical alert strategies (e.g., warning and critical levels), with the principle based on real-time metric comparison. In practical applications, automation is achieved through tools like Grafana, improving operational efficiency and reducing Mean Time to Recovery (MTTR) to support large-scale containerized deployments.\n\nImplementation steps: 1. Identify key metrics (e.g., latency or error rate); 2. Set reasonable thresholds (e.g., 80% memory usage); 3. Configure alert rules and associations; 4. Integrate notification mechanisms; 5. Regularly test and optimize. Typical scenarios include preventing service degradation, with business value in ensuring high availability, reducing operational costs, and maintaining user experience through rapid intervention."
+}

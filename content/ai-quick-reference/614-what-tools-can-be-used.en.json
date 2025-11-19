@@ -1,0 +1,13 @@
+{
+  "title": "What tools can be used for data orchestration in cloud-native applications?",
+  "description": "Cloud-native data orchestration is responsible for automating the management, movement, and access of data resources in distributed environments. Its importance lies in decoupling applications from in",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Private Cloud",
+    "One-Click Deployment",
+    "Cloud-Native",
+    "Application Deployment",
+    "High Performance"
+  ],
+  "content": "Cloud-native data orchestration is responsible for automating the management, movement, and access of data resources in distributed environments. Its importance lies in decoupling applications from infrastructure, ensuring reliable access to persistent data for containerized applications (especially stateful ones), and is suitable for dynamic scenarios such as microservice databases, CI/CD pipelines, and AI/ML training.\n\nCore tools include Kubernetes native primitives like PV/PVC/StorageClass; open-source projects such as Rook (for automating Ceph storage) and Velero (for disaster recovery and migration); and commercial solutions like Portworx (enterprise-grade data management) and Robin.io (database-as-a-service). Through capabilities such as declarative APIs, CSI drivers, volume snapshots and cloning, and cross-namespace/cluster data sharing, they ensure data persistence, high availability, security, and portability.\n\nSelection depends on scenario requirements: Local PV or HostPath are optional for lightweight development and testing; Rook or Portworx are preferred in production environments to implement automatic configuration and scaling of distributed storage; Velero supports backup and recovery; Portworx or Robin.io are needed for hybrid cloud/multi-cluster scenarios. Its value lies in improving the efficiency of automated data management, ensuring application state consistency, reducing operational burden, and supporting agile deployment and elastic scaling of stateful services."
+}

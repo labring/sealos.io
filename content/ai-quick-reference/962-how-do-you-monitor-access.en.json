@@ -1,0 +1,13 @@
+{
+  "title": "How do you monitor access to sensitive data in cloud-native systems?",
+  "description": "In cloud-native systems, such as Kubernetes-based microservice environments, monitoring sensitive data access is a core process to ensure data security. Its importance lies in preventing data leakage ",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Cloud-Native",
+    "Sealos",
+    "DevOps",
+    "Data Center (DC)",
+    "Cloud Operating System"
+  ],
+  "content": "In cloud-native systems, such as Kubernetes-based microservice environments, monitoring sensitive data access is a core process to ensure data security. Its importance lies in preventing data leakage and ensuring compliance (e.g., GDPR or HIPAA). Application scenarios include financial services or healthcare applications that require dynamic tracking of permissions.\n\nCore components include data identification (scanning repositories to identify sensitive data), access control (defining policies through OPA), and audit logs (capturing API requests). In practical applications, integrating security policies through service meshes like Istio to monitor request flows enhances compliance and reduces the attack surface.\n\nImplementation steps: First, identify the location of sensitive data. Second, enable RBAC and configure audit log collection. Finally, deploy monitoring tools such as Prometheus alerts and visualization dashboards. This process provides real-time detection, audit trails, and business value, strengthening data security operations."
+}

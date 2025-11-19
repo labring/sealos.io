@@ -1,0 +1,13 @@
+{
+  "title": "How do you secure the edge devices in multi-cloud environments?",
+  "description": "Protecting edge devices in a multi-cloud environment requires ensuring the security of distributed infrastructure, with the core being unified security policies and a zero-trust architecture. Its impo",
+  "category": "Multi-Cloud and Hybrid Cloud Deployment",
+  "keywords": [
+    "Application Deployment",
+    "Sealos",
+    "High Availability (HA)",
+    "One-Click Deployment",
+    "DevOps"
+  ],
+  "content": "Protecting edge devices in a multi-cloud environment requires ensuring the security of distributed infrastructure, with the core being unified security policies and a zero-trust architecture. Its importance lies in addressing risks such as high physical exposure of devices and expanded cross-cloud attack surfaces, applicable to edge computing scenarios like smart manufacturing and smart cities.\n\nThe implementation plan needs to cover three major levels: the device layer adopts hardware root of trust and secure boot mechanisms; the network layer establishes encrypted tunnel connections between different cloud platforms through VPN/IPSec; the management and control layer implements cross-cloud identity authentication and policy enforcement using service meshes (such as Istio). Key measures include: device mutual TLS authentication for identity verification, end-to-end encryption of data during transmission/at rest, and dynamic access control implementation based on cloud-native tools (such as OPA).\n\nSpecific implementation steps:\n\n1. Issue a unique X.509 certificate for each device during the device provisioning phase\n\n2. Deploy lightweight security proxies (such as Envoy) to handle encrypted communication\n\n3. Establish a zero-trust policy engine in the cloud control plane\n\n4. Real-time monitoring of abnormal behavior through audit logs\n\nBusiness value is reflected in preventing data leakage, meeting compliance requirements (such as GDPR), and ensuring cross-cloud business continuity."
+}

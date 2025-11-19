@@ -1,0 +1,13 @@
+{
+  "title": "How do microservices architecture support agility in software development?",
+  "description": "Microservices architecture is a software design pattern that decomposes an application into independent, small, and loosely coupled services. Its importance lies in enhancing agility, allowing teams t",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Application Deployment",
+    "DevOps",
+    "High Performance",
+    "Cloud Platform",
+    "Data Center (DC)"
+  ],
+  "content": "Microservices architecture is a software design pattern that decomposes an application into independent, small, and loosely coupled services. Its importance lies in enhancing agility, allowing teams to independently develop, deploy, and scale components, making it suitable for large and complex systems such as e-commerce platforms to respond to rapidly changing requirements.\n\nThe core components include independent services, lightweight communication mechanisms like RESTful APIs, and decentralized data management. Its characteristics, such as service autonomy and continuous delivery capabilities, enable teams to work in parallel, reduce coordination overhead, thereby facilitating rapid iteration, fault isolation, and improving software delivery efficiency.\n\nDuring implementation, first, decompose the application into microservices, with each service developed independently; second, establish an automated CI/CD pipeline for deployment; typical scenarios include rapid functional上线 without affecting the whole system. The business values include shortening the development cycle, improving system resilience, supporting team autonomy and business responsiveness."
+}

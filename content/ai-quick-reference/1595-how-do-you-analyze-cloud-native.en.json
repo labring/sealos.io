@@ -1,0 +1,13 @@
+{
+  "title": "How do you analyze cloud-native application logs and metrics in real-time?",
+  "description": "Cloud-native applications log event streams, and metrics reflect system performance data. Real-time analysis is crucial for rapid troubleshooting, performance optimization, and ensuring service SLAs, ",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Cloud-Native",
+    "High Availability (HA)",
+    "DevOps",
+    "Data Center (DC)",
+    "Application Deployment"
+  ],
+  "content": "Cloud-native applications log event streams, and metrics reflect system performance data. Real-time analysis is crucial for rapid troubleshooting, performance optimization, and ensuring service SLAs, serving as a core requirement for运维 in dynamic microservice and containerized environments.\n\nCore solutions include:\n\n1. Unified collection layer: Using Fluentd/Filebeat to collect container logs; Prometheus Operator to scrape application/node metrics\n\n2. Stream processing pipeline: Transmitting data via Kafka/Pulsar, and performing real-time filtering and aggregation with Flink/Samza\n\n3. Storage and computing: Storing logs in Elasticsearch/Loki, inputting metrics into Prometheus/Thanos; supporting real-time queries\n\nKey technical features: Declarative collection configuration, low-latency stream processing, and correlation analysis capabilities (e.g., linkage between Jaeger distributed tracing and metrics).\n\nImplementation steps:\n\n1. Deploy log/metric collectors (DaemonSet or Sidecar mode)\n\n2. Establish Kafka message queues to buffer data streams\n\n3. Configure real-time computing rules (e.g., anomaly detection thresholds)\n\n4. Integrate visualization tools (Grafana+Prometheus/ELK)\n\n5. Set up alert notifications (Alertmanager/Slack)\n\nBusiness value: Minute-level fault localization, real-time optimization of resource utilization (e.g., HPA auto-scaling), and visual dashboards for business health."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "What are the challenges of using a hybrid cloud for cloud-native applications?",
+  "description": "Hybrid cloud combines private and public cloud resources to offer advantages in elasticity, cost, and business continuity. Cloud-native applications achieve agile delivery based on containers, microse",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Lakehouse",
+    "High Availability (HA)",
+    "Cloud Operating System",
+    "Kubernetes (K8s)",
+    "Cloud-Native"
+  ],
+  "content": "Hybrid cloud combines private and public cloud resources to offer advantages in elasticity, cost, and business continuity. Cloud-native applications achieve agile delivery based on containers, microservices, and automation. This is crucial in scenarios requiring high availability, geographically dispersed deployments, or compliance, such as disaster recovery in the financial industry or multi-region user access.\n\nKey challenges include network interoperability latency, complexity in cross-cloud security management, difficulty in maintaining data consistency, and fragmentation of monitoring tools. These issues significantly increase operational burdens, potentially leading to performance degradation and security risks, which impact the efficiency and reliable scalability of enterprise digital transformation.\n\nAddressing these challenges has strengthened standardized deployment of automation and integration of security policies, promoted toolchain unification, optimized resource utilization and resilience, enhanced business agility and cost-effectiveness, thereby realizing the sustainable value of cloud-native applications."
+}

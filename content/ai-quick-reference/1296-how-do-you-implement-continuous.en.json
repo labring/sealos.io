@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement continuous monitoring as part of your CI/CD pipeline?",
+  "description": "Continuous monitoring as part of the CI/CD pipeline refers to the real-time integration of performance, security, and error monitoring into the software delivery process. Its importance lies in provid",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Lakehouse",
+    "High Availability (HA)",
+    "Containerization",
+    "DevOps",
+    "Application Deployment"
+  ],
+  "content": "Continuous monitoring as part of the CI/CD pipeline refers to the real-time integration of performance, security, and error monitoring into the software delivery process. Its importance lies in providing immediate feedback and ensuring early issue detection, thereby enhancing software reliability and quality. Application scenarios include automated deployments in cloud environments or containerized systems like Kubernetes to accelerate release cycles and ensure production environment stability.\n\nThe core components include monitoring tools such as Prometheus and Grafana, with features covering automated alerts, log analysis, and dashboard integration. The principle is to embed these tools into CI/CD stages (e.g., in pipeline scripts of Jenkins or GitLab CI) to trigger monitoring tasks after deployment. In practical applications, this promotes rapid fault diagnosis and automatic repair, significantly reducing production incidents and enhancing system observability under cloud-native architectures.\n\nImplementation steps: First, select and configure monitoring tools to integrate with the CI/CD environment; second, add monitoring tasks to the pipeline (such as running health check scripts after deployment); finally, set up automated alerts and reports. Typical scenarios include performance monitoring after Kubernetes cluster deployment. Business value lies in reducing downtime, optimizing resource utilization, and improving user satisfaction."
+}

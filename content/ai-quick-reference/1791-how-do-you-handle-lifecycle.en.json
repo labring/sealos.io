@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle lifecycle management for IaC resources in multi-cloud deployments?",
+  "description": "Infrastructure as Code is a core practice for declarative management and automated configuration of computing, networking, and storage resources in multi-cloud deployments. Its importance lies in ensu",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "High Availability (HA)",
+    "Containerization",
+    "High Performance",
+    "Private Cloud",
+    "Open-Source Cloud"
+  ],
+  "content": "Infrastructure as Code is a core practice for declarative management and automated configuration of computing, networking, and storage resources in multi-cloud deployments. Its importance lies in ensuring environmental consistency, repeatability, and auditability. It supports unified management and rapid deployment across multiple public and private cloud infrastructures.\n\nIts core involves defining resources using descriptive languages, managing changes through version control systems, and integrating validation and execution into continuous integration/continuous deployment pipelines. Key aspects include modular design to enhance reusability, state file management to track actual resources, drift detection to ensure configuration compliance, and policy as code to enforce security and compliance. State files must be securely stored and strictly managed (e.g., using remote backends with locking mechanisms).\n\nThe handling approach is typically based on standardized toolchains and processes: 1) uniformly adopting cross-cloud IaC tools; 2) using GitOps workflows, where code changes are committed to the version repository to trigger automated testing and deployment; 3) achieving resource creation, update, and destruction through environment isolation; 4) integrating policy checks and security scans; 5) implementing monitoring and audit tracing. This significantly increases deployment speed, reduces configuration errors, and ensures governance consistency."
+}

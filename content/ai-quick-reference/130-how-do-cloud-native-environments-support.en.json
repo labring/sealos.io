@@ -1,0 +1,13 @@
+{
+  "title": "How do cloud-native environments support zero-downtime deployments?",
+  "description": "Cloud-native environments achieve zero-downtime deployment through their core architecture and toolchain. The importance lies in ensuring service continuity, avoiding user access interruptions, and be",
+  "category": "Cloud-Native Development Environments",
+  "keywords": [
+    "Sealos",
+    "Application Deployment",
+    "Data Center (DC)",
+    "Private Cloud",
+    "High Performance"
+  ],
+  "content": "Cloud-native environments achieve zero-downtime deployment through their core architecture and toolchain. The importance lies in ensuring service continuity, avoiding user access interruptions, and being suitable for scenarios with high availability requirements such as e-commerce and finance to ensure real-time business updates.\n\nThe implementation principles mainly rely on: Kubernetes' RollingUpdate strategy to gradually replace Pod instances, combined with Readiness Probe to verify the health status of new instances; service mesh (such as Istio) for refined traffic control; blue-green deployment or canary release strategies to gradually migrate traffic, ensuring that old instances are only淘汰 after new instances are fully ready.\n\nMain implementation steps: 1) Configure the rolling update parameters (maxUnavailable/maxSurge) of Deployment 2) Define accurate readiness probes to detect application health 3) Combine Service Mesh or Ingress Controller to distribute traffic 4) Automated rollback mechanism to monitor anomalies. The core value is to achieve seamless release with 100% business availability, reduce operational risks and improve user experience."
+}

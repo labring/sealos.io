@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement data caching to improve performance in cloud-native applications?",
+  "description": "Data caching accelerates access by storing copies of frequently used data, which is crucial in cloud-native applications as it significantly improves performance, reduces latency and database load, an",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Open-Source Cloud",
+    "Kubernetes (K8s)",
+    "High Performance",
+    "DevOps",
+    "Cluster Management"
+  ],
+  "content": "Data caching accelerates access by storing copies of frequently used data, which is crucial in cloud-native applications as it significantly improves performance, reduces latency and database load, and is applied in scenarios such as microservices and dynamic scaling.\n\nCore components include distributed caching tools like Redis or Memcached, characterized by high availability and low-latency access; the principle is based on storing hot data in memory, which in practical applications greatly reduces the number of database queries and enhances system scalability and responsiveness.\n\nImplementation steps: select a caching strategy (e.g., cache-aside), deploy caching services (such as Kubernetes-integrated Redis), and configure expiration mechanisms; typical scenarios include read-intensive operations like API gateways; business values include improved throughput, reduced latency, and lower operational costs."
+}

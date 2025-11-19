@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage access control policies in hybrid cloud deployments?",
+  "description": "Hybrid cloud access control policy management involves uniformly coordinating authorization mechanisms across public cloud, private cloud, and on-premises environments, defining the scope of resources",
+  "category": "Multi-Cloud and Hybrid Cloud Deployment",
+  "keywords": [
+    "Containerization",
+    "Private Cloud",
+    "Open-Source Cloud",
+    "Lakehouse",
+    "Cluster Management"
+  ],
+  "content": "Hybrid cloud access control policy management involves uniformly coordinating authorization mechanisms across public cloud, private cloud, and on-premises environments, defining the scope of resources accessible to users and services. Its core lies in avoiding policy fragmentation, ensuring consistent security boundaries and compliance, which is crucial for cross-environment workload interactions and data protection.\n\nKey elements include: centralized policy definition (such as using cloud-native policy languages like OPA or central IAM systems), unified identity federation (integrating IdPs like AD/Okta), implementation of RBAC/ABAC models, and environment-specific adaptation. Practical applications focus on the principle of least privilege (authorizing only necessary resources), dynamic policy enforcement (adjusting permissions based on context), and comprehensive audit logs, significantly enhancing the security of cross-environment operations and the efficiency of compliance management.\n\nManagement steps: 1) Establish a multi-cloud compatible central policy repository, 2) Implement single-point authentication through identity federation, 3) Deploy lightweight policy enforcement points (such as Sidecar proxies) to each environment, 4) Automate policy translation and synchronization to handle API differences across cloud platforms, 5) Centralized monitoring and continuous auditing. This solution effectively reduces the risk surface, simplifies operational complexity, and supports agile business expansion."
+}

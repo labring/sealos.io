@@ -1,0 +1,13 @@
+{
+  "title": "How do you ensure cloud-native applications comply with security standards?",
+  "description": "Ensuring that cloud-native applications comply with security standards means implementing security controls throughout the entire lifecycle of application building, deployment, and operation to addres",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "One-Click Deployment",
+    "Cloud Platform",
+    "Kubernetes (K8s)",
+    "IT Infrastructure",
+    "Cloud Operating System"
+  ],
+  "content": "Ensuring that cloud-native applications comply with security standards means implementing security controls throughout the entire lifecycle of application building, deployment, and operation to address the unique risks posed by characteristics such as microservices, containers, and dynamic orchestration. Its importance lies in protecting sensitive data, maintaining business continuity, meeting compliance requirements, and establishing a foundation of trust in complex, distributed environments.\n\nIts core includes protection at multiple levels: secure supply chain (such as container image scanning, trusted registries, signature verification); workload and runtime security (such as the principle of least privilege, process/file system/network isolation, intrusion detection); infrastructure and orchestration security (cluster hardening, API server protection, RBAC fine-grained authorization, network policies); continuous compliance and auditing (policy as code, automated configuration checks, real-time log monitoring).\n\nThe implementation steps are as follows:\n\n1. Shift-left security: Integrate code scanning, dependency analysis, and image vulnerability scanning into the CI/CD pipeline.\n\n2. Harden runtime: Deploy security agents or eBPF programs to monitor container behavior and enforce network segmentation policies.\n\n3. Manage secrets: Use dedicated secret management services (such as Vault) and avoid hardcoding.\n\n4. Enforce policies: Use OPA/Gatekeeper to define and automatically enforce security policies.\n\n5. Continuous auditing: Collect audit logs centrally, link with SIEM systems, and conduct automated compliance checks and incident response. These measures collectively form a defense-in-depth system to reduce risks and ensure compliance."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How does CI/CD support the DevOps culture?",
+  "description": "CI/CD stands for Continuous Integration and Continuous Deployment, which are core practices in automating software development processes. It ensures fast and reliable software delivery by automaticall",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Cluster Management",
+    "High Availability (HA)",
+    "IT Infrastructure",
+    "Application Deployment",
+    "Kubernetes (K8s)"
+  ],
+  "content": "CI/CD stands for Continuous Integration and Continuous Deployment, which are core practices in automating software development processes. It ensures fast and reliable software delivery by automatically building, testing, and deploying code. In the DevOps culture, it is crucial because DevOps emphasizes collaboration between development and operations teams, automation, and continuous iteration. It is suitable for cloud-native environments and agile development scenarios, helping to reduce manual errors and accelerate product releases.\n\nIts core includes automated pipelines (such as code building, testing, and release), real-time feedback mechanisms, and integrated toolchains (such as Jenkins or GitLab CI). These features enable frequent and secure updates by reducing deployment bottlenecks and promoting cross-team tool sharing. In applications, it promotes the DevOps culture by providing visibility and accountability, eliminating departmental barriers, and enhancing collaboration efficiency.\n\nIn practice, CI/CD supports DevOps by automating integrated workflows: steps include configuring version control and establishing automatic testing and deployment pipelines. A typical scenario is that the process is automatically triggered after developers submit code, enabling rapid iteration and fixes. The business value is reflected in reducing release risks, shortening time to market, and improving team trust and customer satisfaction."
+}

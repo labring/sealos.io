@@ -1,0 +1,13 @@
+{
+  "title": "How do you integrate cloud-native data management with your existing IT infrastructure?",
+  "description": "Integrating cloud-native data management into existing IT infrastructure requires a phased approach, with the core being the utilization of cloud-native technologies to unify data management across he",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "IT Infrastructure",
+    "Cloud Platform",
+    "Data Center (DC)",
+    "Cluster Management",
+    "Lakehouse"
+  ],
+  "content": "Integrating cloud-native data management into existing IT infrastructure requires a phased approach, with the core being the utilization of cloud-native technologies to unify data management across heterogeneous environments.\n\nCore components include: Kubernetes-native Container Storage Interface (CSI) to connect existing SAN/NAS or cloud storage; using Operators to automate the lifecycle of databases/middleware; and decoupling services through a data mesh architecture. Implementation must ensure network policies (such as service mesh), storage class declarations are compatible with existing LUNs/file systems, and data change controls are injected into CI/CD pipelines.\n\nPractical steps: 1) Assess the support of existing storage systems for CSI and deploy adapters; 2) Declaratively orchestrate databases through K8s resource objects (StatefulSet, PVC); 3) Use tools like Velero to achieve unified backup/migration across traditional virtual machines and containers; 4) Build data pipelines to connect legacy data warehouses. The value lies in improving data reliability and compliance, and accelerating AI/analytical business innovation."
+}

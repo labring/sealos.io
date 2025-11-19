@@ -1,0 +1,13 @@
+{
+  "title": "How do you secure cloud-native data storage solutions such as object storage?",
+  "description": "Cloud-native data storage solutions such as object storage (e.g., Amazon S3) provide elastic and scalable data storage in containerized environments, suitable for microservices and AI applications, wi",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "IT Infrastructure",
+    "High Availability (HA)",
+    "Lakehouse",
+    "Data Center (DC)",
+    "Private Cloud"
+  ],
+  "content": "Cloud-native data storage solutions such as object storage (e.g., Amazon S3) provide elastic and scalable data storage in containerized environments, suitable for microservices and AI applications, with the key being to protect sensitive assets from leakage risks. Core protection mechanisms include encryption of data in transit and at rest (e.g., AES-256), identity-based access control (e.g., Kubernetes RBAC), audit logs, and version-controlled backups, ensuring data integrity, compliance, and reducing the impact of the attack surface. Implementation steps are enabling object storage encryption; configuring fine-grained permission policies; regularly performing incremental backups; monitoring access anomaly logs; business values include strengthening security posture and meeting regulatory requirements such as GDPR."
+}

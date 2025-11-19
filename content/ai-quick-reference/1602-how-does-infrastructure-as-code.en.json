@@ -1,0 +1,13 @@
+{
+  "title": "How does Infrastructure as Code (IaC) improve the scalability of cloud-native applications?",
+  "description": "Infrastructure as Code (IaC) is a method of automating infrastructure management (such as servers and networks) using code. It enhances scalability, consistency, and reliability in cloud-native enviro",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Lakehouse",
+    "Cloud Platform",
+    "Containerization",
+    "Application Deployment",
+    "Kubernetes (K8s)"
+  ],
+  "content": "Infrastructure as Code (IaC) is a method of automating infrastructure management (such as servers and networks) using code. It enhances scalability, consistency, and reliability in cloud-native environments and is applied to containerized platforms like Kubernetes to enable rapid deployment and microservice scaling.\n\nIts core includes declarative configuration files (such as Terraform or Ansible scripts), featuring version control, automatic configuration, and consistency principles, which automate resource creation and eliminate human errors. In practical applications, it supports dynamic adjustment of cloud environments, optimizes resource configuration, accelerates iteration, and improves overall stability.\n\nSteps to improve scalability are: 1) Write IaC scripts to define resource rules; 2) Integrate CI/CD pipelines for automatic deployment; 3) Combine monitoring tools to achieve elastic scaling. Business values include elastic resource expansion, cost optimization, and high availability, applied to high-load scenarios such as e-commerce peak processing."
+}

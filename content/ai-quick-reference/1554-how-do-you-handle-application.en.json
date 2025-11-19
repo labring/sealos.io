@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle application failures in observability systems?",
+  "description": "Observability systems integrate tools such as monitoring, logging, and tracing to capture application status in real time; application failures refer to application-layer errors (such as service inter",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Open-Source Cloud",
+    "DevOps",
+    "Cluster Management",
+    "Cloud Platform",
+    "IT Infrastructure"
+  ],
+  "content": "Observability systems integrate tools such as monitoring, logging, and tracing to capture application status in real time; application failures refer to application-layer errors (such as service interruptions or performance degradation), whose importance lies in ensuring high availability and stability of applications, applicable to cloud-native environments like rapid failure response in microservice architectures.\n\nCore components include fault detection (automatic health checks), diagnostic tools (log analysis and metric monitoring), and alert mechanisms; these tools achieve root cause localization by correlating data, and in practical applications, they support teams in reducing Mean Time to Repair (MTTR), lowering operational burdens, and enhancing system resilience.\n\nProcessing steps include: 1. Real-time detection of failures to trigger alerts, 2. Analysis of logs and traces to diagnose root causes, 3. Implementation of repairs (such as automatic rollbacks or manual interventions). Typical scenarios include service degradation or traffic switching, and business values lie in minimizing downtime losses, optimizing user experience, and ensuring SLA compliance."
+}

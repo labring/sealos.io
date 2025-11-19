@@ -1,0 +1,13 @@
+{
+  "title": "How do you automate security compliance checks in IaC workflows?",
+  "description": "Infrastructure as Code (IaC) automates infrastructure management using code to achieve consistent deployments. Automated security compliance checks can identify risky configurations (such as permissio",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Cloud-Native",
+    "IT Infrastructure",
+    "One-Click Deployment",
+    "Kubernetes (K8s)",
+    "Cloud Platform"
+  ],
+  "content": "Infrastructure as Code (IaC) automates infrastructure management using code to achieve consistent deployments. Automated security compliance checks can identify risky configurations (such as permission vulnerabilities) early, ensure compliance (such as GDPR or HIPAA), and are applicable to cloud environment deployments and DevOps pipelines to reduce the risk of security incidents.\n\nCore components include static scanning tools (such as Checkov or TFLint) to analyze IaC files (such as Terraform), policy as code (such as Open Policy Agent) to define rules, and integration with CI/CD systems to enable automated execution. Features include continuous scanning, preventive controls, and feedback mechanisms. Practical applications reduce misconfigurations and vulnerabilities, improving the overall security and compliance of infrastructure.\n\nImplementation steps: First, integrate scanning tools into the CI/CD workflow (such as GitHub Actions running Checkov); second, configure policy files to define security rules (such as encryption requirements); finally, automatically execute scans and block deployments when non-compliant. Typical scenarios include Pull Request checks. Business values are reducing operational risks, accelerating compliance certification, and optimizing costs."
+}

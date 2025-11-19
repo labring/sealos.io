@@ -1,0 +1,13 @@
+{
+  "title": "How do you ensure compliance with data privacy laws when using cloud-native observability tools?",
+  "description": "Cloud-native observability tools provide system monitoring, logging, and tracing capabilities for application performance management in cloud environments. It is crucial to ensure compliance with data",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Open-Source Cloud",
+    "Cloud Platform",
+    "Containerization",
+    "DevOps",
+    "Cluster Management"
+  ],
+  "content": "Cloud-native observability tools provide system monitoring, logging, and tracing capabilities for application performance management in cloud environments. It is crucial to ensure compliance with data privacy regulations such as GDPR to prevent data breaches, fines, and loss of trust. Its application scenarios include cloud application deployment, Kubernetes cluster monitoring, and enterprise multi-cloud environments.\n\nThe core components include log collection, metric analysis, and distributed tracing. A key feature is sensitive data handling: protecting personal information through data minimization, pseudonymization, and end-to-end encryption. In practical applications, integrating RBAC (Role-Based Access Control) and audit logs enhances compliance, impacts operational security, and avoids regulatory violations.\n\nImplementation steps: First, identify sensitive data in logs; enable transmission (e.g., TLS) and storage encryption; configure access controls to restrict permissions; apply pseudonymization to process logs; conduct regular compliance audits. A typical scenario is using Prometheus to monitor production clusters, with business value in reducing violation risks and enhancing customer trust."
+}

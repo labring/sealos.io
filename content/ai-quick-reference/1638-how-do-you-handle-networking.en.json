@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle networking and security configurations using IaC?",
+  "description": "Infrastructure as Code (IaC) defines and manages IT infrastructure programmatically, primarily used to automate network settings (such as firewall rules) and security configurations (such as access co",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Open-Source Cloud",
+    "High Availability (HA)",
+    "Cloud Operating System",
+    "Sealos",
+    "Lakehouse"
+  ],
+  "content": "Infrastructure as Code (IaC) defines and manages IT infrastructure programmatically, primarily used to automate network settings (such as firewall rules) and security configurations (such as access controls). Its importance lies in ensuring consistency and compliance, reducing human errors, and is commonly used in cloud deployments to enhance security and reliability, for example, managing network isolation policies in AWS or GCP.\n\nThe core of IaC includes declarative configuration files (such as Terraform HCL or Ansible playbooks) and tool features (such as version control and state management). In principle, it relies on code to define the desired state to drive automatic deployment. In practical applications, it can efficiently handle network (such as configuring subnets or VPCs) and security (such as security groups and encryption policies), improve auditability, meet standards like PCI-DSS, and its impact extends to container networks such as Kubernetes ingress control.\n\nImplementation steps include: 1) Defining network and security rules (such as firewalls) with code; 2) Selecting tools (such as Terraform or cloud provider SDKs) to configure resources; 3) Integrating CI/CD for testing and deployment. Typical scenarios include automatically updating security groups in response to threats, and the business value is reducing risks, accelerating response, and optimizing operational costs."
+}

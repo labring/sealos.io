@@ -1,0 +1,13 @@
+{
+  "title": "How do I integrate cloud-native development with existing CI/CD pipelines?",
+  "description": "Cloud-native development leverages containerization and Kubernetes to implement elastic applications, combined with CI/CD to enhance delivery speed. Key aspects include building container images and a",
+  "category": "Cloud-Native Development Environments",
+  "keywords": [
+    "Application Deployment",
+    "Cloud Operating System",
+    "Lakehouse",
+    "IT Infrastructure",
+    "Open-Source Cloud"
+  ],
+  "content": "Cloud-native development leverages containerization and Kubernetes to implement elastic applications, combined with CI/CD to enhance delivery speed. Key aspects include building container images and automated processes, with importance lying in supporting scalability, reliability, and rapid iteration, suitable for cloud environments such as microservice architectures.\n\nCore components include container image registries, declarative deployment tools (e.g., Helm or Argo CD), and service mesh integration. Features encompass immutable infrastructure and rolling updates, with practical applications involving automated testing, deployment to multiple clusters, impacting reduction of manual errors and acceleration of release cycles.\n\nImplementation steps: Extend the CI phase to build Docker images; add a CD phase using Kubernetes manifests or Helm for deployment; configure continuous monitoring. Typical scenarios such as blue-green deployment ensure seamless migration, with business value including reduced risk, improved efficiency, and support for business agility."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you synchronize data between on-premises and cloud environments in a hybrid setup?",
+  "description": "In a hybrid architecture, data synchronization refers to the secure and efficient maintenance of consistency of datasets between a local data center and one or more cloud environments. This is a core ",
+  "category": "Multi-Cloud and Hybrid Cloud Deployment",
+  "keywords": [
+    "High Performance",
+    "Kubernetes (K8s)",
+    "High Availability (HA)",
+    "Application Deployment",
+    "Open-Source Cloud"
+  ],
+  "content": "In a hybrid architecture, data synchronization refers to the secure and efficient maintenance of consistency of datasets between a local data center and one or more cloud environments. This is a core challenge of the hybrid cloud model and is crucial for achieving a unified data view, disaster recovery, business continuity, and leveraging cloud resources to process local data.\n\nKey methods and technologies include: reliable network connections (dedicated lines, VPN), data replication tools and services (AWS DMS, Azure Data Factory, open-source CDC tools such as Debezium), cloud storage gateways (AWS Storage Gateway), and distributed database synchronization. These technologies ensure incremental data updates under connection fluctuations, secure encryption of transmission, conflict resolution, and bandwidth optimization, enabling near-real-time or batch processing synchronization modes.\n\nImplementation steps: 1. Define requirements (RTO/RPO, frequency, data volume). 2. Establish a secure network channel. 3. Select synchronization tools: configure replication tasks using the database engine's own replication, cloud vendor services, or third-party tools. 4. Configure data processing: such as filtering, transformation, and compression. 5. Deploy monitoring and alerting. This solution supports business values such as cross-cloud migration, active-active application deployment, and analytical expansion."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you perform rolling updates using CI/CD pipelines?",
+  "description": "CI/CD pipelines automate the software delivery process, with rolling updates gradually deploying new application versions to reduce downtime, enhance reliability, and enable rapid iteration. This is c",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Sealos",
+    "IT Infrastructure",
+    "DevOps",
+    "Cluster Management",
+    "High Performance"
+  ],
+  "content": "CI/CD pipelines automate the software delivery process, with rolling updates gradually deploying new application versions to reduce downtime, enhance reliability, and enable rapid iteration. This is crucial for microservice applications in cloud-native environments, ensuring high availability and business continuity.\n\nThe core includes continuous integration of code and test builds in the CI phase, and in the CD phase, rolling updates are implemented through automation tools like Kubernetes Deployments, featuring phased Pod replacement and health checks. Rolling updates reduce deployment risks, with impacts including uninterrupted updates and resource optimization, widely used in containerized deployment scenarios.\n\nImplementation steps are: configure CI/CD tools (such as GitLab CI) to define the rolling update strategy for Deployments, including setting the maximum number of unavailable instances; automatically execute update commands after triggering builds and tests in the pipeline; and continue replacing remaining instances after verifying health. Typical scenarios include releasing new service versions, bringing business values such as reduced downtime and improved iteration efficiency."
+}

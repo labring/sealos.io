@@ -1,0 +1,13 @@
+{
+  "title": "How do you ensure data consistency when using distributed databases in the cloud?",
+  "description": "When using distributed databases in a cloud environment, ensuring data consistency refers to the accuracy of data synchronization among multiple nodes. This criticality lies in preventing data errors",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Containerization",
+    "Sealos",
+    "Open-Source Cloud",
+    "IT Infrastructure",
+    "High Availability (HA)"
+  ],
+  "content": "When using distributed databases in a cloud environment, ensuring data consistency refers to the accuracy of data synchronization among multiple nodes. This criticality lies in preventing data errors, business disruptions, or security risks caused by inconsistencies. Typical applications include high-concurrency scenarios such as e-commerce order processing and financial transactions to ensure the reliability of real-time data.\n\nCore features include distributed transaction protocols (e.g., two-phase commit), consensus algorithms (e.g., Raft), and data partitioning strategies, balancing consistency, availability, and partition tolerance based on the CAP theorem. In practical applications, cloud services like Amazon Aurora or Google Spanner achieve consistency through built-in replication and snapshot isolation, enhancing scalability and reliability while impacting business continuity.\n\nTo ensure consistency, first select a model (e.g., strong consistency or eventual consistency); second, implement distributed transactions using database features such as automatic partitioning and monitoring tools; and finally test the consistency level. Typical scenarios include cross-regional deployment, which brings business value such as reducing erroneous transactions and improving user trust."
+}

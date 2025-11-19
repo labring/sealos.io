@@ -1,0 +1,13 @@
+{
+  "title": "How can you automate scaling based on traffic in your deployment pipeline?",
+  "description": "Automatic scaling dynamically adjusts resource allocation based on user traffic. Integration into the deployment pipeline ensures high availability and cost efficiency, making it suitable for scenario",
+  "category": "Automated Deployment",
+  "keywords": [
+    "High Performance",
+    "Cloud Platform",
+    "Sealos",
+    "High Availability (HA)",
+    "Application Deployment"
+  ],
+  "content": "Automatic scaling dynamically adjusts resource allocation based on user traffic. Integration into the deployment pipeline ensures high availability and cost efficiency, making it suitable for scenarios with highly fluctuating traffic such as e-commerce and online services. Key concepts include the elastic scaling of cloud-native applications, with importance lying in optimizing performance and avoiding resource waste.\n\nCore components include traffic monitoring tools like Prometheus, scaling controllers such as Kubernetes Horizontal Pod Autoscaler (HPA), which adjusts Pod replicas based on preset metrics like request rate or CPU utilization. The principle involves real-time data feedback and decision-making algorithms to achieve zero-downtime scaling, enhancing scalability and operational automation, and significantly reducing management burdens in cloud computing environments.\n\nImplementation steps: 1. Configure traffic metrics collectors, such as K8s metrics server. 2. Define HPA policies by setting target thresholds and scaling rules. 3. Add automation scripts in the CI/CD pipeline to deploy HPA configurations. Typical applications include switching traffic in blue-green deployments; business value lies in optimizing resource costs and ensuring service continuity when responding to demand peaks."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage external APIs in a microservices environment?",
+  "description": "In a microservices architecture, managing external APIs involves coordinating interface interactions with third-party systems. This is crucial as it ensures security, reliability, and integration effi",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Cloud Platform",
+    "Data Center (DC)",
+    "IT Infrastructure",
+    "Lakehouse",
+    "Cloud Operating System"
+  ],
+  "content": "In a microservices architecture, managing external APIs involves coordinating interface interactions with third-party systems. This is crucial as it ensures security, reliability, and integration efficiency, applied in scenarios such as payment gateway or social media API integration.\n\nCore components include an API gateway as the entry point, handling routing, authentication, rate limiting, and monitoring. A service mesh can enhance internal communication security. In practical applications, the gateway proxies requests and enforces policies, such as using OAuth authentication, reducing the risk of direct exposure of microservices and improving maintainability.\n\nImplementation steps: deploy an API gateway like Kong; configure routing rules and authentication mechanisms; integrate rate limiting and log monitoring tools. A typical scenario is an e-commerce platform integrating external payment services. Business values include enhanced security, accelerated development cycles, and optimized resource utilization."
+}

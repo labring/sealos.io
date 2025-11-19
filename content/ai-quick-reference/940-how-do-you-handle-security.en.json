@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle security patches and updates for cloud-native systems?",
+  "description": "In a cloud-native environment, handling security patches and updates is a core practice for continuously ensuring system security, involving Kubernetes cluster components, container images, and their ",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "One-Click Deployment",
+    "Lakehouse",
+    "Cloud Platform",
+    "Private Cloud",
+    "DevOps"
+  ],
+  "content": "In a cloud-native environment, handling security patches and updates is a core practice for continuously ensuring system security, involving Kubernetes cluster components, container images, and their dependency libraries. Due to the dynamic microservice architecture and frequent deployments, traditional patching methods are no longer applicable, requiring automated processes to quickly fix vulnerabilities and prevent supply chain attacks and zero-day exploit utilization.\n\nThe core lies in establishing the \"\"immutable infrastructure\"\" principle: instead of directly patching running containers, rebuild new images containing patches and replace old instances through rolling update strategies. Integrate image vulnerability scanning tools (such as Trivy, Clair) through CI/CD pipelines to detect CVEs in base images and application dependencies during the build phase; Kubernetes controllers automatically complete rolling upgrades based on declarative configurations. It is also necessary to scan the versions of cluster components (kube-apiserver, etcd, etc.) and use managed services for automatic updates or tools (such as kubeadm) for manual upgrades.\n\nImplementation steps:\n\n1. Continuous vulnerability monitoring: Use Feeds (NVD) and scanners to monitor image and cluster CVEs;\n\n2. Priority ranking: Determine the repair order based on CVSS scores and exposure scope;\n\n3. Automated building: Update base images/Dockerfiles and trigger CI to rebuild secure images;\n\n4. Secure deployment: Perform rolling updates through GitOps (such as Argo CD) or Kubernetes native Deployment, and block the deployment of vulnerable images with admission controllers (OPA);\n\n5. Verification and rollback: Monitor stability through canary releases and automatically roll back in case of abnormalities. This process minimizes service interruptions, ensures compliance, and reduces the risk of attacks."
+}

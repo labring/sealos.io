@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement and manage data archiving in cloud-native systems?",
+  "description": "Data archiving involves migrating infrequently accessed data to low-cost storage, ensuring compliance, reducing costs, and optimizing cloud-native resources. In containerized environments such as Kube",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Containerization",
+    "IT Infrastructure",
+    "Sealos",
+    "Cluster Management",
+    "One-Click Deployment"
+  ],
+  "content": "Data archiving involves migrating infrequently accessed data to low-cost storage, ensuring compliance, reducing costs, and optimizing cloud-native resources. In containerized environments such as Kubernetes, this is crucial for managing the application data lifecycle, supporting scenarios like auditing, backup, and historical data analysis.\n\nIts core components include data classification strategies, automation tools (such as the object storage service S3 Glacier), and cloud-native integration mechanisms (such as CSI drivers). It is characterized by a tiered storage architecture and policy-driven execution, with automated processes via Operators or service meshes. In practical applications, it enables low-cost data retention, enhances traceability, reduces cloud expenses, and adapts to the dynamic scaling needs of microservices.\n\nImplementation steps: 1. Identify and classify data (e.g., by access frequency or regulatory requirements); 2. Select and integrate an object storage service (e.g., AWS S3 Glacier or Azure Archive Storage); 3. Define archiving policies (set time or access threshold rules); 4. Automate execution (trigger migration using Velero or cloud tools); 5. Monitor archiving status and costs. A typical scenario is the archiving of Kubernetes persistent volumes, with business values including up to 70% storage cost savings and enhanced data governance."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you use role-based access control (RBAC) in cloud-native environments?",
+  "description": "In cloud-native environments, Role-Based Access Control is a core security management mechanism. It achieves fine-grained authorization by assigning permissions (operations on API resources such as Po",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Application Deployment",
+    "Open-Source Cloud",
+    "IT Infrastructure",
+    "Cloud-Native",
+    "Cluster Management"
+  ],
+  "content": "In cloud-native environments, Role-Based Access Control is a core security management mechanism. It achieves fine-grained authorization by assigning permissions (operations on API resources such as Pods and Services) to roles, which are then bound to users, groups, or service accounts. This is crucial because it ensures that only authorized entities can access or modify cluster resources (e.g., deploying applications, viewing logs), meeting the security requirements of multi-tenancy, microservice architectures, and automated pipelines.\n\nThe core components of RBAC are `Role`/`ClusterRole` (which define permission rules) and `RoleBinding`/`ClusterRoleBinding` (which bind roles to subjects). A `Role` operates within a specific namespace, while a `ClusterRole` applies to the entire cluster. Permissions are declared in detail by API group, resource type, and verb (e.g., `get`, `list`, `create`, `update`, `delete`). In practice, a `Role` can be created for a development team within a specific namespace (e.g., allowing deployment but prohibiting deletion), a `ClusterRole` for运维人员 to manage nodes, and a `ServiceAccount` to authorize secure operations for CI/CD tools.\n\nImplementation steps typically include: 1) Analyzing the permissions required by entities and determining the namespace scope; 2) Creating `Role`/`ClusterRole` objects to define permission rules; 3) Creating `RoleBinding`/`ClusterRoleBinding` to associate roles with users/groups/service accounts; 4) Testing and verifying that permissions take effect as expected; 5) Conducting regular audits. A typical scenario is restricting developers to only access the `dev` namespace for deployments. This greatly enhances security compliance, adheres to the principle of least privilege, and reduces the risk of configuration errors or malicious operations."
+}

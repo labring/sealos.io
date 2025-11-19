@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage transactional data in a cloud-native environment?",
+  "description": "In a cloud-native environment, transactional data refers to data that needs to satisfy ACID (Atomicity, Consistency, Isolation, and Durability) properties, such as orders or financial transactions. It",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "One-Click Deployment",
+    "Data Center (DC)",
+    "Cloud Operating System",
+    "DevOps",
+    "Sealos"
+  ],
+  "content": "In a cloud-native environment, transactional data refers to data that needs to satisfy ACID (Atomicity, Consistency, Isolation, and Durability) properties, such as orders or financial transactions. Its importance lies in ensuring system reliability, consistency, and business continuity, especially when handling critical applications like e-commerce or banking payment scenarios in a microservices architecture to avoid data loss or conflicts.\n\nCore components include distributed transaction patterns (such as the Saga pattern for handling compensation mechanisms), persistent storage (using Kubernetes StatefulSets or Cloud SQL services), and message queues (such as Kafka to ensure eventual consistency). Features emphasize handling network latency and partition tolerance. In practical applications, resilience is enhanced through state machine and workflow management, reducing the impact of system failures and improving the overall robustness of microservice systems.\n\nManagement steps include: 1. Adopting distributed transaction strategies such as Saga for compensation operations. 2. Deploying databases on Kubernetes StatefulSets to achieve persistent storage. 3. Integrating cloud database services to ensure ACID support. Typical scenarios such as order processing systems bring business value: ensuring data consistency and compliance, reducing operational risks, and improving user experience and scalability."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How does microservices architecture support DevOps practices?",
+  "description": "Microservices architecture splits applications into independently deployable, loosely coupled small services. This architecture inherently promotes collaboration between development and operations, co",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Containerization",
+    "Cloud Platform",
+    "Lakehouse",
+    "IT Infrastructure",
+    "Sealos"
+  ],
+  "content": "Microservices architecture splits applications into independently deployable, loosely coupled small services. This architecture inherently promotes collaboration between development and operations, continuous delivery, and automation emphasized by DevOps. The synergy between the two can significantly improve software delivery speed and system resilience.\n\nThe independence of microservices supports team autonomy and technological heterogeneity, facilitating the implementation of CI/CD pipelines. Clear service boundaries reduce coordination costs, enabling frequent deployments, while local failures do not affect the overall system. Containerization and cloud-native infrastructure (such as Kubernetes) provide microservices with basic capabilities for automated deployment, scaling, and monitoring.\n\nIn practice, microservices enable teams to independently develop, test, and release their services, deeply integrating with DevOps automation toolchains. This shortens feedback cycles and accelerates innovation; fine-grained operations reduce change risks; and Infrastructure as Code (IaC) ensures environmental consistency, collectively achieving business agility and high availability goals."
+}

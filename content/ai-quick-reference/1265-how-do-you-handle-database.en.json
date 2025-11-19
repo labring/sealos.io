@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle database schema changes in CI/CD pipelines?",
+  "description": "Handling database schema changes in a CI/CD pipeline involves automating database structure modifications (such as table definition changes) to ensure synchronized deployment with application code. Th",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Data Center (DC)",
+    "Cluster Management",
+    "IT Infrastructure",
+    "Kubernetes (K8s)",
+    "Lakehouse"
+  ],
+  "content": "Handling database schema changes in a CI/CD pipeline involves automating database structure modifications (such as table definition changes) to ensure synchronized deployment with application code. This is crucial as it supports frequent releases in agile development and avoids data inconsistencies, with application scenarios including zero-downtime upgrades in microservices architectures and cloud-native environments.\n\nCore components include version-controlled migration scripts (e.g., using tools like Liquibase or Flyway) and the principle of idempotent operations, allowing for incremental change management and supporting rollbacks. In practical applications, scripts are automatically run during pipeline testing and production stages, achieving environment consistency, reducing human errors, impacting system reliability, and facilitating high-availability strategies like blue-green deployments.\n\nImplementation steps: 1. Incorporate database change scripts into the version control repository. 2. Integrate migration tools into CI/CD stages (e.g., Jenkins jobs). 3. Automatically execute scripts and validate test environments. Typical scenarios include applying changes before canary releases, with business values including shortening deployment cycles, reducing operational risks, and enhancing data integrity."
+}

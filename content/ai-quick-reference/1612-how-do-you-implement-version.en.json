@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement version control for Infrastructure as Code?",
+  "description": "Infrastructure as Code (IaC) defines infrastructure configurations as scripts or configuration files, with version control used to track and manage the change history of these files. Its importance li",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "One-Click Deployment",
+    "Cluster Management",
+    "Cloud Platform",
+    "High Availability (HA)",
+    "Kubernetes (K8s)"
+  ],
+  "content": "Infrastructure as Code (IaC) defines infrastructure configurations as scripts or configuration files, with version control used to track and manage the change history of these files. Its importance lies in ensuring the consistency and auditability of infrastructure, reducing human errors. Typical application scenarios include cloud computing environment deployment, DevOps automation workflows, and cloud-native application management, such as versioned updates of Kubernetes clusters.\n\nCore components include code repositories (e.g., Git repositories), IaC tools (e.g., Terraform or Ansible), and change management mechanisms. Features encompass complete history records, rollback capabilities, and audit trails. In practical applications, it optimizes the maintainability of configurations, enables rapid scaling and secure updates in containerized and cloud-native environments, thereby improving team collaboration efficiency and reducing the risk of service disruptions.\n\nImplementation steps include: first, storing all IaC configuration files in version control systems like Git; second, utilizing branch strategies (e.g., feature branches) and pull requests for code reviews; third, integrating automated testing and CI/CD pipelines to validate changes; and finally, deploying changes to the production environment. Typical scenarios such as blue-green deployment bring business values including improved release reliability, accelerated iteration speed, and reduced operational costs."
+}

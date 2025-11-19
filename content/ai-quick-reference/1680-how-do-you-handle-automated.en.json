@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle automated scaling in IaC configurations?",
+  "description": "Handling auto-scaling in IaC (Infrastructure as Code) configurations involves defining the dynamic scaling mechanisms of infrastructure using code. This practice is crucial as it enhances repeatabilit",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Cloud-Native",
+    "One-Click Deployment",
+    "Application Deployment",
+    "Lakehouse",
+    "High Availability (HA)"
+  ],
+  "content": "Handling auto-scaling in IaC (Infrastructure as Code) configurations involves defining the dynamic scaling mechanisms of infrastructure using code. This practice is crucial as it enhances repeatability, resource efficiency, and availability, particularly suitable for cloud environments (such as AWS or Kubernetes), high-traffic application scenarios, and DevOps automation, ensuring the system can respond to load changes.\n\nThe core includes declarative definition of policies: trigger conditions (e.g., CPU utilization thresholds), scaling actions (increasing/decreasing the number of instances), and monitoring integration. IaC tools (like Terraform or CloudFormation) enable version control and secure deployment of these components, achieving automatic adjustments based on real-time metrics, thereby optimizing resource utilization, reducing costs, and enhancing system resilience.\n\nImplementation steps: First, create an auto-scaling group resource in the IaC script; second, configure policies (such as binding CloudWatch alarms); finally, test the effectiveness of the policies. Typical scenarios include web services responding to traffic spikes, with business values including elastic scaling without manual intervention, cost savings, and SLA guarantees."
+}

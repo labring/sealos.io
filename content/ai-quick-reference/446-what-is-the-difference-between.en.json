@@ -1,0 +1,13 @@
+{
+  "title": "What is the difference between synchronous and asynchronous communication in microservices?",
+  "description": "In a microservices architecture, synchronous communication involves real-time request-response interactions (such as REST API calls), requiring services to wait for immediate results; asynchronous com",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Cloud-Native",
+    "Cloud Platform",
+    "One-Click Deployment",
+    "Kubernetes (K8s)",
+    "DevOps"
+  ],
+  "content": "In a microservices architecture, synchronous communication involves real-time request-response interactions (such as REST API calls), requiring services to wait for immediate results; asynchronous communication enables non-blocking operations through message queues (such as Kafka), where producers do not need to wait after sending messages. They are crucial for enhancing system scalability and reliability, with application scenarios including order processing (synchronous) and log analysis (asynchronous) to manage service dependencies and optimize performance.\n\nAt its core, synchronous communication is based on direct invocations (such as gRPC or HTTP), characterized by blocking and tight coupling, which can easily cause delays for the caller; asynchronous communication relies on message brokers (such as RabbitMQ), characterized by non-blocking and decoupling, supporting event-driven patterns. Practical applications include using synchronization for user authentication to ensure real-time performance, and asynchronous processing for background tasks to handle high throughput; the impacts include synchronization limiting system scalability, while asynchronous enhancing resilience, fault tolerance, and horizontal scalability.\n\nIn terms of applications and value, synchronous communication is suitable for low-latency requirements (such as UI responses) to improve user experience; asynchronous communication optimizes resource utilization through decoupling services, provides high fault tolerance and elastic processing, and the value of supporting large-scale event-driven architectures includes reducing single points of failure and improving overall system stability."
+}

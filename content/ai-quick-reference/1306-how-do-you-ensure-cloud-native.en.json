@@ -1,0 +1,13 @@
+{
+  "title": "How do you ensure cloud-native applications are always up-to-date using CI/CD?",
+  "description": "CI/CD (Continuous Integration/Continuous Deployment) is an automated software development practice that ensures rapid integration, testing, and deployment of code changes. In cloud-native environments",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "High Availability (HA)",
+    "Kubernetes (K8s)",
+    "Containerization",
+    "Cluster Management",
+    "Cloud Operating System"
+  ],
+  "content": "CI/CD (Continuous Integration/Continuous Deployment) is an automated software development practice that ensures rapid integration, testing, and deployment of code changes. In cloud-native environments, it enables real-time updates of containerized applications, enhancing agility and reliability, and is suitable for microservices and Kubernetes deployment scenarios.\n\nThe core of CI/CD includes build automation, test suites (such as unit tests and integration tests), continuous deployment pipelines, and monitoring mechanisms. Its features are based on event triggers (e.g., code commits) and GitOps principles to ensure high reliability and traceability. In practical applications, when combined with tools like Jenkins or Argo CD, it automatically deploys to Kubernetes clusters, enabling rolling updates and zero downtime, significantly accelerating delivery and reducing human errors.\n\nImplementation steps: First, configure source code repository (e.g., GitHub) triggers; second, design pipelines to automatically build Docker images and execute tests; then deploy to production environments (e.g., Kubernetes clusters) via CD tools; finally, set up monitoring and rollback strategies. A typical scenario is the continuous iteration of cloud-native applications, with business values including shortening time to market, enhancing system stability, and quickly responding to market changes."
+}

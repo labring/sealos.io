@@ -1,0 +1,13 @@
+{
+  "title": "How do you monitor and control access to cloud-native storage services?",
+  "description": "Monitoring and controlling access to cloud-native storage services involves tracking user operations and managing permissions to ensure data security and compliance. This is crucial in cloud-native en",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Data Center (DC)",
+    "Cluster Management",
+    "Cloud-Native",
+    "Private Cloud",
+    "Kubernetes (K8s)"
+  ],
+  "content": "Monitoring and controlling access to cloud-native storage services involves tracking user operations and managing permissions to ensure data security and compliance. This is crucial in cloud-native environments for protecting sensitive data in application scenarios within dynamic microservice architectures.\n\nCore components include authentication (such as OpenID Connect), authorization (through Role-Based Access Control, RBAC), and audit logging. Kubernetes platforms integrate service meshes like Istio to implement fine-grained policies, affecting the reliability and compliance management of storage resources.\n\nImplementation steps: 1. Define RBAC roles and bind them to user groups. 2. Enable audit logs and integrate monitoring tools like Prometheus. 3. Deploy admission controllers to enforce custom policies. Business values include reducing security risks and improving operational efficiency, typically in CI/CD pipelines."
+}

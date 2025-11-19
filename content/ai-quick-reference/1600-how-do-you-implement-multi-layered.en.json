@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement multi-layered observability across cloud-native application architectures?",
+  "description": "Multi-layered observability refers to the comprehensive monitoring and analysis of different levels such as infrastructure, service networks, and application business logic in cloud-native application",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "One-Click Deployment",
+    "Sealos",
+    "Cloud Platform",
+    "Containerization",
+    "Data Center (DC)"
+  ],
+  "content": "Multi-layered observability refers to the comprehensive monitoring and analysis of different levels such as infrastructure, service networks, and application business logic in cloud-native application architectures to obtain a full picture of system operation. Its importance lies in improving system reliability, quickly locating faults, and optimizing performance. It is suitable for microservices, containerization, and Kubernetes environments, supporting fault diagnosis and automated operation and maintenance.\n\nThe core components include metrics, logs, and tracing, such as standardized data collection through OpenTelemetry. It is characterized by cross-layer data integration and real-time analysis, with visualization achieved using tools like Prometheus, Jaeger, and Grafana. In practical applications, it improves operational efficiency, reduces downtime, and supports automatic responses in CI/CD pipelines and dynamic scaling scenarios.\n\nImplementation steps: First, define monitoring levels (e.g., Kubernetes clusters, microservices); then deploy the tool stack and integrate metrics, logs, and tracing; next, configure visualization dashboards and alert mechanisms; finally, continuously optimize. Business values include reducing Mean Time to Recovery (MTTR), increasing application availability to over 99.9%, and lowering operational costs by 20%-30%. Typical scenarios cover real-time performance optimization and compliance auditing."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "What is the difference between cloud-native and cloud-hosted development environments?",
+  "description": "Cloud-native is a methodology for building and running applications that emphasizes leveraging cloud computing models (such as containers, service meshes, microservices, immutable infrastructure, and ",
+  "category": "Cloud-Native Development Environments",
+  "keywords": [
+    "Open-Source Cloud",
+    "High Availability (HA)",
+    "High Performance",
+    "DevOps",
+    "Kubernetes (K8s)"
+  ],
+  "content": "Cloud-native is a methodology for building and running applications that emphasizes leveraging cloud computing models (such as containers, service meshes, microservices, immutable infrastructure, and declarative APIs) to achieve application scalability, elasticity, and agile deployment. Its importance lies in optimizing resource utilization, accelerating delivery, and enhancing system resilience in cloud environments, and it is widely applied in modern distributed system development.\n\nThe core of cloud-native is microservice architecture that decouples applications, containers that provide a standardized runtime environment, container orchestration (such as Kubernetes) that automates deployment management, DevOps culture that promotes collaboration, and CI/CD pipelines that ensure continuous delivery. These components collectively support dynamic scaling, fault self-healing, and rolling updates. A cloud-hosted development environment hosts resources required for development (IDE, code repositories, compilers, dependencies, etc.) on cloud servers, accessible via a browser. Its core features include pre-configured resources, environment consistency, on-demand provisioning, no local installation required, and remote collaborative development.\n\nCloud-native has changed the way applications are built, driving infrastructure automation and management revolution, and achieving higher resource utilization and application resilience. The core value of cloud-hosted environments lies in simplifying the challenges of development environment configuration, ensuring team environment consistency, supporting efficient remote collaboration, and accelerating development startup. It primarily serves developers' daily coding, debugging, and collaboration activities rather than specifying application architecture patterns."
+}

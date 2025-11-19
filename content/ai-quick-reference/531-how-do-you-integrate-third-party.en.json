@@ -1,0 +1,13 @@
+{
+  "title": "How do you integrate third-party services into a microservices architecture?",
+  "description": "Third-party service integration refers to incorporating external APIs or systems (such as payment and notification services) into a microservices architecture to expand functionality and reuse capabil",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Cloud Platform",
+    "Cluster Management",
+    "DevOps",
+    "Kubernetes (K8s)",
+    "One-Click Deployment"
+  ],
+  "content": "Third-party service integration refers to incorporating external APIs or systems (such as payment and notification services) into a microservices architecture to expand functionality and reuse capabilities. Its importance lies in accelerating development and enhancing system scalability, and it is commonly used in e-commerce or SaaS applications to implement features like authentication or billing.\n\nThe core components include an API gateway (unified entry point), service discovery mechanisms (e.g., Consul), and resilience patterns (e.g., circuit breakers). It is characterized by loose coupling and asynchronous communication (e.g., Kafka). In practical applications, request routing through the gateway ensures isolation, and event-driven design handles the impact of external calls on microservice reliability; version control and security policies (e.g., OAuth) need to be managed.\n\nImplementation steps: 1. Evaluate and select third-party APIs. 2. Proxy calls through an API gateway (e.g., Envoy). 3. Configure circuit breaker and timeout mechanisms to prevent fault propagation. 4. Integrate monitoring and logging (e.g., Prometheus). A typical scenario is integrating AWS S3 for storage, with business values including reducing development costs, accelerating feature launch, and improving the consistency of user experience."
+}

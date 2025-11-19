@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle cloud infrastructure provisioning in CI/CD pipelines?",
+  "description": "The core of handling cloud infrastructure configuration in CI/CD pipelines is the adoption of \"Infrastructure as Code\" (IaC). By defining resources such as servers, networks, and storage as version-co",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "IT Infrastructure",
+    "Application Deployment",
+    "High Performance",
+    "Sealos",
+    "High Availability (HA)"
+  ],
+  "content": "The core of handling cloud infrastructure configuration in CI/CD pipelines is the adoption of \"\"Infrastructure as Code\"\" (IaC). By defining resources such as servers, networks, and storage as version-controlled configuration files (e.g., Terraform, CloudFormation, or ARM templates), infrastructure automation, consistency, and repeatable deployment are achieved. This eliminates discrepancies from manual configurations, ensures consistency across development, testing, and production environments, supports rapid iteration and reliable rollbacks, and is a critical component of modern cloud-native application delivery.\n\nIts core processes include:\n\n1. Version control: IaC configuration files are stored in version repositories like Git along with application code.\n\n2. Automated triggering: Code commits/merges trigger CI/CD workflows (e.g., GitHub Actions, Jenkins).\n\n3. Static analysis: Execution of IaC syntax validation and security policy scanning (e.g., Checkov, TFLint).\n\n4. Infrastructure testing: Deployment of temporary preview environments (`terraform plan`/`pulumi preview`) and execution of compliance and functional tests (e.g., Terratest).\n\n5. Environment deployment: After validation, automation tools perform on-demand deployment or updates in different environments (development/staging/production).\n\n6. State management: Maintaining accurate records of infrastructure state (e.g., Terraform State). This significantly reduces configuration drift and enhances security and audit capabilities.\n\nSpecific implementation steps typically involve:\n\n1. Storing IaC templates in Git repositories;\n\n2. CI tools monitoring changes and triggering workflows;\n\n3. Performing security scans and sandbox environment rehearsals;\n\n4. Deploying to target environments after passing tests;\n\n5. Implementing progressive releases (e.g., blue-green deployment) in production environments and integrating monitoring alerts. The business value lies in: minute-level environment creation, reduction of human errors, enhanced compliance auditing, and acceleration of the overall delivery cycle."
+}

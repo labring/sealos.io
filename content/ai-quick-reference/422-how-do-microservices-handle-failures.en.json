@@ -1,0 +1,13 @@
+{
+  "title": "How do microservices handle failures and ensure fault tolerance?",
+  "description": "In a microservices architecture, independent deployment of services leads to high risk of fault propagation. Ensuring fault tolerance involves designing mechanisms to isolate failures and maintain nor",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Lakehouse",
+    "Cloud-Native",
+    "High Availability (HA)",
+    "Private Cloud",
+    "One-Click Deployment"
+  ],
+  "content": "In a microservices architecture, independent deployment of services leads to high risk of fault propagation. Ensuring fault tolerance involves designing mechanisms to isolate failures and maintain normal system operation. This is crucial for guaranteeing high availability and business continuity, and is widely applied in distributed system scenarios such as e-commerce and finance to reduce the impact of single-point failures.\n\nCore strategies include the circuit breaker pattern to automatically interrupt failed calls, retry mechanisms to handle transient errors, timeout control, and isolation bulkheads to limit resource usage. Implemented through tools like Hystrix or Istio service mesh, these strategies enhance system resilience, support automatic degradation to backup services, and strengthen robustness and stability in distributed environments.\n\nImplementation steps include configuring retry count thresholds, setting fallback logic, and continuous monitoring; typical scenarios include rapid recovery when API calls fail; business values are reflected in reducing downtime, enhancing user experience, facilitating agile deployment, and improving scalability."
+}

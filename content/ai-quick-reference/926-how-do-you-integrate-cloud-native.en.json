@@ -1,0 +1,13 @@
+{
+  "title": "How do you integrate cloud-native application security with traditional enterprise security tools?",
+  "description": "Cloud-native application security protects containerized applications and microservice architectures, involving dynamic deployment and automation. Traditional enterprise security tools include network",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Private Cloud",
+    "High Availability (HA)",
+    "Cloud-Native",
+    "Data Center (DC)",
+    "Application Deployment"
+  ],
+  "content": "Cloud-native application security protects containerized applications and microservice architectures, involving dynamic deployment and automation. Traditional enterprise security tools include network-based protection systems and Security Information and Event Management (SIEM) solutions. Integrating the two is crucial, as it can unify security policies, address the complexity of hybrid cloud environments, be applied in DevSecOps processes, ensure end-to-end compliance, and reduce the risk of data breaches.\n\nThe core components include service meshes (such as Istio) that control inter-service communication, API gateways that manage inbound traffic, and container security tools that scan for vulnerabilities. Traditional tools collect Kubernetes events into SIEM systems through log aggregators. The principle relies on standardized data formats (such as OpenTelemetry) and API linkage to achieve real-time threat detection. In practical applications, security teams can conduct centralized monitoring, increasing response speed by approximately 50% and meeting regulatory requirements such as GDPR.\n\nImplementation steps: 1. Assess requirements and select compatible tools; 2. Deploy integration layers such as Fluentd log forwarding; 3. Configure security policy synchronization; 4. Test and optimize through CI/CD. Typical scenario: SIEM analyzes container logs in multi-cloud deployments. Business value includes reducing operational costs by 30%, improving agility, and enhancing business continuity."
+}

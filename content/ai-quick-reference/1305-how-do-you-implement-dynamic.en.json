@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement dynamic environment creation in CI/CD pipelines?",
+  "description": "Dynamic environment creation refers to the automated on-demand construction of temporary testing environments (such as development/preview environments) in CI/CD pipelines, which are automatically des",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "DevOps",
+    "Open-Source Cloud",
+    "Sealos",
+    "Cloud Operating System",
+    "Cloud Platform"
+  ],
+  "content": "Dynamic environment creation refers to the automated on-demand construction of temporary testing environments (such as development/preview environments) in CI/CD pipelines, which are automatically destroyed after use, typically based on Infrastructure as Code (IaC) and containerization technologies (such as K8s namespaces). It optimizes resource utilization, enables test isolation, and accelerates feedback, serving as a key practice for agile development and frequent deployments, especially suitable for multi-branch parallel development and large-scale microservice scenarios.\n\nThe core implementation includes: 1) IaC templates: Using Terraform, CloudFormation, or K8s Manifests to define environment infrastructure; 2) Environment identification: Pipelines automatically generate unique identifiers (e.g., `pr-123`) based on branch/PR numbers; 3) Automated deployment: Pipelines call tools (e.g., Terraform CLI, Argo CD) to deploy to isolated namespaces or cloud resource groups by identifier; 4) Destruction strategy: Integrating automatic destruction steps (based on time, pipeline completion, or manual triggering). Dynamic environments support parallel testing and instant previews, significantly reducing environment conflicts and improving release frequency and quality.\n\nImplementation steps: 1) Writing environment definitions as parameterizable (e.g., `env_name`) IaC/K8s YAML templates and storing them in version repositories; 2) In CI/CD pipelines (e.g., Jenkins Pipeline, GitLab CI), generating dynamic environment identifiers based on trigger events (e.g., PR creation); 3) During pipeline execution, passing identifier parameters to call IaC/K8s deployment tools (e.g., `terraform apply -var env_name=pr-123` or `kubectl apply -f manifests/ -n pr-123`); 4) Running integration tests or verifying changes in the environment; 5) Triggering corresponding IaC/K8s commands to destroy the environment when the pipeline ends (e.g., PR merging). Typical business values include: resource cost savings, elimination of environment drift, and acceleration of the quality feedback cycle."
+}

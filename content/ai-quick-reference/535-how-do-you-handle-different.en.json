@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle different service versions in a microservices architecture?",
+  "description": "In a microservices architecture, handling different service versions is a core aspect of managing independent service evolution and compatibility. It is crucial for supporting continuous delivery, avo",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Kubernetes (K8s)",
+    "Lakehouse",
+    "High Availability (HA)",
+    "Cloud Operating System",
+    "Cluster Management"
+  ],
+  "content": "In a microservices architecture, handling different service versions is a core aspect of managing independent service evolution and compatibility. It is crucial for supporting continuous delivery, avoiding system disruptions, and ensuring user experience, commonly seen in dynamically updated and scaled scenarios such as e-commerce platforms.\n\nCore components include semantic versioning, routing strategies implemented by API gateways (e.g., path-based or header-based filtering), and deployment patterns like blue-green or canary releases. These features enhance system resilience and agility, reducing regression risks, accelerating iteration speed, and improving overall availability in practical applications.\n\nImplementation steps involve: first defining service versions; configuring routing rules through the gateway to isolate traffic between old and new versions; gradually applying release strategies for rolling updates; and finally integrating monitoring tools for automated rollbacks to ensure business continuity and reduce deployment risks."
+}

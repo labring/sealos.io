@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage APIs across multi-cloud environments?",
+  "description": "Managing APIs in a multi-cloud environment involves the management and governance of API calls across multiple cloud platforms, ensuring API consistency, security, and performance across various cloud",
+  "category": "Multi-Cloud and Hybrid Cloud Deployment",
+  "keywords": [
+    "Cloud-Native",
+    "Lakehouse",
+    "One-Click Deployment",
+    "Data Center (DC)",
+    "IT Infrastructure"
+  ],
+  "content": "Managing APIs in a multi-cloud environment involves the management and governance of API calls across multiple cloud platforms, ensuring API consistency, security, and performance across various cloud services. This management is crucial as it supports service reliability and reduces the risk of vendor lock-in, commonly used in hybrid cloud deployments or microservices architectures, such as integration scenarios where enterprise applications are deployed on AWS, Azure, and GCP.\n\nCore components include API gateways (e.g., Kong or cloud-native Istio) as unified entry points, centralized management platforms, security policies (OAuth/JWT authentication), and monitoring tools (Prometheus). Features encompass cross-cloud compatibility, auto-scaling, and policy enforcement. In practical applications, unified control is achieved through tools to enhance development efficiency and promote business continuity, with impacts including simplifying and accelerating service deployment.\n\nImplementation steps: 1. Audit multi-cloud APIs; 2. Deploy API management tools; 3. Configure gateway policies; 4. Set up security controls; 5. Integrate log monitoring. Typical business values include enhanced scalability, reduced latency costs, and accelerated innovation, such as automated API orchestration in cloud migration reducing operational burdens."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "What is the role of Kubernetes in container orchestration for cloud-native environments?",
+  "description": "Kubernetes is an open-source container orchestration system used for automating the deployment, scaling, and management of containerized applications. In cloud-native environments, it plays the role o",
+  "category": "Cloud-Native Development Environments",
+  "keywords": [
+    "High Performance",
+    "Sealos",
+    "Data Center (DC)",
+    "Kubernetes (K8s)",
+    "One-Click Deployment"
+  ],
+  "content": "Kubernetes is an open-source container orchestration system used for automating the deployment, scaling, and management of containerized applications. In cloud-native environments, it plays the role of a core coordinator and serves as the fundamental infrastructure cornerstone for building and running scalable, resilient, and distributed systems, addressing the complexity of large-scale container deployment and management.\n\nIt provides features such as declarative APIs, service discovery and load balancing, automated deployment and rollback, storage orchestration, automatic bin packing, self-healing (e.g., container restart), and secret and configuration management. Core components include the control plane (API Server, etcd, Scheduler, Controller Manager) and nodes (kubelet, kube-proxy). Kubernetes abstracts underlying infrastructure details, enabling seamless application operation and migration across hybrid and multi-cloud environments, and has greatly promoted the implementation of microservices architectures.\n\nThe core value of Kubernetes lies in its powerful automated operation and maintenance capabilities. It significantly improves resource utilization (automatic bin packing), ensures high application availability (self-healing capability), and enables elastic scaling (Horizontal Pod Autoscaler). This allows development teams to focus on code development, achieve rapid iteration and deployment through CI/CD pipelines, greatly enhance business agility, reduce operational complexity and costs, and serves as a key enabling platform for digital transformation and modern applications."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you use Kubernetes security policies to secure cloud-native applications?",
+  "description": "Kubernetes security policies are a set of mechanisms designed to protect cloud-native applications from unauthorized access and attacks by controlling resource access and network communication. They a",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "One-Click Deployment",
+    "Data Center (DC)",
+    "Kubernetes (K8s)",
+    "Cloud Platform",
+    "Private Cloud"
+  ],
+  "content": "Kubernetes security policies are a set of mechanisms designed to protect cloud-native applications from unauthorized access and attacks by controlling resource access and network communication. They are crucial in containerized environments, ensuring application isolation and data security, applied in multi-tenant cloud platforms and microservices architectures to prevent data leakage and service disruptions.\n\nCore components include RBAC (Role-Based Access Control) for managing user and Pod permissions, network policies to restrict traffic flow between Pods, and Pod security policies (such as PSA) to enforce security contexts. These features reduce the attack surface through defense-in-depth; for example, RBAC defines role bindings, and network policies isolate traffic based on labels, thereby enhancing overall security and compliance, with significant impact in sensitive industries like finance or healthcare.\n\nImplementation steps: First, configure RBAC to define roles and bindings, restricting user access to cluster resources; second, deploy network policy files to isolate Pod communication using namespace labels; third, enable Pod Security Admission to enforce default security standards. Typical scenarios include isolating database services, with business values including compliance with regulations like GDPR and reduced intrusion risks."
+}

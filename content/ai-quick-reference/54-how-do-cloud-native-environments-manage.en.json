@@ -1,0 +1,13 @@
+{
+  "title": "How do cloud-native environments manage dependencies in development?",
+  "description": "Cloud-native dependency management refers to the process of handling libraries, tools, and dependencies in containerized development to ensure consistency. Its importance lies in eliminating the \"work",
+  "category": "Cloud-Native Development Environments",
+  "keywords": [
+    "Sealos",
+    "Open-Source Cloud",
+    "One-Click Deployment",
+    "Cloud-Native",
+    "Cloud Platform"
+  ],
+  "content": "Cloud-native dependency management refers to the process of handling libraries, tools, and dependencies in containerized development to ensure consistency. Its importance lies in eliminating the \"\"works on my machine\"\" problem and accelerating iteration and deployment. It is mainly applied in microservice development scenarios, such as CI/CD pipelines in Kubernetes environments.\n\nCore components include container images (which encapsulate dependencies), dependency managers (such as npm or pip), and infrastructure as code (such as Helm). Its characteristics are reproducibility, isolation, and automation. In practical applications, this ensures seamless consistency from development to production environments through container orchestration, improving team collaboration efficiency and reducing risks.\n\nImplementation steps: 1. Use a package manager to define a dependency manifest. 2. Build a Docker image containing dependencies. 3. Integrate CI/CD pipelines for automated testing and deployment. 4. Configure management tools to manage environment variables. Business value: Shortens development cycles, improves reliability, and supports agile development and multi-cloud migration."
+}

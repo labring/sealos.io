@@ -1,0 +1,13 @@
+{
+  "title": "What is the role of secrets management in cloud-native security?",
+  "description": "Key management involves the generation, storage, and protection of encryption keys, serving as the core of cloud-native security to ensure data confidentiality, integrity, and availability for contain",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Data Center (DC)",
+    "High Availability (HA)",
+    "Sealos",
+    "Containerization",
+    "Cloud-Native"
+  ],
+  "content": "Key management involves the generation, storage, and protection of encryption keys, serving as the core of cloud-native security to ensure data confidentiality, integrity, and availability for containerized applications. Its importance lies in preventing the leakage of sensitive information such as API keys, with application scenarios including microservice communication in Kubernetes clusters, configuration secret management, and access control.\n\nCore components include key lifecycle management, secure storage services (e.g., HashiCorp Vault), automatic rotation, and RBAC-based distribution mechanisms. The principle relies on cryptographic algorithms such as AES or RSA. In practical applications, it protects database credentials, image repository authentication, and network encryption, significantly reducing the attack surface and improving compliance, such as meeting ISO 27001 or GDPR requirements.\n\nIn cloud-native environments, key management plays a central defensive role through secure authentication and data encryption, ensuring the protection of data in transit and at rest. Its value lies in reducing the risk of data breaches, supporting business continuity and regulatory compliance, such as PCI DSS and internal security policies."
+}

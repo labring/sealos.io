@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle data consistency in distributed cloud-native databases?",
+  "description": "Distributed cloud-native databases store data across multiple nodes using containerization (such as Kubernetes) and microservice architectures to achieve scalability and high availability. Data consis",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Kubernetes (K8s)",
+    "Cloud-Native",
+    "Cloud Operating System",
+    "Containerization",
+    "Application Deployment"
+  ],
+  "content": "Distributed cloud-native databases store data across multiple nodes using containerization (such as Kubernetes) and microservice architectures to achieve scalability and high availability. Data consistency means that data across all nodes is synchronized and operations are serialized, ensuring data accuracy. This is crucial in businesses like financial transactions and e-commerce orders, preventing data conflicts or errors and ensuring service reliability.\n\nIts core principle is based on distributed consensus algorithms (such as Raft or Paxos) to enforce transactional ACID properties, combined with sharding, replication strategies, and fault recovery mechanisms. For example, Kubernetes StatefulSets manage stateful services and support strong consistency models. In practical applications, this improves system stability and drives low-latency responses and high-throughput performance of cloud-native technologies.\n\nProcessing steps include: selecting a strong consistency or eventual consistency model; configuring cross-node replication and health probes; integrating transaction management tools (such as etcd). A typical scenario is bank transfers requiring atomic operations. The business value lies in reducing data conflicts, enhancing user trust, supporting large-scale transactions, and lowering costs."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "What is the role of containerization in a CI/CD pipeline?",
+  "description": "Containerization provides standardized application packaging and environment isolation in CI/CD pipelines. Based on lightweight container technologies such as Docker, it ensures consistency in code, d",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Cluster Management",
+    "Open-Source Cloud",
+    "High Performance",
+    "Cloud Platform",
+    "Sealos"
+  ],
+  "content": "Containerization provides standardized application packaging and environment isolation in CI/CD pipelines. Based on lightweight container technologies such as Docker, it ensures consistency in code, dependencies, and runtime, eliminating environment differences. Its importance lies in improving the efficiency and quality of software delivery, with application scenarios including cloud-native development, automated build and deployment processes.\n\nThe core components include container images (containing applications and dependencies), runtime engines (such as Kubernetes), and registries. In CI/CD pipelines, containers implement a unified environment for the build, test, and deployment stages, characterized by quick startup and portability. This promotes continuous test automation, significantly reducing integration errors, and its impact is shortening feedback cycles and improving cross-team collaboration efficiency.\n\nThe application value lies in ensuring build reliability and seamless deployment, supporting agile iterations; the business value includes reducing operational risks, accelerating time-to-market, and enhancing system scalability, ultimately improving overall development productivity."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you integrate security scans into an automated deployment pipeline?",
+  "description": "Integrating security scanning into the automated deployment pipeline refers to embedding automated security tools, such as Static Application Security Testing (SAST) or container image scanning, into ",
+  "category": "Automated Deployment",
+  "keywords": [
+    "Lakehouse",
+    "One-Click Deployment",
+    "Private Cloud",
+    "IT Infrastructure",
+    "High Availability (HA)"
+  ],
+  "content": "Integrating security scanning into the automated deployment pipeline refers to embedding automated security tools, such as Static Application Security Testing (SAST) or container image scanning, into the Continuous Integration/Continuous Deployment (CI/CD) process. The importance of this lies in implementing \"\"shift-left security,\"\" detecting vulnerabilities early in the development phase, reducing risks in the production environment, and it is applicable to cloud-native and DevOps environments, such as Kubernetes cluster deployments.\n\nThe core components include SAST, Dynamic Application Security Testing (DAST), and Infrastructure as Code (IaC) scanning tools. The principle is to trigger scans during the build or testing phase through pipeline hooks. Features include automated reporting and failure policy control. In practical applications, this integration enhances software supply chain security, ensures compliance, and reduces vulnerability remediation costs for cloud-native applications.\n\nThe implementation steps are as follows: 1. Select tools (e.g., SonarQube SAST or Trivy container scanning). 2. Add a scanning phase to the CI/CD pipeline (typically after building or before deployment). 3. Configure failure policies to block unsafe builds. Typical scenarios include performing scans in Jenkins or GitLab CI. Business values include accelerating release cycles and reducing the cost of security incidents."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement and manage cloud-native storage for enterprise applications?",
+  "description": "Cloud-native storage provides persistent data management for containerized applications, addressing the issue of data retention for stateful applications in dynamic container environments. Its importa",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Sealos",
+    "Application Deployment",
+    "DevOps",
+    "Cloud-Native",
+    "High Performance"
+  ],
+  "content": "Cloud-native storage provides persistent data management for containerized applications, addressing the issue of data retention for stateful applications in dynamic container environments. Its importance lies in supporting the stable operation of core business components such as databases and message middleware in Kubernetes, achieving decoupling of storage and computing through dynamic provisioning and declarative APIs.\n\nIt is fundamentally based on the Container Storage Interface (CSI), with drivers connecting to various storage backends (such as cloud disks and distributed storage). Administrators define storage types and policies (performance, backup, encryption) through StorageClass, and developers use PersistentVolumeClaim (PVC) to request storage resources on demand. Key management features include volume snapshots, cloning, expansion, and cross-availability zone topology awareness.\n\nThe implementation steps are: 1) Planning storage requirements (type, capacity, performance SLA); 2) Deploying the CSI driver for the target storage; 3) Creating the corresponding StorageClass; 4) Application developers declaring storage needs through PVC. Management key points include continuously monitoring volume usage and performance, implementing backup and disaster recovery with tools like Velero, and automating lifecycle management through policies to ensure the persistence and high availability of business data."
+}

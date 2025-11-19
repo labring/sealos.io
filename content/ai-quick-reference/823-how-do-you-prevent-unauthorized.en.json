@@ -1,0 +1,13 @@
+{
+  "title": "How do you prevent unauthorized access to cloud-native resources?",
+  "description": "Preventing unauthorized access refers to restricting access to cloud-native resources (such as containers and Kubernetes objects) by unauthorized users or services to prevent data leakage and attacks.",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Lakehouse",
+    "Cloud Platform",
+    "IT Infrastructure",
+    "Cloud Operating System",
+    "Cluster Management"
+  ],
+  "content": "Preventing unauthorized access refers to restricting access to cloud-native resources (such as containers and Kubernetes objects) by unauthorized users or services to prevent data leakage and attacks. Its importance lies in ensuring data confidentiality and system integrity, especially in highly dynamic cloud environments (such as microservice architectures or public cloud platforms), where it can reduce security risks and ensure compliance (such as GDPR).\n\nCore components include strong authentication (e.g., OIDC/JWT), role-based access control (RBAC) authorization policies, network isolation (e.g., Network Policies), and security policy engines (e.g., OPA). These features enable fine-grained permission management through a zero-trust model, and in practical applications, they enhance resource isolation and overall security posture, such as preventing lateral movement in Kubernetes clusters.\n\nImplementation steps: 1) Deploy an identity provider (e.g., Keycloak) to implement unified authentication; 2) Define RBAC role bindings to assign permissions to users/service accounts; 3) Configure network policy controllers to restrict internal communication; 4) Enable audit logs to monitor anomalies. A typical scenario is isolating resources in a multi-tenant environment; business values include reducing the frequency of security incidents, ensuring compliance, and optimizing trust in cloud resources."
+}

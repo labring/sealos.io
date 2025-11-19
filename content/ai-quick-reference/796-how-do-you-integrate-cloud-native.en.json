@@ -1,0 +1,13 @@
+{
+  "title": "How do you integrate cloud-native data storage with big data processing tools?",
+  "description": "Cloud-native data storage such as object storage (e.g., Amazon S3) or distributed databases (e.g., Cassandra) provides elastic and scalable data management capabilities. Integration with big data proc",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Cloud Platform",
+    "Sealos",
+    "Data Center (DC)",
+    "High Performance",
+    "Lakehouse"
+  ],
+  "content": "Cloud-native data storage such as object storage (e.g., Amazon S3) or distributed databases (e.g., Cassandra) provides elastic and scalable data management capabilities. Integration with big data processing tools (e.g., Apache Spark or Flink) can optimize resource utilization, support real-time analytics, AI/ML pipelines, and data lake scenarios, thereby improving the efficiency of cloud environments.\n\nThe core lies in deploying storage and processing components through container orchestration platforms (e.g., Kubernetes) and enabling data sharing using API interfaces (e.g., S3A connector). Features include distributed architecture and parallel processing, ensuring efficient data access and processing pipelines, applied in data lakehouse construction and streaming processing systems to drive agile development and cost optimization.\n\nImplementation steps: 1. Configure cloud storage services (e.g., set up S3 bucket); 2. Deploy big data tools to container platforms (e.g., run Spark on Kubernetes); 3. Integrate connection libraries (e.g., S3A for Spark); 4. Monitor and optimize resources. A typical scenario is real-time stream processing, with business values including accelerated decision-making and reduced latency."
+}

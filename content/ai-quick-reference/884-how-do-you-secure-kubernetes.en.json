@@ -1,0 +1,13 @@
+{
+  "title": "How do you secure Kubernetes cluster nodes and the control plane?",
+  "description": "Protecting the nodes (worker nodes) and control plane (master components such as API server, etcd) of a Kubernetes cluster is crucial. It prevents attacks, data leaks, and service disruptions, and is ",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Private Cloud",
+    "IT Infrastructure",
+    "Kubernetes (K8s)",
+    "Cloud-Native",
+    "Sealos"
+  ],
+  "content": "Protecting the nodes (worker nodes) and control plane (master components such as API server, etcd) of a Kubernetes cluster is crucial. It prevents attacks, data leaks, and service disruptions, and is applicable to production environments to ensure system reliability and compliance.\n\nCore measures include node hardening (security baselines, automatic updates), control plane protection (TLS encryption, API access restrictions), identity authentication and authorization (RBAC), and network policies (Calico). This enhances cluster integrity, improves overall security posture, and affects deployment stability and audit compliance.\n\nImplementation steps: 1. Harden the worker node operating system and apply patches. 2. Configure RBAC and identity management. 3. Enable network isolation policies. 4. Use encrypted communication and monitoring. A typical scenario is financial cloud deployment, and the business value includes reducing vulnerability risks and ensuring business continuity."
+}

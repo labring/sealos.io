@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement Continuous Integration for cloud-native applications?",
+  "description": "Cloud-native applications are applications designed to run efficiently in cloud environments through containerization and microservices architecture. Continuous Integration (CI) is a core practice of ",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Containerization",
+    "Cloud Platform",
+    "Application Deployment",
+    "Lakehouse",
+    "DevOps"
+  ],
+  "content": "Cloud-native applications are applications designed to run efficiently in cloud environments through containerization and microservices architecture. Continuous Integration (CI) is a core practice of frequently and automatically merging code changes, running tests, and verifying quality. Implementing CI is crucial for cloud-native applications as it accelerates development iterations, reduces deployment failures, and is suitable for microservice deployment and dynamic scaling scenarios.\n\nThe core components include CI/CD toolchains (such as Jenkins or GitHub Actions), with automated pipelines covering code building, container image generation (using Docker), multi-level testing (unit and integration testing), and image pushing to registries (such as Harbor). In practical applications, CI automatically triggers processes, verifies code compatibility, and integrates with Kubernetes orchestration. The impacts include increasing release frequency, supporting DevOps culture, and reducing operational risks.\n\nImplementation steps: First, configure a version control system (such as a Git repository), set up CI tools, and define pipeline scripts to build images and run tests; second, push to a container registry; finally, deploy to a Kubernetes test environment for verification. Typical scenarios include automatically building and deploying features to a staging cluster when branches are merged. The business value is shortening time-to-market, enhancing application stability, and improving team efficiency."
+}

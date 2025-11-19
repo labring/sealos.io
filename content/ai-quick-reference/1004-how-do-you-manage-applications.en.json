@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage applications across multiple cloud providers?",
+  "description": "Cross-cloud management refers to the unified deployment, monitoring, and coordination of applications in a multi-cloud environment. Its core values lie in avoiding vendor lock-in, optimizing costs, an",
+  "category": "Multi-Cloud and Hybrid Cloud Deployment",
+  "keywords": [
+    "Cluster Management",
+    "Cloud-Native",
+    "Data Center (DC)",
+    "Kubernetes (K8s)",
+    "One-Click Deployment"
+  ],
+  "content": "Cross-cloud management refers to the unified deployment, monitoring, and coordination of applications in a multi-cloud environment. Its core values lie in avoiding vendor lock-in, optimizing costs, and enhancing disaster recovery capabilities, making it particularly suitable for scenarios such as hybrid cloud architectures and global compliance deployments.\n\nKey components include a cloud-neutral API abstraction layer (e.g., Crossplane), Infrastructure as Code (Terraform), service mesh (Istio), and unified monitoring stack (Prometheus + Grafana). By encapsulating the differences of underlying cloud services at the abstraction layer and combining with declarative deployment, application portability is achieved. Practical applications are reflected in: 1) Single-point deployment and multi-cluster distribution based on GitOps; 2) Global traffic management for failover implementation; 3) Centralized logging and alerting systems covering multi-cloud resources.\n\nImplementation steps: 1) Formulate a multi-cloud strategy and clarify the responsibility matrix; 2) Adopt K8s Federation or CNCF Cluster API to manage cluster lifecycle; 3) Establish cross-cloud CI/CD pipelines through tools like ArgoCD; 4) Deploy service mesh for unified traffic governance; 5) Build a centralized monitoring platform. The business values are reducing 40% of cloud expenditure risks, improving 99.99% availability, and accelerating compliant deployments in new regions."
+}

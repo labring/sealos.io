@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle time-series data in cloud-native observability tools?",
+  "description": "Time series data is a collection of data points arranged in chronological order, used in cloud-native observability to monitor dynamic application status in real-time. Its importance lies in supportin",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Kubernetes (K8s)",
+    "Cluster Management",
+    "One-Click Deployment",
+    "Containerization",
+    "Data Center (DC)"
+  ],
+  "content": "Time series data is a collection of data points arranged in chronological order, used in cloud-native observability to monitor dynamic application status in real-time. Its importance lies in supporting rapid fault diagnosis, performance optimization, and resource governance, especially in Kubernetes environments for metric tracking (such as CPU usage), log aggregation, and service mapping, ensuring system resilience and scalability.\n\nCore components include efficient data collectors (e.g., Prometheus scraping), specialized storage engines (e.g., time series databases like TSDB supporting high throughput and compression), query languages (e.g., PromQL), and visualization layers. Features involve low-latency indexing and distributed processing; in practical applications, tools like Prometheus enable full-stack monitoring, driving automated alerting and capacity planning, significantly improving operational efficiency and reducing MTTR (Mean Time to Repair).\n\nProcessing steps involve: data collection via agents, aggregation to filter redundant values, storage in TSDB with indexed partitioning, and final query analysis to generate dashboards. Typical scenarios include AIOps-driven anomaly detection; business values include optimizing SLA compliance, reducing cost waste, and enhancing user experience."
+}

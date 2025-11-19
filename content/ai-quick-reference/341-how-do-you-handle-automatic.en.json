@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle automatic rollback after a failed deployment?",
+  "description": "In cloud-native deployments, automatic rollback refers to the process where the system automatically reverts to the previous stable version when an application deployment fails. This ensures high avai",
+  "category": "Automated Deployment",
+  "keywords": [
+    "DevOps",
+    "High Performance",
+    "Containerization",
+    "Cloud Operating System",
+    "Private Cloud"
+  ],
+  "content": "In cloud-native deployments, automatic rollback refers to the process where the system automatically reverts to the previous stable version when an application deployment fails. This ensures high availability, zero-downtime deployments, and reduces system risks, widely used in rolling updates or blue-green deployment scenarios in Kubernetes containerized environments.\n\nThe core components include health check mechanisms (such as Kubernetes' liveness and readiness probes to monitor application status), rollback policy definitions (failure thresholds and recovery rules), and metrics-based automated triggers. The principle relies on real-time detection of failure events and triggering preset recovery actions; in practical applications, integrating CI/CD pipelines (such as ArgoCD or Jenkins) can minimize human intervention and improve deployment reliability and operational efficiency.\n\nThe implementation steps are as follows: define deployment health standards; configure automatic rollback policies (such as using `kubectl rollout undo` in Kubernetes or setting via declarative tools); in typical scenarios, business values include rapid service recovery (reduced MTTR), enhanced system resilience, and improved user experience."
+}

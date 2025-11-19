@@ -1,0 +1,13 @@
+{
+  "title": "How do you integrate Terraform with cloud-native applications in a CI/CD pipeline?",
+  "description": "CI/CD pipelines are key tools for automating build, test, and deployment processes, while Terraform, as an Infrastructure as Code (IaC) solution, is used to define and manage cloud resources. The impo",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Cloud Operating System",
+    "Kubernetes (K8s)",
+    "Private Cloud",
+    "High Availability (HA)",
+    "IT Infrastructure"
+  ],
+  "content": "CI/CD pipelines are key tools for automating build, test, and deployment processes, while Terraform, as an Infrastructure as Code (IaC) solution, is used to define and manage cloud resources. The importance of integration lies in ensuring that infrastructure changes for cloud-native applications (such as Kubernetes-based microservices) are synchronized with code deployments, enhancing reliability, scalability, and rapid iteration capabilities, suitable for rolling update scenarios in modern cloud environments like AWS or Azure.\n\nCore components include CI/CD systems (e.g., Jenkins or GitHub Actions), Terraform configuration files (e.g., `main.tf`), and state storage backends (e.g., S3). Features involve declarative infrastructure management, version control, and automated execution. In practical applications, adding `terraform plan` and `apply` stages in the pipeline ensures that infrastructure updates are consistent with application deployments, reducing human errors and supporting cloud-native patterns like blue-green deployments.\n\nImplementation steps: 1. Store Terraform code in version control (e.g., Git repositories). 2. Configure jobs in the CI/CD pipeline to run `terraform init`, `plan`, and `apply` commands sequentially. 3. Integrate testing to validate changes. A typical scenario is code commits triggering automated deployment to the target cloud environment, with business values including shortened delivery cycles, improved system resilience, and reduced costs."
+}

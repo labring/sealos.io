@@ -1,0 +1,13 @@
+{
+  "title": "How do cloud-native environments enable microservice scaling?",
+  "description": "In cloud-native environments, microservice scaling primarily relies on the autoscaling capabilities of container orchestration platforms (such as Kubernetes). Its core lies in dynamically adjusting th",
+  "category": "Cloud-Native Development Environments",
+  "keywords": [
+    "Application Deployment",
+    "Private Cloud",
+    "Lakehouse",
+    "Kubernetes (K8s)",
+    "Containerization"
+  ],
+  "content": "In cloud-native environments, microservice scaling primarily relies on the autoscaling capabilities of container orchestration platforms (such as Kubernetes). Its core lies in dynamically adjusting the number of running microservice replicas (Pods) based on predefined metrics (e.g., CPU utilization, memory usage, or custom application metrics) to efficiently match real-time load demands and optimize resource utilization.\n\nThe key mechanism is based on Horizontal Pod Autoscaler (HPA). The system continuously monitors target metrics; when the average value exceeds the preset threshold, the HPA controller increases the number of Pod replicas in the deployment. Conversely, when the load decreases and the metrics fall below the threshold, it safely reduces the number of replicas. This ensures the elasticity of service throughput and responsiveness.\n\nImplementation steps include: 1. Define microservice container resource requests in the Deployment; 2. Configure the HPA resource object, specifying the target microservice deployment, monitoring metrics (e.g., CPU 50%), and replica count range; 3. The platform automatically executes scaling operations. This provides the core automated capability to handle sudden traffic, ensure SLAs, and reduce costs."
+}

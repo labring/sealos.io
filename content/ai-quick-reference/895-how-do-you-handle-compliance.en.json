@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle compliance audits for cloud-native applications?",
+  "description": "Cloud-native applications are based on containers, microservices, and dynamic cloud environments, emphasizing elasticity and agility. Compliance audits ensure they adhere to regulations such as GDPR o",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Lakehouse",
+    "Open-Source Cloud",
+    "Application Deployment",
+    "Private Cloud",
+    "DevOps"
+  ],
+  "content": "Cloud-native applications are based on containers, microservices, and dynamic cloud environments, emphasizing elasticity and agility. Compliance audits ensure they adhere to regulations such as GDPR or PCI-DSS, which are crucial for risk management, data privacy, and corporate reputation, especially in highly regulated fields like finance or healthcare.\n\nThe core of handling includes automation tools (such as Prometheus for monitoring, Grafana for visualization), Policy as Code (using frameworks like Open Policy Agent), and cloud-native compliance frameworks. The principle is to embed policies into infrastructure code to achieve real-time verification and continuous monitoring. In practical application, this simplifies the audit process by integrating with CI/CD pipelines to automatically detect violations, reducing manual errors and improving response speed.\n\nProcessing steps: define compliance policies; implement Policy as Code tools to integrate into the development process; continuously monitor logs and report status; automatically remediate issues. This brings business value: reducing audit costs, enhancing security posture, and ensuring rapid compliance with regulatory requirements."
+}

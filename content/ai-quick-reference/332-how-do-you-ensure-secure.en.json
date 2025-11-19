@@ -1,0 +1,13 @@
+{
+  "title": "How do you ensure secure handling of sensitive data during automated deployment?",
+  "description": "In the automated deployment process, sensitive data including API keys, credentials, and other critical information requires secure handling to prevent leaks, ensure compliance (such as GDPR), and sup",
+  "category": "Automated Deployment",
+  "keywords": [
+    "Cluster Management",
+    "Sealos",
+    "Cloud Operating System",
+    "Open-Source Cloud",
+    "DevOps"
+  ],
+  "content": "In the automated deployment process, sensitive data including API keys, credentials, and other critical information requires secure handling to prevent leaks, ensure compliance (such as GDPR), and support CI/CD pipelines, Kubernetes, and containerized environments, thereby guaranteeing system reliability.\n\nCore components involve secret management tools (e.g., Kubernetes Secrets or HashiCorp Vault), transmission encryption (e.g., TLS), and least privilege access control. The principle is based on end-to-end protection and the RBAC model, which enhances overall security, reduces the attack surface, and improves the auditability of cloud-native deployments in practical applications.\n\nImplementation steps include: 1. Integrating secret storage tools to manage secrets; 2. Configuring encrypted communication and encryption at rest; 3. Setting up access policies and audit logs; 4. Performing regular scans. A typical scenario is in DevOps pipelines, with business values including reducing the risk of data leakage, supporting compliance reviews, and optimizing operational efficiency."
+}

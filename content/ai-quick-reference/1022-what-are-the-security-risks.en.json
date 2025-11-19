@@ -1,0 +1,13 @@
+{
+  "title": "What are the security risks of a multi-cloud strategy?",
+  "description": "A multi-cloud strategy refers to an IT strategy where enterprises adopt multiple cloud service providers (such as AWS, Azure, or GCP) to enhance resilience, avoid vendor lock-in, and optimize costs. I",
+  "category": "Multi-Cloud and Hybrid Cloud Deployment",
+  "keywords": [
+    "One-Click Deployment",
+    "DevOps",
+    "High Availability (HA)",
+    "Open-Source Cloud",
+    "Containerization"
+  ],
+  "content": "A multi-cloud strategy refers to an IT strategy where enterprises adopt multiple cloud service providers (such as AWS, Azure, or GCP) to enhance resilience, avoid vendor lock-in, and optimize costs. Its importance lies in supporting global business needs, with application scenarios including hybrid cloud deployment and enterprise digital transformation to ensure high availability.\n\nCore security risks involve data exposure, inconsistent security policies, configuration errors, and vendor vulnerabilities. Characteristics include difficulties in identity management and access control, compliance challenges (such as differences in GDPR or HIPAA), and weaknesses in supply chain dependencies. In practical applications, these risks have led to an increase in data breach incidents, affecting enterprise reputation and operational continuity.\n\nThe application value of understanding these risks is to identify key threats, thereby mitigating risks through unified strategies and tools (such as cloud security posture management), and reducing financial losses and compliance penalties."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage database consistency when scaling microservices in cloud-native environments?",
+  "description": "Database consistency ensures that all data replicas maintain a consistent state during distributed operations. Its importance lies in preventing data conflicts and errors caused by microservice scalin",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Cloud Operating System",
+    "High Performance",
+    "Lakehouse",
+    "Kubernetes (K8s)",
+    "Cloud-Native"
+  ],
+  "content": "Database consistency ensures that all data replicas maintain a consistent state during distributed operations. Its importance lies in preventing data conflicts and errors caused by microservice scaling, making it suitable for high-concurrency scenarios such as online transaction systems.\n\nCore management involves distributed transaction strategies like the Saga pattern, combined with an event-driven architecture to achieve eventual consistency. Cross-service operations are handled through asynchronous message passing and compensation mechanisms, influencing design to support scalability and reduce resource contention.\n\nDuring implementation, event sourcing or the two-phase commit protocol is adopted; middleware such as Apache Kafka is integrated for service decoupling; and monitoring and retry mechanisms are established. It is typical in inventory management scenarios, enhancing system reliability and business fault tolerance."
+}

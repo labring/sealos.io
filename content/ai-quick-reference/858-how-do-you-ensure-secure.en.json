@@ -1,0 +1,13 @@
+{
+  "title": "How do you ensure secure application deployment in cloud-native environments?",
+  "description": "In a cloud-native environment, secure deployment refers to protecting the application lifecycle through policies, tools, and practices to ensure confidentiality, integrity, and availability in dynamic",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "DevOps",
+    "High Performance",
+    "One-Click Deployment",
+    "Open-Source Cloud",
+    "Cloud Platform"
+  ],
+  "content": "In a cloud-native environment, secure deployment refers to protecting the application lifecycle through policies, tools, and practices to ensure confidentiality, integrity, and availability in dynamic, distributed architectures. Its importance lies in addressing new attack surfaces introduced by containerization, microservices, and continuous deployment, preventing data breaches and service disruptions, and serving as the cornerstone for stable operation and data compliance of cloud-native applications.\n\nThe core is defense-in-depth: zero-trust network policies (e.g., service mesh mTLS), least privilege access control (RBAC), secure supply chain (image scanning, SBOM), secret management (e.g., Secrets Manager/Operator), and runtime security monitoring. Implementation methods include policy-as-code (OPA/Gatekeeper), workload identity (SPIFFE/SPIRE), and infrastructure-as-code (IaC) security scanning. These mechanisms collectively enhance isolation between containers, prevent configuration errors, and reduce vulnerability risks.\n\nImplementation follows these steps: 1) Policy formulation: Define security baselines, compliance standards, and network policies. 2) Shift-left security: Integrate image scanning (Trivy), code analysis, and IaC checks (Checkov) into CI/CD pipelines. 3) Runtime protection: Deploy admission controllers to enforce policies, enable mTLS, implement fine-grained RBAC, and conduct continuous vulnerability scanning. 4) Automation and management: Centrally manage secrets, enable audit logs, and configure runtime intrusion detection (Falco). This achieves automated secure and compliant deployment, enhancing application resilience and trust."
+}

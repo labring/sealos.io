@@ -1,0 +1,13 @@
+{
+  "title": "How do you optimize cloud-native storage for machine learning and AI workloads?",
+  "description": "Cloud-native storage is designed for containerized environments, supporting dynamic scaling and efficient resource management. For machine learning and artificial intelligence (ML/AI) workloads, optim",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Cloud Platform",
+    "Application Deployment",
+    "Cloud-Native",
+    "High Performance",
+    "Sealos"
+  ],
+  "content": "Cloud-native storage is designed for containerized environments, supporting dynamic scaling and efficient resource management. For machine learning and artificial intelligence (ML/AI) workloads, optimizing such storage is crucial, as they require fast reading and writing of large-scale datasets, low-latency access, and high throughput, commonly used in scenarios like distributed model training and real-time inference, such as deploying TensorFlow or PyTorch applications on Kubernetes clusters.\n\nCore optimizations include high-performance persistent volumes (e.g., SSD/NVMe media), scalable storage classes (SC), and CSI driver integration to enable automatic provisioning. Features涵盖 parallel I/O support, data caching mechanisms (e.g., Alluxio), and distributed file systems (e.g., Ceph) to ensure high availability. In practical applications, these optimizations accelerate data pipelines and improve model training efficiency, such as reducing GPU idle time.\n\nOptimization steps: 1) Select high-performance storage types (SSD PV storage classes); 2) Deploy caching layers such as Redis or Alluxio to accelerate data loading; 3) Configure dynamic volume provisioning to match resource requirements; 4) Enable object storage (e.g., S3) to handle large files. A typical scenario is shared dataset access in multi-node training. Business values include shortening training time, reducing costs, and improving resource utilization."
+}

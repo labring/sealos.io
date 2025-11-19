@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle resource allocation for microservices?",
+  "description": "Resource allocation for microservices is the process of assigning computing resources (such as CPU and memory) to each instance of an independent service to ensure efficient utilization, reliability, ",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Sealos",
+    "Cloud Operating System",
+    "Application Deployment",
+    "Lakehouse",
+    "DevOps"
+  ],
+  "content": "Resource allocation for microservices is the process of assigning computing resources (such as CPU and memory) to each instance of an independent service to ensure efficient utilization, reliability, and scalability. Its importance lies in avoiding resource contention, optimizing performance, and supporting high-concurrency scenarios, which is applicable to containerized platforms like Kubernetes to meet the elastic deployment requirements of cloud-native applications.\n\nThe core components include Kubernetes' Resource Requests and Limits definitions, Horizontal Pod Autoscaler, and monitoring tools (e.g., Prometheus). Dynamic resource adjustment is based on real-time load to ensure service isolation and stability. In practical applications, the number of Pods is automatically scaled to handle traffic peaks, significantly improving resource utilization, reducing waste, and enhancing system resilience.\n\nProcessing steps: First, evaluate service resource requirements and configure YAML files to define Limits; second, deploy applications and set auto-scaling rules (e.g., CPU threshold of 80%); finally, monitor metrics and regularly optimize allocation. Business values include reducing cloud costs by 15-30%, ensuring SLA compliance, and supporting agile responses to business fluctuations."
+}

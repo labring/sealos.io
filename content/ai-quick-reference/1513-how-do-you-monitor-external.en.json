@@ -1,0 +1,13 @@
+{
+  "title": "How do you monitor external dependencies in cloud-native environments?",
+  "description": "In a cloud-native environment, external dependencies refer to third-party services used by applications, such as databases, APIs, or storage systems. Monitoring them is crucial for maintaining high av",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Containerization",
+    "Cloud-Native",
+    "Cloud Operating System",
+    "Private Cloud",
+    "Sealos"
+  ],
+  "content": "In a cloud-native environment, external dependencies refer to third-party services used by applications, such as databases, APIs, or storage systems. Monitoring them is crucial for maintaining high availability, performance, and reliability of applications, and is applied in microservice architectures to ensure stable cross-system integration.\n\nCore components include metric collectors (e.g., Prometheus), logging tools, and distributed tracing systems (e.g., Jaeger), characterized by real-time detection, Service Level Indicators (SLIs), and automated alerts. In practical applications, these are integrated into DevOps pipelines to reduce fault diagnosis time, enhance system resilience, and lower downtime risks.\n\nImplementation steps: 1. Identify critical dependencies; 2. Configure monitoring agents like Blackbox Exporter to probe endpoints; 3. Define SLIs and alert rules; 4. Automate testing and response. A typical scenario is monitoring external APIs, with business values including improving user experience, optimizing costs, and ensuring Service Level Agreements (SLAs)."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How does automated deployment handle rollbacks in case of errors?",
+  "description": "Automated deployment automatically executes software updates through scripts or tools to reduce human errors; rollback restores the system to a stable state when errors occur, ensuring high availabili",
+  "category": "Automated Deployment",
+  "keywords": [
+    "Cloud-Native",
+    "DevOps",
+    "Data Center (DC)",
+    "Private Cloud",
+    "IT Infrastructure"
+  ],
+  "content": "Automated deployment automatically executes software updates through scripts or tools to reduce human errors; rollback restores the system to a stable state when errors occur, ensuring high availability and rapid recovery, and is applied in continuous delivery and cloud-native environments to prevent business interruptions.\n\nIts core includes version control to store historical states, blue-green or canary deployment strategies to switch traffic, and health checks to detect failures and trigger rollbacks. The principle is based on automated monitoring, combined with tools such as the Kubernetes rollback command for quick restoration; the practical impact is optimizing the DevOps pipeline and improving system reliability.\n\nImplementation steps: first, define the rollback strategy (such as test pass thresholds), second, integrate health checks into the deployment script, and finally automatically execute the rollback command (e.g., kubectl rollout undo). Typical scenarios include immediately restoring the previous version after a release failure, and the business value is maximizing service continuity and minimizing downtime costs and customer impact."
+}

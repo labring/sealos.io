@@ -1,0 +1,13 @@
+{
+  "title": "How do you track and resolve performance bottlenecks in cloud-native systems?",
+  "description": "Tracking and resolving performance bottlenecks in cloud-native systems involves identifying key points that limit system efficiency, such as CPU, network, or database latency. This is particularly imp",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Kubernetes (K8s)",
+    "DevOps",
+    "Cloud Platform",
+    "One-Click Deployment",
+    "Cluster Management"
+  ],
+  "content": "Tracking and resolving performance bottlenecks in cloud-native systems involves identifying key points that limit system efficiency, such as CPU, network, or database latency. This is particularly important in microservices architectures to ensure high availability and responsiveness, applied in real-time transaction scenarios for e-commerce or financial systems, avoiding resource waste and enhancing user experience.\n\nCore components include monitoring tools like Prometheus for metrics collection, Grafana for visualization, Jaeger for distributed tracing, supplemented by log analysis (e.g., EFK stack). Features include real-time data collection and anomaly detection; the principle is based on the three pillars of observability (logs, metrics, tracing), supporting rapid diagnosis of bottleneck sources such as service call latency. In practical applications, engineers can precisely optimize resource allocation, significantly improving system throughput and reliability.\n\nResolution steps include: 1. Deploy monitoring tools and configure alerts; 2. Collect performance data to identify bottlenecks (e.g., insufficient Kubernetes Pod resources); 3. Targeted optimization (e.g., horizontally scaling services or adjusting container resource limits). Typical scenarios include handling slow database queries during e-commerce promotions; business value can reduce costs by 20% and enhance customer satisfaction."
+}

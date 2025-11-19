@@ -1,0 +1,13 @@
+{
+  "title": "How do you create and manage custom modules in IaC workflows?",
+  "description": "In the IaC workflow, custom modules are reusable code blocks used to encapsulate infrastructure components (such as virtual machines or network settings). Their importance lies in reducing repetitive ",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "One-Click Deployment",
+    "Containerization",
+    "Cluster Management",
+    "Cloud Operating System",
+    "Data Center (DC)"
+  ],
+  "content": "In the IaC workflow, custom modules are reusable code blocks used to encapsulate infrastructure components (such as virtual machines or network settings). Their importance lies in reducing repetitive work, ensuring consistency, and improving efficiency, and they are commonly used in standardized resource deployment in AWS or Azure cloud environments.\n\nThe core components include module definition files, input variables, and output values, with features such as parameterization and abstraction principles. In practical applications, teams collaboratively manage resources through shared module libraries, significantly accelerating development, reducing error rates, and improving the maintainability of the overall infrastructure.\n\nImplementation steps: 1. Create a module directory and define resource logic; 2. Parameterize variables to adapt to different environments; 3. Use version control (e.g., Git) to manage changes; 4. Test module functions and then integrate them into the CI/CD pipeline. A typical scenario is the rapid deployment of multi-environment infrastructure, with business values including saving time and costs and enhancing DevOps efficiency."
+}

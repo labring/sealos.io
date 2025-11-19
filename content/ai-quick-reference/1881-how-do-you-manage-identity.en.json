@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage identity and access control for cloud-native applications?",
+  "description": "Managing identity and access control (IAM) for cloud-native applications is a core security mechanism to ensure secure interaction of resources and services in distributed environments. Its importance",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "DevOps",
+    "Cluster Management",
+    "Data Center (DC)",
+    "Kubernetes (K8s)",
+    "High Availability (HA)"
+  ],
+  "content": "Managing identity and access control (IAM) for cloud-native applications is a core security mechanism to ensure secure interaction of resources and services in distributed environments. Its importance lies in the loose coupling of cloud-native architectures and the complexity of inter-service communication; application scenarios include API gateway calls, authentication between microservices, and authorization operations across clusters.\n\nThe core components include ServiceAccounts, Roles, and Policies. OpenID Connect (OIDC) provides standardized identity federation, while Role-Based Access Control (RBAC) and Attribute-Based Access Control (ABAC) enable fine-grained authorization. Service mesh proxies like Istio provide transparent transport layer security authentication. In practical applications, this simplifies the implementation of zero-trust architecture and reduces the risk of data leakage caused by configuration errors.\n\nImplementation steps: 1. Integrate identity providers (such as Azure AD) using OIDC; 2. Define Kubernetes Roles/RoleBindings or custom resource authorization; 3. Deploy service account tokens for services; 4. Restrict Pod communication through network policies. A typical scenario is authorizing CI/CD pipelines with cluster deployment permissions. Business values include improved audit compliance and reduced operational costs."
+}

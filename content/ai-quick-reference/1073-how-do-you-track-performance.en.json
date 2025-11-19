@@ -1,0 +1,13 @@
+{
+  "title": "How do you track performance metrics across multiple cloud providers?",
+  "description": "Cross-cloud performance metrics tracking refers to the unified collection, analysis, and visualization of key performance data (such as latency, throughput, error rates) in multi-cloud or hybrid cloud",
+  "category": "Multi-Cloud and Hybrid Cloud Deployment",
+  "keywords": [
+    "Sealos",
+    "Data Center (DC)",
+    "Lakehouse",
+    "Kubernetes (K8s)",
+    "DevOps"
+  ],
+  "content": "Cross-cloud performance metrics tracking refers to the unified collection, analysis, and visualization of key performance data (such as latency, throughput, error rates) in multi-cloud or hybrid cloud environments. Its importance lies in ensuring service SLAs, optimizing resource costs, and achieving global visibility, applicable to scenarios where vendor lock-in avoidance or disaster recovery implementation is required.\n\nCore components include a unified monitoring platform (e.g., Prometheus or commercial tools), cross-cloud metrics collection agents (e.g., OpenTelemetry Collector), and standardized data formats (e.g., PromQL). It aggregates metrics by integrating with cloud providers' native services (e.g., AWS CloudWatch, Azure Monitor) via APIs. Practical applications include automated alerting, performance baseline comparison, and capacity planning, which significantly improve fault location efficiency.\n\nImplementation steps: First, deploy a unified monitoring stack (e.g., Prometheus + Grafana); second, install lightweight agents in each cloud environment to collect metrics; then configure data source integration and label standardization; finally, establish dashboards and alert rules. A typical scenario is multi-cloud performance comparison during application canary releases. Business values include reducing MTTR, optimizing cloud spending, and ensuring cross-region user experience."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage the lifecycle of cloud-native applications with CI/CD automation?",
+  "description": "CI/CD (Continuous Integration/Continuous Delivery/Continuous Deployment) is an automated practice in software development that focuses on quickly and reliably building, testing, and deploying code cha",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Kubernetes (K8s)",
+    "One-Click Deployment",
+    "Cluster Management",
+    "Data Center (DC)",
+    "IT Infrastructure"
+  ],
+  "content": "CI/CD (Continuous Integration/Continuous Delivery/Continuous Deployment) is an automated practice in software development that focuses on quickly and reliably building, testing, and deploying code changes. In cloud-native applications, it manages the application lifecycle, ensuring efficient iteration and high availability, which is especially important in dynamic Kubernetes environments, supporting rapid release and elastic scaling of microservices architectures.\n\nCore components include source code management (such as Git), automated build tools (such as Jenkins or GitLab CI), testing frameworks (unit and integration testing), and deployment engines (such as Argo CD or Flux integrated with Kubernetes). Its principle is based on an event-driven pipeline, where code commits trigger the pipeline to automatically execute tasks. In practical applications, this ensures rapid deployment, rolling updates, and self-healing capabilities of cloud-native applications, significantly improving DevOps efficiency, reducing human errors, while enhancing application monitoring and security compliance.\n\nImplementation steps: First, configure the CI pipeline to automate code testing; second, integrate CD tools to deploy to Kubernetes clusters, using Helm charts to manage versions; finally, add monitoring and rollback mechanisms. Typical scenarios include frequent feature releases or hotfixes. The business value lies in accelerating market response, reducing operational costs, and improving application stability and maintainability."
+}

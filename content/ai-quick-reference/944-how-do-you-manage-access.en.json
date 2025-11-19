@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage access to cloud-native services with fine-grained permission models?",
+  "description": "The fine-grained permission model precisely controls access to cloud-native services (such as resources in Kubernetes clusters) by granting users or service accounts the minimum necessary permissions",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "High Performance",
+    "Kubernetes (K8s)",
+    "Open-Source Cloud",
+    "Cloud Operating System",
+    "DevOps"
+  ],
+  "content": "The fine-grained permission model precisely controls access to cloud-native services (such as resources in Kubernetes clusters) by granting users or service accounts the minimum necessary permissions, thereby minimizing security risks and preventing unauthorized operations. Its importance lies in strengthening the security posture and meeting compliance requirements (such as GDPR). It is widely used in development, testing, and production environments to ensure isolation and controllability.\n\nThe core components include Role-Based Access Control (RBAC), where roles define operational permissions (such as reading specific namespaces) and role bindings link to entities; features include dynamic policies and resource-level control. In cloud-native services, Kubernetes' RBAC implementation allows custom roles to ensure that users or service accounts only access required pods or services, enhancing security while simplifying operation and maintenance management and reducing the attack surface.\n\nImplementation steps: First, define roles to specify permission scopes; second, create role bindings to assign permissions to users or service accounts; third, apply and audit policies. A typical scenario is restricting developers to only access resources in the development environment. Business values include enhanced security, reduced risk of data leakage, and support for compliance audits."
+}

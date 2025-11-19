@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle cross-cloud application deployment with IaC tools?",
+  "description": "IaC (Infrastructure as Code) automates infrastructure management through code, ensuring consistency, repeatability, and reducing human errors. In cross-cloud application deployment, it handles resourc",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Sealos",
+    "Cloud Platform",
+    "Data Center (DC)",
+    "Private Cloud",
+    "Open-Source Cloud"
+  ],
+  "content": "IaC (Infrastructure as Code) automates infrastructure management through code, ensuring consistency, repeatability, and reducing human errors. In cross-cloud application deployment, it handles resource orchestration across multi-cloud environments (such as AWS, Azure, GCP), supporting scenarios like hybrid cloud application release, global load distribution, and disaster recovery, thereby enhancing deployment agility and cost efficiency.\n\nIts core components include declarative configuration files (such as Terraform HCL or Ansible Playbooks), which define computing, network, and storage resources, and realize automation through version control and state management. In principle, it calls cloud APIs for standardized provisioning. In practical applications, it unifies multi-platform resources, simplifies deployment processes, promotes DevOps culture, enhances environmental reliability and auditability, with impacts including accelerated iteration and reduced operational overhead.\n\nImplementation steps: 1. Select tools such as Terraform or Pulumi; 2. Write modular code to define each cloud resource; 3. Integrate CI/CD pipelines for automated deployment; 4. Test configurations to ensure cross-cloud compatibility; 5. Monitor and maintain. A typical scenario is deploying microservices to hybrid clouds, with business values including improved scalability, cost optimization, and business continuity assurance."
+}

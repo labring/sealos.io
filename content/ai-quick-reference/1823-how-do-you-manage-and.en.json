@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage and scale cloud-native storage for applications?",
+  "description": "Cloud-native storage is a persistent data solution designed for containerized applications, which is crucial in cloud-native environments to ensure high availability, scalability, and data persistence",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "One-Click Deployment",
+    "Containerization",
+    "DevOps",
+    "High Availability (HA)",
+    "Cloud-Native"
+  ],
+  "content": "Cloud-native storage is a persistent data solution designed for containerized applications, which is crucial in cloud-native environments to ensure high availability, scalability, and data persistence of applications. Its application scenarios include microservices, databases, and stateful applications in Kubernetes, supporting dynamic business requirements such as auto-scaling.\n\nCore components include StorageClass for defining storage types, PersistentVolume (PV) and PersistentVolumeClaim (PVC) for abstracting storage details, and CSI (Container Storage Interface) drivers for achieving vendor neutrality. Features cover dynamic provisioning, elastic scaling, and cross-region data replication, with principles based on Kubernetes' resource management model. In practical applications, it is integrated into the deployment process through declarative APIs, directly impacting development efficiency. For example, it automatically manages the storage lifecycle when running PostgreSQL, reducing operational costs and improving reliability.\n\nImplementation steps: Define StorageClass; applications create PVC to request storage; use CSI plugins to automatically provision and expand volumes. Typical scenarios include on-demand scaling of database storage to handle traffic peaks. Business value lies in ensuring application continuity, agile response to market changes, and cost optimization, such as paying only for actually used resources."
+}

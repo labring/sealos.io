@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage network security for microservices in cloud-native architectures?",
+  "description": "In cloud-native architecture, microservice network security ensures secure communication between containerized services, preventing unauthorized access and data breaches. Its importance lies in mainta",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Data Center (DC)",
+    "Private Cloud",
+    "Containerization",
+    "Application Deployment",
+    "One-Click Deployment"
+  ],
+  "content": "In cloud-native architecture, microservice network security ensures secure communication between containerized services, preventing unauthorized access and data breaches. Its importance lies in maintaining data privacy, supporting compliance requirements (such as GDPR), and being applied in dynamically scalable environments like Kubernetes clusters to safeguard highly available distributed systems.\n\nCore components include the zero-trust model implemented by service meshes (e.g., Istio), fine-grained network policy control over traffic, and mTLS (mutual TLS) encrypted authentication. Features encompass automated encryption, service discovery, and policy enforcement. In practical applications, it significantly reduces the attack surface, enhances system resilience, and supports secure cross-cluster communication in multi-cloud deployments.\n\nImplementation steps: First, deploy a service mesh (e.g., Istio or Linkerd); second, configure network policies to restrict inter-service access; third, enable mTLS encrypted communication. A typical scenario involves defining Network Policies rules in Kubernetes. Business values include strengthening security posture, enabling agile development without compromising compliance, and reducing operational risks."
+}

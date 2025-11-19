@@ -1,0 +1,13 @@
+{
+  "title": "How do you enforce network security policies in Kubernetes?",
+  "description": "Implementing network security policies in Kubernetes refers to controlling traffic between pods and services through configuration rules to prevent unauthorized access, ensuring application security a",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "One-Click Deployment",
+    "Cloud Platform",
+    "Kubernetes (K8s)",
+    "Private Cloud",
+    "Application Deployment"
+  ],
+  "content": "Implementing network security policies in Kubernetes refers to controlling traffic between pods and services through configuration rules to prevent unauthorized access, ensuring application security and data isolation. This is crucial in cloud-native environments, applicable to microservice architectures, multi-tenant deployments, and compliance scenarios to reduce the attack surface and meet security requirements.\n\nThe core components include NetworkPolicy resources, which define ingress and egress rules based on namespaces, pod labels, ports, and protocols. Enforcement is achieved through CNI network plugins (such as Calico or Cilium), providing fine-grained access control that significantly enhances network security and application isolation capabilities in multi-tenant environments.\n\nImplementation steps: 1) Create a NetworkPolicy YAML file to define rules; 2) Apply labels to pods for matching; 3) Deploy the policy to the target namespace. Typical scenarios include restricting communication between internal services or access to sensitive databases; business value includes enhanced security, reduced risk, support for audit compliance, and optimized overall operational efficiency."
+}

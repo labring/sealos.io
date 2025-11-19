@@ -1,0 +1,13 @@
+{
+  "title": "How do you ensure scalability for multi-cloud IaC deployments?",
+  "description": "Multi-cloud infrastructure as code (IaC) automates infrastructure deployment across multiple cloud providers like AWS, Azure, and GCP, ensuring scalability and resilience. Its importance lies in optim",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Data Center (DC)",
+    "DevOps",
+    "Containerization",
+    "Lakehouse",
+    "Sealos"
+  ],
+  "content": "Multi-cloud infrastructure as code (IaC) automates infrastructure deployment across multiple cloud providers like AWS, Azure, and GCP, ensuring scalability and resilience. Its importance lies in optimizing costs, avoiding vendor lock-in, and supporting disaster recovery scenarios for distributed applications.\n\nCore components include version control systems like Git, automation tools such as Terraform or Ansible for cross-cloud orchestration, and modular infrastructure templates. Features like declarative configurations, idempotent operations, and automated testing enhance consistency and efficiency, enabling faster updates and reducing risks in hybrid cloud setups.\n\nTo ensure scalability: first, design modular, reusable IaC templates for infrastructure components; second, implement CI/CD pipelines for automated testing and rollouts; third, leverage cloud-native autoscaling tools like Kubernetes; typical scenarios include handling traffic spikes across clouds, yielding business value in cost savings and agility."
+}

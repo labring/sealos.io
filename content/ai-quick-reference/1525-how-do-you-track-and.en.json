@@ -1,0 +1,13 @@
+{
+  "title": "How do you track and monitor system health metrics in cloud-native environments?",
+  "description": "In cloud-native environments, tracking and monitoring system health metrics is a key practice to ensure high application availability and performance, applied in Kubernetes or microservice architectur",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Containerization",
+    "Application Deployment",
+    "Kubernetes (K8s)",
+    "Cloud Platform",
+    "High Availability (HA)"
+  ],
+  "content": "In cloud-native environments, tracking and monitoring system health metrics is a key practice to ensure high application availability and performance, applied in Kubernetes or microservice architectures to enable rapid fault detection, resource optimization, and business continuity maintenance.\n\nCore components include metric collectors (such as Prometheus for pulling metrics), visualization tools (such as Grafana dashboards), and health probes (such as Kubernetes' liveness and readiness probes). These features support real-time data aggregation, alert configuration, and automatic recovery, enhancing system resilience and reducing the risk of service disruptions.\n\nImplementation steps: First, deploy monitoring tools (e.g., install Prometheus). Second, configure health checks (set up probes to monitor container health). Finally, integrate alerts and visualization (e.g., define rules in Grafana). Typical scenarios involve monitoring CPU and memory metrics, with business values including improved availability, reduced operational costs, and accelerated problem response."
+}

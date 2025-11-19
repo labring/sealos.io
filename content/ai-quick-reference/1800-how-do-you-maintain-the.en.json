@@ -1,0 +1,13 @@
+{
+  "title": "How do you maintain the security and integrity of IaC workflows during deployments?",
+  "description": "Ensuring the security and integrity of Infrastructure as Code (IaC) workflows is critical for secure, compliant, and reliable deployments. This requires implementing protective measures throughout the",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Kubernetes (K8s)",
+    "Lakehouse",
+    "High Availability (HA)",
+    "One-Click Deployment",
+    "Cloud Platform"
+  ],
+  "content": "Ensuring the security and integrity of Infrastructure as Code (IaC) workflows is critical for secure, compliant, and reliable deployments. This requires implementing protective measures throughout the development, testing, and deployment lifecycle to prevent unauthorized changes, introduction of vulnerabilities, and exposure of secrets. Key scenarios include cloud resource configuration, container orchestration definitions, and automated deployment pipelines.\n\nCore strategies include: secret management (using Vault or Secrets Manager to avoid hardcoding), code signing and verification (such as Cosign to verify images and scripts), strict change control (code reviews + Git branch protection), static analysis (Terrascan/Checkov to scan for IaC vulnerabilities), and dynamic validation (pre-deployment compliance checks). Implementing immutable infrastructure and the principle of least privilege can reduce the runtime attack surface.\n\nImplementation steps:\n\n1. Pre-commit protection: Integrate pre-commit hooks for basic formatting and secret scanning.\n\n2. CI/CD pipeline security: Enforce code scanning and unit testing in pull requests; isolate build environments and implement least privilege.\n\n3. Secure deployment: Dynamically inject secrets at runtime; use policy as code (e.g., OPA) to verify deployment compliance; maintain complete audit logs of all changes. Ensure the integrity and consistency of IaC through automation to reduce the risk of configuration drift."
+}

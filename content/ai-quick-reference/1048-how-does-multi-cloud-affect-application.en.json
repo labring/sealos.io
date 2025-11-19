@@ -1,0 +1,13 @@
+{
+  "title": "How does multi-cloud affect application monitoring?",
+  "description": "Multi-cloud refers to enterprises using multiple cloud service providers to deploy applications, and application monitoring involves tracking application performance and availability. Its importance l",
+  "category": "Multi-Cloud and Hybrid Cloud Deployment",
+  "keywords": [
+    "Data Center (DC)",
+    "Cloud Platform",
+    "DevOps",
+    "Lakehouse",
+    "Cluster Management"
+  ],
+  "content": "Multi-cloud refers to enterprises using multiple cloud service providers to deploy applications, and application monitoring involves tracking application performance and availability. Its importance lies in ensuring business continuity and optimizing resource efficiency, with application scenarios including enterprises maintaining high availability and disaster recovery in multi-cloud environments.\n\nCore impacts include monitoring data being scattered across different cloud platforms, leading to tool inconsistency and aggregation complexity, characterized by increased heterogeneity and lack of a unified view. In practical applications, this drives the adoption of cloud-native tools such as Prometheus and Grafana for integration, enhancing redundancy but requiring addressing compliance and latency challenges.\n\nApplication value is reflected in enhanced resilience, avoidance of single points of failure, and improved global visibility. Business-wise, it can reduce risks but requires investment in a unified monitoring platform to achieve automated alerting and analysis."
+}

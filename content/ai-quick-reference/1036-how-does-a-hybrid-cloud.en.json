@@ -1,0 +1,13 @@
+{
+  "title": "How does a hybrid cloud architecture support edge computing?",
+  "description": "Hybrid cloud architecture integrates public and private cloud resources to provide flexible computing deployment options, which is crucial in edge computing. It supports processing data close to the d",
+  "category": "Multi-Cloud and Hybrid Cloud Deployment",
+  "keywords": [
+    "Cloud Platform",
+    "Data Center (DC)",
+    "Lakehouse",
+    "One-Click Deployment",
+    "Cloud-Native"
+  ],
+  "content": "Hybrid cloud architecture integrates public and private cloud resources to provide flexible computing deployment options, which is crucial in edge computing. It supports processing data close to the data source (such as sensor devices), significantly reducing latency, and is suitable for real-time applications like autonomous driving and smart city surveillance.\n\nIts core includes edge nodes performing local computing, cloud platforms conducting centralized analysis, and data synchronization achieved through APIs. This architecture optimizes resource utilization, for example, enabling real-time decision-making in industrial Internet of Things, improving system reliability, and ensuring data privacy compliance.\n\nIn implementation, local edge gateways are deployed to handle immediate tasks, and cloud services are integrated to perform big data analysis. Typical scenarios include telemedicine or retail systems, with business value lying in reducing bandwidth costs, shortening response times, thereby improving operational efficiency."
+}

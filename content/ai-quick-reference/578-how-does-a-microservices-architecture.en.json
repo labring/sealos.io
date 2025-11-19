@@ -1,0 +1,13 @@
+{
+  "title": "How does a microservices architecture impact your system's latency?",
+  "description": "Microservices architecture affects system latency by splitting monolithic applications into independently deployable, fine-grained services. Latency is a critical metric for measuring system response ",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Cluster Management",
+    "High Performance",
+    "One-Click Deployment",
+    "Cloud Operating System",
+    "Cloud-Native"
+  ],
+  "content": "Microservices architecture affects system latency by splitting monolithic applications into independently deployable, fine-grained services. Latency is a critical metric for measuring system response time, directly impacting user experience and scenarios with high real-time requirements (such as financial transactions or online gaming). This architecture introduces inter-service communication, which may increase latency but also provides optimization opportunities.\n\nThe core impact stems from network communication and service governance: intra-process calls are transformed into network remote calls (e.g., HTTP/RPC), adding overhead from serialization, network transmission, and service discovery, resulting in higher latency. Distributed complexities (such as service chain calls and retry mechanisms) further amplify latency. However, microservices support independent scaling and optimization of hot services, reducing latency through asynchronous communication (message queues), caching (Redis), or deployment optimizations (e.g., service proximity deployment).\n\nLatency reduction strategies must be adopted during implementation: 1) Use efficient protocols for inter-service communication (e.g., gRPC instead of HTTP) and compress data; 2) Introduce service meshes (e.g., Istio) to manage circuit breaking and timeouts, avoiding cascading latency; 3) Locate bottleneck services through distributed tracing (Jaeger). After optimization, it can support low-latency scenarios, improving business agility and consistent user experience."
+}

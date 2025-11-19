@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement CI/CD for machine learning models?",
+  "description": "Continuous Integration/Continuous Delivery (CI/CD) is a core practice for automating the software development lifecycle. For machine learning models, it accelerates the development, testing, and deplo",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "IT Infrastructure",
+    "Kubernetes (K8s)",
+    "DevOps",
+    "Lakehouse",
+    "Application Deployment"
+  ],
+  "content": "Continuous Integration/Continuous Delivery (CI/CD) is a core practice for automating the software development lifecycle. For machine learning models, it accelerates the development, testing, and deployment processes, reduces error rates, and is suitable for real-time demand scenarios such as recommendation systems or automated diagnostics, ensuring model reproducibility and rapid iteration.\n\nThe core components include version control (e.g., Git), automated testing frameworks (e.g., PyTest or model evaluation metrics), containerization (Docker), and pipeline tools (e.g., GitHub Actions or Jenkins), combined with a model registry (MLflow) for version management. The principle lies in a trigger-based workflow: code changes trigger building, training, and validation, enabling seamless deployment to cloud environments (e.g., Kubernetes), significantly improving model reliability, monitoring capabilities, and team collaboration efficiency.\n\nImplementation steps: 1. Version management of source code and data; 2. Integration of automated testing (unit and integration testing); 3. Configuration of CI pipelines for model training; 4. CD deployment to production environments (e.g., cloud platforms). Typical business values include shortening the model iteration cycle (from weeks to hours), reducing operational costs, and enhancing the market competitiveness and scalability of AI products."
+}

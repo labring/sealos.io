@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle automated security testing in CI/CD pipelines?",
+  "description": "Handling automated security testing in CI/CD pipelines refers to integrating security scanning tools into the automated continuous integration/delivery process. This practice is crucial as it enables ",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Open-Source Cloud",
+    "Lakehouse",
+    "Private Cloud",
+    "High Availability (HA)",
+    "Cloud Platform"
+  ],
+  "content": "Handling automated security testing in CI/CD pipelines refers to integrating security scanning tools into the automated continuous integration/delivery process. This practice is crucial as it enables early detection and remediation of code vulnerabilities, reduces security risks, and implements \"\"shifting security left\"\" to ensure application robustness. Typical application scenarios include cloud-native development and DevOps environments, supporting rapid iteration and security compliance.\n\nThe core components include Static Application Security Testing (SAST), Dynamic Application Security Testing (DAST), and Software Composition Analysis (SCA). Common tools such as SonarQube, OWASP ZAP, or Snyk are integrated into Jenkins or GitHub Actions. Features include automatically triggering tests during code commits or build phases and providing real-time feedback reports. This enhances the security posture; automated vulnerability detection reduces manual intervention, impacts development efficiency and security team collaboration, and is suitable for build-phase testing to identify malicious inputs or configuration errors.\n\nImplementation steps: 1. Select appropriate security tools and configure scanning rules. 2. Integrate into CI/CD scripts such as Jenkinsfile by adding testing steps. 3. Set quality thresholds to block unsafe deployments. Typical scenarios include running DAST in pre-release environments to simulate attacks, ensuring only compliant builds are deployed. The business value lies in significantly reducing vulnerability risks, shortening remediation cycles, enhancing compliance, and improving overall product security and market trust."
+}

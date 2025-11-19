@@ -1,0 +1,13 @@
+{
+  "title": "How do you integrate IaC workflows with cloud-native monitoring platforms like Datadog or New Relic?",
+  "description": "IaC (Infrastructure as Code) uses code to automate the management of cloud resource deployment. Datadog and New Relic provide real-time cloud-native monitoring platforms. Integrating the two is crucia",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Private Cloud",
+    "Cloud Operating System",
+    "Application Deployment",
+    "Cluster Management",
+    "Containerization"
+  ],
+  "content": "IaC (Infrastructure as Code) uses code to automate the management of cloud resource deployment. Datadog and New Relic provide real-time cloud-native monitoring platforms. Integrating the two is crucial to ensure newly deployed resources are monitored in real-time, improving operational efficiency and reliability. It is applied in CI/CD pipelines to achieve automated monitoring configuration.\n\nThe core method relies on supporter plugins of IaC tools like Terraform (such as Datadog provider), which call monitoring APIs to dynamically create monitors, dashboards, and alert rules. This enables configuration as code, ensuring monitoring takes effect synchronously during deployment, enhancing full-stack observability, and reducing manual errors, applicable to cloud migration or microservice environments.\n\nImplementation steps: 1. Define monitoring resources (e.g., datadog_monitor) with Terraform; 2. Execute terraform apply in the CI/CD pipeline; 3. Verify alerts and dashboards. Typical scenarios include cloud scaling, and the business value is reducing downtime, improving system reliability, and accelerating fault response."
+}

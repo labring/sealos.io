@@ -1,0 +1,13 @@
+{
+  "title": "How do you ensure that cloud-native applications are resistant to DDoS attacks?",
+  "description": "Distributed Denial of Service (DDoS) attacks threaten the availability of cloud-native applications (such as Kubernetes-based microservices) by overwhelming services with massive malicious traffic. Th",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "DevOps",
+    "Cloud Platform",
+    "Application Deployment",
+    "One-Click Deployment",
+    "High Availability (HA)"
+  ],
+  "content": "Distributed Denial of Service (DDoS) attacks threaten the availability of cloud-native applications (such as Kubernetes-based microservices) by overwhelming services with massive malicious traffic. Their significance lies in ensuring the continuity of critical business operations; typical applications include e-commerce and API-driven online services, where any disruption can lead to revenue loss and reputational damage.\n\nCore components include cloud platform-built-in protection services (e.g., AWS Shield or Google Cloud Armor), Kubernetes network policies, and service mesh tools (e.g., Istio). Features encompass automatically scaling resources to absorb traffic spikes and ingress controllers filtering requests, with the principle that distributed architectures can disperse attack loads. Practical impacts: combining containerized isolation and elastic load balancing significantly enhances application resilience and reduces downtime.\n\nImplementation steps: first, enable the cloud provider's DDoS protection service; second, configure Ingress rules and rate limiting in Kubernetes; finally, integrate the service mesh to implement microservice-level security policies. Typical scenarios include web applications handling high-traffic events; business values include enhancing availability to meet SLA requirements, reducing operational risks, and supporting compliance needs."
+}

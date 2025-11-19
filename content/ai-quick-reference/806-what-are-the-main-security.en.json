@@ -1,0 +1,13 @@
+{
+  "title": "What are the main security risks in cloud-native environments?",
+  "description": "The main security risks in cloud-native environments refer to threats faced in technologies such as containerization, microservices, and Kubernetes orchestration, such as misconfigurations and image v",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Lakehouse",
+    "Cluster Management",
+    "Sealos",
+    "One-Click Deployment",
+    "Kubernetes (K8s)"
+  ],
+  "content": "The main security risks in cloud-native environments refer to threats faced in technologies such as containerization, microservices, and Kubernetes orchestration, such as misconfigurations and image vulnerabilities. These risks are critical because they can lead to data breaches, service disruptions, and unauthorized access, affecting the stability and business continuity of distributed applications.\n\nCore risks include insecure container images, misconfigured network policies (e.g., disabled Pod Security Policies), exposed API endpoints, and runtime escape threats. These characteristics stem from dynamic scaling and microservice interactions, increasing the attack surface, which may lead to supply chain attacks or data exfiltration and weaken the resilience of cloud-native architectures.\n\nThe application value of identifying these risks lies in enhancing system resilience, supporting compliance (e.g., ISO 27001), reducing operational costs, and protecting sensitive data through automated tools."
+}

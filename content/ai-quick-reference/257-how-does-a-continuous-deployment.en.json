@@ -1,0 +1,13 @@
+{
+  "title": "How does a Continuous Deployment pipeline differ from a Continuous Delivery pipeline?",
+  "description": "Continuous Deployment pipelines ensure that all code changes are automatically deployed to the production environment after validation, while Continuous Delivery pipelines ensure that code changes are",
+  "category": "Automated Deployment",
+  "keywords": [
+    "Containerization",
+    "Cloud-Native",
+    "High Performance",
+    "Cluster Management",
+    "Cloud Operating System"
+  ],
+  "content": "Continuous Deployment pipelines ensure that all code changes are automatically deployed to the production environment after validation, while Continuous Delivery pipelines ensure that code changes are ready for manual deployment. Both are core DevOps practices, with importance lying in improving the efficiency, reliability, and quality of software delivery. Application scenarios include agile development, cloud-native architectures, and CI/CD processes, helping to quickly respond to market changes.\n\nContinuous Delivery pipelines include automated build, testing, and preparation stages, characterized by controlling deployment risks through manual approval; Continuous Deployment pipelines add an automatic deployment mechanism on top of delivery, eliminating manual intervention. The core difference lies in the degree of automation: Delivery prepares deployment packages for manual release to ensure security; Deployment automatically executes deployments to achieve uninterrupted releases. In practical applications, Delivery reduces the probability of production failures and is suitable for highly compliant fields such as finance; Deployment promotes efficient iteration and significantly shortens the上线周期 in microservice environments.\n\nIn terms of application value, Continuous Delivery provides a controllable release strategy and enhances quality assurance; Continuous Deployment accelerates the feedback loop, directly improving business innovation capabilities and user satisfaction. The value is reflected in zero-downtime updates and strengthened market competitiveness."
+}

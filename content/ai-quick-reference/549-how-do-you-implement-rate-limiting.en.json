@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement rate-limiting in a microservices architecture?",
+  "description": "In a microservices architecture, rate limiting is used to control the number of requests a client or service can initiate within a specific time window, preventing system overload and resource exhaust",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Data Center (DC)",
+    "One-Click Deployment",
+    "Containerization",
+    "Cloud Operating System",
+    "DevOps"
+  ],
+  "content": "In a microservices architecture, rate limiting is used to control the number of requests a client or service can initiate within a specific time window, preventing system overload and resource exhaustion. Its importance lies in protecting backend services from DDoS attacks, ensuring service stability, and enabling fair resource allocation. It is commonly used in API gateways to protect high-traffic interfaces or sensitive microservice entry points.\n\nThe core principle is based on token bucket or leaky bucket algorithms, implemented by configuring request rate thresholds (e.g., 100 times per minute) and time windows. Core components include API gateway integration (such as Nginx or Envoy), service-layer middleware, and counter storage (such as Redis). In practical applications, it automatically intercepts excessive requests at the API gateway layer, improving system scalability, preventing service degradation or increased latency, and significantly enhancing overall resilience and performance isolation.\n\nImplementation steps include: 1. Selecting the rate limiting location, such as configuring rules in the API gateway; 2. Setting thresholds and windows (e.g., 10 times per second); 3. Handling excessive requests (e.g., returning 429 errors). Typical scenarios include service protection under sudden traffic surges. Business value lies in reducing downtime risks, optimizing resource utilization, and improving user experience and system reliability."
+}

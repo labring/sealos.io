@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle backup and recovery strategies in IaC deployments?",
+  "description": "In IaC (Infrastructure as Code) deployment, backup and recovery strategies protect infrastructure state and data to ensure system reliability. Their importance lies in preventing data loss and enhanci",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Application Deployment",
+    "Cloud Platform",
+    "Cloud-Native",
+    "IT Infrastructure",
+    "Containerization"
+  ],
+  "content": "In IaC (Infrastructure as Code) deployment, backup and recovery strategies protect infrastructure state and data to ensure system reliability. Their importance lies in preventing data loss and enhancing resilience, applicable to cloud environments and containerized applications such as Kubernetes clusters.\n\nCore components include automation tools like Terraform state management or Velero for Kubernetes, featuring snapshot-based incremental backups and recovery testing. The principle involves version control integration, with practical application embedding in CI/CD pipelines to automate backups, resulting in reduced downtime and support for compliance requirements.\n\nImplementation steps: Define policies in IaC code and configure tools to back up critical resources; perform regular, incremental backups to secure storage; drill recovery processes to verify effectiveness; monitor logs to optimize strategies. Business values include high availability, disaster recovery support, and minimal business disruption."
+}

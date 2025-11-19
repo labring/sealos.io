@@ -1,0 +1,13 @@
+{
+  "title": "How do you monitor and analyze cloud-native application metrics during IaC workflows?",
+  "description": "Monitor and analyze metrics of cloud-native applications in the IaC workflow to ensure the reliability and performance optimization of infrastructure and application deployments. Key concepts include ",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "IT Infrastructure",
+    "High Performance",
+    "Cluster Management",
+    "Sealos",
+    "Kubernetes (K8s)"
+  ],
+  "content": "Monitor and analyze metrics of cloud-native applications in the IaC workflow to ensure the reliability and performance optimization of infrastructure and application deployments. Key concepts include Infrastructure as Code (IaC) for automated resource management, and cloud-native applications built on microservices, maintaining health through metric monitoring such as latency and error rates. The importance lies in proactively detecting issues, optimizing resource utilization, and applying it to continuous deployment scenarios in CI/CD pipelines to enhance operational efficiency.\n\nCore components include monitoring toolchains like Prometheus for metric collection and Grafana for visualization dashboards, with features supporting real-time data analysis and automated alert mechanisms. The principle is to embed monitoring configurations into IaC scripts (such as Terraform modules) to achieve deployment as monitoring. Practical applications reduce failures through end-to-end observability and improve DevOps agility, with impacts including shortening Mean Time to Repair (MTTR), enhancing capacity planning, and ensuring security compliance.\n\nImplementation steps: 1. Deploy monitoring stacks (e.g., Prometheus) using IaC tools; 2. Define application metrics (e.g., CPU usage); 3. Integrate CI/CD for automated collection and alerting; 4. Use analysis tools to optimize performance. A typical scenario is the real-time evaluation of new versions after deployment. Business value includes improving system availability, reducing operational costs, and accelerating innovation iterations."
+}

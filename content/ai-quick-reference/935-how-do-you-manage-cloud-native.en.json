@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage cloud-native secrets in Kubernetes environments?",
+  "description": "In a Kubernetes environment, cloud-native secrets (commonly referred to as Secrets) are mechanisms used to securely store sensitive data such as passwords and API keys. Their importance lies in preven",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "High Performance",
+    "Containerization",
+    "Cloud Platform",
+    "Kubernetes (K8s)",
+    "High Availability (HA)"
+  ],
+  "content": "In a Kubernetes environment, cloud-native secrets (commonly referred to as Secrets) are mechanisms used to securely store sensitive data such as passwords and API keys. Their importance lies in preventing credential leakage and supporting the zero-trust security model, applied in scenarios of secure credential injection in containerized microservices, such as database connections and external API access.\n\nThe core components include Kubernetes Secrets resources, featuring base64-encoded storage and support for etcd encryption to limit exposure risks; in principle, they are mounted into Pods via volumes or environment variables to achieve secure configuration injection. In practical applications, they facilitate automated deployment and lifecycle management, with impacts including enhancing the security compliance of cloud-native applications and reducing manual credential handling errors.\n\nImplementation steps: First, create a Secret resource using `kubectl create secret` or a YAML definition; second, reference the secret in the Pod/Deployment configuration via `envFrom` or volume mounting. Typical scenarios include secure credential updates in CI/CD pipelines. Business values include simplifying secret rotation, reducing the risk of data leakage, and accelerating compliance audits."
+}

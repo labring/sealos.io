@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement alerting rules for cloud-native applications using Prometheus?",
+  "description": "Prometheus is an open-source monitoring and alerting system designed specifically for cloud-native applications. It collects time-series metrics to enable alerting rules, with the key being automated ",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "High Performance",
+    "Open-Source Cloud",
+    "Cloud Operating System",
+    "Data Center (DC)",
+    "Cloud Platform"
+  ],
+  "content": "Prometheus is an open-source monitoring and alerting system designed specifically for cloud-native applications. It collects time-series metrics to enable alerting rules, with the key being automated problem detection. Its importance lies in ensuring the reliability of microservices in highly dynamic environments. Application scenarios include monitoring Kubernetes clusters for service availability, resource usage, or error rate anomalies, thereby supporting rapid fault response and SRE practices.\n\nThe core components include the Prometheus server (responsible for scraping metrics and evaluating rules), Alertmanager (handling deduplication and routing of alert notifications), and rule files (defining threshold conditions using the PromQL query language). The principle is based on periodically evaluating metric data, and once a rule is matched, an alert sequence is triggered. In practical applications, it automatically monitors latency, CPU overload, or downtime events, significantly improving system observability and integrating with DevOps toolchains to accelerate incident handling.\n\nImplementation steps: First, write YAML rule files to define PromQL queries and thresholds. Second, load the rule files in the Prometheus configuration. Third, configure Alertmanager receivers such as Slack or Email. Typical scenarios include detecting service downtime or a surge in request errors. Business values include reducing mean time to recovery, enhancing service stability, and optimizing operational costs."
+}

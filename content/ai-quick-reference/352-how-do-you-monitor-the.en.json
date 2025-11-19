@@ -1,0 +1,13 @@
+{
+  "title": "How do you monitor the success and failure rates of automated deployments?",
+  "description": "Monitoring the success and failure rates of automated deployments is a critical practice for ensuring the reliability and quality of continuous delivery. By tracking these metrics, teams can quickly i",
+  "category": "Automated Deployment",
+  "keywords": [
+    "IT Infrastructure",
+    "Cloud Platform",
+    "Open-Source Cloud",
+    "Cloud Operating System",
+    "Containerization"
+  ],
+  "content": "Monitoring the success and failure rates of automated deployments is a critical practice for ensuring the reliability and quality of continuous delivery. By tracking these metrics, teams can quickly identify issues, assess release health, and improve software delivery efficiency, which is crucial for maintaining the stability of CI/CD pipelines and user satisfaction. Typical application scenarios include rolling updates, blue-green deployments, and canary releases for cloud-native applications.\n\nThe core approach involves collecting and analyzing key event data during the deployment process. This includes: 1) Deployment status indicators (e.g., success, failure, in progress); 2) Timestamps (deployment start and end times); 3) Trigger sources (e.g., commit ID, pipeline ID). Indicator collection and storage are typically achieved using logs and events from deployment tools (such as Argo CD, Flux, GitLab CI), Kubernetes API events, and time-series databases (such as Prometheus). Then, core metrics are defined: Success Rate = (Number of Successful Deployments / (Number of Successful Deployments + Number of Failed Deployments)) × 100%, and Failure Rate. The data is visualized on dashboards (such as Grafana), and an alert mechanism is configured with threshold settings.\n\nImplementation steps: 1) Integrate monitoring tools into the CI/CD pipeline to capture deployment status events. 2) Define and calculate SLIs: Deployment Success Rate and Failure Rate. 3) Configure alert rules (e.g., send notifications when Failure Rate > 5%). 4) Generate and review deployment reports regularly. A typical scenario is real-time monitoring of success rates during traffic switching in blue-green deployments to avoid production incidents. Its business value lies in reducing Mean Time to Recovery (MTTR), increasing confidence in deployment frequency, shortening release cycles, and significantly lowering the risk of deployment-related issues, typically reducing MTTR by more than 30%."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you monitor access to cloud-native applications using security monitoring tools?",
+  "description": "Security monitoring tools are used to detect and respond to security threats, protecting cloud-native applications from unauthorized access. These applications are typically designed based on microser",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Open-Source Cloud",
+    "DevOps",
+    "Data Center (DC)",
+    "Cloud Operating System",
+    "Application Deployment"
+  ],
+  "content": "Security monitoring tools are used to detect and respond to security threats, protecting cloud-native applications from unauthorized access. These applications are typically designed based on microservices and containers, running in dynamic cloud environments. Their importance lies in preventing data breaches, ensuring compliance (such as GDPR), and being applied in scenarios like finance and e-commerce to maintain business continuity.\n\nCore components include log collection (e.g., using Fluentd or Elasticsearch), API monitoring, and real-time behavioral analysis (with tools like Prometheus or Wazuh). Features encompass automated alerts, anomaly detection, and multi-tenant support; in practical applications, they are integrated into Kubernetes environments to monitor network traffic and user access logs, with impacts including enhancing security posture, reducing the attack surface, and supporting incident response.\n\nImplementation steps: first deploy appropriate tools (such as SIEM solutions), configure access control rules to monitor API gateways and microservice interactions; set up log analysis policies through Falco; integrate into CI/CD pipelines for automated monitoring; finally enable alert mechanisms and link with Slack or PagerDuty. Typical scenarios involve zero-trust model verification, and business values include reducing risks, meeting compliance audits, and optimizing operational efficiency."
+}

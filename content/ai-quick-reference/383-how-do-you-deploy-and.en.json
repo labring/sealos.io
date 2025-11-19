@@ -1,0 +1,13 @@
+{
+  "title": "How do you deploy and update serverless functions automatically?",
+  "description": "Automated deployment of serverless functions involves using tools to automate the publishing and update processes, improving development efficiency and application reliability. It is suitable for even",
+  "category": "Automated Deployment",
+  "keywords": [
+    "Data Center (DC)",
+    "Sealos",
+    "High Performance",
+    "One-Click Deployment",
+    "Containerization"
+  ],
+  "content": "Automated deployment of serverless functions involves using tools to automate the publishing and update processes, improving development efficiency and application reliability. It is suitable for event-driven architectures such as API backends or data processing services.\n\nCore components include CI/CD pipelines (e.g., GitHub Actions or Jenkins) and infrastructure as code tools (e.g., Terraform), which enable automatic building, testing, and deployment. Features include version rollback and continuous integration, often used in real-time scenarios like microservice updates to facilitate rapid iteration of cloud-native applications.\n\nImplementation steps: 1. Submit function code to a Git repository; 2. Configure CI/CD pipelines for automated testing; 3. Define IaC deployment strategies; 4. Trigger deployment to platforms such as AWS Lambda. Business values include reducing human errors, accelerating release cycles, and optimizing resource costs."
+}

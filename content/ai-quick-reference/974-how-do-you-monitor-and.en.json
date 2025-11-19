@@ -1,0 +1,13 @@
+{
+  "title": "How do you monitor and manage security patches for cloud-native environments?",
+  "description": "Monitoring and managing security patches in cloud-native environments is crucial. By automating vulnerability detection and remediation, system security and compliance are ensured, applicable to micro",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Cloud-Native",
+    "Cloud Operating System",
+    "Cloud Platform",
+    "Cluster Management",
+    "Open-Source Cloud"
+  ],
+  "content": "Monitoring and managing security patches in cloud-native environments is crucial. By automating vulnerability detection and remediation, system security and compliance are ensured, applicable to microservice applications running on Kubernetes or container platforms, preventing data breaches and attacks.\n\nThe core includes using scanning tools (such as Trivy or Clair) to regularly check for vulnerabilities in container images and cluster components, combined with CI/CD pipelines to automatically deploy patch updates. Features involve prioritizing high-risk vulnerabilities, integrating policy engines to manage update processes, and the impact is enhancing security baselines and reducing manual intervention.\n\nImplementation steps are: configure automated scanning tools to identify vulnerabilities; assess risks and orchestrate deployment for critical patches; automatically apply updates via Operator or GitOps; test the environment and monitor logs to verify compliance. Business value includes reducing operational costs and improving compliance levels."
+}

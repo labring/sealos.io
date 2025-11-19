@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage database schema migrations in CI/CD pipelines?",
+  "description": "Database schema migration in CI/CD pipelines refers to the process of automatically updating the database architecture to match application code changes, ensuring the database is synchronized with the",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Application Deployment",
+    "Cloud Platform",
+    "Cloud-Native",
+    "Data Center (DC)",
+    "Cloud Operating System"
+  ],
+  "content": "Database schema migration in CI/CD pipelines refers to the process of automatically updating the database architecture to match application code changes, ensuring the database is synchronized with the application and avoiding deployment failures. It is crucial as it eliminates the risk of manual errors, improves release speed and reliability, and is widely used in agile development scenarios such as microservices and cloud-native applications.\n\nThe core includes migration tools (e.g., Flyway or Liquibase), which use version-controlled scripts to implement incremental, transaction-safe changes and support rollbacks. Key features are atomicity, repeatability, and environmental consistency. In practical applications, integration into CI/CD pipelines ensures automatic validation of migrations during the build and testing phases, reducing errors and improving overall deployment quality.\n\nImplementation steps: 1) Store SQL or code scripts in version control. 2) Add tasks in CI pipelines (e.g., Jenkins) to execute migration tools. 3) Validate changes in the test environment. 4) Execute sequentially during deployment (migrate first, then deploy code). Typical scenarios include blue-green deployment; business values include zero-downtime deployment, accelerated iteration, and reduced risk."
+}

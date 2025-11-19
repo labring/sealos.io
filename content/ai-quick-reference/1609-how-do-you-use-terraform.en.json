@@ -1,0 +1,13 @@
+{
+  "title": "How do you use Terraform for Infrastructure as Code in cloud-native environments?",
+  "description": "In a cloud-native environment, implementing Infrastructure as Code (IaC) using Terraform refers to defining and managing cloud resources (such as computing and networking) through code, ensuring deplo",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Cloud Platform",
+    "Lakehouse",
+    "Private Cloud",
+    "Data Center (DC)",
+    "High Performance"
+  ],
+  "content": "In a cloud-native environment, implementing Infrastructure as Code (IaC) using Terraform refers to defining and managing cloud resources (such as computing and networking) through code, ensuring deployment consistency and repeatability. Its importance lies in supporting dynamic scaling and reliable resource management, with application scenarios including deploying Kubernetes clusters, container services, or cloud storage, thereby enhancing agility and DevOps efficiency.\n\nThe core of Terraform is a declarative configuration language (HCL), which describes resource states through provider plugins (such as AWS or GCP). Features include platform independence, state file management, and version control integration. In the cloud-native domain, it automates the creation of containerized infrastructure (e.g., AWS EKS clusters or Istio meshes), simplifies complexity, and enhances environmental consistency, thereby optimizing resource utilization and reducing risks.\n\nImplementation steps: 1. Write Terraform HCL files to define resources (such as virtual machines or VPCs); 2. Run `terraform init` to initialize providers; 3. Execute `terraform apply` to deploy the infrastructure; 4. Manage code using a versioning system. Typical scenarios include continuous deployment pipelines and disaster recovery; business values include accelerated delivery, cost savings, and auditability."
+}

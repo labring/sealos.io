@@ -1,0 +1,13 @@
+{
+  "title": "How do cloud-native environments handle the storage of sensitive data?",
+  "description": "Cloud-native environments enable elastic application deployment through containerization and microservices. Handling sensitive data (such as personally identifiable information or financial details) i",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Application Deployment",
+    "DevOps",
+    "High Performance",
+    "Open-Source Cloud",
+    "Cloud Operating System"
+  ],
+  "content": "Cloud-native environments enable elastic application deployment through containerization and microservices. Handling sensitive data (such as personally identifiable information or financial details) is crucial to ensure security compliance and reduce risks. Its importance lies in meeting regulatory requirements like GDPR and HIPAA, being applied in highly sensitive scenarios such as finance and healthcare, and protecting data from leakage.\n\nCore components include secret management (e.g., storing credentials in Kubernetes Secrets or Hashicorp Vault), data encryption (at-rest encryption such as AES-encrypted storage volumes and in-transit encryption using TLS), and access control (e.g., RBAC role restrictions). Features include automated key rotation and security isolation, with principles of centralized management and service mesh integration. In practical applications, integration into Kubernetes clusters supports microservice data storage and enhances audit trail capabilities, with impacts including simplifying compliance processes.\n\nImplementation steps: First, configure Kubernetes Secrets or an external Vault to store keys; second, deploy encryption storage solutions (e.g., enabling encrypted persistent volumes); third, set up RBAC permissions to control access; finally, add monitoring tools to track compliance. Typical scenario: Stateful databases storing user data use encrypted volumes. Business values include reducing leakage risks by over 50%, accelerating GDPR compliance certification, and enhancing customer trust."
+}

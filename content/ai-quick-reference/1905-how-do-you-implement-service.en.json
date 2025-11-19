@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement service discovery for cloud-native applications?",
+  "description": "Service discovery is a mechanism in cloud-native applications that automatically locates and manages the positions of service instances. Its importance lies in supporting high availability, elastic sc",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Cloud Platform",
+    "Cluster Management",
+    "Open-Source Cloud",
+    "Private Cloud",
+    "One-Click Deployment"
+  ],
+  "content": "Service discovery is a mechanism in cloud-native applications that automatically locates and manages the positions of service instances. Its importance lies in supporting high availability, elastic scaling, and avoiding dependency issues related to manual configuration. Typical application scenarios include inter-service communication in microservice architectures, fault tolerance processing, and dynamic environments of containerized platforms such as Kubernetes.\n\nThe core components include service registries (e.g., Consul or Eureka) and service resolution mechanisms (e.g., DNS or API queries). The principle is based on real-time updates of instance status in the registry, with features covering load balancing, health monitoring, and failover. In practical applications, it is implemented on cloud platforms like Kubernetes through Service resources integrating kube-proxy and CoreDNS, simplifying multi-instance scheduling and improving system observability and global traffic management efficiency.\n\nImplementation steps: 1. Define Service resources in Kubernetes and associate Pod labels. 2. Service instances are automatically registered through Endpoints. 3. Client applications access via DNS resolution using the service name. Typical scenarios include microservice API calls or canary releases, with business values such as reducing operational complexity, accelerating deployment cycles, and enhancing fault tolerance and recovery capabilities."
+}

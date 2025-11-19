@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage distributed transactions in cloud-native applications?",
+  "description": "In cloud-native applications, distributed transactions refer to data operations across multiple microservices or nodes, which need to ensure the consistency of ACID properties. Their importance lies i",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "One-Click Deployment",
+    "Cloud-Native",
+    "DevOps",
+    "Containerization",
+    "Lakehouse"
+  ],
+  "content": "In cloud-native applications, distributed transactions refer to data operations across multiple microservices or nodes, which need to ensure the consistency of ACID properties. Their importance lies in supporting the high availability and scalability of cloud-native architectures, and they are commonly used in critical business scenarios such as e-commerce payments and inventory management to avoid service disruptions caused by data inconsistencies.\n\nCore methods include the Saga pattern (through event sequences and compensation transactions) and the TCC (Try-Confirm-Cancel) model. They are characterized by asynchronous compensation mechanisms and local transaction management without the need for global locks. In practical applications, they enhance the loose coupling and fault tolerance of microservices, coordinating inter-service states with the help of message queues or coordinators.\n\nImplementation steps: Define transaction boundaries and decompose service calls; deploy Saga coordinators or frameworks (such as Seata); encode compensation logic to handle failures; monitor transaction status. Business value is reflected in improving data consistency and system resilience, supporting continuous operations, and reducing rollback costs."
+}

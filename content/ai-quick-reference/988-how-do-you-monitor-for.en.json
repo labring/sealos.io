@@ -1,0 +1,13 @@
+{
+  "title": "How do you monitor for security threats in cloud-native applications using tools like Prometheus?",
+  "description": "Prometheus is an open-source monitoring system designed specifically for cloud-native environments to collect and analyze time-series data for detecting security threats. In cloud-native applications",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "IT Infrastructure",
+    "Cloud Platform",
+    "High Availability (HA)",
+    "High Performance",
+    "Kubernetes (K8s)"
+  ],
+  "content": "Prometheus is an open-source monitoring system designed specifically for cloud-native environments to collect and analyze time-series data for detecting security threats. In cloud-native applications, monitoring threats such as unauthorized access or vulnerability exploitation is crucial, as it enhances proactive defense capabilities, ensures compliance, and is commonly used in scenarios like Kubernetes clusters.\n\nThe core components of Prometheus include metric scrapers (e.g., Prometheus exporters), a time-series database, and an alert manager. Its principle is to generate metrics (such as the number of failed login attempts) through security tools (e.g., Falco or osquery), supporting real-time monitoring and dynamic discovery. In practical applications, integrating these tools can track abnormal behaviors (e.g., API call frequency), improve threat detection efficiency, shorten response time, and influence the overall security posture.\n\nImplementation steps: First, deploy security exporters (e.g., Falco-Prometheus); configure Prometheus to scrape metric endpoints; define alert rules (e.g., threshold triggering); and visualize data (using Grafana). Typical scenarios include identifying high-frequency login attempts to detect brute-force attacks. Business values include reducing security risks, preventing data breaches, and simplifying compliance audits."
+}

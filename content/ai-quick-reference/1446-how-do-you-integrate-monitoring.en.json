@@ -1,0 +1,13 @@
+{
+  "title": "How do you integrate monitoring with CI/CD pipelines in cloud-native environments?",
+  "description": "In a cloud-native environment, monitoring involves collecting application performance metrics, logs, and health status, such as using Prometheus and Grafana; CI/CD pipelines implement automated build",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Sealos",
+    "Cloud Operating System",
+    "Cloud Platform",
+    "Data Center (DC)",
+    "Open-Source Cloud"
+  ],
+  "content": "In a cloud-native environment, monitoring involves collecting application performance metrics, logs, and health status, such as using Prometheus and Grafana; CI/CD pipelines implement automated build, test, and deployment processes. The importance of integration lies in improving system reliability, enabling rapid feedback loops, and ensuring high-quality deployments. Application scenarios include managing microservices in Kubernetes clusters, preventing failures through automated monitoring, and ensuring business continuity.\n\nCore components include monitoring tools (e.g., Prometheus), CI/CD platforms (e.g., Jenkins or GitLab CI), and integration mechanisms such as API hooks. Features include adding monitoring phases in the pipeline, such as running health checks after deployment or triggering rollbacks based on alerts. Practical applications include evaluating response time or error rates after deploying a new version; impacts include promoting DevOps culture, reducing downtime, and accelerating iteration and innovation.\n\nImplementation steps: 1. Configure monitoring tools to integrate with CI/CD; 2. Embed monitoring steps in the pipeline, such as post-deploy verification metrics; 3. Set thresholds and automated responses. Typical scenarios include monitoring traffic during blue-green deployments to decide on switching. Business value includes increasing release frequency, reducing risk, enhancing user experience, and supporting agile business growth."
+}

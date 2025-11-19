@@ -1,0 +1,13 @@
+{
+  "title": "How do you scale cloud-native applications to meet peak demands?",
+  "description": "Cloud-native application scaling refers to the process of dynamically adjusting resources to cope with surging demand. This capability is crucial as it ensures applications maintain high performance a",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "One-Click Deployment",
+    "DevOps",
+    "Data Center (DC)",
+    "High Availability (HA)",
+    "Containerization"
+  ],
+  "content": "Cloud-native application scaling refers to the process of dynamically adjusting resources to cope with surging demand. This capability is crucial as it ensures applications maintain high performance and availability during traffic peaks, preventing service disruptions. Typical application scenarios include sudden high-load situations such as e-commerce promotions and social media campaigns.\n\nIts core mechanism is autoscaling, implemented through container orchestration tools like Kubernetes Horizontal Pod Autoscaler (HPA). The principle is to monitor resource metrics (e.g., CPU utilization) and automatically increase or decrease the number of instances. This design optimizes resource utilization, reduces costs by approximately 30%-50%, and enhances system elasticity and fault tolerance.\n\nImplementation steps: First, deploy monitoring tools (such as Prometheus) to collect data; then configure HPA policies to set scaling thresholds; predefine rules to handle peaks. Typical business values include reducing idle costs through on-demand scaling and improving user experience by more than 5 times through immediate response to demand."
+}

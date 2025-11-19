@@ -1,0 +1,13 @@
+{
+  "title": "What is distributed tracing, and how is it used in monitoring?",
+  "description": "Distributed tracing is a technology used to monitor the execution path of requests in distributed systems, aiming to improve system observability and diagnose performance bottlenecks and root causes o",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Cloud Platform",
+    "Cloud-Native",
+    "Cluster Management",
+    "High Performance",
+    "High Availability (HA)"
+  ],
+  "content": "Distributed tracing is a technology used to monitor the execution path of requests in distributed systems, aiming to improve system observability and diagnose performance bottlenecks and root causes of errors. It is particularly important in microservices and cloud-native environments, helping operation and maintenance teams understand the complex dependencies between services, and is applied in scenarios such as e-commerce and financial platforms to ensure high availability.\n\nCore components include Spans (units of each service operation) and Traces (complete paths of multiple Spans), with features involving context propagation (such as the OpenTracing standard) and correlation ID mechanisms to ensure cross-service consistency. In practical applications, performance monitoring and fault location are achieved through visualizing request flows, significantly improving the reliability and debugging efficiency of cloud-native systems.\n\nWhen used for monitoring, integrate tools (such as Jaeger or Zipkin), with steps including configuring SDKs, defining sampling rates, and analyzing tracing data. A typical scenario is API latency monitoring, such as tracking order processing chains, bringing business values such as reducing mean time to repair, optimizing resource allocation, thereby enhancing user experience and cost-effectiveness."
+}

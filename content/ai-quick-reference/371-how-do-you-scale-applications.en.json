@@ -1,0 +1,13 @@
+{
+  "title": "How do you scale applications automatically using automated deployment pipelines?",
+  "description": "Automated deployment pipelines enable continuous delivery by automatically building, testing, and releasing code changes to environments. Auto-scaling dynamically adjusts the number of application ins",
+  "category": "Automated Deployment",
+  "keywords": [
+    "Cloud Platform",
+    "DevOps",
+    "IT Infrastructure",
+    "Kubernetes (K8s)",
+    "Data Center (DC)"
+  ],
+  "content": "Automated deployment pipelines enable continuous delivery by automatically building, testing, and releasing code changes to environments. Auto-scaling dynamically adjusts the number of application instances based on predefined rules. The combination of both can efficiently respond to traffic changes, improve system stability and resource utilization, and is particularly suitable for scenarios with significant traffic fluctuations (such as e-commerce promotions, SaaS services).\n\nThe core is integrating monitoring and policy engines. Deployment pipelines (e.g., Jenkins/GitLab CI) are responsible for application deployment. Auto-scaling components (e.g., Kubernetes HPA, cloud service Auto Scaling) need to collect metrics in real-time (e.g., CPU, number of requests) and trigger scaling actions based on predefined thresholds. Automated collaboration is reflected in: after the pipeline updates the application, the scaling policy takes effect automatically; when monitoring data is abnormal, alarms or even rollbacks are triggered.\n\nImplementation steps:\n\n1. Declare resource requests/limits in the deployment manifest (e.g., K8s Deployment)\n\n2. Configure auto-scaling policies (e.g., HPA target utilization = 70%)\n\n3. The deployment pipeline automatically applies the manifest and policies to the target environment\n\n4. Verify scaling behavior through monitoring (Prometheus/CloudWatch)\n\nBusiness value: Second-level elastic response to sudden traffic, reducing manual intervention; optimizing cloud computing costs by approximately 30% and improving application availability."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle API rate limiting for cloud-native applications?",
+  "description": "API rate limiting is a mechanism that protects backend services by controlling the number of requests each client can make within a specified time window. It is crucial in cloud-native applications, p",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "IT Infrastructure",
+    "One-Click Deployment",
+    "High Performance",
+    "Lakehouse",
+    "Cloud-Native"
+  ],
+  "content": "API rate limiting is a mechanism that protects backend services by controlling the number of requests each client can make within a specified time window. It is crucial in cloud-native applications, preventing abuse, denial-of-service attacks, and resource exhaustion, ensuring the reliability and fair usage of microservice architectures, and widely used in scenarios such as payment gateways or IoT device access.\n\nCore components include rate limiters based on token bucket or leaky bucket algorithms, API gateways like Envoy or Kong, and features of service meshes such as Istio, such as dynamic rule configuration and IP-based granular control. The principle lies in smoothly handling request traffic spikes; in practical applications, Kubernetes can be easily deployed through Ingress controllers or Sidecar patterns, enhancing the overall system's resilience and performance scalability.\n\nImplementation steps include: first, assessing API requirements to define rate limiting rules, such as the maximum number of requests per second; second, integrating gateway tools and applying the rules to microservices; finally, monitoring logs and dynamically adjusting. Typical scenarios involve handling sudden traffic surges or protecting data-sensitive interfaces, with business values including optimizing resource costs, enhancing security compliance, and ensuring service level agreements."
+}

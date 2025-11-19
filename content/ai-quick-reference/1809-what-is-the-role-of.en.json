@@ -1,0 +1,13 @@
+{
+  "title": "What is the role of CI/CD in cloud-native application development?",
+  "description": "CI/CD (Continuous Integration/Continuous Delivery) is a core practice in cloud-native application development. It ensures the rapid and reliable delivery of application changes by automating software ",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Cloud Platform",
+    "Cluster Management",
+    "IT Infrastructure",
+    "High Availability (HA)",
+    "Private Cloud"
+  ],
+  "content": "CI/CD (Continuous Integration/Continuous Delivery) is a core practice in cloud-native application development. It ensures the rapid and reliable delivery of application changes by automating software building, testing, and deployment processes. In microservice architectures and containerized environments, frequent and secure releases are crucial, with CI/CD serving as the key technical enabler for agility and resilience.\n\nIts core components include automated build pipelines, version control integration, unit and integration testing, container image building and pushing (to repositories like Docker Hub and Harbor), and automated deployment (such as rolling updates or canary releases via Kubernetes). This automation mechanism ensures that every code change can be quickly validated and safely delivered to the production environment, significantly reducing human errors, accelerating feedback loops, and supporting advanced release strategies like blue-green deployment and A/B testing.\n\nIn cloud-native scenarios, CI/CD plays an especially prominent role: it seamlessly integrates with container orchestration platforms (e.g., K8s) to enable minute-level application deployment and rollback; combines with Infrastructure as Code (IaC) to ensure environmental consistency; and guarantees the reliability of multi-microservice collaboration through automated testing. Its core value lies in drastically shortening Time-to-Market, increasing release quality and frequency, enhancing system resilience, and enabling businesses to quickly respond to market changes—making it the cornerstone of cloud-native agile operations."
+}

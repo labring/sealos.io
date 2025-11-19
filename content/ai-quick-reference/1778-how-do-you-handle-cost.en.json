@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle cost optimization for infrastructure provisioning with IaC tools?",
+  "description": "IaC (Infrastructure as Code) tools automate infrastructure configuration by defining resource deployment through code, improving efficiency, reducing manual errors, and achieving cost savings in cloud",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "DevOps",
+    "High Availability (HA)",
+    "Kubernetes (K8s)",
+    "High Performance",
+    "Containerization"
+  ],
+  "content": "IaC (Infrastructure as Code) tools automate infrastructure configuration by defining resource deployment through code, improving efficiency, reducing manual errors, and achieving cost savings in cloud environments such as AWS or Kubernetes. Its importance lies in the ability to reuse templates to reduce over-provisioning waste. Application scenarios include dynamically scaling loads and hybrid cloud management.\n\nCore components include declarative configuration files (e.g., Terraform HCL) and version control systems, with features such as modular reuse and state tracking. The principle is code-driven resource lifecycle with automated execution. In practical applications, by defining resource constraints and auto-scaling rules, idle instances can be automatically shut down or resized, reducing idle expenses by over 30% and improving Kubernetes cluster efficiency.\n\nImplementation steps: 1. Define IaC templates integrating cost rules such as CPU thresholds or scheduled shutdowns; 2. Deploy tools like Terraform integrated with cloud monitoring to automatically scale resources; 3. Regularly review templates to optimize configurations. A typical scenario is automatically shrinking virtual machines after business peaks, with the value of reducing costs by 50% while ensuring high availability."
+}

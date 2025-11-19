@@ -1,0 +1,13 @@
+{
+  "title": "How do you integrate automated deployment with version control systems like Git?",
+  "description": "Automation deployment integrated with Git triggers the software release process automatically through a toolchain to achieve Continuous Delivery (CD). Its core value lies in improving release speed, r",
+  "category": "Automated Deployment",
+  "keywords": [
+    "Containerization",
+    "Kubernetes (K8s)",
+    "Application Deployment",
+    "Data Center (DC)",
+    "High Performance"
+  ],
+  "content": "Automation deployment integrated with Git triggers the software release process automatically through a toolchain to achieve Continuous Delivery (CD). Its core value lies in improving release speed, reliability, and traceability, and it is widely used in DevOps and cloud-native environments.\n\nThe core lies in using Git events (such as push or merge) as triggers: 1. Developers push code to the Git repository; 2. Configured Webhooks notify CI/CD tools (such as Jenkins, GitHub Actions); 3. The tools pull the code and execute builds and tests; 4. If successful, automatically deploy to the target environment (such as a Kubernetes cluster). Key technologies include Webhook configuration, pipeline definition, and environment management (such as blue-green deployment/canary release).\n\nTypical implementation steps: 1. Define the deployment pipeline in CI/CD tools (such as Jenkinsfile or GitHub Actions YAML); 2. Set up Webhooks in the Git repository pointing to the pipeline; 3. Configure deployment scripts (such as Kubectl apply or Helm upgrade); 4. Add automated testing and manual approval gates. Business values include minute-level releases, reduction of human errors, and environment consistency."
+}

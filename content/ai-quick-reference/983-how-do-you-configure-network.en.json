@@ -1,0 +1,13 @@
+{
+  "title": "How do you configure network security policies for cloud-native applications?",
+  "description": "Cloud-native applications refer to modern applications based on cloud environments, utilizing containers and microservices to achieve agile deployment. Network security policies are crucial for ensuri",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "One-Click Deployment",
+    "Data Center (DC)",
+    "Kubernetes (K8s)",
+    "Open-Source Cloud",
+    "High Performance"
+  ],
+  "content": "Cloud-native applications refer to modern applications based on cloud environments, utilizing containers and microservices to achieve agile deployment. Network security policies are crucial for ensuring isolation between services and protection against attacks, applicable in scenarios such as microservice communication within Kubernetes clusters.\n\nTheir core includes Kubernetes NetworkPolicy resources, which define ingress and egress rules and support fine-grained control based on labels. The principle is to isolate Pod traffic through policies, characterized by declarative configuration and automated management. Practical applications enhance the zero-trust security model, significantly reducing internal network attack risks and simplifying compliance audits.\n\nImplementation steps: First, define a YAML file specifying Pod selectors and directions; second, set allowed traffic sources/destinations; finally, apply the policy to the cluster. A typical scenario is restricting a database to be accessed only by API services, bringing business values including improving system reliability, reducing attack surfaces, and supporting regulations such as GDPR."
+}

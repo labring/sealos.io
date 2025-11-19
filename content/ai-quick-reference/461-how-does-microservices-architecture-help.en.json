@@ -1,0 +1,13 @@
+{
+  "title": "How does microservices architecture help with business agility?",
+  "description": "Microservices architecture is an application design approach that decomposes large monolithic applications into independent small services, each communicating via APIs and deployed independently. Its ",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Open-Source Cloud",
+    "Cloud Platform",
+    "IT Infrastructure",
+    "Cluster Management",
+    "High Availability (HA)"
+  ],
+  "content": "Microservices architecture is an application design approach that decomposes large monolithic applications into independent small services, each communicating via APIs and deployed independently. Its importance lies in significantly enhancing business agility, supporting enterprises to quickly respond to market changes and innovation needs, and is suitable for scenarios requiring frequent updates such as e-commerce platforms or fintech systems, enabling more flexible resource allocation.\n\nThe core components include service autonomy (each service is independently developed, tested, and deployed), loose coupling (interaction through event-driven or APIs), and distributed governance. In principle, it is based on domain-driven design principles, reducing dependencies between teams and allowing diversity of technology stacks. In practical applications, it shortens the time for feature release, enhances system fault tolerance, and promotes the implementation of DevOps culture in organizations.\n\nImplementation steps include: first identifying business functions and decomposing services; adopting containerization platforms such as Kubernetes to manage deployment; integrating CI/CD pipelines to achieve automated testing and release. Typical business values lie in accelerating time-to-market, reducing change risks, and improving resource utilization, thereby supporting agile response to customer needs and market dynamics."
+}

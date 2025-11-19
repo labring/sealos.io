@@ -1,0 +1,13 @@
+{
+  "title": "How do you optimize pipeline speed without compromising on quality?",
+  "description": "Pipeline optimization refers to improving the execution efficiency of the CI/CD process and shortening the delivery cycle while maintaining quality thresholds. This is achieved by eliminating bottlene",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Sealos",
+    "Cloud Operating System",
+    "Cluster Management",
+    "High Availability (HA)",
+    "Application Deployment"
+  ],
+  "content": "Pipeline optimization refers to improving the execution efficiency of the CI/CD process and shortening the delivery cycle while maintaining quality thresholds. This is achieved by eliminating bottlenecks, optimizing resources, and implementing quality gates, which is crucial for high-frequency releases and agile development, accelerating feedback and reducing deployment risks.\n\nCore strategies include: 1. Task parallelization: such as distributed test execution or concurrent builds; 2. Layered testing strategy: prioritizing fast unit tests and delaying time-consuming end-to-end tests until later stages; 3. Intelligent caching: reusing dependency packages and intermediate artifacts; 4. Incremental processing: running relevant tests only on changed code; 5. Infrastructure optimization: such as pre-provisioned container environments or on-demand scaling of computing resources.\n\nImplementation steps: first, analyze the time consumption of each pipeline stage (e.g., using APM tools). Introduce quality gates (e.g., test coverage thresholds). Configure a dependency caching system (e.g., Nexus/Artifactory). Decompose long-running tasks into parallel subtasks (e.g., splitting test suites with TestGrid). Finally, adopt progressive releases (e.g., blue-green deployment). Value: 50%+ reduction in deployment time and improved fault isolation capability."
+}

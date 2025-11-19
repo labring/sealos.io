@@ -1,0 +1,13 @@
+{
+  "title": "How do you ensure cloud-native security best practices are followed during IaC deployments?",
+  "description": "IaC (Infrastructure as Code) automates cloud resource deployment through scripts. Ensuring adherence to cloud-native security best practices is crucial to prevent data breaches, meet compliance requir",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Cluster Management",
+    "Containerization",
+    "One-Click Deployment",
+    "Application Deployment",
+    "Data Center (DC)"
+  ],
+  "content": "IaC (Infrastructure as Code) automates cloud resource deployment through scripts. Ensuring adherence to cloud-native security best practices is crucial to prevent data breaches, meet compliance requirements, and enhance the resilience of containerized platforms like Kubernetes, suitable for agile development and continuous deployment scenarios.\n\nCore components include static scanning of IaC code (e.g., using tools like Checkov to detect vulnerabilities), least privilege access control, secure signing of container images, and centralized secret management. The principle is to embed security policies in the code early in the process. In practical applications, integrating toolchains such as Terraform to perform automated checks effectively reduces configuration errors and enhances overall supply chain security.\n\nImplementation steps: 1. Scan IaC files (such as YAML configurations) to identify risks. 2. Implement least privilege policies (such as RBAC roles). 3. Use security tools (such as Vault) to manage keys. 4. Integrate CI/CD pipelines for continuous auditing. Business values include reducing the attack surface, accelerating compliance certification, and improving deployment efficiency and trust."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement automated provisioning of cloud services across different environments using IaC?",
+  "description": "IaC (Infrastructure as Code) defines infrastructure using code to ensure cross-environment consistency and automation. Its importance lies in eliminating manual configuration errors, accelerating depl",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Cluster Management",
+    "Cloud Platform",
+    "Containerization",
+    "Cloud Operating System",
+    "Sealos"
+  ],
+  "content": "IaC (Infrastructure as Code) defines infrastructure using code to ensure cross-environment consistency and automation. Its importance lies in eliminating manual configuration errors, accelerating deployments, and supporting cloud service management. Application scenarios include automating cloud resource configuration in development, testing, and production environments, such as AWS EC2 or Azure virtual machine deployments, which improves operational efficiency and repeatability.\n\nCore components involve IaC tools (e.g., Terraform, CloudFormation), declarative configuration files, and state management. Features include automated orchestration, modularity, and version control. The principle is to describe resource dependencies through code, and tools automatically apply changes. In practical applications, IaC enables automatic resource configuration in cloud-native environments, such as creating networks or load balancers. Its impact is to promote DevOps practices, enhance infrastructure reliability and scalability.\n\nImplementation steps: 1. Select and install an IaC tool, and configure credentials; 2. Write code files, define resources, and use variables to manage environment differences; 3. Integrate CI/CD pipelines to automate deployment updates for testing and production environments. Business value includes reducing operational costs by 30%, shortening deployment time, and ensuring security consistency. A typical scenario is automating service setup in multi-cloud environments."
+}

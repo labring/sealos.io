@@ -1,0 +1,13 @@
+{
+  "title": "What is the role of infrastructure as code (IaC) in CI/CD pipelines?",
+  "description": "Infrastructure as Code (IaC) uses code to automate the management of resources such as servers and networks, implemented through tools like Terraform. In CI/CD, it is crucial as it ensures rapid and c",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "High Availability (HA)",
+    "Cluster Management",
+    "IT Infrastructure",
+    "Open-Source Cloud",
+    "Kubernetes (K8s)"
+  ],
+  "content": "Infrastructure as Code (IaC) uses code to automate the management of resources such as servers and networks, implemented through tools like Terraform. In CI/CD, it is crucial as it ensures rapid and consistent environment deployment, enhances automation, reduces human errors, and is applied to pipeline integration for cloud-native application delivery.\n\nThe core of IaC includes declarative configuration scripts, version control, and resource state management, characterized by repeatability, consistency, and auditability. In the CI/CD process, its application is reflected in automatically synchronizing environment configurations, such as the unification of testing and production environments, reducing configuration drift, thereby improving deployment reliability and efficiency, and supporting cross-team collaboration.\n\nIts role is to realize the automated integration of infrastructure changes and code deployment, executed as a CI/CD phase. The value includes accelerating release cycles, enhancing environmental stability, reducing operational costs, providing a foundation for large-scale application delivery, and driving business agility."
+}

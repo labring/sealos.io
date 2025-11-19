@@ -1,0 +1,13 @@
+{
+  "title": "How do you maintain and update infrastructure code as part of DevOps workflows?",
+  "description": "Infrastructure as Code (IaC) is the practice of defining and managing infrastructure resources in code form. Its importance lies in ensuring environmental consistency, repeatability, and automated dep",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Application Deployment",
+    "Cloud-Native",
+    "High Availability (HA)",
+    "Containerization",
+    "Cluster Management"
+  ],
+  "content": "Infrastructure as Code (IaC) is the practice of defining and managing infrastructure resources in code form. Its importance lies in ensuring environmental consistency, repeatability, and automated deployment capabilities, supporting continuous integration/continuous deployment (CI/CD) in DevOps workflows, and being applied to cloud resource standardization and risk minimization.\n\nThe core features of IaC include script files (such as Terraform or Ansible), version control systems (such as Git), and automated testing frameworks. The principle is based on immutable infrastructure and infrastructure as code version control. In practical applications, DevOps teams achieve rapid iteration through code reviews and integration automation, improving collaboration efficiency, auditability, and system resilience, while reducing human errors and fault recovery time.\n\nMaintenance and update steps include: committing changes to the version control repository, running automated tests (such as unit and security scans), and deploying to the target environment (such as staging or production) through the CI/CD pipeline. Typical scenarios involve canary releases or rolling updates. The business value is to reduce the risk of manual operations, accelerate the delivery of new features, optimize resource costs, and enhance business agility and stability."
+}

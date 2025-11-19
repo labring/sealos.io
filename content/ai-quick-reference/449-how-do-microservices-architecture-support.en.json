@@ -1,0 +1,13 @@
+{
+  "title": "How do microservices architecture support decentralized teams?",
+  "description": "The microservices architecture supports decentralized teams (i.e., distributed organizations) by decomposing applications into small, independent services (each responsible for specific functions), en",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Open-Source Cloud",
+    "Application Deployment",
+    "Data Center (DC)",
+    "Containerization",
+    "Lakehouse"
+  ],
+  "content": "The microservices architecture supports decentralized teams (i.e., distributed organizations) by decomposing applications into small, independent services (each responsible for specific functions), enabling teams to independently develop, deploy, and maintain their respective services. Its importance lies in promoting agile development and innovation, reducing overall dependencies, and it is commonly used in cloud computing environments such as enterprise systems managed by Kubernetes.\n\nCore components include service autonomy (API interface definition), independent deployment, and team-specific ownership, achieving efficient collaboration based on the principle of decoupling. In practical applications, each team is responsible for the entire lifecycle of a microservice, reducing communication barriers, improving development speed and error isolation capabilities, and significantly impacting agile delivery processes.\n\nImplementation steps: Define service boundaries and assign teams; establish CI/CD pipelines for independent releases; integrate services through API gateways. Typical scenarios include large enterprises decomposing monolithic applications. Business values include reducing single-point risks, enhancing scalability, and accelerating market response."
+}

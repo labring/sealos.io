@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage dependencies between services during automated deployment?",
+  "description": "In automated deployment, service dependency refers to a service's requirement for other services to be in an available state in order to start up or operate normally. Managing dependencies is crucial ",
+  "category": "Automated Deployment",
+  "keywords": [
+    "Lakehouse",
+    "Sealos",
+    "Containerization",
+    "Application Deployment",
+    "Private Cloud"
+  ],
+  "content": "In automated deployment, service dependency refers to a service's requirement for other services to be in an available state in order to start up or operate normally. Managing dependencies is crucial as it prevents deployment failures, service disruptions, or data inconsistencies caused by incorrect sequencing, serving as a core component in ensuring stable deployments of microservices architectures.\n\nThe core approach involves explicitly declaring dependencies and their readiness conditions. In Kubernetes, `Init Containers` are used to implement sequential startup (e.g., checking database availability). `Liveness` and `Readiness Probes` detect whether the application itself is healthy and if its dependent resources (such as database connections) are ready. Service meshes (e.g., Istio) provide more granular traffic control and circuit-breaking mechanisms to handle runtime dependency issues. Additionally, a clear deployment sequence diagram should be defined.\n\nImplementation steps: 1. Identify the dependency topology: Clarify the service startup dependency order and critical dependencies (databases, message queues, etc.). 2. Configure health checks: Implement strict `Readiness Probes` for target dependent services. 3. Use `Init Containers`: Run scripts before the main application container starts to verify the reachability of dependent services (e.g., using `curl` to probe APIs or database ports). 4. Apply deployment orchestration: Explicitly define and apply deployment sequence strategies in CI/CD pipelines or GitOps tools (e.g., ArgoCD). This significantly improves deployment reliability and overall system robustness."
+}

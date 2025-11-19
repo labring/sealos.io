@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement data archiving in cloud-native environments?",
+  "description": "In a cloud-native environment, data archiving is the process of migrating infrequently accessed but long-term retained data (such as old logs, audit records, or backup snapshots) from high-performance",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Cloud Operating System",
+    "Cluster Management",
+    "Cloud Platform",
+    "Sealos",
+    "Lakehouse"
+  ],
+  "content": "In a cloud-native environment, data archiving is the process of migrating infrequently accessed but long-term retained data (such as old logs, audit records, or backup snapshots) from high-performance primary storage to low-cost, high-durability object storage. This is crucial for meeting compliance requirements, optimizing storage costs, and managing the data lifecycle, applicable to scenarios like log retention and application historical data management.\n\nCore components include: policy-based automation tools (e.g., K8s Operator), S3 protocol-compatible object storage (e.g., AWS S3 Glacier, MinIO), data classification engines, and lifecycle management APIs. Features include declarative policy definitions (via CRD), decoupling from applications, and leveraging cloud storage tiering capabilities (hot/cold/archive tiers). The Operator monitors application status and data access patterns, automatically triggering archiving jobs to ensure the process does not impact application performance.\n\nImplementation steps: First, define archiving policies (such as data retention periods and target buckets) using K8s Custom Resources (CRD). Second, deploy the data archiving Operator to the cluster, which listens for policy changes and application data. Third, configure object storage connections and tiering rules (e.g., transition to archive tier after 30 days). Finally, verify the execution status of archiving tasks and changes in storage costs through K8s native tools (e.g., Prometheus metrics). This enables automated compliance management and significant cost savings."
+}

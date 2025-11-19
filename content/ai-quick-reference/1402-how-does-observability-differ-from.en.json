@@ -1,0 +1,13 @@
+{
+  "title": "How does observability differ from monitoring in cloud-native systems?",
+  "description": "In cloud-native systems, monitoring focuses on the collection and alerting of predefined metrics and logs to verify if the system is operating as expected and detect known issues, which is crucial for",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Cloud Operating System",
+    "High Availability (HA)",
+    "Sealos",
+    "Application Deployment",
+    "Open-Source Cloud"
+  ],
+  "content": "In cloud-native systems, monitoring focuses on the collection and alerting of predefined metrics and logs to verify if the system is operating as expected and detect known issues, which is crucial for ensuring application availability and performance. Observability, on the other hand, is broader and refers to the ability to understand any internal state and unknown issues of complex systems by collecting logs, metrics, distributed traces, and link data, combined with powerful correlation and exploration capabilities. It is the key to addressing the complexity of dynamic, distributed cloud-native environments.\n\nThe core of monitoring is setting preset metric thresholds and alert rules to passively detect failures. The core of observability lies in its three pillars: logs (event records), metrics (numerical performance data), and traces (request flow path visualization). Its key features include supporting flexible ad-hoc data exploration, high-cardinality dimension queries, and enabling unified data collection through standards like OpenTelemetry. This allows teams to proactively diagnose performance bottlenecks, understand service dependencies, and troubleshoot root causes.\n\nThe main value of monitoring is basic运维保障: ensuring SLO goals are met and quickly responding to failure alerts. Observability enhances R&D and运维 efficiency: empowering teams to conduct efficient root cause analysis, optimize performance, verify architectural changes, and promote system resilience building. Achieving observability requires deploying collectors compatible with the three pillars (such as Prometheus+Loki+Tempo/Jaeger), establishing data correlation storage and visualization tools (such as Grafana), and ensuring the application layer generates standardized context data."
+}

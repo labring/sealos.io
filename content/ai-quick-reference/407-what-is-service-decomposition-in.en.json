@@ -1,0 +1,13 @@
+{
+  "title": "What is service decomposition in microservices architecture?",
+  "description": "Service decomposition in microservices architecture is the core process of splitting a monolithic application into small, independent, and single-responsibility services. Its importance lies in enhanc",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Cloud Platform",
+    "Lakehouse",
+    "Private Cloud",
+    "Data Center (DC)",
+    "Kubernetes (K8s)"
+  ],
+  "content": "Service decomposition in microservices architecture is the core process of splitting a monolithic application into small, independent, and single-responsibility services. Its importance lies in enhancing system scalability, maintainability, and deployment flexibility, and it is widely used in cloud-native scenarios such as building complex e-commerce or financial systems.\n\nThe core of service decomposition is to divide microservice boundaries based on business capabilities, characterized by loose coupling, independent deployment, and API interaction, often following domain-driven design principles. In practical applications, teams can develop modules in parallel, such as user management or payment services, significantly improving development efficiency and fault isolation capabilities, thereby optimizing resource usage and accelerating innovation.\n\nThe application value of service decomposition lies in supporting containerization and Kubernetes orchestration, enabling elastic scaling and rapid iteration. It can reduce system coupling, promote continuous deployment, improve business response speed, and reduce maintenance costs."
+}

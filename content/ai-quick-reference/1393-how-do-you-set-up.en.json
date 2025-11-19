@@ -1,0 +1,13 @@
+{
+  "title": "How do you set up CI/CD for cross-platform applications?",
+  "description": "CI/CD (Continuous Integration and Continuous Delivery/Deployment) is a process that automates software building, testing, and deployment. It is suitable for cross-platform applications (such as apps d",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Open-Source Cloud",
+    "DevOps",
+    "Cloud Operating System",
+    "Cluster Management",
+    "Data Center (DC)"
+  ],
+  "content": "CI/CD (Continuous Integration and Continuous Delivery/Deployment) is a process that automates software building, testing, and deployment. It is suitable for cross-platform applications (such as apps developed using React Native or Flutter) and is crucial for ensuring multi-platform compatibility, accelerating iterations, and improving release efficiency. It is often used in mobile development scenarios to quickly respond to market demands.\n\nThe core components include version control systems (e.g., Git), CI/CD tools (e.g., GitHub Actions or Jenkins), multi-platform build tools (e.g., Xcode or Gradle), and testing frameworks; features include automation scripts, parallel processing, and rollback mechanisms. In practical applications, through automated test suites and cross-environment verification, CI/CD enables simultaneous deployment on platforms such as iOS and Android, significantly reducing error rates and enhancing team collaboration efficiency.\n\nThe implementation steps are as follows: first, select CI/CD tools and hosting repositories; then configure multi-branch pipelines and write platform-specific build scripts; integrate unit and UI tests; and finally automate deployment to the App Store or Play Store. The business value lies in shortening the delivery cycle by more than 50%, reducing labor costs, and providing a consistent user experience, with typical scenarios such as application hotfixes or new feature launches."
+}

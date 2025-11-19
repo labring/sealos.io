@@ -1,0 +1,13 @@
+{
+  "title": "How do you set up distributed tracing for an application deployed across multiple cloud environments?",
+  "description": "Distributed tracing is a monitoring technique used to record the flow path of requests in distributed systems. It is particularly important in applications deployed across multiple cloud environments",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "High Performance",
+    "IT Infrastructure",
+    "Cluster Management",
+    "Cloud Platform",
+    "Application Deployment"
+  ],
+  "content": "Distributed tracing is a monitoring technique used to record the flow path of requests in distributed systems. It is particularly important in applications deployed across multiple cloud environments, as it enables cross-platform identification of latency and fault points. It is suitable for multi-cloud architectures, microservices, and serverless applications to enhance application reliability and performance diagnostic capabilities.\n\nCore components include trace IDs, spans (representing individual operations), and context propagation mechanisms. Based on standardized frameworks such as OpenTelemetry, it achieves end-to-end link tracing through data collection, storage, and visualization. Practical applications simplify the debugging process across cloud services, significantly reducing troubleshooting time, enhancing overall observability, thereby optimizing operational efficiency and resource utilization.\n\nImplementation steps include: first, selecting distributed tracing tools such as Jaeger or Zipkin; second, integrating SDKs (such as OpenTelemetry) into applications and configuring trace data export; then, deploying tracing servers to the cloud environment to ensure context propagation across networks; finally, verifying data relevance and visualization. Typical scenarios include Kubernetes clusters across AWS and Azure clouds. Its business value lies in accelerating fault localization, improving application resilience, supporting scalable DevOps practices, and reducing operational costs."
+}

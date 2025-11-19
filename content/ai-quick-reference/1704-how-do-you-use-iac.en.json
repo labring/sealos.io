@@ -1,0 +1,13 @@
+{
+  "title": "How do you use IaC to provision and configure container registries?",
+  "description": "Infrastructure as Code (IaC) automates the creation and management of container registries (such as Docker Hub, Harbor) through declarative configuration scripts, ensuring infrastructure consistency, ",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Application Deployment",
+    "Cluster Management",
+    "Data Center (DC)",
+    "Cloud Platform",
+    "Private Cloud"
+  ],
+  "content": "Infrastructure as Code (IaC) automates the creation and management of container registries (such as Docker Hub, Harbor) through declarative configuration scripts, ensuring infrastructure consistency, version control, and reproducibility. It is crucial in DevOps processes, cloud-native application deployment, and large-scale container management.\n\nThe core involves using IaC tools (e.g., Terraform, AWS CloudFormation) to define registry resources: repositories, access policies, image cleanup rules, and network configurations. Key features include automated provisioning, configuration drift detection, and compliance management. Practical applications enable standardized registry deployment across environments (development/production), significantly enhancing security and simplifying auditing.\n\nImplementation steps: 1) Select an IaC tool and configure authentication; 2) Write modular scripts to define registry parameters (e.g., AWS ECR lifecycle policies); 3) Execute `terraform apply` or equivalent commands to deploy changes; 4) Integrate CI/CD for continuous updates. Typical business values include accelerating application iteration, reducing operational risks, and optimizing costs."
+}

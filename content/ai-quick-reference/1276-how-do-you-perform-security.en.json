@@ -1,0 +1,13 @@
+{
+  "title": "How do you perform security testing during the CI/CD process?",
+  "description": "Performing security testing in the CI/CD process refers to the critical practice of automating the scanning of application code and infrastructure in the continuous integration and delivery pipeline t",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "IT Infrastructure",
+    "Cloud-Native",
+    "Cloud Platform",
+    "Cluster Management",
+    "One-Click Deployment"
+  ],
+  "content": "Performing security testing in the CI/CD process refers to the critical practice of automating the scanning of application code and infrastructure in the continuous integration and delivery pipeline to detect potential security vulnerabilities, known as DevSecOps. This practice is crucial because it shifts security left, ensuring that risks are identified and fixed early in the development process, which is suitable for modern agile development scenarios such as accelerated software delivery and increased compliance requirements.\n\nThe core of this process includes integrating security tools such as Static Application Security Testing (SAST), Dynamic Application Security Testing (DAST), Software Composition Analysis (SCA), and container scanning. The principle is to conduct phased automated scanning, for example, SAST analyzes source code during the build phase, and DAST tests running applications after deployment. In practical applications, tools like SonarQube or Snyk can expose vulnerabilities such as SQL injection in advance, significantly affecting repair costs and risk reduction.\n\nImplementation steps: First, select tools and add scanning tasks to the CI/CD configuration file (such as Jenkins or GitLab CI); second, set policies, such as automatically failing the pipeline when high-risk vulnerabilities are detected; finally, review reports and iterate. A typical scenario is integrating scanning during the build or testing phase. Business values include improving product security quality, accelerating compliance reviews, and reducing the risk of security incidents."
+}

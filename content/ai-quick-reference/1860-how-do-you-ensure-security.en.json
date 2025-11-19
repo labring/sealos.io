@@ -1,0 +1,13 @@
+{
+  "title": "How do you ensure security in a multi-cloud environment for cloud-native applications?",
+  "description": "First paragraph: Ensuring the security of cloud-native applications in a multi-cloud environment requires addressing challenges such as unified management and control, dynamic workloads, and cross-clo",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Cloud Platform",
+    "Lakehouse",
+    "High Availability (HA)",
+    "Cluster Management",
+    "Cloud Operating System"
+  ],
+  "content": "First paragraph: Ensuring the security of cloud-native applications in a multi-cloud environment requires addressing challenges such as unified management and control, dynamic workloads, and cross-cloud compliance. The importance lies in avoiding fragmentation of security policies, ensuring the security of sensitive data flow, and supporting resilient migration of businesses across multiple clouds. Core scenarios include distributed microservice architectures, containerized deployments, and Serverless applications.\n\nSecond paragraph: Core measures include: 1) Unified identity governance (e.g., implementing service identity federation with SPIFFE/SPIRE); 2) Zero-trust network policies (implementing micro-segmentation through service meshes like Istio); 3) CI/CD pipeline security (image scanning, policy-as-code such as OPA); 4) Centralized key management (e.g., HashiCorp Vault). It is necessary to utilize CNAPP (Cloud-Native Application Protection Platform) to achieve runtime threat detection, compliance auditing, and implement an end-to-end DevSecOps process.\n\nThird paragraph: Implementation steps: 1) Scanning for vulnerabilities in Infrastructure as Code (IaC); 2) Deploying service identity federation and automated certificate distribution; 3) Defining and enforcing unified cross-cloud network policies; 4) Deploying adaptive security agents (e.g., eBPF probes) at runtime; 5) Real-time log aggregation and analysis. Business value: Reducing vendor lock-in risk by over 30%, unifying compliance views to reduce audit costs, and shortening the average security incident response time by 50%."
+}

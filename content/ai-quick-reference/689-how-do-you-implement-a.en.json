@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement a data retention policy in cloud-native environments?",
+  "description": "A data retention policy defines the duration for which data is stored and the rules for its deletion, ensuring compliance, privacy protection, and cost optimization in cloud-native environments. Its i",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Cloud Operating System",
+    "Cluster Management",
+    "Private Cloud",
+    "Open-Source Cloud",
+    "Kubernetes (K8s)"
+  ],
+  "content": "A data retention policy defines the duration for which data is stored and the rules for its deletion, ensuring compliance, privacy protection, and cost optimization in cloud-native environments. Its importance lies in meeting regulatory requirements such as GDPR and applying to data governance scenarios in industries like finance and healthcare, preventing data redundancy and legal risks.\n\nThe core components include policy definition (such as classifying data and setting retention periods) and automation tools (such as Kubernetes CSI or object storage lifecycle policies). The principle is based on policy-driven automated management, characterized by elastic scalability. In practical applications, it manages logs or backups through microservices and containers, improving efficiency and reducing storage costs by up to 30%.\n\nImplementation steps: 1. Define policies (such as time benchmarks and classification); 2. Tool integration (Kubernetes plugins or cloud-native storage solutions); 3. Automated monitoring and auditing. Typical scenarios include log rotation, and business values include ensuring regulatory compliance and resource optimization, simplifying operations and enhancing data security."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement logging and tracing for cloud-native applications?",
+  "description": "Logging and tracing of cloud-native applications are key to achieving comprehensive observability, used to monitor the performance and reliability of distributed systems. These technologies are crucia",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "DevOps",
+    "High Performance",
+    "Open-Source Cloud",
+    "High Availability (HA)",
+    "Containerization"
+  ],
+  "content": "Logging and tracing of cloud-native applications are key to achieving comprehensive observability, used to monitor the performance and reliability of distributed systems. These technologies are crucial in containerized environments such as Kubernetes, supporting rapid fault diagnosis, compliance auditing, and performance optimization, suitable for high-concurrency scenarios like e-commerce and finance.\n\nCore components include log collectors (e.g., Fluentd) responsible for aggregating structured logs, distributed tracing tools (e.g., Jaeger or OpenTelemetry) for tracking request links, and storage (e.g., Elasticsearch) for providing query functions. These tools follow standardized protocols to correlate log and tracing data, thereby simplifying root cause analysis of faults and improving cross-service monitoring efficiency.\n\nImplementation steps: First, define the application to output JSON format logs; second, deploy DaemonSet collectors in Kubernetes; then integrate tracing services to inject IDs; finally configure visualization dashboards (e.g., Grafana). Typical scenarios such as microservice monitoring can reduce MTTR, enhance user satisfaction, and optimize resource utilization."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you automate the deployment of machine learning models?",
+  "description": "Automated deployment refers to the use of tools and processes to automatically transfer machine learning models from the development environment to the production environment, ensuring fast and reliab",
+  "category": "Automated Deployment",
+  "keywords": [
+    "Cloud Operating System",
+    "One-Click Deployment",
+    "Lakehouse",
+    "High Availability (HA)",
+    "Cloud Platform"
+  ],
+  "content": "Automated deployment refers to the use of tools and processes to automatically transfer machine learning models from the development environment to the production environment, ensuring fast and reliable version updates and rollbacks. It is crucial in MLOps (Machine Learning Operations) and applicable to cloud-native environments such as Kubernetes clusters, reducing human errors, accelerating model iterations, and supporting real-time A/B testing and elastic scaling scenarios.\n\nCore components include model version control systems (e.g., Git), containerization tools (e.g., Docker), orchestration engines (e.g., Kubernetes), and CI/CD pipelines (e.g., Jenkins or GitHub Actions). Its principle is based on event-driven automatic triggering of builds and tests, with features including seamless rollback, monitoring integration, and scalable infrastructure. In practical applications, cloud-native MLOps has improved deployment efficiency by 90%, reduced operational costs, and promoted agile delivery of AI services.\n\nImplementation steps are as follows: first, store models and configurations in the code repository; second, containerize the model using Docker to ensure environment consistency; then build a CI/CD pipeline for automated testing and building; finally, deploy and monitor through Kubernetes or cloud services (e.g., AWS SageMaker). A typical scenario is the deployment of online recommendation systems, with business value lying in accelerating release cycles, enhancing reliability, and achieving continuous value output."
+}

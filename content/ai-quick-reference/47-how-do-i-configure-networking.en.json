@@ -1,0 +1,13 @@
+{
+  "title": "How do I configure networking for a cloud-native development environment?",
+  "description": "Network configuration in cloud-native development environments ensures inter-service isolation, observability, and cross-environment consistency, which is crucial for scenarios such as microservice de",
+  "category": "Cloud-Native Development Environments",
+  "keywords": [
+    "Cluster Management",
+    "Kubernetes (K8s)",
+    "High Availability (HA)",
+    "DevOps",
+    "Data Center (DC)"
+  ],
+  "content": "Network configuration in cloud-native development environments ensures inter-service isolation, observability, and cross-environment consistency, which is crucial for scenarios such as microservice debugging and hybrid local-to-cluster development. Its core lies in implementing communication governance and security control through Kubernetes network models (e.g., CNI plugins), service discovery mechanisms (e.g., DNS), and network policies.\n\nCore components include: CNI plugins (such as Calico or Flannel) that provide Overlay networks between Pods, Ingress Controllers (such as Nginx) that manage external traffic, and Services that implement load balancing. Development scenarios require attention to local-cluster hybrid connectivity (e.g., using `kubectl port-forward` or telepresence) and zero-trust security (NetworkPolicy for namespace isolation).\n\nImplementation steps: 1) Select and deploy a CNI plugin; 2) Configure development namespaces and NetworkPolicy; 3) Deploy an Ingress controller to expose development services; 4) Connect local environments to cluster services via port forwarding or VPN. Business values include improved development efficiency (rapid debugging), reduced environment discrepancy risks, and enhanced security baselines."
+}

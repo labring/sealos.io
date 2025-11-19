@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle multiple environments for cloud-native applications (dev, staging, prod)?",
+  "description": "Cloud-native applications adopt containerization and orchestration technologies to manage environments such as development, testing, and production, supporting agile development, testing security, and",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Open-Source Cloud",
+    "Cloud Operating System",
+    "Data Center (DC)",
+    "IT Infrastructure",
+    "Kubernetes (K8s)"
+  ],
+  "content": "Cloud-native applications adopt containerization and orchestration technologies to manage environments such as development, testing, and production, supporting agile development, testing security, and high production availability. Their importance lies in ensuring consistency, isolating risks, and automating CI/CD processes, with application scenarios including accelerating software iteration and reducing deployment errors.\n\nCore components include environment isolation (such as Kubernetes namespaces or independent clusters), configuration management (using Helm, Kustomize, or external storage like Vault), and automated CI/CD pipelines (integrating Jenkins or GitLab CI). Resources are deployed through Infrastructure as Code (such as Terraform), and practical applications ensure that the testing environment simulates production configurations, reducing release risks and improving system scalability.\n\nImplementation steps: Define environment variables and configuration files; automate CI/CD deployment processes in stages to different environments; isolate resource access and monitoring. Typical scenarios range from rapid testing in development to highly reliable deployment in production. Business value: Accelerate time-to-market cycles, enhance stability, and optimize operational costs."
+}

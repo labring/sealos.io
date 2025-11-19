@@ -1,0 +1,13 @@
+{
+  "title": "What is the role of network segmentation in cloud-native security?",
+  "description": "Network segmentation refers to isolating workloads into different logical network domains in a cloud-native environment to restrict communication traffic. It is crucial because it significantly reduce",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Cloud-Native",
+    "Cloud Operating System",
+    "High Availability (HA)",
+    "One-Click Deployment",
+    "Application Deployment"
+  ],
+  "content": "Network segmentation refers to isolating workloads into different logical network domains in a cloud-native environment to restrict communication traffic. It is crucial because it significantly reduces the attack surface, prevents threats (such as compromised microservices or containers) from moving laterally within the cluster, and is applicable for protecting sensitive data, meeting compliance requirements, and implementing defense-in-depth strategies.\n\nThe core of network segmentation is policy-driven micro-segmentation. Typically implemented in Kubernetes through the `NetworkPolicy` resource, it defines \"\"allow\"\" or \"\"deny\"\" rules (default deny) based on Pod labels, namespaces, and ports. Unlike traditional network layer security, it can control east-west traffic at a more granular application layer (service/Pod level), and its principle is to enforce the least privilege principle. This directly affects the cluster security posture, as even if a single node is compromised, the scope of damage can be effectively limited.\n\nIts core value lies in minimizing the blast radius and enhancing compliance. By isolating application components into trust domains (e.g., separate segments for frontend, backend, and database), unauthorized access and data leakage can be prevented. Even if a single service is compromised, attackers cannot scan or attack resources in other segments. This directly strengthens application resilience, protects critical assets, and is a fundamental component for implementing a zero-trust architecture and meeting strict security audit requirements."
+}

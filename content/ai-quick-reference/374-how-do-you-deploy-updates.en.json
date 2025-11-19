@@ -1,0 +1,13 @@
+{
+  "title": "How do you deploy updates to a live environment with minimal downtime?",
+  "description": "Minimizing downtime when updating applications in a production environment is crucial as it reduces business interruptions, ensures high service availability, and prevents revenue loss and customer ch",
+  "category": "Automated Deployment",
+  "keywords": [
+    "Lakehouse",
+    "Cloud Platform",
+    "Application Deployment",
+    "Open-Source Cloud",
+    "Kubernetes (K8s)"
+  ],
+  "content": "Minimizing downtime when updating applications in a production environment is crucial as it reduces business interruptions, ensures high service availability, and prevents revenue loss and customer churn. Application scenarios include critical systems requiring 24/7 availability such as e-commerce and financial services.\n\nCore strategies include blue-green deployment (running old and new versions in parallel), canary release (testing with partial traffic), and rolling updates (gradually replacing instances). They utilize load balancers to automatically switch traffic, combined with automated testing and monitoring to detect issues. In practice, Kubernetes' Deployment resource implements rolling updates, enhancing deployment security, system stability, and reducing risks.\n\nImplementation steps: 1. Adopt blue-green deployment or rolling update; 2. Deploy the new version to an independent environment or gradually replace instances; 3. Switch traffic and monitor after verification. A typical scenario is CI/CD pipelines. Business values include minimizing downtime losses, maintaining user experience, and ensuring high availability."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you use observability data to drive improvements in cloud-native applications?",
+  "description": "Observability is the ability to gain deep insight into the internal state and behavior of a system through data such as metrics, logs, and traces. In cloud-native (microservices, containerized) enviro",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Containerization",
+    "Cluster Management",
+    "Kubernetes (K8s)",
+    "Cloud-Native",
+    "Application Deployment"
+  ],
+  "content": "Observability is the ability to gain deep insight into the internal state and behavior of a system through data such as metrics, logs, and traces. In cloud-native (microservices, containerized) environments, applications are highly dynamic and complex, making observability crucial for ensuring stability, optimizing performance, and enabling rapid troubleshooting.\n\nIts core lies in collecting, correlating, and analyzing the three pillars of data: metrics (resource usage, performance), logs (event records), and distributed traces (end-to-end request views). Attention should be paid to application performance metrics, error rates, and SLOs. Through real-time dashboards, alerts, and AIOps-driven root cause analysis, performance bottlenecks, error patterns, and abnormal resource configuration issues can be identified.\n\nFirst, standardize the collection of full-stack observability data (using Prometheus, Loki, Jaeger/OpenTelemetry, etc.). Establish continuous monitoring of SLI/SLOs for business health. Utilize real-time dashboards and alerts to quickly respond to anomalies. Conduct in-depth data analysis to locate the root causes of bottlenecks (e.g., slow queries, resource contention), evaluate the impact of service dependencies, and guide capacity planning and configuration optimization (such as K8s resource limits). Drive code optimization, architectural improvements, and resource efficiency through a feedback loop to shorten MTTR and ensure user experience and business continuity."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you secure containerized applications in Kubernetes?",
+  "description": "Securing containerized applications in Kubernetes requires a layered security strategy. This is crucial to prevent unauthorized access, data breaches, and service disruptions, especially for sensitive",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Lakehouse",
+    "Cluster Management",
+    "Cloud-Native",
+    "Containerization",
+    "Data Center (DC)"
+  ],
+  "content": "Securing containerized applications in Kubernetes requires a layered security strategy. This is crucial to prevent unauthorized access, data breaches, and service disruptions, especially for sensitive or multi-tenant workloads running in shared, dynamic clusters. Core protection dimensions include authentication and authorization, network isolation, key protection, runtime security, and configuration management.\n\nCore protection mechanisms include: Authentication and authorization (e.g., RBAC, admission controllers, Pod Security Standards (PSA) to limit permissions); Network policies (NetworkPolicy to restrict Pod communication); Key management (Secret objects to avoid hardcoding, combined with external Vault or etcd encryption); Secure images (using only images scanned from trusted sources, enabling image signing); Runtime security (Pod SecurityContext to limit permissions, using tools like Falco to monitor anomalies). PSA enforces baseline or restricted policies, and isolation is a key strategy.\n\nImplementation steps: 1) Configure least privilege: Enable RBAC and PSA, strictly limit user/service account/Pod permissions; 2) Build network boundaries: Clearly define NetworkPolicy; 3) Securely handle sensitive data: Use Secret, encrypt etcd/integrate key management; 4) Ensure image security: Scan images in CI/CD, enable signature verification; 5) Harden runtime: Set Pod `securityContext`; 6) Audit and monitoring: Enable K8s audit logs and integrate security monitoring tools. This process significantly reduces the risk of data breaches and attack surfaces."
+}

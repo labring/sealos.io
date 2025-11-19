@@ -1,0 +1,13 @@
+{
+  "title": "What is the role of object storage in cloud-based data management?",
+  "description": "Object storage is a cloud service for managing unstructured data such as images, videos, logs, and backups. Data is packaged into \"objects\" with metadata and unique identifiers, replacing traditional ",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "High Performance",
+    "DevOps",
+    "Kubernetes (K8s)",
+    "High Availability (HA)",
+    "IT Infrastructure"
+  ],
+  "content": "Object storage is a cloud service for managing unstructured data such as images, videos, logs, and backups. Data is packaged into \"\"objects\"\" with metadata and unique identifiers, replacing traditional file paths. Its core value lies in providing nearly unlimited scalability, high durability (typically 11 nines), high availability, and policy-based automated data lifecycle management, meeting the needs of scenarios such as big data, backup and archiving, and content distribution.\n\nIts architecture is based on a flat namespace (storage buckets/buckets) rather than a file system hierarchy. Data objects include the data itself, extensible metadata (for custom tags and classification), and globally unique identifiers. Access is achieved through RESTful APIs (such as S3), supporting HTTP/HTTPS protocols for easy application integration. The distributed nature of object storage makes it an ideal storage foundation for Hadoop analytics, containers (such as K8s persistent volumes), static website hosting, and multimedia services, and is also a key component of disaster recovery strategies.\n\nIn cloud data management, object storage provides a highly cost-effective scalable storage solution. Its functions include: centralized storage and access of unstructured and semi-structured data; automatic optimization of storage costs through intelligent tiering (hot, cold, archive tiers); realization of business continuity and low-latency access using built-in cross-region replication; ensuring data security and compliance through immutable object locks and fine-grained access control; and providing a unified data lake foundation for data analytics and AI/ML training."
+}

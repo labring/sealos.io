@@ -1,0 +1,13 @@
+{
+  "title": "What is the role of continuous monitoring in automated deployment?",
+  "description": "Continuous monitoring is an analytical process that automatically observes the operational status of a system in real time. In automated deployment, it ensures the stability of applications after depl",
+  "category": "Automated Deployment",
+  "keywords": [
+    "High Performance",
+    "Kubernetes (K8s)",
+    "Open-Source Cloud",
+    "Data Center (DC)",
+    "Private Cloud"
+  ],
+  "content": "Continuous monitoring is an analytical process that automatically observes the operational status of a system in real time. In automated deployment, it ensures the stability of applications after deployment, identifies failure risks, and improves release quality and reliability. It is commonly used in cloud-native environments such as Kubernetes application deployment.\n\nCore components include metric collection, log aggregation, and alert mechanisms, such as using Prometheus to collect performance data. It is characterized by real-time performance and comprehensive coverage, and its principle is to reduce human intervention through automated tools. In practical applications, it is integrated into CI/CD processes to help quickly feedback and roll back issues, significantly reducing deployment failure rates and operational costs.\n\nIts application is to automatically detect deployment anomalies and provide immediate alerts, and its value lies in shortening the Mean Time to Recovery (MTTR), ensuring high system availability, and supporting business continuity."
+}

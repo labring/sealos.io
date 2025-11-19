@@ -1,0 +1,13 @@
+{
+  "title": "How do you monitor network traffic between containers in cloud-native applications?",
+  "description": "In cloud-native environments, inter-container network traffic monitoring refers to the real-time tracking of data flows in microservice communications to ensure observability. Its importance lies in g",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Cloud Platform",
+    "Cloud Operating System",
+    "Sealos",
+    "DevOps",
+    "Cloud-Native"
+  ],
+  "content": "In cloud-native environments, inter-container network traffic monitoring refers to the real-time tracking of data flows in microservice communications to ensure observability. Its importance lies in guaranteeing service reliability, security, and performance optimization, and it is particularly applicable to scenarios such as fault diagnosis, security auditing, and SLA compliance verification in microservice architectures.\n\nThe core implementation relies on network metric collectors (such as Sidecar proxies or eBPF probes), key metrics (latency, throughput, error rate, and TCP retransmissions), and integration with observability toolchains. For example, traffic is collected via Istio or Linkerd, stored in Prometheus, and Grafana is used to visualize link topologies. In practical applications, it can quickly locate communication bottlenecks between services, identify abnormal calls (such as high-frequency error requests), and significantly improve system stability.\n\nTypical steps: 1. Deploy a lightweight data plane (such as Envoy proxy) to capture container traffic; 2. Associate monitoring tools (Prometheus + Jaeger for metrics and tracing); 3. Configure alarm rules (such as Kiali threshold alarms). The business values supported by this process include: shortening mean time to repair (MTTR reduced by 50%+), optimizing resource utilization, and meeting audit requirements such as GDPR."
+}

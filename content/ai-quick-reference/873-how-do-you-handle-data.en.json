@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle data retention and deletion for cloud-native applications?",
+  "description": "Data retention and deletion for cloud-native applications involve the strategic management of data generated, stored, and used throughout its entire lifecycle. This is crucial for meeting regulatory c",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Open-Source Cloud",
+    "IT Infrastructure",
+    "Data Center (DC)",
+    "Sealos",
+    "Cloud Platform"
+  ],
+  "content": "Data retention and deletion for cloud-native applications involve the strategic management of data generated, stored, and used throughout its entire lifecycle. This is crucial for meeting regulatory compliance (such as GDPR, CCPA), controlling storage costs, protecting user privacy, and maintaining system efficiency.\n\nThe core lies in defining rule-based lifecycle policies, typically implemented through declarative APIs for automation. Key components include data classification (sensitivity levels), retention time windows (time-based or event-based), and final deletion requirements. Technical implementation relies on object storage lifecycle policies, Kubernetes VolumeSnapshotContent retention policies, scheduled tasks (CronJob) to trigger cleanup scripts, or integration with professional data management platforms. All operations should have audit trail capabilities.\n\nProcessing steps include: 1. Policy definition: Based on compliance requirements and application logic (e.g., logs, user data, backups), clearly define data classifications and their corresponding retention periods and deletion trigger conditions. 2. Automated implementation: Use cloud service lifecycle policies (e.g., AWS S3 Lifecycle), Operators, or custom controllers to monitor events (e.g., X days after order completion) and automatically perform archiving, expiration marking, or deletion actions. 3. Verification and auditing: Regularly check policy execution and ensure actual deletion occurs through logs, events, and tools, retaining audit records to prove compliant operations. This process ensures data sovereignty, reduces non-compliance risks, and lowers storage costs."
+}

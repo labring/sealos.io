@@ -1,0 +1,13 @@
+{
+  "title": "How do you implement logging and auditing for cloud-native security?",
+  "description": "Implementing logging and auditing in cloud-native environments is a critical practice for ensuring application security and compliance with regulatory requirements. Its core lies in capturing, central",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Containerization",
+    "Cloud Operating System",
+    "Application Deployment",
+    "Private Cloud",
+    "Lakehouse"
+  ],
+  "content": "Implementing logging and auditing in cloud-native environments is a critical practice for ensuring application security and compliance with regulatory requirements. Its core lies in capturing, centrally storing, and analyzing all operational logs and security events from containers, orchestration platforms (such as Kubernetes), microservices, and their underlying infrastructure, which are used for threat detection, incident response, and regulatory compliance.\n\nImplementation includes key components: 1. Standardized log output: Applications and container runtimes output structured JSON logs. 2. Log collection agents: Deploy agents like Fluentd, Fluent Bit, or Filebeat on nodes or in sidecar containers to collect and forward logs. 3. Centralized logging platform: Use ELK Stack (Elasticsearch, Logstash, Kibana), Loki, or commercial solutions to aggregate, store, and index logs. 4. Kubernetes audit logs: Enable and finely configure Kube API Server audit logs to record all API requests (especially sensitive operations). 5. Network policy logs: Record the enforcement of network policies. 6. Security monitoring and alerting: Set up rules on the logging platform to detect abnormal activities in real-time and trigger alerts. Supplementary monitoring metrics (Prometheus) enhance visibility.\n\nPractical operational steps: 1. Policy definition: Clearly define the audit scope (cluster management, Pod lifecycle, network, key access, etc.) and log retention policies. 2. Infrastructure configuration: Enable K8s audit policies at the cluster level and forward logs to the logging platform; deploy log collector DaemonSets/Sidecars. 3. Application integration: Enforce standardized application log output to stdout/stderr or specific files. 4. Pipeline establishment: Configure the process of log collection -> filtering -> transmission -> storage. 5. Audit and analysis: Create dashboards on the centralized platform, predefined security queries (such as abnormal logins, privilege escalation), and set up automated alerts. Core business values: Achieve real-time threat detection, accelerate incident investigation, ensure continuous compliance with requirements such as GDPR and PCI DSS, and enhance the overall security posture."
+}

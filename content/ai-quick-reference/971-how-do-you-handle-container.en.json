@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle container vulnerabilities in cloud-native applications?",
+  "description": "Container vulnerabilities are significant risks in cloud-native applications, referring to security weaknesses in container images or runtimes that may lead to data breaches, service disruptions, or u",
+  "category": "Security and Permission Management",
+  "keywords": [
+    "Data Center (DC)",
+    "High Availability (HA)",
+    "Sealos",
+    "Cluster Management",
+    "Containerization"
+  ],
+  "content": "Container vulnerabilities are significant risks in cloud-native applications, referring to security weaknesses in container images or runtimes that may lead to data breaches, service disruptions, or unauthorized access. Their importance stems from the dynamic nature of cloud-native environments, frequent interactions between microservices, and the shared kernel characteristic, requiring proactive vulnerability management throughout the entire lifecycle to ensure application security.\n\nHandling them requires covering the entire lifecycle. Build phase: Use trusted base images and minimize dependencies, integrate image scanning tools (such as Trivy, Clair) into CI/CD pipelines to automatically detect known vulnerabilities (CVE). Deployment phase: Enforce cluster-wide policies to only allow deployment of images that pass scanning and meet security baselines (using admission controllers like Kyverno/OPA). Runtime phase: Enable container runtime security tools (such as Falco) to monitor abnormal behaviors; apply Pod security standards to restrict permissions (e.g., Kubernetes Pod Security Admission); use network policies to isolate microservices.\n\nImplementation steps: 1) Integrate automated image scanning into CI/CD and block builds containing high-risk vulnerabilities. 2) Deploy cluster-level image scanners to periodically detect running containers. 3) Configure Kubernetes security controls: implement PSP or updated PSA, network policies, Seccomp/AppArmor profiles. 4) Deploy runtime threat detection tools and set up alerts. The value lies in significantly reducing the attack surface, quickly responding to 0day vulnerabilities (e.g., timely updating base images), improving compliance, and reducing losses from security incidents."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage transactional data across microservices in cloud-native environments?",
+  "description": "Transactional data refers to business operation data that requires atomicity and consistency. In cloud-native environments, cross-microservice management is crucial to avoid inconsistencies in distrib",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "Cluster Management",
+    "Containerization",
+    "Cloud-Native",
+    "Sealos",
+    "Application Deployment"
+  ],
+  "content": "Transactional data refers to business operation data that requires atomicity and consistency. In cloud-native environments, cross-microservice management is crucial to avoid inconsistencies in distributed systems. Its importance lies in ensuring business reliability; application scenarios include e-commerce order processing and payment systems.\n\nThe core components include distributed transaction patterns such as Saga, which achieves eventual consistency through event sourcing and compensation mechanisms. Features involve service decoupling and asynchronous communication. In practical applications, it enhances scalability and resilience, such as triggering rollbacks after inventory deduction failures, supporting high-performance data processing.\n\nImplementation steps: Define transaction boundaries, integrate orchestration tools like Temporal or message queues; design compensation logic, such as service degradation. Typical scenarios include transaction failure recovery. Business value provides high availability, reduces fault impact, and supports rapid iteration."
+}

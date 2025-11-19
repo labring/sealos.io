@@ -1,0 +1,13 @@
+{
+  "title": "How do you integrate monitoring and observability tools into cloud-native applications?",
+  "description": "First paragraph: Monitoring focuses on preset metrics and alerts, while observability provides an in-depth understanding of the internal state of the system through data such as logs, metrics, and tra",
+  "category": "Cloud-Native Application Development",
+  "keywords": [
+    "Data Center (DC)",
+    "IT Infrastructure",
+    "Cloud-Native",
+    "Private Cloud",
+    "Sealos"
+  ],
+  "content": "First paragraph:\n\nMonitoring focuses on preset metrics and alerts, while observability provides an in-depth understanding of the internal state of the system through data such as logs, metrics, and trace tracking. In dynamic, distributed cloud-native applications (such as microservices and containers), integrating them is crucial to ensuring application health, quickly locating faults, optimizing performance, and guaranteeing user experience.\n\nSecond paragraph:\n\nThe core includes: 1. Three pillars: centralized collection of logs (e.g., Loki/Fluentd), metrics (e.g., Prometheus), and distributed tracing (e.g., Jaeger/Zipkin). 2. Tool integration: implant SDKs (e.g., OpenTelemetry) in application code to expose metrics/traces; configure sidecar or DaemonSet agents (e.g., Prometheus Node Exporter) to automatically capture data. 3. Unified platform: use visualization tools such as Grafana for correlation analysis of data, and combine K8s tags to achieve context correlation. The main features are automated collection, correlation analysis, and support for dynamic environments.\n\nThird paragraph:\n\nTypical implementation steps: 1) Select and deploy monitoring backends (such as Prometheus) and observability platforms (Grafana). 2) Integrate SDKs such as OpenTelemetry into application code to generate metrics and traces. 3) Configure log collectors (e.g., Fluent Bit) and trace collectors. 4) Use Operator or Helm Chart to automatically configure data scraping. 5) Build Grafana dashboards and alert rules. This enables minute-level fault location, supports SLA guarantee and capacity planning, and significantly improves operation and maintenance efficiency."
+}

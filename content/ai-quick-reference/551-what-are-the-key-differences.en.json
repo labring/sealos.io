@@ -1,0 +1,13 @@
+{
+  "title": "What are the key differences between a service mesh and microservices?",
+  "description": "Microservices is a software architectural style that decomposes applications into independently deployable small service units, enhancing system flexibility and scalability, and is widely used in clou",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "High Availability (HA)",
+    "Cloud-Native",
+    "One-Click Deployment",
+    "Cloud Operating System",
+    "Kubernetes (K8s)"
+  ],
+  "content": "Microservices is a software architectural style that decomposes applications into independently deployable small service units, enhancing system flexibility and scalability, and is widely used in cloud-native environments such as e-commerce or financial services. A service mesh, on the other hand, is an infrastructure layer dedicated to managing network communication between microservices, addressing issues like service discovery, security, and monitoring, and is crucial in containerized deployments such as Kubernetes clusters.\n\nThe core of microservices lies in the loose coupling of services and their focus on business functions, with each service capable of independent development and scaling. Service meshes implement core functions—including traffic routing, encryption, and load balancing—through proxies (such as the sidecar pattern), significantly simplifying the complexity of microservice architectures; their application in cloud-native ecosystems promotes zero-trust security models and efficient operations, such as implementing fault recovery and distributed tracing in Istio.\n\nThe value of a service mesh lies in providing standardized communication infrastructure that supports high availability and observability in microservice architectures; application scenarios include intelligent routing and fault tolerance mechanisms, while business value includes reducing development burdens, improving system resilience, and enabling rapid iteration capabilities."
+}

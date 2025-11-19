@@ -1,0 +1,13 @@
+{
+  "title": "How do you handle automated compliance checks for infrastructure code?",
+  "description": "Automated compliance checking for Infrastructure as Code (IaC) refers to the automatic verification of infrastructure definition code using tools before deployment to ensure it complies with security ",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "One-Click Deployment",
+    "Cloud-Native",
+    "Kubernetes (K8s)",
+    "Lakehouse",
+    "Containerization"
+  ],
+  "content": "Automated compliance checking for Infrastructure as Code (IaC) refers to the automatic verification of infrastructure definition code using tools before deployment to ensure it complies with security policies, regulations, and organizational standards. Its importance lies in preventing security risks, ensuring compliance, and reducing non-compliance costs, and it is commonly found in cloud-native and DevOps scenarios such as continuous integration/continuous delivery (CI/CD) pipelines.\n\nCore components include policy engines (e.g., Open Policy Agent), IaC scanning tools (e.g., Terraform or Terrascan), and policy as code (e.g., Rego language). Features include automated rule execution, continuous monitoring, and real-time feedback. Its application can improve security posture, reduce manual audits, and have a positive impact on the cloud-native ecosystem, such as enabling scalable governance and agile response.\n\nProcessing steps include: 1. Defining compliance policies using policy as code; 2. Integrating tools (e.g., OPA) into CI/CD pipelines; 3. Automatically scanning IaC files; 4. Generating reports and remediating non-compliant items. Typical scenarios include pre-deployment checks, and business values include accelerating releases, enhancing reliability, and reducing operational risks."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do automated deployments support automated scaling during peak traffic periods?",
+  "description": "Automated deployment refers to automatically deploying application code updates to the production environment, combined with auto-scaling to ensure the system operates stably during traffic peaks. Its",
+  "category": "Automated Deployment",
+  "keywords": [
+    "High Availability (HA)",
+    "Containerization",
+    "Kubernetes (K8s)",
+    "One-Click Deployment",
+    "Sealos"
+  ],
+  "content": "Automated deployment refers to automatically deploying application code updates to the production environment, combined with auto-scaling to ensure the system operates stably during traffic peaks. Its importance lies in maintaining high availability and avoiding downtime, with application scenarios such as e-commerce promotions or social media events.\n\nThe core includes monitoring tools (e.g., Prometheus) to track load metrics (e.g., CPU utilization), and auto-scaling mechanisms (e.g., Kubernetes' Horizontal Pod Autoscaler) to dynamically adjust the number of resource instances based on thresholds. In practical applications, it seamlessly handles traffic spikes, enhances system elasticity, and reduces resource waste.\n\nImplementation steps involve configuring monitoring thresholds, defining scaling policies, and integrating deployment pipelines. The business value is ensuring high availability, reducing costs, and optimizing user experience, with typical scenarios such as cloud platform auto-scaling groups automatically increasing instances during traffic surges."
+}

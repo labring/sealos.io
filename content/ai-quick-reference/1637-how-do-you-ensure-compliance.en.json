@@ -1,0 +1,13 @@
+{
+  "title": "How do you ensure compliance with industry regulations using IaC?",
+  "description": "IaC (Infrastructure as Code) automatically manages resource configurations through code to achieve repeatable deployments. Its importance lies in standardizing infrastructure, reducing human errors, a",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Cloud-Native",
+    "Lakehouse",
+    "Application Deployment",
+    "High Availability (HA)",
+    "Cloud Operating System"
+  ],
+  "content": "IaC (Infrastructure as Code) automatically manages resource configurations through code to achieve repeatable deployments. Its importance lies in standardizing infrastructure, reducing human errors, and providing an auditable foundation for industry regulations such as GDPR or HIPAA. Application scenarios include compliance requirements in the financial or healthcare industries within cloud computing environments like AWS or Azure.\n\nCore components include declarative templates (e.g., JSON or YAML), version control (e.g., Git), and automation tools (e.g., Terraform). The principle is to enforce policies (such as security settings) through code, ensuring resources always comply with standards. In practical applications, integrating CI/CD pipelines enables dynamic updates, significantly reducing the risk of non-compliance and simplifying audits.\n\nImplementation steps: 1. Encode compliance rules and define security policies. 2. Use policy-as-code tools (e.g., Open Policy Agent) for pre-deployment checks. 3. Automate CI/CD testing and deployment processes. 4. Monitor logs and generate audit reports. Business values include accelerating compliance audits, reducing non-compliance costs, and improving operational efficiency."
+}

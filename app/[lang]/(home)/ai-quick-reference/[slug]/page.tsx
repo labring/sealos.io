@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import React from 'react';
 import { DocsBody } from 'fumadocs-ui/page';
-import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { FAQTag } from '@/new-components/FAQTag';
 import { FAQCard } from '@/new-components/FAQCard';
 import {
@@ -106,8 +105,14 @@ export default async function FAQDetailPage({ params }: PageProps) {
     href: `${langPrefix}${page.url}`,
   }));
 
-  // Get the MDX content component
-  const Content = (faqPage.data as any).body as React.ComponentType<any>;
+  // Get content from page data (from fumadocs collections)
+  const content = ((faqPage.data as any).content as string) || '';
+
+  // Split content into paragraphs (two newlines = paragraph break)
+  const paragraphs = content
+    .split(/\n\n+/)
+    .map((p) => p.trim())
+    .filter((p) => p.length > 0);
 
   return (
     <>
@@ -181,14 +186,19 @@ export default async function FAQDetailPage({ params }: PageProps) {
               </h1>
             </div>
 
-            {/* Main Content - Render MDX */}
+            {/* Main Content - Render text paragraphs */}
             <div className="mb-14">
               <DocsBody>
-                <Content
-                  components={{
-                    ...defaultMdxComponents,
-                  }}
-                />
+                <div className="prose prose-invert max-w-none">
+                  {paragraphs.map((paragraph, index) => (
+                    <p
+                      key={index}
+                      className="mb-4 leading-relaxed text-zinc-300"
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
               </DocsBody>
             </div>
 

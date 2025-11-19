@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage configuration drift in CI/CD pipelines?",
+  "description": "Configuration drift refers to the phenomenon where configurations accidentally deviate from their predefined states in CI/CD pipelines, commonly occurring in multi-environment setups (such as developm",
+  "category": "Continuous Integration and Continuous Deployment",
+  "keywords": [
+    "Application Deployment",
+    "High Performance",
+    "Cloud Operating System",
+    "DevOps",
+    "Cloud-Native"
+  ],
+  "content": "Configuration drift refers to the phenomenon where configurations accidentally deviate from their predefined states in CI/CD pipelines, commonly occurring in multi-environment setups (such as development, testing, and production). Its importance lies in maintaining environmental consistency, preventing deployment failures or security vulnerabilities, with application scenarios including reliability management in automated deployment processes.\n\nThe core components include infrastructure configurations (e.g., environment variables) and deployment scripts. In principle, version control is achieved through infrastructure as code (such as Terraform) or configuration management tools (such as Ansible). In practical applications, the GitOps approach is adopted, storing configurations in Git repositories to drive automated deployments, significantly reducing human errors and improving system stability and compliance.\n\nManagement steps include: 1. Incorporating all configurations into a Git version control system; 2. Implementing automated pipelines for configuration validation and auditing; 3. Adopting immutable infrastructure design; 4. Regularly scanning for and fixing drift. This accelerates delivery cycles, reduces maintenance costs, and ensures business continuity and service consistency."
+}

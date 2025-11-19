@@ -1,0 +1,13 @@
+{
+  "title": "How can automated deployment handle updates and patches for applications?",
+  "description": "Automated deployment manages application updates and patches through CI/CD pipelines. Its core value lies in standardizing and automating the release process, eliminating human errors, and enabling fa",
+  "category": "Automated Deployment",
+  "keywords": [
+    "IT Infrastructure",
+    "Cloud Operating System",
+    "Cloud-Native",
+    "Data Center (DC)",
+    "High Availability (HA)"
+  ],
+  "content": "Automated deployment manages application updates and patches through CI/CD pipelines. Its core value lies in standardizing and automating the release process, eliminating human errors, and enabling fast, secure, and reliable continuous delivery, which is suitable for frequently iterated cloud-native environments. This is crucial for meeting business agility and system stability requirements.\n\nThe core principle is to use a version control system (such as Git) as the source of updates. The process includes: automated building, multi-layer testing (unit, integration, end-to-end), container image packaging and versioned storage, and declarative deployment strategies (such as Kubernetes' rolling updates, blue-green deployments, and canary releases). Infrastructure as Code (IaC) ensures environmental consistency. Key features include predictable, repeatable, and auditable deployment actions, with automatic health checks and rapid rollbacks.\n\nPractical processing steps: 1. Developers commit updated code to the code repository; 2. The CI server triggers builds and tests, generating new container image versions; 3. The CD system securely deploys the new images to the target environment, controlling the release pace according to preset strategies (such as rolling replacement of Pods); 4. The monitoring system verifies the functionality and performance of the new version, triggering an automatic rollback to the previous healthy version if it fails. This process significantly shortens the release cycle, reduces risks, and improves application reliability and development efficiency."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you automate the provisioning of Kubernetes clusters using IaC?",
+  "description": "IaC (Infrastructure as Code) automates infrastructure management through declarative code, improving the efficiency and consistency of Kubernetes cluster deployment. It is suitable for cloud-native De",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "Private Cloud",
+    "Containerization",
+    "Open-Source Cloud",
+    "High Availability (HA)",
+    "Lakehouse"
+  ],
+  "content": "IaC (Infrastructure as Code) automates infrastructure management through declarative code, improving the efficiency and consistency of Kubernetes cluster deployment. It is suitable for cloud-native DevOps scenarios, such as rapid replication across multiple environments and disaster recovery.\n\nThe core includes IaC tools (e.g., Terraform, Pulumi) and Kubernetes manifest files (YAML/JSON). Tools parse code to generate resources (e.g., nodes, networks) and integrate with version control (Git) to enable auditable changes. In practical applications, IaC uniformly manages cluster configurations, reduces manual errors, supports elastic scaling, and facilitates GitOps pipeline integration.\n\nImplementation steps: 1. Select tools (e.g., Terraform to define cloud resources) and write declarative code; 2. Store the code in a Git repository to trigger the CI/CD pipeline; 3. Automatically apply configurations to create/update clusters. The business value lies in accelerating delivery, reducing costs and increasing efficiency, and ensuring environmental consistency."
+}

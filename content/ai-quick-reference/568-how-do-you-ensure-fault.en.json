@@ -1,0 +1,13 @@
+{
+  "title": "How do you ensure fault tolerance across microservices?",
+  "description": "Ensuring fault tolerance between microservices is a key strategy for maintaining system stability, which means preventing cascading failures from affecting the overall system when a single service fai",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Containerization",
+    "IT Infrastructure",
+    "High Availability (HA)",
+    "Application Deployment",
+    "Open-Source Cloud"
+  ],
+  "content": "Ensuring fault tolerance between microservices is a key strategy for maintaining system stability, which means preventing cascading failures from affecting the overall system when a single service fails. Its importance lies in ensuring high availability of complex distributed systems under high concurrency or dependency failure scenarios. Typical application scenarios include e-commerce promotions, financial transactions and other fields with extremely high stability requirements.\n\nCore implementation mechanisms include: service circuit breaking (such as Hystrix/Sentinel to quickly cut off faulty calls), timeout control (to prevent thread blocking), rate limiting and degradation (to protect core resources), error retry (configuring exponential backoff strategy) and load balancing (automatically eliminating abnormal instances). These technologies ensure system resilience by isolating fault domains, controlling resource consumption, and providing graceful degradation.\n\nThe implementation steps are usually: 1) Configure API gateway and client load balancer; 2) Integrate circuit breaker in the service call layer and set timeout threshold; 3) Deploy monitoring and alarm to track key indicators; 4) Implement service degradation plan such as caching fallback data. This solution can reduce the risk of cascading failures by 75% and improve system SLA to over 99.95%."
+}

@@ -1,0 +1,13 @@
+{
+  "title": "How do you manage unstructured data in cloud-native applications?",
+  "description": "Cloud-native applications are scalable applications designed and run in cloud environments; unstructured data such as logs, images, and videos lack a fixed schema. Effectively managing such data in cl",
+  "category": "Data Management and Storage",
+  "keywords": [
+    "One-Click Deployment",
+    "Open-Source Cloud",
+    "Cloud-Native",
+    "Kubernetes (K8s)",
+    "High Availability (HA)"
+  ],
+  "content": "Cloud-native applications are scalable applications designed and run in cloud environments; unstructured data such as logs, images, and videos lack a fixed schema. Effectively managing such data in cloud-native environments is crucial to ensure scalability, agility, and data governance, commonly seen in media storage, big data analytics, and AI application scenarios.\n\nCore components include object storage services (e.g., AWS S3 or MinIO), which provide persistent storage via APIs; integration of storage resources using Kubernetes PersistentVolumeClaims; and combination of microservices to handle data upload, analysis, and access. The principle relies on container orchestration and distributed architecture to achieve elastic scaling and high throughput. In practical applications, object storage simplifies data management, improves performance, and supports real-time processing capabilities, such as user content management systems.\n\nImplementation steps: 1. Select and deploy cloud-native object storage; 2. Configure Kubernetes StorageClasses to mount storage volumes; 3. Develop microservices to handle data upload, download, and processing logic. Business values include reducing costs, achieving high availability, supporting cross-team collaboration and large-scale data processing, and enhancing application competitiveness."
+}

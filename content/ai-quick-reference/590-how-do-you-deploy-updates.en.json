@@ -1,0 +1,13 @@
+{
+  "title": "How do you deploy updates to microservices without downtime?",
+  "description": "In a microservices architecture, non-stop deployment refers to a critical process of updating services while avoiding interruptions to user access, ensuring the system is always available. This is cru",
+  "category": "Microservices Architecture",
+  "keywords": [
+    "Application Deployment",
+    "Cluster Management",
+    "High Availability (HA)",
+    "IT Infrastructure",
+    "Sealos"
+  ],
+  "content": "In a microservices architecture, non-stop deployment refers to a critical process of updating services while avoiding interruptions to user access, ensuring the system is always available. This is crucial in high-availability scenarios such as e-commerce or financial applications, enhancing reliability, user experience, and business continuity.\n\nCore mechanisms include blue-green deployment (running both old and new versions simultaneously and switching traffic), canary release (gradually releasing the new version to a subset of users), and rolling update (gradually replacing instances). For example, Kubernetes automatically manages Pod replacement through the RollingUpdate strategy of Deployment resources, while service meshes like Istio support dynamic traffic routing. Its practical impacts include reducing release risks and supporting continuous integration/continuous deployment (CI/CD) processes, thereby improving iteration efficiency.\n\nImplementation steps: 1. Prepare the new service image and update the Deployment configuration. 2. Enable the RollingUpdate strategy to define the pace of gradual replacement. 3. Execute the deployment and monitor service health metrics in real-time. 4. Automatically roll back if anomalies occur to ensure safety. A typical scenario is an automated CI/CD pipeline, with business values including seamless user experience, reduced downtime losses, and accelerated innovation cycles."
+}

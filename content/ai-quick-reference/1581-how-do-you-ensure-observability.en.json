@@ -1,0 +1,13 @@
+{
+  "title": "How do you ensure observability is integrated with cloud-native security policies?",
+  "description": "It is crucial to integrate observability (logs, metrics, traces) with cloud-native security strategies (such as Zero Trust, DevSecOps). It can provide context-aware security insights, detect internal ",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Kubernetes (K8s)",
+    "Application Deployment",
+    "High Availability (HA)",
+    "Cloud Platform",
+    "DevOps"
+  ],
+  "content": "It is crucial to integrate observability (logs, metrics, traces) with cloud-native security strategies (such as Zero Trust, DevSecOps). It can provide context-aware security insights, detect internal threats, abnormal behaviors, and security incidents in real-time, serving as the foundation for implementing proactive protection in complex distributed systems.\n\nThe core lies in integrating the toolchain: uniformly ingesting security logs (audit logs, runtime security events) and observability data (Prometheus metrics, Jaeger distributed tracing, Fluentd logs) into a SIEM or security data analysis platform (e.g., Elastic Security). Combine network traffic policies of service meshes (Istio) and Kubernetes audit logs to establish correlation analysis rules, enabling cross-layer behavior monitoring and anomaly detection.\n\nImplementation steps: 1) Unified data collection: Configure agents (e.g., Fluent Bit, OpenTelemetry Collector) to collect application, infrastructure, security audit logs, and metrics. 2) Context correlation: Correlate service identities, Pod metadata with security events in the analysis platform. 3) Define automated policies: Set up alert rules (e.g., unusual permission requests) to trigger联动响应 (network isolation, Pod eviction). 4) Integrate across DevSecOps: Embed security scanning and observability data feedback in CI/CD and runtime to achieve security shifting left and continuous protection. The main values are enhancing security situational awareness, accelerating threat response, and ensuring compliance."
+}

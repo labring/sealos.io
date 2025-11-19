@@ -1,0 +1,13 @@
+{
+  "title": "How do you monitor system resource utilization (CPU, memory, etc.) in Kubernetes?",
+  "description": "Monitoring CPU and memory utilization in Kubernetes is a key operational practice to ensure cluster stability, prevent resource exhaustion, and support autoscaling, applicable to optimizing performanc",
+  "category": "Monitoring and Observability",
+  "keywords": [
+    "Data Center (DC)",
+    "One-Click Deployment",
+    "DevOps",
+    "High Performance",
+    "Cloud Operating System"
+  ],
+  "content": "Monitoring CPU and memory utilization in Kubernetes is a key operational practice to ensure cluster stability, prevent resource exhaustion, and support autoscaling, applicable to optimizing performance and cost management in production environments.\n\nIts core components include cAdvisor (integrated into kubelet to collect container-level metrics) and Metrics Server (aggregates metrics to provide APIs), featuring real-time data exposure and lightweight deployment. In practical applications, tools like Prometheus are used for time-series storage and alert rule configuration, combined with Grafana visualization dashboards, significantly improving fault diagnosis efficiency and cluster observability.\n\nImplementation steps: First, install Metrics Server or integrate cloud provider tools; second, deploy Prometheus to collect metrics; then configure Alertmanager alert rules. Typical business values include reducing downtime risks, supporting Horizontal Pod Autoscaler (HPA), and optimizing cloud resource expenses."
+}

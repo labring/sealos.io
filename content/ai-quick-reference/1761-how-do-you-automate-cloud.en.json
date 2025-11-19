@@ -1,0 +1,13 @@
+{
+  "title": "How do you automate cloud firewall configurations with IaC?",
+  "description": "Infrastructure as Code (IaC) uses code to automate infrastructure management, ensuring the consistency and repeatability of cloud firewall configurations. Its importance lies in enhancing cloud securi",
+  "category": "Automation and Infrastructure as Code",
+  "keywords": [
+    "High Availability (HA)",
+    "Cloud-Native",
+    "Data Center (DC)",
+    "High Performance",
+    "Cloud Operating System"
+  ],
+  "content": "Infrastructure as Code (IaC) uses code to automate infrastructure management, ensuring the consistency and repeatability of cloud firewall configurations. Its importance lies in enhancing cloud security, reducing errors, and supporting applications such as network isolation in AWS or Azure, which is often used in enterprise cloud migration and DevOps processes.\n\nIts core includes selecting tools like Terraform or CloudFormation to write declarative configuration files and defining rules such as inbound/outbound protocols and ports. Features include version control, CI/CD integration, and auditability. In practical applications, IaC automates firewall policy deployment, simplifies compliance checks, reduces operational risks, and strengthens security governance in multi-cloud environments.\n\nImplementation steps: 1. Create security group code files using IaC tools; 2. Define rule parameters (such as source IP and port); 3. Test in a sandbox; 4. Integrate CI/CD for automatic deployment. Business value includes accelerating change delivery, reducing manual intervention, and improving security response."
+}
