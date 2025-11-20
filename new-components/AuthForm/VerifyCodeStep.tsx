@@ -12,10 +12,7 @@ import { cn } from '@/lib/utils';
 import { useAuthForm } from './AuthFormContext';
 import { useCountdown } from './hooks';
 import { siteConfig } from '@/config/site';
-import {
-  EmailVerifyRequest,
-  EmailVerifyResponse,
-} from './types';
+import { EmailVerifyRequest, EmailVerifyResponse } from './types';
 
 export function VerifyCodeStep() {
   const {
@@ -28,6 +25,7 @@ export function VerifyCodeStep() {
     sendCode,
     clearStartTime,
     onVerifySuccess,
+    additionalParams,
   } = useAuthForm();
 
   const [code, setCode] = useState('');
@@ -64,23 +62,26 @@ export function VerifyCodeStep() {
       }
 
       if (onVerifySuccess && result.data) {
-        onVerifySuccess(result.data);
+        onVerifySuccess(result.data, additionalParams);
       }
     } catch (error) {
       console.error('Failed to verify code:', error);
-      setError((error as Error)?.message || 'Invalid verification code, please try again');
+      setError(
+        (error as Error)?.message ||
+          'Invalid verification code, please try again',
+      );
       setCode('');
     } finally {
       setIsVerifying(false);
     }
   };
 
-  const handleResendCode = async () => {
+  const handleResendCode = () => {
     if (remainingTime > 0) return;
-    const success = await sendCode();
-    if (!success) {
-      setStep('select-method');
-    }
+    setStep('select-method');
+    setCode('');
+    setError(null);
+    clearStartTime();
   };
 
   const handleBack = () => {
@@ -209,4 +210,3 @@ export function VerifyCodeStep() {
     </div>
   );
 }
-

@@ -10,6 +10,8 @@ import { DefaultSearchDialog } from '@/components/docs/Search';
 import { headers } from 'next/headers';
 import { HomepageDarkMode } from './homepage-dark-mode';
 import { isForcedDarkMode } from './utils/is-forced-dark-mode';
+import { AuthFormProvider } from '@/new-components/AuthForm/AuthFormProvider';
+import { AuthForm } from '@/new-components/AuthForm';
 
 export const metadata = generatePageMetadata();
 
@@ -99,36 +101,39 @@ export default async function LocaleLayout({
       <body className="flex min-h-screen max-w-[100vw] flex-col overflow-x-hidden">
         <GTMBody />
         <HomepageDarkMode />
-        <RootProvider
-          i18n={{
-            locale: params.lang,
-            locales,
-            translations: {
-              'zh-cn': {
-                search: '搜索',
-                nextPage: '下一页',
-                previousPage: '上一页',
-                lastUpdate: '最后更新于',
-                editOnGithub: '在 GitHub 上编辑',
-                searchNoResult: '没有找到相关内容',
-                toc: '本页导航',
-                tocNoHeadings: '本页没有导航',
-                chooseLanguage: '选择语言',
-              },
-            }[params.lang],
-          }}
-          theme={{
-            forcedTheme: 'light',
-            defaultTheme: 'light',
-            enabled: false,
-            enableSystem: false,
-          }}
-          search={{
-            SearchDialog: DefaultSearchDialog,
-          }}
-        >
-          {children}
-        </RootProvider>
+        <AuthFormProvider>
+          <RootProvider
+            i18n={{
+              locale: params.lang,
+              locales,
+              translations: {
+                'zh-cn': {
+                  search: '搜索',
+                  nextPage: '下一页',
+                  previousPage: '上一页',
+                  lastUpdate: '最后更新于',
+                  editOnGithub: '在 GitHub 上编辑',
+                  searchNoResult: '没有找到相关内容',
+                  toc: '本页导航',
+                  tocNoHeadings: '本页没有导航',
+                  chooseLanguage: '选择语言',
+                },
+              }[params.lang],
+            }}
+            theme={{
+              forcedTheme: 'light',
+              defaultTheme: 'light',
+              enabled: false,
+              enableSystem: false,
+            }}
+            search={{
+              SearchDialog: DefaultSearchDialog,
+            }}
+          >
+            {children}
+            <AuthForm />
+          </RootProvider>
+        </AuthFormProvider>
       </body>
     </html>
   );

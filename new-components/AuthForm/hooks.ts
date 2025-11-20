@@ -25,4 +25,3 @@ export function useCountdown(startTime: number, duration = 60000) {
 
   return remainingTime;
 }
-

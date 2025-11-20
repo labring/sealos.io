@@ -23,6 +23,7 @@ export type SiteConfig = {
   turnstileSitekey: string;
   emailRequestEndpoint: string;
   emailVerifyEndpoint: string;
+  signinSwitchRegionUrl: string;
   oauth2GithubUrl: string;
   oauth2GoogleUrl: string;
 };

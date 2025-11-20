@@ -44,6 +44,7 @@ export const siteConfig: SiteConfig = {
   turnstileSitekey: '0x4AAAAAABktQSy4J6pPHwD7',
   emailRequestEndpoint: 'https://192.168.10.35.nip.io/api/auth/email/sms',
   emailVerifyEndpoint: 'https://192.168.10.35.nip.io/api/auth/email/verify',
+  signinSwitchRegionUrl: 'https://192.168.10.35.nip.io/switchRegion',
   oauth2GithubUrl: '',
   oauth2GoogleUrl: '',
 };

@@ -25,6 +25,8 @@ interface AuthFormContextType {
   error: string | null;
   isSendingCode: boolean;
   turnstileRef: React.RefObject<TurnstileInstance>;
+  open: boolean;
+  additionalParams: Record<string, string> | null;
 
   setEmail: (email: string) => void;
   setCaptchaToken: (token: string | null) => void;
@@ -35,9 +37,14 @@ interface AuthFormContextType {
 
   setStep: (step: AuthStep) => void;
   setError: (error: string | null) => void;
+  setOpen: (open: boolean) => void;
+  openAuthForm: (additionalParams?: Record<string, string>) => void;
 
   sendCode: () => Promise<boolean>;
-  onVerifySuccess?: (data: EmailVerifyResponse['data']) => void;
+  onVerifySuccess?: (
+    data: EmailVerifyResponse['data'],
+    additionalParams?: Record<string, string> | null,
+  ) => void;
 }
 
 const AuthFormContext = createContext<AuthFormContextType | undefined>(
@@ -49,7 +56,10 @@ export function AuthFormProvider({
   onVerifySuccess,
 }: {
   children: ReactNode;
-  onVerifySuccess?: (data: EmailVerifyResponse['data']) => void;
+  onVerifySuccess?: (
+    data: EmailVerifyResponse['data'],
+    additionalParams?: Record<string, string> | null,
+  ) => void;
 }) {
   const [formData, setFormData] = useState<AuthFormData>({
     email: '',
@@ -59,7 +69,25 @@ export function AuthFormProvider({
   const [step, setStep] = useState<AuthStep>('select-method');
   const [error, setError] = useState<string | null>(null);
   const [isSendingCode, setIsSendingCode] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [additionalParams, setAdditionalParams] = useState<Record<
+    string,
+    string
+  > | null>(null);
   const turnstileRef = useRef<TurnstileInstance>(null);
+
+  const openAuthForm = (params?: Record<string, string>) => {
+    setAdditionalParams(params || null);
+    setOpen(true);
+  };
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+    if (!newOpen) {
+      clearFormData();
+      setAdditionalParams(null);
+    }
+  };
 
   const setEmail = (email: string) => {
     setFormData((prev) => ({ ...prev, email }));
@@ -88,7 +116,6 @@ export function AuthFormProvider({
       startTime: 0,
     });
   };
-
 
   const sendCode = async () => {
     const schema = z.string().email();
@@ -126,7 +153,10 @@ export function AuthFormProvider({
       return true;
     } catch (error) {
       console.error('Failed to send verification code:', error);
-      setError((error as Error)?.message || 'Failed to send verification code, please try again');
+      setError(
+        (error as Error)?.message ||
+          'Failed to send verification code, please try again',
+      );
       return false;
     } finally {
       setIsSendingCode(false);
@@ -141,6 +171,8 @@ export function AuthFormProvider({
         error,
         isSendingCode,
         turnstileRef,
+        open,
+        additionalParams,
         setEmail,
         setCaptchaToken,
         clearCaptchaToken,
@@ -149,6 +181,8 @@ export function AuthFormProvider({
         clearFormData,
         setStep,
         setError,
+        setOpen: handleOpenChange,
+        openAuthForm,
         sendCode,
         onVerifySuccess,
       }}
@@ -166,3 +200,10 @@ export function useAuthForm() {
   return context;
 }
 
+export function useOpenAuthForm() {
+  const context = useContext(AuthFormContext);
+  if (context === undefined) {
+    throw new Error('useOpenAuthForm must be used within an AuthFormProvider');
+  }
+  return context.openAuthForm;
+}

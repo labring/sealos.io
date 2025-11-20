@@ -33,4 +33,3 @@ export interface EmailVerifyResponse {
     needInit: boolean;
   };
 }
-

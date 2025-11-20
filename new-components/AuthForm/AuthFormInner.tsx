@@ -9,13 +9,8 @@ import { SelectMethodStep } from './SelectMethodStep';
 import { VerifyCodeStep } from './VerifyCodeStep';
 import { GodRays } from '../GodRays';
 
-export interface AuthFormInnerProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
-
-export function AuthFormInner({ open, onOpenChange }: AuthFormInnerProps) {
-  const { step } = useAuthForm();
+export function AuthFormInner() {
+  const { step, open, setOpen } = useAuthForm();
   const prevStepRef = useRef<string | null>(null);
   const isInitialOpenRef = useRef(true);
   const hasOpenedRef = useRef(false);
@@ -36,10 +31,13 @@ export function AuthFormInner({ open, onOpenChange }: AuthFormInnerProps) {
     }
   }, [open, step]);
 
-  const shouldAnimateStep = hasOpenedRef.current && prevStepRef.current !== null && prevStepRef.current !== step;
+  const shouldAnimateStep =
+    hasOpenedRef.current &&
+    prevStepRef.current !== null &&
+    prevStepRef.current !== step;
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <AnimatePresence>
         {open && (
           <DialogPrimitive.Portal forceMount>
@@ -59,33 +57,41 @@ export function AuthFormInner({ open, onOpenChange }: AuthFormInnerProps) {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
-                className="inset-shadow-bubble max-w-md overflow-hidden rounded-xl border bg-background p-0 shadow-lg fixed top-[50%] left-[50%] z-50 translate-x-[-50%] translate-y-[-50%]"
+                className="inset-shadow-bubble bg-background fixed top-[50%] left-[50%] z-50 max-w-md translate-x-[-50%] translate-y-[-50%] overflow-hidden rounded-xl border p-0 shadow-lg"
               >
                 <div className="pointer-events-none absolute inset-0 -z-10">
                   <GodRays
                     sources={[
                       {
-                        x: 0.5,
+                        x: 0.46,
                         y: -0.15,
-                        angle: 60,
+                        angle: 80,
                         spread: 35,
-                        count: 11,
+                        count: 2,
                         color: '225, 225, 225',
                       },
                       {
-                        x: -0.05,
-                        y: -0.1,
-                        angle: 60,
-                        spread: 25,
-                        count: 12,
-                        color: '220, 220, 220',
+                        x: 0.5,
+                        y: -0.15,
+                        angle: 90,
+                        spread: 35,
+                        count: 2,
+                        color: '225, 225, 225',
+                      },
+                      {
+                        x: 0.54,
+                        y: -0.15,
+                        angle: 100,
+                        spread: 35,
+                        count: 2,
+                        color: '225, 225, 225',
                       },
                     ]}
                     speed={0.0018}
                     maxWidth={85}
                     minLength={1000}
                     maxLength={1800}
-                    blur={18}
+                    blur={24}
                   />
                 </div>
 
@@ -94,9 +100,13 @@ export function AuthFormInner({ open, onOpenChange }: AuthFormInnerProps) {
                     {step === 'select-method' ? (
                       <motion.div
                         key="select-method"
-                        initial={shouldAnimateStep ? { opacity: 0, x: 20 } : undefined}
+                        initial={
+                          shouldAnimateStep ? { opacity: 0, x: 20 } : undefined
+                        }
                         animate={{ opacity: 1, x: 0 }}
-                        exit={shouldAnimateStep ? { opacity: 0, x: -20 } : undefined}
+                        exit={
+                          shouldAnimateStep ? { opacity: 0, x: -20 } : undefined
+                        }
                         transition={{ duration: 0.2, ease: 'easeInOut' }}
                       >
                         <SelectMethodStep />
@@ -104,9 +114,13 @@ export function AuthFormInner({ open, onOpenChange }: AuthFormInnerProps) {
                     ) : (
                       <motion.div
                         key="verify-code"
-                        initial={shouldAnimateStep ? { opacity: 0, x: 20 } : undefined}
+                        initial={
+                          shouldAnimateStep ? { opacity: 0, x: 20 } : undefined
+                        }
                         animate={{ opacity: 1, x: 0 }}
-                        exit={shouldAnimateStep ? { opacity: 0, x: -20 } : undefined}
+                        exit={
+                          shouldAnimateStep ? { opacity: 0, x: -20 } : undefined
+                        }
                         transition={{ duration: 0.2, ease: 'easeInOut' }}
                       >
                         <VerifyCodeStep />
