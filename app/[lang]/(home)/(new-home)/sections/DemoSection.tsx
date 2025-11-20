@@ -16,11 +16,13 @@ import { VideoModal } from '../components/VideoModal';
 import DemoLightSvg from '@/assets/demo-light.svg';
 import VideoThumbnailSvg from '@/assets/video-thumbnail.svg';
 import DemoIndicatorArrowImage from '@/assets/demo-indicator-arrow.svg';
-import { siteConfig } from '@/config/site';
 import { useGTM } from '@/hooks/use-gtm';
+import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { getOpenBrainParam } from '@/lib/utils/brain';
 
 export function DemoSection() {
   const { trackButton } = useGTM();
+  const openAuthForm = useOpenAuthForm();
 
   // Refs
   const containerRef = useRef<HTMLDivElement>(null);
@@ -219,29 +221,15 @@ export function DemoSection() {
 
       <div className="mt-12 flex w-full justify-center">
         <Button
-          asChild
           variant="landing-primary"
           className="mx-auto h-11 w-48"
-          // [FIXME] Workaround for global CSS override for borders.
-          style={{
-            border: '1px solid #ffffff',
-          }}
           aria-label="Start using Sealos for free."
+          onClick={() => {
+            trackButton('Get Started', 'demo-section', 'auth-form', '');
+            openAuthForm({ openapp: getOpenBrainParam() });
+          }}
         >
-          <a
-            href={siteConfig.links.mainCta}
-            target="_blank"
-            onClick={() =>
-              trackButton(
-                'Get Started',
-                'demo-section',
-                'url',
-                siteConfig.links.mainCta,
-              )
-            }
-          >
-            Get Started Free
-          </a>
+          Get Started Free
         </Button>
       </div>
 

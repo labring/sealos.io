@@ -1,6 +1,7 @@
 'use client';
 
-import { getBrainUrl } from '@/lib/utils/brain';
+import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { getOpenBrainParam } from '@/lib/utils/brain';
 import { memo } from 'react';
 import { useGTM } from '@/hooks/use-gtm';
 
@@ -10,6 +11,7 @@ interface OSSSectionProps {
 
 export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
   const { trackButton } = useGTM();
+  const openAuthForm = useOpenAuthForm();
 
   const translations = {
     en: {
@@ -131,19 +133,17 @@ export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
               </span>
             </a>
 
-            <a
-              href={getBrainUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
               className="flex h-10 items-center justify-center gap-2 rounded-[54px] border border-white bg-gradient-to-br from-white to-gray-300 px-4 py-2 shadow-lg"
-              onClick={() =>
-                trackButton('Get Started', 'oss-section', 'url', getBrainUrl())
-              }
+              onClick={() => {
+                trackButton('Get Started', 'oss-section', 'auth-form', '');
+                openAuthForm({ openapp: getOpenBrainParam() });
+              }}
             >
               <span className="text-sm leading-5 font-medium whitespace-nowrap text-zinc-900">
                 {t.startForFree}
               </span>
-            </a>
+            </button>
           </div>
         </div>
       </div>

@@ -1,25 +1,27 @@
 'use client';
 
-import { useGTM } from '@/hooks/use-gtm';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { useGTM } from '@/hooks/use-gtm';
 import { getOpenBrainParam } from '@/lib/utils/brain';
 
-export function StartBuildingButton() {
-  const { trackButton } = useGTM();
+export function TryFreeButton() {
   const openAuthForm = useOpenAuthForm();
+  const { trackButton } = useGTM();
 
   return (
     <Button
       variant="landing-primary"
+      className="w-full"
       onClick={() => {
-        trackButton('Get Started', 'footer', 'auth-form', '');
+        trackButton('Try Free', 'ai-quick-reference', 'auth-form', '');
         openAuthForm({ openapp: getOpenBrainParam() });
       }}
     >
-      <span>Start Building for Free</span>
+      <span>Try Free</span>
       <ArrowRight size={16} className="ml-1" />
     </Button>
   );
 }
+

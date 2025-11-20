@@ -25,7 +25,8 @@ import AppStoreIcon from '@/assets/sealos-appicons/appstore.svg';
 import GitHubIcon from '@/assets/github.svg';
 import { useGTM } from '@/hooks/use-gtm';
 import { siteConfig } from '@/config/site';
-import { getBrainUrl } from '@/lib/utils/brain';
+import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { getOpenBrainParam } from '@/lib/utils/brain';
 
 // 产品图标映射
 const productIcons: Record<string, any> = {
@@ -104,6 +105,7 @@ const navigationLinks = [
 
 export function Header() {
   const { trackButton } = useGTM();
+  const openAuthForm = useOpenAuthForm();
 
   const [brainUrl, setBrainUrl] = React.useState('');
 
@@ -111,12 +113,6 @@ export function Header() {
   const [hideLogotype, setHideLogotype] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [openMenus, setOpenMenus] = React.useState<Record<string, boolean>>({});
-
-  React.useEffect(() => {
-    setBrainUrl(getBrainUrl());
-  }, []);
-
-  const resolveBrainUrl = React.useCallback(() => brainUrl || getBrainUrl(), [brainUrl]);
 
   useMotionValueEvent(scrollY, 'change', (current) => {
     if (current > 0 && scrollY.getPrevious() !== 0) {
@@ -208,7 +204,7 @@ export function Header() {
                                   aria-hidden="false"
                                 >
                                   {link.text === 'Products' &&
-                                    productIcons[child.text] ? (
+                                  productIcons[child.text] ? (
                                     <Image
                                       src={productIcons[child.text]}
                                       alt=""
@@ -271,25 +267,15 @@ export function Header() {
             </a>
           </Button>
           <Button
-            asChild
             variant="landing-primary"
             className="hidden h-10 lg:flex"
-            // [FIXME] Workaround for global CSS override for borders.
-            style={{
-              border: '1px solid #ffffff',
-            }}
             aria-label="Start using Sealos for free."
+            onClick={() => {
+              trackButton('Get Started', 'header', 'auth-form', '');
+              openAuthForm({ openapp: getOpenBrainParam() });
+            }}
           >
-            <a
-              href={brainUrl || '#'}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() =>
-                trackButton('Get Started', 'header', 'url', resolveBrainUrl())
-              }
-            >
-              Get Started Free
-            </a>
+            Get Started Free
           </Button>
 
           {/* Mobile Menu Button */}
@@ -409,7 +395,7 @@ export function Header() {
                                       className="flex items-center gap-2 text-white/70 transition-colors hover:text-white"
                                     >
                                       {link.text === 'Products' &&
-                                        productIcons[child.text] ? (
+                                      productIcons[child.text] ? (
                                         <Image
                                           src={productIcons[child.text]}
                                           alt={`${child.text} icon`}
@@ -471,19 +457,18 @@ export function Header() {
                     variant="landing-primary"
                     className="h-12 w-full border border-white text-base"
                     aria-label="Start using Sealos for free."
+                    onClick={() => {
+                      trackButton(
+                        'Get Started',
+                        'header-mobile',
+                        'auth-form',
+                        '',
+                      );
+                      openAuthForm({ openapp: getOpenBrainParam() });
+                      closeMobileMenu();
+                    }}
                   >
-                    <a
-                      href={brainUrl || '#'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => {
-                        const url = resolveBrainUrl();
-                        trackButton('Get Started', 'header-mobile', 'url', url);
-                        closeMobileMenu();
-                      }}
-                    >
-                      Get Started Free
-                    </a>
+                    Get Started Free
                   </Button>
                 </div>
               </div>

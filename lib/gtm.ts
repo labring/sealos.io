@@ -3,7 +3,12 @@ export interface GTMEvent {
   [key: string]: any;
 }
 
-export type ButtonActionType = 'url' | 'anchor' | 'modal' | 'custom';
+export type ButtonActionType =
+  | 'url'
+  | 'anchor'
+  | 'modal'
+  | 'custom'
+  | 'auth-form';
 
 export const gtmPush = (event: GTMEvent) => {
   if (typeof window !== 'undefined' && window.dataLayer) {

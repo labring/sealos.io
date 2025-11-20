@@ -1,6 +1,6 @@
 import { SiteConfig } from '@/types';
 import { i18n } from '@/lib/i18n';
-import { getBrainUrl } from '@/lib/utils/brain';
+import { getOpenBrainParam } from '@/lib/utils/brain';
 
 export const domain = process.env.NEXT_PUBLIC_APP_URL || 'https://sealos.io';
 
@@ -28,7 +28,6 @@ export const siteConfig: SiteConfig = {
   },
   twitterHandle: '@Sealos_io',
   links: {
-    mainCta: getBrainUrl(),
     github: 'https://github.com/labring/sealos',
     twitter: 'https://x.com/Sealos_io',
     discord: 'https://discord.gg/wdUn538zVP',

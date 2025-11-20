@@ -46,7 +46,8 @@ import RustIcon from '@/assets/stacks-appicons/rust.svg';
 import SpringbootIcon from '@/assets/stacks-appicons/springboot.svg';
 
 import { useGTM } from '@/hooks/use-gtm';
-import { getBrainUrl } from '@/lib/utils/brain';
+import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { getOpenBrainParam } from '@/lib/utils/brain';
 
 interface PromptOption {
   icon: ReactNode;
@@ -344,6 +345,7 @@ GlareEffect.displayName = 'GlareEffect';
 
 export function PromptInput() {
   const { trackButton, trackCustom } = useGTM();
+  const openAuthForm = useOpenAuthForm();
 
   const [promptText, setPromptText] = useState('');
   const [isFirefox, setIsFirefox] = useState(false);
@@ -386,13 +388,10 @@ export function PromptInput() {
     const textToSend = isTouched ? promptText : typewriterFullTextRef.current;
 
     if (textToSend.trim()) {
-      const brainUrl = getBrainUrl(textToSend);
-
-      trackButton('Get Started', 'hero-section', 'url', brainUrl);
-
-      window.open(brainUrl, '_blank');
+      trackButton('Get Started', 'hero-section', 'auth-form', '');
+      openAuthForm({ openapp: getOpenBrainParam(textToSend) });
     }
-  }, [promptText, isTouched, trackButton]);
+  }, [promptText, isTouched, trackButton, openAuthForm]);
 
   const handleTextareaChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {

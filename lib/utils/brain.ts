@@ -1,7 +1,7 @@
-export function getBrainUrl(prompt?: string) {
-  if (prompt) {
-    return `https://os.sealos.io/?openapp=system-brain?/trial?${encodeURIComponent(`query=${prompt}&sessionId=${crypto.randomUUID()}`)}`;
+export function getOpenBrainParam(query?: string): string {
+  if (query) {
+    return encodeURIComponent(`system-brain?query=${encodeURIComponent(query)}&trial=true`);
   } else {
-    return `https://os.sealos.io/?openapp=system-brain?/trial?${encodeURIComponent(`sessionId=${crypto.randomUUID()}`)}`;
+    return encodeURIComponent('system-brain?trial=true');
   }
 }
