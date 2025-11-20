@@ -1,12 +1,16 @@
+'use client';
+
 import SealosLogoImage from '@/assets/shared-icons/sealos.svg';
 import Image from 'next/image';
 import { GradientText } from './GradientText';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { siteConfig } from '@/config/site';
 import { ArrowRightIcon } from 'lucide-react';
+import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { getOpenBrainParam } from '@/lib/utils/brain';
 
 export function SealosBrandCard() {
+  const openAuthForm = useOpenAuthForm();
+
   return (
     <div className="border-border bg-primary-foreground w-full rounded-xl border p-8">
       <div className="mb-8 flex flex-col gap-6">
@@ -32,11 +36,13 @@ export function SealosBrandCard() {
         </div>
       </div>
 
-      <Button variant="landing-primary" asChild className="w-full">
-        <Link href={siteConfig.links.mainCta} target="_blank">
-          <span>Try Free</span>
-          <ArrowRightIcon size={16} className="ml-1" />
-        </Link>
+      <Button
+        variant="landing-primary"
+        className="w-full"
+        onClick={() => openAuthForm({ openapp: getOpenBrainParam() })}
+      >
+        <span>Try Free</span>
+        <ArrowRightIcon size={16} className="ml-1" />
       </Button>
     </div>
   );
