@@ -7,6 +7,17 @@ export const revalidate = false;
 
 // Use staticGET for static export compatibility
 // Using mixed tokenizer to support both English and Chinese
+const tokenizer = createTokenizer();
+
+// Wrap the tokenizer to make it case-insensitive
+const originalTokenize = tokenizer.tokenize.bind(tokenizer);
+tokenizer.tokenize = (input: string, language?: string, prop?: string) => {
+  if (typeof input === 'string') {
+    return originalTokenize(input.toLowerCase(), language, prop);
+  }
+  return originalTokenize(input, language, prop);
+};
+
 export const { staticGET: GET } = createSearchAPI('advanced', {
   indexes: source.getLanguages().flatMap((entry) =>
     entry.pages.map((page) => ({
@@ -22,6 +33,6 @@ export const { staticGET: GET } = createSearchAPI('advanced', {
   ),
   // Use Chinese tokenizer for better Chinese text processing
   components: {
-    tokenizer: createTokenizer(),
+    tokenizer,
   },
 });

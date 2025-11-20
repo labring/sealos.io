@@ -33,7 +33,7 @@ export function SealosBrandCard() {
       </div>
 
       <Button variant="landing-primary" asChild className="w-full">
-        <Link href={siteConfig.links.mainCta}>
+        <Link href={siteConfig.links.mainCta} target="_blank">
           <span>Try Free</span>
           <ArrowRightIcon size={16} className="ml-1" />
         </Link>

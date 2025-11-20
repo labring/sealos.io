@@ -230,6 +230,7 @@ export function DemoSection() {
         >
           <a
             href={siteConfig.links.mainCta}
+            target="_blank"
             onClick={() =>
               trackButton(
                 'Get Started',

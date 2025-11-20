@@ -30,6 +30,18 @@ export default function Layout({
       {/* Structured Data for SEO */}
       <StructuredDataComponent data={breadcrumbSchema} />
 
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        #nd-docs-layout {
+          @media (width >= 80rem) {
+            --fd-toc-width: 360px;
+          }
+        }
+        `,
+        }}
+      />
+
       <DocsLayout
         tree={tree}
         {...baseOptions}

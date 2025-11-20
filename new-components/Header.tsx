@@ -208,7 +208,7 @@ export function Header() {
                                   aria-hidden="false"
                                 >
                                   {link.text === 'Products' &&
-                                  productIcons[child.text] ? (
+                                    productIcons[child.text] ? (
                                     <Image
                                       src={productIcons[child.text]}
                                       alt=""
@@ -282,6 +282,8 @@ export function Header() {
           >
             <a
               href={brainUrl || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() =>
                 trackButton('Get Started', 'header', 'url', resolveBrainUrl())
               }
@@ -407,7 +409,7 @@ export function Header() {
                                       className="flex items-center gap-2 text-white/70 transition-colors hover:text-white"
                                     >
                                       {link.text === 'Products' &&
-                                      productIcons[child.text] ? (
+                                        productIcons[child.text] ? (
                                         <Image
                                           src={productIcons[child.text]}
                                           alt={`${child.text} icon`}
@@ -472,6 +474,8 @@ export function Header() {
                   >
                     <a
                       href={brainUrl || '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       onClick={() => {
                         const url = resolveBrainUrl();
                         trackButton('Get Started', 'header-mobile', 'url', url);
