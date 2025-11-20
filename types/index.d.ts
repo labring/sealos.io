@@ -19,4 +19,10 @@ export type SiteConfig = {
     wechat: string;
   };
   ogImage: string;
+  turnstileEnabled: boolean;
+  turnstileSitekey: string;
+  emailRequestEndpoint: string;
+  emailVerifyEndpoint: string;
+  oauth2GithubUrl: string;
+  oauth2GoogleUrl: string;
 };

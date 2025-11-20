@@ -40,6 +40,12 @@ export const siteConfig: SiteConfig = {
   ogImage: `${
     process.env.NEXT_PUBLIC_APP_URL
   }/images/banner.jpeg?${new Date().getTime()}`,
+  turnstileEnabled: true,
+  turnstileSitekey: '0x4AAAAAABktQSy4J6pPHwD7',
+  emailRequestEndpoint: 'https://192.168.10.35.nip.io/api/auth/email/sms',
+  emailVerifyEndpoint: 'https://192.168.10.35.nip.io/api/auth/email/verify',
+  oauth2GithubUrl: '',
+  oauth2GoogleUrl: '',
 };
 
 export type AuthorData = {
