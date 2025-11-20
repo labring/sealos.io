@@ -388,12 +388,7 @@ export function PromptInput() {
     if (textToSend.trim()) {
       const brainUrl = getBrainUrl(textToSend);
 
-      trackButton(
-        'Get Started',
-        'hero-section',
-        'url',
-        brainUrl,
-      );
+      trackButton('Get Started', 'hero-section', 'url', brainUrl);
 
       window.open(brainUrl, '_blank');
     }
@@ -429,7 +424,7 @@ export function PromptInput() {
   return (
     <div
       ref={containerRef}
-      className="border-gradient-glass relative flex flex-col rounded-2xl px-3 py-4 inset-shadow-[0_0_8px_0_rgba(255,255,255,0.25)]"
+      className="border-gradient relative flex flex-col rounded-2xl px-3 py-4 inset-shadow-[0_0_8px_0_rgba(255,255,255,0.25)]"
     >
       <GlareEffect isFirefox={isFirefox} />
 

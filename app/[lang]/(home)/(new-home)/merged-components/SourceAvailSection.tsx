@@ -3,7 +3,7 @@
 import OSSSection from './OSSSection';
 import StatsCards from './StatsCards';
 import WhySourceAvailableMatters from './WhySourceAvailableMatters';
-import { GodRays } from '../../../../../new-components/GodRays';
+import { GodRays } from '@/new-components/GodRays';
 
 interface SourceAvailSectionProps {
   lang?: string;

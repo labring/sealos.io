@@ -121,7 +121,7 @@ export function FAQPageClient({ langPrefix }: FAQPageClientProps) {
 
   return (
     <>
-      <div className="border-gradient-glass mx-auto mt-11 flex max-w-2xl rounded-xl p-2">
+      <div className="border-gradient mx-auto mt-11 flex max-w-2xl rounded-xl p-2">
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger className="flex h-full w-fit shrink-0 items-center gap-2 rounded-lg px-1 py-2 hover:bg-white/5 sm:px-3">
             <span>{selectedCategory}</span>
