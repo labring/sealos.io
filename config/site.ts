@@ -41,11 +41,11 @@ export const siteConfig: SiteConfig = {
   }/images/banner.jpeg?${new Date().getTime()}`,
   turnstileEnabled: true,
   turnstileSitekey: '0x4AAAAAABktQSy4J6pPHwD7',
-  emailRequestEndpoint: 'https://192.168.10.35.nip.io/api/auth/email/sms',
-  emailVerifyEndpoint: 'https://192.168.10.35.nip.io/api/auth/email/verify',
-  signinSwitchRegionUrl: 'https://192.168.10.35.nip.io/switchRegion',
-  oauth2GithubUrl: 'https://192.168.10.35.nip.io/oauth?login=github',
-  oauth2GoogleUrl: 'https://192.168.10.35.nip.io/oauth?login=google',
+  emailRequestEndpoint: 'https://usw.sealos.io/api/auth/email/sms',
+  emailVerifyEndpoint: 'https://usw.sealos.io/api/auth/email/verify',
+  signinSwitchRegionUrl: 'https://os.sealos.io/switchRegion',
+  oauth2GithubUrl: 'https://os.sealos.io/oauth?login=github',
+  oauth2GoogleUrl: 'https://os.sealos.io/oauth?login=google',
 };
 
 export type AuthorData = {
