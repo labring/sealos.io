@@ -44,8 +44,8 @@ export const siteConfig: SiteConfig = {
   emailRequestEndpoint: 'https://192.168.10.35.nip.io/api/auth/email/sms',
   emailVerifyEndpoint: 'https://192.168.10.35.nip.io/api/auth/email/verify',
   signinSwitchRegionUrl: 'https://192.168.10.35.nip.io/switchRegion',
-  oauth2GithubUrl: '',
-  oauth2GoogleUrl: '',
+  oauth2GithubUrl: 'https://192.168.10.35.nip.io/oauth?login=github',
+  oauth2GoogleUrl: 'https://192.168.10.35.nip.io/oauth?login=google',
 };
 
 export type AuthorData = {

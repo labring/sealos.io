@@ -23,6 +23,8 @@ export function SelectMethodStep() {
     sendCode,
     setStep,
     setError,
+    additionalParams,
+    setOpen,
   } = useAuthForm();
 
   const [captchaSolved, setCaptchaSolved] = useState(false);
@@ -59,6 +61,17 @@ export function SelectMethodStep() {
     } else {
       handleCaptchaError();
     }
+  };
+
+  const handleOAuthClick = (url: string) => {
+    const targetUrl = new URL(url);
+    if (additionalParams) {
+      Object.entries(additionalParams).forEach(([key, value]) => {
+        targetUrl.searchParams.append(key, value);
+      });
+    }
+    setOpen(false);
+    window.location.href = targetUrl.toString();
   };
 
   return (
@@ -144,6 +157,7 @@ export function SelectMethodStep() {
             <Button
               variant="outline"
               className="text-foreground bg-foreground/5 h-10 w-full rounded-full hover:cursor-pointer"
+              onClick={() => handleOAuthClick(siteConfig.oauth2GithubUrl)}
             >
               <div>
                 <GithubIcon />
@@ -154,6 +168,7 @@ export function SelectMethodStep() {
             <Button
               variant="outline"
               className="text-foreground bg-foreground/5 h-10 w-full rounded-full hover:cursor-pointer"
+              onClick={() => handleOAuthClick(siteConfig.oauth2GoogleUrl)}
             >
               <GoogleIcon />
               <span className="ml-2">Google</span>
