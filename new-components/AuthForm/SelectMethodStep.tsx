@@ -45,9 +45,6 @@ export function SelectMethodStep() {
   const handleCaptchaError = () => {
     setCaptchaSolved(false);
     clearCaptchaToken();
-    if (turnstileRef.current) {
-      turnstileRef.current.reset();
-    }
   };
 
   const handleEmailContinue = async () => {
@@ -180,11 +177,14 @@ export function SelectMethodStep() {
           <p className="text-muted-foreground cursor-pointer text-center text-xs leading-4">
             By proceeding you acknowledge that you have read, understood and
             agree to our{' '}
-            <a href="#" className="text-white underline">
+            <a
+              href="/docs/msa/terms-of-service"
+              className="text-white underline"
+            >
               Terms and Conditions
             </a>
             ,{' '}
-            <a href="#" className="text-white underline">
+            <a href="/docs/msa/privacy-policy" className="text-white underline">
               Privacy Policy
             </a>
             .

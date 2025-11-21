@@ -40,7 +40,7 @@ export const siteConfig: SiteConfig = {
     process.env.NEXT_PUBLIC_APP_URL
   }/images/banner.jpeg?${new Date().getTime()}`,
   turnstileEnabled: true,
-  turnstileSitekey: '0x4AAAAAABktQSy4J6pPHwD7',
+  turnstileSitekey: '0x4AAAAAABmIoQ_LAxlvw78V',
   emailRequestEndpoint: 'https://usw.sealos.io/api/auth/email/sms',
   emailVerifyEndpoint: 'https://usw.sealos.io/api/auth/email/verify',
   signinSwitchRegionUrl: 'https://os.sealos.io/switchRegion',
