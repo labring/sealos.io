@@ -15,7 +15,7 @@ export function TryFreeButton() {
       variant="landing-primary"
       className="w-full"
       onClick={() => {
-        trackButton('Try Free', 'ai-quick-reference', 'auth-form', '');
+        trackButton('Get Started', 'ai-quick-reference', 'auth-form', '');
         openAuthForm({ openapp: getOpenBrainParam() });
       }}
     >

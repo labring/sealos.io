@@ -23,7 +23,7 @@ export function AuthFormProvider({ children }: { children: ReactNode }) {
       });
     }
 
-    window.location.href = target.toString();
+    window.open(target.toString(), '_blank')?.focus();
   };
 
   return (

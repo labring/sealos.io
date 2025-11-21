@@ -7,9 +7,11 @@ import { Button } from '@/components/ui/button';
 import { ArrowRightIcon } from 'lucide-react';
 import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
 import { getOpenBrainParam } from '@/lib/utils/brain';
+import { useGTM } from '@/hooks/use-gtm';
 
 export function SealosBrandCard() {
   const openAuthForm = useOpenAuthForm();
+  const { trackButton } = useGTM();
 
   return (
     <div className="border-border bg-primary-foreground w-full rounded-xl border p-8">
@@ -39,7 +41,10 @@ export function SealosBrandCard() {
       <Button
         variant="landing-primary"
         className="w-full"
-        onClick={() => openAuthForm({ openapp: getOpenBrainParam() })}
+        onClick={() => {
+          trackButton('Get Started', 'ai-quick-reference', 'auth-form', '');
+          openAuthForm({ openapp: getOpenBrainParam() });
+        }}
       >
         <span>Try Free</span>
         <ArrowRightIcon size={16} className="ml-1" />
