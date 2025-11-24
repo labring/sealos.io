@@ -25,7 +25,7 @@ export function HeroSection() {
       }}
     >
       {/* 背景组件 */}
-      <HeroBackground containerRef={containerRef} />
+      <HeroBackground />
 
       {/* GodRays 效果 - 只在视口内渲染 */}
       {isInView && (
