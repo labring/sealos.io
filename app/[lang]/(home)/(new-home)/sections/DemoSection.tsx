@@ -203,7 +203,7 @@ export function DemoSection() {
   );
 
   return (
-    <section className="relative w-screen overflow-x-clip overflow-y-visible object-top pt-8">
+    <section className="relative w-screen overflow-x-clip overflow-y-visible object-top pt-24">
       {/* Background light */}
       <div
         className="pointer-events-none absolute top-0 left-1/2 h-96 w-full -translate-x-1/2"

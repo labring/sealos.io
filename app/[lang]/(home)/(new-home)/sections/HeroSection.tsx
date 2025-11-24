@@ -77,11 +77,11 @@ export function HeroSection() {
       )}
 
       {/* 左侧内容区域 */}
-      <div className="z-10 container">
-        <div className="w-full py-10 md:w-4/5 lg:w-1/2">
+      <div className="z-10 container max-w-4xl">
+        <div className="py-10">
           <HeroTitle isInView={isInView} />
 
-          <div className="mt-10">
+          <div className="mt-12">
             <PromptInput />
           </div>
         </div>

@@ -1,10 +1,17 @@
+import { cn } from '@/lib/utils';
 import React from 'react';
 
-export function FramedText({ children }: { children?: React.ReactNode }) {
+export function FramedText({
+  children,
+  className,
+}: {
+  children?: React.ReactNode;
+  className: string;
+}) {
   const gradientId = React.useId();
 
   return (
-    <span className="relative inline-block overflow-visible">
+    <span className={cn('relative inline-block overflow-visible', className)}>
       <svg
         className="absolute inset-0 h-full w-full"
         xmlns="http://www.w3.org/2000/svg"

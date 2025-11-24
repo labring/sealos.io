@@ -63,24 +63,6 @@ const Feature = memo(function Feature({ title, description }: FeatureProps) {
 });
 
 export default memo(function WhySourceAvailableMatters() {
-  const features = [
-    {
-      title: 'Transparency',
-      description:
-        'Audit our code, understand our architecture, and verify our security practices.',
-    },
-    {
-      title: 'Community',
-      description:
-        'Contribute features, report bugs, and shape the future of cloud development.',
-    },
-    {
-      title: 'Trust',
-      description:
-        'No vendor lock-in, no hidden agendas. Just reliable software you can depend on.',
-    },
-  ];
-
   const testimonials = [
     {
       avatar: ltAvatar,

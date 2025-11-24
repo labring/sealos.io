@@ -7,7 +7,7 @@ import {
   SocialShareButton,
 } from '@/components/ui/share-buttons';
 import { GradientText } from '@/new-components/GradientText';
-import { AiAgentStar } from '@/app/[lang]/(home)/blog/components/AiAgentStar';
+import { AiAgentStar } from '@/new-components/AiAgentStar';
 
 interface AIShareButtonsProps {
   lang: languagesType;

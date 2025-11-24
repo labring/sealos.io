@@ -4,7 +4,6 @@ import { useRef, useEffect, RefObject } from 'react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import Image from 'next/image';
 import HeroGrid from '@/assets/hero-grid.svg';
-import HeroCards from '@/assets/hero-cards.svg';
 
 interface HeroBackgroundProps {
   containerRef: RefObject<HTMLDivElement>;
@@ -70,36 +69,26 @@ export function HeroBackground({ containerRef }: HeroBackgroundProps) {
 
   return (
     <>
-      {/* 背景网格 - 铺满整个容器 */}
+      {/* 背景网格 - 放在section底部 */}
       <div
-        className="pointer-events-none absolute inset-0 -z-20"
+        className="pointer-events-none absolute right-0 bottom-0 left-0 -z-20 container h-[30rem] overflow-visible"
         aria-hidden="true"
       >
         <Image
           src={HeroGrid}
-          className="h-full w-full object-cover opacity-30"
+          className="h-full w-full overflow-visible object-cover object-bottom"
           alt=""
         />
       </div>
 
-      {/* 右侧卡片 - 限制在 container 内 */}
       <div
-        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden blur-sm lg:blur-none"
-        aria-hidden="true"
-      >
-        <div className="container h-full">
-          <div className="flex h-full items-center justify-end">
-            <div className="flex h-full w-full items-center justify-end md:w-1/2 md:min-w-[540px]">
-              <Image
-                src={HeroCards}
-                alt=""
-                className="h-auto max-h-full w-full object-contain p-4 pt-28 opacity-100"
-                priority
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+        className="absolute right-0 bottom-0 left-0 h-32"
+        style={{
+          background:
+            'linear-gradient(to bottom, transparent 0%, var(--color-background) 100%)',
+          mixBlendMode: 'multiply',
+        }}
+      />
 
       {/* 暗化遮罩层 - 使用 MotionValue + useSpring 实现渐变 */}
       <motion.div
