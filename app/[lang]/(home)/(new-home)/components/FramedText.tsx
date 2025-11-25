@@ -43,11 +43,12 @@ export function FramedText({
 
         {/* 右上角实心矩形 - 中心在边框上 */}
         <rect
-          x="calc(100% - 2px)"
+          x="100%"
           y="-2"
           width="4"
           height="4"
           fill={`url(#${gradientId})`}
+          style={{ transform: 'translateX(-2px)' }}
         />
 
         {/* 左下角实心矩形 - 中心在边框上 */}
@@ -61,11 +62,12 @@ export function FramedText({
 
         {/* 右下角实心矩形 - 中心在边框上 */}
         <rect
-          x="calc(100% - 2px)"
+          x="100%"
           y="calc(100% - 2px)"
           width="4"
           height="4"
           fill={`url(#${gradientId})`}
+          style={{ transform: 'translateX(-2px)' }}
         />
       </svg>
 
