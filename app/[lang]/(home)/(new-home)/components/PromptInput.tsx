@@ -321,9 +321,7 @@ const PromptCategories = memo(
 PromptCategories.displayName = 'PromptCategories';
 
 // Memoized glare effect component
-const GlareEffect = memo(({ isFirefox }: { isFirefox: boolean }) => {
-  if (isFirefox) return null;
-
+const GlareEffect = memo(() => {
   return (
     <>
       <Glare
@@ -348,7 +346,7 @@ export function PromptInput() {
   const openAuthForm = useOpenAuthForm();
 
   const [promptText, setPromptText] = useState('');
-  const [isFirefox, setIsFirefox] = useState(false);
+  const [isChromium, setIsChromium] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('en');
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -365,9 +363,9 @@ export function PromptInput() {
   }, [typewriterFullText]);
 
   useEffect(() => {
-    // 检测是否为 Firefox 浏览器
+    // Degrade for firefox/safari
     const userAgent = navigator.userAgent.toLowerCase();
-    setIsFirefox(userAgent.indexOf('firefox') > -1);
+    setIsChromium(userAgent.includes('chrome') && userAgent.includes('safari'));
 
     // 检测当前语言
     const pathLang = window.location.pathname.split('/')[1];
@@ -425,7 +423,7 @@ export function PromptInput() {
       ref={containerRef}
       className="border-gradient relative flex flex-col rounded-2xl px-3 py-4 inset-shadow-[0_0_8px_0_rgba(255,255,255,0.25)]"
     >
-      <GlareEffect isFirefox={isFirefox} />
+      {isChromium && <GlareEffect />}
 
       {/* Textarea */}
       <div className="relative rounded-lg bg-white/[0.07]">

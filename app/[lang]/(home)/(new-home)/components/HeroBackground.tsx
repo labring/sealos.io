@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import HeroGrid from '@/assets/hero-grid.svg';
+import HeroGridAnimation from '@/assets/hero-grid-animation.svg';
 
 export function HeroBackground() {
   return (
@@ -10,8 +11,13 @@ export function HeroBackground() {
         aria-hidden="true"
       >
         <Image
+          src={HeroGridAnimation}
+          className="absolute h-full w-full overflow-visible object-cover object-bottom"
+          alt=""
+        />
+        <Image
           src={HeroGrid}
-          className="h-full w-full overflow-visible object-cover object-bottom"
+          className="absolute h-full w-full overflow-visible object-cover object-bottom"
           alt=""
         />
       </div>
