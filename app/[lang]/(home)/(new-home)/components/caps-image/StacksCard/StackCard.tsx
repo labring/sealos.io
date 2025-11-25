@@ -17,8 +17,8 @@ export function StackCard({
           <div className="text-lg">{name}</div>
         </div>
         <div className="mt-4 w-full">
-          <div className="h-3 w-full rounded-full border border-white/50 bg-white/5" />
-          <div className="mt-2 h-3 w-1/3 rounded-full border border-white/50 bg-white/5" />
+          <div className="h-3 w-full rounded-full border border-white/5 bg-white/5" />
+          <div className="mt-2 h-3 w-1/3 rounded-full border border-white/5 bg-white/5" />
         </div>
       </div>
       <div className="flex items-center justify-between px-3 py-2">
