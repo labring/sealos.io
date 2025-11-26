@@ -147,12 +147,6 @@ It’s the quickest way to get a powerful, disposable cloud workspace without to
 
 ➡️ **[Launch the Claude Code Environment on Sealos DevBox](https://os.sealos.io/?openapp=system-devbox?page%3Dcreate%26runtime%3Dclaude-code)**
 
-## Method 3: Cloud Development Environments with Sealos
-
-This is where the concept of a **Cloud Development Environment (CDE)** comes in, representing a more streamlined and robust solution. A CDE is a powerful, on-demand development workspace that runs in the cloud, eliminating the need for a personal host machine entirely.
-
-Instead of configuring a machine yourself, you simply define your environment's requirements, and the platform provisions a perfectly configured, secure, and disposable workspace for you in seconds.
-
 ## Conclusion
 
 The path to a truly mobile development workflow is clear. While an official app may be on the horizon, today’s solutions already turn your phone into a powerful extension of your development environment.
