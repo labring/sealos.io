@@ -6,6 +6,12 @@ import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
 import React from 'react';
 import { generateBlogMetadata } from '@/lib/utils/metadata';
 
+import { remark } from 'remark';
+import html from 'remark-html';
+import remarkGfm from 'remark-gfm';
+import Markdown from 'react-markdown';
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+
 export default async function BlogPage({
   params,
 }: {
@@ -19,8 +25,33 @@ export default async function BlogPage({
 
   const Content = page.data.body;
 
+  const jsonLd = page.data.faq
+    ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: await Promise.all(
+        page.data.faq.map(async (item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: (
+              await remark().use(remarkGfm).use(html).process(item.answer)
+            ).toString(),
+          },
+        })),
+      ),
+    }
+    : null;
+
   return (
     <>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
       <DocsBody>
         <Content
           components={{
@@ -47,6 +78,18 @@ export default async function BlogPage({
             },
           }}
         />
+        {page.data.faq && page.data.faq.length > 0 && (
+          <div className="mt-12">
+            <h2 className="mb-4 text-2xl font-bold">FAQ</h2>
+            <Accordions type="multiple">
+              {page.data.faq.map((item, index) => (
+                <Accordion key={index} title={item.question}>
+                  <Markdown remarkPlugins={[remarkGfm]}>{item.answer}</Markdown>
+                </Accordion>
+              ))}
+            </Accordions>
+          </div>
+        )}
       </DocsBody>
     </>
   );
