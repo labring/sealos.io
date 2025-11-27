@@ -7,17 +7,17 @@ export function HeroBackground() {
     <>
       {/* 背景网格 - 放在section底部 */}
       <div
-        className="pointer-events-none absolute right-0 bottom-0 left-0 -z-20 container h-[30rem] overflow-visible"
+        className="pointer-events-none absolute right-0 bottom-0 left-0 -z-20 h-[30rem] overflow-visible"
         aria-hidden="true"
       >
         <Image
           src={HeroGridAnimation}
-          className="absolute h-full w-full overflow-visible object-cover object-bottom"
+          className="absolute left-1/2 h-full w-full max-w-[2400px] -translate-x-1/2 object-cover object-bottom"
           alt=""
         />
         <Image
           src={HeroGrid}
-          className="absolute h-full w-full overflow-visible object-cover object-bottom"
+          className="absolute left-1/2 h-full w-full max-w-[2400px] -translate-x-1/2 object-cover object-bottom"
           alt=""
         />
       </div>

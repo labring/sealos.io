@@ -18,7 +18,7 @@ export const AppStoreChoicesBg = (
       x=".25"
       y=".25"
       fill="url(#a)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -28,7 +28,7 @@ export const AppStoreChoicesBg = (
       x="32.08"
       y=".25"
       fill="url(#b)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -38,7 +38,7 @@ export const AppStoreChoicesBg = (
       x="63.9"
       y=".25"
       fill="url(#c)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -48,7 +48,7 @@ export const AppStoreChoicesBg = (
       x="95.73"
       y=".25"
       fill="url(#d)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -58,7 +58,7 @@ export const AppStoreChoicesBg = (
       x="127.56"
       y=".25"
       fill="url(#e)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -68,7 +68,7 @@ export const AppStoreChoicesBg = (
       x="159.38"
       y=".25"
       fill="url(#f)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -78,7 +78,7 @@ export const AppStoreChoicesBg = (
       x="191.21"
       y=".25"
       fill="url(#g)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -88,7 +88,7 @@ export const AppStoreChoicesBg = (
       x="223.04"
       y=".25"
       fill="url(#h)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -98,7 +98,7 @@ export const AppStoreChoicesBg = (
       x="254.87"
       y=".25"
       fill="url(#i)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -108,7 +108,7 @@ export const AppStoreChoicesBg = (
       x="286.69"
       y=".25"
       fill="url(#j)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -118,7 +118,7 @@ export const AppStoreChoicesBg = (
       x="318.52"
       y=".25"
       fill="url(#k)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -128,7 +128,7 @@ export const AppStoreChoicesBg = (
       x=".25"
       y="30.08"
       fill="url(#l)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -138,7 +138,7 @@ export const AppStoreChoicesBg = (
       x="32.08"
       y="30.08"
       fill="url(#m)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -148,7 +148,7 @@ export const AppStoreChoicesBg = (
       x="63.9"
       y="30.08"
       fill="url(#n)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -158,7 +158,7 @@ export const AppStoreChoicesBg = (
       x="95.73"
       y="30.08"
       fill="url(#o)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -168,7 +168,7 @@ export const AppStoreChoicesBg = (
       x="127.56"
       y="30.08"
       fill="url(#p)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -178,7 +178,7 @@ export const AppStoreChoicesBg = (
       x="159.38"
       y="30.08"
       fill="url(#q)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -188,7 +188,7 @@ export const AppStoreChoicesBg = (
       x="191.21"
       y="30.08"
       fill="url(#r)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -198,7 +198,7 @@ export const AppStoreChoicesBg = (
       x="223.04"
       y="30.08"
       fill="url(#s)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -218,7 +218,7 @@ export const AppStoreChoicesBg = (
       x="286.69"
       y="30.08"
       fill="url(#v)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -228,7 +228,7 @@ export const AppStoreChoicesBg = (
       x="318.52"
       y="30.08"
       fill="url(#w)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -238,7 +238,7 @@ export const AppStoreChoicesBg = (
       x=".25"
       y="59.9"
       fill="url(#x)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -248,7 +248,7 @@ export const AppStoreChoicesBg = (
       x="32.08"
       y="59.9"
       fill="url(#y)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -258,7 +258,7 @@ export const AppStoreChoicesBg = (
       x="63.9"
       y="59.9"
       fill="url(#z)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -268,7 +268,7 @@ export const AppStoreChoicesBg = (
       x="95.73"
       y="59.9"
       fill="url(#A)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -288,7 +288,7 @@ export const AppStoreChoicesBg = (
       x="159.38"
       y="59.9"
       fill="url(#D)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -298,7 +298,7 @@ export const AppStoreChoicesBg = (
       x="191.21"
       y="59.9"
       fill="url(#E)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -308,7 +308,7 @@ export const AppStoreChoicesBg = (
       x="223.04"
       y="59.9"
       fill="url(#F)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -318,7 +318,7 @@ export const AppStoreChoicesBg = (
       x="254.87"
       y="59.9"
       fill="url(#G)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -328,7 +328,7 @@ export const AppStoreChoicesBg = (
       x="286.69"
       y="59.9"
       fill="url(#H)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -338,7 +338,7 @@ export const AppStoreChoicesBg = (
       x="318.52"
       y="59.9"
       fill="url(#I)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -348,7 +348,7 @@ export const AppStoreChoicesBg = (
       x=".25"
       y="89.73"
       fill="url(#J)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -358,7 +358,7 @@ export const AppStoreChoicesBg = (
       x="32.08"
       y="89.73"
       fill="url(#K)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -368,7 +368,7 @@ export const AppStoreChoicesBg = (
       x="63.9"
       y="89.73"
       fill="url(#L)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -378,7 +378,7 @@ export const AppStoreChoicesBg = (
       x="95.73"
       y="89.73"
       fill="url(#M)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -388,7 +388,7 @@ export const AppStoreChoicesBg = (
       x="127.56"
       y="89.73"
       fill="url(#N)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -398,7 +398,7 @@ export const AppStoreChoicesBg = (
       x="159.38"
       y="89.73"
       fill="url(#O)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -408,7 +408,7 @@ export const AppStoreChoicesBg = (
       x="191.21"
       y="89.73"
       fill="url(#P)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -428,7 +428,7 @@ export const AppStoreChoicesBg = (
       x="254.87"
       y="89.73"
       fill="url(#S)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -438,7 +438,7 @@ export const AppStoreChoicesBg = (
       x="286.69"
       y="89.73"
       fill="url(#T)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />
@@ -448,7 +448,7 @@ export const AppStoreChoicesBg = (
       x="318.52"
       y="89.73"
       fill="url(#U)"
-      stroke="#E4E4E7"
+      stroke="#27272A"
       stroke-width=".5"
       rx="3.75"
     />

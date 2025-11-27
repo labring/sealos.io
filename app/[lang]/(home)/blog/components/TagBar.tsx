@@ -20,7 +20,7 @@ const formatTitle = (tag: string) =>
 
 const tagClassName = (isSelected: boolean) =>
   cn(
-    'rounded-lg border px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors text-primary bg-primary/5 border-dashed flex gap-1 items-center',
+    'rounded-lg border px-3 py-1 text-sm font-medium whitespace-nowrap transition-colors text-primary bg-primary/5 border-dashed flex gap-1 items-center',
     isSelected
       ? 'border-muted-foreground'
       : 'border-border hover:border-muted-foreground',
