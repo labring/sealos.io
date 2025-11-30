@@ -237,7 +237,7 @@ export function DemoSection() {
       <div
         ref={containerRef}
         className="relative mt-12 overflow-visible"
-        style={{ height: '400vh' }}
+        style={{ height: '200vh' }}
       >
         {/* Sticky viewport */}
         <div className="sticky top-0 flex h-screen w-screen justify-center overflow-visible">
@@ -286,6 +286,10 @@ export function DemoSection() {
                 }}
                 onClick={() => setIsModalOpen(true)}
               >
+                <span className="sr-only">
+                  Watch how Sealos enables one-click deployment of AI agents, databases, and full-stack applications.
+                  Learn how to deploy your first app in under 60 seconds using our AI-powered cloud platform.
+                </span>
                 <Image
                   src={VideoThumbnailSvg}
                   alt="Video thumbnail"

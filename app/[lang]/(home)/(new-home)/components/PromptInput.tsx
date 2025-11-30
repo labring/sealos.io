@@ -265,7 +265,8 @@ const PromptCategories = memo(
   ({ onPromptSelect }: { onPromptSelect: (prompt: string) => void }) => (
     <div className="flex flex-col gap-2 p-2">
       <div className="text-xs text-zinc-500 sm:text-sm">
-        Some ideas to get started:
+        <span className="text-zinc-400">Try instant deploys</span> — click to
+        auto-fill:
       </div>
 
       <div className="flex flex-wrap gap-2">

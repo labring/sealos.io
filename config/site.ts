@@ -15,13 +15,40 @@ export const siteConfig: SiteConfig = {
   author: 'Labring',
   tagline:
     i18n.defaultLanguage === 'zh-cn'
-      ? '一个集本地开发、线上测试、打包上线为一体的云操作系统'
-      : 'Develop, deploy, and scale in one seamless cloud platform',
+      ? 'AI 原生云平台 - 一句话部署任何应用'
+      : 'The AI-Native Cloud Platform - Deploy Anything with a Prompt',
   description:
     i18n.defaultLanguage === 'zh-cn'
-      ? 'Sealos 云操作系统，Kubernetes 云内核，多 Region 统一管理，以应用为中心的企业级容器云，秒级创建高可用数据库，自动伸缩杜绝资源浪费，一键创建容器集群，端到端的应用安全保障，支持多种复杂应用场景快速上云，超10w+企业，近百万开发者在线使用。'
-      : 'Sealos, the Intelligent Cloud OS, uses AI to automate your workflow. Deploy apps, databases, and scalable Kubernetes with one click. Faster, simpler development for developers.',
-  keywords: ['sealos'],
+      ? 'Sealos 是 AI 原生云平台，用一句话部署 AI 智能体、数据库和全栈应用。100% 源码可用，支持私有化部署或使用托管云。无需 DevOps 经验，从开发到生产一站式完成。'
+      : 'Sealos is an AI-native cloud platform that lets you deploy AI agents, databases, and full-stack apps with a single prompt. 100% source-available. Self-host or use managed cloud. No DevOps required.',
+  keywords:
+    i18n.defaultLanguage === 'zh-cn'
+      ? [
+          'sealos',
+          '云平台',
+          'AI部署',
+          'kubernetes',
+          '云开发环境',
+          '数据库托管',
+          '应用部署',
+          '开源云平台',
+          'PaaS',
+          '云IDE',
+          'DevBox',
+        ]
+      : [
+          'sealos',
+          'cloud platform',
+          'AI deployment',
+          'kubernetes',
+          'devbox',
+          'database hosting',
+          'app deployment',
+          'source available',
+          'PaaS',
+          'cloud IDE',
+          'serverless',
+        ],
   url: {
     base: domain,
     author: '',
