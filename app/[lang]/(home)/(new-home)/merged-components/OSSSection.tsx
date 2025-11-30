@@ -16,19 +16,19 @@ export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
   const translations = {
     en: {
       badge: '100% source available',
-      title: 'Built for the',
-      titleHighlight: 'Modern Application.',
+      title: 'Open Source at Core, ',
+      titleHighlight: 'Freedom by Design',
       description:
-        "Whether you're building next-gen AI agents or battle-tested web apps, our unified platform is designed to amplify your workflow.",
+        "Don't bet your business on a black box. Choose the cloud OS that lets you run anywhere—from our managed cloud to your own infrastructure.",
       viewSourceCode: 'View Source Code',
       startForFree: 'Get Started Free',
     },
     'zh-cn': {
       badge: '100% 开源可用',
-      title: '为',
-      titleHighlight: '现代应用而生。',
+      title: '核心开源，',
+      titleHighlight: '设计自由。',
       description:
-        '无论您是在构建下一代AI代理还是经过实战考验的Web应用，我们的统一平台都旨在增强您的工作流程。',
+        '别把你的业务押注在黑盒子上。选择一个允许你在任何地方运行的云操作系统——无论是我们的托管云，还是你自己的基础设施。',
       viewSourceCode: '查看源代码',
       startForFree: '免费开始',
     },
@@ -39,7 +39,7 @@ export default memo(function OSSSection({ lang = 'en' }: OSSSectionProps) {
   return (
     <div className="relative overflow-hidden">
       {/* Main content */}
-      <div className="relative z-10 h-auto w-full lg:h-[184px]">
+      <div className="relative z-10 h-auto w-full">
         <div className="flex flex-col items-start justify-between lg:flex-row">
           {/* Left side - Main content */}
           <div className="max-w-2xl flex-1">

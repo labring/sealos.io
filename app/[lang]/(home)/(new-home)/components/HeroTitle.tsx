@@ -3,43 +3,48 @@
 import { GradientText } from '@/new-components/GradientText';
 import { FramedText } from './FramedText';
 import { RotatingWords } from './RotatingWords';
-import { AiAgentStar } from '@/new-components/AiAgentStar';
-import ltAvatar from '@/assets/lt.png';
-import rbAvatar from '@/assets/rb.png';
-import lbAvatar from '@/assets/lb.png';
-import Image from 'next/image';
+import { Star, ShieldCheck } from 'lucide-react';
+import { GithubIcon } from '@/components/ui/icons';
 
 export function HeroTitle({ isInView }: { isInView: boolean }) {
   return (
     <div>
-      {/* 顶部标签 */}
-      <div className="mx-auto flex w-fit rounded-full border border-white/5 bg-white/5 px-3 py-2 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),_0_2px_4px_-1px_rgba(0,0,0,0.02)]">
-        <div className="mr-1 flex items-center">
-          <Image
-            src={ltAvatar}
-            alt="Avatar"
-            className="z-20 -mr-2 size-5 rounded-full border border-neutral-500"
-          />
-          <Image
-            src={rbAvatar}
-            alt="Avatar"
-            className="z-10 -mr-2 size-5 rounded-full border border-neutral-500"
-          />
-          <Image
-            src={lbAvatar}
-            alt="Avatar"
-            className="size-5 rounded-full border"
-          />
+      {/* 顶部标签 - 社会证明区 */}
+      <div className="mx-auto flex w-fit items-center gap-2 text-sm text-zinc-400 sm:gap-3">
+        {/* GitHub Stars */}
+        <a
+          href="https://github.com/labring/sealos"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1.5 rounded-full border border-white/5 bg-white/5 px-3 py-1.5 transition-colors hover:bg-white/10 hover:text-white"
+        >
+          <GithubIcon />
+          <Star className="size-3.5 fill-yellow-400 text-yellow-400" />
+          <span>
+            <GradientText>16K+</GradientText> Stars
+          </span>
+        </a>
+
+        <span className="text-zinc-600">·</span>
+
+        {/* Source Available Badge */}
+        <div className="flex items-center gap-1.5 rounded-full border border-white/5 bg-white/5 px-3 py-1.5">
+          <ShieldCheck className="size-4 text-emerald-500" />
+          <span>100% Source Available</span>
         </div>
-        Trusted by&nbsp;<GradientText>10K+</GradientText>
-        <AiAgentStar className="mt-1 self-start" aria-hidden="true" />
-        &nbsp;developers
       </div>
 
-      {/* 主标题 */}
-      <h1
+      {/* SEO H1 - Hidden visually but readable by search engines and screen readers */}
+      <h1 className="sr-only">
+        Sealos Cloud Platform: Deploy AI Agents, Dev Runtimes, Web Apps, and
+        Databases with Just a Prompt
+      </h1>
+
+      {/* Visual Title - Decorative, hidden from assistive tech */}
+      <div
         className="mt-9 text-center text-4xl leading-[1.2] sm:text-5xl"
-        aria-label="Ship any AI Agent, Dev Runtime, Web App, Database with just a prompt."
+        aria-hidden="true"
+        role="presentation"
       >
         <span className="text-nowrap whitespace-nowrap">
           Ship any
@@ -52,11 +57,12 @@ export function HeroTitle({ isInView }: { isInView: boolean }) {
           </FramedText>
         </span>
         <span>with just a prompt.</span>
-      </h1>
+      </div>
 
       <p className="mt-5 text-center text-sm text-zinc-400 sm:text-base">
-        Generate fully managed web apps and agents with AI simply by describing
-        them.
+        <span className="text-zinc-300">No YAML. No Dockerfile. No CI/CD.</span>
+        {' '}Describe what you need in plain English and deploy to production
+        in seconds—powered by Kubernetes, without the complexity.
       </p>
     </div>
   );

@@ -6,30 +6,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { faqData } from '../config/faq-data';
 
 export default function FAQSection() {
-  const faqData = [
-    {
-      question: 'What is Sealos?',
-      answer:
-        'Sealos is an AI-assisted Cloud Operating System built on Kubernetes that unifies the entire application lifecycle, from development in cloud IDEs to production deployment and management. It is perfect for building and scaling modern AI applications, SaaS platforms, and complex microservice architectures. The platform is source-available, and for production you can choose either a fully managed cloud service or deploy privately.',
-    },
-    {
-      question: "Can I use Sealos if I'm not a Kubernetes expert?",
-      answer:
-        "Absolutely! Sealos is designed to abstract away the complexity of Kubernetes. You don't need to be a Kubernetes expert to use our platform effectively.",
-    },
-    {
-      question: 'What languages and frameworks can I deploy?',
-      answer:
-        'Sealos supports a wide range of programming languages and frameworks including Node.js, Python, Java, Go, React, Vue, and many more.',
-    },
-    {
-      question: 'How does the free tier work?',
-      answer:
-        'Our free tier provides generous resources to get you started. You can deploy applications, use databases, and access most features without any cost.',
-    },
-  ];
 
   return (
     <div className="container px-4 pt-8 pb-8">

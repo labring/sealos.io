@@ -7,6 +7,9 @@ import { SequenceSection } from './sections/SequenceSection';
 import { CapsSection } from './sections/CapsSection';
 import SourceAvailSection from './merged-components/SourceAvailSection';
 import FAQSection from './sections/FAQSection';
+import { faqData } from './config/faq-data';
+import { generateFAQSchema } from '@/lib/utils/structured-data';
+import { StructuredDataComponent } from '@/components/structured-data';
 
 const translations = {
   en: {},
@@ -19,9 +22,11 @@ export default function HomePage({
   params: { lang: languagesType };
 }) {
   const t = translations[params.lang] || translations.en;
+  const faqSchema = generateFAQSchema(faqData, params.lang);
 
   return (
     <>
+      <StructuredDataComponent data={faqSchema} />
       <div className="-mt-24 overflow-x-clip" role="main">
         <HeroSection />
       </div>
