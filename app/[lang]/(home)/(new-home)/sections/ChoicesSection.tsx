@@ -7,7 +7,7 @@ import ChoicesBeamGrid from '@/assets/choices-beam-grid.svg';
 
 export function ChoicesSection() {
   return (
-    <section className="relative -mt-[100vh] w-screen overflow-x-clip pt-28 pb-32">
+    <section className="relative w-screen overflow-x-clip pt-28 pb-32">
       <div className="container">
         <div className="relative pb-8 lg:pb-16">
           <div className="w-full">
