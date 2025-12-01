@@ -5,6 +5,10 @@ export function isForcedDarkMode(pathname: string): boolean {
       match: 'full',
     },
     {
+      path: '/pricing',
+      match: 'full',
+    },
+    {
       path: '/ai-quick-reference',
       match: 'prefix',
     },
@@ -18,11 +22,11 @@ export function isForcedDarkMode(pathname: string): boolean {
     },
   ];
 
-  // Match 2-letter language codes at the start of the path (temporary solution)
-  const re = new RegExp(/^\/([a-z]{2}\/)?(.*)$/);
+  // Match language codes at the start of the path (temporary solution)
+  const re = new RegExp(/^\/(?:[a-z]{2}\/|[a-z]{2}-[a-z]{2}\/)?(.*)$/);
   const matches = pathname.match(re);
 
-  const matchedPath = matches ? `/${matches[2]}` : pathname;
+  const matchedPath = matches ? `/${matches[1]}` : pathname;
   return (
     PATHS.find((path) => {
       if (path.match === 'full') return matchedPath === path.path;
