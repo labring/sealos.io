@@ -194,3 +194,42 @@ export function GradientDatabase(
     </svg>
   );
 }
+
+export function GradientGitHub(
+  props: React.DetailedHTMLProps<
+    React.SVGAttributes<SVGSVGElement>,
+    SVGSVGElement
+  >,
+) {
+  const gradientId = React.useId();
+
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 20 21"
+      {...props}
+    >
+      <path
+        d="M12.7362 18.4909V15.1576C12.8521 14.1136 12.5528 13.066 11.9029 12.2409C14.4029 12.2409 16.9029 10.5742 16.9029 7.65755C16.9695 6.61589 16.6779 5.59089 16.0695 4.74089C16.3029 3.78255 16.3029 2.78255 16.0695 1.82422C16.0695 1.82422 15.2362 1.82422 13.5695 3.07422C11.3695 2.65755 9.10286 2.65755 6.90286 3.07422C5.2362 1.82422 4.40286 1.82422 4.40286 1.82422C4.15286 2.78255 4.15286 3.78255 4.40286 4.74089C3.79609 5.58746 3.50159 6.61821 3.56953 7.65755C3.56953 10.5742 6.06953 12.2409 8.56953 12.2409C8.24453 12.6492 8.00286 13.1159 7.8612 13.6159C7.71953 14.1159 7.67786 14.6409 7.7362 15.1576M7.7362 15.1576V18.4909M7.7362 15.1576C3.97786 16.8242 3.5695 13.4909 1.90283 13.4909"
+        stroke={`url(#${gradientId})`}
+        strokeWidth="1.33"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <defs>
+        <linearGradient
+          id={gradientId}
+          x1="2.5"
+          y1="10.9647"
+          x2="17.5"
+          y2="10.9647"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="white" />
+          <stop offset="1" stopColor="#146DFF" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}

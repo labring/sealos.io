@@ -5,7 +5,7 @@ import { ChoicesSection } from './sections/ChoicesSection';
 import { ComparisonSection } from './sections/ComparisonSection';
 import { SequenceSection } from './sections/SequenceSection';
 import { CapsSection } from './sections/CapsSection';
-import SourceAvailSection from './merged-components/SourceAvailSection';
+import SourceAvailSection from './sections/SourceAvailSection';
 import FAQSection from './sections/FAQSection';
 import { faqData } from './config/faq-data';
 import { generateFAQSchema } from '@/lib/utils/structured-data';
@@ -38,10 +38,8 @@ export default function HomePage({
       <SequenceSection />
       <CapsSection />
 
-      <div className="w-screen overflow-x-clip">
-        <SourceAvailSection />
-        <FAQSection />
-      </div>
+      <SourceAvailSection />
+      <FAQSection />
     </>
   );
 }
