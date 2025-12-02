@@ -112,9 +112,10 @@ export const mainPricingPlans: PricingPlan[] = [
 
 export const morePlans: PricingPlan[] = [
   {
-    name: 'Hobby+',
-    description: '4 vCPU + 4 GB RAM + 20 GB Disk + 5 GB Traffic',
-    price: '$14/month',
+    name: 'Standard',
+    description:
+      '8 vCPU + 16Gi RAM + 50Gi Disk + 300 GB Traffic + 16 Nodeport + 800 AI Credits',
+    price: '$128/month',
     buttonText: 'Get Started',
     action: {
       type: 'auth',
