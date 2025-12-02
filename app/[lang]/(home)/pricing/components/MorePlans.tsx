@@ -73,13 +73,11 @@ export function MorePlans({ className }: MorePlansProps) {
           modal={false}
         >
           <DropdownMenuTrigger asChild>
-            <div
+            <button
               className={cn(
-                'flex w-full flex-1 items-center justify-between overflow-hidden rounded-xl bg-zinc-950 px-3 py-2',
-                isMorePlansEnabled
-                  ? 'cursor-pointer'
-                  : 'cursor-not-allowed opacity-50',
+                'flex w-full flex-1 cursor-pointer items-center justify-between overflow-hidden rounded-xl bg-zinc-950 px-3 py-2 opacity-50 disabled:cursor-not-allowed',
               )}
+              disabled={!isMorePlansEnabled}
             >
               <div className="flex flex-1 flex-col gap-3 lg:flex-row lg:items-center">
                 <p className="text-primary shrink-0 text-base font-semibold whitespace-nowrap">
@@ -89,7 +87,7 @@ export function MorePlans({ className }: MorePlansProps) {
                   <>
                     <div className="hidden h-4 w-px shrink-0 border-l lg:block" />
                     <div className="block h-px w-full shrink-0 border-t lg:hidden" />
-                    <p className="text-muted-foreground w-full flex-1 overflow-hidden text-base font-normal text-ellipsis">
+                    <p className="text-muted-foreground w-full flex-1 overflow-hidden text-start text-base font-normal text-ellipsis">
                       {displayPlan.description}
                     </p>
                   </>
@@ -106,7 +104,7 @@ export function MorePlans({ className }: MorePlansProps) {
                   isDropdownOpen && 'rotate-180',
                 )}
               />
-            </div>
+            </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-[var(--radix-dropdown-menu-trigger-width)] rounded-xl border bg-zinc-900 p-0"

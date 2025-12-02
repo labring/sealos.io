@@ -36,7 +36,7 @@ export function PricingCard({ plan, className }: PricingCardProps) {
   const cardContent = (
     <>
       <div className="flex flex-col gap-3">
-        <h3 className="text-foreground text-2xl font-semibold">{name}</h3>
+        <p className="text-foreground text-2xl font-semibold">{name}</p>
         <p className="text-muted-foreground line-clamp-2 text-base whitespace-pre-wrap">
           {description}
         </p>

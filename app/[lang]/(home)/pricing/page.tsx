@@ -87,7 +87,10 @@ export default async function PricingPage({ params }: PageProps) {
         </p>
       </section>
 
-      <section className="container flex flex-col items-center gap-9 pb-18">
+      <section
+        className="container flex flex-col items-center gap-9 pb-18"
+        role="main"
+      >
         <FreeTrialCard />
 
         <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">

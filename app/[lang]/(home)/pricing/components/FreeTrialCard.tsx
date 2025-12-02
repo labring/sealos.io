@@ -36,8 +36,7 @@ export function FreeTrialCard({ className }: FreeTrialCardProps) {
 
         <div className="flex max-w-md flex-col gap-3">
           <div className="flex items-end gap-3">
-            <p className="text-foreground text-4xl font-bold">Free</p>
-            <p className="text-foreground text-4xl font-bold">$0</p>
+            <p className="text-foreground text-4xl font-bold">Free $0</p>
           </div>
           <p className="text-muted-foreground text-base whitespace-pre-wrap">
             For individuals. Perfect for getting started and deploying small
