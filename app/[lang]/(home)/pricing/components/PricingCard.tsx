@@ -67,15 +67,15 @@ export function PricingCard({ plan, className }: PricingCardProps) {
   );
 
   return (
-    <div className={cn('relative flex flex-col pt-7', className)}>
+    <div className={cn('relative flex flex-col sm:pt-7', className)}>
       {isPopular ? (
-        <div className="relative -mt-[calc(1.75rem+4px)] h-[calc(100%+1.75rem+4px)] flex-col rounded-2xl bg-gradient-to-r from-white to-blue-600 p-1">
+        <div className="relative h-[calc(100%+1.75rem+4px)] flex-col rounded-2xl bg-gradient-to-r from-white to-blue-600 p-1 pb-[calc(1.75rem+4px)] sm:-mt-[calc(1.75rem+4px)]">
           <div className="absolute -top-0 right-0 left-0 z-10 flex items-center justify-center rounded-t-2xl px-0 py-1.5">
             <p className="text-primary-foreground text-sm font-bold">
               MOST POPULAR
             </p>
           </div>
-          <div className="relative top-7 z-0 flex h-[calc(100%-1.75rem)] flex-1 flex-col gap-6 rounded-xl bg-zinc-900 p-7">
+          <div className="relative top-7 z-0 flex h-full flex-1 flex-col gap-6 rounded-xl bg-zinc-900 p-7">
             {cardContent}
           </div>
         </div>

@@ -1,7 +1,14 @@
-import { CodeXml, LayoutGrid, Database, Cpu, Box, Bot } from 'lucide-react';
 import Image from 'next/image';
 import { GradientText } from '@/new-components/GradientText';
 import { cn } from '@/lib/utils';
+import {
+  GradientCodeXml,
+  GradientLayoutGrid,
+  GradientDatabaseIcon,
+  GradientCpu,
+  GradientBox,
+  GradientBotIcon,
+} from '../../(new-home)/components/GradientIcon';
 import CloudIDEImage from '../assets/card-cloudide.svg';
 import AppStoreImage from '../assets/card-appstore.svg';
 import DBStorageImage from '../assets/card-dbstor.svg';
@@ -58,7 +65,7 @@ interface FeatureData {
 
 const features: FeatureData[] = [
   {
-    icon: CodeXml,
+    icon: GradientCodeXml,
     title: 'Integrated Cloud IDEs',
     description:
       'Zero-setup, collaborative development in the cloud. Eliminate local environment inconsistencies with DevBox.',
@@ -72,7 +79,7 @@ const features: FeatureData[] = [
     ),
   },
   {
-    icon: LayoutGrid,
+    icon: GradientLayoutGrid,
     title: 'Extensive App Store',
     description:
       'Deploy complex applications with a single click. No YAML configuration, no container orchestration complexity - just point, click, and deploy.',
@@ -86,7 +93,7 @@ const features: FeatureData[] = [
     ),
   },
   {
-    icon: Database,
+    icon: GradientDatabaseIcon,
     title: 'Managed Databases & Storage',
     description:
       'Production-ready PostgreSQL, MySQL, MongoDB, Redis, and built-in S3-compatible Object Storage.',
@@ -100,7 +107,7 @@ const features: FeatureData[] = [
     ),
   },
   {
-    icon: Cpu,
+    icon: GradientCpu,
     title: 'Full Kubernetes Power',
     description:
       'Access the full power of Kubernetes without the complexity. K8s-native from day one.',
@@ -114,7 +121,7 @@ const features: FeatureData[] = [
     ),
   },
   {
-    icon: Box,
+    icon: GradientBox,
     title: 'Enterprise Multi-Tenancy',
     description:
       'Workspace-based isolation with granular RBAC and per-workspace resource quotas for secure collaboration.',
@@ -128,7 +135,7 @@ const features: FeatureData[] = [
     ),
   },
   {
-    icon: Bot,
+    icon: GradientBotIcon,
     title: 'AI-Native Infrastructure',
     description:
       'Build and scale modern AI applications, SaaS platforms, and complex microservice architectures with AI simply by describing them.',

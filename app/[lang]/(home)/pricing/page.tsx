@@ -137,13 +137,13 @@ export default async function PricingPage({ params }: PageProps) {
       />
 
       <section className="container -mt-24 pt-44 pb-18">
-        <div className="mx-auto flex w-fit items-center gap-1.5 rounded-full border border-white/5 bg-white/5 px-3 py-1.5">
+        <div className="mx-auto flex w-fit items-center gap-1.5 rounded-full border border-white/5 bg-white/5 px-3 py-1.5 text-sm">
           Choose the perfect plan for your needs. Always flexible to scale.
         </div>
 
         <h1
           aria-label="7-Day free trial. No credit card required."
-          className="mt-9 mb-6 text-center text-5xl font-medium"
+          className="mt-9 mb-6 text-center text-3xl font-medium sm:text-5xl"
         >
           <span>
             7-Day free trial
@@ -158,18 +158,16 @@ export default async function PricingPage({ params }: PageProps) {
         </p>
       </section>
 
-      <section className="container pb-18">
-        <div className="flex flex-col items-center gap-9">
-          <FreeTrialCard />
+      <section className="container flex flex-col items-center gap-9 pb-18">
+        <FreeTrialCard />
 
-          <div className="flex flex-wrap justify-center gap-4 lg:flex-nowrap">
-            {pricingPlans.map((plan) => (
-              <PricingCard key={plan.name} plan={plan} className="lg:flex-1" />
-            ))}
-          </div>
-
-          <MorePlans />
+        <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {pricingPlans.map((plan) => (
+            <PricingCard key={plan.name} plan={plan} />
+          ))}
         </div>
+
+        <MorePlans />
       </section>
 
       <FeaturesSection />
