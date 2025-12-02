@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { useGTM } from '@/hooks/use-gtm';
 import { morePlans, type PricingPlan } from '../config/plans';
 
 interface MorePlansProps {
@@ -19,11 +20,25 @@ interface MorePlansProps {
 
 export function MorePlans({ className }: MorePlansProps) {
   const openAuthForm = useOpenAuthForm();
+  const { trackButton } = useGTM();
   const [isMorePlansEnabled, setIsMorePlansEnabled] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<PricingPlan>(morePlans[0]);
 
   const handleGetStarted = () => {
+    const url =
+      selectedPlan.action.type === 'direct' ? selectedPlan.action.url : '';
+    trackButton(
+      selectedPlan.buttonText,
+      `pricing-more-plans-${selectedPlan.name.toLowerCase()}`,
+      'url',
+      url,
+      {
+        plan_name: selectedPlan.name,
+        plan_price: selectedPlan.price,
+      },
+    );
+
     if (selectedPlan.action.type === 'auth') {
       openAuthForm(selectedPlan.action.params);
     } else {
@@ -75,7 +90,7 @@ export function MorePlans({ className }: MorePlansProps) {
           <DropdownMenuTrigger asChild>
             <button
               className={cn(
-                'flex w-full flex-1 cursor-pointer items-center justify-between overflow-hidden rounded-xl bg-zinc-950 px-3 py-2 opacity-50 disabled:cursor-not-allowed',
+                'flex w-full flex-1 cursor-pointer items-center justify-between overflow-hidden rounded-xl bg-zinc-950 px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50',
               )}
               disabled={!isMorePlansEnabled}
             >

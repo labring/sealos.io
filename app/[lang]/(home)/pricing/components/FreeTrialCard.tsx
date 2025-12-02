@@ -6,19 +6,25 @@ import { AiAgentStar } from '@/new-components/AiAgentStar';
 import { GradientText } from '@/new-components/GradientText';
 import { FeatureItem } from './FeatureItem';
 import { cn } from '@/lib/utils';
-import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { useGTM } from '@/hooks/use-gtm';
 
 interface FreeTrialCardProps {
   className?: string;
 }
 
+const FREE_TRIAL_URL =
+  'https://os.sealos.io/?openapp=system-costcenter?mode%3dcreate';
+
 export function FreeTrialCard({ className }: FreeTrialCardProps) {
-  const openAuthForm = useOpenAuthForm();
+  const { trackButton } = useGTM();
 
   const handleStartDeploying = () => {
-    openAuthForm({
-      openapp: 'system-costcenter?mode=create',
+    trackButton('Start Deploying', 'pricing-free-trial-card', 'url', FREE_TRIAL_URL, {
+      plan_name: 'Free Trial',
+      plan_price: '$0',
     });
+
+    window.open(FREE_TRIAL_URL, '_blank');
   };
 
   return (

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { FeatureItem } from './FeatureItem';
 import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { useGTM } from '@/hooks/use-gtm';
 import type { PricingPlan } from '../config/plans';
 
 interface PricingCardProps {
@@ -13,6 +14,7 @@ interface PricingCardProps {
 
 export function PricingCard({ plan, className }: PricingCardProps) {
   const openAuthForm = useOpenAuthForm();
+  const { trackButton } = useGTM();
   const {
     name,
     description,
@@ -26,6 +28,12 @@ export function PricingCard({ plan, className }: PricingCardProps) {
   } = plan;
 
   const handleButtonClick = () => {
+    const url = action.type === 'direct' ? action.url : '';
+    trackButton(buttonText, `pricing-card-${name.toLowerCase()}`, 'url', url, {
+      plan_name: name,
+      plan_price: price,
+    });
+
     if (action.type === 'auth') {
       openAuthForm(action.params);
     } else {

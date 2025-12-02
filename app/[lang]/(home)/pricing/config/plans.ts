@@ -23,10 +23,8 @@ export const mainPricingPlans: PricingPlan[] = [
     originalPrice: '$34',
     buttonText: 'Get Started',
     action: {
-      type: 'auth',
-      params: {
-        openapp: 'system-costcenter?mode=create&plan=starter',
-      },
+      type: 'direct',
+      url: 'https://os.sealos.io/?openapp=system-costcenter?mode%3Dcreate%26plan%3Dstarter',
     },
     features: [
       '2 vCPU ',
@@ -45,10 +43,8 @@ export const mainPricingPlans: PricingPlan[] = [
     originalPrice: '$70',
     buttonText: 'Get Started',
     action: {
-      type: 'auth',
-      params: {
-        openapp: 'system-costcenter?mode=create&plan=hobby',
-      },
+      type: 'direct',
+      url: 'https://os.sealos.io/?openapp=system-costcenter?mode%3Dcreate%26plan%3Dhobby',
     },
     features: [
       '4 vCPU ',
@@ -67,10 +63,8 @@ export const mainPricingPlans: PricingPlan[] = [
     price: '$512',
     buttonText: 'Get Started',
     action: {
-      type: 'auth',
-      params: {
-        openapp: 'system-costcenter?mode=create&plan=pro',
-      },
+      type: 'direct',
+      url: 'https://os.sealos.io/?openapp=system-costcenter?mode%3Dcreate%26plan%3Dpro',
     },
     features: [
       '16 vCPU ',
@@ -91,10 +85,8 @@ export const mainPricingPlans: PricingPlan[] = [
     price: '$2030',
     buttonText: 'Get Started',
     action: {
-      type: 'auth',
-      params: {
-        openapp: 'system-costcenter?mode=create&plan=team',
-      },
+      type: 'direct',
+      url: 'https://os.sealos.io/?openapp=system-costcenter?mode%3Dcreate%26plan%3Dteam',
     },
     features: [
       '64 vCPU ',
@@ -118,10 +110,8 @@ export const morePlans: PricingPlan[] = [
     price: '$128/month',
     buttonText: 'Get Started',
     action: {
-      type: 'auth',
-      params: {
-        openapp: 'system-costcenter?mode=create',
-      },
+      type: 'direct',
+      url: 'https://os.sealos.io/?openapp=system-costcenter?mode%3dcreate',
     },
     features: [],
   },
@@ -132,10 +122,8 @@ export const morePlans: PricingPlan[] = [
     price: '$12451/month',
     buttonText: 'Get Started',
     action: {
-      type: 'auth',
-      params: {
-        openapp: 'system-costcenter?mode=create',
-      },
+      type: 'direct',
+      url: 'https://os.sealos.io/?openapp=system-costcenter?mode%3dcreate',
     },
     features: [],
   },
