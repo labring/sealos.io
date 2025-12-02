@@ -50,7 +50,7 @@ export function MorePlans({ className }: MorePlansProps) {
           <button
             onClick={() => setIsMorePlansEnabled(!isMorePlansEnabled)}
             className={cn(
-              'border-primary bg-background flex size-4 shrink-0 items-center justify-center rounded-sm border transition-colors',
+              'border-primary bg-background pointer-events-none flex size-4 shrink-0 items-center justify-center rounded-sm border transition-colors',
               isMorePlansEnabled && 'bg-primary',
             )}
           >
