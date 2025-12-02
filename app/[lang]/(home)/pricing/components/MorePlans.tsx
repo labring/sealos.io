@@ -29,7 +29,7 @@ export function MorePlans({ className }: MorePlansProps) {
     const url =
       selectedPlan.action.type === 'direct' ? selectedPlan.action.url : '';
     trackButton(
-      selectedPlan.buttonText,
+      'Get Started',
       `pricing-more-plans-${selectedPlan.name.toLowerCase()}`,
       'url',
       url,

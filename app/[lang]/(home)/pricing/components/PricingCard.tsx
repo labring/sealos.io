@@ -29,10 +29,16 @@ export function PricingCard({ plan, className }: PricingCardProps) {
 
   const handleButtonClick = () => {
     const url = action.type === 'direct' ? action.url : '';
-    trackButton(buttonText, `pricing-card-${name.toLowerCase()}`, 'url', url, {
-      plan_name: name,
-      plan_price: price,
-    });
+    trackButton(
+      'Get Started',
+      `pricing-card-${name.toLowerCase()}`,
+      'url',
+      url,
+      {
+        plan_name: name,
+        plan_price: price,
+      },
+    );
 
     if (action.type === 'auth') {
       openAuthForm(action.params);

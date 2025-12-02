@@ -19,10 +19,16 @@ export function FreeTrialCard({ className }: FreeTrialCardProps) {
   const { trackButton } = useGTM();
 
   const handleStartDeploying = () => {
-    trackButton('Start Deploying', 'pricing-free-trial-card', 'url', FREE_TRIAL_URL, {
-      plan_name: 'Free Trial',
-      plan_price: '$0',
-    });
+    trackButton(
+      'Get Started',
+      'pricing-free-trial-card',
+      'url',
+      FREE_TRIAL_URL,
+      {
+        plan_name: 'Free Trial',
+        plan_price: '$0',
+      },
+    );
 
     window.open(FREE_TRIAL_URL, '_blank');
   };
