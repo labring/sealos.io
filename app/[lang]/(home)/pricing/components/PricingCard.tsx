@@ -1,17 +1,10 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { FeatureItem } from './FeatureItem';
-
-export interface PricingPlan {
-  name: string;
-  description: string;
-  price: string;
-  originalPrice?: string;
-  buttonText: string;
-  buttonVariant?: 'default' | 'outline' | 'secondary' | 'ghost';
-  features: string[];
-  isPopular?: boolean;
-}
+import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import type { PricingPlan } from '../config/plans';
 
 interface PricingCardProps {
   plan: PricingPlan;
@@ -19,6 +12,7 @@ interface PricingCardProps {
 }
 
 export function PricingCard({ plan, className }: PricingCardProps) {
+  const openAuthForm = useOpenAuthForm();
   const {
     name,
     description,
@@ -28,7 +22,16 @@ export function PricingCard({ plan, className }: PricingCardProps) {
     buttonVariant = 'secondary',
     features,
     isPopular = false,
+    action,
   } = plan;
+
+  const handleButtonClick = () => {
+    if (action.type === 'auth') {
+      openAuthForm(action.params);
+    } else {
+      window.open(action.url, '_blank');
+    }
+  };
 
   const cardContent = (
     <>
@@ -54,6 +57,7 @@ export function PricingCard({ plan, className }: PricingCardProps) {
       <Button
         variant={isPopular ? 'landing-primary' : buttonVariant}
         className="h-11 rounded-full"
+        onClick={handleButtonClick}
       >
         {buttonText}
       </Button>

@@ -8,39 +8,7 @@ import {
 } from '@/components/ui/accordion';
 import { GradientText } from '@/new-components/GradientText';
 import { cn } from '@/lib/utils';
-
-interface FAQItem {
-  question: string;
-  answer: string;
-}
-
-const faqItems: FAQItem[] = [
-  {
-    question: 'Is there a free Trial of Sealos？',
-    answer:
-      "Yes! Sealos offers a free Trial that includes 4GB RAM, 4 vCPU and limited AI usage. It's perfect for getting started and exploring the platform.",
-  },
-  {
-    question: 'Do I need a credit card to get started？',
-    answer: '',
-  },
-  {
-    question: 'Can I change or cancel my plan at any time？',
-    answer: '',
-  },
-  {
-    question: 'What payment methods do you accept？',
-    answer: '',
-  },
-  {
-    question: 'Can I upgrade or downgrade at any time？',
-    answer: '',
-  },
-  {
-    question: 'Can l deploy with my own domain？',
-    answer: '',
-  },
-];
+import { faqItems } from '../config/faqs';
 
 interface FAQSectionProps {
   className?: string;

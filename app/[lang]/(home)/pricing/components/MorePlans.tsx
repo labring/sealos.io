@@ -10,44 +10,30 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
+import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { morePlans, type PricingPlan } from '../config/plans';
 
 interface MorePlansProps {
   className?: string;
 }
 
-interface PlanOption {
-  name: string;
-  description: string;
-  price: string;
-}
-
-const planOptions: PlanOption[] = [
-  {
-    name: 'Hobby+',
-    description: '4 vCPU + 4 GB RAM + 20 GB Disk + 5 GB Traffic',
-    price: '$14/month',
-  },
-  {
-    name: 'Enterprise',
-    description:
-      '256 vCPU + 1024Gi RAM + 1024Gi Disk + 10TB Traffic + 128 Nodeport + 2000 AI Credits',
-    price: '$12451/month',
-  },
-  {
-    name: 'Customized',
-    description: '',
-    price: 'Contact Us',
-  },
-];
-
 export function MorePlans({ className }: MorePlansProps) {
+  const openAuthForm = useOpenAuthForm();
   const [isMorePlansEnabled, setIsMorePlansEnabled] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<PlanOption>(planOptions[0]);
+  const [selectedPlan, setSelectedPlan] = useState<PricingPlan>(morePlans[0]);
+
+  const handleGetStarted = () => {
+    if (selectedPlan.action.type === 'auth') {
+      openAuthForm(selectedPlan.action.params);
+    } else {
+      window.open(selectedPlan.action.url, '_blank');
+    }
+  };
 
   const displayPlan = selectedPlan;
 
-  const handlePlanSelect = (plan: PlanOption) => {
+  const handlePlanSelect = (plan: PricingPlan) => {
     setSelectedPlan(plan);
     setIsDropdownOpen(false);
   };
@@ -55,12 +41,12 @@ export function MorePlans({ className }: MorePlansProps) {
   return (
     <div
       className={cn(
-        'flex w-full flex-col items-center gap-4 sm:flex-row',
+        'flex w-full flex-col items-center gap-4 lg:flex-row',
         className,
       )}
     >
-      <div className="flex w-full flex-1 flex-col items-start gap-4 overflow-hidden rounded-2xl border bg-zinc-900 px-4 py-3 sm:flex-row sm:items-center">
-        <div className="flex shrink-0 items-center justify-center gap-2">
+      <div className="flex w-full flex-1 flex-col items-start gap-4 overflow-hidden rounded-2xl border bg-zinc-900 px-4 py-3 lg:flex-row lg:items-center">
+        <label className="flex w-full shrink-0 items-center justify-start gap-2 lg:w-auto">
           <button
             onClick={() => setIsMorePlansEnabled(!isMorePlansEnabled)}
             className={cn(
@@ -75,7 +61,7 @@ export function MorePlans({ className }: MorePlansProps) {
           <p className="text-primary text-base font-normal whitespace-nowrap">
             More Plans
           </p>
-        </div>
+        </label>
 
         <DropdownMenu
           open={isMorePlansEnabled ? isDropdownOpen : false}
@@ -95,21 +81,21 @@ export function MorePlans({ className }: MorePlansProps) {
                   : 'cursor-not-allowed opacity-50',
               )}
             >
-              <div className="flex min-w-0 flex-1 flex-col items-start gap-3 sm:flex-row">
+              <div className="flex flex-1 flex-col gap-3 lg:flex-row lg:items-center">
                 <p className="text-primary shrink-0 text-base font-semibold whitespace-nowrap">
                   {displayPlan.name}
                 </p>
                 {displayPlan.description && (
                   <>
-                    <div className="hidden h-4 w-px shrink-0 border-l sm:block" />
-                    <div className="block h-px w-full shrink-0 border-t sm:hidden" />
-                    <p className="text-muted-foreground min-w-0 flex-1 overflow-hidden text-base font-normal text-ellipsis">
+                    <div className="hidden h-4 w-px shrink-0 border-l lg:block" />
+                    <div className="block h-px w-full shrink-0 border-t lg:hidden" />
+                    <p className="text-muted-foreground w-full flex-1 overflow-hidden text-base font-normal text-ellipsis">
                       {displayPlan.description}
                     </p>
                   </>
                 )}
-                <div className="hidden h-4 w-px shrink-0 border-l sm:block" />
-                <div className="block h-px w-full shrink-0 border-t sm:hidden" />
+                <div className="hidden h-4 w-px shrink-0 border-l lg:block" />
+                <div className="block h-px w-full shrink-0 border-t lg:hidden" />
                 <p className="text-muted-foreground shrink-0 text-base font-semibold whitespace-nowrap">
                   {displayPlan.price}
                 </p>
@@ -126,12 +112,12 @@ export function MorePlans({ className }: MorePlansProps) {
             className="w-[var(--radix-dropdown-menu-trigger-width)] rounded-xl border bg-zinc-900 p-0"
             align="start"
           >
-            {planOptions.map((plan, index) => (
+            {morePlans.map((plan, index) => (
               <DropdownMenuItem
                 key={plan.name}
                 onSelect={() => handlePlanSelect(plan)}
                 className={cn(
-                  'flex cursor-pointer flex-col items-start gap-3 px-3 py-2.5 focus:bg-white/5 sm:flex-row',
+                  'flex cursor-pointer flex-col items-start gap-3 px-3 py-2.5 focus:bg-white/5 lg:flex-row lg:items-center',
                   index > 0 && 'border-t border-white/5',
                 )}
               >
@@ -140,13 +126,13 @@ export function MorePlans({ className }: MorePlansProps) {
                 </p>
                 {plan.description && (
                   <>
-                    <div className="hidden h-4 w-px shrink-0 border-l sm:block" />
-                    <p className="text-muted-foreground min-w-0 flex-1 overflow-hidden text-base font-normal text-ellipsis">
+                    <div className="hidden h-4 w-px shrink-0 border-l lg:block" />
+                    <p className="text-muted-foreground flex-1 overflow-hidden text-base font-normal text-ellipsis">
                       {plan.description}
                     </p>
                   </>
                 )}
-                <div className="hidden h-4 w-px shrink-0 border-l sm:block" />
+                <div className="hidden h-4 w-px shrink-0 border-l lg:block" />
                 <p className="text-muted-foreground shrink-0 text-base font-semibold whitespace-nowrap">
                   {plan.price}
                 </p>
@@ -157,7 +143,11 @@ export function MorePlans({ className }: MorePlansProps) {
       </div>
 
       {isMorePlansEnabled && (
-        <Button variant="secondary" className="h-11 shrink-0 rounded-full px-8">
+        <Button
+          variant="secondary"
+          className="h-11 shrink-0 rounded-full px-8"
+          onClick={handleGetStarted}
+        >
           Get Started
         </Button>
       )}

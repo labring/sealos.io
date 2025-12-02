@@ -1,15 +1,26 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { AiAgentStar } from '@/new-components/AiAgentStar';
 import { GradientText } from '@/new-components/GradientText';
 import { FeatureItem } from './FeatureItem';
 import { cn } from '@/lib/utils';
+import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
 
 interface FreeTrialCardProps {
   className?: string;
 }
 
 export function FreeTrialCard({ className }: FreeTrialCardProps) {
+  const openAuthForm = useOpenAuthForm();
+
+  const handleStartDeploying = () => {
+    openAuthForm({
+      openapp: 'system-costcenter?mode=create',
+    });
+  };
+
   return (
     <div
       className={cn(
@@ -37,8 +48,12 @@ export function FreeTrialCard({ className }: FreeTrialCardProps) {
 
       <div className="mx-10 mt-10 hidden h-[6rem] w-px shrink-0 items-center justify-center border-l xl:block" />
 
-      <div className="mt-8 ml-auto flex w-full flex-col justify-center gap-3 sm:mt-0 sm:w-auto sm:max-w-2xs xl:order-4">
-        <Button variant="landing-primary" className="h-10 px-8">
+      <div className="mt-8 ml-auto flex w-full flex-col justify-center gap-3 sm:mt-0 sm:w-1/3 sm:max-w-2xs xl:order-4 xl:w-auto">
+        <Button
+          variant="landing-primary"
+          className="h-10 px-8"
+          onClick={handleStartDeploying}
+        >
           <span>Start Deploying</span>
           <ArrowRight className="ml-2 size-4" />
         </Button>

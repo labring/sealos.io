@@ -1,88 +1,17 @@
 import { GodRays } from '@/new-components/GodRays';
 import { GradientText } from '@/new-components/GradientText';
 import { FreeTrialCard } from './components/FreeTrialCard';
-import { PricingCard, type PricingPlan } from './components/PricingCard';
+import { PricingCard } from './components/PricingCard';
 import { MorePlans } from './components/MorePlans';
 import { FeaturesSection } from './components/FeaturesSection';
 import { FAQSection } from './components/FAQSection';
+import { mainPricingPlans } from './config/plans';
 
 interface PageProps {
   params: Promise<{
     lang: string;
   }>;
 }
-
-const pricingPlans: PricingPlan[] = [
-  {
-    name: 'Starter',
-    description:
-      'For beginners deploying existing images. Not for development work.',
-    price: '$7',
-    originalPrice: '$34',
-    buttonText: 'Get Started',
-    features: [
-      '2 vCPU ',
-      '2Gi RAM',
-      '1Gi Disk',
-      '10GB Traffic',
-      '4 Nodeport',
-      '100 AI Credit',
-    ],
-  },
-  {
-    name: 'Hobby',
-    description:
-      'For hobbyists building side projects. Not for production use.',
-    price: '$25',
-    originalPrice: '$70',
-    buttonText: 'Start Free Trial',
-    features: [
-      '4 vCPU ',
-      '4Gi RAM',
-      '30Gi Disk',
-      '50GB Traffic',
-      '8 Nodeport',
-      '300 AI Credits',
-      'All Starter Features',
-    ],
-    isPopular: true,
-  },
-  {
-    name: 'Pro',
-    description: 'For professionals and teams shipping production apps.',
-    price: '$512',
-    buttonText: 'Get Started',
-    features: [
-      '16 vCPU ',
-      '32Gi RAM',
-      '200Gi Disk',
-      '1TB Traffic',
-      '32 Nodeport',
-      '1000 AI Credits',
-      'Priority support',
-      'All Hobby features',
-      '99.99% SLA',
-    ],
-  },
-  {
-    name: 'Team',
-    description:
-      'For large teams with compliance needs. Built for collaboration.',
-    price: '$2030',
-    buttonText: 'Get Started',
-    features: [
-      '64 vCPU ',
-      '128Gi RAM',
-      '500Gi Disk',
-      '3TB Traffic',
-      '64 Nodeport',
-      '1500 AI Credits',
-      '24/7 dedicated support',
-      'All Pro Features',
-      'Custom Contracts',
-    ],
-  },
-];
 
 export default async function PricingPage({ params }: PageProps) {
   const { lang } = await params;
@@ -137,7 +66,7 @@ export default async function PricingPage({ params }: PageProps) {
       />
 
       <section className="container -mt-24 pt-44 pb-18">
-        <div className="mx-auto flex w-fit items-center gap-1.5 rounded-full border border-white/5 bg-white/5 px-3 py-1.5 text-sm">
+        <div className="mx-auto flex w-fit items-center gap-1.5 rounded-full border border-white/5 bg-white/5 px-3 py-1.5 text-center text-sm">
           Choose the perfect plan for your needs. Always flexible to scale.
         </div>
 
@@ -162,7 +91,7 @@ export default async function PricingPage({ params }: PageProps) {
         <FreeTrialCard />
 
         <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {pricingPlans.map((plan) => (
+          {mainPricingPlans.map((plan) => (
             <PricingCard key={plan.name} plan={plan} />
           ))}
         </div>
