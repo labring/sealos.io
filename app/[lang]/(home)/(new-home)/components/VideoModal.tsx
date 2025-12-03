@@ -3,7 +3,8 @@
 import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X } from 'lucide-react';
-import { Dialog, DialogContent, DialogOverlay } from '@/components/ui/dialog';
+import { Dialog } from '@/components/ui/dialog';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 
 interface VideoModalProps {
@@ -30,6 +31,13 @@ export function VideoModal({ isOpen, onClose, videoUrl }: VideoModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
+      <VisuallyHidden>
+        <DialogPrimitive.Title>Video modal</DialogPrimitive.Title>
+        <DialogPrimitive.Description>
+          Introducing Sealos: Deploy Any Application in Minutes
+        </DialogPrimitive.Description>
+      </VisuallyHidden>
+
       <AnimatePresence>
         {isOpen && (
           <DialogPrimitive.Portal forceMount>

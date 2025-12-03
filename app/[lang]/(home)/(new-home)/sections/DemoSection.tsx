@@ -52,8 +52,8 @@ export function DemoSection() {
             if (containerTop) {
               // Scroll to video container
               window.scrollTo({
-                top: containerTop - window.innerHeight / 4,
-                behavior: 'smooth',
+                top: containerTop + window.scrollY - window.innerHeight / 4,
+                behavior: 'auto',
               });
             }
             setIsModalOpen(true);
