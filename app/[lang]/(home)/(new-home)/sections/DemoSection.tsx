@@ -46,7 +46,18 @@ export function DemoSection() {
           variant="outline"
           className="h-11 w-48 rounded-full border-white/10 bg-neutral-900"
           aria-label="Watch the 1 minute demo video."
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => {
+            const containerTop =
+              containerRef.current?.getBoundingClientRect().top ?? null;
+            if (containerTop) {
+              // Scroll to video container
+              window.scrollTo({
+                top: containerTop - window.innerHeight / 4,
+                behavior: 'smooth',
+              });
+            }
+            setIsModalOpen(true);
+          }}
         >
           Watch 1-min Demo
         </Button>
