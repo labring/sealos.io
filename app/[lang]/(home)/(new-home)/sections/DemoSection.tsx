@@ -5,13 +5,12 @@ import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import Image from 'next/image';
 import { Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { FeatureStepper } from '../components/FeatureStepper';
 import { VideoModal } from '../components/VideoModal';
-import DemoLightSvg from '@/assets/demo-light.svg';
 import VideoThumbnailSvg from '@/assets/video-thumbnail.svg';
 import { useGTM } from '@/hooks/use-gtm';
 import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
 import { getOpenBrainParam } from '@/lib/utils/brain';
+import { GradientCircleCheck } from '../components/GradientIcon';
 
 export function DemoSection() {
   const { trackButton } = useGTM();
@@ -21,82 +20,20 @@ export function DemoSection() {
   const videoRef = useRef<HTMLDivElement>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  const [isSpringReady, setIsSpringReady] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
   });
 
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 300,
-    damping: 40,
-    mass: 0.5,
-    restDelta: 0.001,
-  });
-
-  // Initialize spring to current scroll position
-  const isInitializedRef = useRef(false);
-  if (!isInitializedRef.current && typeof window !== 'undefined') {
-    const currentProgress = scrollYProgress.get();
-    smoothProgress.jump(currentProgress);
-    isInitializedRef.current = true;
-  }
-
-  // Wait for spring to settle before showing content
-  useEffect(() => {
-    let settleTimeout: NodeJS.Timeout;
-
-    const unsubscribe = smoothProgress.on('change', (latest) => {
-      clearTimeout(settleTimeout);
-
-      settleTimeout = setTimeout(() => {
-        if (!isSpringReady) {
-          setIsSpringReady(true);
-        }
-      }, 50);
-    });
-
-    const fallbackTimeout = setTimeout(() => {
-      if (!isSpringReady) {
-        setIsSpringReady(true);
-      }
-    }, 100);
-
-    return () => {
-      unsubscribe();
-      clearTimeout(settleTimeout);
-      clearTimeout(fallbackTimeout);
-    };
-  }, [scrollYProgress, smoothProgress, isSpringReady]);
-
-  const videoRotateX = useTransform(smoothProgress, [0.05, 0.5], [24, 0]);
+  const videoRotateX = useTransform(scrollYProgress, [0.05, 0.5], [24, 0]);
 
   return (
-    <section className="relative w-screen overflow-x-clip overflow-y-visible object-top pt-24">
-      <div
-        className="pointer-events-none absolute top-0 left-1/2 h-96 w-full -translate-x-1/2"
-        aria-hidden="true"
-      >
-        <Image
-          src={DemoLightSvg}
-          alt=""
-          className="mx-auto h-full w-auto object-cover object-top"
-          priority
-        />
-      </div>
-
-      <FeatureStepper />
-
-      <div className="mt-12 flex w-full justify-center">
+    <section className="relative -mt-28 w-screen overflow-x-clip overflow-y-visible object-top">
+      <div className="container flex w-full justify-center gap-5">
         <Button
           variant="landing-primary"
-          className="mx-auto h-11 w-48"
+          className="h-11 w-48"
           aria-label="Start using Sealos for free."
           onClick={() => {
             trackButton('Get Started', 'demo-section', 'auth-form', '');
@@ -105,57 +42,77 @@ export function DemoSection() {
         >
           Get Started Free
         </Button>
+        <Button
+          variant="outline"
+          className="h-11 w-48 rounded-full border-white/10 bg-neutral-900"
+          aria-label="Watch the 1 minute demo video."
+          onClick={() => setIsModalOpen(true)}
+        >
+          Watch 1-min Demo
+        </Button>
       </div>
 
-      <div ref={containerRef} className="relative mt-12 overflow-visible">
-        {isMounted && (
+      <div className="text-muted-foreground container mt-6 flex w-full max-w-sm flex-col justify-center gap-3 md:max-w-max md:flex-row md:gap-6">
+        <div className="flex items-center gap-2">
+          <GradientCircleCheck className="size-5" />
+          <span>7 days free trial</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <GradientCircleCheck className="size-5" />
+          <span>No credit card required to get started</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <GradientCircleCheck className="size-5" />
+          <span>Cancel anytime</span>
+        </div>
+      </div>
+
+      <div
+        ref={containerRef}
+        className="relative mt-20 overflow-visible md:mt-32"
+      >
+        <div
+          className="container flex w-screen justify-center"
+          style={{
+            perspective: '2000px',
+            perspectiveOrigin: 'center center',
+          }}
+        >
           <motion.div
-            className="flex w-screen justify-center"
+            ref={videoRef}
+            className="bg-background relative aspect-video w-full cursor-pointer overflow-hidden rounded-4xl border-4"
             style={{
-              perspective: '2000px',
-              perspectiveOrigin: 'center center',
+              rotateX: videoRotateX,
+              transformStyle: 'preserve-3d',
+              transformOrigin: 'center center',
             }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isSpringReady ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
+            onClick={() => setIsModalOpen(true)}
           >
-            <motion.div
-              ref={videoRef}
-              className="bg-background relative aspect-video w-[70vw] max-w-[1200px] cursor-pointer overflow-hidden rounded-4xl border-4"
-              style={{
-                rotateX: videoRotateX,
-                transformStyle: 'preserve-3d',
-                transformOrigin: 'center center',
-              }}
-              onClick={() => setIsModalOpen(true)}
-            >
-              <span className="sr-only">
-                Watch how Sealos enables one-click deployment of AI agents,
-                databases, and full-stack applications. Learn how to deploy your
-                first app in under 60 seconds using our AI-powered cloud
-                platform.
-              </span>
-              <Image
-                src={VideoThumbnailSvg}
-                alt="Video thumbnail"
-                className="absolute inset-0 size-full object-cover"
-                priority
-                aria-hidden="true"
-              />
-              <div className="absolute z-10 flex h-full w-full items-center justify-center">
-                <Button
-                  variant="landing-primary"
-                  size="icon"
-                  className="size-16 cursor-pointer rounded-full"
-                  aria-label="Click to play the demo video."
-                  aria-hidden="false"
-                >
-                  <Play size={24} fill="inherit" />
-                </Button>
-              </div>
-            </motion.div>
+            <span className="sr-only">
+              Watch how Sealos enables one-click deployment of AI agents,
+              databases, and full-stack applications. Learn how to deploy your
+              first app in under 60 seconds using our AI-powered cloud platform.
+            </span>
+            <Image
+              src={VideoThumbnailSvg}
+              alt="Video thumbnail"
+              className="absolute inset-0 size-full object-cover"
+              priority
+              aria-hidden="true"
+            />
+            <div className="absolute z-10 flex h-full w-full items-center justify-center">
+              <Button
+                variant="landing-primary"
+                size="icon"
+                className="size-16 cursor-pointer rounded-full"
+                aria-label="Click to play the demo video."
+                aria-hidden="false"
+              >
+                <Play size={24} fill="inherit" />
+              </Button>
+            </div>
           </motion.div>
-        )}
+        </div>
       </div>
 
       <VideoModal
