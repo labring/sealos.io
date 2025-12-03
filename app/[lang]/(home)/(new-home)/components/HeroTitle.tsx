@@ -25,7 +25,7 @@ export function HeroTitle({ isInView }: { isInView: boolean }) {
           </span>
         </a>
 
-        <span className="text-zinc-600">·</span>
+        <div className="size-1 rounded-full bg-zinc-600" />
 
         {/* Source Available Badge */}
         <div className="flex items-center gap-1.5 rounded-full border border-white/5 bg-white/5 px-3 py-1.5">
@@ -60,9 +60,9 @@ export function HeroTitle({ isInView }: { isInView: boolean }) {
       </div>
 
       <p className="mt-5 text-center text-sm text-zinc-400 sm:text-base">
-        <span className="text-zinc-300">No YAML. No Dockerfile. No CI/CD.</span>
-        {' '}Describe what you need in plain English and deploy to production
-        in seconds—powered by Kubernetes, without the complexity.
+        <span className="text-zinc-300">No YAML. No Dockerfile. No CI/CD.</span>{' '}
+        Describe what you need in plain English and deploy to production in
+        seconds—powered by Kubernetes, without the complexity.
       </p>
     </div>
   );
