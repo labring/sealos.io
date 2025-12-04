@@ -197,7 +197,9 @@ export async function getAppsByCategory(
  * Generate deploy URL for an app
  */
 export function getDeployUrl(slug: string): string {
-  return appDomain + '?openapp=system-template%3FtemplateName%3D' + slug;
+  return (
+    appDomain + '?openapp=system-template%3F%2Fdeploy%3FtemplateName%3D' + slug
+  );
 }
 
 /**

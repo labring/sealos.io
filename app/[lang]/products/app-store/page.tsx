@@ -32,13 +32,17 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata function that supports internationalization
-export function generateMetadata({ params }: { params: { lang: languagesType } }) {
+export function generateMetadata({
+  params,
+}: {
+  params: { lang: languagesType };
+}) {
   const t = translations[params.lang] || translations.en;
   return generatePageMetadata({
     title: 'App Store' + ' | ' + t.title.sub,
     description: t.title.main + ' ' + t.title.sub,
     pathname: '/products/app-store',
-    lang: params.lang
+    lang: params.lang,
   });
 }
 
