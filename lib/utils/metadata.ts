@@ -10,6 +10,13 @@ const ogImageApi = `${siteConfig.url.base}/api/og`;
 
 const siteName = siteConfig.name;
 
+/**
+ * The canonical domain for all pages.
+ * All canonical URLs should point to sealos.io regardless of the current environment.
+ * This ensures search engines recognize sealos.io as the authoritative version.
+ */
+const CANONICAL_DOMAIN = 'https://sealos.io';
+
 export async function generateBlogMetadata(props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
@@ -57,7 +64,7 @@ export async function generateBlogMetadata(props: {
       },
     },
     alternates: {
-      canonical: `${domain}/blog/${params.slug || ''}`,
+      canonical: `${CANONICAL_DOMAIN}/blog/${params.slug || ''}`,
       types: {
         'application/rss+xml': [
           {
@@ -157,7 +164,7 @@ export function generateDocsMetadata({
       },
     },
     alternates: {
-      canonical: url,
+      canonical: `${CANONICAL_DOMAIN}/docs/${page.slugs.join('/')}`,
       types: {
         'application/rss+xml': [
           {
@@ -264,8 +271,8 @@ export function generatePageMetadata(
     },
     alternates: {
       canonical: options.pathname
-        ? `${siteConfig.url.base}${options.pathname}`
-        : siteConfig.url.base,
+        ? `${CANONICAL_DOMAIN}${options.pathname}`
+        : CANONICAL_DOMAIN,
       languages:
         Object.keys(alternateLanguages).length > 0
           ? alternateLanguages
@@ -371,7 +378,7 @@ export function generateProductMetadata(options: {
       },
     },
     alternates: {
-      canonical: `${siteConfig.url.base}${options.pathname}`,
+      canonical: `${CANONICAL_DOMAIN}${options.pathname}`,
       languages:
         Object.keys(alternateLanguages).length > 0
           ? alternateLanguages
