@@ -1,6 +1,16 @@
 import { GodRays } from '@/new-components/GodRays';
 import { FAQPageClient } from './components/FAQPageClient';
 import { GradientText } from '@/new-components/GradientText';
+import { generatePageMetadata } from '@/lib/utils/metadata';
+import { Metadata } from 'next';
+
+export function generateMetadata(): Metadata {
+  return generatePageMetadata({
+    title: 'Frequently Asked Questions',
+    description: 'Find answers to common questions about Sealos',
+    pathname: '/ai-quick-reference',
+  });
+}
 
 interface PageProps {
   params: Promise<{
