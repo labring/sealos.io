@@ -19,7 +19,30 @@ import { GodRays } from '@/new-components/GodRays';
 import { SealosBrandCard } from '@/new-components/SealosBrandCard';
 import { SocialLinks } from '@/new-components/SocialLinks';
 import { GradientText } from '@/new-components/GradientText';
-import { getPageUrl } from '@/lib/utils/metadata';
+import { getPageUrl, generatePageMetadata } from '@/lib/utils/metadata';
+import { Metadata } from 'next';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string; lang: string }>;
+}): Promise<Metadata> {
+  const { slug, lang } = await params;
+  const faqPage = getFAQBySlug(slug, lang);
+
+  if (!faqPage) {
+    return {};
+  }
+
+  const faqItem = pageToFAQItem(faqPage);
+
+  return generatePageMetadata({
+    title: faqItem.title,
+    description: faqItem.description,
+    pathname: `/ai-quick-reference/${slug}`,
+    lang,
+  });
+}
 
 interface PageProps {
   params: Promise<{
