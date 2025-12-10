@@ -10,7 +10,13 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import { Menu, X } from 'lucide-react';
+import {
+  CodeXmlIcon,
+  DatabaseIcon,
+  LayoutGridIcon,
+  Menu,
+  X,
+} from 'lucide-react';
 import {
   useScroll,
   motion,
@@ -19,43 +25,62 @@ import {
 } from 'motion/react';
 import Image from 'next/image';
 import React from 'react';
-import DevBoxIcon from '@/assets/sealos-appicons/devbox.svg';
-import DatabaseIcon from '@/assets/sealos-appicons/database.svg';
-import AppStoreIcon from '@/assets/sealos-appicons/appstore.svg';
+import { cn } from '@/lib/utils';
 import GitHubIcon from '@/assets/github.svg';
 import { useGTM } from '@/hooks/use-gtm';
 import { siteConfig } from '@/config/site';
 import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
 import { getOpenBrainParam } from '@/lib/utils/brain';
 
-// 产品图标映射
-const productIcons: Record<string, any> = {
-  DevBox: DevBoxIcon,
-  Databases: DatabaseIcon,
-  'App Store': AppStoreIcon,
+// 导航链接数据类型
+type NavigationChild = {
+  text: string;
+  url: string;
+  isExternal: boolean;
+  description?: string;
+  icon?: React.ReactNode;
+};
+
+type NavigationLink = {
+  text: string;
+  url: string;
+  isExternal: boolean;
+  children?: NavigationChild[];
+  dropdownConfig?: {
+    className?: string;
+  };
 };
 
 // 导航链接数据
-const navigationLinks = [
+const navigationLinks: NavigationLink[] = [
   {
     text: 'Products',
     url: '#',
     isExternal: false,
+    dropdownConfig: {
+      className: 'w-[40rem]! md:w-[40rem]!',
+    },
     children: [
       {
         text: 'DevBox',
         url: '/products/devbox',
         isExternal: false,
-      },
-      {
-        text: 'Databases',
-        url: '/products/databases',
-        isExternal: false,
+        description: 'Cloud development environment',
+        icon: <CodeXmlIcon size={16} />,
       },
       {
         text: 'App Store',
         url: '/products/app-store',
         isExternal: false,
+        description: 'Run your favorite apps',
+        icon: <LayoutGridIcon size={16} />,
+      },
+      {
+        text: 'Databases',
+        url: '/products/databases',
+        isExternal: false,
+        description: '1-click managed DB',
+        icon: <DatabaseIcon size={16} />,
       },
     ],
   },
@@ -78,21 +103,27 @@ const navigationLinks = [
     text: 'Solutions',
     url: '#',
     isExternal: false,
+    dropdownConfig: {
+      className: 'w-[40rem]! md:w-[40rem]!',
+    },
     children: [
       {
         text: 'Education',
         url: '/solutions/industries/education',
         isExternal: false,
+        description: 'Empower learning with cloud infrastructure',
       },
       {
         text: 'Gaming',
         url: '/solutions/industries/gaming',
         isExternal: false,
+        description: 'Scale your gaming platform',
       },
       {
         text: 'Information Technology',
         url: '/solutions/industries/information-technology',
         isExternal: false,
+        description: 'Enterprise-grade IT solutions',
       },
     ],
   },
@@ -103,11 +134,85 @@ const navigationLinks = [
   },
 ];
 
+const DropdownMenuItem = ({
+  child,
+  onClose,
+}: {
+  child: NavigationChild;
+  onClose?: () => void;
+}) => {
+  return (
+    <NavigationMenuLink asChild>
+      <a
+        href={child.url}
+        onClick={onClose}
+        target={child.isExternal ? '_blank' : undefined}
+        rel={child.isExternal ? 'noopener noreferrer' : undefined}
+        className="group relative flex flex-col justify-center rounded-xl border border-transparent px-2 py-2.5 transition-all hover:bg-white/10 focus:bg-white/10 focus:outline-none"
+      >
+        <div className="flex items-center gap-3">
+          {child.icon && (
+            <div className="flex flex-shrink-0 items-center justify-center rounded-lg bg-white/5 p-2">
+              {child.icon}
+            </div>
+          )}
+          <div className="min-w-0 flex-1">
+            <div className="text-base text-white group-hover:text-white">
+              {child.text}
+            </div>
+            {child.description && (
+              <div className="text-sm text-white/60">{child.description}</div>
+            )}
+          </div>
+        </div>
+      </a>
+    </NavigationMenuLink>
+  );
+};
+
+const DropdownMenu = ({
+  title,
+  children,
+  config,
+}: {
+  title: string;
+  children: NavigationChild[];
+  config?: {
+    width?: string;
+    className?: string;
+  };
+}) => {
+  return (
+    <>
+      <NavigationMenuTrigger>{title}</NavigationMenuTrigger>
+
+      <NavigationMenuContent className="relative !border-none !bg-transparent !shadow-none">
+        <div
+          className={cn(
+            'inset-shadow-bubble rounded-xl bg-neutral-950 p-4 backdrop-blur-xl',
+            config?.className,
+          )}
+        >
+          <div className="text-muted-foreground text-sm">{title}</div>
+          <div className="grid grid-cols-2 gap-3">
+            {children.slice(0, 2).map((child, index) => (
+              <DropdownMenuItem key={index} child={child} />
+            ))}
+            {children.length > 2 && (
+              <div className="col-span-1 row-start-2">
+                <DropdownMenuItem child={children[2]} />
+              </div>
+            )}
+          </div>
+        </div>
+      </NavigationMenuContent>
+    </>
+  );
+};
+
 export function Header() {
   const { trackButton } = useGTM();
   const openAuthForm = useOpenAuthForm();
-
-  const [brainUrl, setBrainUrl] = React.useState('');
 
   const { scrollY } = useScroll();
   const [hideLogotype, setHideLogotype] = React.useState(false);
@@ -138,7 +243,7 @@ export function Header() {
 
   return (
     <>
-      <nav className="flex w-full justify-between rounded-full bg-white/5 px-6 py-3 inset-shadow-[0_0_20px_0_rgba(255,255,255,0.10),_0_-1px_4px_0_rgba(255,255,255,0.25)] backdrop-blur-lg">
+      <nav className="inset-shadow-bubble flex w-full justify-between rounded-full bg-white/5 px-6 py-3 backdrop-blur-lg">
         {/* Left */}
         <div className="flex">
           <a
@@ -183,45 +288,31 @@ export function Header() {
               {navigationLinks.map((link, index) => (
                 <NavigationMenuItem key={index}>
                   {link.children ? (
-                    <>
-                      <NavigationMenuTrigger>{link.text}</NavigationMenuTrigger>
-                      <NavigationMenuContent className="p-2 shadow-md">
-                        <ul className="w-full min-w-[12rem]" aria-hidden="true">
-                          {link.children.map((child, childIndex) => (
-                            <li key={childIndex} aria-hidden="true">
-                              <NavigationMenuLink asChild>
-                                <a
-                                  href={child.url}
-                                  className="flex-row items-center gap-2"
-                                  target={
-                                    child.isExternal ? '_blank' : undefined
-                                  }
-                                  rel={
-                                    child.isExternal
-                                      ? 'noopener noreferrer'
-                                      : undefined
-                                  }
-                                  aria-hidden="false"
-                                >
-                                  {link.text === 'Products' &&
-                                  productIcons[child.text] ? (
-                                    <Image
-                                      src={productIcons[child.text]}
-                                      alt=""
-                                      width={16}
-                                      height={16}
-                                      className="rounded"
-                                      aria-hidden="true"
-                                    />
-                                  ) : null}
-                                  <span>{child.text}</span>
-                                </a>
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </NavigationMenuContent>
-                    </>
+                    link.dropdownConfig ? (
+                      <DropdownMenu
+                        title={link.text}
+                        children={link.children}
+                        config={link.dropdownConfig}
+                      />
+                    ) : (
+                      <>
+                        <NavigationMenuTrigger>
+                          {link.text}
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent className="rounded-lg border border-white/10 bg-black p-2 shadow-md">
+                          <ul
+                            className="w-full min-w-[12rem]"
+                            aria-hidden="true"
+                          >
+                            {link.children.map((child, childIndex) => (
+                              <li key={childIndex} aria-hidden="true">
+                                <DropdownMenuItem child={child} />
+                              </li>
+                            ))}
+                          </ul>
+                        </NavigationMenuContent>
+                      </>
+                    )
                   ) : (
                     <NavigationMenuLink
                       asChild
@@ -392,19 +483,23 @@ export function Header() {
                                           ? 'noopener noreferrer'
                                           : undefined
                                       }
-                                      className="flex items-center gap-2 text-white/70 transition-colors hover:text-white"
+                                      className="flex flex-col gap-1 rounded-lg bg-white/5 p-3 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
                                     >
-                                      {link.text === 'Products' &&
-                                      productIcons[child.text] ? (
-                                        <Image
-                                          src={productIcons[child.text]}
-                                          alt={`${child.text} icon`}
-                                          width={16}
-                                          height={16}
-                                          className="rounded"
-                                        />
-                                      ) : null}
-                                      <span>{child.text}</span>
+                                      <div className="flex items-center gap-2">
+                                        {child.icon && (
+                                          <div className="flex-shrink-0">
+                                            {child.icon}
+                                          </div>
+                                        )}
+                                        <span className="font-medium">
+                                          {child.text}
+                                        </span>
+                                      </div>
+                                      {child.description && (
+                                        <span className="pl-0 text-sm text-white/50">
+                                          {child.description}
+                                        </span>
+                                      )}
                                     </a>
                                   ))}
                                 </div>
