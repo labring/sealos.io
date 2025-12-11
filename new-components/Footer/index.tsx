@@ -50,6 +50,7 @@ const FooterLinksData: Record<string, FooterCategoryType> = {
       { textKey: 'docs', urlKey: 'docsUrl', isExternal: false },
       { textKey: 'education', urlKey: 'educationUrl', isExternal: false },
       { textKey: 'blog', urlKey: 'blogUrl', isExternal: false },
+      { textKey: 'faq', urlKey: 'faqUrl', isExternal: false },
     ],
   },
   products: {
@@ -97,6 +98,7 @@ export const footerTranslations: Record<string, Record<string, string>> = {
     docs: 'Docs',
     education: 'Education',
     blog: 'Blog',
+    faq: 'Frequently Asked Questions',
     appStore: 'App Store',
     devbox: 'DevBox',
     databases: 'Databases',
@@ -110,6 +112,7 @@ export const footerTranslations: Record<string, Record<string, string>> = {
     docsUrl: '/docs',
     educationUrl: '/education',
     blogUrl: '/blog',
+    faqUrl: '/ai-quick-reference',
     devboxUrl: '/products/devbox',
     databasesUrl: '/products/databases',
     appStoreUrl: '/products/app-store',
@@ -128,6 +131,7 @@ export const footerTranslations: Record<string, Record<string, string>> = {
     docs: '文档',
     education: '教育',
     blog: '博客',
+    faq: 'Frequently Asked Questions',
     appStore: '应用商店',
     devbox: 'DevBox',
     databases: '数据库',
@@ -141,6 +145,7 @@ export const footerTranslations: Record<string, Record<string, string>> = {
     docsUrl: '/docs',
     educationUrl: '/education',
     blogUrl: '/blog',
+    faqUrl: '/ai-quick-reference',
     devboxUrl: '/products/devbox',
     databasesUrl: '/products/databases',
     appStoreUrl: '/products/app-store',
@@ -303,7 +308,7 @@ export const Footer = async ({ lang = 'en' }: FooterProps) => {
               <GithubIcon />
             </a>
             <a
-              href="https://discord.gg/Sealos"
+              href="https://discord.gg/wdUn538zVP"
               target="_blank"
               rel="noopener noreferrer"
               className="flex size-8 items-center justify-center rounded-full bg-white/10 text-[#6688FF] no-underline"

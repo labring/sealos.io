@@ -11,7 +11,7 @@ export const faqData = [
       "Absolutely! Sealos is designed to abstract away all Kubernetes complexity. You don't need to write YAML files, manage containers, or understand Kubernetes internals. Simply describe what you want to deploy using natural language or our intuitive UI, and Sealos handles the rest. Our AI-powered deployment system makes cloud infrastructure accessible to developers of all skill levels.",
   },
   {
-    question: 'What languages and frameworks can I deploy?',
+    question: 'What languages and frameworks do Sealos support?',
     answer:
       'Sealos supports virtually any programming language and framework. This includes Node.js, Python, Java, Go, Rust, PHP, Ruby, .NET, and more. Popular frameworks like Next.js, React, Vue, Django, Flask, Spring Boot, FastAPI, and Express are all fully supported. If it runs in a container, it runs on Sealos.',
   },
@@ -43,6 +43,6 @@ export const faqData = [
   {
     question: 'What kind of support is available?',
     answer:
-      'We offer multiple support channels: comprehensive documentation, community Discord server, GitHub discussions, and email support. Pro and Enterprise plans include priority support with faster response times, dedicated account managers, and optional on-call support. Our community is active and helpful for troubleshooting and best practices.',
+      'We offer multiple support channels: comprehensive documentation, community Discord server, GitHub discussions, and email support. Pro and Enterprise plans include priority support with faster response times, dedicated account managers, and optional on-call support. Our community is also active and helpful for troubleshooting and sharing best practices.',
   },
 ];
