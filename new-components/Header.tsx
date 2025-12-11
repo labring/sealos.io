@@ -16,6 +16,12 @@ import {
   LayoutGridIcon,
   Menu,
   X,
+  BookOpenText,
+  FileText,
+  Users,
+  School,
+  Gamepad2,
+  Building2,
 } from 'lucide-react';
 import {
   useScroll,
@@ -90,9 +96,35 @@ const navigationLinks: NavigationLink[] = [
     isExternal: false,
   },
   {
-    text: 'Blog',
-    url: '/blog',
+    text: 'Resources',
+    url: '#',
     isExternal: false,
+    dropdownConfig: {
+      className: 'w-[40rem]! md:w-[40rem]!',
+    },
+    children: [
+      {
+        text: 'Learn',
+        url: '/blog/category/best-practices',
+        isExternal: false,
+        description: 'Learn and build with the best practices',
+        icon: <BookOpenText size={16} />,
+      },
+      {
+        text: 'Blog',
+        url: '/blog',
+        isExternal: false,
+        description: 'Latest news and updates from Sealos',
+        icon: <FileText size={16} />,
+      },
+      {
+        text: 'Community',
+        url: 'https://discord.gg/wdUn538zVP',
+        isExternal: true,
+        description: 'Join our community of developers',
+        icon: <Users size={16} />,
+      },
+    ],
   },
   {
     text: 'Pricing',
@@ -112,18 +144,21 @@ const navigationLinks: NavigationLink[] = [
         url: '/solutions/industries/education',
         isExternal: false,
         description: 'Empower learning with cloud infrastructure',
+        icon: <School size={16} />,
       },
       {
         text: 'Gaming',
         url: '/solutions/industries/gaming',
         isExternal: false,
         description: 'Scale your gaming platform',
+        icon: <Gamepad2 size={16} />,
       },
       {
         text: 'Information Technology',
         url: '/solutions/industries/information-technology',
         isExternal: false,
         description: 'Enterprise-grade IT solutions',
+        icon: <Building2 size={16} />,
       },
     ],
   },
