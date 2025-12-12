@@ -9,8 +9,6 @@ import {
 import { Metadata } from 'next';
 import { TableSection } from './sections/TableSection';
 import { HeroSection } from './sections/HeroSection';
-import { CostComparisonSection } from './sections/CostComparisonSection';
-import { PlatformOverviewSection } from './sections/PlatformOverviewSection';
 import { ChoosePlatformSection } from './sections/ChoosePlatformSection';
 import { FAQSectionWrapper } from './sections/FAQSectionWrapper';
 
@@ -121,16 +119,6 @@ export default async function ComparisonDetailPage({
       />
 
       <TableSection
-        firstPlatform={firstPlatform}
-        secondPlatform={secondPlatform}
-      />
-
-      <CostComparisonSection
-        firstPlatform={firstPlatform}
-        secondPlatform={secondPlatform}
-      />
-
-      <PlatformOverviewSection
         firstPlatform={firstPlatform}
         secondPlatform={secondPlatform}
       />

@@ -1,5 +1,25 @@
 import Image from 'next/image';
 import RailwayIcon from '@/assets/platform-icons/railway.svg';
+import {
+  CodeXml,
+  GitCompare,
+  Settings,
+  Box,
+  Globe,
+  Shield,
+  TrendingUp,
+  Users,
+  Key,
+  Network,
+  Store,
+  Database,
+  Bot,
+  Wrench,
+  Plug,
+  Zap,
+  Clock,
+  DollarSign,
+} from 'lucide-react';
 import { ComparisonConfig } from './platforms';
 
 export const railwayConfig: ComparisonConfig = {
@@ -34,9 +54,7 @@ export const railwayConfig: ComparisonConfig = {
           { type: 'text-with-check', value: '(saves on idle)' },
           { type: 'check', value: true },
         ],
-        strengths: {
-          strengths: [],
-        },
+        strengths: [],
       },
       'developer-experience': {
         features: [
@@ -50,14 +68,32 @@ export const railwayConfig: ComparisonConfig = {
           { type: 'check', value: true },
           { type: 'check', value: true },
         ],
-        strengths: {
-          strengths: [
-            'Railway offers a remarkably streamlined git-push-to-deploy workflow with automatic buildpack detection—no configuration required for most frameworks.',
-            "The platform's **Preview Environments** automatically spin up isolated instances for every pull request, making code review and testing seamless.",
-            "Railway's CLI tool (`railway run`) allows developers to run local code while connected to cloud-provisioned databases, bridging the local-cloud gap elegantly.",
-            'The `railway.toml` config-as-code approach keeps deployment settings versioned alongside your code.',
-          ],
-        },
+        strengths: [
+          {
+            icon: <GitCompare size={20} />,
+            title: 'Streamlined Git-Push-to-Deploy',
+            content:
+              'Railway offers a remarkably streamlined git-push-to-deploy workflow with automatic buildpack detection—no configuration required for most frameworks.',
+          },
+          {
+            icon: <CodeXml size={20} />,
+            title: 'Preview Environments',
+            content:
+              "The platform's **Preview Environments** automatically spin up isolated instances for every pull request, making code review and testing seamless.",
+          },
+          {
+            icon: <Settings size={20} />,
+            title: 'CLI Tool Integration',
+            content:
+              "Railway's CLI tool (`railway run`) allows developers to run local code while connected to cloud-provisioned databases, bridging the local-cloud gap elegantly.",
+          },
+          {
+            icon: <CodeXml size={20} />,
+            title: 'Config-as-Code',
+            content:
+              'The `railway.toml` config-as-code approach keeps deployment settings versioned alongside your code.',
+          },
+        ],
         keyDifference: {
           title: 'Railway Approach',
           content:
@@ -86,14 +122,32 @@ export const railwayConfig: ComparisonConfig = {
           { type: 'check', value: true },
           { type: 'check', value: true },
         ],
-        strengths: {
-          strengths: [
-            "Railway's automatic **scale-to-zero** capability is a standout feature for intermittent workloads. When your service receives no traffic for ~5-10 minutes, Railway automatically suspends the container and resumes it on the next request (with <1 second cold-start)—you only pay for actual usage.",
-            'This is ideal for staging environments, admin dashboards, or low-traffic APIs.',
-            'Railway also offers native **multi-region deployment** on Pro plans, allowing you to run replicas across US, Europe, and Asia simultaneously.',
-            "The platform's **automatic vertical scaling** adjusts CPU/RAM allocation dynamically based on actual usage, without manual intervention.",
-          ],
-        },
+        strengths: [
+          {
+            icon: <TrendingUp size={20} />,
+            title: 'Scale-to-Zero',
+            content:
+              "Railway's automatic **scale-to-zero** capability is a standout feature for intermittent workloads. When your service receives no traffic for ~5-10 minutes, Railway automatically suspends the container and resumes it on the next request (with <1 second cold-start)—you only pay for actual usage.",
+          },
+          {
+            icon: <Box size={20} />,
+            title: 'Ideal for Intermittent Workloads',
+            content:
+              'This is ideal for staging environments, admin dashboards, or low-traffic APIs.',
+          },
+          {
+            icon: <Globe size={20} />,
+            title: 'Multi-Region Deployment',
+            content:
+              'Railway also offers native **multi-region deployment** on Pro plans, allowing you to run replicas across US, Europe, and Asia simultaneously.',
+          },
+          {
+            icon: <TrendingUp size={20} />,
+            title: 'Automatic Vertical Scaling',
+            content:
+              "The platform's **automatic vertical scaling** adjusts CPU/RAM allocation dynamically based on actual usage, without manual intervention.",
+          },
+        ],
         keyDifference: {
           title: 'Railway Approach',
           content:
@@ -126,15 +180,38 @@ export const railwayConfig: ComparisonConfig = {
             note: 'Available only on Railway Enterprise plan',
           },
         ],
-        strengths: {
-          strengths: [
-            'Railway offers a straightforward team model with three predefined roles (Admin, Developer, Deploy-only) that covers most use cases without complexity.',
-            'The **Pro plan includes unlimited team seats** at no extra cost—a significant advantage for growing teams.',
-            'Each project has its own private network, providing natural isolation between environments.',
-            'The activity feed provides a clear audit trail of all deployments and changes.',
-            "For compliance-heavy industries, Railway's **Enterprise plan offers HIPAA/BAA compliance**, SSO/SAML integration, and 90-day audit logs.",
-          ],
-        },
+        strengths: [
+          {
+            icon: <Users size={20} />,
+            title: 'Straightforward Team Model',
+            content:
+              'Railway offers a straightforward team model with three predefined roles (Admin, Developer, Deploy-only) that covers most use cases without complexity.',
+          },
+          {
+            icon: <Users size={20} />,
+            title: 'Unlimited Team Seats',
+            content:
+              'The **Pro plan includes unlimited team seats** at no extra cost—a significant advantage for growing teams.',
+          },
+          {
+            icon: <Network size={20} />,
+            title: 'Private Network Isolation',
+            content:
+              'Each project has its own private network, providing natural isolation between environments.',
+          },
+          {
+            icon: <Key size={20} />,
+            title: 'Activity Feed & Audit Trail',
+            content:
+              'The activity feed provides a clear audit trail of all deployments and changes.',
+          },
+          {
+            icon: <Shield size={20} />,
+            title: 'Enterprise Compliance',
+            content:
+              "For compliance-heavy industries, Railway's **Enterprise plan offers HIPAA/BAA compliance**, SSO/SAML integration, and 90-day audit logs.",
+          },
+        ],
         keyDifference: {
           title: 'Railway Approach',
           content:
@@ -156,14 +233,32 @@ export const railwayConfig: ComparisonConfig = {
           { type: 'check', value: false },
           { type: 'check', value: false },
         ],
-        strengths: {
-          strengths: [
-            'Railway offers a polished, integrated developer experience for its managed services.',
-            'The **built-in database viewer** lets you browse tables, view records, and inspect Redis keys directly in the dashboard without external tools.',
-            '**Cron Jobs** get first-class UI treatment with visual scheduling, execution logs, and manual trigger buttons—Railway supports up to 50 cron jobs on Hobby and 100 on Pro plans.',
-            'The platform\'s services (PostgreSQL, MySQL, MongoDB, Redis, storage buckets) are tightly integrated with the deployment workflow, providing a cohesive experience that "just works" without configuration.',
-          ],
-        },
+        strengths: [
+          {
+            icon: <Wrench size={20} />,
+            title: 'Polished Developer Experience',
+            content:
+              'Railway offers a polished, integrated developer experience for its managed services.',
+          },
+          {
+            icon: <Database size={20} />,
+            title: 'Built-in Database Viewer',
+            content:
+              'The **built-in database viewer** lets you browse tables, view records, and inspect Redis keys directly in the dashboard without external tools.',
+          },
+          {
+            icon: <Settings size={20} />,
+            title: 'First-Class Cron Jobs UI',
+            content:
+              '**Cron Jobs** get first-class UI treatment with visual scheduling, execution logs, and manual trigger buttons—Railway supports up to 50 cron jobs on Hobby and 100 on Pro plans.',
+          },
+          {
+            icon: <Plug size={20} />,
+            title: 'Tightly Integrated Services',
+            content:
+              'The platform\'s services (PostgreSQL, MySQL, MongoDB, Redis, storage buckets) are tightly integrated with the deployment workflow, providing a cohesive experience that "just works" without configuration.',
+          },
+        ],
         keyDifference: {
           title: 'Railway Approach',
           content:
@@ -177,19 +272,16 @@ export const railwayConfig: ComparisonConfig = {
           cost: '~$90/mo',
           savings: 0,
           label: 'Railway (Usage-Based)',
-          type: 'usage-based',
         },
         {
           cost: '~$320/mo',
           savings: 0,
           label: 'Railway (Usage-Based)',
-          type: 'usage-based',
         },
         {
           cost: '~$640/mo',
           savings: 0,
           label: 'Railway (Usage-Based)',
-          type: 'usage-based',
         },
       ],
       note: 'Railway calculation: $0.000463/vCPU-min + $0.000231/GB-min = 43,200 min/month',
@@ -198,23 +290,34 @@ export const railwayConfig: ComparisonConfig = {
         label: 'Railway Pricing',
       },
     },
-    guidance: `## Choose the Right Platform for Your Use Case
-
-### Choose Sealos if you need:
-✅ **Predictable costs** for 24/7 production workloads
-✅ **Cloud IDE integration** (DevBox) for consistent dev/prod environments
-✅ **Self-hosting option** for data sovereignty or compliance (100% source-available)
-✅ **Kubernetes-native control** with full API access
-✅ **100+ ready-to-deploy apps** from the marketplace
-✅ **Enterprise multi-tenancy** with granular RBAC and resource quotas
-
-### Railway might be better if you:
-✅ Have **intermittent workloads** that benefit from scale-to-zero billing
-✅ Prefer **usage-based billing** for unpredictable or low traffic patterns
-✅ Need the **fastest path from Git to URL** for quick prototypes
-✅ Don't need Kubernetes-level infrastructure control
-✅ Run mostly **stateless, low-traffic hobby projects** under $5/month
-✅ Want **Preview Environments** for pull request testing`,
-    sourceUrl: 'https://railway.com/pricing',
+    guidance: [
+      {
+        icon: <TrendingUp size={20} />,
+        content:
+          'Have **intermittent workloads** that benefit from scale-to-zero billing',
+      },
+      {
+        icon: <DollarSign size={20} />,
+        content:
+          'Prefer **usage-based billing** for unpredictable or low traffic patterns',
+      },
+      {
+        icon: <Zap size={20} />,
+        content: 'Need the **fastest path from Git to URL** for quick prototypes',
+      },
+      {
+        icon: <Box size={20} />,
+        content: "Don't need Kubernetes-level infrastructure control",
+      },
+      {
+        icon: <Clock size={20} />,
+        content:
+          'Run mostly **stateless, low-traffic hobby projects** under $5/month',
+      },
+      {
+        icon: <CodeXml size={20} />,
+        content: 'Want **Preview Environments** for pull request testing',
+      },
+    ],
   },
 };

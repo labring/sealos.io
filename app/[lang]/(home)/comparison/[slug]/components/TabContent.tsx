@@ -10,9 +10,11 @@ import {
 } from '@/components/ui/tooltip';
 import { GradientCircleCheck } from '@/app/[lang]/(home)/(new-home)/components/GradientIcon';
 import { CircleX, TriangleAlert } from './ComparisonIcons';
-import { DimensionStrengths } from './DimensionStrengths';
-import { KeyDifferences } from './KeyDifferences';
 import { TabId } from './TabNavigation';
+import { CostComparisonSection } from '../sections/CostComparisonSection';
+import { PlatformOverviewSection } from '../sections/PlatformOverviewSection';
+import { KeyDifferencesSection } from '../sections/KeyDifferencesSection';
+import { StrengthsSection } from '../sections/StrengthsSection';
 
 interface TabContentProps {
   activeTab: TabId;
@@ -259,22 +261,33 @@ export function TabContent({
         </div>
       )}
 
+      {/* Overview-specific sections */}
+      {dimensionId === 'overview' && (
+        <>
+          <CostComparisonSection
+            firstPlatform={firstPlatform}
+            secondPlatform={secondPlatform}
+          />
+          <PlatformOverviewSection
+            firstPlatform={firstPlatform}
+            secondPlatform={secondPlatform}
+          />
+        </>
+      )}
+
       {/* Key Differences Section */}
-      <KeyDifferences
+      <KeyDifferencesSection
         dimensionId={dimensionId}
         firstPlatform={firstPlatform}
         secondPlatform={secondPlatform}
       />
 
-      {/* Strengths Section - Only show if there are strengths */}
-      {firstData.strengths.strengths.length > 0 ||
-      secondData.strengths.strengths.length > 0 ? (
-        <DimensionStrengths
-          dimensionId={dimensionId}
-          firstPlatform={firstPlatform}
-          secondPlatform={secondPlatform}
-        />
-      ) : null}
+      {/* Strengths Section */}
+      <StrengthsSection
+        dimensionId={dimensionId}
+        firstPlatform={firstPlatform}
+        secondPlatform={secondPlatform}
+      />
     </div>
   );
 }

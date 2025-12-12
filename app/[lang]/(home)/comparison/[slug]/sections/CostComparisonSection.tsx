@@ -1,7 +1,7 @@
 'use client';
 
 import { ComparisonConfig, COSTS } from '../../config/platforms';
-import { InfoIcon, TrendingDown, TrendingUp, WebcamIcon } from 'lucide-react';
+import { TrendingDown, InfoIcon, WebcamIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface CostComparisonSectionProps {
@@ -29,7 +29,7 @@ export function CostComparisonSection({
   const maxCost = Math.max(...allCosts, 1);
 
   return (
-    <section className="container mx-auto px-4 pb-16">
+    <section className="container mx-auto px-4 pb-24">
       <div className="mb-12">
         <h2 className="mb-6 text-center text-2xl font-medium">{COSTS.title}</h2>
         <p className="text-muted-foreground">{COSTS.description}</p>

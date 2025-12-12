@@ -27,8 +27,20 @@ export type ComparisonCellValue =
   | { type: 'warning'; value: string; note?: string }
   | { type: 'info'; value: string };
 
-export type PlatformStrengths = {
-  strengths: string[];
+export type PlatformStrength = {
+  icon: ReactNode;
+  title: string;
+  content: string; // Markdown format
+};
+
+export type PlatformKeyDifference = {
+  title: string;
+  content: string; // Markdown format
+};
+
+export type PlatformGuidance = {
+  icon: ReactNode;
+  content: string; // Markdown format
 };
 
 export type FeatureGroup = {
@@ -239,15 +251,10 @@ export const DIMENSIONS = {
 
 export type DimensionId = keyof typeof DIMENSIONS;
 
-export type PlatformKeyDifference = {
-  title: string;
-  content: string;
-};
-
 export type PlatformDimensionData = {
   features: ComparisonCellValue[];
-  strengths: PlatformStrengths;
-  keyDifference?: PlatformKeyDifference;
+  strengths: PlatformStrength[];
+  keyDifference?: PlatformKeyDifference; // Title + content
 };
 
 export const COSTS = {
@@ -274,7 +281,6 @@ export type CostRow = {
   cost: string;
   savings: number; // Percentage savings compared to the other platform
   label: string; // Display label, e.g., "Railway (Usage-Based)" or "Sealos (Fixed Plan)"
-  type: 'usage-based' | 'fixed-plan'; // Cost type
 };
 
 export type CostSource = {
@@ -291,8 +297,7 @@ export type PlatformContent = {
     note?: string; // Optional note/explanation
     source?: CostSource; // Optional source link with label
   };
-  guidance: string; // Markdown format guidance text
-  sourceUrl?: string; // Deprecated: use costs.source instead
+  guidance: PlatformGuidance[]; // Array of guidance items with icon and content
 };
 
 export type ComparisonConfig = {
