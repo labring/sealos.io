@@ -11,28 +11,31 @@ export const GradientCircleCheck = (
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
       fill="none"
-      viewBox="0 0 20 21"
+      viewBox="0 0 20 20"
       {...props}
     >
+      <rect width="20" height="20" fill={`url(#${gradientId})`} rx="10" />
       <path
-        stroke={`url(#${gradientId})`}
+        stroke="#18181b"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth={1.33}
-        d="m7.5 10.335 1.667 1.667L12.5 8.669m5.833 1.666a8.333 8.333 0 1 1-16.666 0 8.333 8.333 0 0 1 16.666 0Z"
+        strokeWidth="2"
+        d="m14.67 6.5-6.42 6.42L5.33 10"
       />
       <defs>
         <linearGradient
           id={gradientId}
-          x1={1.667}
-          x2={18.333}
-          y1={10.335}
-          y2={10.335}
+          x1="0"
+          x2="20"
+          y1="10"
+          y2="10"
           gradientUnits="userSpaceOnUse"
         >
           <stop stopColor="#fff" />
-          <stop offset={1} stopColor="#146DFF" />
+          <stop offset="1" stopColor="#146dff" />
         </linearGradient>
       </defs>
     </svg>

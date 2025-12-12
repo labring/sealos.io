@@ -7,18 +7,42 @@ export const sealosConfig: ComparisonConfig = {
   icon: <Image src={SealosIcon} alt="Sealos" className="size-full" />,
   order: -1,
   content: {
-    overview: {
-      name: 'Sealos',
-      description:
-        'Sealos is an AI-native Cloud Operating System built on Kubernetes that unifies the entire application lifecycle, from development in cloud IDEs to production deployment and management. It is perfect for building and scaling modern AI applications, SaaS platforms, managed databases (MySQL, PostgreSQL, Redis, MongoDB) and complex microservice architectures. The platform is 100% source-available, and for production you can choose either a fully managed cloud service or self-host on your own infrastructure.',
-    },
-    pricing: {
-      hobby: '$25/mo → 4 vCPU, 4GB RAM, 30GB disk, 50GB traffic',
-      standard: '$128/mo → 8 vCPU, 8GB RAM, 50GB disk, 300GB traffic',
-      pro: '$512/mo → 16 vCPU, 32GB RAM, 200GB disk, 1TB traffic',
-      freeTrial: '7-day free trial with 4 vCPU + 4GB (no credit card required)',
-    },
+    overview:
+      'Sealos is an AI-native Cloud Operating System built on Kubernetes that unifies the entire application lifecycle, from development in cloud IDEs to production deployment and management. It is perfect for building and scaling modern AI applications, SaaS platforms, managed databases (MySQL, PostgreSQL, Redis, MongoDB) and complex microservice architectures. The platform is 100% source-available, and for production you can choose either a fully managed cloud service or self-host on your own infrastructure.',
+    pricing: `Sealos Fixed Plans (All-Inclusive):
+• Hobby: $25/mo → 4 vCPU, 4GB RAM, 30GB disk, 50GB traffic
+• Standard: $128/mo → 8 vCPU, 8GB RAM, 50GB disk, 300GB traffic
+• Pro: $512/mo → 16 vCPU, 32GB RAM, 200GB disk, 1TB traffic
+• 7-day free trial with 4 vCPU + 4GB (no credit card required)`,
     dimensions: {
+      overview: {
+        features: [
+          { type: 'text', value: 'Standard Kubernetes' },
+          {
+            type: 'text-with-check',
+            value: '100% source-available (Apache 2.0)',
+          },
+          {
+            type: 'text-multi-check',
+            value: ['Cloud', 'Self-hosted', 'Hybrid'],
+          },
+          {
+            type: 'text',
+            value: '7 days, 4 vCPU + 4GB (no credit card)',
+          },
+          { type: 'text', value: 'Plan-based (4-64 vCPU)' },
+          { type: 'text', value: 'Plan-based (4-128 GB)' },
+          { type: 'text-with-check', value: 'Unlimited' },
+          { type: 'text-with-check', value: 'Unlimited (within quota)' },
+          { type: 'text-with-check', value: 'Unlimited' },
+          { type: 'text', value: 'Configurable' },
+          { type: 'check', value: true },
+          { type: 'check', value: true },
+        ],
+        strengths: {
+          strengths: [],
+        },
+      },
       'developer-experience': {
         features: [
           { type: 'check', value: true },
@@ -37,8 +61,11 @@ export const sealosConfig: ComparisonConfig = {
             'From there, the **App Launchpad** automates OCI image creation and deployment to Kubernetes without needing manual Dockerfiles. This creates a fluid, powerful workflow from code to cloud.',
           ],
         },
-        keyDifference:
-          'Sealos prioritizes environment consistency through cloud-native development. Teams that struggle with "it works on my machine" issues will appreciate Sealos\'s DevBox.',
+        keyDifference: {
+          title: 'Sealos Approach',
+          content:
+            'Sealos prioritizes environment consistency through cloud-native development. Teams that struggle with "it works on my machine" issues will appreciate Sealos\'s DevBox.',
+        },
       },
       architecture: {
         features: [
@@ -69,8 +96,11 @@ export const sealosConfig: ComparisonConfig = {
             'You get full, unrestricted access to the Kubernetes API for advanced configurations, custom scheduling, and fine-tuned autoscaling via HPA/VPA.',
           ],
         },
-        keyDifference:
-          'Sealos provides maximum control and portability at the cost of more operational responsibility.',
+        keyDifference: {
+          title: 'Sealos Approach',
+          content:
+            'Sealos provides maximum control and portability at the cost of more operational responsibility.',
+        },
       },
       collaboration: {
         features: [
@@ -122,12 +152,56 @@ export const sealosConfig: ComparisonConfig = {
             'Because Sealos is standard Kubernetes, it integrates seamlessly with the entire cloud-native toolchain, including Helm, ArgoCD, and any tool that speaks the Kubernetes API.',
           ],
         },
-        keyDifference:
-          'Sealos offers unmatched ecosystem breadth and Kubernetes-native extensibility—you can deploy virtually anything from the cloud-native ecosystem.',
+        keyDifference: {
+          title: 'Sealos Approach',
+          content:
+            'Sealos offers unmatched ecosystem breadth and Kubernetes-native extensibility—you can deploy virtually anything from the cloud-native ecosystem.',
+        },
       },
     },
+    costs: {
+      rows: [
+        {
+          cost: '~$25/mo (Hobby)',
+          savings: 72,
+          label: 'Sealos (Fixed Plan)',
+          type: 'fixed-plan',
+        },
+        {
+          cost: '~$128/mo (Standard)',
+          savings: 60,
+          label: 'Sealos (Fixed Plan)',
+          type: 'fixed-plan',
+        },
+        {
+          cost: '~$512/mo (Pro)',
+          savings: 20,
+          label: 'Sealos (Fixed Plan)',
+          type: 'fixed-plan',
+        },
+      ],
+      source: {
+        url: 'https://sealos.io/pricing',
+        label: 'Sealos Pricing',
+      },
+    },
+    guidance: `## Choose the Right Platform for Your Use Case
+
+### Choose Sealos if you need:
+✅ **Predictable costs** for 24/7 production workloads
+✅ **Cloud IDE integration** (DevBox) for consistent dev/prod environments
+✅ **Self-hosting option** for data sovereignty or compliance (100% source-available)
+✅ **Kubernetes-native control** with full API access
+✅ **100+ ready-to-deploy apps** from the marketplace
+✅ **Enterprise multi-tenancy** with granular RBAC and resource quotas
+
+### Railway might be better if you:
+✅ Have **intermittent workloads** that benefit from scale-to-zero billing
+✅ Prefer **usage-based billing** for unpredictable or low traffic patterns
+✅ Need the **fastest path from Git to URL** for quick prototypes
+✅ Don't need Kubernetes-level infrastructure control
+✅ Run mostly **stateless, low-traffic hobby projects** under $5/month
+✅ Want **Preview Environments** for pull request testing`,
     sourceUrl: 'https://sealos.io/pricing',
   },
 };
-
-

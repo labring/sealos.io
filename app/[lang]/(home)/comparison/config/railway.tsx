@@ -7,19 +7,37 @@ export const railwayConfig: ComparisonConfig = {
   icon: <Image src={RailwayIcon} alt="Railway" className="size-full" />,
   order: 1,
   content: {
-    overview: {
-      name: 'Railway',
-      description:
-        'Railway is a managed Platform-as-a-Service (PaaS) that simplifies application deployment through Git integration and usage-based billing. It automates builds and deploys for web services, background workers, Cron Jobs, and databases. Railway provides a fast path from code to production with automatic scaling (including scale-to-zero), abstracting away infrastructure complexity for individual developers and small teams.',
-    },
-    pricing: {
-      cpu: '$0.000463/vCPU-minute (~$0.028/vCPU-hour)',
-      memory: '$0.000231/GB-minute (~$0.014/GB-hour)',
-      egress: '$0.05/GB',
-      storage: '$0.25/GB-month',
-      objectStorage: '$0.015/GB-month',
-    },
+    overview:
+      'Railway is a managed Platform-as-a-Service (PaaS) that simplifies application deployment through Git integration and usage-based billing. It automates builds and deploys for web services, background workers, Cron Jobs, and databases. Railway provides a fast path from code to production with automatic scaling (including scale-to-zero), abstracting away infrastructure complexity for individual developers and small teams.',
+    pricing: `Railway Usage-Based Rates:
+• CPU: $0.000463/vCPU-minute (~$0.028/vCPU-hour)
+• Memory: $0.000231/GB-minute (~$0.014/GB-hour)
+• Egress: $0.05/GB
+• Storage: $0.25/GB-month
+• Object Storage: $0.015/GB-month`,
     dimensions: {
+      overview: {
+        features: [
+          { type: 'text', value: 'Proprietary PaaS' },
+          { type: 'text', value: 'Closed source' },
+          {
+            type: 'text-multi-check',
+            value: ['Cloud only', 'BYO Cloud: Enterprise'],
+          },
+          { type: 'text', value: '30 days, $5 credit' },
+          { type: 'text', value: 'Hobby: 8, Pro: 32' },
+          { type: 'text', value: 'Hobby: 8GB, Pro: 32GB' },
+          { type: 'text', value: 'Hobby: 2, Pro: 20' },
+          { type: 'text', value: 'Hobby: 5, Pro: 50' },
+          { type: 'text', value: 'Hobby: 50, Pro: 100' },
+          { type: 'text', value: 'Free: 3d, Hobby: 7d, Pro: 30d' },
+          { type: 'text-with-check', value: '(saves on idle)' },
+          { type: 'check', value: true },
+        ],
+        strengths: {
+          strengths: [],
+        },
+      },
       'developer-experience': {
         features: [
           { type: 'check', value: false },
@@ -40,8 +58,11 @@ export const railwayConfig: ComparisonConfig = {
             'The `railway.toml` config-as-code approach keeps deployment settings versioned alongside your code.',
           ],
         },
-        keyDifference:
-          "Railway prioritizes deployment simplicity through zero-config automation. Teams that want the fastest path from git push to production URL will appreciate Railway's streamlined workflow.",
+        keyDifference: {
+          title: 'Railway Approach',
+          content:
+            "Railway prioritizes deployment simplicity through zero-config automation. Teams that want the fastest path from git push to production URL will appreciate Railway's streamlined workflow.",
+        },
       },
       architecture: {
         features: [
@@ -73,8 +94,11 @@ export const railwayConfig: ComparisonConfig = {
             "The platform's **automatic vertical scaling** adjusts CPU/RAM allocation dynamically based on actual usage, without manual intervention.",
           ],
         },
-        keyDifference:
-          'Railway provides maximum operational simplicity at the cost of vendor lock-in. Enterprise customers on Railway can access "Bring Your Own Cloud" for dedicated infrastructure, but this is a premium feature not available on standard plans.',
+        keyDifference: {
+          title: 'Railway Approach',
+          content:
+            'Railway provides maximum operational simplicity at the cost of vendor lock-in. Enterprise customers on Railway can access "Bring Your Own Cloud" for dedicated infrastructure, but this is a premium feature not available on standard plans.',
+        },
       },
       collaboration: {
         features: [
@@ -111,8 +135,11 @@ export const railwayConfig: ComparisonConfig = {
             "For compliance-heavy industries, Railway's **Enterprise plan offers HIPAA/BAA compliance**, SSO/SAML integration, and 90-day audit logs.",
           ],
         },
-        keyDifference:
-          'Railway provides simpler team management that "just works" for most teams, with enterprise compliance features available at higher tiers.',
+        keyDifference: {
+          title: 'Railway Approach',
+          content:
+            'Railway provides simpler team management that "just works" for most teams, with enterprise compliance features available at higher tiers.',
+        },
       },
       ecosystem: {
         features: [
@@ -137,12 +164,57 @@ export const railwayConfig: ComparisonConfig = {
             'The platform\'s services (PostgreSQL, MySQL, MongoDB, Redis, storage buckets) are tightly integrated with the deployment workflow, providing a cohesive experience that "just works" without configuration.',
           ],
         },
-        keyDifference:
-          "Railway offers a narrower but more polished set of built-in tools with superior UI/UX for common use cases. If you want the most streamlined experience for standard web apps with PostgreSQL/Redis, Railway's integrated tooling shines.",
+        keyDifference: {
+          title: 'Railway Approach',
+          content:
+            "Railway offers a narrower but more polished set of built-in tools with superior UI/UX for common use cases. If you want the most streamlined experience for standard web apps with PostgreSQL/Redis, Railway's integrated tooling shines.",
+        },
       },
     },
+    costs: {
+      rows: [
+        {
+          cost: '~$90/mo',
+          savings: 0,
+          label: 'Railway (Usage-Based)',
+          type: 'usage-based',
+        },
+        {
+          cost: '~$320/mo',
+          savings: 0,
+          label: 'Railway (Usage-Based)',
+          type: 'usage-based',
+        },
+        {
+          cost: '~$640/mo',
+          savings: 0,
+          label: 'Railway (Usage-Based)',
+          type: 'usage-based',
+        },
+      ],
+      note: 'Railway calculation: $0.000463/vCPU-min + $0.000231/GB-min = 43,200 min/month',
+      source: {
+        url: 'https://railway.com/pricing',
+        label: 'Railway Pricing',
+      },
+    },
+    guidance: `## Choose the Right Platform for Your Use Case
+
+### Choose Sealos if you need:
+✅ **Predictable costs** for 24/7 production workloads
+✅ **Cloud IDE integration** (DevBox) for consistent dev/prod environments
+✅ **Self-hosting option** for data sovereignty or compliance (100% source-available)
+✅ **Kubernetes-native control** with full API access
+✅ **100+ ready-to-deploy apps** from the marketplace
+✅ **Enterprise multi-tenancy** with granular RBAC and resource quotas
+
+### Railway might be better if you:
+✅ Have **intermittent workloads** that benefit from scale-to-zero billing
+✅ Prefer **usage-based billing** for unpredictable or low traffic patterns
+✅ Need the **fastest path from Git to URL** for quick prototypes
+✅ Don't need Kubernetes-level infrastructure control
+✅ Run mostly **stateless, low-traffic hobby projects** under $5/month
+✅ Want **Preview Environments** for pull request testing`,
     sourceUrl: 'https://railway.com/pricing',
   },
 };
-
-
