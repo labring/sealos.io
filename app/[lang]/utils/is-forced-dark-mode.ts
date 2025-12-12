@@ -20,6 +20,10 @@ export function isForcedDarkMode(pathname: string): boolean {
       path: '/docs',
       match: 'prefix',
     },
+    {
+      path: '/comparison',
+      match: 'prefix',
+    },
   ];
 
   // Match language codes at the start of the path (temporary solution)

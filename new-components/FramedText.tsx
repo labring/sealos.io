@@ -6,12 +6,17 @@ export function FramedText({
   className,
 }: {
   children?: React.ReactNode;
-  className: string;
+  className?: string;
 }) {
   const gradientId = React.useId();
 
   return (
-    <span className={cn('relative inline-block overflow-visible', className)}>
+    <span
+      className={cn(
+        'relative inline-block overflow-visible [--bg:color-mix(in_oklab,_var(--color-white),_transparent_95%)] [--from:var(--color-white)] [--to:var(--color-blue-600)]',
+        className,
+      )}
+    >
       <svg
         className="absolute inset-0 h-full w-full"
         xmlns="http://www.w3.org/2000/svg"
@@ -20,28 +25,26 @@ export function FramedText({
         aria-hidden="true"
       >
         <defs>
-          {/* 定义渐变色 - 从 white 到 blue-600 */}
           <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="white" />
-            <stop offset="100%" stopColor="#2563eb" />
+            <stop offset="0%" stopColor="var(--from)" />
+            <stop offset="100%" stopColor="var(--to)" />
           </linearGradient>
         </defs>
 
-        {/* 背景矩形 - white 5% */}
+        {/* LT */}
         <rect
           x="0"
           y="0"
           width="100%"
           height="100%"
-          fill="rgba(255, 255, 255, 0.05)"
+          fill="var(--bg)"
           stroke={`url(#${gradientId})`}
           strokeWidth="1"
         />
 
-        {/* 左上角实心矩形 - 中心在边框上 */}
         <rect x="-2" y="-2" width="4" height="4" fill={`url(#${gradientId})`} />
 
-        {/* 右上角实心矩形 - 中心在边框上 */}
+        {/* RT */}
         <rect
           x="100%"
           y="-2"
@@ -51,7 +54,7 @@ export function FramedText({
           style={{ transform: 'translateX(-2px)' }}
         />
 
-        {/* 左下角实心矩形 - 中心在边框上 */}
+        {/* LB */}
         <rect
           x="-2"
           y="calc(100% - 2px)"
@@ -60,7 +63,7 @@ export function FramedText({
           fill={`url(#${gradientId})`}
         />
 
-        {/* 右下角实心矩形 - 中心在边框上 */}
+        {/* RB */}
         <rect
           x="100%"
           y="calc(100% - 2px)"
@@ -71,7 +74,6 @@ export function FramedText({
         />
       </svg>
 
-      {/* 文字内容 */}
       <span className="relative z-10 inline-block px-3 py-1">{children}</span>
     </span>
   );

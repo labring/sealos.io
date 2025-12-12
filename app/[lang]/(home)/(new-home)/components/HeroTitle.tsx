@@ -1,7 +1,7 @@
 'use client';
 
 import { GradientText } from '@/new-components/GradientText';
-import { FramedText } from './FramedText';
+import { FramedText } from '../../../../../new-components/FramedText';
 import { RotatingWords } from './RotatingWords';
 import { Star, ShieldCheck } from 'lucide-react';
 import { GithubIcon } from '@/components/ui/icons';

@@ -239,8 +239,9 @@
     background-origin: border-box;
     background-image:
       linear-gradient(
-        var(--border-gradient-bg-color, #121214),
-        var(--border-gradient-bg-color, #121214)
+        var(--border-gradient-bg-position, to bottom in oklab),
+        var(--border-gradient-bg-from, #121214),
+        var(--border-gradient-bg-to, #121214)
       ),
       linear-gradient(
         var(--border-gradient-position, to bottom right in oklab),
