@@ -323,8 +323,6 @@ claude-code-metrics-stack/
     └── grafana/
 ```
 
----
-
 ### Step 3: Configure OpenTelemetry Collector
 
 The Collector sits between Claude Code and Prometheus. It takes OTLP metrics, batches them, and re-exposes them in a format Prometheus understands.
@@ -375,8 +373,6 @@ EOF
 
 The `debug` exporter prints incoming data to container logs. Useful while you're testing. Remove it later if the noise gets annoying.
 
----
-
 ### Step 4: Configure Prometheus
 
 Prometheus scrapes the Collector every few seconds and stores everything as time-series data.
@@ -414,8 +410,6 @@ EOF
 
 The 10-second scrape interval is intentional. Claude Code sessions can be short. A default 30-second interval would smooth over usage spikes you might actually want to see.
 
----
-
 ### Step 5: Set Up Grafana Data Source
 
 This file tells Grafana where to find Prometheus. Drop it in the provisioning folder and Grafana wires itself up on first boot—no clicking through setup wizards.
@@ -441,8 +435,6 @@ datasources:
       httpMethod: "POST"
 EOF
 ```
-
----
 
 ### Step 6: Create Docker Compose File
 
@@ -546,8 +538,6 @@ EOF
 
 90-day retention is a middle ground. Long enough to spot monthly trends. Short enough to keep storage under 5 GB for most solo users. Need a year of history? Change it to `365d` and keep an eye on disk usage.
 
----
-
 ### Step 7: Launch the Stack
 
 ```bash
@@ -580,8 +570,6 @@ Open these URLs:
 | Collector health | http://localhost:13133 |
 
 If any of them won't load, check `docker compose ps` first. A container in "Restarting" state usually means a config typo.
-
----
 
 ### Smoke Test
 
@@ -620,8 +608,6 @@ curl -s 'http://localhost:9090/api/v1/query?query=test_metric' | jq '.data.resul
 ```
 
 You should see a result with value `42`. Empty response? Wait 15 seconds—Prometheus scrapes on an interval—and try again.
-
----
 
 ### Commands You'll Use
 
@@ -735,7 +721,7 @@ Numbers in a terminal don't stick. I'd run PromQL queries, get back perfectly ac
 - Select **Import dashboard**
 
 **Step 3:** Load the Dashboard JSON
-- Option A: Paste JSON from [this gist](https://gist.github.com/mikelane/...)
+- Option A: Paste JSON from [this gist](https://gist.github.com/yangchuansheng/dfd65826920eeb76f19a019db2827d62)
 - Option B: Upload the `.json` file directly
 
 **Step 4:** Connect to Prometheus
@@ -747,8 +733,6 @@ Numbers in a terminal don't stick. I'd run PromQL queries, get back perfectly ac
 - Your dashboard is now ready at **Dashboards → Claude Code Metrics**
 
 If you followed the Docker Compose setup, pick the auto-provisioned `Prometheus` source. Done.
-
----
 
 ### How the Dashboard Is Organized
 
@@ -779,8 +763,6 @@ Four counters split by type:
 - **Cache Creation** — tokens written to cache
 
 The cache numbers deserve attention. If `cacheRead` stays tiny compared to `input`, you're paying full price for everything. I learned this the hard way. Restructured my prompts—static context at the top, variable parts at the bottom—and watched my cache hit rate climb from 30% to 75%.
-
----
 
 ### Key Gauges to Monitor Daily
 
@@ -821,8 +803,6 @@ sum(claude_code_cost_usage_USD_total)
 
 When this number spikes, something changed. Maybe you switched models mid-project. Maybe a prompt is causing excessive back-and-forth. This gauge catches it.
 
----
-
 ### Distribution Charts
 
 Three pie charts show where resources go:
@@ -832,8 +812,6 @@ Three pie charts show where resources go:
 - **Active Time** — CLI vs. user time, visualized
 
 The model chart caught me once. I pulled up a week's data and saw 90% of tokens going to the most expensive model—for tasks that didn't need it. Simple stuff, like generating boilerplate tests. Switched those to a faster model. Bill dropped by a third.
-
----
 
 ### Cost by Model (Bar Gauge)
 
@@ -847,8 +825,6 @@ Horizontal bars, one per model. Color thresholds:
 - Red: > $20
 
 When a bar turns red, pause. Ask yourself: did those tasks actually need that model?
-
----
 
 ### Time Series Panels
 
@@ -886,8 +862,6 @@ sum by (type) (rate(claude_code_active_time_seconds_total[5m]))
 
 Shows work rhythms. When are you prompting heavily? When is Claude doing autonomous work? Patterns emerge after a week or two.
 
----
-
 ### Making the Dashboard Your Own
 
 The imported dashboard covers common cases. Here's how to extend it.
@@ -920,8 +894,6 @@ Dashboard variables let you switch between `5m`, `1h`, `1d` views without editin
 1. **Dashboard Settings** → **Variables**
 2. Add an **Interval** variable
 3. Replace hardcoded `[5m]` in queries with `[$interval]`
-
----
 
 ### PromQL Quick Reference
 
@@ -1178,8 +1150,6 @@ services:
 ```
 
 Apply this to all three services. Thirty megabytes total per service. Enough for debugging. Not enough to cause problems.
-
----
 
 Most of this work is invisible when things go well. You configure it once, forget about it, move on with your life.
 
