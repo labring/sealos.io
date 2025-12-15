@@ -15,6 +15,7 @@ import { PlatformOverviewSection } from '../sections/PlatformOverviewSection';
 import { KeyDifferencesSection } from '../sections/KeyDifferencesSection';
 import { StrengthsSection } from '../sections/StrengthsSection';
 import { GradientCircleCheck } from '@/components/ui/icons';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 interface TabContentProps {
   activeTab: TabId;
@@ -84,7 +85,7 @@ export function TabContent({
   };
 
   // Special handling for overview dimension header
-  const renderHeader = () => {
+  const Header = () => {
     return (
       <div className="mb-12">
         <h2 className="text-center text-lg font-medium md:text-2xl">
@@ -124,10 +125,24 @@ export function TabContent({
     <>
       <section className="container mx-auto px-4 pb-16 sm:pb-24">
         {/* Dimension Header */}
-        {renderHeader()}
+        <Header />
 
         {/* Comparison Table */}
-        <div className="overflow-x-auto">
+        <div className="relative overflow-x-auto">
+          <div className="absolute top-0 left-0 -z-10 h-full w-full min-w-[960px]">
+            {/* Gradient border overlay for first comparison column */}
+            <div className="pointer-events-none absolute inset-y-0 left-[30%] w-[35%]">
+              <div
+                className={cn(
+                  'border-gradient h-full rounded-xl',
+                  '[--border-gradient-position:to_bottom_left_in_oklab]',
+                  '[--border-gradient-from:var(--color-blue-600)] [--border-gradient-to:var(--color-white)]',
+                  '[--border-gradient-bg-from:color-mix(in_oklab,var(--color-zinc-950),var(--color-white)_5%)] [--border-gradient-bg-to:color-mix(in_oklab,var(--color-zinc-950),var(--color-white)_5%)]',
+                )}
+              />
+            </div>
+          </div>
+
           <table className="w-full min-w-[960px] table-fixed border-collapse">
             <colgroup>
               <col className="w-[30%]" />
@@ -135,9 +150,9 @@ export function TabContent({
               <col className="w-[35%]" />
             </colgroup>
             <thead>
-              <tr className="border-b border-zinc-800">
-                <th className="px-4 py-4 text-left text-sm font-semibold text-zinc-400">
-                  Feature
+              <tr className="border-b">
+                <th className="text-muted-foreground px-4 py-4 text-left text-sm font-semibold">
+                  <VisuallyHidden>Feature</VisuallyHidden>
                 </th>
                 <th className="px-4 py-4 text-center text-sm font-semibold">
                   <div className="flex items-center gap-2">
@@ -162,7 +177,7 @@ export function TabContent({
                         {/* Group header row */}
                         {group.name && (
                           <tr>
-                            <td className="border-b border-zinc-800 px-4 py-3 text-sm font-medium text-zinc-200">
+                            <td className="text-primary border-b px-4 py-3 text-sm font-medium">
                               <div className="flex items-center gap-2">
                                 {group.icon}
                                 {group.name}
@@ -170,11 +185,11 @@ export function TabContent({
                             </td>
                             <td
                               className={cn(
-                                'relative border-b border-zinc-800 px-4 py-3',
-                                'bg-white/5 before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
+                                'relative border-b px-4 py-3',
+                                'before:pointer-events-none before:absolute before:inset-0',
                               )}
                             />
-                            <td className="border-b border-zinc-800 px-4 py-3" />
+                            <td className="border-b px-4 py-3" />
                           </tr>
                         )}
                         {/* Group features */}
@@ -182,20 +197,16 @@ export function TabContent({
                           const currentFeatureIndex = globalFeatureIndex++;
                           return (
                             <tr
-                              key={`feature-${currentFeatureIndex}`}
-                              className={cn(
-                                'border-b border-zinc-800',
-                                currentFeatureIndex % 2 === 0 &&
-                                  'bg-zinc-900/30',
-                              )}
+                              key={`feature-${featureIndexInGroup}`}
+                              className={cn('not-last:border-b')}
                             >
-                              <td className="px-4 py-4 text-sm font-medium text-zinc-300">
+                              <td className="text-muted-foreground px-4 py-4 text-sm font-medium">
                                 {feature}
                               </td>
                               <td
                                 className={cn(
                                   'relative px-4 py-4',
-                                  'bg-white/5 before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
+                                  'before:pointer-events-none before:absolute before:inset-0',
                                 )}
                               >
                                 {renderCell(
@@ -217,20 +228,14 @@ export function TabContent({
                   featureGroups
                     .flatMap((group) => group.items)
                     .map((feature, index) => (
-                      <tr
-                        key={feature}
-                        className={cn(
-                          'border-b border-zinc-800',
-                          index % 2 === 0 && 'bg-zinc-900/30',
-                        )}
-                      >
+                      <tr key={feature} className={cn('not-last:border-b')}>
                         <td className="px-4 py-4 text-sm font-medium text-zinc-300">
                           {feature}
                         </td>
                         <td
                           className={cn(
                             'relative px-4 py-4',
-                            'bg-white/5 before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
+                            'before:pointer-events-none before:absolute before:inset-0',
                           )}
                         >
                           {renderCell(firstData.features[index])}
@@ -246,7 +251,7 @@ export function TabContent({
 
         {/* Warning Notes Section */}
         {warningNotes.size > 0 && (
-          <div className="text-muted-foreground space-y-1 text-xs">
+          <div className="text-muted-foreground mt-4 space-y-1 text-xs">
             {Array.from(warningNotes).map((note, index) => (
               <div key={index} className="flex items-center gap-2">
                 <TriangleAlert className="mt-0.5 h-4 w-4 shrink-0" />

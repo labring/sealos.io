@@ -18,23 +18,31 @@ interface TabNavigationProps {
 
 export function TabNavigation({ activeTab, onTabChange }: TabNavigationProps) {
   return (
-    <div className="scrollbar-hide overflow-x-scroll px-4">
-      <div className="bg-primary-foreground container mx-auto flex min-w-fit flex-nowrap items-stretch gap-2 overflow-x-auto overflow-y-hidden rounded-full border p-1">
-        {TABS.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => onTabChange(tab.id)}
-            className={cn(
-              'relative w-full flex-1 items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition-colors',
-              'text-center leading-snug whitespace-nowrap',
-              activeTab === tab.id
-                ? 'text-primary-foreground bg-primary'
-                : 'text-muted-foreground hover:text-primary-white',
-            )}
-          >
-            {tab.label}
-          </button>
-        ))}
+    <div
+      className={cn(
+        'relative container mx-auto',
+        'before:from-background before:absolute before:z-10 before:h-full before:w-8 before:bg-linear-to-r before:to-transparent',
+        'after:from-background after:absolute after:top-0 after:right-0 after:z-10 after:h-full after:w-8 after:bg-linear-to-l after:to-transparent',
+      )}
+    >
+      <div className="scrollbar-hide overflow-x-scroll px-8">
+        <div className="bg-primary-foreground flex min-w-fit flex-nowrap items-stretch gap-2 overflow-x-auto overflow-y-hidden rounded-full border p-1">
+          {TABS.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => onTabChange(tab.id)}
+              className={cn(
+                'relative w-full flex-1 items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition-colors',
+                'text-center leading-snug whitespace-nowrap',
+                activeTab === tab.id
+                  ? 'text-primary-foreground bg-primary'
+                  : 'text-muted-foreground hover:text-primary-white',
+              )}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
