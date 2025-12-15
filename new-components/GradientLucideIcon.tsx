@@ -14,13 +14,12 @@ export function GradientLucideIcon({
   from?: string;
   to?: string;
 } & React.ComponentProps<LucideIcon>) {
-  const rawId = React.useId();
-  const escapedId = CSS.escape(rawId);
+  const id = React.useId();
 
   return (
-    <Icon {...props} className={className} color={`url(#${escapedId})`}>
+    <Icon {...props} className={className} color={`url(#${id})`}>
       <defs>
-        <linearGradient id={rawId} x1="0%" y1="0%" x2="100%" y2="0%">
+        <linearGradient id={id} x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor={from} />
           <stop offset="100%" stopColor={to} />
         </linearGradient>

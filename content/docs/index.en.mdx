@@ -46,18 +46,17 @@ import { templateDomain } from '@/config/site';
 
 <br />
 
-import {
-  NodejsIcon,
-  GoIcon,
-  JavaIcon,
-  PHPIcon,
-  PythonIcon,
-  RustIcon,
-} from '@/components/ui/icons';
+import Image from 'next/image';
+import NodejsIcon from '@/assets/stacks-appicons/nodejs.svg';
+import GoIcon from '@/assets/stacks-appicons/golang.svg';
+import JavaIcon from '@/assets/stacks-appicons/java.svg';
+import PHPIcon from '@/assets/stacks-appicons/php.svg';
+import PythonIcon from '@/assets/stacks-appicons/python.svg';
+import RustIcon from '@/assets/stacks-appicons/rust.svg';
 
 <Cards>
   <Card
-    icon={<NodejsIcon />}
+    icon={<Image src={NodejsIcon} alt="Node.js" width={16} height={16} />}
     href="/docs/guides/databases/postgresql/nodejs"
     title="Node.js"
   >
@@ -65,14 +64,14 @@ import {
     outside of a browser.
   </Card>
   <Card
-    icon={<GoIcon />}
+    icon={<Image src={GoIcon} alt="Go" width={16} height={16} />}
     href="/docs/guides/databases/postgresql/go"
     title="Go"
   >
     Go is a statically typed, compiled programming language designed at Google.
   </Card>
   <Card
-    icon={<JavaIcon />}
+    icon={<Image src={JavaIcon} alt="Java" width={16} height={16} />}
     href="/docs/guides/databases/postgresql/java"
     title="Java"
   >
@@ -80,7 +79,7 @@ import {
     is designed to have as few implementation dependencies as possible.
   </Card>
   <Card
-    icon={<PHPIcon />}
+    icon={<Image src={PHPIcon} alt="PHP" width={16} height={16} />}
     href="/docs/guides/databases/postgresql/php"
     title="PHP"
   >
@@ -88,14 +87,14 @@ import {
     suited to web development.
   </Card>
   <Card
-    icon={<PythonIcon />}
+    icon={<Image src={PythonIcon} alt="Python" width={16} height={16} />}
     href="/docs/guides/databases/postgresql/python"
     title="Python"
   >
     Python is an interpreted, high-level, general-purpose programming language.
   </Card>
   <Card
-    icon={<RustIcon />}
+    icon={<Image src={RustIcon} alt="Rust" width={16} height={16} />}
     href="/docs/guides/databases/postgresql/rust"
     title="Rust"
   >
