@@ -18,7 +18,7 @@ import { ComparisonConfig } from './platforms';
 
 export const sealosConfig: ComparisonConfig = {
   name: 'Sealos',
-  icon: <Image src={SealosIcon} alt="Sealos" className="size-full" />,
+  icon: <Image src={SealosIcon} alt="" className="size-full" />,
   order: -1,
   content: {
     overview:

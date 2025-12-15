@@ -32,7 +32,7 @@ export function BreadcrumbSection({
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
               <Link href={homeHref} className="flex items-center">
-                <Home className="size-4" />
+                <Home className="size-4" aria-label="Home page" />
               </Link>
             </BreadcrumbLink>
           </BreadcrumbItem>

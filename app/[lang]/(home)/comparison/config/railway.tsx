@@ -24,7 +24,7 @@ import { ComparisonConfig } from './platforms';
 
 export const railwayConfig: ComparisonConfig = {
   name: 'Railway',
-  icon: <Image src={RailwayIcon} alt="Railway" className="size-full" />,
+  icon: <Image src={RailwayIcon} alt="" className="size-full" />,
   order: 1,
   content: {
     overview:

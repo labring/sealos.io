@@ -20,7 +20,10 @@ export function HeroSection({
   const openAuthForm = useOpenAuthForm();
 
   return (
-    <section className="container mx-auto flex flex-col justify-center px-4 pb-28">
+    <section
+      className="container mx-auto flex flex-col justify-center px-4 pb-28"
+      role="main"
+    >
       <ComparisonHeaderSVG
         firstPlatform={firstPlatform}
         secondPlatform={secondPlatform}
