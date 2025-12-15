@@ -1,6 +1,11 @@
 'use client';
 
-import { GradientSparkles } from '../../../(new-home)/components/GradientIcon';
+import { Sparkles } from 'lucide-react';
+import { GradientLucideIcon } from '@/new-components/GradientLucideIcon';
+
+const GradientSparkles = (props: { className?: string }) => (
+  <GradientLucideIcon Icon={Sparkles} {...props} />
+);
 import {
   ComparisonConfig,
   DimensionId,

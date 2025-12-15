@@ -10,8 +10,6 @@ import {
 } from '@/components/ui/accordion';
 import { LightMarkdown } from '../components/LightMarkdown';
 import { GradientText } from '@/new-components/GradientText';
-import { Sparkles } from 'lucide-react';
-import { GradientLucideIcon } from '../../../(new-home)/components/GradientIcon';
 
 interface FAQSectionProps {
   firstPlatform: ComparisonConfig;

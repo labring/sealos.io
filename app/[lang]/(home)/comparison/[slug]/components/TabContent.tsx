@@ -8,13 +8,13 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { GradientCircleCheck } from '@/app/[lang]/(home)/(new-home)/components/GradientIcon';
 import { CircleX, TriangleAlert } from './ComparisonIcons';
 import { TabId } from './TabNavigation';
 import { CostComparisonSection } from '../sections/CostComparisonSection';
 import { PlatformOverviewSection } from '../sections/PlatformOverviewSection';
 import { KeyDifferencesSection } from '../sections/KeyDifferencesSection';
 import { StrengthsSection } from '../sections/StrengthsSection';
+import { GradientCircleCheck } from '@/components/ui/icons';
 
 interface TabContentProps {
   activeTab: TabId;

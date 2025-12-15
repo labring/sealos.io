@@ -6,24 +6,33 @@ import { AiRuntimeCard } from '../components/caps-image/AiRuntimeCard';
 import { DBCard } from '../components/caps-image/DBCard';
 import { DeploymentCard } from '../components/caps-image/DeploymentCard';
 import { StacksCard } from '../components/caps-image/StacksCard';
-import {
-  GradientBot,
-  GradientAppWindowMac,
-  GradientRocket,
-  GradientDatabase,
-} from '../components/GradientIcon';
+import { Bot, Monitor, Rocket, Database } from 'lucide-react';
+import { GradientLucideIcon } from '@/new-components/GradientLucideIcon';
 import { GradientText } from '@/new-components/GradientText';
 import { GodRays } from '@/new-components/GodRays';
 import { BorderBeam } from '../components/BorderBeam';
 
 interface CardData {
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  icon: React.ComponentType<{ className?: string }>;
   label: string;
   title: string;
   description: string;
   tags: string[];
   image: React.ReactNode;
 }
+
+const GradientBot = (props: { className?: string }) => (
+  <GradientLucideIcon Icon={Bot} {...props} />
+);
+const GradientAppWindowMac = (props: { className?: string }) => (
+  <GradientLucideIcon Icon={Monitor} {...props} />
+);
+const GradientRocket = (props: { className?: string }) => (
+  <GradientLucideIcon Icon={Rocket} {...props} />
+);
+const GradientDatabase = (props: { className?: string }) => (
+  <GradientLucideIcon Icon={Database} {...props} />
+);
 
 const firstRowCards: CardData[] = [
   {
