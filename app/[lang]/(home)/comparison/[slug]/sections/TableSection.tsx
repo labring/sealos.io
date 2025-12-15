@@ -18,15 +18,14 @@ export function TableSection({
 
   return (
     <>
-      <div className="container mx-auto px-4 pb-24">
-        <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+      <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+      <div className="container mx-auto mt-16 px-4">
+        <TabContent
+          activeTab={activeTab}
+          firstPlatform={firstPlatform}
+          secondPlatform={secondPlatform}
+        />
       </div>
-
-      <TabContent
-        activeTab={activeTab}
-        firstPlatform={firstPlatform}
-        secondPlatform={secondPlatform}
-      />
     </>
   );
 }

@@ -1,17 +1,14 @@
 'use client';
 
-import { Sparkles } from 'lucide-react';
 import { GradientLucideIcon } from '@/new-components/GradientLucideIcon';
 
-const GradientSparkles = (props: { className?: string }) => (
-  <GradientLucideIcon Icon={Sparkles} {...props} />
-);
 import {
   ComparisonConfig,
   DimensionId,
   DIMENSIONS,
 } from '../../config/platforms';
 import { LightMarkdown } from '../components/LightMarkdown';
+import { Sparkles } from 'lucide-react';
 
 interface StrengthsSectionProps {
   dimensionId: DimensionId;
@@ -35,9 +32,7 @@ export function StrengthsSection({
   return (
     <section className="container mx-auto px-4 pb-6">
       <div className="mx-auto flex w-fit items-center gap-1.5 rounded-full border border-white/5 bg-white/10 px-3 py-1.5 text-center text-sm">
-        <div className="size-4">
-          <GradientSparkles />
-        </div>
+        <GradientLucideIcon Icon={Sparkles} className="size-4" />
         In-depth Analysis
       </div>
 

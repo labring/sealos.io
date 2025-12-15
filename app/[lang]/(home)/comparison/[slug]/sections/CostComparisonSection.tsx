@@ -20,14 +20,14 @@ export function CostComparisonSection({
   };
 
   return (
-    <section className="container mx-auto px-4 pb-24">
+    <section className="container mx-auto px-4 pb-16 sm:pb-24">
       <div className="mb-12">
         <h2 className="mb-6 text-center text-2xl font-medium">{COSTS.title}</h2>
         <p className="text-muted-foreground">{COSTS.description}</p>
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse">
+        <table className="w-full min-w-[960px] border-collapse whitespace-nowrap">
           <thead>
             <tr className="text-primary border-y text-lg">
               <th className="p-4 text-start font-normal">Workload Example</th>

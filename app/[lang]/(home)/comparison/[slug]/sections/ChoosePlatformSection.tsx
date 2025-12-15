@@ -14,7 +14,7 @@ export function ChoosePlatformSection({
   secondPlatform,
 }: ChoosePlatformSectionProps) {
   return (
-    <section className="container mx-auto border-t px-4 py-32">
+    <section className="container mx-auto border-t px-4 py-16 sm:py-32">
       <div className="mb-16">
         <h2 className="mb-6 text-center text-3xl font-semibold">
           <GradientText>

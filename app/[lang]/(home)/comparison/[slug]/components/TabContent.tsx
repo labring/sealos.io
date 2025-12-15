@@ -85,22 +85,17 @@ export function TabContent({
 
   // Special handling for overview dimension header
   const renderHeader = () => {
-    if (dimensionId === 'overview') {
-      return (
-        <div className="mb-12">
-          <h2 className="text-center text-2xl font-medium">
-            {firstPlatform.name} vs. {secondPlatform.name} at a Glance
-          </h2>
-        </div>
-      );
-    }
-
     return (
       <div className="mb-12">
-        <h2 className="mb-6 text-center text-2xl font-medium">
-          {dimension.subtitle}
+        <h2 className="text-center text-lg font-medium md:text-2xl">
+          {dimensionId === 'overview'
+            ? `${firstPlatform.name} vs. ${secondPlatform.name} at a Glance`
+            : dimension.subtitle}
         </h2>
-        <p className="text-muted-foreground">{dimension.description}</p>
+
+        {dimensionId !== 'overview' && (
+          <p className="text-muted-foreground mt-6">{dimension.description}</p>
+        )}
       </div>
     );
   };
@@ -127,13 +122,13 @@ export function TabContent({
 
   return (
     <>
-      <section className="container mx-auto px-4 pb-24">
+      <section className="container mx-auto px-4 pb-16 sm:pb-24">
         {/* Dimension Header */}
         {renderHeader()}
 
         {/* Comparison Table */}
         <div className="overflow-x-auto">
-          <table className="w-full table-fixed border-collapse">
+          <table className="w-full min-w-[960px] table-fixed border-collapse">
             <colgroup>
               <col className="w-[30%]" />
               <col className="w-[35%]" />

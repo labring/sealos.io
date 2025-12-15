@@ -2,6 +2,7 @@ import { GradientText } from '@/new-components/GradientText';
 import { ComparisonConfig } from '../../config/platforms';
 import { Button } from '@/components/ui/button';
 import { ArrowRightIcon } from 'lucide-react';
+import { ComparisonHeaderSVG } from './ComparisonHeaderSVG';
 
 interface HeroSectionProps {
   firstPlatform: ComparisonConfig;
@@ -13,7 +14,11 @@ export function HeroSection({
   secondPlatform,
 }: HeroSectionProps) {
   return (
-    <section className="container mx-auto flex flex-col justify-center px-4 py-28">
+    <section className="container mx-auto flex flex-col justify-center px-4 pb-28">
+      <ComparisonHeaderSVG
+        firstPlatform={firstPlatform}
+        secondPlatform={secondPlatform}
+      />
       <h1 className="mb-6 text-center text-4xl font-medium">
         <GradientText>
           {firstPlatform.name} vs. {secondPlatform.name}
@@ -32,7 +37,7 @@ export function HeroSection({
         <ArrowRightIcon size={16} />
       </Button>
 
-      <p className="text-muted-foreground mx-auto mt-24 border-t pt-16 text-sm">
+      <p className="text-muted-foreground mx-auto mt-10 border-t pt-16 text-sm sm:mt-20">
         As AI technologies evolve, delivering and scaling applications has
         become essential for powering modern businesses, from AI startups to
         large-scale enterprises. There are various solutions available,
