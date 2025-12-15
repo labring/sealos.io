@@ -70,25 +70,25 @@ export const railwayConfig: ComparisonConfig = {
         ],
         strengths: [
           {
-            icon: <GitCompare size={20} />,
+            icon: <GitCompare className="size-full" />,
             title: 'Streamlined Git-Push-to-Deploy',
             content:
               'Railway offers a remarkably streamlined git-push-to-deploy workflow with automatic buildpack detection—no configuration required for most frameworks.',
           },
           {
-            icon: <CodeXml size={20} />,
+            icon: <CodeXml className="size-full" />,
             title: 'Preview Environments',
             content:
               "The platform's **Preview Environments** automatically spin up isolated instances for every pull request, making code review and testing seamless.",
           },
           {
-            icon: <Settings size={20} />,
+            icon: <Settings className="size-full" />,
             title: 'CLI Tool Integration',
             content:
               "Railway's CLI tool (`railway run`) allows developers to run local code while connected to cloud-provisioned databases, bridging the local-cloud gap elegantly.",
           },
           {
-            icon: <CodeXml size={20} />,
+            icon: <CodeXml className="size-full" />,
             title: 'Config-as-Code',
             content:
               'The `railway.toml` config-as-code approach keeps deployment settings versioned alongside your code.',
@@ -124,25 +124,25 @@ export const railwayConfig: ComparisonConfig = {
         ],
         strengths: [
           {
-            icon: <TrendingUp size={20} />,
+            icon: <TrendingUp className="size-full" />,
             title: 'Scale-to-Zero',
             content:
               "Railway's automatic **scale-to-zero** capability is a standout feature for intermittent workloads. When your service receives no traffic for ~5-10 minutes, Railway automatically suspends the container and resumes it on the next request (with <1 second cold-start)—you only pay for actual usage.",
           },
           {
-            icon: <Box size={20} />,
+            icon: <Box className="size-full" />,
             title: 'Ideal for Intermittent Workloads',
             content:
               'This is ideal for staging environments, admin dashboards, or low-traffic APIs.',
           },
           {
-            icon: <Globe size={20} />,
+            icon: <Globe className="size-full" />,
             title: 'Multi-Region Deployment',
             content:
               'Railway also offers native **multi-region deployment** on Pro plans, allowing you to run replicas across US, Europe, and Asia simultaneously.',
           },
           {
-            icon: <TrendingUp size={20} />,
+            icon: <TrendingUp className="size-full" />,
             title: 'Automatic Vertical Scaling',
             content:
               "The platform's **automatic vertical scaling** adjusts CPU/RAM allocation dynamically based on actual usage, without manual intervention.",
@@ -182,31 +182,31 @@ export const railwayConfig: ComparisonConfig = {
         ],
         strengths: [
           {
-            icon: <Users size={20} />,
+            icon: <Users className="size-full" />,
             title: 'Straightforward Team Model',
             content:
               'Railway offers a straightforward team model with three predefined roles (Admin, Developer, Deploy-only) that covers most use cases without complexity.',
           },
           {
-            icon: <Users size={20} />,
+            icon: <Users className="size-full" />,
             title: 'Unlimited Team Seats',
             content:
               'The **Pro plan includes unlimited team seats** at no extra cost—a significant advantage for growing teams.',
           },
           {
-            icon: <Network size={20} />,
+            icon: <Network className="size-full" />,
             title: 'Private Network Isolation',
             content:
               'Each project has its own private network, providing natural isolation between environments.',
           },
           {
-            icon: <Key size={20} />,
+            icon: <Key className="size-full" />,
             title: 'Activity Feed & Audit Trail',
             content:
               'The activity feed provides a clear audit trail of all deployments and changes.',
           },
           {
-            icon: <Shield size={20} />,
+            icon: <Shield className="size-full" />,
             title: 'Enterprise Compliance',
             content:
               "For compliance-heavy industries, Railway's **Enterprise plan offers HIPAA/BAA compliance**, SSO/SAML integration, and 90-day audit logs.",
@@ -235,25 +235,25 @@ export const railwayConfig: ComparisonConfig = {
         ],
         strengths: [
           {
-            icon: <Wrench size={20} />,
+            icon: <Wrench className="size-full" />,
             title: 'Polished Developer Experience',
             content:
               'Railway offers a polished, integrated developer experience for its managed services.',
           },
           {
-            icon: <Database size={20} />,
+            icon: <Database className="size-full" />,
             title: 'Built-in Database Viewer',
             content:
               'The **built-in database viewer** lets you browse tables, view records, and inspect Redis keys directly in the dashboard without external tools.',
           },
           {
-            icon: <Settings size={20} />,
+            icon: <Settings className="size-full" />,
             title: 'First-Class Cron Jobs UI',
             content:
               '**Cron Jobs** get first-class UI treatment with visual scheduling, execution logs, and manual trigger buttons—Railway supports up to 50 cron jobs on Hobby and 100 on Pro plans.',
           },
           {
-            icon: <Plug size={20} />,
+            icon: <Plug className="size-full" />,
             title: 'Tightly Integrated Services',
             content:
               'The platform\'s services (PostgreSQL, MySQL, MongoDB, Redis, storage buckets) are tightly integrated with the deployment workflow, providing a cohesive experience that "just works" without configuration.',
@@ -292,30 +292,31 @@ export const railwayConfig: ComparisonConfig = {
     },
     guidance: [
       {
-        icon: <TrendingUp size={20} />,
+        icon: <TrendingUp className="size-full" />,
         content:
           'Have **intermittent workloads** that benefit from scale-to-zero billing',
       },
       {
-        icon: <DollarSign size={20} />,
+        icon: <DollarSign className="size-full" />,
         content:
           'Prefer **usage-based billing** for unpredictable or low traffic patterns',
       },
       {
-        icon: <Zap size={20} />,
-        content: 'Need the **fastest path from Git to URL** for quick prototypes',
+        icon: <Zap className="size-full" />,
+        content:
+          'Need the **fastest path from Git to URL** for quick prototypes',
       },
       {
-        icon: <Box size={20} />,
+        icon: <Box className="size-full" />,
         content: "Don't need Kubernetes-level infrastructure control",
       },
       {
-        icon: <Clock size={20} />,
+        icon: <Clock className="size-full" />,
         content:
           'Run mostly **stateless, low-traffic hobby projects** under $5/month',
       },
       {
-        icon: <CodeXml size={20} />,
+        icon: <CodeXml className="size-full" />,
         content: 'Want **Preview Environments** for pull request testing',
       },
     ],

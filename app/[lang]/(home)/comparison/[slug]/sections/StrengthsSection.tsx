@@ -1,6 +1,11 @@
 'use client';
 
-import { ComparisonConfig, DimensionId } from '../../config/platforms';
+import { GradientSparkles } from '../../../(new-home)/components/GradientIcon';
+import {
+  ComparisonConfig,
+  DimensionId,
+  DIMENSIONS,
+} from '../../config/platforms';
 import { LightMarkdown } from '../components/LightMarkdown';
 
 interface StrengthsSectionProps {
@@ -23,48 +28,54 @@ export function StrengthsSection({
   }
 
   return (
-    <section className="container mx-auto px-4 pb-16">
-      <div className="grid gap-8 md:grid-cols-2">
-        <div className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">
-          <h3 className="mb-4 text-xl font-semibold">
-            {firstPlatform.name} Strengths
+    <section className="container mx-auto px-4 pb-6">
+      <div className="mx-auto flex w-fit items-center gap-1.5 rounded-full border border-white/5 bg-white/10 px-3 py-1.5 text-center text-sm">
+        <div className="size-4">
+          <GradientSparkles />
+        </div>
+        In-depth Analysis
+      </div>
+
+      <h2 className="mt-4 mb-12 text-center text-2xl font-medium">
+        {DIMENSIONS[dimensionId].title}: Two Powerful Approaches
+      </h2>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <div className="border-gradient rounded-2xl [--border-gradient-bg-from:var(--color-neutral-950)] [--border-gradient-bg-position:to_bottom_in_oklab] [--border-gradient-bg-to:var(--color-neutral-950)] [--border-gradient-from:#394C85] [--border-gradient-position:to_bottom_in_oklab] [--border-gradient-to:#3F3F46]">
+          <h3 className="mb-4 flex items-center gap-2 border-b px-8 py-4 text-lg font-medium">
+            <div className="size-6">{firstPlatform.icon}</div>
+            Where {firstPlatform.name} Excels
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-6 p-8 pt-6">
             {firstData.strengths.map((strength, index) => (
-              <div key={index} className="flex gap-3">
-                <div className="mt-0.5 shrink-0 text-zinc-400">
-                  {strength.icon}
-                </div>
-                <div className="flex-1">
-                  <h4 className="mb-1 text-sm font-medium text-zinc-200">
-                    {strength.title}
-                  </h4>
-                  <div className="text-sm">
-                    <LightMarkdown>{strength.content}</LightMarkdown>
-                  </div>
-                </div>
+              <div key={index} className="flex flex-col gap-2">
+                <h4 className="text-primary flex items-center gap-2">
+                  <div className="size-4">{strength.icon}</div>
+                  {strength.title}
+                </h4>
+                <LightMarkdown className="flex-1 text-sm">
+                  {strength.content}
+                </LightMarkdown>
               </div>
             ))}
           </div>
         </div>
-        <div className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6">
-          <h3 className="mb-4 text-xl font-semibold">
-            {secondPlatform.name} Strengths
+
+        <div className="rounded-2xl border">
+          <h3 className="mb-4 flex items-center gap-2 border-b px-8 py-4 text-lg font-medium">
+            <div className="size-6">{secondPlatform.icon}</div>
+            Where {secondPlatform.name} Excels
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-6 p-8 pt-6">
             {secondData.strengths.map((strength, index) => (
-              <div key={index} className="flex gap-3">
-                <div className="mt-0.5 shrink-0 text-zinc-400">
-                  {strength.icon}
-                </div>
-                <div className="flex-1">
-                  <h4 className="mb-1 text-sm font-medium text-zinc-200">
-                    {strength.title}
-                  </h4>
-                  <div className="text-sm">
-                    <LightMarkdown>{strength.content}</LightMarkdown>
-                  </div>
-                </div>
+              <div key={index} className="flex flex-col gap-2">
+                <h4 className="text-primary flex items-center gap-2">
+                  <div className="size-4">{strength.icon}</div>
+                  {strength.title}
+                </h4>
+                <LightMarkdown className="flex-1 text-sm">
+                  {strength.content}
+                </LightMarkdown>
               </div>
             ))}
           </div>

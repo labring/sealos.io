@@ -10,7 +10,7 @@ import { Metadata } from 'next';
 import { TableSection } from './sections/TableSection';
 import { HeroSection } from './sections/HeroSection';
 import { ChoosePlatformSection } from './sections/ChoosePlatformSection';
-import { FAQSectionWrapper } from './sections/FAQSectionWrapper';
+import { FAQSection } from './sections/FAQSection';
 
 interface ComparisonPageProps {
   params: Promise<{
@@ -128,7 +128,7 @@ export default async function ComparisonDetailPage({
         secondPlatform={secondPlatform}
       />
 
-      <FAQSectionWrapper
+      <FAQSection
         firstPlatform={firstPlatform}
         secondPlatform={secondPlatform}
       />

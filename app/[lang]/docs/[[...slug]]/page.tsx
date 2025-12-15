@@ -24,7 +24,9 @@ import { SocialLinks } from '@/new-components/SocialLinks';
  */
 function getGithubFilePath(filePath: string, language: string): string {
   // Remove any existing language suffix from the file path
-  const basePath = filePath.replace(/\.(zh-cn|en)\.mdx$/, '.mdx').replace(/\.mdx$/, '');
+  const basePath = filePath
+    .replace(/\.(zh-cn|en)\.mdx$/, '.mdx')
+    .replace(/\.mdx$/, '');
 
   // Add the correct language suffix based on the current language
   if (language === 'zh-cn') {
@@ -54,7 +56,7 @@ export default async function Page({
       tableOfContent={{
         style: 'clerk',
         single: false,
-        header: (
+        header: params.lang === 'en' && (
           <div className="mb-4">
             <SealosBrandCard />
             <SocialLinks url={pageUrl} title={page.data.title} />

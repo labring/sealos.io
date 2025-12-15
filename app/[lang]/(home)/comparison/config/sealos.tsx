@@ -69,13 +69,13 @@ export const sealosConfig: ComparisonConfig = {
         ],
         strengths: [
           {
-            icon: <CodeXml size={20} />,
+            icon: <CodeXml className="size-full" />,
             title: 'Seamless End-to-End Experience',
             content:
               'Sealos delivers a seamless, end-to-end experience within a single platform. Developers can start coding instantly in **DevBox**, a powerful cloud IDE that mirrors the production environment, eliminating the "it works on my machine" problem.',
           },
           {
-            icon: <CodeXml size={20} />,
+            icon: <CodeXml className="size-full" />,
             title: 'Automated Workflow',
             content:
               'From there, the **App Launchpad** automates OCI image creation and deployment to Kubernetes without needing manual Dockerfiles. This creates a fluid, powerful workflow from code to cloud.',
@@ -111,19 +111,19 @@ export const sealosConfig: ComparisonConfig = {
         ],
         strengths: [
           {
-            icon: <Box size={20} />,
+            icon: <Box className="size-full" />,
             title: 'Standard Kubernetes Foundation',
             content:
               'Sealos is built on a foundation of standard Kubernetes, giving you the full power and portability of the cloud-native ecosystem.',
           },
           {
-            icon: <Globe size={20} />,
+            icon: <Globe className="size-full" />,
             title: 'Zero Vendor Lock-in',
             content:
               'This open architecture means zero vendor lock-in—you can deploy Sealos on any public cloud or your own on-premise hardware, and your applications can be migrated to any other Kubernetes environment at any time.',
           },
           {
-            icon: <Shield size={20} />,
+            icon: <Shield className="size-full" />,
             title: 'Full Kubernetes API Access',
             content:
               'You get full, unrestricted access to the Kubernetes API for advanced configurations, custom scheduling, and fine-tuned autoscaling via HPA/VPA.',
@@ -151,19 +151,19 @@ export const sealosConfig: ComparisonConfig = {
         ],
         strengths: [
           {
-            icon: <Users size={20} />,
+            icon: <Users className="size-full" />,
             title: 'Enterprise-Scale Collaboration',
             content:
               'Sealos is architected for secure, scalable team collaboration at enterprise scale. It leverages Kubernetes namespaces to create fully isolated workspaces for each team, project, or environment.',
           },
           {
-            icon: <Key size={20} />,
+            icon: <Key className="size-full" />,
             title: 'Granular RBAC & Resource Quotas',
             content:
               'Platform admins can use native Kubernetes RBAC to define granular permissions and set strict resource quotas, ensuring fair usage and predictable costs.',
           },
           {
-            icon: <Users size={20} />,
+            icon: <Users className="size-full" />,
             title: 'Collaborative DevBox',
             content:
               'The collaborative DevBox feature allows multiple team members to work in the same cloud development environment—ideal for pair programming, onboarding, or educational scenarios.',
@@ -196,19 +196,19 @@ export const sealosConfig: ComparisonConfig = {
         ],
         strengths: [
           {
-            icon: <Store size={20} />,
+            icon: <Store className="size-full" />,
             title: 'Extensive App Store',
             content:
               'Sealos provides a comprehensive ecosystem through its extensive **App Store**, where you can deploy dozens of popular open-source tools and databases—like MySQL, MongoDB, and ClickHouse—with a single click, including high-availability configurations with clustering and replication.',
           },
           {
-            icon: <Bot size={20} />,
+            icon: <Bot className="size-full" />,
             title: 'AI Infrastructure',
             content:
               'It goes beyond basic databases to offer critical infrastructure for AI applications, including built-in S3-compatible object storage and a native AI proxy.',
           },
           {
-            icon: <Database size={20} />,
+            icon: <Database className="size-full" />,
             title: 'Kubernetes-Native Integration',
             content:
               'Because Sealos is standard Kubernetes, it integrates seamlessly with the entire cloud-native toolchain, including Helm, ArgoCD, and any tool that speaks the Kubernetes API.',
@@ -246,29 +246,29 @@ export const sealosConfig: ComparisonConfig = {
     },
     guidance: [
       {
-        icon: <DollarSign size={20} />,
+        icon: <DollarSign className="size-full" />,
         content: '**Predictable costs** for 24/7 production workloads',
       },
       {
-        icon: <CodeXml size={20} />,
+        icon: <CodeXml className="size-full" />,
         content:
           '**Cloud IDE integration** (DevBox) for consistent dev/prod environments',
       },
       {
-        icon: <Shield size={20} />,
+        icon: <Shield className="size-full" />,
         content:
           '**Self-hosting option** for data sovereignty or compliance (100% source-available)',
       },
       {
-        icon: <Box size={20} />,
+        icon: <Box className="size-full" />,
         content: '**Kubernetes-native control** with full API access',
       },
       {
-        icon: <Store size={20} />,
+        icon: <Store className="size-full" />,
         content: '**100+ ready-to-deploy apps** from the marketplace',
       },
       {
-        icon: <Users size={20} />,
+        icon: <Users className="size-full" />,
         content:
           '**Enterprise multi-tenancy** with granular RBAC and resource quotas',
       },

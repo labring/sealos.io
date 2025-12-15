@@ -19,15 +19,6 @@ export function CostComparisonSection({
     return match ? parseInt(match[1], 10) : 0;
   };
 
-  // Calculate max cost for visualization
-  const allCosts: number[] = [];
-  COSTS.rows.forEach((_, index) => {
-    const firstCost = firstPlatform.content.costs.rows[index]?.cost || '';
-    const secondCost = secondPlatform.content.costs.rows[index]?.cost || '';
-    allCosts.push(parseCost(firstCost), parseCost(secondCost));
-  });
-  const maxCost = Math.max(...allCosts, 1);
-
   return (
     <section className="container mx-auto px-4 pb-24">
       <div className="mb-12">
@@ -55,6 +46,29 @@ export function CostComparisonSection({
               const secondCost = secondCostData?.cost || '';
               const firstCostNum = parseCost(firstCost);
               const secondCostNum = parseCost(secondCost);
+
+              // Determine which price is higher
+              const higherCost = Math.max(firstCostNum, secondCostNum, 1);
+
+              // Calculate percentages: higher price = 100%, lower price = percentage of higher
+              const firstPercentage =
+                firstCostNum === higherCost
+                  ? 100
+                  : higherCost > 0
+                    ? (firstCostNum / higherCost) * 100
+                    : 0;
+              const secondPercentage =
+                secondCostNum === higherCost
+                  ? 100
+                  : higherCost > 0
+                    ? (secondCostNum / higherCost) * 100
+                    : 0;
+
+              // Determine which platform has higher price for gradient styling
+              // Price higher = gray gradient, price lower = blue gradient
+              const firstIsHigher = firstCostNum > secondCostNum;
+              const secondIsHigher = secondCostNum > firstCostNum;
+
               // Get savings from either platform (whichever has it)
               const savings =
                 secondCostData?.savings || firstCostData?.savings || 0;
@@ -78,10 +92,15 @@ export function CostComparisonSection({
                           <div className="h-1.5 w-full rounded-full bg-zinc-800" />
                           <div
                             role="progressbar"
-                            aria-valuenow={(firstCostNum / maxCost) * 100}
-                            className="bg-muted-foreground absolute top-0 h-1.5 rounded-full"
+                            aria-valuenow={firstPercentage}
+                            className={cn(
+                              'absolute top-0 h-1.5 rounded-full',
+                              firstIsHigher
+                                ? 'bg-gradient-to-r from-zinc-400 to-zinc-600'
+                                : 'bg-gradient-to-r from-white to-blue-600',
+                            )}
                             style={{
-                              width: `${(firstCostNum / maxCost) * 100}%`,
+                              width: `${firstPercentage}%`,
                             }}
                           />
                         </div>
@@ -93,10 +112,15 @@ export function CostComparisonSection({
                           <div className="h-1.5 w-full rounded-full bg-zinc-800" />
                           <div
                             role="progressbar"
-                            aria-valuenow={(secondCostNum / maxCost) * 100}
-                            className="absolute top-0 h-1.5 rounded-full bg-gradient-to-r from-white to-blue-600"
+                            aria-valuenow={secondPercentage}
+                            className={cn(
+                              'absolute top-0 h-1.5 rounded-full',
+                              secondIsHigher
+                                ? 'bg-gradient-to-r from-zinc-400 to-zinc-600'
+                                : 'bg-gradient-to-r from-white to-blue-600',
+                            )}
                             style={{
-                              width: `${(secondCostNum / maxCost) * 100}%`,
+                              width: `${secondPercentage}%`,
                             }}
                           />
                         </div>

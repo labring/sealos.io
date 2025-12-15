@@ -1,5 +1,68 @@
 import React from 'react';
 
+import type { LucideIcon } from 'lucide-react';
+
+export function GradientLucideIcon({
+  Icon,
+  className,
+  from = '#ffffff',
+  to = '#2563eb',
+  ...props
+}: {
+  Icon: LucideIcon;
+  className?: string;
+  from?: string;
+  to?: string;
+} & React.ComponentProps<LucideIcon>) {
+  const rawId = React.useId();
+  const escapedId = CSS.escape(rawId);
+
+  return (
+    <Icon {...props} className={className} color={`url(#${escapedId})`}>
+      <defs>
+        <linearGradient id={rawId} x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor={from} />
+          <stop offset="100%" stopColor={to} />
+        </linearGradient>
+      </defs>
+    </Icon>
+  );
+}
+
+export const GradientSparkles = (
+  props: React.DetailedHTMLProps<
+    React.SVGAttributes<SVGSVGElement>,
+    SVGSVGElement
+  >,
+) => {
+  const gradientId = React.useId();
+
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+      <path
+        stroke={`url(#${gradientId})`}
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.33"
+        d="M11.67 1.75v2.33m1.16-1.16H10.5m-8.17 7v1.16m.59-.58H1.75M5.8 9.04a1.17 1.17 0 0 0-.84-.84l-3.58-.92a.3.3 0 0 1 0-.56l3.58-.92a1.17 1.17 0 0 0 .84-.84l.92-3.58a.3.3 0 0 1 .56 0l.92 3.58a1.17 1.17 0 0 0 .84.84l3.58.92a.3.3 0 0 1 0 .56l-3.58.92a1.17 1.17 0 0 0-.84.84l-.92 3.58a.3.3 0 0 1-.56 0L5.8 9.04Z"
+      />
+      <defs>
+        <linearGradient
+          id={gradientId}
+          x1="1.66666"
+          y1="10.0002"
+          x2="18.3333"
+          y2="10.0002"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="white" />
+          <stop offset="1" stopColor="#146DFF" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
+
 export const GradientCircleCheck = (
   props: React.DetailedHTMLProps<
     React.SVGAttributes<SVGSVGElement>,

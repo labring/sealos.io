@@ -17,16 +17,16 @@ export function TableSection({
   const [activeTab, setActiveTab] = useState<TabId>('overview');
 
   return (
-    <section className="container mx-auto px-4 pb-24">
-      <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
-
-      <div className="pt-24">
-        <TabContent
-          activeTab={activeTab}
-          firstPlatform={firstPlatform}
-          secondPlatform={secondPlatform}
-        />
+    <>
+      <div className="container mx-auto px-4 pb-24">
+        <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
       </div>
-    </section>
+
+      <TabContent
+        activeTab={activeTab}
+        firstPlatform={firstPlatform}
+        secondPlatform={secondPlatform}
+      />
+    </>
   );
 }

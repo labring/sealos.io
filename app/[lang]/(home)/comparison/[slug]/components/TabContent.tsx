@@ -126,140 +126,143 @@ export function TabContent({
   });
 
   return (
-    <div className="space-y-8">
-      {/* Dimension Header */}
-      {renderHeader()}
+    <>
+      <section className="container mx-auto px-4 pb-24">
+        {/* Dimension Header */}
+        {renderHeader()}
 
-      {/* Comparison Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full table-fixed border-collapse">
-          <colgroup>
-            <col className="w-[30%]" />
-            <col className="w-[35%]" />
-            <col className="w-[35%]" />
-          </colgroup>
-          <thead>
-            <tr className="border-b border-zinc-800">
-              <th className="px-4 py-4 text-left text-sm font-semibold text-zinc-400">
-                Feature
-              </th>
-              <th className="px-4 py-4 text-center text-sm font-semibold">
-                <div className="flex items-center gap-2">
-                  <div className="size-6">{firstPlatform.icon}</div>
-                  <span>{firstPlatform.name}</span>
-                </div>
-              </th>
-              <th className="px-4 py-4 text-center text-sm font-semibold">
-                <div className="flex items-center gap-2">
-                  <div className="size-6">{secondPlatform.icon}</div>
-                  <span>{secondPlatform.name}</span>
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {hasGroups
-              ? // Render with groups
-                featureGroups.map((group, groupIndex) => {
-                  return (
-                    <React.Fragment key={`group-${groupIndex}`}>
-                      {/* Group header row */}
-                      {group.name && (
-                        <tr>
-                          <td className="border-b border-zinc-800 px-4 py-3 text-sm font-medium text-zinc-200">
-                            <div className="flex items-center gap-2">
-                              {group.icon}
-                              {group.name}
-                            </div>
-                          </td>
-                          <td
-                            className={cn(
-                              'relative border-b border-zinc-800 px-4 py-3',
-                              'bg-white/5 before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
-                            )}
-                          />
-                          <td className="border-b border-zinc-800 px-4 py-3" />
-                        </tr>
-                      )}
-                      {/* Group features */}
-                      {group.items.map((feature, featureIndexInGroup) => {
-                        const currentFeatureIndex = globalFeatureIndex++;
-                        return (
-                          <tr
-                            key={`feature-${currentFeatureIndex}`}
-                            className={cn(
-                              'border-b border-zinc-800',
-                              currentFeatureIndex % 2 === 0 && 'bg-zinc-900/30',
-                            )}
-                          >
-                            <td className="px-4 py-4 text-sm font-medium text-zinc-300">
-                              {feature}
+        {/* Comparison Table */}
+        <div className="overflow-x-auto">
+          <table className="w-full table-fixed border-collapse">
+            <colgroup>
+              <col className="w-[30%]" />
+              <col className="w-[35%]" />
+              <col className="w-[35%]" />
+            </colgroup>
+            <thead>
+              <tr className="border-b border-zinc-800">
+                <th className="px-4 py-4 text-left text-sm font-semibold text-zinc-400">
+                  Feature
+                </th>
+                <th className="px-4 py-4 text-center text-sm font-semibold">
+                  <div className="flex items-center gap-2">
+                    <div className="size-6">{firstPlatform.icon}</div>
+                    <span>{firstPlatform.name}</span>
+                  </div>
+                </th>
+                <th className="px-4 py-4 text-center text-sm font-semibold">
+                  <div className="flex items-center gap-2">
+                    <div className="size-6">{secondPlatform.icon}</div>
+                    <span>{secondPlatform.name}</span>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {hasGroups
+                ? // Render with groups
+                  featureGroups.map((group, groupIndex) => {
+                    return (
+                      <React.Fragment key={`group-${groupIndex}`}>
+                        {/* Group header row */}
+                        {group.name && (
+                          <tr>
+                            <td className="border-b border-zinc-800 px-4 py-3 text-sm font-medium text-zinc-200">
+                              <div className="flex items-center gap-2">
+                                {group.icon}
+                                {group.name}
+                              </div>
                             </td>
                             <td
                               className={cn(
-                                'relative px-4 py-4',
+                                'relative border-b border-zinc-800 px-4 py-3',
                                 'bg-white/5 before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
                               )}
-                            >
-                              {renderCell(
-                                firstData.features[currentFeatureIndex],
-                              )}
-                            </td>
-                            <td className="px-4 py-4">
-                              {renderCell(
-                                secondData.features[currentFeatureIndex],
-                              )}
-                            </td>
+                            />
+                            <td className="border-b border-zinc-800 px-4 py-3" />
                           </tr>
-                        );
-                      })}
-                    </React.Fragment>
-                  );
-                })
-              : // Render without groups (fallback for overview - flatten the array)
-                featureGroups
-                  .flatMap((group) => group.items)
-                  .map((feature, index) => (
-                    <tr
-                      key={feature}
-                      className={cn(
-                        'border-b border-zinc-800',
-                        index % 2 === 0 && 'bg-zinc-900/30',
-                      )}
-                    >
-                      <td className="px-4 py-4 text-sm font-medium text-zinc-300">
-                        {feature}
-                      </td>
-                      <td
+                        )}
+                        {/* Group features */}
+                        {group.items.map((feature, featureIndexInGroup) => {
+                          const currentFeatureIndex = globalFeatureIndex++;
+                          return (
+                            <tr
+                              key={`feature-${currentFeatureIndex}`}
+                              className={cn(
+                                'border-b border-zinc-800',
+                                currentFeatureIndex % 2 === 0 &&
+                                  'bg-zinc-900/30',
+                              )}
+                            >
+                              <td className="px-4 py-4 text-sm font-medium text-zinc-300">
+                                {feature}
+                              </td>
+                              <td
+                                className={cn(
+                                  'relative px-4 py-4',
+                                  'bg-white/5 before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
+                                )}
+                              >
+                                {renderCell(
+                                  firstData.features[currentFeatureIndex],
+                                )}
+                              </td>
+                              <td className="px-4 py-4">
+                                {renderCell(
+                                  secondData.features[currentFeatureIndex],
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </React.Fragment>
+                    );
+                  })
+                : // Render without groups (fallback for overview - flatten the array)
+                  featureGroups
+                    .flatMap((group) => group.items)
+                    .map((feature, index) => (
+                      <tr
+                        key={feature}
                         className={cn(
-                          'relative px-4 py-4',
-                          'bg-white/5 before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
+                          'border-b border-zinc-800',
+                          index % 2 === 0 && 'bg-zinc-900/30',
                         )}
                       >
-                        {renderCell(firstData.features[index])}
-                      </td>
-                      <td className="px-4 py-4">
-                        {renderCell(secondData.features[index])}
-                      </td>
-                    </tr>
-                  ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Warning Notes Section */}
-      {warningNotes.size > 0 && (
-        <div className="text-muted-foreground space-y-1 text-xs">
-          {Array.from(warningNotes).map((note, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <TriangleAlert className="mt-0.5 h-4 w-4 shrink-0" />
-              <p>
-                <span className="font-medium">{index + 1}.</span> {note}
-              </p>
-            </div>
-          ))}
+                        <td className="px-4 py-4 text-sm font-medium text-zinc-300">
+                          {feature}
+                        </td>
+                        <td
+                          className={cn(
+                            'relative px-4 py-4',
+                            'bg-white/5 before:pointer-events-none before:absolute before:inset-0 before:border-x before:border-zinc-800',
+                          )}
+                        >
+                          {renderCell(firstData.features[index])}
+                        </td>
+                        <td className="px-4 py-4">
+                          {renderCell(secondData.features[index])}
+                        </td>
+                      </tr>
+                    ))}
+            </tbody>
+          </table>
         </div>
-      )}
+
+        {/* Warning Notes Section */}
+        {warningNotes.size > 0 && (
+          <div className="text-muted-foreground space-y-1 text-xs">
+            {Array.from(warningNotes).map((note, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <TriangleAlert className="mt-0.5 h-4 w-4 shrink-0" />
+                <p>
+                  <span className="font-medium">{index + 1}.</span> {note}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
 
       {/* Overview-specific sections */}
       {dimensionId === 'overview' && (
@@ -275,19 +278,19 @@ export function TabContent({
         </>
       )}
 
-      {/* Key Differences Section */}
-      <KeyDifferencesSection
-        dimensionId={dimensionId}
-        firstPlatform={firstPlatform}
-        secondPlatform={secondPlatform}
-      />
-
       {/* Strengths Section */}
       <StrengthsSection
         dimensionId={dimensionId}
         firstPlatform={firstPlatform}
         secondPlatform={secondPlatform}
       />
-    </div>
+
+      {/* Key Differences Section */}
+      <KeyDifferencesSection
+        dimensionId={dimensionId}
+        firstPlatform={firstPlatform}
+        secondPlatform={secondPlatform}
+      />
+    </>
   );
 }
