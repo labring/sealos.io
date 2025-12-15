@@ -2,10 +2,9 @@ import { GodRays } from '@/new-components/GodRays';
 import Image from 'next/image';
 import HeaderImage from './assets/header.svg';
 import { GradientText } from '@/new-components/GradientText';
-import { Button } from '@/components/ui/button';
-import { ArrowRightIcon } from 'lucide-react';
 import { platforms, getAllPlatformSlugs } from './config/platforms';
 import { CompareWithOthersSection } from './[slug]/sections/CompareWithOthersSection';
+import { TrySealosButton } from './components/TrySealosButton';
 
 export default async function ComparisonPage() {
   return (
@@ -77,10 +76,7 @@ export default async function ComparisonPage() {
           We want you to choose the best platform for you, even if it's not us.
         </p>
 
-        <Button variant="landing-primary" className="mt-10 h-10 w-fit gap-2">
-          <span>Try Sealos for free</span>
-          <ArrowRightIcon size={16} />
-        </Button>
+        <TrySealosButton />
       </section>
 
       {getAllPlatformSlugs().map((platformSlug) => {
