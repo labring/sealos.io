@@ -45,7 +45,7 @@ export function FAQSection({ firstPlatform, secondPlatform }: FAQSectionProps) {
         <Accordion type="single" collapsible className="w-full border-t">
           {faqs.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index}`}>
-              <AccordionTrigger className="my-2 text-left">
+              <AccordionTrigger className="hover:bg-muted cursor-pointer py-6 text-left hover:no-underline">
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground">

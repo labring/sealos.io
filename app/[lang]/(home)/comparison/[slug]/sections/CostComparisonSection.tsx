@@ -93,6 +93,9 @@ export function CostComparisonSection({
                           <div
                             role="progressbar"
                             aria-valuenow={firstPercentage}
+                            aria-valuemin={0}
+                            aria-valuemax={100}
+                            aria-label={`${firstPlatform.name} cost: ${firstCost}, ${firstPercentage.toFixed(0)}% of highest cost`}
                             className={cn(
                               'absolute top-0 h-1.5 rounded-full',
                               firstIsHigher
@@ -113,6 +116,9 @@ export function CostComparisonSection({
                           <div
                             role="progressbar"
                             aria-valuenow={secondPercentage}
+                            aria-valuemin={0}
+                            aria-valuemax={100}
+                            aria-label={`${secondPlatform.name} cost: ${secondCost}, ${secondPercentage.toFixed(0)}% of highest cost`}
                             className={cn(
                               'absolute top-0 h-1.5 rounded-full',
                               secondIsHigher

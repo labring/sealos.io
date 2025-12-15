@@ -1,8 +1,12 @@
+'use client';
+
 import { GradientText } from '@/new-components/GradientText';
 import { ComparisonConfig } from '../../config/platforms';
 import { Button } from '@/components/ui/button';
 import { ArrowRightIcon } from 'lucide-react';
 import { ComparisonHeaderSVG } from './ComparisonHeaderSVG';
+import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { getOpenBrainParam } from '@/lib/utils/brain';
 
 interface HeroSectionProps {
   firstPlatform: ComparisonConfig;
@@ -13,6 +17,8 @@ export function HeroSection({
   firstPlatform,
   secondPlatform,
 }: HeroSectionProps) {
+  const openAuthForm = useOpenAuthForm();
+
   return (
     <section className="container mx-auto flex flex-col justify-center px-4 pb-28">
       <ComparisonHeaderSVG
@@ -32,7 +38,11 @@ export function HeroSection({
         and total cost of ownership.
       </p>
 
-      <Button variant="landing-primary" className="mx-auto mt-10 h-10 gap-2">
+      <Button
+        variant="landing-primary"
+        className="mx-auto mt-10 h-10 gap-2"
+        onClick={() => openAuthForm({ openapp: getOpenBrainParam() })}
+      >
         Try Sealos for free
         <ArrowRightIcon size={16} />
       </Button>
