@@ -19,7 +19,7 @@ export function TableSection({
   return (
     <>
       <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
-      <div className="container mx-auto mt-16 px-4">
+      <div className="container-compact mt-16">
         <TabContent
           activeTab={activeTab}
           firstPlatform={firstPlatform}

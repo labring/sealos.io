@@ -54,7 +54,7 @@ export function TabContent({
     }
     if (value.type === 'text-multi-check') {
       return (
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
           {value.value.map((item, idx) => (
             <div key={idx} className="flex items-center gap-2">
               <GradientCircleCheck className="h-5 w-5 shrink-0" />
@@ -123,7 +123,7 @@ export function TabContent({
 
   return (
     <>
-      <section className="container mx-auto px-4 pb-16 sm:pb-24">
+      <section className="container-compact pb-16 sm:pb-24">
         {/* Dimension Header */}
         <Header />
 
@@ -132,14 +132,7 @@ export function TabContent({
           <div className="absolute top-0 left-0 -z-10 h-full w-full min-w-[960px]">
             {/* Gradient border overlay for first comparison column */}
             <div className="pointer-events-none absolute inset-y-0 left-[30%] w-[35%]">
-              <div
-                className={cn(
-                  'border-gradient h-full rounded-xl',
-                  '[--border-gradient-position:to_bottom_left_in_oklab]',
-                  '[--border-gradient-from:var(--color-blue-600)] [--border-gradient-to:var(--color-white)]',
-                  '[--border-gradient-bg-from:color-mix(in_oklab,var(--color-zinc-950),var(--color-white)_5%)] [--border-gradient-bg-to:color-mix(in_oklab,var(--color-zinc-950),var(--color-white)_5%)]',
-                )}
-              />
+              <div className="border-gradient__comparison-box h-full rounded-xl [--border-gradient-bg-from:color-mix(in_oklab,var(--color-zinc-950),var(--color-white)_5%)] [--border-gradient-bg-to:color-mix(in_oklab,var(--color-zinc-950),var(--color-white)_5%)]" />
             </div>
           </div>
 

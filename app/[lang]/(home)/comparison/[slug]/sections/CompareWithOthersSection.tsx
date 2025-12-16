@@ -31,7 +31,7 @@ export function CompareWithOthersSection({
   );
 
   return (
-    <section className="container flex flex-col items-center gap-12 border-t pt-10 pb-14 sm:gap-16 sm:pb-20 md:pt-16 md:pb-24">
+    <section className="container-compact flex flex-col items-center gap-12 border-t pt-10 pb-14 sm:gap-16 sm:pb-20 md:pt-16 md:pb-24">
       <h2 className="text-muted-foreground flex items-center gap-3 text-xs font-medium sm:text-lg md:text-2xl">
         <span>Compare</span>
         <FramedText className="text-foreground text-sm [--from:var(--color-zinc-500)] [--to:var(--color-zinc-600)] sm:text-xl md:text-2xl">

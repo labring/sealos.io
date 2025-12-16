@@ -56,7 +56,7 @@ export default async function ComparisonPage() {
       />
 
       <section
-        className="relative container -mt-24 flex flex-col items-center pt-36 pb-20 sm:pt-44"
+        className="container-compact relative -mt-24 flex flex-col items-center pt-36 pb-20 sm:pt-44"
         role="main"
       >
         <Image

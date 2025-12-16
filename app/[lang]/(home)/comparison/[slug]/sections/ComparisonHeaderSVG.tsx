@@ -26,12 +26,12 @@ export function ComparisonHeaderSVG({
   };
 
   return (
-    <div className="container mx-auto px-4 pb-8">
+    <div className="container-compact pb-8">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 541 190"
-        className="w-full h-48"
+        className="h-48 w-full"
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>
@@ -281,4 +281,3 @@ export function ComparisonHeaderSVG({
     </div>
   );
 }
-

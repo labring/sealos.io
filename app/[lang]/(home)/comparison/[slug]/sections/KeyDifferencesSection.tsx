@@ -29,8 +29,8 @@ export function KeyDifferencesSection({
   }
 
   return (
-    <section className="container mx-auto px-4 pb-16">
-      <div className="border-gradient rounded-2xl [--border-gradient-bg-from:var(--color-zinc-900)] [--border-gradient-bg-position:to_bottom_in_oklab] [--border-gradient-bg-to:var(--color-zinc-900)] [--border-gradient-from:#2563eb] [--border-gradient-position:200deg_in_oklab] [--border-gradient-to:#cfcfcf]">
+    <section className="container-compact pb-16">
+      <div className="border-gradient__comparison-box rounded-2xl [--border-gradient-bg-from:var(--color-zinc-900)] [--border-gradient-bg-position:to_bottom_in_oklab] [--border-gradient-bg-to:var(--color-zinc-900)]">
         <h3 className="my-2 text-center text-lg font-medium">
           <GradientText>The Key Difference</GradientText>
         </h3>

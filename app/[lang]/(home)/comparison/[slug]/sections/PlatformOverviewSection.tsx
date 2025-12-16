@@ -12,7 +12,7 @@ export function PlatformOverviewSection({
   secondPlatform,
 }: PlatformOverviewSectionProps) {
   return (
-    <section className="container mx-auto border-b px-4 pb-16">
+    <section className="container-compact border-b pb-16">
       <div className="space-y-8">
         <div className="space-y-3">
           <h3 className="text-2xl font-medium">

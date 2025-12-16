@@ -30,7 +30,7 @@ export function FAQSection({ firstPlatform, secondPlatform }: FAQSectionProps) {
   const faqs = generateFaq(firstPlatform.name, secondPlatform.name);
 
   return (
-    <section className="container mx-auto px-4 pb-16 sm:pb-32">
+    <section className="container-compact pb-16 sm:pb-32">
       <div className="space-y-8">
         <div className="mb-8">
           <h2 className="mb-4 text-center text-3xl font-semibold">

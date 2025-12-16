@@ -21,7 +21,7 @@ export function HeroSection({
 
   return (
     <section
-      className="container mx-auto flex flex-col justify-center px-4 pb-28"
+      className="container-compact flex flex-col justify-center pb-28"
       role="main"
     >
       <ComparisonHeaderSVG

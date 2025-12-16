@@ -26,7 +26,7 @@ export function BreadcrumbSection({
   const currentPage = `${firstPlatform.name} vs. ${secondPlatform.name}`;
 
   return (
-    <section className="container mx-auto px-4 pt-10 sm:pt-20">
+    <section className="container-compact pt-10 sm:pt-20">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>

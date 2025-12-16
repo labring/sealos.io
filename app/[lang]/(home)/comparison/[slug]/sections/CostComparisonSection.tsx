@@ -20,7 +20,7 @@ export function CostComparisonSection({
   };
 
   return (
-    <section className="container mx-auto px-4 pb-16 sm:pb-24">
+    <section className="container-compact pb-16 sm:pb-24">
       <div className="mb-12">
         <h2 className="mb-6 text-center text-2xl font-medium">{COSTS.title}</h2>
         <p className="text-muted-foreground">{COSTS.description}</p>
