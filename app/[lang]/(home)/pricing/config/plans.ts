@@ -58,8 +58,31 @@ export const mainPricingPlans: PricingPlan[] = [
     isPopular: true,
   },
   {
+    name: 'Standard',
+    description:
+      'For growing startups and apps. The ideal balance of performance and scale.',
+    price: '$128',
+    buttonText: 'Get Started',
+    action: {
+      type: 'direct',
+      url: 'https://os.sealos.io/?openapp=system-costcenter?mode%3dcreate',
+    },
+    features: [
+      '8 vCPU',
+      '16Gi RAM',
+      '50Gi Disk',
+      '300GB Traffic',
+      '16 Nodeport',
+      '800 AI Credits',
+      'Priority Support',
+      'All Hobby Features',
+      '99.99% SLA',
+    ],
+  },
+  {
     name: 'Pro',
-    description: 'For professionals and teams shipping production apps.',
+    description:
+      'For professional and team workloads. Expanded capacity for scaling projects.',
     price: '$512',
     buttonText: 'Get Started',
     action: {
@@ -73,30 +96,8 @@ export const mainPricingPlans: PricingPlan[] = [
       '1TB Traffic',
       '32 Nodeport',
       '1000 AI Credits',
-      'Priority support',
-      'All Hobby features',
-      '99.99% SLA',
-    ],
-  },
-  {
-    name: 'Team',
-    description:
-      'For large teams with compliance needs. Built for collaboration.',
-    price: '$2030',
-    buttonText: 'Get Started',
-    action: {
-      type: 'direct',
-      url: 'https://os.sealos.io/?openapp=system-costcenter?mode%3Dcreate%26plan%3Dteam',
-    },
-    features: [
-      '64 vCPU ',
-      '128Gi RAM',
-      '500Gi Disk',
-      '3TB Traffic',
-      '64 Nodeport',
-      '1500 AI Credits',
-      '24/7 dedicated support',
-      'All Pro Features',
+      '24/7 Dedicated Support',
+      'All Standard Features',
       'Custom Contracts',
     ],
   },
@@ -104,14 +105,14 @@ export const mainPricingPlans: PricingPlan[] = [
 
 export const morePlans: PricingPlan[] = [
   {
-    name: 'Standard',
+    name: 'Team',
     description:
-      '8 vCPU + 16Gi RAM + 50Gi Disk + 300 GB Traffic + 16 Nodeport + 800 AI Credits',
-    price: '$128/month',
+      '64 vCPU + 128Gi RAM + 500Gi Disk + 3TB Traffic + 64 Nodeport + 1500 AI Credits',
+    price: '$2030/month',
     buttonText: 'Get Started',
     action: {
       type: 'direct',
-      url: 'https://os.sealos.io/?openapp=system-costcenter?mode%3dcreate',
+      url: 'https://os.sealos.io/?openapp=system-costcenter?mode%3Dcreate%26plan%3Dteam',
     },
     features: [],
   },
