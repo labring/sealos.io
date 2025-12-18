@@ -8,9 +8,9 @@ import { StatsCards } from '../components/StatsCards';
 import { WhySourceAvailableMatters } from '../components/WhySourceAvailableMatters';
 import { GodRays } from '@/new-components/GodRays';
 import { GradientText } from '@/new-components/GradientText';
-import { GradientGitHub } from '../components/GradientIcon';
 import { CodeXmlIcon } from 'lucide-react';
 import { useInView } from 'motion/react';
+import { GradientGitHub } from '@/components/ui/icons';
 
 interface SourceAvailSectionProps {
   lang?: string;

@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { GradientText } from '@/new-components/GradientText';
 import {
   Bot,
+  CircleCheck,
   CircleHelp,
   CodeXml,
   GitCompare,
@@ -20,7 +21,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { GradientCircleCheck } from '../components/GradientIcon';
+import { GradientLucideIcon } from '@/new-components/GradientLucideIcon';
 import { GodRays } from '@/new-components/GodRays';
 
 // 对比数据类型定义
@@ -86,7 +87,9 @@ const comparisonData: ComparisonData = {
           values: [
             {
               name: 'AI Pilot, K8s YAML, Docker',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Git Repo',
@@ -112,7 +115,9 @@ const comparisonData: ComparisonData = {
           values: [
             {
               name: 'Full Compatibility',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Not Available',
@@ -143,7 +148,9 @@ const comparisonData: ComparisonData = {
           values: [
             {
               name: 'Cloud Env with Local IDE Connect',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Not Available',
@@ -168,7 +175,9 @@ const comparisonData: ComparisonData = {
           values: [
             {
               name: 'No more waiting for CI/CD',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Not Available',
@@ -193,15 +202,21 @@ const comparisonData: ComparisonData = {
           values: [
             {
               name: 'Any language or framework',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Full Support',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Full Support',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Limited',
@@ -224,7 +239,9 @@ const comparisonData: ComparisonData = {
           values: [
             {
               name: 'PG, MySQL, Mongo, Redis',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'PG, Redis',
@@ -249,7 +266,9 @@ const comparisonData: ComparisonData = {
           values: [
             {
               name: 'Automated Failover',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Not Available',
@@ -257,15 +276,21 @@ const comparisonData: ComparisonData = {
             },
             {
               name: 'Available',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Available',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Available',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
           ],
         },
@@ -274,7 +299,9 @@ const comparisonData: ComparisonData = {
           values: [
             {
               name: 'pgvector & Milvus',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Not Available',
@@ -286,7 +313,9 @@ const comparisonData: ComparisonData = {
             },
             {
               name: 'pgvector',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Not Available',
@@ -299,7 +328,9 @@ const comparisonData: ComparisonData = {
           values: [
             {
               name: 'Available',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Not Available',
@@ -330,7 +361,9 @@ const comparisonData: ComparisonData = {
           values: [
             {
               name: 'Available',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Not Available',
@@ -338,15 +371,21 @@ const comparisonData: ComparisonData = {
             },
             {
               name: 'Available',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Available',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Blob Storage',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
           ],
         },
@@ -356,7 +395,9 @@ const comparisonData: ComparisonData = {
           values: [
             {
               name: '100% Source Available',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Proprietary',
@@ -368,7 +409,9 @@ const comparisonData: ComparisonData = {
             },
             {
               name: 'Available',
-              icon: <GradientCircleCheck className="size-5" />,
+              icon: (
+                <GradientLucideIcon Icon={CircleCheck} className="size-5" />
+              ),
             },
             {
               name: 'Proprietary',

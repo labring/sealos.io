@@ -2,13 +2,33 @@ import Image from 'next/image';
 import { GradientText } from '@/new-components/GradientText';
 import { cn } from '@/lib/utils';
 import {
-  GradientCodeXml,
-  GradientLayoutGrid,
-  GradientDatabaseIcon,
-  GradientCpu,
-  GradientBox,
-  GradientBotIcon,
-} from '../../(new-home)/components/GradientIcon';
+  CodeXml,
+  LayoutGrid,
+  Database,
+  Cpu,
+  Box,
+  Bot,
+} from 'lucide-react';
+import { GradientLucideIcon } from '@/new-components/GradientLucideIcon';
+
+const GradientCodeXml = (props: { className?: string }) => (
+  <GradientLucideIcon Icon={CodeXml} {...props} />
+);
+const GradientLayoutGrid = (props: { className?: string }) => (
+  <GradientLucideIcon Icon={LayoutGrid} {...props} />
+);
+const GradientDatabaseIcon = (props: { className?: string }) => (
+  <GradientLucideIcon Icon={Database} {...props} />
+);
+const GradientCpu = (props: { className?: string }) => (
+  <GradientLucideIcon Icon={Cpu} {...props} />
+);
+const GradientBox = (props: { className?: string }) => (
+  <GradientLucideIcon Icon={Box} {...props} />
+);
+const GradientBotIcon = (props: { className?: string }) => (
+  <GradientLucideIcon Icon={Bot} {...props} />
+);
 import CloudIDEImage from '../assets/card-cloudide.svg';
 import AppStoreImage from '../assets/card-appstore.svg';
 import DBStorageImage from '../assets/card-dbstor.svg';

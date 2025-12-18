@@ -239,8 +239,9 @@
     background-origin: border-box;
     background-image:
       linear-gradient(
-        var(--border-gradient-bg-color, #121214),
-        var(--border-gradient-bg-color, #121214)
+        var(--border-gradient-bg-position, to bottom in oklab),
+        var(--border-gradient-bg-from, #121214),
+        var(--border-gradient-bg-to, #121214)
       ),
       linear-gradient(
         var(--border-gradient-position, to bottom right in oklab),
@@ -249,8 +250,44 @@
       );
   }
 
+  .border-gradient__comparison-box {
+    border: double 1px transparent;
+    background-clip: padding-box, border-box, border-box;
+    background-origin: border-box;
+    background-image:
+      linear-gradient(
+        to right in oklab,
+        var(--border-gradient-bg-from, #121214),
+        var(--border-gradient-bg-to, #121214)
+      ),
+      linear-gradient(
+        to bottom in oklab,
+        hsla(0, 0%, 100%, 0),
+        hsla(0, 0%, 12%, 1)
+      ),
+      linear-gradient(to right in oklab, hsl(221, 83%, 53%), hsl(213, 97%, 87%));
+  }
+
   .inset-shadow-bubble {
     box-shadow: 0 0 15px 0 rgba(255, 255, 255, 0.25) inset;
+  }
+
+  /* Container but capped at 1024px */
+  .container-compact {
+    width: 100%;
+    @media (width >= 40rem /* 640px */) {
+      max-width: 40rem;
+    }
+    @media (width >= 48rem /* 768px */) {
+      max-width: 48rem;
+    }
+    @media (width >= 64rem /* 1024px */) {
+      max-width: 64rem;
+    }
+  }
+  .container-compact {
+    margin-inline: auto;
+    padding-inline: 1rem;
   }
 }
 

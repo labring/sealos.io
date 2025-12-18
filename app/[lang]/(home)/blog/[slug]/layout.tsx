@@ -234,12 +234,12 @@ export default async function BlogLayout({
           }}
         >
           <article
-            className="custom-container mx-auto w-full max-w-[900px]"
+            className="custom-container w-full max-w-[900px]"
             itemType="http://schema.org/Article"
             itemScope
           >
             {/* Back Button */}
-            <div className="custom-container mx-auto w-full max-w-[900px] px-4">
+            <div className="custom-container w-full max-w-[900px] px-4">
               <Link
                 href={`/${params.lang}/blog`}
                 className="text-muted-foreground hover:text-foreground mt-8 mb-8 inline-flex items-center gap-2 text-sm transition-colors"

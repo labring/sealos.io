@@ -334,6 +334,46 @@
     }
   },
   {
+    "name": "Change Detection",
+    "slug": "changedetection",
+    "description": "Self-hosted free open source website change detection, monitor and notification service. Get instant notifications when websites change.",
+    "icon": "/images/apps/changedetection.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/dgtlmoon/changedetection.io",
+    "website": "https://changedetection.io/",
+    "tags": [
+      "tool",
+      "monitor"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "自托管的免费开源网页变更检测、监控和通知服务。当网站发生变化时获得即时通知。"
+      }
+    }
+  },
+  {
     "name": "Chat Nio",
     "slug": "chatnio",
     "description": "Next Generation AI One-Stop Internationalization Solution.",
@@ -439,6 +479,45 @@
     ],
     "source": {
       "deployCount": 0
+    }
+  },
+  {
+    "name": "Chatwoot",
+    "slug": "chatwoot",
+    "description": "Open-source customer engagement platform with live chat, email, and social media integrations",
+    "icon": "/images/apps/chatwoot.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/chatwoot/chatwoot",
+    "website": "https://www.chatwoot.com",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源客户互动平台，支持实时聊天、邮件和社交媒体集成"
+      }
     }
   },
   {
@@ -617,6 +696,40 @@
     }
   },
   {
+    "name": "Derper",
+    "slug": "derper",
+    "description": "A slim build of Tailscale DERP relay server for self-hosted use with STUN support",
+    "icon": "/images/apps/derper.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/yangchuansheng/derper",
+    "website": "https://github.com/yangchuansheng/derper",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    }
+  },
+  {
     "name": "Dify",
     "slug": "dify",
     "description": "Dify is an open-source LLM app development platform.",
@@ -730,6 +843,45 @@
     "i18n": {
       "zh": {
         "description": "Drizzle Studio (Gateway) 是一款现代化的 TypeScript ORM，主打轻量与强类型体验。它兼容 PostgreSQL、MySQL、SQLite 等主流数据库，并对多种 Serverless/边缘数据库提供现成适配。"
+      }
+    }
+  },
+  {
+    "name": "EaglerCraft Server",
+    "slug": "eaglercraft-server",
+    "description": "EaglerCraft 1.12.1 Minecraft server that runs in web browsers with WebSocket support",
+    "icon": "/images/apps/eaglercraft-server.ico",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/yangchuansheng/eaglercraft-server",
+    "website": "https://github.com/yangchuansheng/eaglercraft-server",
+    "tags": [
+      "game"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "可在网页浏览器中运行的 EaglerCraft 1.12.1 Minecraft 服务器，支持 WebSocket 连接"
       }
     }
   },
@@ -1172,6 +1324,41 @@
     "tags": [
       "monitor",
       "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    }
+  },
+  {
+    "name": "Grafana OpenTelemetry Stack",
+    "slug": "grafana-otel",
+    "description": "One-click Grafana/OTLP stack deployment",
+    "icon": "/images/apps/grafana-otel.svg",
+    "category": "Monitoring",
+    "features": [
+      "Real-time Monitoring",
+      "Alerting System",
+      "Dashboard Views",
+      "Historical Data"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-yellow-50/70 to-orange-50/70",
+    "github": "https://github.com/labring-actions/templates/tree/main/template/grafana-otel",
+    "website": "https://github.com/labring-actions/templates/tree/main/template/grafana-otel",
+    "tags": [
+      "monitor",
+      "dev-ops"
     ],
     "source": {
       "deployCount": 0
@@ -2456,6 +2643,46 @@
     }
   },
   {
+    "name": "OpenAgents",
+    "slug": "openagents",
+    "description": "AI Agent Networks for Open Collaboration. Create self-contained communities where agents discover peers, collaborate on problems, and grow together. Protocol-agnostic, works with popular LLM providers and agent frameworks.",
+    "icon": "/images/apps/openagents.png",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/openagents-org/openagents",
+    "website": "https://openagents.org",
+    "tags": [
+      "ai",
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "AI 智能体网络平台,用于开放协作。创建独立的社区,让智能体发现同伴、协作解决问题并共同成长。协议无关,支持主流 LLM 提供商和智能体框架。"
+      }
+    }
+  },
+  {
     "name": "OpenObserve",
     "slug": "openobserve",
     "description": "OpenObserve is a cloud native observability platform built specifically for logs, metrics, traces, analytics, RUM (Real User Monitoring - Performance, Errors, Session Replay) designed to work at petabyte scale.",
@@ -2964,9 +3191,9 @@
   },
   {
     "name": "Postiz",
-    "slug": "${{ defaults.app_name }}",
+    "slug": "postiz",
     "description": "Postiz is an open source social media management platform.",
-    "icon": "/icons/default.svg",
+    "icon": "/images/apps/postiz.ico",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3790,6 +4017,85 @@
     "i18n": {
       "zh": {
         "description": "Tolgee 是一个开源的本地化平台，专为开发者设计，支持上下文直接翻译、一键生成翻译截图、生产环境实时编辑，并集成多种机器翻译服务（如 DeepL、Google Translate），提供翻译记忆与自动化功能，简化多语言应用的开发流程。"
+      }
+    }
+  },
+  {
+    "name": "Twenty",
+    "slug": "twenty",
+    "description": "Open-source CRM alternative to Salesforce. Customizable views, flexible data management, workflow automation. Built with TypeScript, React, NestJS, PostgreSQL.",
+    "icon": "/images/apps/twenty.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/twentyhq/twenty",
+    "website": "https://twenty.com",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Salesforce 的开源替代品。支持自定义视图（看板/表格）、灵活的数据管理、工作流自动化。基于 TypeScript、React、NestJS、PostgreSQL 构建。"
+      }
+    }
+  },
+  {
+    "name": "Typesense",
+    "slug": "typesense",
+    "description": "A modern, open-source search engine alternative to Algolia and an easier-to-use alternative to Elasticsearch.",
+    "icon": "/images/apps/typesense.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/typesense/typesense",
+    "website": "https://typesense.org/",
+    "tags": [
+      "tool",
+      "database"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "现代化、开源的搜索引擎，可作为 Algolia 的替代方案，比 Elasticsearch 更易用。"
       }
     }
   },

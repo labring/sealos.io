@@ -1,16 +1,16 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'motion/react';
+import { useRef, useState } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import Image from 'next/image';
-import { Play } from 'lucide-react';
+import { CircleCheck, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { VideoModal } from '../components/VideoModal';
 import VideoThumbnailSvg from '@/assets/video-thumbnail.svg';
 import { useGTM } from '@/hooks/use-gtm';
 import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
 import { getOpenBrainParam } from '@/lib/utils/brain';
-import { GradientCircleCheck } from '../components/GradientIcon';
+import { GradientLucideIcon } from '@/new-components/GradientLucideIcon';
 
 export function DemoSection() {
   const { trackButton } = useGTM();
@@ -65,15 +65,15 @@ export function DemoSection() {
 
       <div className="text-muted-foreground container mt-6 flex w-full max-w-sm flex-col justify-center gap-3 md:max-w-max md:flex-row md:gap-6">
         <div className="flex items-center gap-2">
-          <GradientCircleCheck className="size-5" />
+          <GradientLucideIcon Icon={CircleCheck} className="size-5" />
           <span>7 days free trial</span>
         </div>
         <div className="flex items-center gap-2">
-          <GradientCircleCheck className="size-5" />
+          <GradientLucideIcon Icon={CircleCheck} className="size-5" />
           <span>No credit card required to get started</span>
         </div>
         <div className="flex items-center gap-2">
-          <GradientCircleCheck className="size-5" />
+          <GradientLucideIcon Icon={CircleCheck} className="size-5" />
           <span>Cancel anytime</span>
         </div>
       </div>
