@@ -88,8 +88,7 @@ export const DIMENSIONS = {
         name: 'Cloud-Native Development',
         icon: <CodeXml size={20} />,
         items: [
-          'Cloud-Native Development',
-          'Integrated Cloud IDEs',
+          'Integrated Cloud Development Environments(CDEs)',
           'Consistent Dev/Prod Environments',
         ],
       },
@@ -98,7 +97,7 @@ export const DIMENSIONS = {
         icon: <GitCompare size={20} />,
         items: [
           'Git-Push Deployment',
-          'Deploy from Cloud IDE',
+          'Deploy from CDE',
           'Deploy from Docker Images',
           'App Store for One-Click Deployment',
         ],

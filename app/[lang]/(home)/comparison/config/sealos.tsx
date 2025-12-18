@@ -22,7 +22,7 @@ export const sealosConfig: ComparisonConfig = {
   order: -1,
   content: {
     overview:
-      'Sealos is an AI-native Cloud Operating System built on Kubernetes that unifies the entire application lifecycle, from development in cloud IDEs to production deployment and management. It is perfect for building and scaling modern AI applications, SaaS platforms, managed databases (MySQL, PostgreSQL, Redis, MongoDB) and complex microservice architectures. The platform is 100% source-available, and for production you can choose either a fully managed cloud service or self-host on your own infrastructure.',
+      'Sealos is an AI-native Cloud Operating System built on Kubernetes that unifies the entire application lifecycle, from development in Cloud Development Environments (CDEs) to production deployment and management. It is perfect for building and scaling modern AI applications, SaaS platforms, managed databases (MySQL, PostgreSQL, Redis, MongoDB) and complex microservice architectures. The platform is 100% source-available, and for production you can choose either a fully managed cloud service or self-host on your own infrastructure.',
     pricing: `Sealos Fixed Plans (All-Inclusive):
 • Hobby: $25/mo → 4 vCPU, 4GB RAM, 30GB disk, 50GB traffic
 • Standard: $128/mo → 8 vCPU, 8GB RAM, 50GB disk, 300GB traffic
@@ -65,20 +65,19 @@ export const sealosConfig: ComparisonConfig = {
           { type: 'check', value: true },
           { type: 'check', value: true },
           { type: 'check', value: true },
-          { type: 'check', value: true },
         ],
         strengths: [
           {
             icon: <CodeXml className="size-full" />,
             title: 'Seamless End-to-End Experience',
             content:
-              'Sealos delivers a seamless, end-to-end experience within a single platform. Developers can start coding instantly in **DevBox**, a powerful cloud IDE that mirrors the production environment, eliminating the "it works on my machine" problem.',
+              'Sealos delivers a seamless, end-to-end experience within a single platform. Developers can start coding instantly in **DevBox**, a powerful Cloud Development Environment (CDE) that mirrors the production environment, eliminating the "it works on my machine" problem.',
           },
           {
             icon: <CodeXml className="size-full" />,
             title: 'Automated Workflow',
             content:
-              'From there, the **App Launchpad** automates OCI image creation and deployment to Kubernetes without needing manual Dockerfiles. This creates a fluid, powerful workflow from code to cloud.',
+              'DevBox automates OCI image creation without needing manual Dockerfiles, and the **App Launchpad** handles deployment to Kubernetes. This creates a fluid, powerful workflow from code to cloud.',
           },
         ],
         keyDifference: {
@@ -95,19 +94,11 @@ export const sealosConfig: ComparisonConfig = {
           { type: 'check', value: true },
           { type: 'check', value: true },
           { type: 'check', value: true },
-          { type: 'check', value: true },
-          { type: 'check', value: true },
-          {
-            type: 'warning',
-            value: 'Manual',
-            note: 'Requires manual configuration',
-          },
           { type: 'check', value: false },
-          {
-            type: 'warning',
-            value: 'Available',
-            note: 'Requires configuration',
-          },
+          { type: 'check', value: true },
+          { type: 'check', value: false },
+          { type: 'check', value: false },
+          { type: 'check', value: true },
         ],
         strengths: [
           {
@@ -126,7 +117,7 @@ export const sealosConfig: ComparisonConfig = {
             icon: <Shield className="size-full" />,
             title: 'Full Kubernetes API Access',
             content:
-              'You get full, unrestricted access to the Kubernetes API for advanced configurations, custom scheduling, and fine-tuned autoscaling via HPA/VPA.',
+              'You get full, unrestricted access to the Kubernetes API for advanced configurations, and fine-tuned autoscaling via HPA.',
           },
         ],
         keyDifference: {
@@ -252,7 +243,7 @@ export const sealosConfig: ComparisonConfig = {
       {
         icon: <CodeXml className="size-full" />,
         content:
-          '**Cloud IDE integration** (DevBox) for consistent dev/prod environments',
+          'Cloud Development Environment (CDE) for consistent dev/prod environments',
       },
       {
         icon: <Shield className="size-full" />,

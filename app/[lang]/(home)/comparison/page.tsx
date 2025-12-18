@@ -5,6 +5,17 @@ import { GradientText } from '@/new-components/GradientText';
 import { platforms, getAllPlatformSlugs } from './config/platforms';
 import { CompareWithOthersSection } from './[slug]/sections/CompareWithOthersSection';
 import { TrySealosButton } from './components/TrySealosButton';
+import { generatePageMetadata } from '@/lib/utils/metadata';
+import { Metadata } from 'next';
+
+export function generateMetadata(): Metadata {
+  return generatePageMetadata({
+    title: 'PaaS Platform Comparison',
+    description:
+      "Compare Sealos with other PaaS platforms. We want you to choose the best platform for you, even if it's not us.",
+    pathname: '/comparison',
+  });
+}
 
 export default async function ComparisonPage() {
   return (

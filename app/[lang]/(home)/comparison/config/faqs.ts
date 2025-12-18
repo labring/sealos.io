@@ -26,7 +26,7 @@ Here's an example calculation for a medium app (8 vCPU, 16GB RAM, 24/7):
 | Compute (monthly) | ~$300 | Included |
 | 50GB storage | $12.50 | Included |
 | 100GB egress | $5.00 | Included |
-| **Total** | **~$317/mo** | **~$100/mo** |
+| **Total** | **~$317/mo** | **~$128/mo** |
 
 The more resources you use, the more you save. Railway's per-second billing is great for sporadic workloads, but for production apps running continuously, fixed plans win.`,
     },

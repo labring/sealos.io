@@ -14,6 +14,7 @@ import { FAQSection } from './sections/FAQSection';
 import { CompareWithOthersSection } from './sections/CompareWithOthersSection';
 import { BreadcrumbSection } from './sections/BreadcrumbSection';
 import { GodRays } from '@/new-components/GodRays';
+import { generatePageMetadata } from '@/lib/utils/metadata';
 
 interface ComparisonPageProps {
   params: Promise<{
@@ -82,18 +83,26 @@ export async function generateMetadata({
   const first = getPlatform(firstKey);
   const second = getPlatform(secondKey);
 
-  const title = `${first.name} vs ${second.name} - Platform Comparison`;
-  const description = `Compare ${first.name} and ${second.name} across developer experience, architecture, collaboration, and ecosystem.`;
+  const title = `${first.name} vs ${second.name}`;
+  const description = `Compare ${first.name} vs. ${second.name} by the following set of capabilities. We want you to choose the best platform for you, even if it's not us.`;
+  const keywords = [
+    `${first.name} vs ${second.name}`,
+    `${second.name} alternative`,
+    'Cloud OS vs PaaS',
+    'application deployment platform comparison',
+    `${first.name} vs ${second.name} benchmark`,
+    'AI application deployment',
+    'developer platform comparison',
+    'Kubernetes platform',
+  ];
 
-  return {
+  return generatePageMetadata({
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      type: 'website',
-    },
-  };
+    keywords,
+    pathname: `/comparison/${slug}`,
+    lang,
+  });
 }
 
 /**
