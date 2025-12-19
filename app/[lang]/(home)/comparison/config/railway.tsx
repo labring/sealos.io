@@ -39,7 +39,7 @@ export const railwayConfig: ComparisonConfig = {
       overview: {
         features: [
           { type: 'text', value: 'Proprietary PaaS' },
-          { type: 'text', value: 'Closed source' },
+          { type: 'check', value: false },
           {
             type: 'text-multi-check',
             value: ['Cloud only', 'BYO Cloud: Enterprise'],
@@ -279,6 +279,7 @@ export const railwayConfig: ComparisonConfig = {
           label: 'Railway (Usage-Based)',
         },
       ],
+      sealosSavings: [72, 60, 20], // Sealos savings vs Railway: $25 vs $90, $128 vs $320, $512 vs $640
       note: 'Railway calculation: $0.000463/vCPU-min + $0.000231/GB-min = 43,200 min/month',
       source: {
         url: 'https://railway.com/pricing',

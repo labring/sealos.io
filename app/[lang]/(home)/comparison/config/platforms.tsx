@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { sealosConfig } from './sealos';
 import { railwayConfig } from './railway';
+import { replitConfig } from './replit';
 
 export type ComparisonCellValue =
   | { type: 'check'; value: boolean }
@@ -62,7 +63,7 @@ export const DIMENSIONS = {
         icon: null,
         items: [
           'Infrastructure',
-          'Source Availability',
+          'Source Available',
           'Deployment Options',
           'Free Trial',
           'Max vCPU per Service',
@@ -122,7 +123,7 @@ export const DIMENSIONS = {
       {
         name: 'Core Foundation',
         icon: <Box size={20} />,
-        items: ['Built on Standard Kubernetes', 'Open Source Available'],
+        items: ['Built on Standard Kubernetes', 'Source Available'],
       },
       {
         name: 'Deployment Freedom',
@@ -293,6 +294,7 @@ export type PlatformContent = {
   dimensions: Record<DimensionId, PlatformDimensionData>;
   costs: {
     rows: CostRow[]; // Cost data for each workload in COSTS.rows
+    sealosSavings?: number[]; // Percentage savings when using Sealos vs this platform (per row)
     note?: string; // Optional note/explanation
     source?: CostSource; // Optional source link with label
   };
@@ -309,11 +311,13 @@ export type ComparisonConfig = {
 export type Platforms = {
   sealos: ComparisonConfig;
   railway: ComparisonConfig;
+  replit: ComparisonConfig;
 };
 
 export const platforms: Platforms = {
   sealos: sealosConfig,
   railway: railwayConfig,
+  replit: replitConfig,
 };
 
 export function getPlatform(slug: keyof Platforms) {

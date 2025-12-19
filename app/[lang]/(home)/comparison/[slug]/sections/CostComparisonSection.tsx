@@ -69,9 +69,12 @@ export function CostComparisonSection({
               const firstIsHigher = firstCostNum > secondCostNum;
               const secondIsHigher = secondCostNum > firstCostNum;
 
-              // Get savings from either platform (whichever has it)
+              // Get savings - prioritize sealosSavings from the competitor platform
               const savings =
-                secondCostData?.savings || firstCostData?.savings || 0;
+                secondPlatform.content.costs.sealosSavings?.[index] ??
+                secondCostData?.savings ??
+                firstCostData?.savings ??
+                0;
 
               return (
                 <tr key={row.workload} className={cn('border-b')}>

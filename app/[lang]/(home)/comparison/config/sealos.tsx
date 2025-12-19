@@ -181,7 +181,7 @@ export const sealosConfig: ComparisonConfig = {
             value: 'Available',
             note: 'Via Kubernetes primitives or third-party tools',
           },
-          { type: 'text', value: 'Unlimited' },
+          { type: 'text-with-check', value: 'Unlimited' },
           { type: 'check', value: true },
           { type: 'check', value: true },
         ],
