@@ -288,13 +288,17 @@ export type CostSource = {
   label: string; // Display label for the source link
 };
 
+export type SealosSavings =
+  | { type: 'comparable'; savings: number } // 可对比，显示节省百分比（可能为负）
+  | { type: 'not-applicable'; reason?: string }; // 无效对比（如对方平台不支持）
+
 export type PlatformContent = {
   overview: string; // Platform overview description
   pricing: string; // Markdown format pricing information
   dimensions: Record<DimensionId, PlatformDimensionData>;
   costs: {
     rows: CostRow[]; // Cost data for each workload in COSTS.rows
-    sealosSavings?: number[]; // Percentage savings when using Sealos vs this platform (per row)
+    sealosSavings?: SealosSavings[]; // Savings when using Sealos vs this platform (per row)
     note?: string; // Optional note/explanation
     source?: CostSource; // Optional source link with label
   };

@@ -295,7 +295,13 @@ export const replitConfig: ComparisonConfig = {
           label: 'Replit (Exceeds 8 vCPU/16GB plan limit)',
         },
       ],
-      sealosSavings: [0, 0, 100], // Sealos savings vs Replit: $25 vs $25 (0%), $128 vs $105 (Sealos costs more), $512 vs N/A (100% - only Sealos can handle)
+      sealosSavings: [
+        // { type: 'comparable', savings: 10 },
+        // { type: 'comparable', savings: -22 },
+        { type: 'comparable', savings: 0 },
+        { type: 'comparable', savings: 0 },
+        { type: 'not-applicable', reason: 'exceeds-limit' },
+      ],
       note: 'Replit Teams: $35/user/month. Max resources per deployment: 8 vCPU, 16GB RAM. Workloads requiring 16+ vCPU or 32+ GB RAM cannot be deployed on standard Replit plans.',
       source: {
         url: 'https://replit.com/pricing',
