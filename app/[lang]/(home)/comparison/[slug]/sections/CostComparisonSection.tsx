@@ -69,9 +69,19 @@ export function CostComparisonSection({
               const firstIsHigher = firstCostNum > secondCostNum;
               const secondIsHigher = secondCostNum > firstCostNum;
 
-              // Get savings from either platform (whichever has it)
-              const savings =
-                secondCostData?.savings || firstCostData?.savings || 0;
+              // Get savings from sealosSavings in the row
+              const sealosSavingsData = secondCostData?.sealosSavings;
+
+              let savings: number | null = null;
+              let isInvalidComparison = false;
+
+              if (sealosSavingsData) {
+                if (sealosSavingsData.type === 'not-applicable') {
+                  isInvalidComparison = true;
+                } else if (sealosSavingsData.type === 'comparable') {
+                  savings = sealosSavingsData.savings;
+                }
+              }
 
               return (
                 <tr key={row.workload} className={cn('border-b')}>
@@ -160,11 +170,19 @@ export function CostComparisonSection({
                   </td>
 
                   <td className="w-[20%] px-4 py-6 text-center">
-                    {savings > 0 && (
+                    {isInvalidComparison || savings === null ? (
+                      <span className="text-muted-foreground text-sm">-</span>
+                    ) : savings > 0 ? (
                       <div className="flex items-center justify-center gap-1 text-green-500">
                         <span className="text-sm">{savings}%</span>
                         <TrendingDown className="size-3.5" />
                       </div>
+                    ) : savings < 0 ? (
+                      <div className="flex items-center justify-center gap-1 text-red-500">
+                        <span className="text-sm">{savings}%</span>
+                      </div>
+                    ) : (
+                      <span className="text-muted-foreground text-sm">0%</span>
                     )}
                   </td>
                 </tr>

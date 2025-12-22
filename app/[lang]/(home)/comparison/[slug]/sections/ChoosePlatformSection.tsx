@@ -29,7 +29,7 @@ export function ChoosePlatformSection({
             <div className="size-6">{firstPlatform.icon}</div>
             Choose {firstPlatform.name} if you need:
           </h3>
-          <div className="space-y-6 rounded-2xl border-t bg-zinc-950 p-8 text-sm">
+          <div className="h-[calc(100%-3.75rem)] space-y-6 rounded-2xl border-t bg-zinc-950 p-8 text-sm">
             {firstPlatform.content.guidance.map((item, index) => (
               <div key={index} className="flex items-center gap-2">
                 <div className="text-muted-foreground aspect-square size-4">
@@ -46,7 +46,7 @@ export function ChoosePlatformSection({
             <div className="size-6">{secondPlatform.icon}</div>
             Choose {secondPlatform.name} if you need:
           </h3>
-          <div className="space-y-6 rounded-2xl border-t bg-zinc-950 p-8 text-sm">
+          <div className="h-[calc(100%-3.75rem)] space-y-6 rounded-2xl border-t bg-zinc-950 p-8 text-sm">
             {secondPlatform.content.guidance.map((item, index) => (
               <div key={index} className="flex items-center gap-2">
                 <div className="text-muted-foreground aspect-square size-4">

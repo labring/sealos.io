@@ -39,7 +39,7 @@ export const railwayConfig: ComparisonConfig = {
       overview: {
         features: [
           { type: 'text', value: 'Proprietary PaaS' },
-          { type: 'text', value: 'Closed source' },
+          { type: 'check', value: false },
           {
             type: 'text-multi-check',
             value: ['Cloud only', 'BYO Cloud: Enterprise'],
@@ -265,17 +265,17 @@ export const railwayConfig: ComparisonConfig = {
       rows: [
         {
           cost: '~$90/mo',
-          savings: 0,
+          sealosSavings: { type: 'comparable', savings: 72 }, // $25 vs $90，节省 72%
           label: 'Railway (Usage-Based)',
         },
         {
           cost: '~$320/mo',
-          savings: 0,
+          sealosSavings: { type: 'comparable', savings: 60 }, // $128 vs $320，节省 60%
           label: 'Railway (Usage-Based)',
         },
         {
           cost: '~$640/mo',
-          savings: 0,
+          sealosSavings: { type: 'comparable', savings: 20 }, // $512 vs $640，节省 20%
           label: 'Railway (Usage-Based)',
         },
       ],

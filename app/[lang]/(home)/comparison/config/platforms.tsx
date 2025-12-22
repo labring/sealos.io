@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { sealosConfig } from './sealos';
 import { railwayConfig } from './railway';
+import { replitConfig } from './replit';
 
 export type ComparisonCellValue =
   | { type: 'check'; value: boolean }
@@ -62,7 +63,7 @@ export const DIMENSIONS = {
         icon: null,
         items: [
           'Infrastructure',
-          'Source Availability',
+          'Source Available',
           'Deployment Options',
           'Free Trial',
           'Max vCPU per Service',
@@ -122,7 +123,7 @@ export const DIMENSIONS = {
       {
         name: 'Core Foundation',
         icon: <Box size={20} />,
-        items: ['Built on Standard Kubernetes', 'Open Source Available'],
+        items: ['Built on Standard Kubernetes', 'Source Available'],
       },
       {
         name: 'Deployment Freedom',
@@ -278,7 +279,7 @@ export const COSTS = {
 
 export type CostRow = {
   cost: string;
-  savings: number; // Percentage savings compared to the other platform
+  sealosSavings?: SealosSavings; // Savings when using Sealos vs this platform
   label: string; // Display label, e.g., "Railway (Usage-Based)" or "Sealos (Fixed Plan)"
 };
 
@@ -286,6 +287,10 @@ export type CostSource = {
   url: string;
   label: string; // Display label for the source link
 };
+
+export type SealosSavings =
+  | { type: 'comparable'; savings: number } // 可对比，显示节省百分比（可能为负）
+  | { type: 'not-applicable'; reason?: string }; // 无效对比（如对方平台不支持）
 
 export type PlatformContent = {
   overview: string; // Platform overview description
@@ -309,11 +314,13 @@ export type ComparisonConfig = {
 export type Platforms = {
   sealos: ComparisonConfig;
   railway: ComparisonConfig;
+  replit: ComparisonConfig;
 };
 
 export const platforms: Platforms = {
   sealos: sealosConfig,
   railway: railwayConfig,
+  replit: replitConfig,
 };
 
 export function getPlatform(slug: keyof Platforms) {

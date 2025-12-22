@@ -181,7 +181,7 @@ export const sealosConfig: ComparisonConfig = {
             value: 'Available',
             note: 'Via Kubernetes primitives or third-party tools',
           },
-          { type: 'text', value: 'Unlimited' },
+          { type: 'text-with-check', value: 'Unlimited' },
           { type: 'check', value: true },
           { type: 'check', value: true },
         ],
@@ -216,17 +216,14 @@ export const sealosConfig: ComparisonConfig = {
       rows: [
         {
           cost: '~$25/mo (Hobby)',
-          savings: 72,
           label: 'Sealos (Fixed Plan)',
         },
         {
           cost: '~$128/mo (Standard)',
-          savings: 60,
           label: 'Sealos (Fixed Plan)',
         },
         {
           cost: '~$512/mo (Pro)',
-          savings: 20,
           label: 'Sealos (Fixed Plan)',
         },
       ],
