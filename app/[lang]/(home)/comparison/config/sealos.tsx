@@ -216,17 +216,14 @@ export const sealosConfig: ComparisonConfig = {
       rows: [
         {
           cost: '~$25/mo (Hobby)',
-          savings: 72,
           label: 'Sealos (Fixed Plan)',
         },
         {
           cost: '~$128/mo (Standard)',
-          savings: 60,
           label: 'Sealos (Fixed Plan)',
         },
         {
           cost: '~$512/mo (Pro)',
-          savings: 20,
           label: 'Sealos (Fixed Plan)',
         },
       ],

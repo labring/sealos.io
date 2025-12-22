@@ -279,7 +279,7 @@ export const COSTS = {
 
 export type CostRow = {
   cost: string;
-  savings: number; // Percentage savings compared to the other platform
+  sealosSavings?: SealosSavings; // Savings when using Sealos vs this platform
   label: string; // Display label, e.g., "Railway (Usage-Based)" or "Sealos (Fixed Plan)"
 };
 
@@ -298,7 +298,6 @@ export type PlatformContent = {
   dimensions: Record<DimensionId, PlatformDimensionData>;
   costs: {
     rows: CostRow[]; // Cost data for each workload in COSTS.rows
-    sealosSavings?: SealosSavings[]; // Savings when using Sealos vs this platform (per row)
     note?: string; // Optional note/explanation
     source?: CostSource; // Optional source link with label
   };

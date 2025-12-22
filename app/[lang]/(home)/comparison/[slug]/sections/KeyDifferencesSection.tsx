@@ -37,7 +37,7 @@ export function KeyDifferencesSection({
 
         <div className="flex gap-6 rounded-2xl bg-zinc-950 p-8">
           {firstData.keyDifference && (
-            <div>
+            <div className="w-full">
               <h3 className="mb-2 flex items-center gap-2">
                 <div className="size-5">{firstPlatform.icon}</div>
                 {firstData.keyDifference.title}
@@ -53,7 +53,7 @@ export function KeyDifferencesSection({
               <div className="bg-border min-h-full w-px" />
 
               {secondData.keyDifference && (
-                <div>
+                <div className="w-full">
                   <h3 className="mb-2 flex items-center gap-2">
                     <div className="size-5">{secondPlatform.icon}</div>
                     {secondData.keyDifference.title}
