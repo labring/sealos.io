@@ -19,6 +19,7 @@ import {
 import { sealosConfig } from './sealos';
 import { railwayConfig } from './railway';
 import { replitConfig } from './replit';
+import { renderConfig } from './render';
 
 export type ComparisonCellValue =
   | { type: 'check'; value: boolean }
@@ -315,12 +316,14 @@ export type Platforms = {
   sealos: ComparisonConfig;
   railway: ComparisonConfig;
   replit: ComparisonConfig;
+  render: ComparisonConfig;
 };
 
 export const platforms: Platforms = {
   sealos: sealosConfig,
   railway: railwayConfig,
   replit: replitConfig,
+  render: renderConfig,
 };
 
 export function getPlatform(slug: keyof Platforms) {

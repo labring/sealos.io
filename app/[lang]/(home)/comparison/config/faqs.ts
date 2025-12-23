@@ -13,6 +13,81 @@ export function generateFaq(
   firstPlatformName: string,
   secondPlatformName: string,
 ): FAQ[] {
+  // Render-specific FAQs
+  if (secondPlatformName === 'Render') {
+    return [
+      {
+        question: 'How much can I actually save by switching from Render to Sealos?',
+        answer: `For always-on production workloads, savings typically range from **60-85%**.
+
+**Example calculation for a medium app (8 vCPU, 16GB RAM, 24/7):**
+
+| Cost Component | Render | Sealos Standard |
+|---------------|--------|-----------------|
+| Compute (monthly) | ~$680 (2× Pro Max) | Included |
+| PostgreSQL (Pro) | ~$95/mo | Included |
+| Bandwidth (100GB) | ~$10 | Included |
+| **Total** | **~$785/mo** | **~$128/mo** |
+
+The larger your infrastructure, the more you save. Render's instance-based pricing is straightforward, but for production apps running continuously, Sealos's fixed plans deliver significant cost advantages.`,
+      },
+      {
+        question: "What's included in Sealos that costs extra on Render?",
+        answer: `Several things that Render charges separately are included in Sealos plans:
+
+| Feature | Render | Sealos |
+|---------|--------|--------|
+| MySQL/MongoDB hosting | Not available (run yourself) | Included managed service |
+| Object storage | Not available (use external S3) | Included (S3-compatible) |
+| Egress bandwidth | $0.10/GB beyond free tier | Generous allowance (50GB-3TB) |
+| Custom domains | Unlimited (paid plans) | Unlimited |
+| App marketplace | Not available | 100+ one-click apps |`,
+      },
+      {
+        question: 'Can I verify these claims myself?',
+        answer: `Absolutely. All data in this comparison comes from official, publicly available sources:
+
+- **Render Pricing**: [render.com/pricing](https://render.com/pricing)
+- **Sealos Pricing**: [sealos.io/pricing](https://sealos.io/pricing)
+- **Sealos Source Code**: [github.com/labring/sealos](https://github.com/labring/sealos)
+
+We encourage you to verify and calculate based on your specific workload.`,
+      },
+      {
+        question: 'How long does it take to migrate from Render to Sealos?',
+        answer: `Typical migrations complete in **10–14 days**. Here's what the process looks like:
+
+**Week 1: Assessment & Setup**
+- Our team audits your Render services, databases, and environment variables
+- We provision equivalent resources on Sealos and configure networking
+
+**Week 2: Migration & Validation**
+- Data migration with zero-downtime cutover strategy
+- CI/CD pipeline reconfiguration
+- Production validation and traffic switchover`,
+      },
+      {
+        question: 'Do we need Kubernetes expertise to use Sealos?',
+        answer: `**No.** DevBox and App Launchpad abstract Kubernetes primitives completely. You can:
+- Deploy apps with a single click or natural language prompt
+- Manage databases without touching YAML
+- Scale services with simple UI controls
+
+Platform teams who want deeper control can still access native Kubernetes APIs, \`kubectl\`, and Helm when needed. Sealos gives you **simplicity by default, power when required**.`,
+      },
+      {
+        question: 'Can Sealos run in a private region or on our own infrastructure?',
+        answer: `**Yes.** Because Sealos is 100% source-available, you have full deployment flexibility:
+
+- **Sealos Cloud**: Fully managed service in multiple regions
+- **Self-hosted**: Deploy on your own AWS, GCP, Azure, or bare metal
+- **Hybrid**: Mix cloud and on-premise for compliance requirements
+
+This is a key difference from Render, which only offers cloud deployment on Render's infrastructure. With Sealos, you're never locked in.`,
+      },
+    ];
+  }
+
   // Replit-specific FAQs
   if (secondPlatformName === 'Replit') {
     return [

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { source, blog } from '@/lib/source';
 import { appsConfig } from '@/config/apps';
+import { getAllPlatformSlugs } from '@/app/[lang]/(home)/comparison/config/platforms';
 
 export const revalidate = false;
 
@@ -77,6 +78,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  // Generate comparison pages (all platform pairs)
+  const allPlatformSlugs = getAllPlatformSlugs();
+  const comparisonPages: MetadataRoute.Sitemap = [];
+
+  // Generate all unique pairs in format: platform1-vs-platform2
+  for (let i = 0; i < allPlatformSlugs.length; i++) {
+    for (let j = i + 1; j < allPlatformSlugs.length; j++) {
+      const slug = `${allPlatformSlugs[i]}-vs-${allPlatformSlugs[j]}`;
+      comparisonPages.push({
+        url: escapeXmlChars(getUrl(`/comparison/${slug}`)),
+        changeFrequency: 'weekly',
+        priority: 0.8,
+      });
+    }
+  }
+
   // Additional Chinese-specific pages
   const chineseSpecificPages: MetadataRoute.Sitemap = locale?.includes('zh-cn')
     ? [
@@ -123,6 +140,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    {
+      url: getUrl('/comparison'),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    ...comparisonPages,
     ...docPages,
     ...blogPages,
   ];
