@@ -2,6 +2,8 @@ import { AppConfig } from '@/config/apps';
 import { languagesType } from '@/lib/i18n';
 import { AppIcon } from '@/components/ui/app-icon';
 import { CustomButton } from '@/components/ui/button-custom';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface AppHeaderProps {
   app: AppConfig;
@@ -15,12 +17,23 @@ interface AppHeaderProps {
 
 export default function AppHeader({ app, translations, lang }: AppHeaderProps) {
   const deployUrl = app.deployUrl;
+  const primaryCtaClassName = cn(
+    buttonVariants({ variant: 'landing-primary' }),
+    'h-11 px-6 text-base',
+  );
+  const secondaryCtaClassName = cn(
+    buttonVariants({ variant: 'outline' }),
+    'h-10 gap-2 rounded-full border-white/10 bg-white/5 px-4 text-sm text-zinc-200 hover:bg-white/10 hover:text-white',
+  );
   return (
     <div
-      className={`bg-gradient-to-r ${app.gradient} mb-8 rounded-2xl border border-blue-100 p-8`}
+      className="relative mb-8 overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 shadow-lg"
     >
-      <div className="flex items-start gap-6">
-        <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-blue-100/30 bg-white/80 shadow-lg">
+      <div
+        className={`pointer-events-none absolute inset-0 bg-gradient-to-r ${app.gradient} opacity-15`}
+      ></div>
+      <div className="relative z-10 flex items-start gap-6">
+        <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-white/10 bg-white/5 shadow-lg">
           <AppIcon
             src={app.icon}
             alt={`${app.name} icon`}
@@ -29,17 +42,19 @@ export default function AppHeader({ app, translations, lang }: AppHeaderProps) {
         </div>
         <div className="flex-1">
           <div className="mb-2 flex items-center gap-3">
-            <h1 className="text-3xl font-bold text-gray-900">{app.name}</h1>
-            <span className="rounded-full bg-white/70 px-3 py-1 text-sm font-medium text-gray-700">
+            <h1 className="text-3xl font-bold text-foreground">{app.name}</h1>
+            <span className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-sm font-medium text-zinc-200">
               {app.category}
             </span>
           </div>
-          <p className="mb-4 text-lg text-gray-700">{app.description}</p>
+          <p className="mb-4 text-lg text-muted-foreground">
+            {app.description}
+          </p>
 
           {/* Links and Deploy Button */}
           <div className="flex flex-wrap items-center gap-4">
             <CustomButton
-              className="inline-flex cursor-pointer items-center rounded-lg bg-blue-600 px-6 py-3 text-lg font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-lg"
+              className={primaryCtaClassName}
               title="Deploy App"
               href={deployUrl}
               location="app-page"
@@ -70,7 +85,7 @@ export default function AppHeader({ app, translations, lang }: AppHeaderProps) {
                 href={app.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg bg-white/70 px-4 py-2 text-gray-700 transition-all duration-300 hover:bg-white/90"
+                className={secondaryCtaClassName}
               >
                 <svg
                   className="h-4 w-4"
@@ -94,7 +109,7 @@ export default function AppHeader({ app, translations, lang }: AppHeaderProps) {
                 href={app.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg bg-white/70 px-4 py-2 text-gray-700 transition-all duration-300 hover:bg-white/90"
+                className={secondaryCtaClassName}
               >
                 <svg
                   className="h-4 w-4"

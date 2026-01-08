@@ -30,6 +30,7 @@ import {
   AnimatePresence,
 } from 'motion/react';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 import React from 'react';
 import { cn } from '@/lib/utils';
 import GitHubIcon from '@/assets/github.svg';
@@ -37,6 +38,7 @@ import { useGTM } from '@/hooks/use-gtm';
 import { siteConfig } from '@/config/site';
 import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
 import { getOpenBrainParam } from '@/lib/utils/brain';
+import { languagesType } from '@/lib/i18n';
 
 // 导航链接数据类型
 type NavigationChild = {
@@ -55,6 +57,10 @@ type NavigationLink = {
   dropdownConfig?: {
     className?: string;
   };
+};
+
+type HeaderProps = {
+  lang?: languagesType;
 };
 
 // 导航链接数据
@@ -245,9 +251,12 @@ const DropdownMenu = ({
   );
 };
 
-export function Header() {
+export function Header({ lang }: HeaderProps) {
   const { trackButton } = useGTM();
   const openAuthForm = useOpenAuthForm();
+  const params = useParams();
+  const paramLang = Array.isArray(params?.lang) ? params.lang[0] : params?.lang;
+  const resolvedLang = lang ?? (paramLang as languagesType | undefined);
 
   const { scrollY } = useScroll();
   const [hideLogotype, setHideLogotype] = React.useState(false);
@@ -276,13 +285,46 @@ export function Header() {
     }));
   };
 
+  const localizedNavigationLinks = React.useMemo(() => {
+    if (!resolvedLang) {
+      return navigationLinks;
+    }
+
+    const localizeUrl = (url: string, isExternal: boolean) => {
+      if (isExternal || url.startsWith('#')) {
+        return url;
+      }
+      if (url.startsWith(`/${resolvedLang}`)) {
+        return url;
+      }
+      if (url === '/') {
+        return `/${resolvedLang}`;
+      }
+      if (url.startsWith('/')) {
+        return `/${resolvedLang}${url}`;
+      }
+      return `/${resolvedLang}/${url}`;
+    };
+
+    return navigationLinks.map((link) => ({
+      ...link,
+      url: localizeUrl(link.url, link.isExternal),
+      children: link.children?.map((child) => ({
+        ...child,
+        url: localizeUrl(child.url, child.isExternal),
+      })),
+    }));
+  }, [resolvedLang]);
+
+  const homeHref = resolvedLang ? `/${resolvedLang}` : '/';
+
   return (
     <>
       <nav className="inset-shadow-bubble flex w-full justify-between rounded-full bg-white/5 px-6 py-3 backdrop-blur-lg">
         {/* Left */}
         <div className="flex">
           <a
-            href="/"
+            href={homeHref}
             className="mr-4 flex items-center justify-center"
             aria-label="Sealos Logotype"
             role="banner"
@@ -320,7 +362,7 @@ export function Header() {
             role="navigation"
           >
             <NavigationMenuList>
-              {navigationLinks.map((link, index) => (
+              {localizedNavigationLinks.map((link, index) => (
                 <NavigationMenuItem key={index}>
                   {link.children ? (
                     link.dropdownConfig ? (
@@ -463,7 +505,7 @@ export function Header() {
 
                 {/* Mobile Menu Items */}
                 <div className="flex flex-col gap-2" role="navigation">
-                  {navigationLinks.map((link, index) => (
+                  {localizedNavigationLinks.map((link, index) => (
                     <div key={index} className="border-b border-white/10">
                       {link.children ? (
                         <>

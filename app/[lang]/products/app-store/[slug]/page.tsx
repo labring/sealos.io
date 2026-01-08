@@ -1,3 +1,4 @@
+// App Store detail page with semantic theme and shared sections.
 import {
   getAppBySlug,
   loadAllApps,
@@ -7,11 +8,12 @@ import {
 import { notFound } from 'next/navigation';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import { languagesType } from '@/lib/i18n';
-import Header from '@/components/header';
+import { Header } from '@/new-components/Header';
 import Footer from '@/components/footer';
 import { Metadata } from 'next';
 import Hero from '@/components/header/hero';
 
+import BackNavigation from './components/BackNavigation';
 import AppHeader from './components/Header';
 import AppDescription from './components/Description';
 import WhyThisSoftware from './components/WhyThisSoftware';
@@ -74,6 +76,7 @@ const translations = {
     getStarted: 'Get Started in 60 Seconds',
     deploymentBenefits: 'Deploy on Sealos Cloud',
     whyThisSoftware: 'Why This Software',
+    backToAppStore: 'Back to App Store',
   },
   'zh-cn': {
     deploy: '部署',
@@ -90,6 +93,7 @@ const translations = {
     getStarted: '60 秒内开始使用',
     deploymentBenefits: '在 Sealos 云上部署',
     whyThisSoftware: '为什么选择此软件',
+    backToAppStore: '返回应用商店',
   },
 };
 
@@ -102,11 +106,19 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header lang={params.lang} />
+    <div
+      data-theme="app-store"
+      className="min-h-screen bg-background text-foreground"
+    >
+      <div className="sticky top-0 z-50 container pt-8">
+        <Header />
+      </div>
 
-      <main className="container mx-auto max-w-6xl px-4 py-8">
+      <main className="container mx-auto max-w-6xl px-4 pt-24 pb-16">
         <div className="max-w-none">
+          {/* Back Navigation */}
+          <BackNavigation lang={params.lang} backText={t.backToAppStore} />
+
           {/* Main Content */}
           <div>
             <Hero
@@ -115,6 +127,7 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
                 sub: app.name + ' Managed Hosting',
               }}
               mainTitleEmphasis={1}
+              variant="app-store"
               lang={params.lang}
             />
 

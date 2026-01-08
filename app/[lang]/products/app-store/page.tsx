@@ -1,11 +1,11 @@
+// App Store listing page entry with semantic theme and Hero variant.
 import Feature from './components/feature';
 import HighlightedApps from './components/highlighted-apps-server';
 import FooterCta from './components/footerCta';
 import Footer from '@/components/footer';
-import Header from '@/components/header';
+import { Header } from '@/new-components/Header';
 import Hero from '@/components/header/hero';
 import { generatePageMetadata } from '@/lib/utils/metadata';
-import { templateDomain } from '@/config/site';
 import { languagesType, LANGUAGES } from '@/lib/i18n';
 
 // Define translations for different languages
@@ -54,13 +54,19 @@ export default function AppStorePage({
   const t = translations[params.lang] || translations.en;
 
   return (
-    <div className="h-full bg-[#EBF2FF]">
-      <Header lang={params.lang} />
+    <div
+      data-theme="app-store"
+      className="min-h-screen bg-background text-foreground"
+    >
+      <div className="sticky top-0 z-50 container pt-8">
+        <Header />
+      </div>
       <main className="custom-container px-8 pt-14 md:px-[15%]">
         <Hero
           title={t.title}
           mainTitleEmphasis={2}
-          getStartedLink={templateDomain}
+          variant="app-store"
+          getStartedLink="#featured-apps"
           lang={params.lang}
           testimonial={false}
           videoCta={false}
@@ -71,7 +77,7 @@ export default function AppStorePage({
         <HighlightedApps lang={params.lang} />
         <FooterCta />
       </main>
-      <div className="mt-[140px] h-[1px] bg-[#DDE7F7]"></div>
+      <div className="mt-[140px] h-[1px] bg-border"></div>
       <Footer lang={params.lang} />
     </div>
   );

@@ -24,6 +24,10 @@ export function isForcedDarkMode(pathname: string): boolean {
       path: '/comparison',
       match: 'prefix',
     },
+    {
+      path: '/products/app-store',
+      match: 'prefix',
+    },
   ];
 
   // Match language codes at the start of the path (temporary solution)

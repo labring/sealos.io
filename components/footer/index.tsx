@@ -1,3 +1,4 @@
+// Footer content and social links with theme color variables.
 import React from 'react';
 import { siteConfig, templateDomain } from '@/config/site';
 import Link from 'fumadocs-core/link';
@@ -305,7 +306,7 @@ const Footer = async ({
         {/* Footer Links: single column on small screens, grid on large */}
         <div className="mt-10 hidden w-full grid-cols-1 gap-4 text-center sm:grid sm:grid-cols-2 sm:gap-y-8 lg:mt-0 lg:grid-cols-4 lg:items-start lg:gap-10 lg:text-left">
           <FooterLinkColumn>
-            <div className="text-base font-semibold text-black uppercase hover:text-black hover:no-underline">
+            <div className="text-base font-semibold text-foreground uppercase hover:text-foreground hover:no-underline">
               {footerLinks.resources.title}
             </div>
             {footerLinks.resources.links.map((link, index) => (
@@ -315,7 +316,7 @@ const Footer = async ({
             ))}
           </FooterLinkColumn>
           <FooterLinkColumn>
-            <div className="text-base font-semibold text-black uppercase hover:text-black hover:no-underline">
+            <div className="text-base font-semibold text-foreground uppercase hover:text-foreground hover:no-underline">
               {footerLinks.products.title}
             </div>
             {footerLinks.products.links.map((link, index) => (
@@ -325,7 +326,7 @@ const Footer = async ({
             ))}
           </FooterLinkColumn>
           <FooterLinkColumn>
-            <div className="text-base font-semibold text-black uppercase hover:text-black hover:no-underline">
+            <div className="text-base font-semibold text-foreground uppercase hover:text-foreground hover:no-underline">
               {footerLinks.services.title}
             </div>
             {footerLinks.services.links.map((link, index) => (
@@ -335,7 +336,7 @@ const Footer = async ({
             ))}
           </FooterLinkColumn>
           <FooterLinkColumn>
-            <div className="text-base font-semibold text-black uppercase hover:text-black hover:no-underline">
+            <div className="text-base font-semibold text-foreground uppercase hover:text-foreground hover:no-underline">
               {footerLinks.support.title}
             </div>
             {footerLinks.support.links.map((link, index) => (
@@ -347,7 +348,7 @@ const Footer = async ({
         </div>
       </div>
 
-      <div className="mt-16 h-[1px] w-full bg-[#DDE7F7]"></div>
+      <div className="mt-16 h-[1px] w-full bg-[color:var(--color-footer-divider)]"></div>
       {/* Legal links, copyright, and social icons row */}
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-8 pt-4 pb-4 text-center text-xs lg:flex-row lg:items-center lg:justify-between lg:gap-0">
         {/* Legal links */}
@@ -369,7 +370,7 @@ const Footer = async ({
         {/* Social icons */}
         <div className="order-2 flex justify-center space-x-4 lg:order-none">
           <CustomButton
-            className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
+            className="flex size-8 items-center justify-center rounded-full bg-[color:var(--color-footer-icon-bg)] object-center hover:bg-[color:var(--color-footer-icon-hover)]"
             href={siteConfig.links.github}
             title="GitHub"
             location="footer_social"
@@ -378,7 +379,7 @@ const Footer = async ({
             <GithubIcon />
           </CustomButton>
           <CustomButton
-            className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
+            className="flex size-8 items-center justify-center rounded-full bg-[color:var(--color-footer-icon-bg)] object-center hover:bg-[color:var(--color-footer-icon-hover)]"
             href={siteConfig.links.discord}
             title="Discord"
             location="footer_social"
@@ -387,7 +388,7 @@ const Footer = async ({
             <DiscordIcon />
           </CustomButton>
           <CustomButton
-            className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
+            className="flex size-8 items-center justify-center rounded-full bg-[color:var(--color-footer-icon-bg)] object-center hover:bg-[color:var(--color-footer-icon-hover)]"
             href={siteConfig.links.twitter}
             title="Twitter"
             location="footer_social"
@@ -396,7 +397,7 @@ const Footer = async ({
             <XIcon className="h-4 w-4" />
           </CustomButton>
           <CustomButton
-            className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
+            className="flex size-8 items-center justify-center rounded-full bg-[color:var(--color-footer-icon-bg)] object-center hover:bg-[color:var(--color-footer-icon-hover)]"
             href={siteConfig.links.youtube}
             title="YouTube"
             location="footer_social"
@@ -412,7 +413,7 @@ const Footer = async ({
           </CustomButton>
           {lang === 'zh-cn' && (
             <CustomButton
-              className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
+              className="flex size-8 items-center justify-center rounded-full bg-[color:var(--color-footer-icon-bg)] object-center hover:bg-[color:var(--color-footer-icon-hover)]"
               href={siteConfig.links.bilibili}
               title="Bilibili"
               location="footer_social"
@@ -423,7 +424,7 @@ const Footer = async ({
           )}
           {lang === 'zh-cn' && (
             <CustomButton
-              className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
+              className="flex size-8 items-center justify-center rounded-full bg-[color:var(--color-footer-icon-bg)] object-center hover:bg-[color:var(--color-footer-icon-hover)]"
               href={siteConfig.links.wechat}
               title="WeChat"
               location="footer_social"
@@ -433,7 +434,7 @@ const Footer = async ({
             </CustomButton>
           )}
           <CustomButton
-            className="flex size-8 items-center justify-center rounded-full bg-[#FAFCFF] object-center hover:bg-[#1118240D]"
+            className="flex size-8 items-center justify-center rounded-full bg-[color:var(--color-footer-icon-bg)] object-center hover:bg-[color:var(--color-footer-icon-hover)]"
             href="/rss.xml"
             title="RSS Feed"
             location="footer_social"

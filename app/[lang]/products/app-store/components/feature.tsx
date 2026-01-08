@@ -112,8 +112,10 @@ export default function Feature() {
     <section className="py-20">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-gray-900">{t.title}</h2>
-          <p className="mx-auto max-w-3xl text-xl text-gray-600">
+          <h2 className="mb-4 text-4xl font-bold text-foreground">
+            {t.title}
+          </h2>
+          <p className="mx-auto max-w-3xl text-xl text-muted-foreground">
             {t.subtitle}
           </p>
         </div>
@@ -122,15 +124,17 @@ export default function Feature() {
           {t.features.map((feature, index) => (
             <div
               key={index}
-              className="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl"
+              className="rounded-xl border border-white/10 bg-white/5 p-6 shadow-lg transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:shadow-2xl hover:shadow-white/10"
             >
               <div className="mb-4 flex items-center gap-3">
-                <div className="text-blue-600">{feature.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900">
+                <div className="text-zinc-300">{feature.icon}</div>
+                <h3 className="text-xl font-semibold text-foreground">
                   {feature.title}
                 </h3>
               </div>
-              <p className="text-sm text-gray-600">{feature.description}</p>
+              <p className="text-sm text-muted-foreground">
+                {feature.description}
+              </p>
             </div>
           ))}
         </div>

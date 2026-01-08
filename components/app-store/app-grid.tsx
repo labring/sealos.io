@@ -6,14 +6,23 @@ import { languagesType } from '@/lib/i18n';
 import { AppIcon } from '@/components/ui/app-icon';
 import { CustomButton } from '@/components/ui/button-custom';
 import { loadAllApps, AppConfig } from '@/config/apps-loader';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface AppGridProps {
   lang: languagesType;
   initialApps: AppConfig[];
-  templateDomain: string;
 }
 
-export default function AppGrid({ lang, initialApps, templateDomain }: AppGridProps) {
+export default function AppGrid({ lang, initialApps }: AppGridProps) {
+  const primaryCtaClassName = cn(
+    buttonVariants({ variant: 'landing-primary' }),
+    'h-11 gap-2 px-6',
+  );
+  const secondaryCtaClassName = cn(
+    buttonVariants({ variant: 'outline' }),
+    'h-11 gap-2 rounded-full border-white/10 bg-neutral-900 px-6 text-white hover:bg-neutral-800 hover:text-white',
+  );
   const [isExpanded, setIsExpanded] = useState(false);
   const [apps, setApps] = useState<AppConfig[]>(initialApps);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +62,7 @@ export default function AppGrid({ lang, initialApps, templateDomain }: AppGridPr
           Array.from({ length: appsToShow }).map((_, index) => (
             <div
               key={index}
-              className="flex h-20 w-20 items-center justify-center rounded-xl border border-gray-200 bg-gray-100 animate-pulse"
+              className="flex h-20 w-20 items-center justify-center rounded-xl border border-white/10 bg-white/5 animate-pulse"
             />
           ))
         ) : (
@@ -62,7 +71,7 @@ export default function AppGrid({ lang, initialApps, templateDomain }: AppGridPr
               key={`${app.slug}-${index}`}
               href={`/${lang}/products/app-store/${app.slug}`}
               title={app.name}
-              className="group flex h-20 w-20 items-center justify-center rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:scale-105 hover:border-blue-300 hover:shadow-lg"
+              className="group flex h-20 w-20 items-center justify-center rounded-xl border border-white/10 bg-white/5 shadow-sm transition-all duration-300 hover:scale-105 hover:border-white/40 hover:bg-white/10 hover:shadow-xl hover:shadow-white/10"
             >
               <AppIcon
                 src={app.icon}
@@ -78,7 +87,7 @@ export default function AppGrid({ lang, initialApps, templateDomain }: AppGridPr
       {(hasMoreApps || isExpanded) && (
         <div className="mt-8 text-center">
           <CustomButton
-            className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 transition-all duration-300 hover:border-gray-400 hover:bg-gray-50"
+            className={secondaryCtaClassName}
             title="Toggle Apps View"
             actionType="custom"
             newWindow={true}
@@ -104,11 +113,10 @@ export default function AppGrid({ lang, initialApps, templateDomain }: AppGridPr
       {/* Call to Action */}
       <div className="mt-12 text-center">
         <CustomButton
-          className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-lg"
+          className={primaryCtaClassName}
           title="Browse App Store"
-          newWindow={true}
           location="app-list"
-          href={templateDomain}
+          href="#featured-apps"
         >
           <ExternalLink className="h-5 w-5" />
           Browse App Store
