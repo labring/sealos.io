@@ -12,6 +12,7 @@ import { HomepageDarkMode } from './homepage-dark-mode';
 import { isForcedDarkMode } from './utils/is-forced-dark-mode';
 import { AuthFormProvider } from '@/new-components/AuthForm/AuthFormProvider';
 import { AuthForm } from '@/new-components/AuthForm';
+import { HackathonButton } from '@/new-components/HackathonButton';
 
 export const metadata = generatePageMetadata();
 
@@ -130,6 +131,23 @@ export default async function LocaleLayout({
               SearchDialog: DefaultSearchDialog,
             }}
           >
+            {isHome && (
+              <div className="flex h-auto w-full flex-col items-center justify-center bg-gradient-to-r from-white to-[#609CFF] px-4 py-2 text-zinc-900 sm:flex-row lg:h-12">
+                <div className="f flex w-full flex-col lg:w-fit lg:flex-row">
+                  <b className="text-center sm:text-start">
+                    🚀 Sealos Run Wild Hackathon (Jan 8 - 18):
+                  </b>
+                  <span className="text-center sm:text-start lg:ml-1">
+                    Deploy your side project and win prizes! No PRs required.
+                  </span>
+                </div>
+                <HackathonButton
+                  href="https://memu.pro/hackathon/rules/sealos"
+                  className="ml-2"
+                />
+              </div>
+            )}
+
             {children}
             <AuthForm />
           </RootProvider>
