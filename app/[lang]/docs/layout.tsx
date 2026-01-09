@@ -33,6 +33,17 @@ export default function Layout({
       <style
         dangerouslySetInnerHTML={{
           __html: `
+        :root {
+          --fd-banner-height: 84px;
+
+          @media (width >= 40rem) {
+            --fd-banner-height: 56px;
+          }
+          @media (width >= 64rem) {
+            --fd-banner-height: 48px;
+          }
+        }
+
         #nd-docs-layout {
           @media (width >= 80rem) {
             --fd-toc-width: 360px;
