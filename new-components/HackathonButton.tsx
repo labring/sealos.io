@@ -108,6 +108,20 @@ export function HackathonButton({
   const particlesId = `${id}-particles`;
   const lightId = `${id}-light`;
   const [isHovered, setIsHovered] = React.useState(false);
+  const [isSmallScreen, setIsSmallScreen] = React.useState(false);
+
+  React.useEffect(() => {
+    // Tailwind sm breakpoint is 640px
+    const mediaQuery = window.matchMedia('(max-width: 639px)');
+    setIsSmallScreen(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsSmallScreen(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   return (
     <Button
@@ -115,6 +129,7 @@ export function HackathonButton({
         'bg-accent text-accent-foreground hover:text-accent-foreground hover:bg-accent group relative gap-2 overflow-hidden rounded-full',
         className,
       )}
+      size={isSmallScreen ? 'sm' : 'default'}
       asChild
     >
       <motion.a
@@ -171,7 +186,7 @@ export function HackathonButton({
         <span className="relative z-10">Join Challenge</span>
         <ArrowRightIcon
           size={16}
-          className="text-muted-foreground relative z-10"
+          className="text-muted-foreground relative z-10 size-4 shrink-0"
         />
       </motion.a>
     </Button>

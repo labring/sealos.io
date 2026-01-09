@@ -9,7 +9,7 @@ export default function NewLandingLayout({
 }) {
   return (
     <>
-      <div className="sticky top-0 z-50 container pt-8">
+      <div className="sticky top-21 z-50 container pt-8 sm:top-14 lg:top-12">
         <Header />
       </div>
 

@@ -33,13 +33,11 @@ export default async function LocaleLayout({
   const htmlLang = params.lang || 'en';
   const homepageSchema = generateHomepageSchema(htmlLang);
 
-  // 在服务端获取路径并判断是否是主页
   const headersList = await headers();
   const pathname = headersList.get('x-pathname') || '/';
-  const isHome = isForcedDarkMode(pathname);
+  const needsDarkMode = isForcedDarkMode(pathname);
 
-  // 构建 html className
-  const htmlClassName = isHome ? 'font-sans dark' : 'font-sans';
+  const htmlClassName = needsDarkMode ? 'font-sans dark' : 'font-sans';
 
   return (
     <html lang={htmlLang} className={htmlClassName} suppressHydrationWarning>
@@ -131,19 +129,19 @@ export default async function LocaleLayout({
               SearchDialog: DefaultSearchDialog,
             }}
           >
-            {isHome && (
-              <div className="flex h-auto w-full flex-col items-center justify-center bg-gradient-to-r from-white to-[#609CFF] px-4 py-2 text-zinc-900 sm:flex-row lg:h-12">
-                <div className="f flex w-full flex-col lg:w-fit lg:flex-row">
-                  <b className="text-center sm:text-start">
+            {needsDarkMode && (
+              <div className="sticky top-0 z-50 flex h-auto w-full flex-col items-center justify-center bg-gradient-to-r from-white to-[#609CFF] px-4 py-2 text-zinc-900 sm:flex-row lg:h-12">
+                <div className="flex flex-1 flex-col lg:w-fit lg:flex-none lg:flex-row">
+                  <b className="text-center text-xs sm:text-start sm:text-sm lg:text-base">
                     🚀 Sealos Run Wild Hackathon (Jan 8 - 18):
                   </b>
-                  <span className="text-center sm:text-start lg:ml-1">
+                  <span className="text-center text-xs sm:text-start sm:text-sm lg:ml-1 lg:text-base">
                     Deploy your side project and win prizes! No PRs required.
                   </span>
                 </div>
                 <HackathonButton
                   href="https://memu.pro/hackathon/rules/sealos"
-                  className="ml-2"
+                  className="lg:ml-2"
                 />
               </div>
             )}
