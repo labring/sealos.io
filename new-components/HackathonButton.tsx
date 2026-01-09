@@ -126,7 +126,7 @@ export function HackathonButton({
   return (
     <Button
       className={cn(
-        'bg-accent text-accent-foreground hover:text-accent-foreground hover:bg-accent group relative gap-2 overflow-hidden rounded-full',
+        'text-accent-foreground hover:text-accent-foreground hover:bg-accent group relative gap-2 overflow-hidden rounded-full bg-[#202024]',
         className,
       )}
       size={isSmallScreen ? 'sm' : 'default'}
