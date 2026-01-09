@@ -32,6 +32,8 @@ export function useButtonHandler({
 
   const handleClick = useCallback(
     (e?: React.MouseEvent) => {
+      const isHashLink = Boolean(href && href.startsWith('#'));
+
       // Prevent default behavior if needed
       if (e && href) {
         e.preventDefault();
@@ -58,6 +60,18 @@ export function useButtonHandler({
 
       // Handle navigation
       if (href) {
+        if (isHashLink) {
+          const hash = href.slice(1);
+          if (hash) {
+            const target = document.getElementById(hash);
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+              window.location.hash = hash;
+            }
+          }
+          return;
+        }
         if (newWindow) {
           window.open(href, '_blank', 'noopener,noreferrer');
         } else if (

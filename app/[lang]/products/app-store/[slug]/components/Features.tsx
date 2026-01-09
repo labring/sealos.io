@@ -9,16 +9,16 @@ interface AppFeaturesProps {
 
 export default function AppFeatures({ app, translations }: AppFeaturesProps) {
   return (
-    <div className="mb-8 rounded-xl border border-gray-200 bg-white p-6">
-      <h2 className="mb-4 text-xl font-semibold text-gray-900">
+    <div className="mb-8 rounded-xl border border-white/10 bg-white/5 p-6 shadow-lg">
+      <h2 className="mb-4 text-xl font-semibold text-foreground">
         {translations.features}
       </h2>
       <div className="grid gap-3 sm:grid-cols-2">
         {app.features.map((feature: string, index: number) => (
           <div key={index} className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/10">
               <svg
-                className="h-4 w-4 text-gray-600"
+                className="h-4 w-4 text-zinc-300"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -29,7 +29,7 @@ export default function AppFeatures({ app, translations }: AppFeaturesProps) {
                 />
               </svg>
             </div>
-            <span className="text-gray-700">{feature}</span>
+            <span className="text-muted-foreground">{feature}</span>
           </div>
         ))}
       </div>

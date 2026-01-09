@@ -1,3 +1,4 @@
+/* Global styles and theme variables, including App Store semantic overrides. */
 /* Sealos background word - responsive proportional sizing */
 .sealos-background-text {
   position: sticky; /* stick letters */
@@ -196,6 +197,9 @@
   --color-custom-secondary-text: #4e6185;
 
   --color-custom-bg: #b2e3ff;
+  --color-footer-divider: #DDE7F7;
+  --color-footer-icon-bg: #FAFCFF;
+  --color-footer-icon-hover: #1118240D;
 
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
@@ -1048,6 +1052,33 @@
 
 .animate-tilt {
   animation: tilt 10s infinite linear;
+}
+
+/* App Store 语义主题变量覆盖 */
+[data-theme='app-store'] {
+  color-scheme: dark;
+  --background: 0 0% 6%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 6%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 6%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 0 0% 9%;
+  --secondary: 0 0% 14.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 14.9%;
+  --muted-foreground: 0 0% 63.9%;
+  --accent: 0 0% 14.9%;
+  --accent-foreground: 0 0% 98%;
+  --border: 0 0% 14.9%;
+  --input: 0 0% 14.9%;
+  --ring: 0 0% 83.1%;
+  --color-custom-secondary-text: #c4cee7;
+  --color-custom-primary-text: #7fa8ff;
+  --color-footer-divider: hsl(var(--border));
+  --color-footer-icon-bg: rgba(255, 255, 255, 0.06);
+  --color-footer-icon-hover: rgba(255, 255, 255, 0.08);
 }
 
 @layer base {

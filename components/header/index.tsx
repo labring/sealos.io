@@ -14,9 +14,10 @@ import Image from 'next/image';
 
 interface HeaderProps {
   lang: languagesType;
+  ctaClassName?: string;
 }
 
-const Header = memo<HeaderProps>(({ lang }) => {
+const Header = memo<HeaderProps>(({ lang, ctaClassName }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -101,6 +102,7 @@ const Header = memo<HeaderProps>(({ lang }) => {
               title={translations.getStarted}
               link={appDomain}
               location="navbar"
+              className={ctaClassName}
             />
           </div>
 

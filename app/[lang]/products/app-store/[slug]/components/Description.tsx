@@ -9,11 +9,11 @@ export default function AppDescription({ app }: AppDescriptionProps) {
   if (!app.longDescription) return null;
 
   return (
-    <div className="mb-8 rounded-xl border border-gray-200 bg-white p-6">
-      <h2 className="mb-4 text-xl font-semibold text-gray-900">
+    <div className="mb-8 rounded-xl border border-white/10 bg-white/5 p-6 shadow-lg">
+      <h2 className="mb-4 text-xl font-semibold text-foreground">
         About {app.name}
       </h2>
-      <p className="leading-relaxed text-gray-700">
+      <p className="leading-relaxed text-muted-foreground">
         {app.longDescription}
       </p>
     </div>

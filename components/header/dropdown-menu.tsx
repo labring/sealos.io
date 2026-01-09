@@ -79,13 +79,13 @@ export default function DropdownMenu({
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 z-[60] mt-1 min-w-[200px] rounded-lg border border-gray-200 bg-white shadow-lg">
+        <div className="absolute top-full left-0 z-[60] mt-1 min-w-[200px] rounded-lg border border-border bg-card shadow-lg">
           <div className="py-2">
             {items.map((item) => (
               <Link
                 key={item.text}
                 href={item.url}
-                className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900"
+                className="block px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 onClick={() => setIsOpen(false)}
               >
                 {item.text}

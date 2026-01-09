@@ -1,3 +1,4 @@
+// Homepage Hero component with theme variants and CTA styling.
 'use client';
 
 import { GetStartedButton } from '@/components/ui/button-shiny';
@@ -5,6 +6,10 @@ import { TestimonialBadge } from '@/components/ui/testimonial-badge';
 import { ReactNode } from 'react';
 import { languagesType } from '@/lib/i18n';
 import { CustomButton } from '../ui/button-custom';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
+
+type HeroVariant = 'default' | 'app-store';
 
 interface HeroProps {
   children?: ReactNode;
@@ -15,6 +20,10 @@ interface HeroProps {
   mainTitleEmphasis: number;
   getStartedLink?: string;
   getStartedText?: string;
+  getStartedClassName?: string;
+  ctaGlowClassName?: string;
+  ctaWrapperClassName?: string;
+  variant?: HeroVariant;
   lang?: languagesType;
   testimonial?: boolean;
   videoCta?: boolean;
@@ -30,6 +39,10 @@ export default function Hero({
   mainTitleEmphasis,
   getStartedLink,
   getStartedText,
+  getStartedClassName,
+  ctaGlowClassName: ctaGlowClassNameProp,
+  ctaWrapperClassName,
+  variant = 'default',
   lang = 'en',
   testimonial = true,
   videoCta = true,
@@ -39,6 +52,7 @@ export default function Hero({
     title.main,
     mainTitleEmphasis,
   );
+  const isAppStore = variant === 'app-store';
 
   const translations = {
     en: {
@@ -58,6 +72,14 @@ export default function Hero({
   const t =
     translations[lang as keyof typeof translations] || translations['en'];
   const ctaLabel = getStartedText || t.getStarted;
+  const subtitleClassName = isAppStore
+    ? 'text-muted-foreground'
+    : 'text-slate-600';
+  const titleClassName = isAppStore ? 'text-foreground' : 'text-slate-900';
+  const ctaBaseClassName = isAppStore
+    ? cn(buttonVariants({ variant: 'landing-primary' }), 'h-11 gap-2 px-8')
+    : 'relative flex w-auto items-center rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-10 py-5 text-lg leading-none font-bold text-white shadow-xl shadow-orange-500/25 transition-all hover:shadow-orange-500/40';
+  const ctaGlowClassName = cn(isAppStore ? 'hidden' : '', ctaGlowClassNameProp);
 
   return (
     <section className="relative overflow-hidden pt-12 sm:pt-16">
@@ -86,14 +108,24 @@ export default function Hero({
             🔥 Limited Time: 50% OFF for First 100 Users
           </div> */}
 
-          <p className="font-inter mx-auto max-w-3xl px-6 text-lg leading-relaxed text-slate-600">
+          <p
+            className={cn(
+              'font-inter mx-auto max-w-3xl px-6 text-lg leading-relaxed',
+              subtitleClassName,
+            )}
+          >
             {title.sub}
           </p>
-          <h1 className="font-pj mt-5 text-4xl leading-tight font-bold text-slate-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight whitespace-pre-line">
+          <h1
+            className={cn(
+              'font-pj mt-5 text-4xl leading-tight font-bold sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight whitespace-pre-line',
+              titleClassName,
+            )}
+          >
             {partialTitle}
             <span className="relative inline-flex sm:inline">
-              <span className="absolute inset-0 h-full w-full animate-pulse bg-gradient-to-r from-emerald-500 via-emerald-600 to-teal-600 opacity-30 blur-lg filter"></span>
-              <span className="relative bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 bg-clip-text text-transparent">
+              <span className="absolute inset-0 h-full w-full animate-pulse bg-gradient-to-r from-white via-blue-400 to-blue-600 opacity-20 blur-lg"></span>
+              <span className="relative bg-gradient-to-r from-white via-blue-400 to-blue-600 bg-clip-text text-transparent">
                 {' '}
                 {highlightTitle}
               </span>
@@ -104,10 +136,15 @@ export default function Hero({
             <>
               {/* CTA buttons */}
               <div className="animate-fade-in-up mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <div className="group relative">
-                  <div className="animate-tilt absolute -inset-0.5 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>
+                <div className={cn('group relative', ctaWrapperClassName)}>
+                  <div
+                    className={cn(
+                      'animate-tilt absolute -inset-0.5 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200',
+                      ctaGlowClassName,
+                    )}
+                  ></div>
                   <GetStartedButton
-                    className="relative flex w-auto items-center rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-10 py-5 text-lg leading-none font-bold text-white shadow-xl shadow-orange-500/25 transition-all hover:shadow-orange-500/40"
+                    className={cn(ctaBaseClassName, getStartedClassName)}
                     link={getStartedLink}
                     title={ctaLabel}
                     location="hero"

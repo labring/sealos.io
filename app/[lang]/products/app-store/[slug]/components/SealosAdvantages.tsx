@@ -178,11 +178,11 @@ interface SealosAdvantagesProps {
 
 export default function SealosAdvantages({ translations }: SealosAdvantagesProps) {
   return (
-    <div className="mb-8 rounded-xl border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-6">
-      <h2 className="mb-6 text-xl font-semibold text-gray-900">
+    <div className="mb-8 rounded-xl border border-white/10 bg-white/5 p-6 shadow-lg">
+      <h2 className="mb-6 text-xl font-semibold text-foreground">
         <span className="flex items-center gap-2">
           <svg
-            className="h-6 w-6 text-blue-600"
+            className="h-6 w-6 text-zinc-200"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -197,21 +197,21 @@ export default function SealosAdvantages({ translations }: SealosAdvantagesProps
           {translations.deploymentBenefits}
         </span>
       </h2>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {sealosAdvantages.map((advantage, index: number) => (
           <div
             key={index}
-            className="rounded-lg bg-white/60 p-4 transition-all duration-300 hover:bg-white/80 hover:shadow-md"
+            className="rounded-lg border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:bg-white/10 hover:shadow-md"
           >
             <div className="mb-3 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/10 text-zinc-200">
                 {advantage.icon}
               </div>
-              <h3 className="font-semibold text-gray-900">
+              <h3 className="font-semibold text-foreground">
                 {advantage.title}
               </h3>
             </div>
-            <p className="text-sm leading-relaxed text-gray-700">
+            <p className="text-sm leading-relaxed text-muted-foreground">
               {advantage.description}
             </p>
           </div>

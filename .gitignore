@@ -33,6 +33,7 @@ yarn-error.log*
 /docs
 /CLAUDE.md
 /AGENTS.md
+/helloagents
 
 # others
 .env*.local
