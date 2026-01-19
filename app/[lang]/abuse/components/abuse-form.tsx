@@ -36,7 +36,6 @@ export default function AbuseForm({ content }: AbuseFormProps) {
   });
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [submissionState, setSubmissionState] = useState<SubmissionState>('idle');
-  const [focusedField, setFocusedField] = useState<keyof FormState | null>(null);
   const turnstileRef = useRef<TurnstileInstance>(null);
   const statusMessage =
     submissionState === 'loading'
@@ -47,14 +46,8 @@ export default function AbuseForm({ content }: AbuseFormProps) {
       ? content.statusText.error
       : '';
 
-  const baseFieldClassName = 'rounded-xl border-2 px-4 py-3 text-base transition-all duration-200 bg-card text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-4 focus:ring-ring/40 hover:border-muted-foreground/60';
-  const getFieldBorderClassName = (field: keyof typeof formData) =>
-    focusedField === field || Boolean(formData[field])
-      ? 'border-primary'
-      : 'border-border focus:border-primary';
-
   const handleInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
       const field = name as keyof FormState;
       setFormData((prev) => ({ ...prev, [field]: value as FormState[typeof field] }));
@@ -147,7 +140,6 @@ export default function AbuseForm({ content }: AbuseFormProps) {
               value={formData.abuseType}
               onValueChange={(value) => {
                 setFormData((prev) => ({ ...prev, abuseType: value as AbuseTypeKey }));
-                setFocusedField(null);
               }}
               required
             >
@@ -173,17 +165,8 @@ export default function AbuseForm({ content }: AbuseFormProps) {
               type="email"
               name="email"
               value={formData.email}
-              onChange={(e) => {
-                handleInputChange(e);
-                setFocusedField(null);
-              }}
-              onFocus={() => setFocusedField('email')}
-              onBlur={() => setFocusedField(null)}
+              onChange={handleInputChange}
               placeholder={content.form.emailPlaceholder}
-                            className={cn(
-                baseFieldClassName,
-                getFieldBorderClassName('email')
-              )}
               required
             />
           </div>
@@ -197,17 +180,8 @@ export default function AbuseForm({ content }: AbuseFormProps) {
               type="text"
               name="url"
               value={formData.url}
-              onChange={(e) => {
-                handleInputChange(e);
-                setFocusedField(null);
-              }}
-              onFocus={() => setFocusedField('url')}
-              onBlur={() => setFocusedField(null)}
+              onChange={handleInputChange}
               placeholder={content.form.urlPlaceholder}
-                            className={cn(
-                baseFieldClassName,
-                getFieldBorderClassName('url')
-              )}
               required
             />
           </div>
@@ -220,18 +194,8 @@ export default function AbuseForm({ content }: AbuseFormProps) {
               id="description"
               name="description"
               value={formData.description}
-              onChange={(e) => {
-                handleInputChange(e);
-                setFocusedField(null);
-              }}
-              onFocus={() => setFocusedField('description')}
-              onBlur={() => setFocusedField(null)}
+              onChange={handleInputChange}
               placeholder={content.form.descriptionPlaceholder}
-                            className={cn(
-                baseFieldClassName,
-                getFieldBorderClassName('description'),
-                'min-h-[140px] resize-y'
-              )}
               required
             />
           </div>
@@ -245,17 +209,8 @@ export default function AbuseForm({ content }: AbuseFormProps) {
               type="text"
               name="evidence"
               value={formData.evidence}
-              onChange={(e) => {
-                handleInputChange(e);
-                setFocusedField(null);
-              }}
-              onFocus={() => setFocusedField('evidence')}
-              onBlur={() => setFocusedField(null)}
+              onChange={handleInputChange}
               placeholder={content.form.evidencePlaceholder}
-                            className={cn(
-                baseFieldClassName,
-                getFieldBorderClassName('evidence')
-              )}
             />
           </div>
 
