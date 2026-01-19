@@ -1,3 +1,4 @@
+// Determine whether to force dark mode based on the path.
 export function isForcedDarkMode(pathname: string): boolean {
   const PATHS = [
     {
@@ -27,6 +28,10 @@ export function isForcedDarkMode(pathname: string): boolean {
     {
       path: '/products/app-store',
       match: 'prefix',
+    },
+    {
+      path: '/abuse',
+      match: 'full',
     },
   ];
 
