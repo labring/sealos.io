@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { AppConfig } from '@/config/apps-loader';
 
-const API_URL = 'https://template.usw.sealos.io/api/listTemplate';
+const API_URL = 'https://template.os.sealos.io/api/listTemplate';
 
 /**
  * Convert API template to app config format
