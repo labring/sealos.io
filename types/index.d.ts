@@ -20,6 +20,13 @@ export type SiteConfig = {
   ogImage: string;
   turnstileEnabled: boolean;
   turnstileSitekey: string;
+  turnstileAction: string;
+  turnstileCdata: string;
+  turnstileAllowedHostnames: string[];
+  turnstileVerifyRateLimit: {
+    maxRequests: number;
+    windowMs: number;
+  };
   emailRequestEndpoint: string;
   emailVerifyEndpoint: string;
   signinSwitchRegionUrl: string;

@@ -58,7 +58,7 @@ export default function AppStorePage({
       data-theme="app-store"
       className="min-h-screen bg-background text-foreground"
     >
-      <div className="sticky top-0 z-50 container pt-8">
+      <div className="sticky top-21 z-50 container pt-8 sm:top-14 lg:top-12">
         <Header />
       </div>
       <main className="custom-container px-8 pt-14 md:px-[15%]">

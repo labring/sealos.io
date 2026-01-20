@@ -68,6 +68,13 @@ export const siteConfig: SiteConfig = {
   }/images/banner.jpeg?${new Date().getTime()}`,
   turnstileEnabled: true,
   turnstileSitekey: '0x4AAAAAABmIoQ_LAxlvw78V',
+  turnstileAction: 'abuse-report',
+  turnstileCdata: 'abuse-form',
+  turnstileAllowedHostnames: ['sealos.io', 'usw.sealos.io', 'usw-1.sealos.io'],
+  turnstileVerifyRateLimit: {
+    maxRequests: 10,
+    windowMs: 60_000,
+  },
   emailRequestEndpoint: 'https://usw-1.sealos.io/api/auth/email/sms',
   emailVerifyEndpoint: 'https://usw-1.sealos.io/api/auth/email/verify',
   signinSwitchRegionUrl: 'https://os.sealos.io/switchRegion',

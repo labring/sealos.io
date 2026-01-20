@@ -85,7 +85,10 @@ const FooterLinksData: Record<string, FooterCategoryType> = {
   },
   support: {
     titleKey: 'supportTitle',
-    links: [{ textKey: 'contactUs', urlKey: 'contactUsUrl', isExternal: true }],
+    links: [
+      { textKey: 'contactUs', urlKey: 'contactUsUrl', isExternal: true },
+      { textKey: 'reportAbuse', urlKey: 'reportAbuseUrl', isExternal: false },
+    ],
   },
   legal: {
     links: [
@@ -125,6 +128,7 @@ export const footerTranslations: Record<
     databases: 'Databases',
     fastgpt: 'FastGPT',
     contactUs: 'Contact Us',
+    reportAbuse: 'Report Abuse',
     pricing: 'Pricing',
     case: 'Customers ',
     termsOfService: 'Terms of Service',
@@ -142,6 +146,7 @@ export const footerTranslations: Record<
     fastgptUrl: 'https://tryfastgpt.ai',
     pricingUrl: '/pricing',
     contactUsUrl: '/contact',
+    reportAbuseUrl: '/abuse',
     caseUrl: '/',
     termsOfServiceUrl: '/docs/msa/terms-of-service',
     privacyPolicyUrl: '/docs/msa/privacy-policy',
@@ -167,6 +172,7 @@ export const footerTranslations: Record<
     forum: '社区',
     pricing: '价格',
     contactUs: '联系我们',
+    reportAbuse: '滥用举报',
     termsOfService: '服务条款',
     privacyPolicy: '隐私政策',
     cookiePolicy: 'Cookie 政策',
@@ -185,6 +191,7 @@ export const footerTranslations: Record<
     pricingUrl: '/pricing',
     contactUsUrl:
       'https://fael3z0zfze.feishu.cn/share/base/form/shrcn5oHHTKCf3VREMKOhEy6fmf',
+    reportAbuseUrl: '/abuse',
     caseUrl: '/customers',
     forumUrl: 'https://forum.sealos.run',
     termsOfServiceUrl: '/docs/msa/terms-of-service',
@@ -272,7 +279,7 @@ interface FooterProps {
   lang?: languagesType;
 }
 
-const Footer = async ({
+const Footer = ({
   lang = i18n.defaultLanguage as languagesType,
 }: FooterProps) => {
   const footerLinks = getFooterLinks(lang);
