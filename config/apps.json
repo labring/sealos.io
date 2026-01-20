@@ -1354,8 +1354,8 @@
       "Team Collaboration"
     ],
     "gradient": "from-yellow-50/70 to-orange-50/70",
-    "github": "https://github.com/labring-actions/templates/tree/main/template/grafana-otel",
-    "website": "https://github.com/labring-actions/templates/tree/main/template/grafana-otel",
+    "github": "https://github.com/labring-actions/templates/tree/kb-0.9/template/grafana-otel",
+    "website": "https://github.com/labring-actions/templates/tree/kb-0.9/template/grafana-otel",
     "tags": [
       "monitor",
       "dev-ops"

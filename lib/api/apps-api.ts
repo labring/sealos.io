@@ -212,7 +212,7 @@ async function convertTemplateToAppConfig(
     tags: spec.categories || [],
     source: {
       url: template.filePath
-        ? `https://github.com/labring-actions/templates/tree/main${template.filePath}`
+        ? `https://github.com/labring-actions/templates/tree/kb-0.9${template.filePath}`
         : undefined,
       deployCount: template.deployCount || 0,
     },
