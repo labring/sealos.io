@@ -186,7 +186,7 @@ async function convertTemplateToAppConfig(template) {
     website: spec.url || undefined,
     tags: spec.categories || [],
     source: {
-      url: template.filePath ? `https://github.com/labring-actions/templates/tree/main${template.filePath}` : undefined,
+      url: template.filePath ? `https://github.com/labring-actions/templates/tree/kb-0.9${template.filePath}` : undefined,
       deployCount: template.deployCount || 0,
     },
     // Add i18n object if available

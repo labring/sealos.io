@@ -20,6 +20,7 @@ import { sealosConfig } from './sealos';
 import { railwayConfig } from './railway';
 import { replitConfig } from './replit';
 import { renderConfig } from './render';
+import { vercelConfig } from './vercel';
 
 export type ComparisonCellValue =
   | { type: 'check'; value: boolean }
@@ -317,6 +318,7 @@ export type Platforms = {
   railway: ComparisonConfig;
   replit: ComparisonConfig;
   render: ComparisonConfig;
+  vercel: ComparisonConfig;
 };
 
 export const platforms: Platforms = {
@@ -324,6 +326,7 @@ export const platforms: Platforms = {
   railway: railwayConfig,
   replit: replitConfig,
   render: renderConfig,
+  vercel: vercelConfig,
 };
 
 export function getPlatform(slug: keyof Platforms) {

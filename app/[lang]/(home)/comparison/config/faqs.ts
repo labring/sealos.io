@@ -170,6 +170,82 @@ This is a key difference from Replit, which only offers cloud deployment with no
     ];
   }
 
+  // Vercel-specific FAQs
+  if (secondPlatformName === 'Vercel') {
+    return [
+      {
+        question: 'How much can I actually save by switching from Vercel to Sealos?',
+        answer: `For always-on production workloads, savings typically range from **60-80%** because Vercel bills per Active CPU-hour, Provisioned Memory, bandwidth, and seats.
+
+**Example calculation for a medium app (8 vCPU, 16GB RAM, 24/7):**
+
+| Cost Component | Vercel | Sealos Standard |
+|---------------|--------|-----------------|
+| Compute (monthly) | ~$737 (Active CPU @ $0.128/hr in iad1) | Included |
+| Provisioned Memory | Metered separately | Included |
+| 100GB egress | Region-based metering | Included |
+| **Total** | **~$737+/mo** | **~$128/mo** |
+
+The more resources you use, the more you save. Vercel's per-execution billing is great for sporadic workloads, but for production apps running continuously, fixed plans win.`,
+      },
+      {
+        question: "What's included in Sealos that costs extra on Vercel?",
+        answer: `Several things that Vercel charges separately are included in Sealos plans:
+
+| Feature | Vercel | Sealos |
+|---------|--------|--------|
+| Database hosting | Metered (Postgres/KV/partners) | Included in plan quota |
+| Object storage | Vercel Blob metered by usage | Included (S3-compatible) |
+| Bandwidth | Metered by region after quota | Generous allowance (50GB-3TB) |
+| Active CPU/Build minutes | Billed per CPU-hour | Included |
+| Custom domains | Hobby: 50/project; Pro higher | Unlimited |`,
+      },
+      {
+        question: 'Can I verify these claims myself?',
+        answer: `Absolutely. All data in this comparison comes from official, publicly available sources:
+
+- **Vercel Pricing**: [vercel.com/pricing](https://vercel.com/pricing)
+- **Vercel Limits**: [vercel.com/docs/limits](https://vercel.com/docs/limits)
+- **Sealos Pricing**: [sealos.io/pricing](https://sealos.io/pricing)
+- **Sealos Source Code**: [github.com/labring/sealos](https://github.com/labring/sealos)
+
+We encourage you to verify and calculate based on your specific workload.`,
+      },
+      {
+        question: 'How long does it take to migrate from Vercel to Sealos?',
+        answer: `Typical migrations complete in **10–14 days**. Here's what the process looks like:
+
+**Week 1: Assessment & Setup**
+- Our team audits your Vercel projects, functions, databases, and environment variables
+- We provision equivalent resources on Sealos and configure networking
+
+**Week 2: Migration & Validation**
+- Data migration with zero-downtime cutover strategy
+- CI/CD pipeline reconfiguration
+- Production validation and traffic switchover`,
+      },
+      {
+        question: 'Do we need Kubernetes expertise to use Sealos?',
+        answer: `**No.** DevBox and App Launchpad abstract Kubernetes primitives completely. You can:
+- Deploy apps with a single click or natural language prompt
+- Manage databases without touching YAML
+- Scale services with simple UI controls
+
+Platform teams who want deeper control can still access native Kubernetes APIs, \`kubectl\`, and Helm when needed. Sealos gives you **simplicity by default, power when required**.`,
+      },
+      {
+        question: 'Can Sealos run in a private region or on our own infrastructure?',
+        answer: `**Yes.** Because Sealos is 100% source-available, you have full deployment flexibility:
+
+- **Sealos Cloud**: Fully managed service in multiple regions
+- **Self-hosted**: Deploy on your own AWS, GCP, Azure, or bare metal
+- **Hybrid**: Mix cloud and on-premise for compliance requirements
+
+This is a key difference from Vercel, which only offers managed cloud deployment. With Sealos, you're never locked in.`,
+      },
+    ];
+  }
+
   // Railway-specific FAQs (default)
   return [
     {
