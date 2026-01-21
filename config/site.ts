@@ -1,6 +1,5 @@
 import { SiteConfig } from '@/types';
 import { i18n } from '@/lib/i18n';
-import { getOpenBrainParam } from '@/lib/utils/brain';
 
 export const domain = process.env.NEXT_PUBLIC_APP_URL || 'https://sealos.io';
 
@@ -13,6 +12,11 @@ export const templateDomain =
 export const siteConfig: SiteConfig = {
   name: 'Sealos',
   author: 'Labring',
+  banner: {
+    enabled: false,
+    text: '',
+    action: null,
+  },
   tagline:
     i18n.defaultLanguage === 'zh-cn'
       ? 'AI 原生云平台 - 一句话部署任何应用'

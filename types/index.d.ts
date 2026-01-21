@@ -1,9 +1,16 @@
+import type { ReactNode } from 'react';
+
 export type SiteConfig = {
   name: string;
   author: string;
   tagline: string;
   description: string;
   keywords: Array<string>;
+  banner?: {
+    enabled?: boolean;
+    text?: ReactNode;
+    action?: ReactNode;
+  };
   url: {
     base: string;
     author: string;
