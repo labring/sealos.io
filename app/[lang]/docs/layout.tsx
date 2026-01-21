@@ -15,6 +15,9 @@ export default function Layout({
   params: { lang: string };
 }) {
   const tree = source.pageTree[params.lang];
+  const hasBanner = Boolean(
+    siteConfig.banner?.enabled && siteConfig.banner.text,
+  );
 
   // Generate breadcrumb structured data for docs
   const breadcrumbSchema = generateBreadcrumbSchema(
@@ -25,14 +28,8 @@ export default function Layout({
     params.lang,
   );
 
-  return (
-    <>
-      {/* Structured Data for SEO */}
-      <StructuredDataComponent data={breadcrumbSchema} />
-
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
+  const bannerHeightCss = hasBanner
+    ? `
         :root {
           --fd-banner-height: 84px;
 
@@ -43,6 +40,22 @@ export default function Layout({
             --fd-banner-height: 48px;
           }
         }
+      `
+    : `
+        :root {
+          --fd-banner-height: 0px;
+        }
+      `;
+
+  return (
+    <>
+      {/* Structured Data for SEO */}
+      <StructuredDataComponent data={breadcrumbSchema} />
+
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        ${bannerHeightCss}
 
         #nd-docs-layout {
           @media (width >= 80rem) {

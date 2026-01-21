@@ -2,14 +2,25 @@ import { Header } from '@/new-components/Header';
 import Image from 'next/image';
 import { Footer } from '@/new-components/Footer';
 import BottomLightImage from '@/assets/bottom-light.svg';
+import { siteConfig } from '@/config/site';
+import { cn } from '@/lib/utils';
+
 export default function NewLandingLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const hasBanner = Boolean(
+    siteConfig.banner?.enabled && siteConfig.banner.text,
+  );
   return (
     <>
-      <div className="sticky top-21 z-50 container pt-8 sm:top-14 lg:top-12">
+      <div
+        className={cn(
+          'sticky z-50 container pt-8',
+          hasBanner ? 'top-21 sm:top-14 lg:top-12' : 'top-0',
+        )}
+      >
         <Header />
       </div>
 
