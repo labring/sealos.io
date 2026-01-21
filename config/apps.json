@@ -1220,7 +1220,7 @@
     "name": "Gitea",
     "slug": "gitea",
     "description": "The goal of this project is to make the easiest, fastest, and most painless way of setting up a self-hosted Git service.",
-    "icon": "/images/apps/gitea.svg",
+    "icon": "/icons/default.svg",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1354,8 +1354,8 @@
       "Team Collaboration"
     ],
     "gradient": "from-yellow-50/70 to-orange-50/70",
-    "github": "https://github.com/labring-actions/templates/tree/kb-0.9/template/grafana-otel",
-    "website": "https://github.com/labring-actions/templates/tree/kb-0.9/template/grafana-otel",
+    "github": "https://github.com/labring-actions/templates/tree/main/template/grafana-otel",
+    "website": "https://github.com/labring-actions/templates/tree/main/template/grafana-otel",
     "tags": [
       "monitor",
       "dev-ops"
@@ -2504,6 +2504,46 @@
     }
   },
   {
+    "name": "Nakama Server",
+    "slug": "nakama",
+    "description": "Nakama is an open-source game server for real-time multiplayer, social features, and live ops.",
+    "icon": "/images/apps/nakama.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/heroiclabs/nakama",
+    "website": "https://heroiclabs.com/nakama/",
+    "tags": [
+      "game",
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Nakama 是一个开源的游戏开发平台，能自动处理用户登录、实时聊天、排行榜、成就系统，还能智能匹配玩家。"
+      }
+    }
+  },
+  {
     "name": "Nexus",
     "slug": "nexus",
     "description": "A robust package registry built on extensive enterprise storage capabilities.",
@@ -3335,7 +3375,7 @@
     "name": "Readeck",
     "slug": "Readeck",
     "description": "Readeck helps you keep all that web content you’ll want to revisit in an hour, tomorrow, or in 20 years.",
-    "icon": "/images/apps/Readeck.png",
+    "icon": "/icons/default.svg",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
