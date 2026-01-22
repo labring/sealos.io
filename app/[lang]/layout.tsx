@@ -14,6 +14,7 @@ import { AuthFormProvider } from '@/new-components/AuthForm/AuthFormProvider';
 import { AuthForm } from '@/new-components/AuthForm';
 import { SiteBanner } from '@/new-components/SiteBanner';
 import { siteConfig } from '@/config/site';
+import { DeployModalProvider, DeployModal } from '@/new-components/DeployModal';
 
 export const metadata = generatePageMetadata();
 
@@ -39,7 +40,9 @@ export default async function LocaleLayout({
   const needsDarkMode = isForcedDarkMode(pathname);
 
   const htmlClassName = needsDarkMode ? 'font-sans dark' : 'font-sans';
-  const hasBanner = Boolean(siteConfig.banner?.enabled && siteConfig.banner.text);
+  const hasBanner = Boolean(
+    siteConfig.banner?.enabled && siteConfig.banner.text,
+  );
 
   return (
     <html lang={htmlLang} className={htmlClassName} suppressHydrationWarning>
@@ -103,45 +106,48 @@ export default async function LocaleLayout({
         <GTMBody />
         <HomepageDarkMode />
         <AuthFormProvider>
-          <RootProvider
-            i18n={{
-              locale: params.lang,
-              locales,
-              translations: {
-                'zh-cn': {
-                  search: '搜索',
-                  nextPage: '下一页',
-                  previousPage: '上一页',
-                  lastUpdate: '最后更新于',
-                  editOnGithub: '在 GitHub 上编辑',
-                  searchNoResult: '没有找到相关内容',
-                  toc: '本页导航',
-                  tocNoHeadings: '本页没有导航',
-                  chooseLanguage: '选择语言',
-                },
-              }[params.lang],
-            }}
-            theme={{
-              forcedTheme: 'light',
-              defaultTheme: 'light',
-              enabled: false,
-              enableSystem: false,
-            }}
-            search={{
-              SearchDialog: DefaultSearchDialog,
-            }}
-          >
-            {/* needsDarkMode = pages with new layout */}
-            {needsDarkMode && hasBanner ? (
-              <SiteBanner
-                text={siteConfig.banner?.text}
-                action={siteConfig.banner?.action}
-              />
-            ) : null}
+          <DeployModalProvider>
+            <RootProvider
+              i18n={{
+                locale: params.lang,
+                locales,
+                translations: {
+                  'zh-cn': {
+                    search: '搜索',
+                    nextPage: '下一页',
+                    previousPage: '上一页',
+                    lastUpdate: '最后更新于',
+                    editOnGithub: '在 GitHub 上编辑',
+                    searchNoResult: '没有找到相关内容',
+                    toc: '本页导航',
+                    tocNoHeadings: '本页没有导航',
+                    chooseLanguage: '选择语言',
+                  },
+                }[params.lang],
+              }}
+              theme={{
+                forcedTheme: 'light',
+                defaultTheme: 'light',
+                enabled: false,
+                enableSystem: false,
+              }}
+              search={{
+                SearchDialog: DefaultSearchDialog,
+              }}
+            >
+              {/* needsDarkMode = pages with new layout */}
+              {needsDarkMode && hasBanner ? (
+                <SiteBanner
+                  text={siteConfig.banner?.text}
+                  action={siteConfig.banner?.action}
+                />
+              ) : null}
 
-            {children}
-            <AuthForm />
-          </RootProvider>
+              {children}
+              <AuthForm />
+              <DeployModal />
+            </RootProvider>
+          </DeployModalProvider>
         </AuthFormProvider>
       </body>
     </html>

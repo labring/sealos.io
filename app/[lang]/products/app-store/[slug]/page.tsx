@@ -131,7 +131,7 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
               lang={params.lang}
             />
 
-            <AppHeader app={app} translations={t} lang={params.lang} />
+            <AppHeader app={app} translations={t} />
             <AppDescription app={app} />
             <WhyThisSoftware app={app} translations={t} />
             <SealosAdvantages translations={t} />

@@ -39,4 +39,9 @@ export type SiteConfig = {
   signinSwitchRegionUrl: string;
   oauth2GithubUrl: string;
   oauth2GoogleUrl: string;
+  // Template API configuration
+  templateApiEndpoint: string;
+  deployApiEndpoint: string;
+  // Desktop API configuration
+  desktopApiEndpoint: string;
 };

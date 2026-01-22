@@ -84,6 +84,11 @@ export const siteConfig: SiteConfig = {
   signinSwitchRegionUrl: 'https://os.sealos.io/switchRegion',
   oauth2GithubUrl: 'https://os.sealos.io/oauth?login=github',
   oauth2GoogleUrl: 'https://os.sealos.io/oauth?login=google',
+  // Template API configuration
+  templateApiEndpoint: 'http://template.192.168.12.53.nip.io',
+  deployApiEndpoint: 'http://template.192.168.12.53.nip.io',
+  // Desktop API configuration
+  desktopApiEndpoint: 'http://192.168.12.53.nip.io',
 };
 
 export type AuthorData = {
