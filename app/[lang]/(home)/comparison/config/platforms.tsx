@@ -21,6 +21,12 @@ import { railwayConfig } from './railway';
 import { replitConfig } from './replit';
 import { renderConfig } from './render';
 import { vercelConfig } from './vercel';
+import { herokuConfig } from './heroku';
+import { flyioConfig } from './flyio';
+import { digitaloceanConfig } from './digitalocean';
+import { awsConfig } from './aws';
+import { azureConfig } from './azure';
+import { gcpConfig } from './gcp';
 
 export type ComparisonCellValue =
   | { type: 'check'; value: boolean }
@@ -319,6 +325,12 @@ export type Platforms = {
   replit: ComparisonConfig;
   render: ComparisonConfig;
   vercel: ComparisonConfig;
+  heroku: ComparisonConfig;
+  flyio: ComparisonConfig;
+  digitalocean: ComparisonConfig;
+  aws: ComparisonConfig;
+  azure: ComparisonConfig;
+  gcp: ComparisonConfig;
 };
 
 export const platforms: Platforms = {
@@ -327,6 +339,12 @@ export const platforms: Platforms = {
   replit: replitConfig,
   render: renderConfig,
   vercel: vercelConfig,
+  heroku: herokuConfig,
+  flyio: flyioConfig,
+  digitalocean: digitaloceanConfig,
+  aws: awsConfig,
+  azure: azureConfig,
+  gcp: gcpConfig,
 };
 
 export function getPlatform(slug: keyof Platforms) {
