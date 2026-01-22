@@ -68,7 +68,7 @@ export function SelectMethodStep() {
       });
     }
     setOpen(false);
-    window.open(targetUrl.toString(), '_blank')?.focus();
+    window.location.href = targetUrl.toString();
   };
 
   return (
