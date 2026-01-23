@@ -1,6 +1,14 @@
+import AIShareButtons from '@/components/ai-share-buttons';
+import { Mermaid } from '@/components/mdx/mermaid';
+import PageActions from '@/components/page-actions';
+import { languagesType } from '@/lib/i18n';
 import { source } from '@/lib/source';
-import defaultMdxComponents from 'fumadocs-ui/mdx';
+import { generateDocsMetadata, getPageUrl } from '@/lib/utils/metadata';
+import { SealosBrandCard } from '@/new-components/SealosBrandCard';
+import { SocialLinks } from '@/new-components/SocialLinks';
 import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import defaultMdxComponents from 'fumadocs-ui/mdx';
 import {
   DocsBody,
   DocsDescription,
@@ -8,13 +16,10 @@ import {
   DocsTitle,
 } from 'fumadocs-ui/page';
 import { notFound } from 'next/navigation';
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
-import { generateDocsMetadata, getPageUrl } from '@/lib/utils/metadata';
-import AIShareButtons from '@/components/ai-share-buttons';
-import PageActions from '@/components/page-actions';
-import { languagesType } from '@/lib/i18n';
-import { SealosBrandCard } from '@/new-components/SealosBrandCard';
-import { SocialLinks } from '@/new-components/SocialLinks';
+
+type DocsPageProps = {
+  params: { lang: languagesType; slug?: string[] };
+};
 
 /**
  * Generate the correct GitHub file path based on language
@@ -39,9 +44,7 @@ function getGithubFilePath(filePath: string, language: string): string {
 
 export default async function Page({
   params,
-}: {
-  params: { lang: languagesType; slug?: string[] };
-}) {
+}: DocsPageProps): Promise<JSX.Element> {
   const page = source.getPage(params.slug, params.lang);
   if (!page) notFound();
 
@@ -49,6 +52,9 @@ export default async function Page({
 
   const githubFilePath = getGithubFilePath(page.file.path, params.lang);
   const pageUrl = getPageUrl(params.lang, page.url);
+  const lastUpdate = page.data.lastModified
+    ? new Date(page.data.lastModified)
+    : undefined;
 
   return (
     <DocsPage
@@ -63,9 +69,7 @@ export default async function Page({
           </div>
         ),
       }}
-      lastUpdate={
-        page.data.lastModified ? new Date(page.data.lastModified) : undefined
-      }
+      lastUpdate={lastUpdate}
     >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
@@ -83,6 +87,7 @@ export default async function Page({
             img: (props) => (
               <ImageZoom {...(props as any)} className="rounded-xl" />
             ),
+            Mermaid,
           }}
         />
       </DocsBody>
@@ -91,7 +96,9 @@ export default async function Page({
   );
 }
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<
+  ReturnType<typeof source.generateParams>
+> {
   return source.generateParams();
 }
 

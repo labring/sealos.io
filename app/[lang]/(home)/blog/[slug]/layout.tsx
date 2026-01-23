@@ -1,63 +1,84 @@
+import RelatedArticles from '@/app/[lang]/(home)/blog/components/RelatedArticles';
+import AIShareButtons from '@/components/ai-share-buttons';
+import AIShareButtonsCompact from '@/components/ai-share-buttons-compact';
+import StructuredDataComponent from '@/components/structured-data';
+import { getLanguageSlug, languagesType } from '@/lib/i18n';
 import { blog } from '@/lib/source';
 import {
   getBlogImage,
   getPageCategory,
   getPostsByLanguage,
   getRelatedArticles,
+  resolvePageContent,
 } from '@/lib/utils/blog-utils';
-import Image from 'next/image';
-import { notFound } from 'next/navigation';
-import type { ReactNode } from 'react';
-import { DocsPage } from 'fumadocs-ui/page';
-import { DocsLayout } from 'fumadocs-ui/layouts/docs';
-import StructuredDataComponent from '@/components/structured-data';
-import AIShareButtonsCompact from '@/components/ai-share-buttons-compact';
+import { toFaqPlainText } from '@/lib/utils/content-utils';
+import { getBaseUrl, getPageUrl } from '@/lib/utils/metadata';
 import {
   generateArticleSchema,
   generateBreadcrumbSchema,
+  generateFAQSchema,
+  generateHowToSchema,
+  type HowToData,
+  type StructuredData,
 } from '@/lib/utils/structured-data';
-
-import { getLanguageSlug, languagesType } from '@/lib/i18n';
-import RelatedArticles from '@/app/[lang]/(home)/blog/components/RelatedArticles';
-import AIShareButtons from '@/components/ai-share-buttons';
-import { BlogFooter } from '../components/BlogFooter';
-import Link from 'next/link';
-import { ChevronLeftIcon } from 'lucide-react';
 import { SealosBrandCard } from '@/new-components/SealosBrandCard';
 import { SocialLinks } from '@/new-components/SocialLinks';
-import { getBaseUrl, getPageUrl } from '@/lib/utils/metadata';
+import { DocsLayout } from 'fumadocs-ui/layouts/docs';
+import { DocsPage } from 'fumadocs-ui/page';
+import { ChevronLeftIcon } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import type { ReactNode } from 'react';
+import { BlogFooter } from '../components/BlogFooter';
+
+type BlogPageData = NonNullable<ReturnType<typeof blog.getPage>>;
+
+type AdjacentPost = {
+  name: string;
+  url: string;
+};
+
+type AdjacentPosts = {
+  previous: AdjacentPost | undefined;
+  next: AdjacentPost | undefined;
+};
+
+type BlogLayoutProps = {
+  params: { lang: languagesType; slug: string };
+  children: ReactNode;
+};
+
+function toAdjacentPost(post?: BlogPageData): AdjacentPost | undefined {
+  if (!post) return undefined;
+  return { name: post.data.title, url: post.url };
+}
 
 function getAdjacentBlog(
-  page: ReturnType<typeof blog.getPage>,
+  page: BlogPageData,
   lang: languagesType,
-) {
+): AdjacentPosts {
   const posts = getPostsByLanguage(lang);
   const index = posts.findIndex((p) => p.data.title === page?.data.title);
   const prev = posts[index - 1];
   const next = posts[index + 1];
 
   return {
-    previous: Boolean(prev)
-      ? {
-          name: prev.data.title,
-          url: prev.url,
-        }
-      : undefined,
-    next: Boolean(next)
-      ? {
-          name: next.data.title,
-          url: next.url,
-        }
-      : undefined,
+    previous: toAdjacentPost(prev),
+    next: toAdjacentPost(next),
   };
 }
+
+function isStructuredData(
+  item: StructuredData | null | undefined,
+): item is StructuredData {
+  return Boolean(item);
+}
+
 export default async function BlogLayout({
   params,
   children,
-}: {
-  params: { lang: languagesType; slug: string };
-  children: ReactNode;
-}) {
+}: BlogLayoutProps): Promise<JSX.Element> {
   const page = blog.getPage([params.slug], params.lang);
 
   if (!page) notFound();
@@ -68,18 +89,31 @@ export default async function BlogLayout({
   const pageUrl = getPageUrl(params.lang, page.url);
   const baseUrl = getBaseUrl(params.lang);
   const langPrefix = getLanguageSlug(params.lang);
+  const pageContent = resolvePageContent(page.data);
+  const publishedDate = new Date(page.data.date);
+  const publishedAt = publishedDate.toISOString();
+  const publishedLabel = publishedDate.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+  const lastModifiedAt = page.data.lastModified
+    ? new Date(page.data.lastModified).toISOString()
+    : undefined;
 
   // Generate structured data for the blog post
   const articleSchema = generateArticleSchema(
     page.data.title,
     page.data.description,
     pageUrl,
-    new Date(page.data.date).toISOString(),
-    new Date(page.data.date).toISOString(), // Use same date if no modified date
+    publishedAt,
+    publishedAt, // Use same date if no modified date
     page.data.authors,
     getBlogImage(page, category),
     page.data.tags,
     params.lang,
+    lastModifiedAt,
+    pageContent,
   );
 
   // Generate breadcrumb structured data
@@ -92,6 +126,33 @@ export default async function BlogLayout({
     params.lang,
   );
 
+  let faqSchema: StructuredData | null = null;
+  if (page.data.faq && page.data.faq.length > 0) {
+    const faqItems = await Promise.all(
+      page.data.faq.map(async (item) => ({
+        question: item.question,
+        answer: await toFaqPlainText(item.answer),
+      })),
+    );
+    faqSchema = generateFAQSchema(faqItems, params.lang);
+  }
+
+  let howToSchema: StructuredData | null = null;
+  if (
+    page.data.howTo &&
+    Array.isArray(page.data.howTo.steps) &&
+    page.data.howTo.steps.length > 0
+  ) {
+    howToSchema = generateHowToSchema(page.data.howTo as HowToData);
+  }
+
+  const structuredData = [
+    articleSchema,
+    breadcrumbSchema,
+    faqSchema,
+    howToSchema,
+  ].filter(isStructuredData);
+
   const candidateArticles = blog.getPages(params.lang);
   const recommendedArticles = getRelatedArticles(page, candidateArticles);
   const relatedArticlesToRender =
@@ -100,7 +161,7 @@ export default async function BlogLayout({
   return (
     <>
       {/* Structured Data for SEO */}
-      <StructuredDataComponent data={[articleSchema, breadcrumbSchema]} />
+      <StructuredDataComponent data={structuredData} />
 
       <style
         dangerouslySetInnerHTML={{
@@ -233,11 +294,7 @@ export default async function BlogLayout({
             ),
           }}
         >
-          <article
-            className="custom-container w-full max-w-[900px]"
-            itemType="http://schema.org/Article"
-            itemScope
-          >
+          <article className="custom-container w-full max-w-[900px]">
             {/* Back Button */}
             <div className="custom-container w-full max-w-[900px] px-4">
               <Link
@@ -257,7 +314,6 @@ export default async function BlogLayout({
                   fill
                   className="h-full w-full object-cover"
                   priority
-                  itemProp="image"
                 />
               </div>
 
@@ -269,26 +325,16 @@ export default async function BlogLayout({
                       {category.toUpperCase()}
                     </span>
                     <span className="text-muted-foreground text-sm">
-                      {new Date(page.data.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
+                      {publishedLabel}
                     </span>
                   </div>
                 </div>
-                <h1
-                  className="text-foreground mb-5 text-4xl font-semibold"
-                  itemProp="name"
-                >
+                <h1 className="text-foreground mb-5 text-4xl font-semibold">
                   {page.data.title}
                 </h1>
 
                 {page.data.description && (
-                  <p
-                    className="text-muted-foreground text-lg"
-                    itemProp="description"
-                  >
+                  <p className="text-muted-foreground text-lg">
                     {page.data.description}
                   </p>
                 )}
