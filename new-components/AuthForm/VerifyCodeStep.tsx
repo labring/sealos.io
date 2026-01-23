@@ -58,7 +58,9 @@ export function VerifyCodeStep() {
       const result: EmailVerifyResponse = await response.json();
 
       if (result.code !== 200) {
-        throw new Error(result.message || 'Invalid verification code');
+        if (result.code === 409)
+          throw new Error('Invalid verification code, please try again.');
+        throw new Error(result.message || 'Unknown error');
       }
 
       if (onVerifySuccess && result.data) {
@@ -66,10 +68,7 @@ export function VerifyCodeStep() {
       }
     } catch (error) {
       console.error('Failed to verify code:', error);
-      setError(
-        (error as Error)?.message ||
-          'Invalid verification code, please try again',
-      );
+      setError((error as Error)?.message || 'Unknown error');
       setCode('');
     } finally {
       setIsVerifying(false);
