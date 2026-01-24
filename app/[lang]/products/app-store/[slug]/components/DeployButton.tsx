@@ -28,7 +28,7 @@ export function DeployButton({
   const primaryCtaClassName = cn(
     buttonVariants({ variant: 'landing-primary' }),
     'h-11 px-6 text-base cursor-pointer',
-    className
+    className,
   );
 
   return (

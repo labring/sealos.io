@@ -9,6 +9,7 @@ interface SelectContextValue {
   onValueChange: (value: string) => void;
   open: boolean;
   setOpen: (open: boolean) => void;
+  selectRef?: React.RefObject<HTMLDivElement>;
 }
 
 const SelectContext = React.createContext<SelectContextValue | undefined>(
@@ -31,6 +32,7 @@ interface SelectProps {
 
 function Select({ value = '', onValueChange, children }: SelectProps) {
   const [open, setOpen] = React.useState(false);
+  const selectRef = React.useRef<HTMLDivElement>(null);
 
   return (
     <SelectContext.Provider
@@ -39,9 +41,10 @@ function Select({ value = '', onValueChange, children }: SelectProps) {
         onValueChange: onValueChange || (() => {}),
         open,
         setOpen,
+        selectRef,
       }}
     >
-      <div className="relative">{children}</div>
+      <div ref={selectRef} className="relative">{children}</div>
     </SelectContext.Provider>
   );
 }
@@ -99,14 +102,13 @@ interface SelectContentProps {
 }
 
 function SelectContent({ children, className }: SelectContentProps) {
-  const { open, setOpen } = useSelectContext();
-  const contentRef = React.useRef<HTMLDivElement>(null);
+  const { open, setOpen, selectRef } = useSelectContext();
 
   React.useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
-        contentRef.current &&
-        !contentRef.current.contains(event.target as Node)
+        selectRef?.current &&
+        !selectRef.current.contains(event.target as Node)
       ) {
         setOpen(false);
       }
@@ -117,13 +119,12 @@ function SelectContent({ children, className }: SelectContentProps) {
       return () =>
         document.removeEventListener('mousedown', handleClickOutside);
     }
-  }, [open, setOpen]);
+  }, [open, setOpen, selectRef]);
 
   if (!open) return null;
 
   return (
     <div
-      ref={contentRef}
       className={cn(
         'bg-popover text-popover-foreground absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border p-1 shadow-md',
         'animate-in fade-in-0 zoom-in-95',

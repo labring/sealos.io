@@ -26,10 +26,13 @@ function TemplateFormField({ input }: TemplateFormFieldProps) {
       return (
         <div className="flex items-center justify-between gap-4">
           <div className="flex-1">
-            <Label htmlFor={input.key} className="text-sm font-medium text-foreground">
+            <Label
+              htmlFor={input.key}
+              className="text-sm leading-none font-medium"
+            >
               {input.label}
             </Label>
-            <p className="mt-1 text-xs text-muted-foreground">
+            <p className="text-muted-foreground mt-2 text-sm leading-5">
               {input.description}
             </p>
           </div>
@@ -44,15 +47,18 @@ function TemplateFormField({ input }: TemplateFormFieldProps) {
     case 'choice':
       return (
         <div className="flex flex-col gap-2">
-          <Label htmlFor={input.key} className="text-sm font-medium text-foreground">
+          <Label
+            htmlFor={input.key}
+            className="text-sm leading-none font-medium"
+          >
+            {input.required && <span className="text-red-600">*</span>}
             {input.label}
-            {input.required && <span className="ml-1 text-red-500">*</span>}
           </Label>
           <Select
             value={String(value)}
             onValueChange={(val) => setFormValue(input.key, val)}
           >
-            <SelectTrigger id={input.key} className="bg-foreground/5">
+            <SelectTrigger id={input.key} className="h-10 rounded-[8px]">
               <SelectValue placeholder={`Select ${input.label}`} />
             </SelectTrigger>
             <SelectContent>
@@ -63,25 +69,32 @@ function TemplateFormField({ input }: TemplateFormFieldProps) {
               ))}
             </SelectContent>
           </Select>
-          <p className="text-xs text-muted-foreground">{input.description}</p>
+          <p className="text-muted-foreground text-sm leading-5">
+            {input.description}
+          </p>
         </div>
       );
 
     case 'number':
       return (
         <div className="flex flex-col gap-2">
-          <Label htmlFor={input.key} className="text-sm font-medium text-foreground">
+          <Label
+            htmlFor={input.key}
+            className="text-sm leading-none font-medium"
+          >
+            {input.required && <span className="text-red-600">*</span>}
             {input.label}
-            {input.required && <span className="ml-1 text-red-500">*</span>}
           </Label>
           <Input
             id={input.key}
             type="number"
             value={String(value)}
             onChange={(e) => setFormValue(input.key, e.target.value)}
-            className="bg-foreground/5"
+            className="h-10 rounded-[8px]"
           />
-          <p className="text-xs text-muted-foreground">{input.description}</p>
+          <p className="text-muted-foreground text-sm leading-5">
+            {input.description}
+          </p>
         </div>
       );
 
@@ -89,9 +102,12 @@ function TemplateFormField({ input }: TemplateFormFieldProps) {
     default:
       return (
         <div className="flex flex-col gap-2">
-          <Label htmlFor={input.key} className="text-sm font-medium text-foreground">
+          <Label
+            htmlFor={input.key}
+            className="text-sm leading-none font-medium"
+          >
+            {input.required && <span className="text-red-600">*</span>}
             {input.label}
-            {input.required && <span className="ml-1 text-red-500">*</span>}
           </Label>
           <Input
             id={input.key}
@@ -99,9 +115,11 @@ function TemplateFormField({ input }: TemplateFormFieldProps) {
             value={String(value)}
             onChange={(e) => setFormValue(input.key, e.target.value)}
             placeholder={input.default}
-            className="bg-foreground/5"
+            className="h-10 rounded-[8px]"
           />
-          <p className="text-xs text-muted-foreground">{input.description}</p>
+          <p className="text-muted-foreground text-sm leading-5">
+            {input.description}
+          </p>
         </div>
       );
   }
@@ -112,7 +130,7 @@ export function TemplateForm() {
 
   if (inputs.length === 0) {
     return (
-      <div className="py-4 text-center text-muted-foreground">
+      <div className="text-muted-foreground py-4 text-center">
         No configuration required. Click deploy to continue.
       </div>
     );
