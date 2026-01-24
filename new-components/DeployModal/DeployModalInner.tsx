@@ -4,20 +4,11 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Dialog } from '@/components/ui/dialog';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Button } from '@/components/ui/button';
-import { Loader2, Rocket, AlertCircle, ArrowLeft } from 'lucide-react';
+import { Rocket, AlertCircle, ArrowLeft } from 'lucide-react';
 import { useDeployModal } from './DeployModalContext';
 import { TemplateForm } from './TemplateForm';
 import { GodRays } from '../GodRays';
 import { AppIcon } from '@/components/ui/app-icon';
-
-function LoadingStep() {
-  return (
-    <div className="flex flex-col items-center justify-center gap-4 py-8">
-      <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      <p className="text-muted-foreground">Loading template configuration...</p>
-    </div>
-  );
-}
 
 function ErrorStep() {
   const { error, closeDeployModal } = useDeployModal();
@@ -98,15 +89,6 @@ function FormStep() {
   );
 }
 
-function DeployingStep() {
-  return (
-    <div className="flex flex-col items-center justify-center gap-4 py-8">
-      <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      <p className="text-muted-foreground">Preparing deployment...</p>
-    </div>
-  );
-}
-
 export function DeployModalInner() {
   const { open, step, closeDeployModal } = useDeployModal();
 
@@ -171,18 +153,6 @@ export function DeployModalInner() {
 
                 <div className="relative z-10 p-8">
                   <AnimatePresence mode="wait">
-                    {step === 'loading' && (
-                      <motion.div
-                        key="loading"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <LoadingStep />
-                      </motion.div>
-                    )}
-
                     {step === 'form' && (
                       <motion.div
                         key="form"
@@ -192,18 +162,6 @@ export function DeployModalInner() {
                         transition={{ duration: 0.2, ease: 'easeInOut' }}
                       >
                         <FormStep />
-                      </motion.div>
-                    )}
-
-                    {step === 'deploying' && (
-                      <motion.div
-                        key="deploying"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.2, ease: 'easeInOut' }}
-                      >
-                        <DeployingStep />
                       </motion.div>
                     )}
 

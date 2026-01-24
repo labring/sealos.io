@@ -1,6 +1,6 @@
 import { TemplateInput, TemplateSourceData } from '@/hooks/use-template-source';
 
-export type DeployStep = 'loading' | 'form' | 'deploying' | 'success' | 'error';
+export type DeployStep = 'form' | 'error';
 
 export interface DeployFormData {
   [key: string]: string | boolean;

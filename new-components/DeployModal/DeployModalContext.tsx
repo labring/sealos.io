@@ -20,13 +20,13 @@ import {
 } from './types';
 
 const DeployModalContext = createContext<DeployModalContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export function DeployModalProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<DeployModalState>({
     open: false,
-    step: 'loading',
+    step: 'form',
     templateName: '',
     templateData: null,
     formData: {},
@@ -50,50 +50,107 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
     return initialData;
   }, []);
 
+  // Helper: Build OAuth2 URL with token and deploy params
+  const buildOAuth2Url = useCallback(
+    (token: string, deployParams: Record<string, string>) => {
+      const oauth2Url = new URL(siteConfig.oauth2Url);
+      oauth2Url.searchParams.append('token', token);
+      Object.entries(deployParams).forEach(([key, value]) => {
+        oauth2Url.searchParams.append(key, value);
+      });
+      return oauth2Url.toString();
+    },
+    [],
+  );
+
+  // Helper: Execute deployment redirect
+  const redirectToDeploy = useCallback(
+    (token: string, deployParams: Record<string, string>) => {
+      const urlString = buildOAuth2Url(token, deployParams);
+      // Copy URL to clipboard (optional)
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard
+          .writeText(urlString)
+          .then(() => console.log('已复制 URL 到剪贴板'))
+          .catch(() => {});
+      }
+      window.open(urlString, '_blank');
+    },
+    [buildOAuth2Url],
+  );
+
   // Open deploy modal and fetch template data
   const openDeployModal = useCallback(
     async (templateName: string) => {
-      setState((prev) => ({
-        ...prev,
-        open: true,
-        step: 'loading',
-        templateName,
-        templateData: null,
-        formData: {},
-        error: null,
-        isLoggedIn: false,
-      }));
-
       try {
+        // 1. Fetch template data first (without opening modal)
         const data = await fetchTemplateSource(templateName);
         console.log('data', data);
-        if (data) {
-          const inputs = data.source?.inputs || [];
-          const initialFormData = initializeFormData(inputs);
 
+        if (!data) {
+          // Show error in modal if fetch fails
           setState((prev) => ({
             ...prev,
-            step: inputs.length > 0 ? 'form' : 'form', // Always go to form step (even if empty)
+            open: true,
+            step: 'error',
+            templateName,
+            templateData: null,
+            formData: {},
+            error: 'Failed to load template configuration',
+            isLoggedIn: false,
+          }));
+          return;
+        }
+
+        // 2. Check if template has input fields
+        const inputs = data.source?.inputs || [];
+        const hasInputs = inputs.length > 0;
+
+        if (hasInputs) {
+          // Has form: Show modal with form step
+          const initialFormData = initializeFormData(inputs);
+          setState((prev) => ({
+            ...prev,
+            open: true,
+            step: 'form',
+            templateName,
             templateData: data,
             formData: initialFormData,
+            error: null,
+            isLoggedIn: false,
           }));
         } else {
-          setState((prev) => ({
-            ...prev,
-            step: 'error',
-            error: 'Failed to load template configuration',
-          }));
+          // No form: Execute deployment directly
+          const deployParams = {
+            openapp: 'system-template',
+            templateName,
+            templateForm: JSON.stringify({}),
+          };
+
+          const token = getSharedAuthToken();
+          if (!token) {
+            // Not logged in: Open auth modal
+            openAuthForm(deployParams);
+          } else {
+            // Logged in: Redirect to deploy
+            redirectToDeploy(token, deployParams);
+          }
         }
       } catch (err) {
+        // Show error in modal
         setState((prev) => ({
           ...prev,
+          open: true,
           step: 'error',
-          error:
-            err instanceof Error ? err.message : 'Failed to load template',
+          templateName,
+          templateData: null,
+          formData: {},
+          error: err instanceof Error ? err.message : 'Failed to load template',
+          isLoggedIn: false,
         }));
       }
     },
-    [fetchTemplateSource, initializeFormData]
+    [fetchTemplateSource, initializeFormData, openAuthForm, redirectToDeploy],
   );
 
   // Close deploy modal
@@ -101,7 +158,7 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
     setState((prev) => ({
       ...prev,
       open: false,
-      step: 'loading',
+      step: 'form',
       templateName: '',
       templateData: null,
       formData: {},
@@ -130,49 +187,41 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
     setState((prev) => ({ ...prev, error }));
   }, []);
 
-  // Submit deploy - open auth form with template parameters
-  // After login, handleVerifySuccess will redirect to switchRegion with openapp parameter
-  // Desktop will handle login + deployment
   const submitDeploy = useCallback(async () => {
-    // Build openapp parameter with template name and form data
-    // Format: system-template?templateName=n8n&key1=value1&key2=value2
-    const formParams = Object.entries(state.formData)
-      .map(
-        ([key, value]) =>
-          `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`
-      )
-      .join('&');
+    const templateFormJson = JSON.stringify(state.formData);
+    const deployParams = {
+      openapp: 'system-template',
+      templateName: state.templateName,
+      templateForm: templateFormJson,
+    };
+    console.log('deployParams', deployParams);
 
-    const openappValue = `system-template?templateName=${encodeURIComponent(state.templateName)}${formParams ? `&${formParams}` : ''}`;
-
-    // Check if user is logged in
     const token = getSharedAuthToken();
 
     if (!token) {
-      // Not logged in: open auth modal
-      // After login success, will redirect to: switchRegion?token=xxx&openapp=system-template?templateName=n8n&...
       closeDeployModal();
-      openAuthForm({ openapp: openappValue });
+      openAuthForm(deployParams);
       return;
     }
 
-    // Already logged in: directly jump to switchRegion with token and openapp
-    // Desktop will handle the login and deployment
-    const switchRegionUrl = new URL(siteConfig.signinSwitchRegionUrl);
-    switchRegionUrl.searchParams.append('token', token);
-    switchRegionUrl.searchParams.append('openapp', openappValue);
-
-    window.open(switchRegionUrl.toString(), '_blank');
+    // Reuse helper function
+    redirectToDeploy(token, deployParams);
     closeDeployModal();
-  }, [state.templateName, state.formData, closeDeployModal, openAuthForm]);
+  }, [
+    state.templateName,
+    state.formData,
+    closeDeployModal,
+    openAuthForm,
+    redirectToDeploy,
+  ]);
 
   // Computed values
   const inputs = useMemo(
     () => state.templateData?.source?.inputs || [],
-    [state.templateData]
+    [state.templateData],
   );
   const hasInputs = inputs.length > 0;
-  const isLoading = state.step === 'loading';
+  const isLoading = false; // No loading step anymore
 
   const contextValue: DeployModalContextType = {
     ...state,
@@ -206,7 +255,7 @@ export function useOpenDeployModal() {
   const context = useContext(DeployModalContext);
   if (context === undefined) {
     throw new Error(
-      'useOpenDeployModal must be used within a DeployModalProvider'
+      'useOpenDeployModal must be used within a DeployModalProvider',
     );
   }
   return context.openDeployModal;

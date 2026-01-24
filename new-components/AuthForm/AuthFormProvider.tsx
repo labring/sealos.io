@@ -8,9 +8,9 @@ import { siteConfig } from '@/config/site';
 export function AuthFormProvider({ children }: { children: ReactNode }) {
   const handleVerifySuccess = (
     data: EmailVerifyResponse['data'],
-    additionalParams?: Partial<Record<'openapp', string>> | null,
+    additionalParams?: Record<string, string> | null,
   ) => {
-    const target = new URL(siteConfig.signinSwitchRegionUrl);
+    const target = new URL(siteConfig.oauth2Url);
     target.searchParams.append('token', data.token);
     if (data.needInit) {
       target.searchParams.append('switchRegionType', 'INIT');
