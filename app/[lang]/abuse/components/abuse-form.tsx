@@ -136,12 +136,10 @@ export default function AbuseForm({ content }: AbuseFormProps) {
               {content.form.abuseType} <span className="text-red-500">*</span>
             </label>
             <Select
-              name="abuseType"
               value={formData.abuseType}
               onValueChange={(value) => {
                 setFormData((prev) => ({ ...prev, abuseType: value as AbuseTypeKey }));
               }}
-              required
             >
               <SelectTrigger id="abuseType" className="w-full">
                 <SelectValue placeholder={content.form.abuseType} />
