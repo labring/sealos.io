@@ -81,13 +81,13 @@ export const siteConfig: SiteConfig = {
   },
   emailRequestEndpoint: 'https://usw-1.sealos.io/api/auth/email/sms',
   emailVerifyEndpoint: 'https://usw-1.sealos.io/api/auth/email/verify',
-  oauth2GithubUrl: 'https://192.168.10.93.nip.io/oauth?login=github',
-  oauth2GoogleUrl: 'https://192.168.10.93.nip.io/oauth?login=google',
-  oauth2Url: 'https://192.168.10.93.nip.io/oauth',
+  oauth2GithubUrl: 'https://usw-1.sealos.io/oauth?login=github',
+  oauth2GoogleUrl: 'https://usw-1.sealos.io/oauth?login=google',
+  oauth2Url: 'https://usw-1.sealos.io/oauth',
   // Template API configuration
-  templateApiEndpoint: 'https://template.192.168.10.93.nip.io',
+  templateApiEndpoint: 'https://template.usw-1.sealos.io',
   // Desktop API configuration
-  desktopApiEndpoint: 'https://192.168.10.93.nip.io',
+  desktopApiEndpoint: 'https://usw-1.sealos.io',
 };
 
 export type AuthorData = {
