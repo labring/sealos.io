@@ -307,3 +307,25 @@ export function getRelatedArticles(
 
   return recommendations.slice(0, limit);
 }
+
+/**
+ * Resolve page content from various possible formats
+ * Handles both string content and compiled MDX content
+ */
+export function resolvePageContent(data: {
+  body?: unknown;
+  content?: unknown;
+}): string | undefined {
+  const { body, content } = data;
+
+  if (typeof body === 'string') return body;
+
+  if (body && typeof (body as { toString?: unknown }).toString === 'function') {
+    const result = (body as { toString: () => unknown }).toString();
+    return typeof result === 'string' ? result : undefined;
+  }
+
+  if (typeof content === 'string') return content;
+
+  return undefined;
+}

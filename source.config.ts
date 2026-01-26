@@ -6,6 +6,7 @@ import {
 } from 'fumadocs-mdx/config';
 import { z } from 'zod';
 import { remarkInstall } from 'fumadocs-docgen';
+import { remarkMermaid } from './lib/remark/remark-mermaid';
 
 export const { docs, meta } = defineDocs({
   dir: 'content/docs',
@@ -30,6 +31,39 @@ export const blog = defineCollections({
         }),
       )
       .optional(),
+    howTo: z
+      .object({
+        name: z.string(),
+        description: z.string(),
+        image: z.string().optional(),
+        steps: z.array(
+          z.object({
+            name: z.string(),
+            text: z.string(),
+            image: z.string().optional(),
+            tool: z
+              .array(
+                z.object({
+                  name: z.string(),
+                  url: z.string().optional(),
+                  image: z.string().optional(),
+                }),
+              )
+              .optional(),
+            cost: z
+              .union([
+                z.string(),
+                z.object({
+                  '@type': z.literal('MonetaryAmount'),
+                  currency: z.string(),
+                  value: z.union([z.string(), z.number()]),
+                }),
+              ])
+              .optional(),
+          }),
+        ),
+      })
+      .optional(),
   }),
 });
 
@@ -48,7 +82,7 @@ export const aiQuickReference = defineCollections({
 export default defineConfig({
   lastModifiedTime: 'git',
   mdxOptions: {
-    remarkPlugins: [remarkInstall],
+    remarkPlugins: [remarkMermaid, remarkInstall],
     remarkImageOptions: {
       external: process.env.DOCKER_BUILD === 'true' ? false : undefined,
     },

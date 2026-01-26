@@ -8,6 +8,96 @@ export interface StructuredData {
   [key: string]: unknown;
 }
 
+export interface HowToTool {
+  name: string;
+  url?: string;
+  image?: string;
+}
+
+export interface HowToStep {
+  name: string;
+  text: string;
+  image?: string;
+  tool?: HowToTool[];
+  cost?: string | HowToCost;
+}
+
+export interface HowToData {
+  name: string;
+  description: string;
+  image?: string;
+  steps: HowToStep[];
+}
+
+interface HowToCost {
+  '@type': 'MonetaryAmount';
+  currency: string;
+  value: string | number;
+}
+
+type AuthorSchema = {
+  '@type': 'Person';
+  name: string;
+  url: string;
+  image?: string;
+};
+
+function resolveAuthorSchema(authorName?: string): AuthorSchema {
+  const fallbackAuthor = blogAuthors.default ?? Object.values(blogAuthors)[0];
+  const author =
+    (authorName ? blogAuthors[authorName] : undefined) || fallbackAuthor;
+  const imageUrl = author?.image_url;
+  let image: string | undefined;
+
+  if (imageUrl) {
+    image = imageUrl.startsWith('http')
+      ? imageUrl
+      : `${siteConfig.url.base}${imageUrl}`;
+  }
+
+  return {
+    '@type': 'Person',
+    name: author?.name ?? 'Labring',
+    url: author?.url ?? siteConfig.url.base,
+    image,
+  };
+}
+
+function sanitizeArticleDescription(raw: string): string {
+  return raw
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`[^`]*`/g, ' ')
+    .replace(/!\[[^\]]*]\([^)]+\)/g, ' ')
+    .replace(/\[([^\]]+)]\([^)]+\)/g, '$1')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/[#>*_~]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function resolveArticleDescription(
+  title: string,
+  description?: string,
+  content?: string,
+  lang: string = 'en',
+): string {
+  const titleCore = title.split(/\s[|\-]\s/)[0] ?? title;
+  const fallback = titleCore
+    ? lang === 'zh-cn'
+      ? `关于${titleCore}的博客文章`
+      : `Blog post about ${titleCore}`
+    : '';
+  const raw = description?.trim() || content?.trim() || fallback;
+  const cleaned = sanitizeArticleDescription(raw);
+
+  if (!cleaned) return lang === 'zh-cn' ? '博客文章' : 'Blog post';
+  if (cleaned.length <= 160) return cleaned;
+
+  const slice = cleaned.slice(0, 160);
+  const lastSpace = slice.lastIndexOf(' ');
+  return (lastSpace > 96 ? slice.slice(0, lastSpace) : slice).trim();
+}
+
 // Organization structured data for Sealos/Labring
 export function generateOrganizationSchema(
   lang: string = 'en',
@@ -177,7 +267,7 @@ export function generateBreadcrumbSchema(
 // Article schema for blog posts
 export function generateArticleSchema(
   title: string,
-  description: string,
+  description: string | undefined,
   url: string,
   publishDate: string,
   modifiedDate: string,
@@ -185,25 +275,30 @@ export function generateArticleSchema(
   imageUrl?: string,
   tags?: string[],
   lang: string = 'en',
+  lastModified?: string,
+  content?: string,
 ): StructuredData {
-  const authors = authorNames.map((authorName) => {
-    const author = blogAuthors[authorName] || blogAuthors.default;
-    return {
-      '@type': 'Person',
-      name: author.name,
-      url: author.url,
-      image: author.image_url,
-    };
-  });
+  const authors =
+    Array.isArray(authorNames) && authorNames.length > 0
+      ? authorNames.map((authorName) => resolveAuthorSchema(authorName))
+      : [resolveAuthorSchema()];
+  const resolvedModifiedDate =
+    modifiedDate === publishDate && lastModified ? lastModified : modifiedDate;
+  const resolvedDescription = resolveArticleDescription(
+    title,
+    description,
+    content,
+    lang,
+  );
 
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: title,
-    description: description,
+    description: resolvedDescription,
     url: url,
     datePublished: publishDate,
-    dateModified: modifiedDate,
+    dateModified: resolvedModifiedDate,
     author: authors.length === 1 ? authors[0] : authors,
     publisher: {
       '@type': 'Organization',
@@ -220,7 +315,70 @@ export function generateArticleSchema(
     image: imageUrl
       ? {
           '@type': 'ImageObject',
-          url: imageUrl,
+          url: imageUrl.startsWith('http')
+            ? imageUrl
+            : `${siteConfig.url.base}${imageUrl}`,
+        }
+      : undefined,
+    keywords: tags?.join(', '),
+    inLanguage: lang === 'zh-cn' ? 'zh-CN' : 'en-US',
+  };
+}
+
+// BlogPosting schema for blog posts
+export function generateBlogPostingSchema(
+  title: string,
+  description: string | undefined,
+  url: string,
+  publishDate: string,
+  modifiedDate: string,
+  authorNames: string[],
+  imageUrl?: string,
+  tags?: string[],
+  lang: string = 'en',
+  lastModified?: string,
+  content?: string,
+): StructuredData {
+  const authors =
+    Array.isArray(authorNames) && authorNames.length > 0
+      ? authorNames.map((authorName) => resolveAuthorSchema(authorName))
+      : [resolveAuthorSchema()];
+  const resolvedModifiedDate =
+    modifiedDate === publishDate && lastModified ? lastModified : modifiedDate;
+  const resolvedDescription = resolveArticleDescription(
+    title,
+    description,
+    content,
+    lang,
+  );
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description: resolvedDescription,
+    url: url,
+    datePublished: publishDate,
+    dateModified: resolvedModifiedDate,
+    author: authors.length === 1 ? authors[0] : authors,
+    publisher: {
+      '@type': 'Organization',
+      name: 'Labring',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteConfig.url.base}/logo.svg`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+    },
+    image: imageUrl
+      ? {
+          '@type': 'ImageObject',
+          url: imageUrl.startsWith('http')
+            ? imageUrl
+            : `${siteConfig.url.base}${imageUrl}`,
         }
       : undefined,
     keywords: tags?.join(', '),
@@ -329,4 +487,67 @@ export function generateHomepageSchema(lang: string = 'en'): StructuredData[] {
     generateWebSiteSchema(lang),
     generateSoftwareApplicationSchema(lang),
   ];
+}
+
+/**
+ * Generate HowTo structured data (JSON-LD) with steps mapped to schema.org `step`.
+ *
+ * @example
+ * const schema = generateHowToSchema({
+ *   name: 'Quick app deployment',
+ *   description: 'A concise path from project creation to launch.',
+ *   image: 'https://example.com/howto-cover.png',
+ *   steps: [
+ *     {
+ *       name: 'Create project',
+ *       text: 'Create a new project in the console.',
+ *       tool: [{ name: 'Sealos Console' }],
+ *     },
+ *   ],
+ * });
+ */
+export function generateHowToSchema(data: HowToData): StructuredData {
+  const steps = data.steps.map((step) => ({
+    '@type': 'HowToStep',
+    name: step.name,
+    text: step.text,
+    image: step.image
+      ? {
+          '@type': 'ImageObject',
+          url: step.image,
+        }
+      : undefined,
+    tool: step.tool?.map((tool) => ({
+      '@type': 'HowToTool',
+      name: tool.name,
+      url: tool.url,
+      image: tool.image
+        ? {
+            '@type': 'ImageObject',
+            url: tool.image,
+          }
+        : undefined,
+    })),
+  }));
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: data.name,
+    description: data.description,
+    image: data.image
+      ? {
+          '@type': 'ImageObject',
+          url: data.image,
+        }
+      : undefined,
+    step: steps,
+    estimatedCost: data.steps.some((step) => step.cost)
+      ? {
+          '@type': 'MonetaryAmount',
+          currency: 'USD',
+          value: data.steps.find((step) => step.cost)?.cost,
+        }
+      : undefined,
+  };
 }
