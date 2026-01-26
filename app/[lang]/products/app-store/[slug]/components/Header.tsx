@@ -1,9 +1,8 @@
 import { AppConfig } from '@/config/apps';
-import { languagesType } from '@/lib/i18n';
 import { AppIcon } from '@/components/ui/app-icon';
-import { CustomButton } from '@/components/ui/button-custom';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { DeployButton } from './DeployButton';
 
 interface AppHeaderProps {
   app: AppConfig;
@@ -12,15 +11,9 @@ interface AppHeaderProps {
     website: string;
     sourceCode: string;
   };
-  lang: languagesType;
 }
 
-export default function AppHeader({ app, translations, lang }: AppHeaderProps) {
-  const deployUrl = app.deployUrl;
-  const primaryCtaClassName = cn(
-    buttonVariants({ variant: 'landing-primary' }),
-    'h-11 px-6 text-base',
-  );
+export default function AppHeader({ app, translations }: AppHeaderProps) {
   const secondaryCtaClassName = cn(
     buttonVariants({ variant: 'outline' }),
     'h-10 gap-2 rounded-full border-white/10 bg-white/5 px-4 text-sm text-zinc-200 hover:bg-white/10 hover:text-white',
@@ -50,18 +43,12 @@ export default function AppHeader({ app, translations, lang }: AppHeaderProps) {
           <p className="mb-4 text-lg text-muted-foreground">
             {app.description}
           </p>
-
           {/* Links and Deploy Button */}
           <div className="flex flex-wrap items-center gap-4">
-            <CustomButton
-              className={primaryCtaClassName}
-              title="Deploy App"
-              href={deployUrl}
-              location="app-page"
-              additionalData={{
-                technology: app.name,
-                category: app.category,
-              }}
+            <DeployButton
+              templateName={app.slug}
+              appName={app.name}
+              category={app.category}
             >
               <svg
                 className="mr-2 h-5 w-5"
@@ -77,7 +64,7 @@ export default function AppHeader({ app, translations, lang }: AppHeaderProps) {
                 />
               </svg>
               {translations.deployNow}
-            </CustomButton>
+            </DeployButton>
 
             {/* Links */}
             {app.website && (

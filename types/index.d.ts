@@ -36,7 +36,11 @@ export type SiteConfig = {
   };
   emailRequestEndpoint: string;
   emailVerifyEndpoint: string;
-  signinSwitchRegionUrl: string;
   oauth2GithubUrl: string;
   oauth2GoogleUrl: string;
+  oauth2Url: string;
+  // Template API configuration
+  templateApiEndpoint: string;
+  // Desktop API configuration
+  desktopApiEndpoint: string;
 };

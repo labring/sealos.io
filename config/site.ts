@@ -81,9 +81,13 @@ export const siteConfig: SiteConfig = {
   },
   emailRequestEndpoint: 'https://usw-1.sealos.io/api/auth/email/sms',
   emailVerifyEndpoint: 'https://usw-1.sealos.io/api/auth/email/verify',
-  signinSwitchRegionUrl: 'https://os.sealos.io/switchRegion',
-  oauth2GithubUrl: 'https://os.sealos.io/oauth?login=github',
-  oauth2GoogleUrl: 'https://os.sealos.io/oauth?login=google',
+  oauth2GithubUrl: 'https://usw-1.sealos.io/oauth?login=github',
+  oauth2GoogleUrl: 'https://usw-1.sealos.io/oauth?login=google',
+  oauth2Url: 'https://usw-1.sealos.io/oauth',
+  // Template API configuration
+  templateApiEndpoint: 'https://template.usw-1.sealos.io',
+  // Desktop API configuration
+  desktopApiEndpoint: 'https://usw-1.sealos.io',
 };
 
 export type AuthorData = {
