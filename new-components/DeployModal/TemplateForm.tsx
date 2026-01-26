@@ -61,7 +61,7 @@ function TemplateFormField({ input }: TemplateFormFieldProps) {
             <SelectTrigger id={input.key} className="h-10 rounded-[8px]">
               <SelectValue placeholder={`Select ${input.label}`} />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 max-h-60 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent">
               {input.options?.map((option) => (
                 <SelectItem key={option} value={option}>
                   {option}
