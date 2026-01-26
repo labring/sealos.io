@@ -67,7 +67,7 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
   const redirectToDeploy = useCallback(
     (token: string, deployParams: Record<string, string>) => {
       const urlString = buildOAuth2Url(token, deployParams);
-      window.open(urlString, '_blank');
+      window.location.href = urlString;
     },
     [buildOAuth2Url],
   );
