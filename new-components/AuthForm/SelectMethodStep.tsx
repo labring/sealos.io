@@ -68,12 +68,6 @@ export function SelectMethodStep() {
       });
     }
     setOpen(false);
-    // todo
-    navigator.clipboard
-      .writeText(targetUrl.toString())
-      .then(() => console.log('已复制 URL 到剪贴板'))
-      .catch(() => {});
-
     window.open(targetUrl.toString(), '_blank')?.focus();
   };
 

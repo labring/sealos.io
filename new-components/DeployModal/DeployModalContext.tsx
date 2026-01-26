@@ -67,13 +67,6 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
   const redirectToDeploy = useCallback(
     (token: string, deployParams: Record<string, string>) => {
       const urlString = buildOAuth2Url(token, deployParams);
-      // Copy URL to clipboard (optional)
-      if (navigator.clipboard?.writeText) {
-        navigator.clipboard
-          .writeText(urlString)
-          .then(() => console.log('已复制 URL 到剪贴板'))
-          .catch(() => {});
-      }
       window.open(urlString, '_blank');
     },
     [buildOAuth2Url],
@@ -85,7 +78,6 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
       try {
         // 1. Fetch template data first (without opening modal)
         const data = await fetchTemplateSource(templateName);
-        console.log('data', data);
 
         if (!data) {
           // Show error in modal if fetch fails
@@ -194,7 +186,6 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
       templateName: state.templateName,
       templateForm: templateFormJson,
     };
-    console.log('deployParams', deployParams);
 
     const token = getSharedAuthToken();
 
