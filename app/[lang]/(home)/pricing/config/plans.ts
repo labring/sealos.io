@@ -29,7 +29,7 @@ export const mainPricingPlans: PricingPlan[] = [
     features: [
       '2 vCPU ',
       '2Gi RAM',
-      '1Gi Disk',
+      '10Gi Disk',
       '10GB Traffic',
       '4 Nodeport',
       '100 AI Credit',
@@ -49,7 +49,7 @@ export const mainPricingPlans: PricingPlan[] = [
     features: [
       '4 vCPU ',
       '4Gi RAM',
-      '30Gi Disk',
+      '20Gi Disk',
       '50GB Traffic',
       '8 Nodeport',
       '300 AI Credits',
