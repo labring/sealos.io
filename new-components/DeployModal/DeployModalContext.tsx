@@ -122,7 +122,7 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
         } else {
           // No form: Execute deployment directly
           const deployParams = {
-            openapp: 'system-template',
+            openapp: 'system-brain',
             templateName,
             templateForm: JSON.stringify({}),
           };
@@ -190,7 +190,7 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
   const submitDeploy = useCallback(async () => {
     const templateFormJson = JSON.stringify(state.formData);
     const deployParams = {
-      openapp: 'system-template',
+      openapp: 'system-brain',
       templateName: state.templateName,
       templateForm: templateFormJson,
     };
