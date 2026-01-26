@@ -10,7 +10,7 @@ import {
 } from 'react';
 import { useTemplateSource, TemplateInput } from '@/hooks/use-template-source';
 import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
-import { getSharedAuthToken } from '@/lib/utils/shared-auth';
+import { verifySharedAuth } from '@/lib/utils/shared-auth';
 import { siteConfig } from '@/config/site';
 import {
   DeployStep,
@@ -50,11 +50,10 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
     return initialData;
   }, []);
 
-  // Helper: Build OAuth2 URL with token and deploy params
+  // Helper: Build OAuth2 URL with deploy params
   const buildOAuth2Url = useCallback(
-    (token: string, deployParams: Record<string, string>) => {
+    (deployParams: Record<string, string>) => {
       const oauth2Url = new URL(siteConfig.oauth2Url);
-      oauth2Url.searchParams.append('token', token);
       Object.entries(deployParams).forEach(([key, value]) => {
         oauth2Url.searchParams.append(key, value);
       });
@@ -65,8 +64,8 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
 
   // Helper: Execute deployment redirect
   const redirectToDeploy = useCallback(
-    (token: string, deployParams: Record<string, string>) => {
-      const urlString = buildOAuth2Url(token, deployParams);
+    (deployParams: Record<string, string>) => {
+      const urlString = buildOAuth2Url(deployParams);
       window.location.href = urlString;
     },
     [buildOAuth2Url],
@@ -119,13 +118,13 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
             templateForm: JSON.stringify({}),
           };
 
-          const token = getSharedAuthToken();
-          if (!token) {
+          const user = await verifySharedAuth();
+          if (!user) {
             // Not logged in: Open auth modal
             openAuthForm(deployParams);
           } else {
             // Logged in: Redirect to deploy
-            redirectToDeploy(token, deployParams);
+            redirectToDeploy(deployParams);
           }
         }
       } catch (err) {
@@ -187,16 +186,15 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
       templateForm: templateFormJson,
     };
 
-    const token = getSharedAuthToken();
-
-    if (!token) {
+    const user = await verifySharedAuth();
+    if (!user) {
       closeDeployModal();
       openAuthForm(deployParams);
       return;
     }
 
     // Reuse helper function
-    redirectToDeploy(token, deployParams);
+    redirectToDeploy(deployParams);
     closeDeployModal();
   }, [
     state.templateName,
