@@ -79,7 +79,7 @@ export function FreeTrialCard({ className }: FreeTrialCardProps) {
         <FeatureItem text="Start with a 7-day free trial" />
         <FeatureItem text="4 vCPU" />
         <FeatureItem text="4GB RAM" />
-        <FeatureItem text="1 GB of volume storage" />
+        <FeatureItem text="5 GB of volume storage" />
         <FeatureItem text="500 MB included bandwidth" />
         <FeatureItem text="100 AI Credits" />
       </div>
