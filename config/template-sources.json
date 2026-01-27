@@ -1,0 +1,1783 @@
+{
+  "perplexica": [
+    {
+      "description": "The API Key of the OpenAI-compatible service",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "OPENAI_API_KEY",
+      "label": "OPENAI_API_KEY"
+    },
+    {
+      "description": "The API URL of the OpenAI-compatible service (e.g. \"https://api.openai.com/v1\" for official API, or custom endpoint URL that follows OpenAI API format/structure)",
+      "type": "string",
+      "default": "https://api.openai.com/v1",
+      "required": true,
+      "key": "OPENAI_API_URL",
+      "label": "OPENAI_API_URL"
+    },
+    {
+      "description": "The model name of the OpenAI-compatible service",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "OPENAI_MODEL_NAME",
+      "label": "OPENAI_MODEL_NAME"
+    }
+  ],
+  "affine": [],
+  "agora": [
+    {
+      "description": "Login to the Agora Dashboard, and navigate to the \"Projects\" to copy APP_ID",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "app_id",
+      "label": "app_id"
+    },
+    {
+      "description": "Login to the Agora Dashboard, and navigate to the \"Projects\" to copy APP_CERTIFICATE",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "app_certificate",
+      "label": "app_certificate"
+    }
+  ],
+  "anki-sync-server": [
+    {
+      "description": "the first user and password for Anki Sync Server，format: \"user:pass\"",
+      "type": "string",
+      "default": "user:pass",
+      "required": false,
+      "key": "SYNC_USER1",
+      "label": "SYNC_USER1"
+    },
+    {
+      "description": "limit on uploads",
+      "type": "string",
+      "default": "100",
+      "required": false,
+      "key": "MAX_SYNC_PAYLOAD_MEGS",
+      "label": "MAX_SYNC_PAYLOAD_MEGS"
+    }
+  ],
+  "appsmith": [],
+  "artalk": [
+    {
+      "description": "Storage size for artalk in Gi",
+      "type": "number",
+      "default": "5",
+      "required": true,
+      "key": "artalk_storage",
+      "label": "artalk_storage"
+    }
+  ],
+  "budibase": [
+    {
+      "description": "Admin email address",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_email",
+      "label": "admin_email"
+    },
+    {
+      "description": "Admin password (minimum 8 characters)",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Enable analytics",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_analytics",
+      "label": "enable_analytics"
+    },
+    {
+      "description": "Enable SMTP for email notifications",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "smtp_enabled",
+      "label": "smtp_enabled"
+    },
+    {
+      "description": "SMTP server host",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "if": "inputs.smtp_enabled === 'true'",
+      "key": "smtp_host",
+      "label": "smtp_host"
+    },
+    {
+      "description": "SMTP server port",
+      "type": "string",
+      "default": "587",
+      "required": false,
+      "if": "inputs.smtp_enabled === 'true'",
+      "key": "smtp_port",
+      "label": "smtp_port"
+    },
+    {
+      "description": "SMTP username",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "if": "inputs.smtp_enabled === 'true'",
+      "key": "smtp_user",
+      "label": "smtp_user"
+    },
+    {
+      "description": "SMTP password",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "if": "inputs.smtp_enabled === 'true'",
+      "key": "smtp_password",
+      "label": "smtp_password"
+    }
+  ],
+  "bytebase": [],
+  "cap": [],
+  "casdoor": [
+    {
+      "description": "Database driver name (mysql, postgres, sqlite)",
+      "type": "choice",
+      "default": "sqlite",
+      "required": false,
+      "options": [
+        "sqlite",
+        "mysql",
+        "postgres"
+      ],
+      "key": "driver_name",
+      "label": "driver_name"
+    }
+  ],
+  "changedetection": [
+    {
+      "description": "Number of parallel/concurrent fetchers (default: 10)",
+      "type": "string",
+      "default": "10",
+      "required": false,
+      "key": "fetch_workers",
+      "label": "fetch_workers"
+    }
+  ],
+  "chatany": [
+    {
+      "description": "这是你在 OpenAI 账户页面申请的 API 密钥",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "OPENAI_API_KEY",
+      "label": "OPENAI_API_KEY"
+    },
+    {
+      "description": "如果你手动配置了 OpenAI 接口代理，可以使用此配置项来覆盖默认的 OpenAI API 请求基础 URL",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "BASE_URL",
+      "label": "BASE_URL"
+    },
+    {
+      "description": "Discord 服务器 ID",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "MJ_SERVER_ID",
+      "label": "MJ_SERVER_ID"
+    },
+    {
+      "description": "Discord 频道 ID",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "MJ_CHANNEL_ID",
+      "label": "MJ_CHANNEL_ID"
+    },
+    {
+      "description": "Discord 用户 Token",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "MJ_USER_TOKEN",
+      "label": "MJ_USER_TOKEN"
+    },
+    {
+      "description": "Discord 代理域名",
+      "type": "string",
+      "default": "https://discord.com",
+      "required": false,
+      "key": "MJ_DISCORD_PROXY",
+      "label": "MJ_DISCORD_PROXY"
+    },
+    {
+      "description": "Discord Websocket 代理域名",
+      "type": "string",
+      "default": "wss://gateway.discord.gg",
+      "required": false,
+      "key": "MJ_DISCORD_WSS_PROXY",
+      "label": "MJ_DISCORD_WSS_PROXY"
+    },
+    {
+      "description": "Discord CDN 代理域名",
+      "type": "string",
+      "default": "https://cdn.discordapp.com",
+      "required": false,
+      "key": "MJ_DISCORD_CDN_PROXY",
+      "label": "MJ_DISCORD_CDN_PROXY"
+    },
+    {
+      "description": "设置页面中的访问密码",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "CODE",
+      "label": "CODE"
+    }
+  ],
+  "chatbot-ui": [
+    {
+      "description": "The default API key used for authentication with OpenAI",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "OPENAI_API_KEY",
+      "label": "OPENAI_API_KEY"
+    }
+  ],
+  "chatnio": [],
+  "chatwoot": [],
+  "code-server": [
+    {
+      "description": "Access Password",
+      "type": "string",
+      "default": "sealos123",
+      "required": true,
+      "key": "PASSWORD",
+      "label": "PASSWORD"
+    }
+  ],
+  "coze-studio": [
+    {
+      "description": "the API Key for Ark API Key",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "api_key",
+      "label": "api_key"
+    },
+    {
+      "description": "the Model ID or Endpoint ID of Ark",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "model_id",
+      "label": "model_id"
+    }
+  ],
+  "cronicle": [],
+  "dbgate": [
+    {
+      "description": "Set username",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "user_name",
+      "label": "user_name"
+    },
+    {
+      "description": "Set password",
+      "type": "string",
+      "default": "password@dbgate",
+      "required": true,
+      "key": "user_password",
+      "label": "user_password"
+    },
+    {
+      "description": "Set token lifetime",
+      "type": "string",
+      "default": "1d",
+      "required": false,
+      "key": "token_lifetime",
+      "label": "token_lifetime"
+    }
+  ],
+  "deeplx": [
+    {
+      "description": "DeepL Official AuthKey. If you have set it up, after the 429 response, the official AuthKey will be used for the request. If multiple authKeys are used simultaneously, they need to be separated by commas.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "AUTHKEY",
+      "label": "AUTHKEY"
+    }
+  ],
+  "derper": [
+    {
+      "description": "Enable STUN service (true/false)",
+      "type": "choice",
+      "options": [
+        "true",
+        "false"
+      ],
+      "required": true,
+      "default": "true",
+      "key": "enable_stun",
+      "label": "enable_stun"
+    }
+  ],
+  "dify": [
+    {
+      "description": "admin init password",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "init_password",
+      "label": "init_password"
+    }
+  ],
+  "docuseal": [],
+  "drizzle-studio": [
+    {
+      "description": "Master password used by Drizzle Studio Gateway (optional)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "masterpass",
+      "label": "masterpass"
+    }
+  ],
+  "eaglercraft-server": [],
+  "emqx": [
+    {
+      "description": "replicas count",
+      "type": "number",
+      "default": "3",
+      "required": true,
+      "key": "REPLICA_COUNT",
+      "label": "REPLICA_COUNT"
+    },
+    {
+      "description": "enable external tcp",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "TCP_ENABLE",
+      "label": "TCP_ENABLE"
+    }
+  ],
+  "excalidraw": [],
+  "featbit-standard": [],
+  "fireboom": [],
+  "firefox": [],
+  "flarum": [],
+  "flowise": [
+    {
+      "description": "Use PostgreSQL database instead of local SQLite",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "USE_POSTGRESQL",
+      "label": "USE_POSTGRESQL"
+    },
+    {
+      "description": "Use S3 object storage for file uploads",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "USE_S3_STORAGE",
+      "label": "USE_S3_STORAGE"
+    }
+  ],
+  "formbricks": [
+    {
+      "description": "URL for your privacy policy page",
+      "type": "string",
+      "default": "https://www.formbricks.com/privacy",
+      "required": false,
+      "key": "PRIVACY_URL",
+      "label": "PRIVACY_URL"
+    },
+    {
+      "description": "URL for your terms of service page",
+      "type": "string",
+      "default": "https://www.formbricks.com/terms",
+      "required": false,
+      "key": "TERMS_URL",
+      "label": "TERMS_URL"
+    },
+    {
+      "description": "URL for your imprint page",
+      "type": "string",
+      "default": "https://www.formbricks.com/imprint",
+      "required": false,
+      "key": "IMPRINT_URL",
+      "label": "IMPRINT_URL"
+    }
+  ],
+  "full-stack-fastapi": [
+    {
+      "description": "Backend secret key (JWT signing)",
+      "type": "string",
+      "default": "bhbeacurlngaffysvjdkerzitnkwzata",
+      "required": true,
+      "key": "SECRET_KEY",
+      "label": "SECRET_KEY"
+    },
+    {
+      "description": "Initial superuser email for backend",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "FIRST_SUPERUSER",
+      "label": "FIRST_SUPERUSER"
+    },
+    {
+      "description": "Initial superuser password for backend",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "FIRST_SUPERUSER_PASSWORD",
+      "label": "FIRST_SUPERUSER_PASSWORD"
+    },
+    {
+      "description": "Sender email for SMTP (optional)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "EMAILS_FROM_EMAIL",
+      "label": "EMAILS_FROM_EMAIL"
+    },
+    {
+      "description": "SMTP host (optional)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "SMTP_HOST",
+      "label": "SMTP_HOST"
+    },
+    {
+      "description": "SMTP user (optional)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "SMTP_USER",
+      "label": "SMTP_USER"
+    },
+    {
+      "description": "SMTP password (optional)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "SMTP_PASSWORD",
+      "label": "SMTP_PASSWORD"
+    },
+    {
+      "description": "Sentry DSN (optional)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "SENTRY_DSN",
+      "label": "SENTRY_DSN"
+    }
+  ],
+  "gitea": [],
+  "glance": [],
+  "glitchtip": [
+    {
+      "description": "check if you want to enable email",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "EMAIL_ENABLE",
+      "label": "EMAIL_ENABLE"
+    },
+    {
+      "description": "SMTP string",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.EMAIL_ENABLE === 'true'",
+      "key": "EMAIL_URL",
+      "label": "EMAIL_URL"
+    },
+    {
+      "description": "Default from email address",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.EMAIL_ENABLE === 'true'",
+      "key": "DEFAULT_FROM_EMAIL",
+      "label": "DEFAULT_FROM_EMAIL"
+    }
+  ],
+  "grafana-otel": [],
+  "happy-server": [
+    {
+      "description": "Seed for token generation",
+      "type": "string",
+      "default": "argfbocnqnkkvipcjupxvjeozfdedwmv",
+      "required": true,
+      "key": "seed",
+      "label": "seed"
+    },
+    {
+      "description": "Node environment",
+      "type": "choice",
+      "default": "production",
+      "options": [
+        "production",
+        "development"
+      ],
+      "required": true,
+      "key": "node_env",
+      "label": "node_env"
+    }
+  ],
+  "headscale": [],
+  "headscale-pg": [],
+  "heyform": [],
+  "illa-builder": [],
+  "immich": [
+    {
+      "description": "Enable machine learning features (face recognition, object detection)",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "key": "enable_machine_learning",
+      "label": "enable_machine_learning"
+    }
+  ],
+  "influxdb": [],
+  "inpaint-web": [],
+  "it-tools": [],
+  "jsoncrack": [],
+  "docker-stacks": [],
+  "kaneo": [],
+  "keycloak": [
+    {
+      "description": "Admin username for Keycloak",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_username",
+      "label": "admin_username"
+    },
+    {
+      "description": "Admin password for Keycloak",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    }
+  ],
+  "kitten-tts": [
+    {
+      "description": "Enable faster Hugging Face downloads",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "key": "hf_hub_enable_transfer",
+      "label": "hf_hub_enable_transfer"
+    }
+  ],
+  "langflow": [
+    {
+      "description": "Enable external database (PostgreSQL) for production use",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_database",
+      "label": "enable_database"
+    }
+  ],
+  "librechat": [
+    {
+      "description": "reverse proxy for openai, remember to add /v1 to the end of the url",
+      "type": "string",
+      "default": "https://api.openai.com/v1",
+      "required": false,
+      "key": "OPENAI_REVERSE_PROXY",
+      "label": "OPENAI_REVERSE_PROXY"
+    }
+  ],
+  "listmonk": [
+    {
+      "description": "admin username for the admin dashboard.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "ADMIN_USERNAME",
+      "label": "ADMIN_USERNAME"
+    },
+    {
+      "description": "admin password for the admin dashboard.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "ADMIN_PASSWORD",
+      "label": "ADMIN_PASSWORD"
+    }
+  ],
+  "lobe-chat-db": [
+    {
+      "description": "The Client ID of the Logto application.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "AUTH_LOGTO_ID",
+      "label": "AUTH_LOGTO_ID"
+    },
+    {
+      "description": "The Client Secret of the Logto application.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "AUTH_LOGTO_SECRET",
+      "label": "AUTH_LOGTO_SECRET"
+    },
+    {
+      "description": "The OpenID Connect issuer of the Logto application.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "AUTH_LOGTO_ISSUER",
+      "label": "AUTH_LOGTO_ISSUER"
+    },
+    {
+      "description": "This is the API key you apply on the OpenAI account page",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "OPENAI_API_KEY",
+      "label": "OPENAI_API_KEY"
+    },
+    {
+      "description": "If you manually configure the OpenAI interface proxy, you can use this configuration item to override the default OpenAI API request base URL",
+      "type": "string",
+      "default": "https://api.openai.com/v1",
+      "required": false,
+      "key": "OPENAI_PROXY_URL",
+      "label": "OPENAI_PROXY_URL"
+    },
+    {
+      "description": "Used to control the model list. Use + to add a model, - to hide a model, and model_name=display_name to customize the display name of a model, separated by commas.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "OPENAI_MODEL_LIST",
+      "label": "OPENAI_MODEL_LIST"
+    }
+  ],
+  "lobe-chat": [
+    {
+      "description": "This is the API key you apply on the OpenAI account page",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "OPENAI_API_KEY",
+      "label": "OPENAI_API_KEY"
+    },
+    {
+      "description": "If you manually configure the OpenAI interface proxy, you can use this configuration item to override the default OpenAI API request base URL",
+      "type": "string",
+      "default": "https://api.openai.com/v1",
+      "required": false,
+      "key": "OPENAI_PROXY_URL",
+      "label": "OPENAI_PROXY_URL"
+    },
+    {
+      "description": "Add a password to access this service; you can set a long password to avoid leaking. If this value contains a comma, it is a password array.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "ACCESS_CODE",
+      "label": "ACCESS_CODE"
+    },
+    {
+      "description": "Used to control the model list. Use + to add a model, - to hide a model, and model_name=display_name to customize the display name of a model, separated by commas.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "OPENAI_MODEL_LIST",
+      "label": "OPENAI_MODEL_LIST"
+    }
+  ],
+  "logto": [],
+  "loki": [],
+  "matomo": [],
+  "mautic": [
+    {
+      "description": "defaults to UTC",
+      "type": "choice",
+      "options": [
+        "UTC",
+        "Asia/Shanghai"
+      ],
+      "required": false,
+      "key": "TIMEZONE",
+      "label": "TIMEZONE"
+    }
+  ],
+  "meilisearch": [
+    {
+      "description": "Configures the instance's environment. Value must be either production or development.",
+      "type": "string",
+      "default": "development",
+      "required": false,
+      "key": "MEILI_ENV",
+      "label": "MEILI_ENV"
+    },
+    {
+      "description": "Sets the instance's master key, automatically protecting all routes except GET /health.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "MEILI_MASTER_KEY",
+      "label": "MEILI_MASTER_KEY"
+    }
+  ],
+  "memos": [
+    {
+      "description": "Storage size for memos in Gi",
+      "type": "number",
+      "default": "5",
+      "required": true,
+      "key": "memos_storage",
+      "label": "memos_storage"
+    }
+  ],
+  "metabase": [],
+  "minio": [
+    {
+      "description": "MinIO Console Username (must be at least length 8)",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "username",
+      "label": "username"
+    },
+    {
+      "description": "MinIO Console Password (must be at least length 8)",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "password",
+      "label": "password"
+    },
+    {
+      "description": "Storage size for each server in Gi (4 servers in total)",
+      "type": "number",
+      "default": "",
+      "required": true,
+      "key": "storage",
+      "label": "storage"
+    },
+    {
+      "description": "Changing storage size of MinIO leads to unrecoverable crashes.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "important note",
+      "label": "important note"
+    }
+  ],
+  "mlflow": [],
+  "mongo-express": [
+    {
+      "description": "mongodb conn credential, ex. mongodb://user:password@host:port/dbname",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "mongodb_conn_credential",
+      "label": "mongodb_conn_credential"
+    },
+    {
+      "description": "User-defined mongo express login account user (non-database). The default is `admin`.",
+      "type": "string",
+      "default": "admin",
+      "required": false,
+      "key": "custom_express_user",
+      "label": "custom_express_user"
+    },
+    {
+      "description": "User-defined mongo express login account password (non-database). The default is `sealos`.",
+      "type": "string",
+      "default": "sealos",
+      "required": false,
+      "key": "custom_express_password",
+      "label": "custom_express_password"
+    }
+  ],
+  "n8n": [
+    {
+      "description": "Use PostgreSQL database for production workloads (recommended for better performance and data persistence)",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_postgresql",
+      "label": "use_postgresql"
+    },
+    {
+      "description": "The n8n instance timezone. Important for schedule nodes (such as Cron)",
+      "type": "choice",
+      "default": "America/New_York",
+      "required": false,
+      "options": [
+        "America/New_York",
+        "America/Chicago",
+        "America/Denver",
+        "America/Los_Angeles",
+        "America/Sao_Paulo",
+        "Europe/London",
+        "Europe/Paris",
+        "Europe/Berlin",
+        "Europe/Moscow",
+        "Asia/Shanghai",
+        "Asia/Tokyo",
+        "Asia/Singapore",
+        "Asia/Dubai",
+        "Asia/Kolkata",
+        "Australia/Sydney",
+        "Pacific/Auckland",
+        "UTC"
+      ],
+      "key": "timezone",
+      "label": "timezone"
+    },
+    {
+      "description": "Enable queue mode with Redis and workers for improved scalability and parallel execution (requires PostgreSQL)",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_queue_mode",
+      "label": "use_queue_mode"
+    }
+  ],
+  "nacos": [
+    {
+      "description": "JWT secret key for authentication (Base64 encoded, must be at least 32 characters)",
+      "type": "string",
+      "default": "VGhpc0lzTXlDdXN0b21TZWNyZXRLZXkwMTIzNDU2Nzg=",
+      "required": false,
+      "key": "auth_token",
+      "label": "auth_token"
+    }
+  ],
+  "nakama": [
+    {
+      "description": "Expose gRPC ports 7348/7349 publicly",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_grpc",
+      "label": "enable_grpc"
+    },
+    {
+      "description": "Nakama Console admin username (overrides the default)",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "console_username",
+      "label": "console_username"
+    },
+    {
+      "description": "Nakama Console admin password (set for initial login)",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "console_password",
+      "label": "console_password"
+    }
+  ],
+  "nexus": [
+    {
+      "description": "Storage size for nexus in Gi",
+      "type": "number",
+      "default": "5",
+      "required": true,
+      "key": "nexus_storage",
+      "label": "nexus_storage"
+    }
+  ],
+  "nocodb": [],
+  "nsfw": [
+    {
+      "description": "API_SECRET_KEY",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "API_SECRET_KEY",
+      "label": "API_SECRET_KEY"
+    }
+  ],
+  "open-webui": [],
+  "openagents": [
+    {
+      "description": "OpenAI API Key (optional)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "openai_api_key",
+      "label": "openai_api_key"
+    },
+    {
+      "description": "OpenAI Base URL (optional)",
+      "type": "string",
+      "default": "",
+      "key": "openai_base_url",
+      "label": "openai_base_url"
+    },
+    {
+      "description": "Anthropic API Key (optional)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "anthropic_api_key",
+      "label": "anthropic_api_key"
+    }
+  ],
+  "openobserve": [
+    {
+      "description": "user email",
+      "type": "string",
+      "default": "root@example.com",
+      "required": true,
+      "key": "mail",
+      "label": "mail"
+    },
+    {
+      "description": "user password",
+      "type": "string",
+      "default": "Complexpass#123",
+      "required": true,
+      "key": "password",
+      "label": "password"
+    },
+    {
+      "description": "Data store directory",
+      "type": "string",
+      "default": "/data",
+      "required": true,
+      "key": "data_dir",
+      "label": "data_dir"
+    }
+  ],
+  "outline": [
+    {
+      "description": "Storage type for attachments",
+      "type": "choice",
+      "default": "s3",
+      "required": true,
+      "options": [
+        "s3",
+        "local"
+      ],
+      "key": "storage_type",
+      "label": "storage_type"
+    },
+    {
+      "description": "Authentication provider",
+      "type": "choice",
+      "default": "oidc",
+      "required": true,
+      "options": [
+        "oidc",
+        "google",
+        "slack"
+      ],
+      "key": "auth_provider",
+      "label": "auth_provider"
+    },
+    {
+      "description": "Secret key for encrypting data (32 bytes hex)",
+      "type": "string",
+      "default": "ymtrdjsvzypfwsuxfzohirunhzeqytighphwdzwnttqepjpahwwjnpmqqmgywnew",
+      "required": true,
+      "key": "secret_key",
+      "label": "secret_key"
+    },
+    {
+      "description": "Utility secret for internal operations",
+      "type": "string",
+      "default": "ozcgfjcptwictsepiutzpjffppabefdejlygqafzpkrdqiypshhzlaaauoboujpi",
+      "required": true,
+      "key": "utils_secret",
+      "label": "utils_secret"
+    },
+    {
+      "description": "OIDC Client ID",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'oidc'",
+      "key": "oidc_client_id",
+      "label": "oidc_client_id"
+    },
+    {
+      "description": "OIDC Client Secret",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'oidc'",
+      "key": "oidc_client_secret",
+      "label": "oidc_client_secret"
+    },
+    {
+      "description": "OIDC Authorization URI",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'oidc'",
+      "key": "oidc_auth_uri",
+      "label": "oidc_auth_uri"
+    },
+    {
+      "description": "OIDC Token URI",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'oidc'",
+      "key": "oidc_token_uri",
+      "label": "oidc_token_uri"
+    },
+    {
+      "description": "OIDC User Info URI",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'oidc'",
+      "key": "oidc_userinfo_uri",
+      "label": "oidc_userinfo_uri"
+    },
+    {
+      "description": "Google OAuth Client ID",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'google'",
+      "key": "google_client_id",
+      "label": "google_client_id"
+    },
+    {
+      "description": "Google OAuth Client Secret",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'google'",
+      "key": "google_client_secret",
+      "label": "google_client_secret"
+    },
+    {
+      "description": "Slack OAuth Client ID",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'slack'",
+      "key": "slack_client_id",
+      "label": "slack_client_id"
+    },
+    {
+      "description": "Slack OAuth Client Secret",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'slack'",
+      "key": "slack_client_secret",
+      "label": "slack_client_secret"
+    },
+    {
+      "description": "Enable SMTP for sending emails",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "smtp_enabled",
+      "label": "smtp_enabled"
+    },
+    {
+      "description": "SMTP Server Host",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.smtp_enabled === 'true'",
+      "key": "smtp_host",
+      "label": "smtp_host"
+    },
+    {
+      "description": "SMTP Server Port",
+      "type": "string",
+      "default": "587",
+      "required": true,
+      "if": "inputs.smtp_enabled === 'true'",
+      "key": "smtp_port",
+      "label": "smtp_port"
+    },
+    {
+      "description": "SMTP Username",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.smtp_enabled === 'true'",
+      "key": "smtp_username",
+      "label": "smtp_username"
+    },
+    {
+      "description": "SMTP Password",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.smtp_enabled === 'true'",
+      "key": "smtp_password",
+      "label": "smtp_password"
+    },
+    {
+      "description": "SMTP From Email Address",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.smtp_enabled === 'true'",
+      "key": "smtp_from_email",
+      "label": "smtp_from_email"
+    }
+  ],
+  "overleaf": [
+    {
+      "description": "Set language",
+      "type": "string",
+      "default": "zh-CN",
+      "required": false,
+      "key": "OVERLEAF_SITE_LANGUAGE",
+      "label": "OVERLEAF_SITE_LANGUAGE"
+    },
+    {
+      "description": "",
+      "type": "string",
+      "default": "Overleaf Community Edition",
+      "required": false,
+      "key": "OVERLEAF_APP_NAME",
+      "label": "OVERLEAF_APP_NAME"
+    },
+    {
+      "description": "",
+      "type": "string",
+      "default": "project_file,project_output_file",
+      "required": false,
+      "key": "ENABLED_LINKED_FILE_TYPES",
+      "label": "ENABLED_LINKED_FILE_TYPES"
+    },
+    {
+      "description": "Enables Thumbnail generation using ImageMagick",
+      "type": "string",
+      "default": "true",
+      "required": false,
+      "key": "ENABLE_CONVERSIONS",
+      "label": "ENABLE_CONVERSIONS"
+    },
+    {
+      "description": "Disables email confirmation requirementk",
+      "type": "string",
+      "default": "true",
+      "required": false,
+      "key": "EMAIL_CONFIRMATION_DISABLED",
+      "label": "EMAIL_CONFIRMATION_DISABLED"
+    }
+  ],
+  "palacms": [],
+  "paperless-ngx": [
+    {
+      "description": "Admin username for initial setup",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_user",
+      "label": "admin_user"
+    },
+    {
+      "description": "Admin password for initial setup",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Admin email for initial setup",
+      "type": "string",
+      "default": "admin@example.com",
+      "required": true,
+      "key": "admin_mail",
+      "label": "admin_mail"
+    },
+    {
+      "description": "Should be a very long sequence of random characters",
+      "type": "string",
+      "default": "ngaxeegzniojzjmaxasywwrnrvhfdxii",
+      "required": false,
+      "key": "paperless_secret_key",
+      "label": "paperless_secret_key"
+    },
+    {
+      "description": "Set timezone (e.g., America/Los_Angeles). Default: UTC",
+      "type": "string",
+      "default": "UTC",
+      "required": false,
+      "key": "paperless_time_zone",
+      "label": "paperless_time_zone"
+    },
+    {
+      "description": "Default language to use for OCR. Default: eng",
+      "type": "string",
+      "default": "eng",
+      "required": false,
+      "key": "paperless_ocr_language",
+      "label": "paperless_ocr_language"
+    },
+    {
+      "description": "Additional languages for text recognition (e.g., tur ces)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "paperless_ocr_languages",
+      "label": "paperless_ocr_languages"
+    },
+    {
+      "description": "UID of the user used to run paperless in the container",
+      "type": "string",
+      "default": "1000",
+      "required": false,
+      "key": "usermap_uid",
+      "label": "usermap_uid"
+    },
+    {
+      "description": "GID of the user used to run paperless in the container",
+      "type": "string",
+      "default": "1000",
+      "required": false,
+      "key": "usermap_gid",
+      "label": "usermap_gid"
+    }
+  ],
+  "pdf2zh": [],
+  "penpot": [],
+  "pgadmin4": [
+    {
+      "description": "login page account email",
+      "type": "string",
+      "default": "admin@sealos.io",
+      "required": false,
+      "key": "PGADMIN_DEFAULT_EMAIL",
+      "label": "PGADMIN_DEFAULT_EMAIL"
+    },
+    {
+      "description": "login page account password",
+      "type": "string",
+      "default": "123456",
+      "required": false,
+      "key": "PGADMIN_DEFAULT_PASSWORD",
+      "label": "PGADMIN_DEFAULT_PASSWORD"
+    }
+  ],
+  "photoprism": [
+    {
+      "description": "admin login username",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "PHOTOPRISM_ADMIN_USER",
+      "label": "PHOTOPRISM_ADMIN_USER"
+    },
+    {
+      "description": "initial admin password (8-72 characters)",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "PHOTOPRISM_ADMIN_PASSWORD",
+      "label": "PHOTOPRISM_ADMIN_PASSWORD"
+    }
+  ],
+  "phpmyadmin": [],
+  "plane": [],
+  "plausible": [
+    {
+      "description": "clickhouse user name",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "CLICKHOUSE_USER",
+      "label": "CLICKHOUSE_USER"
+    },
+    {
+      "description": "clickhouse password",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "CLICKHOUSE_PASSWORD",
+      "label": "CLICKHOUSE_PASSWORD"
+    },
+    {
+      "description": "true or false",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "DISABLE_REGISTRATION",
+      "label": "DISABLE_REGISTRATION"
+    },
+    {
+      "description": "You can generate it using the following command: openssl rand -base64 64 | tr -d '\n' ; echo",
+      "type": "string",
+      "default": "FhNHzoWJyoQgT21RsFQG+KUzJ/o5YbKsszc6CMOArA0OXxjZ763oCGiItOPlKJAfIQO0uov8xt8p5k+MqtmtOQ==",
+      "required": true,
+      "key": "SECRET_KEY_BASE",
+      "label": "SECRET_KEY_BASE"
+    }
+  ],
+  "pocketbase": [
+    {
+      "description": "Admin user email for login",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_email",
+      "label": "admin_email"
+    },
+    {
+      "description": "Admin user password (minimum 8 characters)",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Encryption key for settings (recommended for production, 32 characters)",
+      "type": "string",
+      "default": "gjovcrdvrgiosexmvwxrjsxzrmibguqm",
+      "required": false,
+      "key": "encryption_key",
+      "label": "encryption_key"
+    },
+    {
+      "description": "Enable debug mode",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "debug_mode",
+      "label": "debug_mode"
+    }
+  ],
+  "postiz": [
+    {
+      "description": "GitHub OAuth Client ID (optional)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "GITHUB_CLIENT_ID",
+      "label": "GITHUB_CLIENT_ID"
+    },
+    {
+      "description": "GitHub OAuth Client Secret (optional)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "GITHUB_CLIENT_SECRET",
+      "label": "GITHUB_CLIENT_SECRET"
+    },
+    {
+      "description": "Resend email service API key (optional)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "RESEND_API_KEY",
+      "label": "RESEND_API_KEY"
+    },
+    {
+      "description": "X/Twitter API key (optional)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "X_API_KEY",
+      "label": "X_API_KEY"
+    },
+    {
+      "description": "X/Twitter API secret (optional)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "X_API_SECRET",
+      "label": "X_API_SECRET"
+    }
+  ],
+  "privatebin": [],
+  "qinglong": [],
+  "Reactive-Resume": [
+    {
+      "description": "Storage size for minio in Gi",
+      "type": "number",
+      "default": "5",
+      "required": true,
+      "key": "minio_storage",
+      "label": "minio_storage"
+    }
+  ],
+  "Readeck": [],
+  "redisinsight": [],
+  "refly": [
+    {
+      "description": "OpenAI API Key",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "OPENAI_API_KEY",
+      "label": "OPENAI_API_KEY"
+    },
+    {
+      "description": "OpenAI endpoint base URL",
+      "type": "string",
+      "default": "https://api.openai.com/v1",
+      "required": true,
+      "key": "OPENAI_BASE_URL",
+      "label": "OPENAI_BASE_URL"
+    },
+    {
+      "description": "The embedding model name to use, e.g., text-embedding-ada-002",
+      "type": "string",
+      "default": "text-embedding-ada-002",
+      "required": true,
+      "key": "EMBEDDINGS_MODEL_NAME",
+      "label": "EMBEDDINGS_MODEL_NAME"
+    }
+  ],
+  "registry": [],
+  "rocketchat": [],
+  "rocketchat-micro": [],
+  "rsshub": [],
+  "Ruiqi-Waf": [],
+  "rustfs": [
+    {
+      "description": "S3 Access Key for authentication",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "access_key",
+      "label": "access_key"
+    },
+    {
+      "description": "S3 Secret Key for authentication",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "secret_key",
+      "label": "secret_key"
+    },
+    {
+      "description": "Enable web console interface",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "key": "console_enable",
+      "label": "console_enable"
+    }
+  ],
+  "rybbit": [],
+  "signoz": [],
+  "s-pdf": [
+    {
+      "description": "Use PostgreSQL database for production workloads (recommended for better performance and data persistence)",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_postgresql",
+      "label": "use_postgresql"
+    },
+    {
+      "description": "download security jar (required as true for auth login)",
+      "type": "string",
+      "default": "false",
+      "required": false,
+      "key": "DOCKER_ENABLE_SECURITY",
+      "label": "DOCKER_ENABLE_SECURITY"
+    },
+    {
+      "description": "set to 'true' to enable login",
+      "type": "string",
+      "default": "false",
+      "required": false,
+      "key": "SECURITY_ENABLELOGIN",
+      "label": "SECURITY_ENABLELOGIN"
+    },
+    {
+      "description": "define custom font libraries to install for use for document conversions",
+      "type": "string",
+      "default": "en-GB,en-US,zh-CN,zh-TW",
+      "required": false,
+      "key": "LANGS",
+      "label": "LANGS"
+    },
+    {
+      "description": "download calibre onto stirling-pdf enabling pdf to/from book and advanced html conversion",
+      "type": "string",
+      "default": "true",
+      "required": false,
+      "key": "INSTALL_BOOK_AND_ADVANCED_HTML_OPS",
+      "label": "INSTALL_BOOK_AND_ADVANCED_HTML_OPS"
+    },
+    {
+      "description": "Set the default language",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "key": "SYSTEM_DEFAULTLOCALE",
+      "label": "SYSTEM_DEFAULTLOCALE"
+    },
+    {
+      "description": "Application's visible name",
+      "type": "string",
+      "default": "Stirling-PDF",
+      "required": false,
+      "key": "UI_APPNAME",
+      "label": "UI_APPNAME"
+    },
+    {
+      "description": "Short description or tagline shown on homepage",
+      "type": "string",
+      "default": "Demo site for Stirling-PDF",
+      "required": false,
+      "key": "UI_HOMEDESCRIPTION",
+      "label": "UI_HOMEDESCRIPTION"
+    },
+    {
+      "description": "Name displayed on the navigation bar",
+      "type": "string",
+      "default": "Stirling-PDF",
+      "required": false,
+      "key": "UI_APPNAMENAVBAR",
+      "label": "UI_APPNAMENAVBAR"
+    },
+    {
+      "description": "enable Info APIs (`/api/*`) endpoints",
+      "type": "string",
+      "default": "true",
+      "required": false,
+      "key": "METRICS_ENABLED",
+      "label": "METRICS_ENABLED"
+    },
+    {
+      "description": "allow Google visibility (via robots.txt)",
+      "type": "string",
+      "default": "true",
+      "required": false,
+      "key": "SYSTEM_GOOGLEVISIBILITY",
+      "label": "SYSTEM_GOOGLEVISIBILITY"
+    }
+  ],
+  "strapi": [
+    {
+      "description": "Node environment mode",
+      "type": "choice",
+      "default": "production",
+      "options": [
+        "production",
+        "development"
+      ],
+      "required": true,
+      "key": "node_env",
+      "label": "node_env"
+    }
+  ],
+  "surveyking": [],
+  "tailchat": [],
+  "teable": [],
+  "tentix": [
+    {
+      "description": "OpenAI API Key",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "OPENAI_API_KEY",
+      "label": "OPENAI_API_KEY"
+    },
+    {
+      "description": "OpenAI endpoint base URL",
+      "type": "string",
+      "default": "https://api.openai.com/v1",
+      "required": true,
+      "key": "OPENAI_BASE_URL",
+      "label": "OPENAI_BASE_URL"
+    }
+  ],
+  "tianji": [
+    {
+      "description": "replace me with a random string",
+      "type": "string",
+      "default": "replace-me-with-a-random-string",
+      "required": true,
+      "key": "JWT_SECRET",
+      "label": "JWT_SECRET"
+    },
+    {
+      "description": "whether allow register account",
+      "type": "string",
+      "default": "false",
+      "required": false,
+      "key": "ALLOW_REGISTER",
+      "label": "ALLOW_REGISTER"
+    },
+    {
+      "description": "whether allow open openapi",
+      "type": "string",
+      "default": "true",
+      "required": false,
+      "key": "ALLOW_OPENAPI",
+      "label": "ALLOW_OPENAPI"
+    }
+  ],
+  "tolgee": [
+    {
+      "description": "The initial username for Tolgee authentication.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "TOLGEE_AUTHENTICATION_INITIAL_USERNAME",
+      "label": "TOLGEE_AUTHENTICATION_INITIAL_USERNAME"
+    },
+    {
+      "description": "The initial password for Tolgee authentication.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "TOLGEE_AUTHENTICATION_INITIAL_PASSWORD",
+      "label": "TOLGEE_AUTHENTICATION_INITIAL_PASSWORD"
+    },
+    {
+      "description": "true: Enable SMTP authentication, false: Disable SMTP authentication",
+      "type": "choice",
+      "options": [
+        "true",
+        "false"
+      ],
+      "default": "false",
+      "required": false,
+      "key": "TOLGEE_SMTP_AUTH",
+      "label": "TOLGEE_SMTP_AUTH"
+    },
+    {
+      "description": "The email address to send emails from.",
+      "type": "string",
+      "default": "test@test.com",
+      "required": false,
+      "key": "TOLGEE_SMTP_FROM",
+      "label": "TOLGEE_SMTP_FROM"
+    },
+    {
+      "description": "The SMTP host to send emails from.",
+      "type": "string",
+      "default": "smtp.test.com",
+      "required": false,
+      "key": "TOLGEE_SMTP_HOST",
+      "label": "TOLGEE_SMTP_HOST"
+    },
+    {
+      "description": "The SMTP port to send emails from.",
+      "type": "string",
+      "default": "0",
+      "required": false,
+      "key": "TOLGEE_SMTP_PORT",
+      "label": "TOLGEE_SMTP_PORT"
+    },
+    {
+      "description": "The SMTP user to send emails from.",
+      "type": "string",
+      "default": "test",
+      "required": false,
+      "key": "TOLGEE_SMTP_USERNAME",
+      "label": "TOLGEE_SMTP_USERNAME"
+    },
+    {
+      "description": "The SMTP password to send emails from.",
+      "type": "string",
+      "default": "test",
+      "required": false,
+      "key": "TOLGEE_SMTP_PASSWORD",
+      "label": "TOLGEE_SMTP_PASSWORD"
+    },
+    {
+      "description": "true: Enable SMTP SSL, false: Disable SMTP SSL",
+      "type": "choice",
+      "options": [
+        "true",
+        "false"
+      ],
+      "default": "false",
+      "required": false,
+      "key": "TOLGEE_SMTP_SSL_ENABLED",
+      "label": "TOLGEE_SMTP_SSL_ENABLED"
+    }
+  ],
+  "twenty": [],
+  "typesense": [],
+  "umami": [
+    {
+      "description": "replace me with a random string",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "APP_SECRET",
+      "label": "APP_SECRET"
+    },
+    {
+      "description": "Allows you to assign a custom name to the tracker script different from the default script.js. This is to help you avoid some ad-blockers.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "TRACKER_SCRIPT_NAME",
+      "label": "TRACKER_SCRIPT_NAME"
+    }
+  ],
+  "uptime-kuma": [],
+  "vaultwarden": [],
+  "wordpress": [],
+  "wrenai": [
+    {
+      "description": "OpenAI API Key",
+      "type": "string",
+      "required": false,
+      "key": "openai_api_key",
+      "label": "openai_api_key"
+    },
+    {
+      "description": "OpenAI API Key for Embedder",
+      "type": "string",
+      "required": false,
+      "key": "embedder_openai_api_key",
+      "label": "embedder_openai_api_key"
+    }
+  ],
+  "yourls": [
+    {
+      "description": "YOURLS instance username.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "YOURLS_USER",
+      "label": "YOURLS_USER"
+    },
+    {
+      "description": "YOURLS instance password.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "YOURLS_PASS",
+      "label": "YOURLS_PASS"
+    }
+  ]
+}

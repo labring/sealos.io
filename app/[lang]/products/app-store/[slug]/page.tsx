@@ -108,7 +108,7 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
   return (
     <div
       data-theme="app-store"
-      className="min-h-screen bg-background text-foreground"
+      className="bg-background text-foreground min-h-screen"
     >
       <div className="sticky top-0 z-50 container pt-8">
         <Header />

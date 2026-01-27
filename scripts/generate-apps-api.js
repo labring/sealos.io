@@ -16,12 +16,15 @@ const path = require('path');
 const { execSync } = require('child_process');
 const crypto = require('crypto');
 
-// API endpoint
+// API endpoints
 const API_URL = 'https://template.os.sealos.io/api/listTemplate';
+const TEMPLATE_SOURCE_API_URL =
+  'https://template.usw-1.sealos.io/api/getTemplateSource';
 
 // Output paths for configuration files
 const CONFIG_DIR = path.join(__dirname, '..', 'config');
 const APPS_CONFIG_PATH = path.join(CONFIG_DIR, 'apps.json');
+const TEMPLATE_SOURCES_PATH = path.join(CONFIG_DIR, 'template-sources.json');
 const IMAGES_DIR = path.join(__dirname, '..', 'public', 'images', 'apps');
 
 function isNetworkError(error) {
@@ -338,6 +341,52 @@ async function downloadIcon(iconUrl, slug) {
 }
 
 /**
+ * Fetch template source data from API
+ */
+async function fetchTemplateSource(templateName) {
+  try {
+    console.log(`📥 Fetching template source for: ${templateName}`);
+
+    const response = await fetch(
+      `${TEMPLATE_SOURCE_API_URL}?templateName=${encodeURIComponent(templateName)}`,
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.code !== 200) {
+      throw new Error(`API error: ${data.message || 'Unknown error'}`);
+    }
+
+    console.log(`✅ Fetched template source for: ${templateName}`);
+    return data.data;
+  } catch (error) {
+    console.error(
+      `❌ Error fetching template source for ${templateName}:`,
+      error.message,
+    );
+    return null;
+  }
+}
+
+/**
+ * Extract template source data (only inputs field)
+ */
+function extractTemplateSourceInputs(sourceData) {
+  try {
+    // Extract only the inputs field from source
+    const inputs = sourceData?.source?.inputs || [];
+    return inputs;
+  } catch (error) {
+    console.error('Error extracting template source inputs:', error.message);
+    return [];
+  }
+}
+
+/**
  * Clean images directory
  */
 function cleanImagesDirectory() {
@@ -369,7 +418,7 @@ async function processTemplates() {
   console.log(`Clean mode: ${clean ? 'enabled' : 'disabled'}`);
 
   try {
-    // Clean images directory if requested
+    // Clean directories if requested
     if (clean) {
       cleanImagesDirectory();
     }
@@ -396,9 +445,12 @@ async function processTemplates() {
     console.log(`Found ${templates.length} templates`);
 
     const appConfigs = [];
+    const templateSources = {}; // Collect all template sources here
     let processedCount = 0;
     let skippedCount = 0;
     let addedCount = 0;
+    let sourceFetchedCount = 0;
+    let sourceFailedCount = 0;
 
     for (const template of templates) {
       processedCount++;
@@ -415,6 +467,20 @@ async function processTemplates() {
           appConfigs.push(appConfig);
           console.log(`✅ Added app: ${appConfig.name} (${appConfig.slug})`);
           addedCount++;
+
+          // Fetch and collect template source data
+          const sourceData = await fetchTemplateSource(appConfig.slug);
+          if (sourceData) {
+            const inputs = extractTemplateSourceInputs(sourceData);
+            templateSources[appConfig.slug] = inputs;
+            console.log(
+              `  📋 Collected ${inputs.length} inputs for ${appConfig.slug}`,
+            );
+            sourceFetchedCount++;
+          } else {
+            templateSources[appConfig.slug] = [];
+            sourceFailedCount++;
+          }
         } else {
           skippedCount++;
         }
@@ -437,8 +503,12 @@ async function processTemplates() {
     // Generate the main JSON config file
     const configContent = JSON.stringify(appConfigs, null, 2);
     fs.writeFileSync(APPS_CONFIG_PATH, configContent, 'utf8');
-
     console.log(`\n✅ Generated main config file: ${APPS_CONFIG_PATH}`);
+
+    // Generate the template sources JSON file
+    const templateSourcesContent = JSON.stringify(templateSources, null, 2);
+    fs.writeFileSync(TEMPLATE_SOURCES_PATH, templateSourcesContent, 'utf8');
+    console.log(`✅ Generated template sources file: ${TEMPLATE_SOURCES_PATH}`);
 
     // Generate category summary
     const appsByCategory = {};
@@ -459,6 +529,8 @@ async function processTemplates() {
     console.log(`  - Categories: ${categoryList}`);
     console.log(`  - Apps added: ${addedCount}`);
     console.log(`  - Apps skipped: ${skippedCount}`);
+    console.log(`  - Template sources fetched: ${sourceFetchedCount}`);
+    console.log(`  - Template sources failed: ${sourceFailedCount}`);
 
     if (addedCount > 0) {
       console.log('\n🆕 Top 10 apps by deploy count:');
