@@ -44,7 +44,7 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
       if (input.type === 'boolean') {
         initialData[input.key] = input.default === 'true';
       } else {
-        initialData[input.key] = input.default || '';
+        initialData[input.key] = input.default ?? '';
       }
     });
     return initialData;

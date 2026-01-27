@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { siteConfig } from '@/config/site';
+import templateSourcesData from '@/config/template-sources.json';
 
 /**
  * Template input field definition
@@ -11,7 +12,7 @@ export interface TemplateInput {
   label: string;
   description: string;
   type: 'string' | 'boolean' | 'number' | 'choice';
-  default: string;
+  default?: string;
   required: boolean;
   options?: string[];
 }
@@ -40,8 +41,8 @@ export interface TemplateSource {
  */
 export interface TemplateSourceData {
   source: TemplateSource;
-  appYaml: string;
-  templateYaml: {
+  appYaml?: string;
+  templateYaml?: {
     apiVersion: string;
     kind: string;
     metadata: {
@@ -109,6 +110,26 @@ export function useTemplateSource(): UseTemplateSourceResult {
       setError(null);
 
       try {
+        // Try to get from pre-built template sources JSON first
+        const sources = templateSourcesData as Record<string, TemplateInput[]>;
+        const inputs = sources[templateName];
+
+        if (inputs !== undefined) {
+          // Found in local JSON, construct minimal TemplateSourceData with only inputs
+          const templateData: TemplateSourceData = {
+            source: {
+              inputs: inputs,
+            } as TemplateSource,
+          };
+          setData(templateData);
+          return templateData;
+        }
+
+        console.warn(
+          `Template source not found in local data for ${templateName}, falling back to API`
+        );
+
+        // Fallback to API if not found in local data
         const response = await fetch(
           `${siteConfig.templateApiEndpoint}/api/getTemplateSource?templateName=${encodeURIComponent(templateName)}`
         );
