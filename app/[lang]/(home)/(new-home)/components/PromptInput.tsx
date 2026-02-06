@@ -73,6 +73,11 @@ type CategoryConfig = {
 const PROMPT_CATEGORIES: CategoryConfig[] = [
   {
     type: 'single',
+    name: 'OpenClaw',
+    prompt: 'Give me OpenClaw',
+  },
+  {
+    type: 'single',
     name: 'Claude Code',
     prompt: 'Give me a cloud dev environment with claude code.',
   },

@@ -2,6 +2,7 @@ import type { languagesType } from '@/lib/i18n';
 
 export const TYPEWRITER_TEXTS: Record<languagesType, string[]> = {
   en: [
+    'Give me OpenClaw',
     'Give me a cloud dev environment with claude code.',
     'I want to create a full-stack application using Next.js and database.',
     'I want to deploy n8n from app store with queue mode.',
@@ -9,6 +10,7 @@ export const TYPEWRITER_TEXTS: Record<languagesType, string[]> = {
     'I want to deploy a databse for caching.',
   ],
   'zh-cn': [
+    '给我 OpenClaw',
     '给我一个带有 Claude Code 的云开发环境。',
     '我想从应用商店部署 N8N。',
     '我想使用 Next.js 构建 SaaS 平台。',

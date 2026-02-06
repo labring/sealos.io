@@ -521,6 +521,46 @@
     }
   },
   {
+    "name": "Clawdbot - AI Agent Gateway",
+    "slug": "clawdbot",
+    "description": "An AI agent gateway with multi-channel support including WhatsApp, Telegram, and Discord integration",
+    "icon": "/images/apps/clawdbot.svg",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/moltbot/moltbot",
+    "website": "https://www.molt.bot/",
+    "tags": [
+      "ai",
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "AI 智能体网关，支持 WhatsApp、Telegram、Discord 等多渠道集成"
+      }
+    }
+  },
+  {
     "name": "code-server",
     "slug": "code-server",
     "description": "VS Code in the browser",
@@ -1220,7 +1260,7 @@
     "name": "Gitea",
     "slug": "gitea",
     "description": "The goal of this project is to make the easiest, fastest, and most painless way of setting up a self-hosted Git service.",
-    "icon": "/icons/default.svg",
+    "icon": "/images/apps/gitea.svg",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2132,6 +2172,46 @@
     "i18n": {
       "zh": {
         "description": "Loki 是一个水平可扩展、高可用、多租户的日志聚合系统，灵感来自 Prometheus。"
+      }
+    }
+  },
+  {
+    "name": "Mage AI",
+    "slug": "mage-ai",
+    "description": "An open-source data pipeline tool for building and running data workflows.",
+    "icon": "/images/apps/mage-ai.svg",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/mage-ai/mage-ai",
+    "website": "https://www.mage.ai/",
+    "tags": [
+      "ai",
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源数据流水线工具，用于构建与运行数据工作流。"
       }
     }
   },

@@ -256,6 +256,32 @@
   ],
   "chatnio": [],
   "chatwoot": [],
+  "clawdbot": [
+    {
+      "description": "OpenAI-compatible base URL",
+      "type": "string",
+      "default": "https://aiproxy.usw-1.sealos.io/v1",
+      "required": false,
+      "key": "base_url",
+      "label": "base_url"
+    },
+    {
+      "description": "API key for the OpenAI-compatible provider",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "api_key",
+      "label": "api_key"
+    },
+    {
+      "description": "Default model ID",
+      "type": "string",
+      "default": "claude-opus-4-5-20251101",
+      "required": false,
+      "key": "model",
+      "label": "model"
+    }
+  ],
   "code-server": [
     {
       "description": "Access Password",
@@ -428,7 +454,7 @@
     {
       "description": "Backend secret key (JWT signing)",
       "type": "string",
-      "default": "bhbeacurlngaffysvjdkerzitnkwzata",
+      "default": "aujvypztzthfwrqztqlcmgydffgokdss",
       "required": true,
       "key": "SECRET_KEY",
       "label": "SECRET_KEY"
@@ -525,7 +551,7 @@
     {
       "description": "Seed for token generation",
       "type": "string",
-      "default": "argfbocnqnkkvipcjupxvjeozfdedwmv",
+      "default": "iaujnqtcueussdhocgzbvubnxgawkrof",
       "required": true,
       "key": "seed",
       "label": "seed"
@@ -715,6 +741,24 @@
   ],
   "logto": [],
   "loki": [],
+  "mage-ai": [
+    {
+      "description": "Default admin email for login",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "default_owner_email",
+      "label": "default_owner_email"
+    },
+    {
+      "description": "Default admin password for login",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "default_owner_password",
+      "label": "default_owner_password"
+    }
+  ],
   "matomo": [],
   "mautic": [
     {
@@ -1002,7 +1046,7 @@
     {
       "description": "Secret key for encrypting data (32 bytes hex)",
       "type": "string",
-      "default": "ymtrdjsvzypfwsuxfzohirunhzeqytighphwdzwnttqepjpahwwjnpmqqmgywnew",
+      "default": "wdziwzlzmfprzsklhsifqdrekeqrfziypmfnjrrgeinkzdmntyqnygkmwneeyxko",
       "required": true,
       "key": "secret_key",
       "label": "secret_key"
@@ -1010,7 +1054,7 @@
     {
       "description": "Utility secret for internal operations",
       "type": "string",
-      "default": "ozcgfjcptwictsepiutzpjffppabefdejlygqafzpkrdqiypshhzlaaauoboujpi",
+      "default": "zofjxvpclpcvfbhugzhfvdqohwuxtaetqgjbpuleibbgsvbegmmhqhdcupkcbnfm",
       "required": true,
       "key": "utils_secret",
       "label": "utils_secret"
@@ -1221,7 +1265,7 @@
     {
       "description": "Should be a very long sequence of random characters",
       "type": "string",
-      "default": "ngaxeegzniojzjmaxasywwrnrvhfdxii",
+      "default": "vosgnpinxfhpxgrkqffirzusqnqddsfj",
       "required": false,
       "key": "paperless_secret_key",
       "label": "paperless_secret_key"
@@ -1361,7 +1405,7 @@
     {
       "description": "Encryption key for settings (recommended for production, 32 characters)",
       "type": "string",
-      "default": "gjovcrdvrgiosexmvwxrjsxzrmibguqm",
+      "default": "ybecixsuqaactyhzekjjuymphrsukisa",
       "required": false,
       "key": "encryption_key",
       "label": "encryption_key"
