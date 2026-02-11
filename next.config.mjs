@@ -20,28 +20,10 @@ if (process.env.ANALYZE === 'true') {
   }
 }
 
-const securityHeaders = [
-  {
-    key: 'X-Content-Type-Options',
-    value: 'nosniff',
-  },
-  {
-    key: 'X-Frame-Options',
-    value: 'DENY',
-  },
-  {
-    key: 'Referrer-Policy',
-    value: 'strict-origin-when-cross-origin',
-  },
-  {
-    key: 'X-XSS-Protection',
-    value: '1; mode=block', // optional, deprecated
-  },
-];
-
 /** @type {import('next').NextConfig} */
 const config = {
-  // Removed 'output: standalone' to enable static generation for docs pages
+  output: 'export',
+  trailingSlash: true,
   // while maintaining server-side functionality for other pages
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
@@ -68,31 +50,8 @@ const config = {
       '@radix-ui/react-slot',
     ],
   },
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: securityHeaders,
-      },
-    ];
-  },
-  async redirects() {
-    return [
-      {
-        source: '/devbox',
-        destination: '/products/devbox',
-        permanent: true,
-      },
-      {
-        source: '/education',
-        destination: '/solutions/industries/education',
-        permanent: true,
-      },
-    ];
-  },
   images: {
-    // Only disable image optimization during Docker builds
-    unoptimized: process.env.DOCKER_BUILD === 'true',
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',

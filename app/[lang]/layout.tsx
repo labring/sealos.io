@@ -7,13 +7,10 @@ import { generatePageMetadata } from '@/lib/utils/metadata';
 import StructuredDataComponent from '@/components/structured-data';
 import { generateHomepageSchema } from '@/lib/utils/structured-data';
 import { DefaultSearchDialog } from '@/components/docs/Search';
-import { headers } from 'next/headers';
 import { HomepageDarkMode } from './homepage-dark-mode';
-import { isForcedDarkMode } from './utils/is-forced-dark-mode';
+import { ConditionalSiteBanner } from './conditional-site-banner';
 import { AuthFormProvider } from '@/new-components/AuthForm/AuthFormProvider';
 import { AuthForm } from '@/new-components/AuthForm';
-import { SiteBanner } from '@/new-components/SiteBanner';
-import { siteConfig } from '@/config/site';
 import { DeployModalProvider, DeployModal } from '@/new-components/DeployModal';
 
 export const metadata = generatePageMetadata();
@@ -35,14 +32,7 @@ export default async function LocaleLayout({
   const htmlLang = params.lang || 'en';
   const homepageSchema = generateHomepageSchema(htmlLang);
 
-  const headersList = await headers();
-  const pathname = headersList.get('x-pathname') || '/';
-  const needsDarkMode = isForcedDarkMode(pathname);
-
-  const htmlClassName = needsDarkMode ? 'font-sans dark' : 'font-sans';
-  const hasBanner = Boolean(
-    siteConfig.banner?.enabled && siteConfig.banner.text,
-  );
+  const htmlClassName = 'font-sans';
 
   return (
     <html lang={htmlLang} className={htmlClassName} suppressHydrationWarning>
@@ -135,13 +125,8 @@ export default async function LocaleLayout({
                 SearchDialog: DefaultSearchDialog,
               }}
             >
-              {/* needsDarkMode = pages with new layout */}
-              {needsDarkMode && hasBanner ? (
-                <SiteBanner
-                  text={siteConfig.banner?.text}
-                  action={siteConfig.banner?.action}
-                />
-              ) : null}
+              {/* SiteBanner is conditionally rendered by client component based on pathname */}
+              <ConditionalSiteBanner />
 
               {children}
               <AuthForm />

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown, Tag, X } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -31,7 +31,28 @@ const buildPath = (pathname: string, params: URLSearchParams) => {
   return query ? `${pathname}?${query}` : pathname;
 };
 
-export default function TagsBar({ tags = [] }: TagsBarProps) {
+function TagsBarSkeleton() {
+  return (
+    <div className="relative mt-6 w-full">
+      <div className="flex items-center gap-4">
+        <div className="hidden items-center gap-2 sm:flex">
+          <Tag className="text-muted-foreground h-4 w-4" />
+          <h4 className="text-muted-foreground text-sm font-medium whitespace-nowrap">
+            Filter by Tags
+          </h4>
+        </div>
+        <div className="border-muted-foreground/20 h-6 border-l" />
+        <div className="flex flex-1 flex-wrap items-center gap-2">
+          <div className={cn(tagClassName(true), 'animate-pulse opacity-70')}>
+            All Tags
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TagsBarContent({ tags = [] }: TagsBarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -155,5 +176,14 @@ export default function TagsBar({ tags = [] }: TagsBarProps) {
         </div>
       </div>
     </div>
+  );
+}
+
+/** Tag filter bar; must be inside Suspense when using useSearchParams (e.g. static export). */
+export default function TagsBar(props: TagsBarProps) {
+  return (
+    <Suspense fallback={<TagsBarSkeleton />}>
+      <TagsBarContent {...props} />
+    </Suspense>
   );
 }

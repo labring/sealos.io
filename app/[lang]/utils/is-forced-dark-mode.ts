@@ -42,7 +42,8 @@ export function isForcedDarkMode(pathname: string): boolean {
   const matchedPath = matches ? `/${matches[1]}` : pathname;
   return (
     PATHS.find((path) => {
-      if (path.match === 'full') return matchedPath === path.path;
+      if (path.match === 'full')
+        return matchedPath === path.path || matchedPath === path.path + '/';
       if (path.match === 'prefix') return matchedPath.startsWith(path.path);
     }) !== undefined
   );
