@@ -21,7 +21,9 @@ jobs:
     runs-on: ubuntu-24.04
     if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
     env:
-      CF_PAGES_PROJECT_NAME: ${{ vars.CLOUDFLARE_PAGES_PROJECT_NAME || 'sealos.io' }}
+      CF_PAGES_PROJECT_NAME: ${{ vars.CLOUDFLARE_PAGES_PROJECT_NAME || 'sealos-static' }}
+      CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN || secrets.CF_API_TOKEN }}
 
     outputs:
       url: ${{ steps.deploy.outputs.deployment-url }}
@@ -50,12 +52,31 @@ jobs:
           npm ci
           npm run build
 
+      - name: Validate Cloudflare credentials
+        run: |
+          if [ -z "$CF_API_TOKEN" ]; then
+            echo "::error::Missing Cloudflare API token. Set secrets.CLOUDFLARE_API_TOKEN (or secrets.CF_API_TOKEN)."
+            exit 1
+          fi
+          if [ -z "$CF_ACCOUNT_ID" ]; then
+            echo "::error::Missing Cloudflare account ID. Set secrets.CLOUDFLARE_ACCOUNT_ID or vars.CLOUDFLARE_ACCOUNT_ID."
+            exit 1
+          fi
+          RESP="$(curl -sS -X GET 'https://api.cloudflare.com/client/v4/user/tokens/verify' \
+            -H "Authorization: Bearer $CF_API_TOKEN" \
+            -H 'Content-Type: application/json')"
+          echo "$RESP" | grep -q '"success":true' || {
+            echo "::error::Cloudflare token verification failed. Ensure token is valid and has Pages deploy permissions."
+            echo "$RESP"
+            exit 1
+          }
+
       - name: Deploy to Cloudflare Pages
         id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ env.CF_API_TOKEN }}
+          accountId: ${{ env.CF_ACCOUNT_ID }}
           command: pages deploy ./out --project-name=${{ env.CF_PAGES_PROJECT_NAME }}
 
       - name: Comment Preview URL
