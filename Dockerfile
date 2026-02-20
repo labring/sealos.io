@@ -1,23 +1,22 @@
-FROM node:20-alpine AS base
+FROM node:20-bookworm-slim AS builder
 
-FROM base AS builder
-RUN apk add --no-cache \
-    libc6-compat \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
     git \
-    build-base \
+    python3 \
+    make \
     g++ \
-    cairo-dev \
-    jpeg-dev \
-    pango-dev \
-    giflib-dev \
-    librsvg-dev \
-    freetype-dev \
-    harfbuzz-dev \
-    fribidi-dev \
-    udev \
-    ttf-opensans \
+    libcairo2-dev \
+    libjpeg62-turbo-dev \
+    libpango1.0-dev \
+    libgif-dev \
+    librsvg2-dev \
+    libfreetype6-dev \
+    libharfbuzz-dev \
+    libfribidi-dev \
     fontconfig \
-    curl
+    curl \
+  && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
 ARG NEXT_PUBLIC_APP_URL
@@ -33,7 +32,7 @@ ENV DOCKER_BUILD=true
 COPY . .
 # Replace relative image paths with CDN URLs
 RUN chmod +x ./scripts/replace-image-paths.sh && ./scripts/replace-image-paths.sh
-RUN npm install && npm run build
+RUN npm ci && npm run build
 
 FROM nginx:1.27-alpine AS runner
 
