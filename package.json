@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "lint": "tsc --noEmit",
-    "build": "npm run generate-apps && next build",
-    "build:analyze": "npm run generate-apps && ANALYZE=true next build",
+    "build": "npm run generate-apps && next build && node scripts/normalize-root-locale.js",
+    "build:analyze": "npm run generate-apps && ANALYZE=true next build && node scripts/normalize-root-locale.js",
     "dev": "next dev",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
