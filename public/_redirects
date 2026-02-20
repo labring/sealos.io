@@ -17,7 +17,7 @@ https://sealos.run/en/* https://sealos.io/:splat 302
 /customers/* / 302
 
 # en rewrite
-/en/* / 302
+/en/* /:splat 302
 
 # robots.txt rewrite
 /robots.txt /api/robots 200
