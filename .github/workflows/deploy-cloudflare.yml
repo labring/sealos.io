@@ -50,25 +50,6 @@ jobs:
           npm ci
           npm run build
 
-      - name: Validate Cloudflare credentials
-        run: |
-          if [ -z "$CF_API_TOKEN" ]; then
-            echo "::error::Missing Cloudflare API token. Set secrets.CLOUDFLARE_API_TOKEN (or secrets.CF_API_TOKEN)."
-            exit 1
-          fi
-          if [ -z "$CF_ACCOUNT_ID" ]; then
-            echo "::error::Missing Cloudflare account ID. Set secrets.CLOUDFLARE_ACCOUNT_ID or vars.CLOUDFLARE_ACCOUNT_ID."
-            exit 1
-          fi
-          RESP="$(curl -sS -X GET 'https://api.cloudflare.com/client/v4/user/tokens/verify' \
-            -H "Authorization: Bearer $CF_API_TOKEN" \
-            -H 'Content-Type: application/json')"
-          echo "$RESP" | grep -q '"success":true' || {
-            echo "::error::Cloudflare token verification failed. Ensure token is valid and has Pages deploy permissions."
-            echo "$RESP"
-            exit 1
-          }
-
       - name: Deploy to Cloudflare Pages (Production)
         id: deploy
         uses: cloudflare/wrangler-action@v3
