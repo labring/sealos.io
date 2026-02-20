@@ -1,0 +1,67 @@
+name: Deploy Home Page (Cloudflare Production)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: 'cloudflare-pages-production'
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  deployments: write
+  actions: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    env:
+      CF_PAGES_PROJECT_NAME: ${{ vars.CLOUDFLARE_PAGES_PROJECT_NAME || 'sealos-static' }}
+
+    outputs:
+      url: ${{ steps.deploy.outputs.deployment-url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Build
+        env:
+          NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL || 'https://sealos.io' }}
+          NEXT_PUBLIC_OPEN_SOURCE_URL: ${{ vars.NEXT_PUBLIC_OPEN_SOURCE_URL || '' }}
+          NEXT_PUBLIC_DEFAULT_LOCALE: ${{ vars.NEXT_PUBLIC_DEFAULT_LOCALE || 'en' }}
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy to Cloudflare Pages (Production)
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./out --project-name=${{ env.CF_PAGES_PROJECT_NAME }} --branch=main
+
+      - name: Deployment Summary
+        if: success()
+        run: |
+          {
+            echo "## Cloudflare Production Deployment";
+            echo "";
+            echo "- Project: ${CF_PAGES_PROJECT_NAME}";
+            echo "- URL: ${{ steps.deploy.outputs.deployment-url }}";
+          } >> "$GITHUB_STEP_SUMMARY"

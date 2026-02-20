@@ -35,36 +35,11 @@ COPY . .
 RUN chmod +x ./scripts/replace-image-paths.sh && ./scripts/replace-image-paths.sh
 RUN npm install && npm run build
 
-FROM base AS runner
-RUN apk add --no-cache curl cairo-dev \
-    pango-dev \
-    libjpeg-turbo \
-    giflib-dev \
-    librsvg-dev \
-    build-base
-ENV NODE_ENV=production
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-WORKDIR /app
+FROM nginx:1.27-alpine AS runner
 
-COPY ./package*.json ./
-COPY ./next* ./
-COPY ./postcss.config.js ./
-COPY ./tsconfig.json ./
-COPY ./source.config.ts ./
+# Copy static export output to nginx web root
+COPY --from=builder /app/out /usr/share/nginx/html
 
-# Install only production dependencies
-RUN npm ci --only=production && npm cache clean --force
+EXPOSE 80
 
-# Copy built application
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-
-USER nextjs
-
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV PORT=3000
-
-EXPOSE 3000
-
-CMD ["npm", "start"]
+CMD ["nginx", "-g", "daemon off;"]
