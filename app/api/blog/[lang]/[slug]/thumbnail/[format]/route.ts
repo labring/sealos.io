@@ -13,7 +13,7 @@ const MIN_DIM = 128;
 const MAX_DIM = 4000;
 const MAX_DPR = 3;
 const FORMAT_REGEX =
-  /^(?<width>\d{2,5})x(?<height>\d{2,5})(?:@(?<dpr>\d(?:\.\d+)?))?\.(?<type>png|svg)$/i;
+  /^(?<width>\d{2,5})x(?<height>\d{2,5})(?:@(?<dpr>\d(?:\.\d+)?)x)?\.(?<type>png|svg)$/i;
 const PREGENERATED_FORMATS = [
   {
     type: 'svg' as const,
@@ -45,7 +45,7 @@ export function generateStaticParams() {
 
       PREGENERATED_FORMATS.forEach((format) => {
         const dprSuffix =
-          format.dpr && format.dpr !== 1 ? `@${format.dpr}` : '';
+          format.dpr && format.dpr !== 1 ? `@${format.dpr}x` : '';
         params.push({
           lang,
           slug,

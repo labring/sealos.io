@@ -65,31 +65,29 @@ export async function getAllTags(pages?: BlogPost[], lang?: languagesType) {
   return tags;
 }
 
-export function getPageCategory(page: Page) {
-  const match = page.file.dirname.match(/\((.*?)\)/); // Extracts text inside ()
-  return match ? match[1] : 'uncategorized';
-}
+import {
+  getPageCategory,
+  getBlogImage,
+  type BlogImageFormat,
+  type BlogPostSummary,
+} from './blog-utils-shared';
 
-export type BlogImageFormat = 'svg-card' | 'svg-header' | 'png-og';
+export { getPageCategory, getBlogImage, type BlogImageFormat };
 
-export function getBlogImage(
-  page: { slugs: string[]; locale?: string },
-  _category?: string,
-  format: BlogImageFormat = 'png-og',
-) {
-  const formatMap: Record<BlogImageFormat, string> = {
-    'svg-card': '384x256.svg',
-    'svg-header': '400x210.svg',
-    'png-og': '1200x630@3x.png',
+/** Serialize a blog post for passing to client components (no body/functions). */
+export function toBlogPostSummary(post: BlogPost): BlogPostSummary {
+  return {
+    url: post.url,
+    data: {
+      title: post.data.title ?? '',
+      description: post.data.description,
+      image: post.data.image,
+      tags: post.data.tags,
+    },
+    file: { dirname: post.file.dirname },
+    slugs: post.slugs,
+    locale: post.locale,
   };
-
-  const locale = page.locale ?? 'en';
-  const slug = page.slugs[0];
-  const formatString = formatMap[format] ?? formatMap['png-og'];
-
-  return `/api/blog/${encodeURIComponent(locale)}/${encodeURIComponent(
-    slug,
-  )}/thumbnail/${formatString}`;
 }
 
 export function getPostsByLanguage(lang: languagesType) {

@@ -5,6 +5,7 @@ import {
   getSortedBlogPosts,
   formatCategoryTitle,
   getAllTags,
+  toBlogPostSummary,
 } from '@/lib/utils/blog-utils';
 import { languagesType, LANGUAGES } from '@/lib/i18n';
 import { BlogHeader } from '../../components/BlogHeader';
@@ -108,7 +109,7 @@ export default async function CategoryPage({
       </section>
 
       <section className="container mt-10">
-        <BlogGrid posts={posts} lang={lang} />
+        <BlogGrid posts={posts.map(toBlogPostSummary)} lang={lang} />
       </section>
     </>
   );

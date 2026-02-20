@@ -28,7 +28,8 @@ export async function generateBlogMetadata(props: {
 
   let url = `${siteConfig.url.base}/blog`;
   let docTitle = 'Sealos Blog';
-  let imageUrl = `${ogImageApi}/blog/${encodeURIComponent(docTitle)}`;
+  // let imageUrl = `${ogImageApi}/blog/${encodeURIComponent(docTitle)}`;
+  let imageUrl = `${siteConfig.url.base}/api/og`;
   let description = 'Sealos Blog';
   let keywords = ['Sealos', 'Blog'];
 
@@ -128,7 +129,8 @@ export function generateDocsMetadata({
 
   const url = `${siteConfig.url.base}/docs/${page.slugs.join('/')}`;
   const docsTitle = fullPathTitle ? fullPathTitle.toUpperCase() : 'Sealos Docs';
-  const imageUrl = `${ogImageApi}/docs/${encodeURIComponent(docsTitle)}`;
+  // const imageUrl = `${ogImageApi}/docs/${encodeURIComponent(docsTitle)}`;
+  const imageUrl = `${siteConfig.url.base}/api/og`;
 
   const isRootPage = !params.slug || params.slug.length === 0;
   const docTitle = isRootPage
@@ -235,7 +237,8 @@ export function generatePageMetadata(
   let ogTitle = options.title || 'Sealos';
 
   // Construct the image URL using the new API structure: /api/og/[type]/[title]
-  const imageUrl = `${ogImageApi}/${ogType}/${encodeURIComponent(ogTitle)}`;
+  // const imageUrl = `${ogImageApi}/${ogType}/${encodeURIComponent(ogTitle)}`;
+  const imageUrl = `${siteConfig.url.base}/api/og`;
 
   const hreflangLinks = options.pathname
     ? generateHreflangLinks(options.pathname)
@@ -348,8 +351,9 @@ export function generateProductMetadata(options: {
     ...(options.features || []),
   ];
 
-  const imageApi = `${ogImageApi}/products/`;
-  const imageUrl = `${ogImageApi}/products/${encodeURIComponent(options.productName.toLowerCase().replace(/\s+/g, '-'))}`;
+  // const imageApi = `${ogImageApi}/products/`;
+  // const imageUrl = `${ogImageApi}/products/${encodeURIComponent(options.productName.toLowerCase().replace(/\s+/g, '-'))}`;
+  const imageUrl = `${siteConfig.url.base}/api/og`;
 
   // Generate hreflang links
   const hreflangLinks = generateHreflangLinks(options.pathname);

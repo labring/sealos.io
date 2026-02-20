@@ -1,16 +1,15 @@
-import { InferPageType } from 'fumadocs-core/source';
-import { blog } from '@/lib/source';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getBlogImage, getPageCategory } from '@/lib/utils/blog-utils';
+import { getBlogImage, getPageCategory } from '@/lib/utils/blog-utils-shared';
+import type { BlogPostSummary } from '@/lib/utils/blog-utils-shared';
 import { GradientText } from '@/new-components/GradientText';
 
 export default function BlogItem({
   page,
   priorityImage,
 }: {
-  page: InferPageType<typeof blog>;
-  priorityImage?: Boolean;
+  page: BlogPostSummary;
+  priorityImage?: boolean;
 }) {
   const category = getPageCategory(page);
 

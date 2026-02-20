@@ -1,9 +1,9 @@
-import { BlogPost } from '@/lib/utils/blog-utils';
+import type { BlogPostSummary } from '@/lib/utils/blog-utils-shared';
 import BlogItem from './BlogItem';
-import { languagesType } from '@/lib/i18n';
+import type { languagesType } from '@/lib/i18n';
 
 interface BlogGridProps {
-  posts: BlogPost[];
+  posts: BlogPostSummary[];
   lang: languagesType;
 }
 
