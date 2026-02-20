@@ -1,0 +1,29 @@
+# Middleware + Nginx behavior migrated to Cloudflare Pages redirects.
+
+# Domain/language routing
+https://sealos.io/zh-cn https://sealos.run/zh-cn 302
+https://sealos.io/zh-cn/ https://sealos.run/zh-cn/ 302
+https://sealos.io/zh-cn/* https://sealos.run/zh-cn/:splat 302
+https://sealos.run/en https://sealos.io 302
+https://sealos.run/en/ https://sealos.io/ 302
+https://sealos.run/en/* https://sealos.io/:splat 302
+
+# Customers page redirects
+/en/customers / 302
+/en/customers/ / 302
+/en/customers/* / 302
+/customers / 302
+/customers/ / 302
+/customers/* / 302
+
+# en rewrite
+/en/* / 302
+
+# robots.txt rewrite
+/robots.txt /api/robots 200
+
+# Legacy redirects
+/devbox /products/devbox 301
+/devbox/ /products/devbox/ 301
+/education /solutions/industries/education 301
+/education/ /solutions/industries/education/ 301
