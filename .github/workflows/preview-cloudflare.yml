@@ -1,0 +1,84 @@
+name: Preview Home Page (Cloudflare)
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these preview deployments to complete.
+concurrency:
+  group: 'cloudflare-pages-preview'
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  deployments: write
+  pull-requests: write
+  actions: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    env:
+      CF_PAGES_PROJECT_NAME: ${{ vars.CLOUDFLARE_PAGES_PROJECT_NAME || 'sealos.io' }}
+
+    outputs:
+      url: ${{ steps.deploy.outputs.deployment-url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Build
+        env:
+          NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL || 'https://sealos.io' }}
+          NEXT_PUBLIC_OPEN_SOURCE_URL: ${{ vars.NEXT_PUBLIC_OPEN_SOURCE_URL || '' }}
+          NEXT_PUBLIC_DEFAULT_LOCALE: ${{ vars.NEXT_PUBLIC_DEFAULT_LOCALE || 'en' }}
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy to Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./out --project-name=${{ env.CF_PAGES_PROJECT_NAME }}
+
+      - name: Comment Preview URL
+        if: success() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const body = [
+              '🚀 **Sealos Preview Ready (Cloudflare Pages)**',
+              '',
+              `📱 **Preview URL:** ${process.env.PREVIEW_URL}`,
+              '',
+              `🔗 [👀 Click here to visit preview](${process.env.PREVIEW_URL})`,
+              '',
+              '---',
+              '💡 This preview will be automatically updated when you push new commits to this PR.'
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });
+        env:
+          PREVIEW_URL: ${{ steps.deploy.outputs.deployment-url }}
