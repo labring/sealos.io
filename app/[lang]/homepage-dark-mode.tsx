@@ -7,13 +7,13 @@ import { isForcedDarkMode } from './utils/is-forced-dark-mode';
 export function HomepageDarkMode() {
   const pathname = usePathname();
 
-  // Immediately set dark mode on mount to avoid flash
+  // Important pages are in dark mode, so default to that.
   useEffect(() => {
-    const shouldBeDark = isForcedDarkMode(pathname);
-    if (shouldBeDark) {
-      document.documentElement.classList.add('dark');
-    } else {
+    const shouldNotBeDark = !isForcedDarkMode(pathname);
+    if (shouldNotBeDark) {
       document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
     }
   }, [pathname]);
 
