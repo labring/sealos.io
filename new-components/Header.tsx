@@ -38,7 +38,7 @@ import { useGTM } from '@/hooks/use-gtm';
 import { siteConfig } from '@/config/site';
 import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
 import { getOpenBrainParam } from '@/lib/utils/brain';
-import { languagesType } from '@/lib/i18n';
+import { i18n, languagesType } from '@/lib/i18n';
 
 // 导航链接数据类型
 type NavigationChild = {
@@ -286,7 +286,7 @@ export function Header({ lang }: HeaderProps) {
   };
 
   const localizedNavigationLinks = React.useMemo(() => {
-    if (!resolvedLang) {
+    if (!resolvedLang || resolvedLang === i18n.defaultLanguage) {
       return navigationLinks;
     }
 

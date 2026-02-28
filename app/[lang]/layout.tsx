@@ -32,7 +32,7 @@ export default async function LocaleLayout({
   const htmlLang = params.lang || 'en';
   const homepageSchema = generateHomepageSchema(htmlLang);
 
-  const htmlClassName = 'font-sans';
+  const htmlClassName = 'font-sans dark';
 
   return (
     <html lang={htmlLang} className={htmlClassName} suppressHydrationWarning>
