@@ -1,14 +1,18 @@
-import { blogAuthors, domain, siteConfig } from '@/config/site';
-import { blog } from '@/lib/source';
-import { source } from '@/lib/source';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { blogAuthors, siteConfig } from '@/config/site';
+import { blog, source } from '@/lib/source';
 import { i18n, getLanguageSlug } from '@/lib/i18n';
 import { getBlogImage, getPageCategory } from '@/lib/utils/blog-utils';
-
-const ogImageApi = `${siteConfig.url.base}/api/og`;
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 const siteName = siteConfig.name;
+const OG_IMAGE_URL = `${siteConfig.url.base}/api/og`;
+const BLOG_RSS_ALTERNATE = [
+  {
+    title: 'Sealos Blog',
+    url: `${siteConfig.url.base}/rss.xml`,
+  },
+];
 
 /**
  * The canonical domain for all pages.
@@ -16,6 +20,51 @@ const siteName = siteConfig.name;
  * This ensures search engines recognize sealos.io as the authoritative version.
  */
 const CANONICAL_DOMAIN = 'https://sealos.io';
+const ROOT_PATH = '/';
+const DOMAIN_MAP: Record<string, string> = {
+  en: 'https://sealos.io',
+  'zh-cn': 'https://sealos.run',
+};
+
+function normalizePathname(pathname?: string | null): string {
+  if (!pathname) return ROOT_PATH;
+
+  let path = pathname;
+  if (/^https?:\/\//i.test(path)) {
+    path = new URL(path).pathname;
+  }
+
+  const pathWithoutQuery = path.split(/[?#]/)[0] || ROOT_PATH;
+  const withLeadingSlash = pathWithoutQuery.startsWith('/')
+    ? pathWithoutQuery
+    : `/${pathWithoutQuery}`;
+
+  if (withLeadingSlash === ROOT_PATH) return ROOT_PATH;
+  return `${withLeadingSlash.replace(/\/+$/, '')}/`;
+}
+
+function buildUrl(baseUrl: string, pathname?: string | null): string {
+  const normalizedPath = normalizePathname(pathname);
+  return normalizedPath === ROOT_PATH
+    ? `${baseUrl}/`
+    : `${baseUrl}${normalizedPath}`;
+}
+
+function buildCanonicalUrl(pathname?: string | null): string {
+  return buildUrl(CANONICAL_DOMAIN, pathname);
+}
+
+function buildSiteUrl(pathname?: string | null): string {
+  return buildUrl(siteConfig.url.base, pathname);
+}
+
+function toAlternateLanguages(
+  links: Array<{ hrefLang: string; href: string }>,
+): Record<string, string> | undefined {
+  if (links.length === 0) return undefined;
+
+  return Object.fromEntries(links.map(({ hrefLang, href }) => [hrefLang, href]));
+}
 
 export async function generateBlogMetadata(props: {
   params: Promise<{ slug: string }>;
@@ -26,28 +75,28 @@ export async function generateBlogMetadata(props: {
 
   if (!page && !isRootPage) notFound();
 
-  let url = `${siteConfig.url.base}/blog`;
+  let blogPath = '/blog';
   let docTitle = 'Sealos Blog';
-  // let imageUrl = `${ogImageApi}/blog/${encodeURIComponent(docTitle)}`;
-  let imageUrl = `${siteConfig.url.base}/api/og`;
+  let imageUrl = OG_IMAGE_URL;
   let description = 'Sealos Blog';
   let keywords = ['Sealos', 'Blog'];
 
   if (page) {
-    url = `${siteConfig.url.base}/blog/${page.slugs.join('/')}`;
+    blogPath = `/blog/${page.slugs.join('/')}`;
     const category = getPageCategory(page);
     imageUrl = `${siteConfig.url.base}${getBlogImage(page, category)}`;
     docTitle = `${page.data.title} | Sealos Blog`;
     description = page.data.description;
   }
+  const url = buildSiteUrl(blogPath);
 
   return {
     metadataBase: new URL(siteConfig.url.base),
     title: {
       absolute: docTitle,
     },
-    description: description,
-    keywords: keywords,
+    description,
+    keywords,
     authors: page
       ? page.data.authors.map((author) => ({ name: blogAuthors[author].name }))
       : [{ name: siteConfig.author }],
@@ -65,20 +114,15 @@ export async function generateBlogMetadata(props: {
       },
     },
     alternates: {
-      canonical: `${CANONICAL_DOMAIN}/blog/${params.slug || ''}`,
+      canonical: buildCanonicalUrl(blogPath),
       types: {
-        'application/rss+xml': [
-          {
-            title: 'Sealos Blog',
-            url: `${siteConfig.url.base}/rss.xml`,
-          },
-        ],
+        'application/rss+xml': BLOG_RSS_ALTERNATE,
       },
     },
     openGraph: {
       url,
       title: docTitle,
-      description: description,
+      description,
       images: [
         {
           url: imageUrl,
@@ -103,7 +147,7 @@ export async function generateBlogMetadata(props: {
       site: siteConfig.twitterHandle,
       creator: siteConfig.twitterHandle,
       title: docTitle,
-      description: description,
+      description,
       images: [
         {
           url: imageUrl,
@@ -127,10 +171,10 @@ export function generateDocsMetadata({
     .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
     .join(' > ');
 
-  const url = `${siteConfig.url.base}/docs/${page.slugs.join('/')}`;
-  const docsTitle = fullPathTitle ? fullPathTitle.toUpperCase() : 'Sealos Docs';
-  // const imageUrl = `${ogImageApi}/docs/${encodeURIComponent(docsTitle)}`;
-  const imageUrl = `${siteConfig.url.base}/api/og`;
+  const docsPath =
+    page.slugs.length > 0 ? `/docs/${page.slugs.join('/')}` : '/docs';
+  const url = buildSiteUrl(docsPath);
+  const imageUrl = OG_IMAGE_URL;
 
   const isRootPage = !params.slug || params.slug.length === 0;
   const docTitle = isRootPage
@@ -166,14 +210,9 @@ export function generateDocsMetadata({
       },
     },
     alternates: {
-      canonical: `${CANONICAL_DOMAIN}/docs/${page.slugs.join('/')}`,
+      canonical: buildCanonicalUrl(docsPath),
       types: {
-        'application/rss+xml': [
-          {
-            title: 'Sealos Blog',
-            url: `${siteConfig.url.base}/rss.xml`,
-          },
-        ],
+        'application/rss+xml': BLOG_RSS_ALTERNATE,
       },
     },
     openGraph: {
@@ -227,32 +266,20 @@ export function generatePageMetadata(
   const title = options.title
     ? `${options.title} | ${siteConfig.name}`
     : `${siteConfig.name} | ${siteConfig.tagline}`;
-  const description = options.description
-    ? options.description
-    : siteConfig.description;
-  const keywords = options.keywords ? options.keywords : siteConfig.keywords;
+  const description = options.description ?? siteConfig.description;
+  const keywords = options.keywords ?? siteConfig.keywords;
   const lang = options.lang || 'en';
 
-  let ogType = options.ogType || 'website';
-  let ogTitle = options.title || 'Sealos';
+  const normalizedPathname = normalizePathname(options.pathname);
 
-  // Construct the image URL using the new API structure: /api/og/[type]/[title]
-  // const imageUrl = `${ogImageApi}/${ogType}/${encodeURIComponent(ogTitle)}`;
-  const imageUrl = `${siteConfig.url.base}/api/og`;
-
-  const hreflangLinks = options.pathname
-    ? generateHreflangLinks(options.pathname)
-    : [];
-  const alternateLanguages: Record<string, string> = {};
-
-  hreflangLinks.forEach((link) => {
-    alternateLanguages[link.hrefLang] = link.href;
-  });
+  const alternateLanguages = options.pathname
+    ? toAlternateLanguages(generateHreflangLinks(normalizedPathname))
+    : undefined;
 
   return {
-    title: title,
-    description: description,
-    keywords: keywords,
+    title,
+    description,
+    keywords,
     authors: options.author
       ? [{ name: options.author }]
       : [{ name: siteConfig.author }],
@@ -273,33 +300,21 @@ export function generatePageMetadata(
       google: process.env.GOOGLE_SITE_VERIFICATION,
     },
     alternates: {
-      canonical: options.pathname
-        ? `${CANONICAL_DOMAIN}${options.pathname}`
-        : CANONICAL_DOMAIN,
-      languages:
-        Object.keys(alternateLanguages).length > 0
-          ? alternateLanguages
-          : undefined,
+      canonical: buildCanonicalUrl(normalizedPathname),
+      languages: alternateLanguages,
       types: {
-        'application/rss+xml': [
-          {
-            title: 'Sealos Blog',
-            url: `${siteConfig.url.base}/rss.xml`,
-          },
-        ],
+        'application/rss+xml': BLOG_RSS_ALTERNATE,
       },
     },
     openGraph: {
       type: 'website',
-      url: options.pathname
-        ? `${siteConfig.url.base}${options.pathname}`
-        : siteConfig.url.base,
+      url: buildSiteUrl(normalizedPathname),
       siteName: siteName,
-      title: title,
-      description: description,
+      title,
+      description,
       images: [
         {
-          url: imageUrl,
+          url: OG_IMAGE_URL,
           width: 1200,
           height: 630,
           alt: title,
@@ -309,11 +324,11 @@ export function generatePageMetadata(
     },
     twitter: {
       card: 'summary_large_image',
-      title: title,
-      description: description,
+      title,
+      description,
       images: [
         {
-          url: imageUrl,
+          url: OG_IMAGE_URL,
           alt: title,
         },
       ],
@@ -351,22 +366,17 @@ export function generateProductMetadata(options: {
     ...(options.features || []),
   ];
 
-  // const imageApi = `${ogImageApi}/products/`;
-  // const imageUrl = `${ogImageApi}/products/${encodeURIComponent(options.productName.toLowerCase().replace(/\s+/g, '-'))}`;
-  const imageUrl = `${siteConfig.url.base}/api/og`;
+  const normalizedPathname = normalizePathname(options.pathname);
 
   // Generate hreflang links
-  const hreflangLinks = generateHreflangLinks(options.pathname);
-  const alternateLanguages: Record<string, string> = {};
-
-  hreflangLinks.forEach((link) => {
-    alternateLanguages[link.hrefLang] = link.href;
-  });
+  const alternateLanguages = toAlternateLanguages(
+    generateHreflangLinks(normalizedPathname),
+  );
 
   return {
-    title: title,
+    title,
     description: options.description,
-    keywords: keywords,
+    keywords,
     authors: [{ name: siteConfig.author }],
     creator: siteConfig.author,
     publisher: siteConfig.author,
@@ -382,29 +392,21 @@ export function generateProductMetadata(options: {
       },
     },
     alternates: {
-      canonical: `${CANONICAL_DOMAIN}${options.pathname}`,
-      languages:
-        Object.keys(alternateLanguages).length > 0
-          ? alternateLanguages
-          : undefined,
+      canonical: buildCanonicalUrl(normalizedPathname),
+      languages: alternateLanguages,
       types: {
-        'application/rss+xml': [
-          {
-            title: 'Sealos Blog',
-            url: `${siteConfig.url.base}/rss.xml`,
-          },
-        ],
+        'application/rss+xml': BLOG_RSS_ALTERNATE,
       },
     },
     openGraph: {
       type: 'website',
-      url: `${siteConfig.url.base}${options.pathname}`,
+      url: buildSiteUrl(normalizedPathname),
       siteName: siteName,
-      title: title,
+      title,
       description: options.description,
       images: [
         {
-          url: imageUrl,
+          url: OG_IMAGE_URL,
           width: 1200,
           height: 630,
           alt: `${options.productName} - ${options.description}`,
@@ -414,11 +416,11 @@ export function generateProductMetadata(options: {
     },
     twitter: {
       card: 'summary_large_image',
-      title: title,
+      title,
       description: options.description,
       images: [
         {
-          url: imageUrl,
+          url: OG_IMAGE_URL,
           alt: `${options.productName} - ${options.description}`,
         },
       ],
@@ -436,11 +438,7 @@ export function generateProductMetadata(options: {
  * @returns Base URL for the given language
  */
 export function getBaseUrl(lang: string): string {
-  const domainMap: Record<string, string> = {
-    en: 'https://sealos.io',
-    'zh-cn': 'https://sealos.run',
-  };
-  return domainMap[lang] || domainMap['en'];
+  return DOMAIN_MAP[lang] || DOMAIN_MAP.en;
 }
 
 /**
@@ -453,8 +451,12 @@ export function getBaseUrl(lang: string): string {
 export function getPageUrl(lang: string, pagePath: string): string {
   const baseUrl = getBaseUrl(lang);
   const langPrefix = getLanguageSlug(lang);
-  // Ensure pagePath starts with /
-  const normalizedPath = pagePath.startsWith('/') ? pagePath : `/${pagePath}`;
+  const normalizedPath = normalizePathname(pagePath);
+
+  if (normalizedPath === ROOT_PATH) {
+    return `${baseUrl}/`;
+  }
+
   return `${baseUrl}${langPrefix}${normalizedPath}`;
 }
 
@@ -467,35 +469,30 @@ export function generateHreflangLinks(
   currentPath: string = '',
 ): Array<{ hrefLang: string; href: string }> {
   const links: Array<{ hrefLang: string; href: string }> = [];
+  const normalizedCurrentPath = normalizePathname(currentPath);
 
   // Clean the current path - remove leading slash and language prefix
-  const cleanPath = currentPath
+  const cleanPath = normalizedCurrentPath
     .replace(/^\/?(en|zh-cn)\/?/, '')
-    .replace(/^\/+/, '');
+    .replace(/^\/+|\/+$/g, '');
 
   // Generate hreflang links for each supported language
   i18n.languages.forEach((lang) => {
     const domain = getBaseUrl(lang);
-    let href = domain;
-
-    // Add path if it exists
-    if (cleanPath) {
-      href = `${domain}/${cleanPath}`;
-    }
+    const href = cleanPath ? `${domain}/${cleanPath}/` : `${domain}/`;
 
     // Add the hreflang link
     links.push({
       hrefLang: lang === 'zh-cn' ? 'zh-CN' : lang,
-      href: href,
+      href,
     });
   });
 
   // Add x-default (fallback to English domain)
   const defaultDomain = getBaseUrl('en');
-  let defaultHref = defaultDomain;
-  if (cleanPath) {
-    defaultHref = `${defaultDomain}/${cleanPath}`;
-  }
+  const defaultHref = cleanPath
+    ? `${defaultDomain}/${cleanPath}/`
+    : `${defaultDomain}/`;
 
   links.push({
     hrefLang: 'x-default',

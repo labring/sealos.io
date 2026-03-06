@@ -1,6 +1,7 @@
 import { createMDX } from 'fumadocs-mdx/next';
 
 const withMDX = createMDX();
+const defaultLocale = process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en';
 
 // Only import and use bundle analyzer when needed to avoid production dependency issues
 let withBundleAnalyzer = (config) => config;
@@ -22,7 +23,7 @@ if (process.env.ANALYZE === 'true') {
 
 /** @type {import('next').NextConfig} */
 const config = {
-  output: 'export',
+  output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
   trailingSlash: true,
   // while maintaining server-side functionality for other pages
   reactStrictMode: true,
@@ -86,6 +87,22 @@ const config = {
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
+  async rewrites() {
+    if (process.env.NODE_ENV !== 'development') {
+      return [];
+    }
+
+    return [
+      {
+        source: '/blog',
+        destination: `/${defaultLocale}/blog`,
+      },
+      {
+        source: '/blog/:path*',
+        destination: `/${defaultLocale}/blog/:path*`,
+      },
+    ];
   },
 };
 

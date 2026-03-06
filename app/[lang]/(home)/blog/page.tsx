@@ -10,10 +10,20 @@ import TagsBar from './components/TagBar';
 import { languagesType } from '@/lib/i18n';
 import BlogGridWithTagFilter from './components/BlogGridWithTagFilter';
 import { BlogHeader } from './components/BlogHeader';
+import { generatePageMetadata } from '@/lib/utils/metadata';
+import type { Metadata } from 'next';
 
 type BlogIndexProps = {
   params: { lang: languagesType };
 };
+
+export function generateMetadata(): Metadata {
+  return generatePageMetadata({
+    title: 'Blog',
+    description: 'Explore Sealos blog posts and technical insights.',
+    pathname: '/blog',
+  });
+}
 
 /** Blog index: tag filtering is done on the client for static export. */
 export default async function BlogPage({ params: { lang } }: BlogIndexProps) {

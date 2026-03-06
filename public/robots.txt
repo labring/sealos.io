@@ -1,10 +1,9 @@
 User-agent: *
 Allow: /
-Disallow: /zh/
+Disallow: /zh-cn/
 Disallow: /en/
 
 Host: https://sealos.io
 
 Sitemap: https://sealos.io/sitemap.xml
-Sitemap: https://sealos.io/en/ai-quick-reference/sitemap.xml
-Sitemap: https://sealos.run/zh-cn/ai-quick-reference/sitemap.xml
+Sitemap: https://sealos.io/ai-quick-reference/sitemap.xml

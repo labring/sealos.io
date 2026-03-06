@@ -6,7 +6,7 @@ export const revalidate = false;
 /**
  * Sitemap index: references main sitemap and ai-faq sitemap.
  * Main sitemap is at /sitemap.xml (contains all main site URLs)
- * AI FAQ sitemap is at /sitemap-ai-faq.xml (contains all AI quick reference pages)
+ * AI FAQ sitemap is at /ai-quick-reference/sitemap.xml (contains all AI quick reference pages)
  */
 export function GET() {
   const baseUrl =
@@ -18,7 +18,7 @@ export function GET() {
     <loc>${baseUrl}/sitemap.xml</loc>
   </sitemap>
   <sitemap>
-    <loc>${baseUrl}/sitemap-ai-faq.xml</loc>
+    <loc>${baseUrl}/ai-quick-reference/sitemap.xml</loc>
   </sitemap>
 </sitemapindex>`;
 

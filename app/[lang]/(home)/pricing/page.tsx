@@ -6,13 +6,24 @@ import { MorePlans } from './components/MorePlans';
 import { FeaturesSection } from './components/FeaturesSection';
 import { FAQSection } from './components/FAQSection';
 import { mainPricingPlans } from './config/plans';
+import { generatePageMetadata } from '@/lib/utils/metadata';
 import Image from 'next/image';
 import HeroLinesImage from './assets/hero-lines.svg';
+import type { Metadata } from 'next';
 
 interface PageProps {
   params: Promise<{
     lang: string;
   }>;
+}
+
+export function generateMetadata(): Metadata {
+  return generatePageMetadata({
+    title: 'Pricing',
+    description:
+      'Explore Sealos pricing plans with 7-day free trial and no credit card required.',
+    pathname: '/pricing',
+  });
 }
 
 export default async function PricingPage({ params }: PageProps) {

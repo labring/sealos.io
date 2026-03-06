@@ -1,4 +1,4 @@
-import { generateBlogMetadata } from '@/lib/utils/metadata';
+import { generatePageMetadata } from '@/lib/utils/metadata';
 import { redirect } from 'next/navigation';
 import {
   getCategories,
@@ -13,11 +13,55 @@ import BlogGrid from '../../components/BlogGrid';
 import CategoryBar from '../../components/CategoryBar';
 import TagsBar from '../../components/TagBar';
 import { GodRays } from '@/new-components/GodRays';
+import type { Metadata } from 'next';
+
+type CategoryPageParams = { category: string; lang: languagesType };
+
+const categoryMetadataCopy: Record<
+  languagesType,
+  Record<'title' | 'description', string>
+> = {
+  en: {
+    title: 'Blog Category',
+    description: 'Browse Sealos blog articles by category.',
+  },
+  'zh-cn': {
+    title: '博客分类',
+    description: '按分类浏览 Sealos 博客文章。',
+  },
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: CategoryPageParams;
+}): Promise<Metadata> {
+  const categories = await getCategories();
+  const decodedCategory = decodeURIComponent(params.category);
+  const copy = categoryMetadataCopy[params.lang];
+
+  if (!categories.includes(decodedCategory)) {
+    return generatePageMetadata({
+      ...copy,
+      pathname: '/blog',
+      lang: params.lang,
+    });
+  }
+
+  const categoryTitle = formatCategoryTitle(decodedCategory);
+
+  return generatePageMetadata({
+    title: `${categoryTitle} - ${copy.title}`,
+    description: copy.description,
+    pathname: `/blog/category/${encodeURIComponent(decodedCategory)}`,
+    lang: params.lang,
+  });
+}
 
 export default async function CategoryPage({
   params,
 }: {
-  params: { category: string; lang: languagesType };
+  params: CategoryPageParams;
 }) {
   const categories = await getCategories();
   const { category, lang } = params;
@@ -28,28 +72,11 @@ export default async function CategoryPage({
   }
 
   const allPosts = getSortedBlogPosts({
-    category: category,
+    category,
     tags: [],
-    lang: lang,
+    lang,
   });
-  const posts = allPosts;
   const tags = await getAllTags(allPosts);
-
-  const categoryTitle = formatCategoryTitle(category);
-
-  const translations: Record<
-    languagesType,
-    Record<'title' | 'description', string>
-  > = {
-    en: {
-      title: `${categoryTitle} Articles`,
-      description: `Blog articles in the ${categoryTitle.toLowerCase()} category`,
-    },
-    'zh-cn': {
-      title: `${categoryTitle}`,
-      description: `${categoryTitle.toLowerCase()}分类下的博客`,
-    },
-  };
 
   return (
     <>
@@ -109,7 +136,7 @@ export default async function CategoryPage({
       </section>
 
       <section className="container mt-10">
-        <BlogGrid posts={posts.map(toBlogPostSummary)} lang={lang} />
+        <BlogGrid posts={allPosts.map(toBlogPostSummary)} lang={lang} />
       </section>
     </>
   );
@@ -149,5 +176,3 @@ export async function generateStaticParams(): Promise<
     return [];
   }
 }
-
-export const generateMetadata = generateBlogMetadata;
