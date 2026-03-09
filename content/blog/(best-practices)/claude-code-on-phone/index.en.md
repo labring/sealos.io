@@ -1,7 +1,7 @@
 ---
-title: 'The Definitive Guide to Using Claude Code on Your Phone'
+title: 'Claude Code on Phone: Best Setup for iPhone and Android'
 imageTitle: 'Coding with Claude AI on Your Phone'
-description: 'Unlock mobile coding with Claude Code. This guide explores the best methods for using the AI assistant on your phone, from SSH setups to one-click cloud CDEs.'
+description: 'Use Claude Code on your phone with the best setup for iPhone, Android, SSH, and Sealos DevBox. Compare the fastest mobile workflows and start in minutes.'
 date: 2025-11-27
 tags:
   [
@@ -84,9 +84,31 @@ faq:
       Mobile coding works best for **targeted tasks** (bug fixes, code reviews, feature scaffolding) rather than building entire applications from scratch.
 ---
 
-**Imagine:** reviewing a pull request from a coffee shop, fixing a critical bug while commuting, or scaffolding a new project from your couch—all from your phone. This is no longer a fantasy. With Anthropic's **Claude Code**—the agentic AI coding assistant that has grown **10x in users** and now drives an estimated **$500 million in annualized revenue**—a truly portable development environment is not just possible, it's becoming mainstream.
+> **Quick answer:** Yes, you can use **Claude Code on your phone**. The best setup depends on your goal: **Claude iOS app** for the easiest official path, **SSH + Tailscale** for full control, or **Sealos DevBox** for the fastest zero-setup cloud workspace on both iPhone and Android.
 
-The landscape for mobile coding with Claude Code has evolved rapidly. In late 2025, Anthropic officially extended Claude Code to their **iOS app**, marking a major step toward mobile-first development workflows. For Android users and power users who prefer direct control, options range from running the CLI natively in **Termux** to connecting via **SSH tunnels** with tools like Tailscale. Third-party solutions like **Happy Coder** add polished UI layers, while **Cloud Development Environments (CDEs)** offer instant, zero-setup workspaces.
+| If you want to... | Best method | Works on | Setup time | Best next step |
+|---|---|---|---|---|
+| Use the official mobile experience | **Claude iOS app** | iPhone | ~5 minutes | Jump to [Method 1](#method-1-the-official-route--claude-code-in-the-anthropic-ios-app) |
+| Get full terminal control over your own machine | **SSH + Tailscale** | iPhone + Android | ~20-40 minutes | Jump to [Method 2](#method-2-the-power-users-setup-ssh--tailscale) |
+| Avoid host setup and start fastest | **Sealos DevBox** | iPhone + Android | ~1-3 minutes | Jump to [Method 5](#method-5-the-zero-setup-path-with-cloud-development-environments-cdes) |
+| Run it directly on Android for experimentation | **Termux** | Android | ~15-30 minutes | Jump to [Method 3](#method-3-running-claude-code-natively-on-android-termux) |
+
+**Best fit for most readers:** If you want Claude Code on your phone without babysitting a host machine, start with **Sealos DevBox**. It gives you a pre-configured cloud workspace, a shareable environment, and a cleaner path to mobile use than DIY SSH for most people.
+
+➡️ **[Launch Claude Code Environment on Sealos DevBox](https://os.sealos.io/?openapp=system-devbox?page%3Dcreate%26runtime%3Dclaude-code)**
+
+## Best Setup by Situation
+
+| Situation | Best choice | Why |
+| --- | --- | --- |
+| You use an iPhone and want the official workflow | **Claude iOS app** | Lowest friction for quick tasks and review |
+| You are on-call or need full terminal control | **SSH + Tailscale** | Most flexible and closest to a desktop workflow |
+| You use Android and want a local experiment | **Termux** | Good for lightweight CLI work without another machine |
+| You want the fastest cross-device setup | **Sealos DevBox** | No host setup, cleaner access from both iPhone and Android |
+
+The rest of this guide explains each path in detail. If you already know your situation, jump to the matching method.
+
+The landscape for mobile coding with Claude Code has evolved quickly. In late 2025, Anthropic added Claude Code to its iOS app. Android users and power users still lean on Termux, SSH, and cloud workspaces.
 
 This definitive guide covers **every method** for using Claude Code on your mobile device:
 
@@ -96,7 +118,7 @@ This definitive guide covers **every method** for using Claude Code on your mobi
 - **Happy Coder** – A UI-centric bridge for easier mobile access
 - **Cloud CDEs** – One-click environments like Sealos DevBox
 
-Whether you're an on-call engineer needing to deploy hotfixes at 2 AM, a freelancer working from anywhere, or simply curious about AI-powered mobile development, this guide will show you exactly how to turn your phone into a powerful extension of your coding workflow.
+Whether you're an on-call engineer, a freelancer, or just trying to stay productive away from your desk, this guide will help you choose the least painful setup.
 
 ## Why Code on a Phone, Anyway?
 
@@ -115,13 +137,13 @@ Let's be honest: coding on a tiny touchscreen sounds miserable. And for building
   * **Virtual Keyboards**: Slow and error-prone for typing complex syntax.
   * **Environment Constraints**: Phones can't run a full-fledged local development environment.
 
-The key is leveraging mobile for targeted tasks. When combined with an AI assistant that handles the heavy lifting of code generation, mobile development becomes not just possible, but practical.
+The key is leveraging mobile for targeted tasks. If that's already obvious to you, the next section explains the shared architecture briefly before the method-by-method setup steps.
 
 ## The Core Concept: A Remote-First Architecture
 
-Every method in this guide shares a fundamental principle: **your phone acts as a thin client—a remote control for a more powerful host machine** where the actual development happens.
+Every method in this guide shares the same basic principle: **your phone is usually a thin client**. The real work happens in Anthropic's cloud, on your own host machine, or inside a cloud development environment.
 
-But to understand *why* this architecture makes sense, you first need to understand what Claude Code actually is and how it works under the hood.
+If you only need the practical takeaway, it is this: mobile Claude Code works best when you avoid treating the phone itself as the main computer.
 
 ### What Is Claude Code and How Does It Work?
 
@@ -134,7 +156,7 @@ When you tell Claude Code to "fix the authentication bug in the login module," i
 3.  **Executes** those steps by editing files and running shell commands.
 4.  **Verifies** the fix by running your test suite.
 
-This agentic behavior is powerful, but it requires computational resources and system-level access (like file I/O and shell execution) that a mobile device cannot efficiently provide. This is the core reason for the remote-first architecture.
+This agentic behavior is powerful, but it needs file access, shell execution, and a more stable runtime than a phone usually provides. That is why most mobile setups are remote-first.
 
 ### The Architecture: Three Key Components
 
@@ -887,3 +909,10 @@ The path to a truly mobile development workflow is clear. While an official app 
   * For **maximum efficiency**, **Cloud Development Environments (CDEs)** like the **Sealos DevBox** eliminate setup entirely, offering an instant, powerful workspace in the cloud.
 
 The future of coding isn't about being chained to a desk. It's about having the right tools to be productive, wherever you are. For those interested, you can explore setting up your own cloud-based environment on **[Sealos Cloud](https://os.sealos.io)**.
+
+## Suggested Next Reads
+
+- If you want the fastest hosted workflow, start with [Sealos DevBox](/products/devbox).
+- If you want the broader theory behind hosted workspaces, read [What Is a Cloud Development Environment?](/blog/what-is-cloud-development-environment).
+- If you are evaluating the product itself, read [What Is DevBox?](/blog/what-is-devbox).
+- If cost visibility is part of your mobile workflow, read [Claude Code Metrics Dashboard with Grafana: Setup Guide](/blog/claude-code-metrics).

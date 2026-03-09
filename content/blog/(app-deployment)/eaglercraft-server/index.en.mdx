@@ -1,7 +1,7 @@
 ---
-title: "Create Your Own Eaglercraft Server in 2025: The Complete Guide"
+title: "How to Host an Eaglercraft Server in 2026"
 imageTitle: "Create Your Own Eaglercraft Server"
-description: "Set up your own private Eaglercraft server and play Minecraft 1.8.8 directly in your browser—no download required. Step-by-step guide with Docker and one-click deployment."
+description: "Host a private Eaglercraft server with Docker or Sealos. Learn the fastest setup path, get a public WSS URL, and start playing in minutes."
 date: 2025-11-20
 tags: ['eaglercraft', 'minecraft', 'server', 'Sealos', 'docker']
 authors: ['default']
@@ -131,13 +131,36 @@ import { DeployButton } from '@/components/ui/button'
 
 **Eaglercraft** is an open-source project that lets you play Minecraft Java Edition (versions 1.5.2, 1.8.8, and 1.12.2) directly in your web browser—no download, no installation, no paid account required. Built using [TeaVM](https://teavm.org/) to compile Java to JavaScript and WebAssembly, it runs on virtually any device with a modern browser, from school Chromebooks to smartphones.
 
-Let's be honest: Eaglercraft exists for one reason—to play Minecraft on a device that's trying to stop you.
+> **Quick answer:** If you want an **Eaglercraft server online fast**, you have two realistic paths: **Docker** if you want full control and don't mind Linux setup, or **Sealos App Store** if you want a public `wss://` URL, SSL, and a working server in a few minutes.
 
-It's a digital rebellion happening in school computer labs and library PCs around the world. It's the solution for locked-down Chromebooks, restricted networks, and anyone who wants quick access to the Minecraft experience without the usual barriers.
+| If you want to... | Best path | Time to launch | Best next step |
+|:---|:---|:---|:---|
+| Get a private server online as fast as possible | **Sealos App Store** | ~1-5 minutes | [Deploy the Eaglercraft template](https://sealos.io/products/app-store/eaglercraft-server) |
+| Control every file, plugin, and port yourself | **Docker on your own VPS** | ~30-60 minutes | Jump to [Method 1](#method-1-the-docker-way-full-control) |
+| Avoid manual SSL / WSS setup | **Sealos App Store** | Automatic | Jump to [Method 2](#method-2-the-one-click-way) |
+| Learn how the stack works under the hood | **Docker** | Slower, more flexible | Read the architecture section first |
 
-But here's the real secret: **the true freedom isn't just playing—it's hosting your own server**.
+**What you'll get from this guide:**
 
-Public Eaglercraft servers come with risks: DMCA takedowns, unmoderated chat, and some forks are known to contain malware. By creating your own private server, you get:
+- A fast way to decide between **Docker vs. Sealos**
+- The exact steps to launch a **private Eaglercraft server**
+- A path to a **public `wss://` address** so friends can join from the browser
+- A cleaner way to avoid the risk and instability of random public servers
+
+## Deployment Prep Checklist
+
+Before you pick a method, make sure you know these four things:
+
+- Do you want a **public `wss://` URL** for browser players, or are you only testing privately?
+- Do you want to manage **Docker, ports, and SSL** yourself?
+- Do you need a server online in **minutes**, or do you want deeper control over plugins and files?
+- Are you hosting for **friends / classmates** or building a more customized setup?
+
+**Fastest deployment path:**
+
+<DeployButton deployUrl="https://sealos.io/products/app-store/eaglercraft-server" />
+
+The practical reason to host your own server is simple: public Eaglercraft servers are unstable, often unsafe, and frequently disappear. A private setup gives you:
 
 - ✅ **Full control** over who can join
 - ✅ **A clean, stable environment** free from malicious code
@@ -149,7 +172,7 @@ This guide covers two methods to set up your own Eaglercraft server:
 1. **The Docker Way** – Full control, hands-on setup for those comfortable with the command line
 2. **The One-Click Way (Sealos)** – Automated deployment in minutes, no technical expertise required
 
-Let's get started.
+If you mainly want the server, you can skip the background sections and jump straight to [Method 1](#method-1-the-docker-way-full-control) or [Method 2](#method-2-the-one-click-way).
 
 ## What Exactly is Eaglercraft?
 
@@ -221,6 +244,8 @@ The public Eaglercraft world is chaotic:
 - **Unstable connections** to overloaded public servers
 
 Hosting your own server means a clean, stable, private environment where you control everything.
+
+If that is already enough context for you, skip ahead to the deployment methods below.
 
 ## Eaglercraft Client Features: What Can You Actually Do?
 
@@ -758,3 +783,9 @@ You get a clean, stable, private server.
 Your world. Your rules.
 
 And this time, no one can block the URL.
+
+## Next Step Options
+
+- If you just want the fastest working setup, use the [Sealos Eaglercraft template](https://sealos.io/products/app-store/eaglercraft-server).
+- If you need full control over files, ports, and plugins, stick with the Docker path in this guide.
+- If you want to understand the broader platform behind the one-click flow, read [What Is Sealos?](/blog/what-is-sealos) and [What Is DevBox?](/blog/what-is-devbox).

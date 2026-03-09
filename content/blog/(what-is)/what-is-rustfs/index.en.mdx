@@ -67,21 +67,32 @@ import { DeployButton } from '@/components/ui/button'
 > **TL;DR:** RustFS is an open-source, S3-compatible distributed object storage system built in Rust. It delivers 2.3x better performance than MinIO for small objects, ships under Apache 2.0 licensing (vs MinIO's AGPLv3), and includes enterprise features like WORM compliance, encryption, and multi-site replication. Currently in beta, it's ideal for teams seeking a permissively-licensed MinIO alternative.
 ---
 
+## Should You Evaluate RustFS Right Now?
+
+| Team profile | Recommendation | Why |
+| --- | --- | --- |
+| You need an Apache 2.0 MinIO alternative for dev, staging, or internal pilots | **Evaluate now** | Licensing and S3 compatibility are the main reasons teams look at RustFS |
+| You run small-object or resource-constrained workloads | **Evaluate now** | This is where RustFS's current performance story is strongest |
+| You need a battle-tested production storage layer today | **Wait** | The project is still beta and explicitly not positioned as production-ready yet |
+| You mostly serve large sequential reads | **Benchmark first** | MinIO still has the clearer edge on large-file read performance |
+
+> **Beta caveat:** RustFS is compelling, but this page should not be read as a blanket recommendation to replace MinIO in production today.
+
 ## What is RustFS?
 
 ![RustFS web management console](./images/rustfs-web-console.webp)
 
-**RustFS is a distributed object storage system written entirely in Rust, designed for full compatibility with the [Amazon S3 API](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html).** If you've used AWS S3 or [MinIO](https://min.io/), you already know how to use it—same SDKs, same CLI tools, same integration patterns.
+**RustFS is a distributed object storage system written entirely in Rust, designed for full compatibility with the [Amazon S3 API](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html).** If you've used AWS S3 or [MinIO](https://min.io/), the basic operating model is familiar: same SDKs, same CLI tools, same integration patterns.
 
-The idea was simple: take MinIO's architecture and rebuild it in Rust. No metadata coordinator to fail. No garbage collector to stall under load. The result is a system that shares MinIO's deployment simplicity but sidesteps Go's runtime overhead—no GC pauses, no surprise latency spikes when traffic surges.
+The short version is simple: RustFS is mostly interesting for teams asking one of three questions. Can we get an Apache 2.0 alternative to MinIO? Can we keep S3 compatibility? Can we test a newer object storage system that seems stronger on small objects and weaker on large sequential reads? If those are your questions, this page is for you.
 
-The benchmark that gets cited most: **2.3× the throughput of MinIO for 4KB objects.** Small-file, high-IOPS workloads—IoT telemetry, thumbnail storage, log ingestion—are where per-request overhead dominates, and where RustFS pulls ahead.
+The idea behind the project was to take MinIO's broad design philosophy and rebuild it in Rust. No metadata coordinator to fail. No garbage collector to stall under load. That leads directly to the benchmark most people cite: **2.3× the throughput of MinIO for 4KB objects.**
 
-It's not a stripped-down proof-of-concept. Object versioning, WORM compliance, server-side encryption, multi-site replication—the enterprise checklist is there.
+It's also not a stripped-down proof-of-concept. Object versioning, WORM compliance, server-side encryption, and multi-site replication are already part of the story.
 
-Then there's licensing. RustFS ships under **[Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)**. No copyleft. No source disclosure. For teams that walked away from MinIO after its 2021 switch to [AGPLv3](https://www.gnu.org/licenses/agpl-3.0.en.html), this alone can end the conversation.
+Then there is licensing. RustFS ships under **[Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)**. No copyleft. No source disclosure. For teams that walked away from MinIO after its 2021 switch to [AGPLv3](https://www.gnu.org/licenses/agpl-3.0.en.html), this is usually the first thing that matters.
 
-Data lakes, local dev endpoints, escaping cloud egress fees—RustFS fits all of these. And because it's Apache-licensed and self-hosted, you're not locked into anyone. Including RustFS itself.
+If you only need the quick judgment: RustFS is currently best treated as an evaluate-now, deploy-carefully option. Use it to test S3 workloads, compare it against MinIO, or stand up non-critical environments. Save production decisions for after benchmarking and maturity checks.
 
 ## Why Was RustFS Created? Origins and Motivation
 
@@ -918,3 +929,10 @@ The real question isn't whether RustFS *can* become production-grade. The archit
 For teams willing to bet early—file bug reports, tolerate rough edges, trade some risk for a truly open license—RustFS is the play.
 
 For everyone else: bookmark the repo. Check back when 1.0 ships. This project is moving fast, and early momentum in open source tends to stick.
+
+## Practical Next Steps
+
+- If you only need a fast pilot, start with the [Sealos App Store](/products/app-store) deployment path in this guide.
+- If you are comparing platform abstractions, read [What Is Sealos?](/blog/what-is-sealos) and [What Is DevBox?](/blog/what-is-devbox).
+- If your real question is Kubernetes complexity rather than RustFS itself, read [What Is a Kubernetes StatefulSet?](/blog/what-is-a-kubernetes-statefulset) or [What Is Helm?](/blog/what-is-a-helm-for-kubernetes).
+- If production readiness is the blocker, treat this page as an evaluation brief and run your own benchmarks before considering migration.
