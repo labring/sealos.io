@@ -1,7 +1,7 @@
 ---
-title: 'Claude Code Metrics Dashboard: Complete Setup Guide with Grafana (2025)'
+title: 'Claude Code Metrics Dashboard with Grafana: Setup Guide'
 imageTitle: 'Claude Code Metrics Dashboard'
-description: 'Learn how to track claude code metrics with Grafana, Prometheus & OpenTelemetry. Step-by-step Docker Compose setup for cost tracking and usage monitoring. Free dashboard included.'
+description: 'Track Claude Code metrics with Grafana, Prometheus, and OpenTelemetry. Compare Docker Compose vs. Sealos, launch faster, and monitor cost in minutes.'
 date: 2025-12-12
 tags:
   [
@@ -112,25 +112,37 @@ faq:
 
 import { DeployButton } from '@/components/ui/button'
 
+> **Quick answer:** If you want a **Claude Code metrics dashboard** fast, use **Docker Compose** for local-only control or **Sealos** if you want a public Grafana URL, SSL, and less infrastructure work. Both paths use the same Grafana + Prometheus + OpenTelemetry stack.
+
+| If you want to... | Best path | Time to first dashboard | Best next step |
+|---|---|---|---|
+| Keep everything local and tweak every config | **Docker Compose** | ~10-20 minutes | Jump to [Docker Compose Monitoring Setup](#docker-compose-monitoring-setup-step-by-step) |
+| Share dashboards quickly without fighting SSL and public access | **Sealos App Store** | ~2-5 minutes | Jump to [Cloud Alternative: Deploying on Sealos](#cloud-alternative-deploying-on-sealos) |
+| Track team usage with less ops overhead | **Sealos App Store** | ~2-5 minutes | [Deploy the Grafana OTEL stack](https://sealos.io/products/app-store/grafana-otel) |
+
+**Best fit for most readers:** Start with **Sealos** if your real goal is to get a working dashboard URL today, not to maintain certificate renewals and public ingress yourself.
+
+<DeployButton deployUrl="https://sealos.io/products/app-store/grafana-otel" />
+
+## Choose Your Setup First
+
+| If your main goal is... | Choose | Why |
+| --- | --- | --- |
+| Learn the stack and keep everything local | **Docker Compose** | Maximum control over Collector, Prometheus, and Grafana config |
+| Share a dashboard quickly with a team | **Sealos App Store** | Public URL, SSL, and persistent storage without extra ingress work |
+| Get cost visibility this afternoon instead of next week | **Sealos App Store** | Shortest path from zero to usable dashboard |
+
 ## Why Claude Code Metrics Matter for Cost Control
 
-Claude Code metrics reveal exactly where your API costs go. Last month, my API bill tripled. I had no idea why—and without claude code metrics, I had no way to find out.
+Claude Code metrics exist for one reason: to show where your token spend, cache efficiency, and session time actually go. Without telemetry, you are guessing.
 
-I'd been using Claude Code heavily—refactoring a legacy codebase, generating tests, debugging production issues at 2 AM. It felt productive. Then the invoice arrived.
-
-$847.
-
-I stared at it. Tried to remember what I'd even done that week. The big refactor? The test generation marathon? That one night I kept re-running prompts because the output wasn't quite right? No way to tell. The tokens were gone, the money was spent, and I couldn't point to a single task and say *that's where it went*. When my manager asked, I had nothing.
-
-Here's what I didn't know: [Claude Code](https://docs.anthropic.com/en/docs/claude-code) telemetry already tracks everything. Token counts, costs, cache efficiency, session durations—all exportable through OpenTelemetry. The data existed. I just wasn't looking at it.
-
-So I built a claude code metrics dashboard.
+Here is the practical problem this page solves: you can use Claude Code heavily for refactors, tests, and debugging, then get the bill later with no clear explanation of which workflows burned the budget. [Claude Code](https://docs.anthropic.com/en/docs/claude-code) telemetry already tracks the answer. You just need to export and visualize it.
 
 ![Claude Code Metrics Dashboard](./images/grafana-dashboard-claude-code-cost.webp)
 
-OpenTelemetry Collector, Prometheus, Grafana. All running locally via Docker Compose. No managed services, no third-party accounts, no vendor lock-in. Ten minutes from `git clone` to working graphs.
+OpenTelemetry Collector, Prometheus, Grafana. That is the stack. You can run it locally with Docker Compose or get a shareable version online faster with Sealos.
 
-What you get at the end: panels showing which projects burn tokens fastest, whether your prompt restructuring actually saved money, what your real cost-per-commit looks like. The questions I couldn't answer? You'll have answers.
+What you get at the end: panels showing which projects burn tokens fastest, whether your prompt changes improved cache efficiency, and what your real cost-per-commit looks like.
 
 ### What You'll Learn in This Guide
 
@@ -1486,3 +1498,9 @@ The dashboard won't answer those automatically. But it gives you the data to fig
 If you outgrow Docker Compose—need remote access, multiple developers, less babysitting—Sealos or similar platforms run the same stack with less friction. For teams tracking ROI seriously, Anthropic's [monitoring guide](https://github.com/anthropics/claude-code-monitoring-guide) shows how to tie these metrics to project outcomes.
 
 Next month's invoice will still arrive. The difference is you'll see it coming—and you'll know exactly which decisions put those numbers there.
+
+## Suggested Next Steps
+
+- If you need a shareable dashboard now, deploy the [Grafana OTEL stack on Sealos](https://sealos.io/products/app-store/grafana-otel).
+- If you also work away from your desk, read [Claude Code on Phone: Best Setup for iPhone and Android](/blog/claude-code-on-phone).
+- If you want the platform context behind hosted dev environments, read [What Is DevBox?](/blog/what-is-devbox) and [What Is a Cloud Development Environment?](/blog/what-is-cloud-development-environment).
