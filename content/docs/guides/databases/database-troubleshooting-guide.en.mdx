@@ -1,0 +1,171 @@
+---
+title: Database Troubleshooting Guide
+description: A step-by-step guide to troubleshooting KubeBlocks database issues on Sealos
+---
+
+This guide walks you through a systematic approach to diagnosing and resolving database issues managed by KubeBlocks on Sealos.
+
+## 1. Check Cluster Status
+
+KubeBlocks core design: Cluster → Component → InstanceSet → Pod. Cluster is the top-level CRD, and its `status.phase` is the aggregation of all underlying statuses.
+
+### Cluster is Running
+
+This means KubeBlocks considers everything is normal. The issue may be at the application layer (incorrect connection string, permissions, etc.). Check whether you can connect to the database and execute commands (e.g., unable to write due to primary-replica replication).
+
+#### Connect to the Database
+
+**Method 1: Using kbcli**
+
+```bash
+kbcli cluster connect <cluster-name> -n <ns>
+```
+
+**Method 2: Using kubectl**
+
+**Step 1: Retrieve information**
+
+```bash
+# Get Service name
+kubectl get svc -n <ns>
+
+# Get password
+kubectl get secret -n <ns> | grep <cluster-name>
+kubectl get secret <secret-name> -n <ns> -o jsonpath='{.data.password}' | base64 -d
+```
+
+**Step 2: Connect**
+
+Connect directly after entering the Pod:
+
+```bash
+# Enter the Pod
+kubectl exec -it <pod> -n <ns> -- bash
+
+# Use the appropriate connection command for your database
+# MySQL
+mysql -u root -p
+
+# MongoDB
+mongosh -u root -p
+
+# Redis
+redis-cli -a <password>
+
+# PostgreSQL
+psql -U postgres
+```
+
+Or connect via the Sealos Terminal:
+
+![Connect via Sealos Terminal](../images/sealos-terminal-connect.png)
+
+```bash
+# MySQL
+mysql -h <service>.<ns>.svc -P 3306 -u root -p<password>
+
+# MongoDB
+mongosh 'mongodb://root:<password>@<service>.<ns>.svc:27017'
+
+# Redis
+redis-cli -u redis://default:<password>@<service>.<ns>.svc:6379
+
+# PostgreSQL
+psql 'postgresql://postgres:<password>@<service>.<ns>.svc:5432'
+```
+
+### Cluster Status is Not Running
+
+You need to:
+
+- Describe the Cluster (check Events and Status)
+
+```bash
+kubectl describe cluster <cluster-name> -n <ns>
+```
+
+- Proceed to **Step 2** to check Pod status
+
+## 2. Check Pod Status
+
+- A Pod that is **not Running** indicates an infrastructure-layer issue — scheduling, storage, image pulling, resource quotas, etc.
+- A Pod that is **Running** but the service is abnormal means the infrastructure is fine; the issue is at the application layer — database configuration, permissions, primary-replica replication logic, etc.
+
+### Pod is Running
+
+Check the database logs:
+
+```bash
+# Enter the Pod
+kubectl exec -it mysql1-mysql-0 -n <ns> -- bash
+
+# View database logs
+cd /data/mysql/log
+cat mysqld-error.log
+```
+
+Log paths for different databases:
+
+| Database   | Log Path                                              |
+|------------|-------------------------------------------------------|
+| MySQL      | `/data/mysql/log/mysqld-error.log`                    |
+| MongoDB    | `/var/log/mongodb/mongodb.log`                        |
+| PostgreSQL | `/home/postgres/pgdata/pgroot/pg_log/postgresql.log`  |
+| Redis      | `/data/running.log`                                   |
+
+### Pod is Not Running
+
+**1. Use `describe` and `logs` to find out why the Pod cannot start:**
+
+- **describe**: Events recorded by Kubernetes itself. Every resource in K8s has an Events list that records all operations performed by controllers and kubelet on the resource, such as scheduling failures, image pull failures, disk mount failures, etc. Use this to identify the root cause.
+- **logs**: The stdout/stderr output of the container. This includes the container's own errors as well as some database errors. Use this for detailed log information.
+
+```bash
+# View the stdout from the previous container exit. Useful when the container is in a restart loop.
+kubectl logs <pod> -n <ns> --previous
+```
+
+**2. Check the database's own logs**
+
+When a Pod is not Running, the container logs under `/var/log/containers/` on the node are subject to log rotation and cleanup. However, the log files written by the database to the PV are persistent.
+
+**A. Find the PVC and Node corresponding to the Pod:**
+
+```bash
+# Check which node the Pod is on
+kubectl get pod -n <ns> -owide
+
+# Check PVC
+kubectl get pvc -n <ns> -owide
+```
+
+**B. After obtaining the PVC and Node information:**
+
+I. SSH into the node:
+
+```bash
+ssh <node-name>
+```
+
+II. Use the PVC to find the mount directory and check allocated/used/remaining/usage ratio:
+
+```bash
+# List disk/mount usage on the current node.
+df -h | grep <pvc-name>
+```
+
+III. Then view the logs based on the mount path.
+
+## 3. Check KB Controller
+
+When the Cluster status is abnormal but Pod and database logs show no obvious errors, check the KB Controller logs.
+
+Get the Pods in the `kb-system` namespace and then check the controller Pod's logs:
+
+- If the controller Pod itself is **Running** and not crashing, then `describe` will not yield useful information. Use `logs` to check the controller's internal business logic.
+
+```bash
+kubectl logs <pod> -n <ns>
+```
+
+- If the controller Pod itself is in an abnormal state, such as persistent **CrashLoopBackOff**: first use `describe` to identify the type of issue, then use `logs` to view detailed logs.
