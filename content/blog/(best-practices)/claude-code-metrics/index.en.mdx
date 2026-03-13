@@ -1,8 +1,9 @@
 ---
-title: 'Claude Code Metrics Dashboard with Grafana: Setup Guide'
+title: 'Claude Code Metrics Dashboard: Grafana Setup (2026)'
 imageTitle: 'Claude Code Metrics Dashboard'
-description: 'Track Claude Code metrics with Grafana, Prometheus, and OpenTelemetry. Compare Docker Compose vs. Sealos, launch faster, and monitor cost in minutes.'
+description: 'Track Claude Code cost, tokens, sessions, and telemetry with Grafana. Includes Docker Compose and Sealos setup paths with OpenTelemetry.'
 date: 2025-12-12
+lastModified: 2026-03-10
 tags:
   [
     'Claude Code',
@@ -92,7 +93,9 @@ faq:
       A rate below 50% means you're paying full price for context that could be cached. Improve it by structuring prompts with static context (system instructions, code references) at the beginning and variable content at the end.
   - question: "Is my prompt content sent to the monitoring stack?"
     answer: |-
-      No. Claude Code telemetry exports **metadata only**—token counts, costs, timing, model names. The actual text of your prompts and Claude's responses stays between you and Anthropic's API. The `claude_code.user_prompt` event records prompt length, but the content itself is redacted.
+      Not by default. Claude Code telemetry exports **metadata first**—token counts, costs, timing, model names, and related attributes. The actual text of your prompts and Claude's responses is not included by default, and the `claude_code.user_prompt` event records prompt length rather than prompt text.
+
+      There is one important caveat from Anthropic's monitoring docs: tool execution events can include **bash commands and file paths** in the `tool_parameters` field, which may still expose sensitive values if your commands contain secrets. If you send telemetry to a shared backend, plan to filter or redact sensitive fields before treating the stack as safe for broad team access.
   - question: "How do I track Claude Code costs by project or team member?"
     answer: |-
       Use the built-in attributes to filter metrics:
@@ -114,6 +117,8 @@ import { DeployButton } from '@/components/ui/button'
 
 > **Quick answer:** If you want a **Claude Code metrics dashboard** fast, use **Docker Compose** for local-only control or **Sealos** if you want a public Grafana URL, SSL, and less infrastructure work. Both paths use the same Grafana + Prometheus + OpenTelemetry stack.
 
+> **Last verified:** March 9, 2026. Anthropic's monitoring fields, exporter behavior, and privacy notes can change, so verify against the official monitoring docs if you are standardizing this for a team.
+
 | If you want to... | Best path | Time to first dashboard | Best next step |
 |---|---|---|---|
 | Keep everything local and tweak every config | **Docker Compose** | ~10-20 minutes | Jump to [Docker Compose Monitoring Setup](#docker-compose-monitoring-setup-step-by-step) |
@@ -124,6 +129,18 @@ import { DeployButton } from '@/components/ui/button'
 
 <DeployButton deployUrl="https://sealos.io/products/app-store/grafana-otel" />
 
+## Start With These 3 Numbers
+
+If you only track three things at first, track these:
+
+| Metric | Why it matters first | What to do with it |
+| --- | --- | --- |
+| **Cost (`claude_code.cost.usage`)** | This answers whether Claude Code is actually saving time cheaply enough to keep using at current volume. | Break it down by day, model, and project before you optimize anything else. |
+| **Cache efficiency (`cacheRead` vs `input`)** | This is often the fastest way to find waste. Low cache reuse usually means you're paying full price for repeated context. | Fix prompt structure and repeated instructions before assuming your model choice is the problem. |
+| **Active time** | This helps distinguish "Claude is busy doing useful work" from "people are waiting on the tool or thrashing." | Compare active time against commits, PRs, and session count to see whether usage is productive or just noisy. |
+
+These three numbers get you from "we turned telemetry on" to "we can actually make a cost and workflow decision."
+
 ## Choose Your Setup First
 
 | If your main goal is... | Choose | Why |
@@ -131,6 +148,44 @@ import { DeployButton } from '@/components/ui/button'
 | Learn the stack and keep everything local | **Docker Compose** | Maximum control over Collector, Prometheus, and Grafana config |
 | Share a dashboard quickly with a team | **Sealos App Store** | Public URL, SSL, and persistent storage without extra ingress work |
 | Get cost visibility this afternoon instead of next week | **Sealos App Store** | Shortest path from zero to usable dashboard |
+
+## Read This Before You Enable Telemetry
+
+Anthropic's official monitoring docs are clear on one point: **telemetry is opt-in**, but "prompt text is not logged" does not mean "nothing sensitive can ever leave your machine."
+
+Before you roll this out, keep these caveats in mind:
+
+- Raw file contents and code snippets are not exported by default.
+- Tool execution events may include **bash commands and file paths** in `tool_parameters`, which can reveal secrets if your commands contain them.
+- In OAuth-based setups, `user.email` can appear in telemetry attributes.
+- Prompt text is not logged by default, but it can be included if someone explicitly enables `OTEL_LOG_USER_PROMPTS=1`.
+
+If this stack will be shared across a team, decide on redaction and access control before deciding on dashboards.
+
+## Docker Compose vs. Sealos in Practice
+
+| Question | Docker Compose | Sealos |
+| --- | --- | --- |
+| Do you want to learn every moving part locally? | **Best fit** | Fine, but overkill |
+| Do you need a public Grafana URL with SSL quickly? | Manual work | **Best fit** |
+| Do you want teammates to see the same dashboard today? | Possible, but ops-heavy | **Best fit** |
+| Do you want persistent storage without hand-rolling infra? | Manual | **Best fit** |
+| Do you need full control and local-only exposure? | **Best fit** | Less important |
+
+The rule of thumb is simple: use Docker Compose to learn and test; use Sealos when the real requirement is **sharing, persistence, and lower ops friction**.
+
+## Why Sealos Is the Faster Team Path
+
+The Sealos angle here is not "hosted is magic." It is more concrete than that.
+
+The one-click Sealos template gives you the same Grafana + Prometheus + OpenTelemetry stack, but removes the four things teams usually get stuck on first:
+
+- getting a dashboard onto a stable public URL
+- handling SSL and public access safely
+- keeping Prometheus and Grafana data persistent
+- letting someone else open the same dashboard without inheriting your laptop's network setup
+
+If your real goal is "the team needs a usable dashboard URL this week," that is where Sealos usually wins.
 
 ## Why Claude Code Metrics Matter for Cost Control
 
@@ -165,7 +220,7 @@ Claude Code exports two types of telemetry data: metrics and events. Metrics are
 
 Both speak [OTLP—OpenTelemetry's wire protocol](https://opentelemetry.io/docs/specs/otlp/). Any backend that understands OTLP can ingest them. Prometheus, Datadog, Honeycomb, whatever. No lock-in.
 
-One thing worth knowing: telemetry ships disabled. You opt in. And even then, your actual prompts stay private—what gets exported is metadata about usage, not the text itself.
+One thing worth knowing: telemetry ships disabled. You opt in. Prompt text is not exported by default, but some event fields can still reveal operational details such as commands and file paths. Treat the telemetry stream as **safer than raw prompt logging, not automatically safe for every shared backend**.
 
 ### The Metrics
 
