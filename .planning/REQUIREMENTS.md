@@ -58,32 +58,32 @@ Explicit exclusions for this milestone.
 
 ## Traceability
 
-Which phases cover which requirements. Populated during roadmap creation.
+Which phases cover which requirements.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| JOUR-01 | Unmapped | Pending |
-| JOUR-02 | Unmapped | Pending |
-| JOUR-03 | Unmapped | Pending |
-| JOUR-04 | Unmapped | Pending |
-| PATH-01 | Unmapped | Pending |
-| PATH-02 | Unmapped | Pending |
-| PATH-03 | Unmapped | Pending |
-| PATH-04 | Unmapped | Pending |
-| TASK-01 | Unmapped | Pending |
-| TASK-02 | Unmapped | Pending |
-| TASK-03 | Unmapped | Pending |
-| TASK-04 | Unmapped | Pending |
-| QUAL-01 | Unmapped | Pending |
-| QUAL-02 | Unmapped | Pending |
-| QUAL-03 | Unmapped | Pending |
-| QUAL-04 | Unmapped | Pending |
+| JOUR-01 | Phase 2 | Pending |
+| JOUR-02 | Phase 3 | Pending |
+| JOUR-03 | Phase 1 | Pending |
+| JOUR-04 | Phase 1 | Pending |
+| PATH-01 | Phase 2 | Pending |
+| PATH-02 | Phase 2 | Pending |
+| PATH-03 | Phase 2 | Pending |
+| PATH-04 | Phase 4 | Pending |
+| TASK-01 | Phase 3 | Pending |
+| TASK-02 | Phase 3 | Pending |
+| TASK-03 | Phase 3 | Pending |
+| TASK-04 | Phase 3 | Pending |
+| QUAL-01 | Phase 3 | Pending |
+| QUAL-02 | Phase 5 | Pending |
+| QUAL-03 | Phase 4 | Pending |
+| QUAL-04 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 16 total
-- Mapped to phases: 0
-- Unmapped: 16 ⚠️
+- Mapped to phases: 16
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after initial definition*
+*Last updated: 2026-03-23 after roadmap mapping*
