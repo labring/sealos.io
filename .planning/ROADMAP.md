@@ -22,7 +22,7 @@ remain.
 - v1.2 ended at Phase 12, so this milestone starts at **Phase 13**
 - Decimal phases remain reserved for urgent insertions if needed later
 
-- [ ] **Phase 13: Product Truth, Safe Example Contract, and Page Outline** -
+- [x] **Phase 13: Product Truth, Safe Example Contract, and Page Outline** -
   Audit the current Object Storage docs and UI evidence, then lock the
   single-page contract and safe upload example.
 - [ ] **Phase 14: Canonical Object Storage Start-Here Page** - Rewrite the
@@ -58,9 +58,9 @@ content.
 Plans:
 - [x] 13-01: Audit the current Object Storage docs surface, screenshots, and
   English gap
-- [ ] 13-02: Define the safe first-upload example contract and product-truth
+- [x] 13-02: Define the safe first-upload example contract and product-truth
   constraints
-- [ ] 13-03: Define the English page outline, writing guardrails, and page-role
+- [x] 13-03: Define the English page outline, writing guardrails, and page-role
   contract
 
 ### Phase 14: Canonical Object Storage Start-Here Page
@@ -121,6 +121,6 @@ Phases execute in numeric order: 13 -> 14 -> 15
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 13. Product Truth, Safe Example Contract, and Page Outline | 1/3 | In progress | - |
+| 13. Product Truth, Safe Example Contract, and Page Outline | 3/3 | Completed | 2026-04-16 |
 | 14. Canonical Object Storage Start-Here Page | 0/3 | Not started | - |
 | 15. Verification, Failure Checks, and Publish Safety | 0/4 | Not started | - |
