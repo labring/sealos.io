@@ -104,5 +104,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-16
-Stopped at: Milestone v1.3 started, defining requirements
-Resume file: —
+Stopped at: Phase 13 context gathered
+Resume file: .planning/phases/13-product-truth-safe-example-contract-and-page-outline/13-CONTEXT.md
