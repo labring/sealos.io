@@ -56,7 +56,7 @@ content.
 **Plans**: 3 plans
 
 Plans:
-- [ ] 13-01: Audit the current Object Storage docs surface, screenshots, and
+- [x] 13-01: Audit the current Object Storage docs surface, screenshots, and
   English gap
 - [ ] 13-02: Define the safe first-upload example contract and product-truth
   constraints
@@ -121,6 +121,6 @@ Phases execute in numeric order: 13 -> 14 -> 15
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 13. Product Truth, Safe Example Contract, and Page Outline | 0/3 | Not started | - |
+| 13. Product Truth, Safe Example Contract, and Page Outline | 1/3 | In progress | - |
 | 14. Canonical Object Storage Start-Here Page | 0/3 | Not started | - |
 | 15. Verification, Failure Checks, and Publish Safety | 0/4 | Not started | - |
