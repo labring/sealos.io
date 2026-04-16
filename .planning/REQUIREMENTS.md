@@ -84,24 +84,24 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| OBJ-01 | — | Pending |
-| OBJ-02 | — | Pending |
-| OBJ-03 | — | Pending |
-| UPLD-01 | — | Pending |
-| UPLD-02 | — | Pending |
-| UPLD-03 | — | Pending |
-| VRFY-01 | — | Pending |
-| VRFY-02 | — | Pending |
-| QLTY-01 | — | Pending |
-| QLTY-02 | — | Pending |
-| QLTY-03 | — | Pending |
-| QLTY-04 | — | Pending |
+| OBJ-01 | Phase 14 | Pending |
+| OBJ-02 | Phase 14 | Pending |
+| OBJ-03 | Phase 14 | Pending |
+| UPLD-01 | Phase 14 | Pending |
+| UPLD-02 | Phase 14 | Pending |
+| UPLD-03 | Phase 14 | Pending |
+| VRFY-01 | Phase 15 | Pending |
+| VRFY-02 | Phase 15 | Pending |
+| QLTY-01 | Phase 15 | Pending |
+| QLTY-02 | Phase 15 | Pending |
+| QLTY-03 | Phase 15 | Pending |
+| QLTY-04 | Phase 13 | Pending |
 
 **Coverage:**
 - v1 requirements: 12 total
-- Mapped to phases: 0
-- Unmapped: 12
+- Mapped to phases: 12
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-04-16*
-*Last updated: 2026-04-16 after Object Storage v1.3 milestone definition*
+*Last updated: 2026-04-16 after Object Storage v1.3 roadmap creation*
