@@ -28,7 +28,7 @@ remain.
 - [x] **Phase 14: Canonical Object Storage Start-Here Page** - Rewrite the
   English Object Storage page into the real overview + bucket creation +
   credential path + first-upload guide.
-- [ ] **Phase 15: Verification, Failure Checks, and Publish Safety** - Add
+- [x] **Phase 15: Verification, Failure Checks, and Publish Safety** - Add
   success verification, first-failure checks, metadata cleanup, and repo-level
   validation.
 
@@ -107,12 +107,12 @@ repo-level rollout checks.
 **Plans**: 4 plans
 
 Plans:
-- [ ] 15-01: Strengthen success verification and the compact first-failure
+- [x] 15-01: Strengthen success verification and the compact first-failure
   checklist
-- [ ] 15-02: Enforce English-only publish-safe copy and preserve the single-leaf
+- [x] 15-02: Enforce English-only publish-safe copy and preserve the single-leaf
   route posture
-- [ ] 15-03: Record Object Storage nav, route, and focused UAT integrity evidence
-- [ ] 15-04: Run build-safe QA, repo validation, and final milestone closeout
+- [x] 15-03: Record Object Storage nav, route, and focused UAT integrity evidence
+- [x] 15-04: Run build-safe QA, repo validation, and final milestone closeout
 
 ## Progress
 
@@ -123,4 +123,4 @@ Phases execute in numeric order: 13 -> 14 -> 15
 |-------|----------------|--------|-----------|
 | 13. Product Truth, Safe Example Contract, and Page Outline | 3/3 | Completed | 2026-04-16 |
 | 14. Canonical Object Storage Start-Here Page | 3/3 | Completed | 2026-04-16 |
-| 15. Verification, Failure Checks, and Publish Safety | 0/4 | Not started | - |
+| 15. Verification, Failure Checks, and Publish Safety | 4/4 | Completed | 2026-04-18 |

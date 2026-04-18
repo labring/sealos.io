@@ -10,12 +10,12 @@ area from 0 to 1 without getting lost in fragmented documentation.
 
 ## Current Position
 
-Phase: Phase 14 completed, Phase 15 next
-Plan: 3/3
-Status: Phase 14 complete — English Object Storage page rewritten end-to-end (frontmatter, overview, bucket creation, credentials, first upload, verification, next steps)
-Last activity: 2026-04-16 — Phase 14 completed (3 plans, 3 sequential waves)
+Phase: Phase 15 completed — v1.3 milestone ready for archive
+Plan: 4/4
+Status: Phase 15 complete — verification hardened, failure checklist added, publish-safety audit PASS, UAT PASS, build+lint PASS (verdict: SHIP)
+Last activity: 2026-04-18 — Phase 15 completed (4 plans, 4 sequential waves)
 
-Progress: [██████░░░░] 60%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -32,8 +32,8 @@ Progress: [██████░░░░] 60%
 | v1.2 | AI Proxy English start-here docs | Completed and verified |
 
 **Recent Trend:**
-- Last completed plans: 14-01, 14-02, 14-03
-- Trend: Positive
+- Last completed plans: 15-01, 15-02, 15-03, 15-04
+- Trend: Positive (v1.3 milestone complete)
 
 *Updated after milestone or plan transitions*
 
@@ -103,6 +103,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-16
-Stopped at: Completed Phase 14 (all 3 plans)
-Resume file: .planning/phases/15-verification-failure-checks-and-publish-safety/ (needs planning)
+Last session: 2026-04-18
+Stopped at: v1.3 milestone complete (Phase 13/14/15 all shipped)
+Resume file: Run /gsd:complete-milestone 1.3 to archive, then /gsd:new-milestone for next surface
