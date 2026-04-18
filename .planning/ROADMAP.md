@@ -25,7 +25,7 @@ remain.
 - [x] **Phase 13: Product Truth, Safe Example Contract, and Page Outline** -
   Audit the current Object Storage docs and UI evidence, then lock the
   single-page contract and safe upload example.
-- [ ] **Phase 14: Canonical Object Storage Start-Here Page** - Rewrite the
+- [x] **Phase 14: Canonical Object Storage Start-Here Page** - Rewrite the
   English Object Storage page into the real overview + bucket creation +
   credential path + first-upload guide.
 - [ ] **Phase 15: Verification, Failure Checks, and Publish Safety** - Add
@@ -81,10 +81,10 @@ from product understanding to one verified first successful file upload.
 **Plans**: 3 plans
 
 Plans:
-- [ ] 14-01: Rewrite frontmatter plus the opening overview and start-here framing
-- [ ] 14-02: Author the bucket creation, credential retrieval, and permission
+- [x] 14-01: Rewrite frontmatter plus the opening overview and start-here framing
+- [x] 14-02: Author the bucket creation, credential retrieval, and permission
   guidance path
-- [ ] 14-03: Author the first file upload walkthrough plus boundaries and next
+- [x] 14-03: Author the first file upload walkthrough plus boundaries and next
   steps
 
 ### Phase 15: Verification, Failure Checks, and Publish Safety
@@ -122,5 +122,5 @@ Phases execute in numeric order: 13 -> 14 -> 15
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 13. Product Truth, Safe Example Contract, and Page Outline | 3/3 | Completed | 2026-04-16 |
-| 14. Canonical Object Storage Start-Here Page | 0/3 | Not started | - |
+| 14. Canonical Object Storage Start-Here Page | 3/3 | Completed | 2026-04-16 |
 | 15. Verification, Failure Checks, and Publish Safety | 0/4 | Not started | - |
