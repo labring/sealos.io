@@ -122,15 +122,42 @@ line tools or SDK setup yet.
 
 ## Verify Your Upload
 
-The first-upload signal is visual and stays inside the console. Open the
-bucket's file list and confirm that the file you just uploaded is listed with
-its file name, its size, and the upload timestamp you expect.
+First success for this guide is defined by two signals inside the console.
+Check them in order.
 
-Seeing the file row in the list is enough to confirm success for this guide.
-The bucket is private, so there is no public URL to check, and no command or
-SDK call is needed at this point. Phase 15 will extend this section with
-explicit failure checks; for now, a clean entry in the file list is the
-confirmation you are looking for.
+- File row in the bucket's file list
+  Open the bucket you just uploaded into and confirm a row for your file shows
+  the expected file name, its size, and the upload timestamp.
+- Object detail view showing an addressable object path
+  Open the file's detail view from that row and confirm the view shows the
+  object's path or URL. This proves the object exists at an addressable
+  location. The bucket is private, so the URL itself is access-controlled;
+  this guide does not ask you to make the bucket public or generate a signed
+  URL.
+
+If both signals are present, the first upload is confirmed.
+
+## If the first upload fails
+
+Check these first, in order:
+
+- wrong or missing bucket
+  Look here first: confirm the bucket exists in your current workspace and
+  region, and that you opened the bucket you actually uploaded into.
+- permission denied
+  Look here first: confirm the bucket's permission level is not blocking your
+  session, and that the upload action is available in the current context.
+- wrong endpoint
+  Matters when you move to SDK or CLI access: the Internal and External
+  endpoints are separate values; pick the one that matches where your client
+  runs.
+- wrong credentials
+  Matters when you move to SDK or CLI access: re-read the Access Key and
+  Secret Key from the credential popup and confirm the pair was copied
+  exactly.
+- upload size or file-name issue
+  Look here first: use a small test file and avoid file names with characters
+  the bucket rejects.
 
 ## What's Next
 
