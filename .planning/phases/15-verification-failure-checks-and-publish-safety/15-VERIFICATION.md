@@ -1,9 +1,10 @@
 ---
 phase: 15-verification-failure-checks-and-publish-safety
 seeded: 2026-04-18
-status: skeleton
-score: pending 15-04 finalization
-requirements_tracked:
+verified: 2026-04-19
+status: passed
+score: 5/5 truths verified (4 Object Storage-specific + QLTY-03 repo build/lint)
+requirements_verified:
   - VRFY-01
   - VRFY-02
   - QLTY-01
@@ -12,13 +13,15 @@ requirements_tracked:
 artifacts:
   - content/docs/guides/object-storage/index.en.mdx
   - content/docs/guides/meta.en.json
+  - .planning/phases/15-verification-failure-checks-and-publish-safety/15-VALIDATION.md
   - .planning/phases/15-verification-failure-checks-and-publish-safety/15-02-AUDIT.md
   - .planning/phases/15-verification-failure-checks-and-publish-safety/15-03-UAT.md
   - .planning/phases/15-verification-failure-checks-and-publish-safety/15-01-SUMMARY.md
   - .planning/phases/15-verification-failure-checks-and-publish-safety/15-02-SUMMARY.md
   - .planning/phases/15-verification-failure-checks-and-publish-safety/15-03-SUMMARY.md
+  - .planning/phases/15-verification-failure-checks-and-publish-safety/15-04-SUMMARY.md
 notes:
-  - "Skeleton produced in 15-03 (Wave 3). 15-04 finalizes the status field, fills Execution Notes with npm run build / npm run lint outcomes, marks QLTY-03, and seals the final verdict."
+  - "Skeleton produced in 15-03 (Wave 3). 15-04 finalized the status field, filled Execution Notes with npm run build / npm run lint outcomes, marked QLTY-03 passed, and sealed the final verdict as SHIP."
   - "Phase 15 is executed manually in the current worktree; gsd-tools still resolves the outer repo for execute-phase."
 ---
 
@@ -30,15 +33,16 @@ first-failure checklist, confirming the English Object Storage surface stays
 a single safe leaf page, and closing the milestone with repo-level build and
 lint evidence.
 **Seeded:** 2026-04-18
-**Status:** SKELETON — finalized by 15-04
+**Verified:** 2026-04-19
+**Status:** passed
 **Re-verification:** No — initial verification
 
-This report is produced in two waves. Plan 15-03 (this wave) captures the
+This report was produced in two waves. Plan 15-03 (Wave 3) captured the
 Object Storage-specific truths, the route/nav/single-leaf evidence, the
 focused UAT reference, and the re-runnable command list. Plan 15-04
-(closeout wave) fills `## Execution Notes` with `npm run build` and
-`npm run lint` outcomes, marks `QLTY-03` passed or degraded per D-14, and
-stamps the final verdict.
+(Wave 4, closeout) filled `## Execution Notes` with `npm run build` and
+`npm run lint` outcomes, marked `QLTY-03` passed per D-14, and stamped the
+final SHIP verdict.
 
 ## Goal Achievement
 
@@ -56,7 +60,14 @@ evidence.
 | 3 | Guides still exposes `object-storage` as one top-level leaf entry with no local `meta.en.json` and no child-page navigation (D-15). | ✓ VERIFIED | `content/docs/guides/meta.en.json` line 9 contains `"object-storage",` inside the `pages` array. `content/docs/guides/object-storage/meta.en.json` does not exist. `rg` for `/docs/guides/object-storage/<segment>/` under `index.en.mdx` returns zero matches. Directory listing shows only `index.en.mdx`, `index.zh-cn.mdx`, and `images/`. |
 | 4 | The page is English-only with no Chinese residue, no hardcoded secrets, and no exact-console-button-label or hardcoded console URL assertions (D-16). | ✓ VERIFIED | Recorded in `.planning/phases/15-verification-failure-checks-and-publish-safety/15-02-AUDIT.md` summary table — Checks 1, 1b, 2, 3, and 4 all PASS. English-only copy, no placeholder credentials, no hardcoded console URLs, no exact button-label assertions. Verdict: PUBLISH-SAFE. |
 
-**Score:** 4/4 Object Storage-specific truths verified. Repo-level truth (`QLTY-03`) pending 15-04.
+**Score:** 5/5 truths verified — four Object Storage-specific truths (1–4
+above) plus the repo-level closeout truth (`QLTY-03`) finalized by 15-04.
+`npm run build` completed through `normalize-root-locale` with all 6027 static
+pages generated. `npm run lint` passed with zero TypeScript diagnostics after
+the build had produced `.next/types`. All surfaced warnings and errors are
+environmental or pre-existing blockers per D-14, not Object Storage
+regressions. Full command evidence and the per-warning classification table
+are recorded in `.planning/phases/15-verification-failure-checks-and-publish-safety/15-VALIDATION.md`.
 
 ## Requirement Coverage
 
@@ -66,7 +77,7 @@ evidence.
 | `VRFY-02` | Passed | `content/docs/guides/object-storage/index.en.mdx` → `## If the first upload fails` now exposes the fixed five-item checklist in the locked D-09 order with short operational hints. |
 | `QLTY-01` | Passed | `.planning/phases/15-verification-failure-checks-and-publish-safety/15-02-AUDIT.md` Checks 1, 1b, 2, 3, and 4 confirm the Object Storage English page is English-only, free of hardcoded secrets and placeholder credentials, free of hardcoded console URLs, and free of exact console button-label assertions per D-16. |
 | `QLTY-02` | Passed | Single-leaf posture holds: `content/docs/guides/meta.en.json` still registers `object-storage`, `content/docs/guides/object-storage/meta.en.json` does not exist, and `index.en.mdx` contains no local child-page links. Directory contains only `index.en.mdx`, `index.zh-cn.mdx`, and `images/`. |
-| `QLTY-03` | Pending 15-04 | `npm run build` and `npm run lint` closeout is scheduled for Plan 15-04. Per D-14, unrelated pre-existing failures will be classified as environmental / pre-existing blockers rather than Object Storage regressions. |
+| `QLTY-03` | Passed (with noted noise) | `npm run build` completed successfully (exit 0, all 6027 pages generated, `normalize-root-locale` ran to completion). `npm run lint` completed successfully (exit 0, zero diagnostics) after build had produced `.next/types`. All surfaced warnings and errors (network fetch failures for unrelated external app assets in `generate-apps`, Next.js `rewrites`/`output: export` warnings, duplicate Objective-C class warning between `canvas` and `sharp-libvips` native modules) are classified per D-14 as environmental or pre-existing blockers, not Object Storage regressions. Zero `object-storage` references appeared in the build log. Full evidence in `.planning/phases/15-verification-failure-checks-and-publish-safety/15-VALIDATION.md`. |
 
 ## Artifact Verification
 
@@ -76,8 +87,9 @@ evidence.
 | `content/docs/guides/meta.en.json` | `object-storage` remains discoverable as one top-level Guides entry | Passed | Line 9 of `pages` array contains `"object-storage",`. No child-page registration added. |
 | `.planning/phases/15-verification-failure-checks-and-publish-safety/15-02-AUDIT.md` | Publish-safety audit record (D-16 + D-15) | Passed | Records eight checks, all PASS, verdict PUBLISH-SAFE, anchored on commits e31f430 and c0542fb. |
 | `.planning/phases/15-verification-failure-checks-and-publish-safety/15-03-UAT.md` | Focused Object Storage docs UAT record (D-17) | Passed | Records seven-step reader walk-through from opening the app to first file visible in the bucket list, plus first-failure recovery walk, plus non-blocking concerns. Result: PASS. |
-| `.planning/phases/15-verification-failure-checks-and-publish-safety/15-VERIFICATION.md` | This report — Phase 15 verification record | Seeded | Skeleton produced in 15-03; 15-04 finalizes Execution Notes and final verdict. |
-| `.planning/phases/15-verification-failure-checks-and-publish-safety/15-01-SUMMARY.md` / `15-02-SUMMARY.md` / `15-03-SUMMARY.md` | Plan-level execution summaries | Partial | 15-01 and 15-02 summaries exist in worktree; 15-03 summary is produced at the close of this plan. 15-04 summary follows after the repo-level closeout. |
+| `.planning/phases/15-verification-failure-checks-and-publish-safety/15-VALIDATION.md` | Phase 15 validation log mixing Object Storage shell assertions with repo build and lint commands (D-13) | Passed | Contains Quick run command, Full suite command, Task Map, Executed Command Order, per-warning Execution Notes classification per D-14, and final PASS-with-noted-noise verdict. |
+| `.planning/phases/15-verification-failure-checks-and-publish-safety/15-VERIFICATION.md` | This report — Phase 15 verification record | Passed | Skeleton produced in 15-03; 15-04 filled Execution Notes, marked `QLTY-03` passed, and stamped the SHIP verdict. |
+| `.planning/phases/15-verification-failure-checks-and-publish-safety/15-01-SUMMARY.md` / `15-02-SUMMARY.md` / `15-03-SUMMARY.md` / `15-04-SUMMARY.md` | Plan-level execution summaries | Passed | All four plan summaries exist in the current worktree phase package after 15-04 closeout. |
 
 ## Verification Commands
 
@@ -109,29 +121,71 @@ page. UAT Result: PASS.
 
 ## Execution Notes
 
-**Placeholder — 15-04 fills this section.**
+Full command evidence and the per-warning classification table live in
+`.planning/phases/15-verification-failure-checks-and-publish-safety/15-VALIDATION.md`.
+This section summarizes the build / lint outcomes and the environmental
+classification for phase-level review.
 
-15-04 will record here:
-
-- `npm run build` outcome (pass / fail), any emitted warnings, and a D-14
-  classification of each warning as Object Storage-related or
-  environmental / pre-existing.
-- `npm run lint` outcome, including the Phase 12 known-good pattern of
-  running lint only after build has generated `.next/types`.
-- Any other environmental noise observed during the closeout (DNS fetch
-  failures for remote asset hosts, duplicate native-module class warnings,
-  etc.) — recorded as non-Object-Storage blockers per D-14.
-- Final `QLTY-03` pass / degraded decision, with evidence linking back to
-  the build and lint logs.
+- **Worktree execution context.** Phase 15 was executed manually in
+  `/Users/longnv/bin/repo/sealos.io/.claude/worktrees/init` because
+  `gsd-tools` still resolves the outer repository instead of this worktree.
+  The worktree is already dirty with ~100+ unrelated file changes (deleted
+  legacy doc files, modified platform-icon SVGs, edits to non-Object-Storage
+  components). Per D-14, these are execution context, not Phase 15
+  regressions, and were not fixed inside this plan.
+- **Object Storage shell suite (Step 1).** All 10 shell assertions PASS:
+  file exists, English-only, all six required H2 sections plus `What's Next`
+  present, canonical `title: "Object Storage"` in frontmatter, no
+  `Phase 15 will extend this section` leftover, `` `private` `` recommended,
+  no placeholder credentials, no local `meta.en.json`, single-leaf nav
+  registration intact, no invented child routes.
+- **`npm run build` (Step 2).** PASS with environmental noise. Exit code 0.
+  `✓ Compiled successfully`, `✓ Generating static pages (6027/6027)`, and
+  `[normalize-root-locale] copied en/ content to root export directory.` all
+  emitted. Zero `object-storage` references appeared anywhere in the build
+  log; the Object Storage English page rendered silently as one of the 6027
+  statically generated pages. The five surfaced `❌ Error` lines were all
+  network fetch failures in the `generate-apps` step for unrelated external
+  assets (`chatnio`, `chatwoot`, `code-server`, `minio`). The `⚠` warnings
+  were the repo's known Next.js `rewrites` / `output: export` incompatibility
+  (already recorded in Phase 12's `12-VALIDATION.md`) and the native-module
+  duplicate Objective-C class warning between `canvas` and `sharp-libvips`
+  (also already recorded in Phase 12). All classified as environmental or
+  pre-existing blockers per D-14.
+- **`npm run lint` (Step 3).** PASS. Exit code 0. Zero TypeScript
+  diagnostics emitted. Ran after `npm run build` so `.next/types` existed,
+  mirroring the Phase 12 known-good ordering.
+- **Build/lint ordering.** The `lint` script is
+  `rm -f tsconfig.tsbuildinfo && tsc --noEmit`, which requires `.next/types`
+  from a prior successful build. This ordering (build then lint) is the
+  repo's known-good path and was recorded as `## Execution Notes` item in
+  `12-VALIDATION.md`.
 
 ## Final Verdict
 
-**Placeholder — 15-04 finalizes.**
+**SHIP.**
 
-Current seed state: Object Storage-specific truths (1–4) verified; Object
-Storage-specific requirements (`VRFY-01`, `VRFY-02`, `QLTY-01`, `QLTY-02`)
-passed; `QLTY-03` pending the repo-level build and lint run in 15-04.
-Tentative direction: SHIP once `npm run build` and `npm run lint` pass or
-their failures are classified as environmental / pre-existing under D-14.
-The final SHIP / HOLD verdict is stamped by 15-04 after the closeout log
-lands.
+Phase 15 is complete and the Object Storage v1.3 milestone is ready to ship
+in the current worktree.
+
+- All four Object Storage-specific truths (VRFY-01, VRFY-02, QLTY-01, QLTY-02)
+  are verified against the current page state and the single-leaf navigation
+  posture.
+- `QLTY-03` is satisfied: `npm run build` and `npm run lint` both pass, and
+  every surfaced warning or error is classified per D-14 as an environmental
+  or pre-existing blocker with no connection to Object Storage.
+- The focused reader UAT recorded in `15-03-UAT.md` PASSed.
+- The publish-safety grep audit recorded in `15-02-AUDIT.md` PASSed.
+
+**Unrelated blockers recorded separately (not Phase 15 regressions):** the
+five external-asset fetch failures in `generate-apps` (`chatnio`,
+`chatwoot`, `code-server`, `minio`) and the repo-level Next.js
+`rewrites`/`output: export` warning plus the `canvas` / `sharp-libvips`
+native-module Objective-C duplicate class warning. These are the same
+environmental noise patterns recorded in Phase 12's `12-VALIDATION.md` and
+are out of scope for the Object Storage milestone closeout.
+
+Open follow-up only if a later milestone wants to clean up the unrelated
+`generate-apps` network noise, update the repo-level Next.js config to
+remove the `rewrites` warning under `output: export`, or deduplicate the
+`canvas` / `sharp-libvips` native linkage.
