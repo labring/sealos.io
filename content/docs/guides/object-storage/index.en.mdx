@@ -1,0 +1,26 @@
+---
+title: "Object Storage"
+description: "S3-compatible object storage on Sealos -- create a bucket and upload your first file through the console."
+keywords: [object storage, S3, bucket, file upload, credentials, Sealos]
+---
+
+This is the start-here guide for Object Storage on Sealos.
+
+On this page, you create a bucket, retrieve its credentials, upload your first
+file, and confirm the upload succeeded -- all through the Sealos console.
+
+By the end, you have a working bucket with one file stored in it and the four
+credential values you need for any future programmatic access.
+
+## What Object Storage Is
+
+Object Storage is the Sealos service for storing and managing unstructured data
+such as files, images, documents, and backups. It is S3-compatible and built on
+MinIO, and Sealos manages the underlying infrastructure so you work with
+buckets and files instead of servers.
+
+At a high level, you use Object Storage to upload files into buckets, download
+them when you need them, and control who can read or write each bucket through
+access permissions. Every bucket also exposes endpoints and credentials that
+work with MinIO-compatible SDKs when you are ready to integrate it into an
+application.
