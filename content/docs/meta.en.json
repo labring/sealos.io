@@ -1,3 +1,14 @@
 {
-    "pages": ["[House][Home](/docs)", "quick-start", "overview", "examples", "guides", "system-design", "msa"]
+    "pages": [
+        "[Cloudy][Sealos Cloud](https://os.sealos.io)",
+        "[Handshake][Contact](/contact)",
+        "[Brain][FastGPT](https://fastgpt.io)",
+        "---Quick Start---",
+        "overview/intro",
+        "---Guides---",
+        "...guides",
+        "examples",
+        "system-design",
+        "msa"
+    ]
 }

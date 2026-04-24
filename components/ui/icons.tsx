@@ -1,4 +1,20 @@
 import React, { SVGProps } from 'react';
+import type { StaticImageData } from 'next/image';
+import NodejsSvg from '@/assets/stacks-appicons/nodejs.svg';
+import GolangSvg from '@/assets/stacks-appicons/golang.svg';
+import JavaSvg from '@/assets/stacks-appicons/java.svg';
+import PHPSvg from '@/assets/stacks-appicons/php.svg';
+import PythonSvg from '@/assets/stacks-appicons/python.svg';
+import RustSvg from '@/assets/stacks-appicons/rust.svg';
+
+const createStackIcon = (svg: StaticImageData, alt: string) => {
+  const Icon = () => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={svg.src} alt={alt} width={20} height={20} />
+  );
+  Icon.displayName = `${alt}Icon`;
+  return Icon;
+};
 
 export const GradientCircleCheck = (
   props: React.DetailedHTMLProps<
@@ -482,6 +498,13 @@ export function WhatsAppIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export const NodejsIcon = createStackIcon(NodejsSvg, 'Node.js');
+export const GoIcon = createStackIcon(GolangSvg, 'Go');
+export const JavaIcon = createStackIcon(JavaSvg, 'Java');
+export const PHPIcon = createStackIcon(PHPSvg, 'PHP');
+export const PythonIcon = createStackIcon(PythonSvg, 'Python');
+export const RustIcon = createStackIcon(RustSvg, 'Rust');
 
 export function PerplexityIcon(props: SVGProps<SVGSVGElement>) {
   return (

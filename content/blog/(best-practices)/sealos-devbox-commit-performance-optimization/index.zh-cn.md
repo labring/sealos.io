@@ -346,7 +346,7 @@ containerd 的通用差异算法可以与任何文件系统一起工作，但代
 ### DevBox 入门指南：
 
 1. **[试用 DevBox](/devbox)** - 云开发环境
-2. **[阅读 DevBox 文档](/docs/guides/fundamentals)** - 学习基础知识
+2. **[阅读 DevBox 文档](/docs/guides/devbox)** - 学习基础知识
 3. **[加入 Sealos 社区](https://discord.gg/wdUn538zVP)** - 与其他用户交流
 4. **[探索 Sealos 平台](/pricing)** - 查看所有平台功能
 
@@ -380,8 +380,8 @@ containerd 的通用差异算法可以与任何文件系统一起工作，但代
 
 ## 相关 DevBox 资源
 
-- **[DevBox 入门指南](/docs/guides/fundamentals)** - 学习 DevBox 基础知识
+- **[DevBox 入门指南](/docs/guides/devbox)** - 学习 DevBox 基础知识
 - **[DevBox 架构概述](/docs/system-design/devbox-architecture)** - 了解 DevBox 的技术架构
-- **[创建您的第一个 DevBox 项目](/docs/guides/fundamentals/create-a-project)** - 分步项目创建指南
-- **[DevBox 开发指南](/docs/guides/fundamentals/develop)** - 连接 IDE 并开始编码
+- **[创建您的第一个 DevBox 项目](/docs/guides/devbox/create-a-project)** - 分步项目创建指南
+- **[DevBox 开发指南](/docs/guides/devbox/develop)** - 连接 IDE 并开始编码
 - **[Sealos 平台概述](/docs/overview/intro)** - 探索完整的 Sealos 生态系统

@@ -21,6 +21,106 @@
   ],
   "redirects": [
     {
+      "source": "/docs/guides/fundamentals",
+      "destination": "https://sealos.io/docs/guides/devbox/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/fundamentals/create-a-project",
+      "destination": "https://sealos.io/docs/guides/devbox/create-a-project/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/fundamentals/develop",
+      "destination": "https://sealos.io/docs/guides/devbox/develop/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/fundamentals/entrypoint-sh",
+      "destination": "https://sealos.io/docs/guides/devbox/entrypoint-sh/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/fundamentals/release",
+      "destination": "https://sealos.io/docs/guides/devbox/release/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/fundamentals/deploy",
+      "destination": "https://sealos.io/docs/guides/devbox/deploy/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/fundamentals/template-market",
+      "destination": "https://sealos.io/docs/guides/devbox/template-market/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/overview/about-sealos",
+      "destination": "https://sealos.io/docs/overview/intro/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/app-launchpad",
+      "destination": "https://sealos.io/docs/guides/app-deploy/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/app-launchpad/introduction",
+      "destination": "https://sealos.io/docs/guides/app-deploy/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/app-launchpad/create-app",
+      "destination": "https://sealos.io/docs/guides/app-deploy/create-app/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/app-launchpad/docker-compose-migration",
+      "destination": "https://sealos.io/docs/guides/app-deploy/docker-compose-migration/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/app-launchpad/update-apps",
+      "destination": "https://sealos.io/docs/guides/app-deploy/update-apps/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/app-launchpad/add-a-domain",
+      "destination": "https://sealos.io/docs/guides/app-deploy/add-a-domain/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/app-launchpad/expose-multiple-ports",
+      "destination": "https://sealos.io/docs/guides/app-deploy/expose-multiple-ports/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/app-launchpad/environments",
+      "destination": "https://sealos.io/docs/guides/app-deploy/environments/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/app-launchpad/configmap",
+      "destination": "https://sealos.io/docs/guides/app-deploy/configmap/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/app-launchpad/autoscaling",
+      "destination": "https://sealos.io/docs/guides/app-deploy/autoscaling/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/app-launchpad/persistent-volume",
+      "destination": "https://sealos.io/docs/guides/app-deploy/persistent-volume/",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/app-launchpad/custom-certificates",
+      "destination": "https://sealos.io/docs/guides/app-deploy/custom-certificates/",
+      "permanent": true
+    },
+    {
       "source": "/zh-Hans/blog/:path(.*)",
       "destination": "https://sealos.run/blog/:path",
       "permanent": true

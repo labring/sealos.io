@@ -1,0 +1,45 @@
+---
+title: Update and Redeploy
+keywords: [update app, redeploy, Change, Update, Sealos]
+description: Reopen a deployed Sealos app, change its settings, and redeploy the new version safely.
+---
+
+## When to use this
+
+Use this page when the app already exists and you need to change something without creating a new deployment from scratch.
+
+Typical updates include a new image tag, different resources, changed environment variables, extra ports, or attached storage. This is the standard day-2 path for modifying a running app.
+
+## Before you change this
+
+If the app is stateful or already serving traffic, confirm that the new settings are safe before you redeploy.
+
+A bad image, wrong port, or missing storage path can turn a healthy app into a broken one during the next rollout.
+
+## Update the app
+
+1. Open the app details page for the deployed app.
+2. Use the top-right action that reopens the settings. Depending on the current UI, this may be labeled **Update** or **Change**.
+3. Modify only the sections you actually need to change.
+4. Review image, resources, networking, environment variables, config files, and storage before you submit the redeploy.
+5. Save the change so Sealos can redeploy the app with the new configuration.
+
+If you are changing several risky settings at once, record the previous values first so you can roll back quickly.
+
+## Verify
+
+Check the result from the app details page after the redeploy:
+
+- The new instance returns to `running`.
+- The app details page reflects the setting you changed.
+- The public URL still works if the app is meant to stay externally reachable.
+- The app behavior matches the new version or configuration you intended to ship.
+
+If this fails, see [App Does Not Reach Running](/docs/guides/app-deploy/app-does-not-reach-running/).
+
+If the public URL stops working, see [Public URL Does Not Open](/docs/guides/app-deploy/public-url-does-not-open/).
+
+## Related Tasks
+
+- [Environment Variables](/docs/guides/app-deploy/environments/) if the change is mainly runtime key-value configuration.
+- [Config Files](/docs/guides/app-deploy/configmap/) if the change belongs in a mounted config file instead of the image or basic form fields.

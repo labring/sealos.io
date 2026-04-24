@@ -202,7 +202,7 @@ export const footerTranslations: Record<
 
 // Generate the footer links with translated text and URLs
 const getFooterLinks = (lang: languagesType) => {
-  const translations = footerTranslations[lang];
+  const translations = footerTranslations[lang] || footerTranslations['en'];
 
   const servicesLinks = [...FooterLinksData.services.links];
   if (lang === 'zh-cn') {

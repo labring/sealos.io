@@ -102,6 +102,26 @@ const config = {
         source: '/blog/:path*',
         destination: `/${defaultLocale}/blog/:path*`,
       },
+      {
+        source: '/docs',
+        destination: `/${defaultLocale}/docs`,
+      },
+      {
+        source: '/docs/:path*',
+        destination: `/${defaultLocale}/docs/:path*`,
+      },
+      {
+        source: '/products',
+        destination: `/${defaultLocale}/products`,
+      },
+      {
+        source: '/products/:path*',
+        destination: `/${defaultLocale}/products/:path*`,
+      },
+      {
+        source: '/pricing',
+        destination: `/${defaultLocale}/pricing`,
+      },
     ];
   },
 };

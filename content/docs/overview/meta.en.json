@@ -1,3 +1,6 @@
 {
-    "pages": ["intro"]
+    "title": "Overview",
+    "pages": [
+        "intro"
+    ]
 }

@@ -1,12 +1,37 @@
 ---
-title: 应用商店
-description: 应用商店是 Sealos 云操作系统中的一个功能，用于管理应用的安装、更新、删除等操作。
+title: App Store
+description: The App Store is a feature in the Sealos cloud operating system for managing application installation, updates, deletion, and other operations.
 ---
 
+The [App Store](https://sealos.io/products/app-store) provides a collection of ready-to-use application templates that enable rapid deployment of websites and applications. These templates span blogs, AI applications, low-code platforms, cloud storage, instant messaging tools, middleware, and more—designed to streamline development by eliminating the need to build projects from scratch or manually manage application dependencies.
 
+![Sealos App Store](./images/sealos-app-store.zh-cn.png)
 
+## Submitting an App
 
+All applications in the Sealos App Store are synchronized in real-time from the following GitHub repository:
 
+import { Github } from 'lucide-react';
 
+<Cards>
+  <Card
+    icon={<Github />}
+    href="https://github.com/labring-actions/templates"
+    title="Sealos Application Repository"
+  >
+    All applications in the Sealos App Store are sourced from this repository
+  </Card>
+</Cards>
 
+To submit an application to the Sealos App Store, simply open a Pull Request (PR) in the [Sealas Application Repository](https://github.com/labring-actions/templates).
 
+For new application submissions, refer to the [template.yaml file](https://github.com/labring-actions/templates/blob/main/template.yaml) as a starting point. The system includes numerous built-in environment variables and functions available for use in templates. These features enable you to write templates using GitHub Actions-style syntax—for example, setting template parameters with environment variables like `${{SEALOS_NAMESPACE}}`. For detailed information about built-in environment variables, consult the [Template Documentation](https://github.com/labring-actions/templates/blob/main/example_zh.md).
+
+If you're unfamiliar with writing YAML application templates, you can also submit an Issue in the [Issues section](https://github.com/labring-actions/templates/issues) describing the application you'd like to add. Our maintenance team will help you prepare and submit the application template. When creating an Issue, please include as much detail as possible:
+
+- Application name and brief description
+- Official website or GitHub repository URL
+- Deployment requirements (e.g., required environment variables, storage needs, etc.)
+- Any other relevant information
+
+This helps us better understand your requirements and accelerates the template creation process.
