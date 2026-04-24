@@ -1,4 +1,12 @@
 {
     "title": "指南",
-    "pages": ["fundamentals", "app-launchpad", "databases", "app-store", "cronjob", "ai-proxy", "object-storage"]
+    "pages": [
+        "devbox",
+        "app-deploy",
+        "databases",
+        "app-store",
+        "ai-proxy",
+        "object-storage",
+        "cronjob"
+    ]
 }

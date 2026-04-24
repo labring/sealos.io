@@ -1,0 +1,83 @@
+---
+title: Migrate from Docker Compose
+keywords:
+  [
+    Docker Compose,
+    migration,
+    Sealos,
+    WordPress,
+    environment variables,
+    persistent storage,
+  ]
+description: Move an existing Docker Compose workload to Sealos by translating services, ports, storage, and environment variables into App Deploy and related Sealos products.
+---
+
+## When to use this
+
+Use this page when you already have a working Docker Compose setup and want to move that workload into Sealos.
+
+This is not the default first deploy path. If you are starting from scratch, use [First Deploy](/docs/guides/app-deploy/first-deploy/) instead. If you are already running the app on Sealos and only need one follow-up change, use the manage task pages instead of a full migration flow.
+
+## Check for a ready-made template first
+
+Before you do a manual migration, check whether Sealos App Store already has a maintained template for the workload you want to run.
+
+If a tested template exists, start there. Manual migration is most useful when you have a custom app or when no template matches the services in your `docker-compose.yml`.
+
+## Translate Compose concepts into Sealos
+
+Use this table to map the main Docker Compose concepts into Sealos building blocks:
+
+| Docker Compose | Sealos target |
+| --- | --- |
+| `services` | Separate app deployments or managed services |
+| `ports` | App Deploy network configuration |
+| `volumes` | [Persistent Storage](/docs/guides/app-deploy/persistent-volume/) |
+| `environment` | [Environment Variables](/docs/guides/app-deploy/environments/) |
+| `depends_on` | Deployment order and dependency planning |
+| `image` | Container image field in App Deploy |
+| `command` | Startup command or runtime command field |
+
+Most migrations become easier if you split stateful services and app services instead of trying to force the entire stack into one first deploy.
+
+## Plan the migration
+
+1. Read the existing `docker-compose.yml` and list every service, image, port, volume, environment variable, and startup command.
+2. Decide which services should stay together in App Deploy and which should become a dedicated Sealos product such as a managed database.
+3. Identify every persistent path before you redeploy anything.
+4. Move external dependencies first so the application can connect to them when the app service starts.
+
+## Example: WordPress migration
+
+A typical WordPress stack in Docker Compose has one app service and one database service.
+
+In Sealos, a practical migration path is:
+
+1. Create the database first by using the Sealos database product that matches the Compose stack.
+2. Record the database host, username, password, and database name.
+3. Deploy the `wordpress:latest` app in App Deploy.
+4. Expose port `80` publicly so you can reach the site.
+5. Attach persistent storage to `/var/www/html` so uploads and content survive a redeploy.
+6. Add the WordPress database settings as environment variables before the first app start.
+
+That keeps the migration clear: stateful data is handled separately, while the web app moves into the App Deploy workflow.
+
+## Verify
+
+Use this checklist before you call the migration complete:
+
+- Every Docker Compose service has a clear Sealos target.
+- Persistent data paths were moved to persistent storage where needed.
+- The migrated app returns to `running`.
+- The public endpoint opens the migrated workload successfully.
+- The app can still reach the services it depended on before the migration.
+
+If the migrated app does not reach running, see [App Does Not Reach Running](/docs/guides/app-deploy/app-does-not-reach-running/).
+
+If the public endpoint does not open, see [Public URL Does Not Open](/docs/guides/app-deploy/public-url-does-not-open/).
+
+## Related Tasks
+
+- [Persistent Storage](/docs/guides/app-deploy/persistent-volume/) if the original Compose stack used `volumes`.
+- [Environment Variables](/docs/guides/app-deploy/environments/) if the migrated app still needs runtime settings.
+- [Update and Redeploy](/docs/guides/app-deploy/update-apps/) if you need to adjust the migrated app after the first successful move.

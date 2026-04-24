@@ -1,0 +1,54 @@
+---
+title: App Deploy
+keywords:
+  [
+    App Deploy,
+    App Launchpad,
+    first deploy,
+    Docker Compose migration,
+    manage app,
+  ]
+description: "Choose the right App Deploy path in Sealos: first deploy, migrate from Docker Compose, or manage an existing app."
+---
+
+App Deploy is the Sealos documentation section for deploying and managing container apps.
+
+In the product UI, you will usually see this area labeled **App Launchpad**. This guide uses **App Deploy** as the canonical docs name and only uses `App Launchpad` when the exact UI label matters.
+
+Choose the path that matches your job right now.
+
+## First Deploy
+
+Start here if you want the shortest path from zero to one running public app on Sealos.
+
+[Go to First Deploy](/docs/guides/app-deploy/first-deploy/)
+
+## Other paths
+
+### Migrate from Docker Compose
+
+Choose this path if you already have a `docker-compose.yml` and need to translate an existing workload into Sealos without treating it like a brand-new first deploy.
+
+[Go to Migrate from Docker Compose](/docs/guides/app-deploy/docker-compose-migration/)
+
+### Manage an existing app
+
+Choose this path if your app already exists and you need to change one thing at a time, such as networking, storage, configuration, or scaling.
+
+[Go to common next jobs](#after-your-first-deploy)
+
+## After your first deploy
+
+Use one focused task page at a time instead of reopening every deployment option at once:
+
+- [Domains and Public Access](/docs/guides/app-deploy/add-a-domain/)
+- [Environment Variables](/docs/guides/app-deploy/environments/)
+- [Config Files](/docs/guides/app-deploy/configmap/)
+- [Persistent Storage](/docs/guides/app-deploy/persistent-volume/)
+- [Update and Redeploy](/docs/guides/app-deploy/update-apps/)
+- [Scaling](/docs/guides/app-deploy/autoscaling/)
+- [Ports and Networking](/docs/guides/app-deploy/expose-multiple-ports/)
+
+If you are moving an existing workload rather than starting fresh, use [Migrate from Docker Compose](/docs/guides/app-deploy/docker-compose-migration/) instead of the default first-deploy path.
+
+If a deploy is failing, start with [Troubleshooting](/docs/guides/app-deploy/troubleshoot/).

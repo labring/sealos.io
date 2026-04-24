@@ -25,6 +25,88 @@
       "label": "OPENAI_MODEL_NAME"
     }
   ],
+  "ace-step": [
+    {
+      "description": "Number of GPUs (NVIDIA)",
+      "type": "string",
+      "default": "1",
+      "required": true,
+      "key": "gpu_count",
+      "label": "gpu_count"
+    },
+    {
+      "description": "CPU limit (millicores, e.g. 4000 = 4 cores)",
+      "type": "string",
+      "default": "4000",
+      "required": false,
+      "key": "cpu_limit",
+      "label": "cpu_limit"
+    },
+    {
+      "description": "Memory limit (MiB)",
+      "type": "string",
+      "default": "16384",
+      "required": false,
+      "key": "memory_limit",
+      "label": "memory_limit"
+    },
+    {
+      "description": "Model storage size in GiB (checkpoints ~20GB)",
+      "type": "string",
+      "default": "30",
+      "required": true,
+      "key": "volume_size",
+      "label": "volume_size"
+    },
+    {
+      "description": "Output storage size in GiB (generated audio files)",
+      "type": "string",
+      "default": "10",
+      "required": false,
+      "key": "output_volume_size",
+      "label": "output_volume_size"
+    },
+    {
+      "description": "Startup mode: gradio (Web UI on port 7860) or api (REST API server on port 8001)",
+      "type": "string",
+      "default": "gradio",
+      "required": true,
+      "key": "startup_mode",
+      "label": "startup_mode"
+    },
+    {
+      "description": "LLM backend: vllm (recommended for >=24GB VRAM) or pt (PyTorch, lower VRAM)",
+      "type": "string",
+      "default": "pt",
+      "required": false,
+      "key": "llm_backend",
+      "label": "llm_backend"
+    },
+    {
+      "description": "Auto-initialize models on startup (true/false). Set false to defer to UI button.",
+      "type": "string",
+      "default": "true",
+      "required": false,
+      "key": "init_service",
+      "label": "init_service"
+    },
+    {
+      "description": "DiT model config: acestep-v15-turbo (fast) or acestep-v15 (quality)",
+      "type": "string",
+      "default": "acestep-v15-turbo",
+      "required": false,
+      "key": "dit_model",
+      "label": "dit_model"
+    },
+    {
+      "description": "LM model: acestep-5Hz-lm-4B (best quality, >=24GB) / acestep-5Hz-lm-1.7B / acestep-5Hz-lm-0.6B (low VRAM)",
+      "type": "string",
+      "default": "acestep-5Hz-lm-1.7B",
+      "required": false,
+      "key": "lm_model",
+      "label": "lm_model"
+    }
+  ],
   "affine": [],
   "agora": [
     {
@@ -42,6 +124,24 @@
       "required": true,
       "key": "app_certificate",
       "label": "app_certificate"
+    }
+  ],
+  "airbyte": [
+    {
+      "description": "Initial Airbyte admin username.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "auth_admin_username",
+      "label": "auth_admin_username"
+    },
+    {
+      "description": "Initial Airbyte admin password.",
+      "type": "string",
+      "default": "yzuqjbwctckjneaoozhmyevn",
+      "required": true,
+      "key": "auth_admin_password",
+      "label": "auth_admin_password"
     }
   ],
   "anki-sync-server": [
@@ -73,6 +173,7 @@
       "label": "artalk_storage"
     }
   ],
+  "authentik": [],
   "budibase": [
     {
       "description": "Admin email address",
@@ -144,6 +245,64 @@
     }
   ],
   "bytebase": [],
+  "calcom": [
+    {
+      "description": "Sender email address used for notifications and verification emails",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "email_from",
+      "label": "email_from"
+    },
+    {
+      "description": "Sender display name used for outbound emails",
+      "type": "string",
+      "default": "Cal.com",
+      "required": false,
+      "key": "email_from_name",
+      "label": "email_from_name"
+    },
+    {
+      "description": "SMTP server hostname for outbound email delivery",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "email_server_host",
+      "label": "email_server_host"
+    },
+    {
+      "description": "SMTP server port for outbound email delivery",
+      "type": "string",
+      "default": "587",
+      "required": false,
+      "key": "email_server_port",
+      "label": "email_server_port"
+    },
+    {
+      "description": "SMTP username for outbound email delivery",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "email_server_user",
+      "label": "email_server_user"
+    },
+    {
+      "description": "SMTP password for outbound email delivery",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "email_server_password",
+      "label": "email_server_password"
+    },
+    {
+      "description": "Enterprise license key for enabling paid Cal.com features",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "calcom_license_key",
+      "label": "calcom_license_key"
+    }
+  ],
   "cap": [],
   "casdoor": [
     {
@@ -256,32 +415,6 @@
   ],
   "chatnio": [],
   "chatwoot": [],
-  "clawdbot": [
-    {
-      "description": "OpenAI-compatible base URL",
-      "type": "string",
-      "default": "https://aiproxy.usw-1.sealos.io/v1",
-      "required": false,
-      "key": "base_url",
-      "label": "base_url"
-    },
-    {
-      "description": "API key for the OpenAI-compatible provider",
-      "type": "string",
-      "default": "",
-      "required": false,
-      "key": "api_key",
-      "label": "api_key"
-    },
-    {
-      "description": "Default model ID",
-      "type": "string",
-      "default": "claude-opus-4-5-20251101",
-      "required": false,
-      "key": "model",
-      "label": "model"
-    }
-  ],
   "code-server": [
     {
       "description": "Access Password",
@@ -402,6 +535,58 @@
     }
   ],
   "excalidraw": [],
+  "fastgpt": [
+    {
+      "description": "Root account password",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "root_password",
+      "label": "root_password"
+    },
+    {
+      "description": "Hosted agent sandbox base URL",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "agent_sandbox_baseurl",
+      "label": "agent_sandbox_baseurl"
+    },
+    {
+      "description": "Hosted agent sandbox access token",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "agent_sandbox_token",
+      "label": "agent_sandbox_token"
+    }
+  ],
+  "fastgpt-pro": [
+    {
+      "description": "Root account password",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "root_password",
+      "label": "root_password"
+    },
+    {
+      "description": "Hosted agent sandbox base URL",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "agent_sandbox_baseurl",
+      "label": "agent_sandbox_baseurl"
+    },
+    {
+      "description": "Hosted agent sandbox access token",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "agent_sandbox_token",
+      "label": "agent_sandbox_token"
+    }
+  ],
   "featbit-standard": [],
   "fireboom": [],
   "firefox": [],
@@ -454,7 +639,7 @@
     {
       "description": "Backend secret key (JWT signing)",
       "type": "string",
-      "default": "aujvypztzthfwrqztqlcmgydffgokdss",
+      "default": "cuttxetedykrbllcytozkmrtjvpvciav",
       "required": true,
       "key": "SECRET_KEY",
       "label": "SECRET_KEY"
@@ -551,7 +736,7 @@
     {
       "description": "Seed for token generation",
       "type": "string",
-      "default": "iaujnqtcueussdhocgzbvubnxgawkrof",
+      "default": "hkpyfmgmeodyniuzgksxznkhsnqajsuz",
       "required": true,
       "key": "seed",
       "label": "seed"
@@ -569,6 +754,17 @@
       "label": "node_env"
     }
   ],
+  "harbor": [
+    {
+      "description": "Harbor admin password for initial login.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "harbor_admin_password",
+      "label": "harbor_admin_password"
+    }
+  ],
+  "hasura": [],
   "headscale": [],
   "headscale-pg": [],
   "heyform": [],
@@ -585,9 +781,148 @@
   ],
   "influxdb": [],
   "inpaint-web": [],
+  "insforge": [
+    {
+      "description": "Administrator email address",
+      "type": "string",
+      "default": "admin@example.com",
+      "required": false,
+      "key": "admin_email",
+      "label": "admin_email"
+    },
+    {
+      "description": "Administrator password",
+      "type": "string",
+      "default": "change-this-password",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "OpenRouter API key",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "openrouter_api_key",
+      "label": "openrouter_api_key"
+    },
+    {
+      "description": "Google OAuth client ID",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "google_client_id",
+      "label": "google_client_id"
+    },
+    {
+      "description": "Google OAuth client secret",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "google_client_secret",
+      "label": "google_client_secret"
+    },
+    {
+      "description": "GitHub OAuth client ID",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "github_client_id",
+      "label": "github_client_id"
+    },
+    {
+      "description": "GitHub OAuth client secret",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "github_client_secret",
+      "label": "github_client_secret"
+    },
+    {
+      "description": "Discord OAuth client ID",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "discord_client_id",
+      "label": "discord_client_id"
+    },
+    {
+      "description": "Discord OAuth client secret",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "discord_client_secret",
+      "label": "discord_client_secret"
+    },
+    {
+      "description": "Microsoft OAuth client ID",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "microsoft_client_id",
+      "label": "microsoft_client_id"
+    },
+    {
+      "description": "Microsoft OAuth client secret",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "microsoft_client_secret",
+      "label": "microsoft_client_secret"
+    },
+    {
+      "description": "LinkedIn OAuth client ID",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "linkedin_client_id",
+      "label": "linkedin_client_id"
+    },
+    {
+      "description": "LinkedIn OAuth client secret",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "linkedin_client_secret",
+      "label": "linkedin_client_secret"
+    },
+    {
+      "description": "X OAuth client ID",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "x_client_id",
+      "label": "x_client_id"
+    },
+    {
+      "description": "X OAuth client secret",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "x_client_secret",
+      "label": "x_client_secret"
+    },
+    {
+      "description": "Apple OAuth client ID",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "apple_client_id",
+      "label": "apple_client_id"
+    },
+    {
+      "description": "Apple OAuth client secret",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "apple_client_secret",
+      "label": "apple_client_secret"
+    }
+  ],
   "it-tools": [],
   "jsoncrack": [],
   "docker-stacks": [],
+  "kanboard": [],
   "kaneo": [],
   "keycloak": [
     {
@@ -600,6 +935,32 @@
     },
     {
       "description": "Admin password for Keycloak",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    }
+  ],
+  "keystone": [
+    {
+      "description": "Initial administrator display name.",
+      "type": "string",
+      "default": "Administrator",
+      "required": true,
+      "key": "admin_name",
+      "label": "admin_name"
+    },
+    {
+      "description": "Initial administrator email address.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_email",
+      "label": "admin_email"
+    },
+    {
+      "description": "Initial administrator password.",
       "type": "string",
       "default": "",
       "required": true,
@@ -944,17 +1305,49 @@
       "label": "console_password"
     }
   ],
-  "nexus": [
+  "netbird": [
     {
-      "description": "Storage size for nexus in Gi",
-      "type": "number",
-      "default": "5",
+      "description": "Disable default all-to-all policy",
+      "type": "choice",
+      "options": [
+        "false",
+        "true"
+      ],
+      "default": "false",
       "required": true,
-      "key": "nexus_storage",
-      "label": "nexus_storage"
+      "key": "disable_default_policy",
+      "label": "disable_default_policy"
+    },
+    {
+      "description": "External TURN host and port (example: turn.example.com:3478)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "external_turn_host",
+      "label": "external_turn_host"
+    },
+    {
+      "description": "External TURN username (required when external TURN is used)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "external_turn_username",
+      "label": "external_turn_username"
+    },
+    {
+      "description": "External TURN password (required when external TURN is used)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "external_turn_password",
+      "label": "external_turn_password"
     }
   ],
+  "new-api": [],
+  "nexus": [],
   "nocodb": [],
+  "node-red": [],
+  "notifuse": [],
   "nsfw": [
     {
       "description": "API_SECRET_KEY",
@@ -989,6 +1382,70 @@
       "required": false,
       "key": "anthropic_api_key",
       "label": "anthropic_api_key"
+    }
+  ],
+  "opencart": [
+    {
+      "description": "OpenCart admin username for initial setup.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "OPENCART_USERNAME",
+      "label": "OPENCART_USERNAME"
+    },
+    {
+      "description": "OpenCart admin password for initial setup.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "OPENCART_PASSWORD",
+      "label": "OPENCART_PASSWORD"
+    },
+    {
+      "description": "OpenCart admin email for initial setup.",
+      "type": "string",
+      "default": "admin@example.com",
+      "required": true,
+      "key": "OPENCART_ADMIN_EMAIL",
+      "label": "OPENCART_ADMIN_EMAIL"
+    }
+  ],
+  "openclaw": [
+    {
+      "description": "provider kind (openai_compat or anthropic_compat)",
+      "type": "choice",
+      "options": [
+        "openai_compat",
+        "anthropic_compat"
+      ],
+      "default": "anthropic_compat",
+      "required": true,
+      "key": "provider_kind",
+      "label": "provider_kind"
+    },
+    {
+      "description": "Compatible provider base URL (must end with /v1 for OpenAI-compatible)",
+      "type": "string",
+      "default": "https://aiproxy.usw-1.sealos.io/v1",
+      "required": true,
+      "key": "base_url",
+      "label": "base_url"
+    },
+    {
+      "description": "Provider API key",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "api_key",
+      "label": "api_key"
+    },
+    {
+      "description": "Default model id (raw id, e.g. gpt-5.2 / claude-opus-4-6-20251101)",
+      "type": "string",
+      "default": "claude-opus-4-6",
+      "required": true,
+      "key": "model",
+      "label": "model"
     }
   ],
   "openobserve": [
@@ -1046,7 +1503,7 @@
     {
       "description": "Secret key for encrypting data (32 bytes hex)",
       "type": "string",
-      "default": "wdziwzlzmfprzsklhsifqdrekeqrfziypmfnjrrgeinkzdmntyqnygkmwneeyxko",
+      "default": "wkixhobvcqqplpheygfopfjtqrzgyzspgouwmakstrtwxcipvraeazmyljqmeobo",
       "required": true,
       "key": "secret_key",
       "label": "secret_key"
@@ -1054,7 +1511,7 @@
     {
       "description": "Utility secret for internal operations",
       "type": "string",
-      "default": "zofjxvpclpcvfbhugzhfvdqohwuxtaetqgjbpuleibbgsvbegmmhqhdcupkcbnfm",
+      "default": "rpvmrplsgcjuzuginvqdcnsizwqlaxcciesuejhcjswodnobzwvwscszaazjfaby",
       "required": true,
       "key": "utils_secret",
       "label": "utils_secret"
@@ -1237,6 +1694,16 @@
     }
   ],
   "palacms": [],
+  "pangolin": [
+    {
+      "description": "Public endpoint advertised by Gerbil to Pangolin.",
+      "type": "string",
+      "default": "pangolin.example.com",
+      "required": true,
+      "key": "gerbil_base_endpoint",
+      "label": "gerbil_base_endpoint"
+    }
+  ],
   "paperless-ngx": [
     {
       "description": "Admin username for initial setup",
@@ -1265,7 +1732,7 @@
     {
       "description": "Should be a very long sequence of random characters",
       "type": "string",
-      "default": "vosgnpinxfhpxgrkqffirzusqnqddsfj",
+      "default": "eyaloifdrjqipdflgoqzbamhrxeukajk",
       "required": false,
       "key": "paperless_secret_key",
       "label": "paperless_secret_key"
@@ -1311,6 +1778,7 @@
       "label": "usermap_gid"
     }
   ],
+  "payload": [],
   "pdf2zh": [],
   "penpot": [],
   "pgadmin4": [
@@ -1385,6 +1853,7 @@
       "label": "SECRET_KEY_BASE"
     }
   ],
+  "pocket-id": [],
   "pocketbase": [
     {
       "description": "Admin user email for login",
@@ -1405,7 +1874,7 @@
     {
       "description": "Encryption key for settings (recommended for production, 32 characters)",
       "type": "string",
-      "default": "ybecixsuqaactyhzekjjuymphrsukisa",
+      "default": "eeoxbrprwrdgxejkszqlzjxvljzwwuox",
       "required": false,
       "key": "encryption_key",
       "label": "encryption_key"
@@ -1419,6 +1888,7 @@
       "label": "debug_mode"
     }
   ],
+  "posthog": [],
   "postiz": [
     {
       "description": "GitHub OAuth Client ID (optional)",
@@ -1463,6 +1933,32 @@
   ],
   "privatebin": [],
   "qinglong": [],
+  "quay": [
+    {
+      "description": "Initial Quay admin username",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "initial_admin_username",
+      "label": "initial_admin_username"
+    },
+    {
+      "description": "Initial Quay admin password",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "initial_admin_password",
+      "label": "initial_admin_password"
+    },
+    {
+      "description": "Initial Quay admin email",
+      "type": "string",
+      "default": "admin@example.com",
+      "required": true,
+      "key": "initial_admin_email",
+      "label": "initial_admin_email"
+    }
+  ],
   "Reactive-Resume": [
     {
       "description": "Storage size for minio in Gi",
@@ -1534,6 +2030,32 @@
   ],
   "rybbit": [],
   "signoz": [],
+  "skardi": [
+    {
+      "description": "Authentication mode. Defaults to BETTER_AUTH_DIESEL_SQLITE — clear this field to disable auth entirely",
+      "type": "string",
+      "default": "BETTER_AUTH_DIESEL_SQLITE",
+      "required": false,
+      "key": "auth_mode",
+      "label": "auth_mode"
+    },
+    {
+      "description": "Secret key used to sign sessions (32+ characters). Auto-generated by default",
+      "type": "string",
+      "default": "xboxyxzmzenaclxtkzlsynjqbaysvhon",
+      "required": false,
+      "key": "auth_secret",
+      "label": "auth_secret"
+    },
+    {
+      "description": "Required when auth_mode is set. Path to the SQLite auth database file",
+      "type": "string",
+      "default": "skardi_auth.db",
+      "required": false,
+      "key": "auth_db_path",
+      "label": "auth_db_path"
+    }
+  ],
   "s-pdf": [
     {
       "description": "Use PostgreSQL database for production workloads (recommended for better performance and data persistence)",
@@ -1636,6 +2158,158 @@
       "required": true,
       "key": "node_env",
       "label": "node_env"
+    }
+  ],
+  "sub2api": [
+    {
+      "description": "Administrator email address",
+      "type": "string",
+      "default": "admin@sub2api.local",
+      "required": false,
+      "key": "admin_email",
+      "label": "admin_email"
+    },
+    {
+      "description": "Administrator password (leave empty to auto-generate on first startup)",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Timezone used by the application",
+      "type": "string",
+      "default": "Asia/Shanghai",
+      "required": false,
+      "key": "timezone",
+      "label": "timezone"
+    },
+    {
+      "description": "Application run mode",
+      "type": "choice",
+      "default": "standard",
+      "required": false,
+      "options": [
+        "standard",
+        "simple"
+      ],
+      "key": "run_mode",
+      "label": "run_mode"
+    },
+    {
+      "description": "Gemini OAuth client ID",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "gemini_oauth_client_id",
+      "label": "gemini_oauth_client_id"
+    },
+    {
+      "description": "Gemini OAuth client secret",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "gemini_oauth_client_secret",
+      "label": "gemini_oauth_client_secret"
+    },
+    {
+      "description": "Gemini OAuth scopes",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "gemini_oauth_scopes",
+      "label": "gemini_oauth_scopes"
+    },
+    {
+      "description": "Gemini quota policy",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "gemini_quota_policy",
+      "label": "gemini_quota_policy"
+    },
+    {
+      "description": "Gemini CLI built-in OAuth client secret",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "gemini_cli_oauth_client_secret",
+      "label": "gemini_cli_oauth_client_secret"
+    },
+    {
+      "description": "Antigravity OAuth client secret",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "antigravity_oauth_client_secret",
+      "label": "antigravity_oauth_client_secret"
+    },
+    {
+      "description": "Enable upstream URL allowlist validation",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "security_url_allowlist_enabled",
+      "label": "security_url_allowlist_enabled"
+    },
+    {
+      "description": "Allow insecure HTTP URLs when allowlist is disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "security_url_allowlist_allow_insecure_http",
+      "label": "security_url_allowlist_allow_insecure_http"
+    },
+    {
+      "description": "Allow private IP addresses for upstream and pricing access",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "security_url_allowlist_allow_private_hosts",
+      "label": "security_url_allowlist_allow_private_hosts"
+    },
+    {
+      "description": "Comma-separated upstream hosts allowlist",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "security_url_allowlist_upstream_hosts",
+      "label": "security_url_allowlist_upstream_hosts"
+    },
+    {
+      "description": "Proxy URL used for update checks and GitHub access",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "update_proxy_url",
+      "label": "update_proxy_url"
+    }
+  ],
+  "supabase": [
+    {
+      "description": "JWT signing secret for Auth, PostgREST, Studio, and Storage API.",
+      "type": "string",
+      "default": "super-secret-jwt-token-with-at-least-32-characters-long",
+      "required": true,
+      "key": "jwt_secret",
+      "label": "jwt_secret"
+    },
+    {
+      "description": "Anonymous API key in JWT format (must be signed by jwt_secret).",
+      "type": "string",
+      "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlYWxvcyIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzA0MDY3MjAwLCJleHAiOjIwNTEyMjI0MDB9.V5KvFbM6nMq-n8Ic1-9662IR7z4l00fNZD1mk4q8l84",
+      "required": true,
+      "key": "anon_key",
+      "label": "anon_key"
+    },
+    {
+      "description": "Service role API key in JWT format (must be signed by jwt_secret).",
+      "type": "string",
+      "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlYWxvcyIsInJvbGUiOiJzZXJ2aWNlX3JvbGUiLCJpYXQiOjE3MDQwNjcyMDAsImV4cCI6MjA1MTIyMjQwMH0.gSHZ4wBeDMAbjjmkQ3TEoyOoqq7GR5F36krGv81PQLY",
+      "required": true,
+      "key": "service_role_key",
+      "label": "service_role_key"
     }
   ],
   "surveyking": [],
@@ -1769,6 +2443,40 @@
   ],
   "twenty": [],
   "typesense": [],
+  "typo3": [
+    {
+      "description": "TYPO3 administrator email used during initial setup.",
+      "type": "string",
+      "default": "admin@example.com",
+      "required": true,
+      "key": "TYPO3_SETUP_ADMIN_EMAIL",
+      "label": "TYPO3_SETUP_ADMIN_EMAIL"
+    },
+    {
+      "description": "TYPO3 administrator username used during initial setup.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "TYPO3_SETUP_ADMIN_USERNAME",
+      "label": "TYPO3_SETUP_ADMIN_USERNAME"
+    },
+    {
+      "description": "TYPO3 administrator password used during initial setup. Must be at least 8 characters and include upper case, lower case, digit, and special character.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "TYPO3_SETUP_ADMIN_PASSWORD",
+      "label": "TYPO3_SETUP_ADMIN_PASSWORD"
+    },
+    {
+      "description": "TYPO3 site name used during initial setup.",
+      "type": "string",
+      "default": "TYPO3 Site",
+      "required": false,
+      "key": "TYPO3_PROJECT_NAME",
+      "label": "TYPO3_PROJECT_NAME"
+    }
+  ],
   "umami": [
     {
       "description": "replace me with a random string",
@@ -1789,6 +2497,40 @@
   ],
   "uptime-kuma": [],
   "vaultwarden": [],
+  "woocommerce": [
+    {
+      "description": "WordPress admin username for initial setup.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "WP_ADMIN_USER",
+      "label": "WP_ADMIN_USER"
+    },
+    {
+      "description": "WordPress admin password for initial setup.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "WP_ADMIN_PASSWORD",
+      "label": "WP_ADMIN_PASSWORD"
+    },
+    {
+      "description": "WordPress admin email for initial setup.",
+      "type": "string",
+      "default": "admin@example.com",
+      "required": true,
+      "key": "WP_ADMIN_EMAIL",
+      "label": "WP_ADMIN_EMAIL"
+    },
+    {
+      "description": "WordPress site title for initial setup.",
+      "type": "string",
+      "default": "WooCommerce Store",
+      "required": false,
+      "key": "WP_SITE_TITLE",
+      "label": "WP_SITE_TITLE"
+    }
+  ],
   "wordpress": [],
   "wrenai": [
     {
@@ -1822,6 +2564,73 @@
       "required": true,
       "key": "YOURLS_PASS",
       "label": "YOURLS_PASS"
+    }
+  ],
+  "zitadel": [
+    {
+      "description": "Initial admin username for the first instance human user.",
+      "type": "string",
+      "default": "zitadel-admin",
+      "required": true,
+      "key": "admin_username",
+      "label": "admin_username"
+    },
+    {
+      "description": "Initial admin password for the first instance human user (must include uppercase, lowercase, number, and special character).",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    }
+  ],
+  "zot": [
+    {
+      "description": "Storage backend for image layers and manifests.",
+      "type": "choice",
+      "default": "filesystem",
+      "required": true,
+      "options": [
+        "filesystem",
+        "objectstorage"
+      ],
+      "key": "zot_storage_backend",
+      "label": "zot_storage_backend"
+    },
+    {
+      "description": "Zot basic auth admin username.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "zot_admin_user",
+      "label": "zot_admin_user"
+    },
+    {
+      "description": "Zot basic auth admin password.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.zot_storage_backend === 'filesystem'",
+      "key": "zot_admin_password",
+      "label": "zot_admin_password"
+    },
+    {
+      "description": "Admin htpasswd hash for object storage mode (bcrypt or SHA-crypt hash, not plain password).",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.zot_storage_backend === 'objectstorage'",
+      "key": "zot_admin_htpasswd_hash",
+      "label": "zot_admin_htpasswd_hash"
+    },
+    {
+      "description": "Region for S3-compatible object storage backend.",
+      "type": "string",
+      "default": "us-east-1",
+      "required": true,
+      "if": "inputs.zot_storage_backend === 'objectstorage'",
+      "key": "zot_s3_region",
+      "label": "zot_s3_region"
     }
   ]
 }

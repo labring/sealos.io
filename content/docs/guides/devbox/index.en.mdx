@@ -1,0 +1,40 @@
+---
+title: DevBox
+index: true
+description: Orient yourself to Sealos DevBox and the end-to-end workflow from project creation through deployment
+---
+
+DevBox is Sealos's fully managed cloud development environment built on Kubernetes. It delivers production-ready runtimes you can reach from Cursor, VS Code, JetBrains Gateway, or a browser terminal—no local setup or infrastructure to maintain.
+
+Use this overview to understand how DevBox fits together and jump into the detailed guides.
+
+## Why DevBox
+
+- SaaS, zero-ops: sign in, describe what you want, and start coding while Sealos handles orchestration, scaling, and networking.
+- Works with your IDE: connect via SSH from Cursor, VS Code, or JetBrains, or use the built-in terminal for quick fixes.
+- Faster, consistent builds: server-grade resources with dev/prod parity reduce "works on my machine" issues.
+- Integrated shipping path: release OCI images directly from your runtime and deploy to Sealos Cloud with one click.
+- Predictable pricing: fixed-resource subscription tiers keep costs clear.
+
+## Core Components
+
+| Component | Purpose |
+|-----------|---------|
+| Project | The unit that tracks everything your app needs—runtime, dependencies, and configuration—in one place. |
+| Dev environment | A cloud runtime with CPU, memory, and storage that you access through your preferred IDE. |
+| `entrypoint.sh` | The startup script your release uses to boot the built application. |
+| Release | A versioned OCI image built from your project, ready for deployment or rollback. |
+| Deploy | A running app instance on Sealos Cloud created from a chosen release. |
+| Template Market | Shared or private templates that standardize DevBox runtimes for fast reuse. |
+
+## End-to-End Flow
+
+1. [Intro](./intro): See what DevBox is, who it's for, and how it differs from other CDEs.
+2. [Create a project](./create-a-project): Describe what you want to build or pick a template; Sealos provisions a DevBox runtime with the right language/framework.
+3. [Develop](./develop): Connect from Cursor/VS Code/JetBrains, code against the remote runtime, run your dev server, and preview via the public URL.
+4. [Configure `entrypoint.sh`](./entrypoint-sh): After building in the dev environment, set the exact startup command your release will run (no build steps here).
+5. [Release](./release): Open the Releases tab, tag a version, add notes, and let DevBox build an OCI image from your project.
+6. [Deploy](./deploy): Click Deploy on a release to spin up an app on Sealos Cloud, adjust CPU/memory/ports, and launch via the public URL.
+7. [Template Market](./template-market): Turn proven versions into reusable templates or start new runtimes from community and private templates.
+
+By following these guides you'll move from zero to a running production deployment entirely within DevBox—without managing infrastructure or piecing together a separate CI/CD chain.
