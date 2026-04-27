@@ -1,5 +1,126 @@
 ---
 title: AI Proxy
-description: AI Proxy 是 Sealos 平台提供的统一 AI 模型调用服务，支持多平台 API Key 管理、统一计费和监控，让开发者轻松接入各类 AI 模型。
-keywords: ["AI Proxy", "Sealos", "AI模型调用", "API管理", "统一计费", "开发者工具"]
+description: Take the shortest safe path to your first AI Proxy API call on Sealos with one OpenAI-compatible request, one endpoint, and one API key.
+keywords:
+  [AI Proxy, Sealos, first API call, OpenAI-compatible, endpoint, API key]
 ---
+
+This is the start-here guide for AI Proxy on Sealos.
+
+Follow this page when you want the shortest safe path to one first
+OpenAI-compatible request.
+
+By the end of this page, you will collect the minimum credentials, run one
+first API call, and know where to confirm that the request reached Sealos.
+
+## What AI Proxy is
+
+AI Proxy is the Sealos entry point for making OpenAI-compatible AI requests
+through one managed endpoint.
+
+## Why use AI Proxy
+
+For a first call, AI Proxy gives you one place to get credentials, one request
+shape to start with, and one place to confirm that the request reached Sealos.
+
+## Before You Begin
+
+Use this page if all of the following are true:
+
+- You can sign in to Sealos.
+- You can open the AI Proxy product surface in the Sealos console.
+- You are ready to copy an endpoint and API key into shell environment
+  variables.
+- You will use the fixed `cURL` example in this page for the first request.
+
+The goal is first success, not full AI Proxy coverage.
+
+## Get your endpoint and API key
+
+Collect the two values needed for the first request.
+
+1. Sign in to Sealos and open the AI Proxy surface.
+2. Use the current console action to create or reveal an API key.
+3. Copy the endpoint shown in AI Proxy.
+4. Copy the API key value and keep both values ready for the shell example
+   below.
+
+The next section places those values into shell environment variables.
+
+## Make your first API call
+
+Export the three placeholder variables first and run the request second.
+
+```bash
+export AI_PROXY_BASE_URL="replace-with-the-endpoint-shown-in-ai-proxy"
+export AI_PROXY_API_KEY="replace-with-your-api-key-value"
+export AI_PROXY_MODEL="replace-with-a-model-available-in-your-workspace"
+
+curl "$AI_PROXY_BASE_URL/v1/chat/completions" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $AI_PROXY_API_KEY" \
+  -d '{
+    "model": "'"$AI_PROXY_MODEL"'",
+    "messages": [
+      {"role": "system", "content": "You are a concise assistant."},
+      {"role": "user", "content": "Reply with one short sentence about Sealos."}
+    ],
+    "temperature": 0
+  }'
+```
+
+Replace the three placeholders with the values you copied from Sealos.
+
+A successful response should return generated text in the response body.
+
+The next section explains only the three fields used in this request.
+
+## Understand the request fields
+
+These are the only fields you need to understand for the first call:
+
+- `model` selects the AI model the request should use. This page keeps the
+  starter model neutral until later verification.
+- `messages` carries the conversation input for the request. The first request
+  keeps it minimal so the response is easy to recognize.
+- `temperature` controls response randomness. This first request keeps it low
+  and simple for a predictable first success.
+
+## Check logs and usage
+
+Check these in order after the first call:
+
+- Confirm the request returned successfully and the response contains
+  recognizable generated text.
+- Find the same request record in AI Proxy logs. This is the primary
+  Sealos-side signal.
+- Use usage or billing visibility as supporting confirmation only.
+
+The next section covers only the first set of failure checks.
+
+## If the first call fails
+
+Check these first:
+
+- wrong endpoint root or wrong path
+  Look here first: keep the AI Proxy endpoint unchanged and confirm the request
+  still targets `/v1/chat/completions`.
+- wrong API key
+  Look here first: re-copy the current key and confirm the request still sends
+  `Authorization: Bearer $AI_PROXY_API_KEY`.
+- unsupported or unavailable model
+  Look here first: replace the placeholder with a model that is available in
+  your workspace.
+- no log record
+  Look here first: if the request does not appear in AI Proxy logs, it may not
+  have reached AI Proxy at all.
+- missing balance or usage visibility
+  Look here first: if the request reaches AI Proxy but does not complete,
+  confirm the workspace still has usable balance or visible usage data.
+
+## What this page does not cover
+
+This page does not cover a model catalog, deep billing or deep logs guidance,
+or advanced proxy features such as caching, routing, quotas, or failover.
+
+It is the shortest path to a first successful call.

@@ -1,0 +1,73 @@
+---
+title: Update a CronJob
+keywords: [CronJob, update CronJob, future runs, Sealos]
+description: Reopen an existing CronJob in Sealos and change future behavior safely without rewriting work that already started.
+---
+
+Use this page when a CronJob already exists and you need to change it without
+creating a replacement from scratch.
+
+This is the default edit entry point for an existing CronJob in Sealos.
+
+This page is not a continuation of the fixed `visit a URL` walkthrough. Use it
+for any existing CronJob you need to change, no matter which task type you set
+up earlier.
+
+## When to use this
+
+Use this page when the CronJob already exists and you need to adjust the
+schedule, target, task type, or other saved settings.
+
+Typical changes include switching to a different target URL or command,
+changing the schedule, or correcting values after the first setup.
+
+Keep this page task-focused.
+
+You only need enough detail to reopen the current CronJob, change the fields
+that matter, and save a clean update.
+
+## Before you change this
+
+Changes affect future runs.
+
+They do not rewrite a Job that already started, is currently running, or
+already finished.
+
+If you are changing several risky fields at once, note the previous values
+first so you can compare the saved configuration after the edit.
+
+## Update the CronJob
+
+1. Open the existing CronJob from the CronJob list or details page.
+2. Use the action that reopens the edit or change form for that CronJob.
+3. Modify only the settings you actually need to change.
+4. Review the task type, target, schedule, and any other changed fields before
+   you save.
+5. Save the CronJob so Sealos records the new configuration for future runs.
+
+You may see different editable fields depending on the task type, but this page
+is not a field-by-field reference.
+
+Focus on the values that changed and confirm they still describe the behavior
+you want the CronJob to use the next time it is scheduled to run.
+
+## Verify
+
+Use both checks below before you treat the update as complete:
+
+- First, confirm the saved configuration changed in the CronJob details page
+  or list view.
+- Second, wait for the next future run and confirm that run reflects the new
+  configuration or target behavior.
+
+Do not treat a saved form alone as full success.
+
+The update is only complete when the next future run shows the change you
+intended to make.
+
+## Related Tasks
+
+- [Create Your First CronJob](/docs/guides/cronjob/first-cronjob/) if you need
+  the fixed first-success `visit a URL` walkthrough.
+- [CronJob](/docs/guides/cronjob/) if you want to return to the section router
+  and choose another CronJob path.

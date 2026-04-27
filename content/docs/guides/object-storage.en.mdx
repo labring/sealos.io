@@ -1,5 +1,166 @@
 ---
-title: 对象存储
-keywords: [对象存储, Sealos云存储, S3兼容存储, 存储桶管理, 文件上传下载, SDK集成, 静态网站托管, 访问权限控制, Kubernetes存储, 云原生存储, 数据安全, 存储管理]
-description: Sealos 对象存储提供企业级云存储解决方案，支持S3兼容接口、多语言SDK集成和精细权限管理。
+title: 'Object Storage'
+description: 'S3-compatible object storage on Sealos -- create a bucket and upload your first file through the console.'
+keywords: [object storage, S3, bucket, file upload, credentials, Sealos]
 ---
+
+This is the start-here guide for Object Storage on Sealos.
+
+On this page, you create a bucket, retrieve its credentials, upload your first
+file, and confirm the upload succeeded -- all through the Sealos console.
+
+By the end, you have a working bucket with one file stored in it and the four
+credential values you need for any future programmatic access.
+
+## What Object Storage Is
+
+Object Storage is the Sealos service for storing and managing unstructured data
+such as files, images, documents, and backups. It is S3-compatible and built on
+MinIO, and Sealos manages the underlying infrastructure so you work with
+buckets and files instead of servers.
+
+At a high level, you use Object Storage to upload files into buckets, download
+them when you need them, and control who can read or write each bucket through
+access permissions. Every bucket also exposes endpoints and credentials that
+work with MinIO-compatible SDKs when you are ready to integrate it into an
+application.
+
+## Create a Bucket
+
+In this section, you create your first bucket and set its access permission.
+The bucket is the container that holds your files, and its permission level
+controls who can read or write its contents.
+
+<div className='fd-steps [&_h4]:fd-step'>
+
+    <h4>Open the Object Storage app</h4>
+
+    Sign in to the Sealos console and open the Object Storage app from the
+    application launcher. The app lists any buckets you have already created
+    and provides the entry point for creating a new one.
+
+    <h4>Create a new bucket</h4>
+
+    Use the bucket creation action in the app, enter a name for your bucket,
+    and choose `private` as the access permission. Apply the change to create
+    the bucket. The new bucket then appears in your bucket list.
+
+</div>
+
+<Callout type="info">
+    Object Storage supports three permission levels. Choose `private` for your
+    first bucket unless you have a specific reason to make it public.
+
+    - **`private`**: only authenticated users can access bucket contents.
+      Recommended for the first bucket and any bucket containing sensitive
+      data.
+    - **`publicRead`**: anyone can read objects without authentication; write
+      operations still require credentials. Suitable for content delivery and
+      static website hosting.
+    - **`publicReadWrite`**: fully open read and write access. Use with
+      caution; production environments should avoid this level.
+
+</Callout>
+
+## Get Your Credentials
+
+In this section, you retrieve the four values needed to access the bucket
+programmatically. The first upload in this guide uses the console, so you do
+not paste these values anywhere right now, but having them on hand prepares
+you for any future SDK or API access.
+
+Select your bucket in the bucket list and use the access key action to open
+the credential display. A popup shows four values tied to this bucket: the
+Access Key, the Secret Key, the Internal endpoint, and the External endpoint.
+Read the values directly from the popup when you need them.
+
+<Callout type="tip">
+    The two endpoints serve different access paths. Pick the one that matches
+    where your client runs.
+
+    - **Internal endpoint**: for services running inside Sealos. Traffic stays
+      on the internal network, which gives lower latency and avoids external
+      traffic charges.
+    - **External endpoint**: for access from outside the Sealos environment,
+      such as a local development machine or a service hosted elsewhere.
+
+</Callout>
+
+## Upload Your First File
+
+In this section, you upload a test file into the bucket you just created. The
+entire flow happens inside the Sealos console, so you do not need any command
+line tools or SDK setup yet.
+
+<div className='fd-steps [&_h4]:fd-step'>
+
+    <h4>Open the bucket</h4>
+
+    In the Object Storage app, select the bucket you created earlier from the
+    bucket list. The bucket view opens at its root directory, which is where
+    your first file will land.
+
+    <h4>Upload a file</h4>
+
+    Use the upload action in the bucket toolbar to open your operating
+    system's file picker. Pick a small test file for your first upload -- a
+    plain text file or a small image under 1 MB works well and keeps the
+    transfer fast. Confirm the selection in the picker to start the upload.
+
+    <h4>Confirm the upload</h4>
+
+    Wait for the upload progress to finish. When it completes, the new file
+    appears in the bucket's file list at the current directory.
+
+</div>
+
+## Verify Your Upload
+
+First success for this guide is defined by two signals inside the console.
+Check them in order.
+
+- File row in the bucket's file list
+  Open the bucket you just uploaded into and confirm a row for your file shows
+  the expected file name, its size, and the upload timestamp.
+- Object detail view showing an addressable object path
+  Open the file's detail view from that row and confirm the view shows the
+  object's path or URL. This proves the object exists at an addressable
+  location. The bucket is private, so the URL itself is access-controlled;
+  this guide does not ask you to make the bucket public or generate a signed
+  URL.
+
+If both signals are present, the first upload is confirmed.
+
+## If the first upload fails
+
+Check these first, in order:
+
+- wrong or missing bucket
+  Look here first: confirm the bucket exists in your current workspace and
+  region, and that you opened the bucket you actually uploaded into.
+- permission denied
+  Look here first: confirm the bucket's permission level is not blocking your
+  session, and that the upload action is available in the current context.
+- wrong endpoint
+  Matters when you move to SDK or CLI access: the Internal and External
+  endpoints are separate values; pick the one that matches where your client
+  runs.
+- wrong credentials
+  Matters when you move to SDK or CLI access: re-read the Access Key and
+  Secret Key from the credential popup and confirm the pair was copied
+  exactly.
+- upload size or file-name issue
+  Look here first: use a small test file and avoid file names with characters
+  the bucket rejects.
+
+## What's Next
+
+You now have a working bucket with your first file stored in it and the four
+credential values ready for any future programmatic access.
+
+Object Storage supports more than the console upload flow. Beyond this guide,
+you can use MinIO-compatible SDKs to read and write objects from your
+applications, enable static website hosting for buckets with public read
+access, and watch resource usage through the built-in monitoring views. These
+are capabilities to explore once you are comfortable with the console basics,
+not walkthroughs you need to follow right now.

@@ -1,0 +1,76 @@
+---
+title: Pause or Resume a CronJob
+keywords: [CronJob, pause CronJob, resume CronJob, Sealos]
+description: Temporarily stop future scheduled runs for an existing CronJob in Sealos and allow them again later when you are ready.
+---
+
+Use this page when a CronJob already exists and you need to temporarily stop
+future scheduled runs and allow them again later.
+
+This is the lifecycle control page for an existing CronJob in Sealos.
+
+Keep this page focused on state control for an existing CronJob, not on
+troubleshooting or reference details.
+
+## When to use this
+
+Use this page when you want to pause scheduled starts without deleting the
+CronJob or replacing it with a new one.
+
+This is useful when you want a temporary stop during maintenance, testing, or
+any period when future scheduled runs should not begin.
+
+Keep the goal narrow.
+
+You only need to open the existing CronJob, change its running state, and then
+verify the visible outcome in Sealos.
+
+## Pause the CronJob
+
+1. Open the existing CronJob from the CronJob list or details page.
+2. Choose the pause or suspend action for that CronJob.
+3. Review the action so you are pausing the correct CronJob.
+4. Confirm the change in Sealos.
+
+After the change is saved, the CronJob should show a paused state or another
+clear suspended state in the UI.
+
+While paused, no new scheduled runs should start.
+
+Pausing is a future-run control.
+
+It should stop new scheduled starts while the CronJob stays paused, without
+rewriting earlier run history.
+
+## Resume the CronJob
+
+1. Reopen the same CronJob in Sealos.
+2. Choose the resume or unsuspend action.
+3. Confirm the change so Sealos allows scheduling again.
+
+In practice, after you resume, scheduling can continue again and a later run
+can appear again after resume.
+
+Verify the real timeline in Sealos and do not assume exact timing for the next
+run or exact next-slot behavior.
+
+## Verify
+
+Use both checks below before you treat the state change as complete:
+
+- Confirm the CronJob shows the paused state after you pause it.
+- Keep it paused over a normal schedule interval and confirm that no new scheduled run appears while it remains paused.
+- Resume the CronJob and confirm the state changes back from the paused state
+  to the normal active state in Sealos.
+- After resume, verify that a later run can appear again after resume.
+
+Always verify the real timeline in Sealos and do not assume exact timing.
+
+## Related Tasks
+
+- [Update a CronJob](/docs/guides/cronjob/update-cronjob/) if you need to
+  change future behavior instead of only changing the running state.
+- [Create Your First CronJob](/docs/guides/cronjob/first-cronjob/) if you need
+  the fixed first-success walkthrough.
+- [CronJob](/docs/guides/cronjob/) if you want to return to the section router
+  and choose another CronJob path.

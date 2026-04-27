@@ -1,0 +1,68 @@
+---
+title: Delete a CronJob
+keywords: [CronJob, delete CronJob, Sealos, future scheduled runs]
+description: Remove an existing CronJob in Sealos when you no longer need it and stop future scheduled runs from starting again.
+---
+
+Use this page when a CronJob already exists and you need to remove it fully.
+
+This is the delete task page for an existing CronJob in Sealos.
+
+Keep this page focused on removing the CronJob and verifying that future
+scheduled runs stopped.
+
+## When to use this
+
+Use this page when you are sure the CronJob should no longer stay available in
+Sealos.
+
+This is the right path when you do not want to keep the current CronJob for
+later edits or a later resume action.
+
+Typical reasons include removing an outdated schedule, deleting a test CronJob
+after validation, or cleaning up a task that should never run again.
+
+## Before you delete this
+
+Deleting the CronJob stops future scheduled runs.
+
+This action should remove the saved CronJob from the relevant Sealos view.
+
+If you may need the CronJob again later, consider updating it or pausing it
+instead of deleting it now.
+
+Before you confirm the delete action, make sure you are removing the correct
+CronJob and that you no longer need its future schedule.
+
+## Delete the CronJob
+
+1. Open the existing CronJob from the CronJob list or details page in Sealos.
+2. Choose the delete or remove action for that CronJob.
+3. Review the CronJob name and visible details so you are deleting the correct
+   item.
+4. Confirm the delete action in Sealos.
+5. Wait for the list or details view to refresh after the delete completes.
+
+After deletion, the CronJob should no longer remain available for normal
+lifecycle actions in Sealos.
+
+## Verify
+
+Use both checks below before you treat the deletion as complete:
+
+- Confirm the CronJob is gone from the relevant Sealos list or detail view.
+- Keep watching through the next expected schedule interval and confirm the
+  next expected scheduled run does not appear afterward.
+
+The deletion is only complete when the CronJob is no longer visible and future
+scheduled runs stop.
+
+## Related Tasks
+
+- [Update a CronJob](/docs/guides/cronjob/update-cronjob/) if you only need to
+  change future behavior instead of removing the CronJob.
+- [Pause or Resume a CronJob](/docs/guides/cronjob/pause-resume-cronjob/) if
+  you want to stop future scheduled runs temporarily instead of deleting the
+  CronJob.
+- [Create Your First CronJob](/docs/guides/cronjob/first-cronjob/) if you need
+  the fixed first-success walkthrough again.

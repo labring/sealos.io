@@ -1,0 +1,34 @@
+---
+title: Troubleshooting
+keywords:
+  [
+    App Deploy troubleshooting,
+    app not running,
+    public URL issue,
+    custom domain TLS,
+    Sealos,
+  ]
+description: Find the right App Deploy recovery path when a deploy does not become healthy, the public URL does not open, or a custom domain has TLS issues.
+---
+
+Use this page when a deploy or public endpoint failed and you need the shortest recovery path.
+
+This is the App Deploy troubleshooting router. It helps you pick the right symptom page. It is not the normal onboarding path for a first successful deploy.
+
+## App Does Not Reach Running
+
+Use this when the app never becomes `running`, keeps waiting, or fails during startup.
+
+[Go to App Does Not Reach Running](/docs/guides/app-deploy/app-does-not-reach-running/)
+
+## Public URL Does Not Open
+
+Use this when the app is already deployed, but the generated public endpoint still does not load in the browser.
+
+[Go to Public URL Does Not Open](/docs/guides/app-deploy/public-url-does-not-open/)
+
+## Custom Domain and TLS Issues
+
+Use this when the Sealos-generated endpoint works but your custom domain is missing a valid certificate or still shows an insecure connection.
+
+[Go to Custom Domain and TLS Issues](/docs/guides/app-deploy/custom-certificates/)

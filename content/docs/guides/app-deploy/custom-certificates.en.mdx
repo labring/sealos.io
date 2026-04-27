@@ -1,0 +1,83 @@
+---
+title: Custom Domain and TLS Issues
+keywords:
+  [
+    custom domain certificate,
+    TLS issue,
+    cert-manager,
+    ingress patch,
+    App Deploy,
+  ]
+description: Recover when a custom App Deploy domain is configured but the certificate is missing, invalid, or still not secure.
+---
+
+## When to use this
+
+Use this page when the Sealos-generated public endpoint works, but the custom domain still fails TLS checks or shows an insecure certificate state.
+
+This recovery path is only for domain and certificate issues after the app is already reachable enough to continue.
+
+## Confirm the basic prerequisites
+
+Before you change the certificate flow, confirm all of the following:
+
+- The app already has a working public endpoint in App Deploy.
+- You already configured the custom domain in Sealos.
+- Your DNS provider already points the domain or subdomain to the Sealos endpoint with the correct `CNAME` record.
+- You already have the certificate and private key files if you need to apply your own TLS secret.
+
+If the generated public endpoint does not work yet, return to [Domains and Public Access](/docs/guides/app-deploy/add-a-domain/) and confirm the base routing first.
+
+## If Sealos did not issue a certificate
+
+If the custom domain is configured but the certificate is still missing or insecure, the most common problem is that cert-manager did not issue the certificate successfully.
+
+Re-check the domain value, the current `CNAME` target, and whether DNS propagation has actually finished before you apply manual certificate steps.
+
+If those checks are already correct and you still need a manual recovery path, continue with your own TLS secret.
+
+## Apply your own TLS secret
+
+Open the terminal from the App Launchpad UI, then run the TLS secret steps with your own certificate data.
+
+```bash
+# Create tls.crt using the certificate file information (replace xxxx with the actual certificate file information).
+cat > tls.crt <<EOF
+-----BEGIN CERTIFICATE-----
+xxxx
+-----END CERTIFICATE-----
+EOF
+
+# Create tls.key using the certificate private key information (replace xxxx with the actual private key information).
+cat > tls.key <<EOF
+-----BEGIN RSA PRIVATE KEY-----
+xxxx
+-----END RSA PRIVATE KEY-----
+EOF
+
+# Create a secret using tls.crt and tls.key.
+kubectl create secret tls network-test --cert tls.crt --key tls.key
+
+# Check the ingress for the corresponding application.
+kubectl get ingress
+```
+
+Then patch the ingress so the custom domain points to that TLS secret. Replace `xzy-dev.sealos.run` with your own domain and replace the ingress name with the one that belongs to your app.
+
+```bash
+kubectl patch ingress network-twvuqmjzckur -p '{"spec":{"tls":[{"hosts":["xzy-dev.sealos.run"],"secretName":"network-test"}]}}'
+```
+
+## Verify
+
+Treat the issue as resolved only when all of the following are true:
+
+- The app still stays `running`.
+- Opening the Sealos-generated public endpoint still works.
+- Opening the custom domain now loads the expected app content.
+- The browser no longer reports the old insecure certificate state.
+
+## Related Tasks
+
+- [Domains and Public Access](/docs/guides/app-deploy/add-a-domain/) if you still need to re-check the domain binding or `CNAME` target.
+- [Public URL Does Not Open](/docs/guides/app-deploy/public-url-does-not-open/) if the base public endpoint is still broken before the custom domain layer.
