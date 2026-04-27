@@ -1,0 +1,54 @@
+---
+title: App Does Not Reach Running
+keywords:
+  [
+    app not running,
+    startup failure,
+    image pull failure,
+    App Deploy,
+    Sealos,
+  ]
+description: Recover when an App Deploy workload never reaches running because of image, startup, or configuration problems.
+---
+
+## When to use this
+
+Use this page when Sealos creates the app, but the instance never reaches `running`.
+
+This usually means the app failed before it could start normally. Common causes are a wrong image, a bad startup command, or optional settings that broke the container.
+
+## Check the failure surface
+
+1. Open the app details page in App Deploy.
+2. Check the instance status first so you know whether the app is still waiting or already failed.
+3. Open the instance details view to inspect the startup failure surface.
+4. Open the instance logs to see whether the container pulled, started, and exited with an error.
+
+If the image name is wrong or unavailable, the failure usually appears before the app starts.
+
+If the container starts and then exits, the logs usually point to the broken command or missing runtime configuration.
+
+## What to fix
+
+Work through these checks in order:
+
+1. Re-check the image name and tag you entered.
+2. Remove or correct the startup command if you added one.
+3. Re-check any environment variables, config files, storage mounts, or extra ports you added beyond the basic happy path.
+4. If you changed several settings at once, roll back to the last known working combination before you try again.
+
+For a first deploy, the lowest-friction baseline is still a public `nginx:latest` container on port `80` with no startup command and no optional configuration.
+
+## Verify
+
+Treat the issue as resolved only when all of the following are true:
+
+- The instance state changes to `running`.
+- The details view no longer shows the previous startup failure.
+- The logs stop showing the earlier fatal startup error.
+- If the app should be public, you can continue to the next reachability check.
+
+## Related Tasks
+
+- [Public URL Does Not Open](/docs/guides/app-deploy/public-url-does-not-open/) if the app reaches `running` but still is not reachable.
+- [Update and Redeploy](/docs/guides/app-deploy/update-apps/) if you need to reopen the settings and correct a broken deploy.

@@ -1,0 +1,18 @@
+{
+    "title": "App Deploy",
+    "pages": [
+        "first-deploy",
+        "docker-compose-migration",
+        "add-a-domain",
+        "environments",
+        "configmap",
+        "persistent-volume",
+        "update-apps",
+        "autoscaling",
+        "expose-multiple-ports",
+        "troubleshoot",
+        "app-does-not-reach-running",
+        "public-url-does-not-open",
+        "custom-certificates"
+    ]
+}

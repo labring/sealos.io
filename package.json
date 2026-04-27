@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "lint": "tsc --noEmit",
+    "lint": "rm -f tsconfig.tsbuildinfo && tsc --noEmit",
     "build": "npm run generate-apps && next build && node scripts/normalize-root-locale.js",
     "build:analyze": "npm run generate-apps && ANALYZE=true next build && node scripts/normalize-root-locale.js",
     "dev": "next dev",

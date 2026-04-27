@@ -1,0 +1,12 @@
+{
+    "title": "DevBox",
+    "pages": [
+        "intro",
+        "create-a-project",
+        "develop",
+        "entrypoint-sh",
+        "release",
+        "deploy",
+        "template-market"
+    ]
+}

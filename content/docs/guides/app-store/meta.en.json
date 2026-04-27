@@ -1,0 +1,5 @@
+{
+    "title": "App Store",
+    "defaultOpen": true,
+    "pages": ["ai", "tools", "blog", "low-code"]
+}

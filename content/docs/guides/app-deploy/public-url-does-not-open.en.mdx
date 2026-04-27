@@ -1,0 +1,51 @@
+---
+title: Public URL Does Not Open
+keywords:
+  [
+    public URL issue,
+    public access,
+    container port,
+    App Deploy,
+    Sealos,
+  ]
+description: Recover when an App Deploy app is healthy in Sealos but the public URL still does not open in the browser.
+---
+
+## When to use this
+
+Use this page when the app already exists, but the public endpoint still does not load.
+
+This page is for reachability problems after deploy. Start here only after you confirm the app itself is already healthy enough to keep running.
+
+## Check the basic state first
+
+1. Open the app details page and confirm the instance is already `running`.
+2. Confirm that the app details page shows a generated public endpoint.
+3. If the app is not `running`, stop here and use [App Does Not Reach Running](/docs/guides/app-deploy/app-does-not-reach-running/) first.
+
+## What to fix
+
+Check these inputs in order:
+
+1. Re-check the container port you exposed in the deploy or update form.
+2. Confirm **Public Access** is enabled for that port.
+3. Make sure the generated endpoint still matches the current app configuration after the last redeploy.
+4. Retry the endpoint in the browser after the app has fully settled in `running`.
+
+If you exposed the wrong port or disabled **Public Access**, the endpoint may exist but still not serve the app correctly.
+
+If the app uses a custom domain instead of the generated endpoint, move to the domain/TLS recovery path after you confirm the base public endpoint works.
+
+## Verify
+
+Treat the issue as resolved only when all of the following are true:
+
+- The instance is still `running`.
+- The exposed container port matches the port your app actually serves.
+- **Public Access** is enabled for the correct endpoint.
+- Opening the generated public URL loads the expected app content in the browser.
+
+## Related Tasks
+
+- [Domains and Public Access](/docs/guides/app-deploy/add-a-domain/) if you now need to attach a custom domain after the base public endpoint works.
+- [Custom Domain and TLS Issues](/docs/guides/app-deploy/custom-certificates/) if the generated endpoint works but the custom domain is still broken.

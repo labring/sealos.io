@@ -1,5 +1,44 @@
 [
   {
+    "name": "ACE-Step 1.5",
+    "slug": "ace-step",
+    "description": "Open-source music generation AI. Commercial-grade quality, under 2s per song on A100. Supports text-to-music, cover generation, repainting, LoRA training, and 50+ languages.",
+    "icon": "/images/apps/ace-step.png",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/ace-step/ACE-Step",
+    "website": "https://ace-step.github.io/ace-step-v1.5.github.io/",
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源音乐生成AI。商业级质量，A100上每首歌不到2秒。支持文本生成音乐、翻唱、重绘、LoRA训练，支持50+语言。"
+      }
+    }
+  },
+  {
     "name": "AFFiNE",
     "slug": "affine",
     "description": "A privacy-focussed, local-first, open-source, and ready-to-use alternative for Notion & Miro.",
@@ -70,6 +109,46 @@
     "i18n": {
       "zh": {
         "description": "Agora Token 服务用于生成 RTC 和 RTM Token，在用户访问 Agora 服务或加入 RTC 频道之前进行身份验证"
+      }
+    }
+  },
+  {
+    "name": "Airbyte",
+    "slug": "airbyte",
+    "description": "Open-source data integration platform for ELT pipelines.",
+    "icon": "/images/apps/airbyte.svg",
+    "category": "DevOps",
+    "features": [
+      "CI/CD Pipeline",
+      "Container Management",
+      "Infrastructure as Code",
+      "Monitoring"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-slate-50/70 to-gray-50/70",
+    "github": "https://github.com/airbytehq/airbyte",
+    "website": "https://airbyte.com",
+    "tags": [
+      "dev-ops",
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源数据集成平台，用于构建和调度 ELT 数据同步管道。"
       }
     }
   },
@@ -181,6 +260,46 @@
     }
   },
   {
+    "name": "Authentik",
+    "slug": "authentik",
+    "description": "Authentik is an open-source identity provider focused on flexibility and versatility.",
+    "icon": "/images/apps/authentik.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/goauthentik/authentik",
+    "website": "https://goauthentik.io/",
+    "tags": [
+      "tool",
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Authentik 是一个开源身份认证平台，专注于灵活性与可扩展性。"
+      }
+    }
+  },
+  {
     "name": "Budibase",
     "slug": "budibase",
     "description": "Budibase is an open-source low-code platform that helps you build and deploy modern business apps in minutes",
@@ -252,6 +371,45 @@
     ],
     "source": {
       "deployCount": 0
+    }
+  },
+  {
+    "name": "Cal.com",
+    "slug": "calcom",
+    "description": "Open-source scheduling platform for individuals, teams, and enterprises.",
+    "icon": "/images/apps/calcom.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/calcom/cal.com",
+    "website": "https://cal.com/",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源日程预约平台，适合个人、团队与企业自托管。"
+      }
     }
   },
   {
@@ -485,7 +643,7 @@
     "name": "Chatwoot",
     "slug": "chatwoot",
     "description": "Open-source customer engagement platform with live chat, email, and social media integrations",
-    "icon": "/images/apps/chatwoot.png",
+    "icon": "/icons/default.svg",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -521,50 +679,10 @@
     }
   },
   {
-    "name": "Clawdbot - AI Agent Gateway",
-    "slug": "clawdbot",
-    "description": "An AI agent gateway with multi-channel support including WhatsApp, Telegram, and Discord integration",
-    "icon": "/images/apps/clawdbot.svg",
-    "category": "AI",
-    "features": [
-      "AI Processing",
-      "Machine Learning",
-      "Natural Language",
-      "Data Analysis"
-    ],
-    "benefits": [
-      "Easy to deploy and manage",
-      "Self-hosted solution",
-      "Open source and free",
-      "Community supported"
-    ],
-    "useCases": [
-      "Business Operations",
-      "Development Workflow",
-      "Data Management",
-      "Team Collaboration"
-    ],
-    "gradient": "from-purple-50/70 to-pink-50/70",
-    "github": "https://github.com/moltbot/moltbot",
-    "website": "https://www.molt.bot/",
-    "tags": [
-      "ai",
-      "tool"
-    ],
-    "source": {
-      "deployCount": 0
-    },
-    "i18n": {
-      "zh": {
-        "description": "AI 智能体网关，支持 WhatsApp、Telegram、Discord 等多渠道集成"
-      }
-    }
-  },
-  {
     "name": "code-server",
     "slug": "code-server",
     "description": "VS Code in the browser",
-    "icon": "/images/apps/code-server.svg",
+    "icon": "/icons/default.svg",
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -597,7 +715,7 @@
   {
     "name": "Coze Studio",
     "slug": "coze-studio",
-    "description": "An AI agent development platform with all-in-one visual tools, simplifying agent creation, debugging, and deployment like never before.",
+    "description": "An open-source AI agent development platform with integrated workflow, knowledge, memory, plugin, and chat capabilities.",
     "icon": "/images/apps/coze-studio.png",
     "category": "AI",
     "features": [
@@ -622,14 +740,15 @@
     "github": "https://github.com/coze-dev/coze-studio",
     "website": "https://github.com/coze-dev/coze-studio",
     "tags": [
-      "ai"
+      "ai",
+      "backend"
     ],
     "source": {
       "deployCount": 0
     },
     "i18n": {
       "zh": {
-        "description": "Coze Studio 是一站式 AI Agent 开发工具"
+        "description": "开源的一站式 AI Agent 开发平台，集成工作流、知识库、记忆、插件与聊天能力。"
       }
     }
   },
@@ -989,6 +1108,84 @@
     ],
     "source": {
       "deployCount": 0
+    }
+  },
+  {
+    "name": "FastGPT",
+    "slug": "fastgpt",
+    "description": "FastGPT is an open-source AI knowledge base and workflow platform with RAG retrieval, model orchestration, MCP access, and plugin extensibility.",
+    "icon": "/images/apps/fastgpt.svg",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/labring/FastGPT",
+    "website": "https://fastgpt.io/",
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "FastGPT 是一款开源 AI 知识库与工作流平台，提供 RAG 检索、模型编排、MCP 接入和插件扩展能力。"
+      }
+    }
+  },
+  {
+    "name": "FastGPT Pro",
+    "slug": "fastgpt-pro",
+    "description": "FastGPT Pro is the commercial FastGPT stack for Sealos, adding the FastGPT Pro service alongside RAG retrieval, workflow orchestration, MCP access, and plugin extensibility.",
+    "icon": "/images/apps/fastgpt-pro.svg",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/labring/FastGPT",
+    "website": "https://fastgpt.run/",
+    "tags": [
+      "ai"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "FastGPT Pro 是面向 Sealos 的 FastGPT 商业版模板，在标准 FastGPT 组件基础上额外部署 FastGPT Pro 服务，并提供 RAG 检索、工作流编排、MCP 接入和插件扩展能力。"
+      }
     }
   },
   {
@@ -1444,6 +1641,85 @@
     }
   },
   {
+    "name": "Harbor",
+    "slug": "harbor",
+    "description": "Harbor is an open-source OCI artifact registry that secures software supply chains with vulnerability scanning, signing, and access control.",
+    "icon": "/images/apps/harbor.png",
+    "category": "DevOps",
+    "features": [
+      "CI/CD Pipeline",
+      "Container Management",
+      "Infrastructure as Code",
+      "Monitoring"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-slate-50/70 to-gray-50/70",
+    "github": "https://github.com/goharbor/harbor",
+    "website": "https://goharbor.io/",
+    "tags": [
+      "dev-ops",
+      "storage"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Harbor 是一个开源 OCI 制品仓库，提供漏洞扫描、签名与访问控制能力，用于保障软件供应链安全。"
+      }
+    }
+  },
+  {
+    "name": "Hasura",
+    "slug": "hasura",
+    "description": "Hasura GraphQL Engine with PostgreSQL metadata storage and Data Connector Agent.",
+    "icon": "/images/apps/hasura.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/hasura/graphql-engine",
+    "website": "https://hasura.io",
+    "tags": [
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "hasura graphql engine 支持 postgresql metadata storage 与 data connector agent。"
+      }
+    }
+  },
+  {
     "name": "Headscale",
     "slug": "headscale",
     "description": "An open source, self-hosted implementation of the Tailscale control server.",
@@ -1695,6 +1971,45 @@
     }
   },
   {
+    "name": "InsForge",
+    "slug": "insforge",
+    "description": "InsForge is the Agent-Native Supabase Alternative, enabling AI agents to build and manage full-stack applications autonomously.",
+    "icon": "/images/apps/insforge.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/insforge/insforge",
+    "website": "https://insforge.dev",
+    "tags": [
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "InsForge 是面向 AI 编码代理的后端平台替代方案，支持数据库、认证、存储与函数能力的一体化部署。"
+      }
+    }
+  },
+  {
     "name": "IT-Tools",
     "slug": "it-tools",
     "description": "Useful tools for developer and people working in IT.",
@@ -1797,6 +2112,46 @@
     }
   },
   {
+    "name": "Kanboard",
+    "slug": "kanboard",
+    "description": "Open source Kanban project management software",
+    "icon": "/images/apps/kanboard.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/kanboard/kanboard",
+    "website": "https://kanboard.org",
+    "tags": [
+      "tool",
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源看板项目管理软件。"
+      }
+    }
+  },
+  {
     "name": "Kaneo",
     "slug": "kaneo",
     "description": "A modern, self-hosted project management platform that gets out of your way.",
@@ -1867,6 +2222,46 @@
     "i18n": {
       "zh": {
         "description": "面向现代应用和服务的开源身份和访问管理解决方案"
+      }
+    }
+  },
+  {
+    "name": "Keystone",
+    "slug": "keystone",
+    "description": "Keystone is an open-source headless CMS and application framework for building GraphQL-powered backends and Admin UIs.",
+    "icon": "/images/apps/keystone.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/keystonejs/keystone",
+    "website": "https://keystonejs.com/",
+    "tags": [
+      "backend",
+      "low-code"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Keystone 是一个开源无头 CMS 与应用框架，用于构建基于 GraphQL 的后端和 Admin UI。"
       }
     }
   },
@@ -2399,7 +2794,7 @@
     "name": "MinIO",
     "slug": "minio",
     "description": "MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.",
-    "icon": "/images/apps/minio.png",
+    "icon": "/icons/default.svg",
     "category": "Storage",
     "features": [
       "File Storage",
@@ -2624,6 +3019,86 @@
     }
   },
   {
+    "name": "NetBird",
+    "slug": "netbird",
+    "description": "基于 WireGuard 的零信任网络平台，支持自托管管理、信令与中继。",
+    "icon": "/images/apps/netbird.svg",
+    "category": "DevOps",
+    "features": [
+      "CI/CD Pipeline",
+      "Container Management",
+      "Infrastructure as Code",
+      "Monitoring"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-slate-50/70 to-gray-50/70",
+    "github": "https://github.com/netbirdio/netbird",
+    "website": "https://netbird.io/",
+    "tags": [
+      "dev-ops",
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "基于 WireGuard 的零信任网络平台，支持自托管管理、信令与中继。"
+      }
+    }
+  },
+  {
+    "name": "New API",
+    "slug": "new-api",
+    "description": "Open-source AI model gateway compatible with the OpenAI API, with multi-provider routing, quota management, channel orchestration, and an admin dashboard.",
+    "icon": "/images/apps/new-api.png",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/QuantumNous/new-api",
+    "website": "https://docs.newapi.pro/",
+    "tags": [
+      "ai",
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源 AI 模型网关与分发平台，兼容 OpenAI API，支持多供应商模型路由、额度管理、渠道编排和管理后台。"
+      }
+    }
+  },
+  {
     "name": "Nexus",
     "slug": "nexus",
     "description": "A robust package registry built on extensive enterprise storage capabilities.",
@@ -2651,14 +3126,15 @@
     "github": "https://github.com/sonatype/nexus-public",
     "website": "https://www.sonatype.com/products/sonatype-nexus-repository",
     "tags": [
-      "tool"
+      "tool",
+      "dev-ops"
     ],
     "source": {
       "deployCount": 0
     },
     "i18n": {
       "zh": {
-        "description": "一个强大的软件仓库管理工具，主要用于存储和管理软件开发过程中的各类组件（artifacts）。"
+        "description": "一个强大的软件仓库管理工具，用于存储和管理软件开发过程中的各类组件。"
       }
     }
   },
@@ -2694,6 +3170,85 @@
     ],
     "source": {
       "deployCount": 0
+    }
+  },
+  {
+    "name": "Node-RED",
+    "slug": "node-red",
+    "description": "Low-code programming for event-driven applications",
+    "icon": "/images/apps/node-red.png",
+    "category": "Low-Code",
+    "features": [
+      "Visual Interface",
+      "Drag & Drop",
+      "No Coding Required",
+      "Integrations"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-teal-50/70 to-cyan-50/70",
+    "github": "https://github.com/node-red/node-red",
+    "website": "https://nodered.org",
+    "tags": [
+      "low-code"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "面向事件驱动应用的低代码编程平台。"
+      }
+    }
+  },
+  {
+    "name": "Notifuse",
+    "slug": "notifuse",
+    "description": "Open-source emailing platform for newsletters, transactional emails, automations, and real-time user segments",
+    "icon": "/images/apps/notifuse.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/notifuse/notifuse",
+    "website": "https://docs.notifuse.com/",
+    "tags": [
+      "backend",
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源邮件平台，支持新闻邮件、事务邮件、自动化流程与实时用户分群。"
+      }
     }
   },
   {
@@ -2799,6 +3354,86 @@
     "i18n": {
       "zh": {
         "description": "AI 智能体网络平台,用于开放协作。创建独立的社区,让智能体发现同伴、协作解决问题并共同成长。协议无关,支持主流 LLM 提供商和智能体框架。"
+      }
+    }
+  },
+  {
+    "name": "OpenCart",
+    "slug": "opencart",
+    "description": "Open-source eCommerce platform for building online stores.",
+    "icon": "/images/apps/opencart.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/opencart/opencart",
+    "website": "https://www.opencart.com/",
+    "tags": [
+      "frontend",
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源电商平台，用于快速搭建在线商店。"
+      }
+    }
+  },
+  {
+    "name": "OpenClaw",
+    "slug": "openclaw",
+    "description": "AI agent gateway with multi-channel support including WhatsApp, Telegram, and Discord integration",
+    "icon": "/images/apps/openclaw.svg",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/openclaw/openclaw",
+    "website": "https://openclaw.ai/",
+    "tags": [
+      "ai",
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "AI 智能体网关，支持 WhatsApp、Telegram、Discord 等多渠道集成"
       }
     }
   },
@@ -2948,6 +3583,45 @@
     }
   },
   {
+    "name": "Pangolin",
+    "slug": "pangolin",
+    "description": "Open-source identity-based remote access platform built on WireGuard.",
+    "icon": "/images/apps/pangolin.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/fosrl/pangolin",
+    "website": "https://pangolin.net",
+    "tags": [
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "基于 WireGuard 的开源身份访问与远程连接平台，提供零信任访问控制能力。"
+      }
+    }
+  },
+  {
     "name": "Paperless-ngx",
     "slug": "paperless-ngx",
     "description": "Paperless-ngx is a community-supported open-source document management system that transforms your physical documents into a searchable online archive so you can keep, well, less paper.",
@@ -2983,6 +3657,46 @@
     "i18n": {
       "zh": {
         "description": "Paperless-ngx 是一个社区支持的开源文档管理系统，可以将您的纸质文档转换为可搜索的在线档案，让您减少纸张使用。"
+      }
+    }
+  },
+  {
+    "name": "Payload",
+    "slug": "payload",
+    "description": "Payload is a Next.js native CMS with an extensible admin panel, REST and GraphQL APIs, authentication, and media management.",
+    "icon": "/images/apps/payload.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/payloadcms/payload",
+    "website": "https://payloadcms.com/",
+    "tags": [
+      "backend",
+      "low-code"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Payload 是一个原生集成 Next.js 的开源 CMS，提供可扩展管理后台、REST 与 GraphQL API、认证和媒体管理能力。"
       }
     }
   },
@@ -3233,6 +3947,11 @@
     ],
     "source": {
       "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源的 Plane 项目管理平台，可替代 JIRA、Linear、Monday 和 Asana，用更简单的方式管理问题、史诗和产品路线图。"
+      }
     }
   },
   {
@@ -3267,6 +3986,45 @@
     ],
     "source": {
       "deployCount": 0
+    }
+  },
+  {
+    "name": "Pocket ID",
+    "slug": "pocket-id",
+    "description": "Pocket ID is a simple OIDC provider that authenticates users with passkeys.",
+    "icon": "/images/apps/pocket-id.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/pocket-id/pocket-id",
+    "website": "https://pocket-id.org",
+    "tags": [
+      "tool"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Pocket ID 是一个简洁的 OIDC 提供商，支持使用 Passkey 进行身份认证。"
+      }
     }
   },
   {
@@ -3306,6 +4064,46 @@
     "i18n": {
       "zh": {
         "description": "开源后端服务，包含嵌入式数据库(SQLite)、实时订阅、内置认证管理、便捷的仪表盘UI和简单的REST API"
+      }
+    }
+  },
+  {
+    "name": "PostHog",
+    "slug": "posthog",
+    "description": "Open-source product analytics platform with session replay, feature flags, and experimentation.",
+    "icon": "/images/apps/posthog.svg",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/PostHog/posthog",
+    "website": "https://posthog.com",
+    "tags": [
+      "tool",
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源 product 分析平台，支持 session replay，feature flags，与 experimentation。"
       }
     }
   },
@@ -3381,6 +4179,46 @@
     ],
     "source": {
       "deployCount": 0
+    }
+  },
+  {
+    "name": "Project Quay",
+    "slug": "quay",
+    "description": "Container registry for building, storing, and distributing container images.",
+    "icon": "/images/apps/quay.svg",
+    "category": "DevOps",
+    "features": [
+      "CI/CD Pipeline",
+      "Container Management",
+      "Infrastructure as Code",
+      "Monitoring"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-slate-50/70 to-gray-50/70",
+    "github": "https://github.com/quay/quay",
+    "website": "https://quay.io",
+    "tags": [
+      "dev-ops",
+      "storage"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "用于构建、存储和分发容器镜像的企业级容器镜像仓库。"
+      }
     }
   },
   {
@@ -3851,6 +4689,46 @@
     }
   },
   {
+    "name": "Skardi",
+    "slug": "skardi",
+    "description": "Federated SQL query server that turns YAML-defined queries into parameterized HTTP APIs across files, databases, object storage, and vector stores.",
+    "icon": "/images/apps/skardi.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/SkardiLabs/skardi",
+    "website": "https://github.com/SkardiLabs/skardi",
+    "tags": [
+      "tool",
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "一个联邦 SQL 查询服务，可将 YAML 定义的查询直接发布为参数化 HTTP API，并支持文件、数据库、对象存储和向量存储。"
+      }
+    }
+  },
+  {
     "name": "Stirling-PDF",
     "slug": "s-pdf",
     "description": "1 Locally hosted web application that allows you to perform various operations on PDF files.",
@@ -3921,6 +4799,87 @@
     "i18n": {
       "zh": {
         "description": "Strapi 是领先的开源无头 CMS。100% JavaScript/TypeScript，完全可定制。"
+      }
+    }
+  },
+  {
+    "name": "Sub2API",
+    "slug": "sub2api",
+    "description": "AI API gateway platform for distributing and managing subscription quota across upstream AI services.",
+    "icon": "/images/apps/sub2api.png",
+    "category": "AI",
+    "features": [
+      "AI Processing",
+      "Machine Learning",
+      "Natural Language",
+      "Data Analysis"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-purple-50/70 to-pink-50/70",
+    "github": "https://github.com/Wei-Shaw/sub2api",
+    "website": "https://demo.sub2api.org/",
+    "tags": [
+      "ai",
+      "tool",
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "面向上游 AI 服务订阅额度分发与管理的 API 网关平台，支持多账号接入、密钥分发、计费与调度。"
+      }
+    }
+  },
+  {
+    "name": "Supabase",
+    "slug": "supabase",
+    "description": "Open source Firebase alternative with Postgres database, authentication, realtime, storage, and edge functions.",
+    "icon": "/images/apps/supabase.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/supabase/supabase",
+    "website": "https://supabase.com",
+    "tags": [
+      "backend",
+      "database"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Firebase 开源替代方案，支持 Postgres 数据库，认证，realtime，storage，与 edge functions。"
       }
     }
   },
@@ -4220,6 +5179,46 @@
     }
   },
   {
+    "name": "TYPO3",
+    "slug": "typo3",
+    "description": "Open-source enterprise content management system for building and managing websites.",
+    "icon": "/images/apps/typo3.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/TYPO3/typo3",
+    "website": "https://typo3.org",
+    "tags": [
+      "frontend",
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源企业级内容管理系统，用于构建和管理网站。"
+      }
+    }
+  },
+  {
     "name": "Umami",
     "slug": "umami",
     "description": "Umami is an open source, privacy-focused alternative to Google Analytics.",
@@ -4321,6 +5320,45 @@
     ],
     "source": {
       "deployCount": 0
+    }
+  },
+  {
+    "name": "WooCommerce",
+    "slug": "woocommerce",
+    "description": "WooCommerce is an open-source ecommerce platform built on WordPress.",
+    "icon": "/images/apps/woocommerce.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/woocommerce/woocommerce",
+    "website": "https://woocommerce.com",
+    "tags": [
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "WooCommerce 是基于 WordPress 的开源电商平台。"
+      }
     }
   },
   {
@@ -4428,6 +5466,84 @@
     "i18n": {
       "zh": {
         "description": "YOURLS 是一个自托管、开源的 URL 短链服务，允许用户自定义短链接并提供统计和管理功能"
+      }
+    }
+  },
+  {
+    "name": "ZITADEL",
+    "slug": "zitadel",
+    "description": "Open-source identity and access management platform for authentication and authorization.",
+    "icon": "/images/apps/zitadel.png",
+    "category": "Tools",
+    "features": [
+      "User-Friendly Interface",
+      "Easy Configuration",
+      "Multi-Platform Support",
+      "Extensible"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-green-50/70 to-emerald-50/70",
+    "github": "https://github.com/zitadel/zitadel",
+    "website": "https://zitadel.com",
+    "tags": [
+      "backend"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "开源身份与访问管理平台，提供认证与授权能力。"
+      }
+    }
+  },
+  {
+    "name": "Zot Registry",
+    "slug": "zot",
+    "description": "OCI-native container image registry with basic auth and optional S3-compatible object storage backend.",
+    "icon": "/images/apps/zot.svg",
+    "category": "Storage",
+    "features": [
+      "File Storage",
+      "Data Backup",
+      "Access Control",
+      "Synchronization"
+    ],
+    "benefits": [
+      "Easy to deploy and manage",
+      "Self-hosted solution",
+      "Open source and free",
+      "Community supported"
+    ],
+    "useCases": [
+      "Business Operations",
+      "Development Workflow",
+      "Data Management",
+      "Team Collaboration"
+    ],
+    "gradient": "from-orange-50/70 to-amber-50/70",
+    "github": "https://github.com/project-zot/zot",
+    "website": "https://zotregistry.dev",
+    "tags": [
+      "storage"
+    ],
+    "source": {
+      "deployCount": 0
+    },
+    "i18n": {
+      "zh": {
+        "description": "Zot Registry 是一个 OCI 原生容器镜像仓库，默认启用基础认证，并支持在本地存储与 S3 兼容对象存储之间按需选择。"
       }
     }
   }

@@ -167,7 +167,7 @@ As your game takes shape, implement rigorous testing to ensure quality:
 3. **Performance Optimization**: Use AI to identify bottlenecks and suggest improvements
 4. **Cross-Platform Compatibility**: Ensure your game works across target devices
 
-When your project is ready for release, [Sealos makes deployment straightforward](https://sealos.io/docs/guides/fundamentals/release). The platform's streamlined workflow allows you to quickly [deploy your game](https://sealos.io/docs/guides/fundamentals/deploy) to the cloud, making it accessible to players worldwide without complex server configuration.
+When your project is ready for release, [Sealos makes deployment straightforward](https://sealos.io/docs/guides/devbox/release). The platform's streamlined workflow allows you to quickly [deploy your game](https://sealos.io/docs/guides/devbox/deploy) to the cloud, making it accessible to players worldwide without complex server configuration.
 
 ## Marketing Your AI-Created Game
 

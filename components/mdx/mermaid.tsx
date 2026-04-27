@@ -1,81 +1,43 @@
 'use client';
 
-import type { MermaidConfig } from 'mermaid';
 import { useEffect, useId, useRef, useState } from 'react';
+import type { MermaidConfig } from 'mermaid';
+import { useTheme } from 'next-themes';
 
-type MermaidProps = {
-  chart: string;
-};
+export function Mermaid({ chart }: { chart: string }) {
+    const id = useId();
+    const [svg, setSvg] = useState('');
+    const containerRef = useRef<HTMLDivElement>(null!);
+    const { resolvedTheme } = useTheme();
 
-function detectDarkTheme(): boolean {
-  if (typeof document === 'undefined') return false;
-  return document.documentElement.classList.contains('dark');
-}
+    useEffect(() => {
+        void renderChart();
 
-function sanitizeMermaidId(value: string): string {
-  return value.replaceAll(':', '');
-}
+        async function renderChart() {
+            const mermaidConfig: MermaidConfig = {
+                startOnLoad: false,
+                securityLevel: 'loose',
+                fontFamily: 'inherit',
+                themeCSS: 'margin: 1.5rem auto 0;',
+                theme: resolvedTheme === 'dark' ? 'dark' : 'default',
+            };
 
-function normalizeMermaidChart(value: string): string {
-  return value.replaceAll('\\n', '\n');
-}
+            const { default: mermaid } = await import('mermaid');
 
-function buildMermaidConfig(isDark: boolean): MermaidConfig {
-  return {
-    startOnLoad: false,
-    securityLevel: 'loose',
-    fontFamily: 'inherit',
-    themeCSS: 'margin: 1.5rem auto 0;',
-    theme: isDark ? 'dark' : 'default',
-  };
-}
+            try {
+                mermaid.initialize(mermaidConfig);
+                const { svg } = await mermaid.render(
+                    // strip invalid characters for `id` attribute
+                    id.replaceAll(':', ''),
+                    chart.replaceAll('\\n', '\n'),
+                    containerRef.current,
+                );
+                setSvg(svg);
+            } catch (error) {
+                console.error('Error while rendering mermaid', error);
+            }
+        }
+    }, [chart, id, resolvedTheme]);
 
-export function Mermaid({ chart }: MermaidProps): JSX.Element {
-  const id = useId();
-  const [svg, setSvg] = useState('');
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isDark, setIsDark] = useState(() => detectDarkTheme());
-
-  useEffect(() => {
-    if (typeof document === 'undefined') return;
-
-    const updateTheme = () => {
-      setIsDark(detectDarkTheme());
-    };
-
-    updateTheme();
-
-    const observer = new MutationObserver(updateTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    void renderChart().catch((error) => {
-      console.error('Error while rendering mermaid', error);
-    });
-
-    async function renderChart(): Promise<void> {
-      const container = containerRef.current;
-      if (!container) return;
-
-      const mermaidConfig = buildMermaidConfig(isDark);
-      const { default: mermaid } = await import('mermaid');
-
-      mermaid.initialize(mermaidConfig);
-      const { svg } = await mermaid.render(
-        // Strip invalid characters for the `id` attribute.
-        sanitizeMermaidId(id),
-        normalizeMermaidChart(chart),
-        container,
-      );
-      setSvg(svg);
-    }
-  }, [chart, id, isDark]);
-
-  return <div ref={containerRef} dangerouslySetInnerHTML={{ __html: svg }} />;
+    return <div ref={containerRef} dangerouslySetInnerHTML={{ __html: svg }} />;
 }
