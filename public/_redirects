@@ -22,6 +22,28 @@ https://sealos.run/en/* https://sealos.io/:splat 302
 # robots.txt rewrite
 /robots.txt /api/robots 200
 
+# Vercel redirect parity
+/docs/guides/fundamentals https://sealos.io/docs/guides/devbox/ 308
+/docs/guides/fundamentals/create-a-project https://sealos.io/docs/guides/devbox/create-a-project/ 308
+/docs/guides/fundamentals/develop https://sealos.io/docs/guides/devbox/develop/ 308
+/docs/guides/fundamentals/entrypoint-sh https://sealos.io/docs/guides/devbox/entrypoint-sh/ 308
+/docs/guides/fundamentals/release https://sealos.io/docs/guides/devbox/release/ 308
+/docs/guides/fundamentals/deploy https://sealos.io/docs/guides/devbox/deploy/ 308
+/docs/guides/fundamentals/template-market https://sealos.io/docs/guides/devbox/template-market/ 308
+/docs/overview/about-sealos https://sealos.io/docs/overview/intro/ 308
+/docs/guides/app-launchpad https://sealos.io/docs/guides/app-deploy/ 308
+/docs/guides/app-launchpad/introduction https://sealos.io/docs/guides/app-deploy/ 308
+/docs/guides/app-launchpad/create-app https://sealos.io/docs/guides/app-deploy/create-app/ 308
+/docs/guides/app-launchpad/docker-compose-migration https://sealos.io/docs/guides/app-deploy/docker-compose-migration/ 308
+/docs/guides/app-launchpad/update-apps https://sealos.io/docs/guides/app-deploy/update-apps/ 308
+/docs/guides/app-launchpad/add-a-domain https://sealos.io/docs/guides/app-deploy/add-a-domain/ 308
+/docs/guides/app-launchpad/expose-multiple-ports https://sealos.io/docs/guides/app-deploy/expose-multiple-ports/ 308
+/docs/guides/app-launchpad/environments https://sealos.io/docs/guides/app-deploy/environments/ 308
+/docs/guides/app-launchpad/configmap https://sealos.io/docs/guides/app-deploy/configmap/ 308
+/docs/guides/app-launchpad/autoscaling https://sealos.io/docs/guides/app-deploy/autoscaling/ 308
+/docs/guides/app-launchpad/persistent-volume https://sealos.io/docs/guides/app-deploy/persistent-volume/ 308
+/docs/guides/app-launchpad/custom-certificates https://sealos.io/docs/guides/app-deploy/custom-certificates/ 308
+
 # Legacy redirects
 /zh-Hans/blog https://sealos.run/blog 308
 /zh-Hans/blog/ https://sealos.run/blog/ 308
