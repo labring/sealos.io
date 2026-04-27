@@ -23,6 +23,20 @@ https://sealos.run/en/* https://sealos.io/:splat 302
 /robots.txt /api/robots 200
 
 # Legacy redirects
+/zh-Hans/blog https://sealos.run/blog 308
+/zh-Hans/blog/ https://sealos.run/blog/ 308
+/zh-Hans/blog/* https://sealos.run/blog/:splat 308
+/docs/Intro https://sealos.io/docs/overview/intro 308
+/docs/5.0.0/Intro https://sealos.io/docs/overview/intro 308
+/zh-Hans https://sealos.run 308
+/zh-Hans/ https://sealos.run/ 308
+/zh-Hans/* https://sealos.run/:splat 308
+/self-hosting https://sealos.run/self-hosting 308
+/docs/5.0.0/user-guide/ai-proxy https://sealos.run/docs/5.0.0/user-guide/ai-proxy/ 308
+/docs/5.0.0/developer-guide/sealos/installation https://sealos.run/docs/5.0.0/developer-guide/sealos/installation 308
+/docs/self-hosting/sealos/installation https://sealos.run/docs/self-hosting/sealos/installation 308
+/docs/self-hosting/lifecycle-management/quick-start/deploy-kubernetes https://sealos.run/docs/self-hosting/lifecycle-management/quick-start/deploy-kubernetes 308
+/company https://sealos.run/company 308
 /devbox /products/devbox 301
 /devbox/ /products/devbox/ 301
 /education /solutions/industries/education 301

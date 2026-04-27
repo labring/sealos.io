@@ -1,0 +1,5 @@
+/mtc.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/api/script.js
+  Cache-Control: public, max-age=31536000, immutable
