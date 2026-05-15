@@ -11,7 +11,7 @@ import {
 import { useTemplateSource, TemplateInput } from '@/hooks/use-template-source';
 import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
 import { verifySharedAuth } from '@/lib/utils/shared-auth';
-import { siteConfig } from '@/config/site';
+import { buildAuthRedirectUrl } from '@/hooks/use-auth-redirect';
 import {
   DeployStep,
   DeployFormData,
@@ -50,25 +50,13 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
     return initialData;
   }, []);
 
-  // Helper: Build OAuth2 URL with deploy params
-  const buildOAuth2Url = useCallback(
-    (deployParams: Record<string, string>) => {
-      const oauth2Url = new URL(siteConfig.oauth2Url);
-      Object.entries(deployParams).forEach(([key, value]) => {
-        oauth2Url.searchParams.append(key, value);
-      });
-      return oauth2Url.toString();
-    },
-    [],
-  );
-
   // Helper: Execute deployment redirect
   const redirectToDeploy = useCallback(
     (deployParams: Record<string, string>) => {
-      const urlString = buildOAuth2Url(deployParams);
+      const urlString = buildAuthRedirectUrl(deployParams);
       window.location.href = urlString;
     },
-    [buildOAuth2Url],
+    [],
   );
 
   // Open deploy modal and fetch template data

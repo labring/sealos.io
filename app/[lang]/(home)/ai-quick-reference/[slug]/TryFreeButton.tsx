@@ -2,12 +2,12 @@
 
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { useGTM } from '@/hooks/use-gtm';
 import { getOpenBrainParam } from '@/lib/utils/brain';
 
 export function TryFreeButton() {
-  const openAuthForm = useOpenAuthForm();
+  const handleAuthRedirect = useAuthRedirect();
   const { trackButton } = useGTM();
 
   return (
@@ -16,7 +16,7 @@ export function TryFreeButton() {
       className="w-full"
       onClick={() => {
         trackButton('Get Started', 'ai-quick-reference', 'auth-form', '');
-        openAuthForm({ openapp: getOpenBrainParam() });
+        handleAuthRedirect({ openapp: getOpenBrainParam() });
       }}
     >
       <span>Try Free</span>
@@ -24,4 +24,3 @@ export function TryFreeButton() {
     </Button>
   );
 }
-

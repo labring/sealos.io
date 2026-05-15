@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
-import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { useGTM } from '@/hooks/use-gtm';
 import { morePlans, type PricingPlan } from '../config/plans';
 
@@ -19,7 +19,7 @@ interface MorePlansProps {
 }
 
 export function MorePlans({ className }: MorePlansProps) {
-  const openAuthForm = useOpenAuthForm();
+  const handleAuthRedirect = useAuthRedirect();
   const { trackButton } = useGTM();
   const [isMorePlansEnabled, setIsMorePlansEnabled] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -40,7 +40,7 @@ export function MorePlans({ className }: MorePlansProps) {
     );
 
     if (selectedPlan.action.type === 'auth') {
-      openAuthForm(selectedPlan.action.params);
+      handleAuthRedirect(selectedPlan.action.params);
     } else {
       window.open(selectedPlan.action.url, '_blank');
     }

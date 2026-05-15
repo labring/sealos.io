@@ -46,7 +46,7 @@ import RustIcon from '@/assets/stacks-appicons/rust.svg';
 import SpringbootIcon from '@/assets/stacks-appicons/springboot.svg';
 
 import { useGTM } from '@/hooks/use-gtm';
-import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { getOpenBrainParam } from '@/lib/utils/brain';
 
 interface PromptOption {
@@ -349,7 +349,7 @@ GlareEffect.displayName = 'GlareEffect';
 
 export function PromptInput() {
   const { trackButton, trackCustom } = useGTM();
-  const openAuthForm = useOpenAuthForm();
+  const handleAuthRedirect = useAuthRedirect();
 
   const [promptText, setPromptText] = useState('');
   const [isChromium, setIsChromium] = useState(false);
@@ -393,9 +393,9 @@ export function PromptInput() {
 
     if (textToSend.trim()) {
       trackButton('Get Started', 'hero-section', 'auth-form', '');
-      openAuthForm({ openapp: getOpenBrainParam(textToSend) });
+      handleAuthRedirect({ openapp: getOpenBrainParam(textToSend) });
     }
-  }, [promptText, isTouched, trackButton, openAuthForm]);
+  }, [promptText, isTouched, trackButton, handleAuthRedirect]);
 
   const handleTextareaChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {

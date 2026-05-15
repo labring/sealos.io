@@ -36,7 +36,7 @@ import { cn } from '@/lib/utils';
 import GitHubIcon from '@/assets/github.svg';
 import { useGTM } from '@/hooks/use-gtm';
 import { siteConfig } from '@/config/site';
-import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { getOpenBrainParam } from '@/lib/utils/brain';
 import { i18n, languagesType } from '@/lib/i18n';
 
@@ -253,7 +253,7 @@ const DropdownMenu = ({
 
 export function Header({ lang }: HeaderProps) {
   const { trackButton } = useGTM();
-  const openAuthForm = useOpenAuthForm();
+  const handleAuthRedirect = useAuthRedirect();
   const params = useParams();
   const paramLang = Array.isArray(params?.lang) ? params.lang[0] : params?.lang;
   const resolvedLang = lang ?? (paramLang as languagesType | undefined);
@@ -440,7 +440,7 @@ export function Header({ lang }: HeaderProps) {
             aria-label="Start using Sealos for free."
             onClick={() => {
               trackButton('Get Started', 'header', 'auth-form', '');
-              openAuthForm({ openapp: getOpenBrainParam() });
+              handleAuthRedirect({ openapp: getOpenBrainParam() });
             }}
           >
             Get Started Free
@@ -636,7 +636,7 @@ export function Header({ lang }: HeaderProps) {
                         'auth-form',
                         '',
                       );
-                      openAuthForm({ openapp: getOpenBrainParam() });
+                      handleAuthRedirect({ openapp: getOpenBrainParam() });
                       closeMobileMenu();
                     }}
                   >

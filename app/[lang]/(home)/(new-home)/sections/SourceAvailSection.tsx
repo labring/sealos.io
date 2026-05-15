@@ -1,6 +1,6 @@
 'use client';
 
-import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { getOpenBrainParam } from '@/lib/utils/brain';
 import { memo, useRef } from 'react';
 import { useGTM } from '@/hooks/use-gtm';
@@ -20,7 +20,7 @@ export default memo(function SourceAvailSection({
   lang = 'en',
 }: SourceAvailSectionProps) {
   const { trackButton } = useGTM();
-  const openAuthForm = useOpenAuthForm();
+  const handleAuthRedirect = useAuthRedirect();
 
   const translations = {
     en: {
@@ -146,7 +146,7 @@ export default memo(function SourceAvailSection({
                   className="flex h-10 items-center justify-center gap-2 rounded-full border border-white bg-gradient-to-br from-white to-gray-300 px-4 py-2 shadow-lg"
                   onClick={() => {
                     trackButton('Get Started', 'oss-section', 'auth-form', '');
-                    openAuthForm({ openapp: getOpenBrainParam() });
+                    handleAuthRedirect({ openapp: getOpenBrainParam() });
                   }}
                 >
                   <span className="text-sm leading-5 font-medium whitespace-nowrap text-zinc-900">

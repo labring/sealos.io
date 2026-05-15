@@ -5,7 +5,7 @@ import { ComparisonConfig } from '../../config/platforms';
 import { Button } from '@/components/ui/button';
 import { ArrowRightIcon } from 'lucide-react';
 import { ComparisonHeaderSVG } from './ComparisonHeaderSVG';
-import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { getOpenBrainParam } from '@/lib/utils/brain';
 
 interface HeroSectionProps {
@@ -17,7 +17,7 @@ export function HeroSection({
   firstPlatform,
   secondPlatform,
 }: HeroSectionProps) {
-  const openAuthForm = useOpenAuthForm();
+  const handleAuthRedirect = useAuthRedirect();
 
   return (
     <section
@@ -44,7 +44,7 @@ export function HeroSection({
       <Button
         variant="landing-primary"
         className="mx-auto mt-10 h-10 gap-2"
-        onClick={() => openAuthForm({ openapp: getOpenBrainParam() })}
+        onClick={() => handleAuthRedirect({ openapp: getOpenBrainParam() })}
       >
         Try Sealos for free
         <ArrowRightIcon size={16} />

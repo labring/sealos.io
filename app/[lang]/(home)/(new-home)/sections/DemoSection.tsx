@@ -8,13 +8,13 @@ import { Button } from '@/components/ui/button';
 import { VideoModal } from '../components/VideoModal';
 import VideoThumbnailSvg from '@/assets/video-thumbnail.svg';
 import { useGTM } from '@/hooks/use-gtm';
-import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { getOpenBrainParam } from '@/lib/utils/brain';
 import { GradientLucideIcon } from '@/new-components/GradientLucideIcon';
 
 export function DemoSection() {
   const { trackButton } = useGTM();
-  const openAuthForm = useOpenAuthForm();
+  const handleAuthRedirect = useAuthRedirect();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
@@ -37,7 +37,7 @@ export function DemoSection() {
           aria-label="Start using Sealos for free."
           onClick={() => {
             trackButton('Get Started', 'demo-section', 'auth-form', '');
-            openAuthForm({ openapp: getOpenBrainParam() });
+            handleAuthRedirect({ openapp: getOpenBrainParam() });
           }}
         >
           Get Started Free

@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { FeatureItem } from './FeatureItem';
-import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { useGTM } from '@/hooks/use-gtm';
 import type { PricingPlan } from '../config/plans';
 
@@ -13,7 +13,7 @@ interface PricingCardProps {
 }
 
 export function PricingCard({ plan, className }: PricingCardProps) {
-  const openAuthForm = useOpenAuthForm();
+  const handleAuthRedirect = useAuthRedirect();
   const { trackButton } = useGTM();
   const {
     name,
@@ -41,7 +41,7 @@ export function PricingCard({ plan, className }: PricingCardProps) {
     );
 
     if (action.type === 'auth') {
-      openAuthForm(action.params);
+      handleAuthRedirect(action.params);
     } else {
       window.open(action.url, '_blank');
     }

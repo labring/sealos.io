@@ -5,12 +5,12 @@ import Image from 'next/image';
 import { GradientText } from './GradientText';
 import { Button } from '@/components/ui/button';
 import { ArrowRightIcon } from 'lucide-react';
-import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
+import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { getOpenBrainParam } from '@/lib/utils/brain';
 import { useGTM } from '@/hooks/use-gtm';
 
 export function SealosBrandCard() {
-  const openAuthForm = useOpenAuthForm();
+  const handleAuthRedirect = useAuthRedirect();
   const { trackButton } = useGTM();
 
   return (
@@ -43,7 +43,7 @@ export function SealosBrandCard() {
         className="w-full"
         onClick={() => {
           trackButton('Get Started', 'ai-quick-reference', 'auth-form', '');
-          openAuthForm({ openapp: getOpenBrainParam() });
+          handleAuthRedirect({ openapp: getOpenBrainParam() });
         }}
       >
         <span>Try Free</span>
