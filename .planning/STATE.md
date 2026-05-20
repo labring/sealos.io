@@ -1,13 +1,13 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
+milestone: v1.3
+milestone_name: Object Storage English Start-Here Docs
 status: planning
-stopped_at: Phase 1 context gathered
-last_updated: "2026-03-23T10:30:56.911Z"
-last_activity: 2026-03-23 - Roadmap drafted and awaiting approval
+stopped_at: Roadmap created for v1.3
+last_updated: "2026-04-16"
+last_activity: 2026-04-16 - v1.3 roadmap created with 3 phases (13-15), 12 requirements mapped
 progress:
-  total_phases: 5
+  total_phases: 3
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -21,38 +21,28 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** A new Sealos user can successfully deploy a container application from 0 to 1 without getting lost in fragmented documentation.
-**Current focus:** Phase 1 - Inventory, Terminology, and Target Taxonomy
+**Current focus:** Phase 13 - Product Truth, Safe Example Contract, and Page Outline (Object Storage)
 
 ## Current Position
 
-Phase: 1 of 5 (Inventory, Terminology, and Target Taxonomy)
-Plan: 0 of 3 in current phase
+Phase: 13 of 15 (Product Truth, Safe Example Contract, and Page Outline)
+Plan: 0 of 0 in current phase (plans TBD)
 Status: Ready to plan
-Last activity: 2026-03-23 - Roadmap drafted and awaiting approval
+Last activity: 2026-04-16 - v1.3 roadmap created
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██████████████████████████████████████████████████████████████████████████████░░░░] 80% (12/15 phases across all milestones)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 0
+- Total plans completed: 36 (v1.0: 16, v1.1: 11, v1.2: 9)
 - Average duration: -
-- Total execution time: 0.0 hours
-
-**By Phase:**
-
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 1 | 0 | - | - |
-| 2 | 0 | - | - |
-| 3 | 0 | - | - |
-| 4 | 0 | - | - |
-| 5 | 0 | - | - |
+- Total execution time: -
 
 **Recent Trend:**
 
-- Last 5 plans: -
+- v1.2 completed 3 phases / 9 plans
 - Trend: Stable
 
 *Updated after each plan completion*
@@ -64,9 +54,10 @@ Progress: [░░░░░░░░░░] 0%
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- Initialization: Optimize the docs around first successful container app deployment
-- Initialization: Keep the scope English-only for this milestone
-- Initialization: Allow major IA and URL changes where they improve the deployment journey
+- v1.3: Follow the same 3-phase pattern as v1.2 (product truth -> canonical page -> verification)
+- v1.3: English Object Storage page currently has Chinese-only frontmatter and zero body content
+- v1.3: Chinese guide is comprehensive (bucket ops, permissions, access keys, SDK in 4 languages, static hosting)
+- v1.3: All screenshots in Chinese guide use `.zh-cn.png` suffixes -- need inventory for English page
 
 ### Pending Todos
 
@@ -74,11 +65,11 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 2 planning needs product-truth validation for the exact current App Deploy UI flow and verification surfaces.
-- Phase 5 planning needs a confirmed redirect or alias strategy if public slugs change materially.
+- Phase 13: Need to determine whether English UI screenshots exist or if Chinese screenshots should be annotated/replaced
+- Phase 14: SDK examples reference MinIO client libraries -- verify version currency before locking examples
 
 ## Session Continuity
 
-Last session: 2026-03-23T10:30:56.909Z
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-inventory-terminology-and-target-taxonomy/01-CONTEXT.md
+Last session: 2026-04-16
+Stopped at: v1.3 roadmap created, ready to plan Phase 13
+Resume file: None
