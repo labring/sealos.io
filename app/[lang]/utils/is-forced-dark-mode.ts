@@ -26,6 +26,10 @@ export function isForcedDarkMode(pathname: string): boolean {
       match: 'prefix',
     },
     {
+      path: '/sealos-skills',
+      match: 'prefix',
+    },
+    {
       path: '/products/app-store',
       match: 'prefix',
     },
