@@ -187,6 +187,7 @@ async function convertTemplateToAppConfig(
     slug: metadata.name || '',
     description: spec.description || '',
     icon: iconPath,
+    screenshots: Array.isArray(spec.screenshots) ? spec.screenshots : [],
     category: category,
     features: categoryFeatures[category] || [
       'Feature 1',
@@ -214,7 +215,7 @@ async function convertTemplateToAppConfig(
       url: template.filePath
         ? `https://github.com/labring-actions/templates/tree/kb-0.9${template.filePath}`
         : undefined,
-      deployCount: template.deployCount || 0,
+      deployCount: spec.deployCount || 0,
     },
     // Add i18n object if available
     ...(Object.keys(i18n).length > 0 && { i18n }),

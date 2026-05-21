@@ -4,6 +4,9 @@
     "slug": "ace-step",
     "description": "Open-source music generation AI. Commercial-grade quality, under 2s per song on A100. Supports text-to-music, cover generation, repainting, LoRA training, and 50+ languages.",
     "icon": "/images/apps/ace-step.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/ace-step/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -30,7 +33,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 30
     },
     "i18n": {
       "zh": {
@@ -43,6 +46,9 @@
     "slug": "affine",
     "description": "A privacy-focussed, local-first, open-source, and ready-to-use alternative for Notion & Miro.",
     "icon": "/images/apps/affine.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/affine/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -69,7 +75,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 962
     }
   },
   {
@@ -77,6 +83,9 @@
     "slug": "agora",
     "description": "Agora Token Service for generating RTC and RTM tokens to authenticate users before they access the Agora service or join an RTC channel",
     "icon": "/images/apps/agora.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/agora/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -104,7 +113,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 45
     },
     "i18n": {
       "zh": {
@@ -117,6 +126,9 @@
     "slug": "airbyte",
     "description": "Open-source data integration platform for ELT pipelines.",
     "icon": "/images/apps/airbyte.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/airbyte/website-screenshot.webp"
+    ],
     "category": "DevOps",
     "features": [
       "CI/CD Pipeline",
@@ -144,7 +156,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 22
     },
     "i18n": {
       "zh": {
@@ -157,6 +169,9 @@
     "slug": "anki-sync-server",
     "description": "Self-Hosted Anki Sync Server",
     "icon": "/images/apps/anki-sync-server.jpeg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/anki-sync-server/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -183,7 +198,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 66
     }
   },
   {
@@ -191,6 +206,9 @@
     "slug": "appsmith",
     "description": "Appsmith is an open-source platform to build, deploy, and maintain internal apps. You can build anything from simple CRUD apps, admin panels, dashboards to custom business apps and complicated multi-step workflows.",
     "icon": "/images/apps/appsmith.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/appsmith/website-screenshot.webp"
+    ],
     "category": "Low-Code",
     "features": [
       "Visual Interface",
@@ -217,7 +235,7 @@
       "low-code"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 75
     }
   },
   {
@@ -225,6 +243,9 @@
     "slug": "artalk",
     "description": "Artalk is an intuitive yet feature-rich comment system, ready for immediate deployment into any blog, website, or web application.",
     "icon": "/images/apps/artalk.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/artalk/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -251,7 +272,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 22
     },
     "i18n": {
       "zh": {
@@ -264,6 +285,9 @@
     "slug": "authentik",
     "description": "Authentik is an open-source identity provider focused on flexibility and versatility.",
     "icon": "/images/apps/authentik.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/authentik/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -291,7 +315,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     },
     "i18n": {
       "zh": {
@@ -304,6 +328,9 @@
     "slug": "budibase",
     "description": "Budibase is an open-source low-code platform that helps you build and deploy modern business apps in minutes",
     "icon": "/images/apps/budibase.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/budibase/website-screenshot.webp"
+    ],
     "category": "Low-Code",
     "features": [
       "Visual Interface",
@@ -331,7 +358,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     },
     "i18n": {
       "zh": {
@@ -344,6 +371,9 @@
     "slug": "bytebase",
     "description": "Bytebase is GitLab/GitHub for Database DevOps, built for developers, DBAs and platform teams.",
     "icon": "/images/apps/bytebase.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/bytebase/website-screenshot.webp"
+    ],
     "category": "Database",
     "features": [
       "Data Storage",
@@ -370,7 +400,7 @@
       "database"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 42
     }
   },
   {
@@ -378,6 +408,9 @@
     "slug": "calcom",
     "description": "Open-source scheduling platform for individuals, teams, and enterprises.",
     "icon": "/images/apps/calcom.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/calcom/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -404,7 +437,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 26
     },
     "i18n": {
       "zh": {
@@ -417,6 +450,9 @@
     "slug": "cap",
     "description": "Open source alternative to Loom. Record, edit and share videos in seconds.",
     "icon": "/images/apps/cap.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/cap/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -443,7 +479,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     },
     "i18n": {
       "zh": {
@@ -456,6 +492,9 @@
     "slug": "casdoor",
     "description": "Casdoor is a UI-first Identity Access Management (IAM) / Single-Sign-On (SSO) platform based on OAuth 2.0, OIDC, SAML and CAS.",
     "icon": "/images/apps/casdoor.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/casdoor/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -483,7 +522,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 15
     },
     "i18n": {
       "zh": {
@@ -496,6 +535,9 @@
     "slug": "changedetection",
     "description": "Self-hosted free open source website change detection, monitor and notification service. Get instant notifications when websites change.",
     "icon": "/images/apps/changedetection.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/changedetection/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -523,7 +565,7 @@
       "monitor"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 28
     },
     "i18n": {
       "zh": {
@@ -536,6 +578,9 @@
     "slug": "chatnio",
     "description": "Next Generation AI One-Stop Internationalization Solution.",
     "icon": "/images/apps/chatnio.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/chatnio/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -563,7 +608,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 26
     },
     "i18n": {
       "zh": {
@@ -576,6 +621,9 @@
     "slug": "chatany",
     "description": "One-click to own your own ChatGPT+StabilityAI+Midjourney web service",
     "icon": "/images/apps/chatany.ico",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/chatany/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -602,7 +650,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     }
   },
   {
@@ -610,6 +658,9 @@
     "slug": "chatbot-ui",
     "description": "An open source ChatGPT UI",
     "icon": "/images/apps/chatbot-ui.ico",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/chatbot-ui/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -636,7 +687,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 156
     }
   },
   {
@@ -644,6 +695,9 @@
     "slug": "chatwoot",
     "description": "Open-source customer engagement platform with live chat, email, and social media integrations",
     "icon": "/icons/default.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/chatwoot/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -670,7 +724,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     },
     "i18n": {
       "zh": {
@@ -683,6 +737,9 @@
     "slug": "code-server",
     "description": "VS Code in the browser",
     "icon": "/icons/default.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/code-server/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -709,7 +766,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 176
     }
   },
   {
@@ -717,6 +774,9 @@
     "slug": "coze-studio",
     "description": "An open-source AI agent development platform with integrated workflow, knowledge, memory, plugin, and chat capabilities.",
     "icon": "/images/apps/coze-studio.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/coze-studio/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -744,7 +804,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 12
     },
     "i18n": {
       "zh": {
@@ -757,6 +817,9 @@
     "slug": "cronicle",
     "description": "Cronicle is a multi-server task scheduler and runner, with a web based front-end UI.It handles both scheduled, repeating and on-demand jobs, targeting any number of slave servers, with real-time stats and live log viewer.Written in Node.js, proudly open source and MIT licensed.default username and password is admin",
     "icon": "/images/apps/cronicle.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/cronicle/website-screenshot.webp"
+    ],
     "category": "DevOps",
     "features": [
       "CI/CD Pipeline",
@@ -783,7 +846,7 @@
       "dev-ops"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     }
   },
   {
@@ -791,6 +854,9 @@
     "slug": "dbgate",
     "description": "DbGate is cross-platform database manager. It is designed to be simple to use and effective, when working with more databases simultaneously. But there are also many advanced features like schema compare, visual query designer, chart visualisation or batch export and import.",
     "icon": "/images/apps/dbgate.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/dbgate/website-screenshot.webp"
+    ],
     "category": "Database",
     "features": [
       "Data Storage",
@@ -817,7 +883,7 @@
       "database"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 24
     }
   },
   {
@@ -825,6 +891,9 @@
     "slug": "deeplx",
     "description": "DeepL Free API (No TOKEN required)",
     "icon": "/images/apps/deeplx.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/deeplx/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -851,7 +920,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 240
     }
   },
   {
@@ -859,6 +928,9 @@
     "slug": "derper",
     "description": "A slim build of Tailscale DERP relay server for self-hosted use with STUN support",
     "icon": "/images/apps/derper.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/derper/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -885,7 +957,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 210
     }
   },
   {
@@ -893,6 +965,9 @@
     "slug": "dify",
     "description": "Dify is an open-source LLM app development platform.",
     "icon": "/images/apps/dify.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/dify/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -919,7 +994,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 48
     },
     "i18n": {
       "zh": {
@@ -932,6 +1007,9 @@
     "slug": "docuseal",
     "description": "Open source document signing solution. Create, fill, and sign digital documents with legally binding eSignatures.",
     "icon": "/images/apps/docuseal.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/docuseal/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -958,7 +1036,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 26
     },
     "i18n": {
       "zh": {
@@ -971,6 +1049,9 @@
     "slug": "drizzle-studio",
     "description": "Drizzle Studio (Gateway) is a self-hosted, browser-based interface for exploring and managing your database schema using the Drizzle ORM ecosystem. It acts as a gateway between your database and Drizzle Studio’s frontend, enabling secure connections, schema introspection, and query execution directly from your own infrastructure instead of relying on a public service.",
     "icon": "/images/apps/drizzle-studio.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/drizzle-studio/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -997,7 +1078,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 15
     },
     "i18n": {
       "zh": {
@@ -1010,6 +1091,9 @@
     "slug": "eaglercraft-server",
     "description": "EaglerCraft 1.12.1 Minecraft server that runs in web browsers with WebSocket support",
     "icon": "/images/apps/eaglercraft-server.ico",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/eaglercraft-server/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1036,7 +1120,7 @@
       "game"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 68820
     },
     "i18n": {
       "zh": {
@@ -1049,6 +1133,9 @@
     "slug": "emqx",
     "description": "The most scalable open-source MQTT broker for IoT, IIoT, and connected vehicles",
     "icon": "/images/apps/emqx.ico",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/emqx/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1073,7 +1160,7 @@
     "website": "https://emqx.com/",
     "tags": [],
     "source": {
-      "deployCount": 0
+      "deployCount": 12
     }
   },
   {
@@ -1081,6 +1168,9 @@
     "slug": "excalidraw",
     "description": "An open source virtual hand-drawn style whiteboard. Collaborative and end-to-end encrypted.",
     "icon": "/images/apps/excalidraw.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/excalidraw/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1107,7 +1197,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 52
     }
   },
   {
@@ -1115,6 +1205,9 @@
     "slug": "fastgpt",
     "description": "FastGPT is an open-source AI knowledge base and workflow platform with RAG retrieval, model orchestration, MCP access, and plugin extensibility.",
     "icon": "/images/apps/fastgpt.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/fastgpt/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -1141,7 +1234,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     },
     "i18n": {
       "zh": {
@@ -1154,6 +1247,9 @@
     "slug": "fastgpt-pro",
     "description": "FastGPT Pro is the commercial FastGPT stack for Sealos, adding the FastGPT Pro service alongside RAG retrieval, workflow orchestration, MCP access, and plugin extensibility.",
     "icon": "/images/apps/fastgpt-pro.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/fastgpt-pro/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -1180,7 +1276,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 44
     },
     "i18n": {
       "zh": {
@@ -1193,6 +1289,9 @@
     "slug": "featbit-standard",
     "description": "FeatBit is an open-source feature flags management tool that empowers developers (Standard Edition).",
     "icon": "/images/apps/featbit-standard.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/featbit-standard/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1219,7 +1318,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 15
     },
     "i18n": {
       "zh": {
@@ -1232,6 +1331,9 @@
     "slug": "fireboom",
     "description": "Fireboom is a visualization API cloud platform designed for developers with the goal of rapidly delivering production-ready APIs.",
     "icon": "/images/apps/fireboom.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/fireboom/website-screenshot.webp"
+    ],
     "category": "Low-Code",
     "features": [
       "Visual Interface",
@@ -1258,7 +1360,7 @@
       "low-code"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     }
   },
   {
@@ -1266,6 +1368,9 @@
     "slug": "firefox",
     "description": "Firefox browser running in a container with web-based (noVNC) UI.",
     "icon": "/images/apps/firefox.ico",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/firefox/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1292,7 +1397,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 2100
     },
     "i18n": {
       "zh": {
@@ -1305,6 +1410,9 @@
     "slug": "flarum",
     "description": "Flarum is a delightfully simple discussion platform for your website.",
     "icon": "/images/apps/flarum.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/flarum/website-screenshot.webp"
+    ],
     "category": "Blog",
     "features": [
       "Content Creation",
@@ -1331,7 +1439,7 @@
       "blog"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 33
     }
   },
   {
@@ -1339,6 +1447,9 @@
     "slug": "flowise",
     "description": "Drag & drop UI to build your customized LLM flow.",
     "icon": "/images/apps/flowise.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/flowise/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -1365,7 +1476,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 39
     },
     "i18n": {
       "zh": {
@@ -1378,6 +1489,9 @@
     "slug": "formbricks",
     "description": "Formbricks provides a free and open source surveying platform. Gather feedback at every point in the user journey with beautiful in-app, website, link and email surveys.",
     "icon": "/images/apps/formbricks.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/formbricks/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1404,7 +1518,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     },
     "i18n": {
       "zh": {
@@ -1417,6 +1531,9 @@
     "slug": "full-stack-fastapi",
     "description": "Production-ready FastAPI + PostgreSQL + Frontend stack",
     "icon": "/images/apps/full-stack-fastapi.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/full-stack-fastapi/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1445,7 +1562,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     },
     "i18n": {
       "zh": {
@@ -1458,6 +1575,9 @@
     "slug": "gitea",
     "description": "The goal of this project is to make the easiest, fastest, and most painless way of setting up a self-hosted Git service.",
     "icon": "/images/apps/gitea.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/gitea/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1484,7 +1604,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 22
     },
     "i18n": {
       "zh": {
@@ -1497,6 +1617,9 @@
     "slug": "glance",
     "description": "A self-hosted dashboard that puts all your feeds in one place",
     "icon": "/images/apps/glance.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/glance/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1523,7 +1646,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     },
     "i18n": {
       "zh": {
@@ -1536,6 +1659,9 @@
     "slug": "glitchtip",
     "description": "GlitchTip makes monitoring software easy.",
     "icon": "/images/apps/glitchtip.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/glitchtip/website-screenshot.webp"
+    ],
     "category": "Monitoring",
     "features": [
       "Real-time Monitoring",
@@ -1563,7 +1689,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 12
     }
   },
   {
@@ -1571,6 +1697,9 @@
     "slug": "grafana-otel",
     "description": "One-click Grafana/OTLP stack deployment",
     "icon": "/images/apps/grafana-otel.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/grafana-otel/website-screenshot.webp"
+    ],
     "category": "Monitoring",
     "features": [
       "Real-time Monitoring",
@@ -1598,7 +1727,7 @@
       "dev-ops"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 22
     }
   },
   {
@@ -1606,6 +1735,9 @@
     "slug": "happy-server",
     "description": "Minimal backend for open-source end-to-end encrypted Claude Code clients.",
     "icon": "/images/apps/happy-server.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/happy-server/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -1632,7 +1764,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 24
     },
     "i18n": {
       "zh": {
@@ -1645,6 +1777,9 @@
     "slug": "harbor",
     "description": "Harbor is an open-source OCI artifact registry that secures software supply chains with vulnerability scanning, signing, and access control.",
     "icon": "/images/apps/harbor.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/harbor/website-screenshot.webp"
+    ],
     "category": "DevOps",
     "features": [
       "CI/CD Pipeline",
@@ -1672,7 +1807,7 @@
       "storage"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     },
     "i18n": {
       "zh": {
@@ -1685,6 +1820,9 @@
     "slug": "hasura",
     "description": "Hasura GraphQL Engine with PostgreSQL metadata storage and Data Connector Agent.",
     "icon": "/images/apps/hasura.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/hasura/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1711,7 +1849,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     },
     "i18n": {
       "zh": {
@@ -1724,6 +1862,9 @@
     "slug": "headscale",
     "description": "An open source, self-hosted implementation of the Tailscale control server.",
     "icon": "/images/apps/headscale.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/headscale/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1750,7 +1891,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 144
     },
     "i18n": {
       "zh": {
@@ -1763,6 +1904,9 @@
     "slug": "headscale-pg",
     "description": "An open source, self-hosted implementation of the Tailscale control server with PostgreSQL.",
     "icon": "/images/apps/headscale-pg.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/headscale-pg/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1789,7 +1933,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 22
     },
     "i18n": {
       "zh": {
@@ -1802,6 +1946,9 @@
     "slug": "heyform",
     "description": "HeyForm is an open-source form builder that allows anyone to create engaging conversational forms for surveys, questionnaires, quizzes, and polls. No coding skills required.",
     "icon": "/images/apps/heyform.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/heyform/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1828,7 +1975,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 26
     }
   },
   {
@@ -1836,6 +1983,9 @@
     "slug": "illa-builder",
     "description": "ILLA is a robust open source low-code platform for developers to build internal tools.",
     "icon": "/images/apps/illa-builder.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/illa-builder/website-screenshot.webp"
+    ],
     "category": "Low-Code",
     "features": [
       "Visual Interface",
@@ -1862,7 +2012,7 @@
       "low-code"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 42
     }
   },
   {
@@ -1870,6 +2020,9 @@
     "slug": "immich",
     "description": "High performance self-hosted photo and video management solution. Store, organize, and share your memories with machine learning-powered features like face recognition and smart search.",
     "icon": "/images/apps/immich.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/immich/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1896,7 +2049,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 108
     },
     "i18n": {
       "zh": {
@@ -1909,6 +2062,9 @@
     "slug": "influxdb",
     "description": "Real-time insights from any time series data with a single, purpose-built database. Run at any scale in any environment in the cloud, on-premises, or at the edge.",
     "icon": "/images/apps/influxdb.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/influxdb/website-screenshot.webp"
+    ],
     "category": "Database",
     "features": [
       "Data Storage",
@@ -1933,7 +2089,7 @@
       "database"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     }
   },
   {
@@ -1941,6 +2097,9 @@
     "slug": "inpaint-web",
     "description": "A free and open-source inpainting & image-upscaling tool powered by webgpu and wasm on the browser.",
     "icon": "/images/apps/inpaint-web.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/inpaint-web/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -1967,7 +2126,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 36
     }
   },
   {
@@ -1975,6 +2134,9 @@
     "slug": "insforge",
     "description": "InsForge is the Agent-Native Supabase Alternative, enabling AI agents to build and manage full-stack applications autonomously.",
     "icon": "/images/apps/insforge.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/insforge/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2001,7 +2163,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 96
     },
     "i18n": {
       "zh": {
@@ -2014,6 +2176,9 @@
     "slug": "it-tools",
     "description": "Useful tools for developer and people working in IT.",
     "icon": "/images/apps/it-tools.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/it-tools/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2040,7 +2205,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     }
   },
   {
@@ -2048,6 +2213,9 @@
     "slug": "jsoncrack",
     "description": "JSON Crack is a free, open-source data visualization app capable of visualizing data formats such as JSON, YAML, XML, CSV and more, into interactive graphs.",
     "icon": "/images/apps/jsoncrack.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/jsoncrack/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2074,7 +2242,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 15
     }
   },
   {
@@ -2082,6 +2250,9 @@
     "slug": "docker-stacks",
     "description": "Ready-to-run Docker images containing Jupyter applications.",
     "icon": "/images/apps/docker-stacks.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/docker-stacks/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2108,7 +2279,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 52
     }
   },
   {
@@ -2116,6 +2287,9 @@
     "slug": "kanboard",
     "description": "Open source Kanban project management software",
     "icon": "/images/apps/kanboard.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/kanboard/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2143,7 +2317,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     },
     "i18n": {
       "zh": {
@@ -2156,6 +2330,9 @@
     "slug": "kaneo",
     "description": "A modern, self-hosted project management platform that gets out of your way.",
     "icon": "/images/apps/kaneo.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/kaneo/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2182,7 +2359,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 15
     }
   },
   {
@@ -2190,6 +2367,9 @@
     "slug": "keycloak",
     "description": "Open Source Identity and Access Management solution for modern Applications and Services",
     "icon": "/images/apps/keycloak.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/keycloak/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2217,7 +2397,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     },
     "i18n": {
       "zh": {
@@ -2230,6 +2410,9 @@
     "slug": "keystone",
     "description": "Keystone is an open-source headless CMS and application framework for building GraphQL-powered backends and Admin UIs.",
     "icon": "/images/apps/keystone.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/keystone/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2257,7 +2440,7 @@
       "low-code"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 15
     },
     "i18n": {
       "zh": {
@@ -2270,6 +2453,9 @@
     "slug": "kitten-tts",
     "description": "Kitten-TTS-Server hosts the Kitten TTS model behind a small, fast API. It includes a built-in Web UI, audiobook-grade text handling, and GPU support. Use it for prototypes, research, or self-hosted TTS services.",
     "icon": "/images/apps/kitten-tts.ico",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/kitten-tts/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -2297,7 +2483,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 48
     },
     "i18n": {
       "zh": {
@@ -2310,6 +2496,9 @@
     "slug": "langflow",
     "description": "Langflow is a low-code app builder for RAG and multi-agent AI applications. Build, iterate, and deploy AI workflows with a drag-and-drop interface.",
     "icon": "/images/apps/langflow.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/langflow/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -2338,7 +2527,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 22
     },
     "i18n": {
       "zh": {
@@ -2351,6 +2540,9 @@
     "slug": "librechat",
     "description": "Enhanced ChatGPT Clone",
     "icon": "/images/apps/librechat.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/librechat/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -2377,7 +2569,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 88
     }
   },
   {
@@ -2385,6 +2577,9 @@
     "slug": "listmonk",
     "description": "High performance, self-hosted, newsletter and mailing list manager with a modern dashboard. Single binary app.",
     "icon": "/images/apps/listmonk.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/listmonk/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2411,7 +2606,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 30
     }
   },
   {
@@ -2419,6 +2614,9 @@
     "slug": "lobe-chat",
     "description": "An open-source, modern-design ChatGPT/LLMs UI/Framework. Supports speech-synthesis, multi-modal, and extensible (function call) plugin system.",
     "icon": "/images/apps/lobe-chat.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/lobe-chat/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -2445,7 +2643,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 75
     },
     "i18n": {
       "zh": {
@@ -2458,6 +2656,9 @@
     "slug": "lobe-chat-db",
     "description": "An open-source, modern-design ChatGPT/LLMs UI/Framework. Supports speech-synthesis, multi-modal, and extensible (function call) plugin system.",
     "icon": "/images/apps/lobe-chat-db.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/lobe-chat-db/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -2484,7 +2685,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 42
     },
     "i18n": {
       "zh": {
@@ -2497,6 +2698,9 @@
     "slug": "logto",
     "description": "Logto is an open-source Identity and Access Management (IAM) platform designed to streamline Customer Identity and Access Management (CIAM) and Workforce Identity Management.",
     "icon": "/images/apps/logto.ico",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/logto/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2523,7 +2727,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 45
     },
     "i18n": {
       "zh": {
@@ -2536,6 +2740,9 @@
     "slug": "loki",
     "description": "Loki is a horizontally scalable, highly available, multi-tenant log aggregation system inspired by Prometheus.",
     "icon": "/images/apps/loki.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/loki/website-screenshot.webp"
+    ],
     "category": "Monitoring",
     "features": [
       "Real-time Monitoring",
@@ -2562,7 +2769,7 @@
       "monitor"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 12
     },
     "i18n": {
       "zh": {
@@ -2575,6 +2782,9 @@
     "slug": "mage-ai",
     "description": "An open-source data pipeline tool for building and running data workflows.",
     "icon": "/images/apps/mage-ai.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/mage-ai/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -2602,7 +2812,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 12
     },
     "i18n": {
       "zh": {
@@ -2615,6 +2825,9 @@
     "slug": "matomo",
     "description": "Matomo is the leading open source web analytics platform that gives you valuable insights into your website visitors",
     "icon": "/images/apps/matomo.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/matomo/website-screenshot.webp"
+    ],
     "category": "Monitoring",
     "features": [
       "Real-time Monitoring",
@@ -2642,7 +2855,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 44
     },
     "i18n": {
       "zh": {
@@ -2655,6 +2868,9 @@
     "slug": "mautic",
     "description": "Mautic is the world’s largest open source marketing automation software.",
     "icon": "/images/apps/mautic.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/mautic/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2681,7 +2897,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     },
     "i18n": {
       "zh": {
@@ -2694,6 +2910,9 @@
     "slug": "meilisearch",
     "description": "A lightning-fast search API that fits effortlessly into your apps, websites, and workflow.",
     "icon": "/images/apps/meilisearch.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/meilisearch/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2720,7 +2939,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 60
     }
   },
   {
@@ -2728,6 +2947,9 @@
     "slug": "memos",
     "description": "A privacy-first, lightweight note-taking service. Easily capture and share your great thoughts.",
     "icon": "/images/apps/memos.webp",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/memos/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2752,7 +2974,7 @@
     "website": "https://github.com/usememos/memos",
     "tags": [],
     "source": {
-      "deployCount": 0
+      "deployCount": 24
     }
   },
   {
@@ -2760,6 +2982,9 @@
     "slug": "metabase",
     "description": "The simplest, fastest way to get business intelligence and analytics to everyone in your company 😋",
     "icon": "/images/apps/metabase.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/metabase/website-screenshot.webp"
+    ],
     "category": "Database",
     "features": [
       "Data Storage",
@@ -2787,7 +3012,7 @@
       "low-code"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 42
     }
   },
   {
@@ -2795,6 +3020,9 @@
     "slug": "minio",
     "description": "MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.",
     "icon": "/icons/default.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/minio/website-screenshot.webp"
+    ],
     "category": "Storage",
     "features": [
       "File Storage",
@@ -2821,7 +3049,7 @@
       "storage"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 12
     }
   },
   {
@@ -2829,6 +3057,9 @@
     "slug": "mlflow",
     "description": "MLflow is an open-source developer platform to build AI/LLM applications and models with confidence.",
     "icon": "/images/apps/mlflow.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/mlflow/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -2856,7 +3087,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     },
     "i18n": {
       "zh": {
@@ -2869,6 +3100,9 @@
     "slug": "mongo-express",
     "description": "A web-based MongoDB admin interface written with Node.js, Express, and Bootstrap3",
     "icon": "/images/apps/mongo-express.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/mongo-express/website-screenshot.webp"
+    ],
     "category": "Database",
     "features": [
       "Data Storage",
@@ -2895,7 +3129,7 @@
       "database"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 30
     }
   },
   {
@@ -2903,6 +3137,9 @@
     "slug": "n8n",
     "description": "n8n is a workflow automation platform that gives technical teams the flexibility of code with the speed of no-code.",
     "icon": "/images/apps/n8n.ico",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/n8n/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -2930,7 +3167,7 @@
       "low-code"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 891
     },
     "i18n": {
       "zh": {
@@ -2943,6 +3180,9 @@
     "slug": "nacos",
     "description": "Dynamic Naming and Configuration Service - an easy-to-use platform designed for dynamic service discovery and configuration and service management",
     "icon": "/images/apps/nacos.ico",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/nacos/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -2970,7 +3210,7 @@
       "dev-ops"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     },
     "i18n": {
       "zh": {
@@ -2983,6 +3223,9 @@
     "slug": "nakama",
     "description": "Nakama is an open-source game server for real-time multiplayer, social features, and live ops.",
     "icon": "/images/apps/nakama.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/nakama/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3010,7 +3253,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 270
     },
     "i18n": {
       "zh": {
@@ -3023,6 +3266,9 @@
     "slug": "netbird",
     "description": "基于 WireGuard 的零信任网络平台，支持自托管管理、信令与中继。",
     "icon": "/images/apps/netbird.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/netbird/website-screenshot.webp"
+    ],
     "category": "DevOps",
     "features": [
       "CI/CD Pipeline",
@@ -3050,7 +3296,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 12
     },
     "i18n": {
       "zh": {
@@ -3063,6 +3309,9 @@
     "slug": "new-api",
     "description": "Open-source AI model gateway compatible with the OpenAI API, with multi-provider routing, quota management, channel orchestration, and an admin dashboard.",
     "icon": "/images/apps/new-api.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/new-api/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -3090,7 +3339,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 225
     },
     "i18n": {
       "zh": {
@@ -3103,6 +3352,9 @@
     "slug": "nexus",
     "description": "A robust package registry built on extensive enterprise storage capabilities.",
     "icon": "/images/apps/nexus.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/nexus/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3130,7 +3382,7 @@
       "dev-ops"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 15
     },
     "i18n": {
       "zh": {
@@ -3143,6 +3395,9 @@
     "slug": "nocodb",
     "description": "Turns any MySQL, PostgreSQL, SQL Server, SQLite & MariaDB into a smart spreadsheet.",
     "icon": "/images/apps/nocodb.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/nocodb/website-screenshot.webp"
+    ],
     "category": "Database",
     "features": [
       "Data Storage",
@@ -3169,7 +3424,7 @@
       "database"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 15
     }
   },
   {
@@ -3177,6 +3432,9 @@
     "slug": "node-red",
     "description": "Low-code programming for event-driven applications",
     "icon": "/images/apps/node-red.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/node-red/website-screenshot.webp"
+    ],
     "category": "Low-Code",
     "features": [
       "Visual Interface",
@@ -3203,7 +3461,7 @@
       "low-code"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 15
     },
     "i18n": {
       "zh": {
@@ -3216,6 +3474,9 @@
     "slug": "notifuse",
     "description": "Open-source emailing platform for newsletters, transactional emails, automations, and real-time user segments",
     "icon": "/images/apps/notifuse.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/notifuse/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3243,7 +3504,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     },
     "i18n": {
       "zh": {
@@ -3256,6 +3517,7 @@
     "slug": "nsfw",
     "description": "NSFW is a project for image pornography recognition",
     "icon": "/images/apps/nsfw.png",
+    "screenshots": [],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3288,6 +3550,9 @@
     "slug": "open-webui",
     "description": "User-friendly WebUI for LLMs (Formerly Ollama WebUI)",
     "icon": "/images/apps/open-webui.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/open-webui/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -3314,7 +3579,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 26
     }
   },
   {
@@ -3322,6 +3587,9 @@
     "slug": "openagents",
     "description": "AI Agent Networks for Open Collaboration. Create self-contained communities where agents discover peers, collaborate on problems, and grow together. Protocol-agnostic, works with popular LLM providers and agent frameworks.",
     "icon": "/images/apps/openagents.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/openagents/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -3349,7 +3617,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 52
     },
     "i18n": {
       "zh": {
@@ -3362,6 +3630,9 @@
     "slug": "opencart",
     "description": "Open-source eCommerce platform for building online stores.",
     "icon": "/images/apps/opencart.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/opencart/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3389,7 +3660,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     },
     "i18n": {
       "zh": {
@@ -3402,6 +3673,9 @@
     "slug": "openclaw",
     "description": "AI agent gateway with multi-channel support including WhatsApp, Telegram, and Discord integration",
     "icon": "/images/apps/openclaw.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/openclaw/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -3429,7 +3703,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 336
     },
     "i18n": {
       "zh": {
@@ -3442,6 +3716,9 @@
     "slug": "openobserve",
     "description": "OpenObserve is a cloud native observability platform built specifically for logs, metrics, traces, analytics, RUM (Real User Monitoring - Performance, Errors, Session Replay) designed to work at petabyte scale.",
     "icon": "/images/apps/openobserve.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/openobserve/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3466,7 +3743,7 @@
     "website": "https://openobserve.ai/",
     "tags": [],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     }
   },
   {
@@ -3474,6 +3751,9 @@
     "slug": "outline",
     "description": "The fastest knowledge base for growing teams. Beautiful, realtime collaborative, feature packed, and markdown compatible.",
     "icon": "/images/apps/outline.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/outline/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3500,7 +3780,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 36
     },
     "i18n": {
       "zh": {
@@ -3513,6 +3793,9 @@
     "slug": "overleaf",
     "description": "Overleaf is an open-source online real-time collaborative LaTeX editor.",
     "icon": "/images/apps/overleaf.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/overleaf/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3539,7 +3822,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 70
     }
   },
   {
@@ -3547,6 +3830,9 @@
     "slug": "palacms",
     "description": "PalaCMS is a modern content management system built for developers and content creators",
     "icon": "/images/apps/palacms.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/palacms/website-screenshot.webp"
+    ],
     "category": "Blog",
     "features": [
       "Content Creation",
@@ -3574,7 +3860,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     },
     "i18n": {
       "zh": {
@@ -3587,6 +3873,9 @@
     "slug": "pangolin",
     "description": "Open-source identity-based remote access platform built on WireGuard.",
     "icon": "/images/apps/pangolin.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/pangolin/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3613,7 +3902,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 15
     },
     "i18n": {
       "zh": {
@@ -3626,6 +3915,9 @@
     "slug": "paperless-ngx",
     "description": "Paperless-ngx is a community-supported open-source document management system that transforms your physical documents into a searchable online archive so you can keep, well, less paper.",
     "icon": "/images/apps/paperless-ngx.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/paperless-ngx/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3652,7 +3944,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     },
     "i18n": {
       "zh": {
@@ -3665,6 +3957,9 @@
     "slug": "payload",
     "description": "Payload is a Next.js native CMS with an extensible admin panel, REST and GraphQL APIs, authentication, and media management.",
     "icon": "/images/apps/payload.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/payload/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3692,7 +3987,7 @@
       "low-code"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     },
     "i18n": {
       "zh": {
@@ -3705,6 +4000,9 @@
     "slug": "pdf2zh",
     "description": "PDFMathTranslate is an open-source PDF scientific paper translation with preserved formats.",
     "icon": "/images/apps/pdf2zh.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/pdf2zh/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3732,7 +4030,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 28
     },
     "i18n": {
       "zh": {
@@ -3745,6 +4043,9 @@
     "slug": "penpot",
     "description": "The open-source design tool for design and code collaboration.",
     "icon": "/images/apps/penpot.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/penpot/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3771,7 +4072,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 24
     }
   },
   {
@@ -3779,6 +4080,9 @@
     "slug": "perplexica",
     "description": "Perplexica is an open-source AI-powered searching tool or an AI-powered search engine that goes deep into the internet to find answers.",
     "icon": "/images/apps/perplexica.ico",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/perplexica/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -3805,7 +4109,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 45
     },
     "i18n": {
       "zh": {
@@ -3818,6 +4122,9 @@
     "slug": "pgadmin4",
     "description": "pgAdmin 4 is a rewrite of the popular pgAdmin3 management tool for the PostgreSQL database.",
     "icon": "/images/apps/pgadmin4.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/pgadmin4/website-screenshot.webp"
+    ],
     "category": "Database",
     "features": [
       "Data Storage",
@@ -3844,7 +4151,7 @@
       "database"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     }
   },
   {
@@ -3852,6 +4159,9 @@
     "slug": "photoprism",
     "description": "AI-Powered Photos App for the Decentralized Web.",
     "icon": "/images/apps/photoprism.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/photoprism/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3878,7 +4188,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 60
     }
   },
   {
@@ -3886,6 +4196,9 @@
     "slug": "phpmyadmin",
     "description": "A web interface for MySQL and MariaDB.",
     "icon": "/images/apps/phpmyadmin.ico",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/phpmyadmin/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3912,7 +4225,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 12
     }
   },
   {
@@ -3920,6 +4233,7 @@
     "slug": "plane",
     "description": "Open Source JIRA, Linear, Monday, and Asana Alternative. Plane helps you track your issues, epics, and product roadmaps in the simplest way possible.",
     "icon": "/images/apps/plane.png",
+    "screenshots": [],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3959,6 +4273,9 @@
     "slug": "plausible",
     "description": "Simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics alternative to Google Analytics.",
     "icon": "/images/apps/plausible.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/plausible/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -3985,7 +4302,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 12
     }
   },
   {
@@ -3993,6 +4310,9 @@
     "slug": "pocket-id",
     "description": "Pocket ID is a simple OIDC provider that authenticates users with passkeys.",
     "icon": "/images/apps/pocket-id.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/pocket-id/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4019,7 +4339,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     },
     "i18n": {
       "zh": {
@@ -4032,6 +4352,9 @@
     "slug": "pocketbase",
     "description": "Open source backend consisting of embedded database (SQLite) with realtime subscriptions, built-in auth management, convenient dashboard UI and simple REST-ish API",
     "icon": "/images/apps/pocketbase.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/pocketbase/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4059,7 +4382,7 @@
       "low-code"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 60
     },
     "i18n": {
       "zh": {
@@ -4072,6 +4395,9 @@
     "slug": "posthog",
     "description": "Open-source product analytics platform with session replay, feature flags, and experimentation.",
     "icon": "/images/apps/posthog.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/posthog/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4099,7 +4425,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     },
     "i18n": {
       "zh": {
@@ -4112,6 +4438,9 @@
     "slug": "postiz",
     "description": "Postiz is an open source social media management platform.",
     "icon": "/images/apps/postiz.ico",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/postiz/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4139,7 +4468,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 26
     },
     "i18n": {
       "zh": {
@@ -4152,6 +4481,9 @@
     "slug": "privatebin",
     "description": "A minimalist, open source online pastebin where the server has zero knowledge of pasted data.",
     "icon": "/images/apps/privatebin.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/privatebin/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4178,7 +4510,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     }
   },
   {
@@ -4186,6 +4518,9 @@
     "slug": "quay",
     "description": "Container registry for building, storing, and distributing container images.",
     "icon": "/images/apps/quay.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/quay/website-screenshot.webp"
+    ],
     "category": "DevOps",
     "features": [
       "CI/CD Pipeline",
@@ -4213,7 +4548,7 @@
       "storage"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 15
     },
     "i18n": {
       "zh": {
@@ -4226,6 +4561,9 @@
     "slug": "qinglong",
     "description": "Timed task management platform supporting Python3, JavaScript, Shell, Typescript",
     "icon": "/images/apps/qinglong.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/qinglong/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4252,7 +4590,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     }
   },
   {
@@ -4260,6 +4598,9 @@
     "slug": "Reactive-Resume",
     "description": "A free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume.",
     "icon": "/images/apps/Reactive-Resume.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/Reactive-Resume/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4286,7 +4627,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 12
     }
   },
   {
@@ -4294,6 +4635,9 @@
     "slug": "Readeck",
     "description": "Readeck helps you keep all that web content you’ll want to revisit in an hour, tomorrow, or in 20 years.",
     "icon": "/images/apps/Readeck.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/Readeck/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4320,7 +4664,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     }
   },
   {
@@ -4328,6 +4672,9 @@
     "slug": "redisinsight",
     "description": "RedisInsight is a visual tool that provides capabilities to design, develop and optimize your Redis application. Query, analyse and interact with your Redis data.",
     "icon": "/images/apps/redisinsight.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/redisinsight/website-screenshot.webp"
+    ],
     "category": "Database",
     "features": [
       "Data Storage",
@@ -4354,7 +4701,7 @@
       "database"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 12
     }
   },
   {
@@ -4362,6 +4709,9 @@
     "slug": "refly",
     "description": "Refly is an open-source AI-native creation engine powered by 13+ leading AI models.",
     "icon": "/images/apps/refly.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/refly/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4388,7 +4738,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     },
     "i18n": {
       "zh": {
@@ -4401,6 +4751,9 @@
     "slug": "registry",
     "description": "registry is an implementation of the OCI Distribution Specification. gui-registry is a web UI for registry.",
     "icon": "/images/apps/registry.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/registry/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4425,7 +4778,7 @@
     "website": "https://distribution.github.io/distribution",
     "tags": [],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     }
   },
   {
@@ -4433,6 +4786,9 @@
     "slug": "rocketchat",
     "description": "Rocket.Chat is an open-source fully customizable communications platform developed in JavaScript for organizations with high standards of data protection.",
     "icon": "/images/apps/rocketchat.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/rocketchat/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4459,7 +4815,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 98
     },
     "i18n": {
       "zh": {
@@ -4472,6 +4828,9 @@
     "slug": "rocketchat-micro",
     "description": "Rocket.Chat Microservices is an enterprise-grade, open-source communication platform built with a microservices architecture for superior scalability and performance. Ideal for organizations requiring high availability and horizontal scaling capabilities.",
     "icon": "/images/apps/rocketchat-micro.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/rocketchat-micro/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4498,7 +4857,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 24
     },
     "i18n": {
       "zh": {
@@ -4511,6 +4870,9 @@
     "slug": "rsshub",
     "description": "🍰 Everything is RSSible",
     "icon": "/images/apps/rsshub.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/rsshub/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4537,7 +4899,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 88
     }
   },
   {
@@ -4545,6 +4907,9 @@
     "slug": "Ruiqi-Waf",
     "description": "A modern web application firewall (WAF) management system built on top of HAProxy and OWASP Coraza WAF with the Coraza SPOA integration. This system provides a comprehensive backend API for managing HAProxy configurations, Coraza WAF rules, and traffic inspection.",
     "icon": "/images/apps/Ruiqi-Waf.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/Ruiqi-Waf/website-screenshot.webp"
+    ],
     "category": "DevOps",
     "features": [
       "CI/CD Pipeline",
@@ -4571,7 +4936,7 @@
       "dev-ops"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     }
   },
   {
@@ -4579,6 +4944,9 @@
     "slug": "rustfs",
     "description": "RustFS is a high-performance, S3-compatible object storage system built with Rust, offering distributed storage capabilities with multiple volume support.",
     "icon": "/images/apps/rustfs.ico",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/rustfs/website-screenshot.webp"
+    ],
     "category": "Storage",
     "features": [
       "File Storage",
@@ -4606,7 +4974,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     },
     "i18n": {
       "zh": {
@@ -4619,6 +4987,9 @@
     "slug": "rybbit",
     "description": "Rybbit is the modern open source and privacy friendly alternative to Google Analytics.",
     "icon": "/images/apps/rybbit.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/rybbit/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4645,7 +5016,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 28
     },
     "i18n": {
       "zh": {
@@ -4658,6 +5029,9 @@
     "slug": "signoz",
     "description": "SigNoz is an open-source observability platform native to OpenTelemetry with logs, traces and metrics in a single application. An open-source alternative to DataDog, NewRelic, etc.",
     "icon": "/images/apps/signoz.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/signoz/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4685,7 +5059,7 @@
       "database"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     }
   },
   {
@@ -4693,6 +5067,9 @@
     "slug": "skardi",
     "description": "Federated SQL query server that turns YAML-defined queries into parameterized HTTP APIs across files, databases, object storage, and vector stores.",
     "icon": "/images/apps/skardi.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/skardi/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4720,7 +5097,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 26
     },
     "i18n": {
       "zh": {
@@ -4733,6 +5110,9 @@
     "slug": "s-pdf",
     "description": "1 Locally hosted web application that allows you to perform various operations on PDF files.",
     "icon": "/images/apps/s-pdf.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/s-pdf/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4759,7 +5139,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 48
     }
   },
   {
@@ -4767,6 +5147,9 @@
     "slug": "strapi",
     "description": "Strapi is the leading open-source headless CMS. 100% JavaScript/TypeScript and fully customizable.",
     "icon": "/images/apps/strapi.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/strapi/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4794,7 +5177,7 @@
       "low-code"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     },
     "i18n": {
       "zh": {
@@ -4807,6 +5190,9 @@
     "slug": "sub2api",
     "description": "AI API gateway platform for distributing and managing subscription quota across upstream AI services.",
     "icon": "/images/apps/sub2api.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/sub2api/website-screenshot.webp"
+    ],
     "category": "AI",
     "features": [
       "AI Processing",
@@ -4835,7 +5221,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 144
     },
     "i18n": {
       "zh": {
@@ -4848,6 +5234,9 @@
     "slug": "supabase",
     "description": "Open source Firebase alternative with Postgres database, authentication, realtime, storage, and edge functions.",
     "icon": "/images/apps/supabase.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/supabase/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4875,7 +5264,7 @@
       "database"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     },
     "i18n": {
       "zh": {
@@ -4888,6 +5277,9 @@
     "slug": "surveyking",
     "description": "SurveyKing is one of the known open source survey systems that has the most powerful functions, the simplest installation, and the best comprehensive experience.",
     "icon": "/images/apps/surveyking.ico",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/surveyking/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4914,7 +5306,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     }
   },
   {
@@ -4922,6 +5314,9 @@
     "slug": "tailchat",
     "description": "Next generation noIM application in your own workspace.",
     "icon": "/images/apps/tailchat.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/tailchat/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -4946,7 +5341,7 @@
     "website": "https://tailchat.msgbyte.com/",
     "tags": [],
     "source": {
-      "deployCount": 0
+      "deployCount": 55
     },
     "i18n": {
       "zh": {
@@ -4959,6 +5354,9 @@
     "slug": "teable",
     "description": "Teable is a Super fast, Real-time, Professional, Developer friendly, No-code database built on Postgres.",
     "icon": "/images/apps/teable.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/teable/website-screenshot.webp"
+    ],
     "category": "Database",
     "features": [
       "Data Storage",
@@ -4986,7 +5384,7 @@
       "low-code"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     },
     "i18n": {
       "zh": {
@@ -4999,6 +5397,9 @@
     "slug": "tentix",
     "description": "A FastGPT-powered AI customer service platform with 10x accelerated resolution.",
     "icon": "/images/apps/tentix.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/tentix/website-screenshot.webp"
+    ],
     "category": "DevOps",
     "features": [
       "CI/CD Pipeline",
@@ -5025,7 +5426,7 @@
       "dev-ops"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     }
   },
   {
@@ -5033,6 +5434,9 @@
     "slug": "tianji",
     "description": "Tianji: Insight into everything, Website Analytics + Uptime Monitor + Server Status. not only another GA alternatives",
     "icon": "/images/apps/tianji.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/tianji/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -5057,7 +5461,7 @@
     "website": "https://tianji.msgbyte.com/",
     "tags": [],
     "source": {
-      "deployCount": 0
+      "deployCount": 30
     }
   },
   {
@@ -5065,6 +5469,9 @@
     "slug": "tolgee",
     "description": "An open-source localization platform that developers enjoy working with.",
     "icon": "/images/apps/tolgee.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/tolgee/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -5091,7 +5498,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     },
     "i18n": {
       "zh": {
@@ -5104,6 +5511,9 @@
     "slug": "twenty",
     "description": "Open-source CRM alternative to Salesforce. Customizable views, flexible data management, workflow automation. Built with TypeScript, React, NestJS, PostgreSQL.",
     "icon": "/images/apps/twenty.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/twenty/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -5130,7 +5540,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 252
     },
     "i18n": {
       "zh": {
@@ -5143,6 +5553,9 @@
     "slug": "typesense",
     "description": "A modern, open-source search engine alternative to Algolia and an easier-to-use alternative to Elasticsearch.",
     "icon": "/images/apps/typesense.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/typesense/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -5170,7 +5583,7 @@
       "database"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 33
     },
     "i18n": {
       "zh": {
@@ -5183,6 +5596,9 @@
     "slug": "typo3",
     "description": "Open-source enterprise content management system for building and managing websites.",
     "icon": "/images/apps/typo3.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/typo3/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -5210,7 +5626,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     },
     "i18n": {
       "zh": {
@@ -5223,6 +5639,9 @@
     "slug": "umami",
     "description": "Umami is an open source, privacy-focused alternative to Google Analytics.",
     "icon": "/images/apps/umami.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/umami/website-screenshot.webp"
+    ],
     "category": "Monitoring",
     "features": [
       "Real-time Monitoring",
@@ -5250,7 +5669,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 11
     }
   },
   {
@@ -5258,6 +5677,9 @@
     "slug": "uptime-kuma",
     "description": "Uptime Kuma is an easy-to-use self-hosted monitoring tool.",
     "icon": "/images/apps/uptime-kuma.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/uptime-kuma/website-screenshot.webp"
+    ],
     "category": "Monitoring",
     "features": [
       "Real-time Monitoring",
@@ -5285,7 +5707,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 72
     }
   },
   {
@@ -5293,6 +5715,9 @@
     "slug": "vaultwarden",
     "description": "Alternative implementation of the Bitwarden server API written in Rust and compatible with upstream Bitwarden clients*, perfect for self-hosted deployment where running the official resource-heavy service might not be ideal.",
     "icon": "/images/apps/vaultwarden.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/vaultwarden/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -5319,7 +5744,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 39
     }
   },
   {
@@ -5327,6 +5752,9 @@
     "slug": "woocommerce",
     "description": "WooCommerce is an open-source ecommerce platform built on WordPress.",
     "icon": "/images/apps/woocommerce.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/woocommerce/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -5353,7 +5781,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 14
     },
     "i18n": {
       "zh": {
@@ -5366,6 +5794,9 @@
     "slug": "wordpress",
     "description": "WordPress is a powerful, user-friendly and open source content management system (CMS) that can be used to publish websites, news, blogs and other content on the Internet.",
     "icon": "/images/apps/wordpress.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/wordpress/website-screenshot.webp"
+    ],
     "category": "Blog",
     "features": [
       "Content Creation",
@@ -5392,7 +5823,7 @@
       "blog"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 204
     }
   },
   {
@@ -5400,6 +5831,9 @@
     "slug": "wrenai",
     "description": "🤖 Open-source GenBI AI Agent that empowers data-driven teams to chat with their data to generate Text-to-SQL, charts, spreadsheets, reports, and BI. 📈📊📋🧑‍💻",
     "icon": "/images/apps/wrenai.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/wrenai/website-screenshot.webp"
+    ],
     "category": "Low-Code",
     "features": [
       "Visual Interface",
@@ -5427,7 +5861,7 @@
       "ai"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 15
     }
   },
   {
@@ -5435,6 +5869,9 @@
     "slug": "yourls",
     "description": "YOURLS is a set of PHP scripts that will allow you to run Your Own URL Shortener, on your server.",
     "icon": "/images/apps/yourls.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/yourls/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -5461,7 +5898,7 @@
       "tool"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 39
     },
     "i18n": {
       "zh": {
@@ -5474,6 +5911,9 @@
     "slug": "zitadel",
     "description": "Open-source identity and access management platform for authentication and authorization.",
     "icon": "/images/apps/zitadel.png",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/zitadel/website-screenshot.webp"
+    ],
     "category": "Tools",
     "features": [
       "User-Friendly Interface",
@@ -5500,7 +5940,7 @@
       "backend"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 15
     },
     "i18n": {
       "zh": {
@@ -5513,6 +5953,9 @@
     "slug": "zot",
     "description": "OCI-native container image registry with basic auth and optional S3-compatible object storage backend.",
     "icon": "/images/apps/zot.svg",
+    "screenshots": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/zot/website-screenshot.webp"
+    ],
     "category": "Storage",
     "features": [
       "File Storage",
@@ -5539,7 +5982,7 @@
       "storage"
     ],
     "source": {
-      "deployCount": 0
+      "deployCount": 13
     },
     "i18n": {
       "zh": {

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useMemo, useState, type ComponentType } from 'react';
 import {
   ArrowDownAZ,
@@ -19,7 +20,6 @@ import { useOpenDeployModal } from '@/new-components/DeployModal';
 import {
   ALL_CATEGORY,
   getCategoryCounts,
-  getDeployCount,
   getVisibleApps,
   type SortOption,
 } from '@/app/[lang]/products/app-store/components/app-store-browser-utils';
@@ -61,12 +61,8 @@ const preferredCategoryOrder = [
   'Storage',
 ];
 
-function formatCount(value: number) {
-  return new Intl.NumberFormat('en-US', {
-    notation: value >= 1000 ? 'compact' : 'standard',
-    maximumFractionDigits: 1,
-  }).format(value);
-}
+const appCardScreenshotClassName =
+  'object-cover object-top';
 
 function getPageItems(currentPage: number, totalPages: number) {
   if (totalPages <= 5) {
@@ -84,10 +80,6 @@ function getPageItems(currentPage: number, totalPages: number) {
   return Array.from(pages).sort((a, b) => a - b);
 }
 
-function getPrimaryTag(app: AppConfig) {
-  return app.tags?.[0]?.replace(/-/g, ' ') || app.category;
-}
-
 function AppCard({
   app,
   lang,
@@ -99,8 +91,7 @@ function AppCard({
   index: number;
   onDeploy: (app: AppConfig) => void;
 }) {
-  const deployCount = getDeployCount(app);
-  const hasDeployCount = typeof app.source?.deployCount === 'number';
+  const primaryScreenshot = app.screenshots?.[0];
 
   return (
     <article
@@ -112,23 +103,46 @@ function AppCard({
         className="relative block h-[135px] overflow-hidden"
         aria-label={`View ${app.name} details`}
       >
-        <div className={cn('absolute inset-0 bg-gradient-to-br', app.gradient)} />
-        <div className="absolute inset-0 bg-background/65" />
-        <div className="absolute inset-x-6 top-8 h-36 rotate-[-5deg] rounded-lg border border-white/10 bg-zinc-950/75 shadow-2xl shadow-black/40 transition duration-300 group-hover:rotate-[-3deg]">
-          <div className="flex h-7 items-center gap-1.5 border-b border-white/10 px-3">
-            <span className="h-2 w-2 rounded-full bg-white/20" />
-            <span className="h-2 w-2 rounded-full bg-white/15" />
-            <span className="h-2 w-2 rounded-full bg-white/10" />
-          </div>
-          <div className="space-y-2 p-4">
-            <div className="h-3 w-28 rounded bg-white/14" />
-            <div className="grid grid-cols-2 gap-2">
-              <div className="h-8 rounded border border-white/10 bg-white/[0.03]" />
-              <div className="h-8 rounded border border-white/10 bg-white/[0.03]" />
+        {primaryScreenshot ? (
+          <div className="absolute left-0 top-[-0.37px] h-[136px] w-[110%] overflow-hidden">
+            <div className="absolute left-[6.8%] top-[12px] h-[355px] w-[111.3%]">
+              <div className="flex h-full items-center justify-center">
+                <div className="relative h-[315px] w-[93%] rotate-[-6deg] overflow-hidden rounded-[5px] opacity-80 shadow-2xl shadow-black/40 transition duration-300 group-hover:rotate-[-4deg] group-hover:scale-[1.02] group-hover:opacity-95">
+                  <Image
+                    src={primaryScreenshot}
+                    alt={`${app.name} screenshot`}
+                    fill
+                    className={appCardScreenshotClassName}
+                    sizes="(max-width: 768px) 93vw, (max-width: 1280px) 46vw, 400px"
+                  />
+                </div>
+              </div>
             </div>
-            <div className="h-3 w-40 rounded bg-white/10" />
           </div>
-        </div>
+        ) : (
+          <>
+            <div
+              className={cn('absolute inset-0 bg-gradient-to-br', app.gradient)}
+            />
+            <div className="absolute inset-0 bg-background/65" />
+            <div className="absolute inset-x-6 top-8 h-36 rotate-[-5deg] rounded-lg border border-white/10 bg-zinc-950/75 shadow-2xl shadow-black/40 transition duration-300 group-hover:rotate-[-3deg]">
+              <div className="flex h-7 items-center gap-1.5 border-b border-white/10 px-3">
+                <span className="h-2 w-2 rounded-full bg-white/20" />
+                <span className="h-2 w-2 rounded-full bg-white/15" />
+                <span className="h-2 w-2 rounded-full bg-white/10" />
+              </div>
+              <div className="space-y-2 p-4">
+                <div className="h-3 w-28 rounded bg-white/14" />
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="h-8 rounded border border-white/10 bg-white/[0.03]" />
+                  <div className="h-8 rounded border border-white/10 bg-white/[0.03]" />
+                </div>
+                <div className="h-3 w-40 rounded bg-white/10" />
+              </div>
+            </div>
+          </>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/35 via-background/10 to-transparent" />
       </a>
 
       <div className="flex flex-1 flex-col gap-5 px-5 py-4">
@@ -161,12 +175,6 @@ function AppCard({
                   <span className="h-1.5 w-1.5 rounded-full bg-[#6ea2ff]" />
                   {app.category}
                 </span>
-                {hasDeployCount && (
-                  <span className="inline-flex h-6 items-center gap-1 rounded-full bg-white/[0.055] px-2 text-xs text-zinc-400">
-                    <Star className="h-3 w-3 fill-[#8fd44e] text-[#8fd44e]" />
-                    {formatCount(deployCount)}
-                  </span>
-                )}
               </div>
             </div>
             <p className="mt-2 line-clamp-2 text-sm leading-5 text-zinc-400">
@@ -175,14 +183,11 @@ function AppCard({
           </div>
         </div>
 
-        <div className="mt-auto flex items-center gap-2">
-          <span className="min-w-0 truncate rounded-full bg-white/[0.045] px-3 py-1 text-xs capitalize text-zinc-500">
-            {getPrimaryTag(app)}
-          </span>
+        <div className="mt-auto flex w-full items-center">
           <button
             type="button"
             onClick={() => onDeploy(app)}
-            className="ml-auto inline-flex h-9 min-w-[120px] items-center justify-center rounded-full bg-white/[0.055] px-4 text-sm font-medium text-zinc-100 transition duration-200 hover:bg-white/[0.12] active:scale-[0.98]"
+            className="inline-flex h-9 w-full items-center justify-center rounded-full bg-white/[0.055] px-4 text-sm font-medium text-zinc-100 transition duration-200 hover:bg-white/[0.12] active:scale-[0.98]"
             data-technology={app.name}
             data-category={app.category}
           >

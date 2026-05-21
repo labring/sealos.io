@@ -1,0 +1,135 @@
+import Image from 'next/image';
+import {
+  Activity,
+  CircleCheck,
+  Cpu,
+  Database,
+  Gauge,
+  Globe,
+  Grid2X2,
+  Layers,
+  ShieldCheck,
+} from 'lucide-react';
+import SealosLogo from '@/assets/shared-icons/sealos.svg';
+import { GradientLucideIcon } from '@/new-components/GradientLucideIcon';
+import SectionHeading from './SectionHeading';
+
+const steps = [
+  {
+    title: 'One-Click Deployment',
+    description:
+      'Deploy any app template in seconds. No compose setup, manual configure, and go live.',
+    icon: Grid2X2,
+  },
+  {
+    title: 'Managed Kubernetes Reliability',
+    description:
+      'Built on Sealos Managed Kubernetes for high availability, auto-scaling, and self-healing by default.',
+    icon: Gauge,
+  },
+  {
+    title: 'Automatic HTTPS & Security',
+    description:
+      'Every deployment includes a secure domain with automatic SSL. We handle certificates and text protection for you.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Persistent Storage',
+    description:
+      'Attach persistent volumes with ease. Your data stays safe, durable, and always accessible.',
+    icon: Database,
+  },
+  {
+    title: 'Scale when needed',
+    description: 'Adjust resources as your app grows, no downtime required.',
+    icon: Layers,
+  },
+];
+
+const resourceIcons = [
+  { label: 'Compute', icon: Cpu },
+  { label: 'Networking', icon: Globe },
+  { label: 'Storage', icon: Database },
+  { label: 'Security', icon: ShieldCheck },
+  { label: 'Observability', icon: Activity },
+];
+
+export default function WhyDeployOnSealos() {
+  return (
+    <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
+      <SectionHeading
+        title="Why deploy on Sealos"
+        description="Sealos makes deploying any app effortless, secure, and production-ready. From one-click launch to ongoing operations, we handle the heavy lifting so you can focus on what matters."
+      />
+
+      <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:items-center">
+        <div className="relative min-h-[460px] overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025] p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_48%_42%,rgba(20,109,255,0.18),transparent_44%)]" />
+          <div className="relative mx-auto flex max-w-[430px] flex-col items-center">
+            <div className="rounded-xl border border-white/10 bg-white/[0.045] p-3">
+              <div className="flex h-10 items-center gap-3 rounded-lg bg-white/[0.055] px-4 text-sm font-semibold text-white">
+                <Grid2X2 className="h-4 w-4 text-[#69a3ff]" />
+                One-Click Deploy
+              </div>
+            </div>
+            <div className="h-12 w-px bg-white/10" />
+            <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-[#146DFF]/30 bg-[#146DFF]/10 shadow-[0_0_60px_rgba(20,109,255,0.28)]">
+              <Image
+                src={SealosLogo}
+                alt="Sealos logo"
+                width={44}
+                height={44}
+                className="h-11 w-11"
+              />
+            </div>
+            <div className="h-12 w-px bg-white/10" />
+            <div className="grid w-full grid-cols-2 gap-3 sm:grid-cols-5">
+              {resourceIcons.map((item) => (
+                <div
+                  key={item.label}
+                  className="flex min-h-[74px] flex-col items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.035] text-center"
+                >
+                  <item.icon className="h-5 w-5 text-zinc-300" />
+                  <span className="text-[11px] text-zinc-400">
+                    {item.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="h-12 w-px bg-white/10" />
+            <div className="inline-flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.04] px-5 py-4 text-sm font-semibold text-white">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/[0.055]">
+                <GradientLucideIcon
+                  Icon={CircleCheck}
+                  className="h-4 w-4 shrink-0"
+                />
+              </span>
+              Your Application is Live
+            </div>
+          </div>
+        </div>
+
+        <div className="divide-y divide-white/10 border-y border-white/10">
+          {steps.map((step) => (
+            <div
+              key={step.title}
+              className="group grid gap-5 py-7 sm:grid-cols-[48px_1fr]"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/[0.055] text-white transition-colors group-hover:text-[#69a3ff]">
+                <step.icon className="h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="text-base font-semibold text-zinc-100">
+                  {step.title}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-zinc-500">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

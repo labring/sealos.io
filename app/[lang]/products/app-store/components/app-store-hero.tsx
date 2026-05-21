@@ -89,15 +89,10 @@ export default function AppStoreHero({
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-[minmax(0,700px)_minmax(0,1fr)] lg:px-8">
         <div className="min-w-0 max-w-[760px]">
-          <h1 className="max-w-full text-[34px] leading-[1.08] font-semibold text-white sm:text-5xl lg:text-[52px] xl:text-[56px]">
+          <h1 className="max-w-[760px] bg-gradient-to-r from-white to-[#146DFF] bg-clip-text text-[32px] leading-[1.12] font-semibold text-transparent sm:text-[36px] lg:text-[36px] xl:text-[36px]">
             Ready-to-use,{' '}
-            <span className="block text-[#6ea2ff] lg:inline">
-              <span className="block whitespace-nowrap sm:inline">
-                One-Click
-              </span>{' '}
-              <span className="block whitespace-nowrap sm:inline">
-                Deployment
-              </span>
+            <span className="whitespace-nowrap">
+              One-Click Deployment
             </span>
           </h1>
           <p className="mt-6 max-w-[680px] text-base leading-7 text-zinc-400 sm:text-lg">
@@ -107,9 +102,9 @@ export default function AppStoreHero({
 
           <label
             htmlFor="hero-app-search"
-            className="mt-10 flex min-h-[56px] w-full max-w-[700px] items-center gap-3 rounded-lg border border-white/10 bg-[#111318]/90 px-5 text-zinc-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition focus-within:border-white/25 focus-within:bg-[#13161c] hover:border-white/20"
+            className="mt-10 flex min-h-[56px] w-full max-w-[700px] items-center gap-3 rounded-lg border border-[#46464A] bg-[#121214] px-5 text-[#6B6B72] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition focus-within:border-[#6B6B72] hover:border-[#5A5A60]"
           >
-            <Search className="h-5 w-5 shrink-0 text-zinc-400" />
+            <Search className="h-5 w-5 shrink-0 text-[#6B6B72]" />
             <input
               id="hero-app-search"
               type="search"
@@ -117,7 +112,7 @@ export default function AppStoreHero({
               onChange={(event) => onQueryChange(event.target.value)}
               aria-label="Search app templates"
               placeholder={`Search ${formattedCount}+ open-source application templates (e.g., AI, databases, blogs)...`}
-              className="h-full min-w-0 flex-1 bg-transparent text-sm text-zinc-200 outline-none placeholder:text-zinc-500"
+              className="h-full min-w-0 flex-1 bg-transparent text-sm text-zinc-200 outline-none placeholder:text-[#6B6B72]"
             />
           </label>
         </div>

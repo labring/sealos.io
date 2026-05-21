@@ -5,6 +5,7 @@ export interface AppConfig {
   slug: string;
   description: string;
   icon: string;
+  screenshots?: string[];
   category: string;
   features: string[];
   benefits: string[];

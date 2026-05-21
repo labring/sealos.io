@@ -1,26 +1,23 @@
-// App Store detail page with semantic theme and shared sections.
-import {
-  getAppBySlug,
-  loadAllApps,
-  getAppBySlugSync,
-  appsConfig,
-} from '@/config/apps';
+// App Store detail page with the redesigned marketplace layout.
+import type { CSSProperties } from 'react';
+import type { Metadata } from 'next';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { generatePageMetadata } from '@/lib/utils/metadata';
-import { languagesType } from '@/lib/i18n';
+import { Footer } from '@/new-components/Footer';
 import { Header } from '@/new-components/Header';
-import Footer from '@/components/footer';
-import { Metadata } from 'next';
-import Hero from '@/components/header/hero';
-
-import BackNavigation from './components/BackNavigation';
-import AppHeader from './components/Header';
-import AppDescription from './components/Description';
-import WhyThisSoftware from './components/WhyThisSoftware';
-import SealosAdvantages from './components/SealosAdvantages';
-import AppFeatures from './components/Features';
-import AppUseCases from './components/UseCases';
-import AppScreenshots from './components/Screenshots';
+import BottomLightImage from '@/assets/bottom-light.svg';
+import { appsConfig, getAppBySlug, loadAllApps } from '@/config/apps';
+import { generatePageMetadata } from '@/lib/utils/metadata';
+import { LANGUAGES, languagesType } from '@/lib/i18n';
+import AppDetailHero from './components/AppDetailHero';
+import ReadmePreview from './components/ReadmePreview';
+import RelatedTemplates from './components/RelatedTemplates';
+import WholeStackSection from './components/WholeStackSection';
+import WhyDeployOnSealos from './components/WhyDeployOnSealos';
+import {
+  getRelatedApps,
+  type AppDetailConfig,
+} from './components/app-detail-utils';
 
 interface AppDeployPageProps {
   params: {
@@ -29,15 +26,23 @@ interface AppDeployPageProps {
   };
 }
 
-// Generate static params for all apps
+const appStoreDetailBackgroundVars = {
+  '--background': '0 0% 3.9%',
+  '--card': '0 0% 3.9%',
+  '--popover': '0 0% 3.9%',
+} as CSSProperties;
+
 export async function generateStaticParams() {
   const allApps = await loadAllApps();
-  return allApps.map((app) => ({
-    slug: app.slug,
-  }));
+
+  return LANGUAGES.flatMap((lang) =>
+    allApps.map((app) => ({
+      lang,
+      slug: app.slug,
+    })),
+  );
 }
 
-// Generate metadata for SEO
 export async function generateMetadata({
   params,
 }: AppDeployPageProps): Promise<Metadata> {
@@ -59,89 +64,50 @@ export async function generateMetadata({
   });
 }
 
-// Translations
-const translations = {
-  en: {
-    deploy: 'Deploy',
-    oneClickDeploy: 'One-Click Deploy',
-    features: 'Key Features',
-    benefits: 'Why Choose This Solution',
-    sealosAdvantages: 'Sealos Cloud Advantages',
-    useCases: 'Perfect For',
-    sourceCode: 'Source Code',
-    website: 'Official Website',
-    category: 'Category',
-    deployNow: 'Deploy Now',
-    learnMore: 'Learn More',
-    getStarted: 'Get Started in 60 Seconds',
-    deploymentBenefits: 'Deploy on Sealos Cloud',
-    whyThisSoftware: 'Why This Software',
-    backToAppStore: 'Back to App Store',
-  },
-  'zh-cn': {
-    deploy: '部署',
-    oneClickDeploy: '一键部署',
-    features: '主要功能',
-    benefits: '为什么选择此解决方案',
-    sealosAdvantages: 'Sealos 云优势',
-    useCases: '适用场景',
-    sourceCode: '源代码',
-    website: '官方网站',
-    category: '分类',
-    deployNow: '立即部署',
-    learnMore: '了解更多',
-    getStarted: '60 秒内开始使用',
-    deploymentBenefits: '在 Sealos 云上部署',
-    whyThisSoftware: '为什么选择此软件',
-    backToAppStore: '返回应用商店',
-  },
-};
-
 export default async function AppDeployPage({ params }: AppDeployPageProps) {
-  const app = await getAppBySlug(params.slug);
-  const t = translations[params.lang] || translations.en;
+  const app = (await getAppBySlug(params.slug)) as AppDetailConfig | undefined;
 
   if (!app) {
     notFound();
   }
 
+  const allApps = appsConfig as AppDetailConfig[];
+  const relatedApps = getRelatedApps({
+    apps: allApps,
+    currentApp: app,
+    limit: 3,
+  });
+
   return (
     <div
       data-theme="app-store"
-      className="bg-background text-foreground min-h-screen"
+      style={appStoreDetailBackgroundVars}
+      className="isolate min-h-screen bg-background text-foreground"
     >
       <div className="sticky top-0 z-50 container pt-8">
-        <Header />
+        <Header lang={params.lang} />
       </div>
 
-      <main className="container mx-auto max-w-6xl px-4 pt-24 pb-16">
-        <div className="max-w-none">
-          {/* Back Navigation */}
-          <BackNavigation lang={params.lang} backText={t.backToAppStore} />
-
-          {/* Main Content */}
-          <div>
-            <Hero
-              title={{
-                main: t.deploy + ' ' + app.name,
-                sub: app.name + ' Managed Hosting',
-              }}
-              mainTitleEmphasis={1}
-              variant="app-store"
-              lang={params.lang}
-            />
-
-            <AppHeader app={app} translations={t} />
-            <AppDescription app={app} />
-            <WhyThisSoftware app={app} translations={t} />
-            <SealosAdvantages translations={t} />
-            <AppFeatures app={app} translations={t} />
-            <AppUseCases app={app} translations={t} />
-            <AppScreenshots app={app} />
-          </div>
-        </div>
+      <main className="-mt-24 overflow-x-clip">
+        <AppDetailHero app={app} lang={params.lang} />
+        <WhyDeployOnSealos />
+        <WholeStackSection />
+        <ReadmePreview app={app} />
+        <RelatedTemplates apps={relatedApps} lang={params.lang} />
       </main>
-      <Footer lang={params.lang} />
+
+      <div className="relative mt-[80px] mb-[400px] h-[800px]">
+        <div className="w-full">
+          <Image
+            src={BottomLightImage}
+            alt=""
+            className="h-auto w-full object-cover select-none"
+            priority
+            fill
+          />
+        </div>
+        <Footer lang={params.lang} />
+      </div>
     </div>
   );
 }
