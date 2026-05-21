@@ -1,12 +1,13 @@
 // App Store listing page entry with semantic theme and marketplace browsing.
 import type { CSSProperties } from 'react';
-import Footer from '@/components/footer';
+import Image from 'next/image';
+import { Footer } from '@/new-components/Footer';
 import { Header } from '@/new-components/Header';
+import BottomLightImage from '@/assets/bottom-light.svg';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import { languagesType, LANGUAGES } from '@/lib/i18n';
 import AppStoreContent from './components/app-store-content';
 import AppStoreFAQ from './components/app-store-faq';
-import FooterTransition from './components/footer-transition';
 
 const translations = {
   en: {
@@ -58,7 +59,7 @@ export default function AppStorePage({
     <div
       data-theme="app-store"
       style={appStoreBackgroundVars}
-      className="min-h-screen overflow-hidden bg-background text-foreground"
+      className="isolate min-h-screen bg-background text-foreground"
     >
       <div className="sticky top-0 z-50 container pt-8">
         <Header lang={params.lang} />
@@ -67,10 +68,18 @@ export default function AppStorePage({
       <main>
         <AppStoreContent lang={params.lang} />
         <AppStoreFAQ />
-        <FooterTransition />
       </main>
 
-      <div className="bg-background">
+      <div className="relative mt-[80px] mb-[400px] h-[800px]">
+        <div className="w-full">
+          <Image
+            src={BottomLightImage}
+            alt=""
+            className="h-auto w-full object-cover select-none"
+            priority
+            fill
+          />
+        </div>
         <Footer lang={params.lang} />
       </div>
     </div>
