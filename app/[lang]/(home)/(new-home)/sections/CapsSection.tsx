@@ -2,15 +2,22 @@
 
 import { useState, useRef } from 'react';
 import { useInView } from 'framer-motion';
+import Link from 'next/link';
 import { AiRuntimeCard } from '../components/caps-image/AiRuntimeCard';
 import { DBCard } from '../components/caps-image/DBCard';
 import { DeploymentCard } from '../components/caps-image/DeploymentCard';
 import { StacksCard } from '../components/caps-image/StacksCard';
-import { Bot, Monitor, Rocket, Database } from 'lucide-react';
+import { Bot, Monitor, Rocket, Database, ArrowRight } from 'lucide-react';
 import { GradientLucideIcon } from '@/new-components/GradientLucideIcon';
 import { GradientText } from '@/new-components/GradientText';
 import { GodRays } from '@/new-components/GodRays';
 import { BorderBeam } from '../components/BorderBeam';
+
+interface CardCta {
+  label: string;
+  href: string;
+  ariaLabel: string;
+}
 
 interface CardData {
   icon: React.ComponentType<{ className?: string }>;
@@ -18,6 +25,7 @@ interface CardData {
   title: string;
   description: string;
   tags: string[];
+  cta?: CardCta;
   image: React.ReactNode;
 }
 
@@ -63,6 +71,11 @@ const secondRowCards: CardData[] = [
     description:
       'Your workflow is our workflow. Deploy instantly from a GitHub repo, run any public or private image from Docker Hub, or integrate Sealos into your existing CI/CD pipeline with GitHub Actions.',
     tags: ['GitHub Deploy', 'Docker Images', 'CI/CD Ready'],
+    cta: {
+      label: 'Deploy from AI coding agents with Sealos Skills',
+      href: '/sealos-skills/',
+      ariaLabel: 'Learn how Sealos Skills deploys apps from AI coding agents',
+    },
     image: <DeploymentCard />,
   },
   {
@@ -106,6 +119,22 @@ function CardWithBeam({
         )}
       </div>
     </div>
+  );
+}
+
+function CardCtaLink({ cta }: { cta: CardCta }) {
+  return (
+    <Link
+      href={cta.href}
+      aria-label={cta.ariaLabel}
+      className="group mt-5 inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-3 py-2 text-left text-sm font-medium text-zinc-200 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-300 ease-out hover:border-white/25 hover:bg-white/[0.075] hover:text-white focus-visible:ring-2 focus-visible:ring-white/35 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 focus-visible:outline-none active:translate-y-px"
+    >
+      <span className="min-w-0 text-pretty">{cta.label}</span>
+      <ArrowRight
+        className="size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5"
+        aria-hidden="true"
+      />
+    </Link>
   );
 }
 
@@ -205,6 +234,8 @@ export function CapsSection() {
                   ))}
                 </div>
 
+                {card.cta && <CardCtaLink cta={card.cta} />}
+
                 {/* Card Image */}
                 <div className="mt-4 h-[16rem] grow" aria-hidden="true">
                   {card.image}
@@ -247,6 +278,8 @@ export function CapsSection() {
                     </span>
                   ))}
                 </div>
+
+                {card.cta && <CardCtaLink cta={card.cta} />}
 
                 {/* Card Image */}
                 <div className="mt-4 h-[16rem] grow" aria-hidden="true">

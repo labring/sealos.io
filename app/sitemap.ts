@@ -11,7 +11,9 @@ const normalizePathname = (pathname: string): string =>
 const toSitemapItem = (
   getUrl: (path: string) => string,
   path: string,
-  changeFrequency: NonNullable<MetadataRoute.Sitemap[number]['changeFrequency']>,
+  changeFrequency: NonNullable<
+    MetadataRoute.Sitemap[number]['changeFrequency']
+  >,
   priority: number,
 ): MetadataRoute.Sitemap[number] => ({
   url: getUrl(path),
@@ -47,6 +49,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/products/app-store',
   ].map((path) => toSitemapItem(getUrl, path, 'monthly', 0.8));
 
+  const staticMarketingPages: MetadataRoute.Sitemap = isZhCn
+    ? []
+    : ['/sealos-skills'].map((path) =>
+        toSitemapItem(getUrl, path, 'monthly', 0.75),
+      );
+
   const appStorePages: MetadataRoute.Sitemap = appsConfig.map((app) =>
     toSitemapItem(getUrl, `/products/app-store/${app.slug}`, 'weekly', 0.7),
   );
@@ -66,16 +74,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  const chineseSpecificPages: MetadataRoute.Sitemap =
-    isZhCn
-      ? ['/case', '/price', '/aiproxy'].map((path) =>
-          toSitemapItem(getUrl, path, 'monthly', 0.8),
-        )
-      : [];
+  const chineseSpecificPages: MetadataRoute.Sitemap = isZhCn
+    ? ['/case', '/price', '/aiproxy'].map((path) =>
+        toSitemapItem(getUrl, path, 'monthly', 0.8),
+      )
+    : [];
 
   return [
     toSitemapItem(getUrl, '/', 'monthly', 1),
     ...staticProductPages,
+    ...staticMarketingPages,
     ...appStorePages,
     ...chineseSpecificPages,
     toSitemapItem(getUrl, '/docs', 'monthly', 0.8),

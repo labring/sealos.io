@@ -261,6 +261,7 @@ export function generatePageMetadata(
     section?: string;
     tags?: string[];
     ogType?: string;
+    languageAlternates?: false | Record<string, string>;
   } = {},
 ): Metadata {
   const title = options.title
@@ -272,9 +273,13 @@ export function generatePageMetadata(
 
   const normalizedPathname = normalizePathname(options.pathname);
 
-  const alternateLanguages = options.pathname
-    ? toAlternateLanguages(generateHreflangLinks(normalizedPathname))
-    : undefined;
+  const alternateLanguages =
+    options.languageAlternates === false
+      ? undefined
+      : options.languageAlternates ??
+        (options.pathname
+          ? toAlternateLanguages(generateHreflangLinks(normalizedPathname))
+          : undefined);
 
   return {
     title,
