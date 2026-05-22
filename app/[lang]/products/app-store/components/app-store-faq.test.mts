@@ -20,3 +20,8 @@ test('app store FAQ expanded background is applied to the whole item', () => {
   assert.match(source, /data-\[state=open\]:bg-white\/\[0\.05\]/);
   assert.doesNotMatch(source, /index === 0 && 'bg-white\/\[0\.035\]'/);
 });
+
+test('app store FAQ arrow keeps the default color until the item is open', () => {
+  assert.match(source, /\[\&>svg\]:text-zinc-500/);
+  assert.match(source, /\[\&\[data-state=open\]>svg\]:text-\[#146DFF\]/);
+});

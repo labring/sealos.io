@@ -36,7 +36,7 @@ export default function AppStoreFAQ() {
             className="border-white/15 transition-colors data-[state=open]:bg-white/[0.05]"
           >
             <AccordionTrigger
-              className="px-5 py-7 text-left text-base font-normal text-white hover:no-underline sm:px-8 sm:text-lg [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-zinc-500"
+              className="px-5 py-7 text-left text-base font-normal text-white hover:no-underline sm:px-8 sm:text-lg [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-zinc-500 [&[data-state=open]>svg]:text-[#146DFF]"
             >
               <span className="flex min-w-0 items-center gap-3">
                 <Lightbulb className="h-5 w-5 shrink-0 text-zinc-300" />
