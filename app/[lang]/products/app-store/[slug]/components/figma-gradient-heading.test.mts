@@ -104,10 +104,12 @@ test('hero app preview uses the first app screenshot before falling back to gene
   assert.match(appPreviewSource, /scale-\[1\.28\]/);
 });
 
-test('related template cards do not show category labels', () => {
-  assert.doesNotMatch(relatedSource, /getTagLabel/);
-  assert.doesNotMatch(relatedSource, /\{app\.category\}/);
-  assert.match(relatedSource, /formatAppCount\(deployCount\)/);
+test('related template cards show category labels instead of deploy counts', () => {
+  assert.match(relatedSource, /\{app\.category\}/);
+  assert.doesNotMatch(relatedSource, /getDeployCount/);
+  assert.doesNotMatch(relatedSource, /formatAppCount/);
+  assert.doesNotMatch(relatedSource, /\bdeployCount\b/);
+  assert.doesNotMatch(relatedSource, /\bhasDeployCount\b/);
 });
 
 test('related templates more link turns blue on hover', () => {
