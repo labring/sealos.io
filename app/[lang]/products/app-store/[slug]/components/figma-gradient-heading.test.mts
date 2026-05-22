@@ -222,6 +222,15 @@ test('why deploy step icons are white by default and blue on hover', () => {
   );
 });
 
+test('why deploy live status uses the Figma green CircleCheckBig icon', () => {
+  assert.match(whyDeploySource, /CircleCheckBig/);
+  assert.match(
+    whyDeploySource,
+    /<CircleCheckBig className="h-6 w-6 text-\[#22C55E\]" \/>/,
+  );
+  assert.doesNotMatch(whyDeploySource, /<GradientLucideIcon[\s\S]*Your Application is Live/);
+});
+
 test('whole stack summary bullets use tick icons', () => {
   assert.match(wholeStackSource, /GradientLucideIcon/);
   assert.match(wholeStackSource, /CircleCheck/);
@@ -236,7 +245,7 @@ test('whole stack summary bullets use tick icons', () => {
 });
 
 test('detail page confirmation ticks reuse the homepage gradient check style', () => {
-  for (const source of [heroSource, wholeStackSource, whyDeploySource]) {
+  for (const source of [heroSource, wholeStackSource]) {
     assert.match(
       source,
       /import \{ GradientLucideIcon \} from '@\/new-components\/GradientLucideIcon'/,

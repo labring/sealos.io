@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import {
   Activity,
-  CircleCheck,
+  CircleCheckBig,
   Cpu,
   Database,
   Gauge,
@@ -11,7 +11,6 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import SealosLogo from '@/assets/shared-icons/sealos.svg';
-import { GradientLucideIcon } from '@/new-components/GradientLucideIcon';
 import SectionHeading from './SectionHeading';
 
 const steps = [
@@ -97,11 +96,8 @@ export default function WhyDeployOnSealos() {
             </div>
             <div className="h-12 w-px bg-white/10" />
             <div className="inline-flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.04] px-5 py-4 text-sm font-semibold text-white">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/[0.055]">
-                <GradientLucideIcon
-                  Icon={CircleCheck}
-                  className="h-4 w-4 shrink-0"
-                />
+              <span className="flex h-12 w-12 items-center justify-center rounded-md bg-white/[0.055]">
+                <CircleCheckBig className="h-6 w-6 text-[#22C55E]" />
               </span>
               Your Application is Live
             </div>
