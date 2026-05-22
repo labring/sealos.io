@@ -175,6 +175,14 @@ test('hero uses the Figma center-logo composition on desktop', () => {
   assert.match(heroSource, /mt-6 flex flex-wrap items-center gap-2/);
 });
 
+test('hero uses compact Figma spacing before the next detail section', () => {
+  assert.match(heroSource, /pb-16/);
+  assert.match(heroSource, /md:pb-20/);
+  assert.match(heroSource, /lg:pb-20/);
+  assert.doesNotMatch(heroSource, /lg:min-h-\[820px\]/);
+  assert.doesNotMatch(heroSource, /md:pb-28/);
+});
+
 test('hero does not draw the blue connector line between logo and preview', () => {
   assert.doesNotMatch(heroSource, /heroConnectorClassName/);
   assert.doesNotMatch(heroSource, /border-\[#146DFF\]\/25/);
@@ -209,6 +217,34 @@ test('why deploy diagram does not add an outer background mask', () => {
   assert.doesNotMatch(
     whyDeploySource,
     /shadow-\[inset_0_1px_0_rgba\(255,255,255,0\.04\)\]/,
+  );
+});
+
+test('detail sections use Figma-like vertical rhythm instead of stacked wide padding', () => {
+  for (const source of [
+    whyDeploySource,
+    wholeStackSource,
+    readmeSource,
+    relatedSource,
+  ]) {
+    assert.doesNotMatch(source, /lg:py-28/);
+  }
+
+  assert.match(
+    whyDeploySource,
+    /className="mx-auto max-w-7xl px-6 pt-14 pb-16 lg:px-8 lg:pt-16 lg:pb-24"/,
+  );
+  assert.match(
+    wholeStackSource,
+    /className="mx-auto max-w-7xl px-6 pt-12 pb-16 lg:px-8 lg:pt-14 lg:pb-24"/,
+  );
+  assert.match(
+    readmeSource,
+    /className="mx-auto max-w-\[1300px\] px-6 pt-12 pb-16 lg:px-8 lg:pt-16 lg:pb-24"/,
+  );
+  assert.match(
+    relatedSource,
+    /className="mx-auto max-w-7xl px-6 pt-12 pb-16 lg:px-8 lg:pt-14 lg:pb-20"/,
   );
 });
 

@@ -73,7 +73,7 @@ const resourceIcons = [
 
 export default function WhyDeployOnSealos() {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
+    <section className="mx-auto max-w-7xl px-6 pt-14 pb-16 lg:px-8 lg:pt-16 lg:pb-24">
       <SectionHeading
         title="Why deploy on Sealos"
         description="Sealos makes deploying any app effortless, secure, and production-ready. From one-click launch to ongoing operations, we handle the heavy lifting so you can focus on what matters."

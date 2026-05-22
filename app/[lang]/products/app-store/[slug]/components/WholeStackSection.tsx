@@ -46,7 +46,7 @@ const stackItems = [
 
 export default function WholeStackSection() {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
+    <section className="mx-auto max-w-7xl px-6 pt-12 pb-16 lg:px-8 lg:pt-14 lg:pb-24">
       <SectionHeading
         title="You Get the Whole Stack"
         description="Sealos provisions and connects every resource your application needs. Everything is ready to use."

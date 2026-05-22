@@ -17,7 +17,7 @@ export default function RelatedTemplates({ apps, lang }: RelatedTemplatesProps) 
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
+    <section className="mx-auto max-w-7xl px-6 pt-12 pb-16 lg:px-8 lg:pt-14 lg:pb-20">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 className={figmaDetailHeadingClassName()}>

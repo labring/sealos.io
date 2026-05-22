@@ -51,7 +51,7 @@ export default function AppDetailHero({ app, lang }: AppDetailHeroProps) {
   const readmeUrl = getReadmeUrl(app.github);
 
   return (
-    <section className="relative overflow-hidden pt-36 pb-20 md:pt-44 md:pb-28 lg:min-h-[820px] lg:pt-[132px]">
+    <section className="relative overflow-hidden pt-36 pb-16 md:pt-44 md:pb-20 lg:pt-[132px] lg:pb-20">
       <div
         className="pointer-events-none absolute inset-0 z-0 bg-background"
         aria-hidden="true"

@@ -15,7 +15,7 @@ export default function ReadmePreview({ app }: ReadmePreviewProps) {
   return (
     <section
       id="readme"
-      className="mx-auto max-w-[1300px] px-6 py-20 lg:px-8 lg:py-28"
+      className="mx-auto max-w-[1300px] px-6 pt-12 pb-16 lg:px-8 lg:pt-16 lg:pb-24"
     >
       <h2
         className={figmaDetailHeadingClassName({
