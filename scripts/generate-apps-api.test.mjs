@@ -41,3 +41,24 @@ test('convertTemplateToAppConfig reads deploy count from template spec', async (
 
   assert.equal(app?.source?.deployCount, 37);
 });
+
+test('convertTemplateToAppConfig preserves template readme url', async () => {
+  const readme =
+    'https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/sample-app/README.md';
+
+  const app = await convertTemplateToAppConfig({
+    metadata: {
+      name: 'sample-app',
+    },
+    spec: {
+      title: 'Sample App',
+      description: 'A sample app for testing.',
+      icon: '/icons/default.svg',
+      categories: ['tool'],
+      screenshots: [],
+      readme,
+    },
+  });
+
+  assert.equal(app?.readme, readme);
+});

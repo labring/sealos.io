@@ -39,7 +39,8 @@
       "zh": {
         "description": "开源音乐生成AI。商业级质量，A100上每首歌不到2秒。支持文本生成音乐、翻唱、重绘、LoRA训练，支持50+语言。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/ace-step/README.md"
   },
   {
     "name": "AFFiNE",
@@ -76,7 +77,8 @@
     ],
     "source": {
       "deployCount": 962
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/affine/README.md"
   },
   {
     "name": "Agora Token Service",
@@ -119,7 +121,8 @@
       "zh": {
         "description": "Agora Token 服务用于生成 RTC 和 RTM Token，在用户访问 Agora 服务或加入 RTC 频道之前进行身份验证"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/agora/README.md"
   },
   {
     "name": "Airbyte",
@@ -162,7 +165,8 @@
       "zh": {
         "description": "开源数据集成平台，用于构建和调度 ELT 数据同步管道。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/airbyte/README.md"
   },
   {
     "name": "anki-sync-server",
@@ -199,7 +203,8 @@
     ],
     "source": {
       "deployCount": 66
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/anki-sync-server/README.md"
   },
   {
     "name": "Appsmith",
@@ -236,7 +241,8 @@
     ],
     "source": {
       "deployCount": 75
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/appsmith/README.md"
   },
   {
     "name": "artalk",
@@ -278,7 +284,8 @@
       "zh": {
         "description": "Artalk 是一款简单易用但功能丰富的评论系统，你可以开箱即用地部署并置入任何博客、网站、Web 应用。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/artalk/README.md"
   },
   {
     "name": "Authentik",
@@ -321,7 +328,8 @@
       "zh": {
         "description": "Authentik 是一个开源身份认证平台，专注于灵活性与可扩展性。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/authentik/README.md"
   },
   {
     "name": "Budibase",
@@ -364,7 +372,8 @@
       "zh": {
         "description": "Budibase 是一个开源的低代码平台，帮助您在几分钟内构建和部署现代化的业务应用"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/budibase/README.md"
   },
   {
     "name": "Bytebase",
@@ -401,7 +410,8 @@
     ],
     "source": {
       "deployCount": 42
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/bytebase/README.md"
   },
   {
     "name": "Cal.com",
@@ -443,7 +453,8 @@
       "zh": {
         "description": "开源日程预约平台，适合个人、团队与企业自托管。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/calcom/README.md"
   },
   {
     "name": "Cap",
@@ -485,7 +496,8 @@
       "zh": {
         "description": "Loom 的开源替代品。快速录制、编辑和分享视频。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/cap/README.md"
   },
   {
     "name": "Casdoor",
@@ -528,7 +540,8 @@
       "zh": {
         "description": "Casdoor 是一个基于 OAuth 2.0、OIDC、SAML 和 CAS 的 UI 优先的身份访问管理（IAM）/单点登录（SSO）平台。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/casdoor/README.md"
   },
   {
     "name": "Change Detection",
@@ -571,7 +584,8 @@
       "zh": {
         "description": "自托管的免费开源网页变更检测、监控和通知服务。当网站发生变化时获得即时通知。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/changedetection/README.md"
   },
   {
     "name": "Chat Nio",
@@ -614,7 +628,8 @@
       "zh": {
         "description": "下一代 AIGC 一站式商业解决方案"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/chatnio/README.md"
   },
   {
     "name": "chatany",
@@ -651,7 +666,8 @@
     ],
     "source": {
       "deployCount": 14
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/chatany/README.md"
   },
   {
     "name": "chatbot-ui",
@@ -688,7 +704,8 @@
     ],
     "source": {
       "deployCount": 156
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/chatbot-ui/README.md"
   },
   {
     "name": "Chatwoot",
@@ -730,7 +747,8 @@
       "zh": {
         "description": "开源客户互动平台，支持实时聊天、邮件和社交媒体集成"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/chatwoot/README.md"
   },
   {
     "name": "code-server",
@@ -767,7 +785,8 @@
     ],
     "source": {
       "deployCount": 176
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/code-server/README.md"
   },
   {
     "name": "Coze Studio",
@@ -810,7 +829,8 @@
       "zh": {
         "description": "开源的一站式 AI Agent 开发平台，集成工作流、知识库、记忆、插件与聊天能力。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/coze-studio/README.md"
   },
   {
     "name": "Cronicle",
@@ -847,7 +867,8 @@
     ],
     "source": {
       "deployCount": 13
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/cronicle/README.md"
   },
   {
     "name": "DbGate",
@@ -884,7 +905,8 @@
     ],
     "source": {
       "deployCount": 24
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/dbgate/README.md"
   },
   {
     "name": "DeeplX",
@@ -921,7 +943,8 @@
     ],
     "source": {
       "deployCount": 240
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/deeplx/README.md"
   },
   {
     "name": "Derper",
@@ -958,7 +981,8 @@
     ],
     "source": {
       "deployCount": 210
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/derper/README.md"
   },
   {
     "name": "Dify",
@@ -1000,7 +1024,8 @@
       "zh": {
         "description": "Dify 是一个开源的 LLM 应用开发平台"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/dify/README.md"
   },
   {
     "name": "DocuSeal",
@@ -1042,7 +1067,8 @@
       "zh": {
         "description": "开源文档签名解决方案。创建、填写和签署具有法律约束力的电子签名数字文档。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/docuseal/README.md"
   },
   {
     "name": "Drizzle Studio (Gateway)",
@@ -1084,7 +1110,8 @@
       "zh": {
         "description": "Drizzle Studio (Gateway) 是一款现代化的 TypeScript ORM，主打轻量与强类型体验。它兼容 PostgreSQL、MySQL、SQLite 等主流数据库，并对多种 Serverless/边缘数据库提供现成适配。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/drizzle-studio/README.md"
   },
   {
     "name": "EaglerCraft Server",
@@ -1126,7 +1153,8 @@
       "zh": {
         "description": "可在网页浏览器中运行的 EaglerCraft 1.12.1 Minecraft 服务器，支持 WebSocket 连接"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/eaglercraft-server/README.md"
   },
   {
     "name": "EMQX",
@@ -1161,7 +1189,8 @@
     "tags": [],
     "source": {
       "deployCount": 12
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/emqx/README.md"
   },
   {
     "name": "Excalidraw",
@@ -1198,7 +1227,8 @@
     ],
     "source": {
       "deployCount": 52
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/excalidraw/README.md"
   },
   {
     "name": "FastGPT",
@@ -1240,7 +1270,8 @@
       "zh": {
         "description": "FastGPT 是一款开源 AI 知识库与工作流平台，提供 RAG 检索、模型编排、MCP 接入和插件扩展能力。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/fastgpt/README.md"
   },
   {
     "name": "FastGPT Pro",
@@ -1282,7 +1313,8 @@
       "zh": {
         "description": "FastGPT Pro 是面向 Sealos 的 FastGPT 商业版模板，在标准 FastGPT 组件基础上额外部署 FastGPT Pro 服务，并提供 RAG 检索、工作流编排、MCP 接入和插件扩展能力。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/fastgpt-pro/README.md"
   },
   {
     "name": "FeatBit Standard",
@@ -1324,7 +1356,8 @@
       "zh": {
         "description": "FeatBit 是一个开源的企业级功能管理平台，旨在帮助开发者安全地发布、控制和测试新功能。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/featbit-standard/README.md"
   },
   {
     "name": "Fireboom",
@@ -1361,7 +1394,8 @@
     ],
     "source": {
       "deployCount": 11
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/fireboom/README.md"
   },
   {
     "name": "Firefox Browser",
@@ -1403,7 +1437,8 @@
       "zh": {
         "description": "运行在容器中的 Firefox 浏览器，通过 noVNC 在浏览器中访问。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/firefox/README.md"
   },
   {
     "name": "Flarum",
@@ -1440,7 +1475,8 @@
     ],
     "source": {
       "deployCount": 33
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/flarum/README.md"
   },
   {
     "name": "Flowise",
@@ -1482,7 +1518,8 @@
       "zh": {
         "description": "拖放式 UI 构建您的自定义 LLM 流程"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/flowise/README.md"
   },
   {
     "name": "Formbricks",
@@ -1524,7 +1561,8 @@
       "zh": {
         "description": "Formbricks 是一个免费的开源问卷调研平台，旨在帮助你轻松获取用户反馈，深入了解他们的体验。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/formbricks/README.md"
   },
   {
     "name": "Full Stack FastAPI",
@@ -1568,7 +1606,8 @@
       "zh": {
         "description": "生产可用的 FastAPI + PostgreSQL + 前端全栈模板"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/full-stack-fastapi/README.md"
   },
   {
     "name": "Gitea",
@@ -1610,7 +1649,8 @@
       "zh": {
         "description": "Gitea 的首要目标是创建一个极易安装，运行非常快速，安装和使用体验良好的自建 Git 服务"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/gitea/README.md"
   },
   {
     "name": "Glance",
@@ -1652,7 +1692,8 @@
       "zh": {
         "description": "一个自托管的仪表板，将您所有的订阅源集中在一个地方"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/glance/README.md"
   },
   {
     "name": "glitchtip",
@@ -1690,7 +1731,8 @@
     ],
     "source": {
       "deployCount": 12
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/glitchtip/README.md"
   },
   {
     "name": "Grafana OpenTelemetry Stack",
@@ -1728,7 +1770,8 @@
     ],
     "source": {
       "deployCount": 22
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/grafana-otel/README.md"
   },
   {
     "name": "Happy Server",
@@ -1770,7 +1813,8 @@
       "zh": {
         "description": "专为 Claude Code 开源、端到端加密客户端打造的极简后端。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/happy-server/README.md"
   },
   {
     "name": "Harbor",
@@ -1813,7 +1857,8 @@
       "zh": {
         "description": "Harbor 是一个开源 OCI 制品仓库，提供漏洞扫描、签名与访问控制能力，用于保障软件供应链安全。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/harbor/README.md"
   },
   {
     "name": "Hasura",
@@ -1855,7 +1900,8 @@
       "zh": {
         "description": "hasura graphql engine 支持 postgresql metadata storage 与 data connector agent。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/hasura/README.md"
   },
   {
     "name": "Headscale",
@@ -1897,7 +1943,8 @@
       "zh": {
         "description": "一个自托管的开源 Tailscale 控制服务器实现。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/headscale/README.md"
   },
   {
     "name": "Headscale PostgreSQL",
@@ -1939,7 +1986,8 @@
       "zh": {
         "description": "一个自托管的开源 Tailscale 控制服务器实现，使用 PostgreSQL 作为数据库。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/headscale-pg/README.md"
   },
   {
     "name": "HeyForm",
@@ -1976,7 +2024,8 @@
     ],
     "source": {
       "deployCount": 26
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/heyform/README.md"
   },
   {
     "name": "ILLA Builder",
@@ -2013,7 +2062,8 @@
     ],
     "source": {
       "deployCount": 42
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/illa-builder/README.md"
   },
   {
     "name": "Immich",
@@ -2055,7 +2105,8 @@
       "zh": {
         "description": "高性能自托管照片和视频管理解决方案。通过人脸识别和智能搜索等机器学习功能，存储、整理和分享您的回忆。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/immich/README.md"
   },
   {
     "name": "influxdb",
@@ -2090,7 +2141,8 @@
     ],
     "source": {
       "deployCount": 13
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/influxdb/README.md"
   },
   {
     "name": "inpaint-web",
@@ -2127,7 +2179,8 @@
     ],
     "source": {
       "deployCount": 36
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/inpaint-web/README.md"
   },
   {
     "name": "InsForge",
@@ -2169,7 +2222,8 @@
       "zh": {
         "description": "InsForge 是面向 AI 编码代理的后端平台替代方案，支持数据库、认证、存储与函数能力的一体化部署。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/insforge/README.md"
   },
   {
     "name": "IT-Tools",
@@ -2206,7 +2260,8 @@
     ],
     "source": {
       "deployCount": 11
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/it-tools/README.md"
   },
   {
     "name": "jsoncrack",
@@ -2243,7 +2298,8 @@
     ],
     "source": {
       "deployCount": 15
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/jsoncrack/README.md"
   },
   {
     "name": "JupyterDockerStacks",
@@ -2280,7 +2336,8 @@
     ],
     "source": {
       "deployCount": 52
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/docker-stacks/README.md"
   },
   {
     "name": "Kanboard",
@@ -2323,7 +2380,8 @@
       "zh": {
         "description": "开源看板项目管理软件。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/kanboard/README.md"
   },
   {
     "name": "Kaneo",
@@ -2360,7 +2418,8 @@
     ],
     "source": {
       "deployCount": 15
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/kaneo/README.md"
   },
   {
     "name": "Keycloak",
@@ -2403,7 +2462,8 @@
       "zh": {
         "description": "面向现代应用和服务的开源身份和访问管理解决方案"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/keycloak/README.md"
   },
   {
     "name": "Keystone",
@@ -2446,7 +2506,8 @@
       "zh": {
         "description": "Keystone 是一个开源无头 CMS 与应用框架，用于构建基于 GraphQL 的后端和 Admin UI。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/keystone/README.md"
   },
   {
     "name": "Kitten TTS",
@@ -2489,7 +2550,8 @@
       "zh": {
         "description": "Kitten-TTS-Server 是一个文本转语音（TTS）服务，提供语音合成功能。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/kitten-tts/README.md"
   },
   {
     "name": "Langflow",
@@ -2533,7 +2595,8 @@
       "zh": {
         "description": "Langflow 是一个用于 RAG 和多代理 AI 应用的低代码应用构建器。通过拖放界面构建、迭代和部署 AI 工作流。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/langflow/README.md"
   },
   {
     "name": "LibreChat",
@@ -2570,7 +2633,8 @@
     ],
     "source": {
       "deployCount": 88
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/librechat/README.md"
   },
   {
     "name": "listmonk",
@@ -2607,7 +2671,8 @@
     ],
     "source": {
       "deployCount": 30
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/listmonk/README.md"
   },
   {
     "name": "Lobe Chat",
@@ -2649,7 +2714,8 @@
       "zh": {
         "description": "Lobe Chat 是一款现代化设计的开源 ChatGPT/LLMs 聊天应用与开发框架，支持语音合成、多模态、可扩展的（function call）插件系统。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/lobe-chat/README.md"
   },
   {
     "name": "Lobe Chat Database Version",
@@ -2691,7 +2757,8 @@
       "zh": {
         "description": "Lobe Chat 是一款现代化设计的开源 ChatGPT/LLMs 聊天应用与开发框架，支持语音合成、多模态、可扩展的（function call）插件系统。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/lobe-chat-db/README.md"
   },
   {
     "name": "Logto",
@@ -2733,7 +2800,8 @@
       "zh": {
         "description": "Logto 是一个开源的 身份与访问管理（IAM）平台，是 Auth0 的开源替代方案，旨在帮助开发者快速构建安全、可扩展的登录注册系统和用户身份体系。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/logto/README.md"
   },
   {
     "name": "Loki",
@@ -2775,7 +2843,8 @@
       "zh": {
         "description": "Loki 是一个水平可扩展、高可用、多租户的日志聚合系统，灵感来自 Prometheus。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/loki/README.md"
   },
   {
     "name": "Mage AI",
@@ -2818,7 +2887,8 @@
       "zh": {
         "description": "开源数据流水线工具，用于构建与运行数据工作流。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/mage-ai/README.md"
   },
   {
     "name": "Matomo",
@@ -2861,7 +2931,8 @@
       "zh": {
         "description": "Matomo 是领先的开源网站分析平台，为您提供关于网站访客的宝贵洞察"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/matomo/README.md"
   },
   {
     "name": "mautic",
@@ -2903,7 +2974,8 @@
       "zh": {
         "description": "Mautic 是一款开源的营销自动化平台，提供电子邮件营销、客户旅程设计、潜在客户管理和行为跟踪等功能，帮助企业自动化营销流程、分析用户互动并个性化客户体验。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/mautic/README.md"
   },
   {
     "name": "Meilisearch",
@@ -2940,7 +3012,8 @@
     ],
     "source": {
       "deployCount": 60
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/meilisearch/README.md"
   },
   {
     "name": "memos",
@@ -2975,7 +3048,8 @@
     "tags": [],
     "source": {
       "deployCount": 24
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/memos/README.md"
   },
   {
     "name": "metabase",
@@ -3013,7 +3087,8 @@
     ],
     "source": {
       "deployCount": 42
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/metabase/README.md"
   },
   {
     "name": "MinIO",
@@ -3050,7 +3125,8 @@
     ],
     "source": {
       "deployCount": 12
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/minio/README.md"
   },
   {
     "name": "MLflow",
@@ -3093,7 +3169,8 @@
       "zh": {
         "description": "开源机器学习生命周期平台 - 跟踪实验、打包代码为可重现运行、共享和部署模型"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/mlflow/README.md"
   },
   {
     "name": "mongo-express",
@@ -3130,7 +3207,8 @@
     ],
     "source": {
       "deployCount": 30
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/mongo-express/README.md"
   },
   {
     "name": "N8N",
@@ -3173,7 +3251,8 @@
       "zh": {
         "description": "n8n 是一个工作流自动化平台，通过将代码的灵活性与无代码的速度相结合，帮助技术团队构建自动化流程。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/n8n/README.md"
   },
   {
     "name": "Nacos",
@@ -3216,7 +3295,8 @@
       "zh": {
         "description": "动态命名和配置服务 - 一个易于使用的平台，专为动态服务发现、配置和服务管理而设计"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/nacos/README.md"
   },
   {
     "name": "Nakama Server",
@@ -3259,7 +3339,8 @@
       "zh": {
         "description": "Nakama 是一个开源的游戏开发平台，能自动处理用户登录、实时聊天、排行榜、成就系统，还能智能匹配玩家。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/nakama/README.md"
   },
   {
     "name": "NetBird",
@@ -3302,7 +3383,8 @@
       "zh": {
         "description": "基于 WireGuard 的零信任网络平台，支持自托管管理、信令与中继。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/netbird/README.md"
   },
   {
     "name": "New API",
@@ -3345,7 +3427,8 @@
       "zh": {
         "description": "开源 AI 模型网关与分发平台，兼容 OpenAI API，支持多供应商模型路由、额度管理、渠道编排和管理后台。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/new-api/README.md"
   },
   {
     "name": "Nexus",
@@ -3388,7 +3471,8 @@
       "zh": {
         "description": "一个强大的软件仓库管理工具，用于存储和管理软件开发过程中的各类组件。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/nexus/README.md"
   },
   {
     "name": "NocoDB",
@@ -3425,7 +3509,8 @@
     ],
     "source": {
       "deployCount": 15
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/nocodb/README.md"
   },
   {
     "name": "Node-RED",
@@ -3467,7 +3552,8 @@
       "zh": {
         "description": "面向事件驱动应用的低代码编程平台。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/node-red/README.md"
   },
   {
     "name": "Notifuse",
@@ -3510,7 +3596,8 @@
       "zh": {
         "description": "开源邮件平台，支持新闻邮件、事务邮件、自动化流程与实时用户分群。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/notifuse/README.md"
   },
   {
     "name": "nsfw",
@@ -3543,7 +3630,8 @@
     "tags": [],
     "source": {
       "deployCount": 0
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/nsfw/README.md"
   },
   {
     "name": "Open WebUI",
@@ -3580,7 +3668,8 @@
     ],
     "source": {
       "deployCount": 26
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/open-webui/README.md"
   },
   {
     "name": "OpenAgents",
@@ -3623,7 +3712,8 @@
       "zh": {
         "description": "AI 智能体网络平台,用于开放协作。创建独立的社区,让智能体发现同伴、协作解决问题并共同成长。协议无关,支持主流 LLM 提供商和智能体框架。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/openagents/README.md"
   },
   {
     "name": "OpenCart",
@@ -3666,7 +3756,8 @@
       "zh": {
         "description": "开源电商平台，用于快速搭建在线商店。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/opencart/README.md"
   },
   {
     "name": "OpenClaw",
@@ -3709,7 +3800,8 @@
       "zh": {
         "description": "AI 智能体网关，支持 WhatsApp、Telegram、Discord 等多渠道集成"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/openclaw/README.md"
   },
   {
     "name": "OpenObserve",
@@ -3744,7 +3836,8 @@
     "tags": [],
     "source": {
       "deployCount": 14
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/openobserve/README.md"
   },
   {
     "name": "Outline",
@@ -3786,7 +3879,8 @@
       "zh": {
         "description": "为成长型团队打造的最快速的知识库。美观、实时协作、功能丰富且兼容 Markdown。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/outline/README.md"
   },
   {
     "name": "Overleaf",
@@ -3823,7 +3917,8 @@
     ],
     "source": {
       "deployCount": 70
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/overleaf/README.md"
   },
   {
     "name": "PalaCMS",
@@ -3866,7 +3961,8 @@
       "zh": {
         "description": "PalaCMS 是一个为开发者和内容创作者构建的现代内容管理系统"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/palacms/README.md"
   },
   {
     "name": "Pangolin",
@@ -3908,7 +4004,8 @@
       "zh": {
         "description": "基于 WireGuard 的开源身份访问与远程连接平台，提供零信任访问控制能力。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/pangolin/README.md"
   },
   {
     "name": "Paperless-ngx",
@@ -3950,7 +4047,8 @@
       "zh": {
         "description": "Paperless-ngx 是一个社区支持的开源文档管理系统，可以将您的纸质文档转换为可搜索的在线档案，让您减少纸张使用。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/paperless-ngx/README.md"
   },
   {
     "name": "Payload",
@@ -3993,7 +4091,8 @@
       "zh": {
         "description": "Payload 是一个原生集成 Next.js 的开源 CMS，提供可扩展管理后台、REST 与 GraphQL API、认证和媒体管理能力。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/payload/README.md"
   },
   {
     "name": "PDFMathTranslate",
@@ -4036,7 +4135,8 @@
       "zh": {
         "description": "基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/pdf2zh/README.md"
   },
   {
     "name": "Penpot",
@@ -4073,7 +4173,8 @@
     ],
     "source": {
       "deployCount": 24
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/penpot/README.md"
   },
   {
     "name": "Perplexica",
@@ -4115,7 +4216,8 @@
       "zh": {
         "description": "Perplexica 是一个开源的 AI 驱动搜索引擎，可以作为 Perplexity AI 的替代品。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/perplexica/README.md"
   },
   {
     "name": "pgadmin4",
@@ -4152,7 +4254,8 @@
     ],
     "source": {
       "deployCount": 14
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/pgadmin4/README.md"
   },
   {
     "name": "PhotoPrism",
@@ -4189,7 +4292,8 @@
     ],
     "source": {
       "deployCount": 60
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/photoprism/README.md"
   },
   {
     "name": "phpmyadmin",
@@ -4226,7 +4330,8 @@
     ],
     "source": {
       "deployCount": 12
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/phpmyadmin/README.md"
   },
   {
     "name": "Plane",
@@ -4266,7 +4371,8 @@
       "zh": {
         "description": "开源的 Plane 项目管理平台，可替代 JIRA、Linear、Monday 和 Asana，用更简单的方式管理问题、史诗和产品路线图。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/plane/README.md"
   },
   {
     "name": "plausible",
@@ -4303,7 +4409,8 @@
     ],
     "source": {
       "deployCount": 12
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/plausible/README.md"
   },
   {
     "name": "Pocket ID",
@@ -4345,7 +4452,8 @@
       "zh": {
         "description": "Pocket ID 是一个简洁的 OIDC 提供商，支持使用 Passkey 进行身份认证。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/pocket-id/README.md"
   },
   {
     "name": "PocketBase",
@@ -4388,7 +4496,8 @@
       "zh": {
         "description": "开源后端服务，包含嵌入式数据库(SQLite)、实时订阅、内置认证管理、便捷的仪表盘UI和简单的REST API"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/pocketbase/README.md"
   },
   {
     "name": "PostHog",
@@ -4431,7 +4540,8 @@
       "zh": {
         "description": "开源 product 分析平台，支持 session replay，feature flags，与 experimentation。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/posthog/README.md"
   },
   {
     "name": "Postiz",
@@ -4474,7 +4584,8 @@
       "zh": {
         "description": "部署包含 PostgreSQL 与 Redis 的 Postiz 自托管版本。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/postiz/README.md"
   },
   {
     "name": "PrivateBin",
@@ -4511,7 +4622,8 @@
     ],
     "source": {
       "deployCount": 14
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/privatebin/README.md"
   },
   {
     "name": "Project Quay",
@@ -4554,7 +4666,8 @@
       "zh": {
         "description": "用于构建、存储和分发容器镜像的企业级容器镜像仓库。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/quay/README.md"
   },
   {
     "name": "qinglong",
@@ -4591,7 +4704,8 @@
     ],
     "source": {
       "deployCount": 11
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/qinglong/README.md"
   },
   {
     "name": "Reactive-Resume",
@@ -4628,7 +4742,8 @@
     ],
     "source": {
       "deployCount": 12
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/Reactive-Resume/README.md"
   },
   {
     "name": "Readeck",
@@ -4665,7 +4780,8 @@
     ],
     "source": {
       "deployCount": 13
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/Readeck/README.md"
   },
   {
     "name": "RedisInsight",
@@ -4702,7 +4818,8 @@
     ],
     "source": {
       "deployCount": 12
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/redisinsight/README.md"
   },
   {
     "name": "Refly",
@@ -4744,7 +4861,8 @@
       "zh": {
         "description": "refly 是一款开源的 AI Native 创作引擎，由多线程对话、代码组件、知识库集成、上下文记忆和智能搜索驱动，Refly 是将创意转化为优质内容的最佳方式。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/refly/README.md"
   },
   {
     "name": "registry",
@@ -4779,7 +4897,8 @@
     "tags": [],
     "source": {
       "deployCount": 13
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/registry/README.md"
   },
   {
     "name": "Rocket.Chat",
@@ -4821,7 +4940,8 @@
       "zh": {
         "description": "Rocket.Chat 是一个开源的、完全可定制的通信平台，使用 JavaScript 开发，适用于对数据保护有高标准要求的组织。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/rocketchat/README.md"
   },
   {
     "name": "Rocket.Chat Microservices",
@@ -4863,7 +4983,8 @@
       "zh": {
         "description": "Rocket.Chat 微服务版本是一个开源的、完全可定制的通信平台，采用微服务架构提供更好的可扩展性和性能。适用于对数据保护有高标准要求的组织。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/rocketchat-micro/README.md"
   },
   {
     "name": "RSSHub",
@@ -4900,7 +5021,8 @@
     ],
     "source": {
       "deployCount": 88
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/rsshub/README.md"
   },
   {
     "name": "Ruiqi-Waf",
@@ -4937,7 +5059,8 @@
     ],
     "source": {
       "deployCount": 11
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/Ruiqi-Waf/README.md"
   },
   {
     "name": "RustFS",
@@ -4980,7 +5103,8 @@
       "zh": {
         "description": "RustFS 是一个使用 Rust 构建的高性能 S3 兼容对象存储系统，提供分布式存储能力，支持多卷存储。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/rustfs/README.md"
   },
   {
     "name": "Rybbit",
@@ -5022,7 +5146,8 @@
       "zh": {
         "description": "Rybbit 是一款开源、注重隐私、比 Google Analytics 更直观的下一代替代品，用于网络和产品分析，并且易于安装和使用。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/rybbit/README.md"
   },
   {
     "name": "SigNoz",
@@ -5060,7 +5185,8 @@
     ],
     "source": {
       "deployCount": 13
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/signoz/README.md"
   },
   {
     "name": "Skardi",
@@ -5103,7 +5229,8 @@
       "zh": {
         "description": "一个联邦 SQL 查询服务，可将 YAML 定义的查询直接发布为参数化 HTTP API，并支持文件、数据库、对象存储和向量存储。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/skardi/README.md"
   },
   {
     "name": "Stirling-PDF",
@@ -5140,7 +5267,8 @@
     ],
     "source": {
       "deployCount": 48
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/s-pdf/README.md"
   },
   {
     "name": "Strapi",
@@ -5183,7 +5311,8 @@
       "zh": {
         "description": "Strapi 是领先的开源无头 CMS。100% JavaScript/TypeScript，完全可定制。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/strapi/README.md"
   },
   {
     "name": "Sub2API",
@@ -5227,7 +5356,8 @@
       "zh": {
         "description": "面向上游 AI 服务订阅额度分发与管理的 API 网关平台，支持多账号接入、密钥分发、计费与调度。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/sub2api/README.md"
   },
   {
     "name": "Supabase",
@@ -5270,7 +5400,8 @@
       "zh": {
         "description": "Firebase 开源替代方案，支持 Postgres 数据库，认证，realtime，storage，与 edge functions。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/supabase/README.md"
   },
   {
     "name": "SurveyKing",
@@ -5307,7 +5438,8 @@
     ],
     "source": {
       "deployCount": 11
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/surveyking/README.md"
   },
   {
     "name": "Tailchat",
@@ -5347,7 +5479,8 @@
       "zh": {
         "description": "在您自己工作区中的下一代 noIM 应用程序"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/tailchat/README.md"
   },
   {
     "name": "teable",
@@ -5390,7 +5523,8 @@
       "zh": {
         "description": "Teable 是一款企业级高性能多维表格解决方案，通过无代码方式快速构建业务管理系统，支持私有部署和精细权限管理。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/teable/README.md"
   },
   {
     "name": "tentix",
@@ -5427,7 +5561,8 @@
     ],
     "source": {
       "deployCount": 13
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/tentix/README.md"
   },
   {
     "name": "Tianji",
@@ -5462,7 +5597,8 @@
     "tags": [],
     "source": {
       "deployCount": 30
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/tianji/README.md"
   },
   {
     "name": "Tolgee",
@@ -5504,7 +5640,8 @@
       "zh": {
         "description": "Tolgee 是一个开源的本地化平台，专为开发者设计，支持上下文直接翻译、一键生成翻译截图、生产环境实时编辑，并集成多种机器翻译服务（如 DeepL、Google Translate），提供翻译记忆与自动化功能，简化多语言应用的开发流程。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/tolgee/README.md"
   },
   {
     "name": "Twenty",
@@ -5546,7 +5683,8 @@
       "zh": {
         "description": "Salesforce 的开源替代品。支持自定义视图（看板/表格）、灵活的数据管理、工作流自动化。基于 TypeScript、React、NestJS、PostgreSQL 构建。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/twenty/README.md"
   },
   {
     "name": "Typesense",
@@ -5589,7 +5727,8 @@
       "zh": {
         "description": "现代化、开源的搜索引擎，可作为 Algolia 的替代方案，比 Elasticsearch 更易用。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/typesense/README.md"
   },
   {
     "name": "TYPO3",
@@ -5632,7 +5771,8 @@
       "zh": {
         "description": "开源企业级内容管理系统，用于构建和管理网站。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/typo3/README.md"
   },
   {
     "name": "Umami",
@@ -5670,7 +5810,8 @@
     ],
     "source": {
       "deployCount": 11
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/umami/README.md"
   },
   {
     "name": "UptimeKuma",
@@ -5708,7 +5849,8 @@
     ],
     "source": {
       "deployCount": 72
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/uptime-kuma/README.md"
   },
   {
     "name": "Vaultwarden",
@@ -5745,7 +5887,8 @@
     ],
     "source": {
       "deployCount": 39
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/vaultwarden/README.md"
   },
   {
     "name": "WooCommerce",
@@ -5787,7 +5930,8 @@
       "zh": {
         "description": "WooCommerce 是基于 WordPress 的开源电商平台。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/woocommerce/README.md"
   },
   {
     "name": "WordPress",
@@ -5824,7 +5968,8 @@
     ],
     "source": {
       "deployCount": 204
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/wordpress/README.md"
   },
   {
     "name": "WrenAI",
@@ -5862,7 +6007,8 @@
     ],
     "source": {
       "deployCount": 15
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/wrenai/README.md"
   },
   {
     "name": "YOURLS",
@@ -5904,7 +6050,8 @@
       "zh": {
         "description": "YOURLS 是一个自托管、开源的 URL 短链服务，允许用户自定义短链接并提供统计和管理功能"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/yourls/README.md"
   },
   {
     "name": "ZITADEL",
@@ -5946,7 +6093,8 @@
       "zh": {
         "description": "开源身份与访问管理平台，提供认证与授权能力。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/zitadel/README.md"
   },
   {
     "name": "Zot Registry",
@@ -5988,6 +6136,7 @@
       "zh": {
         "description": "Zot Registry 是一个 OCI 原生容器镜像仓库，默认启用基础认证，并支持在本地存储与 S3 兼容对象存储之间按需选择。"
       }
-    }
+    },
+    "readme": "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/zot/README.md"
   }
 ]

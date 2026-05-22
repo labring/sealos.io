@@ -14,6 +14,7 @@ const heroSource = readFileSync(
   join(componentDir, 'AppDetailHero.tsx'),
   'utf8',
 );
+const pageSource = readFileSync(join(componentDir, '../page.tsx'), 'utf8');
 const appPreviewSource = readFileSync(
   join(componentDir, 'AppPreviewPanel.tsx'),
   'utf8',
@@ -78,10 +79,6 @@ test('README markdown preview tries docs README before falling back to the scree
   assert.match(readmeWindowSource, /sourcePath: pathParts\.join\('\/'\)/);
   assert.match(
     readmeWindowSource,
-    /Rendered from \{readme\.source\.sourcePath\}/,
-  );
-  assert.match(
-    readmeWindowSource,
     /const screenshot = app\.screenshots\?\.\[0\]/,
   );
   assert.match(readmeWindowSource, /alt=\{`\$\{app\.name\} screenshot`\}/);
@@ -90,6 +87,35 @@ test('README markdown preview tries docs README before falling back to the scree
     readmeWindowSource,
     /README\.md was not found in the GitHub repository/,
   );
+});
+
+test('README markdown preview prefers the readme URL stored on the app config', () => {
+  assert.match(readmeWindowSource, /buildDirectReadmeSource/);
+  assert.match(
+    readmeWindowSource,
+    /Pick<AppDetailConfig, 'readme' \| 'github' \| 'website'>/,
+  );
+  assert.match(
+    readmeWindowSource,
+    /getReadmeSource\(\{[\s\S]*readme: app\.readme,[\s\S]*github: app\.github,[\s\S]*website: app\.website,[\s\S]*\}\)/,
+  );
+  assert.match(readmeWindowSource, /export async function loadReadmeMarkdown/);
+});
+
+test('README markdown preview does not render the source metadata row', () => {
+  assert.doesNotMatch(readmeWindowSource, /Rendered from/);
+  assert.doesNotMatch(readmeWindowSource, /readmeSource\.repoLabel/);
+  assert.doesNotMatch(readmeWindowSource, /readmeSource\.repoUrl/);
+});
+
+test('README markdown is loaded before rendering the static app detail page', () => {
+  assert.doesNotMatch(readmeWindowSource, /'use client'/);
+  assert.doesNotMatch(readmeWindowSource, /useEffect/);
+  assert.doesNotMatch(readmeWindowSource, /useState/);
+  assert.doesNotMatch(readmeWindowSource, /Loading README from GitHub/);
+  assert.match(readmeWindowSource, /export async function loadReadmeMarkdown/);
+  assert.match(pageSource, /const readme = await loadReadmeMarkdown\(app\)/);
+  assert.match(pageSource, /<ReadmePreview app=\{app\} readme=\{readme\} \/>/);
 });
 
 test('README browser bar is labeled README.md', () => {

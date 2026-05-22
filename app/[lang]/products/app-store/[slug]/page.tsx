@@ -11,6 +11,7 @@ import { generatePageMetadata } from '@/lib/utils/metadata';
 import { LANGUAGES, languagesType } from '@/lib/i18n';
 import AppDetailHero from './components/AppDetailHero';
 import ReadmePreview from './components/ReadmePreview';
+import { loadReadmeMarkdown } from './components/ReadmeMarkdownWindow';
 import RelatedTemplates from './components/RelatedTemplates';
 import WholeStackSection from './components/WholeStackSection';
 import WhyDeployOnSealos from './components/WhyDeployOnSealos';
@@ -77,6 +78,7 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
     currentApp: app,
     limit: 3,
   });
+  const readme = await loadReadmeMarkdown(app);
 
   return (
     <div
@@ -92,7 +94,7 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
         <AppDetailHero app={app} lang={params.lang} />
         <WhyDeployOnSealos />
         <WholeStackSection />
-        <ReadmePreview app={app} />
+        <ReadmePreview app={app} readme={readme} />
         <RelatedTemplates apps={relatedApps} lang={params.lang} />
       </main>
 

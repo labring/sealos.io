@@ -1,9 +1,5 @@
-'use client';
-
-import { useEffect, useMemo, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { ExternalLink, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { AppDetailConfig } from './app-detail-utils';
 
@@ -20,10 +16,10 @@ type ReadmeCandidate = {
   blobBaseUrl: string;
 };
 
-type ReadmeState =
-  | { status: 'idle' | 'loading' }
-  | { status: 'ready'; markdown: string; source: ReadmeCandidate }
-  | { status: 'error' };
+export type LoadedReadmeMarkdown = {
+  markdown: string;
+  source: ReadmeCandidate;
+};
 
 const README_FILENAMES = ['README.md', 'README.MD', 'Readme.md', 'readme.md'];
 const README_DIRECTORIES = ['', 'docs'];
@@ -132,6 +128,58 @@ function buildReadmeCandidates({
   );
 }
 
+function buildDirectReadmeSource(readmeUrl: string): ReadmeSource | null {
+  if (isUnsafeUrl(readmeUrl)) return null;
+
+  try {
+    const url = new URL(readmeUrl);
+    const pathParts = url.pathname.split('/').filter(Boolean);
+    const rawAssetBaseUrl = new URL('./', url).toString();
+
+    let repoLabel = url.hostname;
+    let repoUrl = readmeUrl;
+    let blobBaseUrl = rawAssetBaseUrl;
+
+    if (
+      url.hostname.toLowerCase() === 'raw.githubusercontent.com' &&
+      pathParts.length >= 4
+    ) {
+      const [owner, repo, branch, ...repoPathParts] = pathParts;
+      const encodedOwner = encodeURIComponent(owner);
+      const encodedRepo = encodeURIComponent(repo);
+      const encodedBranch = encodeURIComponent(branch);
+      const encodedDirectoryPath = encodePathSegments(repoPathParts.slice(0, -1));
+
+      repoLabel = `${owner}/${repo}`;
+      repoUrl = `https://github.com/${encodedOwner}/${encodedRepo}`;
+      blobBaseUrl = [
+        repoUrl,
+        'blob',
+        encodedBranch,
+        encodedDirectoryPath,
+      ]
+        .filter(Boolean)
+        .join('/');
+      blobBaseUrl = `${blobBaseUrl}/`;
+    }
+
+    return {
+      repoLabel,
+      repoUrl,
+      candidates: [
+        {
+          sourcePath: 'README.md',
+          url: readmeUrl,
+          rawAssetBaseUrl,
+          blobBaseUrl,
+        },
+      ],
+    };
+  } catch {
+    return null;
+  }
+}
+
 export function normalizeGitHubMarkdown(markdown: string) {
   return markdown
     .replace(/<br\s*\/?>/gi, '\n')
@@ -150,8 +198,14 @@ export function normalizeGitHubMarkdown(markdown: string) {
 }
 
 export function getReadmeSource(
-  app: Pick<AppDetailConfig, 'github' | 'website'>,
+  app: Pick<AppDetailConfig, 'readme' | 'github' | 'website'>,
 ): ReadmeSource | null {
+  const readmeUrl = app.readme || undefined;
+  if (readmeUrl) {
+    const directSource = buildDirectReadmeSource(readmeUrl);
+    if (directSource) return directSource;
+  }
+
   const githubUrl = isGithubUrl(app.github)
     ? app.github
     : isGithubUrl(app.website)
@@ -233,10 +287,10 @@ function resolveMarkdownUrl(
   }
 }
 
-async function fetchReadme(source: ReadmeSource, signal: AbortSignal) {
+async function fetchReadme(source: ReadmeSource) {
   for (const candidate of source.candidates) {
     const response = await fetch(candidate.url, {
-      signal,
+      cache: 'force-cache',
       headers: {
         Accept: 'text/plain,text/markdown,*/*',
       },
@@ -254,6 +308,24 @@ async function fetchReadme(source: ReadmeSource, signal: AbortSignal) {
   }
 
   throw new Error('README not found.');
+}
+
+export async function loadReadmeMarkdown(
+  app: Pick<AppDetailConfig, 'readme' | 'github' | 'website'>,
+): Promise<LoadedReadmeMarkdown | null> {
+  const readmeSource = getReadmeSource({
+    readme: app.readme,
+    github: app.github,
+    website: app.website,
+  });
+
+  if (!readmeSource) return null;
+
+  try {
+    return await fetchReadme(readmeSource);
+  } catch {
+    return null;
+  }
 }
 
 function ReadmeFallback({ app }: { app: AppDetailConfig }) {
@@ -280,56 +352,15 @@ function ReadmeFallback({ app }: { app: AppDetailConfig }) {
   );
 }
 
-function ReadmeLoading() {
-  return (
-    <div className="flex aspect-video min-h-[260px] items-center justify-center bg-[#0d1117] text-sm text-zinc-400">
-      <span className="inline-flex items-center gap-2">
-        <Loader2 className="h-4 w-4 animate-spin" />
-        Loading README from GitHub...
-      </span>
-    </div>
-  );
-}
-
 export default function ReadmeMarkdownWindow({
   app,
+  readme,
 }: {
   app: AppDetailConfig;
+  readme: LoadedReadmeMarkdown | null;
 }) {
-  const readmeSource = useMemo(
-    () => getReadmeSource({ github: app.github, website: app.website }),
-    [app.github, app.website],
-  );
-  const [readme, setReadme] = useState<ReadmeState>({ status: 'idle' });
-
-  useEffect(() => {
-    if (!readmeSource) {
-      setReadme({ status: 'error' });
-      return;
-    }
-
-    const controller = new AbortController();
-    setReadme({ status: 'loading' });
-
-    fetchReadme(readmeSource, controller.signal)
-      .then(({ markdown, source }) => {
-        setReadme({ status: 'ready', markdown, source });
-      })
-      .catch(() => {
-        if (controller.signal.aborted) return;
-
-        setReadme({ status: 'error' });
-      });
-
-    return () => controller.abort();
-  }, [readmeSource]);
-
-  if (!readmeSource || readme.status === 'error') {
+  if (!readme) {
     return <ReadmeFallback app={app} />;
-  }
-
-  if (readme.status !== 'ready') {
-    return <ReadmeLoading />;
   }
 
   return (
@@ -338,27 +369,6 @@ export default function ReadmeMarkdownWindow({
       className="aspect-video min-h-[260px] overflow-y-auto overscroll-contain bg-[#0d1117] px-5 py-6 text-sm text-zinc-300 [scrollbar-color:#335f91_#0d1117] [scrollbar-width:thin] sm:px-8"
       role="region"
     >
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4 text-xs text-zinc-500">
-        <a
-          href={readmeSource.repoUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-zinc-300 transition hover:text-[#69a3ff]"
-        >
-          {readmeSource.repoLabel}
-          <ExternalLink className="h-3 w-3" />
-        </a>
-        <a
-          href={readme.source.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 transition hover:text-[#69a3ff]"
-        >
-          Rendered from {readme.source.sourcePath}
-          <ExternalLink className="h-3 w-3" />
-        </a>
-      </div>
-
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{

@@ -13,6 +13,7 @@ export interface AppConfig {
   gradient: string;
   github?: string;
   website?: string;
+  readme?: string;
   tags: string[];
   deployUrl?: string;
   source?: {

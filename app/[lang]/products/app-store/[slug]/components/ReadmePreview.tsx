@@ -1,12 +1,15 @@
 import { figmaDetailHeadingClassName } from './SectionHeading';
 import type { AppDetailConfig } from './app-detail-utils';
-import ReadmeMarkdownWindow from './ReadmeMarkdownWindow';
+import ReadmeMarkdownWindow, {
+  type LoadedReadmeMarkdown,
+} from './ReadmeMarkdownWindow';
 
 interface ReadmePreviewProps {
   app: AppDetailConfig;
+  readme: LoadedReadmeMarkdown | null;
 }
 
-export default function ReadmePreview({ app }: ReadmePreviewProps) {
+export default function ReadmePreview({ app, readme }: ReadmePreviewProps) {
   return (
     <section
       id="readme"
@@ -35,7 +38,7 @@ export default function ReadmePreview({ app }: ReadmePreviewProps) {
             <span className="w-[42px]" aria-hidden="true" />
           </div>
 
-          <ReadmeMarkdownWindow app={app} />
+          <ReadmeMarkdownWindow app={app} readme={readme} />
         </div>
       </div>
     </section>

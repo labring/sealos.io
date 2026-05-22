@@ -263,6 +263,7 @@ async function convertTemplateToAppConfig(template) {
     gradient: gradientMapping[category] || 'from-gray-50/70 to-slate-50/70',
     github: spec.gitRepo || undefined,
     website: spec.url || undefined,
+    readme: spec.readme || undefined,
     tags: spec.categories || [],
     source: {
       url: template.filePath
