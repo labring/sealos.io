@@ -63,8 +63,7 @@ export default function WhyDeployOnSealos() {
       />
 
       <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:items-center">
-        <div className="relative min-h-[460px] overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025] p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_48%_42%,rgba(20,109,255,0.18),transparent_44%)]" />
+        <div className="relative min-h-[460px] overflow-hidden p-8">
           <div className="relative mx-auto flex max-w-[430px] flex-col items-center">
             <div className="rounded-xl border border-white/10 bg-white/[0.045] p-3">
               <div className="flex h-10 items-center gap-3 rounded-lg bg-white/[0.055] px-4 text-sm font-semibold text-white">

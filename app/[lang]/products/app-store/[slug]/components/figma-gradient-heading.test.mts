@@ -195,6 +195,21 @@ test('why deploy diagram uses the Sealos logo at the center', () => {
   assert.doesNotMatch(whyDeploySource, /\bNetwork\b/);
 });
 
+test('why deploy diagram does not add an outer background mask', () => {
+  assert.doesNotMatch(
+    whyDeploySource,
+    /bg-\[radial-gradient\(circle_at_48%_42%,rgba\(20,109,255,0\.18\),transparent_44%\)\]/,
+  );
+  assert.doesNotMatch(
+    whyDeploySource,
+    /rounded-2xl border border-white\/10 bg-white\/\[0\.025\]/,
+  );
+  assert.doesNotMatch(
+    whyDeploySource,
+    /shadow-\[inset_0_1px_0_rgba\(255,255,255,0\.04\)\]/,
+  );
+});
+
 test('why deploy step icons are white by default and blue on hover', () => {
   assert.match(whyDeploySource, /className="group grid gap-5 py-7/);
   assert.match(
