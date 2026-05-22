@@ -4,44 +4,62 @@ import {
   CircleCheckBig,
   Cpu,
   Database,
-  Gauge,
+  DatabaseZap,
   Globe,
+  GlobeLock,
   Grid2X2,
-  Layers,
+  LayoutGrid,
+  type LucideIcon,
+  MousePointerClick,
   ShieldCheck,
 } from 'lucide-react';
 import SealosLogo from '@/assets/shared-icons/sealos.svg';
+import K8sLogo from '@/app/[lang]/(home)/(new-home)/components/carousel-image/DeploymentCard/logo/k8s.svg';
 import SectionHeading from './SectionHeading';
 
-const steps = [
+type DeployStep =
+  | {
+      title: string;
+      description: string;
+      icon: LucideIcon;
+      iconType?: never;
+    }
+  | {
+      title: string;
+      description: string;
+      iconType: 'k8s';
+      icon?: never;
+    };
+
+const steps: DeployStep[] = [
   {
     title: 'One-Click Deployment',
     description:
       'Deploy any app template in seconds. No compose setup, manual configure, and go live.',
-    icon: Grid2X2,
+    icon: MousePointerClick,
   },
   {
     title: 'Managed Kubernetes Reliability',
     description:
       'Built on Sealos Managed Kubernetes for high availability, auto-scaling, and self-healing by default.',
-    icon: Gauge,
+    iconType: 'k8s',
   },
   {
     title: 'Automatic HTTPS & Security',
     description:
       'Every deployment includes a secure domain with automatic SSL. We handle certificates and text protection for you.',
-    icon: ShieldCheck,
+    icon: GlobeLock,
   },
   {
     title: 'Persistent Storage',
     description:
       'Attach persistent volumes with ease. Your data stays safe, durable, and always accessible.',
-    icon: Database,
+    icon: DatabaseZap,
   },
   {
     title: 'Scale when needed',
     description: 'Adjust resources as your app grows, no downtime required.',
-    icon: Layers,
+    icon: LayoutGrid,
   },
 ];
 
@@ -111,7 +129,17 @@ export default function WhyDeployOnSealos() {
               className="group grid gap-5 py-7 sm:grid-cols-[48px_1fr]"
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/[0.055] text-white transition-colors group-hover:text-[#69a3ff]">
-                <step.icon className="h-5 w-5" />
+                {step.iconType === 'k8s' ? (
+                  <Image
+                    src={K8sLogo}
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="h-5 w-5 grayscale brightness-0 invert transition group-hover:grayscale-0 group-hover:brightness-100 group-hover:invert-0"
+                  />
+                ) : (
+                  <step.icon className="h-5 w-5" />
+                )}
               </div>
               <div>
                 <h3 className="text-base font-semibold text-zinc-100">

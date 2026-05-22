@@ -222,6 +222,26 @@ test('why deploy step icons are white by default and blue on hover', () => {
   );
 });
 
+test('why deploy step icons match the Figma icon set', () => {
+  for (const iconName of [
+    'MousePointerClick',
+    'GlobeLock',
+    'DatabaseZap',
+    'LayoutGrid',
+  ]) {
+    assert.match(whyDeploySource, new RegExp(`\\b${iconName}\\b`));
+  }
+
+  assert.match(
+    whyDeploySource,
+    /import K8sLogo from '@\/app\/\[lang\]\/\(home\)\/\(new-home\)\/components\/carousel-image\/DeploymentCard\/logo\/k8s\.svg'/,
+  );
+  assert.match(whyDeploySource, /iconType: 'k8s'/);
+  assert.doesNotMatch(whyDeploySource, /\bGauge\b/);
+  assert.doesNotMatch(whyDeploySource, /\bLayers\b/);
+  assert.doesNotMatch(whyDeploySource, /title: 'One-Click Deployment'[\s\S]*icon: Grid2X2/);
+});
+
 test('why deploy live status uses the Figma green CircleCheckBig icon', () => {
   assert.match(whyDeploySource, /CircleCheckBig/);
   assert.match(
