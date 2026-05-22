@@ -1,17 +1,12 @@
-import Image from 'next/image';
-import AppPreviewPanel from './AppPreviewPanel';
 import { figmaDetailHeadingClassName } from './SectionHeading';
 import type { AppDetailConfig } from './app-detail-utils';
+import ReadmeMarkdownWindow from './ReadmeMarkdownWindow';
 
 interface ReadmePreviewProps {
   app: AppDetailConfig;
 }
 
 export default function ReadmePreview({ app }: ReadmePreviewProps) {
-  const primaryScreenshot = app.screenshots?.[0];
-  const readmeScreenshotImageClassName =
-    'object-cover -translate-y-[11%] scale-[1.22]';
-
   return (
     <section
       id="readme"
@@ -40,26 +35,7 @@ export default function ReadmePreview({ app }: ReadmePreviewProps) {
             <span className="w-[42px]" aria-hidden="true" />
           </div>
 
-          {primaryScreenshot ? (
-            <div className="relative aspect-[16/9] min-h-[260px] overflow-hidden opacity-90">
-              <Image
-                src={primaryScreenshot}
-                alt={`${app.name} screenshot`}
-                fill
-                className={readmeScreenshotImageClassName}
-                sizes="(max-width: 768px) 100vw, 1200px"
-              />
-            </div>
-          ) : (
-            <div className="p-5 sm:p-6">
-              <AppPreviewPanel
-                app={app}
-                displayUrl="https://sealos.io"
-                showChrome={false}
-                variant="readme"
-              />
-            </div>
-          )}
+          <ReadmeMarkdownWindow app={app} />
         </div>
       </div>
     </section>

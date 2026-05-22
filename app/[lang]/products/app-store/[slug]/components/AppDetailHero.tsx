@@ -16,7 +16,6 @@ import { DeployButton } from './DeployButton';
 import AppPreviewPanel from './AppPreviewPanel';
 import {
   getDisplayDescription,
-  getReadmeUrl,
   type AppDetailConfig,
 } from './app-detail-utils';
 
@@ -48,12 +47,10 @@ function textLinkClassName(variant: 'primary' | 'default' = 'default') {
 }
 
 export default function AppDetailHero({ app, lang }: AppDetailHeroProps) {
-  const readmeUrl = getReadmeUrl(app.github);
-
   return (
     <section className="relative overflow-hidden pt-36 pb-16 md:pt-44 md:pb-20 lg:pt-[132px] lg:pb-20">
       <div
-        className="pointer-events-none absolute inset-0 z-0 bg-background"
+        className="bg-background pointer-events-none absolute inset-0 z-0"
         aria-hidden="true"
       />
       <div className="pointer-events-none absolute inset-0 z-[3]">
@@ -204,12 +201,7 @@ export default function AppDetailHero({ app, lang }: AppDetailHeroProps) {
                 GitHub
               </a>
             )}
-            <a
-              href={readmeUrl}
-              target={app.github ? '_blank' : undefined}
-              rel={app.github ? 'noopener noreferrer' : undefined}
-              className={textLinkClassName()}
-            >
+            <a href="#readme" className={textLinkClassName()}>
               <BookOpen className="h-3.5 w-3.5" />
               README
             </a>

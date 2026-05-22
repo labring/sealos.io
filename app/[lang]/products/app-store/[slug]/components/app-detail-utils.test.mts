@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 import {
   formatAppCount,
   getDisplayDescription,
-  getReadmeUrl,
   getRelatedApps,
   getTagLabel,
 } from './app-detail-utils.ts';
@@ -92,26 +91,11 @@ test('getDisplayDescription falls back to the short description', () => {
 
 test('getTagLabel normalizes tag text and falls back to category', () => {
   assert.equal(getTagLabel(fixtures[0]), 'ai');
-  assert.equal(
-    getTagLabel({ ...fixtures[0], tags: ['low-code'] }),
-    'low code',
-  );
+  assert.equal(getTagLabel({ ...fixtures[0], tags: ['low-code'] }), 'low code');
   assert.equal(getTagLabel({ ...fixtures[0], tags: [] }), 'AI');
 });
 
 test('formatAppCount uses compact number formatting', () => {
   assert.equal(formatAppCount(0), '0');
   assert.equal(formatAppCount(2400), '2.4K');
-});
-
-test('getReadmeUrl points GitHub projects to their README section', () => {
-  assert.equal(
-    getReadmeUrl('https://github.com/ace-step/ACE-Step'),
-    'https://github.com/ace-step/ACE-Step#readme',
-  );
-  assert.equal(
-    getReadmeUrl('https://github.com/AgoraIO/Tools/tree/master/DynamicKey/AgoraDynamicKey'),
-    'https://github.com/AgoraIO/Tools/tree/master/DynamicKey/AgoraDynamicKey#readme',
-  );
-  assert.equal(getReadmeUrl(undefined), '#readme');
 });

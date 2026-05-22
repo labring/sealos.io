@@ -24,14 +24,6 @@ export function formatAppCount(value: number) {
   }).format(value);
 }
 
-export function getReadmeUrl(github?: string) {
-  if (!github) {
-    return '#readme';
-  }
-
-  return `${github.replace(/#.*$/, '').replace(/\/$/, '')}#readme`;
-}
-
 export function getRelatedApps({
   apps,
   currentApp,
@@ -45,7 +37,9 @@ export function getRelatedApps({
   const sameCategory = candidates.filter(
     (app) => app.category === currentApp.category,
   );
-  const fallback = candidates.filter((app) => app.category !== currentApp.category);
+  const fallback = candidates.filter(
+    (app) => app.category !== currentApp.category,
+  );
   const related = [...sameCategory, ...fallback];
 
   return related.slice(0, limit);

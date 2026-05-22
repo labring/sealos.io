@@ -10,13 +10,20 @@ const sectionHeadingSource = readFileSync(
   join(componentDir, 'SectionHeading.tsx'),
   'utf8',
 );
-const heroSource = readFileSync(join(componentDir, 'AppDetailHero.tsx'), 'utf8');
+const heroSource = readFileSync(
+  join(componentDir, 'AppDetailHero.tsx'),
+  'utf8',
+);
 const appPreviewSource = readFileSync(
   join(componentDir, 'AppPreviewPanel.tsx'),
   'utf8',
 );
 const readmeSource = readFileSync(
   join(componentDir, 'ReadmePreview.tsx'),
+  'utf8',
+);
+const readmeWindowSource = readFileSync(
+  join(componentDir, 'ReadmeMarkdownWindow.tsx'),
   'utf8',
 );
 const relatedSource = readFileSync(
@@ -46,26 +53,52 @@ test('README uses the Figma early-blue gradient stop on the wide Figma text laye
   assert.match(relatedSource, /figmaDetailHeadingClassName/);
 });
 
-test('README fallback app preview does not render a nested mac chrome', () => {
-  assert.match(readmeSource, /showChrome=\{false\}/);
-  assert.match(readmeSource, /variant="readme"/);
-  assert.match(appPreviewSource, /showChrome\?: boolean/);
-  assert.match(appPreviewSource, /showChrome = true/);
+test('README section renders a real GitHub markdown preview window', () => {
+  assert.match(readmeSource, /ReadmeMarkdownWindow/);
+  assert.match(readmeWindowSource, /ReactMarkdown/);
+  assert.match(readmeWindowSource, /remarkGfm/);
+  assert.match(readmeWindowSource, /fetchReadme/);
+  assert.match(readmeWindowSource, /raw\.githubusercontent\.com/);
+  assert.match(readmeWindowSource, /overflow-y-auto/);
+  assert.doesNotMatch(readmeSource, /showChrome=\{false\}/);
+  assert.doesNotMatch(readmeSource, /variant="readme"/);
 });
 
-test('README fallback app preview uses the taller Figma readme ratio', () => {
-  assert.match(appPreviewSource, /variant\?: 'default' \| 'hero' \| 'readme'/);
-  assert.match(appPreviewSource, /readmePanelClassName/);
-  assert.match(appPreviewSource, /aspect-\[1253\/671\]/);
-  assert.match(appPreviewSource, /min-h-\[520px\]/);
-  assert.match(readmeSource, /p-5 sm:p-6/);
+test('README markdown preview resolves GitHub images and relative links', () => {
+  assert.match(readmeWindowSource, /normalizeGitHubMarkdown/);
+  assert.match(readmeWindowSource, /<img\\b/);
+  assert.match(readmeWindowSource, /resolveMarkdownUrl/);
+  assert.match(readmeWindowSource, /ReadmeCandidate/);
+  assert.match(readmeWindowSource, /rawAssetBaseUrl/);
+  assert.match(readmeWindowSource, /blobBaseUrl/);
 });
 
-test('README browser bar is labeled README.md while its preview uses the Sealos URL', () => {
+test('README markdown preview tries docs README before falling back to the screenshot', () => {
+  assert.match(readmeWindowSource, /README_DIRECTORIES = \['', 'docs'\]/);
+  assert.match(readmeWindowSource, /sourcePath: pathParts\.join\('\/'\)/);
+  assert.match(
+    readmeWindowSource,
+    /Rendered from \{readme\.source\.sourcePath\}/,
+  );
+  assert.match(
+    readmeWindowSource,
+    /const screenshot = app\.screenshots\?\.\[0\]/,
+  );
+  assert.match(readmeWindowSource, /alt=\{`\$\{app\.name\} screenshot`\}/);
+  assert.doesNotMatch(readmeWindowSource, /README preview unavailable/);
+  assert.doesNotMatch(
+    readmeWindowSource,
+    /README\.md was not found in the GitHub repository/,
+  );
+});
+
+test('README browser bar is labeled README.md', () => {
   assert.doesNotMatch(readmeSource, /import \{ Globe \} from 'lucide-react'/);
-  assert.doesNotMatch(readmeSource, /<Globe className="h-2\.5 w-2\.5 text-zinc-400" \/>/);
+  assert.doesNotMatch(
+    readmeSource,
+    /<Globe className="h-2\.5 w-2\.5 text-zinc-400" \/>/,
+  );
   assert.match(readmeSource, /README\.md/);
-  assert.match(readmeSource, /displayUrl="https:\/\/sealos\.io"/);
   assert.match(appPreviewSource, /displayUrl\?: string/);
   assert.match(
     appPreviewSource,
@@ -73,28 +106,22 @@ test('README browser bar is labeled README.md while its preview uses the Sealos 
   );
 });
 
-test('README screenshot preview crops away the captured page chrome', () => {
-  assert.match(readmeSource, /readmeScreenshotImageClassName/);
-  assert.match(
-    readmeSource,
-    /relative aspect-\[16\/9\] min-h-\[260px\] overflow-hidden opacity-90/,
-  );
-  assert.match(readmeSource, /className=\{readmeScreenshotImageClassName\}/);
-  assert.match(readmeSource, /-translate-y-\[/);
-  assert.match(readmeSource, /scale-\[/);
-  assert.doesNotMatch(readmeSource, /className="object-cover"/);
-});
-
 test('app preview chrome uses a globe icon and the Sealos URL', () => {
   assert.match(appPreviewSource, /import \{ Globe \} from 'lucide-react'/);
-  assert.match(appPreviewSource, /<Globe className="h-2\.5 w-2\.5 text-zinc-400" \/>/);
+  assert.match(
+    appPreviewSource,
+    /<Globe className="h-2\.5 w-2\.5 text-zinc-400" \/>/,
+  );
   assert.match(appPreviewSource, /sealos\.io/);
   assert.doesNotMatch(appPreviewSource, /\{app\.name\}\.yaml/);
 });
 
 test('hero app preview uses the first app screenshot before falling back to generated content', () => {
   assert.match(appPreviewSource, /import Image from 'next\/image'/);
-  assert.match(appPreviewSource, /const primaryScreenshot = app\.screenshots\?\.\[0\]/);
+  assert.match(
+    appPreviewSource,
+    /const primaryScreenshot = app\.screenshots\?\.\[0\]/,
+  );
   assert.match(appPreviewSource, /heroScreenshotImageClassName/);
   assert.match(appPreviewSource, /variant === 'hero' && primaryScreenshot/);
   assert.match(appPreviewSource, /src=\{primaryScreenshot\}/);
@@ -135,18 +162,28 @@ test('hero title uses the smaller Figma detail-page heading scale', () => {
 });
 
 test('official website link is white by default and blue on hover', () => {
-  assert.match(heroSource, /textLinkClassName\(variant: 'primary' \| 'default'/);
-  assert.match(heroSource, /primary'\s*\?\s*'text-white hover:text-\[#69a3ff\]'/);
+  assert.match(
+    heroSource,
+    /textLinkClassName\(variant: 'primary' \| 'default'/,
+  );
+  assert.match(
+    heroSource,
+    /primary'\s*\?\s*'text-white hover:text-\[#69a3ff\]'/,
+  );
   assert.match(heroSource, /className=\{textLinkClassName\('primary'\)\}/);
 });
 
-test('hero README link points to the app GitHub README when available', () => {
-  assert.match(heroSource, /getReadmeUrl/);
-  assert.match(heroSource, /const readmeUrl = getReadmeUrl\(app\.github\)/);
-  assert.match(heroSource, /href=\{readmeUrl\}/);
-  assert.match(heroSource, /target=\{app\.github \? '_blank' : undefined\}/);
-  assert.match(heroSource, /rel=\{app\.github \? 'noopener noreferrer' : undefined\}/);
-  assert.doesNotMatch(heroSource, /<a href="#readme" className=\{textLinkClassName\(\)\}>/);
+test('hero README link jumps to the README section on the current page', () => {
+  assert.doesNotMatch(heroSource, /getReadmeUrl/);
+  assert.match(heroSource, /href="#readme"/);
+  assert.doesNotMatch(
+    heroSource,
+    /target=\{app\.github \? '_blank' : undefined\}/,
+  );
+  assert.doesNotMatch(
+    heroSource,
+    /rel=\{app\.github \? 'noopener noreferrer' : undefined\}/,
+  );
 });
 
 test('hero action row does not render the trailing tag pill', () => {
@@ -277,7 +314,10 @@ test('why deploy step icons match the Figma icon set', () => {
   assert.match(whyDeploySource, /iconType: 'k8s'/);
   assert.doesNotMatch(whyDeploySource, /\bGauge\b/);
   assert.doesNotMatch(whyDeploySource, /\bLayers\b/);
-  assert.doesNotMatch(whyDeploySource, /title: 'One-Click Deployment'[\s\S]*icon: Grid2X2/);
+  assert.doesNotMatch(
+    whyDeploySource,
+    /title: 'One-Click Deployment'[\s\S]*icon: Grid2X2/,
+  );
 });
 
 test('why deploy live status uses the Figma green CircleCheckBig icon', () => {
@@ -286,7 +326,10 @@ test('why deploy live status uses the Figma green CircleCheckBig icon', () => {
     whyDeploySource,
     /<CircleCheckBig className="h-6 w-6 text-\[#22C55E\]" \/>/,
   );
-  assert.doesNotMatch(whyDeploySource, /<GradientLucideIcon[\s\S]*Your Application is Live/);
+  assert.doesNotMatch(
+    whyDeploySource,
+    /<GradientLucideIcon[\s\S]*Your Application is Live/,
+  );
 });
 
 test('whole stack summary bullets use tick icons', () => {
@@ -311,8 +354,14 @@ test('detail page confirmation ticks reuse the homepage gradient check style', (
     assert.match(source, /CircleCheck/);
   }
 
-  assert.doesNotMatch(heroSource, /<CheckCircle2 className="h-3\.5 w-3\.5 text-\[#69a3ff\]"/);
-  assert.doesNotMatch(wholeStackSource, /<CheckCircle2 className="h-4 w-4 text-\[#69a3ff\]"/);
+  assert.doesNotMatch(
+    heroSource,
+    /<CheckCircle2 className="h-3\.5 w-3\.5 text-\[#69a3ff\]"/,
+  );
+  assert.doesNotMatch(
+    wholeStackSource,
+    /<CheckCircle2 className="h-4 w-4 text-\[#69a3ff\]"/,
+  );
   assert.doesNotMatch(whyDeploySource, /<CheckCircle2 className="h-4 w-4" \/>/);
 });
 
@@ -341,8 +390,5 @@ test('whole stack card borders account for two-column and three-column layouts s
     wholeStackSource,
     /index % 3 !== 2 \? 'lg:border-r' : 'lg:border-r-0'/,
   );
-  assert.doesNotMatch(
-    wholeStackSource,
-    /\[&:nth-child\(2n\)\]:sm:border-r-0/,
-  );
+  assert.doesNotMatch(wholeStackSource, /\[&:nth-child\(2n\)\]:sm:border-r-0/);
 });
