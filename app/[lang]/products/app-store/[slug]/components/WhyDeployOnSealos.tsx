@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import SealosLogo from '@/assets/shared-icons/sealos.svg';
 import K8sLogo from '@/app/[lang]/(home)/(new-home)/components/carousel-image/DeploymentCard/logo/k8s.svg';
+import { cn } from '@/lib/utils';
 import SectionHeading from './SectionHeading';
 
 type DeployStep =
@@ -81,6 +82,8 @@ const diagramCardClassName =
 
 const diagramTopCardClassName = `${diagramCardClassName} rounded-xl p-3`;
 
+const diagramResourceGridClassName = `${diagramCardClassName} grid w-full grid-cols-2 overflow-hidden rounded-lg sm:grid-cols-5`;
+
 const diagramLiveCardClassName = `${diagramCardClassName} inline-flex items-center gap-3 rounded-lg px-5 py-4 text-sm font-semibold text-white`;
 
 export default function WhyDeployOnSealos() {
@@ -114,12 +117,17 @@ export default function WhyDeployOnSealos() {
               />
             </div>
             <div className="h-12 w-px bg-white/10" />
-            <div className="grid w-full grid-cols-2 gap-3 sm:grid-cols-5">
-              {resourceIcons.map((item) => (
+            <div
+              className={diagramResourceGridClassName}
+              style={gradientBorderStyle}
+            >
+              {resourceIcons.map((item, index) => (
                 <div
                   key={item.label}
-                  className={`${diagramCardClassName} flex min-h-[74px] flex-col items-center justify-center gap-2 rounded-lg text-center`}
-                  style={gradientBorderStyle}
+                  className={cn(
+                    'flex min-h-[74px] flex-col items-center justify-center gap-2 text-center',
+                    index > 0 ? 'border-l border-white/10' : '',
+                  )}
                 >
                   <item.icon className="h-5 w-5 text-zinc-300" />
                   <span className="text-[11px] text-zinc-400">
