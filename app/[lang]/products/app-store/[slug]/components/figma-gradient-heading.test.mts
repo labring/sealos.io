@@ -304,8 +304,10 @@ test('why deploy diagram cards use the Figma gradient border treatment', () => {
   assert.match(whyDeploySource, /linear-gradient\(0deg, rgba\(255, 255, 255, 0\.15\), rgba\(255, 255, 255, 0\.15\)\) border-box/);
   assert.match(whyDeploySource, /index > 0 \? 'border-l border-white\/10' : ''/);
   assert.match(whyDeploySource, /className=\{diagramResourceGridClassName\}/);
+  assert.match(whyDeploySource, /className="flex h-10 items-center gap-3 px-4 text-sm font-semibold text-white"/);
   assert.doesNotMatch(whyDeploySource, /resourceIcons\.map\(\(item\) =>/);
   assert.doesNotMatch(whyDeploySource, /className=\{`\$\{diagramCardClassName\} flex min-h-\[74px\]/);
+  assert.doesNotMatch(whyDeploySource, /flex h-10 items-center gap-3 rounded-lg bg-white\/\[0\.055\]/);
   assert.doesNotMatch(whyDeploySource, /border border-white\/10 bg-white\/\[0\.035\]/);
   assert.doesNotMatch(whyDeploySource, /border border-white\/10 bg-white\/\[0\.04\]/);
 });

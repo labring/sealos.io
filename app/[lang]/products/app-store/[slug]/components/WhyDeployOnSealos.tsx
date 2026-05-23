@@ -101,7 +101,7 @@ export default function WhyDeployOnSealos() {
               className={diagramTopCardClassName}
               style={gradientBorderStyle}
             >
-              <div className="flex h-10 items-center gap-3 rounded-lg bg-white/[0.055] px-4 text-sm font-semibold text-white">
+              <div className="flex h-10 items-center gap-3 px-4 text-sm font-semibold text-white">
                 <Grid2X2 className="h-4 w-4 text-[#69a3ff]" />
                 One-Click Deploy
               </div>
