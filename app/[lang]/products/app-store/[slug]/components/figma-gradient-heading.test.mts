@@ -232,6 +232,10 @@ test('hero uses the Figma center-logo composition on desktop', () => {
   assert.match(heroSource, /left-\[609px\]/);
   assert.match(heroSource, /top-9/);
   assert.match(heroSource, /hidden lg:flex/);
+  assert.match(heroSource, /rounded-\[5\.235px\]/);
+  assert.match(heroSource, /border-\[0\.5px\]/);
+  assert.match(heroSource, /border-\[rgba\(255,255,255,0\.15\)\]/);
+  assert.match(heroSource, /bg-\[#0A0A0A\]/);
   assert.match(heroSource, /variant="hero"/);
   assert.match(heroSource, /<div className="relative z-10 mx-auto grid/);
   assert.match(heroSource, /mb-7 flex items-center gap-5 lg:hidden/);

@@ -35,7 +35,7 @@ const heroTitleAccentClassName =
   'bg-gradient-to-r from-white to-[#146DFF] bg-clip-text text-transparent';
 
 const heroCenterLogoClassName =
-  'hidden lg:flex absolute left-[609px] top-9 z-20 h-[130px] w-[130px] -translate-x-1/2 items-center justify-center rounded-[10px] border-[7px] border-[#25272c] bg-[#d8d8d8] p-5 shadow-2xl shadow-black/40';
+  'hidden lg:flex absolute left-[609px] top-9 z-20 h-[130px] w-[130px] -translate-x-1/2 items-center justify-center rounded-[5.235px] border-[0.5px] border-[rgba(255,255,255,0.15)] bg-[#0A0A0A] p-5 shadow-2xl shadow-black/40';
 
 function textLinkClassName(variant: 'primary' | 'default' = 'default') {
   return cn(
