@@ -234,8 +234,12 @@ test('hero uses the Figma center-logo composition on desktop', () => {
   assert.match(heroSource, /hidden lg:flex/);
   assert.match(heroSource, /rounded-\[5\.235px\]/);
   assert.match(heroSource, /border-\[0\.5px\]/);
-  assert.match(heroSource, /border-\[rgba\(255,255,255,0\.15\)\]/);
-  assert.match(heroSource, /bg-\[#0A0A0A\]/);
+  assert.match(heroSource, /border-transparent/);
+  assert.match(heroSource, /heroCenterLogoBorderStyle/);
+  assert.match(heroSource, /linear-gradient\(#0A0A0A, #0A0A0A\) padding-box/);
+  assert.match(heroSource, /linear-gradient\(109\.08deg, #FFFFFF 0\.55%, rgba\(255, 255, 255, 0\) 26\.65%\) border-box/);
+  assert.match(heroSource, /linear-gradient\(285\.16deg, #FFFFFF 0%, rgba\(255, 255, 255, 0\) 8\.87%\) border-box/);
+  assert.match(heroSource, /linear-gradient\(0deg, rgba\(255, 255, 255, 0\.15\), rgba\(255, 255, 255, 0\.15\)\) border-box/);
   assert.match(heroSource, /variant="hero"/);
   assert.match(heroSource, /<div className="relative z-10 mx-auto grid/);
   assert.match(heroSource, /mb-7 flex items-center gap-5 lg:hidden/);

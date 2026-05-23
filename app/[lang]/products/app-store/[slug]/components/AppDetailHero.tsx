@@ -35,7 +35,12 @@ const heroTitleAccentClassName =
   'bg-gradient-to-r from-white to-[#146DFF] bg-clip-text text-transparent';
 
 const heroCenterLogoClassName =
-  'hidden lg:flex absolute left-[609px] top-9 z-20 h-[130px] w-[130px] -translate-x-1/2 items-center justify-center rounded-[5.235px] border-[0.5px] border-[rgba(255,255,255,0.15)] bg-[#0A0A0A] p-5 shadow-2xl shadow-black/40';
+  'hidden lg:flex absolute left-[609px] top-9 z-20 h-[130px] w-[130px] -translate-x-1/2 items-center justify-center rounded-[5.235px] border-[0.5px] border-transparent p-5 shadow-2xl shadow-black/40';
+
+const heroCenterLogoBorderStyle = {
+  background:
+    'linear-gradient(#0A0A0A, #0A0A0A) padding-box, linear-gradient(109.08deg, #FFFFFF 0.55%, rgba(255, 255, 255, 0) 26.65%) border-box, linear-gradient(285.16deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 8.87%) border-box, linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)) border-box',
+};
 
 function textLinkClassName(variant: 'primary' | 'default' = 'default') {
   return cn(
@@ -102,7 +107,10 @@ export default function AppDetailHero({ app, lang }: AppDetailHeroProps) {
       </div>
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-12 px-6 lg:grid-cols-[minmax(0,560px)_minmax(0,1fr)] lg:px-8">
-        <div className={heroCenterLogoClassName}>
+        <div
+          className={heroCenterLogoClassName}
+          style={heroCenterLogoBorderStyle}
+        >
           <AppIcon
             src={app.icon}
             alt={`${app.name} icon`}
