@@ -291,6 +291,20 @@ test('why deploy diagram does not add an outer background mask', () => {
   );
 });
 
+test('why deploy diagram cards use the Figma gradient border treatment', () => {
+  assert.match(whyDeploySource, /gradientBorderStyle/);
+  assert.match(whyDeploySource, /diagramCardClassName/);
+  assert.match(whyDeploySource, /diagramTopCardClassName/);
+  assert.match(whyDeploySource, /diagramLiveCardClassName/);
+  assert.match(whyDeploySource, /border-\[0\.5px\] border-transparent/);
+  assert.match(whyDeploySource, /linear-gradient\(#0A0A0A, #0A0A0A\) padding-box/);
+  assert.match(whyDeploySource, /linear-gradient\(109\.08deg, #FFFFFF 0\.55%, rgba\(255, 255, 255, 0\) 26\.65%\) border-box/);
+  assert.match(whyDeploySource, /linear-gradient\(285\.16deg, #FFFFFF 0%, rgba\(255, 255, 255, 0\) 8\.87%\) border-box/);
+  assert.match(whyDeploySource, /linear-gradient\(0deg, rgba\(255, 255, 255, 0\.15\), rgba\(255, 255, 255, 0\.15\)\) border-box/);
+  assert.doesNotMatch(whyDeploySource, /border border-white\/10 bg-white\/\[0\.035\]/);
+  assert.doesNotMatch(whyDeploySource, /border border-white\/10 bg-white\/\[0\.04\]/);
+});
+
 test('detail sections use Figma-like vertical rhythm instead of stacked wide padding', () => {
   for (const source of [
     whyDeploySource,

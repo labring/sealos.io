@@ -71,6 +71,18 @@ const resourceIcons = [
   { label: 'Observability', icon: Activity },
 ];
 
+const gradientBorderStyle = {
+  background:
+    'linear-gradient(#0A0A0A, #0A0A0A) padding-box, linear-gradient(109.08deg, #FFFFFF 0.55%, rgba(255, 255, 255, 0) 26.65%) border-box, linear-gradient(285.16deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 8.87%) border-box, linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)) border-box',
+};
+
+const diagramCardClassName =
+  'border-[0.5px] border-transparent bg-[#0A0A0A]';
+
+const diagramTopCardClassName = `${diagramCardClassName} rounded-xl p-3`;
+
+const diagramLiveCardClassName = `${diagramCardClassName} inline-flex items-center gap-3 rounded-lg px-5 py-4 text-sm font-semibold text-white`;
+
 export default function WhyDeployOnSealos() {
   return (
     <section className="mx-auto max-w-7xl px-6 pt-14 pb-16 lg:px-8 lg:pt-16 lg:pb-24">
@@ -82,7 +94,10 @@ export default function WhyDeployOnSealos() {
       <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:items-center">
         <div className="relative min-h-[460px] overflow-hidden p-8">
           <div className="relative mx-auto flex max-w-[430px] flex-col items-center">
-            <div className="rounded-xl border border-white/10 bg-white/[0.045] p-3">
+            <div
+              className={diagramTopCardClassName}
+              style={gradientBorderStyle}
+            >
               <div className="flex h-10 items-center gap-3 rounded-lg bg-white/[0.055] px-4 text-sm font-semibold text-white">
                 <Grid2X2 className="h-4 w-4 text-[#69a3ff]" />
                 One-Click Deploy
@@ -103,7 +118,8 @@ export default function WhyDeployOnSealos() {
               {resourceIcons.map((item) => (
                 <div
                   key={item.label}
-                  className="flex min-h-[74px] flex-col items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.035] text-center"
+                  className={`${diagramCardClassName} flex min-h-[74px] flex-col items-center justify-center gap-2 rounded-lg text-center`}
+                  style={gradientBorderStyle}
                 >
                   <item.icon className="h-5 w-5 text-zinc-300" />
                   <span className="text-[11px] text-zinc-400">
@@ -113,7 +129,10 @@ export default function WhyDeployOnSealos() {
               ))}
             </div>
             <div className="h-12 w-px bg-white/10" />
-            <div className="inline-flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.04] px-5 py-4 text-sm font-semibold text-white">
+            <div
+              className={diagramLiveCardClassName}
+              style={gradientBorderStyle}
+            >
               <span className="flex h-12 w-12 items-center justify-center rounded-md bg-white/[0.055]">
                 <CircleCheckBig className="h-6 w-6 text-[#22C55E]" />
               </span>
