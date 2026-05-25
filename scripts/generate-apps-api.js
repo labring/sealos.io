@@ -77,6 +77,61 @@ async function fetchTemplates(language = 'en') {
   }
 }
 
+function toCanonicalSlug(slug) {
+  return String(slug || '')
+    .trim()
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .replace(/[^a-zA-Z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .toLowerCase();
+}
+
+function normalizeHttpUrl(value) {
+  if (!value) return undefined;
+  if (/^https?:\/\//i.test(value)) return value;
+  if (/^[\w.-]+\.[a-z]{2,}(?:\/.*)?$/i.test(value)) {
+    return `https://${value}`;
+  }
+  return value;
+}
+
+function getFallbackScreenshot(templateName) {
+  if (!templateName) return [];
+  return [
+    `https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/${templateName}/website-screenshot.webp`,
+  ];
+}
+
+const fallbackZhDescriptions = {
+  Tools:
+    '可在 Sealos 上一键部署的自托管开源工具，适合团队协作、内部流程和日常生产力场景。',
+  AI: '可在 Sealos 上一键部署的自托管 AI 应用，适合模型工作流、智能助手和团队实验环境。',
+  Database:
+    '可在 Sealos 上一键部署的数据库服务，支持持久化存储并连接到云上应用。',
+  Monitoring:
+    '可在 Sealos 上一键部署的监控与可观测性工具，帮助团队查看指标、日志和运行状态。',
+  Blog: '可在 Sealos 上一键部署的内容发布应用，适合博客、网站和开放内容管理。',
+  DevOps:
+    '可在 Sealos 上一键部署的 DevOps 工具，适合平台运维、发布流程和基础设施管理。',
+  Storage:
+    '可在 Sealos 上一键部署的存储服务，适合文件、对象数据和应用资产管理。',
+  'Low-Code':
+    '可在 Sealos 上一键部署的低代码平台，适合快速构建内部工具和业务应用。',
+};
+
+function getFallbackZhDescription(appName, category) {
+  const template =
+    fallbackZhDescriptions[category] || fallbackZhDescriptions.Tools;
+  return `${appName} 是${template.replace(/^可/, '可')}`;
+}
+
+function buildTags(spec, category) {
+  const tags = Array.isArray(spec.categories)
+    ? spec.categories.filter(Boolean)
+    : [];
+  return tags.length ? tags : [category.toLowerCase().replace(/\s+/g, '-')];
+}
+
 /**
  * Convert API template to app config format
  */
@@ -142,16 +197,18 @@ async function convertTemplateToAppConfig(template) {
   };
 
   // Download icon and get local path
-  const slug = metadata.name || '';
-  const iconPath = await downloadIcon(spec.icon, slug);
+  const templateName = metadata.name || '';
+  const slug = toCanonicalSlug(templateName);
+  const iconPath = await downloadIcon(spec.icon, slug || templateName);
 
-  // Create i18n object if available
-  const i18n = {};
-  if (spec.i18n && spec.i18n.zh && spec.i18n.zh.description) {
-    i18n.zh = {
-      description: spec.i18n.zh.description,
-    };
-  }
+  // Create i18n object. Use a category-aware fallback so localized pages keep useful copy.
+  const i18n = {
+    zh: {
+      description:
+        spec.i18n?.zh?.description ||
+        getFallbackZhDescription(spec.title || metadata.name || '', category),
+    },
+  };
 
   // Generate basic features based on category
   const categoryFeatures = {
@@ -237,10 +294,13 @@ async function convertTemplateToAppConfig(template) {
 
   const appConfig = {
     name: spec.title || metadata.name || '',
-    slug: metadata.name || '',
+    slug,
     description: spec.description || '',
     icon: iconPath,
-    screenshots: Array.isArray(spec.screenshots) ? spec.screenshots : [],
+    screenshots:
+      Array.isArray(spec.screenshots) && spec.screenshots.length > 0
+        ? spec.screenshots
+        : getFallbackScreenshot(templateName),
     category: category,
     features: categoryFeatures[category] || [
       'Feature 1',
@@ -262,17 +322,18 @@ async function convertTemplateToAppConfig(template) {
     ],
     gradient: gradientMapping[category] || 'from-gray-50/70 to-slate-50/70',
     github: spec.gitRepo || undefined,
-    website: spec.url || undefined,
+    website: normalizeHttpUrl(spec.url),
     readme: spec.readme || undefined,
-    tags: spec.categories || [],
+    tags: buildTags(spec, category),
     source: {
       url: template.filePath
         ? `https://github.com/labring-actions/templates/tree/kb-0.9${template.filePath}`
         : undefined,
       deployCount: spec.deployCount || 0,
     },
-    // Add i18n object if available
-    ...(Object.keys(i18n).length > 0 && { i18n }),
+    templateName: templateName !== slug ? templateName : undefined,
+    legacySlugs: templateName !== slug ? [templateName] : undefined,
+    i18n,
   };
 
   return appConfig;
@@ -471,7 +532,9 @@ async function processTemplates() {
           addedCount++;
 
           // Fetch and collect template source data
-          const sourceData = await fetchTemplateSource(appConfig.slug);
+          const sourceData = await fetchTemplateSource(
+            appConfig.templateName || appConfig.slug,
+          );
           if (sourceData) {
             const inputs = extractTemplateSourceInputs(sourceData);
             templateSources[appConfig.slug] = inputs;

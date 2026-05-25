@@ -25,3 +25,9 @@ test('app store FAQ arrow keeps the default color until the item is open', () =>
   assert.match(source, /\[\&>svg\]:text-zinc-500/);
   assert.match(source, /\[\&\[data-state=open\]>svg\]:text-\[#146DFF\]/);
 });
+
+test('app store FAQ uses app-store intent instead of pricing FAQ content', () => {
+  assert.match(source, /appStoreFaqItems/);
+  assert.match(source, /one-click app deployment/);
+  assert.doesNotMatch(source, /pricing\/config\/faqs/);
+});

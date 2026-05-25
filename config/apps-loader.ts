@@ -3,6 +3,8 @@ import { appDomain } from './site';
 export interface AppConfig {
   name: string;
   slug: string;
+  templateName?: string;
+  legacySlugs?: string[];
   description: string;
   icon: string;
   screenshots?: string[];
@@ -91,7 +93,7 @@ async function fetchDynamicApps(): Promise<AppConfig[]> {
     const data = await response.json();
     const apps = (data.apps as AppConfig[]).map((app) => ({
       ...app,
-      deployUrl: app.deployUrl || getDeployUrl(app.slug),
+      deployUrl: app.deployUrl || getDeployUrl(getTemplateName(app)),
     }));
 
     // Update cache
@@ -116,7 +118,7 @@ async function loadStaticApps(): Promise<AppConfig[]> {
     const appsModule = await import('./apps.json');
     const apps = (appsModule.default as AppConfig[]).map((app) => ({
       ...app,
-      deployUrl: getDeployUrl(app.slug),
+      deployUrl: getDeployUrl(getTemplateName(app)),
     }));
 
     return apps;
@@ -175,12 +177,25 @@ export async function searchApps(query: string): Promise<AppConfig[]> {
 /**
  * Get app by slug
  */
+export function matchesAppSlug(
+  app: Pick<AppConfig, 'slug' | 'legacySlugs'>,
+  slug: string,
+): boolean {
+  const lowerSlug = slug.toLowerCase();
+  return (
+    app.slug.toLowerCase() === lowerSlug ||
+    app.legacySlugs?.some(
+      (legacySlug) => legacySlug.toLowerCase() === lowerSlug,
+    ) ||
+    false
+  );
+}
+
 export async function getAppBySlug(
   slug: string,
 ): Promise<AppConfig | undefined> {
   const allApps = await loadAllApps();
-  const lowerSlug = slug.toLowerCase();
-  return allApps.find((app) => app.slug.toLowerCase() === lowerSlug);
+  return allApps.find((app) => matchesAppSlug(app, slug));
 }
 
 /**
@@ -193,6 +208,15 @@ export async function getAppsByCategory(
     return loadAllApps();
   }
   return loadAppsByCategory(category);
+}
+
+/**
+ * Generate deploy URL for an app
+ */
+export function getTemplateName(
+  app: Pick<AppConfig, 'slug' | 'templateName'>,
+): string {
+  return app.templateName || app.slug;
 }
 
 /**

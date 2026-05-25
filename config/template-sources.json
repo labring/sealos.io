@@ -1,30 +1,16 @@
 {
-  "perplexica": [
+  "reactive-resume": [
     {
-      "description": "The API Key of the OpenAI-compatible service",
-      "type": "string",
-      "default": "",
+      "description": "Storage size for minio in Gi",
+      "type": "number",
+      "default": "5",
       "required": true,
-      "key": "OPENAI_API_KEY",
-      "label": "OPENAI_API_KEY"
-    },
-    {
-      "description": "The API URL of the OpenAI-compatible service (e.g. \"https://api.openai.com/v1\" for official API, or custom endpoint URL that follows OpenAI API format/structure)",
-      "type": "string",
-      "default": "https://api.openai.com/v1",
-      "required": true,
-      "key": "OPENAI_API_URL",
-      "label": "OPENAI_API_URL"
-    },
-    {
-      "description": "The model name of the OpenAI-compatible service",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "key": "OPENAI_MODEL_NAME",
-      "label": "OPENAI_MODEL_NAME"
+      "key": "minio_storage",
+      "label": "minio_storage"
     }
   ],
+  "readeck": [],
+  "ruiqi-waf": [],
   "ace-step": [
     {
       "description": "Number of GPUs (NVIDIA)",
@@ -138,7 +124,7 @@
     {
       "description": "Initial Airbyte admin password.",
       "type": "string",
-      "default": "yzuqjbwctckjneaoozhmyevn",
+      "default": "ecptuyvzqyumifrhxbrtucua",
       "required": true,
       "key": "auth_admin_password",
       "label": "auth_admin_password"
@@ -303,7 +289,24 @@
       "label": "calcom_license_key"
     }
   ],
-  "cap": [],
+  "cap": [
+    {
+      "description": "Optional Resend API key for sending login emails",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "RESEND_API_KEY",
+      "label": "RESEND_API_KEY"
+    },
+    {
+      "description": "Optional verified Resend sender domain",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "RESEND_FROM_DOMAIN",
+      "label": "RESEND_FROM_DOMAIN"
+    }
+  ],
   "casdoor": [
     {
       "description": "Database driver name (mysql, postgres, sqlite)",
@@ -504,6 +507,33 @@
       "label": "init_password"
     }
   ],
+  "directus": [
+    {
+      "description": "Initial administrator email address",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_email",
+      "label": "admin_email"
+    },
+    {
+      "description": "Initial administrator password",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Use S3-compatible object storage for uploaded files",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_object_storage",
+      "label": "use_object_storage"
+    }
+  ],
+  "docker-stacks": [],
   "docuseal": [],
   "drizzle-studio": [
     {
@@ -516,6 +546,48 @@
     }
   ],
   "eaglercraft-server": [],
+  "edgequake": [
+    {
+      "description": "LLM provider name, such as openai, mistral, anthropic, gemini, ollama, or mock.",
+      "type": "choice",
+      "default": "openai",
+      "required": true,
+      "options": [
+        "openai",
+        "mistral",
+        "anthropic",
+        "gemini",
+        "ollama",
+        "mock"
+      ],
+      "key": "EDGEQUAKE_LLM_PROVIDER",
+      "label": "EDGEQUAKE_LLM_PROVIDER"
+    },
+    {
+      "description": "OpenAI API key used when EDGEQUAKE_LLM_PROVIDER is openai.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "OPENAI_API_KEY",
+      "label": "OPENAI_API_KEY"
+    },
+    {
+      "description": "Optional OpenAI-compatible API base URL.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "OPENAI_BASE_URL",
+      "label": "OPENAI_BASE_URL"
+    },
+    {
+      "description": "Rust log filter for the EdgeQuake API container.",
+      "type": "string",
+      "default": "info",
+      "required": false,
+      "key": "RUST_LOG",
+      "label": "RUST_LOG"
+    }
+  ],
   "emqx": [
     {
       "description": "replicas count",
@@ -639,7 +711,7 @@
     {
       "description": "Backend secret key (JWT signing)",
       "type": "string",
-      "default": "cuttxetedykrbllcytozkmrtjvpvciav",
+      "default": "qzlbbswuypwejbuohvyoqrmtwkntkqxt",
       "required": true,
       "key": "SECRET_KEY",
       "label": "SECRET_KEY"
@@ -736,7 +808,7 @@
     {
       "description": "Seed for token generation",
       "type": "string",
-      "default": "hkpyfmgmeodyniuzgksxznkhsnqajsuz",
+      "default": "hjkzqnvepvvzrnojscnlsbmznzzfrcyr",
       "required": true,
       "key": "seed",
       "label": "seed"
@@ -921,7 +993,6 @@
   ],
   "it-tools": [],
   "jsoncrack": [],
-  "docker-stacks": [],
   "kanboard": [],
   "kaneo": [],
   "keycloak": [
@@ -1016,6 +1087,40 @@
       "label": "ADMIN_PASSWORD"
     }
   ],
+  "lobe-chat": [
+    {
+      "description": "This is the API key you apply on the OpenAI account page",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "OPENAI_API_KEY",
+      "label": "OPENAI_API_KEY"
+    },
+    {
+      "description": "If you manually configure the OpenAI interface proxy, you can use this configuration item to override the default OpenAI API request base URL",
+      "type": "string",
+      "default": "https://api.openai.com/v1",
+      "required": false,
+      "key": "OPENAI_PROXY_URL",
+      "label": "OPENAI_PROXY_URL"
+    },
+    {
+      "description": "Add a password to access this service; you can set a long password to avoid leaking. If this value contains a comma, it is a password array.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "ACCESS_CODE",
+      "label": "ACCESS_CODE"
+    },
+    {
+      "description": "Used to control the model list. Use + to add a model, - to hide a model, and model_name=display_name to customize the display name of a model, separated by commas.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "OPENAI_MODEL_LIST",
+      "label": "OPENAI_MODEL_LIST"
+    }
+  ],
   "lobe-chat-db": [
     {
       "description": "The Client ID of the Logto application.",
@@ -1056,40 +1161,6 @@
       "required": false,
       "key": "OPENAI_PROXY_URL",
       "label": "OPENAI_PROXY_URL"
-    },
-    {
-      "description": "Used to control the model list. Use + to add a model, - to hide a model, and model_name=display_name to customize the display name of a model, separated by commas.",
-      "type": "string",
-      "default": "",
-      "required": false,
-      "key": "OPENAI_MODEL_LIST",
-      "label": "OPENAI_MODEL_LIST"
-    }
-  ],
-  "lobe-chat": [
-    {
-      "description": "This is the API key you apply on the OpenAI account page",
-      "type": "string",
-      "default": "",
-      "required": false,
-      "key": "OPENAI_API_KEY",
-      "label": "OPENAI_API_KEY"
-    },
-    {
-      "description": "If you manually configure the OpenAI interface proxy, you can use this configuration item to override the default OpenAI API request base URL",
-      "type": "string",
-      "default": "https://api.openai.com/v1",
-      "required": false,
-      "key": "OPENAI_PROXY_URL",
-      "label": "OPENAI_PROXY_URL"
-    },
-    {
-      "description": "Add a password to access this service; you can set a long password to avoid leaking. If this value contains a comma, it is a password array.",
-      "type": "string",
-      "default": "",
-      "required": false,
-      "key": "ACCESS_CODE",
-      "label": "ACCESS_CODE"
     },
     {
       "description": "Used to control the model list. Use + to add a model, - to hide a model, and model_name=display_name to customize the display name of a model, separated by commas.",
@@ -1348,16 +1419,6 @@
   "nocodb": [],
   "node-red": [],
   "notifuse": [],
-  "nsfw": [
-    {
-      "description": "API_SECRET_KEY",
-      "type": "string",
-      "default": "",
-      "required": false,
-      "key": "API_SECRET_KEY",
-      "label": "API_SECRET_KEY"
-    }
-  ],
   "open-webui": [],
   "openagents": [
     {
@@ -1503,7 +1564,7 @@
     {
       "description": "Secret key for encrypting data (32 bytes hex)",
       "type": "string",
-      "default": "wkixhobvcqqplpheygfopfjtqrzgyzspgouwmakstrtwxcipvraeazmyljqmeobo",
+      "default": "rrylivathvhdkxcjmsawahcnhikphpoibjsgzgyoqtlgearbfxymchjzsipbemrk",
       "required": true,
       "key": "secret_key",
       "label": "secret_key"
@@ -1511,7 +1572,7 @@
     {
       "description": "Utility secret for internal operations",
       "type": "string",
-      "default": "rpvmrplsgcjuzuginvqdcnsizwqlaxcciesuejhcjswodnobzwvwscszaazjfaby",
+      "default": "wisiqitfesgwbamnnysgsaqzugvanozumoylybmzfpaweqxvyuopnaxtfwtrzslx",
       "required": true,
       "key": "utils_secret",
       "label": "utils_secret"
@@ -1732,7 +1793,7 @@
     {
       "description": "Should be a very long sequence of random characters",
       "type": "string",
-      "default": "eyaloifdrjqipdflgoqzbamhrxeukajk",
+      "default": "izzxtbhonngjlfthgtzjghzlvecibqvh",
       "required": false,
       "key": "paperless_secret_key",
       "label": "paperless_secret_key"
@@ -1781,6 +1842,32 @@
   "payload": [],
   "pdf2zh": [],
   "penpot": [],
+  "perplexica": [
+    {
+      "description": "The API Key of the OpenAI-compatible service",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "OPENAI_API_KEY",
+      "label": "OPENAI_API_KEY"
+    },
+    {
+      "description": "The API URL of the OpenAI-compatible service (e.g. \"https://api.openai.com/v1\" for official API, or custom endpoint URL that follows OpenAI API format/structure)",
+      "type": "string",
+      "default": "https://api.openai.com/v1",
+      "required": true,
+      "key": "OPENAI_API_URL",
+      "label": "OPENAI_API_URL"
+    },
+    {
+      "description": "The model name of the OpenAI-compatible service",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "OPENAI_MODEL_NAME",
+      "label": "OPENAI_MODEL_NAME"
+    }
+  ],
   "pgadmin4": [
     {
       "description": "login page account email",
@@ -1818,7 +1905,6 @@
     }
   ],
   "phpmyadmin": [],
-  "plane": [],
   "plausible": [
     {
       "description": "clickhouse user name",
@@ -1874,7 +1960,7 @@
     {
       "description": "Encryption key for settings (recommended for production, 32 characters)",
       "type": "string",
-      "default": "eeoxbrprwrdgxejkszqlzjxvljzwwuox",
+      "default": "aoyrnblavdayvpubbfmosaotcniznvlk",
       "required": false,
       "key": "encryption_key",
       "label": "encryption_key"
@@ -1931,6 +2017,7 @@
       "label": "X_API_SECRET"
     }
   ],
+  "presenton": [],
   "privatebin": [],
   "qinglong": [],
   "quay": [
@@ -1959,17 +2046,6 @@
       "label": "initial_admin_email"
     }
   ],
-  "Reactive-Resume": [
-    {
-      "description": "Storage size for minio in Gi",
-      "type": "number",
-      "default": "5",
-      "required": true,
-      "key": "minio_storage",
-      "label": "minio_storage"
-    }
-  ],
-  "Readeck": [],
   "redisinsight": [],
   "refly": [
     {
@@ -2001,7 +2077,6 @@
   "rocketchat": [],
   "rocketchat-micro": [],
   "rsshub": [],
-  "Ruiqi-Waf": [],
   "rustfs": [
     {
       "description": "S3 Access Key for authentication",
@@ -2029,33 +2104,6 @@
     }
   ],
   "rybbit": [],
-  "signoz": [],
-  "skardi": [
-    {
-      "description": "Authentication mode. Defaults to BETTER_AUTH_DIESEL_SQLITE — clear this field to disable auth entirely",
-      "type": "string",
-      "default": "BETTER_AUTH_DIESEL_SQLITE",
-      "required": false,
-      "key": "auth_mode",
-      "label": "auth_mode"
-    },
-    {
-      "description": "Secret key used to sign sessions (32+ characters). Auto-generated by default",
-      "type": "string",
-      "default": "xboxyxzmzenaclxtkzlsynjqbaysvhon",
-      "required": false,
-      "key": "auth_secret",
-      "label": "auth_secret"
-    },
-    {
-      "description": "Required when auth_mode is set. Path to the SQLite auth database file",
-      "type": "string",
-      "default": "skardi_auth.db",
-      "required": false,
-      "key": "auth_db_path",
-      "label": "auth_db_path"
-    }
-  ],
   "s-pdf": [
     {
       "description": "Use PostgreSQL database for production workloads (recommended for better performance and data persistence)",
@@ -2144,6 +2192,33 @@
       "required": false,
       "key": "SYSTEM_GOOGLEVISIBILITY",
       "label": "SYSTEM_GOOGLEVISIBILITY"
+    }
+  ],
+  "signoz": [],
+  "skardi": [
+    {
+      "description": "Authentication mode. Defaults to BETTER_AUTH_DIESEL_SQLITE — clear this field to disable auth entirely",
+      "type": "string",
+      "default": "BETTER_AUTH_DIESEL_SQLITE",
+      "required": false,
+      "key": "auth_mode",
+      "label": "auth_mode"
+    },
+    {
+      "description": "Secret key used to sign sessions (32+ characters). Auto-generated by default",
+      "type": "string",
+      "default": "kjihgnhlndbfnmjkzdjcyqvcdphknyxb",
+      "required": false,
+      "key": "auth_secret",
+      "label": "auth_secret"
+    },
+    {
+      "description": "Required when auth_mode is set. Path to the SQLite auth database file",
+      "type": "string",
+      "default": "skardi_auth.db",
+      "required": false,
+      "key": "auth_db_path",
+      "label": "auth_db_path"
     }
   ],
   "strapi": [

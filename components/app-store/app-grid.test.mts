@@ -29,9 +29,12 @@ test('app cards use the first real screenshot before falling back to placeholder
 test('app card screenshots keep the angled Figma preview treatment', () => {
   assert.match(
     source,
-    /className="absolute left-\[6\.8%\] top-\[12px\] h-\[355px\] w-\[111\.3%\]"/,
+    /className="absolute [^"]*top-\[12px\][^"]*left-\[6\.8%\][^"]*h-\[355px\][^"]*w-\[111\.3%\]"/,
   );
-  assert.match(source, /className="relative h-\[315px\] w-\[93%\] rotate-\[-6deg\]/);
+  assert.match(
+    source,
+    /className="relative h-\[315px\] w-\[93%\] rotate-\[-6deg\]/,
+  );
   assert.match(source, /group-hover:rotate-\[-4deg\]/);
   assert.match(source, /group-hover:scale-\[1\.02\]/);
   assert.doesNotMatch(source, /w-\[424px\]/);
@@ -50,7 +53,25 @@ test('app cards do not render bottom primary tag pills', () => {
 
 test('app card deploy button spans the Figma footer row', () => {
   assert.match(source, /className="mt-auto flex w-full items-center"/);
-  assert.match(source, /className="inline-flex h-9 w-full items-center justify-center/);
+  assert.match(
+    source,
+    /className=".*inline-flex h-11 w-full items-center justify-center/,
+  );
   assert.doesNotMatch(source, /mt-auto flex items-center justify-end/);
   assert.doesNotMatch(source, /min-w-\[120px\]/);
+});
+
+test('app grid distinguishes empty app data from no-result filters', () => {
+  assert.match(source, /AppStoreStatePanel/);
+  assert.match(source, /apps\.length === 0/);
+  assert.match(source, /variant="empty"/);
+  assert.match(source, /variant="no-results"/);
+  assert.match(source, /Reset filters/);
+});
+
+test('app grid interactive controls include mobile-sized targets and focus-visible rings', () => {
+  assert.match(source, /inline-flex h-11 w-full items-center justify-center/);
+  assert.match(source, /focus-visible:ring-2 focus-visible:ring-\[#6ea2ff\]/);
+  assert.match(source, /active:scale-\[0\.98\]/);
+  assert.match(source, /grid gap-8 md:grid-cols-2 xl:grid-cols-3/);
 });

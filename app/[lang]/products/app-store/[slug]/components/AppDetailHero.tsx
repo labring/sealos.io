@@ -15,6 +15,7 @@ import { cn } from '@/lib/utils';
 import { DeployButton } from './DeployButton';
 import AppPreviewPanel from './AppPreviewPanel';
 import {
+  getAppBenefits,
   getDisplayDescription,
   type AppDetailConfig,
 } from './app-detail-utils';
@@ -22,6 +23,7 @@ import {
 interface AppDetailHeroProps {
   app: AppDetailConfig;
   lang: languagesType;
+  templateName: string;
 }
 
 const proofPoints = [
@@ -51,9 +53,15 @@ function textLinkClassName(variant: 'primary' | 'default' = 'default') {
   );
 }
 
-export default function AppDetailHero({ app, lang }: AppDetailHeroProps) {
+export default function AppDetailHero({
+  app,
+  lang,
+  templateName,
+}: AppDetailHeroProps) {
+  const benefits = getAppBenefits(app);
+
   return (
-    <section className="relative overflow-hidden pt-36 pb-16 md:pt-44 md:pb-20 lg:pt-[132px] lg:pb-20">
+    <section className="relative overflow-hidden pt-28 pb-14 sm:pt-36 sm:pb-16 md:pt-44 md:pb-20 lg:pt-[132px] lg:pb-20">
       <div
         className="bg-background pointer-events-none absolute inset-0 z-0"
         aria-hidden="true"
@@ -161,7 +169,7 @@ export default function AppDetailHero({ app, lang }: AppDetailHeroProps) {
           </div>
 
           <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-xs text-zinc-400">
-            {(app.benefits.length ? app.benefits : proofPoints)
+            {(benefits.length ? benefits : proofPoints)
               .slice(0, 4)
               .map((item) => (
                 <span key={item} className="inline-flex items-center gap-2">
@@ -176,10 +184,10 @@ export default function AppDetailHero({ app, lang }: AppDetailHeroProps) {
 
           <div className="mt-10">
             <DeployButton
-              templateName={app.slug}
+              templateName={templateName}
               appName={app.name}
               category={app.category}
-              className="h-10 gap-2 px-6 text-sm"
+              className="gap-2 px-6 text-sm"
             >
               Deploy Now
               <ArrowRight className="h-4 w-4" />

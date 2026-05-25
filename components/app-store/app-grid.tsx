@@ -8,13 +8,12 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  Rocket,
-  Sparkles,
   Star,
 } from 'lucide-react';
 import { languagesType } from '@/lib/i18n';
+import AppStoreStatePanel from '@/app/[lang]/products/app-store/components/app-store-state-panel';
 import { AppIcon } from '@/components/ui/app-icon';
-import { type AppConfig } from '@/config/apps-loader';
+import { getTemplateName, type AppConfig } from '@/config/apps-loader';
 import { cn } from '@/lib/utils';
 import { useOpenDeployModal } from '@/new-components/DeployModal';
 import {
@@ -61,8 +60,7 @@ const preferredCategoryOrder = [
   'Storage',
 ];
 
-const appCardScreenshotClassName =
-  'object-cover object-top';
+const appCardScreenshotClassName = 'object-cover object-top';
 
 function getPageItems(currentPage: number, totalPages: number) {
   if (totalPages <= 5) {
@@ -99,15 +97,15 @@ function AppCard({
       style={{ animationDelay: `${Math.min(index, 11) * 35}ms` }}
     >
       <a
-        href={`/${lang}/products/app-store/${app.slug}`}
-        className="relative block h-[135px] overflow-hidden"
+        href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
+        className="focus-visible:ring-offset-background relative block h-[135px] overflow-hidden focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none"
         aria-label={`View ${app.name} details`}
       >
         {primaryScreenshot ? (
-          <div className="absolute left-0 top-[-0.37px] h-[136px] w-[110%] overflow-hidden">
-            <div className="absolute left-[6.8%] top-[12px] h-[355px] w-[111.3%]">
+          <div className="absolute top-[-0.37px] left-0 h-[136px] w-[110%] overflow-hidden">
+            <div className="absolute top-[12px] left-[6.8%] h-[355px] w-[111.3%]">
               <div className="flex h-full items-center justify-center">
-                <div className="relative h-[315px] w-[93%] rotate-[-6deg] overflow-hidden rounded-[5px] opacity-80 shadow-2xl shadow-black/40 transition duration-300 group-hover:rotate-[-4deg] group-hover:scale-[1.02] group-hover:opacity-95">
+                <div className="relative h-[315px] w-[93%] rotate-[-6deg] overflow-hidden rounded-[5px] opacity-80 shadow-2xl shadow-black/40 transition duration-300 group-hover:scale-[1.02] group-hover:rotate-[-4deg] group-hover:opacity-95">
                   <Image
                     src={primaryScreenshot}
                     alt={`${app.name} screenshot`}
@@ -124,7 +122,7 @@ function AppCard({
             <div
               className={cn('absolute inset-0 bg-gradient-to-br', app.gradient)}
             />
-            <div className="absolute inset-0 bg-background/65" />
+            <div className="bg-background/65 absolute inset-0" />
             <div className="absolute inset-x-6 top-8 h-36 rotate-[-5deg] rounded-lg border border-white/10 bg-zinc-950/75 shadow-2xl shadow-black/40 transition duration-300 group-hover:rotate-[-3deg]">
               <div className="flex h-7 items-center gap-1.5 border-b border-white/10 px-3">
                 <span className="h-2 w-2 rounded-full bg-white/20" />
@@ -142,14 +140,14 @@ function AppCard({
             </div>
           </>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/35 via-background/10 to-transparent" />
+        <div className="from-background/35 via-background/10 absolute inset-0 bg-gradient-to-t to-transparent" />
       </a>
 
       <div className="flex flex-1 flex-col gap-5 px-5 py-4">
         <div className="flex items-start gap-3">
           <a
-            href={`/${lang}/products/app-store/${app.slug}`}
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-zinc-100 shadow-sm transition duration-200 group-hover:scale-[1.03]"
+            href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
+            className="focus-visible:ring-offset-background flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-zinc-100 shadow-sm transition duration-200 group-hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]"
             aria-label={`View ${app.name} details`}
           >
             <AppIcon
@@ -165,8 +163,8 @@ function AppCard({
           <div className="min-w-0 flex-1">
             <div className="flex min-w-0 items-center justify-between gap-3">
               <a
-                href={`/${lang}/products/app-store/${app.slug}`}
-                className="truncate text-base font-semibold text-zinc-100 transition hover:text-white"
+                href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
+                className="focus-visible:ring-offset-background truncate text-base font-semibold text-zinc-100 transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none"
               >
                 {app.name}
               </a>
@@ -187,7 +185,7 @@ function AppCard({
           <button
             type="button"
             onClick={() => onDeploy(app)}
-            className="inline-flex h-9 w-full items-center justify-center rounded-full bg-white/[0.055] px-4 text-sm font-medium text-zinc-100 transition duration-200 hover:bg-white/[0.12] active:scale-[0.98]"
+            className="focus-visible:ring-offset-background inline-flex h-11 w-full items-center justify-center rounded-full bg-white/[0.055] px-4 text-sm font-medium text-zinc-100 transition duration-200 hover:bg-white/[0.12] focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]"
             data-technology={app.name}
             data-category={app.category}
           >
@@ -217,7 +215,9 @@ export default function AppGrid({
   const categoryCounts = useMemo(() => getCategoryCounts(apps), [apps]);
   const categories = useMemo(
     () => [
-      ...preferredCategoryOrder.filter((category) => category in categoryCounts),
+      ...preferredCategoryOrder.filter(
+        (category) => category in categoryCounts,
+      ),
       ...Object.keys(categoryCounts)
         .filter((category) => !preferredCategoryOrder.includes(category))
         .sort((a, b) => a.localeCompare(b)),
@@ -252,7 +252,10 @@ export default function AppGrid({
   let previousRenderedPage = 0;
 
   return (
-    <section id="featured-apps" className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
+    <section
+      id="featured-apps"
+      className="mx-auto max-w-7xl px-6 py-12 lg:px-8"
+    >
       <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex min-w-0 gap-3 overflow-x-auto pb-2 [scrollbar-width:none] lg:pb-0 [&::-webkit-scrollbar]:hidden">
           {categories.map((category) => {
@@ -263,7 +266,7 @@ export default function AppGrid({
                 type="button"
                 onClick={() => setSelectedCategory(category)}
                 className={cn(
-                  'h-11 shrink-0 rounded-lg px-5 text-sm font-medium transition duration-200 active:scale-[0.98]',
+                  'focus-visible:ring-offset-background h-11 shrink-0 rounded-lg px-5 text-sm font-medium transition duration-200 focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]',
                   isActive
                     ? 'bg-white/[0.18] text-white'
                     : 'text-zinc-400 hover:bg-white/[0.055] hover:text-zinc-100',
@@ -279,7 +282,7 @@ export default function AppGrid({
         </div>
 
         <DropdownMenu>
-          <DropdownMenuTrigger className="inline-flex h-11 w-fit shrink-0 items-center justify-center gap-2 rounded-lg border border-white/15 bg-transparent px-4 text-sm font-medium text-zinc-100 transition hover:bg-white/[0.055]">
+          <DropdownMenuTrigger className="focus-visible:ring-offset-background inline-flex h-11 w-fit shrink-0 items-center justify-center gap-2 rounded-lg border border-white/15 bg-transparent px-4 text-sm font-medium text-zinc-100 transition hover:bg-white/[0.055] focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]">
             <activeSort.icon className="h-4 w-4" />
             Sort: {activeSort.label}
             <ChevronDown className="h-4 w-4 text-zinc-500" />
@@ -310,14 +313,16 @@ export default function AppGrid({
           <button
             type="button"
             onClick={() => setQuery('')}
-            className="text-zinc-300 transition hover:text-white"
+            className="focus-visible:ring-offset-background text-zinc-300 transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none"
           >
             Clear search
           </button>
         )}
       </div>
 
-      {visible.apps.length > 0 ? (
+      {apps.length === 0 ? (
+        <AppStoreStatePanel variant="empty" className="min-h-[280px]" />
+      ) : visible.apps.length > 0 ? (
         <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
           {visible.apps.map((app, index) => (
             <AppCard
@@ -325,29 +330,29 @@ export default function AppGrid({
               app={app}
               lang={lang}
               index={index}
-              onDeploy={(selectedApp) => openDeployModal(selectedApp.slug)}
+              onDeploy={(selectedApp) =>
+                openDeployModal(getTemplateName(selectedApp))
+              }
             />
           ))}
         </div>
       ) : (
-        <div className="flex min-h-[280px] flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] px-6 text-center">
-          <Sparkles className="mb-4 h-8 w-8 text-[#6ea2ff]" />
-          <h3 className="text-xl font-semibold text-white">No apps found</h3>
-          <p className="mt-2 max-w-md text-sm leading-6 text-zinc-400">
-            Try a different search term or browse all categories.
-          </p>
-          <button
-            type="button"
-            onClick={() => {
-              setQuery('');
-              setSelectedCategory(ALL_CATEGORY);
-            }}
-            className="mt-5 inline-flex h-10 items-center gap-2 rounded-full bg-white/[0.08] px-5 text-sm font-medium text-white transition hover:bg-white/[0.15]"
-          >
-            <Rocket className="h-4 w-4" />
-            Reset filters
-          </button>
-        </div>
+        <AppStoreStatePanel
+          variant="no-results"
+          className="min-h-[280px]"
+          action={
+            <button
+              type="button"
+              onClick={() => {
+                setQuery('');
+                setSelectedCategory(ALL_CATEGORY);
+              }}
+              className="focus-visible:ring-offset-background inline-flex h-11 items-center justify-center rounded-full bg-white/[0.09] px-5 text-sm font-medium text-white transition duration-200 hover:bg-white/[0.16] focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]"
+            >
+              Reset filters
+            </button>
+          }
+        />
       )}
 
       {visible.totalPages > 1 && (
@@ -359,7 +364,7 @@ export default function AppGrid({
             type="button"
             disabled={visible.currentPage === 1}
             onClick={() => setPage((current) => Math.max(1, current - 1))}
-            className="inline-flex h-10 items-center gap-1 rounded-md px-3 transition hover:bg-white/[0.06] disabled:pointer-events-none disabled:opacity-[0.35]"
+            className="focus-visible:ring-offset-background inline-flex h-11 items-center gap-1 rounded-md px-3 transition hover:bg-white/[0.06] focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98] disabled:pointer-events-none disabled:opacity-[0.35]"
           >
             <ChevronLeft className="h-4 w-4" />
             <span className="hidden sm:inline">Previous</span>
@@ -383,7 +388,7 @@ export default function AppGrid({
                     pageNumber === visible.currentPage ? 'page' : undefined
                   }
                   className={cn(
-                    'flex h-10 w-10 items-center justify-center rounded-md transition',
+                    'focus-visible:ring-offset-background flex h-11 w-11 items-center justify-center rounded-md transition focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]',
                     pageNumber === visible.currentPage
                       ? 'border border-white/15 bg-white/[0.035] text-white'
                       : 'hover:bg-white/[0.06]',
@@ -401,7 +406,7 @@ export default function AppGrid({
             onClick={() =>
               setPage((current) => Math.min(visible.totalPages, current + 1))
             }
-            className="inline-flex h-10 items-center gap-1 rounded-md px-3 transition hover:bg-white/[0.06] disabled:pointer-events-none disabled:opacity-[0.35]"
+            className="focus-visible:ring-offset-background inline-flex h-11 items-center gap-1 rounded-md px-3 transition hover:bg-white/[0.06] focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98] disabled:pointer-events-none disabled:opacity-[0.35]"
           >
             <span className="hidden sm:inline">Next</span>
             <ChevronRight className="h-4 w-4" />

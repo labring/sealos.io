@@ -1,22 +1,24 @@
+import { getAppUseCases, type AppDetailConfig } from './app-detail-utils';
+
 interface AppUseCasesProps {
-  app: {
-    useCases?: string[];
-  };
+  app: AppDetailConfig;
   translations: {
     useCases: string;
   };
 }
 
 export default function AppUseCases({ app, translations }: AppUseCasesProps) {
-  if (!app.useCases || app.useCases.length === 0) return null;
+  const useCases = getAppUseCases(app);
+
+  if (useCases.length === 0) return null;
 
   return (
     <div className="mb-8 rounded-xl border border-white/10 bg-white/5 p-6 shadow-lg">
-      <h2 className="mb-4 text-xl font-semibold text-foreground">
+      <h2 className="text-foreground mb-4 text-xl font-semibold">
         {translations.useCases}
       </h2>
       <div className="grid gap-3 sm:grid-cols-2">
-        {app.useCases.map((useCase: string, index: number) => (
+        {useCases.map((useCase: string, index: number) => (
           <div
             key={index}
             className="flex items-center gap-3 rounded-lg border border-white/5 bg-white/5 p-3"
@@ -36,9 +38,7 @@ export default function AppUseCases({ app, translations }: AppUseCasesProps) {
                 />
               </svg>
             </div>
-            <span className="font-medium text-zinc-200">
-              {useCase}
-            </span>
+            <span className="font-medium text-zinc-200">{useCase}</span>
           </div>
         ))}
       </div>

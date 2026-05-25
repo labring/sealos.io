@@ -6,6 +6,7 @@ import { languagesType } from '@/lib/i18n';
 import AppGrid from '@/components/app-store/app-grid';
 import AppStoreHero from './app-store-hero';
 import CategoryShowcase from './category-showcase';
+import AppStoreDefinition from './app-store-definition';
 
 interface AppStoreContentProps {
   lang: languagesType;
@@ -23,6 +24,7 @@ export default function AppStoreContent({ lang }: AppStoreContentProps) {
           onQueryChange={setQuery}
         />
       </div>
+      <AppStoreDefinition lang={lang} />
       <CategoryShowcase apps={appsConfig} />
       <AppGrid
         lang={lang}

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { source, blog } from '@/lib/source';
 import { appsConfig } from '@/config/apps';
+import { getAppDetailPathname } from '@/app/[lang]/products/app-store/app-store-seo';
 import { getAllPlatformSlugs } from '@/app/[lang]/(home)/comparison/config/platforms';
 
 export const revalidate = false;
@@ -56,7 +57,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       );
 
   const appStorePages: MetadataRoute.Sitemap = appsConfig.map((app) =>
-    toSitemapItem(getUrl, `/products/app-store/${app.slug}`, 'weekly', 0.7),
+    toSitemapItem(getUrl, getAppDetailPathname(app.slug), 'weekly', 0.7),
   );
 
   const allPlatformSlugs = getAllPlatformSlugs();
