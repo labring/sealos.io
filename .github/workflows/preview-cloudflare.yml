@@ -2,12 +2,24 @@ name: Preview Home Page (Cloudflare)
 
 on:
   workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull request number to deploy when manually dispatching a preview'
+        required: false
+        type: string
+      head_sha:
+        description: 'Expected pull request head SHA for manual preview dispatch'
+        required: false
+        type: string
   pull_request:
+  issue_comment:
+    types:
+      - created
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these preview deployments to complete.
 concurrency:
-  group: 'cloudflare-pages-preview'
+  group: cloudflare-pages-preview-${{ github.event.pull_request.number || github.event.issue.number || github.run_id }}
   cancel-in-progress: false
 
 permissions:
@@ -15,25 +27,152 @@ permissions:
   deployments: write
   pull-requests: write
   actions: read
+  issues: write
 
 jobs:
-  deploy:
+  prepare:
     runs-on: ubuntu-24.04
-    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
-    env:
-      CF_PAGES_PROJECT_NAME: ${{ vars.CLOUDFLARE_PAGES_PROJECT_NAME || 'sealos-static' }}
-      CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
-      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN || secrets.CF_API_TOKEN }}
-
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'issue_comment' && github.event.issue.pull_request && github.event.comment.body == '/preview')
     outputs:
-      url: ${{ steps.deploy.outputs.deployment-url }}
-
+      should_deploy: ${{ steps.prepare.outputs.should_deploy }}
+      pr_number: ${{ steps.prepare.outputs.pr_number }}
+      pr_head_sha: ${{ steps.prepare.outputs.pr_head_sha }}
+      pr_head_ref: ${{ steps.prepare.outputs.pr_head_ref }}
+      pr_head_repo: ${{ steps.prepare.outputs.pr_head_repo }}
+      trigger_mode: ${{ steps.prepare.outputs.trigger_mode }}
     steps:
-      - name: Checkout
+      - name: Resolve preview request
+        id: prepare
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const eventName = context.eventName;
+            const setOutput = (name, value) => core.setOutput(name, String(value ?? ''));
+
+            async function getPr(number) {
+              const { data } = await github.rest.pulls.get({
+                owner,
+                repo,
+                pull_number: Number(number),
+              });
+              return data;
+            }
+
+            async function hasWriteAccess(username) {
+              const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner,
+                repo,
+                username,
+              });
+              return ['admin', 'maintain', 'write'].includes(data.permission);
+            }
+
+            let pr;
+            let shouldDeploy = false;
+            let triggerMode = eventName;
+
+            if (eventName === 'pull_request') {
+              pr = context.payload.pull_request;
+              shouldDeploy = pr.head.repo.full_name === `${owner}/${repo}`;
+              triggerMode = shouldDeploy ? 'same-repo-auto' : 'fork-requires-maintainer-preview';
+
+              if (!shouldDeploy) {
+                core.notice('Fork PR preview skipped. A maintainer can comment /preview to deploy this head SHA.');
+              }
+            }
+
+            if (eventName === 'issue_comment') {
+              const body = context.payload.comment.body.trim();
+              const command = body.split(/\s+/)[0];
+              if (!context.payload.issue.pull_request || command !== '/preview') {
+                core.notice('Issue comment is not a /preview request on a pull request.');
+              } else {
+                const actor = context.payload.comment.user.login;
+                const allowed = await hasWriteAccess(actor);
+
+                if (!allowed) {
+                  core.setFailed(`User ${actor} does not have write, maintain, or admin access to trigger previews.`);
+                  return;
+                }
+
+                pr = await getPr(context.payload.issue.number);
+                shouldDeploy = true;
+                triggerMode = 'maintainer-comment';
+              }
+            }
+
+            if (eventName === 'workflow_dispatch') {
+              const prNumber = context.payload.inputs?.pr_number;
+              const expectedSha = context.payload.inputs?.head_sha;
+
+              if (prNumber) {
+                pr = await getPr(prNumber);
+                if (expectedSha && pr.head.sha !== expectedSha) {
+                  core.setFailed(`PR #${prNumber} head SHA changed from ${expectedSha} to ${pr.head.sha}. Re-run with the current SHA.`);
+                  return;
+                }
+                triggerMode = 'manual-pr-dispatch';
+              } else {
+                triggerMode = 'manual-ref-dispatch';
+              }
+
+              shouldDeploy = true;
+            }
+
+            setOutput('should_deploy', shouldDeploy);
+            setOutput('trigger_mode', triggerMode);
+
+            if (pr) {
+              setOutput('pr_number', pr.number);
+              setOutput('pr_head_sha', pr.head.sha);
+              setOutput('pr_head_ref', pr.head.ref);
+              setOutput('pr_head_repo', pr.head.repo.full_name);
+
+              await core.summary
+                .addHeading('Cloudflare preview request')
+                .addList([
+                  `Mode: ${triggerMode}`,
+                  `PR: #${pr.number}`,
+                  `Head repository: ${pr.head.repo.full_name}`,
+                  `Head ref: ${pr.head.ref}`,
+                  `Head SHA: ${pr.head.sha}`,
+                  `Deploy: ${shouldDeploy}`,
+                ])
+                .write();
+            } else {
+              setOutput('pr_number', '');
+              setOutput('pr_head_sha', context.sha);
+              setOutput('pr_head_ref', context.ref);
+              setOutput('pr_head_repo', `${owner}/${repo}`);
+            }
+
+  build:
+    needs: prepare
+    runs-on: ubuntu-24.04
+    if: needs.prepare.outputs.should_deploy == 'true'
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout pull request head
+        if: needs.prepare.outputs.pr_number != ''
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          ref: ${{ needs.prepare.outputs.pr_head_sha }}
+          repository: ${{ needs.prepare.outputs.pr_head_repo }}
+          persist-credentials: false
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Checkout workflow ref
+        if: needs.prepare.outputs.pr_number == ''
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
           submodules: recursive
           fetch-depth: 0
 
@@ -41,7 +180,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Build
         env:
@@ -52,20 +190,58 @@ jobs:
           npm ci
           npm run build
 
+      - name: Upload static output
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-pages-out
+          path: out
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy:
+    needs:
+      - prepare
+      - build
+    runs-on: ubuntu-24.04
+    if: needs.prepare.outputs.should_deploy == 'true'
+    permissions:
+      contents: read
+      deployments: write
+      issues: write
+      pull-requests: write
+    env:
+      CF_PAGES_PROJECT_NAME: ${{ vars.CLOUDFLARE_PAGES_PROJECT_NAME || 'sealos-static' }}
+
+    outputs:
+      url: ${{ steps.deploy.outputs.deployment-url }}
+
+    steps:
+      - name: Download static output
+        uses: actions/download-artifact@v4
+        with:
+          name: cloudflare-pages-out
+          path: out
+
       - name: Deploy to Cloudflare Pages
         id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
-          apiToken: ${{ env.CF_API_TOKEN }}
-          accountId: ${{ env.CF_ACCOUNT_ID }}
-          command: pages deploy ./out --project-name=${{ env.CF_PAGES_PROJECT_NAME }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN || secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+          command: >-
+            pages deploy ./out
+            --project-name=${{ env.CF_PAGES_PROJECT_NAME }}
+            --branch=pr-${{ needs.prepare.outputs.pr_number || github.run_id }}
 
       - name: Comment Preview URL
-        if: success() && github.event_name == 'pull_request'
+        if: success() && needs.prepare.outputs.pr_number != ''
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const prNumber = Number(process.env.PR_NUMBER);
+            const headSha = process.env.PR_HEAD_SHA;
+            const shortSha = headSha.slice(0, 7);
             const body = [
               '🚀 **Sealos Preview Ready (Cloudflare Pages)**',
               '',
@@ -73,14 +249,21 @@ jobs:
               '',
               `🔗 [👀 Click here to visit preview](${process.env.PREVIEW_URL})`,
               '',
+              `- Trigger: ${process.env.TRIGGER_MODE}`,
+              `- Commit: \`${shortSha}\``,
+              '',
               '---',
-              '💡 This preview will be automatically updated when you push new commits to this PR.'
+              '💡 For fork PRs, a maintainer must comment `/preview` again after new commits.'
             ].join('\n');
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body
+              issue_number: prNumber,
+              body,
             });
         env:
           PREVIEW_URL: ${{ steps.deploy.outputs.deployment-url }}
+          PR_NUMBER: ${{ needs.prepare.outputs.pr_number }}
+          PR_HEAD_SHA: ${{ needs.prepare.outputs.pr_head_sha }}
+          TRIGGER_MODE: ${{ needs.prepare.outputs.trigger_mode }}
