@@ -11,7 +11,10 @@ interface RelatedTemplatesProps {
   lang: languagesType;
 }
 
-export default function RelatedTemplates({ apps, lang }: RelatedTemplatesProps) {
+export default function RelatedTemplates({
+  apps,
+  lang,
+}: RelatedTemplatesProps) {
   if (apps.length === 0) {
     return null;
   }
@@ -20,16 +23,14 @@ export default function RelatedTemplates({ apps, lang }: RelatedTemplatesProps) 
     <section className="mx-auto max-w-7xl px-6 pt-12 pb-16 lg:px-8 lg:pt-14 lg:pb-20">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2 className={figmaDetailHeadingClassName()}>
-            Related templates
-          </h2>
+          <h2 className={figmaDetailHeadingClassName()}>Related templates</h2>
           <p className="mt-6 text-sm leading-6 text-zinc-500">
             Explore more production-ready templates.
           </p>
         </div>
         <Link
           href={`/${lang}/products/app-store`}
-          className="inline-flex items-center gap-2 text-sm text-zinc-200 transition hover:text-[#69a3ff]"
+          className="focus-visible:ring-offset-background inline-flex h-11 items-center gap-2 rounded-full px-3 text-sm text-zinc-200 transition hover:text-[#69a3ff] focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]"
         >
           More
           <ArrowRight className="h-4 w-4" />
@@ -37,7 +38,7 @@ export default function RelatedTemplates({ apps, lang }: RelatedTemplatesProps) 
       </div>
 
       <div className="relative mt-12">
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-[34%] bg-gradient-to-l from-background to-transparent lg:block" />
+        <div className="from-background pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-[34%] bg-gradient-to-l to-transparent lg:block" />
         <div className="snap-x snap-mandatory overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="flex w-max gap-6 pr-20">
             {apps.map((app) => (
@@ -46,8 +47,8 @@ export default function RelatedTemplates({ apps, lang }: RelatedTemplatesProps) 
                 className="group flex w-[82vw] max-w-[386px] min-w-[310px] shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-white/[0.035] transition duration-300 hover:-translate-y-1 hover:bg-white/[0.055]"
               >
                 <Link
-                  href={`/${lang}/products/app-store/${app.slug}`}
-                  className="block h-[135px] overflow-hidden"
+                  href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
+                  className="focus-visible:ring-offset-background block h-[135px] overflow-hidden focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none"
                   aria-label={`View ${app.name} details`}
                 >
                   <div className="origin-center scale-[0.68] opacity-80 transition duration-300 group-hover:scale-[0.7]">
@@ -58,8 +59,8 @@ export default function RelatedTemplates({ apps, lang }: RelatedTemplatesProps) 
                 <div className="flex flex-1 flex-col gap-5 px-5 py-4">
                   <div className="flex items-start gap-3">
                     <Link
-                      href={`/${lang}/products/app-store/${app.slug}`}
-                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-zinc-100 shadow-sm transition duration-200 group-hover:scale-[1.03]"
+                      href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
+                      className="focus-visible:ring-offset-background flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-zinc-100 shadow-sm transition duration-200 group-hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]"
                     >
                       <AppIcon
                         src={app.icon}
@@ -74,8 +75,8 @@ export default function RelatedTemplates({ apps, lang }: RelatedTemplatesProps) 
                     <div className="min-w-0 flex-1">
                       <div className="flex min-w-0 items-center justify-between gap-3">
                         <Link
-                          href={`/${lang}/products/app-store/${app.slug}`}
-                          className="truncate text-base font-semibold text-zinc-100 transition hover:text-white"
+                          href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
+                          className="focus-visible:ring-offset-background truncate text-base font-semibold text-zinc-100 transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none"
                         >
                           {app.name}
                         </Link>
@@ -94,8 +95,8 @@ export default function RelatedTemplates({ apps, lang }: RelatedTemplatesProps) 
 
                   <div className="mt-auto flex items-center gap-2">
                     <Link
-                      href={`/${lang}/products/app-store/${app.slug}`}
-                      className="ml-auto inline-flex h-9 items-center gap-2 rounded-full px-1 text-sm font-medium text-[#69a3ff] transition hover:text-white"
+                      href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
+                      className="focus-visible:ring-offset-background ml-auto inline-flex h-11 items-center gap-2 rounded-full px-3 text-sm font-medium text-[#69a3ff] transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]"
                     >
                       View Template
                       <ArrowRight className="h-4 w-4" />

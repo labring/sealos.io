@@ -1,30 +1,30 @@
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
   <style>
-        #squircle 
+        #squircle
         {
             fill: #1f1e1e;
         }
-         #t { 
+         #t {
             fill: #fff;
             }
-        #grid 
-            { 
+        #grid
+            {
             fill: #fff;
             opacity: 0.4;
             }
-      
-  /* dark theme styles 
-        @media (prefers-color-scheme: dark) {
-          
 
-            #squircle 
+  /* dark theme styles
+        @media (prefers-color-scheme: dark) {
+
+
+            #squircle
             {
                 fill: #fff;
             }
 
             #t {
-                fill: #1f1e1e; 
+                fill: #1f1e1e;
                 }
             #grid {
                 fill: #1f1e1e;
@@ -32,7 +32,7 @@
                 }
                 }
 */
-            
+
     </style>
 
 <g id ="squircle">
@@ -43,7 +43,7 @@
 <clipPath id="squircle-path">
 <rect width="48" height="48"/>
 </clipPath>
-</defs> 
+</defs>
 </g>
 
 <g id ="t">

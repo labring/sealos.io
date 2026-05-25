@@ -1,7 +1,7 @@
+import { getAppBenefits, type AppDetailConfig } from './app-detail-utils';
+
 interface WhyThisSoftwareProps {
-  app: {
-    benefits: string[];
-  };
+  app: AppDetailConfig;
   translations: {
     whyThisSoftware: string;
   };
@@ -11,13 +11,15 @@ export default function WhyThisSoftware({
   app,
   translations,
 }: WhyThisSoftwareProps) {
+  const benefits = getAppBenefits(app);
+
   return (
     <div className="mb-8 rounded-xl border border-white/10 bg-white/5 p-6 shadow-lg">
-      <h2 className="mb-4 text-xl font-semibold text-foreground">
+      <h2 className="text-foreground mb-4 text-xl font-semibold">
         {translations.whyThisSoftware}
       </h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        {app.benefits.map((benefit: string, index: number) => (
+        {benefits.map((benefit: string, index: number) => (
           <div key={index} className="flex items-start gap-3">
             <div className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/10">
               <svg
@@ -32,7 +34,7 @@ export default function WhyThisSoftware({
                 />
               </svg>
             </div>
-            <span className="leading-relaxed text-muted-foreground">
+            <span className="text-muted-foreground leading-relaxed">
               {benefit}
             </span>
           </div>

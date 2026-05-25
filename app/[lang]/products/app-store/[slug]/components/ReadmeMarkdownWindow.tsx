@@ -1,5 +1,7 @@
+import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { ArchiveIcon } from '@radix-ui/react-icons';
 import { cn } from '@/lib/utils';
 import type { AppDetailConfig } from './app-detail-utils';
 
@@ -148,16 +150,13 @@ function buildDirectReadmeSource(readmeUrl: string): ReadmeSource | null {
       const encodedOwner = encodeURIComponent(owner);
       const encodedRepo = encodeURIComponent(repo);
       const encodedBranch = encodeURIComponent(branch);
-      const encodedDirectoryPath = encodePathSegments(repoPathParts.slice(0, -1));
+      const encodedDirectoryPath = encodePathSegments(
+        repoPathParts.slice(0, -1),
+      );
 
       repoLabel = `${owner}/${repo}`;
       repoUrl = `https://github.com/${encodedOwner}/${encodedRepo}`;
-      blobBaseUrl = [
-        repoUrl,
-        'blob',
-        encodedBranch,
-        encodedDirectoryPath,
-      ]
+      blobBaseUrl = [repoUrl, 'blob', encodedBranch, encodedDirectoryPath]
         .filter(Boolean)
         .join('/');
       blobBaseUrl = `${blobBaseUrl}/`;
@@ -328,26 +327,52 @@ export async function loadReadmeMarkdown(
   }
 }
 
+function ReadmeUnavailableNotice({ app }: { app: AppDetailConfig }) {
+  return (
+    <div className="absolute inset-x-4 bottom-4 z-10 rounded-2xl border border-white/10 bg-[#0d1117]/88 p-4 shadow-2xl shadow-black/40 backdrop-blur-md sm:inset-x-6 sm:bottom-6 sm:p-5">
+      <div className="flex items-start gap-3">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.055] text-[#6ea2ff]">
+          <ArchiveIcon className="h-5 w-5" />
+        </span>
+        <div>
+          <h3 className="text-sm font-semibold text-white">
+            README preview is unavailable
+          </h3>
+          <p className="mt-1 text-xs leading-5 text-zinc-400">
+            We could not load {app.name} README content, so this page keeps the
+            app preview visible instead.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ReadmeFallback({ app }: { app: AppDetailConfig }) {
   const screenshot = app.screenshots?.[0];
 
   if (!screenshot) {
     return (
-      <div
-        aria-hidden="true"
-        className="aspect-video min-h-[260px] bg-[#0d1117]"
-      />
+      <div className="relative aspect-video min-h-[320px] overflow-hidden bg-[#0d1117]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(20,109,255,0.15),transparent_42%)]" />
+        <div className="relative flex h-full min-h-[320px] items-center justify-center px-6">
+          <ReadmeUnavailableNotice app={app} />
+        </div>
+      </div>
     );
   }
 
   return (
-    <div className="relative aspect-video min-h-[260px] overflow-hidden bg-[#d8d8d8]">
-      <img
+    <div className="relative aspect-video min-h-[320px] overflow-hidden bg-[#d8d8d8]">
+      <Image
         src={screenshot}
         alt={`${app.name} screenshot`}
-        className="h-full w-full object-cover object-top"
-        loading="lazy"
+        fill
+        className="object-cover object-top opacity-70"
+        sizes="(max-width: 768px) 100vw, 1253px"
       />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-[#0d1117]/20 to-transparent" />
+      <ReadmeUnavailableNotice app={app} />
     </div>
   );
 }

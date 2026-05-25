@@ -16,9 +16,7 @@ const HERO_ICON_COUNT = 30;
 const MINIMUM_APP_COUNT_LABEL = 149;
 
 function getHeroApps(apps: AppConfig[]) {
-  return apps
-    .filter((app) => Boolean(app.icon))
-    .slice(0, HERO_ICON_COUNT);
+  return apps.filter((app) => Boolean(app.icon)).slice(0, HERO_ICON_COUNT);
 }
 
 export default function AppStoreHero({
@@ -33,9 +31,9 @@ export default function AppStoreHero({
   );
 
   return (
-    <section className="relative overflow-x-clip pt-28 pb-20 md:pt-36 md:pb-28">
+    <section className="relative overflow-x-clip pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-36 md:pb-28">
       <div
-        className="pointer-events-none absolute inset-0 z-0 bg-background"
+        className="bg-background pointer-events-none absolute inset-0 z-0"
         aria-hidden="true"
       />
 
@@ -88,12 +86,10 @@ export default function AppStoreHero({
       </div>
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-[minmax(0,700px)_minmax(0,1fr)] lg:px-8">
-        <div className="min-w-0 max-w-[760px]">
+        <div className="max-w-[760px] min-w-0">
           <h1 className="max-w-[760px] bg-gradient-to-r from-white to-[#146DFF] bg-clip-text text-[32px] leading-[1.12] font-semibold text-transparent sm:text-[36px] lg:text-[36px] xl:text-[36px]">
             Ready-to-use,{' '}
-            <span className="whitespace-nowrap">
-              One-Click Deployment
-            </span>
+            <span className="whitespace-nowrap">One-Click Deployment</span>
           </h1>
           <p className="mt-6 max-w-[680px] text-base leading-7 text-zinc-400 sm:text-lg">
             Discover top-tier open-source applications and run them through the
@@ -118,10 +114,10 @@ export default function AppStoreHero({
         </div>
 
         <div className="relative mx-auto hidden h-[300px] w-full max-w-[540px] overflow-hidden lg:block">
-          <div className="absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background to-transparent" />
-          <div className="absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-background to-transparent" />
+          <div className="from-background absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r to-transparent" />
+          <div className="from-background absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l to-transparent" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(40,98,190,0.2),transparent_42%)]" />
-          <div className="grid h-full grid-cols-6 gap-4 opacity-80 [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_78%,transparent)]">
+          <div className="grid h-full grid-cols-6 gap-4 [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_78%,transparent)] opacity-80">
             {heroApps.map((app) => (
               <div
                 key={app.slug}

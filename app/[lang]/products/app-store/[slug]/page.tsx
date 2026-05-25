@@ -6,8 +6,16 @@ import { notFound } from 'next/navigation';
 import { Footer } from '@/new-components/Footer';
 import { Header } from '@/new-components/Header';
 import BottomLightImage from '@/assets/bottom-light.svg';
-import { appsConfig, getAppBySlug, loadAllApps } from '@/config/apps';
+import {
+  appsConfig,
+  getAppBySlug,
+  getTemplateName,
+  loadAllApps,
+} from '@/config/apps';
 import { generatePageMetadata } from '@/lib/utils/metadata';
+import StructuredDataComponent from '@/components/structured-data';
+import { generateBreadcrumbSchema } from '@/lib/utils/structured-data';
+import { siteConfig } from '@/config/site';
 import { LANGUAGES, languagesType } from '@/lib/i18n';
 import AppDetailHero from './components/AppDetailHero';
 import ReadmePreview from './components/ReadmePreview';
@@ -19,6 +27,12 @@ import {
   getRelatedApps,
   type AppDetailConfig,
 } from './components/app-detail-utils';
+import {
+  APP_STORE_PATHNAME,
+  generateAppDetailSoftwareSchema,
+  getAppDetailMetadata,
+  getAppDetailPathname,
+} from '../app-store-seo';
 
 interface AppDeployPageProps {
   params: {
@@ -37,10 +51,12 @@ export async function generateStaticParams() {
   const allApps = await loadAllApps();
 
   return LANGUAGES.flatMap((lang) =>
-    allApps.map((app) => ({
-      lang,
-      slug: app.slug,
-    })),
+    allApps.flatMap((app) =>
+      [app.slug, ...(app.legacySlugs || [])].map((slug) => ({
+        lang,
+        slug,
+      })),
+    ),
   );
 }
 
@@ -55,11 +71,13 @@ export async function generateMetadata({
     };
   }
 
+  const metadata = getAppDetailMetadata(app);
+
   return generatePageMetadata({
-    title: `Deploy ${app.name}`,
-    description: app.description,
-    keywords: app.tags,
-    pathname: `/products/app-store/${params.slug}`,
+    title: metadata.title,
+    description: metadata.description,
+    keywords: metadata.keywords,
+    pathname: getAppDetailPathname(app.slug),
     lang: params.lang,
     ogType: 'app',
   });
@@ -79,37 +97,55 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
     limit: 3,
   });
   const readme = await loadReadmeMarkdown(app);
+  const canonicalPath = getAppDetailPathname(app.slug);
+  const appSchema = generateAppDetailSoftwareSchema(app, params.lang);
+  const breadcrumbSchema = generateBreadcrumbSchema(
+    [
+      { name: 'Home', url: siteConfig.url.base },
+      { name: 'Products', url: `${siteConfig.url.base}/products` },
+      { name: 'App Store', url: `${siteConfig.url.base}${APP_STORE_PATHNAME}` },
+      { name: app.name, url: `${siteConfig.url.base}${canonicalPath}` },
+    ],
+    params.lang,
+  );
 
   return (
-    <div
-      data-theme="app-store"
-      style={appStoreDetailBackgroundVars}
-      className="isolate min-h-screen bg-background text-foreground"
-    >
-      <div className="sticky top-0 z-50 container pt-8">
-        <Header lang={params.lang} />
-      </div>
-
-      <main className="-mt-24 overflow-x-clip">
-        <AppDetailHero app={app} lang={params.lang} />
-        <WhyDeployOnSealos />
-        <WholeStackSection />
-        <ReadmePreview app={app} readme={readme} />
-        <RelatedTemplates apps={relatedApps} lang={params.lang} />
-      </main>
-
-      <div className="relative mt-[80px] mb-[400px] h-[800px]">
-        <div className="w-full">
-          <Image
-            src={BottomLightImage}
-            alt=""
-            className="h-auto w-full object-cover select-none"
-            priority
-            fill
-          />
+    <>
+      <StructuredDataComponent data={[appSchema, breadcrumbSchema]} />
+      <div
+        data-theme="app-store"
+        style={appStoreDetailBackgroundVars}
+        className="bg-background text-foreground isolate min-h-[100dvh]"
+      >
+        <div className="sticky top-0 z-50 container pt-4 sm:pt-8">
+          <Header lang={params.lang} />
         </div>
-        <Footer lang={params.lang} />
+
+        <main className="-mt-24 overflow-x-clip">
+          <AppDetailHero
+            app={app}
+            lang={params.lang}
+            templateName={getTemplateName(app)}
+          />
+          <WhyDeployOnSealos />
+          <WholeStackSection />
+          <ReadmePreview app={app} readme={readme} />
+          <RelatedTemplates apps={relatedApps} lang={params.lang} />
+        </main>
+
+        <div className="relative mt-16 mb-48 h-[520px] sm:mt-[80px] sm:mb-[400px] sm:h-[800px]">
+          <div className="w-full">
+            <Image
+              src={BottomLightImage}
+              alt=""
+              className="h-auto w-full object-cover select-none"
+              priority
+              fill
+            />
+          </div>
+          <Footer lang={params.lang} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

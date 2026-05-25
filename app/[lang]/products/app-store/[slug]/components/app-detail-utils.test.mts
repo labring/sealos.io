@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import {
   formatAppCount,
   getDisplayDescription,
+  getAppBenefits,
+  getAppUseCases,
   getRelatedApps,
   getTagLabel,
 } from './app-detail-utils.ts';
@@ -98,4 +100,46 @@ test('getTagLabel normalizes tag text and falls back to category', () => {
 test('formatAppCount uses compact number formatting', () => {
   assert.equal(formatAppCount(0), '0');
   assert.equal(formatAppCount(2400), '2.4K');
+});
+
+test('getAppBenefits derives app-specific copy when generated benefits are generic', () => {
+  const benefits = getAppBenefits({
+    name: 'Dify',
+    category: 'AI',
+    benefits: [
+      'Easy to deploy and manage',
+      'Self-hosted solution',
+      'Open source and free',
+      'Community supported',
+    ],
+  });
+
+  assert.equal(benefits.length, 4);
+  assert.match(benefits[0], /Dify/);
+  assert.match(benefits.join(' '), /AI|Kubernetes YAML/);
+  assert.notDeepEqual(benefits, [
+    'Easy to deploy and manage',
+    'Self-hosted solution',
+    'Open source and free',
+    'Community supported',
+  ]);
+});
+
+test('getAppUseCases replaces repeated generic use cases with category-specific use cases', () => {
+  const useCases = getAppUseCases({
+    category: 'Monitoring',
+    useCases: [
+      'Business Operations',
+      'Development Workflow',
+      'Data Management',
+      'Team Collaboration',
+    ],
+  });
+
+  assert.deepEqual(useCases, [
+    'Application observability',
+    'Uptime and incident response',
+    'Metrics and dashboard operations',
+    'Log and trace analysis',
+  ]);
 });

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500">
+  <defs>
+    <linearGradient id="a">
+      <stop offset="0" stop-color="#ffab00"/>
+      <stop offset=".206" stop-color="orange"/>
+      <stop offset=".247" stop-color="#ffab00"/>
+      <stop offset="1" stop-color="#f80"/>
+    </linearGradient>
+    <radialGradient id="b" xlink:href="#a" fx="50%" fy="50%" r="60%" spreadMethod="pad"/>
+    <filter id="c" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="result1"/>
+      <feBlend in="result1" in2="result1" mode="multiply" result="result5"/>
+      <feGaussianBlur in="result5" stdDeviation="1" result="result6"/>
+      <feComposite in="result6" in2="result5" operator="xor" result="result8"/>
+      <feComposite in="result6" in2="result8" operator="xor" result="fbSourceGraphic"/>
+      <feSpecularLighting in="fbSourceGraphic" lighting-color="#fff" specularConstant="2.2" specularExponent="55" surfaceScale="2" result="result1">
+        <fePointLight x="-5000" y="-10000" z="20000"/>
+      </feSpecularLighting>
+      <feComposite in="result1" in2="fbSourceGraphic" operator="in" result="result2"/>
+      <feComposite in="fbSourceGraphic" in2="result2" k2="2" k3="1" operator="arithmetic" result="result4"/>
+      <feComposite in="result4" in2="result4" operator="in" result="result91"/>
+      <feBlend in="result91" in2="result91" mode="darken"/>
+    </filter>
+  </defs>
+  <path transform="matrix(.95665 0 0 .95665 10.837 10.837)" d="M250.418 3.158 23.301 126.238l-.42 246.84 226.701 123.764 227.117-123.08.42-246.84zm-.711 97.865v.006c3.78 0 7.604.297 11.457.875 41.101 6.166 72.183 40.64 66.384 70.457-5.798 29.816-33.28 55.978-40.085 61.672-6.805 5.695 37.096 164.944 37.096 164.944h-149.12s46.181-156.802 36.486-164.944c-9.695-8.142-41.197-36.872-36.388-68.935 4.81-32.064 37.627-63.975 74.17-64.074z" fill="url(#b)" stroke="#000" stroke-width="15.68" stroke-linecap="round" stroke-linejoin="round" filter="url(#c)"/>
+</svg>
