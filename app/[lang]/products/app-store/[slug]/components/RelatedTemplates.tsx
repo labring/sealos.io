@@ -30,7 +30,7 @@ export default function RelatedTemplates({
         </div>
         <Link
           href={`/${lang}/products/app-store`}
-          className="inline-flex items-center gap-2 text-sm text-zinc-200 transition hover:text-[#69a3ff]"
+          className="focus-visible:ring-offset-background inline-flex h-11 items-center gap-2 rounded-full px-3 text-sm text-zinc-200 transition hover:text-[#69a3ff] focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]"
         >
           More
           <ArrowRight className="h-4 w-4" />
@@ -48,7 +48,7 @@ export default function RelatedTemplates({
               >
                 <Link
                   href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
-                  className="block h-[135px] overflow-hidden"
+                  className="focus-visible:ring-offset-background block h-[135px] overflow-hidden focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none"
                   aria-label={`View ${app.name} details`}
                 >
                   <div className="origin-center scale-[0.68] opacity-80 transition duration-300 group-hover:scale-[0.7]">
@@ -60,7 +60,7 @@ export default function RelatedTemplates({
                   <div className="flex items-start gap-3">
                     <Link
                       href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
-                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-zinc-100 shadow-sm transition duration-200 group-hover:scale-[1.03]"
+                      className="focus-visible:ring-offset-background flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-zinc-100 shadow-sm transition duration-200 group-hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]"
                     >
                       <AppIcon
                         src={app.icon}
@@ -76,7 +76,7 @@ export default function RelatedTemplates({
                       <div className="flex min-w-0 items-center justify-between gap-3">
                         <Link
                           href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
-                          className="truncate text-base font-semibold text-zinc-100 transition hover:text-white"
+                          className="focus-visible:ring-offset-background truncate text-base font-semibold text-zinc-100 transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none"
                         >
                           {app.name}
                         </Link>
@@ -96,7 +96,7 @@ export default function RelatedTemplates({
                   <div className="mt-auto flex items-center gap-2">
                     <Link
                       href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
-                      className="ml-auto inline-flex h-9 items-center gap-2 rounded-full px-1 text-sm font-medium text-[#69a3ff] transition hover:text-white"
+                      className="focus-visible:ring-offset-background ml-auto inline-flex h-11 items-center gap-2 rounded-full px-3 text-sm font-medium text-[#69a3ff] transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]"
                     >
                       View Template
                       <ArrowRight className="h-4 w-4" />
