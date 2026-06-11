@@ -254,8 +254,8 @@ test('native rendering routes delegate to shared helper adapters', async () => {
   ]);
 
   assert.match(ogRoute, /renderOgWebpBuffer/);
-  assert.match(ogRoute, /Content-Type': 'image\/webp'/);
-  assert.match(ogRoute, /Cache-Control': 'public, max-age=86400'/);
+  assert.match(ogRoute, /Content-Type': OG_RENDER_DIMENSIONS\.contentType/);
+  assert.match(ogRoute, /Cache-Control': OG_RENDER_DIMENSIONS\.cacheControl/);
 
   for (const token of [
     'parseBlogThumbnailFormat',

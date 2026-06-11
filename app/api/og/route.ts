@@ -1,28 +1,17 @@
-import { drawCanvas } from '@/lib/og-canvas';
-import { NextRequest, NextResponse } from 'next/server';
-import sharp from 'sharp';
+import { NextResponse } from 'next/server';
+import {
+  OG_RENDER_DIMENSIONS,
+  renderOgWebpBuffer,
+} from '@/lib/native-rendering/og-renderer';
 
 export async function GET() {
   try {
-    const homepageType = 'website';
-    const homepageTitle = 'Sealos';
-    const ogCategory = undefined;
-
-    const canvasBuffer = await drawCanvas(
-      homepageType,
-      homepageTitle,
-      ogCategory,
-    );
-
-    // All major platforms support WebP Open Graph images.
-    const webpBuffer = await sharp(canvasBuffer)
-      .webp({ quality: 90 })
-      .toBuffer();
+    const webpBuffer = await renderOgWebpBuffer();
 
     return new NextResponse(webpBuffer as any, {
       headers: {
-        'Content-Type': 'image/webp',
-        'Cache-Control': 'public, max-age=86400',
+        'Content-Type': OG_RENDER_DIMENSIONS.contentType,
+        'Cache-Control': OG_RENDER_DIMENSIONS.cacheControl,
       },
     });
   } catch (error) {
