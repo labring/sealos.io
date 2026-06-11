@@ -2,6 +2,7 @@ import { join } from 'path';
 import { createCanvas, loadImage, registerFont } from 'canvas';
 import { siteConfig } from '@/config/site';
 import fs from 'fs';
+import { getCanvasFontRegistrations } from '@/lib/native-rendering/fonts';
 
 // Register fonts for canvas
 function registerFonts() {
@@ -14,19 +15,12 @@ function registerFonts() {
   }
 
   try {
-    // Register Arial or a suitable alternative
-    registerFont(join(fontPath, 'arial.ttf'), { family: 'Arial' });
-    registerFont(join(fontPath, 'arial-bold.ttf'), {
-      family: 'Arial',
-      weight: 'bold',
-    });
-    registerFont(join(fontPath, 'NotoSansSC-Black.ttf'), {
-      family: 'Noto Sans',
-      weight: 'bold',
-    });
-
-    // You can register additional fonts if needed
-    // registerFont(join(fontPath, 'inter.ttf'), { family: 'Inter' });
+    for (const font of getCanvasFontRegistrations()) {
+      registerFont(font.path, {
+        family: font.family,
+        weight: font.weight,
+      });
+    }
   } catch (error) {
     console.error('Error registering fonts:', error);
   }
