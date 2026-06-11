@@ -1,5 +1,3 @@
-'use client';
-
 import { analyticsConfig } from '@/config/analytics';
 
 /**
