@@ -14,8 +14,7 @@
     "homepageOg": "homepage-og-template-v1",
     "blogThumbnail": "blog-thumbnail-template-v1"
   },
-  "fontVersion": "native-fonts-2026-06-12"
-,
+  "fontVersion": "native-fonts-2026-06-12",
   "acceptedFormats": ["webp", "svg", "png"],
   "dimensions": {
     "homepageOg": {
