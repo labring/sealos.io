@@ -39,7 +39,9 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Future fix planning can distinguish status, severity, phase, files, entry point, work type, execution time, root cause, impact, remediation direction, validation coverage, and dismissal rationale.
 **Likely Files**: `docs/performance-audit.md`, `.planning/REQUIREMENTS.md`, `.planning/codebase/STRUCTURE.md`, `.planning/codebase/ARCHITECTURE.md`, `.planning/codebase/CONCERNS.md`, `app/**`, `components/**`, `new-components/**`, `config/**`, `content/**`, `hooks/**`, `lib/**`, `scripts/**`, `public/**`, `assets/**`, `fonts/**`, `.github/workflows/**`, `Dockerfile`, `vercel.json`, `next.config.mjs`, `package.json`
 **Validation Approach**: Compare the inventory against `rg --files` output for the expected directories, verify every finding schema field exists in the report, and confirm duplicate-key examples are documented.
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 01-01-PLAN.md — Create the audit ledger skeleton, complete module inventory, finding schema, duplicate-key policy, and Phase 1 validation approach.
 
 ### Phase 2: Build-Time App Catalog Pipeline
 **Goal**: The audit identifies how remote template generation affects build time, generated artifacts, failure behavior, and App Store data source truth.
@@ -217,4 +219,3 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 5. Function-Level Hotspots and Native Rendering | 0/TBD | Not started | - |
 | 6. Shared Shell, Bundle, Assets, and Interaction Performance | 0/TBD | Not started | - |
 | 7. Deployment Parity, Validation Gaps, and Prioritized Findings | 0/TBD | Not started | - |
-
