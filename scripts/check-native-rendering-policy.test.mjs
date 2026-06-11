@@ -187,6 +187,63 @@ test('environment caveats report current shell blockers without failing source v
   assert.match(result.caveats.join('\n'), /Docker CLI is unavailable/);
 });
 
+test('native rendering helpers expose cache, font, OG, and blog contracts', async () => {
+  const [
+    cacheKeyText,
+    fontsText,
+    ogRendererText,
+    blogRendererText,
+  ] = await Promise.all([
+    readFile('lib/native-rendering/cache-key.ts', 'utf8'),
+    readFile('lib/native-rendering/fonts.ts', 'utf8'),
+    readFile('lib/native-rendering/og-renderer.ts', 'utf8'),
+    readFile('lib/native-rendering/blog-thumbnail-renderer.tsx', 'utf8'),
+  ]);
+
+  assert.match(cacheKeyText, /buildNativeImageCacheKey/);
+  assert.match(
+    cacheKeyText,
+    /imageType[\s\S]*language[\s\S]*slug[\s\S]*dimensions[\s\S]*dpr[\s\S]*format[\s\S]*rendererVersion[\s\S]*templateVersion[\s\S]*fontVersion/,
+  );
+
+  for (const token of [
+    'getNativeRenderFonts',
+    'getNativeRenderFontStatus',
+    'expectedBytes: 915212',
+    'expectedBytes: 57448',
+    'expectedBytes: 10541596',
+    'NotoSansSC-Black.ttf',
+    'cold',
+    'warm',
+  ]) {
+    assert.match(fontsText, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+
+  for (const token of [
+    'renderOgPngBuffer',
+    'renderOgWebpBuffer',
+    'OG_RENDER_DIMENSIONS',
+    'quality: 90',
+    'width: 1200',
+    'height: 630',
+  ]) {
+    assert.match(ogRendererText, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+
+  for (const token of [
+    'parseBlogThumbnailFormat',
+    'getBlogThumbnailStaticParams',
+    'renderBlogThumbnailSvg',
+    'renderBlogThumbnailPngResponse',
+    'PREGENERATED_FORMATS',
+    'ImageResponse',
+    'MAX_DPR = 3',
+    'MAX_DIM = 4000',
+  ]) {
+    assert.match(blogRendererText, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+});
+
 async function copyRepositoryFixture(dir) {
   const files = [
     'config/native-rendering-policy.json',
