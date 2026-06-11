@@ -1,7 +1,7 @@
 # Phase 12 Validation Scaffold: Native Rendering Policy
 
 **Created:** 2026-06-12  
-**Updated:** 2026-06-12 by `12-02-PLAN.md`
+**Updated:** 2026-06-12 by `12-03-PLAN.md`
 **Scope:** Planning scaffold for Phase 12 `Native Rendering Policy`  
 **Goal:** Users can receive stable OG and blog thumbnail images from pre-generated or cache-keyed render paths with verified native dependency assumptions.
 
@@ -55,6 +55,16 @@
 | Longer immutable caching is restricted to versioned artifact URLs. | Policy and docs reserve immutable caching for fully versioned static artifact URLs. | SOURCE-POLICY READY |
 | Phase 10 route ownership remains aligned. | Guard checks `/api/og` and `/api/blog/:lang/:slug/thumbnail/:format` are `runtime native route` rows owned by `phase-12-native-rendering`. | SOURCE-GUARDED |
 
+## NATIVE-03 Coverage
+
+| Truth | Source Evidence | Status |
+|-------|-----------------|--------|
+| Developer can verify Docker native library assumptions before deployment. | `scripts/smoke-docker-nginx.js` checks Dockerfile tokens for `node:20-bookworm-slim`, native image library packages, `npm ci && npm run build`, `/app/out`, and `/usr/share/nginx/html`. | SOURCE-GUARDED |
+| Docker smoke composes native renderer source and gated benchmark checks. | Docker smoke plan includes `npm run native-rendering:check` and `npm run native-rendering:benchmark` inside the open `PHASE9_RUN_DOCKER_SMOKE` plan. | GATED READY |
+| Deployment validation includes the native source guard by default. | `npm run validate:deployment` runs `npm run native-rendering:check` between `app-store:diff` and `static-output:check`. | SOURCE-GUARDED |
+| Static-output validation reports native artifact status. | `scripts/check-static-output.js` reads `config/native-rendering-policy.json` and checks `public/generated/native-images` plus `out/generated/native-images` only when those artifacts or `out` exist. | SOURCE-GUARDED |
+| Route-policy validation keeps native routes owned by Phase 12. | `scripts/check-static-export-routes.js` validates native image surfaces against `/api/og` and `/api/blog/:lang/:slug/thumbnail/:format` route rows owned by `phase-12-native-rendering`. | SOURCE-GUARDED |
+
 ## Environment Caveats
 
 | Check | Current State | Acceptance Meaning |
@@ -65,6 +75,20 @@
 | `.source` | absent | Fumadocs-backed runtime route execution remains caveated in this shell. |
 | `out` | absent | Static artifact inspection remains `SKIPPED_WITH_CAVEAT` until a locked build creates output. |
 | Docker CLI | unavailable | Docker/Nginx native validation remains blocked until the gate runs in a Docker-capable environment. |
+
+## Final Phase 12 Command Results
+
+| Command | Result | Evidence |
+|---------|--------|----------|
+| `node --test scripts/check-native-rendering-policy.test.mjs scripts/benchmark-native-rendering.test.mjs scripts/smoke-docker-nginx.test.mjs scripts/check-deployment-parity.test.mjs scripts/check-static-output.test.mjs scripts/check-static-export-routes.test.mjs` | PASS | 43 tests passed across native policy, benchmark, Docker smoke, deployment parity, static-output, and route-policy suites. |
+| `npm run native-rendering:check` | PASS_WITH_CAVEATS | Policy rows 4, route policy alignment PASS, font contract PASS, package script PASS, environment `PASS_WITH_CAVEATS` for Node v24 vs `.nvmrc` 20, absent `node_modules`, absent `.source`, absent `out`, and unavailable Docker CLI. |
+| `npm run native-rendering:benchmark` | PASS_WITH_CAVEAT | Closed `PHASE12_RUN_NATIVE_BENCHMARK` gate exits 0 with `SKIPPED_WITH_CAVEAT` and no native renderer imports. |
+| `npm run static-routes:check` | PASS_WITH_CAVEATS | Route rows 11, policy failures 0, native route ownership PASS, absent `out` caveat, hosted probes skipped with caveat. |
+| `npm run static-output:check` | PASS_WITH_CAVEATS | Header, redirect, config, route policy, and native artifact checks pass; `out` and native artifact inspection report accepted caveats. |
+| `npm run validate:deployment` | PASS_WITH_CAVEATS | Deployment parity source check, app-store diff, native-rendering check, static-output check, and closed Docker smoke path passed. |
+| `npm run docker:smoke` | PASS_WITH_CAVEAT | Closed `PHASE9_RUN_DOCKER_SMOKE` gate exits 0 with `SKIPPED_WITH_CAVEAT`. |
+| Open benchmark wrapper | PASS | Wrapper observed nonzero `npm run native-rendering:benchmark` output containing `BLOCKED` when `PHASE12_RUN_NATIVE_BENCHMARK=1`. |
+| Open Docker wrapper | PASS | Wrapper observed nonzero `npm run docker:smoke` output containing `BLOCKED` when `PHASE9_RUN_DOCKER_SMOKE=1`. |
 
 ## Resolved Research Defaults
 

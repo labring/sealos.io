@@ -112,20 +112,45 @@ must remain represented in benchmark selection.
 
 ## Validation Commands
 
-Run the focused source checks:
+Run the focused source checks and composed deployment guards:
 
 ```bash
-node --test scripts/check-native-rendering-policy.test.mjs
+node --test scripts/check-native-rendering-policy.test.mjs scripts/benchmark-native-rendering.test.mjs scripts/smoke-docker-nginx.test.mjs scripts/check-deployment-parity.test.mjs scripts/check-static-output.test.mjs scripts/check-static-export-routes.test.mjs
 npm run native-rendering:check
+npm run native-rendering:benchmark
 npm run static-routes:check
+npm run static-output:check
+npm run validate:deployment
+npm run docker:smoke
 ```
 
 `npm run native-rendering:check` validates policy rows, source files,
 route-policy alignment, cache-key fields, accepted formats, DPR caps, exact font
 bytes, package entries, package-script wiring, and current-shell caveats.
 
+`npm run native-rendering:benchmark` exits 0 with `SKIPPED_WITH_CAVEAT` while
+`PHASE12_RUN_NATIVE_BENCHMARK` is closed. When the gate is open, it requires
+Node 20, installed dependencies, generated Fumadocs source, and static export
+output before importing native renderers or running PNG `ImageResponse` smoke.
+
 `npm run static-routes:check` keeps the Phase 10 classification link active for
-the two runtime native route rows.
+the two runtime native route rows and verifies Phase 12 native image surfaces
+stay owned by `phase-12-native-rendering`.
+
+`npm run static-output:check` reports native artifact status from
+`public/generated/native-images` and `out/generated/native-images` only when
+source artifacts or static export output exist. Missing `out` remains
+`SKIPPED_WITH_CAVEAT` while the locked build gate is closed.
+
+`npm run validate:deployment` runs `npm run native-rendering:check` between the
+generated App Store diff guard and static-output/Docker smoke checks.
+
+`npm run docker:smoke` exits 0 with `SKIPPED_WITH_CAVEAT` while
+`PHASE9_RUN_DOCKER_SMOKE` is closed. When opened, the Docker plan verifies
+Dockerfile tokens for Node 20, native library packages, `npm ci && npm run
+build`, `/app/out`, `/usr/share/nginx/html`, then runs the native rendering
+source check and gated benchmark command before disposable image/container
+smoke probes.
 
 ## Current Caveats
 
@@ -143,9 +168,15 @@ Current caveats tracked by the policy:
 | `out` absent | Static-export artifact evidence waits for build gates. |
 | Docker CLI unavailable | Docker/native image evidence waits for guarded Docker-capable environments. |
 
+Open-gate wrappers are part of the acceptance contract. The native benchmark
+wrapper passes only when `PHASE12_RUN_NATIVE_BENCHMARK=1` returns nonzero output
+containing `BLOCKED` in this shell. The Docker smoke wrapper passes only when
+`PHASE9_RUN_DOCKER_SMOKE=1` returns nonzero output containing `BLOCKED`.
+
 ## Phase 13 Handoff
 
-Phase 12 will hand Phase 13 a source-owned policy, route alignment guard,
-fixture benchmark vocabulary, native dependency assumptions, and Docker-gated
-evidence. Phase 13 consumes that evidence for browser traces and final
+Phase 12 hands Phase 13 a source-owned policy, route alignment guard, fixture
+benchmark vocabulary, native dependency assumptions, static artifact caveats,
+and Docker-gated evidence. Phase 13 consumes that evidence for browser traces
+and final
 `docs/performance-audit.md` status updates.
