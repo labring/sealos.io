@@ -79,7 +79,9 @@ Plans:
   4. Future fix planning can use a single App Store data-pipeline section to avoid duplicate remediation entries.
 **Likely Files**: `config/apps.json`, `config/template-sources.json`, `config/apps-loader.ts`, `config/apps.ts`, `lib/api/apps-api.ts`, `app/api/apps/[[...lang]]/route.ts`, `app/[lang]/products/app-store/page.tsx`, `app/[lang]/products/app-store/[slug]/**`, `app/[lang]/products/app-store/components/**`, `components/app-store/**`, `hooks/use-template-source.ts`, `new-components/DeployModal/**`
 **Validation Approach**: Inspect static and runtime transformation paths, measure or estimate JSON payload sizes, run existing App Store data tests where useful, and record validation coverage per finding.
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 03-01-PLAN.md — Audit App Store static/runtime shape, payload/cache/fallback/media behavior, candidate findings, skipped validation notes, and Phase 3 summary/UAT outputs.
 **UI hint**: yes
 
 ### Phase 4: Route Classification and Content/Generated Endpoints
