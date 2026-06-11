@@ -1,0 +1,297 @@
+{
+  "version": 1,
+  "policyId": "phase-12-native-rendering",
+  "sourceArtifactDirectory": "public/generated/native-images",
+  "staticExportArtifactDirectory": "out/generated/native-images",
+  "runtimeCacheHeader": "public, max-age=86400",
+  "immutableStaticArtifactCacheHeader": "public, max-age=31536000, immutable",
+  "immutableStaticArtifactRule": "Long immutable caching is allowed only for fully versioned static artifact URLs.",
+  "rendererVersions": {
+    "homepageOg": "homepage-og-renderer-v1",
+    "blogThumbnail": "blog-thumbnail-renderer-v1"
+  },
+  "templateVersions": {
+    "homepageOg": "homepage-og-template-v1",
+    "blogThumbnail": "blog-thumbnail-template-v1"
+  },
+  "fontVersion": "native-fonts-2026-06-12"
+,
+  "acceptedFormats": ["webp", "svg", "png"],
+  "dimensions": {
+    "homepageOg": {
+      "width": 1200,
+      "height": 630,
+      "maxDpr": 1
+    },
+    "blogThumbnail": {
+      "defaultWidth": 384,
+      "defaultHeight": 256,
+      "minDimension": 128,
+      "maxDimension": 4000,
+      "maxDpr": 3,
+      "pregeneratedFormats": [
+        {
+          "format": "svg",
+          "width": 384,
+          "height": 256,
+          "dpr": 1
+        },
+        {
+          "format": "svg",
+          "width": 400,
+          "height": 210,
+          "dpr": 1
+        },
+        {
+          "format": "png",
+          "width": 1200,
+          "height": 630,
+          "dpr": 3
+        }
+      ]
+    }
+  },
+  "cacheKeys": {
+    "requiredDimensions": [
+      "imageType",
+      "language",
+      "slug",
+      "dimensions",
+      "dpr",
+      "format",
+      "rendererVersion",
+      "templateVersion",
+      "fontVersion"
+    ],
+    "runtimeRoutes": [
+      "/api/og",
+      "/api/blog/:lang/:slug/thumbnail/:format"
+    ],
+    "dynamicVariantPolicy": "Runtime variants must include every required cache-key dimension before renderer output is accepted."
+  },
+  "fonts": [
+    {
+      "path": "fonts/arial.ttf",
+      "family": "Arial",
+      "weight": 400,
+      "expectedBytes": 915212,
+      "usedBy": ["homepage-og", "blog-thumbnail"]
+    },
+    {
+      "path": "fonts/arial-bold.ttf",
+      "family": "Arial",
+      "weight": 700,
+      "expectedBytes": 57448,
+      "usedBy": ["homepage-og", "blog-thumbnail"]
+    },
+    {
+      "path": "fonts/NotoSansSC-Black.ttf",
+      "family": "Noto Sans SC",
+      "weight": 900,
+      "expectedBytes": 10541596,
+      "usedBy": ["homepage-og", "blog-thumbnail"]
+    }
+  ],
+  "nativeDependencies": [
+    {
+      "name": "canvas",
+      "expectedPackageRange": "^3.1.0",
+      "validationMode": "package-entry-and-later-import-smoke"
+    },
+    {
+      "name": "sharp",
+      "expectedPackageRange": "^0.33.5",
+      "validationMode": "package-entry-and-later-import-smoke"
+    },
+    {
+      "name": "satori",
+      "expectedPackageRange": "^0.18.3",
+      "validationMode": "package-entry-and-later-import-smoke"
+    }
+  ],
+  "blogBackgroundFixtures": {
+    "directory": "app/api/blog/[lang]/[slug]/thumbnail/[format]/bgs",
+    "expectedFiles": [
+      {
+        "path": "app/api/blog/[lang]/[slug]/thumbnail/[format]/bgs/AppDeploymentBg.tsx",
+        "expectedBytes": 24016
+      },
+      {
+        "path": "app/api/blog/[lang]/[slug]/thumbnail/[format]/bgs/AppStoreChoicesBg.tsx",
+        "expectedBytes": 22425
+      },
+      {
+        "path": "app/api/blog/[lang]/[slug]/thumbnail/[format]/bgs/BestPracticesBg.tsx",
+        "expectedBytes": 16186
+      },
+      {
+        "path": "app/api/blog/[lang]/[slug]/thumbnail/[format]/bgs/TechComparedBg.tsx",
+        "expectedBytes": 11821
+      },
+      {
+        "path": "app/api/blog/[lang]/[slug]/thumbnail/[format]/bgs/WhatIsBg.tsx",
+        "expectedBytes": 82149
+      }
+    ],
+    "expectedTotalBytes": 156597,
+    "largestFixture": "app/api/blog/[lang]/[slug]/thumbnail/[format]/bgs/WhatIsBg.tsx"
+  },
+  "routePolicyAlignment": [
+    {
+      "routePath": "/api/og",
+      "sourceFile": "app/api/og/route.ts",
+      "requiredClassification": "runtime native route",
+      "requiredBudgetOwner": "phase-12-native-rendering"
+    },
+    {
+      "routePath": "/api/blog/:lang/:slug/thumbnail/:format",
+      "sourceFile": "app/api/blog/[lang]/[slug]/thumbnail/[format]/route.ts",
+      "requiredClassification": "runtime native route",
+      "requiredBudgetOwner": "phase-12-native-rendering"
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "homepage-og-webp",
+      "imageType": "homepage-og",
+      "routePath": "/api/og",
+      "sourceFile": "app/api/og/route.ts",
+      "renderer": "canvas-sharp-webp",
+      "format": "webp",
+      "contentType": "image/webp",
+      "width": 1200,
+      "height": 630,
+      "dpr": 1,
+      "maxDpr": 1,
+      "artifactStrategy": "deterministic-static-artifact-plus-runtime-compatibility-url",
+      "sourceArtifact": "public/generated/native-images/homepage-og/homepage-og-renderer-v1-homepage-og-template-v1-native-fonts-2026-06-12-1200x630@1x.webp",
+      "staticExportArtifact": "out/generated/native-images/homepage-og/homepage-og-renderer-v1-homepage-og-template-v1-native-fonts-2026-06-12-1200x630@1x.webp",
+      "runtimeCacheHeader": "public, max-age=86400",
+      "staticArtifactCacheHeader": "public, max-age=31536000, immutable",
+      "cacheKeyFields": [
+        "imageType",
+        "language",
+        "slug",
+        "dimensions",
+        "dpr",
+        "format",
+        "rendererVersion",
+        "templateVersion",
+        "fontVersion"
+      ],
+      "traceIds": ["NATIVE-01", "PERF-501", "og-native-rendering"],
+      "validationCommand": "npm run native-rendering:check"
+    },
+    {
+      "id": "blog-thumbnail-svg-default",
+      "imageType": "blog-thumbnail",
+      "routePath": "/api/blog/:lang/:slug/thumbnail/:format",
+      "sourceFile": "app/api/blog/[lang]/[slug]/thumbnail/[format]/route.ts",
+      "renderer": "satori-svg",
+      "format": "svg",
+      "contentType": "image/svg+xml",
+      "width": 384,
+      "height": 256,
+      "dpr": 1,
+      "maxDpr": 3,
+      "artifactStrategy": "pregenerated-format-static-artifact-plus-cache-keyed-runtime-variant",
+      "sourceArtifactPattern": "public/generated/native-images/blog-thumbnail/{lang}/{slug}/blog-thumbnail-renderer-v1-blog-thumbnail-template-v1-native-fonts-2026-06-12-384x256@1x.svg",
+      "staticExportArtifactPattern": "out/generated/native-images/blog-thumbnail/{lang}/{slug}/blog-thumbnail-renderer-v1-blog-thumbnail-template-v1-native-fonts-2026-06-12-384x256@1x.svg",
+      "runtimeCacheHeader": "public, max-age=86400",
+      "staticArtifactCacheHeader": "public, max-age=31536000, immutable",
+      "cacheKeyFields": [
+        "imageType",
+        "language",
+        "slug",
+        "dimensions",
+        "dpr",
+        "format",
+        "rendererVersion",
+        "templateVersion",
+        "fontVersion"
+      ],
+      "traceIds": ["NATIVE-01", "PERF-502", "og-native-rendering"],
+      "validationCommand": "npm run native-rendering:check"
+    },
+    {
+      "id": "blog-thumbnail-svg-card",
+      "imageType": "blog-thumbnail",
+      "routePath": "/api/blog/:lang/:slug/thumbnail/:format",
+      "sourceFile": "app/api/blog/[lang]/[slug]/thumbnail/[format]/route.ts",
+      "renderer": "satori-svg",
+      "format": "svg",
+      "contentType": "image/svg+xml",
+      "width": 400,
+      "height": 210,
+      "dpr": 1,
+      "maxDpr": 3,
+      "artifactStrategy": "pregenerated-format-static-artifact-plus-cache-keyed-runtime-variant",
+      "sourceArtifactPattern": "public/generated/native-images/blog-thumbnail/{lang}/{slug}/blog-thumbnail-renderer-v1-blog-thumbnail-template-v1-native-fonts-2026-06-12-400x210@1x.svg",
+      "staticExportArtifactPattern": "out/generated/native-images/blog-thumbnail/{lang}/{slug}/blog-thumbnail-renderer-v1-blog-thumbnail-template-v1-native-fonts-2026-06-12-400x210@1x.svg",
+      "runtimeCacheHeader": "public, max-age=86400",
+      "staticArtifactCacheHeader": "public, max-age=31536000, immutable",
+      "cacheKeyFields": [
+        "imageType",
+        "language",
+        "slug",
+        "dimensions",
+        "dpr",
+        "format",
+        "rendererVersion",
+        "templateVersion",
+        "fontVersion"
+      ],
+      "traceIds": ["NATIVE-01", "PERF-502", "og-native-rendering"],
+      "validationCommand": "npm run native-rendering:check"
+    },
+    {
+      "id": "blog-thumbnail-png-large",
+      "imageType": "blog-thumbnail",
+      "routePath": "/api/blog/:lang/:slug/thumbnail/:format",
+      "sourceFile": "app/api/blog/[lang]/[slug]/thumbnail/[format]/route.ts",
+      "renderer": "next-image-response-png",
+      "format": "png",
+      "contentType": "image/png",
+      "width": 1200,
+      "height": 630,
+      "dpr": 3,
+      "maxDpr": 3,
+      "artifactStrategy": "pregenerated-format-static-artifact-plus-cache-keyed-runtime-variant",
+      "sourceArtifactPattern": "public/generated/native-images/blog-thumbnail/{lang}/{slug}/blog-thumbnail-renderer-v1-blog-thumbnail-template-v1-native-fonts-2026-06-12-1200x630@3x.png",
+      "staticExportArtifactPattern": "out/generated/native-images/blog-thumbnail/{lang}/{slug}/blog-thumbnail-renderer-v1-blog-thumbnail-template-v1-native-fonts-2026-06-12-1200x630@3x.png",
+      "runtimeCacheHeader": "public, max-age=86400",
+      "staticArtifactCacheHeader": "public, max-age=31536000, immutable",
+      "cacheKeyFields": [
+        "imageType",
+        "language",
+        "slug",
+        "dimensions",
+        "dpr",
+        "format",
+        "rendererVersion",
+        "templateVersion",
+        "fontVersion"
+      ],
+      "traceIds": ["NATIVE-01", "PERF-502", "og-native-rendering"],
+      "validationCommand": "npm run native-rendering:check"
+    }
+  ],
+  "validationCommands": [
+    "node --test scripts/check-native-rendering-policy.test.mjs",
+    "npm run native-rendering:check",
+    "npm run static-routes:check"
+  ],
+  "environmentCaveats": {
+    "acceptedNodeMajor": 20,
+    "currentShellNodeMajor": 24,
+    "missingNodeModules": "node_modules is absent; package import smoke belongs to later Node 20/native dependency gates.",
+    "missingSource": ".source is absent; Fumadocs generated content evidence belongs to later locked build gates.",
+    "missingOut": "out is absent; static-export artifact evidence belongs to later build gates.",
+    "missingDocker": "Docker CLI is unavailable in this shell; Docker/native evidence belongs to later guarded Phase 12 gates."
+  },
+  "phaseBoundaries": {
+    "phase9": "Deployment parity, Docker smoke policy, unsafe gate definitions, and Node 20 locked-dependency validation orchestration.",
+    "phase10": "Static export route classification and runtime native route ownership rows.",
+    "phase13": "Representative browser traces and final v2 audit status closeout."
+  }
+}
