@@ -1,7 +1,7 @@
 # Phase 12 Validation Scaffold: Native Rendering Policy
 
 **Created:** 2026-06-12  
-**Updated:** 2026-06-12 by `12-01-PLAN.md`
+**Updated:** 2026-06-12 by `12-02-PLAN.md`
 **Scope:** Planning scaffold for Phase 12 `Native Rendering Policy`  
 **Goal:** Users can receive stable OG and blog thumbnail images from pre-generated or cache-keyed render paths with verified native dependency assumptions.
 
@@ -22,6 +22,29 @@
 | `scripts/check-native-rendering-policy.js` | IMPLEMENTED | Exports `validateNativeRenderingPolicy`, `validateNativePolicyConfig`, `validateNativeEnvironmentCaveats`, `validateNativeRoutePolicyAlignment`, `validateNativeFontContract`, and `printNativeRenderingPolicySummary`. |
 | `scripts/check-native-rendering-policy.test.mjs` | IMPLEMENTED | Covers repository PASS plus fail-closed fixture cases for missing rows, invalid cache-key dimensions, route ownership drift, missing font rows, validation command drift, and current-shell caveats. |
 | `package.json` | IMPLEMENTED | Adds `native-rendering:check` as `node scripts/check-native-rendering-policy.js` while preserving existing scripts from earlier phases. |
+
+## 12-02 Helper And Benchmark Validation Status
+
+| Artifact | Status | Evidence |
+|----------|--------|----------|
+| `lib/native-rendering/cache-key.ts` | IMPLEMENTED | Exports `buildNativeImageCacheKey` with ordered image type, language, slug, dimensions, DPR, format, renderer version, template version, and font version tokens. |
+| `lib/native-rendering/fonts.ts` | IMPLEMENTED | Exports memoized `getNativeRenderFonts`, `getNativeRenderFontStatus`, exact font byte contracts, and canvas font registration metadata. |
+| `lib/native-rendering/og-renderer.ts` | IMPLEMENTED | Exports `renderOgPngBuffer`, `renderOgWebpBuffer`, 1200x630 metadata, WebP quality 90, and cache-key metadata. |
+| `lib/native-rendering/blog-thumbnail-renderer.tsx` | IMPLEMENTED | Exports format parsing, static params, page resolution, Satori SVG rendering, and gated `ImageResponse` PNG rendering helpers. |
+| `app/api/og/route.ts` | IMPLEMENTED | Thin adapter over `renderOgWebpBuffer()` preserving `Content-Type: image/webp`, `Cache-Control: public, max-age=86400`, and JSON 500 error shape. |
+| `app/api/blog/[lang]/[slug]/thumbnail/[format]/route.ts` | IMPLEMENTED | Thin adapter over shared parse/static-param/render helpers preserving invalid format 400, missing post 404, SVG content type, PNG `ImageResponse`, language fallback, and slug decoding. |
+| `scripts/benchmark-native-rendering.js` | IMPLEMENTED | Closed gate exits 0 with `SKIPPED_WITH_CAVEAT`; open gate reports `BLOCKED` and exits 1 when Node 20/native prerequisites are missing. |
+| `scripts/benchmark-native-rendering.test.mjs` | IMPLEMENTED | Covers environment context, closed gate, open blocked gate, and injected renderer D-12 result rows. |
+| `package.json` | IMPLEMENTED | Adds `native-rendering:benchmark` as `node scripts/benchmark-native-rendering.js` while preserving previous scripts. |
+
+## NATIVE-02 Coverage
+
+| Truth | Source Evidence | Status |
+|-------|-----------------|--------|
+| Developer can benchmark OG and thumbnail rendering with local fixtures under Node 20. | `scripts/benchmark-native-rendering.js` defines local homepage OG and blog thumbnail SVG/PNG fixtures plus `PHASE12_RUN_NATIVE_BENCHMARK` acceptance gate. | GATED READY |
+| Benchmark output reports renderer, fixture key, format, dimensions, DPR, font cache state, duration, output bytes, status, and caveats. | `scripts/benchmark-native-rendering.test.mjs` verifies injected result rows contain the D-12 schema. | SOURCE-GUARDED |
+| Default benchmark avoids native imports in the current shell. | Closed gate path returns `SKIPPED_WITH_CAVEAT` and tests assert injected native importer is unused. | SOURCE-GUARDED |
+| Open benchmark fails closed without Node 20/native prerequisites. | Wrapper command expects nonzero output containing `BLOCKED` while active Node is v24 and `node_modules`, `.source`, and `out` are absent. | BLOCKED AS EXPECTED |
 
 ## NATIVE-01 Coverage
 

@@ -171,6 +171,16 @@ test('fixture policies fail closed for route ownership, fonts, and validation co
   }
 });
 
+test('package scripts include native benchmark wiring', async () => {
+  const packageText = await readFile('package.json', 'utf8');
+  const packageJson = JSON.parse(packageText);
+
+  assert.equal(
+    packageJson.scripts['native-rendering:benchmark'],
+    'node scripts/benchmark-native-rendering.js',
+  );
+});
+
 test('environment caveats report current shell blockers without failing source validation', () => {
   const result = validateNativeEnvironmentCaveats({
     rootDir: process.cwd(),

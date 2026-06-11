@@ -457,9 +457,10 @@ function validateNativePackageScript({
 } = {}) {
   const failures = [];
   const packageJson = readJsonFile(path.join(rootDir, 'package.json'));
-  const script = packageJson.scripts?.['native-rendering:check'];
+  const checkScript = packageJson.scripts?.['native-rendering:check'];
+  const benchmarkScript = packageJson.scripts?.['native-rendering:benchmark'];
 
-  if (script !== 'node scripts/check-native-rendering-policy.js') {
+  if (checkScript !== 'node scripts/check-native-rendering-policy.js') {
     const message =
       'package.json scripts.native-rendering:check must be node scripts/check-native-rendering-policy.js';
     if (requireScript) {
@@ -467,8 +468,17 @@ function validateNativePackageScript({
     }
   }
 
+  if (benchmarkScript !== 'node scripts/benchmark-native-rendering.js') {
+    const message =
+      'package.json scripts.native-rendering:benchmark must be node scripts/benchmark-native-rendering.js';
+    if (requireScript) {
+      failures.push(message);
+    }
+  }
+
   return {
-    script,
+    script: checkScript,
+    benchmarkScript,
     failures,
     status: failures.length === 0 ? 'PASS' : 'FAIL',
   };

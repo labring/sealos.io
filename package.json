@@ -11,7 +11,8 @@
     "postinstall": "fumadocs-mdx",
     "generate-apps": "node scripts/generate-apps-api.js",
     "generate-apps:clean": "node scripts/generate-apps-api.js --clean",
-    "native-rendering:check": "node scripts/check-native-rendering-policy.js"
+    "native-rendering:check": "node scripts/check-native-rendering-policy.js",
+    "native-rendering:benchmark": "node scripts/benchmark-native-rendering.js"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^1.3.1",
