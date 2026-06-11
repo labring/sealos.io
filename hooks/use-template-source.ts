@@ -2,7 +2,6 @@
 
 import { useState, useCallback } from 'react';
 import { siteConfig } from '@/config/site';
-import templateSourcesData from '@/config/template-sources.json';
 
 /**
  * Template input field definition
@@ -96,6 +95,50 @@ export interface UseTemplateSourceResult {
   fetchTemplateSource: (templateName: string) => Promise<TemplateSourceData | null>;
 }
 
+export async function loadTemplateSource(
+  templateName: string,
+): Promise<TemplateSourceData | null> {
+  try {
+    const templateSourcesModule = await import('@/config/template-sources.json');
+    const sources = templateSourcesModule.default as Record<
+      string,
+      TemplateInput[]
+    >;
+    const inputs = sources[templateName];
+
+    if (inputs !== undefined) {
+      return {
+        source: {
+          inputs,
+        } as TemplateSource,
+      };
+    }
+
+    console.warn(
+      `Template source not found in local data for ${templateName}, falling back to API`,
+    );
+
+    const response = await fetch(
+      `${siteConfig.templateApiEndpoint}/api/getTemplateSource?templateName=${encodeURIComponent(templateName)}`,
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch template: ${response.status}`);
+    }
+
+    const result: TemplateSourceResponse = await response.json();
+
+    if (result.code !== 200) {
+      throw new Error(result.message || 'API returned an error');
+    }
+
+    return result.data;
+  } catch (err) {
+    console.error('Failed to fetch template source:', err);
+    return null;
+  }
+}
+
 /**
  * Hook to fetch template source data
  */
@@ -110,42 +153,10 @@ export function useTemplateSource(): UseTemplateSourceResult {
       setError(null);
 
       try {
-        // Try to get from pre-built template sources JSON first
-        const sources = templateSourcesData as Record<string, TemplateInput[]>;
-        const inputs = sources[templateName];
-
-        if (inputs !== undefined) {
-          // Found in local JSON, construct minimal TemplateSourceData with only inputs
-          const templateData: TemplateSourceData = {
-            source: {
-              inputs: inputs,
-            } as TemplateSource,
-          };
-          setData(templateData);
-          return templateData;
+        const templateData = await loadTemplateSource(templateName);
+        if (!templateData) {
+          throw new Error('Failed to fetch template source');
         }
-
-        console.warn(
-          `Template source not found in local data for ${templateName}, falling back to API`
-        );
-
-        // Fallback to API if not found in local data
-        const response = await fetch(
-          `${siteConfig.templateApiEndpoint}/api/getTemplateSource?templateName=${encodeURIComponent(templateName)}`
-        );
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch template: ${response.status}`);
-        }
-
-        const result: TemplateSourceResponse = await response.json();
-
-        // Check API response code
-        if (result.code !== 200) {
-          throw new Error(result.message || 'API returned an error');
-        }
-
-        const templateData = result.data;
         setData(templateData);
         return templateData;
       } catch (err) {

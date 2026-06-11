@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { TemplateInput } from '@/hooks/use-template-source';
+import type { TemplateInput } from '@/hooks/use-template-source';
 import { useDeployModal } from './DeployModalContext';
 
 interface TemplateFormFieldProps {

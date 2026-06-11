@@ -2,14 +2,7 @@
 
 import { createContext, useContext, useState, useRef, ReactNode } from 'react';
 import { TurnstileInstance } from '@marsidev/react-turnstile';
-import { siteConfig } from '@/config/site';
-import { z } from 'zod';
-import {
-  EmailSmsRequest,
-  EmailSmsResponse,
-  EmailVerifyRequest,
-  EmailVerifyResponse,
-} from './types';
+import { EmailVerifyRequest, EmailVerifyResponse } from './types';
 
 type AuthStep = 'select-method' | 'verify-code';
 
@@ -118,41 +111,23 @@ export function AuthFormProvider({
   };
 
   const sendCode = async () => {
-    const schema = z.string().email();
-    if (!schema.safeParse(formData.email).success) {
-      setError('Please enter a valid email address');
-      return false;
-    }
-
-    setIsSendingCode(true);
-    setError(null);
-
     try {
-      const requestBody: EmailSmsRequest = {
-        id: formData.email,
-        ...(siteConfig.turnstileEnabled && formData.captchaToken
-          ? { cfToken: formData.captchaToken }
-          : {}),
-      };
+      const { requestEmailCode, validateEmailAddress } = await import(
+        './auth-email-actions'
+      );
+      validateEmailAddress(formData.email);
 
-      const response = await fetch(siteConfig.emailRequestEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-      });
+      setIsSendingCode(true);
+      setError(null);
 
-      const result: EmailSmsResponse = await response.json();
-
-      if (result.code !== 200) {
-        throw new Error(result.message || 'Failed to send verification code');
-      }
+      await requestEmailCode(formData.email, formData.captchaToken);
 
       updateStartTime();
       return true;
     } catch (error) {
-      console.error('Failed to send verification code:', error);
+      if ((error as Error)?.message !== 'Please enter a valid email address') {
+        console.error('Failed to send verification code:', error);
+      }
       setError(
         (error as Error)?.message ||
           'Failed to send verification code, please try again',

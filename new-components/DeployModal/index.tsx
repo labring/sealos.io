@@ -1,9 +1,24 @@
 'use client';
 
-import { DeployModalInner } from './DeployModalInner';
+import dynamic from 'next/dynamic';
+import { useDeployModal } from './DeployModalContext';
+
+const LazyDeployModalInner = dynamic(
+  () => import('./DeployModalInner').then((mod) => mod.DeployModalInner),
+  {
+    ssr: false,
+    loading: () => null,
+  },
+);
 
 export function DeployModal() {
-  return <DeployModalInner />;
+  const { open } = useDeployModal();
+
+  if (!open) {
+    return null;
+  }
+
+  return <LazyDeployModalInner />;
 }
 
 export { DeployModalProvider, useDeployModal, useOpenDeployModal } from './DeployModalContext';

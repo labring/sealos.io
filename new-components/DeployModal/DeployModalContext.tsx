@@ -8,7 +8,6 @@ import {
   ReactNode,
   useMemo,
 } from 'react';
-import { useTemplateSource, TemplateInput } from '@/hooks/use-template-source';
 import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
 import { verifySharedAuth } from '@/lib/utils/shared-auth';
 import { buildAuthRedirectUrl } from '@/hooks/use-auth-redirect';
@@ -18,6 +17,8 @@ import {
   DeployModalContextType,
   DeployModalState,
 } from './types';
+
+type TemplateInput = DeployModalContextType['inputs'][number];
 
 const DeployModalContext = createContext<DeployModalContextType | undefined>(
   undefined,
@@ -34,7 +35,6 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
     isLoggedIn: false,
   });
 
-  const { fetchTemplateSource } = useTemplateSource();
   const openAuthForm = useOpenAuthForm();
 
   // Initialize form data with default values
@@ -64,7 +64,10 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
     async (templateName: string) => {
       try {
         // 1. Fetch template data first (without opening modal)
-        const data = await fetchTemplateSource(templateName);
+        const { loadTemplateSource } = await import(
+          '@/hooks/use-template-source'
+        );
+        const data = await loadTemplateSource(templateName);
 
         if (!data) {
           // Show error in modal if fetch fails
@@ -129,7 +132,7 @@ export function DeployModalProvider({ children }: { children: ReactNode }) {
         }));
       }
     },
-    [fetchTemplateSource, initializeFormData, openAuthForm, redirectToDeploy],
+    [initializeFormData, openAuthForm, redirectToDeploy],
   );
 
   // Close deploy modal

@@ -1,4 +1,7 @@
-import { TemplateInput, TemplateSourceData } from '@/hooks/use-template-source';
+import type {
+  TemplateInput,
+  TemplateSourceData,
+} from '@/hooks/use-template-source';
 
 export type DeployStep = 'form' | 'error';
 
