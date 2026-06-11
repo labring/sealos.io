@@ -6,7 +6,7 @@ import { GTMBody } from '@/components/analytics/gtm-body';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import StructuredDataComponent from '@/components/structured-data';
 import { generateHomepageSchema } from '@/lib/utils/structured-data';
-import { DefaultSearchDialog } from '@/components/docs/Search';
+import { LazySearchDialog } from '@/components/docs/LazySearchDialog';
 import { HomepageDarkMode } from './homepage-dark-mode';
 import { ConditionalSiteBanner } from './conditional-site-banner';
 import { AuthFormProvider } from '@/new-components/AuthForm/AuthFormProvider';
@@ -122,7 +122,7 @@ export default async function LocaleLayout({
                 enableSystem: false,
               }}
               search={{
-                SearchDialog: DefaultSearchDialog,
+                SearchDialog: LazySearchDialog,
               }}
             >
               {/* SiteBanner is conditionally rendered by client component based on pathname */}
