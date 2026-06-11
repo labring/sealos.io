@@ -244,6 +244,33 @@ test('native rendering helpers expose cache, font, OG, and blog contracts', asyn
   }
 });
 
+test('native rendering routes delegate to shared helper adapters', async () => {
+  const [ogRoute, blogRoute] = await Promise.all([
+    readFile('app/api/og/route.ts', 'utf8'),
+    readFile(
+      'app/api/blog/[lang]/[slug]/thumbnail/[format]/route.ts',
+      'utf8',
+    ),
+  ]);
+
+  assert.match(ogRoute, /renderOgWebpBuffer/);
+  assert.match(ogRoute, /Content-Type': 'image\/webp'/);
+  assert.match(ogRoute, /Cache-Control': 'public, max-age=86400'/);
+
+  for (const token of [
+    'parseBlogThumbnailFormat',
+    'getBlogThumbnailStaticParams',
+    'renderBlogThumbnailSvg',
+    'renderBlogThumbnailPngResponse',
+  ]) {
+    assert.match(blogRoute, new RegExp(token));
+  }
+
+  assert.match(blogRoute, /Invalid format\. Use <width>x<height>\[@dpr\]\.\(png\|svg\)/);
+  assert.match(blogRoute, /Blog post not found/);
+  assert.match(blogRoute, /image\/svg\+xml/);
+});
+
 async function copyRepositoryFixture(dir) {
   const files = [
     'config/native-rendering-policy.json',
