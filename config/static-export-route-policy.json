@@ -1,0 +1,313 @@
+{
+  "version": 1,
+  "allowedClassifications": [
+    "static artifact",
+    "static artifact via route handler",
+    "documented deployment-supported route",
+    "runtime native route",
+    "external-service-backed route",
+    "API-like runtime route with fallback"
+  ],
+  "requiredSourceFiles": [
+    "app/sitemap.ts",
+    "app/sitemap-ai-faq.ts",
+    "app/rss.xml/route.ts",
+    "app/sitemap-index.xml/route.ts",
+    "app/llms.txt/route.ts",
+    "app/api/search/route.ts",
+    "app/api/robots/route.ts",
+    "app/api/apps/[[...lang]]/route.ts",
+    "app/api/og/route.ts",
+    "app/api/blog/[lang]/[slug]/thumbnail/[format]/route.ts",
+    "app/api/abuse/verify-turnstile/route.ts"
+  ],
+  "budgets": {
+    "main-sitemap": {
+      "maxCount": 5000,
+      "maxBytes": 2097152,
+      "countLabel": "urls"
+    },
+    "ai-faq-sitemap": {
+      "maxCount": 5000,
+      "maxBytes": 2097152,
+      "countLabel": "urls"
+    },
+    "search-index": {
+      "maxCount": 1000,
+      "maxBytes": 1048576,
+      "countLabel": "records"
+    },
+    "llms": {
+      "maxCount": 500,
+      "maxBytes": 2097152,
+      "countLabel": "source docs"
+    }
+  },
+  "hostedProbe": {
+    "gate": "PHASE9_RUN_HOSTED_PROBES",
+    "baseUrlEnv": "PHASE10_HOSTED_BASE_URL",
+    "routes": [
+      "/sitemap.xml",
+      "/ai-quick-reference/sitemap.xml",
+      "/rss.xml",
+      "/sitemap-index.xml",
+      "/llms.txt",
+      "/api/search",
+      "/robots.txt"
+    ]
+  },
+  "validationGates": {
+    "phase9Composition": {
+      "commands": [
+        "npm run static-output:check",
+        "node scripts/check-deployment-parity.js"
+      ],
+      "scope": "Phase 9 static-output inspection, deployment parity gating, hosted probe opt-in, local output caveat semantics, and locked-build validation composition.",
+      "traceIds": [
+        "ROUTEFIX-04"
+      ]
+    }
+  },
+  "routes": [
+    {
+      "routePath": "/sitemap.xml",
+      "sourceFile": "app/sitemap.ts",
+      "httpMethod": "GET",
+      "contentType": "application/xml",
+      "classification": "static artifact",
+      "executionModel": "Next MetadataRoute sitemap emitted during static export",
+      "expectedArtifact": "out/sitemap.xml",
+      "supportedDeploymentPath": "/sitemap.xml",
+      "inputDataSource": "Fumadocs docs pages, blog pages, product paths, App Store config, comparison slugs, localized marketing paths",
+      "runtimeDependency": "Next.js static export and local content/config loaders",
+      "externalDependency": "none",
+      "budgetOwner": "main-sitemap",
+      "validationCommand": "npm run static-routes:check",
+      "traceIds": [
+        "ROUTEFIX-01",
+        "ROUTEFIX-02",
+        "ROUTEFIX-03",
+        "PERF-404",
+        "PERF-406",
+        "static-export-route-classification"
+      ]
+    },
+    {
+      "routePath": "/ai-quick-reference/sitemap.xml",
+      "sourceFile": "app/sitemap-ai-faq.ts",
+      "httpMethod": "GET",
+      "contentType": "application/xml",
+      "classification": "static artifact",
+      "executionModel": "Next MetadataRoute sitemap with force-static route generation",
+      "expectedArtifact": "out/ai-quick-reference/sitemap.xml",
+      "supportedDeploymentPath": "/ai-quick-reference/sitemap.xml",
+      "inputDataSource": "Fumadocs AI quick reference source pages for en and zh-cn",
+      "runtimeDependency": "Next.js static export and Fumadocs source loader",
+      "externalDependency": "none",
+      "budgetOwner": "ai-faq-sitemap",
+      "validationCommand": "npm run static-routes:check",
+      "traceIds": [
+        "ROUTEFIX-01",
+        "ROUTEFIX-02",
+        "ROUTEFIX-03",
+        "PERF-404",
+        "PERF-406",
+        "static-export-route-classification"
+      ]
+    },
+    {
+      "routePath": "/rss.xml",
+      "sourceFile": "app/rss.xml/route.ts",
+      "httpMethod": "GET",
+      "contentType": "application/rss+xml; charset=utf-8",
+      "classification": "static artifact via route handler",
+      "executionModel": "Route handler rendered into static export output",
+      "expectedArtifact": "out/rss.xml",
+      "supportedDeploymentPath": "/rss.xml",
+      "inputDataSource": "Fumadocs blog pages for the default language",
+      "runtimeDependency": "Next.js route handler static export, feed package, blog loader",
+      "externalDependency": "none",
+      "budgetOwner": "rss",
+      "validationCommand": "npm run static-routes:check",
+      "traceIds": [
+        "ROUTEFIX-01",
+        "ROUTEFIX-02",
+        "PERF-406",
+        "static-export-route-classification"
+      ]
+    },
+    {
+      "routePath": "/sitemap-index.xml",
+      "sourceFile": "app/sitemap-index.xml/route.ts",
+      "httpMethod": "GET",
+      "contentType": "application/xml",
+      "classification": "static artifact via route handler",
+      "executionModel": "Route handler rendered into static export output",
+      "expectedArtifact": "out/sitemap-index.xml",
+      "supportedDeploymentPath": "/sitemap-index.xml",
+      "inputDataSource": "Static sitemap location list and default locale domain",
+      "runtimeDependency": "Next.js route handler static export",
+      "externalDependency": "none",
+      "budgetOwner": "sitemap-index",
+      "validationCommand": "npm run static-routes:check",
+      "traceIds": [
+        "ROUTEFIX-01",
+        "ROUTEFIX-02",
+        "PERF-406",
+        "static-export-route-classification"
+      ]
+    },
+    {
+      "routePath": "/llms.txt",
+      "sourceFile": "app/llms.txt/route.ts",
+      "httpMethod": "GET",
+      "contentType": "text/plain",
+      "classification": "static artifact via route handler",
+      "executionModel": "Route handler scans localized docs and emits text during static export",
+      "expectedArtifact": "out/llms.txt",
+      "supportedDeploymentPath": "/llms.txt",
+      "inputDataSource": "Localized MDX docs files under content/docs",
+      "runtimeDependency": "Node filesystem, fast-glob, gray-matter, remark pipeline during generation",
+      "externalDependency": "none",
+      "budgetOwner": "llms",
+      "validationCommand": "npm run static-routes:check",
+      "traceIds": [
+        "ROUTEFIX-01",
+        "ROUTEFIX-02",
+        "ROUTEFIX-03",
+        "PERF-402",
+        "PERF-503",
+        "PERF-406",
+        "static-export-route-classification"
+      ]
+    },
+    {
+      "routePath": "/api/search",
+      "sourceFile": "app/api/search/route.ts",
+      "httpMethod": "GET",
+      "contentType": "application/json",
+      "classification": "static artifact via route handler",
+      "executionModel": "Fumadocs staticGET search route rendered into static export output",
+      "expectedArtifact": "out/api/search.json",
+      "supportedDeploymentPath": "/api/search",
+      "inputDataSource": "Fumadocs source language pages and metadata-oriented search records",
+      "runtimeDependency": "Fumadocs search staticGET and Mandarin tokenizer during generation",
+      "externalDependency": "none",
+      "budgetOwner": "search-index",
+      "validationCommand": "npm run static-routes:check",
+      "traceIds": [
+        "ROUTEFIX-01",
+        "ROUTEFIX-02",
+        "ROUTEFIX-03",
+        "PERF-401",
+        "PERF-406",
+        "fumadocs-search-index",
+        "static-export-route-classification"
+      ]
+    },
+    {
+      "routePath": "/robots.txt",
+      "sourceFile": "app/api/robots/route.ts",
+      "httpMethod": "GET",
+      "contentType": "text/plain",
+      "classification": "documented deployment-supported route",
+      "executionModel": "Public robots artifact plus Cloudflare Pages rewrite to route handler",
+      "expectedArtifact": "public/robots.txt",
+      "supportedDeploymentPath": "/robots.txt via public/robots.txt or public/_redirects /robots.txt /api/robots 200",
+      "inputDataSource": "Static public robots file and default-locale route handler host selection",
+      "runtimeDependency": "Cloudflare Pages rewrite support or static public file serving",
+      "externalDependency": "none",
+      "budgetOwner": "robots",
+      "validationCommand": "npm run static-routes:check",
+      "traceIds": [
+        "ROUTEFIX-01",
+        "ROUTEFIX-02",
+        "PERF-406",
+        "static-export-route-classification"
+      ]
+    },
+    {
+      "routePath": "/api/apps",
+      "sourceFile": "app/api/apps/[[...lang]]/route.ts",
+      "httpMethod": "GET",
+      "contentType": "application/json",
+      "classification": "API-like runtime route with fallback",
+      "executionModel": "Static params for default/localized API paths with committed appsConfig fallback when the remote catalog fails",
+      "expectedArtifact": "out/api/apps/index.txt",
+      "supportedDeploymentPath": "/api/apps and /api/apps/:lang",
+      "inputDataSource": "Remote Sealos template API plus committed config/apps.json fallback via lib/api/apps-api.ts",
+      "runtimeDependency": "Next.js route support and apps API adapter",
+      "externalDependency": "template.sealos.io API when network refresh is available",
+      "budgetOwner": "api-apps",
+      "validationCommand": "npm run static-routes:check",
+      "traceIds": [
+        "ROUTEFIX-01",
+        "ROUTEFIX-02",
+        "PERF-406",
+        "static-export-route-classification"
+      ]
+    },
+    {
+      "routePath": "/api/og",
+      "sourceFile": "app/api/og/route.ts",
+      "httpMethod": "GET",
+      "contentType": "image/webp",
+      "classification": "runtime native route",
+      "executionModel": "Native canvas and Sharp image rendering at request time",
+      "expectedArtifact": "",
+      "supportedDeploymentPath": "/api/og on deployments with native canvas and Sharp support",
+      "inputDataSource": "Open Graph canvas renderer defaults",
+      "runtimeDependency": "canvas renderer and sharp native libraries",
+      "externalDependency": "none",
+      "budgetOwner": "phase-12-native-rendering",
+      "validationCommand": "npm run static-routes:check",
+      "traceIds": [
+        "ROUTEFIX-01",
+        "PERF-406",
+        "static-export-route-classification",
+        "og-native-rendering"
+      ]
+    },
+    {
+      "routePath": "/api/blog/:lang/:slug/thumbnail/:format",
+      "sourceFile": "app/api/blog/[lang]/[slug]/thumbnail/[format]/route.ts",
+      "httpMethod": "GET",
+      "contentType": "image/png",
+      "classification": "runtime native route",
+      "executionModel": "Satori/ImageResponse thumbnail rendering with local fonts and static params",
+      "expectedArtifact": "",
+      "supportedDeploymentPath": "/api/blog/:lang/:slug/thumbnail/:format on deployments with native image route support",
+      "inputDataSource": "Fumadocs blog pages, route params, local fonts",
+      "runtimeDependency": "Next ImageResponse, Satori renderer, local font reads",
+      "externalDependency": "none",
+      "budgetOwner": "phase-12-native-rendering",
+      "validationCommand": "npm run static-routes:check",
+      "traceIds": [
+        "ROUTEFIX-01",
+        "PERF-406",
+        "static-export-route-classification",
+        "og-native-rendering"
+      ]
+    },
+    {
+      "routePath": "/api/abuse/verify-turnstile",
+      "sourceFile": "app/api/abuse/verify-turnstile/route.ts",
+      "httpMethod": "POST",
+      "contentType": "application/json",
+      "classification": "external-service-backed route",
+      "executionModel": "Runtime POST route validates Cloudflare Turnstile tokens with local rate limiting",
+      "expectedArtifact": "",
+      "supportedDeploymentPath": "/api/abuse/verify-turnstile on deployments with server runtime and TURNSTILE_SECRET_KEY",
+      "inputDataSource": "Request body Turnstile token and remote IP",
+      "runtimeDependency": "Server runtime, environment secret, process-local rate limit map",
+      "externalDependency": "Cloudflare Turnstile siteverify API",
+      "budgetOwner": "external-service-boundary",
+      "validationCommand": "npm run static-routes:check",
+      "traceIds": [
+        "ROUTEFIX-01",
+        "PERF-406",
+        "static-export-route-classification"
+      ]
+    }
+  ]
+}
