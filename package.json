@@ -21,6 +21,8 @@
     "shell-bundle:check": "node scripts/check-shell-bundle-baseline.js",
     "native-rendering:check": "node scripts/check-native-rendering-policy.js",
     "native-rendering:benchmark": "node scripts/benchmark-native-rendering.js",
+    "browser-trace:check": "node scripts/check-browser-trace-closeout.js",
+    "browser-trace:run": "node scripts/check-browser-trace-closeout.js",
     "docker:smoke": "node scripts/smoke-docker-nginx.js",
     "validate:deployment": "node scripts/check-deployment-parity.js --validate-deployment",
     "deployment:locked-validation": "node scripts/check-deployment-parity.js --locked-validation",
