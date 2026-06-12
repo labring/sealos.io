@@ -9,6 +9,7 @@
     "dev": "next dev",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
+    "default-locale:check": "node scripts/check-default-locale-routes.mjs",
     "app-store:diff": "node scripts/check-generated-app-assets.js",
     "app-store:refresh": "node scripts/generate-apps-api.js --refresh",
     "app-store:refresh:clean": "node scripts/generate-apps-api.js --refresh --clean",

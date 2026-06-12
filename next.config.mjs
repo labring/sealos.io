@@ -1,4 +1,5 @@
 import { createMDX } from 'fumadocs-mdx/next';
+import { createDefaultLocaleDevRewrites } from './config/default-locale-routes.mjs';
 
 const withMDX = createMDX();
 const defaultLocale = process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en';
@@ -100,36 +101,7 @@ const config = {
       return [];
     }
 
-    return [
-      {
-        source: '/blog',
-        destination: `/${defaultLocale}/blog`,
-      },
-      {
-        source: '/blog/:path*',
-        destination: `/${defaultLocale}/blog/:path*`,
-      },
-      {
-        source: '/docs',
-        destination: `/${defaultLocale}/docs`,
-      },
-      {
-        source: '/docs/:path*',
-        destination: `/${defaultLocale}/docs/:path*`,
-      },
-      {
-        source: '/products',
-        destination: `/${defaultLocale}/products`,
-      },
-      {
-        source: '/products/:path*',
-        destination: `/${defaultLocale}/products/:path*`,
-      },
-      {
-        source: '/pricing',
-        destination: `/${defaultLocale}/pricing`,
-      },
-    ];
+    return createDefaultLocaleDevRewrites(defaultLocale);
   },
 };
 
