@@ -10,7 +10,7 @@ mechanisms are grouped once.
 |-------|-------|
 | Audit version | v1 |
 | Last updated | 2026-06-12 |
-| Phase status | Phase 11 shared shell lazy-boundary remediation recorded with current-shell source validation and Node 20 analyzer caveat |
+| Phase status | Phase 13 v2 closeout records browser trace guard evidence, final v2 status matrix, and open-gate caveats |
 | Scope | Full-codebase performance audit across source, content, assets, build, and deployment surfaces |
 | Durable artifact | `docs/performance-audit.md` |
 | Planning source | `.planning/phases/01-audit-ledger-and-module-inventory/01-CONTEXT.md` |
@@ -1218,6 +1218,72 @@ SHELL-03, SHELL-04, `shared-layout-bundle-cost`, PERF-601, PERF-602, PERF-603,
 PERF-607, PERF-609, and PERF-702. Native OG/blog thumbnail rendering remains
 Phase 12 ownership. Representative browser trace closeout remains Phase 13
 ownership.
+
+## Phase 13: Validation Closeout and Final v2 Audit Status
+
+Phase 13 closes VALIDATE-02 and VALIDATE-03 for the v2 remediation set. The
+browser trace closeout path is safe by default: `browser-trace:check` records
+the representative route matrix and external-service controls while
+`PHASE9_RUN_BROWSER_TRACE` is closed. Accepted navigation trace evidence remains
+behind the explicit open gate
+`PHASE9_RUN_BROWSER_TRACE=1 PHASE9_BROWSER_TRACE_BASE_URL=http://127.0.0.1:3000 npm run browser-trace:run`.
+
+### Phase 13 Browser Trace Closeout
+
+| Evidence | Result | Caveat / next gate |
+|----------|--------|--------------------|
+| `node --test scripts/check-browser-trace-closeout.test.mjs` | 6 tests passed for closed gate behavior, open-gate blockers, route fixtures, external controls, package scripts, and injectable environment helpers. | validated |
+| `npm run browser-trace:check` | Printed `SKIPPED_WITH_CAVEAT`, exit code `0`, route rows for `/en`, `/en/docs`, `/en/docs/guides/app-deploy/first-deploy`, `/en/products/app-store`, `/en/products/app-store/n8n`, `/api/og`, and two blog thumbnail fixtures. | validated with caveat; accepted navigation evidence requires the `PHASE9_RUN_BROWSER_TRACE` open gate with Node 20, installed dependencies, generated `.source`, `out`, a local target, and an approved browser adapter. |
+| External-service controls | Analytics, auth, Turnstile, template API, GitHub README, hosted-preview, production, and deploy requests are listed as blocked or stubbed controls by the trace guard. | validated with caveat; interaction traces that click auth, deploy, or App Store controls require mocked or blocked network outcomes. |
+
+### Final v2 Audit Status Matrix
+
+This matrix is the final v2 source-of-truth chain:
+requirement -> PERF IDs -> duplicate key -> fix artifact -> evidence command
+-> final status -> caveat/next gate.
+
+| Requirement | PERF IDs | Duplicate key | Fix artifact | Evidence command | Final status | Caveat / next gate |
+|-------------|----------|---------------|--------------|------------------|--------------|--------------------|
+| BUILD-01 | PERF-201, PERF-505 | `remote-template-build-step` | `package.json`, `scripts/generate-apps-api.js`, generated snapshot reuse path | `npm run app-store:diff`; Phase 8 generator tests and package script checks | validated | Normal build path uses committed App Store snapshots; accepted timing still uses Node 20 locked dependencies. |
+| BUILD-02 | PERF-202, PERF-203, PERF-505 | `remote-template-build-step` | Explicit App Store refresh controls in `scripts/generate-apps-api.js` | `npm run app-store:diff`; Phase 8 generator tests | validated | Live network refresh remains behind generated-file review gates. |
+| BUILD-03 | PERF-204, PERF-505 | `remote-template-build-step` | Generated asset diff guard `scripts/check-generated-app-assets.js` | `npm run app-store:diff` | validated | Current result: apps `150`, template source keys `150`, changed paths `0`. |
+| BUILD-04 | PERF-201, PERF-701, PERF-702 | `remote-template-build-step`, `deployment-command-parity`, `next-package-version-alignment` | Build/analyzer timing wrappers and generated diff guard | `npm run shell-bundle:check`; `npm run validate:deployment` | validated with caveat | Node 20, `node_modules`, `.source`, `out`, and analyzer artifacts are required for accepted timing and analyzer movement evidence. |
+| DEPLOY-03 | PERF-701 | `deployment-command-parity` | `docs/deployment-parity.md`, `scripts/check-deployment-parity.js` | `npm run validate:deployment` | validated | Source parity targets and dimensions passed with unsafe gates closed. |
+| DEPLOY-04 | PERF-701, PERF-406 | `deployment-command-parity`, `static-export-route-classification` | Static output guard, route policy, headers, redirects, cache evidence | `npm run static-output:check`; `npm run static-routes:check` | validated with caveat | `out` artifact inspection and hosted probes require `PHASE9_RUN_LOCKED_BUILD` and `PHASE9_RUN_HOSTED_PROBES`. |
+| DEPLOY-05 | PERF-501, PERF-502, PERF-701 | `og-native-rendering`, `deployment-command-parity` | Docker/Nginx smoke gate and native rendering policy | `npm run validate:deployment` | validated with caveat | Real Docker/Nginx smoke requires `PHASE9_RUN_DOCKER_SMOKE=1` and Docker CLI availability. |
+| ROUTEFIX-01 | PERF-402, PERF-404, PERF-406, PERF-503 | `static-export-route-classification` | `docs/static-export-route-policy.md`, static export route guard | `npm run static-routes:check` | validated | Route policy rows `11`, failures `0`. |
+| ROUTEFIX-02 | PERF-402, PERF-404, PERF-406, PERF-503 | `static-export-route-classification` | Generated endpoint/static artifact policy | `npm run static-routes:check`; `npm run static-output:check` | validated with caveat | Local static artifact inspection requires generated `out`. |
+| ROUTEFIX-03 | PERF-402, PERF-503 | `static-export-route-classification` | Sitemap, search, RSS, and `llms.txt` budget policy | `npm run static-routes:check` | validated | Source route policy and budgets passed. |
+| ROUTEFIX-04 | PERF-406, PERF-701 | `static-export-route-classification`, `deployment-command-parity` | Static-output guard plus hosted probe gate | `npm run static-output:check`; `npm run static-routes:check` | validated with caveat | Hosted preview smoke requires `PHASE9_RUN_HOSTED_PROBES=1` with an approved hosted base URL. |
+| SHELL-01 | PERF-601, PERF-602, PERF-603 | `shared-layout-bundle-cost` | Locale shell lazy boundary, search/auth/deploy facades | `npm run shell-bundle:check` | validated with caveat | Source lazy-boundary evidence passed; analyzer movement requires Node 20 dependencies and analyzer artifacts. |
+| SHELL-02 | PERF-603 | `shared-layout-bundle-cost` | Auth and deploy dialog lazy-load facades | `npm run shell-bundle:check`; `npm run browser-trace:check` | validated with caveat | Click-level auth/deploy interaction trace requires the `PHASE9_RUN_BROWSER_TRACE` open gate with stubbed network controls. |
+| SHELL-03 | PERF-601, PERF-602, PERF-603 | `shared-layout-bundle-cost`, `fumadocs-search-index` | `components/docs/LazySearchDialog.tsx` bridge and docs search isolation | `npm run shell-bundle:check`; `npm run browser-trace:check` | validated with caveat | Fumadocs search/content payload optimization remains future scope; current v2 evidence covers shell isolation. |
+| SHELL-04 | PERF-601, PERF-602, PERF-603, PERF-702 | `shared-layout-bundle-cost`, `next-package-version-alignment` | Shell bundle baseline guard and analyzer caveat ledger | `npm run shell-bundle:check` | validated with caveat | Analyzer artifacts are absent; accepted bundle movement requires Node 20 locked dependencies and `npm run build:analyze:timed`. |
+| NATIVE-01 | PERF-501, PERF-502 | `og-native-rendering` | Native rendering policy and cache-keyed route evidence | `npm run native-rendering:check`; `npm run static-output:check` | validated with caveat | Static/native artifact inspection requires generated `.source` or `out`. |
+| NATIVE-02 | PERF-501, PERF-502 | `og-native-rendering` | Native benchmark gate and fixture matrix | `npm run native-rendering:check` | blocked pending gate | Accepted benchmark evidence requires `PHASE12_RUN_NATIVE_BENCHMARK=1` under Node 20 with installed dependencies and generated sources. |
+| NATIVE-03 | PERF-501, PERF-502, PERF-701 | `og-native-rendering`, `deployment-command-parity` | Docker native assumptions plus smoke guard | `npm run validate:deployment`; `npm run native-rendering:check` | validated with caveat | Real Docker native validation requires `PHASE9_RUN_DOCKER_SMOKE=1` and Docker CLI availability. |
+| VALIDATE-01 | PERF-701, PERF-702 | `deployment-command-parity`, `next-package-version-alignment` | Deployment validation guard set and locked-build caveat | `npm run validate:deployment`; `npm run shell-bundle:check` | blocked pending gate | Node 20 locked-dependency typecheck, build, and analyzer require `PHASE9_RUN_LOCKED_BUILD=1`, installed dependencies, `.source`, and `out`. |
+| VALIDATE-02 | PERF-601, PERF-602, PERF-603, PERF-604 | `shared-layout-bundle-cost`, `visual-animation-loop-cost` | `scripts/check-browser-trace-closeout.js`, route fixture matrix, external controls | `node --test scripts/check-browser-trace-closeout.test.mjs`; `npm run browser-trace:check` | validated with caveat | Safe default trace closeout passed; accepted browser navigation evidence requires `PHASE9_RUN_BROWSER_TRACE=1 PHASE9_BROWSER_TRACE_BASE_URL=http://127.0.0.1:3000 npm run browser-trace:run`. |
+| VALIDATE-03 | PERF-201, PERF-202, PERF-203, PERF-204, PERF-402, PERF-404, PERF-406, PERF-501, PERF-502, PERF-503, PERF-505, PERF-601, PERF-602, PERF-603, PERF-701, PERF-702 | `remote-template-build-step`, `static-export-route-classification`, `og-native-rendering`, `shared-layout-bundle-cost`, `deployment-command-parity`, `next-package-version-alignment` | This final v2 audit status matrix in `docs/performance-audit.md` | audit token checks for requirements, PERF IDs, statuses, and future-scope rows | fixed | This row is complete when the Phase 13 summary and validation artifacts are written. |
+| VALIDATE-04 | PERF-701, PERF-702 | `deployment-command-parity`, `next-package-version-alignment` | Unsafe gate registry in deployment validation | `npm run validate:deployment` | validated | Unsafe network, deploy, Docker, browser, locked build, generated refresh, and generated-change gates are closed by default. |
+
+### Remaining Future-Scope Matrix
+
+These rows stay visible after v2 closeout and retain the same matrix chain:
+requirement -> PERF IDs -> duplicate key -> fix artifact -> evidence command
+-> final status -> caveat/next gate.
+
+| Requirement | PERF IDs | Duplicate key | Fix artifact | Evidence command | Final status | Caveat / next gate |
+|-------------|----------|---------------|--------------|------------------|--------------|--------------------|
+| ASSETFIX-01 | PERF-605 | `static-export-asset-delivery` | Future asset/font budget and host cache parity work | Future asset size budget and preview header checks | remaining future scope | Static asset delivery optimization remains outside v2 closeout. |
+| APPDATA-01 | PERF-301, PERF-302, PERF-303, PERF-305, PERF-306, PERF-307, PERF-506, PERF-606 | `app-store-data-pipeline` | Future App Store runtime data contract, indexing, and interaction tests | Future mocked API/deploy and App Store interaction trace | remaining future scope | App Store runtime data optimization remains a later phase. |
+| DOCSEARCH-01 | PERF-401, PERF-403, PERF-405, PERF-504, PERF-607, PERF-609 | `fumadocs-search-index` | Future Fumadocs search/content budget and shard policy | Future search artifact budget and loader traversal tests | remaining future scope | Fumadocs search/content payload architecture remains a later phase. |
+| VISUAL-01 | PERF-604 | `visual-animation-loop-cost` | Future viewport-gated animation scheduling | Future local browser trace and route chunk inspection | remaining future scope | Visual animation loops remain visible for route-level scheduling work. |
+| CUSTOMER-01 | PERF-608 | `customer-interaction-scheduling` | Future customer route scroll/listener consolidation | Future customer route interaction trace | remaining future scope | Customer interactions remain visible for later measurement. |
+| APPREADME-01 | PERF-304 | `app-detail-remote-readme` | Future README fetch/render cache and lazy policy | Future mocked README timing and markdown benchmark | remaining future scope | App detail README work remains visible for later App Store detail optimization. |
+| AUTHNET-01 | PERF-507 | `shared-auth-interaction-check` | Future shared-auth mocked smoke and approved service check | Future mocked auth redirect tests and service smoke | remaining future scope | Shared-auth interaction checks remain visible for later network validation. |
+| TURNSTILE-01 | PERF-508 | `turnstile-request-verification` | Future Turnstile route mocks and secret-safe service smoke | Future mocked route tests and approved Turnstile service check | remaining future scope | Turnstile service checks remain visible for later request-path validation. |
+| DEPS-03 | PERF-702 | `next-package-version-alignment` | Future controlled dependency alignment phase | Future Node 20 locked install, typecheck, build, analyzer | remaining future scope | Dependency alignment remains a controlled package phase. |
 
 ## Handoff
 
