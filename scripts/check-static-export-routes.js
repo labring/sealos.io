@@ -22,6 +22,7 @@ const REQUIRED_FIELDS = [
 const REQUIRED_TRACE_PREFIXES = ['ROUTEFIX-', 'PERF-'];
 const REQUIRED_VALIDATION_GATE_TRACE_IDS = ['ROUTEFIX-04'];
 const SEARCH_ARTIFACT_FALLBACKS = [
+  'out/api/search',
   'out/api/search.json',
   'out/api/search/index.json',
   'out/api/search/index.txt',

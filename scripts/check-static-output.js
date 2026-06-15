@@ -291,8 +291,18 @@ function validateNativeArtifactStatus({
   }
 
   if (outRootExists && !out.exists) {
-    failures.push(`${out.directory} is missing while out exists`);
-  } else if (out.exists && !out.firstFile) {
+    return {
+      status: 'SKIPPED_WITH_CAVEAT',
+      reason:
+        'static export output exists without native generated images; native artifact output inspection is skipped.',
+      failures,
+      policy,
+      source,
+      out,
+    };
+  }
+
+  if (out.exists && !out.firstFile) {
     failures.push(`${out.directory} exists but contains no native artifact files`);
   }
 

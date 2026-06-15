@@ -379,7 +379,7 @@ async function writePassingOutFixture(dir) {
     'file: content/docs/a.en.mdx\nA\n\nfile: content/docs/b.en.mdx\nB\n',
   );
   await writeFile(
-    join(dir, 'out/api/search.json'),
+    join(dir, 'out/api/search'),
     JSON.stringify([{ id: 'a' }, { id: 'b' }]),
   );
   await writeFile(

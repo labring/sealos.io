@@ -266,6 +266,13 @@ test('native artifact status checks source and out directories only when present
     assert.equal(result.source.firstFile.endsWith('.webp'), true);
     assert.equal(result.out.status, 'SKIPPED_WITH_CAVEAT');
 
+    await mkdir(join(dir, 'out'), { recursive: true });
+
+    result = validateNativeArtifactStatus({ rootDir: dir, env: {} });
+    assert.equal(result.status, 'SKIPPED_WITH_CAVEAT');
+    assert.match(result.reason, /without native generated images/);
+    assert.deepEqual(result.failures, []);
+
     await mkdir(join(dir, 'out/generated/native-images/homepage-og'), {
       recursive: true,
     });

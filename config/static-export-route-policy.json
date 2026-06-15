@@ -188,7 +188,7 @@
       "contentType": "application/json",
       "classification": "static artifact via route handler",
       "executionModel": "Fumadocs staticGET search route rendered into static export output",
-      "expectedArtifact": "out/api/search.json",
+      "expectedArtifact": "out/api/search",
       "supportedDeploymentPath": "/api/search",
       "inputDataSource": "Fumadocs source language pages and metadata-oriented search records",
       "runtimeDependency": "Fumadocs search staticGET and Mandarin tokenizer during generation",
