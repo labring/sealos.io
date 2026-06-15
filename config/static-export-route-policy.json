@@ -33,8 +33,8 @@
       "countLabel": "urls"
     },
     "search-index": {
-      "maxCount": 1000,
-      "maxBytes": 1048576,
+      "maxCount": 3000,
+      "maxBytes": 3145728,
       "countLabel": "records"
     },
     "llms": {
@@ -190,7 +190,7 @@
       "executionModel": "Fumadocs staticGET search route rendered into static export output",
       "expectedArtifact": "out/api/search",
       "supportedDeploymentPath": "/api/search",
-      "inputDataSource": "Fumadocs source language pages and metadata-oriented search records",
+      "inputDataSource": "Fumadocs source language pages, page metadata, and heading-oriented search records",
       "runtimeDependency": "Fumadocs search staticGET and Mandarin tokenizer during generation",
       "externalDependency": "none",
       "budgetOwner": "search-index",

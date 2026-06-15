@@ -102,11 +102,11 @@ test('validateRoutePolicy accepts the repository policy contract', () => {
   );
 });
 
-test('search route keeps the static index metadata-oriented', async () => {
+test('search route keeps static index headings without body contents', async () => {
   const source = await readFile('app/api/search/route.ts', 'utf8');
 
-  assert.match(source, /metadataOnlyStructuredData/);
-  assert.match(source, /headings:\s*\[\]/);
+  assert.match(source, /getHeadingOnlyStructuredData/);
+  assert.match(source, /headings:\s*data\.headings/);
   assert.match(source, /contents:\s*\[\]/);
   assert.doesNotMatch(source, /structuredData:\s*page\.data\.structuredData/);
 });

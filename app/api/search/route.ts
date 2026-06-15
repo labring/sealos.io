@@ -1,8 +1,16 @@
 import { source } from '@/lib/source';
 import { createSearchAPI } from 'fumadocs-core/search/server';
 import { createTokenizer } from '@orama/tokenizers/mandarin';
+import type { StructuredData } from 'fumadocs-core/mdx-plugins';
 
-const metadataOnlyStructuredData = {
+function getHeadingOnlyStructuredData(data: StructuredData): StructuredData {
+  return {
+    headings: data.headings,
+    contents: [],
+  };
+}
+
+const emptyStructuredData: StructuredData = {
   headings: [],
   contents: [],
 };
@@ -28,7 +36,9 @@ export const { staticGET: GET } = createSearchAPI('advanced', {
     entry.pages.map((page) => ({
       title: page.data.title || '',
       description: page.data.description || '',
-      structuredData: metadataOnlyStructuredData,
+      structuredData: getHeadingOnlyStructuredData(
+        page.data.structuredData || emptyStructuredData,
+      ),
       id: page.url,
       url: page.url,
       content: `${page.data.title || ''} ${page.data.description || ''} [${entry.language}]`,
