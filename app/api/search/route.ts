@@ -2,6 +2,11 @@ import { source } from '@/lib/source';
 import { createSearchAPI } from 'fumadocs-core/search/server';
 import { createTokenizer } from '@orama/tokenizers/mandarin';
 
+const metadataOnlyStructuredData = {
+  headings: [],
+  contents: [],
+};
+
 // Static export requires caching to be disabled
 export const revalidate = false;
 
@@ -23,7 +28,7 @@ export const { staticGET: GET } = createSearchAPI('advanced', {
     entry.pages.map((page) => ({
       title: page.data.title || '',
       description: page.data.description || '',
-      structuredData: page.data.structuredData,
+      structuredData: metadataOnlyStructuredData,
       id: page.url,
       url: page.url,
       content: `${page.data.title || ''} ${page.data.description || ''} [${entry.language}]`,

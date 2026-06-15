@@ -79,6 +79,9 @@ function parseSearchRecords(text) {
   if (Array.isArray(parsed.indexes)) {
     return parsed.indexes;
   }
+  if (parsed?.docs?.docs && typeof parsed.docs.docs === 'object') {
+    return Object.values(parsed.docs.docs);
+  }
   if (parsed && typeof parsed === 'object') {
     const arrays = Object.values(parsed).filter(Array.isArray);
     if (arrays.length === 1) {

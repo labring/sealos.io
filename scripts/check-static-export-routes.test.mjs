@@ -59,6 +59,20 @@ test('parser helpers read XML, RSS, robots, llms, and search records', () => {
   ]);
   assert.equal(parseSearchRecords('[{"id":"a"},{"id":"b"}]').length, 2);
   assert.equal(parseSearchRecords('{"data":[{"id":"a"}]}').length, 1);
+  assert.equal(
+    parseSearchRecords(
+      JSON.stringify({
+        type: 'advanced',
+        docs: {
+          docs: {
+            1: { id: 'a' },
+            2: { id: 'b' },
+          },
+        },
+      }),
+    ).length,
+    2,
+  );
 });
 
 test('validateRoutePolicy accepts the repository policy contract', () => {
@@ -86,6 +100,15 @@ test('validateRoutePolicy accepts the repository policy contract', () => {
       'ROUTEFIX-04',
     ),
   );
+});
+
+test('search route keeps the static index metadata-oriented', async () => {
+  const source = await readFile('app/api/search/route.ts', 'utf8');
+
+  assert.match(source, /metadataOnlyStructuredData/);
+  assert.match(source, /headings:\s*\[\]/);
+  assert.match(source, /contents:\s*\[\]/);
+  assert.doesNotMatch(source, /structuredData:\s*page\.data\.structuredData/);
 });
 
 test('native route ownership matches native rendering image surfaces', () => {
@@ -214,6 +237,11 @@ test('fixture out artifacts pass route policy artifact budgets', async () => {
     assert.deepEqual(result.failures, []);
     assert.equal(result.out.status, 'PASS');
     assert.ok(result.budgets.some((item) => item.budgetOwner === 'main-sitemap'));
+    const searchBudget = result.budgets.find(
+      (item) => item.budgetOwner === 'search-index',
+    );
+    assert.equal(searchBudget.count, 2);
+    assert.equal(searchBudget.artifactPath, 'out/api/search');
     assert.ok(result.artifacts.some((item) => item.kind === 'sitemap-index'));
     assert.ok(result.artifacts.some((item) => item.kind === 'robots'));
   } finally {
@@ -380,7 +408,15 @@ async function writePassingOutFixture(dir) {
   );
   await writeFile(
     join(dir, 'out/api/search'),
-    JSON.stringify([{ id: 'a' }, { id: 'b' }]),
+    JSON.stringify({
+      type: 'advanced',
+      docs: {
+        docs: {
+          1: { id: 'a', type: 'page', content: 'A', url: '/a' },
+          2: { id: 'b', type: 'page', content: 'B', url: '/b' },
+        },
+      },
+    }),
   );
   await writeFile(
     join(dir, 'out/robots.txt'),
