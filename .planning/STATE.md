@@ -1,34 +1,63 @@
+---
+gsd_state_version: 1.0
+milestone: v1.1
+milestone_name: Sealos Skills Tutorial Alignment
+status: planning
+last_updated: "2026-06-16T09:20:40.966Z"
+last_activity: 2026-06-16
+progress:
+  total_phases: 3
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
+---
+
 # Project State
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-06-11)
+See: `.planning/PROJECT.md` (updated 2026-06-16)
 
-**Core value:** Find every credible performance risk in the current codebase with file-level evidence and a clear remediation path.
-**Current focus:** Phase 1: Audit Ledger and Module Inventory
+**Core value:** Readers can install and use Sealos Skills from the tutorials
+with commands and workflow expectations that match the current upstream plugin
+source.
+**Current focus:** Phase 13: Upstream Install Contract Alignment
 
 ## Current Phase
 
 | Field | Value |
 |-------|-------|
-| Phase | 1 |
-| Name | Audit Ledger and Module Inventory |
+| Phase | 13 |
+| Name | Upstream Install Contract Alignment |
 | Status | Not started |
-| Goal | The audit has a durable ledger and complete module inventory that future phases can extend without repeating discovery. |
+| Goal | Every tutorial gives current host-specific Sealos Skills installation and invocation guidance. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-- LEDGER-01
-- LEDGER-02
-- LEDGER-03
-- LEDGER-04
+- SOURCE-01
+- SOURCE-02
+- SOURCE-03
+- SOURCE-04
+- INSTALL-01
+- INSTALL-02
+- INSTALL-03
+- INSTALL-04
+- INSTALL-05
+
+## Current Position
+
+Phase: 13 (Upstream Install Contract Alignment)
+Plan: Not created
+Status: Ready for phase planning
+Last activity: 2026-06-16 — Milestone v1.1 initialized
 
 ## Next Action
 
-Run `$gsd-discuss-phase 1` to gather final context for the audit ledger and
-module inventory, or run `$gsd-plan-phase 1` to plan Phase 1 directly.
+Run `$gsd-plan-phase 13` to plan the install-contract alignment work, then
+execute the tutorial edits.
 
 ### Quick Tasks Completed
 
@@ -40,4 +69,4 @@ module inventory, or run `$gsd-plan-phase 1` to plan Phase 1 directly.
 Last activity: 2026-06-17 - Completed quick task 260617-kt3: fix GHCR Docker image build failure.
 
 ---
-*Initialized: 2026-06-11*
+*Initialized: 2026-06-16*

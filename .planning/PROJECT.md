@@ -1,21 +1,42 @@
-# Sealos.io Performance Audit
+# Sealos.io Tutorial Content Accuracy
 
 ## What This Is
 
-This project is a full-codebase performance audit for the existing Sealos.io
-site. It covers frontend, backend-style API routes, build-time scripts, content
-pipelines, runtime integrations, and any functions or modules that can create
-slow page loads, excessive network requests, slow data processing, blocking
-synchronous work, or unnecessary bundle/runtime cost.
+This project maintains Sealos.io tutorial content for developers who use AI
+agents to deploy applications to Sealos Cloud. The current milestone aligns all
+`content/tutorials/**` Sealos Skills installation, invocation, and deployment
+guidance with the latest `labring/sealos-skills` repository.
 
-The immediate deliverable is a durable module-by-module performance findings
-report under `docs/`, so repeated checks can continue from recorded evidence
-instead of restarting from scratch.
+The immediate deliverable is an accurate, internally consistent tutorial set
+that reflects the plugin-first Sealos Skills distribution model for Codex,
+Claude Code, and compatible hosts.
 
 ## Core Value
 
-Find every credible performance risk in the current codebase with file-level
-evidence and a clear remediation path.
+Readers can install and use Sealos Skills from the tutorials with commands and
+workflow expectations that match the current upstream plugin source.
+
+## Current Milestone: v1.1 Sealos Skills Tutorial Alignment
+
+**Goal:** Update every tutorial section that describes Sealos Skills
+installation, invocation, deployment artifacts, update behavior, and runtime
+verification so it matches upstream commit
+`c171d444cc16a7d58b5d23f1a171989a0221c211`.
+
+**Target features:**
+- Native Codex plugin install guidance using `codex plugin marketplace add
+  labring/sealos-skills` and `codex plugin add sealos@sealos`.
+- Native Claude Code plugin install guidance using `claude plugin marketplace
+  add labring/sealos-skills` and `claude plugin install sealos@sealos`.
+- Compatibility install paths using `npx plugins add
+  https://github.com/labring/sealos-skills --target codex|claude-code` as a
+  secondary path.
+- Consistent invocation guidance: `$sealos` for Codex CLI, Codex App
+  `+ -> Plugins -> Sealos`, `/sealos` for Claude Code, and direct
+  `/sealos-deploy` entries only for `skills.sh` sections.
+- Current deploy-flow guidance covering `.sealos/` artifacts, DEPLOY/UPDATE
+  mode, preflight/auth checks, Phase 6.5 Runtime Truth Pass, App URL/log/login
+  verification, and resource footprint checks.
 
 ## Requirements
 
@@ -23,103 +44,90 @@ evidence and a clear remediation path.
 
 - ✓ Static-first localized Next.js App Router site exists — implemented through
   `app/[lang]`, `next.config.mjs`, and static export build behavior.
-- ✓ Documentation, blog, and AI quick reference content are loaded through
-  Fumadocs — implemented in `source.config.ts` and `lib/source.ts`.
-- ✓ App Store pages and deploy flows exist — implemented through
-  `config/apps-loader.ts`, `lib/api/apps-api.ts`,
-  `app/[lang]/products/app-store`, and `new-components/DeployModal`.
-- ✓ Generated SEO surfaces exist — implemented through routes such as
-  `app/api/search/route.ts`, `app/api/og/route.ts`, `app/rss.xml/route.ts`,
-  `app/sitemap-index.xml/route.ts`, and `app/llms.txt/route.ts`.
-- ✓ Build-time app data generation exists — implemented through
-  `scripts/generate-apps-api.js`, `config/apps.json`, and
-  `config/template-sources.json`.
-- ✓ Baseline codebase map exists — recorded in `.planning/codebase/`.
+- ✓ Documentation, blog, and tutorial content are loaded through Fumadocs —
+  implemented in `source.config.ts`, `lib/source.ts`, and `content/**`.
+- ✓ Tutorial listing and detail routes exist — implemented under
+  `app/[lang]/(home)/tutorials/**`.
+- ✓ Next.js tutorial content exists — implemented under `content/tutorials/`
+  with beginner, PostgreSQL, and production checklist articles.
+- ✓ Sealos Skills landing-page routing exists — referenced through
+  `/sealos-skills` and sitemap metadata.
 
 ### Active
 
-- [ ] Inventory every functional module and group each module by route,
-  component, data pipeline, API route, script, integration, and deployment
-  surface.
-- [ ] Audit page entry performance, including initial render cost, route-level
-  data loading, client component boundaries, bundle-heavy dependencies,
-  metadata generation, search, and static export constraints.
-- [ ] Audit network and data-fetch behavior, including fan-out patterns,
-  sequential requests, cache usage, remote API fallbacks, duplicated fetches,
-  and places where concurrent work is possible.
-- [ ] Audit server and route-handler performance, including OG generation,
-  search generation, app API conversion, abuse verification, RSS, sitemap,
-  robots, and LLM text generation.
-- [ ] Audit build-time performance, including remote template generation,
-  image downloads, MDX/Fumadocs generation, bundle analyzer output, Docker
-  build behavior, CI workflow commands, and static export post-processing.
-- [ ] Audit function-level performance hotspots, including synchronous shell
-  calls, CPU-heavy loops, large JSON transformations, unbounded markdown/MDX
-  processing, repeated sorting/filtering, and expensive rendering helpers.
-- [ ] Audit asset and bundle performance, including `motion`, `three`,
-  `matter-js`, `react-player`, `canvas`, `sharp`, remote images, SVG handling,
-  local fonts, and large static datasets.
-- [ ] Audit frontend interaction performance, including header, auth modal,
-  deploy modal, app-store filters, docs search, Mermaid rendering, video/media
-  components, and visual-heavy marketing sections.
-- [ ] Produce `docs/performance-audit.md` as the working audit record with
-  module checklist, findings, severity, evidence paths, root cause, likely user
-  impact, and recommended fix order.
-- [ ] Produce a roadmap where phases proceed module by module and leave enough
-  traceability for later fix work.
+- [ ] Record the latest upstream `labring/sealos-skills` install and usage
+  contract as the source of truth for tutorial edits.
+- [ ] Update every Codex installation block in tutorials to prefer the native
+  Codex plugin marketplace flow.
+- [ ] Update every Claude Code installation block in tutorials to prefer the
+  native Claude plugin marketplace flow.
+- [ ] Keep `npx plugins add ... --target codex|claude-code` as a compatibility
+  path with clear placement.
+- [ ] Align tutorial invocation examples with `$sealos`, Codex App plugin
+  picker, `/sealos`, and direct `skills.sh` entries by host type.
+- [ ] Align deployment-flow descriptions with the current `sealos-deploy`
+  pipeline, including `.sealos/analysis.json`, `.sealos/template/index.yaml`,
+  `.sealos/state.json`, DEPLOY/UPDATE mode, and Phase 6.5 Runtime Truth Pass.
+- [ ] Align PostgreSQL/full-stack tutorial copy with current database-resource,
+  env-var, migration, and verification expectations.
+- [ ] Align production-checklist copy with current update-state, runtime truth,
+  rollback, log, App URL, and resource-footprint expectations.
+- [ ] Update frontmatter FAQ and HowTo answers so structured metadata matches
+  the article body.
+- [ ] Validate tutorial consistency with targeted searches and the repository's
+  tutorial validation script.
 
 ### Out of Scope
 
-- Direct performance fixes — this project first creates the complete audit
-  inventory and prioritized findings.
-- Production load testing against live Sealos services — source-level audit and
-  local build/runtime inspection come first.
-- SEO copy rewrites or visual redesign — performance risks in SEO and UI code
-  are in scope, content strategy changes are deferred.
-- New product functionality — the audit targets the current codebase.
-- Database query tuning against an unavailable production database — static
-  source inspection covers SQL-like or API-query patterns when present.
+- New tutorial-topic expansion — this milestone updates the existing tutorial
+  set.
+- Sealos Skills repository behavior changes — upstream is the source for this
+  content milestone.
+- Live Sealos deployment proof for each tutorial — this milestone updates
+  documentation accuracy from upstream source evidence.
+- Visual redesign of tutorial pages — article accuracy and metadata consistency
+  are the priority.
+- Non-English tutorial localization — current tutorial files are English-only.
 
 ## Context
 
-This is a brownfield Next.js 14.2.28, React 18.3.1, TypeScript 5.8.3,
-Fumadocs-powered Sealos marketing and documentation site. The app is structured
-around localized routes in `app/[lang]`, static MDX content under `content/`,
-structured data and product configuration under `config/`, and shared utilities
-under `lib/`.
+The active worktree already contains tutorial-related source additions and
+modifications, including `content/tutorials/**`, tutorial routes under
+`app/[lang]/(home)/tutorials/**`, tutorial metadata utilities, and validation
+scripts. This milestone should scope planning and follow-up execution around
+those files while leaving unrelated user changes intact.
 
-The codebase map highlights several likely performance zones before deeper
-audit work begins:
+Upstream `labring/sealos-skills` was checked at
+`c171d444cc16a7d58b5d23f1a171989a0221c211`. Its README now presents a
+plugin-first install model:
 
-- `scripts/generate-apps-api.js` performs serial network-heavy template
-  generation during build.
-- `lib/api/apps-api.ts`, `config/apps-loader.ts`, and
-  `scripts/generate-apps-api.js` duplicate app-template normalization and
-  fallback behavior.
-- `app/api/search/route.ts` builds search data from localized docs metadata and
-  can grow into a static payload or build-memory concern.
-- `app/api/og/route.ts` uses `canvas` and `sharp` to render images dynamically.
-- Visual-heavy pages and components use dependencies such as `motion`, `three`,
-  `matter-js`, `react-player`, `canvas`, and `sharp`.
-- App Store, docs, MDX, localized routing, generated SEO endpoints, and CI/CD
-  flows are fragile enough to require evidence-based audit notes before fixes.
+- Codex: `codex plugin marketplace add labring/sealos-skills` then
+  `codex plugin add sealos@sealos`.
+- Claude Code: `claude plugin marketplace add labring/sealos-skills` then
+  `claude plugin install sealos@sealos`.
+- Compatibility: `npx plugins add https://github.com/labring/sealos-skills
+  --target codex|claude-code`.
+- Direct `skills.sh`: `npx skills add labring/sealos-skills`, then direct
+  `/sealos-deploy`, `/sealos-database`, and `/sealos-s3` entries.
 
-The user explicitly asked for the audit to cover the entire project without
-front-end/back-end boundaries and to record the analysis under `docs/` to avoid
-duplicate inspection.
+The current tutorials still use `npx plugins add ...` as the recommended
+install path in multiple sections. They also describe deploy behavior that
+should be expanded to match current upstream behavior around Runtime Truth Pass,
+logs, App URL verification, login/setup checks, resource footprints, and
+state-based updates.
 
 ## Constraints
 
-- **Scope**: Cover the entire repository module by module — the objective is
-  complete potential performance-risk discovery.
-- **Artifact**: Record the analysis in `docs/performance-audit.md` — the report
-  is the durable working memory for the audit.
-- **Evidence**: Every finding needs file-level evidence and a concrete reason
-  it can affect performance.
-- **Stack**: Keep the existing Next.js App Router, React, Fumadocs, npm, static
-  export, and deployment model while auditing.
-- **Quality**: Treat likely user-facing slow paths, build-time slow paths, and
-  developer workflow slow paths as separate impact categories.
+- **Source truth**: Tutorial claims about Sealos Skills must trace to the latest
+  upstream repository, not older plugin memory.
+- **Host accuracy**: Codex, Codex App, Claude Code, compatibility installers,
+  context-only hosts, and direct `skills.sh` entries need separate language.
+- **Scope**: Update existing tutorials and tutorial metadata only; keep broader
+  site behavior changes in their own work.
+- **SEO consistency**: Frontmatter FAQ and HowTo metadata must match the visible
+  body copy.
+- **Verification**: Use targeted `rg` checks plus tutorial validation before
+  the milestone moves into execution completion.
 - **Language**: Planning docs, code, code comments, commits, and PR text are
   written in English.
 
@@ -127,22 +135,22 @@ duplicate inspection.
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Use a dedicated GSD project for performance audit | The audit spans all modules and needs durable traceability. | — Pending |
-| Use fine-grained phase slicing | The user wants module-by-module coverage and broad discovery. | — Pending |
-| Keep the first pass as audit/reporting | Fixing before complete discovery can hide cross-module patterns. | — Pending |
-| Store the audit record under `docs/` | The user requested a persistent report to prevent repeated inspection. | — Pending |
-| Include frontend, API routes, scripts, build, integrations, and deployment | Performance risks can exist across the whole codebase. | — Pending |
+| Use upstream commit `c171d444cc16a7d58b5d23f1a171989a0221c211` as the tutorial source of truth | The user asked to optimize tutorials based on the latest `labring/sealos-skills`. | — Pending |
+| Prefer native plugin marketplace install copy for Codex and Claude Code | Upstream README now leads with host-native plugin installation. | — Pending |
+| Keep `npx plugins add` as a compatibility path | Upstream still documents it for local testing and cross-host installs. | — Pending |
+| Treat Runtime Truth Pass as part of deployment guidance | Upstream deploy skill now verifies real App URL, logs, login/setup flow, and resource footprint before usability claims. | — Pending |
+| Start this roadmap at Phase 13 | Existing `.planning/phases` directories already include 10 and 12, so Phase 13 keeps future phase paths unique. | — Pending |
 
 ## Evolution
 
 This document evolves at phase transitions and milestone boundaries.
 
 **After each phase transition** (via `$gsd-transition`):
-1. Requirements invalidated? → Move to Out of Scope with reason
-2. Requirements validated? → Move to Validated with phase reference
-3. New requirements emerged? → Add to Active
-4. Decisions to log? → Add to Key Decisions
-5. "What This Is" still accurate? → Update if drifted
+1. Requirements invalidated? -> Move to Out of Scope with reason
+2. Requirements validated? -> Move to Validated with phase reference
+3. New requirements emerged? -> Add to Active
+4. Decisions to log? -> Add to Key Decisions
+5. "What This Is" still accurate? -> Update if drifted
 
 **After each milestone** (via `$gsd-complete-milestone`):
 1. Full review of all sections
@@ -151,4 +159,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-11 after initialization*
+*Last updated: 2026-06-16 after v1.1 milestone initialization*
