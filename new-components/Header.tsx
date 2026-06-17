@@ -140,7 +140,7 @@ const DropdownMenuItem = ({ child }: { child: NavigationChild }) => {
       >
         <div className="flex items-center gap-3">
           {child.icon && (
-            <div className="flex flex-shrink-0 items-center justify-center rounded-lg bg-white/[0.08] p-2 text-white/80">
+            <div className="flex flex-shrink-0 items-center justify-center rounded-lg bg-white/10 p-2 text-white/80">
               {child.icon}
             </div>
           )}
@@ -172,7 +172,7 @@ const DropdownMenu = ({
       </NavigationMenuTrigger>
 
       <NavigationMenuContent className="relative !border-none !bg-transparent !shadow-none">
-        <div className="inset-shadow-bubble w-[40rem]! rounded-2xl border border-white/10 bg-neutral-950/95 p-4 text-white shadow-2xl backdrop-blur-xl md:w-[40rem]!">
+        <div className="inset-shadow-bubble w-screen max-w-2xl rounded-2xl border border-white/10 bg-neutral-950/95 p-4 text-white shadow-2xl backdrop-blur-xl">
           <div className="mb-2 text-sm text-white/50">{title}</div>
           <div className="grid grid-cols-2 gap-3">
             {children.slice(0, 2).map((child, index) => (
@@ -247,7 +247,7 @@ export function Header({ lang }: HeaderProps) {
 
   return (
     <>
-      <nav className="flex min-h-16 w-full items-center justify-between rounded-full bg-white/10 px-4 py-3 text-white shadow-[0_10px_15px_-3px_rgba(0,0,0,0.08),0_4px_6px_-2px_rgba(0,0,0,0.03)] backdrop-blur-[49.5px] lg:h-24 lg:rounded-none lg:bg-transparent lg:px-16 lg:py-2 lg:shadow-none lg:backdrop-blur-none">
+      <nav className="flex min-h-16 w-full items-center justify-between rounded-full bg-white/10 px-4 py-3 text-white shadow-lg backdrop-blur-3xl lg:h-24 lg:rounded-none lg:bg-transparent lg:px-16 lg:py-2 lg:shadow-none lg:backdrop-blur-none">
         <div className="flex min-w-0 items-center gap-9">
           <a
             href={homeHref}
@@ -317,14 +317,14 @@ export function Header({ lang }: HeaderProps) {
           </div>
           <Button
             variant="landing-primary"
-            className="hidden h-10 rounded-full px-4 py-2 text-sm font-medium shadow-[inset_0_0_20px_rgba(255,255,255,0.1),inset_0_-1px_4px_rgba(255,255,255,0.25)] lg:flex"
+            className="hidden h-10 rounded-full px-4 py-2 text-sm font-medium shadow-lg lg:flex"
             aria-label="Start using Sealos for free."
             onClick={() => {
               trackButton('Get Started', 'header', 'auth-form', '');
               handleAuthRedirect({ openapp: getOpenBrainParam() });
             }}
           >
-            Get Start For Free
+            Get Started For Free
           </Button>
 
           <Button

@@ -1,0 +1,63 @@
+.track {
+  padding-block: var(--star-border-thickness);
+}
+
+.flare {
+  position: absolute;
+  z-index: 0;
+  width: 300%;
+  height: 50%;
+  border-radius: 9999px;
+  opacity: 0.7;
+  background: radial-gradient(
+    circle,
+    var(--star-border-color),
+    transparent 10%
+  );
+  animation-duration: var(--star-border-speed);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.bottom {
+  right: -250%;
+  bottom: -0.75rem;
+  animation-name: star-movement-bottom;
+}
+
+.top {
+  top: -0.625rem;
+  left: -250%;
+  animation-name: star-movement-top;
+}
+
+@keyframes star-movement-bottom {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes star-movement-top {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flare {
+    animation: none;
+  }
+}

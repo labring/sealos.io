@@ -1,0 +1,34 @@
+.marqueeShell {
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+.marqueeTrack {
+  width: max-content;
+  animation: hero-marquee 24s linear infinite;
+}
+
+.marqueeShell:hover .marqueeTrack {
+  animation-play-state: paused;
+}
+
+@keyframes hero-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack {
+    animation: none;
+  }
+}

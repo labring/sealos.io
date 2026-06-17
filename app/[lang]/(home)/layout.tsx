@@ -18,7 +18,7 @@ export default function NewLandingLayout({
       <div
         className={cn(
           'sticky z-50 container pt-8',
-          hasBanner ? 'top-21 sm:top-14 lg:top-12' : 'top-0',
+          hasBanner ? 'top-20 sm:top-14 lg:top-12' : 'top-0',
         )}
       >
         <Header />
