@@ -98,6 +98,7 @@ const SOURCE_EXPECTATIONS = [
       'vercel@latest',
       'vercel pull',
       '--environment=preview',
+      'npm run app-store:refresh',
       'vercel build --prod --local-config ./vercel.json',
       'vercel deploy --prod',
       '--prebuilt',
@@ -111,6 +112,7 @@ const SOURCE_EXPECTATIONS = [
       'npm install',
       'vercel@latest',
       'vercel pull',
+      'npm run app-store:refresh',
       'vercel build --local-config ./vercel.json',
       'vercel-action',
       '--prebuilt',
@@ -119,7 +121,13 @@ const SOURCE_EXPECTATIONS = [
   {
     label: 'Cloudflare Pages production',
     file: '.github/workflows/deploy-cloudflare.yml',
-    tokens: ['node-version: 20', 'npm ci', 'npm run build', 'pages deploy ./out'],
+    tokens: [
+      'node-version: 20',
+      'npm ci',
+      'npm run app-store:refresh',
+      'npm run build',
+      'pages deploy ./out',
+    ],
   },
   {
     label: 'Cloudflare Pages preview',
@@ -127,6 +135,7 @@ const SOURCE_EXPECTATIONS = [
     tokens: [
       'node-version: 20',
       'npm ci',
+      'npm run app-store:refresh',
       'npm run build',
       'actions/upload-artifact',
       'actions/download-artifact',
@@ -152,6 +161,8 @@ const SOURCE_EXPECTATIONS = [
     file: '.github/workflows/build-image.yml',
     tokens: [
       'REGISTRY: ghcr.io',
+      'node-version: 20',
+      'npm run app-store:refresh',
       'docker/build-push-action@v5',
       'file: ./Dockerfile',
       'platforms: linux/amd64',
