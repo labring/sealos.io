@@ -162,6 +162,7 @@ const SOURCE_EXPECTATIONS = [
     tokens: [
       'REGISTRY: ghcr.io',
       'node-version: 20',
+      'npm ci',
       'npm run app-store:refresh',
       'docker/build-push-action@v5',
       'file: ./Dockerfile',

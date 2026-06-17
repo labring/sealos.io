@@ -23,7 +23,7 @@ const DEPLOYMENT_DOC = `
 | Cloudflare Pages production | npm ci | npm run app-store:refresh; npm run build | Node 20 | Cloudflare secrets | ./out | ./out | Cloudflare Pages | public/_redirects | public/_headers | immutable | static export | no Docker native runtime | CLOUDFLARE_API_TOKEN | npm run static-output:check |
 | Cloudflare Pages preview | npm ci | npm run app-store:refresh; npm run build | Node 20 | Cloudflare preview secrets | cloudflare-pages-out | ./out | Cloudflare Pages preview | public/_redirects | public/_headers | immutable | static export | no Docker native runtime | CF_API_TOKEN | npm run static-output:check |
 | Docker/Nginx | npm ci | npm ci && npm run build | node:20-bookworm-slim / nginx:1.27-alpine | Docker build args | /app/out | /usr/share/nginx/html | Nginx | static files | Nginx defaults | Nginx defaults | static export files | Cairo Sharp canvas native packages | build args | npm run docker:smoke |
-| GHCR/Kubernetes | npm run app-store:refresh | docker/build-push-action@v5 | linux/amd64 image | GitHub secrets | GHCR image | /usr/share/nginx/html | Kubernetes deployment/sealos-docs | ingress | ingress | cluster CDN | Docker/Nginx static assumptions | KUBE_CONFIG | npm run docker:smoke |
+| GHCR/Kubernetes | npm ci; npm run app-store:refresh | docker/build-push-action@v5 | linux/amd64 image | GitHub secrets | GHCR image | /usr/share/nginx/html | Kubernetes deployment/sealos-docs | ingress | ingress | cluster CDN | Docker/Nginx static assumptions | KUBE_CONFIG | npm run docker:smoke |
 
 PHASE9_RUN_LOCKED_BUILD
 PHASE9_RUN_DOCKER_SMOKE
@@ -403,6 +403,7 @@ async function writeDeploymentFixture(dir) {
     [
       'REGISTRY: ghcr.io',
       'node-version: 20',
+      'npm ci',
       'npm run app-store:refresh',
       'docker/build-push-action@v5',
       'file: ./Dockerfile',
