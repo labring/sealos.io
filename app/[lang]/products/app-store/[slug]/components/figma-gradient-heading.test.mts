@@ -237,9 +237,18 @@ test('hero uses the Figma center-logo composition on desktop', () => {
   assert.match(heroSource, /border-transparent/);
   assert.match(heroSource, /heroCenterLogoBorderStyle/);
   assert.match(heroSource, /linear-gradient\(#0A0A0A, #0A0A0A\) padding-box/);
-  assert.match(heroSource, /linear-gradient\(109\.08deg, #FFFFFF 0\.55%, rgba\(255, 255, 255, 0\) 26\.65%\) border-box/);
-  assert.match(heroSource, /linear-gradient\(285\.16deg, #FFFFFF 0%, rgba\(255, 255, 255, 0\) 8\.87%\) border-box/);
-  assert.match(heroSource, /linear-gradient\(0deg, rgba\(255, 255, 255, 0\.15\), rgba\(255, 255, 255, 0\.15\)\) border-box/);
+  assert.match(
+    heroSource,
+    /linear-gradient\(109\.08deg, #FFFFFF 0\.55%, rgba\(255, 255, 255, 0\) 26\.65%\) border-box/,
+  );
+  assert.match(
+    heroSource,
+    /linear-gradient\(285\.16deg, #FFFFFF 0%, rgba\(255, 255, 255, 0\) 8\.87%\) border-box/,
+  );
+  assert.match(
+    heroSource,
+    /linear-gradient\(0deg, rgba\(255, 255, 255, 0\.15\), rgba\(255, 255, 255, 0\.15\)\) border-box/,
+  );
   assert.match(heroSource, /variant="hero"/);
   assert.match(heroSource, /<div className="relative z-10 mx-auto grid/);
   assert.match(heroSource, /mb-7 flex items-center gap-5 lg:hidden/);
@@ -298,18 +307,48 @@ test('why deploy diagram cards use the Figma gradient border treatment', () => {
   assert.match(whyDeploySource, /diagramResourceGridClassName/);
   assert.match(whyDeploySource, /diagramLiveCardClassName/);
   assert.match(whyDeploySource, /border-\[0\.5px\] border-transparent/);
-  assert.match(whyDeploySource, /linear-gradient\(#0A0A0A, #0A0A0A\) padding-box/);
-  assert.match(whyDeploySource, /linear-gradient\(109\.08deg, #FFFFFF 0\.55%, rgba\(255, 255, 255, 0\) 26\.65%\) border-box/);
-  assert.match(whyDeploySource, /linear-gradient\(285\.16deg, #FFFFFF 0%, rgba\(255, 255, 255, 0\) 8\.87%\) border-box/);
-  assert.match(whyDeploySource, /linear-gradient\(0deg, rgba\(255, 255, 255, 0\.15\), rgba\(255, 255, 255, 0\.15\)\) border-box/);
-  assert.match(whyDeploySource, /index > 0 \? 'border-l border-white\/10' : ''/);
+  assert.match(
+    whyDeploySource,
+    /linear-gradient\(#0A0A0A, #0A0A0A\) padding-box/,
+  );
+  assert.match(
+    whyDeploySource,
+    /linear-gradient\(109\.08deg, #FFFFFF 0\.55%, rgba\(255, 255, 255, 0\) 26\.65%\) border-box/,
+  );
+  assert.match(
+    whyDeploySource,
+    /linear-gradient\(285\.16deg, #FFFFFF 0%, rgba\(255, 255, 255, 0\) 8\.87%\) border-box/,
+  );
+  assert.match(
+    whyDeploySource,
+    /linear-gradient\(0deg, rgba\(255, 255, 255, 0\.15\), rgba\(255, 255, 255, 0\.15\)\) border-box/,
+  );
+  assert.match(
+    whyDeploySource,
+    /index > 0 \? 'border-l border-white\/10' : ''/,
+  );
   assert.match(whyDeploySource, /className=\{diagramResourceGridClassName\}/);
-  assert.match(whyDeploySource, /className="flex h-10 items-center gap-3 px-4 text-sm font-semibold text-white"/);
+  assert.match(
+    whyDeploySource,
+    /className="flex h-10 items-center gap-3 px-4 text-sm font-semibold text-white"/,
+  );
   assert.doesNotMatch(whyDeploySource, /resourceIcons\.map\(\(item\) =>/);
-  assert.doesNotMatch(whyDeploySource, /className=\{`\$\{diagramCardClassName\} flex min-h-\[74px\]/);
-  assert.doesNotMatch(whyDeploySource, /flex h-10 items-center gap-3 rounded-lg bg-white\/\[0\.055\]/);
-  assert.doesNotMatch(whyDeploySource, /border border-white\/10 bg-white\/\[0\.035\]/);
-  assert.doesNotMatch(whyDeploySource, /border border-white\/10 bg-white\/\[0\.04\]/);
+  assert.doesNotMatch(
+    whyDeploySource,
+    /className=\{`\$\{diagramCardClassName\} flex min-h-\[74px\]/,
+  );
+  assert.doesNotMatch(
+    whyDeploySource,
+    /flex h-10 items-center gap-3 rounded-lg bg-white\/\[0\.055\]/,
+  );
+  assert.doesNotMatch(
+    whyDeploySource,
+    /border border-white\/10 bg-white\/\[0\.035\]/,
+  );
+  assert.doesNotMatch(
+    whyDeploySource,
+    /border border-white\/10 bg-white\/\[0\.04\]/,
+  );
 });
 
 test('detail sections use Figma-like vertical rhythm instead of stacked wide padding', () => {
@@ -364,7 +403,7 @@ test('why deploy step icons match the Figma icon set', () => {
 
   assert.match(
     whyDeploySource,
-    /import K8sLogo from '@\/app\/\[lang\]\/\(home\)\/\(new-home\)\/components\/carousel-image\/DeploymentCard\/logo\/k8s\.svg'/,
+    /import K8sLogo from '@\/assets\/stacks-appicons\/kubernetes\.svg'/,
   );
   assert.match(whyDeploySource, /iconType: 'k8s'/);
   assert.doesNotMatch(whyDeploySource, /\bGauge\b/);

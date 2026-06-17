@@ -14,7 +14,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import SealosLogo from '@/assets/shared-icons/sealos.svg';
-import K8sLogo from '@/app/[lang]/(home)/(new-home)/components/carousel-image/DeploymentCard/logo/k8s.svg';
+import K8sLogo from '@/assets/stacks-appicons/kubernetes.svg';
 import { cn } from '@/lib/utils';
 import SectionHeading from './SectionHeading';
 
@@ -77,8 +77,7 @@ const gradientBorderStyle = {
     'linear-gradient(#0A0A0A, #0A0A0A) padding-box, linear-gradient(109.08deg, #FFFFFF 0.55%, rgba(255, 255, 255, 0) 26.65%) border-box, linear-gradient(285.16deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 8.87%) border-box, linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)) border-box',
 };
 
-const diagramCardClassName =
-  'border-[0.5px] border-transparent bg-[#0A0A0A]';
+const diagramCardClassName = 'border-[0.5px] border-transparent bg-[#0A0A0A]';
 
 const diagramTopCardClassName = `${diagramCardClassName} rounded-xl p-3`;
 
@@ -162,7 +161,7 @@ export default function WhyDeployOnSealos() {
                     alt=""
                     width={20}
                     height={20}
-                    className="h-5 w-5 grayscale brightness-0 invert transition group-hover:grayscale-0 group-hover:brightness-100 group-hover:invert-0"
+                    className="h-5 w-5 brightness-0 grayscale invert transition group-hover:brightness-100 group-hover:grayscale-0 group-hover:invert-0"
                   />
                 ) : (
                   <step.icon className="h-5 w-5" />
