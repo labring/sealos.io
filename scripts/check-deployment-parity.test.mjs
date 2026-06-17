@@ -365,6 +365,7 @@ async function writeDeploymentFixture(dir) {
   await writeFile(
     join(dir, '.github/workflows/preview.yml'),
     [
+      'pull_request:',
       'node-version: 20',
       'run: npm install',
       'run: npm install --global vercel@latest',

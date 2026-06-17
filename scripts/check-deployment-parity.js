@@ -108,6 +108,7 @@ const SOURCE_EXPECTATIONS = [
     label: 'Vercel preview',
     file: '.github/workflows/preview.yml',
     tokens: [
+      'pull_request:',
       'node-version: 20',
       'npm install',
       'vercel@latest',
@@ -117,6 +118,7 @@ const SOURCE_EXPECTATIONS = [
       'vercel-action',
       '--prebuilt',
     ],
+    forbiddenTokens: ['pull_request_target:'],
   },
   {
     label: 'Cloudflare Pages production',
@@ -257,12 +259,17 @@ function validateDeploymentSources({ rootDir = process.cwd() } = {}) {
     const missingTokens = exists
       ? expectation.tokens.filter((token) => !hasToken(text, token))
       : expectation.tokens;
+    const forbiddenTokens =
+      exists && expectation.forbiddenTokens
+        ? expectation.forbiddenTokens.filter((token) => hasToken(text, token))
+        : [];
 
     return {
       label: expectation.label,
       file: expectation.file,
       exists,
       missingTokens,
+      forbiddenTokens,
     };
   });
   const failures = checks.flatMap((check) => {
@@ -270,9 +277,14 @@ function validateDeploymentSources({ rootDir = process.cwd() } = {}) {
       return [`${check.file} is missing`];
     }
 
-    return check.missingTokens.map(
-      (token) => `${check.file} missing token: ${token}`,
-    );
+    return [
+      ...check.missingTokens.map(
+        (token) => `${check.file} missing token: ${token}`,
+      ),
+      ...check.forbiddenTokens.map(
+        (token) => `${check.file} forbidden token: ${token}`,
+      ),
+    ];
   });
 
   return {
