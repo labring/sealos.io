@@ -30,5 +30,13 @@ See: `.planning/PROJECT.md` (updated 2026-06-11)
 Run `$gsd-discuss-phase 1` to gather final context for the audit ledger and
 module inventory, or run `$gsd-plan-phase 1` to plan Phase 1 directly.
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260617-kgc | update deployment workflows to refresh App Store templates before build | 2026-06-17 | acb429d | [260617-kgc-update-deployment-workflows-to-refresh-a](./quick/260617-kgc-update-deployment-workflows-to-refresh-a/) |
+
+Last activity: 2026-06-17 - Completed quick task 260617-kgc: update deployment workflows to refresh App Store templates before build.
+
 ---
 *Initialized: 2026-06-11*
