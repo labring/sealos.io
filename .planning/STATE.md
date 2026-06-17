@@ -35,8 +35,9 @@ module inventory, or run `$gsd-plan-phase 1` to plan Phase 1 directly.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260617-kgc | update deployment workflows to refresh App Store templates before build | 2026-06-17 | acb429d | [260617-kgc-update-deployment-workflows-to-refresh-a](./quick/260617-kgc-update-deployment-workflows-to-refresh-a/) |
+| 260617-kt3 | fix GHCR Docker image build failure | 2026-06-17 | fe42f4d | [260617-kt3-fix-ghcr-docker-image-build-failure](./quick/260617-kt3-fix-ghcr-docker-image-build-failure/) |
 
-Last activity: 2026-06-17 - Completed quick task 260617-kgc: update deployment workflows to refresh App Store templates before build.
+Last activity: 2026-06-17 - Completed quick task 260617-kt3: fix GHCR Docker image build failure.
 
 ---
 *Initialized: 2026-06-11*
