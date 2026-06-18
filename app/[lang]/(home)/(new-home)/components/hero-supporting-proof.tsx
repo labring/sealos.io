@@ -87,23 +87,9 @@ export function HeroRating() {
             key={index}
             size={16}
             className="text-blue-400"
-            fill={`url(#hero-star-gradient-${index})`}
-            stroke={`url(#hero-star-gradient-${index})`}
-          >
-            <defs>
-              <linearGradient
-                id={`hero-star-gradient-${index}`}
-                x1="0"
-                x2="16"
-                y1="0"
-                y2="16"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#BFDBFE" />
-                <stop offset="1" stopColor="#2563EB" />
-              </linearGradient>
-            </defs>
-          </StarIcon>
+            fill="currentColor"
+            stroke="currentColor"
+          />
         ))}
       </div>
       <blockquote className="text-base leading-6 text-zinc-500">

@@ -62,7 +62,7 @@ function HeroGetStartedButton() {
         aria-hidden="true"
       />
       <StarBorder
-        color="#3B82F6"
+        color="var(--color-blue-500)"
         contentClassName="h-10 gap-2 border border-blue-500/80 bg-gradient-to-b from-white via-zinc-100 to-zinc-300 px-4 text-sm font-medium text-zinc-900 shadow-lg"
         onClick={() => {
           trackButton('Get Started', 'hero', 'auth-form', '');
