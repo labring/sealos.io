@@ -1,6 +1,8 @@
 import { HeroSection } from './sections/hero-section';
 import { ComparisonSection } from './sections/comparison-section';
 import { AppsSection } from './sections/apps-section';
+import { FAQSection } from './sections/faq-section';
+import { CTASection } from './sections/cta-section';
 
 export default function HomePage() {
   return (
@@ -8,6 +10,8 @@ export default function HomePage() {
       <HeroSection />
       <ComparisonSection />
       <AppsSection />
+      <FAQSection />
+      <CTASection />
     </main>
   );
 }
