@@ -1,0 +1,630 @@
+---
+title: 'How to Deploy a Next.js App to Sealos in 5 Minutes'
+description: 'Deploy Next.js from GitHub to Sealos in minutes. Follow this step-by-step Sealos skill guide for build, env vars, hosting, and fixes.'
+date: 2026-05-21
+updated: 2026-05-28
+stage: beginner
+framework: Next.js
+series: sealos-skills-nextjs
+seriesOrder: 1
+estimatedReadingTime: 8 minutes
+primaryKeyword: 'deploy Next.js'
+targetKeywords:
+  - Next.js hosting
+  - Next.js deployment guide
+  - Sealos Next.js deployment
+  - deploy Next.js from GitHub
+  - Next.js production deployment
+tags:
+  - tutorial
+  - sealos-skills
+  - nextjs
+  - deployment
+authors: ['default']
+relatedTutorials:
+  - nextjs-postgresql-sealos
+  - nextjs-production-deployment-sealos
+cta:
+  label: 'Start free on Sealos'
+  href: "https://os.sealos.io"
+faq:
+  - question: 'Is Sealos good for Next.js hosting?'
+    answer: 'Yes. Sealos can host containerized Next.js apps and gives you a path from GitHub source code to a running cloud app. The Sealos plugin analyzes the repo, handles Dockerfile or image work, generates `.sealos/template/index.yaml`, checks rollout readiness, runs Runtime Truth Pass, and writes accepted deployment state to `.sealos/state.json`.'
+  - question: 'Can I deploy a Next.js app from GitHub without writing a Dockerfile?'
+    answer: 'Yes, when the repo is deployable and the Sealos plugin can generate or repair the missing container path. It records assessment details in `.sealos/analysis.json`, generates `.sealos/template/index.yaml`, and accepts the deployment after Runtime Truth Pass writes `.sealos/state.json`.'
+  - question: 'What port should a Next.js app use on Sealos?'
+    answer: 'Most Next.js apps use port `3000`. In a container, set `HOSTNAME=0.0.0.0`, make sure `.sealos/template/index.yaml` exposes the same port, and use Runtime Truth Pass to confirm the live App URL, service endpoints, logs, and footprint.'
+  - question: 'What should I read after my first deploy?'
+    answer: 'If the app uses PostgreSQL, read the full-stack guide. If real users will use the app, read the Next.js production deployment checklist before switching traffic to it.'
+howTo:
+  name: 'Deploy a Next.js app to Sealos in 5 minutes'
+  description: 'Use the Sealos plugin to assess a Next.js repo, prepare `.sealos/` deployment artifacts, build or reuse an image, deploy to Sealos Cloud, and accept the live app with Runtime Truth Pass.'
+  steps:
+    - name: 'Start with a deployable GitHub repo'
+      text: 'Prepare a working Next.js project with build and start scripts.'
+    - name: 'Ask Sealos to deploy the repo'
+      text: 'Run `$sealos deploy https://github.com/&lt;owner&gt;/&lt;repo&gt;` in Codex CLI or `/sealos deploy https://github.com/&lt;owner&gt;/&lt;repo&gt;` in Claude Code.'
+    - name: 'Review the project assessment'
+      text: 'Confirm `.sealos/analysis.json` captured Next.js, port 3000, package manager, build command, Dockerfile or image path, and required environment variables.'
+    - name: 'Prepare and publish the container image'
+      text: 'Reuse or generate a Dockerfile, then build and push an amd64 image when needed before Sealos creates `.sealos/template/index.yaml`.'
+    - name: 'Deploy and verify'
+      text: 'Configure environment variables, deploy to Sealos Cloud, check rollout readiness, run Runtime Truth Pass against the live App URL, logs, and footprint, then confirm `.sealos/state.json` records accepted state.'
+---
+
+Want to deploy Next.js without writing Kubernetes YAML or hand-rolling a Docker pipeline? This Next.js deployment guide shows how to take a GitHub repo, run the Sealos AI deployment skill, and publish a working app on Sealos hosting with a public HTTPS URL.
+
+With the Sealos skill, your AI agent can inspect the project, detect that it is a Next.js app, prepare missing deployment artifacts, build or reuse a container image, generate a Sealos template, and deploy the app to Sealos Cloud.
+
+By the end, you will have:
+
+- A Next.js app running on Sealos
+- A public HTTPS URL
+- A deployment state saved under `.sealos/`
+- A repeatable path for future updates and Next.js production deployment prep
+
+## Prerequisites
+
+You need:
+
+- A GitHub repository containing a working Next.js app
+- A Sealos Cloud account
+- Codex, Codex App, or Claude Code with the Sealos plugin installed
+- A container registry path if the app needs to be built, such as GHCR or Docker Hub
+- Optional but useful: Docker, GitHub CLI, `kubectl`, and Node.js available locally
+
+One Sealos plugin installs deploy, database, S3, canvas, app-builder, and
+supporting cloud-native skills from root `skills/**`.
+
+If you are using Codex, install the Sealos plugin with the native Codex
+marketplace flow:
+
+```bash
+codex plugin marketplace add labring/sealos-skills
+codex plugin add sealos@sealos
+```
+
+For Codex compatibility or local testing, use:
+
+```bash
+npx plugins add https://github.com/labring/sealos-skills --target codex
+```
+
+If you are using Claude Code, install the same Sealos plugin with the native
+Claude Code marketplace flow:
+
+```bash
+claude plugin marketplace add labring/sealos-skills
+claude plugin install sealos@sealos
+```
+
+For Claude Code compatibility, use:
+
+```bash
+npx plugins add https://github.com/labring/sealos-skills --target claude-code
+```
+
+After installation:
+
+- In Codex CLI, use `$sealos`
+- In Codex App, click **+** → **Plugins** → **Sealos**
+- In Claude Code, use `/sealos`
+
+![Selecting the Sealos plugin in Codex App](/images/codex-sealos.png)
+
+## What the Sealos skill does for a Next.js app
+
+When you ask Sealos to deploy a GitHub repo, the deploy skill runs one
+stateful pipeline:
+
+1. Phase 0 preflight checks the project path, useful local tools, Sealos
+   authentication, workspace access, and any Docker or registry readiness that
+   your chosen deploy path needs.
+2. Phase 1 assessment inspects the app and writes `.sealos/analysis.json` so
+   you can see what Sealos inferred before anything is deployed.
+3. Phase 2 image detection looks for a reusable linux/amd64 image in registries,
+   compose files, CI workflows, or project docs.
+4. Phase 3 Dockerfile generation or reuse prepares a container path only when
+   the project needs one.
+5. Phase 4 build and push runs only when Sealos needs a new image. It records
+   the result in `.sealos/build/build-result.json`.
+6. Phase 5 template generation writes `.sealos/template/index.yaml`, the Sealos
+   resource plan for the app, service, ingress, environment variables, image
+   pull Secret references, and database resources when applicable.
+7. Phase 5.5 configuration asks for missing required values and lets you review
+   deployment settings.
+8. Phase 6 deploy submits the generated template through Sealos and checks
+   resource readiness.
+9. Phase 6.5 Runtime Truth Pass verifies the live app before the deployment is
+   accepted.
+
+For a typical Next.js app, it detects:
+
+- Framework: Next.js
+- Default port: `3000`
+- Package manager: npm, pnpm, yarn, or bun
+- Build command, usually `npm run build`, `pnpm build`, `yarn build`, or `bun run build`
+- Runtime command, often `node server.js` for standalone output
+- Required environment variables from `.env.example`, source code, and config files
+
+## Step 1: Start with a deployable GitHub repo
+
+Your repository should include a normal Next.js project structure:
+
+```text
+my-nextjs-app/
+├── app/ or pages/
+├── package.json
+├── next.config.js or next.config.mjs
+├── public/
+└── .env.example
+```
+
+Your `package.json` should include at least:
+
+```json
+{
+  "scripts": {
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
+```
+
+The exact Next.js version can differ. The important part is that the app can build and start.
+
+Before deploying, make sure the app builds locally:
+
+```bash
+npm install
+npm run build
+```
+
+For pnpm:
+
+```bash
+pnpm install
+pnpm build
+```
+
+For bun:
+
+```bash
+bun install
+bun run build
+```
+
+![Local Next.js build passing in the terminal](/images/deploy-nextjs-sealos/local-nextjs-build.png)
+
+## Step 2: Ask Sealos to deploy the repo
+
+In Codex CLI, run:
+
+```text
+$sealos deploy https://github.com/<owner>/<repo>
+```
+
+In Claude Code, run:
+
+```text
+/sealos deploy https://github.com/<owner>/<repo>
+```
+
+If you are already inside the repo, you can say:
+
+```text
+$sealos deploy this repo to Sealos Cloud
+```
+
+The skill starts with preflight checks. It verifies the project path, checks useful tools, and confirms Sealos authentication.
+
+If you are not signed in, the skill guides you through Sealos login before it inspects or deploys the project.
+
+Preflight also checks the selected Sealos workspace and permissions to create
+resources. Docker, buildx, GHCR, and registry warnings appear when the app needs
+a local build or private image push. A repo that already has a usable public
+linux/amd64 image may skip that build path.
+
+![Sealos skill preflight and authentication prompt](/images/deploy-nextjs-sealos/sealos-preflight-auth.png)
+
+## Step 3: Review the project assessment
+
+The skill analyzes the repo and prints a readiness summary.
+
+For a healthy Next.js app, you should see something like:
+
+```text
+Framework: Next.js
+Language: Node.js
+Port: 3000
+Package manager: pnpm
+Dockerfile: not found
+Database: none detected
+Score: good
+Decision: continue
+```
+
+This is the first important checkpoint. It tells you whether Sealos understands your app as a web service.
+
+If the score is low, fix the project before continuing. Common reasons include:
+
+- Missing `build` script
+- No identifiable web server
+- App is a package, CLI, or library instead of a deployable service
+- Required env vars are missing from `.env.example`
+- The app only works with local files or local SQLite
+
+![Sealos readiness score for a Next.js repo](/images/deploy-nextjs-sealos/sealos-readiness-score.png)
+
+## Step 4: Let Sealos prepare the container
+
+If your repo already has a valid Dockerfile, Sealos can reuse it.
+
+If not, the skill can generate one for Next.js. The recommended production pattern is standalone output, because it produces a smaller runtime image and avoids copying the full `node_modules` tree.
+
+In `next.config.mjs`, standalone output looks like this:
+
+```js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'standalone',
+};
+
+export default nextConfig;
+```
+
+A standalone Next.js runtime usually starts with:
+
+```bash
+node server.js
+```
+
+The generated container uses:
+
+```text
+HOSTNAME=0.0.0.0
+PORT=3000
+NODE_ENV=production
+```
+
+This matters because a containerized app must listen on all interfaces, not only `localhost`.
+
+![Generated Dockerfile summary for a Next.js app](/images/deploy-nextjs-sealos/generated-dockerfile-summary.png)
+
+## Step 5: Build and push the image
+
+If Sealos needs to build an image, it chooses a registry path.
+
+The usual priority is:
+
+1. GHCR when GitHub CLI is available and authenticated
+2. Docker Hub when configured
+3. Existing image if one is already published and compatible
+
+The build targets linux/amd64 so the image can run correctly on Sealos.
+
+Example result:
+
+```text
+Build: success
+Image: ghcr.io/<owner>/<repo>:20260526-143000
+Pull access: private GHCR package detected
+Next step: create image pull secret during deploy
+```
+
+If the image is private, the skill can create or update the needed image pull secret for the Sealos deployment.
+
+![Successful image build and push output](/images/deploy-nextjs-sealos/image-build-push-success.png)
+
+## Step 6: Configure environment variables
+
+If your Next.js app needs runtime variables, Sealos asks for them before deployment.
+
+Examples:
+
+```bash
+NEXT_PUBLIC_APP_URL=https://your-domain.com
+AUTH_SECRET=<secret>
+API_BASE_URL=https://api.example.com
+```
+
+Use this rule:
+
+- `NEXT_PUBLIC_*` values are exposed to browser-side code
+- Non-public secrets such as `AUTH_SECRET`, `DATABASE_URL`, and API keys must stay server-side
+- Do not commit `.env` or `.env.local`
+- Commit `.env.example` with placeholders only
+
+For basic static or server-rendered apps with no required external services, this step may be empty.
+
+![Sealos environment variable prompt](/images/deploy-nextjs-sealos/env-var-configuration.png)
+
+## Step 7: Deploy to Sealos Cloud
+
+After configuration, confirm the deployment.
+
+The skill deploys `.sealos/template/index.yaml` through the Sealos Template API.
+That template describes the app workload, service, ingress, environment
+variables, image pull Secret reference when needed, and database resources when
+the assessment found them.
+
+After Sealos accepts the template, the skill still has to prove the live app
+works. It checks readiness, runs Runtime Truth Pass, and then writes deployment
+state to `.sealos/state.json`.
+
+You will see output like:
+
+```text
+Status: deployed successfully
+App: my-nextjs-app
+URL: https://my-nextjs-app-xxxxx.usw.sealos.app
+State: .sealos/state.json updated
+Template: .sealos/template/index.yaml
+```
+
+Open the URL in your browser.
+
+![Next.js app running on a Sealos public URL](/images/deploy-nextjs-sealos/sealos-app-running-url.png)
+
+## Step 8: Verify the deployment
+
+Use Runtime Truth Pass before you call the deployment done. A homepage load is
+one signal inside the pass. Accepted proof comes from the actual Sealos runtime.
+
+Check:
+
+- The Sealos app status is `running`
+- The actual App URL opens from a fresh browser session
+- The homepage or health endpoint returns a non-5xx response
+- Service endpoints are healthy
+- Static assets load correctly
+- API routes return expected responses when the app has them
+- Recent logs are clear of startup and runtime failures
+- The footprint shows the expected Sealos resources, such as the app workload,
+  service, ingress, image pull Secret, and database resources when applicable
+- Required env vars are present in the Sealos app settings
+- The app does not depend on local-only files
+
+If the app has a health endpoint, test it:
+
+```bash
+curl -I https://<your-sealos-url>/api/health
+```
+
+If it does not, test the homepage:
+
+```bash
+curl -I https://<your-sealos-url>/
+```
+
+For apps with setup, login, or gated routes, complete the first-run flow and
+verify at least one authenticated page or API route.
+
+## What changed in your repo
+
+The Sealos deploy skill may create a `.sealos/` directory. Treat it as local
+deploy working state for this project:
+
+```text
+.sealos/
+├── config.json
+├── analysis.json
+├── state.json
+├── build/
+│   └── build-result.json
+└── template/
+    └── index.yaml
+```
+
+The important files are:
+
+- `.sealos/config.json`: optional manual overrides. All fields are optional,
+  and values you provide override auto-detection or AI inference.
+- `.sealos/analysis.json`: regenerated after assessment. It records
+  deployability, framework, package manager, port, database signals,
+  environment-variable classification, Dockerfile presence, complexity tier,
+  and the selected image reference when available.
+- `.sealos/build/build-result.json`: created only when Phase 4 build and push
+  runs. It records build success or failure, pushed image metadata, or error
+  details.
+- `.sealos/template/index.yaml`: the generated and configured Sealos template
+  with app, service, ingress, environment variables, image pull Secret
+  references, and database resources when applicable.
+- `.sealos/state.json`: written after successful deployment and Runtime Truth
+  Pass acceptance. It stores `last_deploy` plus bounded append-only `history`
+  and drives future deploy or update decisions.
+
+The JSON files are schema-governed by the upstream Sealos skill. As a beginner,
+inspect them for what Sealos inferred, what it built, what it plans to deploy,
+and what runtime state was accepted.
+
+Review `.sealos/` artifacts before committing. They can contain deployment
+details such as environment names, image references, runtime URLs, and values
+that reveal operational context. Keep real secrets out of committed artifacts.
+
+If you later run the Sealos deploy skill again, it can detect the existing deployment and switch to update mode instead of creating a new app.
+
+## Common errors and fixes
+
+### 1. `npm ERR! Missing script: build`
+
+Your `package.json` does not expose a build script.
+
+Fix:
+
+```json
+{
+  "scripts": {
+    "build": "next build",
+    "start": "next start"
+  }
+}
+```
+
+Then rerun:
+
+```text
+$sealos deploy this repo to Sealos Cloud
+```
+
+### 2. Sealos auth or workspace is blocked
+
+Preflight may stop when you are signed out, the wrong workspace is selected, or
+your account cannot create the required resources.
+
+Fix:
+
+- Sign in to Sealos Cloud
+- Select the workspace you want to deploy into
+- Confirm your account can create apps, services, ingress, Secrets, and
+  databases when needed
+- Rerun the deploy request after the auth check passes
+
+### 3. `Failed to collect page data` or `DATABASE_URL is not set`
+
+Next.js may read environment variables during build, especially when static generation or route analysis touches server code.
+
+Fix:
+
+- Put real runtime values in Sealos environment variables
+- Use safe placeholder values only during the Docker build stage when needed
+- Avoid connecting to production services during `next build`
+
+If the app needs PostgreSQL, use the full-stack guide next.
+
+### 4. Docker, buildx, or image build fails
+
+This path applies when Sealos needs to build and push an image for the app.
+
+Fix:
+
+- Start Docker locally
+- Confirm buildx can build linux/amd64 images
+- Check `.sealos/build/build-result.json` for the failing step
+- Fix Dockerfile, dependency, or build-command errors, then rerun the deploy
+  request
+
+### 5. GHCR push or package scope fails
+
+The registry may be unauthenticated, the package scope may be wrong, or the
+account may lack package write permission.
+
+Fix:
+
+- Sign in to GitHub CLI if using GHCR
+- Confirm the image path uses the expected owner or organization
+- Confirm the target package visibility and write permissions
+- Rerun after the registry check passes
+
+For GHCR:
+
+```bash
+gh auth status
+```
+
+### 6. Private image pull Secret is missing or stale
+
+Private images need pull credentials inside Sealos. If the app deploys but pods
+cannot pull the image, the generated image pull Secret or template reference may
+need attention.
+
+Fix:
+
+- Confirm the image is private or public as expected
+- Check `.sealos/template/index.yaml` for the image pull Secret reference
+- Refresh the pull Secret through the deploy skill
+- Redeploy after the Secret exists in the selected workspace
+
+### 7. Template API validation fails
+
+Sealos may reject the generated template when a required field, env-var value,
+resource name, image reference, service, ingress, or database resource is
+invalid.
+
+Fix:
+
+- Review `.sealos/template/index.yaml`
+- Fill missing required configuration values
+- Correct resource names, ports, image references, and environment variables
+- Rerun the deploy request after the template is valid
+
+### 8. Rollout or readiness fails
+
+The template was accepted, but the workload did not become ready.
+
+Fix:
+
+- Check Sealos app status and events
+- Confirm pods can start and pass readiness checks
+- Review Services, Ingresses, Jobs, database resources, and PVCs when they are
+  part of the deployment
+- Inspect logs before rerunning
+
+### 9. The app starts but the public URL does not open
+
+The app may be listening on the wrong port or interface.
+
+For Next.js containers, use:
+
+```bash
+HOSTNAME=0.0.0.0
+PORT=3000
+```
+
+Also confirm that the Sealos template exposes the same container port.
+
+See: [Public URL Does Not Open](https://sealos.io/docs/guides/app-deploy/public-url-does-not-open/)
+
+### 10. Runtime logs show failures after deployment
+
+Runtime Truth Pass may find startup errors, SSR errors, missing env vars,
+database connection failures, access-control failures, or crash loops after
+smoke tests.
+
+Fix:
+
+- Open recent logs for the app
+- Trigger the homepage, static assets, and API routes again
+- Fix the first runtime error in the log stream
+- Rerun deployment verification after the logs are clear
+
+### 11. `.sealos/state.json` is stale or broken
+
+The state file may be missing, manually edited, or pointing to a deployment that
+no longer exists.
+
+Fix:
+
+- Inspect `.sealos/state.json`
+- Confirm the recorded app still exists in the selected Sealos workspace
+- Let the deploy skill repair state or create a fresh deployment when the live
+  deployment cannot be verified
+- Review state changes before committing `.sealos/`
+
+### 12. The app works locally but fails after deployment
+
+Local development often hides missing production settings.
+
+Check:
+
+- Required env vars
+- Node version
+- Package manager lockfile
+- File paths that assume local disk
+- Runtime-only secrets
+- API URLs hardcoded to `localhost`
+
+## Next steps
+
+If this was your first deploy:
+
+- Read the full-stack guide: [Next.js + PostgreSQL Full-Stack Deployment Guide on Sealos](/tutorials/nextjs-postgresql-sealos)
+- Prepare production: [Complete Production Deployment Checklist for Next.js on Sealos](/tutorials/nextjs-production-deployment-sealos)
+- Learn environment variables: [Sealos Environment Variables](https://sealos.io/docs/guides/app-deploy/environments/)
+- Add a domain: [Sealos Domains and Public Access](https://sealos.io/docs/guides/app-deploy/add-a-domain/)
+- Troubleshoot deploys: [Sealos App Deploy Troubleshooting](https://sealos.io/docs/guides/app-deploy/troubleshoot/)

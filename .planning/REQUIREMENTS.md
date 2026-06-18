@@ -9,74 +9,92 @@ source.
 
 ### Upstream Source
 
-- [ ] **SOURCE-01**: Record the upstream `labring/sealos-skills` commit used
+- [x] **SOURCE-01**: Record the upstream `labring/sealos-skills` commit used
   for this tutorial update.
-- [ ] **SOURCE-02**: Extract current Codex, Claude Code, compatibility,
+
+- [x] **SOURCE-02**: Extract current Codex, Claude Code, compatibility,
   context-only host, and direct `skills.sh` install guidance from upstream.
-- [ ] **SOURCE-03**: Extract current `sealos-deploy` pipeline guidance,
+
+- [x] **SOURCE-03**: Extract current `sealos-deploy` pipeline guidance,
   including DEPLOY/UPDATE mode and Phase 6.5 Runtime Truth Pass.
-- [ ] **SOURCE-04**: Keep tutorial claims limited to host capabilities that the
+
+- [x] **SOURCE-04**: Keep tutorial claims limited to host capabilities that the
   upstream README and marketplace notes claim.
 
 ### Installation Copy
 
-- [ ] **INSTALL-01**: Every tutorial Codex install section prefers
+- [x] **INSTALL-01**: Every tutorial Codex install section prefers
   `codex plugin marketplace add labring/sealos-skills` followed by
   `codex plugin add sealos@sealos`.
-- [ ] **INSTALL-02**: Every tutorial Claude Code install section prefers
+
+- [x] **INSTALL-02**: Every tutorial Claude Code install section prefers
   `claude plugin marketplace add labring/sealos-skills` followed by
   `claude plugin install sealos@sealos`.
-- [ ] **INSTALL-03**: Compatibility install snippets keep
+
+- [x] **INSTALL-03**: Compatibility install snippets keep
   `npx plugins add https://github.com/labring/sealos-skills --target codex`
   and `--target claude-code` in secondary placement.
-- [ ] **INSTALL-04**: Tutorial host-usage copy consistently maps Codex CLI to
+
+- [x] **INSTALL-04**: Tutorial host-usage copy consistently maps Codex CLI to
   `$sealos`, Codex App to `+ -> Plugins -> Sealos`, and Claude Code to
   `/sealos`.
-- [ ] **INSTALL-05**: Direct `/sealos-deploy`, `/sealos-database`, and
+
+- [x] **INSTALL-05**: Direct `/sealos-deploy`, `/sealos-database`, and
   `/sealos-s3` examples appear only in direct `skills.sh` context.
 
 ### Deploy Workflow
 
-- [ ] **DEPLOY-01**: Beginner deployment tutorial describes the current
+- [x] **DEPLOY-01**: Beginner deployment tutorial describes the current
   preflight, assessment, image detection, Dockerfile, build/push, template,
   configure, deploy, and Runtime Truth Pass sequence.
-- [ ] **DEPLOY-02**: Beginner deployment tutorial describes `.sealos/`
+
+- [x] **DEPLOY-02**: Beginner deployment tutorial describes `.sealos/`
   artifacts with current responsibilities for `analysis.json`,
   `template/index.yaml`, `state.json`, optional `config.json`, and build output.
-- [ ] **DEPLOY-03**: PostgreSQL tutorial describes full-stack app and database
+
+- [x] **DEPLOY-03**: PostgreSQL tutorial describes full-stack app and database
   deployment with database resource generation, app env-var wiring, migration
   planning, and runtime verification.
-- [ ] **DEPLOY-04**: Production checklist describes DEPLOY/UPDATE mode based on
+
+- [x] **DEPLOY-04**: Production checklist describes DEPLOY/UPDATE mode based on
   `.sealos/state.json` and live cluster verification.
-- [ ] **DEPLOY-05**: Production checklist includes Runtime Truth Pass checks for
+
+- [x] **DEPLOY-05**: Production checklist includes Runtime Truth Pass checks for
   real App URL, logs, login/setup path, authenticated paths when relevant, and
   resource footprint.
-- [ ] **DEPLOY-06**: Troubleshooting guidance reflects upstream behavior around
+
+- [x] **DEPLOY-06**: Troubleshooting guidance reflects upstream behavior around
   Sealos auth, Docker/GHCR, private image pull secrets, rollout verification,
   and state repair.
 
 ### Cross-Article Consistency
 
-- [ ] **CONSIST-01**: Frontmatter FAQ answers match updated installation and
+- [x] **CONSIST-01**: Frontmatter FAQ answers match updated installation and
   deploy-flow guidance.
-- [ ] **CONSIST-02**: Frontmatter HowTo steps match updated visible article
+
+- [x] **CONSIST-02**: Frontmatter HowTo steps match updated visible article
   steps and host-specific command syntax.
-- [ ] **CONSIST-03**: All three tutorial bodies use one terminology set for
+
+- [x] **CONSIST-03**: All three tutorial bodies use one terminology set for
   "Sealos plugin", "Sealos Skills", "Codex plugin", Runtime Truth Pass, and
   `.sealos/` state.
-- [ ] **CONSIST-04**: Internal links and CTA references continue to point to
+
+- [x] **CONSIST-04**: Internal links and CTA references continue to point to
   `/sealos-skills` or existing Sealos docs URLs as appropriate.
 
 ### Verification
 
-- [ ] **VERIFY-01**: Targeted searches show every tutorial reference to
+- [x] **VERIFY-01**: Targeted searches show every tutorial reference to
   `npx plugins add`, `codex plugin`, `claude plugin`, `$sealos`, `/sealos`,
   `/sealos-deploy`, `.sealos/`, and Runtime Truth Pass is intentional.
-- [ ] **VERIFY-02**: `scripts/validate-tutorials.mjs` passes after content
+
+- [x] **VERIFY-02**: `scripts/validate-tutorials.mjs` passes after content
   edits.
-- [ ] **VERIFY-03**: Repository lint or the narrowest available content check
+
+- [x] **VERIFY-03**: Repository lint or the narrowest available content check
   passes for touched tutorial and metadata files.
-- [ ] **VERIFY-04**: The final diff is scoped to tutorial content, tutorial
+
+- [x] **VERIFY-04**: The final diff is scoped to tutorial content, tutorial
   metadata, and GSD planning artifacts.
 
 ## Future Requirements
@@ -85,10 +103,13 @@ source.
 
 - **FUTURE-01**: Add tutorial screenshots that show native Codex and Claude
   plugin installation flows.
+
 - **FUTURE-02**: Add additional framework tutorials after the Next.js tutorial
   set is verified.
+
 - **FUTURE-03**: Add localized tutorial versions after the English source set is
   stable.
+
 - **FUTURE-04**: Add live deployment proof notes when fresh evidence is
   captured for each tutorial path.
 
@@ -106,31 +127,32 @@ source.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SOURCE-01 | Phase 13 | Pending |
-| SOURCE-02 | Phase 13 | Pending |
-| SOURCE-03 | Phase 13 | Pending |
-| SOURCE-04 | Phase 13 | Pending |
-| INSTALL-01 | Phase 13 | Pending |
-| INSTALL-02 | Phase 13 | Pending |
-| INSTALL-03 | Phase 13 | Pending |
-| INSTALL-04 | Phase 13 | Pending |
-| INSTALL-05 | Phase 13 | Pending |
-| DEPLOY-01 | Phase 14 | Pending |
-| DEPLOY-02 | Phase 14 | Pending |
-| DEPLOY-03 | Phase 14 | Pending |
-| DEPLOY-04 | Phase 14 | Pending |
-| DEPLOY-05 | Phase 14 | Pending |
-| DEPLOY-06 | Phase 14 | Pending |
-| CONSIST-01 | Phase 15 | Pending |
-| CONSIST-02 | Phase 15 | Pending |
-| CONSIST-03 | Phase 15 | Pending |
-| CONSIST-04 | Phase 15 | Pending |
-| VERIFY-01 | Phase 15 | Pending |
-| VERIFY-02 | Phase 15 | Pending |
-| VERIFY-03 | Phase 15 | Pending |
-| VERIFY-04 | Phase 15 | Pending |
+| SOURCE-01 | Phase 13 | Complete |
+| SOURCE-02 | Phase 13 | Complete |
+| SOURCE-03 | Phase 13 | Complete |
+| SOURCE-04 | Phase 13 | Complete |
+| INSTALL-01 | Phase 13 | Complete |
+| INSTALL-02 | Phase 13 | Complete |
+| INSTALL-03 | Phase 13 | Complete |
+| INSTALL-04 | Phase 13 | Complete |
+| INSTALL-05 | Phase 13 | Complete |
+| DEPLOY-01 | Phase 14 | Complete |
+| DEPLOY-02 | Phase 14 | Complete |
+| DEPLOY-03 | Phase 14 | Complete |
+| DEPLOY-04 | Phase 14 | Complete |
+| DEPLOY-05 | Phase 14 | Complete |
+| DEPLOY-06 | Phase 14 | Complete |
+| CONSIST-01 | Phase 15 | Complete |
+| CONSIST-02 | Phase 15 | Complete |
+| CONSIST-03 | Phase 15 | Complete |
+| CONSIST-04 | Phase 15 | Complete |
+| VERIFY-01 | Phase 15 | Complete |
+| VERIFY-02 | Phase 15 | Complete |
+| VERIFY-03 | Phase 15 | Complete |
+| VERIFY-04 | Phase 15 | Complete |
 
 **Coverage:**
+
 - v1.1 requirements: 23 total
 - Mapped to phases: 23
 - Unmapped: 0
