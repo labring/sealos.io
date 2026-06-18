@@ -1,5 +1,6 @@
 import { HeroSection } from './sections/hero-section';
 import { TerminalAgentSection } from './sections/terminal-agent-section';
+import { BrainCapsSection } from './sections/brain-caps-section';
 import { ComparisonSection } from './sections/comparison-section';
 import { AppsSection } from './sections/apps-section';
 import { FAQSection } from './sections/faq-section';
@@ -10,6 +11,7 @@ export default function HomePage() {
     <main className="min-h-screen">
       <HeroSection />
       <TerminalAgentSection />
+      <BrainCapsSection />
       <ComparisonSection />
       <AppsSection />
       <FAQSection />
