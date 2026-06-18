@@ -32,8 +32,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Refresh App Store templates
-        run: npm run app-store:refresh
+      - name: Check App Store generated assets
+        run: npm run app-store:diff
 
       - name: Get current date and time
         id: datetime

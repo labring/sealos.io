@@ -44,8 +44,8 @@ jobs:
         run: npm install --global vercel@latest
       - name: Pull environment variables
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Refresh App Store templates
-        run: npm run app-store:refresh
+      - name: Check App Store generated assets
+        run: npm run app-store:diff
       - name: Build
         run: vercel build --local-config ./vercel.json
       - name: Deploy to Vercel

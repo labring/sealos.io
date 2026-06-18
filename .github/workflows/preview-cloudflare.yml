@@ -188,7 +188,7 @@ jobs:
           NEXT_PUBLIC_DEFAULT_LOCALE: ${{ vars.NEXT_PUBLIC_DEFAULT_LOCALE || 'en' }}
         run: |
           npm ci
-          npm run app-store:refresh
+          npm run app-store:diff
           npm run build
 
       - name: Upload static output
