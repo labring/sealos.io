@@ -15,16 +15,18 @@ export default function NewLandingLayout({
   );
   return (
     <>
-      <div
-        className={cn(
-          'sticky z-50 container max-lg:pt-8',
-          hasBanner ? 'top-20 sm:top-14 lg:top-12' : 'top-0',
-        )}
-      >
-        <Header />
-      </div>
+      <div className="relative z-10 bg-[#03050b]">
+        <div
+          className={cn(
+            'sticky z-50 container max-lg:pt-8',
+            hasBanner ? 'top-20 sm:top-14 lg:top-12' : 'top-0',
+          )}
+        >
+          <Header />
+        </div>
 
-      {children}
+        {children}
+      </div>
 
       <ConditionalHomeFooter lang={params.lang} />
     </>

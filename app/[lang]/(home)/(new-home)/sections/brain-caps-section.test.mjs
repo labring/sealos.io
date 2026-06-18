@@ -38,13 +38,22 @@ test('BrainCapsSection keeps copy and previews data-driven', () => {
 });
 
 test('BrainCapsSection is one sticky scroll story', () => {
+  assert.match(
+    sectionSource,
+    /import \{ AnimatePresence, motion, type Transition \}/,
+  );
   assert.match(sectionSource, /sectionRef/);
   assert.match(sectionSource, /addEventListener\('scroll'/);
   assert.match(sectionSource, /sticky top-0/);
-  assert.match(sectionSource, /getCopyStyle\(index, activeIndex\)/);
-  assert.match(sectionSource, /pointerEvents/);
-  assert.match(sectionSource, /zIndex: isFuture \? 0 : brainCaps\.length - clampedDepth/);
-  assert.match(sectionSource, /translate3d\(0,/);
+  assert.match(sectionSource, /direction/);
+  assert.match(sectionSource, /<AnimatePresence/);
+  assert.match(sectionSource, /motion\.div/);
+  assert.doesNotMatch(sectionSource, /blur\(16px\)/);
+  assert.match(
+    sectionSource,
+    /zIndex: isFuture \? 0 : brainCaps\.length - clampedDepth/,
+  );
+  assert.match(sectionSource, /y: isFuture \? -28 : clampedDepth \* 64/);
   assert.doesNotMatch(sectionSource, /<ScrollStack/);
 });
 

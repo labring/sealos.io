@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import type { CSSProperties } from 'react';
 import {
   Box,
   Clock3,
@@ -11,6 +10,7 @@ import {
   LayoutGrid,
   type LucideIcon,
 } from 'lucide-react';
+import { AnimatePresence, motion, type Transition } from 'motion/react';
 
 type BrainCap = {
   icon: LucideIcon;
@@ -88,6 +88,7 @@ export function BrainCapsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const activeIndexRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
 
   useEffect(() => {
     const updateActiveIndex = () => {
@@ -98,10 +99,7 @@ export function BrainCapsSection() {
       const scrollableDistance = section.offsetHeight - window.innerHeight;
       const progress =
         scrollableDistance > 0
-          ? Math.min(
-              1,
-              Math.max(0, -rect.top / scrollableDistance),
-            )
+          ? Math.min(1, Math.max(0, -rect.top / scrollableDistance))
           : 0;
       const nextIndex = Math.min(
         brainCaps.length - 1,
@@ -109,6 +107,7 @@ export function BrainCapsSection() {
       );
 
       if (activeIndexRef.current === nextIndex) return;
+      setDirection(nextIndex > activeIndexRef.current ? 1 : -1);
       activeIndexRef.current = nextIndex;
       setActiveIndex(nextIndex);
     };
@@ -140,27 +139,35 @@ export function BrainCapsSection() {
 
           <div className="mt-16 grid items-center gap-10 lg:grid-cols-[minmax(0,506px)_minmax(0,1fr)]">
             <div className="relative min-h-[335px]">
-              {brainCaps.map((cap, index) => (
-                <div
-                  key={cap.title}
-                  className="absolute inset-0 transition-[filter,opacity,transform] duration-500 ease-out"
-                  style={getCopyStyle(index, activeIndex)}
-                >
-                  <BrainCapCopy cap={cap} />
-                </div>
-              ))}
+              <AnimatePresence custom={direction} initial={false}>
+                {brainCaps.map((cap, index) => (
+                  <motion.div
+                    key={cap.title}
+                    className="absolute inset-0"
+                    animate={getCopyMotion(index, activeIndex)}
+                    transition={motionTransition}
+                    style={getCopyStyle(index, activeIndex)}
+                  >
+                    <BrainCapCopy cap={cap} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
 
             <div className="relative h-[374px] md:h-[460px]">
-              {brainCaps.map((cap, index) => (
-                <div
-                  key={cap.title}
-                  className="absolute inset-0 origin-top transition-[filter,opacity,transform] duration-500 ease-out"
-                  style={getPreviewStyle(index, activeIndex)}
-                >
-                  <PreviewCard cap={cap} index={index} />
-                </div>
-              ))}
+              <AnimatePresence custom={direction} initial={false}>
+                {brainCaps.map((cap, index) => (
+                  <motion.div
+                    key={cap.title}
+                    className="absolute inset-0 origin-top"
+                    animate={getPreviewMotion(index, activeIndex)}
+                    transition={motionTransition}
+                    style={getPreviewStyle(index, activeIndex)}
+                  >
+                    <PreviewCard cap={cap} index={index} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
           </div>
         </div>
@@ -169,16 +176,37 @@ export function BrainCapsSection() {
   );
 }
 
-function getCopyStyle(index: number, activeIndex: number): CSSProperties {
+const motionTransition: Transition = {
+  duration: 0.52,
+  ease: [0.22, 1, 0.36, 1],
+};
+
+function getCopyMotion(index: number, activeIndex: number) {
   const offset = index - activeIndex;
 
   return {
     opacity: offset === 0 ? 1 : 0,
-    pointerEvents: offset === 0 ? 'auto' : 'none',
     filter: offset === 0 ? 'blur(0px)' : 'blur(12px)',
-    transform: `translate3d(0, ${
-      offset < 0 ? -36 : offset > 0 ? 36 : 0
-    }px, 0)`,
+    y: offset < 0 ? -36 : offset > 0 ? 36 : 0,
+  };
+}
+
+function getCopyStyle(index: number, activeIndex: number) {
+  return {
+    pointerEvents: index === activeIndex ? 'auto' : 'none',
+  } as const;
+}
+
+function getPreviewMotion(index: number, activeIndex: number) {
+  const depth = activeIndex - index;
+  const isFuture = depth < 0;
+  const clampedDepth = Math.max(0, depth);
+
+  return {
+    opacity: isFuture ? 0 : Math.max(0.5, 1 - clampedDepth * 0.12),
+    y: isFuture ? -28 : clampedDepth * 64,
+    scale: isFuture ? 0.96 : 1 - clampedDepth * 0.035,
+    rotate: isFuture ? -0.6 : clampedDepth * -0.6,
   };
 }
 
@@ -189,11 +217,6 @@ function getPreviewStyle(index: number, activeIndex: number) {
 
   return {
     zIndex: isFuture ? 0 : brainCaps.length - clampedDepth,
-    opacity: isFuture ? 0 : 1,
-    filter: isFuture ? 'blur(8px)' : 'none',
-    transform: `translate3d(0, ${clampedDepth * 64}px, 0) scale(${
-      1 - clampedDepth * 0.035
-    }) rotate(${clampedDepth * -0.6}deg)`,
   };
 }
 
