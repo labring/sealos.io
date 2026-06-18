@@ -13,6 +13,8 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 
+import { TerminalCardStack } from './terminal-agent-card-stack';
+
 type FeatureCard = {
   icon: LucideIcon;
   title: string;
@@ -43,15 +45,6 @@ const visualCards = [
     title: 'Database',
     lines: ['engine: postgres 16', 'replicas: 3 (HA)', 'storage: 20Gi SSD'],
   },
-];
-
-const terminalLines = [
-  { icon: Rocket, text: '$sealos deploy ~/project' },
-  {
-    icon: PencilLine,
-    text: 'Scanning project runtime, entry points, and Sealos auth helper templates...',
-  },
-  { icon: SquareTerminal, text: 'Running skill: /sealos-deploy (~/project)' },
 ];
 
 const featureCards: FeatureCard[] = [
@@ -121,7 +114,7 @@ export function TerminalAgentSection() {
           title="2. Terminal Automation (Sealos Skills)"
           description="Give your AI coding assistants a concrete path from source code to Sealos Cloud. Ship applications with verifiable local artifacts, automated pipeline tracking, and live deployment state management."
         >
-          <TerminalCard />
+          <TerminalCardStack />
         </WorkflowRow>
 
         <div className="grid gap-6 md:grid-cols-3">
@@ -234,35 +227,6 @@ function VisualCard({
         ))}
       </div>
     </article>
-  );
-}
-
-function TerminalCard() {
-  return (
-    <div className="relative rounded-xl border border-white/10 bg-[#080a11] p-4 shadow-[0_-4px_26px_rgba(8,10,17,0.9)]">
-      <div className="mb-4 flex items-center gap-2 text-sm text-zinc-400">
-        <SquareTerminal className="size-4" aria-hidden="true" />
-        <span>terminal</span>
-        <span className="text-blue-400">sealos-skills</span>
-        <span className="ml-auto rounded-full bg-green-500/20 px-3 py-1 text-xs text-green-300">
-          READY FOR ROLLOUT
-        </span>
-      </div>
-      <div className="space-y-4 rounded-lg border border-white/5 bg-white/[0.03] p-4">
-        {terminalLines.map((line) => {
-          const Icon = line.icon;
-
-          return (
-            <div key={line.text} className="flex items-center gap-3">
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white/10">
-                <Icon className="size-4 text-blue-400" aria-hidden="true" />
-              </span>
-              <span className="min-w-0 text-sm text-zinc-200">{line.text}</span>
-            </div>
-          );
-        })}
-      </div>
-    </div>
   );
 }
 
