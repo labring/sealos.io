@@ -124,7 +124,7 @@
     {
       "description": "Initial Airbyte admin password.",
       "type": "string",
-      "default": "ecptuyvzqyumifrhxbrtucua",
+      "default": "srdgbpnagcthilcsprdntyjz",
       "required": true,
       "key": "auth_admin_password",
       "label": "auth_admin_password"
@@ -148,6 +148,158 @@
       "label": "MAX_SYNC_PAYLOAD_MEGS"
     }
   ],
+  "apitable": [
+    {
+      "description": "S3-compatible storage backend for APITable attachments, images, and uploads.",
+      "type": "choice",
+      "default": "sealos-objectstorage",
+      "required": true,
+      "options": [
+        "sealos-objectstorage",
+        "external-s3"
+      ],
+      "key": "apitable_s3_provider",
+      "label": "apitable_s3_provider"
+    },
+    {
+      "description": "External S3-compatible API endpoint, for example https://s3.amazonaws.com or https://s3.example.com.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.apitable_s3_provider === 'external-s3'",
+      "key": "external_s3_endpoint",
+      "label": "external_s3_endpoint"
+    },
+    {
+      "description": "Public S3-compatible endpoint used in generated asset URLs.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.apitable_s3_provider === 'external-s3'",
+      "key": "external_s3_public_endpoint",
+      "label": "external_s3_public_endpoint"
+    },
+    {
+      "description": "Access key for the external S3-compatible bucket.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.apitable_s3_provider === 'external-s3'",
+      "key": "external_s3_access_key",
+      "label": "external_s3_access_key"
+    },
+    {
+      "description": "Secret key for the external S3-compatible bucket.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.apitable_s3_provider === 'external-s3'",
+      "key": "external_s3_secret_key",
+      "label": "external_s3_secret_key"
+    },
+    {
+      "description": "Existing external S3-compatible bucket name.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.apitable_s3_provider === 'external-s3'",
+      "key": "external_s3_bucket",
+      "label": "external_s3_bucket"
+    },
+    {
+      "description": "Region for the external S3-compatible bucket.",
+      "type": "string",
+      "default": "us-east-1",
+      "required": true,
+      "if": "inputs.apitable_s3_provider === 'external-s3'",
+      "key": "external_s3_region",
+      "label": "external_s3_region"
+    }
+  ],
+  "appflowy": [
+    {
+      "description": "File storage backend for uploads, imports, and collaboration snapshots.",
+      "type": "choice",
+      "default": "sealos-objectstorage",
+      "required": true,
+      "options": [
+        "sealos-objectstorage",
+        "external-s3"
+      ],
+      "key": "appflowy_s3_provider",
+      "label": "appflowy_s3_provider"
+    },
+    {
+      "description": "Bootstrap admin email for GoTrue service administration. Use AppFlowy Web registration for workspace login.",
+      "type": "string",
+      "default": "admin@example.com",
+      "required": true,
+      "key": "gotrue_admin_email",
+      "label": "gotrue_admin_email"
+    },
+    {
+      "description": "Bootstrap admin password for GoTrue service administration. This is not the recommended AppFlowy Web login account.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "gotrue_admin_password",
+      "label": "gotrue_admin_password"
+    },
+    {
+      "description": "External S3-compatible API endpoint, for example https://s3.amazonaws.com or https://s3.example.com.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.appflowy_s3_provider === 'external-s3'",
+      "key": "external_s3_endpoint",
+      "label": "external_s3_endpoint"
+    },
+    {
+      "description": "Public endpoint used in generated presigned URLs. Leave equal to external_s3_endpoint unless clients need a different URL.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.appflowy_s3_provider === 'external-s3'",
+      "key": "external_s3_public_endpoint",
+      "label": "external_s3_public_endpoint"
+    },
+    {
+      "description": "Access key for the external S3-compatible bucket.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.appflowy_s3_provider === 'external-s3'",
+      "key": "external_s3_access_key",
+      "label": "external_s3_access_key"
+    },
+    {
+      "description": "Secret key for the external S3-compatible bucket.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.appflowy_s3_provider === 'external-s3'",
+      "key": "external_s3_secret_key",
+      "label": "external_s3_secret_key"
+    },
+    {
+      "description": "Existing external S3-compatible bucket name.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.appflowy_s3_provider === 'external-s3'",
+      "key": "external_s3_bucket",
+      "label": "external_s3_bucket"
+    },
+    {
+      "description": "Region for the external S3-compatible bucket.",
+      "type": "string",
+      "default": "us-east-1",
+      "required": true,
+      "if": "inputs.appflowy_s3_provider === 'external-s3'",
+      "key": "external_s3_region",
+      "label": "external_s3_region"
+    }
+  ],
   "appsmith": [],
   "artalk": [
     {
@@ -160,6 +312,48 @@
     }
   ],
   "authentik": [],
+  "billionmail": [
+    {
+      "description": "Initial BillionMail administrator username",
+      "type": "string",
+      "default": "billion",
+      "required": true,
+      "key": "admin_username",
+      "label": "admin_username"
+    },
+    {
+      "description": "Initial BillionMail administrator password",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Mail server hostname used by Postfix and DNS guidance",
+      "type": "string",
+      "default": "mail.example.com",
+      "required": true,
+      "key": "mail_hostname",
+      "label": "mail_hostname"
+    },
+    {
+      "description": "Container timezone",
+      "type": "string",
+      "default": "Etc/UTC",
+      "required": true,
+      "key": "timezone",
+      "label": "timezone"
+    },
+    {
+      "description": "Days to retain BillionMail log backups",
+      "type": "string",
+      "default": "7",
+      "required": true,
+      "key": "retention_days",
+      "label": "retention_days"
+    }
+  ],
   "budibase": [
     {
       "description": "Admin email address",
@@ -228,6 +422,32 @@
       "if": "inputs.smtp_enabled === 'true'",
       "key": "smtp_password",
       "label": "smtp_password"
+    }
+  ],
+  "bunkerweb": [
+    {
+      "description": "BunkerWeb Web UI administrator username.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "admin_username",
+      "label": "admin_username"
+    },
+    {
+      "description": "BunkerWeb Web UI administrator password. Leave the generated default or use at least 8 characters with uppercase, lowercase, number, and special character.",
+      "type": "string",
+      "default": "BunkerWeb@tipyziswriyrbpzu!1",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Provision Sealos Object Storage and inject S3 backup settings for BunkerWeb PRO backup_s3 usage.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_backup",
+      "label": "enable_s3_backup"
     }
   ],
   "bytebase": [],
@@ -418,6 +638,24 @@
   ],
   "chatnio": [],
   "chatwoot": [],
+  "chrome": [
+    {
+      "description": "Chrome startup URL or CLI flags passed to the browser process.",
+      "type": "string",
+      "default": "https://www.linuxserver.io/",
+      "required": false,
+      "key": "chrome_cli",
+      "label": "chrome_cli"
+    },
+    {
+      "description": "HTTP basic auth username for the web desktop.",
+      "type": "string",
+      "default": "abc",
+      "required": false,
+      "key": "custom_user",
+      "label": "custom_user"
+    }
+  ],
   "code-server": [
     {
       "description": "Access Password",
@@ -535,6 +773,49 @@
   ],
   "docker-stacks": [],
   "docuseal": [],
+  "dolibarr": [
+    {
+      "description": "Dolibarr administrator username created during first boot.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "DOLI_ADMIN_LOGIN",
+      "label": "DOLI_ADMIN_LOGIN"
+    },
+    {
+      "description": "Dolibarr administrator password created during first boot.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "DOLI_ADMIN_PASSWORD",
+      "label": "DOLI_ADMIN_PASSWORD"
+    },
+    {
+      "description": "Company name used for the initial Dolibarr setup.",
+      "type": "string",
+      "default": "My Company",
+      "required": false,
+      "key": "DOLI_COMPANY_NAME",
+      "label": "DOLI_COMPANY_NAME"
+    },
+    {
+      "description": "Two-letter company country code used for setup completion and default modules.",
+      "type": "string",
+      "default": "US",
+      "required": false,
+      "key": "DOLI_COMPANY_COUNTRYCODE",
+      "label": "DOLI_COMPANY_COUNTRYCODE"
+    },
+    {
+      "description": "Comma-separated Dolibarr modules to enable during first boot.",
+      "type": "string",
+      "default": "Societe,Facture,Stock,Projet",
+      "required": false,
+      "key": "DOLI_ENABLE_MODULES",
+      "label": "DOLI_ENABLE_MODULES"
+    }
+  ],
+  "drawdb": [],
   "drizzle-studio": [
     {
       "description": "Master password used by Drizzle Studio Gateway (optional)",
@@ -588,9 +869,10 @@
       "label": "RUST_LOG"
     }
   ],
+  "elasticsearch": [],
   "emqx": [
     {
-      "description": "replicas count",
+      "description": "Number of EMQX broker replicas.",
       "type": "number",
       "default": "3",
       "required": true,
@@ -598,7 +880,15 @@
       "label": "REPLICA_COUNT"
     },
     {
-      "description": "enable external tcp",
+      "description": "Initial EMQX Dashboard admin password. Change it after first login.",
+      "type": "string",
+      "default": "jyfpsvdanheopono",
+      "required": true,
+      "key": "ADMIN_PASSWORD",
+      "label": "ADMIN_PASSWORD"
+    },
+    {
+      "description": "Expose MQTT TCP and SSL listener ports through a NodePort service.",
       "type": "boolean",
       "default": "false",
       "required": false,
@@ -606,6 +896,7 @@
       "label": "TCP_ENABLE"
     }
   ],
+  "ever-gauzy": [],
   "excalidraw": [],
   "fastgpt": [
     {
@@ -660,9 +951,36 @@
     }
   ],
   "featbit-standard": [],
+  "filecodebox": [
+    {
+      "description": "Initial FileCodeBox administrator password for the /admin panel.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Use Sealos Object Storage as FileCodeBox's S3-compatible file backend.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
+    }
+  ],
   "fireboom": [],
   "firefox": [],
-  "flarum": [],
+  "flarum": [
+    {
+      "description": "Initial forum title used during first installation.",
+      "type": "string",
+      "default": "Flarum",
+      "required": false,
+      "key": "FLARUM_FORUM_TITLE",
+      "label": "FLARUM_FORUM_TITLE"
+    }
+  ],
   "flowise": [
     {
       "description": "Use PostgreSQL database instead of local SQLite",
@@ -711,7 +1029,7 @@
     {
       "description": "Backend secret key (JWT signing)",
       "type": "string",
-      "default": "qzlbbswuypwejbuohvyoqrmtwkntkqxt",
+      "default": "fbwwowyrjbmbvmotjjlzxgjvbbvyshvk",
       "required": true,
       "key": "SECRET_KEY",
       "label": "SECRET_KEY"
@@ -804,28 +1122,7 @@
     }
   ],
   "grafana-otel": [],
-  "happy-server": [
-    {
-      "description": "Seed for token generation",
-      "type": "string",
-      "default": "hjkzqnvepvvzrnojscnlsbmznzzfrcyr",
-      "required": true,
-      "key": "seed",
-      "label": "seed"
-    },
-    {
-      "description": "Node environment",
-      "type": "choice",
-      "default": "production",
-      "options": [
-        "production",
-        "development"
-      ],
-      "required": true,
-      "key": "node_env",
-      "label": "node_env"
-    }
-  ],
+  "happy-server": [],
   "harbor": [
     {
       "description": "Harbor admin password for initial login.",
@@ -837,9 +1134,82 @@
     }
   ],
   "hasura": [],
-  "headscale": [],
-  "headscale-pg": [],
-  "heyform": [],
+  "headscale": [
+    {
+      "description": "Use PostgreSQL instead of the default embedded SQLite database. Headscale primarily optimizes for SQLite; enable PostgreSQL only when you need an external database.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_postgresql",
+      "label": "use_postgresql"
+    }
+  ],
+  "heyform": [
+    {
+      "description": "Sender email address for verification and notification emails. Leave empty to disable outbound email.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "smtp_from",
+      "label": "smtp_from"
+    },
+    {
+      "description": "SMTP server host. Leave empty to disable outbound email.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "smtp_host",
+      "label": "smtp_host"
+    },
+    {
+      "description": "SMTP server port.",
+      "type": "string",
+      "default": "587",
+      "required": false,
+      "key": "smtp_port",
+      "label": "smtp_port"
+    },
+    {
+      "description": "SMTP username.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "smtp_user",
+      "label": "smtp_user"
+    },
+    {
+      "description": "SMTP password.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "smtp_password",
+      "label": "smtp_password"
+    },
+    {
+      "description": "Use TLS for SMTP connections.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "smtp_secure",
+      "label": "smtp_secure"
+    },
+    {
+      "description": "Optional SMTP TLS server name.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "smtp_servername",
+      "label": "smtp_servername"
+    },
+    {
+      "description": "Ignore SMTP certificate validation errors.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "smtp_ignore_cert",
+      "label": "smtp_ignore_cert"
+    }
+  ],
   "illa-builder": [],
   "immich": [
     {
@@ -851,7 +1221,24 @@
       "label": "enable_machine_learning"
     }
   ],
-  "influxdb": [],
+  "influxdb": [
+    {
+      "description": "Initial InfluxDB admin password. Set and save this value for the web UI login.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Initial InfluxDB API token. Set and save this value for CLI, API, and client access.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_token",
+      "label": "admin_token"
+    }
+  ],
   "inpaint-web": [],
   "insforge": [
     {
@@ -1049,9 +1436,51 @@
       "label": "hf_hub_enable_transfer"
     }
   ],
+  "kuvasz": [
+    {
+      "description": "Initial administrator username for the Kuvasz web UI.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "admin_user",
+      "label": "admin_user"
+    },
+    {
+      "description": "Initial administrator password for the Kuvasz web UI. It must be at least 12 characters and different from the username.",
+      "type": "string",
+      "default": "pdzmaiicqpanlpwuaxsb",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "API key for Kuvasz REST API access.",
+      "type": "string",
+      "default": "fbrczqrdxdhvtqoyhqunntmatupyqsge",
+      "required": true,
+      "key": "admin_api_key",
+      "label": "admin_api_key"
+    }
+  ],
   "langflow": [
     {
-      "description": "Enable external database (PostgreSQL) for production use",
+      "description": "Initial Langflow superuser username.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "admin_username",
+      "label": "admin_username"
+    },
+    {
+      "description": "Initial Langflow superuser password. Use a strong password.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Enable PostgreSQL instead of the built-in SQLite database.",
       "type": "boolean",
       "default": "false",
       "required": false,
@@ -1071,20 +1500,38 @@
   ],
   "listmonk": [
     {
-      "description": "admin username for the admin dashboard.",
+      "description": "Optional initial Super Admin username. Leave empty to create the first administrator in the web setup page.",
       "type": "string",
       "default": "",
       "required": false,
-      "key": "ADMIN_USERNAME",
-      "label": "ADMIN_USERNAME"
+      "key": "admin_username",
+      "label": "admin_username"
     },
     {
-      "description": "admin password for the admin dashboard.",
+      "description": "Optional initial Super Admin password. Must be at least 8 characters when provided.",
       "type": "string",
       "default": "",
       "required": false,
-      "key": "ADMIN_PASSWORD",
-      "label": "ADMIN_PASSWORD"
+      "key": "admin_password",
+      "label": "admin_password"
+    }
+  ],
+  "llmgateway": [
+    {
+      "description": "Optional OpenAI API key for gateway routing",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "openai_api_key",
+      "label": "openai_api_key"
+    },
+    {
+      "description": "Optional Anthropic API key for gateway routing",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "anthropic_api_key",
+      "label": "anthropic_api_key"
     }
   ],
   "lobe-chat": [
@@ -1191,10 +1638,118 @@
       "label": "default_owner_password"
     }
   ],
+  "mastodon": [
+    {
+      "description": "Initial owner username. Use lowercase letters, numbers, or underscores.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "admin_username",
+      "label": "admin_username"
+    },
+    {
+      "description": "Initial owner email address.",
+      "type": "string",
+      "default": "admin@example.com",
+      "required": true,
+      "key": "admin_email",
+      "label": "admin_email"
+    },
+    {
+      "description": "Initial owner password. Change it after the first login.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Public registration mode for the instance.",
+      "type": "choice",
+      "default": "none",
+      "required": true,
+      "options": [
+        "none",
+        "approved",
+        "open"
+      ],
+      "key": "registration_mode",
+      "label": "registration_mode"
+    },
+    {
+      "description": "VAPID private key for Web Push. Generate it together with vapid_public_key before deployment.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "vapid_private_key",
+      "label": "vapid_private_key"
+    },
+    {
+      "description": "VAPID public key for Web Push. Generate it together with vapid_private_key before deployment.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "vapid_public_key",
+      "label": "vapid_public_key"
+    },
+    {
+      "description": "Enable SMTP for confirmation, notification, and password reset emails.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "smtp_enabled",
+      "label": "smtp_enabled"
+    },
+    {
+      "description": "SMTP server hostname.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.smtp_enabled === 'true'",
+      "key": "smtp_server",
+      "label": "smtp_server"
+    },
+    {
+      "description": "SMTP server port.",
+      "type": "string",
+      "default": "587",
+      "required": true,
+      "if": "inputs.smtp_enabled === 'true'",
+      "key": "smtp_port",
+      "label": "smtp_port"
+    },
+    {
+      "description": "SMTP username.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.smtp_enabled === 'true'",
+      "key": "smtp_login",
+      "label": "smtp_login"
+    },
+    {
+      "description": "SMTP password.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.smtp_enabled === 'true'",
+      "key": "smtp_password",
+      "label": "smtp_password"
+    },
+    {
+      "description": "Email address used as the sender for Mastodon emails.",
+      "type": "string",
+      "default": "notifications@example.com",
+      "required": true,
+      "if": "inputs.smtp_enabled === 'true'",
+      "key": "smtp_from_address",
+      "label": "smtp_from_address"
+    }
+  ],
   "matomo": [],
   "mautic": [
     {
-      "description": "defaults to UTC",
+      "description": "PHP timezone used by Mautic.",
       "type": "choice",
       "options": [
         "UTC",
@@ -1205,24 +1760,8 @@
       "label": "TIMEZONE"
     }
   ],
-  "meilisearch": [
-    {
-      "description": "Configures the instance's environment. Value must be either production or development.",
-      "type": "string",
-      "default": "development",
-      "required": false,
-      "key": "MEILI_ENV",
-      "label": "MEILI_ENV"
-    },
-    {
-      "description": "Sets the instance's master key, automatically protecting all routes except GET /health.",
-      "type": "string",
-      "default": "",
-      "required": false,
-      "key": "MEILI_MASTER_KEY",
-      "label": "MEILI_MASTER_KEY"
-    }
-  ],
+  "mazanoke": [],
+  "meilisearch": [],
   "memos": [
     {
       "description": "Storage size for memos in Gi",
@@ -1234,6 +1773,55 @@
     }
   ],
   "metabase": [],
+  "mindsdb": [
+    {
+      "description": "MindsDB administrator username for the web UI and REST API.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "admin_username",
+      "label": "admin_username"
+    },
+    {
+      "description": "MindsDB administrator password for the web UI and REST API.",
+      "type": "string",
+      "default": "MindsDB@xhjttavveoojpkhm!1",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Use Sealos Object Storage as MindsDB's S3-compatible permanent file backend.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_object_storage",
+      "label": "use_object_storage"
+    }
+  ],
+  "minecraft": [
+    {
+      "description": "server type",
+      "type": "choice",
+      "options": [
+        "FORGE",
+        "FABRIC",
+        "PAPER"
+      ],
+      "default": "PAPER",
+      "required": true,
+      "key": "TYPE",
+      "label": "TYPE"
+    },
+    {
+      "description": "Minecraft server version. Use LATEST to let the selected server type resolve the newest compatible release.",
+      "type": "string",
+      "default": "LATEST",
+      "required": true,
+      "key": "VERSION",
+      "label": "VERSION"
+    }
+  ],
   "minio": [
     {
       "description": "MinIO Console Username (must be at least length 8)",
@@ -1269,32 +1857,7 @@
     }
   ],
   "mlflow": [],
-  "mongo-express": [
-    {
-      "description": "mongodb conn credential, ex. mongodb://user:password@host:port/dbname",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "key": "mongodb_conn_credential",
-      "label": "mongodb_conn_credential"
-    },
-    {
-      "description": "User-defined mongo express login account user (non-database). The default is `admin`.",
-      "type": "string",
-      "default": "admin",
-      "required": false,
-      "key": "custom_express_user",
-      "label": "custom_express_user"
-    },
-    {
-      "description": "User-defined mongo express login account password (non-database). The default is `sealos`.",
-      "type": "string",
-      "default": "sealos",
-      "required": false,
-      "key": "custom_express_password",
-      "label": "custom_express_password"
-    }
-  ],
+  "mongo-express": [],
   "n8n": [
     {
       "description": "Use PostgreSQL database for production workloads (recommended for better performance and data persistence)",
@@ -1332,7 +1895,7 @@
       "label": "timezone"
     },
     {
-      "description": "Enable queue mode with Redis and workers for improved scalability and parallel execution (requires PostgreSQL)",
+      "description": "Enable queue mode with Redis and workers for parallel workflow execution (requires PostgreSQL)",
       "type": "boolean",
       "default": "false",
       "required": false,
@@ -1416,9 +1979,44 @@
   ],
   "new-api": [],
   "nexus": [],
-  "nocodb": [],
+  "nocodb": [
+    {
+      "description": "Initial admin email. Use this email to sign in after deployment.",
+      "type": "string",
+      "default": "admin@example.com",
+      "required": true,
+      "key": "NC_ADMIN_EMAIL",
+      "label": "NC_ADMIN_EMAIL"
+    },
+    {
+      "description": "Initial admin password. Use at least 8 characters with letters and numbers.",
+      "type": "string",
+      "default": "wflqzzpgmxorrbdt",
+      "required": true,
+      "key": "NC_ADMIN_PASSWORD",
+      "label": "NC_ADMIN_PASSWORD"
+    }
+  ],
   "node-red": [],
   "notifuse": [],
+  "open-design": [
+    {
+      "description": "Open Design Basic Auth username for the public proxy.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "auth_username",
+      "label": "auth_username"
+    },
+    {
+      "description": "Open Design Basic Auth password for the public proxy.",
+      "type": "string",
+      "default": "jvenbcgmgislmddhwfciogir",
+      "required": true,
+      "key": "auth_password",
+      "label": "auth_password"
+    }
+  ],
   "open-webui": [],
   "openagents": [
     {
@@ -1455,7 +2053,7 @@
       "label": "OPENCART_USERNAME"
     },
     {
-      "description": "OpenCart admin password for initial setup.",
+      "description": "OpenCart admin password for initial setup. Use 5-20 characters.",
       "type": "string",
       "default": "",
       "required": true,
@@ -1511,7 +2109,7 @@
   ],
   "openobserve": [
     {
-      "description": "user email",
+      "description": "Root user email for the OpenObserve administrator account.",
       "type": "string",
       "default": "root@example.com",
       "required": true,
@@ -1519,7 +2117,7 @@
       "label": "mail"
     },
     {
-      "description": "user password",
+      "description": "Root user password for the OpenObserve administrator account.",
       "type": "string",
       "default": "Complexpass#123",
       "required": true,
@@ -1527,7 +2125,7 @@
       "label": "password"
     },
     {
-      "description": "Data store directory",
+      "description": "Persistent data directory used by OpenObserve.",
       "type": "string",
       "default": "/data",
       "required": true,
@@ -1551,9 +2149,10 @@
     {
       "description": "Authentication provider",
       "type": "choice",
-      "default": "oidc",
+      "default": "email",
       "required": true,
       "options": [
+        "email",
         "oidc",
         "google",
         "slack"
@@ -1564,7 +2163,7 @@
     {
       "description": "Secret key for encrypting data (32 bytes hex)",
       "type": "string",
-      "default": "rrylivathvhdkxcjmsawahcnhikphpoibjsgzgyoqtlgearbfxymchjzsipbemrk",
+      "default": "puqtfdhqzqzbmrtyhhmubudswpamyjxguokuldtnvmsvbejthzrxlogppcvlkzfo",
       "required": true,
       "key": "secret_key",
       "label": "secret_key"
@@ -1572,7 +2171,7 @@
     {
       "description": "Utility secret for internal operations",
       "type": "string",
-      "default": "wisiqitfesgwbamnnysgsaqzugvanozumoylybmzfpaweqxvyuopnaxtfwtrzslx",
+      "default": "qnvyeuyhdiwfjarjqfeetjjeyvedwvqtsqweeptuafrqbuxotufjpjymukfkervj",
       "required": true,
       "key": "utils_secret",
       "label": "utils_secret"
@@ -1659,9 +2258,9 @@
       "label": "slack_client_secret"
     },
     {
-      "description": "Enable SMTP for sending emails",
+      "description": "Enable SMTP for email sign-in and transactional emails",
       "type": "boolean",
-      "default": "false",
+      "default": "true",
       "required": false,
       "key": "smtp_enabled",
       "label": "smtp_enabled"
@@ -1671,7 +2270,7 @@
       "type": "string",
       "default": "",
       "required": true,
-      "if": "inputs.smtp_enabled === 'true'",
+      "if": "inputs.smtp_enabled === 'true' || inputs.auth_provider === 'email'",
       "key": "smtp_host",
       "label": "smtp_host"
     },
@@ -1680,7 +2279,7 @@
       "type": "string",
       "default": "587",
       "required": true,
-      "if": "inputs.smtp_enabled === 'true'",
+      "if": "inputs.smtp_enabled === 'true' || inputs.auth_provider === 'email'",
       "key": "smtp_port",
       "label": "smtp_port"
     },
@@ -1689,7 +2288,7 @@
       "type": "string",
       "default": "",
       "required": true,
-      "if": "inputs.smtp_enabled === 'true'",
+      "if": "inputs.smtp_enabled === 'true' || inputs.auth_provider === 'email'",
       "key": "smtp_username",
       "label": "smtp_username"
     },
@@ -1698,7 +2297,7 @@
       "type": "string",
       "default": "",
       "required": true,
-      "if": "inputs.smtp_enabled === 'true'",
+      "if": "inputs.smtp_enabled === 'true' || inputs.auth_provider === 'email'",
       "key": "smtp_password",
       "label": "smtp_password"
     },
@@ -1707,14 +2306,14 @@
       "type": "string",
       "default": "",
       "required": true,
-      "if": "inputs.smtp_enabled === 'true'",
+      "if": "inputs.smtp_enabled === 'true' || inputs.auth_provider === 'email'",
       "key": "smtp_from_email",
       "label": "smtp_from_email"
     }
   ],
   "overleaf": [
     {
-      "description": "Set language",
+      "description": "Set the Overleaf interface language",
       "type": "string",
       "default": "zh-CN",
       "required": false,
@@ -1722,7 +2321,7 @@
       "label": "OVERLEAF_SITE_LANGUAGE"
     },
     {
-      "description": "",
+      "description": "Set the displayed Overleaf site name",
       "type": "string",
       "default": "Overleaf Community Edition",
       "required": false,
@@ -1730,7 +2329,7 @@
       "label": "OVERLEAF_APP_NAME"
     },
     {
-      "description": "",
+      "description": "Comma-separated linked file types enabled for projects",
       "type": "string",
       "default": "project_file,project_output_file",
       "required": false,
@@ -1746,7 +2345,7 @@
       "label": "ENABLE_CONVERSIONS"
     },
     {
-      "description": "Disables email confirmation requirementk",
+      "description": "Disable the email confirmation requirement",
       "type": "string",
       "default": "true",
       "required": false,
@@ -1793,7 +2392,7 @@
     {
       "description": "Should be a very long sequence of random characters",
       "type": "string",
-      "default": "izzxtbhonngjlfthgtzjghzlvecibqvh",
+      "default": "vccatuxeoixidxnwfknwfbnbuxrkdzob",
       "required": false,
       "key": "paperless_secret_key",
       "label": "paperless_secret_key"
@@ -1905,6 +2504,40 @@
     }
   ],
   "phpmyadmin": [],
+  "planka": [
+    {
+      "description": "Initial administrator email address",
+      "type": "string",
+      "default": "admin@sealos.io",
+      "required": true,
+      "key": "admin_email",
+      "label": "admin_email"
+    },
+    {
+      "description": "Initial administrator username",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "admin_username",
+      "label": "admin_username"
+    },
+    {
+      "description": "Initial administrator password",
+      "type": "string",
+      "default": "ltuqxaifngjmrlha",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Initial administrator display name",
+      "type": "string",
+      "default": "Sealos Admin",
+      "required": true,
+      "key": "admin_name",
+      "label": "admin_name"
+    }
+  ],
   "plausible": [
     {
       "description": "clickhouse user name",
@@ -1960,7 +2593,7 @@
     {
       "description": "Encryption key for settings (recommended for production, 32 characters)",
       "type": "string",
-      "default": "aoyrnblavdayvpubbfmosaotcniznvlk",
+      "default": "hzyzmcrwmaqubisksimcurgocwywsdcj",
       "required": false,
       "key": "encryption_key",
       "label": "encryption_key"
@@ -1975,49 +2608,26 @@
     }
   ],
   "posthog": [],
-  "postiz": [
+  "postiz": [],
+  "presenton": [],
+  "prestashop": [
     {
-      "description": "GitHub OAuth Client ID (optional)",
+      "description": "PrestaShop administrator email used to sign in to the back office.",
       "type": "string",
-      "default": "",
-      "required": false,
-      "key": "GITHUB_CLIENT_ID",
-      "label": "GITHUB_CLIENT_ID"
+      "default": "admin@example.com",
+      "required": true,
+      "key": "ADMIN_MAIL",
+      "label": "ADMIN_MAIL"
     },
     {
-      "description": "GitHub OAuth Client Secret (optional)",
+      "description": "PrestaShop administrator password used to sign in to the back office.",
       "type": "string",
-      "default": "",
-      "required": false,
-      "key": "GITHUB_CLIENT_SECRET",
-      "label": "GITHUB_CLIENT_SECRET"
-    },
-    {
-      "description": "Resend email service API key (optional)",
-      "type": "string",
-      "default": "",
-      "required": false,
-      "key": "RESEND_API_KEY",
-      "label": "RESEND_API_KEY"
-    },
-    {
-      "description": "X/Twitter API key (optional)",
-      "type": "string",
-      "default": "",
-      "required": false,
-      "key": "X_API_KEY",
-      "label": "X_API_KEY"
-    },
-    {
-      "description": "X/Twitter API secret (optional)",
-      "type": "string",
-      "default": "",
-      "required": false,
-      "key": "X_API_SECRET",
-      "label": "X_API_SECRET"
+      "default": "PrestaShopDemo2026!",
+      "required": true,
+      "key": "ADMIN_PASSWD",
+      "label": "ADMIN_PASSWD"
     }
   ],
-  "presenton": [],
   "privatebin": [],
   "qinglong": [],
   "quay": [
@@ -2077,6 +2687,20 @@
   "rocketchat": [],
   "rocketchat-micro": [],
   "rsshub": [],
+  "rustdesk": [
+    {
+      "description": "Use 1 to require encrypted connections with the server public key; use 0 to allow unencrypted connections.",
+      "type": "choice",
+      "options": [
+        "1",
+        "0"
+      ],
+      "default": "1",
+      "required": true,
+      "key": "ENCRYPTED_ONLY",
+      "label": "ENCRYPTED_ONLY"
+    }
+  ],
   "rustfs": [
     {
       "description": "S3 Access Key for authentication",
@@ -2194,6 +2818,32 @@
       "label": "SYSTEM_GOOGLEVISIBILITY"
     }
   ],
+  "samarium": [
+    {
+      "description": "Initial administrator display name for the Samarium dashboard.",
+      "type": "string",
+      "default": "Samarium Admin",
+      "required": true,
+      "key": "ADMIN_NAME",
+      "label": "ADMIN_NAME"
+    },
+    {
+      "description": "Initial administrator email used to log in to Samarium.",
+      "type": "string",
+      "default": "admin@example.com",
+      "required": true,
+      "key": "ADMIN_EMAIL",
+      "label": "ADMIN_EMAIL"
+    },
+    {
+      "description": "Initial administrator password. Use at least 8 characters and save it before deployment.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "ADMIN_PASSWORD",
+      "label": "ADMIN_PASSWORD"
+    }
+  ],
   "signoz": [],
   "skardi": [
     {
@@ -2207,7 +2857,7 @@
     {
       "description": "Secret key used to sign sessions (32+ characters). Auto-generated by default",
       "type": "string",
-      "default": "kjihgnhlndbfnmjkzdjcyqvcdphknyxb",
+      "default": "okpjedieczeuwcaacoaiiptwepuhhjal",
       "required": false,
       "key": "auth_secret",
       "label": "auth_secret"
@@ -2219,6 +2869,24 @@
       "required": false,
       "key": "auth_db_path",
       "label": "auth_db_path"
+    }
+  ],
+  "stalwart": [
+    {
+      "description": "Bootstrap administrator password used with the admin username during first setup",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Provision a Sealos ObjectStorageBucket and inject S3-compatible credentials for later blob-store configuration",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_object_storage",
+      "label": "use_object_storage"
     }
   ],
   "strapi": [
@@ -2514,6 +3182,34 @@
       "required": false,
       "key": "TOLGEE_SMTP_SSL_ENABLED",
       "label": "TOLGEE_SMTP_SSL_ENABLED"
+    }
+  ],
+  "tooljet": [
+    {
+      "description": "Initial administrator email address used for first-time registration guidance",
+      "type": "string",
+      "default": "admin@example.com",
+      "required": false,
+      "key": "admin_email",
+      "label": "admin_email"
+    }
+  ],
+  "tududi": [
+    {
+      "description": "Initial administrator email address used for the first login.",
+      "type": "string",
+      "default": "admin@example.com",
+      "required": true,
+      "key": "admin_email",
+      "label": "admin_email"
+    },
+    {
+      "description": "Initial administrator password. Save this value and change it after first login.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
     }
   ],
   "twenty": [],
