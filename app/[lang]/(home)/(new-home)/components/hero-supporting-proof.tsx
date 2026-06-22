@@ -1,6 +1,7 @@
 import { CheckIcon, StarIcon } from 'lucide-react';
 import Image from 'next/image';
 
+import { GradientText } from '@/new-components/GradientText';
 import styles from './hero-supporting-proof.module.css';
 
 const guarantees = [
@@ -49,9 +50,9 @@ export function HeroAdoptionStrip() {
     <div className="space-y-9">
       <p className="text-center text-base text-zinc-500">
         Trusted by{' '}
-        <span className="bg-gradient-to-r from-white to-blue-500 bg-clip-text text-2xl leading-8 font-semibold text-transparent">
+        <GradientText className="to-blue-500 text-2xl leading-8 font-semibold">
           200,000+
-        </span>{' '}
+        </GradientText>{' '}
         developers and teams shipping on Sealos
       </p>
       <div className={`${styles.marqueeShell} h-11 overflow-hidden rounded-xl`}>

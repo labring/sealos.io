@@ -18,6 +18,7 @@ import OpenaiIcon from '@/assets/aiagent-appicons/openai.svg';
 import QwenIcon from '@/assets/aiagent-appicons/qwen.svg';
 import DatabaseIcon from '@/assets/sealos-appicons/database.svg';
 import DevboxIcon from '@/assets/sealos-appicons/devbox.svg';
+import { GradientText } from '@/new-components/GradientText';
 
 type AppCard = {
   name: string;
@@ -93,9 +94,12 @@ function SectionHeading() {
         aria-hidden="true"
       />
       <div className="relative mx-auto flex max-w-[812px] flex-col items-center gap-6 text-center">
-        <h2 className="bg-linear-to-r from-white to-blue-500 bg-clip-text text-4xl leading-tight font-semibold text-balance text-transparent sm:text-5xl">
+        <GradientText
+          as="h2"
+          className="to-blue-500 text-4xl leading-tight font-semibold text-balance sm:text-5xl"
+        >
           One-click Apps for the stack you're already building.
-        </h2>
+        </GradientText>
         <p className="max-w-[618px] text-base leading-6 text-zinc-500">
           Deploy major production dependencies and web open-source tools with
           pre-configured internal networking rules.

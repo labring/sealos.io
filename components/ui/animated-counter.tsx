@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { useInView } from 'react-intersection-observer';
 
+import { GradientText } from '@/new-components/GradientText';
+
 interface AnimatedCounterProps {
   value: string;
   label: string;
@@ -97,7 +99,7 @@ export default function AnimatedCounter({
       <div className="relative z-10">
         {/* Number display */}
         <motion.div
-          className="mb-2 bg-gradient-to-r from-[#44BCFF] to-[#0090FF] bg-clip-text text-4xl font-bold text-transparent"
+          className="mb-2"
           initial={{ scale: 0 }}
           animate={inView ? { scale: 1 } : { scale: 0 }}
           transition={{
@@ -107,7 +109,9 @@ export default function AnimatedCounter({
             duration: 0.8,
           }}
         >
-          {hasAnimated ? value : `${count}${suffix}`}
+          <GradientText className="from-[#44BCFF] to-[#0090FF] text-4xl font-bold">
+            {hasAnimated ? value : `${count}${suffix}`}
+          </GradientText>
         </motion.div>
 
         {/* Label */}

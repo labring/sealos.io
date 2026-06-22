@@ -6,6 +6,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import type { languagesType } from '@/lib/i18n';
+import { GradientText } from '@/new-components/GradientText';
 import { appStoreFaqItems } from '../app-store-seo';
 
 interface AppStoreFAQProps {
@@ -19,9 +20,7 @@ export default function AppStoreFAQ({ lang }: AppStoreFAQProps) {
     <section className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
       <div className="mb-14">
         <h2 className="text-4xl leading-10 font-semibold text-balance">
-          <span className="bg-gradient-to-r from-white to-[#146dff] bg-clip-text text-transparent">
-            Got Questions?
-          </span>
+          <GradientText className="to-[#146dff]">Got Questions?</GradientText>
         </h2>
         <p className="mt-6 text-base text-zinc-400">
           Everything you need to know about one-click app deployment on Sealos.

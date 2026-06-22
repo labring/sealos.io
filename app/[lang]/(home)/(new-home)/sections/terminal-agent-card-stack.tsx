@@ -9,6 +9,8 @@ import {
   SquareTerminal,
 } from 'lucide-react';
 
+import { GradientText } from '@/new-components/GradientText';
+
 const repoLines = [
   'Analysis Output: analysis.json (Readiness Scored)',
   'Build State: build-result.json',
@@ -118,7 +120,7 @@ export function TerminalCardStack() {
 
 function RepositoryCard() {
   return (
-    <article className="rounded-xl border border-white/10 bg-[#080a11] p-4 shadow-[0_-4px_26px_rgba(8,10,17,0.9)]">
+    <article className="bg-background rounded-xl border border-white/10 p-4 shadow-[0_-4px_26px_rgba(8,10,17,0.9)]">
       <div className="mb-4 flex items-center gap-3 text-sm text-zinc-200">
         <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-white/10">
           <Folder className="size-5 text-blue-400" aria-hidden="true" />
@@ -139,12 +141,12 @@ function RepositoryCard() {
 
 function TerminalCard() {
   return (
-    <article className="rounded-xl border border-white/10 bg-[#080a11] p-4 shadow-[0_-4px_26px_rgba(8,10,17,0.9)]">
+    <article className="bg-background rounded-xl border border-white/10 p-4 shadow-[0_-4px_26px_rgba(8,10,17,0.9)]">
       <div className="mb-4 flex items-center gap-2 text-sm text-zinc-400">
         <SquareTerminal className="size-4" aria-hidden="true" />
-        <span className="bg-linear-to-r from-white to-blue-500 bg-clip-text text-lg text-transparent">
+        <GradientText className="to-blue-500 text-lg">
           terminal — sealos-skills
-        </span>
+        </GradientText>
       </div>
       <div className="space-y-4 rounded-lg border border-white/5 bg-white/[0.03] p-4">
         {terminalLines.map((line) => {

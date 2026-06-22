@@ -10,9 +10,8 @@ const source = readFileSync(
 );
 
 test('hero title matches the Figma gradient treatment and scale', () => {
-  assert.match(source, /from-white to-\[#146DFF\]/);
-  assert.match(source, /bg-clip-text/);
-  assert.match(source, /text-transparent/);
+  assert.match(source, /GradientText/);
+  assert.match(source, /to-\[#146DFF\]/);
   assert.match(source, /lg:text-\[36px\]/);
   assert.doesNotMatch(source, /text-\[#6ea2ff\]/);
   assert.doesNotMatch(source, /lg:text-\[52px\]/);

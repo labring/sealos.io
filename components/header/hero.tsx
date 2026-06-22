@@ -8,6 +8,7 @@ import { languagesType } from '@/lib/i18n';
 import { CustomButton } from '../ui/button-custom';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
+import { GradientText } from '@/new-components/GradientText';
 
 type HeroVariant = 'default' | 'app-store';
 
@@ -118,17 +119,17 @@ export default function Hero({
           </p>
           <h1
             className={cn(
-              'font-pj mt-5 text-4xl leading-tight font-bold sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight whitespace-pre-line',
+              'font-pj mt-5 text-4xl leading-tight font-bold whitespace-pre-line sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight',
               titleClassName,
             )}
           >
             {partialTitle}
             <span className="relative inline-flex sm:inline">
               <span className="absolute inset-0 h-full w-full animate-pulse bg-gradient-to-r from-white via-blue-400 to-blue-600 opacity-20 blur-lg"></span>
-              <span className="relative bg-gradient-to-r from-white via-blue-400 to-blue-600 bg-clip-text text-transparent">
+              <GradientText className="relative via-blue-400 to-blue-600">
                 {' '}
                 {highlightTitle}
-              </span>
+              </GradientText>
             </span>
           </h1>
 

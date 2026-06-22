@@ -18,6 +18,7 @@ import VercelIcon from '@/assets/platform-icons/vercel.svg';
 import SealosIcon from '@/assets/shared-icons/sealos.svg';
 import { StarBorder } from '@/components/ui/star-border';
 import { GradientLucideIcon } from '@/new-components/GradientLucideIcon';
+import { GradientText } from '@/new-components/GradientText';
 
 type Platform = {
   name: string;
@@ -174,10 +175,13 @@ export function ComparisonSection() {
     <section className="px-4 pt-16 pb-24 text-white sm:px-6 lg:px-16 lg:pt-20 lg:pb-28">
       <div className="mx-auto flex max-w-[1312px] flex-col gap-16">
         <div className="mx-auto flex max-w-[812px] flex-col items-center gap-6 text-center">
-          <h2 className="bg-linear-to-r from-white to-blue-500 bg-clip-text text-4xl leading-tight font-semibold text-balance text-transparent sm:text-5xl">
+          <GradientText
+            as="h2"
+            className="to-blue-500 text-4xl leading-tight font-semibold text-balance sm:text-5xl"
+          >
             Other platforms simplify deployment. Sealos unifies your entire
             cloud.
-          </h2>
+          </GradientText>
           <p className="max-w-[618px] text-base leading-6 text-zinc-500">
             Pick the trade-offs you actually care about. We built Sealos so you
             don't have to keep adding tools to your stack.

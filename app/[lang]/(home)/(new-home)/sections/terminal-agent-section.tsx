@@ -13,6 +13,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 
+import { GradientText } from '@/new-components/GradientText';
 import { TerminalCardStack } from './terminal-agent-card-stack';
 
 type FeatureCard = {
@@ -86,9 +87,12 @@ export function TerminalAgentSection() {
 
       <div className="relative mx-auto flex max-w-[1312px] flex-col gap-16">
         <header className="mx-auto flex max-w-[812px] flex-col items-center gap-6 text-center">
-          <h2 className="bg-linear-to-r from-white to-blue-500 bg-clip-text text-4xl leading-tight font-semibold text-balance text-transparent sm:text-5xl">
+          <GradientText
+            as="h2"
+            className="to-blue-500 text-4xl leading-tight font-semibold text-balance sm:text-5xl"
+          >
             Converse, Click, or Build from Your Terminal.
-          </h2>
+          </GradientText>
           <p className="max-w-[756px] text-base leading-6 text-zinc-500">
             Whether you prefer our visual dashboard, our built-in natural
             language agent, or spinning up infrastructure using standard
@@ -248,7 +252,7 @@ function FeatureCard({ card }: { card: FeatureCard }) {
 
 function EngineCard() {
   return (
-    <article className="rounded-xl border border-white/10 bg-[#080a11] p-5 shadow-[0_-4px_26px_rgba(8,10,17,0.9)]">
+    <article className="bg-background rounded-xl border border-white/10 p-5 shadow-[0_-4px_26px_rgba(8,10,17,0.9)]">
       <div className="flex gap-4">
         <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-white/10">
           <Rocket className="size-6 text-blue-400" aria-hidden="true" />

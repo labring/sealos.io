@@ -10,10 +10,8 @@ const source = readFileSync(
 );
 
 test('app store FAQ title uses the Figma gradient treatment', () => {
-  assert.match(source, /from-white/);
+  assert.match(source, /GradientText/);
   assert.match(source, /to-\[#146dff\]/);
-  assert.match(source, /bg-clip-text/);
-  assert.match(source, /text-transparent/);
 });
 
 test('app store FAQ expanded background is applied to the whole item', () => {

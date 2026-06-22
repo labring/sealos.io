@@ -6,6 +6,7 @@ import { StarBorder } from '@/components/ui/star-border';
 import { useGTM } from '@/hooks/use-gtm';
 import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { getOpenBrainParam } from '@/lib/utils/brain';
+import { GradientText } from '@/new-components/GradientText';
 
 import { HeroDemoCards } from '../components/hero-demo-cards';
 import {
@@ -36,9 +37,12 @@ function HeroHeadline() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col items-center gap-9 text-center">
       <div className="flex flex-col items-center gap-6">
-        <h1 className="max-w-4xl bg-linear-to-r from-white to-blue-500 bg-clip-text text-center text-4xl leading-tight font-semibold text-balance text-transparent sm:text-5xl">
+        <GradientText
+          as="h1"
+          className="max-w-4xl to-blue-500 text-center text-4xl leading-tight font-semibold text-balance sm:text-5xl"
+        >
           Deploy anything from a repo, an image, or a sentence.
-        </h1>
+        </GradientText>
         <p className="max-w-2xl text-base leading-6 text-zinc-500">
           You describe it. Our AI builds, wires, and deploys it. No YAML. No
           CI/CD. Preview your deployment instantly, without a credit card or
@@ -73,9 +77,9 @@ function HeroGetStartedButton() {
         type="button"
       >
         <RocketIcon size={16} aria-hidden="true" />
-        <span className="bg-linear-to-r from-blue-600 to-zinc-950 bg-clip-text text-sm text-transparent">
+        <GradientText className="from-blue-600 to-zinc-950 text-sm">
           Get Started
-        </span>
+        </GradientText>
       </StarBorder>
     </div>
   );

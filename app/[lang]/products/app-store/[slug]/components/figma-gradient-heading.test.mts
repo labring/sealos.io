@@ -43,8 +43,9 @@ const wholeStackSource = readFileSync(
 test('section headings use a single Figma gradient text layer instead of split blue text', () => {
   assert.doesNotMatch(sectionHeadingSource, /blueText/);
   assert.match(sectionHeadingSource, /figmaDetailHeadingClassName/);
+  assert.match(sectionHeadingSource, /GradientText/);
   assert.match(sectionHeadingSource, /w-fit/);
-  assert.match(sectionHeadingSource, /from-white to-\[#146DFF\]/);
+  assert.match(sectionHeadingSource, /to-\[#146DFF\]/);
 });
 
 test('README uses the Figma early-blue gradient stop on the wide Figma text layer', () => {

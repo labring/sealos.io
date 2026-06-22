@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { GradientText } from '@/new-components/GradientText';
 
 interface SectionHeadingProps {
   title: string;
@@ -13,7 +14,7 @@ export function figmaDetailHeadingClassName({
   wideLayer = false,
 }: { earlyBlue?: boolean; wideLayer?: boolean } = {}) {
   return cn(
-    'max-w-full bg-gradient-to-r from-white to-[#146DFF] bg-clip-text text-3xl leading-none font-semibold text-transparent sm:text-4xl',
+    'max-w-full text-3xl leading-none font-semibold sm:text-4xl',
     wideLayer ? 'block w-full lg:max-w-[1208px]' : 'inline-block w-fit',
     earlyBlue && 'to-[12.624%]',
   );
@@ -28,9 +29,15 @@ export default function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div className={className}>
-      <h2 className={figmaDetailHeadingClassName({ earlyBlue, wideLayer })}>
+      <GradientText
+        as="h2"
+        className={cn(
+          'to-[#146DFF]',
+          figmaDetailHeadingClassName({ earlyBlue, wideLayer }),
+        )}
+      >
         {title}
-      </h2>
+      </GradientText>
       {description && (
         <p className="mt-5 max-w-[620px] text-sm leading-6 text-zinc-400">
           {description}

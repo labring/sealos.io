@@ -1,12 +1,14 @@
 import React from 'react';
 import Link from 'fumadocs-core/link';
 import { siteConfig } from '@/config/site';
+import { GradientText } from '@/new-components/GradientText';
 import { StartBuildingButton } from './StartBuildingButton';
 import { DiscordIcon, GithubIcon, RSSIcon, XIcon } from './FooterIcons';
+import c from './index.module.css';
 
 const year = new Date().getFullYear();
 const wordmarkSize = 'clamp(120px, 26vw, 360px)';
-const wordmarkHeight = 'clamp(86.4px, 18.72vw, 259.2px)';
+const wordmarkHeight = wordmarkSize;
 
 type FooterLinkItem = {
   textKey: string;
@@ -189,29 +191,38 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
   const footerLinks = getFooterLinks(lang);
 
   return (
-    <footer className="relative bg-[#03050b] text-white">
+    <footer className="relative isolate bg-[#03050b] text-white">
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed right-0 bottom-0 left-0 z-0 overflow-hidden bg-[#03050b]"
+        className="pointer-events-none fixed right-0 bottom-0 left-0 overflow-hidden"
       >
         <div
           className="text-center font-semibold tracking-normal text-transparent opacity-40 select-none [-webkit-text-stroke:1px_rgba(255,255,255,0.35)]"
-          style={{ fontSize: wordmarkSize, lineHeight: 0.72 }}
+          style={{ fontSize: wordmarkSize, lineHeight: 1 }}
         >
           Sealos
         </div>
       </div>
 
-      <div className="relative z-10 bg-[#03050b] px-4 pt-36 pb-8 sm:px-6 lg:px-8">
+      <div
+        className={c.footerGradientClip}
+        style={{
+          clipPath: `inset(0 0 ${wordmarkSize} 0)`,
+        }}
+      >
+        <div className={c.footerGradient} />
+      </div>
+
+      <div className="relative z-10 px-4 pt-60 pb-8 sm:px-6 lg:px-8">
         <div className="mx-auto flex w-full max-w-[1313px] flex-col gap-20">
           <div className="flex flex-col justify-between gap-14 lg:flex-row lg:gap-20">
             <div className="flex max-w-[520px] flex-col items-start gap-8">
               <div className="flex flex-col gap-[13px]">
                 <h2 className="text-[32px] leading-[1.5] font-medium tracking-normal">
                   <span className="block">Ready to Stop Configuring and</span>
-                  <span className="block bg-linear-to-r from-white to-[#146dff] bg-clip-text text-transparent">
+                  <GradientText className="block to-[#146dff]">
                     Start Creating?
-                  </span>
+                  </GradientText>
                 </h2>
                 <p className="text-lg leading-none text-zinc-500">
                   Get started for free. No credit card required.

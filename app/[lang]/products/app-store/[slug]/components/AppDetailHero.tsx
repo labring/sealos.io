@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { GodRays } from '@/new-components/GodRays';
 import { GradientLucideIcon } from '@/new-components/GradientLucideIcon';
+import { GradientText } from '@/new-components/GradientText';
 import { AppIcon } from '@/components/ui/app-icon';
 import { languagesType } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
@@ -32,9 +33,6 @@ const proofPoints = [
   'Open source and free',
   'Community supported',
 ];
-
-const heroTitleAccentClassName =
-  'bg-gradient-to-r from-white to-[#146DFF] bg-clip-text text-transparent';
 
 const heroCenterLogoClassName =
   'hidden lg:flex absolute left-[609px] top-9 z-20 h-[130px] w-[130px] -translate-x-1/2 items-center justify-center rounded-[5.235px] border-[0.5px] border-transparent p-5 shadow-2xl shadow-black/40';
@@ -153,9 +151,9 @@ export default function AppDetailHero({
 
           <h1 className="max-w-[720px] text-[34px] leading-[1.12] font-semibold text-white sm:text-[36px] lg:max-w-[500px] lg:text-[36px] lg:leading-[1.18]">
             Deploy{' '}
-            <span className={heroTitleAccentClassName}>
+            <GradientText className="to-[#146DFF]">
               {app.name} on Sealos
-            </span>
+            </GradientText>
           </h1>
           <p className="mt-6 max-w-[600px] text-sm leading-6 text-zinc-400">
             {getDisplayDescription(app)}
