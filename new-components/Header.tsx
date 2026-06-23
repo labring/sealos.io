@@ -17,6 +17,7 @@ import {
   Menu,
   X,
   BookOpenText,
+  GraduationCap,
   FileText,
   Users,
   School,
@@ -115,6 +116,13 @@ const navigationLinks: NavigationLink[] = [
         isExternal: false,
         description: 'Learn and build with the best practices',
         icon: <BookOpenText size={16} />,
+      },
+      {
+        text: 'Tutorials',
+        url: '/tutorials',
+        isExternal: false,
+        description: 'Step-by-step guides for real app deployments',
+        icon: <GraduationCap size={16} />,
       },
       {
         text: 'Blog',
@@ -236,14 +244,9 @@ const DropdownMenu = ({
         >
           <div className="text-muted-foreground text-sm">{title}</div>
           <div className="grid grid-cols-2 gap-3">
-            {children.slice(0, 2).map((child, index) => (
+            {children.map((child, index) => (
               <DropdownMenuItem key={index} child={child} />
             ))}
-            {children.length > 2 && (
-              <div className="col-span-1 row-start-2">
-                <DropdownMenuItem child={children[2]} />
-              </div>
-            )}
           </div>
         </div>
       </NavigationMenuContent>
