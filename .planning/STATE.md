@@ -1,67 +1,79 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: milestone
-status: verified
-stopped_at: Phase 15 verified; security gate pending
-last_updated: "2026-06-16T13:47:10Z"
-last_activity: 2026-06-16 - Phase 15 verify-work passed with UAT and VERIFICATION artifacts recorded; security review remains required
+milestone: v1.2
+milestone_name: React and Node.js Tutorial Expansion
+status: planning
+last_updated: "2026-06-28T17:34:16Z"
+last_activity: 2026-06-29
 progress:
-  total_phases: 3
-  completed_phases: 3
-  total_plans: 13
-  completed_plans: 13
-  percent: 100
+  total_phases: 5
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-06-16)
+See: `.planning/PROJECT.md` (updated 2026-06-29)
 
-**Core value:** Readers can install and use Sealos Skills from the tutorials
-with commands and workflow expectations that match the current upstream plugin
-source.
-**Current focus:** Phase 15: Tutorial Metadata and Validation verification complete; security gate pending
+**Core value:** Readers can follow framework-specific Sealos tutorials with
+commands, screenshots, and validation evidence that match the current product
+workflow.
+**Current focus:** Defining requirements and roadmap for v1.2 React and Node.js
+Tutorial Expansion
 
 ## Current Phase
 
 | Field | Value |
 |-------|-------|
-| Phase | 15 |
-| Name | Tutorial Metadata and Validation |
-| Status | Verified; security review required |
-| Goal | Visible tutorial bodies, structured metadata, and validation checks all agree after the content update. |
+| Phase | Not started |
+| Name | Defining requirements |
+| Status | Planning |
+| Goal | Add React and Node.js tutorial series from the existing Next.js tutorial templates with practice-backed screenshots. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-- CONSIST-01
-- CONSIST-02
-- CONSIST-03
-- CONSIST-04
-- VERIFY-01
-- VERIFY-02
-- VERIFY-03
-- VERIFY-04
+- BASE-01
+- BASE-02
+- BASE-03
+- REACT-01
+- REACT-02
+- REACT-03
+- REACT-04
+- NODE-01
+- NODE-02
+- NODE-03
+- NODE-04
+- SHOT-01
+- SHOT-02
+- SHOT-03
+- SHOT-04
+- VALID-01
+- VALID-02
+- VALID-03
+- VALID-04
 
 ## Current Position
 
-Phase: 15
-Plan: 3/3 plans complete
-Status: Verified; security review required
-Last activity: 2026-06-16 - Phase 15 verify-work passed with UAT and VERIFICATION artifacts recorded
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-06-29 — Milestone v1.2 started
 
 ## Next Action
 
-Run `$gsd-secure-phase 15` because `workflow.security_enforcement` is enabled and no Phase 15 security artifact exists.
+Run `$gsd-plan-phase 16` to plan the tutorial template baseline and expansion
+map.
 
 ## Session
 
-Stopped at: Phase 15 verified; security gate pending
-Resume file: .planning/phases/15-tutorial-metadata-and-validation/15-VERIFICATION.md
+Stopped at: Milestone v1.2 initialized
+Resume file: .planning/ROADMAP.md
 
 ### Quick Tasks Completed
 
