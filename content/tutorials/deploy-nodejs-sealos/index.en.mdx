@@ -1,0 +1,65 @@
+---
+title: 'How to Deploy a Node.js App to Sealos in 5 Minutes'
+description: 'Deploy Node.js from GitHub to Sealos in minutes. Follow this Sealos Skills guide for server entrypoints, npm start, ports, health checks, and live verification.'
+date: 2026-06-29
+updated: 2026-06-29
+stage: beginner
+framework: Node.js
+series: sealos-skills-nodejs
+seriesOrder: 1
+estimatedReadingTime: 9 minutes
+primaryKeyword: 'deploy Node.js'
+targetKeywords:
+  - Node.js hosting
+  - Node.js deployment guide
+  - Sealos Node.js deployment
+  - deploy Node.js from GitHub
+  - Node.js production deployment
+tags:
+  - tutorial
+  - sealos-skills
+  - nodejs
+  - deployment
+authors: ['default']
+relatedTutorials:
+  - nodejs-postgresql-sealos
+  - nodejs-production-deployment-sealos
+cta:
+  label: 'Start free on Sealos'
+  href: 'https://os.sealos.io'
+faq:
+  - question: 'Is Sealos good for Node.js hosting?'
+    answer: 'Yes. Sealos can host a containerized Node.js service after the Sealos plugin analyzes the repo, records `.sealos/analysis.json`, prepares `.sealos/template/index.yaml`, deploys the service, runs Runtime Truth Pass, and writes accepted deployment state to `.sealos/state.json`.'
+  - question: 'What does a Node.js app need before deployment?'
+    answer: 'A deployable Node.js service needs a server entrypoint such as `server.js`, `app.js`, or `dist/server.js`, a reliable `npm start` script, `PORT` support, `0.0.0.0` binding, and a health endpoint such as `/healthz` or `/health`.'
+  - question: 'When should a Node.js deployment use npm run build?'
+    answer: 'Use `npm run build` when the app is TypeScript-based or bundled before runtime. Always verify the actual scripts in `package.json`, then use `npm start` as the default runtime command unless the project documents a different production start command.'
+  - question: 'What should I read after my first Node.js deploy?'
+    answer: 'If the service uses PostgreSQL, read the Node.js PostgreSQL guide. If real users will use the service, read the Node.js production deployment checklist before switching traffic to it.'
+howTo:
+  name: 'Deploy a Node.js app to Sealos in 5 minutes'
+  description: 'Use the Sealos plugin to assess a Node.js repo, prepare `.sealos/` deployment artifacts, review the service entrypoint and port, deploy to Sealos Cloud, and accept the live service with Runtime Truth Pass.'
+  steps:
+    - name: 'Start with a deployable GitHub repo'
+      text: 'Prepare a Node.js service with `package.json`, `npm start`, a server entrypoint such as `server.js`, `app.js`, or `dist/server.js`, `PORT`, `0.0.0.0`, and a health endpoint.'
+    - name: 'Ask Sealos to deploy the repo'
+      text: 'Run `$sealos deploy https://github.com/&lt;owner&gt;/&lt;repo&gt;` in Codex CLI or `/sealos deploy https://github.com/&lt;owner&gt;/&lt;repo&gt;` in Claude Code.'
+    - name: 'Review the project assessment'
+      text: 'Confirm `.sealos/analysis.json` captured Node.js, package scripts, the runtime command, port binding, health endpoint, env vars, and container requirements.'
+    - name: 'Review the generated template'
+      text: 'Confirm `.sealos/template/index.yaml` exposes the same container port the service reads from `PORT` and that the start command matches `package.json`.'
+    - name: 'Deploy and verify'
+      text: 'Deploy to Sealos Cloud, check the public URL, health endpoint, service startup logs, request logs, resource footprint, Runtime Truth Pass, and accepted `.sealos/state.json`.'
+---
+
+Want to deploy a Node.js service without writing Kubernetes YAML or building a custom release pipeline by hand? This Node.js deployment guide shows how to take a GitHub repo, run the Sealos AI deployment skill, and publish a working service on Sealos with a public HTTPS URL.
+
+With the Sealos skill, your AI agent can inspect the project, detect that it is a Node.js service, prepare missing deployment artifacts, build or reuse a container image, generate a Sealos template, and deploy the service to Sealos Cloud.
+
+By the end, you will have:
+
+- A Node.js service running on Sealos
+- A public HTTPS URL
+- A deployment state saved under `.sealos/`
+- A repeatable path for future updates and Node.js production deployment prep
+- Follow-up paths for [Node.js + PostgreSQL](/tutorials/nodejs-postgresql-sealos) and the [Node.js production deployment checklist](/tutorials/nodejs-production-deployment-sealos)
