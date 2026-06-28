@@ -55,3 +55,372 @@ A Node.js production deployment on Sealos is ready when the service process, gen
 Use this checklist before launch, before a major release, or before switching real traffic to a new Sealos deployment.
 
 If this is your first deploy, start with [How to Deploy a Node.js App to Sealos in 5 Minutes](/tutorials/deploy-nodejs-sealos). If your service uses PostgreSQL, read [Node.js + PostgreSQL Deployment Guide on Sealos](/tutorials/nodejs-postgresql-sealos) before using this production checklist.
+
+## Key takeaways
+
+| Question | Production answer |
+|---|---|
+| How should production deploys start? | Use the Sealos plugin to analyze the repo, generate the app resources, and deploy or update through recorded `.sealos/` state. |
+| What is Node.js-specific? | Verify process manager or container process model, `npm start`, entrypoint, port binding, health checks, readiness, timeouts, and logs. |
+| What if the service uses PostgreSQL? | Verify database migration order, server-side env mapping, database recovery, and service-to-PostgreSQL read/write evidence. |
+| How should rollback work? | Roll back to previous image tags, then verify runtime health, logs, resource footprint, and database recovery status. |
+
+## Who this checklist is for
+
+Use this checklist if:
+
+- You deploy a Node.js service to Sealos
+- You use the Sealos plugin through Codex, Codex App, or Claude Code
+- Your service depends on `server.js`, `app.js`, `dist/server.js`, or another Node.js entrypoint
+- Your service has health checks, background work, auth, queues, or a database
+- Your service needs a custom domain or stable public URL
+- You want a repeatable launch, update, and rollback process
+
+This is a production checklist. It assumes the service already starts locally or has already been deployed once to Sealos.
+
+## Install the Sealos plugin for production checks
+
+Install the Sealos plugin before using this checklist. One plugin installs deploy, database, S3, canvas, app-builder, and supporting cloud-native skills from root `skills/**`.
+
+For Codex CLI or Codex App, use the native Codex marketplace flow:
+
+```bash
+codex plugin marketplace add labring/sealos-skills
+codex plugin add sealos@sealos
+```
+
+For Codex compatibility or local testing, use:
+
+```bash
+npx plugins add https://github.com/labring/sealos-skills --target codex
+```
+
+For Claude Code, use the native Claude Code marketplace flow:
+
+```bash
+claude plugin marketplace add labring/sealos-skills
+claude plugin install sealos@sealos
+```
+
+For Claude Code compatibility, use:
+
+```bash
+npx plugins add https://github.com/labring/sealos-skills --target claude-code
+```
+
+After installation, run production deployment requests through the host entry that matches your workspace:
+
+- Codex CLI: start prompts with `$sealos`
+- Codex App: click `+` -> `Plugins` -> `Sealos`
+- Claude Code: start prompts with `/sealos`
+
+## Production launch model
+
+A production Node.js deployment should follow the same Sealos deployment model used in the first two guides:
+
+```text
+GitHub repo or local repo
+   |
+   v
+Sealos plugin
+   |
+   +-- runs preflight checks
+   +-- analyzes runtime, entrypoint, package scripts, port, env vars, and database signals
+   +-- reuses an existing image or prepares a container build
+   +-- generates .sealos/analysis.json
+   +-- generates .sealos/template/index.yaml
+   +-- deploys a fresh app or updates a verified existing app
+   +-- runs Runtime Truth Pass as the launch gate
+   +-- records .sealos/state.json after accepted runtime proof
+   |
+   v
+Production verification
+   |
+   +-- App URL and custom domain
+   +-- health checks and readiness behavior
+   +-- startup logs and request logs after smoke
+   +-- database read/write path when relevant
+   +-- resource footprint
+   +-- backup and rollback plan
+```
+
+Use DEPLOY for a fresh production release when `.sealos/state.json` is missing, stale, broken, manually edited, or points to a deployment the live cluster cannot verify. Use UPDATE when `.sealos/state.json` has a valid `last_deploy` and live Sealos resource truth confirms the existing deployment still matches the recorded app.
+
+For a PostgreSQL-backed Node.js service, keep the service and database in one deployment plan:
+
+```text
+$sealos deploy this Node.js service to Sealos with PostgreSQL
+```
+
+That request should generate the app resource, Service, Ingress, PostgreSQL resource, database connection env var, required inputs, and Sealos template together.
+
+## Production readiness scorecard
+
+Before launch, aim for this state:
+
+```text
+Build and image              Ready
+Process model                Ready
+Sealos generated resources   Ready
+Environment variables        Ready
+Health and readiness         Ready
+Database and migrations      Ready or not needed
+Domain and HTTPS             Ready
+Storage                      Ready or not needed
+Scaling                      Intentional
+Monitoring and logs          Ready
+Backups                      Ready
+Rollback path                Ready
+Security                     Reviewed
+Runbook                      Written
+```
+
+Runtime Truth Pass is the launch gate.
+
+## 1. Build and image checklist
+
+Your Node.js service should start cleanly from a fresh checkout.
+
+Run the command that matches your package manager:
+
+```bash
+npm ci
+npm run build
+npm start
+```
+
+Skip `npm run build` for plain JavaScript services that run directly from `server.js` or `app.js`.
+
+Production checklist:
+
+- `package.json` has a working `start` script
+- `npm start` launches one foreground production process
+- Optional `npm run build` emits `dist/server.js` or another documented runtime entrypoint
+- The lockfile is committed
+- The service reads `PORT`
+- The service listens on `0.0.0.0`
+- The service exposes `/healthz`, `/health`, or a documented health path
+- `.sealos/template/index.yaml` exposes the same runtime port as the service
+- The image targets linux/amd64
+- The image tag is unique and not `latest`
+- The runtime image does not include unnecessary dev files
+- Startup logs include the port and process readiness
+- Request logs include enough information for smoke-test evidence
+- Docker and buildx are available if the repo has no reusable linux/amd64 image
+- Private GHCR images have an app-scoped image pull Secret before rollout
+
+Example production runtime model:
+
+```text
+build stage: npm run build, when TypeScript or bundling is used
+runtime stage: npm start
+entrypoint: server.js, app.js, or dist/server.js
+listen: 0.0.0.0:${PORT}
+health: /healthz
+```
+
+## 2. Sealos plugin state checklist
+
+After the first deployment, the Sealos plugin records state under `.sealos/`.
+
+Expected files:
+
+```text
+.sealos/
+├── analysis.json
+├── state.json
+├── build/
+│   └── build-result.json
+└── template/
+    └── index.yaml
+```
+
+Production checklist:
+
+- `.sealos/analysis.json` reflects the current Node.js runtime, entrypoint, package manager, port, env var names, and database signals
+- `.sealos/template/index.yaml` matches the intended image, port, environment variables, Service, Ingress, and App resource
+- `.sealos/state.json` contains `last_deploy` with the last accepted app name, namespace, image, App URL, and bounded `history`
+- `.sealos/state.json` was written after successful deployment and Runtime Truth Pass acceptance
+- DEPLOY mode is used for missing, stale, broken, or unverifiable state
+- UPDATE mode is used only when recorded state and live Sealos resource truth agree
+- Stale state has an explicit path: cluster discovery, state repair, or fresh deploy
+- You know whether the next release updates the existing app or creates a new instance
+- If PostgreSQL is used, the template includes the generated PostgreSQL resource and the service actual database env key
+- If the image is a private GHCR image built by Sealos, the deployment has the matching app-scoped image pull Secret
+
+This matters because update mode preserves deployment identity, rollout history, and traffic ownership for production releases.
+
+## 3. Environment variable checklist
+
+Production Node.js services often fail because env vars are split across runtime code, database access, third-party providers, and observability settings.
+
+Classify every env var:
+
+| Type | Example | Where it belongs |
+|---|---|---|
+| Runtime port | `PORT=3000` | Node.js service env |
+| Runtime mode | `NODE_ENV=production` | Node.js service env |
+| Server secret | `SESSION_SECRET` | Node.js service env |
+| Database connection | `DATABASE_URL`, `POSTGRES_URL` | Generated from the Sealos database resource |
+| Third-party API key | `STRIPE_SECRET_KEY` | Node.js service env |
+| Logging | `LOG_LEVEL=info` | Node.js service env |
+
+Production checklist:
+
+- `.env.example` lists placeholders
+- Local env files are ignored by git
+- Required secrets are provided through Sealos configuration
+- The database key matches the key the service actually reads
+- OAuth callback URLs, webhook URLs, and allowed origins use the production domain
+- Runtime logs avoid printing secrets
+
+## 4. Database and migration checklist
+
+If the service uses PostgreSQL, production readiness includes schema order and recovery.
+
+Production checklist:
+
+- Database access stays server-side in the Node.js service
+- The service reads the actual generated key, such as `DATABASE_URL` or `POSTGRES_URL`
+- Migrations are committed and repeatable
+- Migration command is documented
+- Database migration order is defined before traffic reaches code that needs the schema
+- Runtime Truth Pass includes service-to-PostgreSQL read/write evidence
+- Logs stay clean after the database-backed smoke check
+- Backup timing is recorded before schema-changing releases
+- Rollback has database backup/restore or forward-repair awareness
+
+Common migration commands:
+
+```bash
+npx prisma migrate deploy
+```
+
+```bash
+npx drizzle-kit migrate
+```
+
+```bash
+npx typeorm migration:run
+```
+
+```bash
+npx node-pg-migrate up
+```
+
+## 5. Health, readiness, and timeout checklist
+
+Health checks should be cheap and reliable. Readiness behavior should reflect whether the service can handle traffic.
+
+Production checklist:
+
+- `/healthz` or `/health` returns quickly
+- Health endpoint avoids slow third-party calls
+- Readiness includes database status only when database availability is required for serving traffic
+- Startup timeout covers migration or warm-up behavior
+- Request timeout matches expected API latency
+- Public URL checks cover the root path or an expected API path
+- Health endpoint checks cover service process status
+- Logs after smoke show no crash loop, unhandled rejection, or repeated connection error
+
+## 6. Scaling checklist
+
+Start with intentional capacity, then scale after runtime truth is known.
+
+Production checklist:
+
+- CPU and memory requests match observed resource footprint
+- Horizontal replicas are safe for sessions, queues, locks, uploads, and scheduled jobs
+- Connection pooling is configured before increasing replicas for PostgreSQL-backed services
+- Background workers are separated or guarded when only one worker should run
+- Startup and shutdown hooks handle in-flight requests
+
+## 7. Monitoring and logs checklist
+
+Runtime logs are production evidence.
+
+Production checklist:
+
+- Startup logs show version, port, and readiness
+- Request logs show smoke traffic without logging secrets
+- Error logs preserve stack traces for operator debugging
+- Database connection failures are visible
+- Health check failures are visible
+- Runtime Truth Pass captures logs after smoke traffic
+
+## 8. Update and rollback checklist
+
+Update only after recorded state and live resource truth agree.
+
+Production checklist:
+
+- Previous image tags are recorded before release
+- New image tag is unique
+- UPDATE mode is based on `.sealos/state.json` plus live Sealos resource truth
+- DEPLOY mode is used when state is missing, stale, broken, or unverifiable
+- Rollback command path is documented
+- Database backup/restore or forward-repair decision is documented for schema-changing releases
+- Rollback validation includes public URL, health endpoint, runtime logs, resource footprint, and database recovery checks
+
+## 9. Security checklist
+
+Production Node.js services should launch with private values and attack surface reviewed.
+
+Production checklist:
+
+- Secrets stay in Sealos env vars
+- Logs avoid tokens, passwords, and full connection strings
+- Admin routes require authentication
+- CORS and allowed origins match production domains
+- Rate limits protect write-heavy or auth endpoints
+- Health endpoint reveals only operational status
+- Dependencies are updated before launch
+
+## Launch Runbook
+
+Use this sequence for a production launch:
+
+1. Confirm `npm start` and optional `npm run build` from a clean checkout.
+2. Ask Sealos to DEPLOY or UPDATE based on `.sealos/state.json` and live resource truth.
+3. Review `.sealos/analysis.json` and `.sealos/template/index.yaml`.
+4. Provide required env vars and secrets.
+5. Run or verify database migrations.
+6. Deploy the generated template.
+7. Run public URL and health endpoint checks.
+8. Check startup logs and request logs after smoke traffic.
+9. Review resource footprint.
+10. Confirm rollback uses previous image tags and database recovery awareness.
+11. Accept the deployment only after Runtime Truth Pass.
+
+## Common production failures
+
+| Failure | Fix |
+|---|---|
+| Service exits after deploy | Make `npm start` launch one foreground production process. |
+| Health check times out | Keep `/healthz` cheap and verify the container listens on `0.0.0.0:${PORT}`. |
+| UPDATE targets the wrong app | Reconcile `.sealos/state.json` with live resource truth before updating. |
+| Migration breaks rollback | Pair previous image tags with backup/restore or forward-repair planning. |
+| Replica increase overloads PostgreSQL | Add connection pooling awareness before scaling. |
+| Logs hide the failure | Emit startup logs, request logs, and structured error logs without leaking secrets. |
+
+## Final production checklist
+
+- Process management and start command readiness verified
+- `npm start`, optional `npm run build`, `server.js`, `app.js`, or `dist/server.js` reviewed
+- `PORT` and `0.0.0.0` verified
+- Health checks and readiness behavior verified
+- Timeouts reviewed
+- Startup logs and request logs reviewed
+- `.sealos/analysis.json`, `.sealos/template/index.yaml`, and `.sealos/state.json` reviewed
+- DEPLOY or UPDATE selected from state plus live resource truth
+- Database migration order verified when relevant
+- Previous image tags recorded
+- Rollback and database recovery plan ready
+- Resource footprint checked
+- Runtime Truth Pass accepted
+
+## Next steps
+
+- Revisit [How to Deploy a Node.js App to Sealos in 5 Minutes](/tutorials/deploy-nodejs-sealos) for first-deploy workflow details
+- Use [Node.js + PostgreSQL Deployment Guide on Sealos](/tutorials/nodejs-postgresql-sealos) for database-backed service deployments
+- Open [Sealos Skills](/sealos-skills) when you want the repeatable plugin workflow and command entrypoints
