@@ -1,0 +1,65 @@
+---
+title: 'How to Deploy a React App to Sealos in 5 Minutes'
+description: 'Deploy React from GitHub to Sealos in minutes. Follow this Sealos Skills guide for Vite builds, static serving, env vars, hosting, and live verification.'
+date: 2026-06-29
+updated: 2026-06-29
+stage: beginner
+framework: React
+series: sealos-skills-react
+seriesOrder: 1
+estimatedReadingTime: 9 minutes
+primaryKeyword: 'deploy React'
+targetKeywords:
+  - React hosting
+  - React deployment guide
+  - Sealos React deployment
+  - deploy React from GitHub
+  - React production deployment
+tags:
+  - tutorial
+  - sealos-skills
+  - react
+  - deployment
+authors: ['default']
+relatedTutorials:
+  - react-postgresql-sealos
+  - react-production-deployment-sealos
+cta:
+  label: 'Start free on Sealos'
+  href: 'https://os.sealos.io'
+faq:
+  - question: 'Is Sealos good for React hosting?'
+    answer: 'Yes. Sealos can host a containerized React app after the Sealos plugin analyzes the repo, records `.sealos/analysis.json`, prepares `.sealos/template/index.yaml`, deploys the static web container, runs Runtime Truth Pass, and writes accepted deployment state to `.sealos/state.json`.'
+  - question: 'Can I deploy a React app from GitHub without writing Kubernetes YAML?'
+    answer: 'Yes. The Sealos plugin can inspect a Vite or equivalent React SPA, generate or reuse a container path, expose the runtime port in `.sealos/template/index.yaml`, deploy to Sealos Cloud, and accept the deployment after Runtime Truth Pass.'
+  - question: 'Which React env vars are safe for the browser?'
+    answer: 'Use browser-safe `VITE_` values or the equivalent public env convention for the selected React tooling. Server secrets, database URLs, private API keys, and registry credentials stay out of the browser bundle and out of committed `.sealos/` files.'
+  - question: 'What should I read after my first React deploy?'
+    answer: 'If the app needs PostgreSQL, read the React full-stack guide. If real users will use the app, read the React production deployment checklist before switching traffic to it.'
+howTo:
+  name: 'Deploy a React app to Sealos in 5 minutes'
+  description: 'Use the Sealos plugin to assess a React repo, prepare `.sealos/` deployment artifacts, build or reuse an image that serves `dist/`, deploy to Sealos Cloud, and accept the live app with Runtime Truth Pass.'
+  steps:
+    - name: 'Start with a deployable GitHub repo'
+      text: 'Prepare a working React app with `src/`, `index.html`, package scripts, and a production build that emits a browser bundle under `dist/`.'
+    - name: 'Ask Sealos to deploy the repo'
+      text: 'Run `$sealos deploy https://github.com/&lt;owner&gt;/&lt;repo&gt;` in Codex CLI or `/sealos deploy https://github.com/&lt;owner&gt;/&lt;repo&gt;` in Claude Code.'
+    - name: 'Review the project assessment'
+      text: 'Confirm `.sealos/analysis.json` captured React, the package manager, `npm run build`, `dist/`, runtime port, browser-safe env vars, and container requirements.'
+    - name: 'Prepare and publish the container image'
+      text: 'Reuse or generate a Dockerfile that runs the React build and serves `dist/` through a containerized web server with the port recorded in `.sealos/template/index.yaml`.'
+    - name: 'Deploy and verify'
+      text: 'Configure `VITE_` public values when needed, deploy to Sealos Cloud, check rollout readiness, run Runtime Truth Pass against the live App URL, logs, and footprint, then confirm `.sealos/state.json` records accepted state.'
+---
+
+Want to deploy a React app without writing Kubernetes YAML or building a custom release pipeline by hand? This React deployment guide shows how to take a GitHub repo, run the Sealos AI deployment skill, and publish a working React frontend on Sealos with a public HTTPS URL.
+
+With the Sealos skill, your AI agent can inspect the project, detect that it is a React app, prepare missing deployment artifacts, build or reuse a container image, generate a Sealos template, and deploy the app to Sealos Cloud.
+
+By the end, you will have:
+
+- A React app running on Sealos
+- A public HTTPS URL
+- A deployment state saved under `.sealos/`
+- A repeatable path for future updates and React production deployment prep
+- Follow-up paths for [React + PostgreSQL](/tutorials/react-postgresql-sealos) and the [React production deployment checklist](/tutorials/react-production-deployment-sealos)
