@@ -1,0 +1,57 @@
+---
+title: 'Node.js + PostgreSQL Deployment Guide on Sealos'
+description: 'Deploy a Node.js service with PostgreSQL on Sealos by keeping database access server-side, mapping env keys, running migrations, and verifying read/write behavior.'
+date: 2026-06-29
+updated: 2026-06-29
+stage: advanced
+framework: Node.js
+series: sealos-skills-nodejs
+seriesOrder: 2
+estimatedReadingTime: 13 minutes
+primaryKeyword: 'Node.js PostgreSQL deployment'
+targetKeywords:
+  - Node.js deployment guide
+  - Node.js hosting with PostgreSQL
+  - deploy Node.js PostgreSQL
+  - Sealos PostgreSQL
+  - Node.js production deployment
+tags:
+  - tutorial
+  - sealos-skills
+  - nodejs
+  - deployment
+authors: ['default']
+relatedTutorials:
+  - deploy-nodejs-sealos
+  - nodejs-production-deployment-sealos
+cta:
+  label: 'Open Sealos Skills'
+  href: '/sealos-skills'
+faq:
+  - question: 'What is the safest Node.js PostgreSQL deployment model on Sealos?'
+    answer: 'Deploy the Node.js service and PostgreSQL as one Sealos plan. PostgreSQL access stays server-side in the Node.js service, while Sealos maps the actual database env key, deploys resources, runs Runtime Truth Pass, and records accepted state.'
+  - question: 'Which PostgreSQL env key should a Node.js service use?'
+    answer: 'Use the key the service already reads. Many services use `DATABASE_URL`, some use `POSTGRES_URL`, and some use an app-specific key. The deployment proof is that the generated env var matches the source and the live service reaches PostgreSQL through that exact key.'
+  - question: 'Where do migrations run for Node.js services?'
+    answer: 'Migrations or schema setup run before dependent traffic reaches code that needs the new schema. The migration command can come from Prisma, Drizzle, TypeORM, Knex, node-pg-migrate, or a repo-specific script.'
+  - question: 'What proves a Node.js PostgreSQL deployment works?'
+    answer: 'Runtime Truth Pass should verify service-to-PostgreSQL read/write behavior through a service endpoint or operational check, clean runtime logs after the database-backed smoke check, completed migrations, and accepted `.sealos/state.json`.'
+howTo:
+  name: 'Deploy Node.js with PostgreSQL on Sealos'
+  description: 'Prepare a Node.js service repo, ask Sealos for a service plus PostgreSQL deployment, review generated resources, configure server-side env vars, run migrations, and verify Runtime Truth Pass.'
+  steps:
+    - name: 'Prepare the repository'
+      text: 'Document the Node.js service entrypoint, database env key, migration command, and required server-side secrets in the repo.'
+    - name: 'Ask Sealos for a full-stack deployment'
+      text: 'Use `$sealos deploy this Node.js service with PostgreSQL` in Codex CLI or `/sealos deploy this Node.js service with PostgreSQL` in Claude Code.'
+    - name: 'Review generated resources'
+      text: 'Confirm the plan includes the Node.js app, Service, Ingress, generated PostgreSQL resource, env mapping, migration behavior, `.sealos/analysis.json`, and `.sealos/template/index.yaml`.'
+    - name: 'Deploy and verify'
+      text: 'Let Sealos deploy all resources, run or verify migrations, then run Runtime Truth Pass against service-to-PostgreSQL read/write behavior, runtime logs, resource footprint, and accepted `.sealos/state.json`.'
+---
+
+To deploy Node.js with PostgreSQL on Sealos, treat the repository as a backend service plus database system. The Node.js service owns database access, private credentials, migrations, validation, and the HTTP endpoint that proves live read/write behavior.
+
+This keeps PostgreSQL credentials out of browsers and static assets while preserving the Sealos one-request deployment flow. The Sealos plugin should understand the service, database env keys, migration command, generated resources, and Runtime Truth Pass as one deployable system.
+
+Start with [How to Deploy a Node.js App to Sealos in 5 Minutes](/tutorials/deploy-nodejs-sealos) if this is your first Sealos deployment. Use [Complete Production Deployment Checklist for Node.js on Sealos](/tutorials/nodejs-production-deployment-sealos) before switching real traffic to the database-backed service.
