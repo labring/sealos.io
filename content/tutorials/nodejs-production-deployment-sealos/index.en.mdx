@@ -1,0 +1,57 @@
+---
+title: 'Complete Production Deployment Checklist for Node.js on Sealos'
+description: 'Launch Node.js on Sealos with a production checklist for process management, npm start, health checks, readiness, env vars, logs, rollback, and Runtime Truth Pass.'
+date: 2026-06-29
+updated: 2026-06-29
+stage: production
+framework: Node.js
+series: sealos-skills-nodejs
+seriesOrder: 3
+estimatedReadingTime: 16 minutes
+primaryKeyword: 'Node.js production deployment'
+targetKeywords:
+  - Node.js hosting
+  - Node.js deployment guide
+  - deploy Node.js production
+  - Sealos production deployment
+  - Node.js production checklist
+tags:
+  - tutorial
+  - sealos-skills
+  - nodejs
+  - deployment
+authors: ['default']
+relatedTutorials:
+  - deploy-nodejs-sealos
+  - nodejs-postgresql-sealos
+cta:
+  label: 'Open Sealos Skills'
+  href: '/sealos-skills'
+faq:
+  - question: 'What is the minimum checklist for a Node.js production deployment on Sealos?'
+    answer: 'At minimum, verify process management, start command readiness, `PORT`, `0.0.0.0`, health checks, readiness, DEPLOY or UPDATE mode from `.sealos/state.json` plus live resource truth, database migration order, image tags, rollback, database recovery, resource footprint, and Runtime Truth Pass.'
+  - question: 'What should a Node.js production start command do?'
+    answer: '`npm start` should launch one foreground server process from `server.js`, `app.js`, or `dist/server.js`, bind to `0.0.0.0`, read `PORT`, emit startup logs, and respond to a health endpoint.'
+  - question: 'When should I use DEPLOY or UPDATE?'
+    answer: 'Use DEPLOY when `.sealos/state.json` is missing, stale, broken, or unverifiable. Use UPDATE when recorded state and live Sealos resource truth confirm the existing deployment.'
+  - question: 'How should rollback work for schema-changing Node.js releases?'
+    answer: 'Rollback should pair previous image tags with database backup/restore or forward-repair awareness, then verify runtime health, logs, resource footprint, database recovery checks, and Runtime Truth Pass.'
+howTo:
+  name: 'Prepare a Node.js production deployment on Sealos'
+  description: 'Verify process management, start command readiness, port binding, health and readiness checks, generated Sealos resources, DEPLOY or UPDATE mode, env vars, migrations, Runtime Truth Pass, logs, rollback, and resource footprint before launch.'
+  steps:
+    - name: 'Verify process and image readiness'
+      text: 'Confirm `npm start` launches the production process, optional `npm run build` produces `dist/server.js` when needed, the service reads `PORT`, and the container binds to `0.0.0.0`.'
+    - name: 'Review generated Sealos state'
+      text: 'Check `.sealos/analysis.json`, `.sealos/template/index.yaml`, and `.sealos/state.json`, then select DEPLOY or UPDATE from valid state plus live resource truth.'
+    - name: 'Verify health, readiness, and logs'
+      text: 'Confirm health checks, readiness behavior, timeouts, startup logs, request logs, public URL checks, and resource footprint before launch.'
+    - name: 'Verify rollback and database recovery'
+      text: 'Record previous image tags, database migration order, backup/restore or forward-repair awareness, rollback readiness, and Runtime Truth Pass.'
+---
+
+A Node.js production deployment on Sealos is ready when the service process, generated Sealos resources, environment variables, health checks, logs, database migration path, and rollback plan have all been verified.
+
+Use this checklist before launch, before a major release, or before switching real traffic to a new Sealos deployment.
+
+If this is your first deploy, start with [How to Deploy a Node.js App to Sealos in 5 Minutes](/tutorials/deploy-nodejs-sealos). If your service uses PostgreSQL, read [Node.js + PostgreSQL Deployment Guide on Sealos](/tutorials/nodejs-postgresql-sealos) before using this production checklist.
