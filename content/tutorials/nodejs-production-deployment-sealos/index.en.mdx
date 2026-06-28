@@ -219,8 +219,6 @@ listen: 0.0.0.0:${PORT}
 health: /healthz
 ```
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of rollout or image tag readiness for the Node.js production service.
-
 ## 2. Sealos plugin state checklist
 
 After the first deployment, the Sealos plugin records state under `.sealos/`.
@@ -252,7 +250,7 @@ Production checklist:
 
 This matters because update mode preserves deployment identity, rollout history, and traffic ownership for production releases.
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of `.sealos/state.json` and `.sealos/template/index.yaml` review for Node.js production.
+![Node.js production .sealos state and template review](/images/nodejs-production-deployment-sealos/nodejs-state-template-review.webp)
 
 ## 3. Environment variable checklist
 
@@ -278,7 +276,7 @@ Production checklist:
 - OAuth callback URLs, webhook URLs, and allowed origins use the production domain
 - Runtime logs avoid printing secrets
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of redacted environment sources for Node.js production.
+![Node.js production redacted environment sources](/images/nodejs-production-deployment-sealos/nodejs-production-env-redacted.webp)
 
 ## 4. Database and migration checklist
 
@@ -296,7 +294,7 @@ Production checklist:
 - Backup timing is recorded before schema-changing releases
 - Rollback has database backup/restore or forward-repair awareness
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of database migration or recovery readiness for a Node.js release.
+![Node.js database migration or recovery readiness for release](/images/nodejs-production-deployment-sealos/nodejs-migration-recovery-readiness.webp)
 
 Common migration commands:
 
@@ -331,8 +329,6 @@ Production checklist:
 - Health endpoint checks cover service process status
 - Logs after smoke show no crash loop, unhandled rejection, or repeated connection error
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of Node.js health and readiness response checks.
-
 ## 6. Scaling checklist
 
 Start with intentional capacity, then scale after runtime truth is known.
@@ -358,8 +354,6 @@ Production checklist:
 - Health check failures are visible
 - Runtime Truth Pass captures logs after smoke traffic
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of Node.js runtime logs after production smoke traffic.
-
 ## 8. Update and rollback checklist
 
 Update only after recorded state and live resource truth agree.
@@ -374,7 +368,7 @@ Production checklist:
 - Database backup/restore or forward-repair decision is documented for schema-changing releases
 - Rollback validation includes public URL, health endpoint, runtime logs, resource footprint, and database recovery checks
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of Node.js rollback readiness using previous image tags.
+![Node.js rollback readiness using previous image tags](/images/nodejs-production-deployment-sealos/nodejs-rollback-readiness.webp)
 
 ## 9. Security checklist
 
@@ -405,10 +399,6 @@ Use this sequence for a production launch:
 9. Review resource footprint.
 10. Confirm rollback uses previous image tags and database recovery awareness.
 11. Accept the deployment only after Runtime Truth Pass.
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of Node.js resource footprint after Runtime Truth Pass.
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the final Node.js production Runtime Truth Pass acceptance moment.
 
 ## Common production failures
 

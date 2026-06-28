@@ -236,7 +236,7 @@ Knex or node-pg-migrate example:
 }
 ```
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of a database-ready Node.js repo with env examples and migration scripts.
+![Node.js database-ready repo with env examples and migration scripts](/images/nodejs-postgresql-sealos/nodejs-database-ready-repo.webp)
 
 ## Step 2: Ask the Sealos plugin to deploy the service and PostgreSQL
 
@@ -262,7 +262,7 @@ In Claude Code:
 
 One request should make the plugin inspect the service, generate all deployment resources including the database, wire `DATABASE_URL` or `POSTGRES_URL` into the Node.js service, and deploy the system.
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the full-stack deploy prompt for a Node.js service with PostgreSQL.
+![Node.js full-stack deploy prompt for PostgreSQL on Sealos](/images/nodejs-postgresql-sealos/nodejs-full-stack-deploy-prompt.webp)
 
 ## Step 3: Review the generated app, service, ingress, env, and database plan
 
@@ -297,7 +297,7 @@ Confirm these details:
 - `.sealos/analysis.json` reflects the detected service, database signal, env keys, image path, and migration hints
 - `.sealos/template/index.yaml` is the resource preview for the full-stack plan
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the generated app/service/ingress/env/PostgreSQL plan.
+![Node.js generated app service ingress env and PostgreSQL plan](/images/nodejs-postgresql-sealos/nodejs-generated-full-stack-plan.webp)
 
 ## Step 4: Provide required production inputs
 
@@ -315,7 +315,7 @@ Typical required values include:
 
 Database credentials stay server-side. A public browser or static asset should call the Node.js service instead of reading PostgreSQL credentials.
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of redacted production inputs for a Node.js PostgreSQL deployment.
+![Node.js redacted production inputs for PostgreSQL deployment](/images/nodejs-postgresql-sealos/nodejs-production-inputs.webp)
 
 ## Step 5: Let Sealos generate and deploy all resources
 
@@ -330,8 +330,6 @@ Review the generated Sealos resources:
 - PostgreSQL resource for the generated database
 - Image pull Secret when a private registry image is used
 - `.sealos/template/index.yaml` as the source-of-truth plan
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the deployed Node.js service and PostgreSQL resources.
 
 ## Step 6: Run or verify migrations
 
@@ -361,8 +359,6 @@ npx node-pg-migrate up
 
 The exact migration command can differ. The important acceptance rule is that the deployed schema matches the deployed service version before the read/write proof runs.
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of migration completion before database-backed traffic.
-
 ## Step 7: Verify the deployed Node.js database path
 
 Run Runtime Truth Pass after deployment and migration.
@@ -389,12 +385,6 @@ curl -fsS -X POST https://<your-app-url>/api/notes \
 ```
 
 Use an operational check when the service has no public write endpoint. The check should still prove the deployed service reaches PostgreSQL with the actual env key it reads.
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of service endpoint read/write behavior through PostgreSQL.
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of clean runtime logs after a database-backed smoke check.
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the full-stack Node.js Runtime Truth Pass acceptance moment.
 
 ## Persistent storage guidance
 

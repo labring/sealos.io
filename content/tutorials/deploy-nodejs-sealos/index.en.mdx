@@ -180,7 +180,7 @@ npm start
 
 Use `npm run build` before `npm start` when the service compiles TypeScript or bundles server code.
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of Node.js package script and entrypoint review for `server.js`, `app.js`, or `dist/server.js`.
+![Node.js package script and entrypoint review for server.js app.js or dist/server.js](/images/deploy-nodejs-sealos/nodejs-entrypoint-review.webp)
 
 Your service should read `PORT`, bind to `0.0.0.0`, and expose a lightweight health endpoint:
 
@@ -223,8 +223,6 @@ The skill starts with preflight checks. It verifies the project path, checks use
 
 Preflight also checks the selected Sealos workspace and permissions to create resources. Docker, buildx, GHCR, and registry warnings appear when the service needs a local build or private image push. A repo that already has a usable public linux/amd64 image may skip that build path.
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of Sealos preflight and auth readiness for a Node.js service.
-
 ## Step 3: Review the project assessment
 
 The skill analyzes the repo and prints a readiness summary.
@@ -256,7 +254,7 @@ If the score is low, fix the project before continuing. Common reasons include:
 - No identifiable HTTP server or health endpoint
 - Required env vars are missing from `.env.example`
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the Node.js service assessment summary.
+![Node.js service assessment summary for Sealos deployment](/images/deploy-nodejs-sealos/nodejs-assessment-summary.webp)
 
 ## Step 4: Let Sealos prepare the container
 
@@ -276,7 +274,7 @@ Health endpoint: /healthz
 
 Review `.sealos/template/index.yaml` before deploy. The exposed container port should match the port your service reads from `PORT`.
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of generated container start command and template port summary for a Node.js service.
+![Node.js generated container start command and template port summary](/images/deploy-nodejs-sealos/generated-nodejs-template.webp)
 
 ## Step 5: Build and push the image
 
@@ -291,8 +289,6 @@ npm start       # runtime command
 ```
 
 The build result is recorded under `.sealos/build/build-result.json` when a local build path is used.
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of Node.js image build and push output.
 
 ## Step 6: Configure environment variables
 
@@ -309,7 +305,7 @@ API_BASE_URL=https://example.com
 
 Keep tokens, passwords, private registry credentials, and database URLs out of committed files.
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of redacted Node.js environment variable configuration.
+![Node.js redacted environment variable configuration](/images/deploy-nodejs-sealos/nodejs-env-redacted.webp)
 
 ## Step 7: Deploy to Sealos Cloud
 
@@ -322,8 +318,6 @@ Review:
 - The Ingress gives you the expected public URL
 - Env vars are present on the running app
 - Rollout status reaches ready
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the running Node.js public URL after deployment.
 
 ## Step 8: Verify the deployment
 
@@ -344,12 +338,6 @@ Example smoke checks:
 curl -fsS https://<your-app-url>/healthz
 curl -fsS https://<your-app-url>/
 ```
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of Node.js health endpoint smoke checks.
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of Node.js service startup logs and request logs after smoke traffic.
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the Node.js Runtime Truth Pass acceptance moment.
 
 ## What changed in your repo
 
