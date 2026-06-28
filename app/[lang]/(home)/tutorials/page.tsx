@@ -34,17 +34,23 @@ import {
 } from './tutorial-growth-data';
 
 const TUTORIALS_PATHNAME = '/tutorials';
-const TUTORIALS_PAGE_TITLE = 'Next.js Deployment Tutorials';
+const TUTORIALS_PAGE_TITLE = 'Sealos Deployment Tutorials';
 const TUTORIALS_PAGE_DESCRIPTION =
-  'Deploy Next.js on Sealos with step-by-step tutorials for GitHub deploys, PostgreSQL, env vars, domains, monitoring, rollback, and production checks.';
+  'Deploy Next.js, React, and Node.js on Sealos with step-by-step tutorials for PostgreSQL, env vars, domains, monitoring, rollback, and production checks.';
 
 const TUTORIALS_PAGE_KEYWORDS = [
   'Sealos tutorials',
   'Next.js deployment tutorials',
+  'React deployment tutorials',
+  'Node.js deployment tutorials',
   'Next.js deployment guide',
   'deploy Next.js on Sealos',
+  'deploy React on Sealos',
+  'deploy Node.js on Sealos',
   'Sealos Skills',
   'Next.js PostgreSQL deployment',
+  'React PostgreSQL deployment',
+  'Node.js PostgreSQL deployment',
   'Next.js production deployment',
 ];
 
@@ -154,8 +160,8 @@ export default function TutorialsPage({
                 Sealos tutorials for <GradientText>app deployment</GradientText>
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-8 text-zinc-400">
-                Start with Next.js, then add PostgreSQL and production checks
-                when the app is ready.
+                Start with Next.js, React, and Node.js, then add PostgreSQL
+                and production checks when the app is ready.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button
@@ -168,7 +174,7 @@ export default function TutorialsPage({
                       firstTutorial?.url ?? '/tutorials/deploy-nextjs-sealos'
                     }
                   >
-                    Start with Next.js
+                    Start with Next.js path
                     <ArrowRight size={16} className="ml-2" aria-hidden="true" />
                   </Link>
                 </Button>
