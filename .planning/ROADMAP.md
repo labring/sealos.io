@@ -261,7 +261,7 @@ Phases execute in numeric order: 16 -> 17 -> 18 -> 19 -> 20
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 16. Tutorial Template Baseline and Expansion Map | 0/0 | Pending | — |
+| 16. Tutorial Template Baseline and Expansion Map | 0/2 | Planned | — |
 | 17. React Tutorial Series | 0/0 | Pending | — |
 | 18. Node.js Tutorial Series | 0/0 | Pending | — |
 | 19. Practice Evidence and Screenshot Assets | 0/0 | Pending | — |

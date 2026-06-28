@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: React and Node.js Tutorial Expansion
-status: planning
-stopped_at: Phase 16 context gathered
-last_updated: "2026-06-28T17:55:41.246Z"
-last_activity: 2026-06-29
+status: executing
+stopped_at: Phase 16 planned
+last_updated: "2026-06-28T18:08:27.510Z"
+last_activity: 2026-06-29 — Phase 16 planned
 progress:
   total_phases: 5
   completed_phases: 0
-  total_plans: 0
+  total_plans: 2
   completed_plans: 0
   percent: 0
 ---
@@ -23,17 +23,17 @@ See: `.planning/PROJECT.md` (updated 2026-06-29)
 **Core value:** Readers can follow framework-specific Sealos tutorials with
 commands, screenshots, and validation evidence that match the current product
 workflow.
-**Current focus:** Defining requirements and roadmap for v1.2 React and Node.js
-Tutorial Expansion
+**Current focus:** Phase 16 is planned and ready to execute for v1.2 React and
+Node.js Tutorial Expansion.
 
 ## Current Phase
 
 | Field | Value |
 |-------|-------|
-| Phase | Not started |
-| Name | Defining requirements |
-| Status | Planning |
-| Goal | Add React and Node.js tutorial series from the existing Next.js tutorial templates with practice-backed screenshots. |
+| Phase | 16 |
+| Name | Tutorial Template Baseline and Expansion Map |
+| Status | Ready to execute |
+| Goal | The implementation team has a locked template contract and expansion map before authoring new tutorial content. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
@@ -61,19 +61,19 @@ Tutorial Expansion
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-06-29 — Milestone v1.2 started
+Phase: 16 — Tutorial Template Baseline and Expansion Map
+Plan: 2 plans ready
+Status: Ready to execute
+Last activity: 2026-06-29 — Phase 16 planned
 
 ## Next Action
 
-Run `$gsd-plan-phase 16` to plan the tutorial template baseline and expansion
-map.
+Run `$gsd-execute-phase 16` to create the tutorial template baseline and
+expansion map artifacts.
 
 ## Session
 
-Stopped at: Phase 16 context gathered
+Stopped at: Phase 16 planned
 Resume file: .planning/phases/16-tutorial-template-baseline-and-expansion-map/16-CONTEXT.md
 
 ### Quick Tasks Completed
