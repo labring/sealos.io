@@ -222,6 +222,8 @@ runtime stage: containerized web server
 listen: 0.0.0.0:8080
 ```
 
+> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of rollout or image tag readiness for the React production build.
+
 ## 2. Sealos plugin state checklist
 
 After the first deployment, the Sealos plugin records state under `.sealos/`.
@@ -253,6 +255,8 @@ Production checklist:
 
 This matters because update mode preserves deployment identity, rollout history, and traffic ownership for production releases.
 
+> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of `.sealos/state.json` and `.sealos/template/index.yaml` review for React production.
+
 ## 3. Environment variable checklist
 
 Production React apps often fail because env vars are split across build time, browser code, and backend services.
@@ -280,6 +284,8 @@ Production checklist:
 For PostgreSQL apps, keep database credentials in the API/service layer. A browser bundle should call the API/service, then the backend reads `DATABASE_URL`, `POSTGRES_URL`, or the actual database key.
 
 See: [Sealos Environment Variables](https://sealos.io/docs/guides/app-deploy/environments/)
+
+> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of redacted environment sources separating `VITE_` values from server/API secrets.
 
 ## 4. API/service and PostgreSQL checklist when present
 
@@ -312,6 +318,8 @@ npx drizzle-kit migrate
 ```bash
 npx typeorm migration:run
 ```
+
+> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of optional API/PostgreSQL resources and API/service compatibility checks.
 
 ## 5. Persistent storage checklist
 
@@ -362,6 +370,8 @@ For API-backed apps, update provider settings too:
 
 See: [Sealos Domains and Public Access](https://sealos.io/docs/guides/app-deploy/add-a-domain/)
 
+> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the React custom domain and HTTPS response.
+
 ## 7. Scaling checklist
 
 React static serving is usually easy to scale, but coupled backend services need their own review.
@@ -404,6 +414,8 @@ Production checklist:
 - API-backed flows complete at least one real user path
 - Slow requests are measurable
 - The team knows where to look first during an incident
+
+> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of runtime logs and health checks after a React production smoke test.
 
 ## 9. Backup checklist
 
@@ -474,6 +486,8 @@ Production checklist:
 - Database migrations are reviewed separately from frontend rollback
 - Operators know when to rollback frontend, API/service, database state, or several together
 - The rollback runbook has an owner and a time limit
+
+> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of rollback readiness for the previous frontend image or static bundle.
 
 ## 11. Security checklist
 
@@ -554,6 +568,8 @@ Fix:
 - Rollback: frontend image rollback or static bundle rollback is ready
 - Compatibility: API/service compatibility is verified when relevant
 - Acceptance: Runtime Truth Pass is complete
+
+> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the final React production Runtime Truth Pass.
 
 ## Next steps
 
