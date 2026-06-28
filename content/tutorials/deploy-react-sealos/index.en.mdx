@@ -173,7 +173,7 @@ npm install
 npm run build
 ```
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof that a React build completes locally and writes the expected `dist/` output.
+![React local build output with dist ready for Sealos deployment](/images/deploy-react-sealos/local-react-build.webp)
 
 For pnpm:
 
@@ -215,8 +215,6 @@ If you are signed out, the skill guides you through Sealos login before it inspe
 
 Preflight also checks the selected Sealos workspace and permissions to create resources. Docker, buildx, GHCR, and registry warnings appear when the app needs a local build or private image push. A repo that already has a usable public linux/amd64 image may skip that build path.
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the Sealos preflight and auth readiness check for a React repo.
-
 ## Step 3: Review the project assessment
 
 The skill analyzes the repo and prints a readiness summary.
@@ -245,7 +243,7 @@ If the score is low, fix the project before continuing. Common reasons include:
 - Required `VITE_` values are missing from `.env.example`
 - The app depends on a local API URL or local files
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the React readiness or assessment summary.
+![React readiness assessment summary for Sealos deployment](/images/deploy-react-sealos/react-readiness-assessment.webp)
 
 ## Step 4: Let Sealos prepare the container
 
@@ -265,7 +263,7 @@ Template port: recorded in .sealos/template/index.yaml
 
 This matters because a containerized app must listen on all interfaces, and the Sealos service port must match the server inside the image.
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the generated container or template summary for serving `dist/`.
+![React generated container template summary for serving dist](/images/deploy-react-sealos/generated-react-template.webp)
 
 ## Step 5: Build and push the image
 
@@ -291,8 +289,6 @@ Next step: create image pull secret during deploy
 
 If the image is private, the skill can create or update the needed image pull secret for the Sealos deployment.
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of image build and push output for the React deployment.
-
 ## Step 6: Configure environment variables
 
 If your React app needs build-time public variables, Sealos asks for them before deployment.
@@ -314,7 +310,7 @@ Use this rule:
 
 For basic static React apps with no required external services, this step may be empty.
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of redacted React environment variable configuration.
+![React redacted environment variable configuration for Sealos](/images/deploy-react-sealos/react-env-redacted.webp)
 
 ## Step 7: Deploy to Sealos Cloud
 
@@ -335,8 +331,6 @@ Template: .sealos/template/index.yaml
 ```
 
 Open the URL in your browser.
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the React app running at a Sealos public URL.
 
 ## Step 8: Verify the deployment
 
@@ -360,8 +354,6 @@ curl -I https://<your-sealos-url>/
 ```
 
 If the React app calls an API, verify at least one browser-to-API path from the public URL.
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the React Runtime Truth Pass, including public URL, logs, and footprint checks.
 
 ## What changed in your repo
 

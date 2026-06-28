@@ -235,7 +235,7 @@ Drizzle example:
 }
 ```
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of a database-ready React full-stack repo with frontend, API/service, env examples, and migration scripts.
+![React database-ready full-stack repo with API env and migrations](/images/react-postgresql-sealos/react-database-ready-repo.webp)
 
 ## Step 2: Ask the Sealos plugin to deploy the full-stack app
 
@@ -261,7 +261,7 @@ In Claude Code:
 
 One request should make the plugin inspect the full-stack app, generate all deployment resources including the database, wire `DATABASE_URL` or `POSTGRES_URL` into the API/service, and deploy the system.
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the full-stack deploy prompt for a React app with PostgreSQL.
+![React full-stack deploy prompt for PostgreSQL on Sealos](/images/react-postgresql-sealos/react-full-stack-deploy-prompt.webp)
 
 ## Step 3: Review the generated app, API, and database plan
 
@@ -297,7 +297,7 @@ Confirm these details:
 - `.sealos/analysis.json` reflects the detected React frontend, API/service layer, database signal, env keys, image path, and migration hints
 - `.sealos/template/index.yaml` is the resource preview for the full-stack plan
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the generated frontend/API/database plan.
+![React generated frontend API database resource plan](/images/react-postgresql-sealos/react-generated-full-stack-plan.webp)
 
 ## Step 4: Provide required production inputs
 
@@ -331,7 +331,7 @@ NODE_ENV=production
 AUTH_SECRET=<provided-by-you>
 ```
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of redacted production inputs for the React frontend and API/service layer.
+![React redacted production inputs separating browser values and API secrets](/images/react-postgresql-sealos/react-production-inputs.webp)
 
 ## Step 5: Let Sealos generate and deploy all resources
 
@@ -368,8 +368,6 @@ The generated `.sealos/` directory may include:
 
 Use `.sealos/analysis.json` to inspect what Sealos inferred about the project. Use `.sealos/template/index.yaml` to inspect the React frontend, API/service, Service, Ingress, PostgreSQL resource, and env-var wiring before deployment. Use `.sealos/state.json` after Runtime Truth Pass to confirm the accepted deployment state and future update history.
 
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the deployment result showing React frontend, API/service, PostgreSQL, and public URL.
-
 ## Step 6: Run or verify migrations
 
 A full-stack React deployment is ready only when the database schema matches the API/service version.
@@ -398,8 +396,6 @@ npx typeorm migration:run
 ```
 
 Runtime acceptance needs more than a completed migration command. Confirm that migrations are applied or intentionally unnecessary, then verify live schema evidence such as `_prisma_migrations`, Drizzle migration tables, TypeORM migration tables, or equivalent database objects that the deployed API/service actually uses.
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of migration completion or intentionally unnecessary migration evidence.
 
 ## Step 7: Verify the full-stack deployment
 
@@ -441,8 +437,6 @@ Example health response:
 ```
 
 If your API/service does not have a health endpoint, add one before production.
-
-> Screenshot placeholder: Phase 19 will replace this note with practice-backed proof of the full-stack Runtime Truth Pass, including frontend-to-API behavior and backend-to-PostgreSQL read/write evidence.
 
 ## Add persistent storage only if the app writes files
 
