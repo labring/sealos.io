@@ -55,3 +55,352 @@ To deploy Node.js with PostgreSQL on Sealos, treat the repository as a backend s
 This keeps PostgreSQL credentials out of browsers and static assets while preserving the Sealos one-request deployment flow. The Sealos plugin should understand the service, database env keys, migration command, generated resources, and Runtime Truth Pass as one deployable system.
 
 Start with [How to Deploy a Node.js App to Sealos in 5 Minutes](/tutorials/deploy-nodejs-sealos) if this is your first Sealos deployment. Use [Complete Production Deployment Checklist for Node.js on Sealos](/tutorials/nodejs-production-deployment-sealos) before switching real traffic to the database-backed service.
+
+## Key takeaways
+
+| Question | Short answer |
+|---|---|
+| Where does PostgreSQL access belong? | Inside the Node.js service. |
+| Who owns migrations? | The Node.js package or database package that owns schema changes. |
+| What should Sealos deploy? | Node.js app, Service, Ingress, PostgreSQL resource, env vars, migration behavior, and Runtime Truth Pass together. |
+| What proves success? | A service endpoint or operational check proves service-to-PostgreSQL read/write behavior. |
+
+By the end, you will have:
+
+- A Node.js service running on Sealos hosting
+- A managed Sealos PostgreSQL database generated as part of the same deployment flow
+- The database connection env var wired into the Node.js service environment
+- Database migrations handled as part of the rollout plan
+- A public HTTPS URL
+- A repeatable update path for Node.js production deployment
+
+## Prerequisites
+
+You need:
+
+- A Node.js service in GitHub
+- PostgreSQL support through Prisma, Drizzle, TypeORM, Kysely, Knex, node-postgres, or another server-side library
+- A Sealos Cloud account
+- The Sealos plugin installed in Codex or Claude Code
+- Docker available if the repository does not already provide a reusable linux/amd64 image
+- A `.env.example` file that documents required variables
+- A migration command, if your service uses schema migrations
+
+The Sealos plugin installs deploy, database, S3, canvas, app-builder, and supporting cloud-native skills from root `skills/**`.
+
+Recommended native install for Codex:
+
+```bash
+codex plugin marketplace add labring/sealos-skills
+codex plugin add sealos@sealos
+```
+
+Compatibility install for Codex:
+
+```bash
+npx plugins add https://github.com/labring/sealos-skills --target codex
+```
+
+Recommended native install for Claude Code:
+
+```bash
+claude plugin marketplace add labring/sealos-skills
+claude plugin install sealos@sealos
+```
+
+Compatibility install for Claude Code:
+
+```bash
+npx plugins add https://github.com/labring/sealos-skills --target claude-code
+```
+
+After installation:
+
+- In Codex CLI, use `$sealos`
+- In Codex App, click **+** -> **Plugins** -> **Sealos**
+- In Claude Code, use `/sealos`
+
+## The correct deployment model
+
+A Node.js PostgreSQL app should be deployed as one service/database system. The service owns HTTP routes, validation, auth, database connections, migration execution, and the read/write proof endpoint.
+
+```text
+Node.js service
+   |
+   v
+PostgreSQL
+```
+
+Ask the Sealos plugin to generate the Node.js app, Service, Ingress, PostgreSQL resource, environment variables, migration behavior, and Sealos template together.
+
+The generated `.sealos/template/index.yaml` should represent the Node.js app, Service, Ingress, PostgreSQL resource, generated database env var, and any user-provided non-database secrets required by the service.
+
+## Example architecture
+
+A typical Node.js hosting setup with PostgreSQL on Sealos looks like this:
+
+```text
+GitHub repo
+   |
+   +-- server.js, app.js, or src/server.ts
+   +-- db/ or prisma/: schema and migration command
+   +-- package.json: npm start and db:migrate
+   |
+   v
+Sealos plugin deployment plan
+   |
+   +-- generated Sealos app resource
+   +-- generated Sealos Service and Ingress
+   +-- generated Sealos PostgreSQL resource
+   +-- generated database env key
+   +-- user-provided non-database secrets
+   +-- .sealos/analysis.json
+   +-- .sealos/template/index.yaml
+   |
+   v
+Sealos Cloud
+   |
+   +-- Node.js service: server-side database access
+   +-- PostgreSQL: generated database
+   +-- .sealos/state.json after Runtime Truth Pass
+   +-- Public HTTPS URL
+```
+
+The Node.js service should connect to PostgreSQL through the environment variable it already uses. Many services use `DATABASE_URL`, but some templates use `POSTGRES_URL`, `POSTGRES_PRISMA_URL`, `PG_CONNECTION_STRING`, or another app-specific key. The Sealos plan must detect the actual database env-key detection source from `.env.example` and code, then source that value from the generated PostgreSQL resource during deployment.
+
+## Step 1: Make the repo database-ready
+
+Start with an explicit `.env.example` so the Sealos plugin can classify required inputs and detect the service database key.
+
+Prisma or direct `pg` example:
+
+```dotenv
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+SESSION_SECRET="replace-me"
+PORT=3000
+```
+
+Some services use `POSTGRES_URL` instead:
+
+```dotenv
+POSTGRES_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+SESSION_SECRET="replace-me"
+PORT=3000
+```
+
+Keep real values out of commits.
+
+Your repo should ignore local env files:
+
+```text
+.env
+.env.local
+.env.production.local
+```
+
+Your `package.json` should expose the commands needed by deployment and migration.
+
+Prisma example:
+
+```json
+{
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "db:migrate": "prisma migrate deploy",
+    "db:generate": "prisma generate"
+  }
+}
+```
+
+Drizzle example:
+
+```json
+{
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "db:migrate": "drizzle-kit migrate"
+  }
+}
+```
+
+Knex or node-pg-migrate example:
+
+```json
+{
+  "scripts": {
+    "start": "node app.js",
+    "db:migrate": "node-pg-migrate up"
+  }
+}
+```
+
+## Step 2: Ask the Sealos plugin to deploy the service and PostgreSQL
+
+Ask Sealos to deploy the repository and include PostgreSQL in the generated resources. The prompt should describe the app as a Node.js service with PostgreSQL.
+
+In Codex:
+
+```text
+$sealos deploy https://github.com/<owner>/<repo> as a Node.js service with PostgreSQL
+```
+
+Or from inside the repo:
+
+```text
+$sealos deploy this Node.js service to Sealos with PostgreSQL
+```
+
+In Claude Code:
+
+```text
+/sealos deploy this Node.js service to Sealos with PostgreSQL
+```
+
+One request should make the plugin inspect the service, generate all deployment resources including the database, wire `DATABASE_URL` or `POSTGRES_URL` into the Node.js service, and deploy the system.
+
+## Step 3: Review the generated app, service, ingress, env, and database plan
+
+Before it deploys, the Sealos plugin should show a plan. Review it as one full-stack deployment.
+
+A good plan should identify the generated resources as a single deployment plan:
+
+```text
+Runtime: Node.js service
+Entrypoint: server.js, app.js, or dist/server.js
+Runtime command: npm start
+Service port: from PORT
+Database: PostgreSQL
+Database env key: DATABASE_URL, POSTGRES_URL, POSTGRES_PRISMA_URL, or the key your service reads
+ORM/library: Prisma, Drizzle, TypeORM, Kysely, Knex, or pg if present
+Migration command: prisma migrate deploy, drizzle-kit migrate, node-pg-migrate up, or repo-specific command
+Generated resources: app + Service + Ingress + env vars + PostgreSQL resource
+Inspection files: .sealos/analysis.json + .sealos/template/index.yaml
+```
+
+Confirm these details:
+
+- The generated Sealos app uses the correct image, start command, and port
+- The Service exposes the same port the Node.js service reads from `PORT`
+- The Ingress gives the expected public route
+- The PostgreSQL resource is generated for this service
+- The service actual database env key is mapped from the generated PostgreSQL resource
+- The key matches source code, such as `DATABASE_URL`, `POSTGRES_URL`, or an app-specific name
+- Required non-database secrets are still requested from you
+- Migration behavior is explicit
+- Public URL and custom domain plan are clear
+- `.sealos/analysis.json` reflects the detected service, database signal, env keys, image path, and migration hints
+- `.sealos/template/index.yaml` is the resource preview for the full-stack plan
+
+## Step 4: Provide required production inputs
+
+Provide only real values through the Sealos configuration step. Keep placeholder examples in source files.
+
+Typical required values include:
+
+| Value | Where it belongs |
+|---|---|
+| `SESSION_SECRET` | Node.js service env |
+| `JWT_SECRET` | Node.js service env |
+| `DATABASE_URL` or `POSTGRES_URL` | Generated from the Sealos PostgreSQL resource |
+| OAuth client secrets | Node.js service env |
+| Third-party API keys | Node.js service env |
+
+Database credentials stay server-side. A public browser or static asset should call the Node.js service instead of reading PostgreSQL credentials.
+
+## Step 5: Let Sealos generate and deploy all resources
+
+After you approve the plan, Sealos generates the template and applies it.
+
+Review the generated Sealos resources:
+
+- App resource for the Node.js service
+- Service resource for internal routing
+- Ingress resource for public HTTPS access
+- Env var mapping for the actual database key
+- PostgreSQL resource for the generated database
+- Image pull Secret when a private registry image is used
+- `.sealos/template/index.yaml` as the source-of-truth plan
+
+## Step 6: Run or verify migrations
+
+Migrations or schema setup must complete before traffic reaches service code that depends on the new schema.
+
+Common commands:
+
+```bash
+npm run db:migrate
+```
+
+```bash
+npx prisma migrate deploy
+```
+
+```bash
+npx drizzle-kit migrate
+```
+
+```bash
+npx typeorm migration:run
+```
+
+```bash
+npx node-pg-migrate up
+```
+
+The exact migration command can differ. The important acceptance rule is that the deployed schema matches the deployed service version before the read/write proof runs.
+
+## Step 7: Verify the deployed Node.js database path
+
+Run Runtime Truth Pass after deployment and migration.
+
+For a Node.js PostgreSQL service, acceptance evidence should include:
+
+- Public service URL returns a non-5xx response
+- Health endpoint returns healthy output
+- Service endpoint read/write proof creates and reads a database-backed record
+- Operational read/write check confirms PostgreSQL objects exist
+- Runtime logs stay clean after the database-backed smoke check
+- Connection pooling is appropriate for the service and database size
+- Resource footprint is reasonable after smoke traffic
+- `.sealos/state.json` records accepted state after Runtime Truth Pass
+
+Example verification paths:
+
+```bash
+curl -fsS https://<your-app-url>/healthz
+curl -fsS https://<your-app-url>/api/notes
+curl -fsS -X POST https://<your-app-url>/api/notes \
+  -H 'content-type: application/json' \
+  -d '{"title":"runtime proof"}'
+```
+
+Use an operational check when the service has no public write endpoint. The check should still prove the deployed service reaches PostgreSQL with the actual env key it reads.
+
+## Persistent storage guidance
+
+PostgreSQL handles database persistence. Add persistent storage only for service-written files that must survive restart or redeploy.
+
+Examples:
+
+- Uploaded files
+- Generated reports
+- Local media files
+- Export files users need later
+
+## Common errors and fixes
+
+| Error | Fix |
+|---|---|
+| Database key mismatch | Match the generated env var to the key the Node.js service actually reads. |
+| Migration missing | Add a `db:migrate` script and run it before traffic reaches schema-dependent code. |
+| Browser receives a database URL | Move database access behind the Node.js service and keep credentials server-side. |
+| Read/write proof fails | Check env mapping, migration status, network policy, and service logs after the smoke request. |
+| Too many database connections | Add pooling awareness through `pg.Pool`, Prisma pool settings, or an external pooler when needed. |
+
+## Next steps
+
+- Prepare launch readiness with [Complete Production Deployment Checklist for Node.js on Sealos](/tutorials/nodejs-production-deployment-sealos)
+- Revisit the beginner flow in [How to Deploy a Node.js App to Sealos in 5 Minutes](/tutorials/deploy-nodejs-sealos)
+- Open [Sealos Skills](/sealos-skills) when you want the repeatable plugin workflow and command entrypoints
