@@ -1,0 +1,57 @@
+---
+title: 'React + PostgreSQL Full-Stack Deployment Guide on Sealos'
+description: 'Deploy React with PostgreSQL on Sealos by pairing the browser app with an API/service layer, server-side database access, migrations, and Runtime Truth Pass.'
+date: 2026-06-29
+updated: 2026-06-29
+stage: advanced
+framework: React
+series: sealos-skills-react
+seriesOrder: 2
+estimatedReadingTime: 13 minutes
+primaryKeyword: 'React PostgreSQL deployment'
+targetKeywords:
+  - React deployment guide
+  - React hosting with PostgreSQL
+  - deploy React PostgreSQL
+  - Sealos PostgreSQL
+  - React production deployment
+tags:
+  - tutorial
+  - sealos-skills
+  - react
+  - deployment
+authors: ['default']
+relatedTutorials:
+  - deploy-react-sealos
+  - react-production-deployment-sealos
+cta:
+  label: 'Open Sealos Skills'
+  href: '/sealos-skills'
+faq:
+  - question: 'Can a static React app connect directly to PostgreSQL?'
+    answer: 'A static browser bundle should call an API/service layer. PostgreSQL credentials stay server-side, and the backend package owns database access, migrations, and schema setup.'
+  - question: 'What should Sealos generate for a React PostgreSQL deployment?'
+    answer: 'The plan should include the React frontend, API/service layer, PostgreSQL resource, Service and Ingress resources, `DATABASE_URL` or `POSTGRES_URL` mapping, migration behavior, `.sealos/analysis.json`, `.sealos/template/index.yaml`, and accepted `.sealos/state.json` after Runtime Truth Pass.'
+  - question: 'Where do migrations run?'
+    answer: 'Migrations belong to the backend package or service that owns server-side database access. Runtime Truth Pass verifies both frontend-to-API behavior and backend-to-PostgreSQL read/write behavior.'
+  - question: 'What should I read before and after this tutorial?'
+    answer: 'Start with the React beginner deploy guide if this is your first Sealos deployment, then use the React production deployment checklist before switching real traffic to the full-stack app.'
+howTo:
+  name: 'Deploy React with PostgreSQL on Sealos'
+  description: 'Prepare a React frontend plus API/service repo, ask Sealos for a full-stack deployment, review generated frontend/API/database resources, configure server-side secrets, run migrations, and verify Runtime Truth Pass.'
+  steps:
+    - name: 'Prepare the repository'
+      text: 'Document the React frontend, API/service layer, backend package, database env key, and migration command in the repo.'
+    - name: 'Ask Sealos for a full-stack deployment'
+      text: 'Use `$sealos deploy this React app with PostgreSQL` in Codex CLI or `/sealos deploy this React app with PostgreSQL` in Claude Code.'
+    - name: 'Review generated resources'
+      text: 'Confirm the plan includes React frontend serving, API/service resources, generated PostgreSQL resources, server-side database env mapping, migrations, and `.sealos/template/index.yaml`.'
+    - name: 'Deploy and verify'
+      text: 'Let Sealos deploy all resources, run or verify migrations, then run Runtime Truth Pass against frontend-to-API behavior, backend-to-PostgreSQL read/write proof, logs, and footprint.'
+---
+
+To deploy React with PostgreSQL on Sealos, treat the app as a full-stack system: a React frontend calls an API/service layer, and the API/service layer owns server-side database access.
+
+This keeps PostgreSQL credentials out of the browser bundle while preserving the Sealos one-request deployment flow. The Sealos plugin should understand the frontend, backend package, database env keys, migration command, generated resources, and Runtime Truth Pass as one deployable system.
+
+If this is your first React deploy, start with [How to Deploy a React App to Sealos in 5 Minutes](/tutorials/deploy-react-sealos). For launch readiness, keep [Complete Production Deployment Checklist for React on Sealos](/tutorials/react-production-deployment-sealos) open as the next step.
