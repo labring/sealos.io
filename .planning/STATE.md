@@ -3,7 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: React and Node.js Tutorial Expansion
 status: planning
-last_updated: "2026-06-28T17:34:16Z"
+stopped_at: Phase 16 context gathered
+last_updated: "2026-06-28T17:55:41.246Z"
 last_activity: 2026-06-29
 progress:
   total_phases: 5
@@ -72,8 +73,8 @@ map.
 
 ## Session
 
-Stopped at: Milestone v1.2 initialized
-Resume file: .planning/ROADMAP.md
+Stopped at: Phase 16 context gathered
+Resume file: .planning/phases/16-tutorial-template-baseline-and-expansion-map/16-CONTEXT.md
 
 ### Quick Tasks Completed
 
