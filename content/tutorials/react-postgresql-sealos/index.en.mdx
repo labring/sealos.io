@@ -55,3 +55,462 @@ To deploy React with PostgreSQL on Sealos, treat the app as a full-stack system:
 This keeps PostgreSQL credentials out of the browser bundle while preserving the Sealos one-request deployment flow. The Sealos plugin should understand the frontend, backend package, database env keys, migration command, generated resources, and Runtime Truth Pass as one deployable system.
 
 If this is your first React deploy, start with [How to Deploy a React App to Sealos in 5 Minutes](/tutorials/deploy-react-sealos). For launch readiness, keep [Complete Production Deployment Checklist for React on Sealos](/tutorials/react-production-deployment-sealos) open as the next step.
+
+## Key takeaways
+
+| Question | Short answer |
+|---|---|
+| Can a browser-only React app use PostgreSQL directly? | Use an API/service layer so credentials stay server-side. |
+| Who owns migrations? | The backend package or service that owns database access. |
+| What should Sealos deploy? | React frontend, API/service resources, PostgreSQL resources, env vars, migration behavior, and Runtime Truth Pass together. |
+| What proves success? | Frontend-to-API behavior plus backend-to-PostgreSQL read/write proof. |
+
+By the end, you will have:
+
+- A React frontend running on Sealos hosting
+- An API/service layer that owns server-side database access
+- A managed Sealos PostgreSQL database generated as part of the same deployment flow
+- The database connection env var wired into the API/service environment
+- Database migrations handled as part of the rollout plan
+- A public HTTPS URL
+- A repeatable update path for React production deployment
+
+## Prerequisites
+
+You need:
+
+- A React app in GitHub
+- An API/service layer in the same repo or a clearly coupled backend package
+- PostgreSQL support in the backend through Prisma, Drizzle, TypeORM, Kysely, or direct `pg`
+- A Sealos Cloud account
+- The Sealos plugin installed in Codex or Claude Code
+- Docker available if the repository does not already provide a reusable linux/amd64 image
+- A `.env.example` file that documents required frontend and backend variables
+- A migration command, if your backend uses schema migrations
+
+The Sealos plugin installs deploy, database, S3, canvas, app-builder, and supporting cloud-native skills from root `skills/**`.
+
+Recommended native install for Codex:
+
+```bash
+codex plugin marketplace add labring/sealos-skills
+codex plugin add sealos@sealos
+```
+
+Compatibility install for Codex:
+
+```bash
+npx plugins add https://github.com/labring/sealos-skills --target codex
+```
+
+Recommended native install for Claude Code:
+
+```bash
+claude plugin marketplace add labring/sealos-skills
+claude plugin install sealos@sealos
+```
+
+Compatibility install for Claude Code:
+
+```bash
+npx plugins add https://github.com/labring/sealos-skills --target claude-code
+```
+
+After installation:
+
+- In Codex CLI, use `$sealos`
+- In Codex App, click **+** -> **Plugins** -> **Sealos**
+- In Claude Code, use `/sealos`
+
+## The correct deployment model
+
+A React PostgreSQL app should be deployed as a full-stack system. The browser bundle handles UI and calls HTTP endpoints. The API/service layer owns PostgreSQL connections, migrations, validation, auth, and private operations.
+
+```text
+React frontend
+   |
+   v
+API/service layer
+   |
+   v
+PostgreSQL
+```
+
+Ask the Sealos plugin to generate the frontend, backend, database, environment variables, migration behavior, and Sealos template together.
+
+The generated `.sealos/template/index.yaml` should represent the React frontend, API/service layer, Service, Ingress, PostgreSQL resource, generated database env var, and any user-provided non-database secrets required by the backend package.
+
+## Example architecture
+
+A typical React hosting setup with PostgreSQL on Sealos looks like this:
+
+```text
+GitHub repo
+   |
+   +-- apps/web or frontend: React app
+   +-- apps/api or server: API/service layer
+   +-- packages/db or prisma: schema and migration command
+   |
+   v
+Sealos plugin deployment plan
+   |
+   +-- generated Sealos frontend app resource
+   +-- generated Sealos API/service resource
+   +-- generated Sealos database resource
+   +-- generated database env key
+   +-- user-provided non-database secrets
+   +-- .sealos/analysis.json
+   +-- .sealos/template/index.yaml
+   |
+   v
+Sealos Cloud
+   |
+   +-- React frontend: static app serving
+   +-- API/service: server-side database access
+   +-- PostgreSQL: generated database
+   +-- .sealos/state.json after Runtime Truth Pass
+   +-- Public HTTPS URL
+```
+
+The API/service should connect to PostgreSQL through the environment variable it already uses. Many backends use `DATABASE_URL`, but some templates use `POSTGRES_URL`, `POSTGRES_PRISMA_URL`, or another Postgres-specific key. The Sealos plan must detect the actual database env key from `.env.example` and source code, then source that value from the generated PostgreSQL resource during deployment.
+
+## Step 1: Make the repo database-ready
+
+Start with an explicit `.env.example` so the Sealos plugin can classify browser-safe values separately from server-side secrets.
+
+Frontend example:
+
+```dotenv
+VITE_API_BASE_URL=https://api.example.com
+```
+
+Backend example:
+
+```dotenv
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+AUTH_SECRET="replace-me"
+```
+
+Some templates use `POSTGRES_URL` instead:
+
+```dotenv
+POSTGRES_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+AUTH_SECRET="replace-me"
+```
+
+Keep real values out of commits.
+
+Your repo should ignore local env files:
+
+```text
+.env
+.env.local
+.env.production.local
+```
+
+Your backend package should expose the commands needed by deployment and migration.
+
+Prisma example:
+
+```json
+{
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "db:migrate": "prisma migrate deploy",
+    "db:generate": "prisma generate"
+  }
+}
+```
+
+Drizzle example:
+
+```json
+{
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "db:migrate": "drizzle-kit migrate"
+  }
+}
+```
+
+## Step 2: Ask the Sealos plugin to deploy the full-stack app
+
+Ask Sealos to deploy the repository and include PostgreSQL in the generated resources. The prompt should describe the app as a full-stack React deployment.
+
+In Codex:
+
+```text
+$sealos deploy https://github.com/<owner>/<repo> as a React frontend with an API/service layer and PostgreSQL
+```
+
+Or from inside the repo:
+
+```text
+$sealos deploy this React app to Sealos with PostgreSQL
+```
+
+In Claude Code:
+
+```text
+/sealos deploy this React app to Sealos with PostgreSQL
+```
+
+One request should make the plugin inspect the full-stack app, generate all deployment resources including the database, wire `DATABASE_URL` or `POSTGRES_URL` into the API/service, and deploy the system.
+
+## Step 3: Review the generated app, API, and database plan
+
+Before it deploys, the Sealos plugin should show a plan. Review it as one full-stack deployment.
+
+A good plan should identify the generated resources as a single deployment plan:
+
+```text
+Frontend framework: React
+Frontend output: dist/
+Frontend runtime: static web server
+API runtime: Node.js service
+Database: PostgreSQL
+Database env key: DATABASE_URL, POSTGRES_URL, POSTGRES_PRISMA_URL, or the key your backend reads
+ORM: Prisma, Drizzle, TypeORM, Kysely, or direct pg if present
+Migration command: prisma migrate deploy, drizzle-kit migrate, or repo-specific command
+Public access: enabled or to be confirmed
+Generated resources: React frontend + API/service + Service + Ingress + PostgreSQL resource + env vars
+Inspection files: .sealos/analysis.json + .sealos/template/index.yaml
+```
+
+Confirm these details:
+
+- The React frontend resource serves the `dist/` bundle on the expected port
+- The API/service resource uses the correct image, start command, and port
+- The Service and Ingress expose the frontend and API paths you expect
+- The PostgreSQL resource is generated for this full-stack app
+- The API/service actual database env key is mapped from the generated PostgreSQL resource
+- The key matches backend source, such as `DATABASE_URL`, `POSTGRES_URL`, or `POSTGRES_PRISMA_URL`
+- Required non-database secrets are still requested from you
+- Migration behavior is explicit
+- Public URL and custom domain plan are clear
+- `.sealos/analysis.json` reflects the detected React frontend, API/service layer, database signal, env keys, image path, and migration hints
+- `.sealos/template/index.yaml` is the resource preview for the full-stack plan
+
+## Step 4: Provide required production inputs
+
+The plugin can generate database connection values, internal service URLs, app names, resource names, and deployment templates.
+
+You still need to provide secrets that only you know:
+
+```dotenv
+AUTH_SECRET=<strong-random-secret>
+GITHUB_CLIENT_ID=<value>
+GITHUB_CLIENT_SECRET=<value>
+RESEND_API_KEY=<value>
+STRIPE_SECRET_KEY=<value>
+VITE_API_BASE_URL=https://<your-api-url-or-domain>
+```
+
+Rules:
+
+- Let Sealos generate the backend's actual database connection env var from the PostgreSQL resource
+- Keep PostgreSQL credentials server-side in the API/service layer
+- Use `VITE_` values only for browser-safe public configuration
+- Keep `.env.example` as placeholders only
+- Use Sealos environment variables for production
+- Rotate secrets if they were ever pasted into a public place
+
+The final API/service environment should include generated and user-provided values together:
+
+```dotenv
+DATABASE_URL_OR_POSTGRES_URL=<generated-by-sealos>
+NODE_ENV=production
+AUTH_SECRET=<provided-by-you>
+```
+
+## Step 5: Let Sealos generate and deploy all resources
+
+After confirmation, the plugin should generate and deploy the full set of resources.
+
+Expected outputs:
+
+```text
+React frontend resource: generated
+API/service resource: generated
+Service: generated
+Ingress: generated
+PostgreSQL resource: generated
+Database env key: wired from generated PostgreSQL resource into the API/service
+User-provided secrets: applied to API/service env
+Image: built or reused
+Template: .sealos/template/index.yaml
+State: .sealos/state.json
+Deployment: running
+Public URL: https://<app>.<region>.sealos.app
+```
+
+The generated `.sealos/` directory may include:
+
+```text
+.sealos/
+├── analysis.json
+├── state.json
+├── build/
+│   └── build-result.json
+└── template/
+    └── index.yaml
+```
+
+Use `.sealos/analysis.json` to inspect what Sealos inferred about the project. Use `.sealos/template/index.yaml` to inspect the React frontend, API/service, Service, Ingress, PostgreSQL resource, and env-var wiring before deployment. Use `.sealos/state.json` after Runtime Truth Pass to confirm the accepted deployment state and future update history.
+
+## Step 6: Run or verify migrations
+
+A full-stack React deployment is ready only when the database schema matches the API/service version.
+
+First check whether the backend package actually has a migration system. Some projects use an ORM for query building but still document manual SQL setup instead of shipping `prisma` migrations, a `drizzle.config.ts`, or a `db:migrate` script. Convert that SQL into a repeatable migration or initialization job before treating the app as production-ready.
+
+The Sealos deployment plan should make migration behavior explicit. Depending on your backend package, that may mean:
+
+- The API/service container entrypoint runs migrations before starting the server
+- The plugin runs the migration command once after PostgreSQL is ready
+- You approve a one-time migration step during deployment
+- The plan records that migrations are intentionally unnecessary because the project ships an existing compatible schema
+
+Common migration commands:
+
+```bash
+npx prisma migrate deploy
+```
+
+```bash
+npx drizzle-kit migrate
+```
+
+```bash
+npx typeorm migration:run
+```
+
+Runtime acceptance needs more than a completed migration command. Confirm that migrations are applied or intentionally unnecessary, then verify live schema evidence such as `_prisma_migrations`, Drizzle migration tables, TypeORM migration tables, or equivalent database objects that the deployed API/service actually uses.
+
+## Step 7: Verify the full-stack deployment
+
+Treat Runtime Truth Pass as the full-stack acceptance gate.
+
+For a React full-stack app, verify the actual database path through the public frontend and API.
+
+Use this checklist:
+
+- The React frontend reaches `running` in Sealos
+- The API/service layer reaches `running` in Sealos
+- The PostgreSQL resource is running
+- The API/service actual database env key is present in the app environment
+- The database env key is sourced from the generated PostgreSQL resource
+- The public frontend URL opens
+- The React frontend calls the API successfully
+- A public app path or UI action reads from PostgreSQL
+- A form or API route writes to PostgreSQL
+- New data survives a restart or redeploy
+- Migrations are applied or intentionally unnecessary
+- Migration tables or equivalent live database objects exist
+- API/service logs do not show database connection errors
+- PostgreSQL logs do not show repeated connection, auth, or migration errors
+- No secret values appear in browser HTML or client JavaScript
+
+Example verification command for an API health endpoint:
+
+```bash
+curl -s https://<your-api-url>/health
+```
+
+Example health response:
+
+```json
+{
+  "status": "ok",
+  "database": "connected"
+}
+```
+
+If your API/service does not have a health endpoint, add one before production.
+
+## Add persistent storage only if the app writes files
+
+PostgreSQL data is handled by the Sealos database resource generated for the deployment.
+
+But your React full-stack app may still write files, for example:
+
+- Uploaded avatars
+- Generated exports
+- CMS media
+- Temporary files users expect to download later
+
+If files must persist, keep them in object storage or attach persistent storage to the service that writes them. A static React frontend should stay disposable.
+
+See: [Sealos Persistent Storage](https://sealos.io/docs/guides/app-deploy/persistent-volume/)
+
+## Common errors and fixes
+
+### 1. Database connection env var is set in the frontend
+
+The React browser bundle should never receive a PostgreSQL connection string.
+
+Fix:
+
+- Remove database URLs from `VITE_` values
+- Put `DATABASE_URL` or `POSTGRES_URL` only in the API/service environment
+- Route browser requests through the API/service layer
+
+### 2. Database connection env var is missing from the API/service
+
+The deployment did not wire the generated PostgreSQL connection into the env key that the backend actually reads.
+
+Fix:
+
+- Confirm the Sealos plan includes PostgreSQL as a generated resource
+- Confirm the backend actual database env key is mapped from that PostgreSQL resource
+- Check source code for `process.env.DATABASE_URL`, `process.env.POSTGRES_URL`, `process.env.POSTGRES_PRISMA_URL`, or similar references
+- Redeploy with the full-stack prompt
+
+### 3. `relation does not exist` or `table does not exist`
+
+The API/service connected to PostgreSQL, but migrations did not run.
+
+Fix:
+
+```bash
+npx prisma migrate deploy
+```
+
+Or:
+
+```bash
+npx drizzle-kit migrate
+```
+
+Then redeploy or restart the API/service. For production, add migrations to the Sealos deployment plan.
+
+### 4. Frontend-to-API calls fail after deployment
+
+The React bundle may point at localhost or an old API URL.
+
+Fix:
+
+- Set `VITE_API_BASE_URL` to the Sealos API/service URL or production domain
+- Rebuild the React image so the browser bundle has the correct value
+- Verify CORS, allowed origins, and HTTPS with the public frontend URL
+
+### 5. Runtime Truth Pass fails after deployment
+
+The resource rollout finished, but live full-stack proof is incomplete.
+
+Fix:
+
+- Confirm the public frontend opens
+- Confirm frontend-to-API calls succeed
+- Confirm backend-to-PostgreSQL read/write proof works
+- Check API/service logs after the smoke test
+- Check PostgreSQL logs for auth or connection failures
+- Review `.sealos/state.json` only after the runtime proof is accepted
+
+## Next steps
+
+- Prepare launch with [Complete Production Deployment Checklist for React on Sealos](/tutorials/react-production-deployment-sealos)
+- Review the first deploy path in [How to Deploy a React App to Sealos in 5 Minutes](/tutorials/deploy-react-sealos)
+- Open [Sealos Skills](/sealos-skills) when you need the plugin workflow reference
