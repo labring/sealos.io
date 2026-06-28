@@ -1,0 +1,57 @@
+---
+title: 'Complete Production Deployment Checklist for React on Sealos'
+description: 'Launch React on Sealos with a production checklist for static app serving, Sealos plugin deploys, env vars, API services, domains, HTTPS, monitoring, and rollback.'
+date: 2026-06-29
+updated: 2026-06-29
+stage: production
+framework: React
+series: sealos-skills-react
+seriesOrder: 3
+estimatedReadingTime: 16 minutes
+primaryKeyword: 'React production deployment'
+targetKeywords:
+  - React hosting
+  - React deployment guide
+  - deploy React production
+  - Sealos production deployment
+  - React production checklist
+tags:
+  - tutorial
+  - sealos-skills
+  - react
+  - deployment
+authors: ['default']
+relatedTutorials:
+  - deploy-react-sealos
+  - react-postgresql-sealos
+cta:
+  label: 'Open Sealos Skills'
+  href: '/sealos-skills'
+faq:
+  - question: 'What is the minimum checklist for a React production deployment on Sealos?'
+    answer: 'At minimum, verify React build output, static app serving, generated Sealos resources, DEPLOY or UPDATE mode from `.sealos/state.json`, live runtime verification, browser-safe env vars, server/API secrets, custom domain, HTTPS, logs, health checks, resource footprint, rollback, and Runtime Truth Pass.'
+  - question: 'How should React env vars be split for production?'
+    answer: 'Use `VITE_` or the selected React build-time public env convention only for browser-safe values. Keep database credentials, API keys, private tokens, and server/API secrets on the API/service side.'
+  - question: 'How should rollback work for a React app?'
+    answer: 'Rollback the frontend image or static bundle to the previous known-good version, then verify API/service compatibility when the React app depends on backend routes. Runtime Truth Pass should prove the public URL and required API-backed user paths after rollback.'
+  - question: 'When should I use DEPLOY or UPDATE?'
+    answer: 'Use DEPLOY when `.sealos/state.json` is missing, stale, broken, or unverifiable. Use UPDATE when recorded state and live runtime verification agree on the existing deployment.'
+howTo:
+  name: 'Prepare a React production deployment on Sealos'
+  description: 'Verify build output, static serving, generated Sealos resources, DEPLOY or UPDATE mode, browser-safe env vars, server/API secrets, domain, HTTPS, Runtime Truth Pass, monitoring, and rollback before launch.'
+  steps:
+    - name: 'Verify build output and image'
+      text: 'Confirm `npm run build` produces `dist/`, the image serves it through a containerized web server, and `.sealos/template/index.yaml` exposes the correct port.'
+    - name: 'Review generated Sealos state'
+      text: 'Check `.sealos/analysis.json`, `.sealos/template/index.yaml`, and `.sealos/state.json`, then select DEPLOY or UPDATE from valid state plus live runtime verification.'
+    - name: 'Classify production env vars'
+      text: 'Keep `VITE_` browser-safe values separate from server/API secrets, database credentials, provider tokens, and private API keys.'
+    - name: 'Verify launch and rollback'
+      text: 'Run Runtime Truth Pass with the App URL, custom domain, HTTPS, logs, health checks, resource footprint, previous frontend image or static bundle, API/service compatibility, and rollback readiness.'
+---
+
+A React production deployment on Sealos is ready when the static frontend, generated Sealos resources, environment variables, API/service dependencies, domain, monitoring, and rollback path have all been verified.
+
+Use this checklist before launch, before a major release, or before switching real traffic to a new Sealos deployment.
+
+If this is your first deploy, start with [How to Deploy a React App to Sealos in 5 Minutes](/tutorials/deploy-react-sealos). If your React app uses PostgreSQL, read [React + PostgreSQL Full-Stack Deployment Guide on Sealos](/tutorials/react-postgresql-sealos) before using this production checklist.
