@@ -1,4 +1,5 @@
 import { HeroSection } from './sections/hero-section';
+import { DockerImageSection } from './sections/docker-image-section';
 import { TerminalAgentSection } from './sections/terminal-agent-section';
 import { BrainCapsSection } from './sections/brain-caps-section';
 import { ComparisonSection } from './sections/comparison-section';
@@ -10,6 +11,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen">
       <HeroSection />
+      <DockerImageSection />
       <TerminalAgentSection />
       <BrainCapsSection />
       <ComparisonSection />
