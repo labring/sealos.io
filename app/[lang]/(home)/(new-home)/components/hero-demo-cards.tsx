@@ -10,6 +10,7 @@ const demoCards = [
     title: 'GitHub',
     description: 'Import repository from URL or GitHub authorization.',
     Icon: GithubIcon,
+    href: '#github-import-section',
   },
   {
     title: 'Templates',
