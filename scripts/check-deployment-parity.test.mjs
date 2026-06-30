@@ -18,12 +18,12 @@ const DEPLOYMENT_DOC = `
 
 | Target | install command | build command | Node/runtime | environment source | artifact | static output location | serving layer | redirects | headers | cache policy | route support | native dependency assumptions | credentials/secrets touched | safe validation command |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Vercel production | npm install | npm run app-store:diff; vercel build --prod --local-config ./vercel.json | Node 20 | Vercel secrets | prebuilt Vercel output | Vercel output | Vercel hosting | vercel.json | vercel.json | Cache-Control | App Router prebuilt | Vercel native runtime | VERCEL_TOKEN | npm run deployment:check |
-| Vercel preview | npm install | npm run app-store:diff; vercel build --local-config ./vercel.json | Node 20 | Vercel preview secrets | preview output | Vercel output | Vercel preview | vercel.json | vercel.json | Cache-Control | preview routes | Vercel native runtime | VERCEL_ORG_ID | npm run deployment:check |
-| Cloudflare Pages production | npm ci | npm run app-store:diff; npm run build | Node 20 | Cloudflare secrets | ./out | ./out | Cloudflare Pages | public/_redirects | public/_headers | immutable | static export | no Docker native runtime | CLOUDFLARE_API_TOKEN | npm run static-output:check |
-| Cloudflare Pages preview | npm ci | npm run app-store:diff; npm run build | Node 20 | Cloudflare preview secrets | cloudflare-pages-out | ./out | Cloudflare Pages preview | public/_redirects | public/_headers | immutable | static export | no Docker native runtime | CF_API_TOKEN | npm run static-output:check |
+| Vercel production | npm install | npm run app-store:refresh; vercel build --prod --local-config ./vercel.json | Node 20 | Vercel secrets | prebuilt Vercel output | Vercel output | Vercel hosting | vercel.json | vercel.json | Cache-Control | App Router prebuilt | Vercel native runtime | VERCEL_TOKEN | npm run deployment:check |
+| Vercel preview | npm install | npm run app-store:refresh; vercel build --local-config ./vercel.json | Node 20 | Vercel preview secrets | preview output | Vercel output | Vercel preview | vercel.json | vercel.json | Cache-Control | preview routes | Vercel native runtime | VERCEL_ORG_ID | npm run deployment:check |
+| Cloudflare Pages production | npm ci | npm run app-store:refresh; npm run build | Node 20 | Cloudflare secrets | ./out | ./out | Cloudflare Pages | public/_redirects | public/_headers | immutable | static export | no Docker native runtime | CLOUDFLARE_API_TOKEN | npm run static-output:check |
+| Cloudflare Pages preview | npm ci | npm run app-store:refresh; npm run build | Node 20 | Cloudflare preview secrets | cloudflare-pages-out | ./out | Cloudflare Pages preview | public/_redirects | public/_headers | immutable | static export | no Docker native runtime | CF_API_TOKEN | npm run static-output:check |
 | Docker/Nginx | npm ci | npm ci && npm run build | node:20-bookworm-slim / nginx:1.27-alpine | Docker build args | /app/out | /usr/share/nginx/html | Nginx | static files | Nginx defaults | Nginx defaults | static export files | Cairo Sharp canvas native packages | build args | npm run docker:smoke |
-| GHCR/Kubernetes | npm ci; npm run app-store:diff | docker/build-push-action@v5 | linux/amd64 image | GitHub secrets | GHCR image | /usr/share/nginx/html | Kubernetes deployment/sealos-docs | ingress | ingress | cluster CDN | Docker/Nginx static assumptions | KUBE_CONFIG | npm run docker:smoke |
+| GHCR/Kubernetes | npm ci; npm run app-store:refresh | docker/build-push-action@v5 | linux/amd64 image | GitHub secrets | GHCR image | /usr/share/nginx/html | Kubernetes deployment/sealos-docs | ingress | ingress | cluster CDN | Docker/Nginx static assumptions | KUBE_CONFIG | npm run docker:smoke |
 
 PHASE9_RUN_LOCKED_BUILD
 PHASE9_RUN_DOCKER_SMOKE
@@ -357,7 +357,7 @@ async function writeDeploymentFixture(dir) {
       'run: npm install',
       'run: npm install --global vercel@latest',
       'run: vercel pull --yes --environment=preview',
-      'run: npm run app-store:diff',
+      'run: npm run app-store:refresh',
       'run: vercel build --prod --local-config ./vercel.json',
       'run: vercel deploy --prod --local-config ./vercel.json --prebuilt',
     ].join('\n'),
@@ -370,7 +370,7 @@ async function writeDeploymentFixture(dir) {
       'run: npm install',
       'run: npm install --global vercel@latest',
       'run: vercel pull --yes --environment=preview',
-      'run: npm run app-store:diff',
+      'run: npm run app-store:refresh',
       'run: vercel build --local-config ./vercel.json',
       'uses: amondnet/vercel-action@v25',
       'vercel-args: --local-config ./vercel.json --archive=tgz --prebuilt',
@@ -381,7 +381,7 @@ async function writeDeploymentFixture(dir) {
     [
       'node-version: 20',
       'npm ci',
-      'npm run app-store:diff',
+      'npm run app-store:refresh',
       'npm run build',
       'pages deploy ./out',
     ].join('\n'),
@@ -391,7 +391,7 @@ async function writeDeploymentFixture(dir) {
     [
       'node-version: 20',
       'npm ci',
-      'npm run app-store:diff',
+      'npm run app-store:refresh',
       'npm run build',
       'actions/upload-artifact@v4',
       'actions/download-artifact@v4',
@@ -405,7 +405,7 @@ async function writeDeploymentFixture(dir) {
       'REGISTRY: ghcr.io',
       'node-version: 20',
       'npm ci',
-      'npm run app-store:diff',
+      'npm run app-store:refresh',
       'docker/build-push-action@v5',
       'file: ./Dockerfile',
       'platforms: linux/amd64',
