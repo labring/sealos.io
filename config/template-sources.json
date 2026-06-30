@@ -124,7 +124,7 @@
     {
       "description": "Initial Airbyte admin password.",
       "type": "string",
-      "default": "srdgbpnagcthilcsprdntyjz",
+      "default": "bmxkujyckqgrppidrxejjmqm",
       "required": true,
       "key": "auth_admin_password",
       "label": "auth_admin_password"
@@ -146,6 +146,52 @@
       "required": false,
       "key": "MAX_SYNC_PAYLOAD_MEGS",
       "label": "MAX_SYNC_PAYLOAD_MEGS"
+    }
+  ],
+  "anything-llm": [
+    {
+      "description": "Vector storage backend for document embeddings.",
+      "type": "choice",
+      "default": "lancedb",
+      "required": true,
+      "options": [
+        "lancedb",
+        "pgvector"
+      ],
+      "key": "vector_database",
+      "label": "vector_database"
+    },
+    {
+      "description": "Single-user password for the application. Leave empty to complete onboarding without password protection first.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "auth_token",
+      "label": "auth_token"
+    },
+    {
+      "description": "Optional OpenAI API key used during onboarding or later model configuration.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "openai_api_key",
+      "label": "openai_api_key"
+    },
+    {
+      "description": "External PostgreSQL connection string with the pgvector extension enabled.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "pgvector_connection_string",
+      "label": "pgvector_connection_string"
+    },
+    {
+      "description": "Table name used by AnythingLLM for PGVector embeddings.",
+      "type": "string",
+      "default": "anythingllm_vectors",
+      "required": false,
+      "key": "pgvector_table_name",
+      "label": "pgvector_table_name"
     }
   ],
   "apitable": [
@@ -301,6 +347,16 @@
     }
   ],
   "appsmith": [],
+  "appwrite": [
+    {
+      "description": "Store Appwrite user uploads in Sealos S3-compatible object storage",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_object_storage",
+      "label": "use_object_storage"
+    }
+  ],
   "artalk": [
     {
       "description": "Storage size for artalk in Gi",
@@ -436,7 +492,7 @@
     {
       "description": "BunkerWeb Web UI administrator password. Leave the generated default or use at least 8 characters with uppercase, lowercase, number, and special character.",
       "type": "string",
-      "default": "BunkerWeb@tipyziswriyrbpzu!1",
+      "default": "BunkerWeb@gaunuujjeooweguc!1",
       "required": true,
       "key": "admin_password",
       "label": "admin_password"
@@ -656,6 +712,40 @@
       "label": "custom_user"
     }
   ],
+  "cobalt": [
+    {
+      "description": "Require configured Turnstile sessions for API access",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "api_auth_required",
+      "label": "api_auth_required"
+    },
+    {
+      "description": "Optional comma-separated service list to disable, for example bilibili,youtube",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "disabled_services",
+      "label": "disabled_services"
+    },
+    {
+      "description": "Optional Cloudflare Turnstile site key for session authentication",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "turnstile_sitekey",
+      "label": "turnstile_sitekey"
+    },
+    {
+      "description": "Optional Cloudflare Turnstile secret for session authentication",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "turnstile_secret",
+      "label": "turnstile_secret"
+    }
+  ],
   "code-server": [
     {
       "description": "Access Password",
@@ -684,6 +774,7 @@
       "label": "model_id"
     }
   ],
+  "crawl4ai": [],
   "cronicle": [],
   "dbgate": [
     {
@@ -882,7 +973,7 @@
     {
       "description": "Initial EMQX Dashboard admin password. Change it after first login.",
       "type": "string",
-      "default": "jyfpsvdanheopono",
+      "default": "pmjqulvopioyoeaa",
       "required": true,
       "key": "ADMIN_PASSWORD",
       "label": "ADMIN_PASSWORD"
@@ -896,7 +987,35 @@
       "label": "TCP_ENABLE"
     }
   ],
+  "erpnext": [
+    {
+      "description": "Initial ERPNext administrator login username. Use letters, numbers, dots, underscores, or hyphens.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "admin_username",
+      "label": "admin_username"
+    },
+    {
+      "description": "Initial ERPNext administrator password.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    }
+  ],
   "ever-gauzy": [],
+  "evolution-api": [
+    {
+      "description": "Use S3-compatible object storage for WhatsApp media files",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_object_storage",
+      "label": "use_object_storage"
+    }
+  ],
   "excalidraw": [],
   "fastgpt": [
     {
@@ -970,6 +1089,32 @@
     }
   ],
   "fireboom": [],
+  "firecrawl": [
+    {
+      "description": "Optional OpenAI API key for AI extraction features",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "openai_api_key",
+      "label": "openai_api_key"
+    },
+    {
+      "description": "Optional OpenAI-compatible API base URL",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "openai_base_url",
+      "label": "openai_base_url"
+    },
+    {
+      "description": "Optional model name used by AI extraction features",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "model_name",
+      "label": "model_name"
+    }
+  ],
   "firefox": [],
   "flarum": [
     {
@@ -1029,7 +1174,7 @@
     {
       "description": "Backend secret key (JWT signing)",
       "type": "string",
-      "default": "fbwwowyrjbmbvmotjjlzxgjvbbvyshvk",
+      "default": "rcdijwyoelgyiugykiobjuyuxjapexux",
       "required": true,
       "key": "SECRET_KEY",
       "label": "SECRET_KEY"
@@ -1091,6 +1236,16 @@
       "label": "SENTRY_DSN"
     }
   ],
+  "ghost": [
+    {
+      "description": "Use S3-compatible object storage through the Ghost storage adapter configuration",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_s3_storage",
+      "label": "use_s3_storage"
+    }
+  ],
   "gitea": [],
   "glance": [],
   "glitchtip": [
@@ -1119,6 +1274,20 @@
       "if": "inputs.EMAIL_ENABLE === 'true'",
       "key": "DEFAULT_FROM_EMAIL",
       "label": "DEFAULT_FROM_EMAIL"
+    }
+  ],
+  "grafana": [
+    {
+      "description": "Enable the managed PostgreSQL database instead of Grafana's default SQLite storage.",
+      "type": "choice",
+      "default": "false",
+      "required": true,
+      "options": [
+        "false",
+        "true"
+      ],
+      "key": "use_postgresql",
+      "label": "use_postgresql"
     }
   ],
   "grafana-otel": [],
@@ -1379,6 +1548,8 @@
     }
   ],
   "it-tools": [],
+  "jellyfin": [],
+  "joplin": [],
   "jsoncrack": [],
   "kanboard": [],
   "kaneo": [],
@@ -1448,7 +1619,7 @@
     {
       "description": "Initial administrator password for the Kuvasz web UI. It must be at least 12 characters and different from the username.",
       "type": "string",
-      "default": "pdzmaiicqpanlpwuaxsb",
+      "default": "mvvfbjzoyhuxtmiygpay",
       "required": true,
       "key": "admin_password",
       "label": "admin_password"
@@ -1456,7 +1627,7 @@
     {
       "description": "API key for Kuvasz REST API access.",
       "type": "string",
-      "default": "fbrczqrdxdhvtqoyhqunntmatupyqsge",
+      "default": "nrxlemdvqwtbbnpegiljvqieywtpotep",
       "required": true,
       "key": "admin_api_key",
       "label": "admin_api_key"
@@ -1488,6 +1659,40 @@
       "label": "enable_database"
     }
   ],
+  "langfuse": [
+    {
+      "description": "Initial Langfuse user email address",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "init_user_email",
+      "label": "init_user_email"
+    },
+    {
+      "description": "Initial Langfuse user display name",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "init_user_name",
+      "label": "init_user_name"
+    },
+    {
+      "description": "Initial Langfuse user password",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "init_user_password",
+      "label": "init_user_password"
+    },
+    {
+      "description": "Use Sealos S3-compatible object storage for Langfuse event and media blobs",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "key": "use_object_storage",
+      "label": "use_object_storage"
+    }
+  ],
   "librechat": [
     {
       "description": "reverse proxy for openai, remember to add /v1 to the end of the url",
@@ -1514,6 +1719,32 @@
       "required": false,
       "key": "admin_password",
       "label": "admin_password"
+    }
+  ],
+  "litellm": [
+    {
+      "description": "Administrator username for the LiteLLM Admin UI",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "ui_username",
+      "label": "ui_username"
+    },
+    {
+      "description": "Administrator password for the LiteLLM Admin UI",
+      "type": "string",
+      "default": "LiteLLM@dkjjeigrndruunoj!1",
+      "required": true,
+      "key": "ui_password",
+      "label": "ui_password"
+    },
+    {
+      "description": "Store LiteLLM config in a Sealos S3-compatible bucket",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
     }
   ],
   "llmgateway": [
@@ -1785,7 +2016,7 @@
     {
       "description": "MindsDB administrator password for the web UI and REST API.",
       "type": "string",
-      "default": "MindsDB@xhjttavveoojpkhm!1",
+      "default": "MindsDB@cevhgkxzcqoplevt!1",
       "required": true,
       "key": "admin_password",
       "label": "admin_password"
@@ -1991,14 +2222,42 @@
     {
       "description": "Initial admin password. Use at least 8 characters with letters and numbers.",
       "type": "string",
-      "default": "wflqzzpgmxorrbdt",
+      "default": "lenvvbyvwubfdwxk",
       "required": true,
       "key": "NC_ADMIN_PASSWORD",
       "label": "NC_ADMIN_PASSWORD"
     }
   ],
   "node-red": [],
+  "nofx": [],
   "notifuse": [],
+  "odoo": [],
+  "odysseus": [
+    {
+      "description": "Initial Odysseus admin username.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "admin_user",
+      "label": "admin_user"
+    },
+    {
+      "description": "Initial Odysseus admin password.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Optional OpenAI API key for cloud model access.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "openai_api_key",
+      "label": "openai_api_key"
+    }
+  ],
   "open-design": [
     {
       "description": "Open Design Basic Auth username for the public proxy.",
@@ -2011,7 +2270,7 @@
     {
       "description": "Open Design Basic Auth password for the public proxy.",
       "type": "string",
-      "default": "jvenbcgmgislmddhwfciogir",
+      "default": "seqawlnyjtrexsbhfuxdjwna",
       "required": true,
       "key": "auth_password",
       "label": "auth_password"
@@ -2107,6 +2366,24 @@
       "label": "model"
     }
   ],
+  "openhands": [
+    {
+      "description": "Optional LLM provider API key for OpenHands agents.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "llm_api_key",
+      "label": "llm_api_key"
+    },
+    {
+      "description": "Optional OpenHands LLM model name, such as openai/gpt-4.1.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "llm_model",
+      "label": "llm_model"
+    }
+  ],
   "openobserve": [
     {
       "description": "Root user email for the OpenObserve administrator account.",
@@ -2163,7 +2440,7 @@
     {
       "description": "Secret key for encrypting data (32 bytes hex)",
       "type": "string",
-      "default": "puqtfdhqzqzbmrtyhhmubudswpamyjxguokuldtnvmsvbejthzrxlogppcvlkzfo",
+      "default": "lrzkpcxingfnwgguxlphectwhqhdaxzpfefulsyhehnvyidtkeyfqdivevumikpq",
       "required": true,
       "key": "secret_key",
       "label": "secret_key"
@@ -2171,7 +2448,7 @@
     {
       "description": "Utility secret for internal operations",
       "type": "string",
-      "default": "qnvyeuyhdiwfjarjqfeetjjeyvedwvqtsqweeptuafrqbuxotufjpjymukfkervj",
+      "default": "vsvnwqwulyesuccyzkgdzeudpbawihkmldjgnnhcstzijcheiofkckaeqcfeunry",
       "required": true,
       "key": "utils_secret",
       "label": "utils_secret"
@@ -2364,6 +2641,40 @@
       "label": "gerbil_base_endpoint"
     }
   ],
+  "paperclip": [
+    {
+      "description": "Use S3-compatible object storage for attachments and company assets",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_object_storage",
+      "label": "use_object_storage"
+    },
+    {
+      "description": "Optional OpenAI API key for Codex and OpenAI-backed agents",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "openai_api_key",
+      "label": "openai_api_key"
+    },
+    {
+      "description": "Optional Anthropic API key for Claude-backed agents",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "anthropic_api_key",
+      "label": "anthropic_api_key"
+    },
+    {
+      "description": "Optional Gemini API key for Gemini-backed agents",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "gemini_api_key",
+      "label": "gemini_api_key"
+    }
+  ],
   "paperless-ngx": [
     {
       "description": "Admin username for initial setup",
@@ -2392,7 +2703,7 @@
     {
       "description": "Should be a very long sequence of random characters",
       "type": "string",
-      "default": "vccatuxeoixidxnwfknwfbnbuxrkdzob",
+      "default": "cthtdmwkrjkmdcpcioqxvrhkbyurgxjz",
       "required": false,
       "key": "paperless_secret_key",
       "label": "paperless_secret_key"
@@ -2524,7 +2835,7 @@
     {
       "description": "Initial administrator password",
       "type": "string",
-      "default": "ltuqxaifngjmrlha",
+      "default": "utkuqxaxigxuyndh",
       "required": true,
       "key": "admin_password",
       "label": "admin_password"
@@ -2593,7 +2904,7 @@
     {
       "description": "Encryption key for settings (recommended for production, 32 characters)",
       "type": "string",
-      "default": "hzyzmcrwmaqubisksimcurgocwywsdcj",
+      "default": "ygcuetesblrjugolsoksuodqmysuitmh",
       "required": false,
       "key": "encryption_key",
       "label": "encryption_key"
@@ -2629,6 +2940,56 @@
     }
   ],
   "privatebin": [],
+  "pterodactyl": [
+    {
+      "description": "Email address used by the initial Panel administrator",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_email",
+      "label": "admin_email"
+    },
+    {
+      "description": "Username used by the initial Panel administrator",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "admin_username",
+      "label": "admin_username"
+    },
+    {
+      "description": "First name used by the initial Panel administrator",
+      "type": "string",
+      "default": "Admin",
+      "required": true,
+      "key": "admin_first_name",
+      "label": "admin_first_name"
+    },
+    {
+      "description": "Last name used by the initial Panel administrator",
+      "type": "string",
+      "default": "User",
+      "required": true,
+      "key": "admin_last_name",
+      "label": "admin_last_name"
+    },
+    {
+      "description": "Password used by the initial Panel administrator",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Use S3-compatible object storage for Pterodactyl server backups",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_s3_backups",
+      "label": "use_s3_backups"
+    }
+  ],
   "qinglong": [],
   "quay": [
     {
@@ -2654,6 +3015,24 @@
       "required": true,
       "key": "initial_admin_email",
       "label": "initial_admin_email"
+    }
+  ],
+  "rclone": [
+    {
+      "description": "Username for the Rclone Web GUI and RC API.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "rc_user",
+      "label": "rc_user"
+    },
+    {
+      "description": "Password for the Rclone Web GUI and RC API.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "rc_password",
+      "label": "rc_password"
     }
   ],
   "redisinsight": [],
@@ -2845,6 +3224,34 @@
     }
   ],
   "signoz": [],
+  "sillytavern": [
+    {
+      "description": "Enable SillyTavern basic authentication",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "key": "enable_basic_auth",
+      "label": "enable_basic_auth"
+    },
+    {
+      "description": "Basic authentication username",
+      "type": "string",
+      "default": "user",
+      "required": true,
+      "if": "inputs.enable_basic_auth === 'true'",
+      "key": "basic_auth_username",
+      "label": "basic_auth_username"
+    },
+    {
+      "description": "Basic authentication password",
+      "type": "string",
+      "default": "whqmhjzhbblqyqiodycektzy",
+      "required": true,
+      "if": "inputs.enable_basic_auth === 'true'",
+      "key": "basic_auth_password",
+      "label": "basic_auth_password"
+    }
+  ],
   "skardi": [
     {
       "description": "Authentication mode. Defaults to BETTER_AUTH_DIESEL_SQLITE — clear this field to disable auth entirely",
@@ -2857,7 +3264,7 @@
     {
       "description": "Secret key used to sign sessions (32+ characters). Auto-generated by default",
       "type": "string",
-      "default": "okpjedieczeuwcaacoaiiptwepuhhjal",
+      "default": "xcrlxlpgtgrxxalnhqohukiggobbokxt",
       "required": false,
       "key": "auth_secret",
       "label": "auth_secret"
@@ -2889,6 +3296,7 @@
       "label": "use_object_storage"
     }
   ],
+  "steel-browser": [],
   "strapi": [
     {
       "description": "Node environment mode",
@@ -3055,7 +3463,47 @@
       "label": "service_role_key"
     }
   ],
+  "superset": [
+    {
+      "description": "Initial Superset administrator username.",
+      "type": "string",
+      "required": true,
+      "key": "admin_username",
+      "label": "admin_username"
+    },
+    {
+      "description": "Initial Superset administrator password for the admin account.",
+      "type": "string",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    }
+  ],
   "surveyking": [],
+  "syncthing": [
+    {
+      "description": "Device name shown in the Syncthing cluster",
+      "type": "string",
+      "default": "sealos-syncthing",
+      "required": false,
+      "key": "device_name",
+      "label": "device_name"
+    },
+    {
+      "description": "Username for the Syncthing web GUI",
+      "type": "string",
+      "required": true,
+      "key": "gui_username",
+      "label": "gui_username"
+    },
+    {
+      "description": "Password for the Syncthing web GUI",
+      "type": "string",
+      "required": true,
+      "key": "gui_password",
+      "label": "gui_password"
+    }
+  ],
   "tailchat": [],
   "teable": [],
   "tentix": [
@@ -3194,6 +3642,127 @@
       "label": "admin_email"
     }
   ],
+  "tradingagents": [
+    {
+      "description": "LLM provider used by TradingAgents",
+      "type": "choice",
+      "default": "openai",
+      "options": [
+        "openai",
+        "google",
+        "anthropic",
+        "deepseek",
+        "qwen",
+        "qwen-cn",
+        "glm",
+        "glm-cn",
+        "minimax",
+        "minimax-cn",
+        "openrouter"
+      ],
+      "required": false,
+      "key": "llm_provider",
+      "label": "llm_provider"
+    },
+    {
+      "description": "OpenAI API key",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "openai_api_key",
+      "label": "openai_api_key"
+    },
+    {
+      "description": "Google Gemini API key",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "google_api_key",
+      "label": "google_api_key"
+    },
+    {
+      "description": "Anthropic API key",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "anthropic_api_key",
+      "label": "anthropic_api_key"
+    },
+    {
+      "description": "DeepSeek API key",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "deepseek_api_key",
+      "label": "deepseek_api_key"
+    },
+    {
+      "description": "Alibaba DashScope international API key for Qwen",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "dashscope_api_key",
+      "label": "dashscope_api_key"
+    },
+    {
+      "description": "Z.AI GLM international API key",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "zhipu_api_key",
+      "label": "zhipu_api_key"
+    },
+    {
+      "description": "MiniMax global API key",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "minimax_api_key",
+      "label": "minimax_api_key"
+    },
+    {
+      "description": "OpenRouter API key",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "openrouter_api_key",
+      "label": "openrouter_api_key"
+    },
+    {
+      "description": "Optional Alpha Vantage API key for market data",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "alpha_vantage_api_key",
+      "label": "alpha_vantage_api_key"
+    },
+    {
+      "description": "Optional Finnhub API key for news and fundamentals",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "finnhub_api_key",
+      "label": "finnhub_api_key"
+    }
+  ],
+  "trendradar": [
+    {
+      "description": "Store generated TrendRadar reports in a Sealos S3-compatible bucket.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
+    },
+    {
+      "description": "Cron expression for trend collection.",
+      "type": "string",
+      "default": "0 * * * *",
+      "required": true,
+      "key": "cron_schedule",
+      "label": "cron_schedule"
+    }
+  ],
   "tududi": [
     {
       "description": "Initial administrator email address used for the first login.",
@@ -3213,6 +3782,174 @@
     }
   ],
   "twenty": [],
+  "typebot": [
+    {
+      "description": "Email address that receives the UNLIMITED workspace plan after signup",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "admin_email",
+      "label": "admin_email"
+    },
+    {
+      "description": "Use Sealos S3-compatible object storage for file uploads",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "key": "use_object_storage",
+      "label": "use_object_storage"
+    },
+    {
+      "description": "Authentication provider used for first login",
+      "type": "choice",
+      "default": "builtin-email",
+      "required": true,
+      "options": [
+        "builtin-email",
+        "email",
+        "github",
+        "google",
+        "custom-oauth"
+      ],
+      "key": "auth_provider",
+      "label": "auth_provider"
+    },
+    {
+      "description": "SMTP host for email login codes",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'email'",
+      "key": "smtp_host",
+      "label": "smtp_host"
+    },
+    {
+      "description": "SMTP port for email login codes",
+      "type": "string",
+      "default": "587",
+      "required": true,
+      "if": "inputs.auth_provider === 'email'",
+      "key": "smtp_port",
+      "label": "smtp_port"
+    },
+    {
+      "description": "Sender address for Typebot login emails, for example Typebot <notifications@example.com>",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'email'",
+      "key": "smtp_from",
+      "label": "smtp_from"
+    },
+    {
+      "description": "SMTP username for email login codes",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "if": "inputs.auth_provider === 'email'",
+      "key": "smtp_username",
+      "label": "smtp_username"
+    },
+    {
+      "description": "SMTP password for email login codes",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "if": "inputs.auth_provider === 'email'",
+      "key": "smtp_password",
+      "label": "smtp_password"
+    },
+    {
+      "description": "Use TLS when connecting to the SMTP server",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "if": "inputs.auth_provider === 'email'",
+      "key": "smtp_secure",
+      "label": "smtp_secure"
+    },
+    {
+      "description": "GitHub OAuth client ID",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'github'",
+      "key": "github_client_id",
+      "label": "github_client_id"
+    },
+    {
+      "description": "GitHub OAuth client secret",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'github'",
+      "key": "github_client_secret",
+      "label": "github_client_secret"
+    },
+    {
+      "description": "Google OAuth client ID",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'google'",
+      "key": "google_client_id",
+      "label": "google_client_id"
+    },
+    {
+      "description": "Google OAuth client secret",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'google'",
+      "key": "google_client_secret",
+      "label": "google_client_secret"
+    },
+    {
+      "description": "Custom OAuth provider display name",
+      "type": "string",
+      "default": "Custom OAuth",
+      "required": true,
+      "if": "inputs.auth_provider === 'custom-oauth'",
+      "key": "custom_oauth_name",
+      "label": "custom_oauth_name"
+    },
+    {
+      "description": "Custom OAuth client ID",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'custom-oauth'",
+      "key": "custom_oauth_client_id",
+      "label": "custom_oauth_client_id"
+    },
+    {
+      "description": "Custom OAuth client secret",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'custom-oauth'",
+      "key": "custom_oauth_client_secret",
+      "label": "custom_oauth_client_secret"
+    },
+    {
+      "description": "Custom OAuth issuer URL",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "if": "inputs.auth_provider === 'custom-oauth'",
+      "key": "custom_oauth_issuer",
+      "label": "custom_oauth_issuer"
+    },
+    {
+      "description": "Custom OAuth well-known URL",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "if": "inputs.auth_provider === 'custom-oauth'",
+      "key": "custom_oauth_well_known_url",
+      "label": "custom_oauth_well_known_url"
+    }
+  ],
   "typesense": [],
   "typo3": [
     {
@@ -3268,6 +4005,32 @@
   ],
   "uptime-kuma": [],
   "vaultwarden": [],
+  "waha": [
+    {
+      "description": "Dashboard username",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "dashboard_username",
+      "label": "dashboard_username"
+    },
+    {
+      "description": "Swagger UI username",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "swagger_username",
+      "label": "swagger_username"
+    },
+    {
+      "description": "Use Sealos S3-compatible object storage for WhatsApp media files",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_object_storage",
+      "label": "use_object_storage"
+    }
+  ],
   "woocommerce": [
     {
       "description": "WordPress admin username for initial setup.",

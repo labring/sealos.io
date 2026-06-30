@@ -7,7 +7,7 @@
  *   node generate-apps-api.js [--language=en|zh] [--clean]
  *
  * Parameters:
- *   --language=en|zh: Language for the API request (default: en)
+ *   --language=en|zh: Optional language filter for the API request
  *   --clean: Clean the public/images/apps directory before downloading
  */
 
@@ -53,11 +53,15 @@ function isNetworkError(error) {
 /**
  * Fetch templates from API
  */
-async function fetchTemplates(language = 'en') {
+async function fetchTemplates(language) {
   try {
-    console.log(`📥 Fetching templates from API (language: ${language})...`);
+    const requestUrl = buildTemplateListUrl(language);
 
-    const response = await fetch(`${API_URL}?language=${language}`);
+    console.log(
+      `📥 Fetching templates from API${language ? ` (language: ${language})` : ''}...`,
+    );
+
+    const response = await fetch(requestUrl);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -75,6 +79,16 @@ async function fetchTemplates(language = 'en') {
     console.error('❌ Error fetching templates:', error.message);
     throw error;
   }
+}
+
+function buildTemplateListUrl(language) {
+  if (!language) {
+    return API_URL;
+  }
+
+  const url = new URL(API_URL);
+  url.searchParams.set('language', language);
+  return url.toString();
 }
 
 function toCanonicalSlug(slug) {
@@ -147,7 +161,6 @@ async function convertTemplateToAppConfig(template) {
     return null;
   }
 
-  // Skip if locale is zh (Chinese-only templates)
   if (spec.locale === 'zh') {
     console.log(
       `⏭ Skipping template "${spec.title || metadata.name}" - locale is "zh"`,
@@ -470,14 +483,13 @@ async function processTemplates() {
   // Parse command line arguments
   const args = process.argv.slice(2);
 
-  // Parse language parameter (default: en)
   const languageArg = args.find((arg) => arg.startsWith('--language='));
-  const language = languageArg ? languageArg.split('=')[1] : 'en';
+  const language = languageArg ? languageArg.split('=')[1] : undefined;
 
   // Parse clean parameter
   const clean = args.includes('--clean');
 
-  console.log(`Language: ${language}`);
+  console.log(`Language: ${language || 'all'}`);
   console.log(`Clean mode: ${clean ? 'enabled' : 'disabled'}`);
 
   try {
@@ -625,4 +637,8 @@ if (require.main === module) {
   processTemplates();
 }
 
-module.exports = { processTemplates, convertTemplateToAppConfig };
+module.exports = {
+  processTemplates,
+  convertTemplateToAppConfig,
+  buildTemplateListUrl,
+};

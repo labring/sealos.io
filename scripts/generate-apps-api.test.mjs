@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { convertTemplateToAppConfig } from './generate-apps-api.js';
+import {
+  buildTemplateListUrl,
+  convertTemplateToAppConfig,
+} from './generate-apps-api.js';
 
 test('convertTemplateToAppConfig preserves template screenshots', async () => {
   const screenshots = [
@@ -61,4 +64,33 @@ test('convertTemplateToAppConfig preserves template readme url', async () => {
   });
 
   assert.equal(app?.readme, readme);
+});
+
+test('convertTemplateToAppConfig skips Chinese-only templates', async () => {
+  const app = await convertTemplateToAppConfig({
+    metadata: {
+      name: 'localized-app',
+    },
+    spec: {
+      title: 'Localized App',
+      description: 'A localized app for testing.',
+      icon: '/icons/default.svg',
+      categories: ['tool'],
+      screenshots: [],
+      locale: 'zh',
+    },
+  });
+
+  assert.equal(app, null);
+});
+
+test('buildTemplateListUrl defaults to the full template list', () => {
+  assert.equal(
+    buildTemplateListUrl(),
+    'https://template.os.sealos.io/api/listTemplate',
+  );
+  assert.equal(
+    buildTemplateListUrl('en'),
+    'https://template.os.sealos.io/api/listTemplate?language=en',
+  );
 });
