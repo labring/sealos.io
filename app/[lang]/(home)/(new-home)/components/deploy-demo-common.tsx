@@ -175,6 +175,7 @@ export function useDemoPlayback<TStep extends CursorStep>({
     actionReady,
     cursorPosition,
     effectiveIndex,
+    elapsedMs: progress * step.duration,
     hoverReady,
     reduceMotion,
     selectReady,
@@ -193,16 +194,19 @@ export function getActionProgress(progress: number, duration: number) {
 export function DemoStageShell({
   activeSidebar = 'docker',
   children,
+  childrenMode = 'floatingPanel',
   cursorPosition,
   dataAttribute,
   hideProjects = false,
   reduceMotion,
+  shellChrome = 'browser',
   showGithubTabs = false,
   stageRef,
   step,
 }: {
   activeSidebar?: 'database' | 'docker' | 'github' | 'template';
   children: ReactNode;
+  childrenMode?: 'canvas' | 'floatingPanel';
   cursorPosition?: { x: number; y: number };
   dataAttribute:
     | 'data-database-demo'
@@ -211,6 +215,7 @@ export function DemoStageShell({
     | 'data-template-demo';
   hideProjects?: boolean;
   reduceMotion: boolean;
+  shellChrome?: 'browser' | 'thin';
   showGithubTabs?: boolean;
   stageRef: React.RefObject<HTMLDivElement>;
   step: CursorStep;
@@ -218,15 +223,27 @@ export function DemoStageShell({
   return (
     <div
       {...{ [dataAttribute]: true }}
-      className="relative container mx-auto aspect-[1312/812] overflow-hidden rounded-[18px] border border-white/10 bg-[#080a11] p-0 shadow-[0_30px_90px_rgba(0,0,0,0.45)]"
+      className={cn(
+        'relative container mx-auto aspect-[1312/812] overflow-hidden rounded-[18px] bg-[#080a11] p-0 shadow-[0_30px_90px_rgba(0,0,0,0.45)]',
+        shellChrome === 'thin'
+          ? 'border-4 border-white/10'
+          : 'border border-white/10',
+      )}
     >
       <div
         ref={stageRef}
         className="relative size-full min-h-[560px] w-full overflow-hidden md:min-h-[430px]"
       >
-        <BrowserChrome />
+        {shellChrome === 'browser' && <BrowserChrome />}
 
-        <div className="absolute inset-x-[1.2%] top-[6.2%] bottom-[2%] overflow-hidden rounded-b-[14px] border border-white/[0.06] bg-[#080a11]">
+        <div
+          className={cn(
+            'absolute overflow-hidden border border-white/[0.06] bg-[#080a11]',
+            shellChrome === 'thin'
+              ? 'inset-0 rounded-[14px] border-0'
+              : 'inset-x-[1.2%] top-[6.2%] bottom-[2%] rounded-b-[14px]',
+          )}
+        >
           <Sidebar active={activeSidebar} />
           <div className="absolute inset-y-0 right-0 left-[46px] flex">
             <div
@@ -236,7 +253,11 @@ export function DemoStageShell({
               <CanvasBackdrop />
               <ProjectList hidden={hideProjects} />
               {showGithubTabs && <GithubTabBar />}
-              <FloatingProjectPanel>{children}</FloatingProjectPanel>
+              {childrenMode === 'canvas' ? (
+                <div className="absolute inset-0 z-20">{children}</div>
+              ) : (
+                <FloatingProjectPanel>{children}</FloatingProjectPanel>
+              )}
             </div>
             <ChatPanel />
           </div>
