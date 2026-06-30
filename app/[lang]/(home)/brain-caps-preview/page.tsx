@@ -1,19 +1,30 @@
 'use client';
 
 import {
+  ArrowDownAZ,
+  ArrowUpAZ,
   Box,
   Braces,
+  ChevronDown,
+  ChevronRight,
   CheckCircle2,
   CircleCheck,
   Cpu,
   Database,
+  Download,
   Ellipsis,
+  FileText,
+  Filter,
+  Folder,
   HardDrive,
   MemoryStick,
   Plus,
+  RefreshCw,
   Router,
+  Search,
   Server,
   SquarePen,
+  Table2,
   Upload,
   X,
   type LucideIcon,
@@ -31,6 +42,7 @@ import { cn } from '@/lib/utils';
 
 import {
   DemoStageShell,
+  screenTransition,
   useDemoPlayback,
   type CursorStep,
 } from '../(new-home)/components/deploy-demo-common';
@@ -116,6 +128,227 @@ const canvasSteps: CanvasStep[] = [
 ];
 
 type Point = { x: number; y: number };
+type DBTableRow = Record<string, string | number>;
+
+type DBStudioPhase =
+  | 'idle'
+  | 'hoverRoot'
+  | 'rootOpen'
+  | 'hoverDatabase'
+  | 'databaseOpen'
+  | 'hoverSchema'
+  | 'schemaOpen'
+  | 'hoverTables'
+  | 'tablesOpen'
+  | 'hoverTable'
+  | 'tableSelected'
+  | 'tableLoaded'
+  | 'sortButton'
+  | 'sortMenu'
+  | 'sortSelected'
+  | 'sorted';
+
+type DBStudioStep = CursorStep & {
+  phase: DBStudioPhase;
+  clickTarget?:
+    | 'dbRoot'
+    | 'databaseItem'
+    | 'schemaItem'
+    | 'tablesFolder'
+    | 'tableItem'
+    | 'columnMenu'
+    | 'sortDesc';
+};
+
+const dbStudioSteps: DBStudioStep[] = [
+  { duration: 700, phase: 'idle', cursor: { x: 11, y: 9 } },
+  {
+    duration: 620,
+    phase: 'hoverRoot',
+    cursor: { x: 10, y: 12 },
+    clickTarget: 'dbRoot',
+  },
+  {
+    duration: 320,
+    phase: 'rootOpen',
+    cursor: { x: 10, y: 12 },
+    clickTarget: 'dbRoot',
+  },
+  {
+    duration: 620,
+    phase: 'hoverDatabase',
+    cursor: { x: 13, y: 18 },
+    clickTarget: 'databaseItem',
+  },
+  {
+    duration: 320,
+    phase: 'databaseOpen',
+    cursor: { x: 13, y: 18 },
+    clickTarget: 'databaseItem',
+  },
+  {
+    duration: 620,
+    phase: 'hoverSchema',
+    cursor: { x: 16, y: 23 },
+    clickTarget: 'schemaItem',
+  },
+  {
+    duration: 320,
+    phase: 'schemaOpen',
+    cursor: { x: 16, y: 23 },
+    clickTarget: 'schemaItem',
+  },
+  {
+    duration: 620,
+    phase: 'hoverTables',
+    cursor: { x: 19, y: 28 },
+    clickTarget: 'tablesFolder',
+  },
+  {
+    duration: 320,
+    phase: 'tablesOpen',
+    cursor: { x: 19, y: 28 },
+    clickTarget: 'tablesFolder',
+  },
+  {
+    duration: 620,
+    phase: 'hoverTable',
+    cursor: { x: 22, y: 34 },
+    clickTarget: 'tableItem',
+  },
+  {
+    duration: 320,
+    phase: 'tableSelected',
+    cursor: { x: 22, y: 34 },
+    clickTarget: 'tableItem',
+  },
+  {
+    duration: 600,
+    phase: 'tableLoaded',
+    cursor: { x: 22, y: 34 },
+    holdCursor: true,
+  },
+  {
+    duration: 720,
+    phase: 'sortButton',
+    cursor: { x: 38, y: 23 },
+    clickTarget: 'columnMenu',
+  },
+  {
+    duration: 620,
+    phase: 'sortMenu',
+    cursor: { x: 38, y: 23 },
+    clickTarget: 'columnMenu',
+  },
+  {
+    duration: 650,
+    phase: 'sortSelected',
+    cursor: { x: 38, y: 35 },
+    clickTarget: 'sortDesc',
+  },
+  {
+    duration: 1500,
+    phase: 'sorted',
+    cursor: { x: 38, y: 35 },
+    holdCursor: true,
+  },
+];
+
+const knowledgeColumns = [
+  { key: 'docId', name: 'document_id', type: 'VARCHAR' },
+  { key: 'title', name: 'title', type: 'VARCHAR' },
+  { key: 'tokens', name: 'token_count', type: 'INT4' },
+  { key: 'updated', name: 'updated_at', type: 'TIMESTAMP' },
+] as const;
+
+const knowledgeRows = [
+  {
+    docId: 'doc_1058',
+    title: 'Cluster deployment guide',
+    tokens: 1284,
+    updated: '2026-06-18',
+  },
+  {
+    docId: 'doc_0941',
+    title: 'Billing webhook notes',
+    tokens: 872,
+    updated: '2026-06-14',
+  },
+  {
+    docId: 'doc_0776',
+    title: 'PostgreSQL backup playbook',
+    tokens: 2210,
+    updated: '2026-06-12',
+  },
+  {
+    docId: 'doc_0603',
+    title: 'Gateway routing examples',
+    tokens: 1450,
+    updated: '2026-06-09',
+  },
+  {
+    docId: 'doc_0322',
+    title: 'RBAC policy matrix',
+    tokens: 634,
+    updated: '2026-06-02',
+  },
+];
+
+const implementationColumns = [
+  { key: 'id', name: 'implementation_info_id', type: 'VARCHAR' },
+  { key: 'name', name: 'implementation_info_name', type: 'VARCHAR' },
+  { key: 'value', name: 'integer_value', type: 'INT4' },
+  { key: 'comment', name: 'comments', type: 'VARCHAR' },
+] as const;
+
+const implementationRows = [
+  {
+    id: 'impl_0872',
+    name: 'checkout_pipeline',
+    value: 42,
+    comment: 'stable import path',
+  },
+  {
+    id: 'impl_0429',
+    name: 'customer_sync',
+    value: 18,
+    comment: 'scheduled nightly',
+  },
+  {
+    id: 'impl_1350',
+    name: 'catalog_refresh',
+    value: 73,
+    comment: 'manual override',
+  },
+  {
+    id: 'impl_0118',
+    name: 'invoice_export',
+    value: 7,
+    comment: 'read replica',
+  },
+  {
+    id: 'impl_0994',
+    name: 'metric_rollup',
+    value: 64,
+    comment: 'partitioned rows',
+  },
+  {
+    id: 'impl_0581',
+    name: 'email_dispatch',
+    value: 31,
+    comment: 'queued worker',
+  },
+  {
+    id: 'impl_1216',
+    name: 'usage_aggregator',
+    value: 88,
+    comment: 'primary key scan',
+  },
+];
+
+const sortedImplementationRows = [...implementationRows].sort((a, b) =>
+  b.id.localeCompare(a.id),
+);
 
 export default function BrainCapsPreviewPage() {
   return (
@@ -127,10 +360,469 @@ export default function BrainCapsPreviewPage() {
         </h1>
       </div>
 
-      <div className="container pb-20">
+      <div className="container space-y-10 pb-20">
         <LiveCanvasDemo />
+        <DBStudioScene />
       </div>
     </main>
+  );
+}
+
+function DBStudioScene() {
+  const {
+    cursorPosition,
+    elapsedMs,
+    effectiveIndex,
+    reduceMotion,
+    stageRef,
+    step,
+  } = useDemoPlayback({
+    getTargetId: (step) => step.clickTarget,
+    steps: dbStudioSteps,
+  });
+  const phase = reduceMotion ? 'sorted' : step.phase;
+  const hoverReady = elapsedMs >= 560 || reduceMotion;
+
+  return (
+    <DemoStageShell
+      activeSidebar="database"
+      cursorPosition={cursorPosition}
+      dataAttribute="data-database-demo"
+      reduceMotion={reduceMotion}
+      shellChrome="thin"
+      stageMode="sidebarOnly"
+      stageRef={stageRef}
+      step={step}
+    >
+      <DBStudioWorkspace
+        effectiveIndex={effectiveIndex}
+        hoverReady={hoverReady}
+        phase={phase}
+        reduceMotion={reduceMotion}
+      />
+    </DemoStageShell>
+  );
+}
+
+function DBStudioWorkspace({
+  effectiveIndex,
+  hoverReady,
+  phase,
+  reduceMotion,
+}: {
+  effectiveIndex: number;
+  hoverReady: boolean;
+  phase: DBStudioPhase;
+  reduceMotion: boolean;
+}) {
+  const rootOpen = effectiveIndex >= 2 || reduceMotion;
+  const databaseOpen = effectiveIndex >= 4 || reduceMotion;
+  const schemaOpen = effectiveIndex >= 6 || reduceMotion;
+  const tablesOpen = effectiveIndex >= 8 || reduceMotion;
+  const secondTableOpen = effectiveIndex >= 11 || reduceMotion;
+  const sorted = effectiveIndex >= 15 || reduceMotion;
+  const showSortMenu = phase === 'sortMenu' || phase === 'sortSelected';
+  const activeTreeTarget = getActiveTreeTarget(phase);
+
+  return (
+    <div className="relative flex h-full overflow-hidden bg-[#080a11]">
+      <aside className="relative z-10 w-[220px] shrink-0 border-r border-white/[0.07] bg-[#13151C]">
+        <div className="flex h-10 items-center gap-2 border-b border-white/[0.06] px-3">
+          <Database className="size-3.5 text-blue-300" />
+          <span className="truncate text-xs font-medium text-zinc-200">
+            orders-db
+          </span>
+        </div>
+        <div className="px-2 py-2 text-xs">
+          <DBTreeRow
+            Icon={Database}
+            active={activeTreeTarget === 'dbRoot'}
+            open={rootOpen}
+            target="dbRoot"
+            title="PostgreSQL"
+          />
+
+          <DBTreeGroup show={rootOpen}>
+            <DBTreeRow
+              Icon={Database}
+              active={activeTreeTarget === 'databaseItem'}
+              indent={1}
+              open={databaseOpen}
+              target="databaseItem"
+              title="postgres"
+            />
+
+            <DBTreeGroup show={databaseOpen}>
+              <DBTreeRow
+                Icon={Folder}
+                active={activeTreeTarget === 'schemaItem'}
+                indent={2}
+                open={schemaOpen}
+                target="schemaItem"
+                title="public"
+              />
+
+              <DBTreeGroup show={schemaOpen}>
+                <DBTreeRow
+                  Icon={Folder}
+                  active={activeTreeTarget === 'tablesFolder'}
+                  indent={3}
+                  open={tablesOpen}
+                  target="tablesFolder"
+                  title="Tables"
+                />
+
+                <DBTreeGroup show={tablesOpen}>
+                  <DBTreeRow
+                    Icon={FileText}
+                    active={activeTreeTarget === 'tableItem' || secondTableOpen}
+                    indent={4}
+                    selected={secondTableOpen}
+                    target="tableItem"
+                    title="sql_implementation_info"
+                  />
+                  <DBTreeRow Icon={FileText} indent={4} title="sql_parts" />
+                  <DBTreeRow Icon={Folder} indent={3} title="metric_helpers" />
+                  <DBTreeRow Icon={Folder} indent={3} title="user_management" />
+                </DBTreeGroup>
+              </DBTreeGroup>
+            </DBTreeGroup>
+          </DBTreeGroup>
+        </div>
+      </aside>
+
+      <div className="relative min-w-0 flex-1 bg-[radial-gradient(50%_50%_at_50%_50%,rgba(29,78,216,0.2)_0%,rgba(10,10,10,0.2)_100%)]">
+        <DBStudioHeader />
+        <div className="absolute inset-x-0 top-10 bottom-0 overflow-hidden">
+          <DBTableView
+            secondTableOpen={secondTableOpen}
+            showSortMenu={showSortMenu}
+            sortHover={phase === 'sortSelected' && hoverReady}
+            sorted={sorted}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function getActiveTreeTarget(phase: DBStudioPhase) {
+  if (phase === 'hoverRoot' || phase === 'rootOpen') return 'dbRoot';
+  if (phase === 'hoverDatabase' || phase === 'databaseOpen') {
+    return 'databaseItem';
+  }
+  if (phase === 'hoverSchema' || phase === 'schemaOpen') return 'schemaItem';
+  if (phase === 'hoverTables' || phase === 'tablesOpen') return 'tablesFolder';
+  if (phase === 'hoverTable' || phase === 'tableSelected') return 'tableItem';
+}
+
+function DBStudioHeader() {
+  return (
+    <div className="relative flex h-10 items-center justify-between border-b border-white/[0.06] bg-[#0f1117] px-3">
+      <div className="flex items-center gap-2">
+        <Database className="size-3.5 text-blue-300" />
+        <span className="text-xs font-medium text-zinc-100">orders-db</span>
+      </div>
+      <div className="pointer-events-none absolute inset-0 grid place-items-center text-xs font-medium text-zinc-100">
+        Database PostgreSQL 16.4
+      </div>
+      <div className="flex gap-1">
+        {[RefreshCw, Download].map((Icon, index) => (
+          <button
+            key={index}
+            className="grid size-7 place-items-center rounded-md bg-white/[0.04] text-zinc-400"
+            type="button"
+          >
+            <Icon className="size-3.5" />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function DBTableView({
+  secondTableOpen,
+  showSortMenu,
+  sortHover,
+  sorted,
+}: {
+  secondTableOpen: boolean;
+  showSortMenu: boolean;
+  sortHover: boolean;
+  sorted: boolean;
+}) {
+  const columns = secondTableOpen ? implementationColumns : knowledgeColumns;
+  const rows: DBTableRow[] = secondTableOpen
+    ? sorted
+      ? sortedImplementationRows
+      : implementationRows
+    : knowledgeRows;
+
+  return (
+    <motion.div
+      className="flex h-full flex-col"
+      initial={{ opacity: 0, x: 18, filter: 'blur(8px)' }}
+      animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+      transition={screenTransition}
+    >
+      <div className="flex h-8 shrink-0 items-center border-b border-white/[0.06] bg-[#11131a]">
+        <DBTab active={!secondTableOpen} title="Knowledge_base_[PostgreSQL]" />
+        {secondTableOpen && <DBTab active title="sql_implementation_info" />}
+      </div>
+
+      <div className="flex h-10 shrink-0 items-center justify-between border-b border-white/[0.06] px-3">
+        <div className="flex gap-1">
+          {[RefreshCw, Filter, Download].map((Icon, index) => (
+            <button
+              key={index}
+              className="grid size-7 place-items-center rounded-md bg-white/[0.035] text-zinc-400"
+              type="button"
+            >
+              <Icon className="size-3.5" />
+            </button>
+          ))}
+        </div>
+        <div className="flex h-7 w-[220px] items-center gap-2 rounded-md border border-white/[0.07] bg-black/20 px-2 text-xs text-zinc-500">
+          <Search className="size-3.5" />
+          Find in results...
+        </div>
+      </div>
+
+      <div className="relative min-h-0 flex-1 overflow-hidden p-2">
+        <div className="relative h-full overflow-hidden rounded-lg border border-white/[0.07]">
+          <DBTableHeader
+            columns={columns}
+            showSortMenu={showSortMenu}
+            sortHover={sortHover}
+          />
+          <div className="divide-y divide-white/[0.06]">
+            {rows.map((row, index) => (
+              <div
+                key={String(row[columns[0].key])}
+                className="grid h-8 grid-cols-[40px_1.2fr_1.2fr_0.8fr_1fr] items-center text-xs text-zinc-300"
+              >
+                <span className="h-full border-r border-white/[0.06] px-3 py-2 text-zinc-600">
+                  {index + 1}
+                </span>
+                {columns.map((column, columnIndex) => (
+                  <span
+                    key={column.key}
+                    className={cn(
+                      'h-full truncate px-3 py-2',
+                      columnIndex < columns.length - 1 &&
+                        'border-r border-white/[0.06]',
+                      columnIndex === 0
+                        ? 'font-mono text-zinc-200'
+                        : 'text-zinc-400',
+                    )}
+                  >
+                    {row[column.key]}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex h-9 shrink-0 items-center justify-between border-t border-white/[0.06] px-3 text-xs text-zinc-500">
+        <div className="flex items-center gap-3">
+          <span>Showing 1-100 of 900 records</span>
+          <span className="h-4 w-px bg-white/[0.08]" />
+          <span>Rows per page: 100</span>
+        </div>
+        <span>Page 1 / Page 9</span>
+      </div>
+    </motion.div>
+  );
+}
+
+function DBTab({ active, title }: { active?: boolean; title: string }) {
+  return (
+    <div
+      className={cn(
+        'flex h-full w-[230px] items-center gap-2 border-r border-white/[0.06] px-3 text-xs',
+        active ? 'bg-[#13151C] text-zinc-100' : 'text-zinc-500',
+      )}
+    >
+      <Table2 className="size-3.5 text-blue-300" />
+      <span className="min-w-0 truncate">{title}</span>
+      <X className="ml-auto size-3 text-zinc-500" />
+    </div>
+  );
+}
+
+function DBTableHeader({
+  columns,
+  showSortMenu,
+  sortHover,
+}: {
+  columns: typeof knowledgeColumns | typeof implementationColumns;
+  showSortMenu: boolean;
+  sortHover: boolean;
+}) {
+  return (
+    <div className="relative grid h-12 grid-cols-[40px_1.2fr_1.2fr_0.8fr_1fr] items-center border-b border-white/[0.07] bg-white/[0.045] text-[11px] tracking-wide text-zinc-500 uppercase">
+      <span className="h-full border-r border-white/[0.06]" />
+      {columns.map((column, index) => (
+        <DBColumnHead
+          key={column.key}
+          name={column.name}
+          showSortMenu={showSortMenu}
+          sortHover={sortHover}
+          type={column.type}
+          withMenu={index === 0}
+        />
+      ))}
+    </div>
+  );
+}
+
+function DBColumnHead({
+  name,
+  showSortMenu,
+  sortHover,
+  type,
+  withMenu,
+}: {
+  name: string;
+  showSortMenu: boolean;
+  sortHover: boolean;
+  type: string;
+  withMenu?: boolean;
+}) {
+  return (
+    <div className="relative h-full min-w-0 border-r border-white/[0.06] px-3 py-2">
+      <div className="truncate text-zinc-300">{name}</div>
+      <div className="mt-1 flex items-center gap-1 text-[9px] text-zinc-600">
+        {type}
+        {withMenu && <ChevronDown className="size-3" />}
+      </div>
+      {withMenu && (
+        <>
+          <button
+            data-demo-target="columnMenu"
+            className={cn(
+              'absolute top-3 right-2 grid size-6 place-items-center rounded-md',
+              showSortMenu
+                ? 'bg-blue-500/15 text-blue-300'
+                : 'bg-white/[0.04] text-zinc-400',
+            )}
+            type="button"
+          >
+            <Ellipsis className="size-3.5" />
+          </button>
+
+          <div
+            className={cn(
+              'absolute top-10 right-1 z-30 w-40 overflow-hidden rounded-lg border border-white/[0.08] bg-[#171a22] p-1 text-[11px] tracking-normal text-zinc-300 normal-case shadow-2xl shadow-black/40 transition-all duration-200',
+              showSortMenu
+                ? 'blur-0 translate-y-0 opacity-100'
+                : 'pointer-events-none -translate-y-1 opacity-0 blur-sm',
+            )}
+          >
+            <SortMenuItem title="Sort Options" />
+            <SortMenuItem Icon={ArrowUpAZ} title="Ascending" />
+            <SortMenuItem
+              active={sortHover}
+              Icon={ArrowDownAZ}
+              target="sortDesc"
+              title="Descending"
+            />
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function SortMenuItem({
+  active,
+  Icon,
+  target,
+  title,
+}: {
+  active?: boolean;
+  Icon?: LucideIcon;
+  target?: string;
+  title: string;
+}) {
+  return (
+    <button
+      data-demo-target={target}
+      className={cn(
+        'flex h-7 w-full items-center rounded-md px-2 text-left',
+        active ? 'bg-blue-500/15 text-blue-200' : 'text-zinc-400',
+      )}
+      type="button"
+    >
+      {Icon && <Icon className="mr-1.5 size-3.5 text-blue-300" />}
+      {title}
+    </button>
+  );
+}
+
+function DBTreeGroup({
+  children,
+  show,
+}: {
+  children: ReactNode;
+  show: boolean;
+}) {
+  return (
+    <div
+      className={cn(
+        'grid transition-[grid-template-rows,opacity] duration-300 ease-out',
+        show ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
+      )}
+    >
+      <div className="min-h-0 overflow-hidden">{children}</div>
+    </div>
+  );
+}
+
+function DBTreeRow({
+  Icon,
+  active,
+  indent = 0,
+  open,
+  selected,
+  target,
+  title,
+}: {
+  Icon: LucideIcon;
+  active?: boolean;
+  indent?: number;
+  open?: boolean;
+  selected?: boolean;
+  target?: string;
+  title: string;
+}) {
+  const expandable = open !== undefined;
+
+  return (
+    <div
+      data-demo-target={target}
+      className={cn(
+        'flex h-7 items-center gap-1.5 rounded-md pr-2 text-zinc-400 transition-colors',
+        active && 'bg-white/[0.06] text-zinc-100',
+        selected && 'bg-blue-500/15 text-blue-200',
+      )}
+      style={{ paddingLeft: `${8 + indent * 16}px` }}
+    >
+      {expandable ? (
+        open ? (
+          <ChevronDown className="size-3.5 shrink-0" />
+        ) : (
+          <ChevronRight className="size-3.5 shrink-0" />
+        )
+      ) : (
+        <span className="w-3.5 shrink-0" />
+      )}
+      <Icon className="size-3.5 shrink-0" />
+      <span className="min-w-0 truncate">{title}</span>
+    </div>
   );
 }
 
@@ -631,7 +1323,7 @@ function OrdersApiPanel({
   return (
     <div
       className={cn(
-        'absolute top-[46px] right-0 bottom-0 z-30 w-[390px] overflow-hidden rounded-tl-xl border-t border-l border-white/[0.08] bg-[#13151C] shadow-[0_24px_80px_rgba(0,0,0,0.46)] transition-all duration-300',
+        'absolute top-[46px] right-0 bottom-0 z-30 w-full max-w-lg overflow-hidden rounded-tl-xl border-t border-l border-white/[0.08] bg-[#13151C] shadow-[0_24px_80px_rgba(0,0,0,0.46)] transition-all duration-300 max-sm:right-auto max-sm:left-[72px] max-sm:w-[300px]',
         show
           ? 'blur-0 translate-x-0 opacity-100'
           : 'pointer-events-none translate-x-8 opacity-0 blur-md',

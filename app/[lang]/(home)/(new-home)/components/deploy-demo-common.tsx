@@ -201,6 +201,7 @@ export function DemoStageShell({
   reduceMotion,
   shellChrome = 'browser',
   showGithubTabs = false,
+  stageMode = 'full',
   stageRef,
   step,
 }: {
@@ -217,6 +218,7 @@ export function DemoStageShell({
   reduceMotion: boolean;
   shellChrome?: 'browser' | 'thin';
   showGithubTabs?: boolean;
+  stageMode?: 'full' | 'sidebarOnly';
   stageRef: React.RefObject<HTMLDivElement>;
   step: CursorStep;
 }) {
@@ -244,23 +246,30 @@ export function DemoStageShell({
               : 'inset-x-[1.2%] top-[6.2%] bottom-[2%] rounded-b-[14px]',
           )}
         >
-          <Sidebar active={activeSidebar} />
-          <div className="absolute inset-y-0 right-0 left-[46px] flex">
-            <div
-              data-project-canvas
-              className="relative min-w-0 flex-1 overflow-hidden bg-[#080a11]"
-            >
-              <CanvasBackdrop />
-              <ProjectList hidden={hideProjects} />
-              {showGithubTabs && <GithubTabBar />}
-              {childrenMode === 'canvas' ? (
-                <div className="absolute inset-0 z-20">{children}</div>
-              ) : (
-                <FloatingProjectPanel>{children}</FloatingProjectPanel>
-              )}
+          <DemoSidebar active={activeSidebar} />
+          {stageMode === 'full' && (
+            <div className="absolute inset-y-0 right-0 left-[46px] flex">
+              <div
+                data-project-canvas
+                className="relative min-w-0 flex-1 overflow-hidden bg-[#080a11]"
+              >
+                <CanvasBackdrop />
+                <ProjectList hidden={hideProjects} />
+                {showGithubTabs && <GithubTabBar />}
+                {childrenMode === 'canvas' ? (
+                  <div className="absolute inset-0 z-20">{children}</div>
+                ) : (
+                  <FloatingProjectPanel>{children}</FloatingProjectPanel>
+                )}
+              </div>
+              <ChatPanel />
             </div>
-            <ChatPanel />
-          </div>
+          )}
+          {stageMode === 'sidebarOnly' && (
+            <div className="absolute inset-y-0 right-0 left-[46px] overflow-hidden">
+              {children}
+            </div>
+          )}
         </div>
 
         {!reduceMotion && <Cursor position={cursorPosition} step={step} />}
@@ -284,7 +293,7 @@ function BrowserChrome() {
   );
 }
 
-function Sidebar({
+export function DemoSidebar({
   active = 'docker',
 }: {
   active?: 'database' | 'docker' | 'github' | 'template';
@@ -319,7 +328,7 @@ function Sidebar({
 function CanvasBackdrop() {
   return (
     <>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_16%,rgba(59,130,246,0.18),transparent_30%),linear-gradient(90deg,rgba(8,10,17,0.08),rgba(8,10,17,0.58)_88%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(50%_50%_at_50%_50%,rgba(29,78,216,0.2)_0%,rgba(10,10,10,0.2)_100%)]" />
       <div
         data-project-grid
         className="absolute inset-0 [background-image:radial-gradient(circle,rgba(148,163,184,0.38)_1px,transparent_1px)] [background-size:32px_32px] opacity-80"
@@ -339,7 +348,7 @@ function ProjectList({ hidden = false }: { hidden?: boolean }) {
     <aside
       data-project-list
       className={cn(
-        'absolute top-0 bottom-0 left-0 z-10 w-[300px] overflow-hidden transition-opacity max-lg:w-[250px] max-sm:w-[210px]',
+        'absolute top-0 right-[32rem] bottom-0 left-0 z-10 overflow-hidden transition-opacity max-sm:right-[300px]',
         hidden && 'pointer-events-none opacity-0',
       )}
     >
@@ -409,7 +418,7 @@ function FloatingProjectPanel({ children }: { children: ReactNode }) {
   return (
     <div
       data-floating-project-panel
-      className="absolute top-[46px] right-0 bottom-0 left-[300px] z-20 overflow-hidden rounded-t-xl rounded-r-none border-t border-l border-white/[0.08] bg-[#13151C] shadow-[0_24px_80px_rgba(0,0,0,0.46)] max-lg:left-[250px] max-sm:right-auto max-sm:left-[72px] max-sm:w-[300px]"
+      className="absolute top-[46px] right-0 bottom-0 z-20 w-full max-w-lg overflow-hidden rounded-t-xl rounded-r-none border-t border-l border-white/[0.08] bg-[#13151C] shadow-[0_24px_80px_rgba(0,0,0,0.46)] max-sm:right-auto max-sm:left-[72px] max-sm:w-[300px]"
     >
       {children}
     </div>
