@@ -16,6 +16,7 @@ const demoCards = [
     title: 'Templates',
     description: 'Quickly import from commonly used application templates.',
     Icon: PanelsTopLeftIcon,
+    href: '#template-section',
   },
   {
     title: 'Docker Image',
@@ -27,6 +28,7 @@ const demoCards = [
     title: 'Database',
     description: 'Set up a database project or data service first.',
     Icon: DatabaseIcon,
+    href: '#database-section',
   },
 ];
 

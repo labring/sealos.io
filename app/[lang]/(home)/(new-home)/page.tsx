@@ -1,6 +1,8 @@
 import { HeroSection } from './sections/hero-section';
 import { GitHubImportSection } from './sections/github-import-section';
 import { DockerImageSection } from './sections/docker-image-section';
+import { DatabaseSection } from './sections/database-section';
+import { TemplateSection } from './sections/template-section';
 import { TerminalAgentSection } from './sections/terminal-agent-section';
 import { BrainCapsSection } from './sections/brain-caps-section';
 import { ComparisonSection } from './sections/comparison-section';
@@ -14,6 +16,8 @@ export default function HomePage() {
       <HeroSection />
       <GitHubImportSection />
       <DockerImageSection />
+      <DatabaseSection />
+      <TemplateSection />
       <TerminalAgentSection />
       <BrainCapsSection />
       <ComparisonSection />

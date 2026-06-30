@@ -39,6 +39,7 @@ export type CursorStep = {
 
 export const CURSOR_SETTLE_MS = 560;
 export const HOVER_SETTLE_MS = CURSOR_SETTLE_MS + 120;
+export const SELECT_SETTLE_MS = HOVER_SETTLE_MS + 500;
 
 export const screenTransition = {
   duration: 0.42,
@@ -56,6 +57,7 @@ const modeCards = [
     title: 'Templates',
     description: 'Quickly import from application templates.',
     Icon: PanelsTopLeft,
+    target: 'templateCard',
   },
   {
     title: 'Docker Image',
@@ -67,6 +69,7 @@ const modeCards = [
     title: 'Database',
     description: 'Set up a database project or data service first.',
     Icon: Database,
+    target: 'databaseCard',
   },
 ];
 
@@ -97,6 +100,8 @@ export function useDemoPlayback<TStep extends CursorStep>({
     reduceMotion || progress * step.duration >= CURSOR_SETTLE_MS;
   const hoverReady =
     reduceMotion || progress * step.duration >= HOVER_SETTLE_MS;
+  const selectReady =
+    reduceMotion || progress * step.duration >= SELECT_SETTLE_MS;
 
   useEffect(() => {
     setMounted(true);
@@ -172,6 +177,7 @@ export function useDemoPlayback<TStep extends CursorStep>({
     effectiveIndex,
     hoverReady,
     reduceMotion,
+    selectReady,
     stageRef,
     step,
     targetId,
@@ -195,10 +201,14 @@ export function DemoStageShell({
   stageRef,
   step,
 }: {
-  activeSidebar?: 'docker' | 'github';
+  activeSidebar?: 'database' | 'docker' | 'github' | 'template';
   children: ReactNode;
   cursorPosition?: { x: number; y: number };
-  dataAttribute: 'data-docker-image-demo' | 'data-github-import-demo';
+  dataAttribute:
+    | 'data-database-demo'
+    | 'data-docker-image-demo'
+    | 'data-github-import-demo'
+    | 'data-template-demo';
   hideProjects?: boolean;
   reduceMotion: boolean;
   showGithubTabs?: boolean;
@@ -253,9 +263,20 @@ function BrowserChrome() {
   );
 }
 
-function Sidebar({ active = 'docker' }: { active?: 'docker' | 'github' }) {
+function Sidebar({
+  active = 'docker',
+}: {
+  active?: 'database' | 'docker' | 'github' | 'template';
+}) {
   const items = [Brain, SquareTerminal, Database, PanelsTopLeft, Container];
-  const activeIndex = active === 'github' ? 1 : 4;
+  const activeIndex =
+    active === 'github'
+      ? 1
+      : active === 'database'
+        ? 2
+        : active === 'template'
+          ? 3
+          : 4;
 
   return (
     <aside className="absolute inset-y-0 left-0 flex w-[46px] flex-col items-center gap-3 border-r border-white/[0.06] bg-[#13151C] pt-4">
