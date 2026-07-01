@@ -2,15 +2,15 @@
 
 import { useEffect, useRef, useState } from 'react';
 import {
+  ArrowUpNarrowWide,
   Box,
   Clock3,
-  CodeXml,
   Database,
-  Github,
-  LayoutGrid,
+  FileCode2,
   type LucideIcon,
 } from 'lucide-react';
 import { AnimatePresence, motion, type Transition } from 'motion/react';
+import { GradientText } from '@/new-components/GradientText';
 
 type BrainCap = {
   icon: LucideIcon;
@@ -18,7 +18,7 @@ type BrainCap = {
   description: string;
   codeLabel: string;
   codeLines: string[];
-  previewTitle: string;
+  demoTitle: string;
 };
 
 const brainCaps: BrainCap[] = [
@@ -26,10 +26,10 @@ const brainCaps: BrainCap[] = [
     icon: Box,
     title: 'Live Object Canvas',
     description:
-      'Every container, DB, ingress, and DevBox is a node on a 2D canvas. Pan, zoom, draw an edge to wire things up. Live CPU/Memory/Disk on every card.',
+      'Every container, DB and ingress is a node on a 2D canvas. Pan, zoom, draw an edge to wire things up. Live CPU/Memory/Disk on every card.',
     codeLabel: '# resource meters update in real time',
     codeLines: ['orders-api', '47% CPU · 612Mi'],
-    previewTitle: 'Canvas preview placeholder',
+    demoTitle: 'Canvas demo placeholder',
   },
   {
     icon: Clock3,
@@ -38,31 +38,22 @@ const brainCaps: BrainCap[] = [
       'Connect a container to a DB on the canvas — Sealos injects DATABASE_URL, secrets, and pool config automatically. No copy-paste credentials.',
     codeLabel: '# auto-fired when edge drawn',
     codeLines: [
-      'DATABASE_URL=postgres://orders:****@pg-ha.internal:5432/orders',
+      'DATABASE_URL=postgres://orders:••••@pg-ha.internal:5432/orders',
     ],
-    previewTitle: 'Env preview placeholder',
+    demoTitle: 'Env injection demo placeholder',
   },
   {
     icon: Database,
     title: 'Built-in DB Studio',
     description:
-      'Click any database to open a full studio — schema tree, ER diagram, rows/schema/indexes tabs, backup scheduler, and CSV/DMP/URL import. Most platforms stop at provisioning.',
+      'Click any database to open a full studio — schema tree, rows/schema/indexes tabs, backup scheduler. Most platforms stop at provisioning.',
     codeLabel: '// browse, schedule backups, run queries — all in-product',
     codeLines: ["SELECT * FROM orders WHERE status = 'paid';"],
-    previewTitle: 'DB Studio preview placeholder',
+    demoTitle: 'DB Studio demo placeholder',
   },
   {
-    icon: CodeXml,
-    title: 'DevBox + Local IDE',
-    description:
-      'Spin up a cloud dev env, connect VS Code/Cursor/Windsurf/JetBrains over SSH. Everything you push runs on the same cluster as production.',
-    codeLabel: '# ide-link generated automatically',
-    codeLines: ['cursor://devbox/orders-api?token=eyJ...'],
-    previewTitle: 'DevBox preview placeholder',
-  },
-  {
-    icon: LayoutGrid,
-    title: 'One-Click HA',
+    icon: ArrowUpNarrowWide,
+    title: 'One-Click High Availability',
     description:
       'Toggle replicas from 1 → 2 → 3 → 5. Sealos handles failover, leader election, and replication topology automatically. Postgres, MySQL, Mongo, Redis all supported.',
     codeLabel: '# before',
@@ -71,16 +62,16 @@ const brainCaps: BrainCap[] = [
       '# click → 3 (HA)',
       'replicas: 3 · failover: automatic',
     ],
-    previewTitle: 'HA preview placeholder',
+    demoTitle: 'HA demo placeholder',
   },
   {
-    icon: Github,
+    icon: FileCode2,
     title: 'Source - Available Core',
     description:
       'Audit the code, fork it, self-host it. labring/sealos on GitHub — 16K+ stars, Apache-2.0. No vendor lock-in.',
     codeLabel: '$ git clone https://github.com/labring/sealos',
     codeLines: ['# yes, the actual platform'],
-    previewTitle: 'GitHub preview placeholder',
+    demoTitle: 'Source demo placeholder',
   },
 ];
 
@@ -122,10 +113,29 @@ export function BrainCapsSection() {
     };
   }, []);
 
+  const scrollToIndex = (index: number) => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    setDirection(index > activeIndexRef.current ? 1 : -1);
+    activeIndexRef.current = index;
+    setActiveIndex(index);
+
+    const sectionTop = window.scrollY + section.getBoundingClientRect().top;
+    const scrollableDistance = section.offsetHeight - window.innerHeight;
+    const progress =
+      index === brainCaps.length - 1 ? 1 : (index + 0.05) / brainCaps.length;
+
+    window.scrollTo({
+      top: sectionTop + scrollableDistance * progress,
+      behavior: 'auto',
+    });
+  };
+
   return (
     <section
       ref={sectionRef}
-      className="relative h-[600vh] overflow-visible px-4 text-white sm:px-6 lg:px-16"
+      className="relative h-[500vh] overflow-visible px-4 text-white sm:px-6 lg:px-16"
     >
       <div
         className="absolute inset-x-0 top-0 h-full bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:32px_41px] opacity-40"
@@ -134,39 +144,36 @@ export function BrainCapsSection() {
       <div className="sticky top-0 flex min-h-screen items-center py-20 lg:py-28">
         <div className="relative mx-auto w-full max-w-[1312px]">
           <h2 className="max-w-[760px] text-4xl leading-tight font-semibold text-balance text-zinc-100 sm:text-5xl">
-            Eight things you usually duct-tape together. One platform.
+            <GradientText>
+              Eight things you usually duct-tape together. One platform.
+            </GradientText>
           </h2>
 
           <div className="mt-16 grid items-center gap-10 lg:grid-cols-[minmax(0,506px)_minmax(0,1fr)]">
-            <div className="relative min-h-[335px]">
-              <AnimatePresence custom={direction} initial={false}>
-                {brainCaps.map((cap, index) => (
-                  <motion.div
-                    key={cap.title}
-                    className="absolute inset-0"
-                    animate={getCopyMotion(index, activeIndex)}
-                    transition={motionTransition}
-                    style={getCopyStyle(index, activeIndex)}
-                  >
-                    <BrainCapCopy cap={cap} />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
+            <div className="space-y-5">
+              {brainCaps.map((cap, index) => (
+                <AccordionItem
+                  key={cap.title}
+                  cap={cap}
+                  isActive={index === activeIndex}
+                  onClick={() => scrollToIndex(index)}
+                />
+              ))}
             </div>
 
             <div className="relative h-[374px] md:h-[460px]">
-              <AnimatePresence custom={direction} initial={false}>
-                {brainCaps.map((cap, index) => (
-                  <motion.div
-                    key={cap.title}
-                    className="absolute inset-0 origin-top"
-                    animate={getPreviewMotion(index, activeIndex)}
-                    transition={motionTransition}
-                    style={getPreviewStyle(index, activeIndex)}
-                  >
-                    <PreviewCard cap={cap} index={index} />
-                  </motion.div>
-                ))}
+              <AnimatePresence custom={direction} initial={false} mode="wait">
+                <motion.div
+                  key={brainCaps[activeIndex].title}
+                  custom={direction}
+                  className="absolute inset-0"
+                  initial={getPanelMotion(direction, 'enter')}
+                  animate={getPanelMotion(direction, 'center')}
+                  exit={getPanelMotion(direction, 'exit')}
+                  transition={motionTransition}
+                >
+                  <DemoPlaceholder cap={brainCaps[activeIndex]} />
+                </motion.div>
               </AnimatePresence>
             </div>
           </div>
@@ -181,74 +188,76 @@ const motionTransition: Transition = {
   ease: [0.22, 1, 0.36, 1],
 };
 
-function getCopyMotion(index: number, activeIndex: number) {
-  const offset = index - activeIndex;
+function getPanelMotion(direction: number, phase: 'enter' | 'center' | 'exit') {
+  if (phase === 'center') {
+    return { opacity: 1, filter: 'blur(0px)', y: 0 };
+  }
+
+  const offset = direction > 0 ? 36 : -36;
 
   return {
-    opacity: offset === 0 ? 1 : 0,
-    filter: offset === 0 ? 'blur(0px)' : 'blur(12px)',
-    y: offset < 0 ? -36 : offset > 0 ? 36 : 0,
+    opacity: 0,
+    filter: 'blur(12px)',
+    y: phase === 'enter' ? offset : -offset,
   };
 }
 
-function getCopyStyle(index: number, activeIndex: number) {
-  return {
-    pointerEvents: index === activeIndex ? 'auto' : 'none',
-  } as const;
-}
-
-function getPreviewMotion(index: number, activeIndex: number) {
-  const depth = activeIndex - index;
-  const isFuture = depth < 0;
-  const clampedDepth = Math.max(0, depth);
-
-  return {
-    opacity: isFuture ? 0 : Math.max(0.5, 1 - clampedDepth * 0.12),
-    y: isFuture ? -28 : clampedDepth * 64,
-    scale: isFuture ? 0.96 : 1 - clampedDepth * 0.035,
-    rotate: isFuture ? -0.6 : clampedDepth * -0.6,
-  };
-}
-
-function getPreviewStyle(index: number, activeIndex: number) {
-  const depth = activeIndex - index;
-  const isFuture = depth < 0;
-  const clampedDepth = Math.max(0, depth);
-
-  return {
-    zIndex: isFuture ? 0 : brainCaps.length - clampedDepth,
-  };
-}
-
-function BrainCapCopy({ cap }: { cap: BrainCap }) {
+function AccordionItem({
+  cap,
+  isActive,
+  onClick,
+}: {
+  cap: BrainCap;
+  isActive: boolean;
+  onClick: () => void;
+}) {
   const Icon = cap.icon;
 
   return (
-    <article className="max-w-[506px]">
-      <div className="flex items-center gap-5">
-        <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-white/10">
+    <article className="rounded-2xl p-0">
+      <button
+        type="button"
+        className="flex w-full items-center gap-5 text-left"
+        aria-expanded={isActive}
+        onClick={onClick}
+      >
+        <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-white/10">
           <Icon className="size-6 text-blue-400" aria-hidden="true" />
-        </div>
-        <h3 className="text-2xl leading-8 font-medium text-zinc-100">
+        </span>
+        <span className="text-2xl leading-8 font-medium text-zinc-100">
           {cap.title}
-        </h3>
-      </div>
-      <p className="mt-5 text-base leading-6 text-zinc-500">
-        {cap.description}
-      </p>
-      <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.04] p-4 font-mono text-xs leading-5 text-zinc-400">
-        <p>{cap.codeLabel}</p>
-        <div className="mt-4 space-y-1 text-zinc-300">
-          {cap.codeLines.map((line) => (
-            <p key={line}>{line}</p>
-          ))}
-        </div>
-      </div>
+        </span>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {isActive ? (
+          <motion.div
+            key="content"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={motionTransition}
+            className="overflow-hidden"
+          >
+            <p className="mt-4 text-base leading-6 text-zinc-500">
+              {cap.description}
+            </p>
+            <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.04] p-4 font-mono text-xs leading-5 text-zinc-400">
+              <p>{cap.codeLabel}</p>
+              <div className="mt-4 space-y-1 text-zinc-300">
+                {cap.codeLines.map((line) => (
+                  <p key={line}>{line}</p>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </article>
   );
 }
 
-function PreviewCard({ cap, index }: { cap: BrainCap; index: number }) {
+function DemoPlaceholder({ cap }: { cap: BrainCap }) {
   const Icon = cap.icon;
 
   return (
@@ -257,17 +266,10 @@ function PreviewCard({ cap, index }: { cap: BrainCap; index: number }) {
         className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:42px_42px]"
         aria-hidden="true"
       />
-      <div
-        className="absolute -top-20 right-10 size-56 rounded-full bg-blue-500/20 blur-3xl"
-        aria-hidden="true"
-      />
       <div className="relative flex flex-1 flex-col p-8">
         <div className="flex items-center gap-3 text-xs font-medium tracking-[0.16em] text-zinc-500 uppercase">
           <Icon className="size-4 text-blue-400" aria-hidden="true" />
-          <span>{cap.previewTitle}</span>
-          <span className="ml-auto text-blue-400">
-            {String(index + 1).padStart(2, '0')}
-          </span>
+          <span>{cap.demoTitle}</span>
         </div>
         <div className="mt-8 flex flex-1 items-center justify-center rounded-2xl border border-dashed border-white/15 bg-white/[0.035]">
           <div className="text-center">
@@ -277,7 +279,7 @@ function PreviewCard({ cap, index }: { cap: BrainCap; index: number }) {
             <p className="mt-5 text-lg font-medium text-zinc-200">
               {cap.title}
             </p>
-            <p className="mt-2 text-sm text-zinc-500">Image placeholder</p>
+            <p className="mt-2 text-sm text-zinc-500">Demo placeholder</p>
           </div>
         </div>
       </div>

@@ -744,10 +744,10 @@ function Cursor({
 }) {
   return (
     <motion.div
-      className="pointer-events-none absolute z-30 drop-shadow-[0_8px_16px_rgba(0,0,0,0.45)]"
+      className="pointer-events-none absolute top-0 left-0 z-30 drop-shadow-[0_8px_16px_rgba(0,0,0,0.45)] will-change-transform"
       animate={{
-        left: position ? position.x : `${step.cursor.x}%`,
-        top: position ? position.y : `${step.cursor.y}%`,
+        x: position ? position.x : `${step.cursor.x}%`,
+        y: position ? position.y : `${step.cursor.y}%`,
       }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
     >
