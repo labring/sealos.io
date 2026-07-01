@@ -46,6 +46,7 @@ import {
   useDemoPlayback,
   type CursorStep,
 } from '../(new-home)/components/deploy-demo-common';
+import { DatabaseDemo } from '../(new-home)/components/project-type-demos';
 
 type CanvasStep = CursorStep & {
   phase:
@@ -361,10 +362,48 @@ export default function BrainCapsPreviewPage() {
       </div>
 
       <div className="container space-y-10 pb-20">
-        <LiveCanvasDemo />
-        <DBStudioScene />
+        <PreviewBlock
+          description="Handle drag, env injection, update, and toast."
+          title="Live Object Canvas"
+        >
+          <LiveCanvasDemo />
+        </PreviewBlock>
+
+        <PreviewBlock
+          description="Database deploy, card expand, configure, metrics, terminal, and logs."
+          title="DatabaseDeployDemo"
+        >
+          <DatabaseDemo extended shellChrome="thin" />
+        </PreviewBlock>
+
+        <PreviewBlock
+          description="Database tree navigation and table sorting."
+          title="DB Studio Demo"
+        >
+          <DBStudioScene />
+        </PreviewBlock>
       </div>
     </main>
+  );
+}
+
+function PreviewBlock({
+  children,
+  description,
+  title,
+}: {
+  children: ReactNode;
+  description: string;
+  title: string;
+}) {
+  return (
+    <div className="space-y-3">
+      <div>
+        <h2 className="text-lg font-medium text-zinc-100">{title}</h2>
+        <p className="mt-1 text-sm text-zinc-500">{description}</p>
+      </div>
+      {children}
+    </div>
   );
 }
 
