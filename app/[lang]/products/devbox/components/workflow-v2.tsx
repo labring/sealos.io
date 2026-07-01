@@ -312,15 +312,13 @@ export default function Workflow({ lang }: WorkflowProps) {
   const t = translations[lang] || translations.en;
 
   return (
-    <section className="relative py-20">
-      {/* Background decoration */}
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-gray-50 to-white" />
-      {/* Gradient border overlay */}
+    <section className="relative py-4 sm:py-8">
+      <div className="absolute inset-0 rounded-3xl bg-white/[0.02]" />
       <div
         className="pointer-events-none absolute inset-0 rounded-3xl"
         style={{
           background:
-            'linear-gradient(to bottom, var(--color-gray-200), var(--color-white))',
+            'linear-gradient(to bottom, rgba(255,255,255,0.14), rgba(20,109,255,0.06))',
           mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
           maskComposite: 'xor',
           WebkitMask:
@@ -333,19 +331,17 @@ export default function Workflow({ lang }: WorkflowProps) {
       <div className="relative mx-auto max-w-7xl px-4">
         <AnimateElement type="slideUp">
           <div className="mb-16 text-center">
-            <h2 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">
+            <h2 className="mb-4 text-3xl font-medium text-white sm:text-4xl md:text-5xl">
               {t.title}
             </h2>
-            <p className="mx-auto max-w-3xl text-xl text-gray-600">
+            <p className="mx-auto max-w-3xl text-base leading-7 text-zinc-400 sm:text-xl">
               {t.subtitle}
             </p>
           </div>
         </AnimateElement>
 
-        {/* Timeline */}
         <div className="relative">
-          {/* Vertical line for desktop */}
-          <div className="absolute top-0 bottom-0 left-1/2 hidden w-0.5 -translate-x-1/2 bg-gradient-to-b from-blue-200 via-purple-200 to-pink-200 lg:block" />
+          <div className="absolute top-0 bottom-0 left-1/2 hidden w-px -translate-x-1/2 bg-gradient-to-b from-blue-400/40 via-white/10 to-blue-400/20 lg:block" />
 
           <div className="space-y-12 lg:space-y-20">
             {t.timeline.map((event, index) => {
@@ -360,7 +356,6 @@ export default function Workflow({ lang }: WorkflowProps) {
                       isEven ? 'lg:flex-row' : 'lg:flex-row-reverse',
                     )}
                   >
-                    {/* Content */}
                     <div
                       className={cn(
                         'flex-1',
@@ -369,51 +364,47 @@ export default function Workflow({ lang }: WorkflowProps) {
                     >
                       <div
                         className={cn(
-                          'relative overflow-hidden rounded-2xl bg-white p-8 shadow-xl',
-                          'border-gray-100 transition-colors hover:border-blue-200',
+                          'inset-shadow-bubble relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur sm:p-8',
+                          'transition-colors hover:border-blue-400/40',
                         )}
                       >
-                        {/* Time Badge */}
                         <div
                           className={cn(
                             'mb-4 flex items-center gap-3',
                             isEven ? 'lg:justify-end' : '',
                           )}
                         >
-                          <Clock className="h-5 w-5 text-gray-500" />
-                          <span className="text-sm font-semibold text-gray-500">
+                          <Clock className="h-5 w-5 text-zinc-500" />
+                          <span className="text-sm font-semibold text-zinc-500">
                             {event.time}
                           </span>
                         </div>
 
-                        {/* Title with Icon */}
                         <div
                           className={cn(
                             'mb-4 flex items-center gap-3',
                             isEven ? 'lg:flex-row-reverse lg:justify-end' : '',
                           )}
                         >
-                          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white">
+                          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 text-white">
                             <IconComponent size={24} />
                           </div>
-                          <h3 className="text-2xl font-bold text-gray-900">
+                          <h3 className="text-xl font-semibold text-white sm:text-2xl">
                             {event.title}
                           </h3>
                         </div>
 
-                        {/* Description */}
-                        <p className="mb-6 text-lg text-gray-600">
+                        <p className="mb-6 text-base leading-7 text-zinc-400 sm:text-lg">
                           {event.description}
                         </p>
 
-                        {/* Before/After Comparison */}
-                        <div className="mb-6 space-y-3 rounded-lg bg-gray-50 p-4">
+                        <div className="mb-6 space-y-3 rounded-xl border border-white/10 bg-black/30 p-4">
                           <div className="flex items-start gap-3">
                             <span className="mt-1.5 block h-2 w-2 flex-shrink-0 rounded-full bg-red-400" />
                             <div className="flex-1">
                               <p
                                 className={cn(
-                                  'text-sm text-gray-600',
+                                  'text-sm text-zinc-400',
                                   isEven ? 'lg:text-left' : '',
                                 )}
                               >
@@ -432,7 +423,7 @@ export default function Workflow({ lang }: WorkflowProps) {
                             <div className="flex-1">
                               <p
                                 className={cn(
-                                  'text-sm text-gray-600',
+                                  'text-sm text-zinc-400',
                                   isEven ? 'lg:text-left' : '',
                                 )}
                               >
@@ -445,29 +436,27 @@ export default function Workflow({ lang }: WorkflowProps) {
                           </div>
                         </div>
 
-                        {/* Metrics */}
-                        <div className="mb-6 flex items-center justify-center rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 p-4">
+                        <div className="mb-6 flex items-center justify-center rounded-xl border border-blue-400/20 bg-blue-500/10 p-4">
                           <div className="text-center">
                             <div className="flex items-baseline justify-center gap-1">
-                              <span className="text-3xl font-bold text-gray-900">
+                              <span className="text-3xl font-bold text-white">
                                 {event.metrics.value}
                               </span>
-                              <span className="text-lg font-medium text-gray-700">
+                              <span className="text-lg font-medium text-zinc-300">
                                 {event.metrics.unit}
                               </span>
                             </div>
-                            <div className="text-sm text-gray-600">
+                            <div className="text-sm text-zinc-500">
                               {event.metrics.label}
                             </div>
                           </div>
                         </div>
 
-                        {/* Details */}
                         <ul className="space-y-2">
                           {event.details.map((detail, idx) => (
                             <li
                               key={idx}
-                              className="flex items-center gap-2 text-sm text-gray-700"
+                              className="flex items-center gap-2 text-sm text-zinc-300"
                             >
                               <CheckCircle className="h-4 w-4 flex-shrink-0 text-green-500" />
                               <span
@@ -479,7 +468,6 @@ export default function Workflow({ lang }: WorkflowProps) {
                           ))}
                         </ul>
 
-                        {/* Add BorderBeam effect for highlighted cards */}
                         {index === 0 && (
                           <BorderBeam
                             size={200}
@@ -493,9 +481,8 @@ export default function Workflow({ lang }: WorkflowProps) {
                       </div>
                     </div>
 
-                    {/* Timeline dot */}
                     <div className="relative z-10 my-8 lg:absolute lg:top-1/2 lg:left-1/2 lg:my-0 lg:-translate-x-1/2 lg:-translate-y-1/2">
-                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg ring-4 ring-white">
+                      <div className="flex h-16 w-16 items-center justify-center rounded-full border border-white/10 bg-black shadow-lg ring-4 ring-black/60">
                         <div
                           className={cn(
                             'flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br text-2xl',
@@ -512,7 +499,6 @@ export default function Workflow({ lang }: WorkflowProps) {
                       </div>
                     </div>
 
-                    {/* Spacer for desktop */}
                     <div className="hidden flex-1 lg:block" />
                   </div>
                 </AnimateElement>
@@ -521,9 +507,8 @@ export default function Workflow({ lang }: WorkflowProps) {
           </div>
         </div>
 
-        {/* CTA Section */}
         <AnimateElement type="slideUp" delay={0.8}>
-          <div className="relative mt-20 overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 to-purple-600 p-12 text-center text-white">
+          <div className="inset-shadow-bubble relative mt-20 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 text-center text-white backdrop-blur sm:p-12">
             <Particles
               className="absolute inset-0"
               quantity={50}
@@ -533,10 +518,14 @@ export default function Workflow({ lang }: WorkflowProps) {
               staticity={60}
             />
             <div className="relative z-10">
-              <h3 className="mb-4 text-3xl font-bold">{t.cta.title}</h3>
-              <p className="mb-8 text-lg opacity-90">{t.cta.subtext}</p>
+              <h3 className="mb-4 text-2xl font-semibold sm:text-3xl">
+                {t.cta.title}
+              </h3>
+              <p className="mb-8 text-base text-zinc-400 sm:text-lg">
+                {t.cta.subtext}
+              </p>
               <CustomButton
-                className="group inline-flex items-center rounded-lg border-2 border-white/70 bg-transparent px-8 py-4 font-semibold text-white transition-all hover:bg-white hover:text-blue-600 hover:shadow-xl"
+                className="group inline-flex h-12 items-center rounded-full border border-white bg-white px-6 font-semibold text-zinc-950 transition-all hover:bg-zinc-200 hover:shadow-xl"
                 title={t.cta.button}
                 href={`${appDomain}/?openapp=system-devbox`}
                 location="workflow-cta"
