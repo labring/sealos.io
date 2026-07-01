@@ -301,14 +301,14 @@ export default function Solutions({ lang }: SolutionsProps) {
   const t = translations[lang] || translations.en;
 
   return (
-    <section className="overflow-hidden py-20">
+    <section className="overflow-hidden py-4 sm:py-8">
       <div className="mx-auto max-w-7xl px-4">
         <AnimateElement type="slideUp">
           <div className="mb-16 text-center">
-            <h2 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">
+            <h2 className="mb-4 text-3xl font-medium text-white sm:text-4xl md:text-5xl">
               {t.title}
             </h2>
-            <p className="mx-auto max-w-3xl text-xl text-gray-600">
+            <p className="mx-auto max-w-3xl text-base leading-7 text-zinc-400 sm:text-xl">
               {t.subtitle}
             </p>
           </div>
@@ -332,7 +332,7 @@ export default function Solutions({ lang }: SolutionsProps) {
                     <div className="mb-4 flex items-center gap-4">
                       <div
                         className={cn(
-                          'flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-lg',
+                          'flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br text-white shadow-lg',
                           colorClasses[
                             story.color as keyof typeof colorClasses
                           ],
@@ -340,34 +340,32 @@ export default function Solutions({ lang }: SolutionsProps) {
                       >
                         <Icon size={32} />
                       </div>
-                      <span className="text-sm font-semibold tracking-wider text-gray-500 uppercase">
+                      <span className="text-sm font-semibold tracking-wider text-zinc-500 uppercase">
                         {story.tagline}
                       </span>
                     </div>
-                    <h3 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
+                    <h3 className="mb-4 text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
                       {story.title}
                     </h3>
-                    <p className="mb-4 text-lg leading-relaxed text-gray-600">
+                    <p className="mb-4 text-base leading-8 text-zinc-400 sm:text-lg">
                       {story.story}
                     </p>
-                    <p className="text-lg font-medium text-gray-800">
+                    <p className="text-base font-medium text-zinc-200 sm:text-lg">
                       {story.transformation}
                     </p>
                   </div>
 
-                  {/* Before/After Comparison */}
                   <div className="grid gap-6 md:grid-cols-2">
-                    {/* Before Card */}
                     <MagicCard
-                      className="rounded-2xl"
+                      className="rounded-2xl border border-red-400/20 bg-red-500/[0.03]"
                       gradientColor="rgba(239, 68, 68, 0.1)"
                       gradientFrom="#ef4444"
                       gradientTo="#dc2626"
                     >
-                      <div className="rounded-2xl border-2 border-red-100 bg-red-50 p-6">
+                      <div className="rounded-2xl border border-red-400/20 bg-red-500/[0.06] p-5 backdrop-blur sm:p-6">
                         <div className="mb-4 flex items-center gap-3">
                           <XIcon className="h-6 w-6 text-red-500" size={24} />
-                          <h4 className="text-xl font-semibold text-gray-900">
+                          <h4 className="text-xl font-semibold text-white">
                             {story.before.title}
                           </h4>
                         </div>
@@ -375,36 +373,35 @@ export default function Solutions({ lang }: SolutionsProps) {
                           {story.before.items.map((item, idx) => (
                             <li key={idx} className="flex items-start gap-3">
                               <span className="mt-1.5 block h-2 w-2 rounded-full bg-red-400" />
-                              <span className="text-gray-700">{item}</span>
+                              <span className="text-zinc-300">{item}</span>
                             </li>
                           ))}
                         </ul>
-                        <div className="rounded-lg bg-white p-4 text-center">
+                        <div className="rounded-xl border border-red-400/20 bg-black/30 p-4 text-center">
                           <div className="text-3xl font-bold text-red-600">
                             {story.before.metric}
                           </div>
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-zinc-400">
                             {story.before.metricLabel}
                           </div>
                         </div>
                       </div>
                     </MagicCard>
 
-                    {/* After Card */}
                     <div className="relative">
                       <MagicCard
-                        className="overflow-hidden rounded-2xl"
+                        className="overflow-hidden rounded-2xl border border-emerald-400/20 bg-emerald-500/[0.03]"
                         gradientColor="rgba(34, 197, 94, 0.1)"
                         gradientFrom="#22c55e"
                         gradientTo="#16a34a"
                       >
-                        <div className="relative rounded-2xl border-2 border-green-100 bg-green-50 p-6">
+                        <div className="relative rounded-2xl border border-emerald-400/20 bg-emerald-500/[0.06] p-5 backdrop-blur sm:p-6">
                           <div className="mb-4 flex items-center gap-3">
                             <CircleCheckIcon
                               className="h-6 w-6 text-green-500"
                               size={24}
                             />
-                            <h4 className="text-xl font-semibold text-gray-900">
+                            <h4 className="text-xl font-semibold text-white">
                               {story.after.title}
                             </h4>
                           </div>
@@ -412,21 +409,20 @@ export default function Solutions({ lang }: SolutionsProps) {
                             {story.after.items.map((item, idx) => (
                               <li key={idx} className="flex items-start gap-3">
                                 <span className="mt-1.5 block h-2 w-2 rounded-full bg-green-400" />
-                                <span className="text-gray-700">{item}</span>
+                                <span className="text-zinc-300">{item}</span>
                               </li>
                             ))}
                           </ul>
-                          <div className="rounded-lg bg-white p-4 text-center">
+                          <div className="rounded-xl border border-emerald-400/20 bg-black/30 p-4 text-center">
                             <div className="text-3xl font-bold text-green-600">
                               {story.after.metric}
                             </div>
-                            <div className="text-sm text-gray-600">
+                            <div className="text-sm text-zinc-400">
                               {story.after.metricLabel}
                             </div>
                           </div>
                         </div>
                       </MagicCard>
-                      {/* BorderBeam outside of card */}
                       <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
                         <BorderBeam
                           size={150}
@@ -440,24 +436,22 @@ export default function Solutions({ lang }: SolutionsProps) {
                     </div>
                   </div>
 
-                  {/* Proof Badge */}
                   <div className="mt-8 flex justify-center">
                     <div className="relative">
-                      <div className="inline-flex items-center gap-4 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 px-6 py-3">
+                      <div className="inline-flex max-w-full flex-wrap items-center justify-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 backdrop-blur sm:gap-4 sm:px-6">
                         <Zap className="h-5 w-5 text-blue-600" />
                         <div className="flex items-baseline gap-2">
-                          <span className="text-2xl font-bold text-gray-900">
+                          <span className="text-2xl font-bold text-white">
                             {story.proof.metric}
                           </span>
-                          <span className="font-medium text-gray-700">
+                          <span className="font-medium text-zinc-200">
                             {story.proof.label}
                           </span>
                         </div>
-                        <span className="text-sm text-gray-600">
+                        <span className="text-sm text-zinc-500">
                           {story.proof.source}
                         </span>
                       </div>
-                      {/* BorderBeam wrapper with proper overflow */}
                       <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
                         <BorderBeam
                           size={80}

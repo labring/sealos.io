@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { AnimateElement } from '@/components/ui/animated-wrapper';
 import { appDomain } from '@/config/site';
 import { CustomButton } from '@/components/ui/button-custom';
-import { Package } from 'lucide-react';
+import { Package, Star } from 'lucide-react';
 import Image from 'next/image';
 
 interface TechItem {
@@ -432,90 +432,70 @@ export default function TechGrid() {
   return (
     <div>
       <AnimateElement type="slideUp">
-        <div className="mb-6 text-center text-4xl font-bold text-black sm:mb-8">
+        <div className="mb-6 text-center text-3xl font-medium text-white sm:mb-8 sm:text-4xl">
           Comprehensive Development Stack Support
         </div>
 
-        {/* Banner */}
         <div className="mb-8 flex justify-center">
-          <div
-            className="text-custom-secondary-text max-w-[760px] rounded-[46px] border border-solid border-[#ABE1FF] px-4 py-3 text-center text-xs font-medium md:text-sm"
-            style={{
-              background:
-                'linear-gradient(90deg, rgba(170, 229, 255, 0.30) 0%, rgba(170, 229, 255, 0.20) 100%)',
-            }}
-          >
+          <div className="max-w-[760px] rounded-full border border-blue-300/20 bg-blue-500/10 px-4 py-3 text-center text-xs font-medium text-zinc-400 md:text-sm">
             Launch specialized development environments for
-            <span className="px-1 text-[#008AB6]">
+            <span className="px-1 text-blue-300">
               any framework or language.
             </span>
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="mb-4 flex flex-wrap justify-center gap-4 text-sm font-medium sm:text-base">
-          {Object.keys(tileData).map((tab) => (
-            <button
-              key={tab}
-              className={`cursor-pointer rounded-md px-2 py-1 ${
-                activeTab === tab
-                  ? 'rounded-md bg-[#FAFCFF] text-black'
-                  : 'text-custom-secondary-text hover:bg-[#FAFCFF]/80'
-              }`}
-              style={{
-                boxShadow:
+        <div className="mb-4 overflow-x-auto pb-2">
+          <div className="mx-auto flex w-max min-w-full justify-start gap-2 text-sm font-medium sm:justify-center sm:text-base">
+            {Object.keys(tileData).map((tab) => (
+              <button
+                key={tab}
+                className={`cursor-pointer rounded-full border px-3 py-2 whitespace-nowrap transition-colors ${
                   activeTab === tab
-                    ? '0px 4px 4px 0px rgba(19, 51, 107, 0.05), 0px 0px 1px 0px rgba(19, 51, 107, 0.08)'
-                    : '',
-              }}
-              onClick={() => handleTabChange(tab)}
-            >
-              {tab}
-            </button>
-          ))}
+                    ? 'border-white/20 bg-white text-zinc-950'
+                    : 'border-white/10 bg-white/5 text-zinc-300 hover:bg-white/10'
+                }`}
+                onClick={() => handleTabChange(tab)}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Category Description */}
-        <div className="text-custom-secondary-text mb-6 text-center text-sm">
+        <div className="mb-6 text-center text-sm text-zinc-500">
           {tileData[activeTab].description}
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {tileData[activeTab].items.map((tech) => {
             const deployName = tech.name.toLowerCase().replace(/\s+/g, '');
             return (
               <div
                 key={tech.name}
-                className="flex flex-col gap-4 rounded-lg bg-white px-6 py-5"
-                style={{
-                  boxShadow:
-                    '0px 12px 40px -25px rgba(6, 26, 65, 0.20), 0px 0px 1px 0px rgba(19, 51, 107, 0.20)',
-                }}
+                className="inset-shadow-bubble flex min-h-[168px] flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-5 backdrop-blur transition-colors hover:border-blue-400/40"
               >
                 <div className="relative flex gap-4">
-                  <div className="relative flex size-7 items-center justify-center text-4xl lg:size-10">
+                  <div className="relative flex size-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 p-2 text-4xl">
                     <Image
                       src={tech.icon}
                       alt={tech.name}
                       width={40}
                       height={40}
-                      className="size-7 lg:size-10 object-contain"
+                      className="size-7 object-contain"
                       loading="lazy"
                       sizes="40px"
                     />
                   </div>
                   <div className="flex flex-col justify-center">
-                    <h3 className="text-lg font-medium text-black">
+                    <h3 className="text-lg font-medium text-white">
                       {tech.name}
                     </h3>
-                    <p className="text-custom-secondary-text text-xs">
-                      {tech.language}
-                    </p>
+                    <p className="text-xs text-zinc-500">{tech.language}</p>
                   </div>
-                  <div className="absolute top-0 right-0 -mt-2 flex flex-col items-center gap-2 rounded p-2">
-                    <span className="text-yellow-500">⭐</span>
-                    <span className="text-custom-secondary-text text-xs">
+                  <div className="absolute top-0 right-0 -mt-2 flex flex-col items-center gap-1 rounded p-2">
+                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    <span className="text-xs text-zinc-500">
                       {tech.githubStars
                         ? tech.githubStars.toLocaleString()
                         : 'Popular'}
@@ -523,10 +503,9 @@ export default function TechGrid() {
                   </div>
                 </div>
 
-                {/* Deploy Button */}
                 <div className="mt-4 flex justify-center">
                   <CustomButton
-                    className="group bg-custom-bg text-custom-primary-text hover:ring-custom-bg focus-visible:ring-ring relative flex h-9 w-full max-w-52 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-md px-4 py-2 text-sm font-medium whitespace-pre shadow-sm transition-all duration-300 ease-out hover:bg-[#97D9FF] hover:ring-2 hover:ring-offset-2 focus-visible:ring-1 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 md:flex"
+                    className="group relative flex h-10 w-full cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full border border-white bg-white px-4 py-2 text-sm font-medium whitespace-pre text-zinc-950 shadow-sm transition-all duration-300 ease-out hover:bg-zinc-200 focus-visible:ring-1 focus-visible:ring-white focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 md:flex"
                     title="Deploy DevBox"
                     href={`${deployLink}${deployName}`}
                     location="tech-grid"

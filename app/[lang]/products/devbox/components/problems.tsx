@@ -82,32 +82,38 @@ export default function Problems({ lang }: ProblemsProps) {
   const t = translations[lang] || translations.en;
 
   return (
-    <section className="py-16">
+    <section className="py-4 sm:py-8">
       <AnimateElement type="slideUp">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-gray-900">{t.title}</h2>
-          <p className="mx-auto max-w-3xl text-xl text-gray-600">
+          <h2 className="mb-4 text-3xl font-medium text-white sm:text-4xl md:text-5xl">
+            {t.title}
+          </h2>
+          <p className="mx-auto max-w-3xl text-base leading-7 text-zinc-400 sm:text-xl">
             {t.subtitle}
           </p>
         </div>
       </AnimateElement>
 
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
         {t.problems.map((problem, index) => (
           <AnimateElement key={index} type="slideUp" delay={index * 0.1}>
-            <div className="flex h-full flex-col rounded-lg border border-gray-100 bg-white p-6 shadow-lg transition-shadow hover:shadow-xl">
+            <div className="inset-shadow-bubble flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.035] p-5 backdrop-blur transition-colors hover:border-blue-400/40 sm:p-6">
               <div className="mb-4 flex items-start gap-4">
-                <div className="flex-shrink-0">{problemIcons[index]}</div>
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-blue-300">
+                  {problemIcons[index]}
+                </div>
                 <div className="flex-grow">
-                  <h3 className="mb-2 text-xl font-semibold text-gray-900">
+                  <h3 className="mb-2 text-xl font-semibold text-white">
                     {problem.title}
                   </h3>
-                  <p className="text-gray-600">{problem.description}</p>
+                  <p className="leading-7 text-zinc-400">
+                    {problem.description}
+                  </p>
                 </div>
               </div>
 
-              <div className="mt-auto flex justify-center">
-                <div className="inline-flex items-center rounded-full bg-red-50 px-3 py-1 text-sm font-medium text-red-700">
+              <div className="mt-auto flex justify-start">
+                <div className="inline-flex items-center rounded-full border border-red-400/20 bg-red-500/10 px-3 py-1 text-sm font-medium text-red-200">
                   {problem.impact}
                 </div>
               </div>

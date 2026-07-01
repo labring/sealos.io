@@ -69,19 +69,18 @@ export default function SocialProof({ lang = 'en' }: SocialProofProps) {
 
   return (
     <motion.section
-      className="px-4 py-16 sm:px-6 lg:px-8"
+      className="py-4 sm:py-8"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
       <div className="mx-auto max-w-7xl">
-        {/* Customer Logos */}
         <motion.div variants={itemVariants} className="mb-12 text-center">
-          <p className="mb-8 text-sm font-semibold tracking-wider text-slate-500 uppercase">
+          <p className="mb-8 text-sm font-semibold tracking-wider text-zinc-500 uppercase">
             {t.trustedBy}
           </p>
-          <p className="-mt-4 mb-6 text-xs text-slate-500">{t.tagline}</p>
-          <div className="flex flex-wrap items-center justify-center gap-12">
+          <p className="-mt-4 mb-6 text-xs text-zinc-500">{t.tagline}</p>
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
             {logos.map((logo) => (
               <motion.div
                 key={logo.name}
@@ -91,59 +90,52 @@ export default function SocialProof({ lang = 'en' }: SocialProofProps) {
                 <img
                   src={logo.url}
                   alt={logo.name}
-                  className="h-10 w-auto object-contain"
+                  className="h-10 w-auto object-contain brightness-0 invert"
                 />
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* Stats and Testimonial Grid */}
         <div className="grid items-center gap-8 md:grid-cols-2">
-          {/* Stats Section */}
           <motion.div
             variants={itemVariants}
             className="flex flex-col justify-center gap-6 sm:flex-row md:justify-start"
           >
-            {/* GitHub Stars */}
             <motion.div
-              className="flex items-center gap-3 rounded-xl border border-gray-100 bg-white px-6 py-4 shadow-lg"
+              className="inset-shadow-bubble flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-4 backdrop-blur"
               whileHover={{
                 scale: 1.02,
-                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
               }}
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg shadow-emerald-500/25">
                 <GitBranch className="h-6 w-6 text-white" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">16K+</p>
-                <p className="text-sm text-gray-600">{t.githubStars}</p>
+                <p className="text-2xl font-bold text-white">16K+</p>
+                <p className="text-sm text-zinc-400">{t.githubStars}</p>
               </div>
             </motion.div>
 
-            {/* Active Developers */}
             <motion.div
-              className="flex items-center gap-3 rounded-xl border border-gray-100 bg-white px-6 py-4 shadow-lg"
+              className="inset-shadow-bubble flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-4 backdrop-blur"
               whileHover={{
                 scale: 1.02,
-                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
               }}
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 shadow-lg shadow-orange-500/25">
                 <Users className="h-6 w-6 text-white" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">10K+</p>
-                <p className="text-sm text-gray-600">{t.developers}</p>
+                <p className="text-2xl font-bold text-white">10K+</p>
+                <p className="text-sm text-zinc-400">{t.developers}</p>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Testimonial Card */}
           <motion.div
             variants={itemVariants}
-            className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-emerald-50/30 p-8 shadow-xl"
+            className="inset-shadow-bubble rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur sm:p-8"
             whileHover={{ scale: 1.01 }}
           >
             <div className="mb-4 flex gap-1">
@@ -158,7 +150,7 @@ export default function SocialProof({ lang = 'en' }: SocialProofProps) {
                 </motion.div>
               ))}
             </div>
-            <blockquote className="mb-4 text-lg leading-relaxed text-slate-700">
+            <blockquote className="mb-4 text-lg leading-relaxed text-zinc-200">
               "{t.testimonialQuote}"
             </blockquote>
             <div className="flex items-center gap-3">
@@ -166,7 +158,7 @@ export default function SocialProof({ lang = 'en' }: SocialProofProps) {
                 SC
               </div>
               <div>
-                <p className="text-sm font-semibold text-slate-800">
+                <p className="text-sm font-semibold text-white">
                   {t.testimonialAuthor}
                 </p>
               </div>

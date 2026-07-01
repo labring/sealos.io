@@ -20,11 +20,7 @@ const translations = {
   },
 };
 
-export default function USPChips({
-  lang = 'en',
-}: {
-  lang?: languagesType;
-}) {
+export default function USPChips({ lang = 'en' }: { lang?: languagesType }) {
   const t = translations[lang as keyof typeof translations] || translations.en;
 
   return (
@@ -33,9 +29,9 @@ export default function USPChips({
         {t.chips.map(({ label, Icon }, i) => (
           <span
             key={i}
-            className="shrink-0 inline-flex items-center gap-2 rounded-full border border-emerald-200/70 bg-emerald-50/60 px-3 py-1.5 text-xs sm:text-sm font-medium text-slate-800 shadow-sm backdrop-blur-[2px] transition-all hover:border-emerald-400/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50"
+            className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-zinc-200 shadow-sm backdrop-blur transition-all hover:border-blue-400/60 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/50 sm:text-sm"
           >
-            <Icon aria-hidden className="h-4 w-4 text-emerald-600" />
+            <Icon aria-hidden className="h-4 w-4 text-blue-300" />
             {label}
           </span>
         ))}
