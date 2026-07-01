@@ -1,15 +1,18 @@
 'use client';
 
-import { type ReactNode } from 'react';
+import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import {
   AlertTriangle,
   CheckCircle2,
   ChevronDown,
+  Copy,
   Github,
-  Link2,
+  MessageCircle,
   Rocket,
   Search,
+  TextSearch,
   User,
+  X,
   type LucideIcon,
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
@@ -17,7 +20,6 @@ import { AnimatePresence, motion } from 'motion/react';
 import { cn } from '@/lib/utils';
 
 import {
-  DemoField,
   DemoStageShell,
   DeployButton,
   FormHeader,
@@ -30,7 +32,7 @@ import {
 } from './deploy-demo-common';
 
 type GithubScreen = 'mode' | 'form' | 'ready';
-type GithubFieldId = 'repoUrl' | 'secret';
+type GithubFieldId = 'secret';
 
 type GithubStep = CursorStep & {
   screen: GithubScreen;
@@ -43,8 +45,7 @@ type GithubStep = CursorStep & {
 };
 
 const githubFinalValues: Record<GithubFieldId, string> = {
-  repoUrl: 'github.com/sealos/demo-api',
-  secret: 'sealos-demo-secret',
+  secret: 'bG9naW46cGFzc3dvcmQ=',
 };
 
 const githubSteps: GithubStep[] = [
@@ -70,15 +71,6 @@ const githubSteps: GithubStep[] = [
     holdCursor: true,
   },
   {
-    duration: 1500,
-    screen: 'form',
-    cursor: { x: 44, y: 60 },
-    activeField: 'repoUrl',
-    authorized: true,
-    expanded: true,
-    typed: { repoUrl: githubFinalValues.repoUrl },
-  },
-  {
     duration: 900,
     screen: 'form',
     cursor: { x: 78, y: 74 },
@@ -87,7 +79,7 @@ const githubSteps: GithubStep[] = [
     clickTarget: 'repoDeploy',
   },
   {
-    duration: 850,
+    duration: 700,
     screen: 'ready',
     cursor: { x: 58, y: 48 },
     authorized: true,
@@ -103,17 +95,59 @@ const githubSteps: GithubStep[] = [
     holdCursor: true,
   },
   {
-    duration: 900,
+    duration: 850,
     screen: 'ready',
     cursor: { x: 58, y: 58 },
     readyStage: 2,
     holdCursor: true,
   },
   {
-    duration: 1300,
+    duration: 850,
+    screen: 'ready',
+    cursor: { x: 58, y: 58 },
+    readyStage: 3,
+    holdCursor: true,
+  },
+  {
+    duration: 850,
+    screen: 'ready',
+    cursor: { x: 58, y: 58 },
+    readyStage: 4,
+    holdCursor: true,
+  },
+  {
+    duration: 850,
+    screen: 'ready',
+    cursor: { x: 58, y: 58 },
+    readyStage: 5,
+    holdCursor: true,
+  },
+  {
+    duration: 850,
+    screen: 'ready',
+    cursor: { x: 58, y: 58 },
+    readyStage: 6,
+    holdCursor: true,
+  },
+  {
+    duration: 850,
+    screen: 'ready',
+    cursor: { x: 58, y: 60 },
+    readyStage: 7,
+    holdCursor: true,
+  },
+  {
+    duration: 900,
+    screen: 'ready',
+    cursor: { x: 58, y: 60 },
+    readyStage: 8,
+    holdCursor: true,
+  },
+  {
+    duration: 1400,
     screen: 'ready',
     cursor: { x: 47, y: 65 },
-    readyStage: 3,
+    readyStage: 9,
     activeField: 'secret',
     typed: { secret: githubFinalValues.secret },
   },
@@ -121,21 +155,42 @@ const githubSteps: GithubStep[] = [
     duration: 800,
     screen: 'ready',
     cursor: { x: 72, y: 65 },
-    readyStage: 4,
+    readyStage: 10,
     clickTarget: 'secretSubmit',
   },
   {
-    duration: 900,
+    duration: 850,
     screen: 'ready',
     cursor: { x: 72, y: 65 },
-    readyStage: 5,
+    readyStage: 11,
     holdCursor: true,
   },
   {
-    duration: 1400,
+    duration: 850,
     screen: 'ready',
-    cursor: { x: 58, y: 44 },
-    readyStage: 6,
+    cursor: { x: 58, y: 46 },
+    readyStage: 12,
+    holdCursor: true,
+  },
+  {
+    duration: 850,
+    screen: 'ready',
+    cursor: { x: 58, y: 46 },
+    readyStage: 13,
+    holdCursor: true,
+  },
+  {
+    duration: 850,
+    screen: 'ready',
+    cursor: { x: 58, y: 46 },
+    readyStage: 14,
+    holdCursor: true,
+  },
+  {
+    duration: 1600,
+    screen: 'ready',
+    cursor: { x: 58, y: 46 },
+    readyStage: 15,
     holdCursor: true,
   },
 ];
@@ -155,10 +210,7 @@ export function GitHubImportDemo() {
     getTargetId: getGithubStepTarget,
     steps: githubSteps,
   });
-  const readyStage = reduceMotion ? 6 : step.readyStage;
-  const repoUrl = reduceMotion
-    ? githubFinalValues.repoUrl
-    : getGithubFieldText('repoUrl', effectiveIndex, actionProgress);
+  const readyStage = reduceMotion ? 15 : step.readyStage;
   const secret = reduceMotion
     ? githubFinalValues.secret
     : getGithubFieldText('secret', effectiveIndex, actionProgress);
@@ -205,7 +257,6 @@ export function GitHubImportDemo() {
               activeField={activeField}
               authorized={Boolean(step.authorized)}
               expanded={Boolean(step.expanded)}
-              repoUrl={repoUrl}
               authorizePressed={actionReady && step.clickTarget === 'authorize'}
               repoDeployPressed={
                 actionReady && step.clickTarget === 'repoDeploy'
@@ -285,14 +336,12 @@ function GithubImportForm({
   authorized,
   expanded,
   repoDeployPressed,
-  repoUrl,
 }: {
   activeField?: GithubFieldId;
   authorizePressed: boolean;
   authorized: boolean;
   expanded: boolean;
   repoDeployPressed: boolean;
-  repoUrl: string;
 }) {
   return (
     <div className="flex h-full flex-col overflow-hidden p-5">
@@ -329,20 +378,6 @@ function GithubImportForm({
               {authorized ? 'Authorized' : 'Authorize GitHub'}
             </button>
           </GithubPanel>
-
-          <CollapsiblePanel
-            expanded={expanded}
-            Icon={Link2}
-            title="Repository URL"
-            description="Paste a repository URL directly."
-          >
-            <DemoField
-              active={activeField === 'repoUrl'}
-              placeholder="github.com/org/repository"
-              target="repoUrl"
-              value={repoUrl}
-            />
-          </CollapsiblePanel>
 
           <CollapsiblePanel
             expanded={expanded}
@@ -455,159 +490,396 @@ function GithubReadyScreen({
   secret: string;
   submitPressed: boolean;
 }) {
+  const blocked = readyStage >= 8 && readyStage < 11;
+  const done = readyStage >= 15;
+  const secretValue = readyStage >= 11 ? maskSecret(secret) : secret;
+  const timelineViewportRef = useRef<HTMLDivElement>(null);
+  const timelineContentRef = useRef<HTMLDivElement>(null);
+  const [timelineY, setTimelineY] = useState(0);
+
+  useLayoutEffect(() => {
+    const viewport = timelineViewportRef.current;
+    const content = timelineContentRef.current;
+    if (!viewport || !content) return;
+
+    if (!blocked) {
+      setTimelineY(0);
+      return;
+    }
+
+    const target = content.querySelector('[data-timeline-config-form]');
+    if (!(target instanceof HTMLElement)) return;
+
+    const targetBottom = target.offsetTop + target.offsetHeight;
+    const maxUp = Math.min(0, viewport.clientHeight - content.scrollHeight);
+    setTimelineY(
+      Math.max(maxUp, Math.min(0, viewport.clientHeight - 16 - targetBottom)),
+    );
+  }, [activeField, blocked, readyStage]);
+
   return (
     <div
       data-ready-stage={readyStage}
-      className="flex h-full flex-col overflow-hidden p-5"
+      className="flex h-full flex-col overflow-hidden px-2 py-4"
     >
-      <FormHeader
-        Icon={Rocket}
-        title="Will get ready soon.."
-        description="This process may take 10-20 minutes, please do not leave and we will get everything done!"
-      />
+      <TimelineHeader />
 
-      <div className="min-h-0 flex-1 overflow-hidden rounded-lg border border-white/[0.07] bg-[#1E2026] p-4">
-        <div className="space-y-4">
-          <TimelineStep
-            status={readyStage >= 1 ? 'success' : 'running'}
-            title="Prepare repository"
-            description="Reading source tree and deployment metadata."
-            visible={readyStage >= 0}
-          />
-          <TimelineStep
-            status={
-              readyStage < 2
-                ? 'pending'
-                : readyStage < 5
-                  ? 'warning'
-                  : readyStage < 6
-                    ? 'running'
-                    : 'success'
-            }
-            title="Required environment"
-            description="AUTH_SECRET is required before the build can continue."
-            visible={readyStage >= 1}
-          >
-            {readyStage >= 2 && (
-              <div className="mt-3 grid grid-cols-[1fr_72px] gap-2">
-                <label
-                  className="flex h-8 min-w-0 items-center rounded-md border border-amber-400/50 bg-black/20 px-2.5 font-mono text-[11px] text-zinc-100 shadow-[0_0_0_3px_rgba(251,191,36,0.12)]"
-                  data-demo-target="secret"
-                >
-                  <span className="min-w-0 truncate">
-                    {secret || (
-                      <span className="text-zinc-600">AUTH_SECRET</span>
-                    )}
-                    <TypingCaret visible={activeField === 'secret'} />
-                  </span>
-                </label>
-                <button
-                  data-demo-target="secretSubmit"
-                  className={cn(
-                    'h-8 rounded-md bg-blue-500 text-[11px] font-medium text-white',
-                    readyStage >= 6 && 'bg-emerald-500',
-                    submitPressed && 'bg-blue-400',
-                  )}
-                  type="button"
-                >
-                  {readyStage >= 6 ? 'Done' : 'Confirm'}
-                </button>
+      <div className="min-h-0 flex-1 overflow-hidden rounded-lg border border-blue-400 bg-white/[0.05] p-3.5 shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.06)]">
+        <div className="flex h-full flex-col overflow-hidden">
+          <div className="shrink-0 pb-3.5">
+            <div className="mb-2 flex items-center gap-2">
+              <Rocket className="size-3 text-zinc-100" aria-hidden="true" />
+              <span className="text-xs font-medium text-zinc-100">
+                Deployment Timeline
+              </span>
+            </div>
+
+            <div className="mb-2 flex h-8 items-center justify-between rounded-md border border-white/10 bg-white/[0.05] px-3 text-xs text-zinc-400">
+              <div className="flex min-w-0 items-center gap-2">
+                <span>Task ID：</span>
+                <span className="truncate font-mono">xJUVYucmToX5sd8F</span>
               </div>
-            )}
-          </TimelineStep>
-          <TimelineStep
-            status={
-              readyStage >= 5
-                ? 'success'
-                : readyStage >= 4
-                  ? 'running'
-                  : 'pending'
-            }
-            title="Build container"
-            description="Installing dependencies and preparing runtime image."
-            visible={readyStage >= 3}
-          />
-          <TimelineStep
-            status={
-              readyStage >= 6
-                ? 'success'
-                : readyStage >= 5
-                  ? 'running'
-                  : 'pending'
-            }
-            title="Deploy application"
-            description="Provisioning network, domain, and live service."
-            visible={readyStage >= 4}
-          />
+              <Copy className="size-3 shrink-0 text-zinc-400" aria-hidden />
+            </div>
+
+            <TaskStatus blocked={blocked} done={done} />
+          </div>
+
+          <div
+            ref={timelineViewportRef}
+            data-timeline-viewport
+            className="relative min-h-0 flex-1 overflow-hidden pr-1"
+          >
+            <motion.div
+              ref={timelineContentRef}
+              data-timeline-content
+              className="space-y-3.5"
+              animate={{ y: timelineY }}
+              transition={screenTransition}
+            >
+              <TimelineStep
+                events={[
+                  'Preparing deploy runtime.',
+                  'Deployment workspace is ready.',
+                ]}
+                status={getStepStatus(readyStage, 0, 1, 2)}
+                title="Prepare workspace"
+              />
+              <TimelineStep
+                events={[
+                  'Preparing deploy runtime.',
+                  'Repository analysis is complete.',
+                ]}
+                status={getStepStatus(readyStage, 3, 4, 5)}
+                title="Analyze repository"
+              />
+              <TimelineStep
+                events={[
+                  'Deployment output files are ready.',
+                  'Generated Sealos template deployment artifact.',
+                  'Deployment requires 1 configuration values.',
+                ]}
+                status={getGenerateStatus(readyStage)}
+                title="Generate deployment"
+              >
+                <AnimatePresence initial={false}>
+                  {blocked && (
+                    <motion.div
+                      data-timeline-config-form
+                      className="mt-2.5 rounded-lg border border-white/10 bg-white/[0.05] p-3.5"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={screenTransition}
+                    >
+                      <div className="mb-3 flex items-center gap-2">
+                        <AlertTriangle
+                          className="size-3 text-amber-300"
+                          aria-hidden
+                        />
+                        <span className="text-xs font-medium text-zinc-100">
+                          Deployment configuration
+                        </span>
+                      </div>
+                      <p className="mb-3 text-xs leading-[18px] text-zinc-400">
+                        Required template values are missing. Submit them to
+                        continue this deployment.
+                      </p>
+                      <label className="block text-xs text-zinc-100">
+                        dataforseo_api_key{' '}
+                        <span className="text-red-500">*</span>
+                      </label>
+                      <p className="mt-1.5 text-xs leading-[18px] text-zinc-400">
+                        Base64-encoded DataForSEO login:password API credential.
+                      </p>
+                      <label
+                        data-demo-target="secret"
+                        className={cn(
+                          'mt-2 flex h-8 min-w-0 items-center rounded-md border bg-white/[0.05] px-3 text-xs text-zinc-400',
+                          activeField === 'secret'
+                            ? 'border-blue-500 shadow-[0_0_0_3px_rgba(59,130,246,0.14)]'
+                            : 'border-white/10',
+                        )}
+                      >
+                        <span className="min-w-0 truncate">
+                          {secretValue || 'Placeholder'}
+                          <TypingCaret visible={activeField === 'secret'} />
+                        </span>
+                      </label>
+                      <button
+                        data-demo-target="secretSubmit"
+                        className={cn(
+                          'mt-3 flex h-8 w-full items-center justify-center gap-2 rounded-lg bg-blue-500 px-3 text-xs font-medium text-white',
+                          submitPressed && 'bg-blue-400',
+                        )}
+                        type="button"
+                      >
+                        <Rocket className="size-3" aria-hidden />
+                        Continue Deployment
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </TimelineStep>
+              <TimelineStep
+                events={[
+                  'Build container image.',
+                  'Provision runtime resources.',
+                  'Public endpoint is online.',
+                ]}
+                status={getStepStatus(readyStage, 13, 14, 15)}
+                title="Create resources"
+              />
+            </motion.div>
+          </div>
         </div>
       </div>
+
+      <TimelineActions />
     </div>
   );
 }
 
-type TimelineStatus = 'pending' | 'running' | 'warning' | 'success';
-
-function TimelineStep({
-  children,
-  description,
-  status,
-  title,
-  visible,
-}: {
-  children?: ReactNode;
-  description: string;
-  status: TimelineStatus;
-  title: string;
-  visible: boolean;
-}) {
+function TimelineHeader() {
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          className="flex gap-3"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 6 }}
-          transition={screenTransition}
-        >
-          <StatusDot status={status} />
-          <div className="min-w-0 flex-1">
-            <div className="text-xs font-medium text-zinc-100">{title}</div>
-            <p className="mt-1 text-[11px] leading-4 text-zinc-500">
-              {description}
-            </p>
-            {children}
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div className="mb-4 flex shrink-0 items-start justify-between">
+      <div>
+        <div className="flex items-center gap-2">
+          <Github className="size-4 text-blue-300" aria-hidden="true" />
+          <h3 className="text-base leading-none font-semibold text-zinc-100">
+            Deployment Timeline
+          </h3>
+        </div>
+        <p className="mt-2 text-xs leading-[18px] text-zinc-400">
+          This process may take{' '}
+          <span className="text-zinc-100">10-20 minutes</span>, please do not
+          leave and we will get everything done!
+        </p>
+      </div>
+      <button
+        className="flex size-8 items-center justify-center rounded-lg text-zinc-400"
+        type="button"
+      >
+        <X className="size-3" aria-hidden="true" />
+      </button>
+    </div>
   );
 }
 
+function maskSecret(secret: string) {
+  if (!secret) return '';
+  return `${secret.slice(0, 7)}••••••${secret.slice(-4)}`;
+}
+
+type TimelineStatus = 'pending' | 'running' | 'warning' | 'success';
+
+function getStepStatus(
+  readyStage: number,
+  idleStage: number,
+  runningStage: number,
+  successStage: number,
+): TimelineStatus {
+  if (readyStage >= successStage) return 'success';
+  if (readyStage >= runningStage) return 'running';
+  if (readyStage >= idleStage) return 'pending';
+  return 'pending';
+}
+
+function getGenerateStatus(readyStage: number): TimelineStatus {
+  if (readyStage >= 12) return 'success';
+  if (readyStage >= 11) return 'running';
+  if (readyStage >= 8) return 'warning';
+  if (readyStage >= 7) return 'running';
+  if (readyStage >= 6) return 'pending';
+  return 'pending';
+}
+
+function TimelineStep({
+  children,
+  events,
+  status,
+  title,
+}: {
+  children?: ReactNode;
+  events: string[];
+  status: TimelineStatus;
+  title: string;
+}) {
+  const visibleEvents = getVisibleEvents(events, status);
+
+  return (
+    <motion.div
+      className="w-full"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={screenTransition}
+    >
+      <div className="flex items-center gap-2">
+        <StatusDot status={status} />
+        <span className="min-w-0 truncate text-xs leading-[18px] text-zinc-100">
+          {title}
+        </span>
+      </div>
+
+      {visibleEvents.length > 0 && (
+        <div className="mt-2 flex gap-1">
+          <div className="ml-[5.5px] w-px shrink-0 bg-white/10" />
+          <div className="space-y-1 text-[10.5px] leading-[14px]">
+            <AnimatePresence initial={false}>
+              {visibleEvents.map((event, index) => (
+                <motion.div
+                  key={event}
+                  className="flex min-w-0 gap-1"
+                  initial={{ opacity: 0, y: 4, filter: 'blur(3px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -2, filter: 'blur(2px)' }}
+                  transition={{
+                    ...screenTransition,
+                    delay: Math.min(index * 0.04, 0.12),
+                  }}
+                >
+                  <span className="w-[48px] shrink-0 truncate text-zinc-500">
+                    {getEventTime(title, event)}
+                  </span>
+                  <span className="min-w-0 truncate text-zinc-100">
+                    {event}
+                  </span>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </div>
+      )}
+      {children}
+    </motion.div>
+  );
+}
+
+function getVisibleEvents(events: string[], status: TimelineStatus) {
+  if (status === 'pending') return [];
+  if (status === 'running')
+    return events.slice(0, Math.max(1, events.length - 1));
+  return events;
+}
+
+function getEventTime(title: string, event: string) {
+  const times: Record<string, string[]> = {
+    'Prepare workspace': ['09:41:04', '09:41:09'],
+    'Analyze repository': ['09:41:16', '09:41:22'],
+    'Generate deployment': ['09:41:31', '09:41:38', '09:41:44'],
+    'Create resources': ['09:42:03', '09:42:15', '09:42:27'],
+  };
+  const index =
+    title === 'Generate deployment'
+      ? [
+          'Deployment output files are ready.',
+          'Generated Sealos template deployment artifact.',
+          'Deployment requires 1 configuration values.',
+        ].indexOf(event)
+      : title === 'Create resources'
+        ? [
+            'Build container image.',
+            'Provision runtime resources.',
+            'Public endpoint is online.',
+          ].indexOf(event)
+        : event.includes('complete') || event.includes('ready.')
+          ? 1
+          : 0;
+
+  return times[title]?.[index] ?? '09:41:00';
+}
+
 function StatusDot({ status }: { status: TimelineStatus }) {
-  const icon =
-    status === 'success' ? (
-      <CheckCircle2 className="size-4" aria-hidden />
-    ) : status === 'warning' ? (
-      <AlertTriangle className="size-4" aria-hidden />
-    ) : (
-      <span className="size-2 rounded-full bg-current" />
-    );
+  if (status === 'success') {
+    return <CheckCircle2 className="size-3 shrink-0 text-emerald-400" />;
+  }
+
+  if (status === 'warning') {
+    return <AlertTriangle className="size-3 shrink-0 text-yellow-400" />;
+  }
 
   return (
     <span
-      className={cn(
-        'mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full border',
-        status === 'pending' && 'border-zinc-700 text-zinc-600',
-        status === 'running' &&
-          'border-blue-400/30 bg-blue-500/10 text-blue-300',
-        status === 'warning' &&
-          'border-amber-400/30 bg-amber-500/10 text-amber-300',
-        status === 'success' &&
-          'border-emerald-400/30 bg-emerald-500/10 text-emerald-300',
-      )}
+      className="flex size-3 shrink-0 items-center justify-center"
+      aria-hidden
     >
-      {icon}
+      <span
+        className={cn(
+          'size-1.5 rounded-full ring-[1.5px]',
+          status === 'running'
+            ? 'bg-green-500 ring-green-500/30'
+            : 'bg-blue-500 ring-blue-500/30',
+        )}
+      />
     </span>
+  );
+}
+
+function TaskStatus({ blocked, done }: { blocked: boolean; done: boolean }) {
+  const label = done
+    ? 'Done - Publish-Service'
+    : blocked
+      ? 'Blocked - Conigure'
+      : 'Running - Generate-Artifacts';
+
+  return (
+    <div className="flex shrink-0 items-center gap-2 text-xs leading-[18px] text-zinc-400">
+      {blocked ? (
+        <StatusDot status="warning" />
+      ) : done ? (
+        <StatusDot status="success" />
+      ) : (
+        <StatusDot status="running" />
+      )}
+      {label}
+    </div>
+  );
+}
+
+function TimelineActions() {
+  return (
+    <div className="mt-4 flex shrink-0 justify-end gap-1.5">
+      <TimelineAction Icon={X}>Cancel Deployment</TimelineAction>
+      <TimelineAction Icon={MessageCircle}>Discord Support</TimelineAction>
+      <TimelineAction Icon={TextSearch}>AI Analysis</TimelineAction>
+    </div>
+  );
+}
+
+function TimelineAction({
+  children,
+  Icon,
+}: {
+  children: ReactNode;
+  Icon: LucideIcon;
+}) {
+  return (
+    <button
+      className="flex h-8 items-center justify-center gap-2 rounded-lg bg-white/[0.05] px-3 text-xs font-medium text-zinc-100"
+      type="button"
+    >
+      <Icon className="size-3" aria-hidden="true" />
+      {children}
+    </button>
   );
 }
