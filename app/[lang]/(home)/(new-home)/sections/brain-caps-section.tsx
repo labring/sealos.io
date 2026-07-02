@@ -1,6 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ComponentType,
+  type ReactNode,
+} from 'react';
 import {
   ArrowUpNarrowWide,
   Box,
@@ -11,6 +17,11 @@ import {
 } from 'lucide-react';
 import { AnimatePresence, motion, type Transition } from 'motion/react';
 import { GradientText } from '@/new-components/GradientText';
+import {
+  DeployCanvasDemo,
+  DBStudioDemo,
+  DBDeployDemo,
+} from '../components/brain-caps-demos';
 
 type BrainCap = {
   icon: LucideIcon;
@@ -19,6 +30,7 @@ type BrainCap = {
   codeLabel: string;
   codeLines: string[];
   demoTitle: string;
+  demo?: ComponentType;
 };
 
 const brainCaps: BrainCap[] = [
@@ -41,6 +53,7 @@ const brainCaps: BrainCap[] = [
       'DATABASE_URL=postgres://orders:••••@pg-ha.internal:5432/orders',
     ],
     demoTitle: 'Env injection demo placeholder',
+    demo: DeployCanvasDemo,
   },
   {
     icon: Database,
@@ -50,6 +63,7 @@ const brainCaps: BrainCap[] = [
     codeLabel: '// browse, schedule backups, run queries — all in-product',
     codeLines: ["SELECT * FROM orders WHERE status = 'paid';"],
     demoTitle: 'DB Studio demo placeholder',
+    demo: DBStudioDemo,
   },
   {
     icon: ArrowUpNarrowWide,
@@ -63,6 +77,7 @@ const brainCaps: BrainCap[] = [
       'replicas: 3 · failover: automatic',
     ],
     demoTitle: 'HA demo placeholder',
+    demo: DBDeployDemo,
   },
   {
     icon: FileCode2,
@@ -149,7 +164,7 @@ export function BrainCapsSection() {
             </GradientText>
           </h2>
 
-          <div className="mt-16 grid items-center gap-10 lg:grid-cols-[minmax(0,506px)_minmax(0,1fr)]">
+          <div className="mt-16 grid items-start gap-10 lg:grid-cols-[minmax(0,506px)_minmax(0,1fr)]">
             <div className="space-y-5">
               {brainCaps.map((cap, index) => (
                 <AccordionItem
@@ -172,7 +187,7 @@ export function BrainCapsSection() {
                   exit={getPanelMotion(direction, 'exit')}
                   transition={motionTransition}
                 >
-                  <DemoPlaceholder cap={brainCaps[activeIndex]} />
+                  <BrainCapDemo cap={brainCaps[activeIndex]} />
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -193,7 +208,7 @@ function getPanelMotion(direction: number, phase: 'enter' | 'center' | 'exit') {
     return { opacity: 1, filter: 'blur(0px)', y: 0 };
   }
 
-  const offset = direction > 0 ? 36 : -36;
+  const offset = direction > 0 ? -36 : 36;
 
   return {
     opacity: 0,
@@ -254,6 +269,30 @@ function AccordionItem({
         ) : null}
       </AnimatePresence>
     </article>
+  );
+}
+
+function BrainCapDemo({ cap }: { cap: BrainCap }) {
+  const Demo = cap.demo;
+
+  if (Demo) {
+    return (
+      <ScaledBrainCapDemo>
+        <Demo />
+      </ScaledBrainCapDemo>
+    );
+  }
+
+  return <DemoPlaceholder cap={cap} />;
+}
+
+function ScaledBrainCapDemo({ children }: { children: ReactNode }) {
+  return (
+    <div className="relative h-full w-full overflow-visible">
+      <div className="absolute top-0 left-0 aspect-[1312/812] h-[166.6667%] origin-top-left scale-75 [&>*]:!mx-0 [&>*]:!h-full [&>*]:!w-full [&>*]:!max-w-none">
+        {children}
+      </div>
+    </div>
   );
 }
 

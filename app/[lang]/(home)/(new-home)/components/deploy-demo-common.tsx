@@ -46,6 +46,15 @@ export const screenTransition = {
   ease: [0.22, 1, 0.36, 1],
 } as const;
 
+export function getElementScale(element: HTMLElement) {
+  const rect = element.getBoundingClientRect();
+
+  return {
+    x: rect.width / element.offsetWidth || 1,
+    y: rect.height / element.offsetHeight || 1,
+  };
+}
+
 const modeCards = [
   {
     title: 'GitHub',
@@ -137,15 +146,21 @@ export function useDemoPlayback<TStep extends CursorStep>({
     const measureCursor = () => {
       frame = window.requestAnimationFrame(() => {
         const stageRect = stage.getBoundingClientRect();
+        const stageScale = getElementScale(stage);
         const target = targetId
           ? stage.querySelector(`[data-demo-target="${targetId}"]`)
           : undefined;
 
         if (target instanceof HTMLElement) {
           const targetRect = target.getBoundingClientRect();
+          const targetCenterX =
+            targetRect.left - stageRect.left + targetRect.width / 2;
+          const targetCenterY =
+            targetRect.top - stageRect.top + targetRect.height / 2;
+
           setCursorPosition({
-            x: targetRect.left - stageRect.left + targetRect.width / 2,
-            y: targetRect.top - stageRect.top + targetRect.height / 2,
+            x: targetCenterX / stageScale.x,
+            y: targetCenterY / stageScale.y,
           });
           return;
         }
@@ -153,8 +168,8 @@ export function useDemoPlayback<TStep extends CursorStep>({
         if (step.holdCursor) return;
 
         setCursorPosition({
-          x: (stageRect.width * step.cursor.x) / 100,
-          y: (stageRect.height * step.cursor.y) / 100,
+          x: (stage.offsetWidth * step.cursor.x) / 100,
+          y: (stage.offsetHeight * step.cursor.y) / 100,
         });
       });
     };
