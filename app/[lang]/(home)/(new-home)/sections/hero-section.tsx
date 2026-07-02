@@ -154,7 +154,7 @@ function HeroProofScroller() {
       >
         <div
           className="sticky top-0 h-screen"
-          style={{ opacity: 1 - glowProgress }}
+          style={{ opacity: 0.3 + 0.7 * (1 - glowProgress) }}
         >
           <div className="absolute bottom-0 left-1/2 h-[25vh] w-screen -translate-x-1/2 overflow-hidden">
             <div

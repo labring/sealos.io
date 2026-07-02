@@ -150,7 +150,7 @@ export function BrainCapsSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[500vh] overflow-visible px-4 text-white sm:px-6 lg:px-16"
+      className="relative h-[350vh] overflow-visible px-4 text-white sm:px-6 lg:px-16"
     >
       <div
         className="absolute inset-x-0 top-0 h-full bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:32px_41px] opacity-40"
@@ -177,7 +177,7 @@ export function BrainCapsSection() {
             </div>
 
             <div className="relative h-[374px] md:h-[460px]">
-              <AnimatePresence custom={direction} initial={false} mode="wait">
+              <AnimatePresence custom={direction} initial={false}>
                 <motion.div
                   key={brainCaps[activeIndex].title}
                   custom={direction}
@@ -185,7 +185,7 @@ export function BrainCapsSection() {
                   initial={getPanelMotion(direction, 'enter')}
                   animate={getPanelMotion(direction, 'center')}
                   exit={getPanelMotion(direction, 'exit')}
-                  transition={motionTransition}
+                  transition={panelTransition}
                 >
                   <BrainCapDemo cap={brainCaps[activeIndex]} />
                 </motion.div>
@@ -201,6 +201,11 @@ export function BrainCapsSection() {
 const motionTransition: Transition = {
   duration: 0.52,
   ease: [0.22, 1, 0.36, 1],
+};
+
+const panelTransition: Transition = {
+  duration: 0.18,
+  ease: 'easeOut',
 };
 
 function getPanelMotion(direction: number, phase: 'enter' | 'center' | 'exit') {

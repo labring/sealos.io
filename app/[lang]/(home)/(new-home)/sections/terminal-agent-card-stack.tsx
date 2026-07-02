@@ -84,7 +84,7 @@ export function TerminalCardStack() {
       </div>
       <div
         className={[
-          'absolute inset-x-0 top-0 transform-gpu transition-transform duration-500 ease-out will-change-transform motion-reduce:transition-none',
+          'absolute inset-x-0 top-0 transform-gpu px-4 transition-transform duration-500 ease-out will-change-transform motion-reduce:transition-none',
           'z-[1]',
         ].join(' ')}
         style={{
@@ -103,7 +103,7 @@ export function TerminalCardStack() {
 
 function RepositoryCard() {
   return (
-    <article className="bg-background rounded-xl border border-white/10 p-5 shadow-[0_-4px_13px_rgba(8,10,17,1)]">
+    <article className="rounded-xl border border-white/10 bg-[#101219] p-5 shadow-[0_-4px_13px_rgba(8,10,17,1)]">
       <div className="mb-5 flex items-center gap-3 text-base text-zinc-200">
         <span className="flex size-12 shrink-0 items-center justify-center rounded-md bg-white/5">
           <Folder className="size-6 text-blue-400" aria-hidden="true" />

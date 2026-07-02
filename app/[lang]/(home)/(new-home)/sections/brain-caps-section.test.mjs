@@ -53,9 +53,9 @@ test('BrainCapsSection uses a scroll-driven accordion and placeholder panel', ()
   );
   assert.match(sectionSource, /sectionRef/);
   assert.match(sectionSource, /addEventListener\('scroll'/);
+  assert.match(sectionSource, /h-\[350vh\]/);
   assert.match(sectionSource, /sticky top-0/);
   assert.match(sectionSource, /grid items-start/);
-  assert.match(sectionSource, /direction/);
   assert.match(sectionSource, /scrollToIndex/);
   assert.match(sectionSource, /type="button"/);
   assert.match(sectionSource, /aria-expanded=\{isActive\}/);
@@ -63,6 +63,7 @@ test('BrainCapsSection uses a scroll-driven accordion and placeholder panel', ()
   assert.match(sectionSource, /DemoPlaceholder/);
   assert.match(sectionSource, /<AnimatePresence/);
   assert.match(sectionSource, /motion\.div/);
+  assert.doesNotMatch(sectionSource, /mode="wait"/);
   assert.doesNotMatch(sectionSource, /blur\(16px\)/);
   assert.doesNotMatch(sectionSource, /PreviewCard/);
   assert.doesNotMatch(sectionSource, /<ScrollStack/);
@@ -75,9 +76,18 @@ test('BrainCapsSection click jump does not animate through intermediate items', 
   assert.doesNotMatch(sectionSource, /behavior: 'smooth'/);
 });
 
-test('BrainCapsSection swaps panel motion direction correctly', () => {
+test('BrainCapsSection keeps directional panel motion without wait gap', () => {
+  assert.match(sectionSource, /const \[direction, setDirection\]/);
+  assert.match(
+    sectionSource,
+    /setDirection\(nextIndex > activeIndexRef\.current/,
+  );
+  assert.match(sectionSource, /const panelTransition: Transition = \{/);
+  assert.match(sectionSource, /duration: 0\.18/);
+  assert.match(sectionSource, /custom=\{direction\}/);
   assert.match(sectionSource, /const offset = direction > 0 \? -36 : 36/);
-  assert.match(sectionSource, /phase === 'enter' \? offset : -offset/);
+  assert.match(sectionSource, /filter: 'blur\(12px\)'/);
+  assert.match(sectionSource, /y: phase === 'enter' \? offset : -offset/);
 });
 
 test('BrainCapsSection maps real demos to the requested caps', () => {

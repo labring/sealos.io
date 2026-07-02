@@ -247,7 +247,7 @@ export function Header({ lang }: HeaderProps) {
 
   return (
     <>
-      <nav className="flex min-h-16 w-full items-center justify-between rounded-full bg-white/10 px-4 py-3 text-white shadow-lg backdrop-blur-3xl lg:h-24 lg:rounded-none lg:bg-transparent lg:px-16 lg:py-2 lg:shadow-none lg:backdrop-blur-none">
+      <nav className="flex min-h-16 w-full items-center justify-between rounded-full bg-white/10 px-4 py-3 text-white shadow-lg backdrop-blur-3xl lg:h-24 lg:rounded-none lg:bg-black/20 lg:px-16 lg:py-2 lg:shadow-none lg:backdrop-blur-xl">
         <div className="flex min-w-0 items-center gap-9">
           <a
             href={homeHref}
