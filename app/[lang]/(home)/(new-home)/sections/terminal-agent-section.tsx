@@ -71,25 +71,19 @@ const featureCards: FeatureCard[] = [
 
 export function TerminalAgentSection() {
   return (
-    <section className="relative overflow-hidden px-4 py-20 text-white sm:px-6 lg:px-16 lg:py-28">
-      <div
-        className="absolute inset-x-0 top-0 h-full bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:80px_80px] opacity-60"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute top-0 right-0 h-72 w-[520px] bg-blue-600/20 blur-3xl"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute bottom-40 left-0 h-72 w-[520px] bg-blue-600/10 blur-3xl"
+    <section className="relative container overflow-hidden px-4 py-20 text-white sm:px-6 lg:px-16 lg:py-28">
+      <img
+        src="/images/home/aiagent-bg1.svg"
+        alt=""
+        className="pointer-events-none absolute top-0 right-0 hidden h-[322px] w-[min(72vw,960px)] object-cover object-right opacity-90 lg:block"
         aria-hidden="true"
       />
 
       <div className="relative mx-auto flex max-w-[1312px] flex-col gap-16">
-        <header className="mx-auto flex max-w-[812px] flex-col items-center gap-6 text-center">
+        <header className="flex max-w-[756px] flex-col items-start gap-6 text-left">
           <GradientText
             as="h2"
-            className="to-blue-500 text-4xl leading-tight font-semibold text-balance sm:text-5xl"
+            className="to-blue-500 text-[32px] leading-9 font-semibold text-balance sm:text-[36px] sm:leading-10"
           >
             Converse, Click, or Build from Your Terminal.
           </GradientText>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1440 322">
+	<path fill="url(#a)"
+		d="M-106.72 321.56h-1V0h1zm75.58 0h-1V0h1zm75.58-16.73h679.22v-74.16H62.13v-1h661.53v-75H62.13v-1h661.53v-75H62.13v-1h661.53V0h1v77.67h74.58V0h1v77.67h74.58V0h1v77.67h74.58V0h1v77.67h74.58V0h1v77.67h74.59V0h1v77.67h74.58V0h1v77.67h74.58V0h1v77.67h74.58V0h1v77.67h74.58V0h1v77.67h70.24v1h-70.24v75h70.24v1h-70.24v75h70.24v1h-70.24v74.16h70.24v1h-70.24v15.73h-1v-15.73h-74.58v15.73h-1v-15.73h-74.58v15.73h-1v-15.73h-74.58v15.73h-1v-15.73h-74.58v15.73h-1v-15.73h-74.59v15.73h-1v-15.73H951.4v15.73h-1v-15.73h-74.58v15.73h-1v-15.73h-74.58v15.73h-1v-15.73h-74.58v15.73h-1v-15.73H44.44v15.73h-1v-15.73h-72.5v-1h72.5V0h1zm1436.03 16.73h-1V0h1zm75.58 0h-1V0h1zm75.58 0h-1V0h1zm-906.97-90.89v74.16h74.58v-74.16zm75.58 0v74.16h74.58v-74.16zm75.58 0v74.16h74.58v-74.16zm75.58 0v74.16h74.58v-74.16zm75.58 0v74.16h74.59v-74.16zm75.59 0v74.16h74.58v-74.16zm75.58 0v74.16h74.58v-74.16zm75.58 0v74.16h74.58v-74.16zm75.58 0v74.16h74.58v-74.16zm-604.65-76v75h74.58v-75zm75.58 0v75h74.58v-75zm75.58 0v75h74.58v-75zm75.58 0v75h74.58v-75zm75.58 0v75h74.59v-75zm75.59 0v75h74.58v-75zm75.58 0v75h74.58v-75zm75.58 0v75h74.58v-75zm75.58 0v75h74.58v-75zm-604.65-76v75h74.58v-75zm75.58 0v75h74.58v-75zm75.58 0v75h74.58v-75zm75.58 0v75h74.58v-75zm75.58 0v75h74.59v-75zm75.59 0v75h74.58v-75zm75.58 0v75h74.58v-75zm75.58 0v75h74.58v-75zm75.58 0v75h74.58v-75z"
+		opacity=".3" />
+	<g filter="url(#b)">
+		<path fill="url(#c)"
+			d="M1248.82 77.63a5.33 5.33 0 1 0 10.67 0 5.33 5.33 0 0 0-10.67 0M956.47 154.3l-.01 1zm-81.18 75.6v1h71.14v-2H875.3zm76.14-5h1v-65.6h-2v65.6zm5.04-70.6-.01 1 141.3.94v-1l.01-1-141.3-.94zm146.33-4.06h1V83.6h-2v66.65zm4.96-71.65.01 1 146.39-.97-.01-1-.01-1-146.38.97zm-4.96 5h1a4 4 0 0 1 3.97-4l-.01-1v-1a6 6 0 0 0-5.96 6zm-5.04 71.65v1a6 6 0 0 0 6.04-6h-2a4 4 0 0 1-4.03 4zm-146.33 4.06h1a4 4 0 0 1 4.03-4v-1l.01-1a6 6 0 0 0-6.04 6zm-5 70.6v1a6 6 0 0 0 6-6h-2a4 4 0 0 1-4 4z" />
+	</g>
+	<path id="glow-line" fill="url(#d)"
+		d="M1248.82 77.63a5.33 5.33 0 1 0 10.67 0 5.33 5.33 0 0 0-10.67 0M956.47 154.3l-.01 1zm-81.18 75.6v1h71.14v-2H875.3zm76.14-5h1v-65.6h-2v65.6zm5.04-70.6-.01 1 141.3.94v-1l.01-1-141.3-.94zm146.33-4.06h1V83.6h-2v66.65zm4.96-71.65.01 1 146.39-.97-.01-1-.01-1-146.38.97zm-4.96 5h1a4 4 0 0 1 3.97-4l-.01-1v-1a6 6 0 0 0-5.96 6zm-5.04 71.65v1a6 6 0 0 0 6.04-6h-2a4 4 0 0 1-4.03 4zm-146.33 4.06h1a4 4 0 0 1 4.03-4v-1l.01-1a6 6 0 0 0-6.04 6zm-5 70.6v1a6 6 0 0 0 6-6h-2a4 4 0 0 1-4 4z" />
+	<defs>
+		<linearGradient id="a" x1="1443" x2="749.1" y1=".26" y2="458.87" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#080a11" />
+			<stop offset=".47" stop-color="#a1a1a1" />
+			<stop offset="1" stop-color="#080a11" />
+		</linearGradient>
+		<linearGradient id="c" x1="1226.22" x2="882.01" y1="77.63" y2="229.91" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#fff" />
+			<stop offset="1" stop-color="#1e1e1e" />
+		</linearGradient>
+		<linearGradient id="d" x1="1310" x2="880" y1="40" y2="235" gradientUnits="userSpaceOnUse">
+			<stop offset="0" stop-color="#1e1e1e" />
+			<stop offset=".22" stop-color="#1e1e1e" />
+			<stop offset=".36" stop-color="#fff" />
+			<stop offset=".5" stop-color="#1e1e1e" />
+			<stop offset="1" stop-color="#1e1e1e" />
+			<animate attributeName="x1" values="1120;1550" dur="1.5s" repeatCount="indefinite" />
+			<animate attributeName="x2" values="690;880" dur="1.5s" repeatCount="indefinite" />
+			<animate attributeName="y1" values="125;40" dur="1.5s" repeatCount="indefinite" />
+			<animate attributeName="y2" values="320;235" dur="1.5s" repeatCount="indefinite" />
+		</linearGradient>
+		<filter id="b" width="420.59" height="195.01" x="857.09" y="54.09" color-interpolation-filters="sRGB"
+			filterUnits="userSpaceOnUse">
+			<feFlood flood-opacity="0" result="BackgroundImageFix" />
+			<feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+			<feGaussianBlur result="effect1_foregroundBlur_0_1" stdDeviation="9.1" />
+		</filter>
+	</defs>
+</svg>
