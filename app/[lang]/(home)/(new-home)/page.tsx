@@ -1,8 +1,5 @@
 import { HeroSection } from './sections/hero-section';
-import { GitHubImportSection } from './sections/github-import-section';
-import { DockerImageSection } from './sections/docker-image-section';
-import { DatabaseSection } from './sections/database-section';
-import { TemplateSection } from './sections/template-section';
+import { DemosSection } from './sections/demos-section';
 import { TerminalAgentSection } from './sections/terminal-agent-section';
 import { BrainCapsSection } from './sections/brain-caps-section';
 import { ComparisonSection } from './sections/comparison-section';
@@ -14,10 +11,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen">
       <HeroSection />
-      <GitHubImportSection />
-      <DockerImageSection />
-      <DatabaseSection />
-      <TemplateSection />
+      <DemosSection />
       <TerminalAgentSection />
       <BrainCapsSection />
       <ComparisonSection />
