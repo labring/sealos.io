@@ -10,7 +10,15 @@ import {
   demoNavigationItems,
 } from './demo-navigation';
 
-export function HeroDemoCards() {
+type HeroDemoCardsProps = {
+  pinDelayVh?: number;
+  pinStartElementId?: string;
+};
+
+export function HeroDemoCards({
+  pinDelayVh = 0,
+  pinStartElementId,
+}: HeroDemoCardsProps) {
   const activeIndexRef = useRef(0);
   const transitionLockRef = useRef(false);
   const transitionTimeoutRef = useRef<number>();
@@ -48,7 +56,21 @@ export function HeroDemoCards() {
       }
 
       const topOffset = 112;
-      const pinStart = heroCards.offsetTop - topOffset;
+      const pinStartElement = pinStartElementId
+        ? document.getElementById(pinStartElementId)
+        : heroCards;
+
+      if (!pinStartElement) {
+        return;
+      }
+
+      const pinStartOffset =
+        pinStartElement === heroCards ? 0 : heroCards.offsetTop;
+      const pinStart =
+        pinStartElement.offsetTop +
+        pinStartOffset -
+        topOffset +
+        window.innerHeight * pinDelayVh;
       const pinEnd =
         demosSection.offsetTop + demosSection.offsetHeight - window.innerHeight;
       const scrollY = window.scrollY;
@@ -67,7 +89,7 @@ export function HeroDemoCards() {
       window.removeEventListener('scroll', updatePin);
       window.removeEventListener('resize', updatePin);
     };
-  }, []);
+  }, [pinDelayVh, pinStartElementId]);
 
   useEffect(() => {
     return () => {

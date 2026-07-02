@@ -1,4 +1,4 @@
-import { CheckIcon, StarIcon } from 'lucide-react';
+import { CircleCheckBigIcon, StarIcon } from 'lucide-react';
 import Image from 'next/image';
 
 import { GradientText } from '@/new-components/GradientText';
@@ -23,20 +23,17 @@ const adopters = [
 
 export function HeroGuarantees() {
   return (
-    <div className="relative mx-auto flex max-w-4xl flex-col items-center gap-6 pt-0 text-zinc-200 sm:flex-row sm:justify-center sm:gap-10">
-      <div
-        className="absolute top-3 right-0 left-0 hidden h-px bg-gradient-to-r from-white/0 via-white/40 to-white/0 sm:block"
-        aria-hidden="true"
-      />
+    <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-6 pt-0 text-zinc-200 sm:gap-10">
       {guarantees.map((label) => (
-        <div
-          key={label}
-          className="relative z-10 flex flex-col items-center gap-2"
-        >
-          <span className="flex size-6 items-center justify-center rounded-full border border-zinc-950 bg-white text-zinc-950 ring-1 ring-white/40 ring-offset-2 ring-offset-black">
-            <CheckIcon size={16} aria-hidden="true" />
+        <div key={label} className="flex items-center gap-2">
+          <CircleCheckBigIcon
+            size={20}
+            className="size-5 shrink-0 text-blue-500"
+            aria-hidden="true"
+          />
+          <span className="text-base leading-none whitespace-nowrap">
+            {label}
           </span>
-          <span className="text-center text-base leading-none">{label}</span>
         </div>
       ))}
     </div>
@@ -47,7 +44,7 @@ export function HeroAdoptionStrip() {
   const marqueeItems = [...adopters, ...adopters];
 
   return (
-    <div className="space-y-9">
+    <div className="container mx-auto w-full space-y-9 px-4 xl:px-14.25 2xl:px-15">
       <p className="text-center text-base text-zinc-500">
         Trusted by{' '}
         <GradientText className="to-blue-500 text-2xl leading-8 font-semibold">
