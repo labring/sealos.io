@@ -46,7 +46,7 @@ const Header = memo<HeaderProps>(({ lang, ctaClassName }) => {
         hasScrolled ? 'shadow-header bg-[#EBF2FF]' : '',
       )}
     >
-      <nav className={cn('custom-container-header relative text-black')}>
+      <nav className={cn('relative container mx-auto text-black')}>
         <div
           className={cn(
             'flex w-full min-w-0 items-center justify-between py-[10px]',
@@ -124,8 +124,8 @@ const Header = memo<HeaderProps>(({ lang, ctaClassName }) => {
                   onClick={handleMenuClose}
                   aria-hidden="true"
                 />
-                <div className="fixed top-0 left-0 z-50 w-full">
-                  <div className="bg-[#EBF2FF] px-4 py-3">
+                <div className="fixed top-0 left-0 z-50 w-full bg-[#EBF2FF]">
+                  <div className="container mx-auto py-3">
                     <div className="mb-4 flex items-center justify-between">
                       <div>
                         <Link

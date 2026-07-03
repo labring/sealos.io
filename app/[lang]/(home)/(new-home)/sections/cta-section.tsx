@@ -15,8 +15,8 @@ export function CTASection() {
   const handleAuthRedirect = useAuthRedirect();
 
   return (
-    <section className="px-4 pt-16 pb-28 text-white sm:px-6 lg:px-16 lg:pt-20 lg:pb-32">
-      <div className="mx-auto flex max-w-[1312px] flex-col items-center gap-16 text-center">
+    <section className="container mx-auto pt-16 pb-28 text-white lg:pt-20 lg:pb-32">
+      <div className="flex flex-col items-center gap-16 text-center">
         <div className="flex flex-col items-center gap-6">
           <h2 className="max-w-[553px] text-3xl leading-tight font-semibold text-balance sm:text-4xl lg:text-5xl">
             <GradientText>Stop configuring. Start shipping.</GradientText>

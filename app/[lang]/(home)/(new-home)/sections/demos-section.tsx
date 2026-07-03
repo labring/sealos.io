@@ -43,6 +43,10 @@ const panelTransition: Transition = {
   ease: 'easeOut',
 };
 
+const minDemoScale = 0.56;
+const demoScaleStartHeight = 800;
+const demoScaleEndHeight = 560;
+
 const demos = [
   {
     ...demoNavigationItems[0],
@@ -104,6 +108,7 @@ export function DemosSection() {
   const [isHandoffFlying, setIsHandoffFlying] = useState(false);
   const [isHandoffLayoutActive, setIsHandoffLayoutActive] = useState(false);
   const [direction, setDirection] = useState(1);
+  const [demoScale, setDemoScale] = useState(1);
   const activeDemo = demos[activeIndex] ?? demos[0];
 
   const clearHandoffTimeout = () => {
@@ -377,6 +382,19 @@ export function DemosSection() {
     };
   }, []);
 
+  useEffect(() => {
+    const updateDemoScale = () => {
+      setDemoScale(getDemoScale(window.innerHeight));
+    };
+
+    updateDemoScale();
+    window.addEventListener('resize', updateDemoScale);
+
+    return () => {
+      window.removeEventListener('resize', updateDemoScale);
+    };
+  }, []);
+
   const handleCardSelect = (index: number) => {
     const section = sectionRef.current;
 
@@ -411,8 +429,8 @@ export function DemosSection() {
         aria-hidden="true"
       />
 
-      <div className="sticky top-0 flex h-screen items-center py-16">
-        <div className="pointer-events-none absolute inset-0 flex items-center py-16 opacity-0">
+      <div className="sticky top-14 flex h-[calc(100svh-3.5rem)] items-center py-8 lg:py-12">
+        <div className="pointer-events-none absolute inset-0 flex items-center py-8 opacity-0 lg:py-12">
           <div className="container mx-auto grid w-full items-center gap-9 lg:grid-cols-[286px_minmax(0,1fr)]">
             <DemoCardSlots cardRefs={targetCardRefs} />
             <div aria-hidden="true" />
@@ -422,7 +440,7 @@ export function DemosSection() {
           <div aria-hidden="true" />
           <div
             className={cn(
-              'relative h-[720px] min-w-0 transition-transform duration-700 ease-out',
+              'relative h-[min(720px,calc(100svh-9.5rem))] min-h-[360px] min-w-0 transition-transform duration-700 ease-out',
               !isHandoffLayoutActive && 'lg:-translate-x-[161px]',
             )}
           >
@@ -436,7 +454,7 @@ export function DemosSection() {
                 exit={getPanelMotion(direction, 'exit')}
                 transition={panelTransition}
               >
-                <DemoArticle demo={activeDemo} />
+                <DemoArticle demo={activeDemo} demoScale={demoScale} />
               </motion.div>
             </AnimatePresence>
           </div>
@@ -594,7 +612,21 @@ function getPanelMotion(direction: number, phase: 'enter' | 'center' | 'exit') {
   };
 }
 
-function DemoArticle({ demo }: { demo: (typeof demos)[number] }) {
+function getDemoScale(viewportHeight: number) {
+  const progress =
+    (demoScaleStartHeight - viewportHeight) /
+    (demoScaleStartHeight - demoScaleEndHeight);
+
+  return Math.min(1, Math.max(minDemoScale, 1 - progress * (1 - minDemoScale)));
+}
+
+function DemoArticle({
+  demo,
+  demoScale,
+}: {
+  demo: (typeof demos)[number];
+  demoScale: number;
+}) {
   const { id, headline, body, Demo } = demo;
 
   return (
@@ -617,6 +649,7 @@ function DemoArticle({ demo }: { demo: (typeof demos)[number] }) {
       <div
         aria-label={`${headline} demo`}
         className="relative z-10 mx-auto w-full"
+        style={{ width: `${demoScale * 100}%` }}
       >
         <ScaledDemoCanvas>
           <Demo active />

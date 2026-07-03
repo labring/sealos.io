@@ -18,7 +18,7 @@ export default function NewLandingLayout({
       <div className="relative z-10 bg-[#03050b]">
         <div
           className={cn(
-            'sticky z-50 container max-lg:pt-8',
+            'sticky z-50 w-full max-lg:pt-8',
             hasBanner ? 'top-20 sm:top-14 lg:top-12' : 'top-0',
           )}
         >

@@ -43,8 +43,8 @@ const faqs = [
 
 export function FAQSection() {
   return (
-    <section className="px-4 pt-16 pb-24 text-white sm:px-6 lg:px-16 lg:pt-20 lg:pb-28">
-      <div className="mx-auto flex max-w-[1312px] flex-col items-center gap-16">
+    <section className="container mx-auto pt-16 pb-24 text-white lg:pt-20 lg:pb-28">
+      <div className="flex flex-col items-center gap-16">
         <div className="flex flex-col items-center gap-6 text-center">
           <h2 className="text-3xl leading-tight font-semibold text-balance sm:text-4xl lg:text-5xl">
             <GradientText>Questions, answered.</GradientText>

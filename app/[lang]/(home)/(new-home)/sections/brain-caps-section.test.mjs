@@ -77,6 +77,11 @@ test('BrainCapsSection uses scroll-driven accordion only in sticky layout', () =
     /className="flex min-h-screen items-center/,
   );
   assert.match(sectionSource, /grid items-start/);
+  assert.match(
+    sectionSource,
+    /grid items-start[\s\S]*<h2[\s\S]*Eight things you usually duct-tape together[\s\S]*<div className="mt-8 space-y-5">/,
+  );
+  assert.doesNotMatch(sectionSource, /mt-16 grid items-start/);
   assert.match(sectionSource, /scrollToIndex/);
   assert.match(sectionSource, /type="button"/);
   assert.match(sectionSource, /aria-expanded=\{isActive\}/);
@@ -95,6 +100,27 @@ test('BrainCapsSection uses scroll-driven accordion only in sticky layout', () =
   assert.doesNotMatch(sectionSource, /blur\(16px\)/);
   assert.doesNotMatch(sectionSource, /PreviewCard/);
   assert.doesNotMatch(sectionSource, /<ScrollStack/);
+});
+
+test('new home sections use container for page width', () => {
+  const comparisonSource = readFileSync(
+    join(sectionDir, 'comparison-section.tsx'),
+    'utf8',
+  );
+  const appsSource = readFileSync(join(sectionDir, 'apps-section.tsx'), 'utf8');
+  const faqSource = readFileSync(join(sectionDir, 'faq-section.tsx'), 'utf8');
+  const ctaSource = readFileSync(join(sectionDir, 'cta-section.tsx'), 'utf8');
+
+  for (const source of [
+    sectionSource,
+    comparisonSource,
+    appsSource,
+    faqSource,
+    ctaSource,
+  ]) {
+    assert.match(source, /className="container /);
+    assert.doesNotMatch(source, /max-w-\[1312px\]/);
+  }
 });
 
 test('BrainCapsSection click jump does not animate through intermediate items', () => {
@@ -121,7 +147,7 @@ test('BrainCapsSection keeps directional panel motion without wait gap', () => {
 test('BrainCapsSection hides the right demo panel on tablet and mobile', () => {
   assert.match(
     sectionSource,
-    /className="relative hidden h-\[374px\] md:h-\[460px\] lg:block"/,
+    /className="relative hidden h-\[374px\] md:h-\[460px\] lg:block lg:self-center"/,
   );
 });
 

@@ -172,8 +172,8 @@ const groups: ComparisonGroup[] = [
 
 export function ComparisonSection() {
   return (
-    <section className="px-4 pt-16 pb-24 text-white sm:px-6 lg:px-16 lg:pt-20 lg:pb-28">
-      <div className="mx-auto flex max-w-[1312px] flex-col gap-16">
+    <section className="container mx-auto pt-16 pb-24 text-white lg:pt-20 lg:pb-28">
+      <div className="flex flex-col gap-16">
         <div className="mx-auto flex max-w-[812px] flex-col items-center gap-6 text-center">
           <GradientText
             as="h2"

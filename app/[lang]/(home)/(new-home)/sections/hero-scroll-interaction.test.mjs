@@ -148,7 +148,17 @@ test('demo cards hand off from the hero grid into the demos section', () => {
   assert.match(demosSectionSource, /transition-transform/);
   assert.match(demosSectionSource, /lg:-translate-x-\[161px\]/);
   assert.doesNotMatch(demosSectionSource, /transition-\[grid-template-columns/);
-  assert.match(demosSectionSource, /relative h-\[720px\] min-w-0/);
+  assert.match(demosSectionSource, /top-14 flex h-\[calc\(100svh-3\.5rem\)\]/);
+  assert.match(
+    demosSectionSource,
+    /h-\[min\(720px,calc\(100svh-9\.5rem\)\)\] min-h-\[360px\] min-w-0/,
+  );
+  assert.match(demosSectionSource, /function getDemoScale/);
+  assert.match(demosSectionSource, /setDemoScale\(getDemoScale/);
+  assert.match(
+    demosSectionSource,
+    /style=\{\{ width: `\$\{demoScale \* 100\}%` \}\}/,
+  );
   assert.match(demosSectionSource, /className="absolute inset-0"/);
   assert.match(demosSectionSource, /const \[direction, setDirection\]/);
   assert.match(demosSectionSource, /const panelTransition: Transition = \{/);

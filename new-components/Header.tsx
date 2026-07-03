@@ -247,97 +247,107 @@ export function Header({ lang }: HeaderProps) {
 
   return (
     <>
-      <nav className="flex min-h-16 w-full items-center justify-between rounded-full bg-white/10 px-4 py-3 text-white shadow-lg backdrop-blur-3xl lg:h-24 lg:rounded-none lg:bg-black/20 lg:px-16 lg:py-2 lg:shadow-none lg:backdrop-blur-xl">
-        <div className="flex min-w-0 items-center gap-9">
-          <a
-            href={homeHref}
-            className="flex min-w-0 items-center gap-1"
-            aria-label="Sealos Logotype"
-            role="banner"
-          >
-            <Image
-              alt="Sealos Logo"
-              src="/logo.svg"
-              className="h-6 w-6 rounded-full"
-              width={24}
-              height={24}
-              priority
-            />
-            <span className="leading-none font-bold whitespace-nowrap">
-              Sealos
-            </span>
-          </a>
-
-          <NavigationMenu
-            className="hidden lg:flex"
-            viewport={false}
-            role="navigation"
-          >
-            <NavigationMenuList className="gap-4">
-              {localizedNavigationLinks.map((link, index) => (
-                <NavigationMenuItem key={index}>
-                  {link.children ? (
-                    <DropdownMenu title={link.text} children={link.children} />
-                  ) : (
-                    <NavigationMenuLink asChild>
-                      <a
-                        href={link.url}
-                        target={link.isExternal ? '_blank' : undefined}
-                        rel={
-                          link.isExternal ? 'noopener noreferrer' : undefined
-                        }
-                        className="inline-flex h-8 items-center justify-center rounded-md px-2 py-1 text-base font-normal text-white transition-colors hover:bg-white/10 focus:bg-white/10 focus:outline-none"
-                      >
-                        {link.text}
-                      </a>
-                    </NavigationMenuLink>
-                  )}
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <div className="hidden items-center gap-4 lg:flex">
+      <div className="w-full rounded-full bg-white/10 text-white shadow-lg backdrop-blur-3xl lg:rounded-none lg:bg-black/20 lg:shadow-none lg:backdrop-blur-xl">
+        <nav className="container mx-auto flex min-h-16 items-center justify-between px-4 py-3 lg:h-24 lg:px-0 lg:py-2">
+          <div className="flex min-w-0 items-center gap-9">
             <a
-              href={siteConfig.links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-8 items-center gap-2 rounded-full px-2 py-1 text-sm font-medium text-white transition-colors hover:bg-white/10 focus:bg-white/10 focus:outline-none"
-              aria-label="Open Sealos GitHub page."
-              onClick={() =>
-                trackButton('GitHub', 'header', 'url', siteConfig.links.github)
-              }
+              href={homeHref}
+              className="flex min-w-0 items-center gap-1"
+              aria-label="Sealos Logotype"
+              role="banner"
             >
-              <Image src={GitHubIcon} alt="" width={16} height={16} />
-              <span>16.4k</span>
+              <Image
+                alt="Sealos Logo"
+                src="/logo.svg"
+                className="h-6 w-6 rounded-full"
+                width={24}
+                height={24}
+                priority
+              />
+              <span className="leading-none font-bold whitespace-nowrap">
+                Sealos
+              </span>
             </a>
-            <div className="h-4 w-px bg-white/30" aria-hidden="true" />
-          </div>
-          <Button
-            variant="landing-primary"
-            className="hidden h-10 rounded-full px-4 py-2 text-sm font-medium shadow-lg lg:flex"
-            aria-label="Start using Sealos for free."
-            onClick={() => {
-              trackButton('Get Started', 'header', 'auth-form', '');
-              handleAuthRedirect({ openapp: getOpenBrainParam() });
-            }}
-          >
-            Get Started For Free
-          </Button>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-10 w-10 rounded-full text-white hover:bg-white/10 lg:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle navigation menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </Button>
-        </div>
-      </nav>
+            <NavigationMenu
+              className="hidden lg:flex"
+              viewport={false}
+              role="navigation"
+            >
+              <NavigationMenuList className="gap-4">
+                {localizedNavigationLinks.map((link, index) => (
+                  <NavigationMenuItem key={index}>
+                    {link.children ? (
+                      <DropdownMenu
+                        title={link.text}
+                        children={link.children}
+                      />
+                    ) : (
+                      <NavigationMenuLink asChild>
+                        <a
+                          href={link.url}
+                          target={link.isExternal ? '_blank' : undefined}
+                          rel={
+                            link.isExternal ? 'noopener noreferrer' : undefined
+                          }
+                          className="inline-flex h-8 items-center justify-center rounded-md px-2 py-1 text-base font-normal text-white transition-colors hover:bg-white/10 focus:bg-white/10 focus:outline-none"
+                        >
+                          {link.text}
+                        </a>
+                      </NavigationMenuLink>
+                    )}
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <div className="hidden items-center gap-4 lg:flex">
+              <a
+                href={siteConfig.links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-8 items-center gap-2 rounded-full px-2 py-1 text-sm font-medium text-white transition-colors hover:bg-white/10 focus:bg-white/10 focus:outline-none"
+                aria-label="Open Sealos GitHub page."
+                onClick={() =>
+                  trackButton(
+                    'GitHub',
+                    'header',
+                    'url',
+                    siteConfig.links.github,
+                  )
+                }
+              >
+                <Image src={GitHubIcon} alt="" width={16} height={16} />
+                <span>16.4k</span>
+              </a>
+              <div className="h-4 w-px bg-white/30" aria-hidden="true" />
+            </div>
+            <Button
+              variant="landing-primary"
+              className="hidden h-10 rounded-full px-4 py-2 text-sm font-medium shadow-lg lg:flex"
+              aria-label="Start using Sealos for free."
+              onClick={() => {
+                trackButton('Get Started', 'header', 'auth-form', '');
+                handleAuthRedirect({ openapp: getOpenBrainParam() });
+              }}
+            >
+              Get Started For Free
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-10 w-10 rounded-full text-white hover:bg-white/10 lg:hidden"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </Button>
+          </div>
+        </nav>
+      </div>
 
       <AnimatePresence>
         {isMobileMenuOpen && (
