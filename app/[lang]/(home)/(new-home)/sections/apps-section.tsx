@@ -1,85 +1,34 @@
 import Image from 'next/image';
-import type { StaticImageData } from 'next/image';
 import Link from 'next/link';
 
-import { ArrowUpRight, Sparkles, Star } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
-import DifyIcon from '/public/images/apps/dify.svg';
-import AppsmithIcon from '/public/images/apps/appsmith.png';
-import FastgptIcon from '/public/images/apps/fastgpt.svg';
-import N8nIcon from '/public/images/apps/n8n.svg';
-import SupabaseIcon from '/public/images/apps/supabase.png';
-import WordpressIcon from '/public/images/apps/wordpress.svg';
-import AzureIcon from '@/assets/aiagent-appicons/azure.svg';
-import ClaudeIcon from '@/assets/aiagent-appicons/claude.svg';
-import DeepseekIcon from '@/assets/aiagent-appicons/deepseek.svg';
-import GeminiIcon from '@/assets/aiagent-appicons/gemini.svg';
-import OpenaiIcon from '@/assets/aiagent-appicons/openai.svg';
-import QwenIcon from '@/assets/aiagent-appicons/qwen.svg';
-import DatabaseIcon from '@/assets/sealos-appicons/database.svg';
-import DevboxIcon from '@/assets/sealos-appicons/devbox.svg';
+import { AppIcon } from '@/components/ui/app-icon';
+import { appsConfig, type AppConfig } from '@/config/apps';
 import { GradientText } from '@/new-components/GradientText';
+import {
+  type AppsSectionLogoItem,
+  getAppsSectionCards,
+  getAppsSectionLogoRows,
+} from './apps-section-utils';
 
-type AppCard = {
-  name: string;
-  description: string;
-  icon: StaticImageData | string;
-  href: string;
-};
-
-const appCards: AppCard[] = [
-  {
-    name: 'Dify',
-    description: 'Open-source LLM app development platform.',
-    icon: DifyIcon,
-    href: '/products/app-store/dify',
-  },
-  {
-    name: 'Appsmith',
-    description: 'Build internal tools with pre-wired services.',
-    icon: AppsmithIcon,
-    href: '/products/app-store/appsmith',
-  },
-  {
-    name: 'FastGPT',
-    description: 'Knowledge-base AI workflows ready to deploy.',
-    icon: FastgptIcon,
-    href: '/products/app-store/fastgpt',
-  },
-  {
-    name: 'n8n',
-    description: 'Automation workflows with managed dependencies.',
-    icon: N8nIcon,
-    href: '/products/app-store/n8n',
-  },
-  {
-    name: 'Supabase',
-    description: 'Postgres, auth, and APIs in one-click setup.',
-    icon: SupabaseIcon,
-    href: '/products/app-store/supabase',
-  },
-];
-
-const logoRows = [
-  [OpenaiIcon, AzureIcon, ClaudeIcon, GeminiIcon, QwenIcon, DeepseekIcon],
-  [DifyIcon, FastgptIcon, N8nIcon, DatabaseIcon, DevboxIcon, WordpressIcon],
-  [SupabaseIcon, AppsmithIcon, N8nIcon, DifyIcon, FastgptIcon, DatabaseIcon],
-];
+const appCards = getAppsSectionCards(appsConfig);
+const logoRows = getAppsSectionLogoRows(appsConfig);
 
 export function AppsSection() {
   return (
     <section className="overflow-hidden px-4 pt-16 pb-24 text-white sm:px-6 lg:px-16 lg:pt-20 lg:pb-28">
       <div className="mx-auto flex max-w-[1312px] flex-col gap-20">
-        <div className="relative flex min-h-[300px] items-end justify-center overflow-hidden">
-          <AppLogoCloud />
+        <div className="relative flex min-h-[300px] items-end overflow-hidden">
+          <AppLogoCloud rows={logoRows} />
           <SectionHeading />
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {appCards.map((app) => (
-            <AppCard key={app.name} app={app} />
+            <AppCard key={app.slug} app={app} />
           ))}
-          <MoreAppsCard />
+          <MoreAppsCard rows={logoRows} />
         </div>
       </div>
     </section>
@@ -93,10 +42,10 @@ function SectionHeading() {
         className="absolute inset-x-0 bottom-0 h-64 backdrop-blur-md"
         aria-hidden="true"
       />
-      <div className="relative mx-auto flex max-w-[812px] flex-col items-center gap-6 text-center">
+      <div className="relative flex max-w-[812px] flex-col items-start gap-6 text-left">
         <GradientText
           as="h2"
-          className="to-blue-500 text-4xl leading-tight font-semibold text-balance sm:text-5xl"
+          className="to-blue-500 text-3xl leading-tight font-semibold text-balance sm:text-4xl lg:text-5xl"
         >
           One-click Apps for the stack you're already building.
         </GradientText>
@@ -109,9 +58,12 @@ function SectionHeading() {
   );
 }
 
-function AppLogoCloud() {
+function AppLogoCloud({ rows }: { rows: AppsSectionLogoItem[][] }) {
   return (
-    <div className="pointer-events-none absolute inset-x-1/2 top-0 w-[1312px] -translate-x-1/2 opacity-55">
+    <div
+      className="pointer-events-none absolute inset-x-1/2 top-0 w-[1312px] -translate-x-1/2 opacity-55"
+      aria-hidden="true"
+    >
       <div
         className="absolute inset-0 z-10 bg-gradient-to-r from-black via-transparent to-black"
         aria-hidden="true"
@@ -120,56 +72,51 @@ function AppLogoCloud() {
         className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-transparent to-black"
         aria-hidden="true"
       />
-      <div className="flex flex-col gap-3 blur-[0.2px]">
-        {logoRows.map((row, rowIndex) => (
-          <div
-            key={rowIndex}
-            className="flex justify-center gap-3"
-            style={{ transform: `translateX(${rowIndex % 2 ? 38 : -38}px)` }}
-          >
-            {[...row, ...row, ...row].map((icon, index) => (
-              <div
-                key={`${rowIndex}-${index}`}
-                className="flex size-16 items-center justify-center rounded-xl border border-white/5 bg-white/5 shadow-inner"
-              >
-                <Image src={icon} alt="" width={32} height={32} />
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
+      <LogoMarqueeRows rows={rows} />
     </div>
   );
 }
 
-function AppCard({ app }: { app: AppCard }) {
+function AppCard({ app }: { app: AppConfig }) {
+  const href = `/products/app-store/${app.slug.toLowerCase()}`;
+
   return (
-    <article className="group overflow-hidden rounded-xl border border-transparent bg-zinc-950 transition-colors hover:border-white/10 hover:bg-zinc-900">
-      <AppPreview />
+    <article className="group flex min-h-[275px] flex-col overflow-hidden rounded-xl bg-zinc-950 transition duration-300 hover:-translate-y-1 hover:bg-zinc-900">
+      <AppPreview app={app} href={href} />
       <div className="space-y-5 p-5">
         <div className="flex items-start gap-4">
-          <Image
-            src={app.icon}
-            alt=""
-            width={48}
-            height={48}
-            className="size-12 rounded-lg bg-zinc-200 object-contain p-1"
-          />
+          <Link
+            href={href}
+            className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-zinc-100 shadow-sm transition duration-200 group-hover:scale-[1.03]"
+            aria-label={`View ${app.name} details`}
+          >
+            <AppIcon
+              src={app.icon}
+              alt={`${app.name} icon`}
+              width={48}
+              height={48}
+              className="size-10 rounded-md object-contain"
+              fallbackClassName="size-7 text-zinc-700"
+            />
+          </Link>
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
-              <h3 className="truncate text-xl font-semibold text-zinc-100">
+              <Link
+                href={href}
+                className="truncate text-xl font-semibold text-zinc-100 transition hover:text-white"
+              >
                 {app.name}
-              </h3>
-              <AppBadges />
+              </Link>
+              <AppCategory category={app.category} />
             </div>
-            <p className="mt-2 truncate text-base text-zinc-500">
+            <p className="mt-2 line-clamp-2 text-base leading-6 text-zinc-500">
               {app.description}
             </p>
           </div>
         </div>
 
         <Link
-          href={app.href}
+          href={href}
           className="flex h-9 items-center justify-center rounded-full bg-white/10 text-sm font-medium text-zinc-100 transition-colors hover:bg-white/15"
         >
           Deploy
@@ -179,26 +126,20 @@ function AppCard({ app }: { app: AppCard }) {
   );
 }
 
-function MoreAppsCard() {
+function MoreAppsCard({ rows }: { rows: AppsSectionLogoItem[][] }) {
   return (
-    <article className="overflow-hidden rounded-xl bg-zinc-950">
-      <div className="flex h-[135px] items-center justify-center overflow-hidden">
-        <div className="grid grid-cols-6 gap-2 opacity-70">
-          {logoRows.flat().map((icon, index) => (
-            <div
-              key={index}
-              className="flex size-12 items-center justify-center rounded-xl border border-white/5 bg-white/5"
-            >
-              <Image src={icon} alt="" width={24} height={24} />
-            </div>
-          ))}
+    <article className="group flex min-h-[275px] flex-col overflow-hidden rounded-xl bg-zinc-950 transition duration-300 hover:-translate-y-1 hover:bg-zinc-900">
+      <div className="relative h-[135px] overflow-hidden">
+        <div className="absolute inset-0 flex items-center" aria-hidden="true">
+          <LogoMarqueeRows rows={rows.slice(0, 3)} compact />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/70" />
       </div>
       <div className="space-y-5 p-5">
         <div>
           <div className="flex items-center justify-between gap-3">
             <h3 className="text-xl font-semibold text-zinc-100">200+ More</h3>
-            <AppBadges />
+            <AppCategory category="Catalog" />
           </div>
           <p className="mt-2 text-base text-zinc-500">
             Browse the full app catalog.
@@ -217,60 +158,136 @@ function MoreAppsCard() {
   );
 }
 
-function AppPreview() {
+function LogoMarqueeRows({
+  rows,
+  compact = false,
+}: {
+  rows: AppsSectionLogoItem[][];
+  compact?: boolean;
+}) {
   return (
-    <div className="relative h-34 overflow-hidden">
-      <AppPreviewPlaceholder />
+    <div
+      className={`flex w-full flex-col blur-[0.2px] ${compact ? 'gap-2' : 'gap-3'}`}
+    >
+      {rows.map((row, rowIndex) => (
+        <div key={rowIndex} className="overflow-hidden">
+          <div
+            className="flex w-max gap-3"
+            style={{
+              animation: `${rowIndex % 2 ? 'apps-marquee-right' : 'apps-marquee-left'} ${compact ? 48 : 80 + rowIndex * 8}s linear infinite`,
+            }}
+          >
+            {[...row, ...row].map((item, index) => (
+              <LogoTile
+                key={`${rowIndex}-${item.label}-${index}`}
+                item={item}
+                compact={compact}
+              />
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
 
-function AppPreviewPlaceholder() {
-  return (
-    <div className="absolute -top-5 -right-10 -left-2 rotate-[-6deg] rounded border border-white/10 bg-black p-3 opacity-70 shadow-2xl transition-all duration-300 ease-out group-hover:inset-0 group-hover:rotate-0 group-hover:rounded-none">
-      <div className="mb-3 flex h-4 items-center gap-2 rounded bg-white/5 px-2 text-[6px] text-zinc-500">
-        <span className="size-1 rounded-full bg-zinc-500" />
-        acme.com
+function LogoTile({
+  item,
+  compact,
+}: {
+  item: AppsSectionLogoItem;
+  compact: boolean;
+}) {
+  const sizeClassName = compact ? 'size-10' : 'size-16';
+
+  if (item.isMore) {
+    return (
+      <div
+        className={`${sizeClassName} flex shrink-0 items-center justify-center rounded-xl border border-white/5 bg-white/5 px-2 text-center text-xs leading-tight font-semibold text-zinc-300 shadow-inner`}
+      >
+        200+ More
       </div>
-      <div className="grid grid-cols-[96px_1fr] gap-3">
-        <div className="space-y-2 text-[6px] text-zinc-600">
-          <div>LAYOUTS</div>
-          <div>Nested Layouts</div>
-          <div>Grouped Layouts</div>
-          <div>Streaming with Suspense</div>
-          <div>FILE CONVENTIONS</div>
-        </div>
-        <div className="grid grid-cols-2 gap-2">
-          {['Nested Layouts', 'Grouped Layouts'].map((item) => (
-            <div
-              key={item}
-              className="h-16 rounded border border-white/5 bg-white/5 p-2"
-            >
-              <div className="mb-2 text-[7px] text-zinc-400">{item}</div>
-              <div className="h-1 w-20 rounded bg-white/10" />
-              <div className="mt-1 h-1 w-14 rounded bg-white/10" />
+    );
+  }
+
+  return (
+    <div
+      className={`${sizeClassName} flex shrink-0 items-center justify-center rounded-xl border border-white/5 bg-white/5 shadow-inner`}
+    >
+      <AppIcon
+        src={item.icon ?? ''}
+        alt=""
+        width={compact ? 24 : 32}
+        height={compact ? 24 : 32}
+        className={`${compact ? 'size-6' : 'size-8'} rounded-md object-contain`}
+        fallbackClassName={`${compact ? 'size-5' : 'size-7'} text-zinc-600`}
+      />
+    </div>
+  );
+}
+
+function AppCategory({ category }: { category: string }) {
+  return (
+    <span className="inline-flex h-6 shrink-0 items-center gap-1 rounded-full bg-white/5 px-2 text-xs text-zinc-400">
+      <span className="size-1.5 rounded-full bg-blue-400" />
+      {category}
+    </span>
+  );
+}
+
+function AppPreview({ app, href }: { app: AppConfig; href: string }) {
+  const primaryScreenshot = app.screenshots?.[0];
+
+  return (
+    <Link
+      href={href}
+      className="relative block h-[135px] overflow-hidden"
+      aria-label={`View ${app.name} details`}
+    >
+      {primaryScreenshot ? (
+        <div className="absolute top-[-0.37px] left-0 h-[136px] w-[110%] overflow-hidden">
+          <div className="absolute top-[12px] left-[6.8%] h-[355px] w-[111.3%]">
+            <div className="flex h-full items-center justify-center">
+              <div className="relative h-[315px] w-[93%] rotate-[-6deg] overflow-hidden rounded-[5px] opacity-80 shadow-2xl shadow-black/40 transition duration-300 group-hover:scale-[1.02] group-hover:rotate-[-4deg] group-hover:opacity-95">
+                <Image
+                  src={primaryScreenshot}
+                  alt={`${app.name} screenshot`}
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 768px) 93vw, (max-width: 1280px) 46vw, 400px"
+                />
+              </div>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <AppPreviewPlaceholder app={app} />
+      )}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/10 to-transparent" />
+    </Link>
   );
 }
 
-function AppBadges() {
+function AppPreviewPlaceholder({ app }: { app: AppConfig }) {
   return (
-    <div className="flex shrink-0 items-center gap-1.5">
-      <span className="inline-flex h-6 items-center gap-1 rounded-full bg-white/5 px-2 text-xs text-zinc-400">
-        <Sparkles className="size-3 text-blue-500" aria-hidden="true" />
-        AI
-      </span>
-      <span className="inline-flex h-6 items-center gap-1 rounded-full bg-white/5 px-2 text-xs text-zinc-400">
-        <Star
-          className="size-3 fill-lime-400 text-lime-400"
-          aria-hidden="true"
-        />
-        2.4k
-      </span>
-    </div>
+    <>
+      <div className={`absolute inset-0 bg-gradient-to-br ${app.gradient}`} />
+      <div className="absolute inset-0 bg-black/65" />
+      <div className="absolute inset-x-6 top-8 h-36 rotate-[-5deg] rounded-lg border border-white/10 bg-zinc-950/75 shadow-2xl shadow-black/40 transition duration-300 group-hover:rotate-[-3deg]">
+        <div className="flex h-7 items-center gap-1.5 border-b border-white/10 px-3">
+          <span className="size-2 rounded-full bg-white/20" />
+          <span className="size-2 rounded-full bg-white/15" />
+          <span className="size-2 rounded-full bg-white/10" />
+        </div>
+        <div className="space-y-2 p-4">
+          <div className="h-3 w-28 rounded bg-white/15" />
+          <div className="grid grid-cols-2 gap-2">
+            <div className="h-8 rounded border border-white/10 bg-white/[0.03]" />
+            <div className="h-8 rounded border border-white/10 bg-white/[0.03]" />
+          </div>
+          <div className="h-3 w-40 rounded bg-white/10" />
+        </div>
+      </div>
+    </>
   );
 }

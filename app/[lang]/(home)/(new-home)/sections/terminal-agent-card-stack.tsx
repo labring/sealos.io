@@ -34,6 +34,8 @@ export function TerminalCardStack() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    if (!window.matchMedia('(min-width: 640px)').matches) return;
+
     const update = () => {
       if (!ref.current) return;
       const top = ref.current.getBoundingClientRect().top + window.scrollY;
@@ -65,39 +67,45 @@ export function TerminalCardStack() {
   }, []);
 
   return (
-    <div
-      ref={ref}
-      className={[
-        'relative overflow-hidden transition-[height] duration-500 ease-out motion-reduce:transition-none',
-        isOpen ? 'h-[638px]' : 'h-[330px] md:h-[300px]',
-      ].join(' ')}
-    >
-      <div
-        className={[
-          'absolute inset-x-0 bottom-0 z-[0] transform-gpu transition-transform duration-500 ease-out will-change-transform motion-reduce:transition-none',
-        ].join(' ')}
-        style={{
-          transform: 'translate3d(0, 0, 0)',
-        }}
-      >
-        <TerminalFolderBack />
-      </div>
-      <div
-        className={[
-          'absolute inset-x-0 top-0 transform-gpu px-4 transition-transform duration-500 ease-out will-change-transform motion-reduce:transition-none',
-          'z-[1]',
-        ].join(' ')}
-        style={{
-          transform: `translate3d(0, ${isOpen ? 54 : 36}px, 0) rotate(${isOpen ? 0 : -2.89}deg)`,
-          transitionProperty: 'transform',
-        }}
-      >
+    <>
+      <div className="space-y-4 sm:hidden">
         <RepositoryCard />
+        <TerminalBody />
       </div>
-      <div className="absolute inset-x-0 bottom-0 z-[2] p-px">
-        <TerminalFolderFront />
+      <div
+        ref={ref}
+        className={[
+          'relative hidden overflow-hidden transition-[height] duration-500 ease-out motion-reduce:transition-none sm:block',
+          isOpen ? 'h-[638px]' : 'h-[330px] md:h-[300px]',
+        ].join(' ')}
+      >
+        <div
+          className={[
+            'absolute inset-x-0 bottom-0 z-[0] transform-gpu transition-transform duration-500 ease-out will-change-transform motion-reduce:transition-none',
+          ].join(' ')}
+          style={{
+            transform: 'translate3d(0, 0, 0)',
+          }}
+        >
+          <TerminalFolderBack />
+        </div>
+        <div
+          className={[
+            'absolute inset-x-0 top-0 transform-gpu px-4 transition-transform duration-500 ease-out will-change-transform motion-reduce:transition-none',
+            'z-[1]',
+          ].join(' ')}
+          style={{
+            transform: `translate3d(0, ${isOpen ? 54 : 36}px, 0) rotate(${isOpen ? 0 : -2.89}deg)`,
+            transitionProperty: 'transform',
+          }}
+        >
+          <RepositoryCard />
+        </div>
+        <div className="absolute inset-x-0 bottom-0 z-[2] p-px">
+          <TerminalFolderFront />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

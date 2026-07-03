@@ -14,7 +14,7 @@ const heroDemoCardsSource = readFileSync(
   'utf8',
 );
 
-test('hero proof scroller reserves one viewport and swaps proof layers', () => {
+test('hero proof scroller uses three 75vh proof steps', () => {
   assert.match(heroSectionSource, /function HeroProofScroller/);
   assert.match(heroSectionSource, /const topOffset = 312/);
   assert.match(
@@ -30,25 +30,36 @@ test('hero proof scroller reserves one viewport and swaps proof layers', () => {
     /function HeroProofScroller\(\)[\s\S]*<HeroHeadline \/>[\s\S]*<HeroDemoCards/,
   );
   assert.doesNotMatch(heroSectionSource, /pt-24/);
-  assert.match(heroSectionSource, /h-screen/);
+  assert.match(heroSectionSource, /h-\[225vh\] min-h-\[1152px\]/);
   assert.match(
     heroSectionSource,
-    /<HeroDemoCards[\s\S]*pinDelayVh=\{1\}[\s\S]*pinStartElementId="hero-proof-scroller"[\s\S]*\/>/,
+    /<HeroDemoCards[\s\S]*pinDelayPx=\{1152\}[\s\S]*pinDelayVh=\{2\.25\}[\s\S]*pinStartElementId="hero-proof-scroller"[\s\S]*\/>/,
   );
   assert.match(heroSectionSource, /type HeroProofPhase/);
+  assert.match(
+    heroSectionSource,
+    /'guarantees' \| 'adoption' \| 'rating' \| 'done'/,
+  );
+  assert.match(heroSectionSource, /useState<HeroProofPhase>\('guarantees'\)/);
   assert.match(heroSectionSource, /getHeroGlowProgress/);
   assert.match(heroSectionSource, /function getHeroGlowProgress/);
+  assert.match(heroSectionSource, /function getScrollStepDistance/);
+  assert.match(heroSectionSource, /Math\.max\(viewportHeight \* 0\.75, 384\)/);
   assert.match(heroSectionSource, /absolute inset-x-0 -top-24 bottom-0/);
   assert.match(heroSectionSource, /sticky top-0/);
   assert.match(heroSectionSource, /h-\[25vh\] w-screen -translate-x-1\/2/);
-  assert.match(heroSectionSource, /opacity: 1 - glowProgress/);
+  assert.match(heroSectionSource, /0\.3 \+ 0\.7 \* \(1 - glowProgress\)/);
   assert.doesNotMatch(
     heroSectionSource,
     /transform: `translate3d\(0, -\$\{glow/,
   );
+  assert.match(heroSectionSource, /phase === 'guarantees'/);
   assert.match(heroSectionSource, /phase === 'adoption'/);
   assert.match(heroSectionSource, /phase === 'rating'/);
   assert.match(heroSectionSource, /phase === 'done'/);
+  assert.match(heroSectionSource, /start \+ stepDistance \* 2/);
+  assert.match(heroSectionSource, /start \+ stepDistance/);
+  assert.match(heroSectionSource, /start \+ stepDistance \* 3/);
   assert.match(heroSectionSource, /const nextPhase = getHeroProofPhase/);
   assert.match(
     heroSectionSource,
@@ -67,9 +78,13 @@ test('hero proof scroller reserves one viewport and swaps proof layers', () => {
 });
 
 test('hero demo cards can delay their demos-section pin until proof scroll ends', () => {
+  assert.match(heroDemoCardsSource, /pinDelayPx = 0/);
   assert.match(heroDemoCardsSource, /pinDelayVh = 0/);
   assert.match(heroDemoCardsSource, /pinStartElementId/);
   assert.match(heroDemoCardsSource, /pinStartOffset/);
-  assert.match(heroDemoCardsSource, /window\.innerHeight \* pinDelayVh/);
+  assert.match(
+    heroDemoCardsSource,
+    /Math\.max\(window\.innerHeight \* pinDelayVh, pinDelayPx\)/,
+  );
   assert.match(heroDemoCardsSource, /pinStart =/);
 });

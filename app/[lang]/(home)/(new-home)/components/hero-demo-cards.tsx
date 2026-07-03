@@ -11,11 +11,13 @@ import {
 } from './demo-navigation';
 
 type HeroDemoCardsProps = {
+  pinDelayPx?: number;
   pinDelayVh?: number;
   pinStartElementId?: string;
 };
 
 export function HeroDemoCards({
+  pinDelayPx = 0,
   pinDelayVh = 0,
   pinStartElementId,
 }: HeroDemoCardsProps) {
@@ -70,7 +72,7 @@ export function HeroDemoCards({
         pinStartElement.offsetTop +
         pinStartOffset -
         topOffset +
-        window.innerHeight * pinDelayVh;
+        Math.max(window.innerHeight * pinDelayVh, pinDelayPx);
       const pinEnd =
         demosSection.offsetTop + demosSection.offsetHeight - window.innerHeight;
       const scrollY = window.scrollY;
@@ -89,7 +91,7 @@ export function HeroDemoCards({
       window.removeEventListener('scroll', updatePin);
       window.removeEventListener('resize', updatePin);
     };
-  }, [pinDelayVh, pinStartElementId]);
+  }, [pinDelayPx, pinDelayVh, pinStartElementId]);
 
   useEffect(() => {
     return () => {

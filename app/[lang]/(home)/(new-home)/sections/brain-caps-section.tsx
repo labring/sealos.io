@@ -99,17 +99,14 @@ export function BrainCapsSection() {
   useEffect(() => {
     const updateActiveIndex = () => {
       const section = sectionRef.current;
-      if (!section) return;
+      if (!section || !isStickyLayout()) return;
 
       const rect = section.getBoundingClientRect();
-      const scrollableDistance = section.offsetHeight - window.innerHeight;
-      const progress =
-        scrollableDistance > 0
-          ? Math.min(1, Math.max(0, -rect.top / scrollableDistance))
-          : 0;
+      const scrolledDistance = Math.max(0, -rect.top);
+      const stepDistance = getScrollStepDistance(window.innerHeight);
       const nextIndex = Math.min(
         brainCaps.length - 1,
-        Math.floor(progress * brainCaps.length),
+        Math.floor(scrolledDistance / stepDistance),
       );
 
       if (activeIndexRef.current === nextIndex) return;
@@ -137,12 +134,12 @@ export function BrainCapsSection() {
     setActiveIndex(index);
 
     const sectionTop = window.scrollY + section.getBoundingClientRect().top;
-    const scrollableDistance = section.offsetHeight - window.innerHeight;
-    const progress =
-      index === brainCaps.length - 1 ? 1 : (index + 0.05) / brainCaps.length;
+    if (!isStickyLayout()) return;
+
+    const stepDistance = getScrollStepDistance(window.innerHeight);
 
     window.scrollTo({
-      top: sectionTop + scrollableDistance * progress,
+      top: sectionTop + stepDistance * (index + 0.05),
       behavior: 'auto',
     });
   };
@@ -150,15 +147,15 @@ export function BrainCapsSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[350vh] overflow-visible px-4 text-white sm:px-6 lg:px-16"
+      className="relative overflow-visible px-4 text-white sm:px-6 lg:h-[475vh] lg:min-h-[calc(100vh+1920px)] lg:px-16"
     >
       <div
         className="absolute inset-x-0 top-0 h-full bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:32px_41px] opacity-40"
         aria-hidden="true"
       />
-      <div className="sticky top-0 flex min-h-screen items-center py-20 lg:py-28">
+      <div className="py-20 lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center lg:py-28">
         <div className="relative mx-auto w-full max-w-[1312px]">
-          <h2 className="max-w-[760px] text-4xl leading-tight font-semibold text-balance text-zinc-100 sm:text-5xl">
+          <h2 className="max-w-[760px] text-3xl leading-tight font-semibold text-balance text-zinc-100 sm:text-4xl">
             <GradientText>
               Eight things you usually duct-tape together. One platform.
             </GradientText>
@@ -176,7 +173,7 @@ export function BrainCapsSection() {
               ))}
             </div>
 
-            <div className="relative h-[374px] md:h-[460px]">
+            <div className="relative hidden h-[374px] md:h-[460px] lg:block">
               <AnimatePresence custom={direction} initial={false}>
                 <motion.div
                   key={brainCaps[activeIndex].title}
@@ -196,6 +193,14 @@ export function BrainCapsSection() {
       </div>
     </section>
   );
+}
+
+function isStickyLayout() {
+  return window.matchMedia('(min-width: 1024px)').matches;
+}
+
+function getScrollStepDistance(viewportHeight: number) {
+  return Math.max(viewportHeight * 0.75, 384);
 }
 
 const motionTransition: Transition = {
@@ -237,14 +242,21 @@ function AccordionItem({
     <article className="rounded-2xl p-0">
       <button
         type="button"
-        className="flex w-full items-center gap-5 text-left"
+        className="group flex w-full items-center gap-5 text-left"
         aria-expanded={isActive}
         onClick={onClick}
       >
         <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-white/10">
-          <Icon className="size-6 text-blue-400" aria-hidden="true" />
+          <Icon
+            className={`size-6 transition-colors ${
+              isActive
+                ? 'text-blue-400'
+                : 'text-white group-hover:text-blue-400'
+            }`}
+            aria-hidden="true"
+          />
         </span>
-        <span className="text-2xl leading-8 font-medium text-zinc-100">
+        <span className="text-lg leading-7 font-semibold text-zinc-100">
           {cap.title}
         </span>
       </button>
@@ -259,7 +271,7 @@ function AccordionItem({
             transition={motionTransition}
             className="overflow-hidden"
           >
-            <p className="mt-4 text-base leading-6 text-zinc-500">
+            <p className="mt-4 text-base leading-6 font-normal text-zinc-500">
               {cap.description}
             </p>
             <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.04] p-4 font-mono text-xs leading-5 text-zinc-400">

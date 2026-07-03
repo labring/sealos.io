@@ -177,7 +177,7 @@ export function ComparisonSection() {
         <div className="mx-auto flex max-w-[812px] flex-col items-center gap-6 text-center">
           <GradientText
             as="h2"
-            className="to-blue-500 text-4xl leading-tight font-semibold text-balance sm:text-5xl"
+            className="to-blue-500 text-3xl leading-tight font-semibold text-balance sm:text-4xl lg:text-5xl"
           >
             Other platforms simplify deployment. Sealos unifies your entire
             cloud.

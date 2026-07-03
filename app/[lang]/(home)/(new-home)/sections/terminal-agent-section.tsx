@@ -83,7 +83,7 @@ export function TerminalAgentSection() {
         <header className="flex max-w-[756px] flex-col items-start gap-6 text-left">
           <GradientText
             as="h2"
-            className="to-blue-500 text-[32px] leading-9 font-semibold text-balance sm:text-[36px] sm:leading-10"
+            className="to-blue-500 text-3xl leading-tight font-semibold text-balance sm:text-4xl"
           >
             Converse, Click, or Build from Your Terminal.
           </GradientText>

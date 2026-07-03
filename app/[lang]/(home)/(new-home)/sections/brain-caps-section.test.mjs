@@ -46,19 +46,47 @@ test('BrainCapsSection keeps accordion copy data-driven', () => {
   assert.doesNotMatch(sectionSource, /DevBox \+ Local IDE/);
 });
 
-test('BrainCapsSection uses a scroll-driven accordion and placeholder panel', () => {
+test('BrainCapsSection uses scroll-driven accordion only in sticky layout', () => {
   assert.match(
     sectionSource,
     /import \{ AnimatePresence, motion, type Transition \}/,
   );
   assert.match(sectionSource, /sectionRef/);
   assert.match(sectionSource, /addEventListener\('scroll'/);
-  assert.match(sectionSource, /h-\[350vh\]/);
-  assert.match(sectionSource, /sticky top-0/);
+  assert.match(sectionSource, /lg:h-\[475vh\]/);
+  assert.match(sectionSource, /lg:min-h-\[calc\(100vh\+1920px\)\]/);
+  assert.match(sectionSource, /lg:sticky lg:top-0/);
+  assert.match(sectionSource, /lg:flex lg:min-h-screen lg:items-center/);
+  assert.match(sectionSource, /function isStickyLayout/);
+  assert.match(sectionSource, /function getScrollStepDistance/);
+  assert.match(sectionSource, /Math\.max\(viewportHeight \* 0\.75, 384\)/);
+  assert.match(
+    sectionSource,
+    /Math\.floor\(scrolledDistance \/ stepDistance\)/,
+  );
+  assert.match(sectionSource, /stepDistance \* \(index \+ 0\.05\)/);
+  assert.match(sectionSource, /matchMedia\('\(min-width: 1024px\)'\)/);
+  assert.match(
+    sectionSource,
+    /if \(!section \|\| !isStickyLayout\(\)\) return/,
+  );
+  assert.match(sectionSource, /if \(!isStickyLayout\(\)\) return/);
+  assert.doesNotMatch(sectionSource, /getScrollProgressDistance/);
+  assert.doesNotMatch(
+    sectionSource,
+    /className="flex min-h-screen items-center/,
+  );
   assert.match(sectionSource, /grid items-start/);
   assert.match(sectionSource, /scrollToIndex/);
   assert.match(sectionSource, /type="button"/);
   assert.match(sectionSource, /aria-expanded=\{isActive\}/);
+  assert.match(sectionSource, /group-hover:text-blue-400/);
+  assert.match(
+    sectionSource,
+    /isActive\s*\?\s*'text-blue-400'\s*:\s*'text-white/,
+  );
+  assert.match(sectionSource, /text-lg leading-7 font-semibold text-zinc-100/);
+  assert.match(sectionSource, /text-base leading-6 font-normal text-zinc-500/);
   assert.match(sectionSource, /AccordionItem/);
   assert.match(sectionSource, /DemoPlaceholder/);
   assert.match(sectionSource, /<AnimatePresence/);
@@ -88,6 +116,13 @@ test('BrainCapsSection keeps directional panel motion without wait gap', () => {
   assert.match(sectionSource, /const offset = direction > 0 \? -36 : 36/);
   assert.match(sectionSource, /filter: 'blur\(12px\)'/);
   assert.match(sectionSource, /y: phase === 'enter' \? offset : -offset/);
+});
+
+test('BrainCapsSection hides the right demo panel on tablet and mobile', () => {
+  assert.match(
+    sectionSource,
+    /className="relative hidden h-\[374px\] md:h-\[460px\] lg:block"/,
+  );
 });
 
 test('BrainCapsSection maps real demos to the requested caps', () => {

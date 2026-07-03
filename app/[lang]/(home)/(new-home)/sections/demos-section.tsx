@@ -339,7 +339,7 @@ function DemoArticle({
         <div className={cn('text-center', isDemoPlaying && textMaskClass)}>
           <GradientText
             as="h2"
-            className="max-w-4xl to-blue-500 text-4xl leading-tight font-semibold text-balance sm:text-5xl"
+            className="max-w-4xl to-blue-500 text-3xl leading-tight font-semibold text-balance sm:text-4xl lg:text-5xl"
           >
             {headline}
           </GradientText>

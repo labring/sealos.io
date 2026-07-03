@@ -33,7 +33,7 @@ function HeroHeadline() {
       <div className="flex flex-col items-center gap-6">
         <GradientText
           as="h1"
-          className="max-w-4xl to-blue-500 text-center text-4xl leading-tight font-semibold text-balance sm:text-5xl"
+          className="max-w-4xl to-blue-500 text-center text-3xl leading-tight font-semibold text-balance sm:text-4xl lg:text-5xl"
         >
           Deploy anything from a repo, an image, or a sentence.
         </GradientText>
@@ -79,12 +79,12 @@ function HeroGetStartedButton() {
   );
 }
 
-type HeroProofPhase = 'adoption' | 'rating' | 'done';
+type HeroProofPhase = 'guarantees' | 'adoption' | 'rating' | 'done';
 
 function HeroProofScroller() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const topOffset = 312;
-  const [phase, setPhase] = useState<HeroProofPhase>('adoption');
+  const [phase, setPhase] = useState<HeroProofPhase>('guarantees');
   const [glowProgress, setGlowProgress] = useState(0);
 
   useEffect(() => {
@@ -176,53 +176,56 @@ function HeroProofScroller() {
 
         <div className="space-y-8">
           <HeroDemoCards
-            pinDelayVh={1}
+            pinDelayPx={1152}
+            pinDelayVh={2.25}
             pinStartElementId="hero-proof-scroller"
           />
-          <div
-            className={cn(
-              proofTransition,
-              'will-change-[filter,opacity,transform]',
-              phase === 'done'
-                ? 'pointer-events-none -translate-y-8 opacity-0 blur-[12px]'
-                : 'blur-0 translate-y-0 opacity-100',
-            )}
-            aria-hidden={phase === 'done'}
-          >
-            <HeroGuarantees />
-          </div>
-        </div>
 
-        <div className="relative min-h-52">
-          <div
-            className={cn(
-              proofTransition,
-              'absolute inset-0 flex items-center justify-center will-change-[filter,opacity,transform]',
-              phase === 'adoption'
-                ? 'blur-0 translate-y-0 opacity-100'
-                : 'pointer-events-none -translate-y-8 opacity-0 blur-[12px]',
-            )}
-            aria-hidden={phase !== 'adoption'}
-          >
-            <HeroAdoptionStrip />
-          </div>
-          <div
-            className={cn(
-              proofTransition,
-              'absolute inset-0 flex items-center justify-center will-change-[filter,opacity,transform]',
-              phase === 'rating'
-                ? 'blur-0 translate-y-0 opacity-100'
-                : phase === 'done'
-                  ? 'pointer-events-none -translate-y-8 opacity-0 blur-[12px]'
-                  : 'pointer-events-none translate-y-8 opacity-0 blur-[12px]',
-            )}
-            aria-hidden={phase !== 'rating'}
-          >
-            <HeroRating />
+          <div className="relative min-h-52">
+            <div
+              className={cn(
+                proofTransition,
+                'absolute inset-0 flex items-center justify-center will-change-[filter,opacity,transform]',
+                phase === 'guarantees'
+                  ? 'blur-0 translate-y-0 opacity-100'
+                  : 'pointer-events-none -translate-y-8 opacity-0 blur-[12px]',
+              )}
+              aria-hidden={phase !== 'guarantees'}
+            >
+              <HeroGuarantees />
+            </div>
+            <div
+              className={cn(
+                proofTransition,
+                'absolute inset-0 flex items-center justify-center will-change-[filter,opacity,transform]',
+                phase === 'adoption'
+                  ? 'blur-0 translate-y-0 opacity-100'
+                  : phase === 'rating'
+                    ? 'pointer-events-none -translate-y-8 opacity-0 blur-[12px]'
+                    : 'pointer-events-none translate-y-8 opacity-0 blur-[12px]',
+              )}
+              aria-hidden={phase !== 'adoption'}
+            >
+              <HeroAdoptionStrip />
+            </div>
+            <div
+              className={cn(
+                proofTransition,
+                'absolute inset-0 flex items-center justify-center will-change-[filter,opacity,transform]',
+                phase === 'rating'
+                  ? 'blur-0 translate-y-0 opacity-100'
+                  : phase === 'done'
+                    ? 'pointer-events-none -translate-y-8 opacity-0 blur-[12px]'
+                    : 'pointer-events-none translate-y-8 opacity-0 blur-[12px]',
+              )}
+              aria-hidden={phase !== 'rating'}
+            >
+              <HeroRating />
+            </div>
           </div>
         </div>
       </div>
-      <div className="h-screen" aria-hidden="true" />
+      <div className="h-[225vh] min-h-[1152px]" aria-hidden="true" />
     </div>
   );
 }
@@ -232,15 +235,21 @@ function getHeroProofPhase(
   start: number,
   viewportHeight: number,
 ): HeroProofPhase {
-  if (scrollY >= start + viewportHeight) {
+  const stepDistance = getScrollStepDistance(viewportHeight);
+
+  if (scrollY >= start + stepDistance * 3) {
     return 'done';
   }
 
-  if (scrollY >= start + viewportHeight * 0.5) {
+  if (scrollY >= start + stepDistance * 2) {
     return 'rating';
   }
 
-  return 'adoption';
+  if (scrollY >= start + stepDistance) {
+    return 'adoption';
+  }
+
+  return 'guarantees';
 }
 
 function getHeroGlowProgress(
@@ -248,11 +257,16 @@ function getHeroGlowProgress(
   start: number,
   viewportHeight: number,
 ): number {
-  const offset = Math.max(0, scrollY - (start + viewportHeight));
+  const stepDistance = getScrollStepDistance(viewportHeight);
+  const offset = Math.max(0, scrollY - (start + stepDistance * 3));
 
-  return clamp(offset / (viewportHeight * 0.5), 0, 1);
+  return clamp(offset / stepDistance, 0, 1);
 }
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
+}
+
+function getScrollStepDistance(viewportHeight: number) {
+  return Math.max(viewportHeight * 0.75, 384);
 }
