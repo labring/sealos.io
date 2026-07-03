@@ -197,7 +197,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
         className="pointer-events-none fixed right-0 bottom-0 left-0 overflow-hidden"
       >
         <div
-          className="text-center font-semibold tracking-normal text-transparent opacity-40 select-none [-webkit-text-stroke:1px_rgba(255,255,255,0.35)]"
+          className="text-center font-semibold tracking-normal text-transparent opacity-40 select-none [-webkit-text-stroke:4px_rgba(255,255,255,0.35)]"
           style={{ fontSize: wordmarkSize, lineHeight: 1 }}
         >
           Sealos
