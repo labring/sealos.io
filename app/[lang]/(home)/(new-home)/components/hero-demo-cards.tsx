@@ -131,6 +131,7 @@ export function HeroDemoCards({
     const nextScrollTop = sectionTop + scrollableDistance * progress;
 
     activeIndexRef.current = index;
+    window.dispatchEvent(new CustomEvent(demoJumpEventName, { detail: index }));
 
     if (!isInsideSection || isCurrentInSection) {
       window.scrollTo({
@@ -141,14 +142,13 @@ export function HeroDemoCards({
     }
 
     transitionLockRef.current = true;
-    window.dispatchEvent(new CustomEvent(demoJumpEventName, { detail: index }));
+    window.scrollTo({
+      top: nextScrollTop,
+      behavior: 'auto',
+    });
     transitionTimeoutRef.current = window.setTimeout(() => {
-      window.scrollTo({
-        top: nextScrollTop,
-        behavior: 'auto',
-      });
       transitionLockRef.current = false;
-    }, 500);
+    }, 250);
   };
 
   return (

@@ -113,7 +113,7 @@ test('BrainCapsSection keeps directional panel motion without wait gap', () => {
   assert.match(sectionSource, /const panelTransition: Transition = \{/);
   assert.match(sectionSource, /duration: 0\.18/);
   assert.match(sectionSource, /custom=\{direction\}/);
-  assert.match(sectionSource, /const offset = direction > 0 \? -36 : 36/);
+  assert.match(sectionSource, /const offset = direction > 0 \? 36 : -36/);
   assert.match(sectionSource, /filter: 'blur\(12px\)'/);
   assert.match(sectionSource, /y: phase === 'enter' \? offset : -offset/);
 });

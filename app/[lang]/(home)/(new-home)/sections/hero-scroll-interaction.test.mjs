@@ -119,50 +119,154 @@ test('demo cards hand off from the hero grid into the demos section', () => {
   assert.match(heroDemoCardsSource, /data-demo-static-card/);
   assert.match(heroDemoCardsSource, /data-demo-source-grid/);
   assert.match(heroDemoCardsSource, /data-demo-source-card/);
+  assert.match(
+    heroDemoCardsSource,
+    /window\.dispatchEvent\(new CustomEvent\(demoJumpEventName/,
+  );
+  assert.match(heroDemoCardsSource, /transitionLockRef\.current = true/);
+  assert.match(heroDemoCardsSource, /behavior: 'auto'/);
+  assert.doesNotMatch(heroDemoCardsSource, /behavior: 'smooth'/);
   assert.match(heroDemoCardsSource, /pointer-events-none opacity-0/);
+  assert.match(
+    demosSectionSource,
+    /import \{ AnimatePresence, motion, type Transition \}/,
+  );
+  assert.match(demosSectionSource, /demoJumpEventName/);
   assert.match(demosSectionSource, /targetCardRefs/);
   assert.match(demosSectionSource, /isHandoffLayoutActive/);
-  assert.match(demosSectionSource, /sectionExitOffset/);
-  assert.match(demosSectionSource, /lg:grid-cols-\[286px_minmax\(0,988px\)\]/);
+  assert.doesNotMatch(demosSectionSource, /sectionExitOffset/);
+  assert.match(demosSectionSource, /handoffStateRef\.current === 'landed'/);
+  assert.match(demosSectionSource, /container mx-auto grid w-full/);
+  assert.match(demosSectionSource, /bg-fixed/);
+  assert.match(
+    demosSectionSource,
+    /absolute inset-0 -z-10 bg-\[radial-gradient\(ellipse_at_top/,
+  );
+  assert.doesNotMatch(demosSectionSource, /max-w-\[1310px\]/);
+  assert.doesNotMatch(demosSectionSource, /max-w-\[1440px\]/);
+  assert.match(demosSectionSource, /lg:grid-cols-\[286px_minmax\(0,1fr\)\]/);
   assert.match(demosSectionSource, /transition-transform/);
   assert.match(demosSectionSource, /lg:-translate-x-\[161px\]/);
   assert.doesNotMatch(demosSectionSource, /transition-\[grid-template-columns/);
+  assert.match(demosSectionSource, /relative h-\[720px\] min-w-0/);
+  assert.match(demosSectionSource, /className="absolute inset-0"/);
+  assert.match(demosSectionSource, /const \[direction, setDirection\]/);
+  assert.match(demosSectionSource, /const panelTransition: Transition = \{/);
+  assert.match(demosSectionSource, /duration: 0\.18/);
+  assert.doesNotMatch(demosSectionSource, /cardFlightFallbackMs/);
+  assert.match(demosSectionSource, /custom=\{direction\}/);
+  assert.match(demosSectionSource, /function getPanelMotion/);
+  assert.match(demosSectionSource, /const offset = direction > 0 \? 36 : -36/);
+  assert.match(demosSectionSource, /filter: 'blur\(12px\)'/);
+  assert.match(demosSectionSource, /isJumpingRef/);
+  assert.match(demosSectionSource, /jumpTimeoutRef/);
+  assert.match(demosSectionSource, /isJumpingRef\.current\) \{/);
+  assert.match(demosSectionSource, /!section \|\| isJumpingRef\.current/);
+  assert.match(
+    demosSectionSource,
+    /window\.addEventListener\(demoJumpEventName, handleDemoJump\)/,
+  );
+  assert.match(demosSectionSource, /setActiveDemo\(nextIndex\)/);
+  assert.match(demosSectionSource, /behavior: 'auto'/);
+  assert.doesNotMatch(demosSectionSource, /behavior: 'smooth'/);
   assert.match(
     demosSectionSource,
     /window\.requestAnimationFrame\(\(\) => \{[\s\S]*setIsHandoffLayoutActive\(true\);[\s\S]*setIsHandoffFlying\(true\);[\s\S]*\}\);/,
   );
+  assert.match(demosSectionSource, /const getTargetCardOffsets =/);
+  assert.match(demosSectionSource, /const scheduleHandoffFinish =/);
   assert.match(
     demosSectionSource,
-    /setIsHandoffComplete\(false\);[\s\S]*setIsHandoffLayoutActive\(false\);[\s\S]*setIsHandoffFlying\(false\);/,
+    /handoffStateRef\.current === 'flying'[\s\S]*setCardFlights\(getCardOffsets\(\)\);[\s\S]*\} else if \(handoffStateRef\.current === 'landed'\)/,
+  );
+  assert.match(
+    demosSectionSource,
+    /handoffStateRef\.current === 'landed'[\s\S]*setCardFlights\(getTargetCardOffsets\(\)\)/,
+  );
+  assert.match(
+    demosSectionSource,
+    /setCardFlights\(getCardOffsets\(\)\);[\s\S]*setIsHandoffFlying\(true\);[\s\S]*window\.requestAnimationFrame\(\(\) => \{[\s\S]*handoffStateRef\.current = 'landed';[\s\S]*setCardFlights\(getTargetCardOffsets\(\)\);[\s\S]*setIsHandoffComplete\(true\);[\s\S]*setIsHandoffFlying\(false\);/,
+  );
+  assert.match(
+    demosSectionSource,
+    /setIsHandoffComplete\(true\);[\s\S]*setIsHandoffLayoutActive\(false\);[\s\S]*setIsHandoffFlying\(true\);/,
+  );
+  assert.match(
+    demosSectionSource,
+    /window\.requestAnimationFrame\(\(\) => \{[\s\S]*setIsHandoffComplete\(false\);[\s\S]*setIsHandoffFlying\(false\);[\s\S]*\}\);/,
   );
   assert.match(demosSectionSource, /startCardHandoff/);
   assert.match(demosSectionSource, /startCardReturn/);
+  assert.match(demosSectionSource, /finishCardHandoff/);
+  assert.match(
+    demosSectionSource,
+    /window\.setTimeout\(finishCardHandoff, 760\)/,
+  );
+  assert.match(demosSectionSource, /scheduleHandoffFinish\(\)/);
   assert.match(demosSectionSource, /updateCardReturnTarget/);
   assert.match(demosSectionSource, /data-demo-static-card/);
   assert.match(demosSectionSource, /demoHandoffEventName/);
   assert.match(demosSectionSource, /detail: false/);
   assert.match(
     demosSectionSource,
-    /detail: false[\s\S]*window\.requestAnimationFrame\(\(\) => \{[\s\S]*setCardFlights\(null\)/,
+    /detail: false[\s\S]*window\.requestAnimationFrame\(\(\) => \{[\s\S]*setCardFlights\(emptyCardOffsets\)/,
   );
   assert.match(demosSectionSource, /CardFlightOverlay/);
   assert.match(demosSectionSource, /cardFlights/);
+  assert.match(demosSectionSource, /const emptyCardOffsets: CardOffset\[\]/);
+  assert.match(
+    demosSectionSource,
+    /useState<CardOffset\[\]>\(emptyCardOffsets\)/,
+  );
+  assert.match(demosSectionSource, /flights=\{cardFlights\}/);
+  assert.match(demosSectionSource, /isVisible=\{isSectionActive\}/);
+  assert.match(
+    demosSectionSource,
+    /visibility: isCardVisible \? 'visible' : 'hidden'/,
+  );
+  assert.doesNotMatch(
+    demosSectionSource,
+    /flights=\{isSectionActive \? cardFlights : null\}/,
+  );
   assert.match(demosSectionSource, /isHandoffComplete/);
+  assert.doesNotMatch(demosSectionSource, /onFlightComplete/);
+  assert.doesNotMatch(demosSectionSource, /onTransitionEnd/);
+  assert.doesNotMatch(
+    demosSectionSource,
+    /event\.propertyName === 'transform'/,
+  );
+  assert.match(
+    demosSectionSource,
+    /isComplete[\s\S]*\? 'transition-\[border-color,background-color,box-shadow\]'[\s\S]*: 'transition-\[transform,border-color,background-color,box-shadow\]'/,
+  );
   assert.doesNotMatch(
     demosSectionSource,
     /transition-\[transform,width,height/,
   );
   assert.match(demosSectionSource, /border-transparent bg-transparent/);
+  assert.match(
+    demosSectionSource,
+    /border-transparent bg-transparent shadow-none hover:border-white\/20 hover:bg-white\/\[0\.06\]/,
+  );
   assert.match(demosSectionSource, /pointer-events-none[\s\S]*opacity-0/);
   assert.match(demosSectionSource, /sourceGridIsInsideSection/);
-  assert.match(
+  assert.doesNotMatch(
     demosSectionSource,
     /section\.offsetTop \+ section\.offsetHeight - window\.innerHeight/,
   );
-  assert.match(demosSectionSource, /flight\.y - sectionExitOffset/);
+  assert.doesNotMatch(demosSectionSource, /flight\.y - sectionExitOffset/);
+  assert.match(demosSectionSource, /translate3d/);
+  assert.match(demosSectionSource, /className="w-full text-left"/);
   assert.match(
     demosSectionSource,
-    /transitionDuration: sectionExitOffset > 0 \? '0ms' : undefined/,
+    /text-3xl leading-9 font-semibold text-balance/,
   );
-  assert.match(demosSectionSource, /translate3d/);
+  assert.match(
+    demosSectionSource,
+    /text-base leading-6 font-normal text-zinc-400/,
+  );
+  assert.match(demosSectionSource, /function ScaledDemoCanvas/);
+  assert.match(demosSectionSource, /aspect-\[1312\/812\]/);
+  assert.match(demosSectionSource, /h-\[117\.6471%\] w-\[117\.6471%\]/);
+  assert.match(demosSectionSource, /origin-top-left scale-\[0\.85\]/);
 });

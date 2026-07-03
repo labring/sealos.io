@@ -218,7 +218,7 @@ function getPanelMotion(direction: number, phase: 'enter' | 'center' | 'exit') {
     return { opacity: 1, filter: 'blur(0px)', y: 0 };
   }
 
-  const offset = direction > 0 ? -36 : 36;
+  const offset = direction > 0 ? 36 : -36;
 
   return {
     opacity: 0,
