@@ -80,6 +80,8 @@ export function DemosSection() {
   const [isSectionActive, setIsSectionActive] = useState(false);
   const [isHandoffComplete, setIsHandoffComplete] = useState(false);
   const [isHandoffFlying, setIsHandoffFlying] = useState(false);
+  const [isHandoffLayoutActive, setIsHandoffLayoutActive] = useState(false);
+  const [sectionExitOffset, setSectionExitOffset] = useState(0);
   const activeDemo = demos[activeIndex] ?? demos[0];
 
   const clearHandoffTimeout = () => {
@@ -158,7 +160,10 @@ export function DemosSection() {
       window.dispatchEvent(
         new CustomEvent(demoHandoffEventName, { detail: true }),
       );
-      window.requestAnimationFrame(() => setIsHandoffFlying(true));
+      window.requestAnimationFrame(() => {
+        setIsHandoffLayoutActive(true);
+        setIsHandoffFlying(true);
+      });
     });
     handoffTimeoutRef.current = window.setTimeout(() => {
       handoffStateRef.current = 'landed';
@@ -179,6 +184,7 @@ export function DemosSection() {
     setCardFlights(getCardOffsets(true));
     setIsSectionActive(true);
     setIsHandoffComplete(false);
+    setIsHandoffLayoutActive(false);
     setIsHandoffFlying(false);
     window.dispatchEvent(
       new CustomEvent(demoHandoffEventName, { detail: true }),
@@ -213,12 +219,18 @@ export function DemosSection() {
         : progress >= 0;
       const nextSectionActive =
         sectionRect.top < window.innerHeight && sectionRect.bottom > 0;
+      const nextSectionExitOffset = Math.max(
+        0,
+        window.scrollY -
+          (section.offsetTop + section.offsetHeight - window.innerHeight),
+      );
       const nextIndex = Math.max(
         0,
         Math.min(demos.length - 1, Math.floor(progress / window.innerHeight)),
       );
 
       updateCardReturnTarget();
+      setSectionExitOffset(nextSectionExitOffset);
       setIsSectionActive(
         nextSectionActive ||
           handoffStateRef.current === 'flying' ||
@@ -285,9 +297,22 @@ export function DemosSection() {
       />
 
       <div className="sticky top-0 flex h-screen items-center px-4 py-16 sm:px-6 lg:px-16">
+        <div className="pointer-events-none absolute inset-0 flex items-center px-4 py-16 opacity-0 sm:px-6 lg:px-16">
+          <div className="mx-auto grid w-full max-w-[1310px] items-center gap-9 lg:grid-cols-[286px_minmax(0,988px)]">
+            <DemoCardSlots cardRefs={targetCardRefs} />
+            <div aria-hidden="true" />
+          </div>
+        </div>
         <div className="mx-auto grid w-full max-w-[1310px] items-center gap-9 lg:grid-cols-[286px_minmax(0,988px)]">
-          <DemoCardSlots cardRefs={targetCardRefs} />
-          <DemoArticle key={activeDemo.id} demo={activeDemo} />
+          <div aria-hidden="true" />
+          <div
+            className={cn(
+              'min-w-0 transition-transform duration-700 ease-out',
+              !isHandoffLayoutActive && 'lg:-translate-x-[161px]',
+            )}
+          >
+            <DemoArticle key={activeDemo.id} demo={activeDemo} />
+          </div>
         </div>
       </div>
       <CardFlightOverlay
@@ -296,6 +321,7 @@ export function DemosSection() {
         isComplete={isHandoffComplete}
         isFlying={isHandoffFlying}
         onSelect={handleCardSelect}
+        sectionExitOffset={sectionExitOffset}
       />
     </section>
   );
@@ -327,12 +353,14 @@ function CardFlightOverlay({
   isComplete,
   isFlying,
   onSelect,
+  sectionExitOffset,
 }: {
   activeIndex: number;
   flights: CardOffset[] | null;
   isComplete: boolean;
   isFlying: boolean;
   onSelect: (index: number) => void;
+  sectionExitOffset: number;
 }) {
   if (!flights) {
     return null;
@@ -353,7 +381,7 @@ function CardFlightOverlay({
           <button
             key={title}
             className={cn(
-              'group fixed rounded-xl border p-5 text-left transition-[transform,width,height,border-color,background-color,box-shadow] duration-700 ease-out',
+              'group fixed rounded-xl border p-5 text-left transition-[transform,border-color,background-color,box-shadow] duration-700 ease-out',
               isComplete
                 ? isActive
                   ? 'border-white/20 bg-white/[0.08] shadow-2xl'
@@ -371,8 +399,9 @@ function CardFlightOverlay({
               left: flight.left,
               top: flight.top,
               transform: isFlying
-                ? `translate3d(${flight.x}px, ${flight.y}px, 0)`
-                : 'translate3d(0, 0, 0)',
+                ? `translate3d(${flight.x}px, ${flight.y - sectionExitOffset}px, 0)`
+                : `translate3d(0, -${sectionExitOffset}px, 0)`,
+              transitionDuration: sectionExitOffset > 0 ? '0ms' : undefined,
               width: isFlying ? flight.targetWidth : flight.width,
             }}
             tabIndex={isComplete ? 0 : -1}
@@ -429,22 +458,25 @@ function DemoArticle({ demo }: { demo: (typeof demos)[number] }) {
   const { id, headline, body, Demo } = demo;
 
   return (
-    <article id={id} className="flex min-w-0 flex-col items-center gap-8">
+    <article
+      id={id}
+      className="flex w-full min-w-0 flex-col items-center gap-8"
+    >
       <div className="text-center">
         <GradientText
           as="h2"
-          className="max-w-[830px] to-blue-500 text-3xl leading-tight font-semibold text-balance sm:text-4xl lg:text-5xl"
+          className="max-w-[988px] to-blue-500 text-3xl leading-tight font-semibold text-balance sm:text-4xl lg:text-5xl"
         >
           {headline}
         </GradientText>
-        <p className="mt-3 max-w-[830px] text-base leading-7 text-zinc-400">
+        <p className="mt-3 max-w-[988px] text-base leading-7 text-zinc-400">
           {body}
         </p>
       </div>
 
       <div
         aria-label={`${headline} demo`}
-        className="relative z-10 mx-auto w-full max-w-[830px]"
+        className="relative z-10 mx-auto w-full max-w-[988px]"
       >
         <Demo active />
       </div>

@@ -121,6 +121,20 @@ test('demo cards hand off from the hero grid into the demos section', () => {
   assert.match(heroDemoCardsSource, /data-demo-source-card/);
   assert.match(heroDemoCardsSource, /pointer-events-none opacity-0/);
   assert.match(demosSectionSource, /targetCardRefs/);
+  assert.match(demosSectionSource, /isHandoffLayoutActive/);
+  assert.match(demosSectionSource, /sectionExitOffset/);
+  assert.match(demosSectionSource, /lg:grid-cols-\[286px_minmax\(0,988px\)\]/);
+  assert.match(demosSectionSource, /transition-transform/);
+  assert.match(demosSectionSource, /lg:-translate-x-\[161px\]/);
+  assert.doesNotMatch(demosSectionSource, /transition-\[grid-template-columns/);
+  assert.match(
+    demosSectionSource,
+    /window\.requestAnimationFrame\(\(\) => \{[\s\S]*setIsHandoffLayoutActive\(true\);[\s\S]*setIsHandoffFlying\(true\);[\s\S]*\}\);/,
+  );
+  assert.match(
+    demosSectionSource,
+    /setIsHandoffComplete\(false\);[\s\S]*setIsHandoffLayoutActive\(false\);[\s\S]*setIsHandoffFlying\(false\);/,
+  );
   assert.match(demosSectionSource, /startCardHandoff/);
   assert.match(demosSectionSource, /startCardReturn/);
   assert.match(demosSectionSource, /updateCardReturnTarget/);
@@ -134,8 +148,21 @@ test('demo cards hand off from the hero grid into the demos section', () => {
   assert.match(demosSectionSource, /CardFlightOverlay/);
   assert.match(demosSectionSource, /cardFlights/);
   assert.match(demosSectionSource, /isHandoffComplete/);
+  assert.doesNotMatch(
+    demosSectionSource,
+    /transition-\[transform,width,height/,
+  );
   assert.match(demosSectionSource, /border-transparent bg-transparent/);
   assert.match(demosSectionSource, /pointer-events-none[\s\S]*opacity-0/);
   assert.match(demosSectionSource, /sourceGridIsInsideSection/);
+  assert.match(
+    demosSectionSource,
+    /section\.offsetTop \+ section\.offsetHeight - window\.innerHeight/,
+  );
+  assert.match(demosSectionSource, /flight\.y - sectionExitOffset/);
+  assert.match(
+    demosSectionSource,
+    /transitionDuration: sectionExitOffset > 0 \? '0ms' : undefined/,
+  );
   assert.match(demosSectionSource, /translate3d/);
 });
