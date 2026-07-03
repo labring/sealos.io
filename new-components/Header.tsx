@@ -247,8 +247,8 @@ export function Header({ lang }: HeaderProps) {
 
   return (
     <>
-      <div className="w-full rounded-full bg-white/10 text-white shadow-lg backdrop-blur-3xl lg:rounded-none lg:bg-black/20 lg:shadow-none lg:backdrop-blur-xl">
-        <nav className="container mx-auto flex min-h-16 items-center justify-between px-4 py-3 lg:h-24 lg:px-0 lg:py-2">
+      <div className="w-full text-white lg:bg-black/20 lg:backdrop-blur-xl">
+        <nav className="container mx-auto flex min-h-16 items-center justify-between rounded-full bg-white/10 px-4 py-3 shadow-lg backdrop-blur-3xl lg:h-24 lg:rounded-none lg:bg-transparent lg:px-0 lg:py-2 lg:shadow-none lg:backdrop-blur-none">
           <div className="flex min-w-0 items-center gap-9">
             <a
               href={homeHref}
@@ -367,153 +367,159 @@ export function Header({ lang }: HeaderProps) {
               className="w-full overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="h-screen overflow-y-auto bg-neutral-950 p-6 text-white">
-                <div className="mb-8 flex items-center justify-between">
-                  <div className="flex items-center gap-2" role="banner">
-                    <Image
-                      alt="Sealos Logo"
-                      src="/logo.svg"
-                      className="h-6 w-6"
-                      width={24}
-                      height={24}
-                      priority
-                    />
-                    <span className="font-bold text-white">Sealos</span>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={closeMobileMenu}
-                    className="rounded-full text-white hover:bg-white/10"
-                    aria-label="Close navigation menu"
-                  >
-                    <X size={24} />
-                  </Button>
-                </div>
-
-                <div className="flex flex-col gap-2" role="navigation">
-                  {localizedNavigationLinks.map((link, index) => (
-                    <div key={index} className="border-b border-white/10">
-                      {link.children ? (
-                        <>
-                          <button
-                            onClick={() => toggleSubmenu(link.text)}
-                            className="flex w-full items-center justify-between py-4 text-lg font-medium text-white transition-colors hover:text-white/80"
-                          >
-                            <span>{link.text}</span>
-                            <motion.div
-                              animate={{
-                                rotate: openMenus[link.text] ? 180 : 0,
-                              }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              <ChevronDown size={20} />
-                            </motion.div>
-                          </button>
-                          <AnimatePresence>
-                            {openMenus[link.text] && (
-                              <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.2 }}
-                                className="overflow-hidden"
-                              >
-                                <div className="space-y-3 pb-4 pl-4">
-                                  {link.children.map((child, childIndex) => (
-                                    <a
-                                      key={childIndex}
-                                      href={child.url}
-                                      onClick={closeMobileMenu}
-                                      target={
-                                        child.isExternal ? '_blank' : undefined
-                                      }
-                                      rel={
-                                        child.isExternal
-                                          ? 'noopener noreferrer'
-                                          : undefined
-                                      }
-                                      className="flex flex-col gap-1 rounded-lg bg-white/5 p-3 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
-                                    >
-                                      <div className="flex items-center gap-2">
-                                        {child.icon && (
-                                          <div className="flex-shrink-0">
-                                            {child.icon}
-                                          </div>
-                                        )}
-                                        <span className="font-medium">
-                                          {child.text}
-                                        </span>
-                                      </div>
-                                      {child.description && (
-                                        <span className="pl-0 text-sm text-white/50">
-                                          {child.description}
-                                        </span>
-                                      )}
-                                    </a>
-                                  ))}
-                                </div>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </>
-                      ) : (
-                        <a
-                          href={link.url}
-                          onClick={closeMobileMenu}
-                          target={link.isExternal ? '_blank' : undefined}
-                          rel={
-                            link.isExternal ? 'noopener noreferrer' : undefined
-                          }
-                          className="block py-4 text-lg font-medium text-white transition-colors hover:text-white/80"
-                        >
-                          {link.text}
-                        </a>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-8 space-y-3">
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="h-12 w-full rounded-full border-white/20 text-base text-white hover:bg-white/10"
-                    aria-label="Open Sealos GitHub page."
-                  >
-                    <a
-                      href="https://github.com/labring/sealos"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex gap-2"
-                      onClick={closeMobileMenu}
-                    >
+              <div className="scrollbar-hide h-screen overflow-y-auto bg-neutral-950 text-white">
+                <div className="container mx-auto px-4 py-6 sm:px-6">
+                  <div className="mb-8 flex items-center justify-between">
+                    <div className="flex items-center gap-2" role="banner">
                       <Image
-                        src={GitHubIcon}
-                        alt="GitHub"
-                        width={16}
-                        height={16}
+                        alt="Sealos Logo"
+                        src="/logo.svg"
+                        className="h-6 w-6"
+                        width={24}
+                        height={24}
+                        priority
                       />
-                      <span>16.4k</span>
-                    </a>
-                  </Button>
-                  <Button
-                    variant="landing-primary"
-                    className="h-12 w-full border border-white text-base"
-                    aria-label="Start using Sealos for free."
-                    onClick={() => {
-                      trackButton(
-                        'Get Started',
-                        'header-mobile',
-                        'auth-form',
-                        '',
-                      );
-                      handleAuthRedirect({ openapp: getOpenBrainParam() });
-                      closeMobileMenu();
-                    }}
-                  >
-                    Get Start For Free
-                  </Button>
+                      <span className="font-bold text-white">Sealos</span>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={closeMobileMenu}
+                      className="rounded-full text-white hover:bg-white/10"
+                      aria-label="Close navigation menu"
+                    >
+                      <X size={24} />
+                    </Button>
+                  </div>
+
+                  <div className="flex flex-col gap-2" role="navigation">
+                    {localizedNavigationLinks.map((link, index) => (
+                      <div key={index} className="border-b border-white/10">
+                        {link.children ? (
+                          <>
+                            <button
+                              onClick={() => toggleSubmenu(link.text)}
+                              className="flex w-full items-center justify-between py-4 text-lg font-medium text-white transition-colors hover:text-white/80"
+                            >
+                              <span>{link.text}</span>
+                              <motion.div
+                                animate={{
+                                  rotate: openMenus[link.text] ? 180 : 0,
+                                }}
+                                transition={{ duration: 0.2 }}
+                              >
+                                <ChevronDown size={20} />
+                              </motion.div>
+                            </button>
+                            <AnimatePresence>
+                              {openMenus[link.text] && (
+                                <motion.div
+                                  initial={{ height: 0, opacity: 0 }}
+                                  animate={{ height: 'auto', opacity: 1 }}
+                                  exit={{ height: 0, opacity: 0 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="overflow-hidden"
+                                >
+                                  <div className="space-y-3 pb-4 pl-4">
+                                    {link.children.map((child, childIndex) => (
+                                      <a
+                                        key={childIndex}
+                                        href={child.url}
+                                        onClick={closeMobileMenu}
+                                        target={
+                                          child.isExternal
+                                            ? '_blank'
+                                            : undefined
+                                        }
+                                        rel={
+                                          child.isExternal
+                                            ? 'noopener noreferrer'
+                                            : undefined
+                                        }
+                                        className="flex flex-col gap-1 rounded-lg bg-white/5 p-3 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                                      >
+                                        <div className="flex items-center gap-2">
+                                          {child.icon && (
+                                            <div className="flex-shrink-0">
+                                              {child.icon}
+                                            </div>
+                                          )}
+                                          <span className="font-medium">
+                                            {child.text}
+                                          </span>
+                                        </div>
+                                        {child.description && (
+                                          <span className="pl-0 text-sm text-white/50">
+                                            {child.description}
+                                          </span>
+                                        )}
+                                      </a>
+                                    ))}
+                                  </div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </>
+                        ) : (
+                          <a
+                            href={link.url}
+                            onClick={closeMobileMenu}
+                            target={link.isExternal ? '_blank' : undefined}
+                            rel={
+                              link.isExternal
+                                ? 'noopener noreferrer'
+                                : undefined
+                            }
+                            className="block py-4 text-lg font-medium text-white transition-colors hover:text-white/80"
+                          >
+                            {link.text}
+                          </a>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-8 space-y-3">
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="h-12 w-full rounded-full border-white/20 text-base text-white hover:bg-white/10"
+                      aria-label="Open Sealos GitHub page."
+                    >
+                      <a
+                        href="https://github.com/labring/sealos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex gap-2"
+                        onClick={closeMobileMenu}
+                      >
+                        <Image
+                          src={GitHubIcon}
+                          alt="GitHub"
+                          width={16}
+                          height={16}
+                        />
+                        <span>16.4k</span>
+                      </a>
+                    </Button>
+                    <Button
+                      variant="landing-primary"
+                      className="h-12 w-full border border-white text-base"
+                      aria-label="Start using Sealos for free."
+                      onClick={() => {
+                        trackButton(
+                          'Get Started',
+                          'header-mobile',
+                          'auth-form',
+                          '',
+                        );
+                        handleAuthRedirect({ openapp: getOpenBrainParam() });
+                        closeMobileMenu();
+                      }}
+                    >
+                      Get Start For Free
+                    </Button>
+                  </div>
                 </div>
               </div>
             </motion.div>

@@ -49,6 +49,14 @@ export function HeroDemoCards({
 
   useEffect(() => {
     const updatePin = () => {
+      if (!isHeroPinLayout()) {
+        setIsHandoffHidden(false);
+        setIsPinned(false);
+        setIsReleased(false);
+        setReleaseOffset(0);
+        return;
+      }
+
       const heroCards = document.getElementById('hero-demo-cards');
       const demosSection = document.getElementById('demos-section');
 
@@ -82,6 +90,11 @@ export function HeroDemoCards({
       setReleaseOffset(Math.max(0, scrollY - pinEnd));
     };
     const handleDemoHandoff = (event: Event) => {
+      if (!isHeroPinLayout()) {
+        setIsHandoffHidden(false);
+        return;
+      }
+
       const hidden = (event as CustomEvent<boolean>).detail !== false;
 
       setIsHandoffHidden(hidden);
@@ -171,7 +184,7 @@ export function HeroDemoCards({
               : undefined,
           }}
         >
-          <div className="container mx-auto px-4 xl:px-14.25 2xl:px-15">
+          <div className="container mx-auto">
             <DemoCardsGrid sourceGrid onSelect={handleDemoSelect} />
           </div>
         </div>
@@ -195,7 +208,7 @@ function DemoCardsGrid({
     <div
       data-demo-source-grid={sourceGrid ? '' : undefined}
       className={cn(
-        'grid gap-3 md:grid-cols-2 xl:grid-cols-4',
+        'grid gap-3 md:grid-cols-2 2xl:grid-cols-4',
         hidden && 'opacity-0',
       )}
     >
@@ -224,4 +237,8 @@ function DemoCardsGrid({
       ))}
     </div>
   );
+}
+
+function isHeroPinLayout() {
+  return window.matchMedia('(min-width: 1024px)').matches;
 }

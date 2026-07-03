@@ -173,8 +173,11 @@ test('BrainCapsSection maps real demos to the requested caps', () => {
 test('BrainCapsSection scales real demos without clipping right overflow', () => {
   assert.match(sectionSource, /function ScaledBrainCapDemo/);
   assert.match(sectionSource, /aspect-\[1312\/812\] h-\[166\.6667%\]/);
-  assert.match(sectionSource, /relative h-full w-full overflow-visible/);
-  assert.match(sectionSource, /origin-top-left scale-75/);
+  assert.match(
+    sectionSource,
+    /relative flex h-full w-full items-center justify-start/,
+  );
+  assert.match(sectionSource, /origin-left scale-75/);
   assert.match(sectionSource, /\[&>\*\]:!max-w-none/);
 });
 

@@ -225,20 +225,24 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #ebf2ff;
+    background: #03050b;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(113, 113, 122, 0.45);
     border-radius: 6px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(161, 161, 170, 0.6);
   }
 
   ::-webkit-scrollbar-corner {
-    background-color: #ebf2ff;
+    background-color: #03050b;
+  }
+
+  html {
+    scrollbar-color: rgba(113, 113, 122, 0.45) #03050b;
   }
 
   /* Hide scrollbar utility class */

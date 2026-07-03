@@ -34,7 +34,7 @@ export function TerminalCardStack() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (!window.matchMedia('(min-width: 640px)').matches) return;
+    if (!window.matchMedia('(min-width: 1024px)').matches) return;
 
     const update = () => {
       if (!ref.current) return;
@@ -68,14 +68,14 @@ export function TerminalCardStack() {
 
   return (
     <>
-      <div className="space-y-4 sm:hidden">
+      <div className="space-y-4 lg:hidden">
         <RepositoryCard />
         <TerminalBody />
       </div>
       <div
         ref={ref}
         className={[
-          'relative hidden overflow-hidden transition-[height] duration-500 ease-out motion-reduce:transition-none sm:block',
+          'relative hidden overflow-hidden transition-[height] duration-500 ease-out motion-reduce:transition-none lg:block',
           isOpen ? 'h-[638px]' : 'h-[330px] md:h-[300px]',
         ].join(' ')}
       >

@@ -14,24 +14,17 @@ const stackSource = readFileSync(
   'utf8',
 );
 
-test('Terminal automation renders two cards that swap on scroll', () => {
+test('Terminal automation stacks cards below desktop', () => {
   assert.match(sectionSource, /TerminalCardStack/);
+  assert.match(sectionSource, /grid gap-6 lg:grid-cols-3/);
+  assert.doesNotMatch(sectionSource, /md:grid-cols-3/);
   assert.match(stackSource, /'use client'/);
+  assert.match(stackSource, /matchMedia\('\(min-width: 1024px\)'\)/);
   assert.match(stackSource, /addEventListener\('scroll'/);
   assert.match(stackSource, /Repository State: \.sealos\//);
   assert.match(stackSource, /terminal — sealos-skills/);
-  assert.match(stackSource, /frontCard/);
-  assert.match(stackSource, /frontCardRef = useRef<CardId>\('terminal'\)/);
-  assert.match(stackSource, /runSwap/);
-  assert.match(stackSource, /skewedBackPose/);
-  assert.match(stackSource, /opacity: 0\.45/);
-  assert.match(stackSource, /translate3d\(20px, -48px, 0\) rotate\(-7deg\)/);
+  assert.match(stackSource, /className="space-y-4 lg:hidden"/);
+  assert.match(stackSource, /lg:block/);
   assert.match(stackSource, /transform: 'translate3d/);
-  assert.match(stackSource, /transformOrigin: 'top right'/);
-  assert.match(stackSource, /transition-\[transform,opacity\]/);
   assert.doesNotMatch(stackSource, /setTimeout/);
-  assert.doesNotMatch(stackSource, /hiddenBackPose/);
-  assert.doesNotMatch(stackSource, /straightBackPose/);
-  assert.doesNotMatch(stackSource, /useTransform/);
-  assert.doesNotMatch(stackSource, /@keyframes/);
 });

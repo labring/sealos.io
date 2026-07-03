@@ -71,7 +71,7 @@ const featureCards: FeatureCard[] = [
 
 export function TerminalAgentSection() {
   return (
-    <section className="relative container overflow-hidden px-4 py-20 text-white sm:px-6 lg:px-16 lg:py-28">
+    <section className="relative container overflow-hidden py-20 text-white sm:px-6 lg:py-28">
       <img
         src="/images/home/aiagent-bg1.svg"
         alt=""
@@ -99,7 +99,7 @@ export function TerminalAgentSection() {
           title="1. Built-in Agent UI (AGUI)"
           description="Click the visual rail icons manually, or describe what you want and let the built-in agent figure it out. The AI renders a structured form for you to approve, not an unverified wall of text."
         >
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 lg:grid-cols-3">
             {visualCards.map((card) => (
               <VisualCard key={card.title} card={card} />
             ))}
@@ -115,7 +115,7 @@ export function TerminalAgentSection() {
           <TerminalCardStack />
         </WorkflowRow>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 lg:grid-cols-3">
           {featureCards.map((card) => (
             <FeatureCard key={card.title} card={card} />
           ))}
@@ -375,7 +375,7 @@ function EngineCard() {
                 className="size-4 shrink-0 text-blue-400"
                 aria-hidden="true"
               />
-              <span className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap">
+              <span className="scrollbar-hide min-w-0 flex-1 overflow-x-auto whitespace-nowrap">
                 npx plugins add https://github.com/labring/sealos-skills
               </span>
               <Copy

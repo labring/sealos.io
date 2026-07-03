@@ -19,10 +19,8 @@ import {
 
 export function HeroSection() {
   return (
-    <section className="px-4 text-white sm:px-6 lg:px-16">
-      <div className="mx-auto max-w-7xl">
-        <HeroProofScroller />
-      </div>
+    <section className="container mx-auto text-white">
+      <HeroProofScroller />
     </section>
   );
 }
@@ -83,7 +81,8 @@ type HeroProofPhase = 'guarantees' | 'adoption' | 'rating' | 'done';
 
 function HeroProofScroller() {
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const topOffset = 312;
+  const stickyContentRef = useRef<HTMLDivElement>(null);
+  const [topOffset, setTopOffset] = useState(112);
   const [phase, setPhase] = useState<HeroProofPhase>('guarantees');
   const [glowProgress, setGlowProgress] = useState(0);
 
@@ -103,7 +102,12 @@ function HeroProofScroller() {
           return;
         }
 
-        const start = Math.max(0, scroller.offsetTop - topOffset);
+        const nextTopOffset = getHeroProofTopOffset(
+          window.innerHeight,
+          stickyContentRef.current?.getBoundingClientRect().height ?? 0,
+          window.matchMedia('(min-width: 1024px)').matches,
+        );
+        const start = Math.max(0, scroller.offsetTop - nextTopOffset);
         const nextPhase = getHeroProofPhase(
           window.scrollY,
           start,
@@ -122,6 +126,9 @@ function HeroProofScroller() {
           currentProgress === nextGlowProgress
             ? currentProgress
             : nextGlowProgress,
+        );
+        setTopOffset((currentOffset) =>
+          currentOffset === nextTopOffset ? currentOffset : nextTopOffset,
         );
       });
     };
@@ -169,6 +176,7 @@ function HeroProofScroller() {
       </div>
 
       <div
+        ref={stickyContentRef}
         className="sticky z-10 flex flex-col gap-20"
         style={{ top: topOffset }}
       >
@@ -269,4 +277,26 @@ function clamp(value: number, min: number, max: number) {
 
 function getScrollStepDistance(viewportHeight: number) {
   return Math.max(viewportHeight * 0.75, 384);
+}
+
+function getHeroProofTopOffset(
+  viewportHeight: number,
+  contentHeight: number,
+  hasDesktopNav: boolean,
+) {
+  const navOffset = hasDesktopNav ? 112 : 80;
+  const edgeGap = 16;
+
+  if (contentHeight <= 0) {
+    return navOffset;
+  }
+
+  if (contentHeight + navOffset + edgeGap <= viewportHeight) {
+    return Math.max(
+      navOffset,
+      Math.floor((viewportHeight - contentHeight) / 2),
+    );
+  }
+
+  return Math.max(edgeGap, viewportHeight - contentHeight - edgeGap);
 }

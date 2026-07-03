@@ -128,6 +128,22 @@ export function DemosSection() {
     }
   };
 
+  const resetCardHandoff = () => {
+    if (handoffStateRef.current === 'idle') return;
+
+    window.dispatchEvent(
+      new CustomEvent(demoHandoffEventName, { detail: false }),
+    );
+
+    clearHandoffTimeout();
+    handoffStateRef.current = 'idle';
+    setCardFlights(emptyCardOffsets);
+    setIsSectionActive(false);
+    setIsHandoffComplete(false);
+    setIsHandoffFlying(false);
+    setIsHandoffLayoutActive(false);
+  };
+
   const getCardOffsets = (useStaticFallback = false) =>
     demos.map((_, index) => {
       const sourceCard =
@@ -330,6 +346,16 @@ export function DemosSection() {
         Math.min(demos.length - 1, Math.floor(progress / window.innerHeight)),
       );
 
+      if (!isHandoffLayout()) {
+        resetCardHandoff();
+
+        if (!isJumpingRef.current && activeIndexRef.current !== nextIndex) {
+          setActiveDemo(nextIndex);
+        }
+
+        return;
+      }
+
       updateCardReturnTarget();
       setIsSectionActive(
         nextSectionActive ||
@@ -430,14 +456,14 @@ export function DemosSection() {
       />
 
       <div className="sticky top-14 flex h-[calc(100svh-3.5rem)] items-center py-8 lg:py-12">
-        <div className="pointer-events-none absolute inset-0 flex items-center py-8 opacity-0 lg:py-12">
+        <div className="pointer-events-none absolute inset-0 hidden items-center py-8 opacity-0 lg:flex lg:py-12">
           <div className="container mx-auto grid w-full items-center gap-9 lg:grid-cols-[286px_minmax(0,1fr)]">
             <DemoCardSlots cardRefs={targetCardRefs} />
             <div aria-hidden="true" />
           </div>
         </div>
         <div className="container mx-auto grid w-full items-center gap-9 lg:grid-cols-[286px_minmax(0,1fr)]">
-          <div aria-hidden="true" />
+          <div className="hidden lg:block" aria-hidden="true" />
           <div
             className={cn(
               'relative h-[min(720px,calc(100svh-9.5rem))] min-h-[360px] min-w-0 transition-transform duration-700 ease-out',
@@ -470,6 +496,10 @@ export function DemosSection() {
       />
     </section>
   );
+}
+
+function isHandoffLayout() {
+  return window.matchMedia('(min-width: 1024px)').matches;
 }
 
 function DemoCardSlots({
@@ -508,7 +538,7 @@ function CardFlightOverlay({
   onSelect: (index: number) => void;
 }) {
   return (
-    <div className="pointer-events-none fixed inset-0 z-50">
+    <div className="pointer-events-none fixed inset-0 z-50 hidden lg:block">
       {demos.map(({ title, description, Icon }, index) => {
         const flight = flights[index];
 

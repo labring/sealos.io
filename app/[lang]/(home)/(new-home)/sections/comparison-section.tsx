@@ -188,7 +188,10 @@ export function ComparisonSection() {
           </p>
         </div>
 
-        <div className="overflow-x-auto" aria-label="Feature comparison table">
+        <div
+          className="scrollbar-hide overflow-x-auto"
+          aria-label="Feature comparison table"
+        >
           <table className="w-full min-w-[1180px] border-collapse text-left">
             <thead>
               <tr>

@@ -307,8 +307,8 @@ function BrainCapDemo({ cap }: { cap: BrainCap }) {
 
 function ScaledBrainCapDemo({ children }: { children: ReactNode }) {
   return (
-    <div className="relative h-full w-full overflow-visible">
-      <div className="absolute top-0 left-0 aspect-[1312/812] h-[166.6667%] origin-top-left scale-75 [&>*]:!mx-0 [&>*]:!h-full [&>*]:!w-full [&>*]:!max-w-none">
+    <div className="relative flex h-full w-full items-center justify-start overflow-visible">
+      <div className="relative aspect-[1312/812] h-[166.6667%] shrink-0 origin-left scale-75 [&>*]:!mx-0 [&>*]:!h-full [&>*]:!w-full [&>*]:!max-w-none">
         {children}
       </div>
     </div>

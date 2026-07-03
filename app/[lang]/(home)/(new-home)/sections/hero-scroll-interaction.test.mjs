@@ -20,11 +20,26 @@ const demosSectionSource = readFileSync(
 
 test('hero proof scroller uses three 75vh proof steps', () => {
   assert.match(heroSectionSource, /function HeroProofScroller/);
-  assert.match(heroSectionSource, /const topOffset = 312/);
+  assert.match(heroSectionSource, /stickyContentRef/);
+  assert.match(heroSectionSource, /function getHeroProofTopOffset/);
+  assert.match(
+    heroSectionSource,
+    /const navOffset = hasDesktopNav \? 112 : 80/,
+  );
+  assert.match(
+    heroSectionSource,
+    /contentHeight \+ navOffset \+ edgeGap <= viewportHeight/,
+  );
+  assert.match(
+    heroSectionSource,
+    /Math\.floor\(\(viewportHeight - contentHeight\) \/ 2\)/,
+  );
   assert.match(
     heroSectionSource,
     /function HeroSection\(\)[\s\S]*<HeroProofScroller \/>/,
   );
+  assert.match(heroSectionSource, /<section className="container mx-auto/);
+  assert.doesNotMatch(heroSectionSource, /max-w-7xl/);
   assert.doesNotMatch(
     heroSectionSource,
     /function HeroSection\(\)[\s\S]*<HeroHeadline \/>[\s\S]*<HeroProofScroller \/>/,
@@ -67,7 +82,7 @@ test('hero proof scroller uses three 75vh proof steps', () => {
   assert.match(heroSectionSource, /const nextPhase = getHeroProofPhase/);
   assert.match(
     heroSectionSource,
-    /Math\.max\(0, scroller\.offsetTop - topOffset\)/,
+    /Math\.max\(0, scroller\.offsetTop - nextTopOffset\)/,
   );
   assert.doesNotMatch(heroSectionSource, /swapProgress/);
   assert.match(heroSectionSource, /<HeroAdoptionStrip \/>/);
@@ -85,12 +100,22 @@ test('hero demo cards can delay their demos-section pin until proof scroll ends'
   assert.match(heroDemoCardsSource, /pinDelayPx = 0/);
   assert.match(heroDemoCardsSource, /pinDelayVh = 0/);
   assert.match(heroDemoCardsSource, /pinStartElementId/);
+  assert.match(heroDemoCardsSource, /function isHeroPinLayout/);
+  assert.match(heroDemoCardsSource, /if \(!isHeroPinLayout\(\)\)/);
+  assert.match(heroDemoCardsSource, /setIsPinned\(false\)/);
   assert.match(heroDemoCardsSource, /pinStartOffset/);
   assert.match(
     heroDemoCardsSource,
     /Math\.max\(window\.innerHeight \* pinDelayVh, pinDelayPx\)/,
   );
   assert.match(heroDemoCardsSource, /pinStart =/);
+  assert.match(heroDemoCardsSource, /2xl:grid-cols-4/);
+  assert.doesNotMatch(
+    heroDemoCardsSource,
+    /'grid gap-3 md:grid-cols-2 xl:grid-cols-4'/,
+  );
+  assert.match(heroDemoCardsSource, /<div className="container mx-auto">/);
+  assert.doesNotMatch(heroDemoCardsSource, /px-4 xl:px-14\.25 2xl:px-15/);
 });
 
 test('hero demo cards use hover styling without active sync', () => {
@@ -134,6 +159,16 @@ test('demo cards hand off from the hero grid into the demos section', () => {
   assert.match(demosSectionSource, /demoJumpEventName/);
   assert.match(demosSectionSource, /targetCardRefs/);
   assert.match(demosSectionSource, /isHandoffLayoutActive/);
+  assert.match(demosSectionSource, /function isHandoffLayout/);
+  assert.match(demosSectionSource, /if \(!isHandoffLayout\(\)\)/);
+  assert.match(
+    demosSectionSource,
+    /className="pointer-events-none absolute inset-0 hidden items-center/,
+  );
+  assert.match(
+    demosSectionSource,
+    /className="pointer-events-none fixed inset-0 z-50 hidden lg:block"/,
+  );
   assert.doesNotMatch(demosSectionSource, /sectionExitOffset/);
   assert.match(demosSectionSource, /handoffStateRef\.current === 'landed'/);
   assert.match(demosSectionSource, /container mx-auto grid w-full/);

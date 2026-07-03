@@ -44,7 +44,7 @@ export function HeroAdoptionStrip() {
   const marqueeItems = [...adopters, ...adopters];
 
   return (
-    <div className="container mx-auto w-full space-y-9 px-4 xl:px-14.25 2xl:px-15">
+    <div className="w-full space-y-9">
       <p className="text-center text-base text-zinc-500">
         Trusted by{' '}
         <GradientText className="to-blue-500 text-2xl leading-8 font-semibold">
