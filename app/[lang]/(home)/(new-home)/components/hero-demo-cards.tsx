@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 
 import {
   demoActiveEventName,
+  demoHandoffEventName,
   demoJumpEventName,
   demoNavigationItems,
 } from './demo-navigation';
@@ -24,10 +25,9 @@ export function HeroDemoCards({
   const activeIndexRef = useRef(0);
   const transitionLockRef = useRef(false);
   const transitionTimeoutRef = useRef<number>();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHandoffHidden, setIsHandoffHidden] = useState(false);
   const [isPinned, setIsPinned] = useState(false);
   const [isReleased, setIsReleased] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [releaseOffset, setReleaseOffset] = useState(0);
   const [fixedTop, setFixedTop] = useState(112);
 
@@ -37,7 +37,6 @@ export function HeroDemoCards({
 
       if (typeof nextIndex === 'number') {
         activeIndexRef.current = nextIndex;
-        setActiveIndex(nextIndex);
       }
     };
 
@@ -82,12 +81,22 @@ export function HeroDemoCards({
       setIsReleased(scrollY >= pinEnd);
       setReleaseOffset(Math.max(0, scrollY - pinEnd));
     };
+    const handleDemoHandoff = (event: Event) => {
+      const hidden = (event as CustomEvent<boolean>).detail !== false;
+
+      setIsHandoffHidden(hidden);
+      if (!hidden) {
+        updatePin();
+      }
+    };
 
     updatePin();
+    window.addEventListener(demoHandoffEventName, handleDemoHandoff);
     window.addEventListener('scroll', updatePin, { passive: true });
     window.addEventListener('resize', updatePin);
 
     return () => {
+      window.removeEventListener(demoHandoffEventName, handleDemoHandoff);
       window.removeEventListener('scroll', updatePin);
       window.removeEventListener('resize', updatePin);
     };
@@ -122,7 +131,6 @@ export function HeroDemoCards({
     const nextScrollTop = sectionTop + scrollableDistance * progress;
 
     activeIndexRef.current = index;
-    setActiveIndex(index);
 
     if (!isInsideSection || isCurrentInSection) {
       window.scrollTo({
@@ -132,7 +140,6 @@ export function HeroDemoCards({
       return;
     }
 
-    setIsTransitioning(true);
     transitionLockRef.current = true;
     window.dispatchEvent(new CustomEvent(demoJumpEventName, { detail: index }));
     transitionTimeoutRef.current = window.setTimeout(() => {
@@ -141,21 +148,22 @@ export function HeroDemoCards({
         behavior: 'auto',
       });
       transitionLockRef.current = false;
-      setIsTransitioning(false);
     }, 500);
   };
 
   return (
     <div id="hero-demo-cards" className="relative">
       <DemoCardsGrid
-        activeIndex={activeIndex}
-        hidden={isPinned}
-        isTransitioning={isTransitioning}
+        hidden={isPinned || isHandoffHidden}
         onSelect={handleDemoSelect}
+        staticSource
       />
       {isPinned && (
         <div
-          className="fixed inset-x-0 z-40"
+          className={cn(
+            'fixed inset-x-0 z-40',
+            isHandoffHidden && 'pointer-events-none opacity-0',
+          )}
           style={{
             top: fixedTop,
             transform: isReleased
@@ -164,11 +172,7 @@ export function HeroDemoCards({
           }}
         >
           <div className="container mx-auto px-4 xl:px-14.25 2xl:px-15">
-            <DemoCardsGrid
-              activeIndex={activeIndex}
-              isTransitioning={isTransitioning}
-              onSelect={handleDemoSelect}
-            />
+            <DemoCardsGrid sourceGrid onSelect={handleDemoSelect} />
           </div>
         </div>
       )}
@@ -177,18 +181,19 @@ export function HeroDemoCards({
 }
 
 function DemoCardsGrid({
-  activeIndex,
   hidden = false,
-  isTransitioning,
   onSelect,
+  sourceGrid = false,
+  staticSource = false,
 }: {
-  activeIndex: number;
   hidden?: boolean;
-  isTransitioning: boolean;
   onSelect: (index: number) => void;
+  sourceGrid?: boolean;
+  staticSource?: boolean;
 }) {
   return (
     <div
+      data-demo-source-grid={sourceGrid ? '' : undefined}
       className={cn(
         'grid gap-3 md:grid-cols-2 xl:grid-cols-4',
         hidden && 'opacity-0',
@@ -197,12 +202,9 @@ function DemoCardsGrid({
       {demoNavigationItems.map(({ title, description, Icon, id }, index) => (
         <a
           key={title}
-          className={cn(
-            'group block rounded-xl border p-5 text-left transition hover:border-white/10 hover:bg-white/[0.04]',
-            activeIndex === index
-              ? 'border-white/10 bg-white/[0.04]'
-              : 'border-transparent bg-transparent',
-          )}
+          className="group block rounded-xl border border-transparent bg-transparent p-5 text-left transition hover:border-white/10 hover:bg-white/[0.04]"
+          data-demo-static-card={staticSource ? index : undefined}
+          data-demo-source-card={sourceGrid ? index : undefined}
           href={`#${id}`}
           onClick={(event) => {
             event.preventDefault();

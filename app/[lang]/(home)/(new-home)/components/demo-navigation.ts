@@ -35,6 +35,7 @@ export const demoNavigationItems = [
 export type DemoIndex = 0 | 1 | 2 | 3;
 
 export const demoActiveEventName = 'sealos-demo-active';
+export const demoHandoffEventName = 'sealos-demo-handoff';
 export const demoJumpEventName = 'sealos-demo-jump';
 
 export function getDemoIndex(progressPx: number, viewportHeight: number) {

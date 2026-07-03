@@ -1,16 +1,20 @@
 'use client';
 
-import { useEffect, useRef, useState, type ComponentType } from 'react';
-import { motion, type Transition } from 'motion/react';
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ComponentType,
+  type MutableRefObject,
+} from 'react';
 
 import { cn } from '@/lib/utils';
 import { GradientText } from '@/new-components/GradientText';
 
 import {
   demoActiveEventName,
-  demoJumpEventName,
+  demoHandoffEventName,
   demoNavigationItems,
-  getDemoIndex,
 } from '../components/demo-navigation';
 import { DockerImageDemo } from '../components/docker-image-demo';
 import { GitHubImportDemo } from '../components/github-import-demo';
@@ -18,21 +22,18 @@ import { DatabaseDemo, TemplateDemo } from '../components/project-type-demos';
 
 type DemoComponent = ComponentType<{ active?: boolean }>;
 
-const textMaskClass =
-  '[mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.55)_34%,rgba(0,0,0,0.12)_62%,transparent_86%)] [-webkit-mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.55)_34%,rgba(0,0,0,0.12)_62%,transparent_86%)]';
-
-const demoHoverTransition: Transition = {
-  duration: 0.52,
-  ease: [0.22, 1, 0.36, 1],
-};
-
-const demoTransitionMs = 520;
-const demoScale = 1.04;
-
-type DemoOffset = {
+type CardOffset = {
+  height: number;
+  left: number;
+  targetHeight: number;
+  targetWidth: number;
+  top: number;
+  width: number;
   x: number;
   y: number;
 };
+
+type HandoffState = 'idle' | 'flying' | 'landed' | 'returning';
 
 const demos = [
   {
@@ -68,19 +69,131 @@ const demos = [
   }
 >;
 
-type JumpState = {
-  entered: boolean;
-  fromIndex: number | null;
-  toIndex: number;
-};
-
 export function DemosSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const targetCardRefs = useRef<Array<HTMLDivElement | null>>([]);
   const activeIndexRef = useRef(0);
+  const handoffStateRef = useRef<HandoffState>('idle');
+  const handoffTimeoutRef = useRef<number>();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [backgroundPinned, setBackgroundPinned] = useState(false);
-  const [jumpState, setJumpState] = useState<JumpState | null>(null);
-  const [settlingJump, setSettlingJump] = useState(false);
+  const [cardFlights, setCardFlights] = useState<CardOffset[] | null>(null);
+  const [isSectionActive, setIsSectionActive] = useState(false);
+  const [isHandoffComplete, setIsHandoffComplete] = useState(false);
+  const [isHandoffFlying, setIsHandoffFlying] = useState(false);
+  const activeDemo = demos[activeIndex] ?? demos[0];
+
+  const clearHandoffTimeout = () => {
+    if (handoffTimeoutRef.current) {
+      window.clearTimeout(handoffTimeoutRef.current);
+    }
+  };
+
+  const getCardOffsets = (useStaticFallback = false) =>
+    demos.map((_, index) => {
+      const sourceCard =
+        document.querySelector(`[data-demo-source-card="${index}"]`) ??
+        (useStaticFallback
+          ? document.querySelector(`[data-demo-static-card="${index}"]`)
+          : null);
+      const targetCard = targetCardRefs.current[index];
+
+      if (!targetCard) {
+        return {
+          height: 0,
+          left: 0,
+          targetHeight: 0,
+          targetWidth: 0,
+          top: 0,
+          width: 0,
+          x: 0,
+          y: 0,
+        };
+      }
+
+      const targetRect = targetCard.getBoundingClientRect();
+      const sourceRect = sourceCard?.getBoundingClientRect() ?? targetRect;
+
+      return {
+        height: sourceRect.height,
+        left: sourceRect.left,
+        targetHeight: targetRect.height,
+        targetWidth: targetRect.width,
+        top: sourceRect.top,
+        width: sourceRect.width,
+        x: targetRect.left - sourceRect.left,
+        y: targetRect.top - sourceRect.top,
+      };
+    });
+
+  const updateCardReturnTarget = () => {
+    if (handoffStateRef.current === 'returning') {
+      setCardFlights(getCardOffsets(true));
+    }
+  };
+
+  const startCardHandoff = () => {
+    if (handoffStateRef.current === 'flying') {
+      return;
+    }
+
+    if (handoffStateRef.current === 'landed') {
+      window.dispatchEvent(
+        new CustomEvent(demoHandoffEventName, { detail: true }),
+      );
+      return;
+    }
+
+    if (handoffStateRef.current === 'returning') {
+      return;
+    }
+
+    const offsets = getCardOffsets();
+
+    clearHandoffTimeout();
+    handoffStateRef.current = 'flying';
+    setCardFlights(offsets);
+    setIsSectionActive(true);
+    setIsHandoffFlying(false);
+    window.requestAnimationFrame(() => {
+      window.dispatchEvent(
+        new CustomEvent(demoHandoffEventName, { detail: true }),
+      );
+      window.requestAnimationFrame(() => setIsHandoffFlying(true));
+    });
+    handoffTimeoutRef.current = window.setTimeout(() => {
+      handoffStateRef.current = 'landed';
+      setIsHandoffComplete(true);
+    }, 760);
+  };
+
+  const startCardReturn = () => {
+    if (
+      handoffStateRef.current !== 'flying' &&
+      handoffStateRef.current !== 'landed'
+    ) {
+      return;
+    }
+
+    clearHandoffTimeout();
+    handoffStateRef.current = 'returning';
+    setCardFlights(getCardOffsets(true));
+    setIsSectionActive(true);
+    setIsHandoffComplete(false);
+    setIsHandoffFlying(false);
+    window.dispatchEvent(
+      new CustomEvent(demoHandoffEventName, { detail: true }),
+    );
+    handoffTimeoutRef.current = window.setTimeout(() => {
+      window.dispatchEvent(
+        new CustomEvent(demoHandoffEventName, { detail: false }),
+      );
+      window.requestAnimationFrame(() => {
+        handoffStateRef.current = 'idle';
+        setCardFlights(null);
+        setIsSectionActive(false);
+      });
+    }, 760);
+  };
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -91,76 +204,70 @@ export function DemosSection() {
 
     const updateActiveIndex = () => {
       const progress = window.scrollY - section.offsetTop;
-      const nextIndex = getDemoIndex(progress, window.innerHeight);
-      const isInsideSection =
-        progress >= 0 && progress <= section.offsetHeight - window.innerHeight;
-
-      setBackgroundPinned(isInsideSection);
-      window.dispatchEvent(
-        new CustomEvent(demoActiveEventName, { detail: nextIndex }),
+      const sectionRect = section.getBoundingClientRect();
+      const sourceGrid = document.querySelector('[data-demo-source-grid]');
+      const sourceGridRect = sourceGrid?.getBoundingClientRect();
+      const sourceGridIsInsideSection = sourceGridRect
+        ? sectionRect.top <= sourceGridRect.top &&
+          sectionRect.bottom >= sourceGridRect.bottom
+        : progress >= 0;
+      const nextSectionActive =
+        sectionRect.top < window.innerHeight && sectionRect.bottom > 0;
+      const nextIndex = Math.max(
+        0,
+        Math.min(demos.length - 1, Math.floor(progress / window.innerHeight)),
       );
-      setActiveIndex((currentIndex) => {
-        if (currentIndex === nextIndex) {
-          return currentIndex;
-        }
 
-        activeIndexRef.current = nextIndex;
-        return nextIndex;
-      });
-    };
+      updateCardReturnTarget();
+      setIsSectionActive(
+        nextSectionActive ||
+          handoffStateRef.current === 'flying' ||
+          handoffStateRef.current === 'returning',
+      );
 
-    updateActiveIndex();
+      if (sourceGridIsInsideSection) {
+        startCardHandoff();
+      } else if (
+        sectionRect.top > (sourceGridRect?.top ?? 112) &&
+        handoffStateRef.current !== 'idle'
+      ) {
+        startCardReturn();
+      }
 
-    const handleDemoJump = (event: Event) => {
-      const nextIndex = (event as CustomEvent<number>).detail;
-
-      if (typeof nextIndex !== 'number') {
+      if (activeIndexRef.current === nextIndex) {
         return;
       }
 
-      const sectionTop = window.scrollY + section.getBoundingClientRect().top;
-      const isInsideSection =
-        window.scrollY >= sectionTop &&
-        window.scrollY <=
-          sectionTop + section.offsetHeight - window.innerHeight;
-      const fromIndex = isInsideSection ? activeIndexRef.current : null;
-
-      setJumpState({
-        entered: false,
-        fromIndex,
-        toIndex: nextIndex,
-      });
       activeIndexRef.current = nextIndex;
       setActiveIndex(nextIndex);
       window.dispatchEvent(
         new CustomEvent(demoActiveEventName, { detail: nextIndex }),
       );
-      window.requestAnimationFrame(() => {
-        setJumpState((current) =>
-          current?.toIndex === nextIndex
-            ? { ...current, entered: true }
-            : current,
-        );
-      });
-      window.setTimeout(() => {
-        setJumpState((current) =>
-          current?.toIndex === nextIndex ? null : current,
-        );
-        setSettlingJump(true);
-        window.requestAnimationFrame(() => setSettlingJump(false));
-      }, 520);
     };
 
+    updateActiveIndex();
     window.addEventListener('scroll', updateActiveIndex, { passive: true });
     window.addEventListener('resize', updateActiveIndex);
-    window.addEventListener(demoJumpEventName, handleDemoJump);
 
     return () => {
+      clearHandoffTimeout();
       window.removeEventListener('scroll', updateActiveIndex);
       window.removeEventListener('resize', updateActiveIndex);
-      window.removeEventListener(demoJumpEventName, handleDemoJump);
     };
   }, []);
+
+  const handleCardSelect = (index: number) => {
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    window.scrollTo({
+      top: section.offsetTop + window.innerHeight * index,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <section
@@ -169,228 +276,178 @@ export function DemosSection() {
       className="relative isolate h-[500vh] text-white"
     >
       <div
-        className={cn(
-          'inset-0 -z-10 [background-image:radial-gradient(circle,rgba(255,255,255,0.22)_1px,transparent_1px)] [background-size:32px_32px]',
-          backgroundPinned ? 'fixed' : 'absolute',
-        )}
+        className="absolute inset-0 -z-10 [background-image:radial-gradient(circle,rgba(255,255,255,0.22)_1px,transparent_1px)] [background-size:32px_32px]"
         aria-hidden="true"
       />
       <div
-        className={cn(
-          'inset-x-0 top-0 -z-10 mx-auto h-[720px] max-w-[1440px] bg-[radial-gradient(ellipse_at_top,rgba(37,99,235,0.22),transparent_64%)]',
-          backgroundPinned ? 'fixed' : 'absolute',
-        )}
+        className="absolute inset-x-0 top-0 -z-10 mx-auto h-[720px] max-w-[1440px] bg-[radial-gradient(ellipse_at_top,rgba(37,99,235,0.22),transparent_64%)]"
         aria-hidden="true"
       />
 
-      <div className="sticky top-0 h-screen overflow-hidden px-4 pt-0 pb-20 sm:px-6 lg:px-16">
-        <div className="relative h-full">
-          {demos.map((demo, index) => (
-            <DemoArticle
-              key={demo.id}
-              demo={demo}
-              isActive={activeIndex === index}
-              isVisible={isSlideVisible(index, jumpState)}
-              opacity={getSlideOpacity(index, jumpState)}
-              transitionEnabled={
-                !settlingJump && (!jumpState || jumpState.entered)
-              }
-              transform={getSlideTransform(index, activeIndex, jumpState)}
-            />
-          ))}
-        </div>
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-8 z-20 flex justify-center gap-3"
-          aria-hidden="true"
-        >
-          {demos.map((demo, dotIndex) => (
-            <span
-              key={demo.id}
-              className={cn(
-                'size-2 rounded-full border border-white/40 bg-white/10',
-                activeIndex === dotIndex && 'bg-white/70',
-              )}
-            />
-          ))}
+      <div className="sticky top-0 flex h-screen items-center px-4 py-16 sm:px-6 lg:px-16">
+        <div className="mx-auto grid w-full max-w-[1310px] items-center gap-9 lg:grid-cols-[286px_minmax(0,988px)]">
+          <DemoCardSlots cardRefs={targetCardRefs} />
+          <DemoArticle key={activeDemo.id} demo={activeDemo} />
         </div>
       </div>
+      <CardFlightOverlay
+        activeIndex={activeIndex}
+        flights={isSectionActive ? cardFlights : null}
+        isComplete={isHandoffComplete}
+        isFlying={isHandoffFlying}
+        onSelect={handleCardSelect}
+      />
     </section>
   );
 }
 
-function isSlideVisible(index: number, jumpState: JumpState | null) {
-  if (!jumpState) {
-    return true;
-  }
-
-  return index === jumpState.fromIndex || index === jumpState.toIndex;
-}
-
-function getSlideTransform(
-  index: number,
-  activeIndex: number,
-  jumpState: JumpState | null,
-) {
-  if (!jumpState) {
-    return `translate3d(${(index - activeIndex) * 100}%, 0, 0)`;
-  }
-
-  const { entered, fromIndex, toIndex } = jumpState;
-
-  if (fromIndex === null || fromIndex === toIndex) {
-    if (index === toIndex) {
-      return 'translate3d(0, 0, 0)';
-    }
-
-    return 'translate3d(0, 0, 0)';
-  }
-
-  const movingForward = toIndex > fromIndex;
-
-  if (index === fromIndex) {
-    return entered
-      ? `translate3d(${movingForward ? -100 : 100}%, 0, 0)`
-      : 'translate3d(0, 0, 0)';
-  }
-
-  if (index === toIndex) {
-    return entered
-      ? 'translate3d(0, 0, 0)'
-      : `translate3d(${movingForward ? 100 : -100}%, 0, 0)`;
-  }
-
-  return 'translate3d(0, 0, 0)';
-}
-
-function getSlideOpacity(index: number, jumpState: JumpState | null) {
-  if (!jumpState) {
-    return 1;
-  }
-
-  if (jumpState.fromIndex === null && index === jumpState.toIndex) {
-    return jumpState.entered ? 1 : 0;
-  }
-
-  return isSlideVisible(index, jumpState) ? 1 : 0;
-}
-
-function DemoArticle({
-  demo,
-  isActive,
-  isVisible,
-  opacity,
-  transform,
-  transitionEnabled,
+function DemoCardSlots({
+  cardRefs,
 }: {
-  demo: (typeof demos)[number];
-  isActive: boolean;
-  isVisible: boolean;
-  opacity: number;
-  transform: string;
-  transitionEnabled: boolean;
+  cardRefs: MutableRefObject<Array<HTMLDivElement | null>>;
 }) {
-  const { id, headline, body, Demo } = demo;
-  const demoRef = useRef<HTMLDivElement>(null);
-  const [isDemoPlaying, setIsDemoPlaying] = useState(false);
-  const [demoOffset, setDemoOffset] = useState<DemoOffset>({ x: 0, y: 0 });
-
-  useEffect(() => {
-    if (isActive || !isDemoPlaying) return;
-
-    const timeout = window.setTimeout(() => {
-      setIsDemoPlaying(false);
-      setDemoOffset({ x: 0, y: 0 });
-    }, demoTransitionMs);
-
-    return () => window.clearTimeout(timeout);
-  }, [isActive, isDemoPlaying]);
-
-  const handlePlay = () => {
-    const demoElement = demoRef.current;
-
-    if (!demoElement) {
-      setIsDemoPlaying(true);
-      return;
-    }
-
-    const demoRect = demoElement.getBoundingClientRect();
-    const targetCenter = getDemoTargetCenter();
-
-    setDemoOffset({
-      x: targetCenter.x - (demoRect.left + demoRect.width / 2),
-      y: targetCenter.y - (demoRect.top + demoRect.height / 2),
-    });
-    setIsDemoPlaying(true);
-  };
-
   return (
-    <article
-      id={id}
-      className={cn(
-        'absolute inset-0 flex h-full w-full items-start pt-56 lg:pt-60',
-        transitionEnabled &&
-          'transition-[transform,opacity] duration-500 ease-out',
-        !isVisible && 'pointer-events-none',
-      )}
-      style={{ opacity, transform }}
-      aria-hidden={!isActive}
-    >
-      <div className="mx-auto flex w-full flex-col items-center gap-10">
-        <div className={cn('text-center', isDemoPlaying && textMaskClass)}>
-          <GradientText
-            as="h2"
-            className="max-w-4xl to-blue-500 text-3xl leading-tight font-semibold text-balance sm:text-4xl lg:text-5xl"
-          >
-            {headline}
-          </GradientText>
-          <p className="mt-7 max-w-4xl text-base leading-7 text-zinc-400">
-            {body}
-          </p>
-        </div>
-
-        <motion.div
-          aria-label={`${headline} demo`}
-          ref={demoRef}
-          className="relative z-10 mx-auto w-full max-w-[1312px] outline-none"
-          initial={false}
-          animate={{
-            x: isDemoPlaying ? demoOffset.x : 0,
-            y: isDemoPlaying ? demoOffset.y : 0,
-            scale: isDemoPlaying ? demoScale : 1,
+    <div className="pointer-events-none flex flex-col gap-2.5 opacity-0">
+      {demos.map(({ id }, index) => (
+        <div
+          key={id}
+          ref={(node) => {
+            cardRefs.current[index] = node;
           }}
-          transition={demoHoverTransition}
-          style={{
-            transformOrigin: 'center',
-            zIndex: isDemoPlaying ? 30 : 1,
-          }}
-        >
-          <Demo active={isDemoPlaying} />
-          <motion.button
-            aria-label={`Play ${headline} demo`}
-            className={cn(
-              'absolute inset-0 z-50 rounded-[18px] transition-shadow outline-none focus-visible:ring-2 focus-visible:ring-blue-400',
-              isDemoPlaying ? 'pointer-events-none' : 'cursor-pointer',
-            )}
-            animate={{ opacity: isDemoPlaying ? 0 : 1 }}
-            transition={demoHoverTransition}
-            onClick={handlePlay}
-            tabIndex={isActive && !isDemoPlaying ? 0 : -1}
-            type="button"
-          />
-        </motion.div>
-      </div>
-    </article>
+          className="min-h-[110px] rounded-2xl p-5"
+        />
+      ))}
+    </div>
   );
 }
 
-function getDemoTargetCenter() {
-  const viewportWidth = window.innerWidth;
-  const viewportHeight = window.innerHeight;
-  const safeTop =
-    viewportWidth >= 1280 ? 272 : viewportWidth >= 768 ? 344 : 408;
+function CardFlightOverlay({
+  activeIndex,
+  flights,
+  isComplete,
+  isFlying,
+  onSelect,
+}: {
+  activeIndex: number;
+  flights: CardOffset[] | null;
+  isComplete: boolean;
+  isFlying: boolean;
+  onSelect: (index: number) => void;
+}) {
+  if (!flights) {
+    return null;
+  }
 
-  return {
-    x: viewportWidth / 2,
-    y: safeTop + (viewportHeight - safeTop) / 2,
-  };
+  return (
+    <div className="pointer-events-none fixed inset-0 z-50">
+      {demos.map(({ title, description, Icon }, index) => {
+        const flight = flights[index];
+
+        if (!flight || flight.width === 0 || flight.height === 0) {
+          return null;
+        }
+
+        const isActive = isComplete && activeIndex === index;
+
+        return (
+          <button
+            key={title}
+            className={cn(
+              'group fixed rounded-xl border p-5 text-left transition-[transform,width,height,border-color,background-color,box-shadow] duration-700 ease-out',
+              isComplete
+                ? isActive
+                  ? 'border-white/20 bg-white/[0.08] shadow-2xl'
+                  : 'border-white/10 bg-white/[0.03] shadow-2xl hover:border-white/20 hover:bg-white/[0.06]'
+                : 'border-transparent bg-transparent shadow-none',
+              isComplete && 'pointer-events-auto',
+            )}
+            onClick={() => {
+              if (isComplete) {
+                onSelect(index);
+              }
+            }}
+            style={{
+              height: isFlying ? flight.targetHeight : flight.height,
+              left: flight.left,
+              top: flight.top,
+              transform: isFlying
+                ? `translate3d(${flight.x}px, ${flight.y}px, 0)`
+                : 'translate3d(0, 0, 0)',
+              width: isFlying ? flight.targetWidth : flight.width,
+            }}
+            tabIndex={isComplete ? 0 : -1}
+            type="button"
+          >
+            <DemoCardContent
+              Icon={Icon}
+              active={isActive}
+              description={description}
+              isComplete={isComplete}
+              title={title}
+            />
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function DemoCardContent({
+  active,
+  description,
+  Icon,
+  isComplete,
+  title,
+}: {
+  active: boolean;
+  description: string;
+  Icon: (typeof demos)[number]['Icon'];
+  isComplete: boolean;
+  title: string;
+}) {
+  return (
+    <>
+      <div className="mb-1.5 flex items-center gap-2 text-base font-medium text-white">
+        <Icon
+          className={cn(
+            'size-4 transition-colors',
+            isComplete
+              ? 'text-zinc-400'
+              : 'text-zinc-300 group-hover:text-white',
+            active && 'text-white',
+          )}
+          aria-hidden="true"
+        />
+        {title}
+      </div>
+      <p className="text-sm leading-5 text-zinc-400">{description}</p>
+    </>
+  );
+}
+
+function DemoArticle({ demo }: { demo: (typeof demos)[number] }) {
+  const { id, headline, body, Demo } = demo;
+
+  return (
+    <article id={id} className="flex min-w-0 flex-col items-center gap-8">
+      <div className="text-center">
+        <GradientText
+          as="h2"
+          className="max-w-[830px] to-blue-500 text-3xl leading-tight font-semibold text-balance sm:text-4xl lg:text-5xl"
+        >
+          {headline}
+        </GradientText>
+        <p className="mt-3 max-w-[830px] text-base leading-7 text-zinc-400">
+          {body}
+        </p>
+      </div>
+
+      <div
+        aria-label={`${headline} demo`}
+        className="relative z-10 mx-auto w-full max-w-[830px]"
+      >
+        <Demo active />
+      </div>
+    </article>
+  );
 }

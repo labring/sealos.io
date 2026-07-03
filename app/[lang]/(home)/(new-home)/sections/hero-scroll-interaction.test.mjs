@@ -13,6 +13,10 @@ const heroDemoCardsSource = readFileSync(
   join(sectionDir, '../components/hero-demo-cards.tsx'),
   'utf8',
 );
+const demosSectionSource = readFileSync(
+  join(sectionDir, 'demos-section.tsx'),
+  'utf8',
+);
 
 test('hero proof scroller uses three 75vh proof steps', () => {
   assert.match(heroSectionSource, /function HeroProofScroller/);
@@ -87,4 +91,51 @@ test('hero demo cards can delay their demos-section pin until proof scroll ends'
     /Math\.max\(window\.innerHeight \* pinDelayVh, pinDelayPx\)/,
   );
   assert.match(heroDemoCardsSource, /pinStart =/);
+});
+
+test('hero demo cards use hover styling without active sync', () => {
+  assert.match(heroDemoCardsSource, /activeIndexRef/);
+  assert.doesNotMatch(heroDemoCardsSource, /\[activeIndex, setActiveIndex\]/);
+  assert.doesNotMatch(heroDemoCardsSource, /setActiveIndex/);
+  assert.doesNotMatch(heroDemoCardsSource, /activeIndex === index/);
+  assert.match(
+    heroDemoCardsSource,
+    /border-transparent bg-transparent p-5[\s\S]*hover:border-white\/10 hover:bg-white\/\[0\.04\]/,
+  );
+});
+
+test('demo cards hand off from the hero grid into the demos section', () => {
+  assert.match(heroDemoCardsSource, /demoHandoffEventName/);
+  assert.match(heroDemoCardsSource, /isHandoffHidden/);
+  assert.doesNotMatch(heroDemoCardsSource, /isHandoffActive/);
+  assert.match(heroDemoCardsSource, /detail !== false/);
+  assert.doesNotMatch(
+    heroDemoCardsSource,
+    /sectionRect\.top > topOffset[\s\S]*setIsHandoffHidden\(false\)/,
+  );
+  assert.doesNotMatch(heroDemoCardsSource, /setIsPinned\(true\)/);
+  assert.match(heroDemoCardsSource, /if \(!hidden\) \{\s*updatePin\(\);/);
+  assert.match(heroDemoCardsSource, /hidden=\{isPinned \|\| isHandoffHidden\}/);
+  assert.match(heroDemoCardsSource, /data-demo-static-card/);
+  assert.match(heroDemoCardsSource, /data-demo-source-grid/);
+  assert.match(heroDemoCardsSource, /data-demo-source-card/);
+  assert.match(heroDemoCardsSource, /pointer-events-none opacity-0/);
+  assert.match(demosSectionSource, /targetCardRefs/);
+  assert.match(demosSectionSource, /startCardHandoff/);
+  assert.match(demosSectionSource, /startCardReturn/);
+  assert.match(demosSectionSource, /updateCardReturnTarget/);
+  assert.match(demosSectionSource, /data-demo-static-card/);
+  assert.match(demosSectionSource, /demoHandoffEventName/);
+  assert.match(demosSectionSource, /detail: false/);
+  assert.match(
+    demosSectionSource,
+    /detail: false[\s\S]*window\.requestAnimationFrame\(\(\) => \{[\s\S]*setCardFlights\(null\)/,
+  );
+  assert.match(demosSectionSource, /CardFlightOverlay/);
+  assert.match(demosSectionSource, /cardFlights/);
+  assert.match(demosSectionSource, /isHandoffComplete/);
+  assert.match(demosSectionSource, /border-transparent bg-transparent/);
+  assert.match(demosSectionSource, /pointer-events-none[\s\S]*opacity-0/);
+  assert.match(demosSectionSource, /sourceGridIsInsideSection/);
+  assert.match(demosSectionSource, /translate3d/);
 });
