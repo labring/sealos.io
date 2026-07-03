@@ -357,9 +357,11 @@ const templateSteps: TemplateStep[] = [
 ];
 
 export function DatabaseDemo({
+  active = true,
   extended = false,
   shellChrome = 'browser',
 }: {
+  active?: boolean;
   extended?: boolean;
   shellChrome?: 'browser' | 'thin';
 } = {}) {
@@ -375,6 +377,7 @@ export function DatabaseDemo({
     stageRef,
     step,
   } = useDemoPlayback({
+    active,
     getTargetId: getDatabaseTarget,
     steps,
   });
@@ -404,6 +407,7 @@ export function DatabaseDemo({
       cursorPosition={cursorPosition}
       dataAttribute="data-database-demo"
       hideProjects={step.screen === 'canvas' || step.screen === 'logs'}
+      maskVisible={!active}
       reduceMotion={reduceMotion}
       shellChrome={shellChrome}
       stageRef={stageRef}
@@ -456,7 +460,7 @@ export function DatabaseDemo({
   );
 }
 
-export function TemplateDemo() {
+export function TemplateDemo({ active = true }: { active?: boolean }) {
   const {
     actionProgress,
     actionReady,
@@ -468,6 +472,7 @@ export function TemplateDemo() {
     stageRef,
     step,
   } = useDemoPlayback({
+    active,
     getTargetId: getTemplateTarget,
     steps: templateSteps,
   });
@@ -492,6 +497,7 @@ export function TemplateDemo() {
       activeSidebar="template"
       cursorPosition={cursorPosition}
       dataAttribute="data-template-demo"
+      maskVisible={!active}
       reduceMotion={reduceMotion}
       stageRef={stageRef}
       step={step}

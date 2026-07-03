@@ -195,7 +195,7 @@ const githubSteps: GithubStep[] = [
   },
 ];
 
-export function GitHubImportDemo() {
+export function GitHubImportDemo({ active = true }: { active?: boolean }) {
   const {
     actionProgress,
     actionReady,
@@ -207,6 +207,7 @@ export function GitHubImportDemo() {
     step,
     targetId,
   } = useDemoPlayback({
+    active,
     getTargetId: getGithubStepTarget,
     steps: githubSteps,
   });
@@ -224,6 +225,7 @@ export function GitHubImportDemo() {
       cursorPosition={cursorPosition}
       dataAttribute="data-github-import-demo"
       hideProjects={step.screen === 'ready'}
+      maskVisible={!active}
       reduceMotion={reduceMotion}
       showGithubTabs={step.screen === 'ready'}
       stageRef={stageRef}

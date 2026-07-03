@@ -146,7 +146,7 @@ const demoSteps: DemoStep[] = [
   },
 ];
 
-export function DockerImageDemo() {
+export function DockerImageDemo({ active = true }: { active?: boolean }) {
   const {
     actionProgress,
     actionReady,
@@ -158,6 +158,7 @@ export function DockerImageDemo() {
     step,
     targetId,
   } = useDemoPlayback({
+    active,
     getTargetId: getStepTarget,
     steps: demoSteps,
   });
@@ -171,6 +172,7 @@ export function DockerImageDemo() {
     <DemoStageShell
       cursorPosition={cursorPosition}
       dataAttribute="data-docker-image-demo"
+      maskVisible={!active}
       reduceMotion={reduceMotion}
       stageRef={stageRef}
       step={step}

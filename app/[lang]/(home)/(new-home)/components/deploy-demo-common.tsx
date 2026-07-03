@@ -83,9 +83,11 @@ const modeCards = [
 ];
 
 export function useDemoPlayback<TStep extends CursorStep>({
+  active = true,
   getTargetId,
   steps,
 }: {
+  active?: boolean;
   getTargetId: (step: TStep) => string | undefined;
   steps: TStep[];
 }) {
@@ -117,7 +119,14 @@ export function useDemoPlayback<TStep extends CursorStep>({
   }, []);
 
   useEffect(() => {
-    if (reduceMotion) return;
+    if (!active && !reduceMotion) {
+      setStepIndex(0);
+      setProgress(0);
+    }
+  }, [active, reduceMotion]);
+
+  useEffect(() => {
+    if (reduceMotion || !active) return;
 
     const startedAt = performance.now();
     const duration = steps[stepIndex].duration;
@@ -135,7 +144,7 @@ export function useDemoPlayback<TStep extends CursorStep>({
       window.clearInterval(interval);
       window.clearTimeout(timeout);
     };
-  }, [reduceMotion, stepIndex, steps]);
+  }, [active, reduceMotion, stepIndex, steps]);
 
   useLayoutEffect(() => {
     const stage = stageRef.current;
@@ -213,6 +222,7 @@ export function DemoStageShell({
   cursorPosition,
   dataAttribute,
   hideProjects = false,
+  maskVisible = false,
   reduceMotion,
   shellChrome = 'browser',
   showGithubTabs = false,
@@ -230,6 +240,7 @@ export function DemoStageShell({
     | 'data-github-import-demo'
     | 'data-template-demo';
   hideProjects?: boolean;
+  maskVisible?: boolean;
   reduceMotion: boolean;
   shellChrome?: 'browser' | 'thin';
   showGithubTabs?: boolean;
@@ -288,6 +299,13 @@ export function DemoStageShell({
         </div>
 
         {!reduceMotion && <Cursor position={cursorPosition} step={step} />}
+        <div
+          className={cn(
+            'pointer-events-none absolute inset-0 z-40 bg-[linear-gradient(to_bottom,rgba(8,10,17,0)_0%,rgba(8,10,17,0.86)_62%,#080A11_100%)] transition-opacity duration-500',
+            maskVisible ? 'opacity-100' : 'opacity-0',
+          )}
+          aria-hidden="true"
+        />
       </div>
     </div>
   );

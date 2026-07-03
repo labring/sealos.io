@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ComponentType } from 'react';
+import { motion, type Transition } from 'motion/react';
 
 import { cn } from '@/lib/utils';
 import { GradientText } from '@/new-components/GradientText';
@@ -14,6 +15,24 @@ import {
 import { DockerImageDemo } from '../components/docker-image-demo';
 import { GitHubImportDemo } from '../components/github-import-demo';
 import { DatabaseDemo, TemplateDemo } from '../components/project-type-demos';
+
+type DemoComponent = ComponentType<{ active?: boolean }>;
+
+const textMaskClass =
+  '[mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.55)_34%,rgba(0,0,0,0.12)_62%,transparent_86%)] [-webkit-mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.55)_34%,rgba(0,0,0,0.12)_62%,transparent_86%)]';
+
+const demoHoverTransition: Transition = {
+  duration: 0.52,
+  ease: [0.22, 1, 0.36, 1],
+};
+
+const demoTransitionMs = 520;
+const demoScale = 1.04;
+
+type DemoOffset = {
+  x: number;
+  y: number;
+};
 
 const demos = [
   {
@@ -41,7 +60,13 @@ const demos = [
     body: 'Schema tree, rows browser, backup policies — all built in. No second tool, no second login.',
     Demo: DatabaseDemo,
   },
-];
+] satisfies Array<
+  (typeof demoNavigationItems)[number] & {
+    headline: string;
+    body: string;
+    Demo: DemoComponent;
+  }
+>;
 
 type JumpState = {
   entered: boolean;
@@ -265,6 +290,38 @@ function DemoArticle({
   transitionEnabled: boolean;
 }) {
   const { id, headline, body, Demo } = demo;
+  const demoRef = useRef<HTMLDivElement>(null);
+  const [isDemoPlaying, setIsDemoPlaying] = useState(false);
+  const [demoOffset, setDemoOffset] = useState<DemoOffset>({ x: 0, y: 0 });
+
+  useEffect(() => {
+    if (isActive || !isDemoPlaying) return;
+
+    const timeout = window.setTimeout(() => {
+      setIsDemoPlaying(false);
+      setDemoOffset({ x: 0, y: 0 });
+    }, demoTransitionMs);
+
+    return () => window.clearTimeout(timeout);
+  }, [isActive, isDemoPlaying]);
+
+  const handlePlay = () => {
+    const demoElement = demoRef.current;
+
+    if (!demoElement) {
+      setIsDemoPlaying(true);
+      return;
+    }
+
+    const demoRect = demoElement.getBoundingClientRect();
+    const targetCenter = getDemoTargetCenter();
+
+    setDemoOffset({
+      x: targetCenter.x - (demoRect.left + demoRect.width / 2),
+      y: targetCenter.y - (demoRect.top + demoRect.height / 2),
+    });
+    setIsDemoPlaying(true);
+  };
 
   return (
     <article
@@ -279,7 +336,7 @@ function DemoArticle({
       aria-hidden={!isActive}
     >
       <div className="mx-auto flex w-full flex-col items-center gap-10">
-        <div className="text-center">
+        <div className={cn('text-center', isDemoPlaying && textMaskClass)}>
           <GradientText
             as="h2"
             className="max-w-4xl to-blue-500 text-4xl leading-tight font-semibold text-balance sm:text-5xl"
@@ -291,8 +348,49 @@ function DemoArticle({
           </p>
         </div>
 
-        <Demo />
+        <motion.div
+          aria-label={`${headline} demo`}
+          ref={demoRef}
+          className="relative z-10 mx-auto w-full max-w-[1312px] outline-none"
+          initial={false}
+          animate={{
+            x: isDemoPlaying ? demoOffset.x : 0,
+            y: isDemoPlaying ? demoOffset.y : 0,
+            scale: isDemoPlaying ? demoScale : 1,
+          }}
+          transition={demoHoverTransition}
+          style={{
+            transformOrigin: 'center',
+            zIndex: isDemoPlaying ? 30 : 1,
+          }}
+        >
+          <Demo active={isDemoPlaying} />
+          <motion.button
+            aria-label={`Play ${headline} demo`}
+            className={cn(
+              'absolute inset-0 z-50 rounded-[18px] transition-shadow outline-none focus-visible:ring-2 focus-visible:ring-blue-400',
+              isDemoPlaying ? 'pointer-events-none' : 'cursor-pointer',
+            )}
+            animate={{ opacity: isDemoPlaying ? 0 : 1 }}
+            transition={demoHoverTransition}
+            onClick={handlePlay}
+            tabIndex={isActive && !isDemoPlaying ? 0 : -1}
+            type="button"
+          />
+        </motion.div>
       </div>
     </article>
   );
+}
+
+function getDemoTargetCenter() {
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const safeTop =
+    viewportWidth >= 1280 ? 272 : viewportWidth >= 768 ? 344 : 408;
+
+  return {
+    x: viewportWidth / 2,
+    y: safeTop + (viewportHeight - safeTop) / 2,
+  };
 }
