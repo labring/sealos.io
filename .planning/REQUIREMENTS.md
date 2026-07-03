@@ -1,162 +1,158 @@
-# Requirements: Sealos Skills Tutorial Alignment
+# Requirements: React and Node.js Tutorial Expansion
 
-**Defined:** 2026-06-16
-**Core Value:** Readers can install and use Sealos Skills from the tutorials
-with commands and workflow expectations that match the current upstream plugin
-source.
+**Defined:** 2026-06-29
+**Core Value:** Readers can follow framework-specific Sealos tutorials with
+commands, screenshots, and validation evidence that match the current product
+workflow.
 
-## v1.1 Requirements
+## v1.2 Requirements
 
-### Upstream Source
+### Template Baseline
 
-- [x] **SOURCE-01**: Record the upstream `labring/sealos-skills` commit used
-  for this tutorial update.
+- [ ] **BASE-01**: Maintainer can identify the reusable structure, frontmatter
+  contract, CTA pattern, related tutorial pattern, image convention, and
+  validation expectations from the three existing Next.js tutorials.
 
-- [x] **SOURCE-02**: Extract current Codex, Claude Code, compatibility,
-  context-only host, and direct `skills.sh` install guidance from upstream.
+- [ ] **BASE-02**: Maintainer can define the final React and Node.js tutorial
+  slug map, series ordering, related tutorial links, and image folder names
+  before writing article bodies.
 
-- [x] **SOURCE-03**: Extract current `sealos-deploy` pipeline guidance,
-  including DEPLOY/UPDATE mode and Phase 6.5 Runtime Truth Pass.
+- [ ] **BASE-03**: Maintainer can use a framework-specific copy checklist that
+  replaces Next.js-only wording with React or Node.js language while preserving
+  current Sealos Skills, Runtime Truth Pass, DEPLOY/UPDATE, and `.sealos/`
+  guidance.
 
-- [x] **SOURCE-04**: Keep tutorial claims limited to host capabilities that the
-  upstream README and marketplace notes claim.
+### React Tutorials
 
-### Installation Copy
+- [ ] **REACT-01**: Reader can follow a React beginner deployment tutorial that
+  mirrors the beginner Next.js tutorial structure with React-specific setup,
+  build, deploy, Runtime Truth Pass, metadata, CTA, and screenshots.
 
-- [x] **INSTALL-01**: Every tutorial Codex install section prefers
-  `codex plugin marketplace add labring/sealos-skills` followed by
-  `codex plugin add sealos@sealos`.
+- [ ] **REACT-02**: Reader can follow a React PostgreSQL/full-stack tutorial
+  that mirrors the Next.js PostgreSQL tutorial structure with React-specific
+  app, API/service, database, environment, migration, verification, metadata,
+  CTA, and screenshots.
 
-- [x] **INSTALL-02**: Every tutorial Claude Code install section prefers
-  `claude plugin marketplace add labring/sealos-skills` followed by
-  `claude plugin install sealos@sealos`.
+- [ ] **REACT-03**: Reader can follow a React production checklist tutorial
+  that mirrors the Next.js production tutorial structure with React-specific
+  build, deployment, update, rollback, runtime verification, metadata, CTA, and
+  screenshots.
 
-- [x] **INSTALL-03**: Compatibility install snippets keep
-  `npx plugins add https://github.com/labring/sealos-skills --target codex`
-  and `--target claude-code` in secondary placement.
+- [ ] **REACT-04**: React tutorial pages participate in tutorial listing,
+  adjacent navigation, related tutorials, framework labels, tags, and source
+  metadata with no broken internal links.
 
-- [x] **INSTALL-04**: Tutorial host-usage copy consistently maps Codex CLI to
-  `$sealos`, Codex App to `+ -> Plugins -> Sealos`, and Claude Code to
-  `/sealos`.
+### Node.js Tutorials
 
-- [x] **INSTALL-05**: Direct `/sealos-deploy`, `/sealos-database`, and
-  `/sealos-s3` examples appear only in direct `skills.sh` context.
+- [ ] **NODE-01**: Reader can follow a Node.js beginner deployment tutorial that
+  mirrors the beginner Next.js tutorial structure with Node.js-specific setup,
+  server entrypoint, build/run, deploy, Runtime Truth Pass, metadata, CTA, and
+  screenshots.
 
-### Deploy Workflow
+- [ ] **NODE-02**: Reader can follow a Node.js PostgreSQL/full-stack tutorial
+  that mirrors the Next.js PostgreSQL tutorial structure with Node.js-specific
+  service, database, environment, migration, verification, metadata, CTA, and
+  screenshots.
 
-- [x] **DEPLOY-01**: Beginner deployment tutorial describes the current
-  preflight, assessment, image detection, Dockerfile, build/push, template,
-  configure, deploy, and Runtime Truth Pass sequence.
+- [ ] **NODE-03**: Reader can follow a Node.js production checklist tutorial
+  that mirrors the Next.js production tutorial structure with Node.js-specific
+  process management, health checks, update, rollback, runtime verification,
+  metadata, CTA, and screenshots.
 
-- [x] **DEPLOY-02**: Beginner deployment tutorial describes `.sealos/`
-  artifacts with current responsibilities for `analysis.json`,
-  `template/index.yaml`, `state.json`, optional `config.json`, and build output.
+- [ ] **NODE-04**: Node.js tutorial pages participate in tutorial listing,
+  adjacent navigation, related tutorials, framework labels, tags, and source
+  metadata with no broken internal links.
 
-- [x] **DEPLOY-03**: PostgreSQL tutorial describes full-stack app and database
-  deployment with database resource generation, app env-var wiring, migration
-  planning, and runtime verification.
+### Practice Evidence and Screenshots
 
-- [x] **DEPLOY-04**: Production checklist describes DEPLOY/UPDATE mode based on
-  `.sealos/state.json` and live cluster verification.
+- [ ] **SHOT-01**: Maintainer can trace each new tutorial screenshot to real
+  Sealos practice evidence captured during this milestone.
 
-- [x] **DEPLOY-05**: Production checklist includes Runtime Truth Pass checks for
-  real App URL, logs, login/setup path, authenticated paths when relevant, and
-  resource footprint.
+- [ ] **SHOT-02**: Maintainer can verify that sensitive values in practice
+  evidence and screenshots are redacted before assets are committed.
 
-- [x] **DEPLOY-06**: Troubleshooting guidance reflects upstream behavior around
-  Sealos auth, Docker/GHCR, private image pull secrets, rollout verification,
-  and state repair.
+- [ ] **SHOT-03**: Maintainer can verify that every new tutorial image is WebP,
+  referenced by MDX, uses stable tutorial dimensions, and stays within the
+  project image-size budget.
 
-### Cross-Article Consistency
+- [ ] **SHOT-04**: Reader sees screenshot states that match the surrounding
+  tutorial steps and do not contradict the visible commands or verification
+  text.
 
-- [x] **CONSIST-01**: Frontmatter FAQ answers match updated installation and
-  deploy-flow guidance.
+### Validation and Release
 
-- [x] **CONSIST-02**: Frontmatter HowTo steps match updated visible article
-  steps and host-specific command syntax.
+- [ ] **VALID-01**: Repository tutorial validation covers the expanded tutorial
+  slug set and catches missing English source files, unexpected localized
+  tutorial files, stale `/tutorials/<slug>` links, and required frontmatter
+  fields.
 
-- [x] **CONSIST-03**: All three tutorial bodies use one terminology set for
-  "Sealos plugin", "Sealos Skills", "Codex plugin", Runtime Truth Pass, and
-  `.sealos/` state.
+- [ ] **VALID-02**: Targeted source checks prove the expanded tutorial set keeps
+  current Sealos Skills install, invocation, Runtime Truth Pass, `.sealos/`,
+  DEPLOY/UPDATE, and CTA terminology consistent.
 
-- [x] **CONSIST-04**: Internal links and CTA references continue to point to
-  `/sealos-skills` or existing Sealos docs URLs as appropriate.
+- [ ] **VALID-03**: Image validation proves all new tutorial image references
+  resolve to local assets with expected format, dimensions, and file size.
 
-### Verification
-
-- [x] **VERIFY-01**: Targeted searches show every tutorial reference to
-  `npx plugins add`, `codex plugin`, `claude plugin`, `$sealos`, `/sealos`,
-  `/sealos-deploy`, `.sealos/`, and Runtime Truth Pass is intentional.
-
-- [x] **VERIFY-02**: `scripts/validate-tutorials.mjs` passes after content
-  edits.
-
-- [x] **VERIFY-03**: Repository lint or the narrowest available content check
-  passes for touched tutorial and metadata files.
-
-- [x] **VERIFY-04**: The final diff is scoped to tutorial content, tutorial
-  metadata, and GSD planning artifacts.
+- [ ] **VALID-04**: Final verification runs `npm run validate-tutorials`,
+  TypeScript/content validation, targeted searches, and changed-file scope
+  review with evidence recorded in the phase artifacts.
 
 ## Future Requirements
 
 ### Tutorial Expansion
 
-- **FUTURE-01**: Add tutorial screenshots that show native Codex and Claude
-  plugin installation flows.
+- **FUTURE-01**: Add tutorial families for additional frameworks after React and
+  Node.js are verified.
 
-- **FUTURE-02**: Add additional framework tutorials after the Next.js tutorial
-  set is verified.
+- **FUTURE-02**: Add localized tutorial versions after the English React and
+  Node.js source set is stable.
 
-- **FUTURE-03**: Add localized tutorial versions after the English source set is
-  stable.
+- **FUTURE-03**: Add first-party browser walkthrough videos after screenshot
+  workflows are stable.
 
-- **FUTURE-04**: Add live deployment proof notes when fresh evidence is
-  captured for each tutorial path.
+- **FUTURE-04**: Add automation that captures tutorial screenshots from repeatable
+  deployments.
 
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| Sealos Skills repository changes | This milestone consumes upstream as source evidence. |
-| New tutorial topic expansion | The requested outcome targets all existing tutorials. |
-| Visual redesign | Current scope is content accuracy and metadata consistency. |
-| Live deployment proof for every article | This milestone aligns tutorial guidance to upstream source evidence. |
-| Non-English tutorial localization | Existing tutorial source files are English-only. |
+| Additional framework families | The user requested React and Node.js based on the existing Next.js templates. |
+| Non-English tutorial localization | Current tutorial publication remains English-only for this milestone. |
+| Tutorial page visual redesign | This milestone extends content, metadata, screenshots, and validation coverage. |
+| Sealos Skills behavior changes | Tutorials consume current Sealos workflow behavior as source truth. |
+| Imagined screenshot states | Screenshots must be grounded in practice evidence captured during this milestone. |
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SOURCE-01 | Phase 13 | Complete |
-| SOURCE-02 | Phase 13 | Complete |
-| SOURCE-03 | Phase 13 | Complete |
-| SOURCE-04 | Phase 13 | Complete |
-| INSTALL-01 | Phase 13 | Complete |
-| INSTALL-02 | Phase 13 | Complete |
-| INSTALL-03 | Phase 13 | Complete |
-| INSTALL-04 | Phase 13 | Complete |
-| INSTALL-05 | Phase 13 | Complete |
-| DEPLOY-01 | Phase 14 | Complete |
-| DEPLOY-02 | Phase 14 | Complete |
-| DEPLOY-03 | Phase 14 | Complete |
-| DEPLOY-04 | Phase 14 | Complete |
-| DEPLOY-05 | Phase 14 | Complete |
-| DEPLOY-06 | Phase 14 | Complete |
-| CONSIST-01 | Phase 15 | Complete |
-| CONSIST-02 | Phase 15 | Complete |
-| CONSIST-03 | Phase 15 | Complete |
-| CONSIST-04 | Phase 15 | Complete |
-| VERIFY-01 | Phase 15 | Complete |
-| VERIFY-02 | Phase 15 | Complete |
-| VERIFY-03 | Phase 15 | Complete |
-| VERIFY-04 | Phase 15 | Complete |
+| BASE-01 | Phase 16 | Pending |
+| BASE-02 | Phase 16 | Pending |
+| BASE-03 | Phase 16 | Pending |
+| REACT-01 | Phase 17 | Pending |
+| REACT-02 | Phase 17 | Pending |
+| REACT-03 | Phase 17 | Pending |
+| REACT-04 | Phase 17 | Pending |
+| NODE-01 | Phase 18 | Pending |
+| NODE-02 | Phase 18 | Pending |
+| NODE-03 | Phase 18 | Pending |
+| NODE-04 | Phase 18 | Pending |
+| SHOT-01 | Phase 19 | Pending |
+| SHOT-02 | Phase 19 | Pending |
+| SHOT-03 | Phase 19 | Pending |
+| SHOT-04 | Phase 19 | Pending |
+| VALID-01 | Phase 20 | Pending |
+| VALID-02 | Phase 20 | Pending |
+| VALID-03 | Phase 20 | Pending |
+| VALID-04 | Phase 20 | Pending |
 
 **Coverage:**
 
-- v1.1 requirements: 23 total
-- Mapped to phases: 23
+- v1.2 requirements: 19 total
+- Mapped to phases: 19
 - Unmapped: 0
 
 ---
-*Requirements defined: 2026-06-16*
-*Last updated: 2026-06-16 after v1.1 milestone initialization*
+*Requirements defined: 2026-06-29*
+*Last updated: 2026-06-29 after v1.2 milestone initialization*

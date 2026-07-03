@@ -99,9 +99,13 @@ export const TUTORIAL_FRAMEWORKS = [
   { key: 'vue', name: 'Vue', pathNote: 'Frontend framework path' },
 ] as const satisfies readonly TutorialFrameworkDefinition[];
 
-const COMING_NEXT_FRAMEWORK_KEYS = new Set([
+export const AVAILABLE_FRAMEWORK_KEYS = new Set([
+  'nextjs',
   'react',
   'nodejs',
+]);
+
+const COMING_NEXT_FRAMEWORK_KEYS = new Set([
   'fastapi',
   'django',
   'go',
@@ -127,7 +131,7 @@ function getTutorialSlug(
 function getInventoryStatus(
   framework: TutorialFrameworkDefinition,
 ): TutorialInventoryStatus {
-  if (framework.key === 'nextjs') return 'available';
+  if (AVAILABLE_FRAMEWORK_KEYS.has(framework.key)) return 'available';
   if (COMING_NEXT_FRAMEWORK_KEYS.has(framework.key)) return 'coming_next';
   return 'planned';
 }

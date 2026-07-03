@@ -3,40 +3,41 @@
 ## What This Is
 
 This project maintains Sealos.io tutorial content for developers who use AI
-agents to deploy applications to Sealos Cloud. The current milestone aligns all
-`content/tutorials/**` Sealos Skills installation, invocation, and deployment
-guidance with the latest `labring/sealos-skills` repository.
+agents to deploy applications to Sealos Cloud. The current milestone expands the
+existing Next.js tutorial pattern into React and Node.js tutorial series with
+practice-backed screenshots, verified assets, and tutorial validation coverage.
 
-The immediate deliverable is an accurate, internally consistent tutorial set
-that reflects the plugin-first Sealos Skills distribution model for Codex,
-Claude Code, and compatible hosts.
+The immediate deliverable is an accurate English tutorial set that teaches
+React, Node.js, and Next.js deployment paths with consistent Sealos Skills
+workflow expectations and screenshots captured from real Sealos practice.
 
 ## Core Value
 
-Readers can install and use Sealos Skills from the tutorials with commands and
-workflow expectations that match the current upstream plugin source.
+Readers can follow framework-specific Sealos tutorials with commands,
+screenshots, and validation evidence that match the current product workflow.
 
-## Current Milestone: v1.1 Sealos Skills Tutorial Alignment
+## Current Milestone: v1.2 React and Node.js Tutorial Expansion
 
-**Goal:** Update every tutorial section that describes Sealos Skills
-installation, invocation, deployment artifacts, update behavior, and runtime
-verification so it matches upstream commit
-`c171d444cc16a7d58b5d23f1a171989a0221c211`.
+**Goal:** Use the three existing Next.js tutorials as templates to add React and
+Node.js tutorial series with real practice screenshots and repository validation.
 
 **Target features:**
-- Native Codex plugin install guidance using `codex plugin marketplace add
-  labring/sealos-skills` and `codex plugin add sealos@sealos`.
-- Native Claude Code plugin install guidance using `claude plugin marketplace
-  add labring/sealos-skills` and `claude plugin install sealos@sealos`.
-- Compatibility install paths using `npx plugins add
-  https://github.com/labring/sealos-skills --target codex|claude-code` as a
-  secondary path.
-- Consistent invocation guidance: `$sealos` for Codex CLI, Codex App
-  `+ -> Plugins -> Sealos`, `/sealos` for Claude Code, and direct
-  `/sealos-deploy` entries only for `skills.sh` sections.
-- Current deploy-flow guidance covering `.sealos/` artifacts, DEPLOY/UPDATE
-  mode, preflight/auth checks, Phase 6.5 Runtime Truth Pass, App URL/log/login
-  verification, and resource footprint checks.
+- React beginner deployment tutorial modeled on
+  `deploy-nextjs-sealos`.
+- React PostgreSQL/full-stack tutorial modeled on
+  `nextjs-postgresql-sealos`.
+- React production checklist tutorial modeled on
+  `nextjs-production-deployment-sealos`.
+- Node.js beginner deployment tutorial modeled on
+  `deploy-nextjs-sealos`.
+- Node.js PostgreSQL/full-stack tutorial modeled on
+  `nextjs-postgresql-sealos`.
+- Node.js production checklist tutorial modeled on
+  `nextjs-production-deployment-sealos`.
+- Practice-backed screenshots for the new tutorials, captured from real Sealos
+  runs, redacted where needed, compressed to WebP, and referenced from MDX.
+- Tutorial metadata, listing, adjacent tutorial navigation, image references,
+  and validation scripts updated to include the new React and Node.js series.
 
 ## Requirements
 
@@ -52,82 +53,92 @@ verification so it matches upstream commit
   with beginner, PostgreSQL, and production checklist articles.
 - ✓ Sealos Skills landing-page routing exists — referenced through
   `/sealos-skills` and sitemap metadata.
+- ✓ Sealos Skills tutorial install, invocation, deploy-flow, metadata, and
+  validation guidance was aligned with upstream source truth — completed in
+  v1.1 phases 13 through 15.
 
 ### Active
 
-- [ ] Record the latest upstream `labring/sealos-skills` install and usage
-  contract as the source of truth for tutorial edits.
-- [ ] Update every Codex installation block in tutorials to prefer the native
-  Codex plugin marketplace flow.
-- [ ] Update every Claude Code installation block in tutorials to prefer the
-  native Claude plugin marketplace flow.
-- [ ] Keep `npx plugins add ... --target codex|claude-code` as a compatibility
-  path with clear placement.
-- [ ] Align tutorial invocation examples with `$sealos`, Codex App plugin
-  picker, `/sealos`, and direct `skills.sh` entries by host type.
-- [ ] Align deployment-flow descriptions with the current `sealos-deploy`
-  pipeline, including `.sealos/analysis.json`, `.sealos/template/index.yaml`,
-  `.sealos/state.json`, DEPLOY/UPDATE mode, and Phase 6.5 Runtime Truth Pass.
-- [ ] Align PostgreSQL/full-stack tutorial copy with current database-resource,
-  env-var, migration, and verification expectations.
-- [ ] Align production-checklist copy with current update-state, runtime truth,
-  rollback, log, App URL, and resource-footprint expectations.
-- [ ] Update frontmatter FAQ and HowTo answers so structured metadata matches
-  the article body.
-- [ ] Validate tutorial consistency with targeted searches and the repository's
-  tutorial validation script.
+- [ ] Add a React beginner tutorial that follows the existing beginner Next.js
+  tutorial structure while using React-specific project setup, deployment
+  language, metadata, links, and screenshots.
+- [ ] Add a React PostgreSQL/full-stack tutorial that follows the existing
+  PostgreSQL Next.js tutorial structure while using React-specific app, database,
+  environment, migration, and verification guidance.
+- [ ] Add a React production checklist tutorial that follows the existing
+  production Next.js tutorial structure while using React-specific build,
+  deployment, rollback, and runtime verification guidance.
+- [ ] Add a Node.js beginner tutorial that follows the existing beginner Next.js
+  tutorial structure while using Node.js-specific project setup, deployment
+  language, metadata, links, and screenshots.
+- [ ] Add a Node.js PostgreSQL/full-stack tutorial that follows the existing
+  PostgreSQL Next.js tutorial structure while using Node.js-specific service,
+  database, environment, migration, and verification guidance.
+- [ ] Add a Node.js production checklist tutorial that follows the existing
+  production Next.js tutorial structure while using Node.js-specific build,
+  deployment, rollback, and runtime verification guidance.
+- [ ] Capture real Sealos practice evidence for React and Node.js paths before
+  producing screenshots.
+- [ ] Store tutorial screenshots as referenced WebP assets with validated
+  dimensions, file sizes, and MDX references.
+- [ ] Update tutorial listing, metadata utilities, related tutorial links, and
+  validation scripts so the new series are first-class `/tutorials` pages.
+- [ ] Validate the expanded tutorial set with targeted searches, tutorial
+  validation, image checks, and TypeScript/content checks.
 
 ### Out of Scope
 
-- New tutorial-topic expansion — this milestone updates the existing tutorial
-  set.
-- Sealos Skills repository behavior changes — upstream is the source for this
-  content milestone.
-- Live Sealos deployment proof for each tutorial — this milestone updates
-  documentation accuracy from upstream source evidence.
-- Visual redesign of tutorial pages — article accuracy and metadata consistency
-  are the priority.
-- Non-English tutorial localization — current tutorial files are English-only.
+- New framework tutorial families beyond React and Node.js — this milestone
+  expands the current tutorial pattern to the two requested ecosystems.
+- Non-English tutorial localization — current tutorial publication remains
+  English-only for this milestone.
+- Visual redesign of the tutorial pages — the work extends content, metadata,
+  screenshots, and validation coverage.
+- Sealos Skills behavior changes — tutorial content consumes the current Sealos
+  workflow as source truth.
+- Screenshot assets generated from imagined states — screenshots must come from
+  this milestone's practice evidence.
 
 ## Context
 
-The active worktree already contains tutorial-related source additions and
-modifications, including `content/tutorials/**`, tutorial routes under
-`app/[lang]/(home)/tutorials/**`, tutorial metadata utilities, and validation
-scripts. This milestone should scope planning and follow-up execution around
-those files while leaving unrelated user changes intact.
+The active tutorial set contains exactly three English Next.js pages:
 
-Upstream `labring/sealos-skills` was checked at
-`c171d444cc16a7d58b5d23f1a171989a0221c211`. Its README now presents a
-plugin-first install model:
+- `content/tutorials/deploy-nextjs-sealos/index.en.mdx`
+- `content/tutorials/nextjs-postgresql-sealos/index.en.mdx`
+- `content/tutorials/nextjs-production-deployment-sealos/index.en.mdx`
 
-- Codex: `codex plugin marketplace add labring/sealos-skills` then
-  `codex plugin add sealos@sealos`.
-- Claude Code: `claude plugin marketplace add labring/sealos-skills` then
-  `claude plugin install sealos@sealos`.
-- Compatibility: `npx plugins add https://github.com/labring/sealos-skills
-  --target codex|claude-code`.
-- Direct `skills.sh`: `npx skills add labring/sealos-skills`, then direct
-  `/sealos-deploy`, `/sealos-database`, and `/sealos-s3` entries.
+Their image assets live under:
 
-The current tutorials still use `npx plugins add ...` as the recommended
-install path in multiple sections. They also describe deploy behavior that
-should be expanded to match current upstream behavior around Runtime Truth Pass,
-logs, App URL verification, login/setup checks, resource footprints, and
-state-based updates.
+- `public/images/deploy-nextjs-sealos/`
+- `public/images/nextjs-postgresql-sealos/`
+- `public/images/nextjs-production-deployment-sealos/`
+
+The existing tutorial utility and validation surfaces include
+`lib/utils/tutorial-utils.ts`, `source.config.ts`, and
+`scripts/validate-tutorials.mjs`. The validator currently expects the three
+Next.js tutorial slugs and should be expanded or refactored for React and
+Node.js publication.
+
+Prior tutorial screenshot work established a real-evidence workflow: capture
+live namespace evidence with `kubectl` and `curl`, redact literal secrets,
+render screenshots from the actual outputs or browser state, convert assets to
+WebP, verify dimensions and file size, confirm source references, and run
+`npm run validate-tutorials`.
 
 ## Constraints
 
-- **Source truth**: Tutorial claims about Sealos Skills must trace to the latest
-  upstream repository, not older plugin memory.
-- **Host accuracy**: Codex, Codex App, Claude Code, compatibility installers,
-  context-only hosts, and direct `skills.sh` entries need separate language.
-- **Scope**: Update existing tutorials and tutorial metadata only; keep broader
-  site behavior changes in their own work.
-- **SEO consistency**: Frontmatter FAQ and HowTo metadata must match the visible
-  body copy.
-- **Verification**: Use targeted `rg` checks plus tutorial validation before
-  the milestone moves into execution completion.
+- **Template parity**: The React and Node.js series should preserve the
+  information architecture, metadata depth, CTA pattern, and validation style of
+  the three existing Next.js tutorials.
+- **Practice evidence**: Screenshots must be based on real Sealos practice for
+  the React and Node.js paths, with credentials and sensitive values redacted.
+- **Asset quality**: Tutorial screenshots should use WebP, keep stable
+  dimensions, stay reasonably small, and have exact MDX references.
+- **SEO consistency**: Frontmatter, FAQ, HowTo steps, target keywords, related
+  tutorials, and visible body copy must agree for every new tutorial.
+- **Validation**: Use CodeGraph for indexed code exploration, targeted `rg`,
+  `npm run validate-tutorials`, image checks, and the narrowest appropriate
+  TypeScript/content validation.
 - **Language**: Planning docs, code, code comments, commits, and PR text are
   written in English.
 
@@ -135,11 +146,11 @@ state-based updates.
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Use upstream commit `c171d444cc16a7d58b5d23f1a171989a0221c211` as the tutorial source of truth | The user asked to optimize tutorials based on the latest `labring/sealos-skills`. | — Pending |
-| Prefer native plugin marketplace install copy for Codex and Claude Code | Upstream README now leads with host-native plugin installation. | — Pending |
-| Keep `npx plugins add` as a compatibility path | Upstream still documents it for local testing and cross-host installs. | — Pending |
-| Treat Runtime Truth Pass as part of deployment guidance | Upstream deploy skill now verifies real App URL, logs, login/setup flow, and resource footprint before usability claims. | — Pending |
-| Start this roadmap at Phase 13 | Existing `.planning/phases` directories already include 10 and 12, so Phase 13 keeps future phase paths unique. | — Pending |
+| Scope v1.2 to React and Node.js tutorial families | The user asked to use the three `/tutorials` Next.js articles as templates for React and Node.js. | — Pending |
+| Mirror the three-part Next.js tutorial taxonomy for both new ecosystems | Beginner, PostgreSQL/full-stack, and production checklist coverage keeps the tutorial catalog predictable. | — Pending |
+| Require fresh practice evidence before screenshot creation | The user explicitly asked for self-practiced screenshots, and prior tutorial work used evidence-backed assets. | — Pending |
+| Store new tutorial screenshots as WebP assets under framework-specific image folders | Existing tutorial assets use per-slug image folders, and WebP keeps article weight manageable. | — Pending |
+| Start this roadmap at Phase 16 | The previous tutorial-alignment milestone completed phases 13 through 15, so Phase 16 preserves sequential planning history. | — Pending |
 
 ## Evolution
 
@@ -159,4 +170,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-16 after v1.1 milestone initialization*
+*Last updated: 2026-06-29 after v1.2 milestone initialization*

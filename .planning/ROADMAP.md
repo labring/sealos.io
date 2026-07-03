@@ -1,279 +1,272 @@
-# Roadmap: Sealos Skills Tutorial Alignment
+# Roadmap: React and Node.js Tutorial Expansion
 
 ## Overview
 
-This roadmap updates the existing Sealos.io tutorial set so every Sealos Skills
-installation and usage claim matches the latest upstream
-`labring/sealos-skills` repository. The work starts at Phase 13 to keep future
-phase directories unique in the current planning tree.
+This roadmap expands the Sealos.io tutorial catalog from the existing three
+Next.js tutorials into React and Node.js series. The milestone keeps the
+existing tutorial information architecture, Sealos Skills workflow guidance, and
+validation style while requiring fresh practice evidence for screenshots.
 
-The milestone has three phases: source-of-truth install alignment, deploy-flow
-content alignment, and cross-article validation.
+The milestone has five phases: baseline extraction, React tutorial creation,
+Node.js tutorial creation, practice-backed screenshot integration, and final
+expanded-set validation.
 
 ## Phases
 
 **Phase Numbering:**
 
-- Integer phases (13, 14, 15): Planned milestone work.
-- New phase directories start after the existing planning history.
+- Integer phases (16, 17, 18, 19, 20): Planned milestone work.
+- New phase directories continue after the completed v1.1 tutorial phases 13,
+  14, and 15.
 
-- [x] **Phase 13: Upstream Install Contract Alignment** - Establish the latest (completed 2026-06-16)
-  upstream source contract and update all tutorial installation and host usage
-  copy.
+- [ ] **Phase 16: Tutorial Template Baseline and Expansion Map** - Extract the
+  reusable tutorial contract from the three Next.js pages and lock the React and
+  Node.js slug, metadata, link, and image plan.
 
-- [x] **Phase 14: Deploy Workflow and Runtime Truth Alignment** - Update (completed 2026-06-16)
-  tutorial deploy-flow sections for current `.sealos/`, DEPLOY/UPDATE, database,
-  migration, and runtime verification behavior.
+- [ ] **Phase 17: React Tutorial Series** - Create the React beginner,
+  PostgreSQL/full-stack, and production checklist tutorials with metadata,
+  links, screenshots placeholders, and source validation.
 
-- [x] **Phase 15: Tutorial Metadata and Validation** - Align FAQ/HowTo metadata, (completed 2026-06-16)
-  remove stale references, and run targeted tutorial validation.
+- [ ] **Phase 18: Node.js Tutorial Series** - Create the Node.js beginner,
+  PostgreSQL/full-stack, and production checklist tutorials with metadata,
+  links, screenshots placeholders, and source validation.
+
+- [ ] **Phase 19: Practice Evidence and Screenshot Assets** - Run the React and
+  Node.js Sealos practice flows, capture evidence, redact sensitive values,
+  produce WebP screenshots, and wire assets into the six new tutorials.
+
+- [ ] **Phase 20: Expanded Tutorial Validation and Release Check** - Expand and
+  run tutorial validation, image checks, targeted searches, and final
+  TypeScript/content validation for the nine-page tutorial set.
 
 ## Phase Details
 
-### Phase 13: Upstream Install Contract Alignment
+### Phase 16: Tutorial Template Baseline and Expansion Map
 
-**Goal**: Every tutorial gives current host-specific Sealos Skills installation
-and invocation guidance.
+**Goal**: The implementation team has a locked template contract and expansion
+map before authoring new tutorial content.
 **Depends on**: Milestone initialization
-**Rationale**: Installation is the first user action in each tutorial, and the
-latest upstream repository now leads with native Codex and Claude plugin
-marketplace installation.
+**Rationale**: The user asked to use the three existing Next.js articles as the
+template, so structure, metadata, link topology, screenshot conventions, and
+validation expectations should be explicit before copy creation.
 **Deliverables**:
 
-  1. Source-truth notes that identify upstream commit
-     `c171d444cc16a7d58b5d23f1a171989a0221c211` and the relevant README,
-     marketplace, and deploy skill sections.
+  1. Baseline notes covering the reusable structure of the three Next.js
+     tutorials.
+  2. Final React and Node.js slug map, image folder map, series order, and
+     related tutorial graph.
+  3. Framework-specific copy checklist for replacing Next.js-only wording while
+     preserving Sealos Skills workflow language.
+  4. Validator expansion plan for the expected nine tutorial slugs.
 
-  2. Updated Codex install sections across all tutorial articles.
-  3. Updated Claude Code install sections across all tutorial articles.
-  4. Compatibility install copy positioned after native host install commands.
-  5. Host usage copy that consistently maps Codex CLI, Codex App, Claude Code,
-     and direct `skills.sh` entries.
-**Requirements**: SOURCE-01, SOURCE-02, SOURCE-03, SOURCE-04, INSTALL-01,
-INSTALL-02, INSTALL-03, INSTALL-04, INSTALL-05
+**Requirements**: BASE-01, BASE-02, BASE-03
 **Success Criteria**:
 
-  1. A reader can follow the Codex native install commands from any tutorial
-     install section.
+  1. The template baseline names the frontmatter keys, body sections, CTA
+     pattern, link pattern, image convention, and validation checks that new
+     tutorials must follow.
+  2. Every planned React and Node.js page has a final slug, image folder, stage,
+     series order, related tutorial list, and target framework label.
+  3. The copy checklist identifies framework-specific replacements for setup,
+     build, runtime, database, migration, production, and verification language.
+  4. The validation plan explains how `scripts/validate-tutorials.mjs` will
+     accept the expanded tutorial set.
 
-  2. A reader can follow the Claude Code native install commands from any
-     tutorial install section.
-
-  3. `npx plugins add` snippets are present as compatibility paths with
-     host-specific targets.
-
-  4. Direct `/sealos-deploy` examples appear only in direct `skills.sh`
-     context.
-
-  5. Targeted searches show the same host invocation model across all tutorial
-     files.
-**Likely Files**: `content/tutorials/deploy-nextjs-sealos/index.en.mdx`,
-`content/tutorials/nextjs-postgresql-sealos/index.en.mdx`,
-`content/tutorials/nextjs-production-deployment-sealos/index.en.mdx`
-**Validation Approach**: Run targeted `rg` checks for install and invocation
-phrases, then inspect each tutorial install section.
-**Plans:** 5/5 plans complete
-
-Plans:
-**Wave 1**
-
-- [x] 13-01-PLAN.md — Capture locked upstream install and host usage source truth.
-
-**Wave 2** *(blocked on Wave 1 completion)*
-
-- [x] 13-02-PLAN.md — Update beginner tutorial install and host invocation body copy.
-- [x] 13-03-PLAN.md — Update PostgreSQL tutorial install and host invocation body copy.
-- [x] 13-04-PLAN.md — Update production checklist install and host invocation body copy.
-
-**Wave 3** *(blocked on Wave 2 completion)*
-
-- [x] 13-05-PLAN.md — Validate cross-article install contract and record evidence.
-
-Cross-cutting constraints:
-
-- Every tutorial body uses native Codex install commands before Codex compatibility copy.
-- Every tutorial body uses native Claude Code install commands before Claude Code compatibility copy.
-- Host usage maps Codex CLI to `$sealos`, Codex App to `+ -> Plugins -> Sealos`, and Claude Code to `/sealos`.
-- Direct `/sealos-deploy`, `/sealos-database`, and `/sealos-s3` entries appear only in direct `skills.sh` context.
-- Phase 14 owns deploy-flow expansion and Phase 15 owns FAQ/HowTo metadata harmonization.
-
-### Phase 14: Deploy Workflow and Runtime Truth Alignment
-
-**Goal**: Tutorial deploy-flow sections match the current Sealos deploy skill
-pipeline and verification contract.
-**Depends on**: Phase 13
-**Rationale**: Upstream deploy behavior now includes state-aware DEPLOY/UPDATE
-mode and Runtime Truth Pass checks that should shape beginner, PostgreSQL, and
-production guidance.
-**Deliverables**:
-
-  1. Beginner tutorial pipeline copy updated for preflight, assessment, image
-     detection, Dockerfile, build/push, template, configure, deploy, and Runtime
-     Truth Pass.
-
-  2. `.sealos/` artifact descriptions updated for `analysis.json`,
-     `template/index.yaml`, `state.json`, optional `config.json`, and build
-     output.
-
-  3. PostgreSQL tutorial updated for app/database resource generation, exact env
-     var wiring, migration planning, and full-stack verification.
-
-  4. Production checklist updated for state-based updates, real App URL checks,
-     logs, login/setup checks, authenticated smoke when relevant, and resource
-     footprint.
-
-  5. Troubleshooting copy updated for auth, Docker/GHCR, private image pull
-     secrets, rollout verification, and state repair.
-**Requirements**: DEPLOY-01, DEPLOY-02, DEPLOY-03, DEPLOY-04, DEPLOY-05,
-DEPLOY-06
-**Success Criteria**:
-
-  1. A reader can distinguish first deploy and update behavior from the
-     production checklist.
-
-  2. A reader can inspect `.sealos/analysis.json`,
-     `.sealos/template/index.yaml`, and `.sealos/state.json` with accurate
-     expectations.
-
-  3. PostgreSQL guidance keeps app, database, env vars, migration, and
-     verification in one full-stack deployment plan.
-
-  4. Runtime Truth Pass guidance includes real App URL, logs, login/setup, and
-     resource footprint checks.
-
-  5. Troubleshooting copy reflects current upstream deploy skill behavior.
-
-**Likely Files**: `content/tutorials/deploy-nextjs-sealos/index.en.mdx`,
-`content/tutorials/nextjs-postgresql-sealos/index.en.mdx`,
-`content/tutorials/nextjs-production-deployment-sealos/index.en.mdx`
-**Validation Approach**: Compare article body sections against upstream
-`skills/sealos-deploy/SKILL.md`, `modules/preflight.md`, and
-`modules/pipeline.md`; run targeted `rg` checks for `.sealos/`, Runtime Truth
-Pass, DEPLOY/UPDATE, and state references.
-**Plans:** 5/5 plans complete
-
-Plans:
-**Wave 1**
-
-- [x] 14-01-PLAN.md — Capture locked deploy workflow source truth before tutorial edits.
-
-**Wave 2** *(blocked on Wave 1 completion)*
-
-- [x] 14-02-PLAN.md — Update beginner tutorial deploy pipeline, `.sealos/`, Runtime Truth Pass, and troubleshooting body copy.
-- [x] 14-03-PLAN.md — Update PostgreSQL tutorial full-stack resource, env-var, migration, and verification body copy.
-- [x] 14-04-PLAN.md — Update production checklist DEPLOY/UPDATE, Runtime Truth Pass, rollback, and troubleshooting body copy.
-
-**Wave 3** *(blocked on Wave 2 completion)*
-
-- [x] 14-05-PLAN.md — Validate cross-article deploy workflow alignment and record Phase 15 handoff evidence.
-
-Cross-cutting constraints:
-
-- Phase 13 install and host invocation guidance stays intact while Phase 14 edits deploy-flow body copy.
-- Runtime Truth Pass is taught as live runtime acceptance, with tutorial-specific checks for beginner, PostgreSQL, and production paths.
-- `.sealos/` artifacts are described by lifecycle: optional config, regenerated analysis, conditional build result, generated template, and post-acceptance state.
-- DEPLOY/UPDATE behavior depends on valid `.sealos/state.json` plus live deployment verification.
-- Phase 15 owns FAQ/HowTo metadata harmonization, terminology-only cleanup, stale-reference reporting, and final repository tutorial validation.
-
-### Phase 15: Tutorial Metadata and Validation
-
-**Goal**: Visible tutorial bodies, structured metadata, and validation checks
-all agree after the content update.
-**Depends on**: Phase 14
-**Rationale**: FAQ and HowTo frontmatter feed structured data and search
-surfaces, so metadata must be updated with the same install and deploy-flow
-language as the article body.
-**Deliverables**:
-
-  1. Updated FAQ answers for all tutorial files touched by the install and
-     deploy-flow changes.
-
-  2. Updated HowTo steps for host-specific commands and current deploy
-     workflow.
-
-  3. Consistent terminology across all tutorials for Sealos Skills, Sealos
-     plugin, Codex plugin, Runtime Truth Pass, `.sealos/`, and update mode.
-
-  4. Targeted stale-reference search report.
-  5. Passing tutorial validation command.
-
-**Requirements**: CONSIST-01, CONSIST-02, CONSIST-03, CONSIST-04, VERIFY-01,
-VERIFY-02, VERIFY-03, VERIFY-04
-**Success Criteria**:
-
-  1. Frontmatter FAQ and HowTo content matches the updated article body.
-  2. `scripts/validate-tutorials.mjs` passes.
-  3. Targeted searches show intentional use of every install and invocation
-     phrase.
-
-  4. The final diff stays scoped to tutorial content, tutorial metadata, and
-     planning artifacts.
-
-  5. The next GSD action can move directly into execution for Phase 15.
-
-**Likely Files**: `content/tutorials/**/*.mdx`,
-`scripts/validate-tutorials.mjs`, `lib/utils/tutorial-metadata.ts`,
-`lib/utils/tutorial-utils.ts`, `source.config.ts`, `lib/source.ts`
-**Validation Approach**: Run `node scripts/validate-tutorials.mjs`, targeted
-`rg` checks, and the narrowest available lint/content validation for touched
+**Likely Files**: `content/tutorials/**/index.en.mdx`,
+`public/images/*`, `scripts/validate-tutorials.mjs`,
+`lib/utils/tutorial-utils.ts`, `source.config.ts`
+**Validation Approach**: Use CodeGraph for tutorial utilities, targeted `rg`
+over `content/tutorials`, and manual comparison of the three current tutorial
 files.
-**Plans:** 3/3 plans complete
 
-Plans:
-**Wave 1**
+### Phase 17: React Tutorial Series
 
-- [x] 15-01-PLAN.md — Align beginner tutorial FAQ and HowTo metadata with the updated body.
-- [x] 15-02-PLAN.md — Align PostgreSQL and production tutorial FAQ and HowTo metadata with updated body guidance.
+**Goal**: React readers can follow the three-part Sealos tutorial path with
+React-specific content and metadata.
+**Depends on**: Phase 16
+**Rationale**: React is the first requested ecosystem and should reuse the
+established beginner, PostgreSQL/full-stack, and production tutorial taxonomy.
+**Deliverables**:
 
-**Wave 2** *(blocked on Wave 1 completion)*
+  1. React beginner deployment tutorial.
+  2. React PostgreSQL/full-stack tutorial.
+  3. React production checklist tutorial.
+  4. React tutorial metadata, related tutorial links, CTA references, listing
+     behavior, and temporary screenshot references or placeholders.
 
-- [x] 15-03-PLAN.md — Harden tutorial validation and record final Phase 15 evidence.
+**Requirements**: REACT-01, REACT-02, REACT-03, REACT-04
+**Success Criteria**:
 
-Cross-cutting constraints:
+  1. The React beginner tutorial can be read independently and follows the
+     beginner Next.js tutorial structure with React-specific commands and
+     deployment expectations.
+  2. The React PostgreSQL tutorial teaches the app, database, environment,
+     migration, and runtime verification path with React-specific language.
+  3. The React production checklist teaches build, deploy, update, rollback,
+     logs, health checks, Runtime Truth Pass, and resource footprint checks with
+     React-specific language.
+  4. React tutorials appear in the tutorial source set with valid frontmatter,
+     related links, CTA data, and no broken `/tutorials/<slug>` references.
 
-- FAQ and HowTo frontmatter must make the same install, deploy-flow, and acceptance claims as visible tutorial bodies.
-- Sealos Skills, Sealos plugin, Codex plugin, Runtime Truth Pass, `.sealos/`, DEPLOY, and UPDATE terminology follows the Phase 15 context glossary.
-- Direct `/sealos-deploy`, `/sealos-database`, and `/sealos-s3` examples remain absent from tutorial source while no direct `skills.sh` section exists.
-- Source-only link validation covers `/tutorials/<slug>`, `/sealos-skills`, `https://os.sealos.io`, and `https://sealos.io/docs/...`.
-- Final validation records targeted `rg`, `npm run validate-tutorials`, `npm run lint`, and changed-file scope evidence.
+**Likely Files**: `content/tutorials/react-*/index.en.mdx`,
+`public/images/react-*`, `scripts/validate-tutorials.mjs`,
+`lib/utils/tutorial-utils.ts`
+**Validation Approach**: Run targeted searches for React, Next.js-only remnants,
+required Sealos Skills phrases, and internal tutorial links; run
+`npm run validate-tutorials` after validator updates are in place.
+
+### Phase 18: Node.js Tutorial Series
+
+**Goal**: Node.js readers can follow the three-part Sealos tutorial path with
+Node.js-specific content and metadata.
+**Depends on**: Phase 17
+**Rationale**: Node.js service deployment differs from React static/app
+deployment in entrypoint, process, health, and backend/database language, so it
+gets a dedicated content phase.
+**Deliverables**:
+
+  1. Node.js beginner deployment tutorial.
+  2. Node.js PostgreSQL/full-stack tutorial.
+  3. Node.js production checklist tutorial.
+  4. Node.js tutorial metadata, related tutorial links, CTA references, listing
+     behavior, and temporary screenshot references or placeholders.
+
+**Requirements**: NODE-01, NODE-02, NODE-03, NODE-04
+**Success Criteria**:
+
+  1. The Node.js beginner tutorial can be read independently and follows the
+     beginner Next.js tutorial structure with Node.js-specific commands,
+     server entrypoint, and deployment expectations.
+  2. The Node.js PostgreSQL tutorial teaches service, database, environment,
+     migration, and runtime verification with Node.js-specific language.
+  3. The Node.js production checklist teaches process management, health checks,
+     deploy, update, rollback, logs, Runtime Truth Pass, and resource footprint
+     checks with Node.js-specific language.
+  4. Node.js tutorials appear in the tutorial source set with valid frontmatter,
+     related links, CTA data, and no broken `/tutorials/<slug>` references.
+
+**Likely Files**: `content/tutorials/nodejs-*/index.en.mdx`,
+`public/images/nodejs-*`, `scripts/validate-tutorials.mjs`,
+`lib/utils/tutorial-utils.ts`
+**Validation Approach**: Run targeted searches for Node.js, Next.js-only
+remnants, required Sealos Skills phrases, and internal tutorial links; run
+`npm run validate-tutorials` after validator updates are in place.
+
+### Phase 19: Practice Evidence and Screenshot Assets
+
+**Goal**: Every new tutorial screenshot is backed by real Sealos practice
+evidence and wired as a validated WebP asset.
+**Depends on**: Phase 18
+**Rationale**: The user explicitly required self-practice screenshots, and prior
+tutorial work established that runtime truth is stronger than source-only
+claims for tutorial visuals.
+**Deliverables**:
+
+  1. React practice evidence package covering beginner, PostgreSQL/full-stack,
+     and production checklist screenshot states.
+  2. Node.js practice evidence package covering beginner, PostgreSQL/full-stack,
+     and production checklist screenshot states.
+  3. Redacted screenshot sources or rendered captures for all new tutorial image
+     slots.
+  4. WebP screenshot assets under the new tutorial image folders.
+  5. Updated MDX references from placeholders to final screenshot assets.
+
+**Requirements**: SHOT-01, SHOT-02, SHOT-03, SHOT-04
+**Success Criteria**:
+
+  1. Each new screenshot has a traceable evidence source from a real Sealos
+     practice command, browser state, or runtime verification step.
+  2. Sensitive tokens, passwords, connection strings, and literal secrets are
+     redacted in evidence and visible screenshot content.
+  3. Every new tutorial image is WebP, has expected dimensions, stays inside the
+     image-size budget, and is referenced by exactly the intended MDX files.
+  4. Screenshot content matches the adjacent tutorial step and does not show
+     contradictory framework, command, or deployment state.
+
+**Likely Files**: `public/images/react-*/*.webp`,
+`public/images/nodejs-*/*.webp`, `content/tutorials/react-*/index.en.mdx`,
+`content/tutorials/nodejs-*/index.en.mdx`,
+`.planning/phases/19-practice-evidence-and-screenshot-assets/*`
+**Validation Approach**: Run live `kubectl`/`curl`/browser checks as applicable,
+redaction review, image dimension and file-size checks, MDX reference checks,
+and `npm run validate-tutorials`.
+
+### Phase 20: Expanded Tutorial Validation and Release Check
+
+**Goal**: The nine-page tutorial catalog is internally consistent, validated,
+and ready for implementation closeout.
+**Depends on**: Phase 19
+**Rationale**: Adding six content pages and image sets expands the validation
+surface, so final checks must cover source metadata, links, screenshots,
+terminology, and TypeScript/content integration.
+**Deliverables**:
+
+  1. Expanded `scripts/validate-tutorials.mjs` coverage for all nine expected
+     tutorial slugs.
+  2. Targeted stale-reference and terminology search report.
+  3. Image reference and asset budget report.
+  4. Passing `npm run validate-tutorials`.
+  5. Passing TypeScript/content validation for touched files.
+  6. Final changed-file scope review.
+
+**Requirements**: VALID-01, VALID-02, VALID-03, VALID-04
+**Success Criteria**:
+
+  1. `npm run validate-tutorials` passes for the expanded tutorial set.
+  2. Targeted searches prove required Sealos Skills, Runtime Truth Pass,
+     `.sealos/`, DEPLOY/UPDATE, CTA, and internal link terms are intentional.
+  3. Image checks prove every new MDX image reference resolves to a local WebP
+     asset with expected dimensions and file size.
+  4. TypeScript/content validation passes for touched utilities and generated
+     source expectations.
+  5. Final diff review shows the work is scoped to tutorial content, tutorial
+     assets, tutorial metadata/utilities, validation scripts, and GSD artifacts.
+
+**Likely Files**: `scripts/validate-tutorials.mjs`,
+`content/tutorials/**/*.mdx`, `public/images/**/*.webp`,
+`lib/utils/tutorial-utils.ts`, `source.config.ts`
+**Validation Approach**: Run `npm run validate-tutorials`, `npm run lint`,
+targeted `rg`, image `sips`/file-size checks, and `git diff --check`.
 
 ## Requirement Coverage
 
 | Requirement | Phase |
 |-------------|-------|
-| SOURCE-01 | Phase 13 |
-| SOURCE-02 | Phase 13 |
-| SOURCE-03 | Phase 13 |
-| SOURCE-04 | Phase 13 |
-| INSTALL-01 | Phase 13 |
-| INSTALL-02 | Phase 13 |
-| INSTALL-03 | Phase 13 |
-| INSTALL-04 | Phase 13 |
-| INSTALL-05 | Phase 13 |
-| DEPLOY-01 | Phase 14 |
-| DEPLOY-02 | Phase 14 |
-| DEPLOY-03 | Phase 14 |
-| DEPLOY-04 | Phase 14 |
-| DEPLOY-05 | Phase 14 |
-| DEPLOY-06 | Phase 14 |
-| CONSIST-01 | Phase 15 |
-| CONSIST-02 | Phase 15 |
-| CONSIST-03 | Phase 15 |
-| CONSIST-04 | Phase 15 |
-| VERIFY-01 | Phase 15 |
-| VERIFY-02 | Phase 15 |
-| VERIFY-03 | Phase 15 |
-| VERIFY-04 | Phase 15 |
+| BASE-01 | Phase 16 |
+| BASE-02 | Phase 16 |
+| BASE-03 | Phase 16 |
+| REACT-01 | Phase 17 |
+| REACT-02 | Phase 17 |
+| REACT-03 | Phase 17 |
+| REACT-04 | Phase 17 |
+| NODE-01 | Phase 18 |
+| NODE-02 | Phase 18 |
+| NODE-03 | Phase 18 |
+| NODE-04 | Phase 18 |
+| SHOT-01 | Phase 19 |
+| SHOT-02 | Phase 19 |
+| SHOT-03 | Phase 19 |
+| SHOT-04 | Phase 19 |
+| VALID-01 | Phase 20 |
+| VALID-02 | Phase 20 |
+| VALID-03 | Phase 20 |
+| VALID-04 | Phase 20 |
 
-**Coverage**: 23/23 v1.1 requirements mapped.
+**Coverage**: 19/19 v1.2 requirements mapped.
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 13 -> 14 -> 15
+Phases execute in numeric order: 16 -> 17 -> 18 -> 19 -> 20
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 13. Upstream Install Contract Alignment | 5/5 | Complete   | 2026-06-16 |
-| 14. Deploy Workflow and Runtime Truth Alignment | 5/5 | Complete    | 2026-06-16 |
-| 15. Tutorial Metadata and Validation | 3/3 | Complete   | 2026-06-16 |
+| 16. Tutorial Template Baseline and Expansion Map | 0/2 | Planned | — |
+| 17. React Tutorial Series | 0/0 | Pending | — |
+| 18. Node.js Tutorial Series | 0/0 | Pending | — |
+| 19. Practice Evidence and Screenshot Assets | 0/0 | Pending | — |
+| 20. Expanded Tutorial Validation and Release Check | 0/0 | Pending | — |
+
+---
+*Roadmap created: 2026-06-29*
+*Last updated: 2026-06-29 after v1.2 milestone initialization*
