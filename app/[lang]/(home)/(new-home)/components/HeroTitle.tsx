@@ -8,8 +8,8 @@ export function HeroTitle({ isInView }: { isInView: boolean }) {
   return (
     <div>
       <h1 className="sr-only">
-        Sealos Cloud Platform: Deploy AI Agents, Dev Runtimes, Web Apps, and
-        Databases with Just a Prompt
+        Sealos Cloud Platform: Deploy full-stack apps from a repo, docker image,
+        template, or prompt.
       </h1>
 
       <div
@@ -18,16 +18,16 @@ export function HeroTitle({ isInView }: { isInView: boolean }) {
         role="presentation"
       >
         <span className="text-nowrap whitespace-nowrap">
-          Ship any
+          Deploy full-stack apps from <br /> a
           <FramedText className="mx-4">
             <RotatingWords
-              words={['AI Agent', 'Dev Runtime', 'Web App', 'Database']}
+              words={['repo', 'docker image', 'template']}
               interval={2000}
               isInView={isInView}
             />
           </FramedText>
         </span>
-        <span>with just a prompt.</span>
+        <span>or prompt.</span>
       </div>
 
       <p className="mt-5 text-center text-sm text-zinc-400 sm:text-base">

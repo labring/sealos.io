@@ -44,6 +44,7 @@ import {
   DemoStageShell,
   getElementScale,
   screenTransition,
+  shortenDemoSteps,
   useDemoPlayback,
   type CursorStep,
 } from './deploy-demo-common';
@@ -70,7 +71,7 @@ type CanvasStep = CursorStep & {
     | 'updateButton';
 };
 
-const canvasSteps: CanvasStep[] = [
+const canvasSteps: CanvasStep[] = shortenDemoSteps<CanvasStep>([
   { duration: 900, phase: 'idle', cursor: { x: 45, y: 38 } },
   {
     duration: 800,
@@ -127,14 +128,14 @@ const canvasSteps: CanvasStep[] = [
     cursor: { x: 52, y: 16 },
     holdCursor: true,
   },
-];
+]);
 
 type LiveCanvasStep = CursorStep & {
   phase: 'idle' | 'dragEntry' | 'dragOrders' | 'dragDatabase';
   clickTarget?: 'entryCard' | 'ordersCard' | 'databaseCard';
 };
 
-const liveCanvasSteps: LiveCanvasStep[] = [
+const liveCanvasSteps: LiveCanvasStep[] = shortenDemoSteps<LiveCanvasStep>([
   { duration: 900, phase: 'idle', cursor: { x: 35, y: 56 } },
   {
     duration: 1300,
@@ -155,7 +156,7 @@ const liveCanvasSteps: LiveCanvasStep[] = [
     clickTarget: 'databaseCard',
   },
   { duration: 1000, phase: 'idle', cursor: { x: 52, y: 16 } },
-];
+]);
 
 type Point = { x: number; y: number };
 type DBTableRow = Record<string, string | number>;
@@ -190,7 +191,7 @@ type DBStudioStep = CursorStep & {
     | 'sortDesc';
 };
 
-const dbStudioSteps: DBStudioStep[] = [
+const dbStudioSteps: DBStudioStep[] = shortenDemoSteps<DBStudioStep>([
   { duration: 700, phase: 'idle', cursor: { x: 11, y: 9 } },
   {
     duration: 620,
@@ -282,7 +283,7 @@ const dbStudioSteps: DBStudioStep[] = [
     cursor: { x: 38, y: 35 },
     holdCursor: true,
   },
-];
+]);
 
 const knowledgeColumns = [
   { key: 'docId', name: 'document_id', type: 'VARCHAR' },

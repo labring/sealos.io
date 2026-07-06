@@ -47,6 +47,7 @@ import {
   ModeSelectionScreen,
   SectionTitle,
   screenTransition,
+  shortenDemoSteps,
   useDemoPlayback,
   type CursorStep,
 } from './deploy-demo-common';
@@ -125,7 +126,7 @@ const templateOptions: SelectOption[] = [
   { label: 'N8N', icon: N8NIcon },
 ];
 
-const databaseSteps: DatabaseStep[] = [
+const databaseSteps: DatabaseStep[] = shortenDemoSteps<DatabaseStep>([
   { duration: 1200, screen: 'mode', cursor: { x: 50, y: 18 } },
   {
     duration: 900,
@@ -277,11 +278,11 @@ const databaseSteps: DatabaseStep[] = [
     cursor: { x: 65, y: 28 },
     holdCursor: true,
   },
-];
+]);
 const baseDatabaseSteps = databaseSteps.slice(0, 11);
 const extendedDatabaseSteps = databaseSteps.slice(2);
 
-const templateSteps: TemplateStep[] = [
+const templateSteps: TemplateStep[] = shortenDemoSteps<TemplateStep>([
   { duration: 1200, screen: 'mode', cursor: { x: 50, y: 18 } },
   {
     duration: 900,
@@ -354,7 +355,7 @@ const templateSteps: TemplateStep[] = [
     parameters: true,
     success: true,
   },
-];
+]);
 
 export const databaseDemoDurationMs = baseDatabaseSteps.reduce(
   (total, step) => total + step.duration,

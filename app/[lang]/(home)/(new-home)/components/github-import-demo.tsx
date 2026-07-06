@@ -27,6 +27,7 @@ import {
   SectionTitle,
   TypingCaret,
   screenTransition,
+  shortenDemoSteps,
   useDemoPlayback,
   type CursorStep,
 } from './deploy-demo-common';
@@ -48,7 +49,7 @@ const githubFinalValues: Record<GithubFieldId, string> = {
   secret: 'bG9naW46cGFzc3dvcmQ=',
 };
 
-const githubSteps: GithubStep[] = [
+const githubSteps: GithubStep[] = shortenDemoSteps<GithubStep>([
   { duration: 1200, screen: 'mode', cursor: { x: 44, y: 18 } },
   {
     duration: 900,
@@ -193,7 +194,7 @@ const githubSteps: GithubStep[] = [
     readyStage: 15,
     holdCursor: true,
   },
-];
+]);
 
 export const githubImportDemoDurationMs = githubSteps.reduce(
   (total, step) => total + step.duration,

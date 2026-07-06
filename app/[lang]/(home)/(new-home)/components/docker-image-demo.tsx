@@ -24,6 +24,7 @@ import {
   DemoStageShell,
   ModeSelectionScreen,
   screenTransition,
+  shortenDemoSteps,
   useDemoPlayback,
   type CursorStep,
 } from './deploy-demo-common';
@@ -56,7 +57,7 @@ const finalTypedValues: Record<FieldId, string> = {
   port: '80',
 };
 
-const demoSteps: DemoStep[] = [
+const demoSteps: DemoStep[] = shortenDemoSteps<DemoStep>([
   { duration: 1400, screen: 'mode', cursor: { x: 54, y: 18 } },
   {
     duration: 900,
@@ -144,7 +145,7 @@ const demoSteps: DemoStep[] = [
     expandedRuntime: true,
     success: true,
   },
-];
+]);
 
 export const dockerImageDemoDurationMs = demoSteps.reduce(
   (total, step) => total + step.duration,

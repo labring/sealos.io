@@ -21,7 +21,6 @@ import { StarBorder } from '@/components/ui/star-border';
 import { useGTM } from '@/hooks/use-gtm';
 import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { getOpenBrainParam } from '@/lib/utils/brain';
-import { cn } from '@/lib/utils';
 import { GradientText } from '@/new-components/GradientText';
 import { SideRays } from '@/new-components/SideRays';
 
@@ -55,13 +54,11 @@ type DemoItem = {
   Demo: DemoComponent;
   durationMs: number;
 };
-type HeroProofPhase = 'guarantees' | 'adoption' | 'rating' | 'done';
 
 const panelTransition: Transition = {
   duration: 0.18,
   ease: 'easeOut',
 };
-const stickyTopOffset = 104;
 
 const demos = [
   {
@@ -164,9 +161,9 @@ function HeroGetStartedButton() {
 
 function HeroDemoSwitcher() {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const activeIndexRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(1);
-  const [proofPhase, setProofPhase] = useState<HeroProofPhase>('guarantees');
   const [progress, setProgress] = useState(0);
   const activeDemo = demos[activeIndex] ?? demos[0];
   const Demo = activeDemo.Demo;
@@ -178,22 +175,9 @@ function HeroDemoSwitcher() {
     let frameId = 0;
 
     const tick = (now: number) => {
-      const nextProgress = Math.min(
-        1,
-        (now - startedAt) / activeDemo.durationMs,
+      setProgress(
+        ((now - startedAt) % activeDemo.durationMs) / activeDemo.durationMs,
       );
-
-      setProgress(nextProgress);
-
-      if (nextProgress >= 1) {
-        setActiveIndex((currentIndex) => {
-          const nextIndex = (currentIndex + 1) % demos.length;
-          setDirection(nextIndex > currentIndex ? 1 : -1);
-          return nextIndex;
-        });
-        return;
-      }
-
       frameId = window.requestAnimationFrame(tick);
     };
 
@@ -205,7 +189,7 @@ function HeroDemoSwitcher() {
   useEffect(() => {
     let frame = 0;
 
-    const updateProofPhase = () => {
+    const updateActiveDemo = () => {
       if (frame) return;
 
       frame = window.requestAnimationFrame(() => {
@@ -214,95 +198,113 @@ function HeroDemoSwitcher() {
 
         if (!scroller) return;
 
+        const sectionTop =
+          window.scrollY + scroller.getBoundingClientRect().top;
+        const scrolledDistance = Math.max(0, window.scrollY - sectionTop);
         const viewportHeight = window.innerHeight;
-        const start = Math.max(0, scroller.offsetTop - stickyTopOffset);
-        const nextPhase = getHeroProofPhase(
-          window.scrollY,
-          start,
-          viewportHeight,
+        const nextIndex = Math.min(
+          demos.length - 1,
+          Math.floor(scrolledDistance / viewportHeight),
         );
 
-        setProofPhase((currentPhase) =>
-          currentPhase === nextPhase ? currentPhase : nextPhase,
-        );
+        if (activeIndexRef.current === nextIndex) return;
+
+        setDirection(nextIndex > activeIndexRef.current ? 1 : -1);
+        activeIndexRef.current = nextIndex;
+        setActiveIndex(nextIndex);
       });
     };
 
-    updateProofPhase();
-    window.addEventListener('scroll', updateProofPhase, { passive: true });
-    window.addEventListener('resize', updateProofPhase);
+    updateActiveDemo();
+    window.addEventListener('scroll', updateActiveDemo, { passive: true });
+    window.addEventListener('resize', updateActiveDemo);
 
     return () => {
       if (frame) {
         window.cancelAnimationFrame(frame);
       }
-      window.removeEventListener('scroll', updateProofPhase);
-      window.removeEventListener('resize', updateProofPhase);
+      window.removeEventListener('scroll', updateActiveDemo);
+      window.removeEventListener('resize', updateActiveDemo);
     };
   }, []);
 
   const selectDemo = (nextIndex: number) => {
     if (nextIndex === activeIndex) return;
 
-    setDirection(nextIndex > activeIndex ? 1 : -1);
+    const scroller = scrollerRef.current;
+
+    setDirection(nextIndex > activeIndexRef.current ? 1 : -1);
+    activeIndexRef.current = nextIndex;
     setActiveIndex(nextIndex);
+
+    if (!scroller) return;
+
+    const sectionTop = window.scrollY + scroller.getBoundingClientRect().top;
+    window.scrollTo({
+      top: sectionTop + window.innerHeight * (nextIndex + 0.05),
+      behavior: 'auto',
+    });
   };
 
   return (
-    <div
-      ref={scrollerRef}
-      className="relative mt-12 w-full"
-      data-hero-demo-scroller
-    >
+    <>
       <div
-        className="sticky z-10"
-        data-hero-demo-sticky
-        style={{ top: stickyTopOffset }}
+        ref={scrollerRef}
+        className="relative mt-12 w-full sm:h-[400vh]"
+        data-hero-demo-scroller
       >
-        <HeroMobileDemoCards />
+        <div
+          className="z-10 sm:sticky"
+          data-hero-demo-sticky
+          style={{ top: 'max(4.5rem, calc(50vh - 28rem))' }}
+        >
+          <HeroMobileDemoCards />
 
-        <div className="hidden flex-wrap justify-center gap-2.5 sm:flex">
-          {demos.map((demo, index) => (
-            <HeroDemoButton
-              key={demo.id}
-              active={index === activeIndex}
-              demo={demo}
-              progress={index === activeIndex ? progress : 0}
-              onClick={() => selectDemo(index)}
-            />
-          ))}
-        </div>
-
-        <div className="relative isolate mt-6 hidden aspect-[1312/812] w-full overflow-visible [contain:layout] sm:block">
           <div
-            className="pointer-events-none absolute top-full left-1/2 z-0 aspect-[2/1] w-[150%] -translate-x-1/2 -translate-y-1/2 md:w-[125%]"
-            style={{
-              background:
-                'radial-gradient(50% 50% at 50% 50%, rgba(29, 78, 216, 0.5) 19.35%, rgba(10, 10, 10, 0) 100%)',
-            }}
-            data-hero-demo-glow
-            aria-hidden="true"
-          />
-          <AnimatePresence custom={direction} initial={false}>
-            <motion.div
-              key={activeDemo.id}
-              custom={direction}
-              className="absolute inset-0 z-10"
-              initial={getPanelMotion(direction, 'enter')}
-              animate={getPanelMotion(direction, 'center')}
-              exit={getPanelMotion(direction, 'exit')}
-              transition={panelTransition}
-            >
-              <ScaledDemoCanvas>
-                <Demo active />
-              </ScaledDemoCanvas>
-            </motion.div>
-          </AnimatePresence>
+            className="hidden flex-wrap justify-center gap-2.5 sm:flex"
+            data-hero-demo-tabs
+          >
+            {demos.map((demo, index) => (
+              <HeroDemoButton
+                key={demo.id}
+                active={index === activeIndex}
+                demo={demo}
+                progress={index === activeIndex ? progress : 0}
+                onClick={() => selectDemo(index)}
+              />
+            ))}
+          </div>
+
+          <div className="relative isolate mt-6 hidden aspect-[1312/812] w-full overflow-visible [contain:layout] sm:block">
+            <div
+              className="pointer-events-none absolute top-full left-1/2 z-0 aspect-[2/1] w-[150%] -translate-x-1/2 -translate-y-1/2 md:w-[125%]"
+              style={{
+                background:
+                  'radial-gradient(50% 50% at 50% 50%, rgba(29, 78, 216, 0.5) 19.35%, rgba(10, 10, 10, 0) 100%)',
+              }}
+              data-hero-demo-glow
+              aria-hidden="true"
+            />
+            <AnimatePresence custom={direction} initial={false}>
+              <motion.div
+                key={activeDemo.id}
+                custom={direction}
+                className="absolute inset-0 z-10"
+                initial={getPanelMotion(direction, 'enter')}
+                animate={getPanelMotion(direction, 'center')}
+                exit={getPanelMotion(direction, 'exit')}
+                transition={panelTransition}
+              >
+                <ScaledDemoCanvas>
+                  <Demo active />
+                </ScaledDemoCanvas>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
-        <HeroProofStack phase={proofPhase} />
       </div>
-      <div className="h-[225vh] min-h-[1152px]" aria-hidden="true" />
-    </div>
+      <HeroProofStack />
+    </>
   );
 }
 
@@ -318,6 +320,9 @@ function HeroDemoButton({
   onClick: () => void;
 }) {
   const Icon = demo.Icon;
+  const progressPercent = Math.max(0, Math.min(100, progress * 100));
+  const progressFadeEnd =
+    progressPercent === 0 ? '0%' : `calc(${progressPercent}% + 32px)`;
 
   return (
     <button
@@ -327,8 +332,10 @@ function HeroDemoButton({
       onClick={onClick}
     >
       <span
-        className="absolute inset-y-0 left-0 w-full origin-left bg-gradient-to-r from-white/15 to-white/0"
-        style={{ transform: `scaleX(${progress})` }}
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(to right, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.15) ${progressPercent}%, rgba(255,255,255,0) ${progressFadeEnd})`,
+        }}
         aria-hidden="true"
       />
       <span className="relative z-10 flex items-center gap-2 whitespace-nowrap">
@@ -363,53 +370,16 @@ function HeroMobileDemoCards() {
   );
 }
 
-function HeroProofStack({ phase }: { phase: HeroProofPhase }) {
-  const proofTransition =
-    'transition duration-500 ease-out motion-reduce:transition-none';
-
+function HeroProofStack() {
   return (
-    <div
-      className="relative mt-10 min-h-52 overflow-x-clip [contain:layout]"
-      data-hero-proof-stack
-    >
-      <div
-        className={cn(
-          proofTransition,
-          'absolute inset-0 flex items-center justify-center will-change-[filter,opacity,transform]',
-          phase === 'guarantees'
-            ? 'blur-0 translate-y-0 opacity-100'
-            : 'pointer-events-none -translate-y-8 opacity-0 blur-[12px]',
-        )}
-        aria-hidden={phase !== 'guarantees'}
-      >
+    <div className="mt-10 flex flex-col gap-12 overflow-x-clip sm:mt-24">
+      <div>
         <HeroGuarantees />
       </div>
-      <div
-        className={cn(
-          proofTransition,
-          'absolute inset-0 flex items-center justify-center will-change-[filter,opacity,transform]',
-          phase === 'adoption'
-            ? 'blur-0 translate-y-0 opacity-100'
-            : phase === 'rating' || phase === 'done'
-              ? 'pointer-events-none -translate-y-8 opacity-0 blur-[12px]'
-              : 'pointer-events-none translate-y-8 opacity-0 blur-[12px]',
-        )}
-        aria-hidden={phase !== 'adoption'}
-      >
+      <div>
         <HeroAdoptionStrip />
       </div>
-      <div
-        className={cn(
-          proofTransition,
-          'absolute inset-0 flex items-center justify-center will-change-[filter,opacity,transform]',
-          phase === 'rating'
-            ? 'blur-0 translate-y-0 opacity-100'
-            : phase === 'done'
-              ? 'pointer-events-none -translate-y-8 opacity-0 blur-[12px]'
-              : 'pointer-events-none translate-y-8 opacity-0 blur-[12px]',
-        )}
-        aria-hidden={phase !== 'rating'}
-      >
+      <div>
         <HeroRating />
       </div>
     </div>
@@ -438,30 +408,4 @@ function ScaledDemoCanvas({ children }: { children: ReactNode }) {
       </div>
     </div>
   );
-}
-
-function getHeroProofPhase(
-  scrollY: number,
-  start: number,
-  viewportHeight: number,
-): HeroProofPhase {
-  const stepDistance = getScrollStepDistance(viewportHeight);
-
-  if (scrollY >= start + stepDistance * 3) {
-    return 'done';
-  }
-
-  if (scrollY >= start + stepDistance * 2) {
-    return 'rating';
-  }
-
-  if (scrollY >= start + stepDistance) {
-    return 'adoption';
-  }
-
-  return 'guarantees';
-}
-
-function getScrollStepDistance(viewportHeight: number) {
-  return Math.max(viewportHeight * 0.75, 384);
 }

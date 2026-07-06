@@ -37,13 +37,32 @@ export type CursorStep = {
   holdCursor?: boolean;
 };
 
-export const CURSOR_SETTLE_MS = 560;
-export const HOVER_SETTLE_MS = CURSOR_SETTLE_MS + 120;
-export const SELECT_SETTLE_MS = HOVER_SETTLE_MS + 500;
+const DEMO_STEP_DURATION_SCALE = 0.42;
+
+export const CURSOR_SETTLE_MS = 240;
+export const HOVER_SETTLE_MS = CURSOR_SETTLE_MS + 80;
+export const SELECT_SETTLE_MS = HOVER_SETTLE_MS + 140;
 
 export const screenTransition = {
-  duration: 0.42,
+  duration: 0.24,
   ease: [0.22, 1, 0.36, 1],
+} as const;
+
+export function shortenDemoSteps<TStep extends CursorStep>(
+  steps: TStep[],
+): TStep[] {
+  return steps.map((step) => ({
+    ...step,
+    duration: Math.max(
+      80,
+      Math.round(step.duration * DEMO_STEP_DURATION_SCALE),
+    ),
+  }));
+}
+
+const inertDemoProps = {
+  'aria-hidden': true,
+  inert: '' as unknown as boolean,
 } as const;
 
 export function getElementScale(element: HTMLElement) {
@@ -250,6 +269,7 @@ export function DemoStageShell({
 }) {
   return (
     <div
+      {...inertDemoProps}
       {...{ [dataAttribute]: true }}
       className={cn(
         'relative container mx-auto aspect-[1312/812] overflow-hidden rounded-[18px] bg-[#080a11] p-0 shadow-[0_30px_90px_rgba(0,0,0,0.45)]',
@@ -782,7 +802,7 @@ function Cursor({
         x: position ? position.x : `${step.cursor.x}%`,
         y: position ? position.y : `${step.cursor.y}%`,
       }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
     >
       <motion.div animate={{ opacity: step.clickTarget ? 0.75 : 1 }}>
         <svg

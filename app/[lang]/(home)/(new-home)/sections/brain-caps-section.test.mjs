@@ -9,6 +9,18 @@ const sectionSource = readFileSync(
   join(sectionDir, 'brain-caps-section.tsx'),
   'utf8',
 );
+const repoDemoImagePath = join(
+  sectionDir,
+  '..',
+  '..',
+  '..',
+  '..',
+  '..',
+  'public',
+  'images',
+  'home',
+  'sealos-github-repo-demo.png',
+);
 const componentsDir = join(sectionDir, '..', 'components');
 const brainCapsDemosSource = readFileSync(
   join(componentsDir, 'brain-caps-demos.tsx'),
@@ -93,7 +105,8 @@ test('BrainCapsSection uses scroll-driven accordion only in sticky layout', () =
   assert.match(sectionSource, /text-lg leading-7 font-semibold text-zinc-100/);
   assert.match(sectionSource, /text-base leading-6 font-normal text-zinc-500/);
   assert.match(sectionSource, /AccordionItem/);
-  assert.match(sectionSource, /DemoPlaceholder/);
+  assert.match(sectionSource, /SourceCoreDemo/);
+  assert.doesNotMatch(sectionSource, /DemoPlaceholder/);
   assert.match(sectionSource, /<AnimatePresence/);
   assert.match(sectionSource, /motion\.div/);
   assert.doesNotMatch(sectionSource, /mode="wait"/);
@@ -180,7 +193,11 @@ test('BrainCapsSection hides the right demo panel on tablet and mobile', () => {
 test('BrainCapsSection maps real demos to the requested caps', () => {
   assert.match(
     sectionSource,
-    /import \{[\s\S]*DeployCanvasDemo[\s\S]*DBStudioDemo[\s\S]*DBDeployDemo[\s\S]*\} from '\.\.\/components\/brain-caps-demos';/,
+    /import \{[\s\S]*DeployCanvasDemo[\s\S]*DBStudioDemo[\s\S]*DBDeployDemo[\s\S]*LiveObjectCanvasDemo[\s\S]*\} from '\.\.\/components\/brain-caps-demos';/,
+  );
+  assert.match(
+    sectionSource,
+    /title: 'Live Object Canvas'[\s\S]*demo: LiveObjectCanvasDemo/,
   );
   assert.match(
     sectionSource,
@@ -194,6 +211,12 @@ test('BrainCapsSection maps real demos to the requested caps', () => {
     sectionSource,
     /title: 'One-Click High Availability'[\s\S]*demo: DBDeployDemo/,
   );
+  assert.match(
+    sectionSource,
+    /title: 'Source - Available Core'[\s\S]*demo: SourceCoreDemo/,
+  );
+  assert.match(sectionSource, /sealos-github-repo-demo\.png/);
+  assert.equal(existsSync(repoDemoImagePath), true);
 });
 
 test('BrainCapsSection scales real demos without clipping right overflow', () => {

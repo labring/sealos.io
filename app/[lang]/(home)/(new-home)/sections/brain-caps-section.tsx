@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import {
   useEffect,
   useRef,
@@ -30,8 +31,7 @@ type BrainCap = {
   description: string;
   codeLabel: string;
   codeLines: string[];
-  demoTitle: string;
-  demo?: ComponentType;
+  demo: ComponentType;
 };
 
 const brainCaps: BrainCap[] = [
@@ -42,7 +42,7 @@ const brainCaps: BrainCap[] = [
       'Every container, DB and ingress is a node on a 2D canvas. Pan, zoom, draw an edge to wire things up. Live CPU/Memory/Disk on every card.',
     codeLabel: '# resource meters update in real time',
     codeLines: ['orders-api', '47% CPU · 612Mi'],
-    demoTitle: 'Canvas demo placeholder',
+    demo: LiveObjectCanvasDemo,
   },
   {
     icon: Clock3,
@@ -53,7 +53,6 @@ const brainCaps: BrainCap[] = [
     codeLines: [
       'DATABASE_URL=postgres://orders:••••@pg-ha.internal:5432/orders',
     ],
-    demoTitle: 'Env injection demo placeholder',
     demo: DeployCanvasDemo,
   },
   {
@@ -63,7 +62,6 @@ const brainCaps: BrainCap[] = [
       'Click any database to open a full studio — schema tree, rows/schema/indexes tabs, backup scheduler. Most platforms stop at provisioning.',
     codeLabel: '// browse, schedule backups, run queries — all in-product',
     codeLines: ["SELECT * FROM orders WHERE status = 'paid';"],
-    demoTitle: 'DB Studio demo placeholder',
     demo: DBStudioDemo,
   },
   {
@@ -77,7 +75,6 @@ const brainCaps: BrainCap[] = [
       '# click → 3 (HA)',
       'replicas: 3 · failover: automatic',
     ],
-    demoTitle: 'HA demo placeholder',
     demo: DBDeployDemo,
   },
   {
@@ -87,7 +84,7 @@ const brainCaps: BrainCap[] = [
       'Audit the code, fork it, self-host it. labring/sealos on GitHub — 16K+ stars, Apache-2.0. No vendor lock-in.',
     codeLabel: '$ git clone https://github.com/labring/sealos',
     codeLines: ['# yes, the actual platform'],
-    demoTitle: 'Source demo placeholder',
+    demo: SourceCoreDemo,
   },
 ];
 
@@ -297,15 +294,11 @@ function AccordionItem({
 function BrainCapDemo({ cap }: { cap: BrainCap }) {
   const Demo = cap.demo;
 
-  if (Demo) {
-    return (
-      <ScaledBrainCapDemo>
-        <Demo />
-      </ScaledBrainCapDemo>
-    );
-  }
-
-  return <DemoPlaceholder cap={cap} />;
+  return (
+    <ScaledBrainCapDemo>
+      <Demo />
+    </ScaledBrainCapDemo>
+  );
 }
 
 function ScaledBrainCapDemo({ children }: { children: ReactNode }) {
@@ -318,40 +311,16 @@ function ScaledBrainCapDemo({ children }: { children: ReactNode }) {
   );
 }
 
-function DemoPlaceholder({ cap }: { cap: BrainCap }) {
-  const Icon = cap.icon;
-
-  if (cap.title === 'Live Object Canvas') {
-    return (
-      <ScaledBrainCapDemo>
-        <LiveObjectCanvasDemo />
-      </ScaledBrainCapDemo>
-    );
-  }
-
+function SourceCoreDemo() {
   return (
-    <div className="relative flex h-full overflow-hidden rounded-[28px] border border-white/20 bg-[#0b0e15] shadow-[0_28px_90px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.06)_inset]">
-      <div
-        className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:42px_42px]"
-        aria-hidden="true"
+    <div className="relative size-full overflow-hidden rounded-[18px] border border-white/10 bg-[#080a11] shadow-[0_30px_90px_rgba(0,0,0,0.45)]">
+      <Image
+        src="/images/home/sealos-github-repo-demo.png"
+        alt="GitHub repository page for the Sealos source-available core"
+        fill
+        sizes="(min-width: 1024px) 984px, 100vw"
+        className="object-cover"
       />
-      <div className="relative flex flex-1 flex-col p-8">
-        <div className="flex items-center gap-3 text-xs font-medium tracking-[0.16em] text-zinc-500 uppercase">
-          <Icon className="size-4 text-blue-400" aria-hidden="true" />
-          <span>{cap.demoTitle}</span>
-        </div>
-        <div className="mt-8 flex flex-1 items-center justify-center rounded-2xl border border-dashed border-white/15 bg-white/[0.035]">
-          <div className="text-center">
-            <div className="mx-auto flex size-16 items-center justify-center rounded-2xl bg-blue-500/10">
-              <Icon className="size-8 text-blue-400" aria-hidden="true" />
-            </div>
-            <p className="mt-5 text-lg font-medium text-zinc-200">
-              {cap.title}
-            </p>
-            <p className="mt-2 text-sm text-zinc-500">Demo placeholder</p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
