@@ -102,8 +102,10 @@ function HeroProofScroller() {
           return;
         }
 
+        const viewportHeight = window.innerHeight;
+        const scrollerBottom = scroller.getBoundingClientRect().bottom;
         const nextTopOffset = getHeroProofTopOffset(
-          window.innerHeight,
+          viewportHeight,
           stickyContentRef.current?.getBoundingClientRect().height ?? 0,
           window.matchMedia('(min-width: 1024px)').matches,
         );
@@ -111,12 +113,11 @@ function HeroProofScroller() {
         const nextPhase = getHeroProofPhase(
           window.scrollY,
           start,
-          window.innerHeight,
+          viewportHeight,
         );
         const nextGlowProgress = getHeroGlowProgress(
-          window.scrollY,
-          start,
-          window.innerHeight,
+          scrollerBottom,
+          viewportHeight,
         );
 
         setPhase((currentPhase) =>
@@ -161,11 +162,11 @@ function HeroProofScroller() {
       >
         <div
           className="sticky top-0 h-screen"
-          style={{ opacity: 0.3 + 0.7 * (1 - glowProgress) }}
+          style={{ opacity: 1 - glowProgress }}
         >
-          <div className="absolute bottom-0 left-1/2 h-[25vh] w-screen -translate-x-1/2 overflow-hidden">
+          <div className="absolute bottom-0 left-1/2 h-[25vh] w-[150vw] lg:w-[125vw] -translate-x-1/2 overflow-hidden">
             <div
-              className="absolute top-0 left-1/2 h-screen w-screen -translate-x-1/2"
+              className="absolute top-0 left-1/2 h-screen w-[150vw] lg:w-[125vw] -translate-x-1/2"
               style={{
                 background:
                   'radial-gradient(50% 50% at 50% 50%, #1D4ED8 19.35%, rgba(10, 10, 10, 0) 100%)',
@@ -261,14 +262,16 @@ function getHeroProofPhase(
 }
 
 function getHeroGlowProgress(
-  scrollY: number,
-  start: number,
+  sectionBottom: number,
   viewportHeight: number,
 ): number {
-  const stepDistance = getScrollStepDistance(viewportHeight);
-  const offset = Math.max(0, scrollY - (start + stepDistance * 3));
+  const fadeDistance = Math.max(viewportHeight * 0.35, 240);
 
-  return clamp(offset / stepDistance, 0, 1);
+  return clamp(
+    (viewportHeight + fadeDistance - sectionBottom) / fadeDistance,
+    0,
+    1,
+  );
 }
 
 function clamp(value: number, min: number, max: number) {
