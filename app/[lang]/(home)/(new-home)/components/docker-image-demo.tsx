@@ -146,6 +146,11 @@ const demoSteps: DemoStep[] = [
   },
 ];
 
+export const dockerImageDemoDurationMs = demoSteps.reduce(
+  (total, step) => total + step.duration,
+  0,
+);
+
 export function DockerImageDemo({ active = true }: { active?: boolean }) {
   const {
     actionProgress,

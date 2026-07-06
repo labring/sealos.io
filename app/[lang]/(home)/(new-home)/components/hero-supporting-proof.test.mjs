@@ -30,6 +30,7 @@ test('hero adoption strip stays inside the page container with edge fade', () =>
   assert.match(source, /w-full space-y-9/);
   assert.doesNotMatch(source, /px-4 xl:px-14\.25 2xl:px-15/);
   assert.match(source, /overflow-hidden/);
+  assert.match(source, /style=\{\{ contain: 'paint' \}\}/);
   assert.match(cssSource, /-webkit-mask-image: linear-gradient/);
   assert.match(cssSource, /mask-image: linear-gradient/);
   assert.match(

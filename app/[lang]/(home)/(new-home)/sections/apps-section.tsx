@@ -18,7 +18,7 @@ const logoRows = getAppsSectionLogoRows(appsConfig);
 
 export function AppsSection() {
   return (
-    <section className="container mx-auto pt-16 pb-24 text-white lg:pt-20 lg:pb-28">
+    <section className="container mx-auto overflow-x-clip pt-16 pb-24 text-white lg:pt-20 lg:pb-28">
       <div className="flex flex-col gap-20">
         <div className="relative flex min-h-[300px] items-end">
           <AppLogoCloud rows={logoRows} />
@@ -62,7 +62,7 @@ function SectionHeading() {
 function AppLogoCloud({ rows }: { rows: AppsSectionLogoItem[][] }) {
   return (
     <div
-      className="pointer-events-none absolute inset-x-1/2 top-0 w-[1312px] -translate-x-1/2"
+      className="pointer-events-none absolute inset-x-1/2 top-0 w-screen max-w-[1312px] -translate-x-1/2"
       aria-hidden="true"
     >
       <div className="opacity-55">

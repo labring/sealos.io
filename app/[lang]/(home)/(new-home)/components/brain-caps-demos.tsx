@@ -129,6 +129,34 @@ const canvasSteps: CanvasStep[] = [
   },
 ];
 
+type LiveCanvasStep = CursorStep & {
+  phase: 'idle' | 'dragEntry' | 'dragOrders' | 'dragDatabase';
+  clickTarget?: 'entryCard' | 'ordersCard' | 'databaseCard';
+};
+
+const liveCanvasSteps: LiveCanvasStep[] = [
+  { duration: 900, phase: 'idle', cursor: { x: 35, y: 56 } },
+  {
+    duration: 1300,
+    phase: 'dragEntry',
+    cursor: { x: 32, y: 49 },
+    clickTarget: 'entryCard',
+  },
+  {
+    duration: 1300,
+    phase: 'dragOrders',
+    cursor: { x: 50, y: 28 },
+    clickTarget: 'ordersCard',
+  },
+  {
+    duration: 1300,
+    phase: 'dragDatabase',
+    cursor: { x: 70, y: 52 },
+    clickTarget: 'databaseCard',
+  },
+  { duration: 1000, phase: 'idle', cursor: { x: 52, y: 16 } },
+];
+
 type Point = { x: number; y: number };
 type DBTableRow = Record<string, string | number>;
 
@@ -857,13 +885,12 @@ export function DeployCanvasDemo() {
   const ordersLeftRef = useRef<HTMLSpanElement>(null);
   const ordersRightRef = useRef<HTMLSpanElement>(null);
   const webLeftRef = useRef<HTMLSpanElement>(null);
-  const points = useHandlePoints(
-    canvasRef,
+  const points = useHandlePoints(canvasRef, [
     entryRightRef,
     ordersLeftRef,
     ordersRightRef,
     webLeftRef,
-  );
+  ]);
   const dragEnd =
     phase === 'dragLink' && cursorPosition
       ? getCanvasCursorPoint(canvasRef, stageRef, cursorPosition)
@@ -943,9 +970,106 @@ export function DeployCanvasDemo() {
   );
 }
 
+export function LiveObjectCanvasDemo() {
+  const {
+    cursorPosition,
+    effectiveIndex,
+    elapsedMs,
+    reduceMotion,
+    stageRef,
+    step,
+  } = useDemoPlayback({
+    getTargetId: (step) => step.clickTarget,
+    steps: liveCanvasSteps,
+  });
+  const dragStarted = elapsedMs >= 560;
+  const entryMoved =
+    reduceMotion ||
+    effectiveIndex > 1 ||
+    (step.phase === 'dragEntry' && dragStarted);
+  const ordersMoved =
+    reduceMotion ||
+    effectiveIndex > 2 ||
+    (step.phase === 'dragOrders' && dragStarted);
+  const databaseMoved =
+    reduceMotion ||
+    effectiveIndex > 3 ||
+    (step.phase === 'dragDatabase' && dragStarted);
+
+  const canvasRef = useRef<HTMLDivElement>(null);
+  const entryRightRef = useRef<HTMLSpanElement>(null);
+  const ordersLeftRef = useRef<HTMLSpanElement>(null);
+  const ordersRightRef = useRef<HTMLSpanElement>(null);
+  const webLeftRef = useRef<HTMLSpanElement>(null);
+  const points = useHandlePoints(
+    canvasRef,
+    [entryRightRef, ordersLeftRef, ordersRightRef, webLeftRef],
+    `${entryMoved}-${ordersMoved}-${databaseMoved}`,
+  );
+
+  return (
+    <DemoStageShell
+      activeSidebar="github"
+      childrenMode="canvas"
+      cursorPosition={cursorPosition}
+      dataAttribute="data-github-import-demo"
+      hideProjects
+      reduceMotion={reduceMotion}
+      shellChrome="thin"
+      stageRef={stageRef}
+      step={step}
+    >
+      <div ref={canvasRef} className="relative h-full overflow-hidden">
+        <ConnectionSvg
+          entryEnd={points[1]}
+          entryStart={points[0]}
+          linkEnd={points[3]}
+          linkProgress={1}
+          linkStart={points[2]}
+        />
+
+        <AccessDomainCard
+          className={cn(
+            'transition-all duration-700 ease-out',
+            entryMoved
+              ? 'top-[346px] left-[236px]'
+              : 'top-[390px] left-[180px]',
+          )}
+          rightHandleRef={entryRightRef}
+          target="entryCard"
+        />
+        <OrdersCard
+          className={cn(
+            'transition-all duration-700 ease-out',
+            ordersMoved
+              ? 'top-[158px] left-[462px]'
+              : 'top-[202px] left-[410px]',
+          )}
+          leftHandleRef={ordersLeftRef}
+          rightActive
+          rightHandleRef={ordersRightRef}
+          target="ordersCard"
+        />
+        <DatabaseCard
+          className={cn(
+            'transition-all duration-700 ease-out',
+            databaseMoved
+              ? 'top-[346px] left-[624px]'
+              : 'top-[390px] left-[670px]',
+          )}
+          leftActive
+          leftHandleRef={webLeftRef}
+          target="databaseCard"
+        />
+      </div>
+    </DemoStageShell>
+  );
+}
+
 function useHandlePoints(
   canvasRef: RefObject<HTMLDivElement>,
-  ...refs: RefObject<HTMLElement>[]
+  refs: RefObject<HTMLElement>[],
+  dependency?: unknown,
 ) {
   const [points, setPoints] = useState<Point[]>([]);
 
@@ -985,7 +1109,7 @@ function useHandlePoints(
       timeouts.forEach(window.clearTimeout);
       window.removeEventListener('resize', measure);
     };
-  }, [canvasRef, ...refs]);
+  }, [canvasRef, dependency, ...refs]);
 
   return points.length ? points : refs.map(() => ({ x: 0, y: 0 }));
 }
@@ -1095,12 +1219,15 @@ function ConnectionPath({
 function AccessDomainCard({
   className,
   rightHandleRef,
+  target,
 }: {
   className: string;
   rightHandleRef: RefObject<HTMLSpanElement>;
+  target?: string;
 }) {
   return (
     <div
+      data-demo-target={target}
       className={cn(
         'absolute z-10 w-[182px] overflow-visible rounded-[6px] border border-white/10 bg-white/[0.05] shadow-2xl shadow-black/30 backdrop-blur-xl',
         className,
@@ -1131,14 +1258,17 @@ function OrdersCard({
   leftHandleRef,
   rightActive,
   rightHandleRef,
+  target,
 }: {
   className: string;
   leftHandleRef: RefObject<HTMLSpanElement>;
   rightActive: boolean;
   rightHandleRef: RefObject<HTMLSpanElement>;
+  target?: string;
 }) {
   return (
     <div
+      data-demo-target={target}
       className={cn(
         'absolute z-10 w-[216px] overflow-visible rounded-[8px] border border-blue-400/60 bg-[#0f141f] shadow-[0_0_0_3px_rgba(59,130,246,0.16),0_24px_70px_rgba(0,0,0,0.38)]',
         className,
@@ -1184,13 +1314,16 @@ function DatabaseCard({
   className,
   leftActive,
   leftHandleRef,
+  target,
 }: {
   className: string;
   leftActive: boolean;
   leftHandleRef: RefObject<HTMLSpanElement>;
+  target?: string;
 }) {
   return (
     <div
+      data-demo-target={target}
       className={cn(
         'absolute z-10 w-[182px] overflow-visible rounded-[6px] border border-white/10 bg-white/[0.05] shadow-2xl shadow-black/30 backdrop-blur-xl',
         className,

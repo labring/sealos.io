@@ -2,6 +2,7 @@ import { CircleCheckBigIcon, StarIcon } from 'lucide-react';
 import Image from 'next/image';
 
 import { GradientText } from '@/new-components/GradientText';
+
 import styles from './hero-supporting-proof.module.css';
 
 const guarantees = [
@@ -52,7 +53,10 @@ export function HeroAdoptionStrip() {
         </GradientText>{' '}
         developers and teams shipping on Sealos
       </p>
-      <div className={`${styles.marqueeShell} h-11 overflow-hidden rounded-xl`}>
+      <div
+        className={`${styles.marqueeShell} h-11 overflow-hidden rounded-xl`}
+        style={{ contain: 'paint' }}
+      >
         <div className={`${styles.marqueeTrack} flex h-full items-center`}>
           {marqueeItems.map((name, index) => (
             <div
@@ -96,7 +100,7 @@ export function HeroRating() {
         stopped over-provisioning."
       </blockquote>
       <figcaption className="text-base text-zinc-500">
-        — CTO, FastGPT
+        - CTO, FastGPT
       </figcaption>
     </figure>
   );

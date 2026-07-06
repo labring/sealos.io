@@ -356,6 +356,15 @@ const templateSteps: TemplateStep[] = [
   },
 ];
 
+export const databaseDemoDurationMs = baseDatabaseSteps.reduce(
+  (total, step) => total + step.duration,
+  0,
+);
+export const templateDemoDurationMs = templateSteps.reduce(
+  (total, step) => total + step.duration,
+  0,
+);
+
 export function DatabaseDemo({
   active = true,
   extended = false,

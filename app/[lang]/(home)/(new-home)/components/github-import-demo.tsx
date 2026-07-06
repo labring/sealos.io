@@ -195,6 +195,11 @@ const githubSteps: GithubStep[] = [
   },
 ];
 
+export const githubImportDemoDurationMs = githubSteps.reduce(
+  (total, step) => total + step.duration,
+  0,
+);
+
 export function GitHubImportDemo({ active = true }: { active?: boolean }) {
   const {
     actionProgress,

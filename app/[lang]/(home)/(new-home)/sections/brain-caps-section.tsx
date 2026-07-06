@@ -21,6 +21,7 @@ import {
   DeployCanvasDemo,
   DBStudioDemo,
   DBDeployDemo,
+  LiveObjectCanvasDemo,
 } from '../components/brain-caps-demos';
 
 type BrainCap = {
@@ -145,55 +146,57 @@ export function BrainCapsSection() {
   };
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-visible text-white lg:h-[475vh] lg:min-h-[calc(100vh+1920px)]"
-    >
-      <div
-        className="absolute inset-x-0 top-0 h-full bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:32px_41px] opacity-40"
-        aria-hidden="true"
-      />
-      <div className="container mx-auto py-20 lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center lg:py-28">
-        <div className="relative w-full">
-          <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,506px)_minmax(0,1fr)]">
-            <div>
-              <h2 className="text-3xl leading-tight font-semibold text-balance text-zinc-100 sm:text-4xl">
-                <GradientText>
-                  Eight things you usually duct-tape together. One platform.
-                </GradientText>
-              </h2>
+    <div className="w-full max-w-[100vw] overflow-x-clip">
+      <section
+        ref={sectionRef}
+        className="relative overflow-visible text-white lg:h-[475vh] lg:min-h-[calc(100vh+1920px)]"
+      >
+        <div
+          className="absolute inset-x-0 top-0 h-full bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:32px_41px] opacity-40"
+          aria-hidden="true"
+        />
+        <div className="container mx-auto py-20 lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center lg:py-28">
+          <div className="relative w-full">
+            <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,506px)_minmax(0,1fr)]">
+              <div>
+                <h2 className="text-3xl leading-tight font-semibold text-balance text-zinc-100 sm:text-4xl">
+                  <GradientText>
+                    Eight things you usually duct-tape together. One platform.
+                  </GradientText>
+                </h2>
 
-              <div className="mt-8 space-y-5">
-                {brainCaps.map((cap, index) => (
-                  <AccordionItem
-                    key={cap.title}
-                    cap={cap}
-                    isActive={index === activeIndex}
-                    onClick={() => scrollToIndex(index)}
-                  />
-                ))}
+                <div className="mt-8 space-y-5">
+                  {brainCaps.map((cap, index) => (
+                    <AccordionItem
+                      key={cap.title}
+                      cap={cap}
+                      isActive={index === activeIndex}
+                      onClick={() => scrollToIndex(index)}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
 
-            <div className="relative hidden h-[374px] md:h-[460px] lg:block lg:self-center">
-              <AnimatePresence custom={direction} initial={false}>
-                <motion.div
-                  key={brainCaps[activeIndex].title}
-                  custom={direction}
-                  className="absolute inset-0"
-                  initial={getPanelMotion(direction, 'enter')}
-                  animate={getPanelMotion(direction, 'center')}
-                  exit={getPanelMotion(direction, 'exit')}
-                  transition={panelTransition}
-                >
-                  <BrainCapDemo cap={brainCaps[activeIndex]} />
-                </motion.div>
-              </AnimatePresence>
+              <div className="relative hidden h-[374px] md:h-[460px] lg:block lg:self-center">
+                <AnimatePresence custom={direction} initial={false}>
+                  <motion.div
+                    key={brainCaps[activeIndex].title}
+                    custom={direction}
+                    className="absolute inset-0"
+                    initial={getPanelMotion(direction, 'enter')}
+                    animate={getPanelMotion(direction, 'center')}
+                    exit={getPanelMotion(direction, 'exit')}
+                    transition={panelTransition}
+                  >
+                    <BrainCapDemo cap={brainCaps[activeIndex]} />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
 
@@ -317,6 +320,14 @@ function ScaledBrainCapDemo({ children }: { children: ReactNode }) {
 
 function DemoPlaceholder({ cap }: { cap: BrainCap }) {
   const Icon = cap.icon;
+
+  if (cap.title === 'Live Object Canvas') {
+    return (
+      <ScaledBrainCapDemo>
+        <LiveObjectCanvasDemo />
+      </ScaledBrainCapDemo>
+    );
+  }
 
   return (
     <div className="relative flex h-full overflow-hidden rounded-[28px] border border-white/20 bg-[#0b0e15] shadow-[0_28px_90px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.06)_inset]">
