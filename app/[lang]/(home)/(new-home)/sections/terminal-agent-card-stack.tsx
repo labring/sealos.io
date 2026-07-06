@@ -136,25 +136,79 @@ function TerminalFolderBack() {
       <div
         className="absolute top-0 left-0 size-full rounded-xl bg-white/15"
         style={{
-          clipPath:
-            'polygon(0 0, 16rem 0, 17.5rem 3rem, 100% 3rem, 100% 100%, 0 100%)',
+          clipPath: `polygon(
+    0.75rem 0,
+
+    calc(16rem - 0.4635rem) 0,
+    calc(16rem - 0.193rem) 0.0505rem,
+    calc(16rem + 0.0411rem) 0.1952rem,
+    calc(16rem + 0.2073rem) 0.4146rem,
+
+    calc(17.5rem - 0.2073rem) calc(3rem - 0.4146rem),
+    calc(17.5rem - 0.0411rem) calc(3rem - 0.1952rem),
+    calc(17.5rem + 0.193rem) calc(3rem - 0.0505rem),
+    calc(17.5rem + 0.4635rem) 3rem,
+
+    calc(100% - 0.75rem) 3rem,
+    calc(100% - 0.375rem) calc(3rem + 0.1005rem),
+    calc(100% - 0.1005rem) calc(3rem + 0.375rem),
+    100% calc(3rem + 0.75rem),
+
+    100% calc(100% - 0.75rem),
+    calc(100% - 0.1005rem) calc(100% - 0.375rem),
+    calc(100% - 0.375rem) calc(100% - 0.1005rem),
+    calc(100% - 0.75rem) 100%,
+
+    0.75rem 100%,
+    0.375rem calc(100% - 0.1005rem),
+    0.1005rem calc(100% - 0.375rem),
+    0 calc(100% - 0.75rem),
+
+    0 0.75rem,
+    0.1005rem 0.375rem,
+    0.375rem 0.1005rem
+  )`,
         }}
       />
       <div
         className="absolute top-0 left-0 size-full rounded-xl bg-[#101219] shadow-[0_-4px_26px_rgba(8,10,17,0.9)]"
         style={{
-          clipPath:
-            'polygon(1px 1px, calc(16rem - 1px) 1px, calc(17.5rem - 1px) calc(3rem + 1px), calc(100% - 1px) calc(3rem + 1px), calc(100% - 1px) calc(100% - 1px), 1px calc(100% - 1px)',
+          clipPath: `polygon(
+    calc(1px + 0.75rem) 1px,
+
+    calc(16rem - 1px - 0.4635rem) 1px,
+    calc(16rem - 1px - 0.193rem) calc(1px + 0.0505rem),
+    calc(16rem - 1px + 0.0411rem) calc(1px + 0.1952rem),
+    calc(16rem - 1px + 0.2073rem) calc(1px + 0.4146rem),
+
+    calc(17.5rem - 1px - 0.2073rem) calc(3rem + 1px - 0.4146rem),
+    calc(17.5rem - 1px - 0.0411rem) calc(3rem + 1px - 0.1952rem),
+    calc(17.5rem - 1px + 0.193rem) calc(3rem + 1px - 0.0505rem),
+    calc(17.5rem - 1px + 0.4635rem) calc(3rem + 1px),
+
+    calc(100% - 1px - 0.75rem) calc(3rem + 1px),
+    calc(100% - 1px - 0.375rem) calc(3rem + 1px + 0.1005rem),
+    calc(100% - 1px - 0.1005rem) calc(3rem + 1px + 0.375rem),
+    calc(100% - 1px) calc(3rem + 1px + 0.75rem),
+
+    calc(100% - 1px) calc(100% - 1px - 0.75rem),
+    calc(100% - 1px - 0.1005rem) calc(100% - 1px - 0.375rem),
+    calc(100% - 1px - 0.375rem) calc(100% - 1px - 0.1005rem),
+    calc(100% - 1px - 0.75rem) calc(100% - 1px),
+
+    calc(1px + 0.75rem) calc(100% - 1px),
+    calc(1px + 0.375rem) calc(100% - 1px - 0.1005rem),
+    calc(1px + 0.1005rem) calc(100% - 1px - 0.375rem),
+    1px calc(100% - 1px - 0.75rem),
+
+    1px calc(1px + 0.75rem),
+    calc(1px + 0.1005rem) calc(1px + 0.375rem),
+    calc(1px + 0.375rem) calc(1px + 0.1005rem)
+  )`,
         }}
       />
       <div className="relative top-0 h-12 w-[298px]">
-        <div
-          className="absolute inset-0"
-          // style={{
-          //   clipPath: 'polygon(0 0, calc(100% - 28px) 0, 100% 100%, 0 100%)',
-          // }}
-          aria-hidden="true"
-        />
+        <div className="absolute inset-0" aria-hidden="true" />
         <div className="absolute top-px right-px bottom-0 left-px flex items-center gap-2 px-4 text-base text-zinc-200">
           <SquareTerminal className="size-4" aria-hidden="true" />
           <GradientText className="to-blue-500 text-xl leading-7">

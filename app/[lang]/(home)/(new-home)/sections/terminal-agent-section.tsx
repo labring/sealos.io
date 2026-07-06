@@ -4,7 +4,6 @@ import {
   Bot,
   CheckCircle2,
   Code2,
-  Copy,
   Database,
   GalleryVerticalEnd,
   PencilLine,
@@ -14,6 +13,7 @@ import {
 } from 'lucide-react';
 
 import { GradientText } from '@/new-components/GradientText';
+import { CopyCommandButton } from '../../sealos-skills/copy-command';
 import { TerminalCardStack } from './terminal-agent-card-stack';
 
 type FeatureCard = {
@@ -68,6 +68,9 @@ const featureCards: FeatureCard[] = [
       'Differentiates tasks post-preflight: switches automatically to a Deploy Path or an Update Path for state configuration tracking and image patch rollouts.',
   },
 ];
+
+const SEALOS_SKILLS_INSTALL_COMMAND =
+  'npx plugins add https://github.com/labring/sealos-skills';
 
 export function TerminalAgentSection() {
   return (
@@ -376,11 +379,13 @@ function EngineCard() {
                 aria-hidden="true"
               />
               <span className="scrollbar-hide min-w-0 flex-1 overflow-x-auto whitespace-nowrap">
-                npx plugins add https://github.com/labring/sealos-skills
+                {SEALOS_SKILLS_INSTALL_COMMAND}
               </span>
-              <Copy
-                className="size-4 shrink-0 text-zinc-400"
-                aria-hidden="true"
+              <CopyCommandButton
+                value={SEALOS_SKILLS_INSTALL_COMMAND}
+                label="Copy Sealos Skills install command"
+                className="min-h-8 rounded-lg border-white/10 bg-white/[0.035] px-2"
+                iconClassName="size-4"
               />
             </div>
           </div>

@@ -201,11 +201,30 @@ export function ComparisonSection() {
                     key={platform.name}
                     className={
                       index === 0
-                        ? 'w-[280px] rounded-t-xl border border-b-0 border-zinc-800 bg-linear-to-b from-blue-950/20 to-white/10 px-4 py-8 text-lg font-normal text-zinc-200'
+                        ? 'relative w-[280px] px-4 py-8 text-lg font-normal text-zinc-200'
                         : 'border-b border-zinc-800 px-4 py-8 text-lg font-normal text-zinc-200'
                     }
                   >
-                    <span className="flex items-center gap-2 whitespace-nowrap">
+                    {index === 0 && (
+                      <>
+                        <span
+                          className="pointer-events-none absolute inset-0 bg-zinc-800"
+                          style={{
+                            clipPath: 'inset(0 round 0.75rem 0.75rem 0 0)',
+                          }}
+                          aria-hidden="true"
+                        />
+                        <span
+                          className="pointer-events-none absolute inset-x-px top-px bottom-0 bg-linear-to-b from-[#161A28] to-[#16181D]"
+                          style={{
+                            clipPath:
+                              'inset(0 round calc(0.75rem - 1px) calc(0.75rem - 1px) 0 0)',
+                          }}
+                          aria-hidden="true"
+                        />
+                      </>
+                    )}
+                    <span className="relative z-10 flex items-center gap-2 whitespace-nowrap">
                       <Image
                         src={platform.icon}
                         alt=""

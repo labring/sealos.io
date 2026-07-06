@@ -700,7 +700,7 @@ function DemoArticle({
 function ScaledDemoCanvas({ children }: { children: ReactNode }) {
   return (
     <div className="relative aspect-[1312/812] w-full overflow-visible">
-      <div className="absolute top-0 left-0 h-full w-full origin-top-left sm:h-[200%] sm:w-[200%] sm:scale-50 md:h-[133.3333%] md:w-[133.3333%] md:scale-75 lg:h-[181.8182%] lg:w-[181.8182%] lg:scale-[0.55] xl:h-[117.6471%] xl:w-[117.6471%] xl:scale-[0.85] [&>*]:!mx-0 [&>*]:!h-full [&>*]:!w-full [&>*]:!max-w-none">
+      <div className="absolute top-0 left-0 h-full w-full origin-top-left sm:h-[200%] sm:w-[200%] sm:scale-50 md:h-[153.8461%] md:w-[153.8461%] md:scale-65 lg:h-[181.8182%] lg:w-[181.8182%] lg:scale-[0.55] xl:h-[117.6471%] xl:w-[117.6471%] xl:scale-[0.85] [&>*]:!mx-0 [&>*]:!h-full [&>*]:!w-full [&>*]:!max-w-none">
         {children}
       </div>
     </div>

@@ -37,9 +37,9 @@ export function AppsSection() {
 
 function SectionHeading() {
   return (
-    <div className="relative z-10 w-full">
+    <div className="absolute top-0 left-0 z-10 w-full">
       <div
-        className="absolute inset-x-0 bottom-0 h-64 backdrop-blur-md"
+        className="absolute inset-x-0 bottom-0 h-64"
         aria-hidden="true"
       />
       <div className="relative flex max-w-[812px] flex-col items-start gap-6 text-left">
@@ -109,7 +109,7 @@ function AppCard({ app }: { app: AppConfig }) {
               </Link>
               <AppCategory category={app.category} />
             </div>
-            <p className="mt-2 line-clamp-2 text-base leading-6 text-zinc-500">
+            <p className="mt-2 line-clamp-2 text-base leading-6 text-zinc-500 h-[2lh]">
               {app.description}
             </p>
           </div>
@@ -141,7 +141,7 @@ function MoreAppsCard({ rows }: { rows: AppsSectionLogoItem[][] }) {
             <h3 className="text-xl font-semibold text-zinc-100">200+ More</h3>
             <AppCategory category="Catalog" />
           </div>
-          <p className="mt-2 text-base text-zinc-500">
+          <p className="mt-2 text-base text-zinc-500 line-clamp-2 h-[2lh]">
             Browse the full app catalog.
           </p>
         </div>
@@ -174,7 +174,7 @@ function LogoMarqueeRows({
           <div
             className="flex w-max gap-3"
             style={{
-              animation: `${rowIndex % 2 ? 'apps-marquee-right' : 'apps-marquee-left'} ${compact ? 48 : 80 + rowIndex * 8}s linear infinite`,
+              animation: `${rowIndex % 2 ? 'apps-marquee-right' : 'apps-marquee-left'} ${compact ? 80 : 100 + rowIndex * 8}s linear infinite`,
             }}
           >
             {[...row, ...row].map((item, index) => (

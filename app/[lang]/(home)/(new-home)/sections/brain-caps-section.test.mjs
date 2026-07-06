@@ -123,6 +123,32 @@ test('new home sections use container for page width', () => {
   }
 });
 
+test('ComparisonSection clips the highlighted table header background', () => {
+  const comparisonSource = readFileSync(
+    join(sectionDir, 'comparison-section.tsx'),
+    'utf8',
+  );
+
+  assert.match(
+    comparisonSource,
+    /clipPath: 'inset\(0 round 0\.75rem 0\.75rem 0 0\)'/,
+  );
+  assert.match(
+    comparisonSource,
+    /className="pointer-events-none absolute inset-0 bg-zinc-800"/,
+  );
+  assert.match(
+    comparisonSource,
+    /className="pointer-events-none absolute inset-x-px top-px bottom-0 bg-linear-to-b from-\[#161A28\] to-\[#16181D\]"/,
+  );
+  assert.match(
+    comparisonSource,
+    /clipPath:\s*'inset\(0 round calc\(0\.75rem - 1px\) calc\(0\.75rem - 1px\) 0 0\)'/,
+  );
+  assert.doesNotMatch(comparisonSource, /rounded-t-xl border border-b-0/);
+  assert.doesNotMatch(comparisonSource, /absolute inset-0 border/);
+});
+
 test('BrainCapsSection click jump does not animate through intermediate items', () => {
   assert.match(sectionSource, /setActiveIndex\(index\)/);
   assert.match(sectionSource, /activeIndexRef\.current = index/);

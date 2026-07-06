@@ -16,6 +16,11 @@ const stackSource = readFileSync(
 
 test('Terminal automation stacks cards below desktop', () => {
   assert.match(sectionSource, /TerminalCardStack/);
+  assert.match(sectionSource, /CopyCommandButton/);
+  assert.match(
+    sectionSource,
+    /npx plugins add https:\/\/github\.com\/labring\/sealos-skills/,
+  );
   assert.match(sectionSource, /grid gap-6 lg:grid-cols-3/);
   assert.doesNotMatch(sectionSource, /md:grid-cols-3/);
   assert.match(stackSource, /'use client'/);
