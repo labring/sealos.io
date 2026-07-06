@@ -384,7 +384,7 @@ function EngineCard() {
               <CopyCommandButton
                 value={SEALOS_SKILLS_INSTALL_COMMAND}
                 label="Copy Sealos Skills install command"
-                className="min-h-8 rounded-lg border-white/10 bg-white/[0.035] px-2"
+                className="min-h-8 px-2"
                 iconClassName="size-4"
               />
             </div>

@@ -191,13 +191,13 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
   const footerLinks = getFooterLinks(lang);
 
   return (
-    <footer className="relative isolate bg-[#03050b] text-white">
+    <footer className="relative isolate text-white">
       <div
         aria-hidden="true"
         className="pointer-events-none fixed right-0 bottom-0 left-0 overflow-hidden"
       >
         <div
-          className="text-center font-semibold tracking-normal text-transparent opacity-40 select-none [-webkit-text-stroke:4px_rgba(255,255,255,0.35)]"
+          className="[mask-image:linear-gradient(to_bottom,black_35%,transparent_100%)] text-center font-semibold tracking-normal text-transparent opacity-40 select-none [-webkit-mask-image:linear-gradient(to_bottom,black_35%,transparent_100%)] [-webkit-text-stroke:4px_rgba(255,255,255,0.35)]"
           style={{ fontSize: wordmarkSize, lineHeight: 1 }}
         >
           Sealos

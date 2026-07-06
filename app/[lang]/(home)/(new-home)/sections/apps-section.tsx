@@ -6,6 +6,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { AppIcon } from '@/components/ui/app-icon';
 import { appsConfig, type AppConfig } from '@/config/apps';
 import { GradientText } from '@/new-components/GradientText';
+import { AppLogoCloudCursor } from './app-logo-cloud-cursor';
 import {
   type AppsSectionLogoItem,
   getAppsSectionCards,
@@ -17,9 +18,9 @@ const logoRows = getAppsSectionLogoRows(appsConfig);
 
 export function AppsSection() {
   return (
-    <section className="container mx-auto overflow-hidden pt-16 pb-24 text-white lg:pt-20 lg:pb-28">
+    <section className="container mx-auto pt-16 pb-24 text-white lg:pt-20 lg:pb-28">
       <div className="flex flex-col gap-20">
-        <div className="relative flex min-h-[300px] items-end overflow-hidden">
+        <div className="relative flex min-h-[300px] items-end">
           <AppLogoCloud rows={logoRows} />
           <SectionHeading />
         </div>
@@ -37,11 +38,11 @@ export function AppsSection() {
 
 function SectionHeading() {
   return (
-    <div className="absolute top-0 left-0 z-10 w-full">
-      <div
-        className="absolute inset-x-0 bottom-0 h-64"
-        aria-hidden="true"
-      />
+    <div
+      className="absolute top-0 left-0 z-10 w-full"
+      data-apps-section-heading
+    >
+      <div className="absolute inset-x-0 bottom-0 h-64" aria-hidden="true" />
       <div className="relative flex max-w-[812px] flex-col items-start gap-6 text-left">
         <GradientText
           as="h2"
@@ -61,18 +62,13 @@ function SectionHeading() {
 function AppLogoCloud({ rows }: { rows: AppsSectionLogoItem[][] }) {
   return (
     <div
-      className="pointer-events-none absolute inset-x-1/2 top-0 w-[1312px] -translate-x-1/2 opacity-55"
+      className="pointer-events-none absolute inset-x-1/2 top-0 w-[1312px] -translate-x-1/2"
       aria-hidden="true"
     >
-      <div
-        className="absolute inset-0 z-10 bg-gradient-to-r from-black via-transparent to-black"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-transparent to-black"
-        aria-hidden="true"
-      />
-      <LogoMarqueeRows rows={rows} />
+      <div className="opacity-55">
+        <LogoMarqueeRows rows={rows} />
+      </div>
+      <AppLogoCloudCursor />
     </div>
   );
 }
@@ -109,7 +105,7 @@ function AppCard({ app }: { app: AppConfig }) {
               </Link>
               <AppCategory category={app.category} />
             </div>
-            <p className="mt-2 line-clamp-2 text-base leading-6 text-zinc-500 h-[2lh]">
+            <p className="mt-2 line-clamp-2 h-[2lh] text-base leading-6 text-zinc-500">
               {app.description}
             </p>
           </div>
@@ -141,7 +137,7 @@ function MoreAppsCard({ rows }: { rows: AppsSectionLogoItem[][] }) {
             <h3 className="text-xl font-semibold text-zinc-100">200+ More</h3>
             <AppCategory category="Catalog" />
           </div>
-          <p className="mt-2 text-base text-zinc-500 line-clamp-2 h-[2lh]">
+          <p className="mt-2 line-clamp-2 h-[2lh] text-base text-zinc-500">
             Browse the full app catalog.
           </p>
         </div>
@@ -213,6 +209,8 @@ function LogoTile({
   return (
     <div
       className={`${sizeClassName} flex shrink-0 items-center justify-center rounded-xl border border-white/5 bg-white/5 shadow-inner`}
+      data-app-logo-tile
+      data-app-name={item.label}
     >
       <AppIcon
         src={item.icon ?? ''}

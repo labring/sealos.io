@@ -17,7 +17,7 @@ export default function LayoutV2({
 
   return (
     <>
-      <div className="relative z-10 bg-[#03050b]">
+      <div className="bg-background relative z-10">
         <div
           className={cn(
             'sticky z-50 w-full max-lg:-mb-8 max-lg:pt-8',
