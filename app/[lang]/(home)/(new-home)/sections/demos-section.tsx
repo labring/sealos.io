@@ -107,6 +107,7 @@ export function DemosSection() {
   const [isHandoffComplete, setIsHandoffComplete] = useState(false);
   const [isHandoffFlying, setIsHandoffFlying] = useState(false);
   const [isHandoffLayoutActive, setIsHandoffLayoutActive] = useState(false);
+  const [isBackgroundVisible, setIsBackgroundVisible] = useState(false);
   const [direction, setDirection] = useState(1);
   const [demoScale, setDemoScale] = useState(1);
   const activeDemo = demos[activeIndex] ?? demos[0];
@@ -341,6 +342,7 @@ export function DemosSection() {
         : progress >= 0;
       const nextSectionActive =
         sectionRect.top < window.innerHeight && sectionRect.bottom > 0;
+      setIsBackgroundVisible(sectionRect.top < 0 && sectionRect.bottom > 0);
       const nextIndex = Math.max(
         0,
         Math.min(demos.length - 1, Math.floor(progress / window.innerHeight)),
@@ -444,14 +446,20 @@ export function DemosSection() {
     <section
       ref={sectionRef}
       id="demos-section"
-      className="relative isolate h-[500vh] text-white"
+      className="relative isolate hidden h-[500vh] text-white sm:block"
     >
       <div
-        className="absolute inset-0 -z-10 [background-image:radial-gradient(circle,rgba(255,255,255,0.22)_1px,transparent_1px)] [background-size:32px_32px] bg-fixed"
+        className={cn(
+          'absolute inset-0 -z-10 [background-image:radial-gradient(circle,rgba(255,255,255,0.22)_1px,transparent_1px)] [background-size:32px_32px] bg-fixed opacity-0 transition-opacity duration-500',
+          isBackgroundVisible && 'opacity-100',
+        )}
         aria-hidden="true"
       />
       <div
-        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(37,99,235,0.22),transparent_64%)] bg-fixed"
+        className={cn(
+          'absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(37,99,235,0.22),transparent_64%)] bg-fixed opacity-0 transition-opacity duration-500',
+          isBackgroundVisible && 'opacity-100',
+        )}
         aria-hidden="true"
       />
 
@@ -692,7 +700,7 @@ function DemoArticle({
 function ScaledDemoCanvas({ children }: { children: ReactNode }) {
   return (
     <div className="relative aspect-[1312/812] w-full overflow-visible">
-      <div className="absolute top-0 left-0 h-[117.6471%] w-[117.6471%] origin-top-left scale-[0.85] [&>*]:!mx-0 [&>*]:!h-full [&>*]:!w-full [&>*]:!max-w-none">
+      <div className="absolute top-0 left-0 h-full w-full origin-top-left sm:h-[200%] sm:w-[200%] sm:scale-50 md:h-[133.3333%] md:w-[133.3333%] md:scale-75 lg:h-[181.8182%] lg:w-[181.8182%] lg:scale-[0.55] xl:h-[117.6471%] xl:w-[117.6471%] xl:scale-[0.85] [&>*]:!mx-0 [&>*]:!h-full [&>*]:!w-full [&>*]:!max-w-none">
         {children}
       </div>
     </div>

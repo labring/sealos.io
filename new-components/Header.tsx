@@ -247,7 +247,7 @@ export function Header({ lang }: HeaderProps) {
 
   return (
     <>
-      <div className="w-full text-white lg:bg-black/20 lg:backdrop-blur-xl">
+      <div className="w-full px-2 text-white lg:bg-black/20 lg:backdrop-blur-xl">
         <nav className="container mx-auto flex min-h-16 items-center justify-between rounded-full bg-white/10 px-4 py-3 shadow-lg backdrop-blur-3xl lg:h-24 lg:rounded-none lg:bg-transparent lg:px-0 lg:py-2 lg:shadow-none lg:backdrop-blur-none">
           <div className="flex min-w-0 items-center gap-9">
             <a
