@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 
 import { GradientText } from '@/new-components/GradientText';
-import { CopyCommandButton } from '../../sealos-skills/copy-command';
+import { CopyCommandButton } from '../../../sealos-skills/copy-command';
 import { TerminalCardStack } from './terminal-agent-card-stack';
 
 type FeatureCard = {

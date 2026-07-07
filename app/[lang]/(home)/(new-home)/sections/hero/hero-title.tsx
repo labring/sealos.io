@@ -2,7 +2,7 @@
 
 import { GradientText } from '@/new-components/GradientText';
 import { FramedText } from '@/new-components/FramedText';
-import { RotatingWords } from './RotatingWords';
+import { RotatingWords } from './rotating-words';
 
 export function HeroTitle({ isInView }: { isInView: boolean }) {
   return (

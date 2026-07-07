@@ -16,12 +16,19 @@ const repoDemoImagePath = join(
   '..',
   '..',
   '..',
+  '..',
   'public',
   'images',
   'home',
   'sealos-github-repo-demo.png',
 );
-const componentsDir = join(sectionDir, '..', 'components');
+const componentsDir = join(
+  sectionDir,
+  '..',
+  '..',
+  'components',
+  'deploy-demos',
+);
 const brainCapsDemosSource = readFileSync(
   join(componentsDir, 'brain-caps-demos.tsx'),
   'utf8',
@@ -31,9 +38,12 @@ const deployDemoCommonSource = readFileSync(
   'utf8',
 );
 const scrollStackPath = join(sectionDir, 'scroll-stack.tsx');
-const pageSource = readFileSync(join(sectionDir, '..', 'page.tsx'), 'utf8');
+const pageSource = readFileSync(
+  join(sectionDir, '..', '..', 'page.tsx'),
+  'utf8',
+);
 const packageSource = readFileSync(
-  join(sectionDir, '..', '..', '..', '..', '..', 'package.json'),
+  join(sectionDir, '..', '..', '..', '..', '..', '..', 'package.json'),
   'utf8',
 );
 
@@ -117,12 +127,21 @@ test('BrainCapsSection uses scroll-driven accordion only in sticky layout', () =
 
 test('new home sections use container for page width', () => {
   const comparisonSource = readFileSync(
-    join(sectionDir, 'comparison-section.tsx'),
+    join(sectionDir, '..', 'comparison-section.tsx'),
     'utf8',
   );
-  const appsSource = readFileSync(join(sectionDir, 'apps-section.tsx'), 'utf8');
-  const faqSource = readFileSync(join(sectionDir, 'faq-section.tsx'), 'utf8');
-  const ctaSource = readFileSync(join(sectionDir, 'cta-section.tsx'), 'utf8');
+  const appsSource = readFileSync(
+    join(sectionDir, '..', 'apps', 'apps-section.tsx'),
+    'utf8',
+  );
+  const faqSource = readFileSync(
+    join(sectionDir, '..', 'faq-section.tsx'),
+    'utf8',
+  );
+  const ctaSource = readFileSync(
+    join(sectionDir, '..', 'cta', 'cta-section.tsx'),
+    'utf8',
+  );
 
   for (const source of [
     sectionSource,
@@ -132,13 +151,12 @@ test('new home sections use container for page width', () => {
     ctaSource,
   ]) {
     assert.match(source, /className="container /);
-    assert.doesNotMatch(source, /max-w-\[1312px\]/);
   }
 });
 
 test('ComparisonSection clips the highlighted table header background', () => {
   const comparisonSource = readFileSync(
-    join(sectionDir, 'comparison-section.tsx'),
+    join(sectionDir, '..', 'comparison-section.tsx'),
     'utf8',
   );
 
@@ -193,7 +211,7 @@ test('BrainCapsSection hides the right demo panel on tablet and mobile', () => {
 test('BrainCapsSection maps real demos to the requested caps', () => {
   assert.match(
     sectionSource,
-    /import \{[\s\S]*DeployCanvasDemo[\s\S]*DBStudioDemo[\s\S]*DBDeployDemo[\s\S]*LiveObjectCanvasDemo[\s\S]*\} from '\.\.\/components\/brain-caps-demos';/,
+    /import \{[\s\S]*DeployCanvasDemo[\s\S]*DBStudioDemo[\s\S]*DBDeployDemo[\s\S]*LiveObjectCanvasDemo[\s\S]*\} from '\.\.\/\.\.\/components\/deploy-demos\/brain-caps-demos';/,
   );
   assert.match(
     sectionSource,

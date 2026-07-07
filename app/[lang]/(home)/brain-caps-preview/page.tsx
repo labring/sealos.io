@@ -6,7 +6,7 @@ import {
   DBDeployDemo,
   DBStudioDemo,
   DeployCanvasDemo,
-} from '../(new-home)/components/brain-caps-demos';
+} from '../(new-home)/components/deploy-demos/brain-caps-demos';
 
 export default function BrainCapsPreviewPage() {
   return (

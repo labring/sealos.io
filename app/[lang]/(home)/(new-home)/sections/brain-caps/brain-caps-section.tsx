@@ -23,7 +23,7 @@ import {
   DBStudioDemo,
   DBDeployDemo,
   LiveObjectCanvasDemo,
-} from '../components/brain-caps-demos';
+} from '../../components/deploy-demos/brain-caps-demos';
 
 type BrainCap = {
   icon: LucideIcon;

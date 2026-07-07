@@ -27,23 +27,23 @@ import { SideRays } from '@/new-components/SideRays';
 import {
   DockerImageDemo,
   dockerImageDemoDurationMs,
-} from '../components/docker-image-demo';
+} from '../../components/deploy-demos/docker-image-demo';
 import {
   GitHubImportDemo,
   githubImportDemoDurationMs,
-} from '../components/github-import-demo';
-import { HeroTitle } from '../components/HeroTitle';
+} from '../../components/deploy-demos/github-import-demo';
 import {
   HeroAdoptionStrip,
   HeroGuarantees,
   HeroRating,
-} from '../components/hero-supporting-proof';
+} from './hero-supporting-proof';
+import { HeroTitle } from './hero-title';
 import {
   DatabaseDemo,
   databaseDemoDurationMs,
   TemplateDemo,
   templateDemoDurationMs,
-} from '../components/project-type-demos';
+} from '../../components/deploy-demos/project-type-demos';
 
 type DemoComponent = ComponentType<{ active?: boolean }>;
 type DemoItem = {
