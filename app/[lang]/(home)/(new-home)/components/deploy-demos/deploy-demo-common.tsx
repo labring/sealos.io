@@ -26,7 +26,7 @@ import {
   X,
   type LucideIcon,
 } from 'lucide-react';
-import { motion, useReducedMotion } from 'motion/react';
+import { LayoutGroup, motion, useReducedMotion } from 'motion/react';
 
 import { cn } from '@/lib/utils';
 
@@ -272,69 +272,71 @@ export function DemoStageShell({
   step: CursorStep;
 }) {
   return (
-    <div
-      {...inertDemoProps}
-      {...{ [dataAttribute]: true }}
-      className={cn(
-        'relative container mx-auto aspect-[1312/812] overflow-hidden rounded-[18px] bg-[#080a11] p-0 shadow-[0_30px_90px_rgba(0,0,0,0.45)]',
-        shellChrome === 'thin'
-          ? 'border-4 border-white/10'
-          : 'border border-white/10',
-      )}
-    >
+    <LayoutGroup>
       <div
-        ref={stageRef}
-        className="relative size-full min-h-[560px] w-full overflow-hidden md:min-h-[430px]"
+        {...inertDemoProps}
+        {...{ [dataAttribute]: true }}
+        className={cn(
+          'relative container mx-auto aspect-[1312/812] overflow-hidden rounded-[18px] bg-[#080a11] p-0 shadow-[0_30px_90px_rgba(0,0,0,0.45)]',
+          shellChrome === 'thin'
+            ? 'border-4 border-white/10'
+            : 'border border-white/10',
+        )}
       >
-        {shellChrome === 'browser' && <BrowserChrome />}
-
         <div
-          className={cn(
-            'absolute overflow-hidden border border-white/[0.06] bg-[#080a11]',
-            shellChrome === 'thin'
-              ? 'inset-0 rounded-[14px] border-0'
-              : 'inset-x-[1.2%] top-[6.2%] bottom-[2%] rounded-b-[14px]',
-          )}
+          ref={stageRef}
+          className="relative size-full min-h-[560px] w-full overflow-hidden md:min-h-[430px]"
         >
-          <DemoSidebar active={activeSidebar} />
-          {stageMode === 'full' && (
-            <div className="absolute inset-y-0 right-0 left-[46px] flex">
-              <div
-                data-project-canvas
-                className="relative min-w-0 flex-1 overflow-hidden bg-[#080a11]"
-              >
-                <CanvasBackdrop />
-                <ProjectList hidden={hideProjects} />
-                {background}
-                {showGithubTabs && <GithubTabBar />}
-                {childrenMode === 'canvas' ? (
-                  <div className="absolute inset-0 z-20">{children}</div>
-                ) : (
-                  <FloatingProjectPanel open={floatingPanelOpen}>
-                    {children}
-                  </FloatingProjectPanel>
-                )}
-              </div>
-              <ChatPanel />
-            </div>
-          )}
-          {stageMode === 'sidebarOnly' && (
-            <div className="absolute inset-y-0 right-0 left-[46px] overflow-hidden">
-              {children}
-            </div>
-          )}
-        </div>
+          {shellChrome === 'browser' && <BrowserChrome />}
 
-        {!reduceMotion && <Cursor position={cursorPosition} step={step} />}
-        <div
-          className={cn(
-            'pointer-events-none absolute inset-0 z-40 bg-[linear-gradient(to_bottom,rgba(8,10,17,0)_0%,rgba(8,10,17,0.86)_62%,#080A11_100%)] transition-opacity duration-500',
-            maskVisible ? 'opacity-100' : 'opacity-0',
-          )}
-          aria-hidden="true"
-        />
+          <div
+            className={cn(
+              'absolute overflow-hidden border border-white/[0.06] bg-[#080a11]',
+              shellChrome === 'thin'
+                ? 'inset-0 rounded-[14px] border-0'
+                : 'inset-x-[1.2%] top-[6.2%] bottom-[2%] rounded-b-[14px]',
+            )}
+          >
+            <DemoSidebar active={activeSidebar} />
+            {stageMode === 'full' && (
+              <div className="absolute inset-y-0 right-0 left-[46px] flex">
+                <div
+                  data-project-canvas
+                  className="relative min-w-0 flex-1 overflow-hidden bg-[#080a11]"
+                >
+                  <CanvasBackdrop />
+                  <ProjectList hidden={hideProjects} />
+                  {background}
+                  {showGithubTabs && <GithubTabBar />}
+                  {childrenMode === 'canvas' ? (
+                    <div className="absolute inset-0 z-20">{children}</div>
+                  ) : (
+                    <FloatingProjectPanel open={floatingPanelOpen}>
+                      {children}
+                    </FloatingProjectPanel>
+                  )}
+                </div>
+                <ChatPanel />
+              </div>
+            )}
+            {stageMode === 'sidebarOnly' && (
+              <div className="absolute inset-y-0 right-0 left-[46px] overflow-hidden">
+                {children}
+              </div>
+            )}
+          </div>
+
+          {!reduceMotion && <Cursor position={cursorPosition} step={step} />}
+          <div
+            className={cn(
+              'pointer-events-none absolute inset-0 z-40 bg-[linear-gradient(to_bottom,rgba(8,10,17,0)_0%,rgba(8,10,17,0.86)_62%,#080A11_100%)] transition-opacity duration-500',
+              maskVisible ? 'opacity-100' : 'opacity-0',
+            )}
+            aria-hidden="true"
+          />
+        </div>
       </div>
-    </div>
+    </LayoutGroup>
   );
 }
 

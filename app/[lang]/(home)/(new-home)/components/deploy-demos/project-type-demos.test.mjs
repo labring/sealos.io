@@ -165,6 +165,11 @@ const checks = [
     demoShellSource,
   ],
   [
+    'demo shell provides motion layout context',
+    /import \{ LayoutGroup, motion, useReducedMotion \} from 'motion\/react'[\s\S]*<LayoutGroup>[\s\S]*<\/LayoutGroup>/,
+    demoShellSource,
+  ],
+  [
     'demo shell can slide form panel closed',
     /floatingPanelOpen = true[\s\S]*animate=\{\{ opacity: open \? 1 : 0, x: open \? 0 : 360 \}\}/,
     demoShellSource,
