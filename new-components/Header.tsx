@@ -173,7 +173,7 @@ const DropdownMenu = ({
 
       <NavigationMenuContent className="relative !overflow-visible !rounded-none !border-none !bg-transparent !p-0 !shadow-none">
         <div
-          className="w-screen max-w-[532px] rounded-lg border border-white/10 bg-[#080A11]/20 p-4 text-white backdrop-blur-[40px]"
+          className="w-screen max-w-[532px] rounded-lg border border-white/10 bg-[#080A11] p-4 text-white"
           style={{
             backdropFilter: 'blur(40px)',
             WebkitBackdropFilter: 'blur(40px)',

@@ -1,9 +1,8 @@
 import { CircleCheckBigIcon, StarIcon } from 'lucide-react';
-import Image from 'next/image';
 
 import { GradientText } from '@/new-components/GradientText';
 
-import styles from './hero-supporting-proof.module.css';
+import LogoLoop, { type LogoItem } from './logo-loop';
 
 const guarantees = [
   '7 days free trial',
@@ -11,15 +10,27 @@ const guarantees = [
   'Cancel anytime',
 ];
 
-const adopters = [
-  'Sealos',
-  'FastGPT',
-  'DevBox',
-  'App Store',
-  'Databases',
-  'Templates',
-  'Cloud IDE',
-  'Object Storage',
+const adopters: LogoItem[] = [
+  {
+    src: '/images/logos/github.svg',
+    alt: 'GitHub',
+    title: 'GitHub',
+  },
+  {
+    src: '/images/logos/fastgpt.svg',
+    alt: 'FastGPT',
+    title: 'FastGPT',
+  },
+  {
+    src: '/images/logos/jetbrains.svg',
+    alt: 'JetBrains',
+    title: 'JetBrains',
+  },
+  {
+    src: '/images/logos/teable.svg',
+    alt: 'Teable',
+    title: 'Teable',
+  },
 ];
 
 export function HeroGuarantees() {
@@ -42,8 +53,6 @@ export function HeroGuarantees() {
 }
 
 export function HeroAdoptionStrip() {
-  const marqueeItems = [...adopters, ...adopters];
-
   return (
     <div className="w-full space-y-9">
       <p className="text-center text-base text-zinc-500">
@@ -54,27 +63,21 @@ export function HeroAdoptionStrip() {
         developers and teams shipping on Sealos
       </p>
       <div
-        className={`${styles.marqueeShell} h-11 overflow-hidden rounded-xl`}
+        className="h-11 overflow-hidden rounded-xl"
         style={{ contain: 'paint' }}
       >
-        <div className={`${styles.marqueeTrack} flex h-full items-center`}>
-          {marqueeItems.map((name, index) => (
-            <div
-              key={`${name}-${index}`}
-              className="flex min-w-48 items-center gap-3 px-3 text-base font-medium text-white"
-            >
-              <Image
-                src="/logo.svg"
-                alt=""
-                width={24}
-                height={24}
-                className="size-6 rounded-full"
-                aria-hidden="true"
-              />
-              <span className="truncate">{name}</span>
-            </div>
-          ))}
-        </div>
+        <LogoLoop
+          logos={adopters}
+          speed={90}
+          direction="left"
+          logoHeight={32}
+          gap={72}
+          hoverSpeed={0}
+          fadeOut
+          fadeOutColor="#0a0a0a"
+          scaleOnHover
+          ariaLabel="Trusted partner logos"
+        />
       </div>
     </div>
   );

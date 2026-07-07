@@ -8,11 +8,12 @@ const source = readFileSync(
   join(dirname(fileURLToPath(import.meta.url)), 'hero-supporting-proof.tsx'),
   'utf8',
 );
+const logoLoopSource = readFileSync(
+  join(dirname(fileURLToPath(import.meta.url)), 'logo-loop.tsx'),
+  'utf8',
+);
 const cssSource = readFileSync(
-  join(
-    dirname(fileURLToPath(import.meta.url)),
-    'hero-supporting-proof.module.css',
-  ),
+  join(dirname(fileURLToPath(import.meta.url)), 'logo-loop.module.css'),
   'utf8',
 );
 
@@ -31,10 +32,15 @@ test('hero adoption strip stays inside the page container with edge fade', () =>
   assert.doesNotMatch(source, /px-4 xl:px-14\.25 2xl:px-15/);
   assert.match(source, /overflow-hidden/);
   assert.match(source, /style=\{\{ contain: 'paint' \}\}/);
-  assert.match(cssSource, /-webkit-mask-image: linear-gradient/);
-  assert.match(cssSource, /mask-image: linear-gradient/);
-  assert.match(
-    cssSource,
-    /transparent,\s+black 8%,\s+black 92%,\s+transparent/,
-  );
+  assert.match(source, /<LogoLoop/);
+  assert.match(source, /logos=\{adopters\}/);
+  assert.doesNotMatch(source, /src="\/logo\.svg"/);
+  assert.match(source, /\/images\/logos\/github\.svg/);
+  assert.match(source, /\/images\/logos\/fastgpt\.svg/);
+  assert.match(source, /\/images\/logos\/jetbrains\.svg/);
+  assert.match(source, /\/images\/logos\/teable\.svg/);
+  assert.match(logoLoopSource, /requestAnimationFrame/);
+  assert.match(logoLoopSource, /ResizeObserver/);
+  assert.match(cssSource, /\.fade::before/);
+  assert.match(cssSource, /--logoloop-fadeColor/);
 });
