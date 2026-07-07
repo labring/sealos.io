@@ -121,7 +121,7 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
           <Header lang={params.lang} />
         </div>
 
-        <main className="-mt-24 overflow-x-clip">
+        <main className="bg-background relative z-10 -mt-24 overflow-x-clip">
           <AppDetailHero
             app={app}
             lang={params.lang}

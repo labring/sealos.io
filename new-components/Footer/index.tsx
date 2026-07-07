@@ -189,6 +189,8 @@ function SocialLink({
 
 export function FooterV2({ lang = 'en' }: { lang?: string }) {
   const footerLinks = getFooterLinks(lang);
+  const wordmarkStroke =
+    '4px 0 #58595E, -4px 0 #58595E, 0 4px #58595E, 0 -4px #58595E, 3px 3px #58595E, -3px -3px #58595E, -3px 3px #58595E, 3px -3px #58595E, 4px 4px #58595E, -4px -4px #58595E, -4px 4px #58595E, 4px -4px #58595E';
 
   return (
     <footer className="relative isolate text-white">
@@ -197,8 +199,13 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
         className="pointer-events-none fixed right-0 bottom-0 left-0 overflow-hidden"
       >
         <div
-          className="[mask-image:linear-gradient(to_bottom,black_35%,transparent_100%)] text-center font-semibold tracking-normal text-transparent opacity-40 select-none [-webkit-mask-image:linear-gradient(to_bottom,black_35%,transparent_100%)] [-webkit-text-stroke:4px_rgba(255,255,255,0.35)]"
-          style={{ fontSize: wordmarkSize, lineHeight: 1 }}
+          className="[mask-image:linear-gradient(to_bottom,black_35%,transparent_100%)] text-center font-semibold tracking-normal opacity-40 select-none [-webkit-mask-image:linear-gradient(to_bottom,black_35%,transparent_100%)]"
+          style={{
+            color: 'var(--color-background)',
+            fontSize: wordmarkSize,
+            lineHeight: 1,
+            textShadow: wordmarkStroke,
+          }}
         >
           Sealos
         </div>

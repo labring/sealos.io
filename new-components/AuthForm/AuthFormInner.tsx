@@ -57,7 +57,7 @@ export function AuthFormInner() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
-                className="inset-shadow-bubble bg-background fixed top-[50%] left-[50%] z-50 max-w-md translate-x-[-50%] translate-y-[-50%] overflow-hidden rounded-xl border p-0 shadow-lg"
+                className="bg-background border-border fixed top-[50%] left-[50%] z-50 max-w-md translate-x-[-50%] translate-y-[-50%] overflow-hidden rounded-xl border p-0"
               >
                 <div className="pointer-events-none absolute inset-0 -z-10">
                   <GodRays

@@ -61,21 +61,21 @@ const navigationLinks: NavigationLink[] = [
         url: '/products/devbox',
         isExternal: false,
         description: 'Cloud development environment',
-        icon: <CodeXmlIcon size={16} />,
+        icon: <CodeXmlIcon className="text-current" size={16} />,
       },
       {
         text: 'App Store',
         url: '/products/app-store',
         isExternal: false,
         description: 'Run your favorite apps',
-        icon: <LayoutGridIcon size={16} />,
+        icon: <LayoutGridIcon className="text-current" size={16} />,
       },
       {
         text: 'Databases',
         url: '/products/databases',
         isExternal: false,
         description: '1-click managed DB',
-        icon: <DatabaseIcon size={16} />,
+        icon: <DatabaseIcon className="text-current" size={16} />,
       },
     ],
   },
@@ -104,21 +104,21 @@ const navigationLinks: NavigationLink[] = [
         url: '/solutions/industries/education',
         isExternal: false,
         description: 'Empower learning with cloud infrastructure',
-        icon: <School size={16} />,
+        icon: <School className="text-current" size={16} />,
       },
       {
         text: 'Gaming',
         url: '/solutions/industries/gaming',
         isExternal: false,
         description: 'Scale your gaming platform',
-        icon: <Gamepad2 size={16} />,
+        icon: <Gamepad2 className="text-current" size={16} />,
       },
       {
         text: 'Information Technology',
         url: '/solutions/industries/information-technology',
         isExternal: false,
         description: 'Enterprise-grade IT solutions',
-        icon: <Building2 size={16} />,
+        icon: <Building2 className="text-current" size={16} />,
       },
     ],
   },
@@ -136,20 +136,20 @@ const DropdownMenuItem = ({ child }: { child: NavigationChild }) => {
         href={child.url}
         target={child.isExternal ? '_blank' : undefined}
         rel={child.isExternal ? 'noopener noreferrer' : undefined}
-        className="group relative flex flex-col justify-center rounded-xl border border-transparent px-2 py-2.5 text-white transition-all hover:bg-white/10 focus:bg-white/10 focus:outline-none"
+        className="relative flex flex-col justify-center rounded-lg px-2 py-2.5 text-white transition-colors hover:bg-white/[0.05] focus:bg-white/[0.05] focus:outline-none hover:[&_svg]:text-blue-400 focus:[&_svg]:text-blue-400"
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           {child.icon && (
-            <div className="flex flex-shrink-0 items-center justify-center rounded-lg bg-white/10 p-2 text-white/80">
+            <div className="flex flex-shrink-0 items-center justify-center rounded-md border border-white/[0.05] bg-white/[0.05] p-1.5 text-zinc-400 transition-colors [&_svg]:transition-colors">
               {child.icon}
             </div>
           )}
           <div className="min-w-0 flex-1">
-            <div className="text-base text-white group-hover:text-white">
-              {child.text}
-            </div>
+            <div className="text-sm leading-5 text-zinc-200">{child.text}</div>
             {child.description && (
-              <div className="text-sm text-white/60">{child.description}</div>
+              <div className="w-[186px] text-xs leading-4 text-zinc-500">
+                {child.description}
+              </div>
             )}
           </div>
         </div>
@@ -171,10 +171,18 @@ const DropdownMenu = ({
         {title}
       </NavigationMenuTrigger>
 
-      <NavigationMenuContent className="relative !border-none !bg-transparent !shadow-none">
-        <div className="inset-shadow-bubble w-screen max-w-2xl rounded-2xl border border-white/10 bg-neutral-950/95 p-4 text-white shadow-2xl backdrop-blur-xl">
-          <div className="mb-2 text-sm text-white/50">{title}</div>
-          <div className="grid grid-cols-2 gap-3">
+      <NavigationMenuContent className="relative !overflow-visible !rounded-none !border-none !bg-transparent !p-0 !shadow-none">
+        <div
+          className="w-screen max-w-[532px] rounded-lg border border-white/10 bg-[#080A11]/20 p-4 text-white backdrop-blur-[40px]"
+          style={{
+            backdropFilter: 'blur(40px)',
+            WebkitBackdropFilter: 'blur(40px)',
+          }}
+        >
+          <div className="mb-1 px-2 text-sm leading-5 text-zinc-500">
+            {title}
+          </div>
+          <div className="grid grid-cols-2 gap-2">
             {children.slice(0, 2).map((child, index) => (
               <DropdownMenuItem key={index} child={child} />
             ))}

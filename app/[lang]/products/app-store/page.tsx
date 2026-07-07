@@ -104,7 +104,7 @@ export default function AppStorePage({
           <Header lang={params.lang} />
         </div>
 
-        <main>
+        <main className="bg-background relative z-10">
           <AppStoreContent lang={params.lang} />
           <AppStoreFAQ lang={params.lang} />
         </main>

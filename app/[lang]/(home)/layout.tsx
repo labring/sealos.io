@@ -11,12 +11,12 @@ export default function HomeLayout({
   params: { lang: languagesType };
 }) {
   return (
-    <>
+    <div className="bg-background relative z-10">
       <ConditionalHomeHeader lang={params.lang}>
         <Header />
       </ConditionalHomeHeader>
       {children}
       <ConditionalHomeFooter lang={params.lang} />
-    </>
+    </div>
   );
 }

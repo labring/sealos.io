@@ -65,6 +65,10 @@ export default function SocialProof({ lang = 'en' }: SocialProofProps) {
       name: 'JetBrains',
       url: '/images/logos/jetbrains.svg',
     },
+    {
+      name: 'Teable',
+      url: '/images/logos/teable.svg',
+    },
   ];
 
   return (

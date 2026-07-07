@@ -92,7 +92,7 @@ export default async function LocaleLayout({
 
         <Analytics />
       </head>
-      <body className="flex min-h-screen max-w-[100vw] flex-col overflow-x-hidden">
+      <body className="bg-background flex min-h-screen max-w-[100vw] flex-col overflow-x-hidden">
         <GTMBody />
         <HomepageDarkMode />
         <AuthFormProvider>
