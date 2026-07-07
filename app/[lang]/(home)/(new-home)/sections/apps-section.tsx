@@ -68,7 +68,9 @@ function AppLogoCloud({ rows }: { rows: AppsSectionLogoItem[][] }) {
       <div className="opacity-55">
         <LogoMarqueeRows rows={rows} />
       </div>
-      <AppLogoCloudCursor />
+      <AppLogoCloudCursor>
+        <LogoMarqueeRows rows={rows} maskOnly />
+      </AppLogoCloudCursor>
     </div>
   );
 }
@@ -157,9 +159,11 @@ function MoreAppsCard({ rows }: { rows: AppsSectionLogoItem[][] }) {
 function LogoMarqueeRows({
   rows,
   compact = false,
+  maskOnly = false,
 }: {
   rows: AppsSectionLogoItem[][];
   compact?: boolean;
+  maskOnly?: boolean;
 }) {
   return (
     <div
@@ -178,6 +182,7 @@ function LogoMarqueeRows({
                 key={`${rowIndex}-${item.label}-${index}`}
                 item={item}
                 compact={compact}
+                maskOnly={maskOnly}
               />
             ))}
           </div>
@@ -190,11 +195,21 @@ function LogoMarqueeRows({
 function LogoTile({
   item,
   compact,
+  maskOnly,
 }: {
   item: AppsSectionLogoItem;
   compact: boolean;
+  maskOnly: boolean;
 }) {
   const sizeClassName = compact ? 'size-10' : 'size-16';
+
+  if (maskOnly) {
+    return (
+      <div
+        className={`${sizeClassName} shrink-0 rounded-xl bg-black/70 mix-blend-darken`}
+      />
+    );
+  }
 
   if (item.isMore) {
     return (

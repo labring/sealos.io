@@ -277,7 +277,7 @@ function HeroDemoSwitcher() {
 
           <div className="relative isolate mt-6 hidden aspect-[1312/812] w-full overflow-visible [contain:layout] sm:block">
             <div
-              className="pointer-events-none absolute top-full left-1/2 z-0 aspect-[2/1] w-[150%] -translate-x-1/2 -translate-y-1/2 md:w-[125%]"
+              className="pointer-events-none absolute top-full left-1/2 -z-10 aspect-[2/1] w-[150%] -translate-x-1/2 -translate-y-[65%] md:w-[125%]"
               style={{
                 background:
                   'radial-gradient(50% 50% at 50% 50%, rgba(29, 78, 216, 0.5) 19.35%, rgba(10, 10, 10, 0) 100%)',
@@ -372,7 +372,7 @@ function HeroMobileDemoCards() {
 
 function HeroProofStack() {
   return (
-    <div className="mt-10 flex flex-col gap-12 overflow-x-clip sm:mt-24">
+    <div className="z-10 mt-10 flex flex-col gap-12 overflow-x-clip sm:mt-24">
       <div>
         <HeroGuarantees />
       </div>

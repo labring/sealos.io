@@ -320,7 +320,7 @@ export function Header({ lang }: HeaderProps) {
                 }
               >
                 <Image src={GitHubIcon} alt="" width={16} height={16} />
-                <span>16.4k</span>
+                <span>18.3k</span>
               </a>
               <div className="h-4 w-px bg-white/30" aria-hidden="true" />
             </div>
@@ -499,7 +499,7 @@ export function Header({ lang }: HeaderProps) {
                           width={16}
                           height={16}
                         />
-                        <span>16.4k</span>
+                        <span>18.3k</span>
                       </a>
                     </Button>
                     <Button

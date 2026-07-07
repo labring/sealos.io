@@ -7,6 +7,7 @@ import {
   CrossCircledIcon,
 } from '@radix-ui/react-icons';
 import { cn } from '@/lib/utils';
+import { CopyIcon } from 'lucide-react';
 
 type CopyState = 'idle' | 'copied' | 'failed';
 
@@ -72,7 +73,7 @@ export function CopyCommandButton({
       ? CheckIcon
       : copyState === 'failed'
         ? CrossCircledIcon
-        : ClipboardCopyIcon;
+        : CopyIcon;
   const statusText = copyState === 'failed' ? 'Copy failed' : 'Copied';
 
   return (

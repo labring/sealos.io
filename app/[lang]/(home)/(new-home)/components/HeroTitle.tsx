@@ -18,16 +18,16 @@ export function HeroTitle({ isInView }: { isInView: boolean }) {
         role="presentation"
       >
         <span className="text-nowrap whitespace-nowrap">
-          Deploy full-stack apps from <br /> a
+          Deploy full-stack apps from a
           <FramedText className="mx-4">
             <RotatingWords
-              words={['repo', 'docker image', 'template']}
+              words={['repo', 'docker image', 'template', 'prompt']}
               interval={2000}
               isInView={isInView}
             />
           </FramedText>
+          .
         </span>
-        <span>or prompt.</span>
       </div>
 
       <p className="mt-5 text-center text-sm text-zinc-400 sm:text-base">

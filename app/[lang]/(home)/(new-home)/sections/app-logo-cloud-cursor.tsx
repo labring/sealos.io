@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import {
   animate,
   motion,
@@ -23,7 +23,7 @@ const fallbackTarget: CursorTarget = {
   commentSide: 'right',
 };
 
-export function AppLogoCloudCursor() {
+export function AppLogoCloudCursor({ children }: { children: ReactNode }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [target, setTarget] = useState<CursorTarget>(fallbackTarget);
   const shouldReduceMotion = useReducedMotion();
@@ -137,12 +137,14 @@ export function AppLogoCloudCursor() {
   return (
     <div ref={rootRef} className="absolute inset-0 z-20" aria-hidden="true">
       <motion.div
-        className="absolute inset-0 bg-black/70 mix-blend-darken"
+        className="absolute inset-0"
         style={{
           maskImage: mask,
           WebkitMaskImage: mask,
         }}
-      />
+      >
+        {children}
+      </motion.div>
       <motion.div
         className="absolute top-0 left-0 drop-shadow-[0_12px_24px_rgba(0,0,0,0.38)] will-change-transform"
         style={{ x, y }}
