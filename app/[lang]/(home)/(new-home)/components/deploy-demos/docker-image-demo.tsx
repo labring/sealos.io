@@ -28,8 +28,10 @@ import {
   useDemoPlayback,
   type CursorStep,
 } from './deploy-demo-common';
+import { DeploymentCanvas } from './deployment-canvas';
+import { DeploymentTimeline, dockerImageTimeline } from './deployment-timeline';
 
-type Screen = 'mode' | 'form';
+type Screen = 'mode' | 'form' | 'ready';
 type FieldId =
   | 'image'
   | 'command'
@@ -45,7 +47,9 @@ type DemoStep = CursorStep & {
   typed?: Partial<Record<FieldId, string>>;
   expandedRuntime?: boolean;
   deploying?: boolean;
+  formClosed?: boolean;
   success?: boolean;
+  readyStage?: number;
 };
 
 const finalTypedValues: Record<FieldId, string> = {
@@ -139,11 +143,76 @@ const demoSteps: DemoStep[] = shortenDemoSteps<DemoStep>([
     deploying: true,
   },
   {
-    duration: 1800,
-    screen: 'form',
-    cursor: { x: 60, y: 18 },
+    duration: 700,
+    screen: 'ready',
+    cursor: { x: 58, y: 48 },
     expandedRuntime: true,
-    success: true,
+    readyStage: 0,
+    holdCursor: true,
+  },
+  {
+    duration: 800,
+    screen: 'ready',
+    cursor: { x: 58, y: 48 },
+    readyStage: 1,
+    holdCursor: true,
+  },
+  {
+    duration: 800,
+    screen: 'ready',
+    cursor: { x: 58, y: 58 },
+    readyStage: 2,
+    holdCursor: true,
+  },
+  {
+    duration: 800,
+    screen: 'ready',
+    cursor: { x: 58, y: 58 },
+    readyStage: 3,
+    holdCursor: true,
+  },
+  {
+    duration: 800,
+    screen: 'ready',
+    cursor: { x: 58, y: 64 },
+    readyStage: 4,
+    holdCursor: true,
+  },
+  {
+    duration: 800,
+    screen: 'ready',
+    cursor: { x: 58, y: 64 },
+    readyStage: 5,
+    holdCursor: true,
+  },
+  {
+    duration: 800,
+    screen: 'ready',
+    cursor: { x: 58, y: 64 },
+    readyStage: 6,
+    holdCursor: true,
+  },
+  {
+    duration: 800,
+    screen: 'ready',
+    cursor: { x: 58, y: 72 },
+    readyStage: 7,
+    holdCursor: true,
+  },
+  {
+    duration: 900,
+    screen: 'ready',
+    cursor: { x: 58, y: 72 },
+    readyStage: 8,
+    holdCursor: true,
+  },
+  {
+    duration: 1400,
+    screen: 'ready',
+    cursor: { x: 58, y: 72 },
+    formClosed: true,
+    readyStage: 8,
+    holdCursor: true,
   },
 ]);
 
@@ -173,11 +242,25 @@ export function DockerImageDemo({ active = true }: { active?: boolean }) {
     reduceMotion
       ? finalTypedValues[field]
       : getFieldText(field, effectiveIndex, actionProgress);
+  const readyStage = reduceMotion
+    ? dockerImageTimeline.doneStage
+    : step.readyStage;
 
   return (
     <DemoStageShell
+      background={
+        step.screen === 'ready' ? (
+          <DeploymentCanvas
+            readyStage={readyStage ?? 0}
+            shifted={!step.formClosed}
+            variant="docker"
+          />
+        ) : undefined
+      }
       cursorPosition={cursorPosition}
       dataAttribute="data-docker-image-demo"
+      floatingPanelOpen={!step.formClosed}
+      hideProjects={step.screen === 'ready'}
       maskVisible={!active}
       reduceMotion={reduceMotion}
       stageRef={stageRef}
@@ -197,7 +280,7 @@ export function DockerImageDemo({ active = true }: { active?: boolean }) {
               pressed={hoverReady && step.clickTarget === 'dockerCard'}
             />
           </motion.div>
-        ) : (
+        ) : step.screen === 'form' ? (
           <motion.div
             key="form"
             className="h-full"
@@ -225,6 +308,20 @@ export function DockerImageDemo({ active = true }: { active?: boolean }) {
               deployPressed={actionReady && step.clickTarget === 'deploy'}
               success={step.success}
               targetId={targetId}
+            />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="ready"
+            className="h-full"
+            initial={{ opacity: 0, x: 24, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, x: 20, filter: 'blur(8px)' }}
+            transition={screenTransition}
+          >
+            <DeploymentTimeline
+              config={dockerImageTimeline}
+              readyStage={readyStage ?? 0}
             />
           </motion.div>
         )}

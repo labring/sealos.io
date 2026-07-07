@@ -48,6 +48,9 @@ assert.match(
   /radial-gradient\(50% 50% at 50% 50%, rgba\(29, 78, 216, 0\.5\) 19\.35%, rgba\(10, 10, 10, 0\) 100%\)/,
 );
 assert.match(source, /window\.requestAnimationFrame/);
+assert.match(source, /window\.setTimeout/);
+assert.match(source, /function getNextDemoIndex/);
+assert.match(source, /getNextDemoIndex\(currentIndex\)/);
 assert.doesNotMatch(source, /window\.setInterval/);
 assert.match(source, /className="relative mt-12 w-full/);
 assert.doesNotMatch(source, /max-w-6xl/);

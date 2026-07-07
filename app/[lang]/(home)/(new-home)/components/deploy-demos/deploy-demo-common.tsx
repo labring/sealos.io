@@ -236,10 +236,12 @@ export function getActionProgress(progress: number, duration: number) {
 
 export function DemoStageShell({
   activeSidebar = 'docker',
+  background,
   children,
   childrenMode = 'floatingPanel',
   cursorPosition,
   dataAttribute,
+  floatingPanelOpen = true,
   hideProjects = false,
   maskVisible = false,
   reduceMotion,
@@ -250,6 +252,7 @@ export function DemoStageShell({
   step,
 }: {
   activeSidebar?: 'database' | 'docker' | 'github' | 'template';
+  background?: ReactNode;
   children: ReactNode;
   childrenMode?: 'canvas' | 'floatingPanel';
   cursorPosition?: { x: number; y: number };
@@ -258,6 +261,7 @@ export function DemoStageShell({
     | 'data-docker-image-demo'
     | 'data-github-import-demo'
     | 'data-template-demo';
+  floatingPanelOpen?: boolean;
   hideProjects?: boolean;
   maskVisible?: boolean;
   reduceMotion: boolean;
@@ -301,11 +305,14 @@ export function DemoStageShell({
               >
                 <CanvasBackdrop />
                 <ProjectList hidden={hideProjects} />
+                {background}
                 {showGithubTabs && <GithubTabBar />}
                 {childrenMode === 'canvas' ? (
                   <div className="absolute inset-0 z-20">{children}</div>
                 ) : (
-                  <FloatingProjectPanel>{children}</FloatingProjectPanel>
+                  <FloatingProjectPanel open={floatingPanelOpen}>
+                    {children}
+                  </FloatingProjectPanel>
                 )}
               </div>
               <ChatPanel />
@@ -467,14 +474,22 @@ function ProjectList({ hidden = false }: { hidden?: boolean }) {
   );
 }
 
-function FloatingProjectPanel({ children }: { children: ReactNode }) {
+function FloatingProjectPanel({
+  children,
+  open,
+}: {
+  children: ReactNode;
+  open: boolean;
+}) {
   return (
-    <div
+    <motion.div
       data-floating-project-panel
       className="absolute top-[46px] right-0 bottom-0 z-20 w-full max-w-lg overflow-hidden rounded-t-xl rounded-r-none border-t border-l border-white/[0.08] bg-[#13151C] shadow-[0_24px_80px_rgba(0,0,0,0.46)] max-sm:right-auto max-sm:left-[72px] max-sm:w-[300px]"
+      animate={{ opacity: open ? 1 : 0, x: open ? 0 : 360 }}
+      transition={screenTransition}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }
 

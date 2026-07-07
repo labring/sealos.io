@@ -101,6 +101,10 @@ const heroCardDemos = [
   demos[2],
 ] satisfies DemoItem[];
 
+function getNextDemoIndex(currentIndex: number) {
+  return (currentIndex + 1) % demos.length;
+}
+
 export function HeroSection() {
   return (
     <section className="relative isolate overflow-x-clip pt-36 pb-20">
@@ -184,6 +188,19 @@ function HeroDemoSwitcher() {
     frameId = window.requestAnimationFrame(tick);
 
     return () => window.cancelAnimationFrame(frameId);
+  }, [activeDemo.durationMs, activeIndex]);
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      const currentIndex = activeIndexRef.current;
+      const nextIndex = getNextDemoIndex(currentIndex);
+
+      setDirection(1);
+      activeIndexRef.current = nextIndex;
+      setActiveIndex(nextIndex);
+    }, activeDemo.durationMs);
+
+    return () => window.clearTimeout(timeoutId);
   }, [activeDemo.durationMs, activeIndex]);
 
   useEffect(() => {

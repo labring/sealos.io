@@ -31,6 +31,7 @@ import {
   useDemoPlayback,
   type CursorStep,
 } from './deploy-demo-common';
+import { DeploymentCanvas } from './deployment-canvas';
 
 type GithubScreen = 'mode' | 'form' | 'ready';
 type GithubFieldId = 'secret';
@@ -42,6 +43,7 @@ type GithubStep = CursorStep & {
   typed?: Partial<Record<GithubFieldId, string>>;
   authorized?: boolean;
   expanded?: boolean;
+  formClosed?: boolean;
   readyStage?: number;
 };
 
@@ -188,9 +190,17 @@ const githubSteps: GithubStep[] = shortenDemoSteps<GithubStep>([
     holdCursor: true,
   },
   {
-    duration: 1600,
+    duration: 900,
     screen: 'ready',
     cursor: { x: 58, y: 46 },
+    readyStage: 15,
+    holdCursor: true,
+  },
+  {
+    duration: 1400,
+    screen: 'ready',
+    cursor: { x: 58, y: 46 },
+    formClosed: true,
     readyStage: 15,
     holdCursor: true,
   },
@@ -228,8 +238,18 @@ export function GitHubImportDemo({ active = true }: { active?: boolean }) {
   return (
     <DemoStageShell
       activeSidebar="github"
+      background={
+        step.screen === 'ready' ? (
+          <DeploymentCanvas
+            readyStage={readyStage ?? 0}
+            shifted={!step.formClosed}
+            variant="github"
+          />
+        ) : undefined
+      }
       cursorPosition={cursorPosition}
       dataAttribute="data-github-import-demo"
+      floatingPanelOpen={!step.formClosed}
       hideProjects={step.screen === 'ready'}
       maskVisible={!active}
       reduceMotion={reduceMotion}
