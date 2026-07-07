@@ -4,6 +4,7 @@ import { i18n } from '@/lib/i18n';
 export const domain = process.env.NEXT_PUBLIC_APP_URL || 'https://sealos.io';
 
 export const appDomain = 'https://os.sealos.io';
+export const desktopApiEndpoint = 'https://usw-1.sealos.io';
 export const templateDomain =
   i18n.defaultLanguage === 'zh-cn'
     ? 'https://template.hzh.sealos.run'
@@ -84,10 +85,17 @@ export const siteConfig: SiteConfig = {
   oauth2GithubUrl: 'https://usw-1.sealos.io/oauth?login=github',
   oauth2GoogleUrl: 'https://usw-1.sealos.io/oauth?login=google',
   oauth2Url: 'https://usw-1.sealos.io/oauth',
+  googleOneTap: {
+    enabled: true,
+    clientId:
+      '622445707551-96dmksk4qmjaclc69r18li7qpbnl1bso.apps.googleusercontent.com',
+    loginEndpoint: `${desktopApiEndpoint}/api/auth/google/onetap`,
+    redirectUrl: 'https://usw-1.sealos.io',
+  },
   // Template API configuration
   templateApiEndpoint: 'https://template.usw-1.sealos.io',
   // Desktop API configuration
-  desktopApiEndpoint: 'https://usw-1.sealos.io',
+  desktopApiEndpoint,
 };
 
 export type AuthorData = {
