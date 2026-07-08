@@ -349,7 +349,7 @@ function BrowserChrome() {
         <span className="size-3 rounded-full bg-[#28c840]" />
       </div>
       <div className="mx-auto flex h-[26px] w-[29%] items-center justify-center rounded-md border border-white/[0.06] bg-white/[0.035] text-[11px] text-zinc-500">
-        cloud.sealos.io
+        sealos.io
       </div>
     </div>
   );

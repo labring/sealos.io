@@ -163,8 +163,6 @@ type DBTableRow = Record<string, string | number>;
 
 type DBStudioPhase =
   | 'idle'
-  | 'hoverRoot'
-  | 'rootOpen'
   | 'hoverDatabase'
   | 'databaseOpen'
   | 'hoverSchema'
@@ -182,7 +180,6 @@ type DBStudioPhase =
 type DBStudioStep = CursorStep & {
   phase: DBStudioPhase;
   clickTarget?:
-    | 'dbRoot'
     | 'databaseItem'
     | 'schemaItem'
     | 'tablesFolder'
@@ -195,68 +192,56 @@ const dbStudioSteps: DBStudioStep[] = shortenDemoSteps<DBStudioStep>([
   { duration: 700, phase: 'idle', cursor: { x: 11, y: 9 } },
   {
     duration: 620,
-    phase: 'hoverRoot',
-    cursor: { x: 10, y: 12 },
-    clickTarget: 'dbRoot',
-  },
-  {
-    duration: 320,
-    phase: 'rootOpen',
-    cursor: { x: 10, y: 12 },
-    clickTarget: 'dbRoot',
-  },
-  {
-    duration: 620,
     phase: 'hoverDatabase',
-    cursor: { x: 13, y: 18 },
+    cursor: { x: 10, y: 13 },
     clickTarget: 'databaseItem',
   },
   {
     duration: 320,
     phase: 'databaseOpen',
-    cursor: { x: 13, y: 18 },
+    cursor: { x: 10, y: 13 },
     clickTarget: 'databaseItem',
   },
   {
     duration: 620,
     phase: 'hoverSchema',
-    cursor: { x: 16, y: 23 },
+    cursor: { x: 13, y: 18 },
     clickTarget: 'schemaItem',
   },
   {
     duration: 320,
     phase: 'schemaOpen',
-    cursor: { x: 16, y: 23 },
+    cursor: { x: 13, y: 18 },
     clickTarget: 'schemaItem',
   },
   {
     duration: 620,
     phase: 'hoverTables',
-    cursor: { x: 19, y: 28 },
+    cursor: { x: 16, y: 23 },
     clickTarget: 'tablesFolder',
   },
   {
     duration: 320,
     phase: 'tablesOpen',
-    cursor: { x: 19, y: 28 },
+    cursor: { x: 16, y: 23 },
     clickTarget: 'tablesFolder',
   },
   {
     duration: 620,
     phase: 'hoverTable',
-    cursor: { x: 22, y: 34 },
+    cursor: { x: 19, y: 29 },
     clickTarget: 'tableItem',
   },
   {
     duration: 320,
     phase: 'tableSelected',
-    cursor: { x: 22, y: 34 },
+    cursor: { x: 19, y: 29 },
     clickTarget: 'tableItem',
   },
   {
     duration: 600,
     phase: 'tableLoaded',
-    cursor: { x: 22, y: 34 },
+    cursor: { x: 19, y: 29 },
     holdCursor: true,
   },
   {
@@ -432,12 +417,11 @@ function DBStudioWorkspace({
   phase: DBStudioPhase;
   reduceMotion: boolean;
 }) {
-  const rootOpen = effectiveIndex >= 2 || reduceMotion;
-  const databaseOpen = effectiveIndex >= 4 || reduceMotion;
-  const schemaOpen = effectiveIndex >= 6 || reduceMotion;
-  const tablesOpen = effectiveIndex >= 8 || reduceMotion;
-  const secondTableOpen = effectiveIndex >= 11 || reduceMotion;
-  const sorted = effectiveIndex >= 15 || reduceMotion;
+  const databaseOpen = effectiveIndex >= 2 || reduceMotion;
+  const schemaOpen = effectiveIndex >= 4 || reduceMotion;
+  const tablesOpen = effectiveIndex >= 6 || reduceMotion;
+  const secondTableOpen = effectiveIndex >= 9 || reduceMotion;
+  const sorted = effectiveIndex >= 13 || reduceMotion;
   const showSortMenu = phase === 'sortMenu' || phase === 'sortSelected';
   const activeTreeTarget = getActiveTreeTarget(phase);
 
@@ -453,55 +437,44 @@ function DBStudioWorkspace({
         <div className="px-2 py-2 text-xs">
           <DBTreeRow
             Icon={Database}
-            active={activeTreeTarget === 'dbRoot'}
-            open={rootOpen}
-            target="dbRoot"
-            title="PostgreSQL"
+            active={activeTreeTarget === 'databaseItem'}
+            open={databaseOpen}
+            target="databaseItem"
+            title="postgres"
           />
 
-          <DBTreeGroup show={rootOpen}>
+          <DBTreeGroup show={databaseOpen}>
             <DBTreeRow
-              Icon={Database}
-              active={activeTreeTarget === 'databaseItem'}
+              Icon={Folder}
+              active={activeTreeTarget === 'schemaItem'}
               indent={1}
-              open={databaseOpen}
-              target="databaseItem"
-              title="postgres"
+              open={schemaOpen}
+              target="schemaItem"
+              title="public"
             />
 
-            <DBTreeGroup show={databaseOpen}>
+            <DBTreeGroup show={schemaOpen}>
               <DBTreeRow
                 Icon={Folder}
-                active={activeTreeTarget === 'schemaItem'}
+                active={activeTreeTarget === 'tablesFolder'}
                 indent={2}
-                open={schemaOpen}
-                target="schemaItem"
-                title="public"
+                open={tablesOpen}
+                target="tablesFolder"
+                title="Tables"
               />
 
-              <DBTreeGroup show={schemaOpen}>
+              <DBTreeGroup show={tablesOpen}>
                 <DBTreeRow
-                  Icon={Folder}
-                  active={activeTreeTarget === 'tablesFolder'}
+                  Icon={FileText}
+                  active={activeTreeTarget === 'tableItem' || secondTableOpen}
                   indent={3}
-                  open={tablesOpen}
-                  target="tablesFolder"
-                  title="Tables"
+                  selected={secondTableOpen}
+                  target="tableItem"
+                  title="sql_implementation_info"
                 />
-
-                <DBTreeGroup show={tablesOpen}>
-                  <DBTreeRow
-                    Icon={FileText}
-                    active={activeTreeTarget === 'tableItem' || secondTableOpen}
-                    indent={4}
-                    selected={secondTableOpen}
-                    target="tableItem"
-                    title="sql_implementation_info"
-                  />
-                  <DBTreeRow Icon={FileText} indent={4} title="sql_parts" />
-                  <DBTreeRow Icon={Folder} indent={3} title="metric_helpers" />
-                  <DBTreeRow Icon={Folder} indent={3} title="user_management" />
-                </DBTreeGroup>
+                <DBTreeRow Icon={FileText} indent={3} title="sql_parts" />
+                <DBTreeRow Icon={Folder} indent={2} title="metric_helpers" />
+                <DBTreeRow Icon={Folder} indent={2} title="user_management" />
               </DBTreeGroup>
             </DBTreeGroup>
           </DBTreeGroup>
@@ -524,7 +497,6 @@ function DBStudioWorkspace({
 }
 
 function getActiveTreeTarget(phase: DBStudioPhase) {
-  if (phase === 'hoverRoot' || phase === 'rootOpen') return 'dbRoot';
   if (phase === 'hoverDatabase' || phase === 'databaseOpen') {
     return 'databaseItem';
   }
