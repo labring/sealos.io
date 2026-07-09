@@ -5,6 +5,7 @@
   "scripts": {
     "lint": "rm -f tsconfig.tsbuildinfo && tsc --noEmit",
     "build": "next build && node scripts/normalize-root-locale.js",
+    "validate-tutorials": "node scripts/validate-tutorials.mjs",
     "build:analyze": "ANALYZE=true next build && node scripts/normalize-root-locale.js",
     "dev": "next dev",
     "start": "next start",

@@ -22,6 +22,10 @@ export function isForcedDarkMode(pathname: string): boolean {
       match: 'prefix',
     },
     {
+      path: '/tutorials',
+      match: 'prefix',
+    },
+    {
       path: '/docs',
       match: 'prefix',
     },
@@ -35,6 +39,10 @@ export function isForcedDarkMode(pathname: string): boolean {
     },
     {
       path: '/products/app-store',
+      match: 'prefix',
+    },
+    {
+      path: '/products/devbox',
       match: 'prefix',
     },
     {

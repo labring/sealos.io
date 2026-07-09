@@ -98,6 +98,7 @@ const SOURCE_EXPECTATIONS = [
       'vercel@latest',
       'vercel pull',
       '--environment=preview',
+      'npm run app-store:refresh',
       'vercel build --prod --local-config ./vercel.json',
       'vercel deploy --prod',
       '--prebuilt',
@@ -107,19 +108,28 @@ const SOURCE_EXPECTATIONS = [
     label: 'Vercel preview',
     file: '.github/workflows/preview.yml',
     tokens: [
+      'pull_request:',
       'node-version: 20',
       'npm install',
       'vercel@latest',
       'vercel pull',
+      'npm run app-store:refresh',
       'vercel build --local-config ./vercel.json',
       'vercel-action',
       '--prebuilt',
     ],
+    forbiddenTokens: ['pull_request_target:'],
   },
   {
     label: 'Cloudflare Pages production',
     file: '.github/workflows/deploy-cloudflare.yml',
-    tokens: ['node-version: 20', 'npm ci', 'npm run build', 'pages deploy ./out'],
+    tokens: [
+      'node-version: 20',
+      'npm ci',
+      'npm run app-store:refresh',
+      'npm run build',
+      'pages deploy ./out',
+    ],
   },
   {
     label: 'Cloudflare Pages preview',
@@ -127,6 +137,7 @@ const SOURCE_EXPECTATIONS = [
     tokens: [
       'node-version: 20',
       'npm ci',
+      'npm run app-store:refresh',
       'npm run build',
       'actions/upload-artifact',
       'actions/download-artifact',
@@ -152,6 +163,9 @@ const SOURCE_EXPECTATIONS = [
     file: '.github/workflows/build-image.yml',
     tokens: [
       'REGISTRY: ghcr.io',
+      'node-version: 20',
+      'npm ci',
+      'npm run app-store:refresh',
       'docker/build-push-action@v5',
       'file: ./Dockerfile',
       'platforms: linux/amd64',
@@ -245,12 +259,17 @@ function validateDeploymentSources({ rootDir = process.cwd() } = {}) {
     const missingTokens = exists
       ? expectation.tokens.filter((token) => !hasToken(text, token))
       : expectation.tokens;
+    const forbiddenTokens =
+      exists && expectation.forbiddenTokens
+        ? expectation.forbiddenTokens.filter((token) => hasToken(text, token))
+        : [];
 
     return {
       label: expectation.label,
       file: expectation.file,
       exists,
       missingTokens,
+      forbiddenTokens,
     };
   });
   const failures = checks.flatMap((check) => {
@@ -258,9 +277,14 @@ function validateDeploymentSources({ rootDir = process.cwd() } = {}) {
       return [`${check.file} is missing`];
     }
 
-    return check.missingTokens.map(
-      (token) => `${check.file} missing token: ${token}`,
-    );
+    return [
+      ...check.missingTokens.map(
+        (token) => `${check.file} missing token: ${token}`,
+      ),
+      ...check.forbiddenTokens.map(
+        (token) => `${check.file} forbidden token: ${token}`,
+      ),
+    ];
   });
 
   return {

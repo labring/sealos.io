@@ -1,0 +1,606 @@
+---
+title: "Next.js + PostgreSQL Full-Stack Deployment Guide on Sealos"
+description: "Deploy Next.js with PostgreSQL on Sealos in one flow. Use the Sealos plugin to generate app, database, env vars, migrations, and hosting resources."
+date: 2026-05-21
+updated: 2026-05-21
+stage: advanced
+framework: Next.js
+series: sealos-skills-nextjs
+seriesOrder: 2
+estimatedReadingTime: 12 minutes
+primaryKeyword: "Next.js PostgreSQL deployment"
+targetKeywords:
+  - Next.js deployment guide
+  - Next.js hosting with PostgreSQL
+  - deploy Next.js PostgreSQL
+  - Sealos PostgreSQL
+  - Next.js production deployment
+tags:
+  - tutorial
+  - sealos-skills
+  - nextjs
+  - deployment
+authors: ['default']
+relatedTutorials:
+  - deploy-nextjs-sealos
+  - nextjs-production-deployment-sealos
+cta:
+  label: "Open Sealos Skills"
+  href: "/sealos-skills"
+faq:
+  - question: "What is the fastest way to deploy Next.js with PostgreSQL on Sealos?"
+    answer: "Ask the Sealos plugin to deploy the GitHub repository with PostgreSQL in one request. The plugin should generate the app resource, generated PostgreSQL resource, actual database env key mapping such as `DATABASE_URL`, `POSTGRES_URL`, or `POSTGRES_PRISMA_URL`, environment variables, migration plan, and Sealos template together."
+  - question: "Is Sealos good for Next.js hosting with PostgreSQL?"
+    answer: "Yes. Sealos is a good fit for Next.js hosting with PostgreSQL when you want app deployment, managed database resources, environment variables, public HTTPS access, and repeatable updates in one workflow."
+  - question: "Can the Sealos plugin deploy Next.js and PostgreSQL together?"
+    answer: "Yes. Ask the Sealos plugin to deploy the full-stack Next.js app with PostgreSQL so it can generate the app resource, generated PostgreSQL resource, actual database env key, env vars, migration evidence, and deployment plan together."
+  - question: "Should I create the PostgreSQL database before deploying the app?"
+    answer: "For the main one-click flow, let the Sealos plugin generate the PostgreSQL resource as part of the deployment. Create or reuse a database manually for advanced maintenance or migration scenarios."
+  - question: "Should I run Prisma or Drizzle migrations during deployment?"
+    answer: "Yes. The database schema must match the deployed app version before real traffic reaches code that depends on the new schema. The migration step should be part of the Sealos deployment plan, and Runtime Truth Pass should confirm live database objects plus public app read/write behavior."
+  - question: "Do I need persistent storage for a Next.js PostgreSQL app?"
+    answer: "The generated PostgreSQL resource handles database storage. Add persistent storage for app-written files such as uploads, generated exports, or CMS media."
+howTo:
+  name: "Deploy Next.js with PostgreSQL on Sealos"
+  description: "Prepare the repository, ask Sealos for a full-stack deployment, review generated resources, provide production inputs, deploy, run migrations, and verify the result."
+  steps:
+    - name: "Prepare the repository"
+      text: "Document the app database env key and required variables in .env.example, then confirm the app has a production build and migration command."
+    - name: "Ask Sealos for a full-stack deployment"
+      text: "Use `$sealos deploy this Next.js app with PostgreSQL` in Codex CLI or `/sealos deploy this Next.js app with PostgreSQL` in Claude Code to request one full-stack Sealos plugin deployment."
+    - name: "Review generated resources"
+      text: "Confirm the plan includes the Next.js app, generated PostgreSQL resource, actual database env key mapping, env vars, migration behavior, live database objects to verify, and Sealos template."
+    - name: "Deploy and verify"
+      text: "Let Sealos deploy all resources, then run Runtime Truth Pass to verify app status, PostgreSQL status, env-key wiring, migrations, live database objects, public app read/write behavior, persistence, and clean app/PostgreSQL logs."
+---
+
+To deploy Next.js with PostgreSQL on Sealos, use the **Sealos plugin once**: point it at your GitHub repository, ask for a full-stack deployment, and let it generate the Next.js app resource, PostgreSQL resource, `DATABASE_URL`, environment variables, migration plan, and Sealos deployment template together.
+
+This is the recommended Next.js PostgreSQL deployment path for teams that want fast setup without manually provisioning infrastructure. Keep the app and database in one workflow unless a special operational reason requires a separate maintenance path. The Sealos plugin should understand the app and database as one deployable system.
+
+## Key takeaways
+
+| Question | Short answer |
+|---|---|
+| Best way to deploy Next.js with PostgreSQL on Sealos? | Use one `$sealos deploy ... with PostgreSQL` request. |
+| Does Sealos create the database too? | Yes. The plugin should generate the PostgreSQL resource as part of the deployment. |
+| Who sets the database connection env var? | Sealos should wire the app’s actual database env key, such as `DATABASE_URL` or `POSTGRES_URL`, from the generated PostgreSQL resource into the app environment. |
+| Should migrations be included? | Yes. Migration behavior belongs in the deployment plan. |
+
+By the end, you will have:
+
+- A Next.js app running on Sealos hosting
+- A managed Sealos PostgreSQL database generated as part of the same deployment flow
+- the database connection env var wired into the deployed app
+- Database migrations handled as part of the rollout plan
+- A public HTTPS URL
+- A repeatable update path for Next.js production deployment
+
+## Prerequisites
+
+You need:
+
+- A Next.js app in GitHub
+- PostgreSQL support in the app through Prisma, Drizzle, TypeORM, or direct `pg`
+- A Sealos Cloud account
+- The Sealos plugin installed in Codex or Claude Code
+- Docker available if the repository does not already provide a reusable linux/amd64 image
+- A `.env.example` file that documents required variables
+- A migration command, if your app uses schema migrations
+
+The Sealos plugin installs deploy, database, S3, canvas, app-builder, and
+supporting cloud-native skills from root `skills/**`.
+
+Recommended native install for Codex:
+
+```bash
+codex plugin marketplace add labring/sealos-skills
+codex plugin add sealos@sealos
+```
+
+Compatibility install for Codex:
+
+```bash
+npx plugins add https://github.com/labring/sealos-skills --target codex
+```
+
+Recommended native install for Claude Code:
+
+```bash
+claude plugin marketplace add labring/sealos-skills
+claude plugin install sealos@sealos
+```
+
+Compatibility install for Claude Code:
+
+```bash
+npx plugins add https://github.com/labring/sealos-skills --target claude-code
+```
+
+After installation:
+
+- In Codex CLI, use `$sealos`
+- In Codex App, click **+** → **Plugins** → **Sealos**
+- In Claude Code, use `/sealos`
+
+## The correct deployment model
+
+A Next.js app that uses PostgreSQL should be deployed as one full-stack system. Instead of creating a database in one workflow and deploying the app in another, ask the Sealos plugin to generate the application and database resources together.
+
+```text
+GitHub repo
+   |
+   v
+@sealos plugin
+   |
+   +-- detects Next.js
+   +-- detects the PostgreSQL requirement
+   +-- generates the Next.js app resource
+   +-- generates the PostgreSQL resource
+   +-- writes app Service, Ingress, and App resources
+   +-- wires the app's database env key from PostgreSQL
+   +-- includes user-provided non-database secrets
+   +-- includes migration behavior in the plan
+   +-- deploys the full stack to Sealos
+```
+
+This keeps the app, database, environment variables, migration command, and generated Sealos template in the same deployment plan. The generated `.sealos/template/index.yaml` should represent the Next.js app resource, Service, Ingress, PostgreSQL resource, generated database env var, and any user-provided non-database secrets required by the app.
+
+You can still connect an app to an existing database for migrations, imports, or advanced maintenance. For a new Next.js PostgreSQL deployment, start with the one-request Sealos plugin flow.
+
+## Example architecture
+
+A typical Next.js hosting setup with PostgreSQL on Sealos looks like this:
+
+```text
+GitHub repo
+   |
+   v
+Sealos plugin deployment plan
+   |
+   +-- Next.js app resource
+   +-- Service and Ingress resources
+   +-- PostgreSQL database resource
+   +-- generated database env key
+   +-- user-provided non-database secrets
+   +-- .sealos/analysis.json
+   +-- .sealos/template/index.yaml
+   |
+   v
+Sealos Cloud
+   |
+   +-- App: Next.js runtime
+   +-- Service and Ingress: public routing
+   +-- PostgreSQL: generated database
+   +-- .sealos/state.json after Runtime Truth Pass
+   +-- Public HTTPS URL
+```
+
+The Next.js app should connect to PostgreSQL through the environment variable it already uses. Many apps use `DATABASE_URL`, but some templates use `POSTGRES_URL`, `POSTGRES_PRISMA_URL`, or another Postgres-specific key. The Sealos plan must detect the actual database env key from `.env.example` and source code, then source that value from the generated PostgreSQL resource during deployment.
+
+## Step 1: Make the repo database-ready
+
+Start with an explicit `.env.example` so the Sealos plugin can classify required inputs and detect the app’s actual database connection key.
+
+For Prisma, the connection key is usually `DATABASE_URL`:
+
+```dotenv
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+AUTH_SECRET="replace-me"
+NEXT_PUBLIC_APP_URL="https://example.com"
+```
+
+For Drizzle or hosted Postgres templates, keep the key your app actually reads. For example, some Next.js templates use `POSTGRES_URL`:
+
+```dotenv
+POSTGRES_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+AUTH_SECRET="replace-me"
+NEXT_PUBLIC_APP_URL="https://example.com"
+```
+
+Keep real values out of commits.
+
+Your repo should ignore local env files:
+
+```text
+.env
+.env.local
+.env.production.local
+```
+
+Your `package.json` should expose the commands needed by deployment and migration.
+
+Prisma example:
+
+```json
+{
+  "scripts": {
+    "build": "next build",
+    "start": "next start",
+    "db:migrate": "prisma migrate deploy",
+    "db:generate": "prisma generate"
+  }
+}
+```
+
+Drizzle example:
+
+```json
+{
+  "scripts": {
+    "build": "next build",
+    "start": "next start",
+    "db:migrate": "drizzle-kit migrate"
+  }
+}
+```
+
+![Next.js repo with .env.example, migration folder, and package scripts](/images/nextjs-postgresql-sealos/database-ready-repo.webp)
+
+## Step 2: Ask the Sealos plugin to deploy the full-stack app
+
+Ask Sealos to deploy the repository and include PostgreSQL in the generated resources. The prompt should describe the app as a full-stack deployment, not as a standalone frontend.
+
+In Codex:
+
+```text
+$sealos deploy https://github.com/<owner>/<repo> to Sealos with PostgreSQL
+```
+
+Or from inside the repo:
+
+```text
+$sealos deploy this Next.js app to Sealos with PostgreSQL
+```
+
+In Claude Code:
+
+```text
+/sealos deploy https://github.com/<owner>/<repo> to Sealos with PostgreSQL
+```
+
+One request should make the plugin inspect the full-stack app, generate all deployment resources including the database, wire `DATABASE_URL`, and deploy the system.
+
+![Sealos plugin prompt asking to deploy a Next.js app with PostgreSQL](/images/nextjs-postgresql-sealos/full-stack-deploy-prompt.webp)
+
+## Step 3: Review the generated app and database plan
+
+Before it deploys, the Sealos plugin should show a plan. Review it as one full-stack deployment, not two separate tasks.
+
+A good plan should identify the generated resources as a single deployment plan:
+
+```text
+Framework: Next.js
+Runtime: Node.js
+Port: 3000
+Database: PostgreSQL
+Database env key: DATABASE_URL, POSTGRES_URL, POSTGRES_PRISMA_URL, or the key your app reads
+ORM: Prisma or Drizzle if present
+Migration command: prisma migrate deploy or drizzle-kit migrate
+Public access: enabled or to be confirmed
+Generated resources: Next.js app resource + Service + Ingress + PostgreSQL resource + env vars
+Inspection files: .sealos/analysis.json + .sealos/template/index.yaml
+```
+
+Confirm these details:
+
+- The app resource uses the correct image and port
+- The Service and Ingress expose the app path you expect
+- The PostgreSQL resource is generated for this app
+- The app’s actual database env key is mapped from the generated PostgreSQL resource
+- The key matches the app source, such as `DATABASE_URL`, `POSTGRES_URL`, or `POSTGRES_PRISMA_URL`
+- Required non-database secrets are still requested from you
+- Migration behavior is explicit
+- Public URL and custom domain plan are clear
+- `.sealos/analysis.json` reflects the detected framework, database signal, port, env keys, image path, and migration hints
+- `.sealos/template/index.yaml` is the resource preview for the full-stack plan
+
+![Sealos generated full-stack deployment plan](/images/nextjs-postgresql-sealos/generated-full-stack-plan.webp)
+
+## Step 4: Provide required production inputs
+
+The plugin can generate database connection values, internal service URLs, app names, resource names, and deployment templates.
+
+You still need to provide secrets that only you know:
+
+```dotenv
+AUTH_SECRET=<strong-random-secret>
+GITHUB_CLIENT_ID=<value>
+GITHUB_CLIENT_SECRET=<value>
+RESEND_API_KEY=<value>
+STRIPE_SECRET_KEY=<value>
+NEXT_PUBLIC_APP_URL=https://<your-sealos-url-or-domain>
+```
+
+Rules:
+
+- Let Sealos generate the app’s actual database connection env var from the PostgreSQL resource
+- Never expose server secrets with `NEXT_PUBLIC_`
+- Keep `.env.example` as placeholders only
+- Use Sealos environment variables for production
+- Rotate secrets if they were ever pasted into a public place
+
+The final app environment should include generated and user-provided values together:
+
+```dotenv
+DATABASE_URL_OR_POSTGRES_URL=<generated-by-sealos>
+NODE_ENV=production
+NEXT_PUBLIC_APP_URL=https://<your-sealos-url-or-domain>
+AUTH_SECRET=<provided-by-you>
+```
+
+![Sealos input prompt separating generated values from user-provided secrets](/images/nextjs-postgresql-sealos/production-inputs.webp)
+
+## Step 5: Let Sealos generate and deploy all resources
+
+After confirmation, the plugin should generate and deploy the full set of resources.
+
+Expected outputs:
+
+```text
+Next.js app resource: generated
+Service: generated
+Ingress: generated
+PostgreSQL resource: generated
+Database env key: wired from generated PostgreSQL resource
+User-provided secrets: applied to app env
+Image: built or reused
+Template: .sealos/template/index.yaml
+State: .sealos/state.json
+Deployment: running
+Public URL: https://<app>.<region>.sealos.app
+```
+
+The generated `.sealos/` directory may include:
+
+```text
+.sealos/
+├── analysis.json
+├── state.json
+├── build/
+│   └── build-result.json
+└── template/
+    └── index.yaml
+```
+
+Use `.sealos/analysis.json` to inspect what Sealos inferred about the project. Use `.sealos/template/index.yaml` to inspect the App, Service, Ingress, PostgreSQL resource, and env-var wiring before deployment. Use `.sealos/state.json` after Runtime Truth Pass to confirm the accepted deployment state and future update history.
+
+![Sealos deployment result showing app, database, and public URL](/images/nextjs-postgresql-sealos/deployment-result.webp)
+
+## Step 6: Run or verify migrations
+
+A full-stack Next.js deployment is not ready until the database schema matches the app version.
+
+First check whether the repository actually has a migration system. Some templates use an ORM for query building but still document manual SQL setup instead of shipping `prisma` migrations, a `drizzle.config.ts`, or a `db:migrate` script. In that case, convert the documented SQL into a repeatable migration or an initialization job before treating the app as production-ready.
+
+The Sealos deployment plan should make migration behavior explicit. Depending on your app, that may mean:
+
+- The container entrypoint runs migrations before starting the Next.js server
+- The plugin runs the migration command once after PostgreSQL is ready
+- You approve a one-time migration step during deployment
+- The plan records that migrations are intentionally unnecessary because the project ships an existing compatible schema
+
+Common migration commands:
+
+```bash
+npx prisma migrate deploy
+```
+
+```bash
+npx drizzle-kit migrate
+```
+
+```bash
+npx typeorm migration:run
+```
+
+If the app uses Prisma, also make sure the client is generated during build:
+
+```bash
+npx prisma generate
+```
+
+In production, migrations should be repeatable and safe to run more than once. Avoid one-off manual SQL as the normal deployment path.
+
+Runtime acceptance needs more than a completed migration command. Confirm that migrations are applied or intentionally unnecessary, then verify live schema evidence such as `_prisma_migrations`, Drizzle migration tables, TypeORM migration tables, or equivalent database objects that the deployed app actually uses.
+
+![Migration step completing during Sealos deployment](/images/nextjs-postgresql-sealos/migration-step-complete.webp)
+
+## Step 7: Verify the full-stack deployment
+
+Treat Runtime Truth Pass as the full-stack acceptance gate.
+
+For a full-stack app, verify the actual database path from the public app.
+
+Use this checklist:
+
+- The app reaches `running` in Sealos
+- The PostgreSQL resource is running
+- The app's actual database env key is present in the app environment
+- The database env key is sourced from the generated PostgreSQL resource
+- The public URL opens
+- A public app path reads from PostgreSQL
+- A form or API route writes to PostgreSQL
+- New data survives a restart or redeploy
+- Migrations are applied or intentionally unnecessary
+- Migration tables or equivalent live database objects exist
+- App logs do not show database connection errors
+- PostgreSQL logs do not show repeated connection, auth, or migration errors
+- No secret values appear in browser HTML or client JavaScript
+
+Example verification command for a health endpoint:
+
+```bash
+curl -s https://<your-app-url>/api/health
+```
+
+Example health response:
+
+```json
+{
+  "status": "ok",
+  "database": "connected"
+}
+```
+
+If your app does not have a health endpoint, add one before production.
+
+## Step 8: Add persistent storage only if the app writes files
+
+PostgreSQL data is handled by the Sealos database resource generated for the deployment.
+
+But your Next.js app may still write files, for example:
+
+- Uploaded avatars
+- Generated PDFs
+- Local cache files
+- CMS media
+- Temporary exports that must survive redeploys
+
+If files must persist, do not rely on the container filesystem. Attach persistent storage in Sealos or move uploads to object storage.
+
+Use persistent storage only for paths that really need it. Mounting the wrong path makes the app look healthy while the real data remains ephemeral.
+
+See: [Sealos Persistent Storage](https://sealos.io/docs/guides/app-deploy/persistent-volume/)
+
+## Next.js standalone output with ORM dependencies
+
+For production containers, Next.js standalone output is usually preferred.
+
+In `next.config.mjs`:
+
+```js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'standalone'
+};
+
+export default nextConfig;
+```
+
+Standalone output keeps the runtime image smaller. But there is one important caveat:
+
+If your app runs migrations inside the container, standalone output may not include every ORM package needed by migration commands.
+
+Watch for these errors:
+
+```text
+Cannot find module '@prisma/client'
+Cannot find module 'drizzle-orm'
+Cannot find module 'typeorm'
+```
+
+The Sealos Dockerfile generation logic should detect Next.js standalone mode plus an ORM and include the runtime dependencies needed for migrations.
+
+A safe runtime flow is:
+
+```text
+container starts
+   |
+   v
+wait for PostgreSQL
+   |
+   v
+run migration command
+   |
+   v
+start Next.js server
+```
+
+Verify tables before the first user request reaches the new deployment.
+
+## Common errors and fixes
+
+### 1. Database connection env var is not set
+
+The deployment did not wire the generated PostgreSQL connection into the env key that the app actually reads. The key might be `DATABASE_URL`, `POSTGRES_URL`, `POSTGRES_PRISMA_URL`, or another project-specific name.
+
+Fix:
+
+- Confirm the Sealos plan includes PostgreSQL as a generated resource
+- Confirm the app’s actual database env key is mapped from that PostgreSQL resource
+- Check source code for `process.env.DATABASE_URL`, `process.env.POSTGRES_URL`, `process.env.POSTGRES_PRISMA_URL`, or similar references
+- Redeploy with the full-stack prompt instead of creating the database separately
+
+### 2. `relation does not exist` or `table does not exist`
+
+The app connected to PostgreSQL, but migrations did not run.
+
+Fix:
+
+```bash
+npx prisma migrate deploy
+```
+
+Or:
+
+```bash
+npx drizzle-kit migrate
+```
+
+Then redeploy or restart the app. For production, add migrations to the Sealos deployment plan instead of relying on a manual afterthought.
+
+### 3. The app connects to the wrong database
+
+The app may be using a stale local or manually copied database connection string.
+
+Fix:
+
+- Let Sealos generate the app’s actual database connection env var from the PostgreSQL resource
+- Remove stale production values from old deploy settings
+- Confirm the app environment points to the database generated for this deployment
+- Write a test record through the public app and confirm it appears in the generated PostgreSQL resource
+
+### 4. Runtime Truth Pass fails after deployment
+
+The resource rollout finished, but live full-stack proof is incomplete.
+
+Fix:
+
+- Confirm the public app path reads from PostgreSQL
+- Submit a form or call an API route that writes to PostgreSQL
+- Restart or redeploy the app and confirm the written data survives
+- Inspect app logs and PostgreSQL logs for database connection errors
+- Confirm migration tables or equivalent database objects exist in the live database
+
+### 5. `Cannot find module '@prisma/client'` in production
+
+The production container is missing ORM runtime files.
+
+Fix:
+
+- Run `prisma generate` during build
+- Ensure the generated client is copied into the runtime image
+- If using standalone output, make sure ORM dependencies needed by migrations are available
+- Check the runtime image for missing `prisma`, `@prisma/client`, `drizzle-orm`, `drizzle-kit`, `typeorm`, or `pg` dependencies used by migration commands
+
+### 6. Logs identify database connection failures
+
+Runtime logs show failures such as connection refused, authentication failed, TLS mismatch, DNS lookup failures, or migration lock errors.
+
+Fix:
+
+- Inspect app logs after HTTP smoke and after the first read/write test
+- Inspect PostgreSQL resource logs for rejected connections or migration errors
+- Confirm host, port, username, password, and database name come from the generated PostgreSQL resource
+- Re-run Runtime Truth Pass after the env wiring or migration fix
+
+### 7. The app leaks secrets to the browser
+
+A secret may have been named with `NEXT_PUBLIC_`.
+
+Fix:
+
+- Rename server-only secrets without `NEXT_PUBLIC_`
+- Audit client-side bundles and rendered HTML
+- Rotate the leaked secret
+
+### 8. The app works with one instance but fails when scaled
+
+The app may store sessions or temporary state in memory.
+
+Fix:
+
+- Store sessions in PostgreSQL, Redis, or another shared store
+- Move uploads to persistent storage or object storage
+- Confirm migrations do not run concurrently in an unsafe way

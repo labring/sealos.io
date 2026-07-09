@@ -22,6 +22,7 @@ const REQUIRED_STATIC_FILES = [
   'en/products/app-store/index.html',
 ];
 const REPRESENTATIVE_ASSET_DIRS = ['_next/static', 'images/apps'];
+const ARTIFACT_UNSAFE_PATH_CHARS = /["<>|*?\r\n]/;
 
 function readTextFile(filePath) {
   return fs.readFileSync(filePath, 'utf8');
@@ -216,6 +217,26 @@ function findFirstFile(dirPath) {
   return null;
 }
 
+function findUnsafeArtifactPaths(dirPath, baseDir = dirPath) {
+  if (!fs.existsSync(dirPath)) {
+    return [];
+  }
+
+  const unsafePaths = [];
+
+  for (const entry of fs.readdirSync(dirPath, { withFileTypes: true })) {
+    const fullPath = path.join(dirPath, entry.name);
+    if (ARTIFACT_UNSAFE_PATH_CHARS.test(entry.name)) {
+      unsafePaths.push(path.relative(baseDir, fullPath));
+    }
+    if (entry.isDirectory()) {
+      unsafePaths.push(...findUnsafeArtifactPaths(fullPath, baseDir));
+    }
+  }
+
+  return unsafePaths;
+}
+
 function loadNativePolicy({ rootDir = process.cwd() } = {}) {
   const policyPath = path.join(rootDir, NATIVE_POLICY_PATH);
   if (!fs.existsSync(policyPath)) {
@@ -323,6 +344,7 @@ function validateOutArtifacts({ outDir = path.join(process.cwd(), 'out') } = {})
   const missingRequired = REQUIRED_STATIC_FILES.filter(
     (file) => !fs.existsSync(path.join(outDir, file)),
   );
+  const unsafeArtifactPaths = findUnsafeArtifactPaths(outDir);
   const representativeAssets = REPRESENTATIVE_ASSET_DIRS.map((dir) => ({
     dir,
     file: findFirstFile(path.join(outDir, dir)),
@@ -334,10 +356,13 @@ function validateOutArtifacts({ outDir = path.join(process.cwd(), 'out') } = {})
   return {
     outDir,
     missingRequired,
+    unsafeArtifactPaths,
     representativeAssets,
     missingAssetDirs,
     status:
-      missingRequired.length === 0 && missingAssetDirs.length === 0
+      missingRequired.length === 0 &&
+      missingAssetDirs.length === 0 &&
+      unsafeArtifactPaths.length === 0
         ? 'PASS'
         : 'FAIL',
   };
@@ -421,6 +446,9 @@ function validateStaticOutput({ rootDir = process.cwd(), env = process.env } = {
       out = validateOutArtifacts({ outDir });
       failures.push(
         ...out.missingRequired.map((file) => `out missing required file ${file}`),
+        ...out.unsafeArtifactPaths.map(
+          (file) => `out contains artifact-unsafe path ${file}`,
+        ),
         ...out.missingAssetDirs.map(
           (dir) => `out missing representative asset directory ${dir}`,
         ),
@@ -495,6 +523,7 @@ module.exports = {
   shouldInspectOut,
   validateNativeArtifactStatus,
   validateHeaderParity,
+  findUnsafeArtifactPaths,
   validateOutArtifacts,
   validateRedirectParity,
   validateSourceConfig,

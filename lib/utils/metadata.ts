@@ -66,6 +66,8 @@ function toAlternateLanguages(
   return Object.fromEntries(links.map(({ hrefLang, href }) => [hrefLang, href]));
 }
 
+export { generateTutorialMetadata } from '@/lib/utils/tutorial-metadata';
+
 export async function generateBlogMetadata(props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {

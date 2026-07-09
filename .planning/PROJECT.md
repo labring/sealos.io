@@ -1,21 +1,43 @@
-# Sealos.io Performance Audit
+# Sealos.io Tutorial Content Accuracy
 
 ## What This Is
 
-This project is a full-codebase performance audit for the existing Sealos.io
-site. It covers frontend, backend-style API routes, build-time scripts, content
-pipelines, runtime integrations, and any functions or modules that can create
-slow page loads, excessive network requests, slow data processing, blocking
-synchronous work, or unnecessary bundle/runtime cost.
+This project maintains Sealos.io tutorial content for developers who use AI
+agents to deploy applications to Sealos Cloud. The current milestone expands the
+existing Next.js tutorial pattern into React and Node.js tutorial series with
+practice-backed screenshots, verified assets, and tutorial validation coverage.
 
-The immediate deliverable is a durable module-by-module performance findings
-report under `docs/`, so repeated checks can continue from recorded evidence
-instead of restarting from scratch.
+The immediate deliverable is an accurate English tutorial set that teaches
+React, Node.js, and Next.js deployment paths with consistent Sealos Skills
+workflow expectations and screenshots captured from real Sealos practice.
 
 ## Core Value
 
-Find every credible performance risk in the current codebase with file-level
-evidence and a clear remediation path.
+Readers can follow framework-specific Sealos tutorials with commands,
+screenshots, and validation evidence that match the current product workflow.
+
+## Current Milestone: v1.2 React and Node.js Tutorial Expansion
+
+**Goal:** Use the three existing Next.js tutorials as templates to add React and
+Node.js tutorial series with real practice screenshots and repository validation.
+
+**Target features:**
+- React beginner deployment tutorial modeled on
+  `deploy-nextjs-sealos`.
+- React PostgreSQL/full-stack tutorial modeled on
+  `nextjs-postgresql-sealos`.
+- React production checklist tutorial modeled on
+  `nextjs-production-deployment-sealos`.
+- Node.js beginner deployment tutorial modeled on
+  `deploy-nextjs-sealos`.
+- Node.js PostgreSQL/full-stack tutorial modeled on
+  `nextjs-postgresql-sealos`.
+- Node.js production checklist tutorial modeled on
+  `nextjs-production-deployment-sealos`.
+- Practice-backed screenshots for the new tutorials, captured from real Sealos
+  runs, redacted where needed, compressed to WebP, and referenced from MDX.
+- Tutorial metadata, listing, adjacent tutorial navigation, image references,
+  and validation scripts updated to include the new React and Node.js series.
 
 ## Requirements
 
@@ -23,103 +45,100 @@ evidence and a clear remediation path.
 
 - ✓ Static-first localized Next.js App Router site exists — implemented through
   `app/[lang]`, `next.config.mjs`, and static export build behavior.
-- ✓ Documentation, blog, and AI quick reference content are loaded through
-  Fumadocs — implemented in `source.config.ts` and `lib/source.ts`.
-- ✓ App Store pages and deploy flows exist — implemented through
-  `config/apps-loader.ts`, `lib/api/apps-api.ts`,
-  `app/[lang]/products/app-store`, and `new-components/DeployModal`.
-- ✓ Generated SEO surfaces exist — implemented through routes such as
-  `app/api/search/route.ts`, `app/api/og/route.ts`, `app/rss.xml/route.ts`,
-  `app/sitemap-index.xml/route.ts`, and `app/llms.txt/route.ts`.
-- ✓ Build-time app data generation exists — implemented through
-  `scripts/generate-apps-api.js`, `config/apps.json`, and
-  `config/template-sources.json`.
-- ✓ Baseline codebase map exists — recorded in `.planning/codebase/`.
+- ✓ Documentation, blog, and tutorial content are loaded through Fumadocs —
+  implemented in `source.config.ts`, `lib/source.ts`, and `content/**`.
+- ✓ Tutorial listing and detail routes exist — implemented under
+  `app/[lang]/(home)/tutorials/**`.
+- ✓ Next.js tutorial content exists — implemented under `content/tutorials/`
+  with beginner, PostgreSQL, and production checklist articles.
+- ✓ Sealos Skills landing-page routing exists — referenced through
+  `/sealos-skills` and sitemap metadata.
+- ✓ Sealos Skills tutorial install, invocation, deploy-flow, metadata, and
+  validation guidance was aligned with upstream source truth — completed in
+  v1.1 phases 13 through 15.
 
 ### Active
 
-- [ ] Inventory every functional module and group each module by route,
-  component, data pipeline, API route, script, integration, and deployment
-  surface.
-- [ ] Audit page entry performance, including initial render cost, route-level
-  data loading, client component boundaries, bundle-heavy dependencies,
-  metadata generation, search, and static export constraints.
-- [ ] Audit network and data-fetch behavior, including fan-out patterns,
-  sequential requests, cache usage, remote API fallbacks, duplicated fetches,
-  and places where concurrent work is possible.
-- [ ] Audit server and route-handler performance, including OG generation,
-  search generation, app API conversion, abuse verification, RSS, sitemap,
-  robots, and LLM text generation.
-- [ ] Audit build-time performance, including remote template generation,
-  image downloads, MDX/Fumadocs generation, bundle analyzer output, Docker
-  build behavior, CI workflow commands, and static export post-processing.
-- [ ] Audit function-level performance hotspots, including synchronous shell
-  calls, CPU-heavy loops, large JSON transformations, unbounded markdown/MDX
-  processing, repeated sorting/filtering, and expensive rendering helpers.
-- [ ] Audit asset and bundle performance, including `motion`, `three`,
-  `matter-js`, `react-player`, `canvas`, `sharp`, remote images, SVG handling,
-  local fonts, and large static datasets.
-- [ ] Audit frontend interaction performance, including header, auth modal,
-  deploy modal, app-store filters, docs search, Mermaid rendering, video/media
-  components, and visual-heavy marketing sections.
-- [ ] Produce `docs/performance-audit.md` as the working audit record with
-  module checklist, findings, severity, evidence paths, root cause, likely user
-  impact, and recommended fix order.
-- [ ] Produce a roadmap where phases proceed module by module and leave enough
-  traceability for later fix work.
+- [ ] Add a React beginner tutorial that follows the existing beginner Next.js
+  tutorial structure while using React-specific project setup, deployment
+  language, metadata, links, and screenshots.
+- [ ] Add a React PostgreSQL/full-stack tutorial that follows the existing
+  PostgreSQL Next.js tutorial structure while using React-specific app, database,
+  environment, migration, and verification guidance.
+- [ ] Add a React production checklist tutorial that follows the existing
+  production Next.js tutorial structure while using React-specific build,
+  deployment, rollback, and runtime verification guidance.
+- [ ] Add a Node.js beginner tutorial that follows the existing beginner Next.js
+  tutorial structure while using Node.js-specific project setup, deployment
+  language, metadata, links, and screenshots.
+- [ ] Add a Node.js PostgreSQL/full-stack tutorial that follows the existing
+  PostgreSQL Next.js tutorial structure while using Node.js-specific service,
+  database, environment, migration, and verification guidance.
+- [ ] Add a Node.js production checklist tutorial that follows the existing
+  production Next.js tutorial structure while using Node.js-specific build,
+  deployment, rollback, and runtime verification guidance.
+- [ ] Capture real Sealos practice evidence for React and Node.js paths before
+  producing screenshots.
+- [ ] Store tutorial screenshots as referenced WebP assets with validated
+  dimensions, file sizes, and MDX references.
+- [ ] Update tutorial listing, metadata utilities, related tutorial links, and
+  validation scripts so the new series are first-class `/tutorials` pages.
+- [ ] Validate the expanded tutorial set with targeted searches, tutorial
+  validation, image checks, and TypeScript/content checks.
 
 ### Out of Scope
 
-- Direct performance fixes — this project first creates the complete audit
-  inventory and prioritized findings.
-- Production load testing against live Sealos services — source-level audit and
-  local build/runtime inspection come first.
-- SEO copy rewrites or visual redesign — performance risks in SEO and UI code
-  are in scope, content strategy changes are deferred.
-- New product functionality — the audit targets the current codebase.
-- Database query tuning against an unavailable production database — static
-  source inspection covers SQL-like or API-query patterns when present.
+- New framework tutorial families beyond React and Node.js — this milestone
+  expands the current tutorial pattern to the two requested ecosystems.
+- Non-English tutorial localization — current tutorial publication remains
+  English-only for this milestone.
+- Visual redesign of the tutorial pages — the work extends content, metadata,
+  screenshots, and validation coverage.
+- Sealos Skills behavior changes — tutorial content consumes the current Sealos
+  workflow as source truth.
+- Screenshot assets generated from imagined states — screenshots must come from
+  this milestone's practice evidence.
 
 ## Context
 
-This is a brownfield Next.js 14.2.28, React 18.3.1, TypeScript 5.8.3,
-Fumadocs-powered Sealos marketing and documentation site. The app is structured
-around localized routes in `app/[lang]`, static MDX content under `content/`,
-structured data and product configuration under `config/`, and shared utilities
-under `lib/`.
+The active tutorial set contains exactly three English Next.js pages:
 
-The codebase map highlights several likely performance zones before deeper
-audit work begins:
+- `content/tutorials/deploy-nextjs-sealos/index.en.mdx`
+- `content/tutorials/nextjs-postgresql-sealos/index.en.mdx`
+- `content/tutorials/nextjs-production-deployment-sealos/index.en.mdx`
 
-- `scripts/generate-apps-api.js` performs serial network-heavy template
-  generation during build.
-- `lib/api/apps-api.ts`, `config/apps-loader.ts`, and
-  `scripts/generate-apps-api.js` duplicate app-template normalization and
-  fallback behavior.
-- `app/api/search/route.ts` builds search data from localized docs metadata and
-  can grow into a static payload or build-memory concern.
-- `app/api/og/route.ts` uses `canvas` and `sharp` to render images dynamically.
-- Visual-heavy pages and components use dependencies such as `motion`, `three`,
-  `matter-js`, `react-player`, `canvas`, and `sharp`.
-- App Store, docs, MDX, localized routing, generated SEO endpoints, and CI/CD
-  flows are fragile enough to require evidence-based audit notes before fixes.
+Their image assets live under:
 
-The user explicitly asked for the audit to cover the entire project without
-front-end/back-end boundaries and to record the analysis under `docs/` to avoid
-duplicate inspection.
+- `public/images/deploy-nextjs-sealos/`
+- `public/images/nextjs-postgresql-sealos/`
+- `public/images/nextjs-production-deployment-sealos/`
+
+The existing tutorial utility and validation surfaces include
+`lib/utils/tutorial-utils.ts`, `source.config.ts`, and
+`scripts/validate-tutorials.mjs`. The validator currently expects the three
+Next.js tutorial slugs and should be expanded or refactored for React and
+Node.js publication.
+
+Prior tutorial screenshot work established a real-evidence workflow: capture
+live namespace evidence with `kubectl` and `curl`, redact literal secrets,
+render screenshots from the actual outputs or browser state, convert assets to
+WebP, verify dimensions and file size, confirm source references, and run
+`npm run validate-tutorials`.
 
 ## Constraints
 
-- **Scope**: Cover the entire repository module by module — the objective is
-  complete potential performance-risk discovery.
-- **Artifact**: Record the analysis in `docs/performance-audit.md` — the report
-  is the durable working memory for the audit.
-- **Evidence**: Every finding needs file-level evidence and a concrete reason
-  it can affect performance.
-- **Stack**: Keep the existing Next.js App Router, React, Fumadocs, npm, static
-  export, and deployment model while auditing.
-- **Quality**: Treat likely user-facing slow paths, build-time slow paths, and
-  developer workflow slow paths as separate impact categories.
+- **Template parity**: The React and Node.js series should preserve the
+  information architecture, metadata depth, CTA pattern, and validation style of
+  the three existing Next.js tutorials.
+- **Practice evidence**: Screenshots must be based on real Sealos practice for
+  the React and Node.js paths, with credentials and sensitive values redacted.
+- **Asset quality**: Tutorial screenshots should use WebP, keep stable
+  dimensions, stay reasonably small, and have exact MDX references.
+- **SEO consistency**: Frontmatter, FAQ, HowTo steps, target keywords, related
+  tutorials, and visible body copy must agree for every new tutorial.
+- **Validation**: Use CodeGraph for indexed code exploration, targeted `rg`,
+  `npm run validate-tutorials`, image checks, and the narrowest appropriate
+  TypeScript/content validation.
 - **Language**: Planning docs, code, code comments, commits, and PR text are
   written in English.
 
@@ -127,22 +146,22 @@ duplicate inspection.
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Use a dedicated GSD project for performance audit | The audit spans all modules and needs durable traceability. | — Pending |
-| Use fine-grained phase slicing | The user wants module-by-module coverage and broad discovery. | — Pending |
-| Keep the first pass as audit/reporting | Fixing before complete discovery can hide cross-module patterns. | — Pending |
-| Store the audit record under `docs/` | The user requested a persistent report to prevent repeated inspection. | — Pending |
-| Include frontend, API routes, scripts, build, integrations, and deployment | Performance risks can exist across the whole codebase. | — Pending |
+| Scope v1.2 to React and Node.js tutorial families | The user asked to use the three `/tutorials` Next.js articles as templates for React and Node.js. | — Pending |
+| Mirror the three-part Next.js tutorial taxonomy for both new ecosystems | Beginner, PostgreSQL/full-stack, and production checklist coverage keeps the tutorial catalog predictable. | — Pending |
+| Require fresh practice evidence before screenshot creation | The user explicitly asked for self-practiced screenshots, and prior tutorial work used evidence-backed assets. | — Pending |
+| Store new tutorial screenshots as WebP assets under framework-specific image folders | Existing tutorial assets use per-slug image folders, and WebP keeps article weight manageable. | — Pending |
+| Start this roadmap at Phase 16 | The previous tutorial-alignment milestone completed phases 13 through 15, so Phase 16 preserves sequential planning history. | — Pending |
 
 ## Evolution
 
 This document evolves at phase transitions and milestone boundaries.
 
 **After each phase transition** (via `$gsd-transition`):
-1. Requirements invalidated? → Move to Out of Scope with reason
-2. Requirements validated? → Move to Validated with phase reference
-3. New requirements emerged? → Add to Active
-4. Decisions to log? → Add to Key Decisions
-5. "What This Is" still accurate? → Update if drifted
+1. Requirements invalidated? -> Move to Out of Scope with reason
+2. Requirements validated? -> Move to Validated with phase reference
+3. New requirements emerged? -> Add to Active
+4. Decisions to log? -> Add to Key Decisions
+5. "What This Is" still accurate? -> Update if drifted
 
 **After each milestone** (via `$gsd-complete-milestone`):
 1. Full review of all sections
@@ -151,4 +170,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-11 after initialization*
+*Last updated: 2026-06-29 after v1.2 milestone initialization*

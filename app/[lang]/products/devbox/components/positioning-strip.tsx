@@ -19,18 +19,20 @@ export default function PositioningStrip({
   const t = translations[lang as keyof typeof translations] || translations.en;
 
   return (
-    <section className="mt-6 w-full">
-      <div className="relative mx-auto max-w-5xl rounded-xl border border-slate-100 bg-white/90 p-4 shadow-sm">
+    <section className="mt-10 w-full">
+      <div className="inset-shadow-bubble relative mx-auto max-w-5xl rounded-2xl border border-white/10 bg-white/[0.04] p-4 shadow-sm backdrop-blur">
         <div className="flex flex-col items-start gap-3 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-5 w-1.5 rounded-full bg-gradient-to-b from-emerald-400 to-teal-500" />
-            <p className="text-sm sm:text-base font-medium text-slate-900">{t.title}</p>
+            <div className="h-5 w-1.5 rounded-full bg-gradient-to-b from-blue-300 to-blue-600" />
+            <p className="text-sm font-medium text-white sm:text-base">
+              {t.title}
+            </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             {t.points.map((p, i) => (
               <span
                 key={i}
-                className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700 transition-colors hover:border-emerald-300"
+                className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-zinc-300 transition-colors hover:border-blue-400/60"
               >
                 {p}
               </span>

@@ -111,6 +111,17 @@ test('search route keeps static index headings without body contents', async () 
   assert.doesNotMatch(source, /structuredData:\s*page\.data\.structuredData/);
 });
 
+test('AI quick reference detail route keeps static export params', async () => {
+  const source = await readFile(
+    'app/[lang]/(home)/ai-quick-reference/[slug]/page.tsx',
+    'utf8',
+  );
+
+  assert.match(source, /export\s+async\s+function\s+generateStaticParams/);
+  assert.match(source, /faqSource\.getPages\('en'\)/);
+  assert.match(source, /params\.push\(\{\s*lang,\s*slug\s*\}\)/);
+});
+
 test('native route ownership matches native rendering image surfaces', () => {
   const result = validateNativeRouteOwnership();
 

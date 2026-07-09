@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 import {
+  findUnsafeArtifactPaths,
   parseCloudflareHeaders,
   parseCloudflareRedirects,
   parseVercelHeaders,
@@ -342,7 +343,44 @@ test('validateOutArtifacts verifies representative static export files', async (
     const result = validateOutArtifacts({ outDir });
 
     assert.deepEqual(result.missingRequired, []);
+    assert.deepEqual(result.unsafeArtifactPaths, []);
     assert.equal(result.representativeAssets.length, 2);
+    assert.equal(result.status, 'PASS');
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
+test('validateOutArtifacts rejects artifact-unsafe file paths', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'phase9-out-unsafe-paths-'));
+  const outDir = join(dir, 'out');
+
+  try {
+    await mkdir(join(outDir, 'en/products/app-store'), { recursive: true });
+    await mkdir(join(outDir, 'products/app-store'), { recursive: true });
+    await mkdir(join(outDir, '_next/static/chunks'), { recursive: true });
+    await mkdir(join(outDir, 'images/apps'), { recursive: true });
+    await mkdir(join(outDir, 'images/customers'), { recursive: true });
+    await writeFile(join(outDir, 'index.html'), '');
+    await writeFile(join(outDir, 'en/index.html'), '');
+    await writeFile(join(outDir, 'sitemap.xml'), '');
+    await writeFile(join(outDir, 'rss.xml'), '');
+    await writeFile(join(outDir, 'robots.txt'), '');
+    await writeFile(join(outDir, 'llms.txt'), '');
+    await writeFile(join(outDir, 'en/products/app-store/index.html'), '');
+    await writeFile(join(outDir, 'products/app-store/index.html'), '');
+    await writeFile(join(outDir, '_next/static/chunks/app.js'), '');
+    await writeFile(join(outDir, 'images/apps/example.png'), '');
+    await writeFile(join(outDir, 'images/customers/logo.png?_286x76.png'), '');
+
+    const unsafePaths = findUnsafeArtifactPaths(outDir);
+    const result = validateOutArtifacts({ outDir });
+
+    assert.deepEqual(unsafePaths, ['images/customers/logo.png?_286x76.png']);
+    assert.deepEqual(result.unsafeArtifactPaths, [
+      'images/customers/logo.png?_286x76.png',
+    ]);
+    assert.equal(result.status, 'FAIL');
   } finally {
     await rm(dir, { recursive: true, force: true });
   }

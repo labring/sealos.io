@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { source, blog } from '@/lib/source';
+import { source, blog, tutorials } from '@/lib/source';
 import { appsConfig } from '@/config/apps';
 import { getAppDetailPathname } from '@/app/[lang]/products/app-store/app-store-seo';
 import { getAllPlatformSlugs } from '@/app/[lang]/(home)/comparison/config/platforms';
@@ -43,6 +43,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogPages: MetadataRoute.Sitemap = blog
     .getPages()
     .map((post) => toSitemapItem(getUrl, post.url, 'weekly', 0.6));
+
+  const tutorialPages: MetadataRoute.Sitemap = tutorials
+    .getPages('en')
+    .map((tutorial) => toSitemapItem(getUrl, tutorial.url, 'weekly', 0.7));
 
   const staticProductPages: MetadataRoute.Sitemap = [
     '/products/devbox',
@@ -89,10 +93,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...chineseSpecificPages,
     toSitemapItem(getUrl, '/docs', 'monthly', 0.8),
     toSitemapItem(getUrl, '/blog', 'monthly', 0.8),
+    toSitemapItem(getUrl, '/tutorials', 'monthly', 0.8),
     toSitemapItem(getUrl, '/ai-quick-reference', 'monthly', 0.8),
     toSitemapItem(getUrl, '/comparison', 'weekly', 0.8),
     ...comparisonPages,
     ...docPages,
     ...blogPages,
+    ...tutorialPages,
   ];
 }

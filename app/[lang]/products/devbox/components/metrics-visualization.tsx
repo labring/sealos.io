@@ -213,27 +213,26 @@ export default function MetricsVisualization({
   }, []);
 
   const colorClasses = {
-    blue: 'from-blue-500 to-indigo-600 text-blue-600 bg-blue-100',
-    green: 'from-green-500 to-emerald-600 text-green-600 bg-green-100',
-    purple: 'from-purple-500 to-pink-600 text-purple-600 bg-purple-100',
-    emerald: 'from-emerald-500 to-teal-600 text-emerald-600 bg-emerald-100',
+    blue: 'from-blue-500 to-indigo-600 text-blue-300 bg-blue-500/10',
+    green: 'from-green-500 to-emerald-600 text-green-300 bg-green-500/10',
+    purple: 'from-purple-500 to-pink-600 text-purple-300 bg-purple-500/10',
+    emerald: 'from-emerald-500 to-teal-600 text-emerald-300 bg-emerald-500/10',
   };
 
   return (
-    <section className="bg-gradient-to-b py-12 sm:py-16 lg:py-20">
+    <section className="py-4 sm:py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <AnimateElement type="slideUp">
           <div className="mb-12 text-center sm:mb-16">
-            <h2 className="mb-3 text-3xl font-bold text-gray-900 sm:mb-4 sm:text-4xl md:text-5xl">
+            <h2 className="mb-3 text-3xl font-medium text-white sm:mb-4 sm:text-4xl md:text-5xl">
               {t.title}
             </h2>
-            <p className="mx-auto max-w-3xl px-4 text-lg text-gray-600 sm:px-0 sm:text-xl">
+            <p className="mx-auto max-w-3xl px-4 text-base leading-7 text-zinc-400 sm:px-0 sm:text-xl">
               {t.subtitle}
             </p>
           </div>
         </AnimateElement>
 
-        {/* Key Metrics Grid */}
         <div className="mb-12 grid grid-cols-1 gap-6 sm:mb-16 sm:grid-cols-2 sm:gap-8 lg:mb-20 lg:grid-cols-4">
           {t.metrics.map((metric, index) => {
             const Icon = metric.icon;
@@ -251,7 +250,7 @@ export default function MetricsVisualization({
             return (
               <AnimateElement key={index} type="slideUp" delay={index * 0.1}>
                 <MagicCard
-                  className="relative h-full rounded-xl border-0 bg-white shadow-xl transition-all hover:-translate-y-2 hover:shadow-2xl"
+                  className="inset-shadow-bubble relative h-full rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur transition-all hover:-translate-y-1 hover:border-blue-400/40"
                   gradientSize={250}
                   gradientColor={gradient.from}
                   gradientOpacity={0.15}
@@ -259,10 +258,9 @@ export default function MetricsVisualization({
                   gradientTo={gradient.to}
                 >
                   <div className="p-6 sm:p-8">
-                    {/* Icon */}
                     <div
                       className={cn(
-                        'mb-3 inline-flex rounded-lg p-2.5 sm:mb-4 sm:p-3',
+                        'mb-3 inline-flex rounded-xl border border-white/10 p-2.5 sm:mb-4 sm:p-3',
                         colors.split(' ')[3],
                       )}
                     >
@@ -274,23 +272,20 @@ export default function MetricsVisualization({
                       />
                     </div>
 
-                    {/* Animated Value */}
                     <div className="mb-2 flex items-baseline">
-                      <span className="text-3xl font-bold text-gray-900 sm:text-4xl">
+                      <span className="text-3xl font-bold text-white sm:text-4xl">
                         {isVisible && <AnimatedNumber value={metric.value} />}
                       </span>
-                      <span className="ml-1 text-xl font-semibold text-gray-700 sm:text-2xl">
+                      <span className="ml-1 text-xl font-semibold text-zinc-300 sm:text-2xl">
                         {metric.unit}
                       </span>
                     </div>
 
-                    {/* Label */}
-                    <div className="mb-1 text-sm font-semibold text-gray-900 sm:text-base">
+                    <div className="mb-1 text-sm font-semibold text-white sm:text-base">
                       {metric.label}
                     </div>
 
-                    {/* Description */}
-                    <div className="text-xs text-gray-600 sm:text-sm">
+                    <div className="text-xs text-zinc-500 sm:text-sm">
                       {metric.description}
                     </div>
                   </div>
@@ -308,25 +303,24 @@ export default function MetricsVisualization({
           })}
         </div>
 
-        {/* Detailed Comparison Table */}
         <AnimateElement type="slideUp">
           <MagicCard
-            className="border-0 bg-white p-4 shadow-xl sm:p-6 lg:p-8"
+            className="inset-shadow-bubble rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur sm:p-6 lg:p-8"
             gradientSize={300}
             gradientColor="#3b82f6"
             gradientOpacity={0.1}
             gradientFrom="#3b82f6"
             gradientTo="#10b981"
           >
-            <h3 className="mb-6 text-center text-xl font-bold text-gray-900 sm:mb-8 sm:text-2xl">
+            <h3 className="mb-6 text-center text-xl font-semibold text-white sm:mb-8 sm:text-2xl">
               {t.comparison.title}
             </h3>
 
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b-2 border-gray-200">
-                    <th className="px-2 py-2 text-left text-xs font-semibold text-gray-900 sm:px-3 sm:py-3 sm:text-sm lg:px-4">
+                  <tr className="border-b border-white/10">
+                    <th className="px-2 py-2 text-left text-xs font-semibold text-white sm:px-3 sm:py-3 sm:text-sm lg:px-4">
                       Metric
                     </th>
                     <th className="px-2 py-2 text-center text-xs font-semibold text-red-600 sm:px-3 sm:py-3 sm:text-sm lg:px-4">
@@ -344,23 +338,23 @@ export default function MetricsVisualization({
                   {t.comparison.items.map((item, index) => (
                     <tr
                       key={index}
-                      className="group border-b border-gray-100 transition-all hover:bg-gradient-to-r hover:from-blue-50/50 hover:to-green-50/50"
+                      className="group border-b border-white/10 transition-all hover:bg-white/[0.03]"
                     >
-                      <td className="px-2 py-3 text-xs font-medium text-gray-900 sm:px-3 sm:py-4 sm:text-sm lg:px-4">
+                      <td className="px-2 py-3 text-xs font-medium text-white sm:px-3 sm:py-4 sm:text-sm lg:px-4">
                         {item.metric}
                       </td>
-                      <td className="px-2 py-3 text-center text-gray-600 sm:px-3 sm:py-4 lg:px-4">
-                        <span className="inline-block rounded-lg bg-red-50 px-2 py-0.5 text-xs transition-all group-hover:bg-red-100 sm:px-3 sm:py-1 sm:text-sm">
+                      <td className="px-2 py-3 text-center text-zinc-400 sm:px-3 sm:py-4 lg:px-4">
+                        <span className="inline-block rounded-lg border border-red-400/20 bg-red-500/10 px-2 py-0.5 text-xs transition-all sm:px-3 sm:py-1 sm:text-sm">
                           {item.traditional}
                         </span>
                       </td>
-                      <td className="px-2 py-3 text-center text-gray-600 sm:px-3 sm:py-4 lg:px-4">
-                        <span className="inline-block rounded-lg bg-green-50 px-2 py-0.5 text-xs font-medium transition-all group-hover:bg-green-100 sm:px-3 sm:py-1 sm:text-sm">
+                      <td className="px-2 py-3 text-center text-zinc-400 sm:px-3 sm:py-4 lg:px-4">
+                        <span className="inline-block rounded-lg border border-emerald-400/20 bg-emerald-500/10 px-2 py-0.5 text-xs font-medium transition-all sm:px-3 sm:py-1 sm:text-sm">
                           {item.devbox}
                         </span>
                       </td>
                       <td className="hidden px-2 py-3 text-center sm:table-cell sm:px-3 sm:py-4 lg:px-4">
-                        <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-semibold text-blue-800 transition-all group-hover:scale-105 group-hover:bg-blue-200 sm:px-3 sm:py-1 sm:text-sm">
+                        <span className="inline-flex items-center gap-1 rounded-full border border-blue-400/20 bg-blue-500/10 px-2 py-0.5 text-xs font-semibold text-blue-200 transition-all group-hover:scale-105 sm:px-3 sm:py-1 sm:text-sm">
                           <Zap className="h-3 w-3" />
                           {item.improvement}
                         </span>
@@ -371,33 +365,31 @@ export default function MetricsVisualization({
               </table>
             </div>
 
-            {/* Visual Progress Bars */}
             <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-4">
-              <div className="relative rounded-lg bg-gradient-to-r from-red-50 to-orange-50 p-3 sm:p-4">
-                <div className="mb-1.5 text-xs font-semibold text-gray-700 sm:mb-2 sm:text-sm">
+              <div className="relative rounded-xl border border-red-400/20 bg-red-500/10 p-3 sm:p-4">
+                <div className="mb-1.5 text-xs font-semibold text-zinc-300 sm:mb-2 sm:text-sm">
                   Traditional Development Efficiency
                 </div>
-                <div className="h-3 overflow-hidden rounded-full bg-white sm:h-4">
+                <div className="h-3 overflow-hidden rounded-full bg-black/40 sm:h-4">
                   <div
                     className="h-full rounded-full bg-gradient-to-r from-red-400 to-orange-400 transition-all duration-1000"
                     style={{ width: isVisible ? '30%' : '0%' }}
                   />
                 </div>
-                <div className="mt-1 text-xs text-gray-600">30% efficiency</div>
+                <div className="mt-1 text-xs text-zinc-500">30% efficiency</div>
               </div>
 
-              <div className="relative rounded-lg bg-gradient-to-r from-green-50 to-emerald-50 p-3 sm:p-4">
-                <div className="mb-1.5 text-xs font-semibold text-gray-700 sm:mb-2 sm:text-sm">
+              <div className="relative rounded-xl border border-emerald-400/20 bg-emerald-500/10 p-3 sm:p-4">
+                <div className="mb-1.5 text-xs font-semibold text-zinc-300 sm:mb-2 sm:text-sm">
                   DevBox Development Efficiency
                 </div>
                 <div className="relative">
-                  <div className="h-3 overflow-hidden rounded-full bg-white sm:h-4">
+                  <div className="h-3 overflow-hidden rounded-full bg-black/40 sm:h-4">
                     <div
                       className="h-full rounded-full bg-gradient-to-r from-green-400 to-emerald-400 transition-all duration-1000"
                       style={{ width: isVisible ? '95%' : '0%' }}
                     />
                   </div>
-                  {/* Add animated glow effect for DevBox efficiency - outside progress bar */}
                   {isVisible && (
                     <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
                       <BorderBeam
@@ -411,7 +403,7 @@ export default function MetricsVisualization({
                     </div>
                   )}
                 </div>
-                <div className="mt-1 text-xs text-gray-600">95% efficiency</div>
+                <div className="mt-1 text-xs text-zinc-500">95% efficiency</div>
               </div>
             </div>
           </MagicCard>
