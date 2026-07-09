@@ -22,7 +22,6 @@ const databases = [
       'Advanced Indexes',
       'Extensions',
     ],
-    gradient: 'from-blue-50/70 to-indigo-50/70',
     deployUrl: `${appDomain + dbAppSlug}`,
   },
   {
@@ -41,7 +40,6 @@ const databases = [
       'Partitioning',
       'Full-text Search',
     ],
-    gradient: 'from-blue-50/70 to-indigo-50/70',
     deployUrl: `${appDomain + dbAppSlug}`,
   },
   {
@@ -60,7 +58,6 @@ const databases = [
       'Aggregation Pipeline',
       'GridFS',
     ],
-    gradient: 'from-blue-50/70 to-indigo-50/70',
     deployUrl: `${appDomain + dbAppSlug}`,
   },
   {
@@ -79,27 +76,6 @@ const databases = [
       'Pub/Sub',
       'Lua Scripting',
     ],
-    gradient: 'from-blue-50/70 to-indigo-50/70',
-    deployUrl: `${appDomain + dbAppSlug}`,
-  },
-  {
-    name: 'Apache Kafka',
-    description:
-      'Distributed event streaming platform for high-throughput data',
-    iconPath: '/images/database/kafka.svg',
-    useCases: [
-      'Event Streaming',
-      'Log Aggregation',
-      'Real-time Pipelines',
-      'Microservices',
-    ],
-    features: [
-      'High Throughput',
-      'Fault Tolerance',
-      'Stream Processing',
-      'Exactly-once Semantics',
-    ],
-    gradient: 'from-blue-50/70 to-indigo-50/70',
     deployUrl: `${appDomain + dbAppSlug}`,
   },
   {
@@ -118,79 +94,76 @@ const databases = [
       'Hybrid Search',
       'Multi-tenancy',
     ],
-    gradient: 'from-blue-50/70 to-indigo-50/70',
     deployUrl: `${appDomain + dbAppSlug}`,
   },
 ];
 
 export default function Databases() {
   return (
-    <section className="py-20">
-      <div className="mb-16 text-center">
-        <h2 className="mb-4 text-4xl font-bold text-gray-900">
+    <section className="relative overflow-hidden">
+      <div className="mb-10 max-w-3xl sm:mb-16">
+        <h2 className="text-2xl leading-tight text-white sm:text-4xl md:text-[2.5rem]">
           Choose Your Perfect Database
         </h2>
-        <p className="mx-auto max-w-3xl text-xl text-gray-600">
-          From traditional SQL to modern NoSQL, streaming platforms to vector
-          databases - deploy any database with enterprise-grade management.
+        <p className="mt-3 text-sm leading-6 text-zinc-400 sm:text-base">
+          From traditional SQL to modern NoSQL and vector databases - deploy any
+          database with enterprise-grade management.
         </p>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
         {databases.map((db, index) => (
           <div
             key={index}
-            className="group flex flex-col overflow-hidden rounded-2xl border border-blue-50 bg-white shadow-lg transition-all duration-300 hover:border-blue-100 hover:shadow-xl"
+            className="group flex min-h-[31rem] flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.035] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur transition-all duration-300 hover:border-white/25 hover:bg-white/[0.06]"
           >
-            <div
-              className={`bg-gradient-to-r ${db.gradient} border-b border-blue-100/50 p-6 text-slate-700`}
-            >
+            <div className="border-b border-white/10 bg-white/[0.025] p-5 text-zinc-100 sm:p-6">
               <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-blue-100/30 bg-white/80 shadow-sm">
+                <div className="flex size-12 items-center justify-center rounded-xl border border-white/10 bg-white shadow-sm">
                   <img
                     src={db.iconPath}
                     alt={`${db.name} icon`}
                     className="h-8 w-8 object-contain"
                   />
                 </div>
-                <div className="rounded-full border border-blue-100/30 bg-white/80 px-3 py-1">
-                  <span className="text-sm font-medium text-slate-600">
+                <div className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                  <span className="text-sm font-medium text-zinc-300">
                     Managed
                   </span>
                 </div>
               </div>
-              <h3 className="mb-2 text-2xl font-bold text-slate-800">
+              <h3 className="mb-2 text-2xl font-semibold text-white">
                 {db.name}
               </h3>
-              <p className="text-sm leading-relaxed text-slate-600">
+              <p className="text-sm leading-6 text-zinc-400">
                 {db.description}
               </p>
             </div>
 
-            <div className="flex flex-1 flex-col p-6">
+            <div className="flex flex-1 flex-col p-5 sm:p-6">
               <div className="mb-6 flex-1">
-                <h4 className="mb-3 font-semibold text-gray-900">
+                <h4 className="mb-3 font-semibold text-zinc-200">
                   Key Features
                 </h4>
                 <div className="grid grid-cols-2 gap-2">
                   {db.features.map((feature, i) => (
                     <div key={i} className="flex items-center">
-                      <span className="mr-2 text-xs text-blue-400">●</span>
-                      <span className="text-sm text-gray-600">{feature}</span>
+                      <span className="mr-2 size-1.5 rounded-full bg-blue-400" />
+                      <span className="text-sm text-zinc-400">{feature}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               <div className="mb-6">
-                <h4 className="mb-3 font-semibold text-gray-900">
+                <h4 className="mb-3 font-semibold text-zinc-200">
                   Perfect For
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {db.useCases.map((useCase, i) => (
                     <span
                       key={i}
-                      className="rounded-md bg-gray-100 px-2 py-1 text-xs text-gray-700"
+                      className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-1 text-xs text-zinc-400"
                     >
                       {useCase}
                     </span>
@@ -200,7 +173,7 @@ export default function Databases() {
 
               <CustomButton
                 title="Deploy Database"
-                className="mt-auto block w-full cursor-pointer rounded-lg bg-blue-600 px-4 py-3 text-center font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-lg"
+                className="mt-auto block w-full cursor-pointer rounded-full border border-white/15 bg-white px-4 py-3 text-center font-medium text-zinc-950 transition-all duration-300 hover:bg-zinc-200 hover:shadow-[0_12px_36px_rgba(255,255,255,0.16)]"
                 newWindow={true}
                 href={db.deployUrl}
                 location="databases-section"
@@ -213,19 +186,19 @@ export default function Databases() {
         ))}
       </div>
 
-      <div className="mt-16 text-center">
-        <div className="rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 p-8">
-          <h3 className="mb-4 text-2xl font-bold text-gray-900">
+      <div className="mt-10 text-center sm:mt-16">
+        <div className="rounded-xl border border-white/10 bg-white/[0.035] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur sm:p-8">
+          <h3 className="mb-4 text-2xl font-semibold text-white">
             Need Help Choosing?
           </h3>
-          <p className="mx-auto mb-6 max-w-2xl text-gray-600">
+          <p className="mx-auto mb-6 max-w-2xl text-sm leading-6 text-zinc-400 sm:text-base">
             Our database selection guide helps you pick the perfect database for
             your specific use case, considering factors like data structure,
             scaling needs, and performance requirements.
           </p>
           <a
             href="/blog/the-best-db-to-pick-on-sealos"
-            className="inline-flex items-center rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700"
+            className="inline-flex items-center rounded-full border border-white/15 bg-white/[0.06] px-6 py-3 font-medium text-white transition-colors hover:bg-white/[0.1]"
           >
             Read Our Database Guide
             <span className="ml-2">→</span>
