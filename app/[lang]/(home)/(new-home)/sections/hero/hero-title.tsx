@@ -32,8 +32,8 @@ export function HeroTitle({ isInView }: { isInView: boolean }) {
 
       <p className="mt-5 text-center text-sm text-zinc-400 sm:text-base">
         <span className="text-zinc-300">No YAML. No Dockerfile. No CI/CD.</span>{' '}
-        Describe what you need in plain English and deploy to production in
-        seconds, powered by Kubernetes, without the complexity.
+        Deploy the full stack, connect managed data services, and operate
+        everything from one application view.
       </p>
     </div>
   );
