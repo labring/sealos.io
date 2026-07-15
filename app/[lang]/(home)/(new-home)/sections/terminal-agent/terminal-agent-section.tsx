@@ -99,7 +99,7 @@ export function TerminalAgentSection() {
 
         <WorkflowRow
           icon={Bot}
-          title="1. Built-in Agent UI (AGUI)"
+          title="1. Click, chat, or import"
           description="Click the visual rail icons manually, or describe what you want and let the built-in agent figure it out. The AI renders a structured form for you to approve, not an unverified wall of text."
         >
           <div className="grid gap-6 lg:grid-cols-3">
