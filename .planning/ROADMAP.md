@@ -152,7 +152,12 @@ release from immutable public source and image references.
 **Validation Approach**: Inspect the running container identity and process
 model, probe readiness, compare Git trees for all tags, and exercise an image
 rollback and recovery.
-**Plans**: TBD
+**Plans**: 4 plans
+
+- [ ] 23-01-PLAN.md - Publish the hardened baseline image and immutable GHCR digest.
+- [ ] 23-02-PLAN.md - Add production workload contracts, freeze reader source, and publish the final digest.
+- [ ] 23-03-PLAN.md - Prove baseline, final, rollback, and recovery on real Sealos infrastructure.
+- [ ] 23-04-PLAN.md - Publish protected Stage 3 and replay source plus image identities publicly.
 
 ### Phase 24: Django Deploy Stage
 
@@ -353,7 +358,7 @@ Phases execute in numeric order: 21 -> 22 -> 23 -> 24 -> 25 -> 26 -> 27 -> 28
 |-------|----------------|--------|-----------|
 | 21. FastAPI Deploy Stage | 3/3 | Complete    | 2026-07-15 |
 | 22. FastAPI PostgreSQL Stage | 4/4 | Complete    | 2026-07-15 |
-| 23. FastAPI Production Stage | 0/TBD | Not started | - |
+| 23. FastAPI Production Stage | 0/4 | Planned | - |
 | 24. Django Deploy Stage | 0/TBD | Not started | - |
 | 25. Django PostgreSQL Stage | 0/TBD | Not started | - |
 | 26. Django Production Stage | 0/TBD | Not started | - |
