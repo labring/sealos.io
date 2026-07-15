@@ -61,30 +61,30 @@ status: complete
 - Added exact-token migration Job, two-replica Deployment, and Service contracts with UID/GID 10001, RuntimeDefault seccomp, no service-account token, read-only root, dropped capabilities, bounded resources, Memory-backed 64 MiB `/tmp`, and `/health` readiness.
 - Added a fail-closed production harness for baseline migration/deploy, final migration/update, `kubectl rollout undo`, explicit final recovery, persistent public task checks, exact cleanup, anonymous image gates, and semantic evidence verification.
 - Repaired the inherited PostgreSQL gate so its production Job check renders the new parameterized contract through an allowlist into a mode-0600 temporary manifest before strict server validation.
-- Recovered and froze the reader source at `9e781775dd88f53f20c85ce2c763270925e123b8`, fast-forwarded public main, and accepted workflow run `29431446589` plus final image digest `sha256:177799c8ae9266019fbe954d2548aebc77b2a03868b49bdaa1fae10707ab115f`.
+- Recovered and froze the reader source at `dfdd7ea83296133fed69ec79459fc8f0a52a6913`, fast-forwarded public main, and accepted workflow run `29432521938` plus final image digest `sha256:128c09e4cb51c75fab66c97222f475461c9153037a621c46ec6841b759496f08`.
 
 ## Release Input Contract
 
 baseline_source=1a5a66f3959f69ff66d85a9562acba738c82edb4
 baseline_image=ghcr.io/yangchuansheng/sealos-fastapi-tutorial@sha256:b11293cf8ebb0e73fbabfd33ef6e812d53cb8176ea2db853769aae3dfa273337
-final_source=9e781775dd88f53f20c85ce2c763270925e123b8
-final_image=ghcr.io/yangchuansheng/sealos-fastapi-tutorial@sha256:177799c8ae9266019fbe954d2548aebc77b2a03868b49bdaa1fae10707ab115f
+final_source=dfdd7ea83296133fed69ec79459fc8f0a52a6913
+final_image=ghcr.io/yangchuansheng/sealos-fastapi-tutorial@sha256:128c09e4cb51c75fab66c97222f475461c9153037a621c46ec6841b759496f08
 
 ## Accepted Final Identity
 
 | Contract | Accepted value |
 |----------|----------------|
 | Public repository | `yangchuansheng/sealos-fastapi-tutorial` |
-| Public main / final source | `9e781775dd88f53f20c85ce2c763270925e123b8` |
-| Final source tree | `f116171455d6b1ea373848a04289800e93d7d247` |
-| Final source archive SHA-256 | `92c0b51c78c6257e0fbb84a4dbb012a85dd62d5c89c44516d7b8beaa2fa6ebef` |
-| Successful workflow | `29431446589` |
-| Workflow URL | `https://github.com/yangchuansheng/sealos-fastapi-tutorial/actions/runs/29431446589` |
+| Public main / final source | `dfdd7ea83296133fed69ec79459fc8f0a52a6913` |
+| Final source tree | `c2f0a34947d3bf5aaa00aaedc3f66417c8ddf06c` |
+| Final source archive SHA-256 | `1cb4d8219d9aa0e5a13ad34a61e96c0be26fec5466d741537a0b6c9fdedbe384` |
+| Successful workflow | `29432521938` |
+| Workflow URL | `https://github.com/yangchuansheng/sealos-fastapi-tutorial/actions/runs/29432521938` |
 | Workflow event / head / target | `push` / final source / final source |
 | Workflow conclusion | `success` |
-| Full-SHA image tag | `ghcr.io/yangchuansheng/sealos-fastapi-tutorial:sha-9e781775dd88f53f20c85ce2c763270925e123b8` |
-| Final immutable image | `ghcr.io/yangchuansheng/sealos-fastapi-tutorial@sha256:177799c8ae9266019fbe954d2548aebc77b2a03868b49bdaa1fae10707ab115f` |
-| Final GHCR package version | `1033569381` |
+| Full-SHA image tag | `ghcr.io/yangchuansheng/sealos-fastapi-tutorial:sha-dfdd7ea83296133fed69ec79459fc8f0a52a6913` |
+| Final immutable image | `ghcr.io/yangchuansheng/sealos-fastapi-tutorial@sha256:128c09e4cb51c75fab66c97222f475461c9153037a621c46ec6841b759496f08` |
+| Final GHCR package version | `1033619284` |
 | Package visibility / repository | `public` / `sealos-fastapi-tutorial` |
 | Baseline immutable image | `ghcr.io/yangchuansheng/sealos-fastapi-tutorial@sha256:b11293cf8ebb0e73fbabfd33ef6e812d53cb8176ea2db853769aae3dfa273337` |
 
@@ -102,6 +102,7 @@ OCI identities map to the recorded source SHA and public repository.
 | Production workload contracts | `d2718109af799a0a5c0f2340b5d0fef304385b4e` | `881d039593a9ddd61e6dd3662eab84ee00fa9798` | Direct parent/child; RED changes exactly two tests; GREEN changes exactly two manifests and `test-production.sh`. |
 | Inherited parameterized Job validation | `af1753f068d019546dfb7582e3f819a02b4518b4` | `683155b1800587b49f3754c4a803b21c1612ed50` | RED changes only `tests/test_postgres_harness.py`; GREEN changes only `scripts/test-postgres.sh`. |
 | Runtime release identity logging | `6eaa808d099243e70a06fbbe4abde6044f01e5a8` | `9e781775dd88f53f20c85ce2c763270925e123b8` | RED changes only `tests/test_production.py`; GREEN changes exactly `app/main.py`, `deploy/application.yaml`, and `scripts/test-production.sh`. |
+| Server-defaulted logging volume | `627ca96bfafe1adf35dc69f844a1074007e425ef` | `dfdd7ea83296133fed69ec79459fc8f0a52a6913` | RED changes only `tests/test_production.py`; GREEN adds only the API-defaulted mode to `scripts/test-production.sh`. |
 
 The workload RED exited at the exact absent application-manifest assertion.
 The inherited Job-render RED exited at `render_production_job must exist`.
@@ -116,6 +117,7 @@ three planned production artifacts.
 4. **Verified inherited-gate recovery** - `af1753f`, `683155b` (`test` / `fix`)
 5. **Task 3: Freeze the immutable production reader source** - `e1a62c7` (`docs`)
 6. **Runtime recovery: Emit baseline and final release identity logs** - `6eaa808`, `9e78177` (`test` / `fix`)
+7. **Runtime recovery: Accept server-defaulted ConfigMap mode** - `627ca96`, `dfdd7ea` (`test` / `fix`)
 
 ## Verification
 
@@ -124,7 +126,7 @@ three planned production artifacts.
 - Strict server dry-run: parameterized Deployment, Service, and migration Job accepted by the authenticated Kubernetes API.
 - Evidence semantics: live eight-checksum fixture passed; a changed checksum failed; publication preflight passed with stale and absent checksums; full publication nine-checksum fixture passed.
 - Clean clone: `git clone --no-local` at final source passed lock/export, nine focused tests, shell syntax/help, clean-tree readback, and exact clone removal.
-- Workflow run `29431446589`: API event `push`, exact head and normalized target, successful test and publish jobs, and matching final digest output.
+- Workflow run `29432521938`: API event `push`, exact head and normalized target, successful test and publish jobs, and matching final digest output.
 
 ## Deviations from Plan
 
@@ -149,8 +151,16 @@ three planned production artifacts.
 - **Found during:** Plan 23-03 live baseline run `e64cce37d164`
 - **Issue:** Both Ready baseline Pods had exact source/image environment values, while `app.main` remained at effective level `WARNING` with no handlers and emitted zero INFO startup identity records.
 - **Fix:** Added a run-labeled root-INFO Uvicorn logging ConfigMap and explicit read-only log-config mount so the immutable baseline image emits its existing record; route the recovered final source release record through `uvicorn.error`; extend the frozen harness to validate the exact command, arguments, mounts, and volumes.
-- **Verification:** Real Uvicorn subprocess RED/GREEN, ten focused tests, strict ConfigMap/Deployment/Service server dry-run, 33-case database gate `55ab76c1c416`, two-Pod old-baseline diagnostic `2e5e6b75902c` with exactly two events, successful workflow `29431446589`, and anonymous replacement image readback.
+- **Verification:** Real Uvicorn subprocess RED/GREEN, ten focused tests, strict ConfigMap/Deployment/Service server dry-run, 33-case database gate `55ab76c1c416`, two-Pod old-baseline diagnostic `2e5e6b75902c` with exactly two events, successful workflows `29431446589` and `29432521938`, and anonymous replacement image readback.
 - **Recovery:** Public main advanced by normal fast-forward from the original README freeze through RED/GREEN. The original final image version `1033435304` remains immutable for exact Plan 23-04 cleanup.
+
+**4. [Rule 1 - Bug] Accepted the Kubernetes API default for ConfigMap volume mode**
+
+- **Found during:** Plan 23-03 replacement live run `f32736d38f34`
+- **Issue:** The strict server accepted the workload and defaulted the ConfigMap volume to numeric mode `420`; the harness exact live readback expected only committed fields.
+- **Fix:** Add one static RED for the defaulted field and extend only the harness live assertion with `defaultMode: 420`.
+- **Verification:** Focused and complete ten-case static suites, server dry-run JSON readback, successful workflow `29432521938`, and anonymous final image readback.
+- **Recovery:** Replacement image version `1033569381` remains immutable for exact Plan 23-04 cleanup.
 
 ## Protected Source State
 
@@ -158,13 +168,13 @@ three planned production artifacts.
 - Stage 2 remains direct `b61254c237885744ae85cb6f81386f77f1e3ac09`, peeled `2b256b3dfc2a7d2a4b930c9970becca8c6da8cd3`, message `FastAPI PostgreSQL stage`.
 - Active ruleset `18970425` still targets only `refs/tags/stage-*` with update and deletion protection, empty bypass, and empty exclude.
 - Stage 3 remains absent for Plan 23-04 publication after the live Plan 23-03 gate.
-- The package contains only full-SHA tags. Failed versions `1033073401`, `1033102122`, and superseded final version `1033435304` remain recorded for exact Plan 23-04 cleanup.
+- The package contains only full-SHA tags. Failed versions `1033073401`, `1033102122`, and superseded final versions `1033435304` and `1033569381` remain recorded for exact Plan 23-04 cleanup.
 
 ## Cleanup Proof
 
-- Phase-gate and diagnostic runs `f6ce9e66f44f`, `5b1e1cb3fa5c`, `9665120a3aa7`, `c09525bff20f`, `e64cce37d164`, `ed05a513ef74`, `28987171ec52`, `55ab76c1c416`, and `2e5e6b75902c` have zero Deployments, ReplicaSets, Pods, Services, Jobs, Secrets, ConfigMaps, port-forwards, state files, render files, and owned processes.
+- Phase-gate and diagnostic runs `f6ce9e66f44f`, `5b1e1cb3fa5c`, `9665120a3aa7`, `c09525bff20f`, `e64cce37d164`, `ed05a513ef74`, `28987171ec52`, `55ab76c1c416`, `2e5e6b75902c`, and `f32736d38f34` have zero Deployments, ReplicaSets, Pods, Services, Jobs, Secrets, ConfigMaps, port-forwards, state files, render files, and owned processes.
 - Both anonymous registry directories and the no-local clone directory were removed and independently checked absent.
-- The Reference Application is clean at recovered public final source; no source writes are permitted after `9e781775dd88f53f20c85ce2c763270925e123b8` during the remaining Phase 23 plans.
+- The Reference Application is clean at recovered public final source; no source writes are permitted after `dfdd7ea83296133fed69ec79459fc8f0a52a6913` during the remaining Phase 23 plans.
 
 ## Next Phase Readiness
 
