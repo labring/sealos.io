@@ -4,17 +4,17 @@ milestone: v1.3
 milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 22
 current_phase_name: FastAPI PostgreSQL Stage
-status: executing
-stopped_at: Completed 22-03-PLAN.md
-last_updated: "2026-07-15T10:19:19.552Z"
+status: verifying
+stopped_at: Completed 22-04-PLAN.md
+last_updated: "2026-07-15T11:19:12.018Z"
 last_activity: 2026-07-15
-last_activity_desc: Phase 22 execution started
+last_activity_desc: Phase 22 execution complete
 progress:
   total_phases: 8
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 7
-  completed_plans: 6
-  percent: 13
+  completed_plans: 7
+  percent: 25
 ---
 
 # Project State
@@ -35,7 +35,7 @@ PostgreSQL Stage.
 |-------|-------|
 | Phase | 22 of 28 |
 | Name | FastAPI PostgreSQL Stage |
-| Status | Ready to execute |
+| Status | Ready for verification |
 | Goal | Readers can run Tasks API against a fresh PostgreSQL database after a single-owner migration completes. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
@@ -47,21 +47,21 @@ PostgreSQL Stage.
 
 ## Current Position
 
-Phase: 22 (FastAPI PostgreSQL Stage) — EXECUTING
+Phase: 22 (FastAPI PostgreSQL Stage) — VERIFYING
 Plan: 4 of 4
-Status: Ready to execute
-Last activity: 2026-07-15 — Phase 22 execution started
+Status: Phase complete — ready for verification
+Last activity: 2026-07-15 — Phase 22 execution complete
 10/10 requirement plus decision coverage
 
 ## Next Action
 
-Run `$gsd-execute-phase 22` to build and publish the FastAPI PostgreSQL Stage.
+Run `$gsd-verify-work 22` to verify the published FastAPI PostgreSQL Stage.
 
 ## Session
 
-**Last session:** 2026-07-15T10:19:19.548Z
-**Stopped at:** Completed 22-03-PLAN.md
-**Resume file:** .planning/phases/22-fastapi-postgresql-stage/22-04-PLAN.md
+**Last session:** 2026-07-15T11:19:11.966Z
+**Stopped at:** Completed 22-04-PLAN.md
+**Resume file:** None
 
 ## Performance Metrics
 
@@ -83,6 +83,7 @@ Run `$gsd-execute-phase 22` to build and publish the FastAPI PostgreSQL Stage.
 | Phase 22 P01 | 34 min | 3 tasks | 11 files |
 | Phase 22 P02 | 39 min | 3 tasks | 3 files |
 | Phase 22 P03 | 30min | 3 tasks | 7 files |
+| Phase 22 P04 | 50 min | 3 tasks | 10 files |
 
 ## Decisions
 
@@ -112,3 +113,6 @@ Run `$gsd-execute-phase 22` to build and publish the FastAPI PostgreSQL Stage.
 - [Phase 22]: 22-03: Return credential-free readiness categories internally and translate every unready category to one public 503 detail.
 - [Phase 22]: 22-03: Package only the tracked model, Alembic configuration, immutable revision, and runtime export into the source Job ConfigMap.
 - [Phase 22]: 22-03: Recover transient local port-forward loss inside a bounded child process while preserving database and run identity.
+- [Phase 22]: Freeze all tracked replay evidence in the accepted commit before advancing public main or creating the Stage 2 tag.
+- [Phase 22]: Accept Stage 2 recovery only when local and remote type, message, direct object, peeled commit, repository metadata, and tag protection are coherent.
+- [Phase 22]: Keep post-public replay artifacts outside the immutable Reference Application tree.

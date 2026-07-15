@@ -9,7 +9,7 @@ product.
 
 ### Test-Driven Delivery
 
-- [ ] **TDD-01**: Maintainer can verify FastAPI health, documentation, and task
+- [x] **TDD-01**: Maintainer can verify FastAPI health, documentation, and task
   CRUD through its public HTTP interface with a real test PostgreSQL database.
 - [ ] **TDD-02**: Maintainer can verify Django health, task creation and listing,
   and administration login through its public HTTP interface.
@@ -23,7 +23,7 @@ product.
 
 - [x] **FAST-01**: Reader can clone a public Tasks API stage that exposes
   `/health`, `/docs`, and in-memory task CRUD on port 8000.
-- [ ] **FAST-02**: Reader can use the PostgreSQL stage with SQLAlchemy 2,
+- [x] **FAST-02**: Reader can use the PostgreSQL stage with SQLAlchemy 2,
   Alembic, psycopg 3, a repeatable migration Job, and database-backed CRUD.
 - [ ] **FAST-03**: Reader can use the production stage with a locked Python 3.12
   environment, non-root image, single Uvicorn process, readiness, logs, and
@@ -109,12 +109,12 @@ Roadmap creation maps each v1.3 requirement to exactly one phase.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TDD-01 | Phase 22 | Pending |
+| TDD-01 | Phase 22 | Complete |
 | TDD-02 | Phase 25 | Pending |
 | TDD-03 | Phase 25 | Pending |
 | TDD-04 | Phase 28 | Pending |
 | FAST-01 | Phase 21 | Complete |
-| FAST-02 | Phase 22 | Pending |
+| FAST-02 | Phase 22 | Complete |
 | FAST-03 | Phase 23 | Pending |
 | FAST-04 | Phase 23 | Pending |
 | DJAN-01 | Phase 24 | Pending |
