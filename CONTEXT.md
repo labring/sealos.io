@@ -27,3 +27,8 @@ _Avoid_: Mock output, illustrative proof
 A concrete framework-native application that remains consistent throughout one
 Framework Tutorial Series.
 _Avoid_: Demo app, sample project
+
+**Task Board**:
+The Django Reference Application with a rendered task creation and listing
+workflow plus the framework-native administration entry point.
+_Avoid_: Django demo, Django sample app
