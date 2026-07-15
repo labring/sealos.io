@@ -3,10 +3,10 @@
 **Mapped:** 2026-07-16
 **Implementation repository:** `/Users/longnv/bin/repo/sealos-django-tutorial`
 **Orchestration repository:** `/Users/longnv/.codex/worktrees/19b8/sealos.io`
-**Files classified:** 28 (24 Reference Application files and 4 retained evidence files)
+**Files classified:** 35 (24 Reference Application files, 5 execution plans, 5 retained summaries, and 1 independent verification)
 **Representative analog files:** 5
-**Local analog coverage:** 11 / 28
-**Official Django source coverage:** 17 / 28
+**Local analog coverage:** 18 / 35
+**Official Django source coverage:** 17 / 35
 
 ## Boundary Summary
 
@@ -67,17 +67,36 @@ publication, and milestone cleanup.
 | `tasks/templates/tasks/board.html` | server-rendered component | form/list -> HTML transform | Django 5.2 template, CSRF, and autoescape patterns | official source |
 | `tests/test_public_http.py` | behavior test | request-response and CRUD | FastAPI Stage 1 `tests/test_api.py` plus pytest-django client rules | strong seam match |
 
-### Retained Planning Evidence
+### Execution Plans and Retained Evidence
 
 | Target File | Role | Data Flow | Closest Pattern | Match Quality |
 |---|---|---|---|---|
-| `24-01-SUMMARY.md` | foundation evidence | package/schema checks -> curated Markdown | Phase 21 Stage 1 execution and evidence pattern | exact stage role |
-| `24-02-SUMMARY.md` | behavior evidence | RED/GREEN tests -> curated Markdown | Phase 21 public HTTP history pattern | exact stage role |
-| `24-03-SUMMARY.md` | replay and publication evidence | local/public readback -> curated Markdown | Phase 21 Stage 1 publication plan | exact stage role |
+| `24-01-PLAN.md` | dependency execution contract | package approval -> exact lock/export | Phase 21 Stage 1 foundation plan | exact stage role |
+| `24-02-PLAN.md` | scaffold and health execution contract | bounded generation -> one scaffold commit -> health RED/GREEN | Phase 21 public tracer plan | exact stage role |
+| `24-03-PLAN.md` | schema and board execution contract | board RED -> model/migration/form/template GREEN | Django vertical-slice plan | exact stage role |
+| `24-04-PLAN.md` | mutation and admin execution contract | three public RED/GREEN seams -> complete suite | Django behavior plan | exact stage role |
+| `24-05-PLAN.md` | acceptance and publication contract | README -> local runtime -> GitHub/tag -> clone replay -> cleanup | Phase 21 Stage 1 publication plan | exact stage role |
+| `24-01-SUMMARY.md` | dependency evidence | package/lock/export checks -> curated Markdown | Phase 21 Stage 1 execution evidence | exact stage role |
+| `24-02-SUMMARY.md` | scaffold and health evidence | bounded generation and RED/GREEN outputs -> curated Markdown | Phase 21 public HTTP history pattern | exact stage role |
+| `24-03-SUMMARY.md` | board and migration evidence | rendered behavior and fresh schema checks -> curated Markdown | Django slice evidence | exact stage role |
+| `24-04-SUMMARY.md` | mutation and admin evidence | three RED/GREEN pairs and registry readback -> curated Markdown | Django behavior evidence | exact stage role |
+| `24-05-SUMMARY.md` | acceptance/publication evidence | local/public readback and cleanup -> curated Markdown | Phase 21 Stage 1 publication evidence | exact stage role |
 | `24-VERIFICATION.md` | independent verifier | retained evidence -> DJAN-01 verdict matrix | GSD phase verification convention | exact role |
 
-The planner adds `24-01-PLAN.md`, `24-02-PLAN.md`, and `24-03-PLAN.md`. The
-28-file count covers implementation and retained evidence outputs.
+The 35-file classification covers all five executable plans, all five summary
+handoffs, independent verification, and the final Reference Application
+inventory. The reader repository remains exactly 24 tracked files: 7
+foundation files, 5 `taskboard` package files, and 12 `tasks`/test files.
+
+## Plan Responsibility Map
+
+| Plan | Primary responsibility | Owned phase decisions |
+|---|---|---|
+| `24-01` | Verify package identities and commit the exact five-file Python 3.12 lock/export baseline. | D-04, D-07 |
+| `24-02` | Generate the project and app in two bounded scaffold tasks, create one scaffold commit, then deliver `/health` through the first RED/GREEN seam. | D-02, D-03, D-05 |
+| `24-03` | Deliver the Task model, initial migration, title form, and rendered empty board through the second RED/GREEN seam. | D-01, D-03, D-05 |
+| `24-04` | Deliver creation/readback, invalid-title feedback, and native admin login/Task registration through three RED/GREEN seams. | D-01, D-02, D-05 |
+| `24-05` | Document reader commands, run local acceptance, publish/protect the annotated stage, replay a public clone, and prove LOCAL/CLONE cleanup. | D-04, D-06, D-07 |
 
 ## Representative Analog Set
 
@@ -419,24 +438,36 @@ clear errors, and stable row layout.
 ### `24-01-SUMMARY.md`
 
 Record the package human-verification checkpoint, exact package sources and
-release refs, Python and `uv` versions, generated file inventory, foundation
-commit, health RED/GREEN commits, lock/sync/export results, Django version,
-`manage.py check`, and cleanup state. Curate values and command outcomes; keep
-credentials and ambient configuration outside the artifact.
+release refs, Python and `uv` versions, exact five-file inventory, foundation
+commit, lock/sync/export results, absent uv samples, and clean status. Curate
+values and command outcomes; keep credentials and ambient configuration
+outside the artifact.
 
 ### `24-02-SUMMARY.md`
 
-Record each board, creation, invalid-title, and admin RED/GREEN pair; named and
-accumulated test results; the committed migration identity; fresh SQLite
-migration; drift check; rendered public observations; deviations; and source
-tree cleanliness.
+Record both bounded scaffold groups, their single scaffold commit, exact
+19-file scaffold inventory, health RED/GREEN outputs and ancestry, Django
+system checks, and clean generated-state evidence.
 
 ### `24-03-SUMMARY.md`
+
+Record the empty-board RED/GREEN pair, Task model and generated migration,
+title-only form, rendered board/static observations, fresh SQLite migration,
+drift check, and clean source tree.
+
+### `24-04-SUMMARY.md`
+
+Record creation/readback, invalid-title, and administration RED/GREEN pairs;
+named and accumulated test results; executable `admin.site.is_registered(Task)`
+readback; migration/export checks; and clean source state.
+
+### `24-05-SUMMARY.md`
 
 Record README acceptance, owned local browser/HTTP smoke, accepted HEAD, public
 repository metadata, remote main, annotated tag direct object, peeled commit,
 tag message, exact ruleset readback, fresh-clone lock/export/migration/test/port
-results, tracked inventory, and zero cleanup counts.
+results, exact 24-file inventory, distinct LOCAL/CLONE cleanup, and zero-residue
+readback.
 
 ### `24-VERIFICATION.md`
 

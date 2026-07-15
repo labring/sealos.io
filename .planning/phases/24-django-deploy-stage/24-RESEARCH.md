@@ -132,9 +132,11 @@ DDL behavior, one-shot Job execution, schema readiness, restart persistence,
 and administrator-backed readback are PostgreSQL acceptance claims.
 `[VERIFIED: 24-CONTEXT.md; CITED: https://docs.djangoproject.com/en/5.2/topics/migrations/; CITED: https://pytest-django.readthedocs.io/en/latest/database.html]`
 
-**Primary recommendation:** Plan three units: trusted foundation and migrations,
-five alternating public-HTTP RED/GREEN slices, then README/local acceptance and
-protected public-tag replay. `[VERIFIED: TDD skill and accepted Phase 23 publication pattern]`
+**Primary recommendation:** Plan five sequential units: approved dependency
+bootstrap; generated Django project/app scaffold plus health; rendered board
+schema and presentation; task creation, validation, and administration; then
+README/local acceptance, publication, public replay, and explicit cleanup.
+`[VERIFIED: TDD skill and accepted Phase 23 publication pattern]`
 
 ## Architectural Responsibility Map
 
@@ -325,25 +327,34 @@ readback. `[CITED: https://docs.djangoproject.com/en/5.2/topics/testing/overview
 
 ## TDD Commit Sequence
 
-Bootstrap dependencies and Django-generated files in one foundation commit.
-Start its root URLconf without the generated admin route so every locked public
-behavior begins red. Then execute exactly one test and one minimum green change
-per slice; run the accumulated suite before every GREEN commit. `[VERIFIED: TDD skill]`
+Lock approved dependencies before generating Django source. Delete the sample
+`README.md` and `main.py` created by `uv init --app`, then commit the exact
+five-file dependency baseline. Generate the Django project/app in the next
+commit with custom routes absent. Execute exactly one test and one
+behavior-complete GREEN change per slice; run the accumulated suite before
+every GREEN commit. `[VERIFIED: TDD skill]`
 
-| Order | RED Commit | GREEN Commit | Public Observation |
-|-------|------------|--------------|--------------------|
-| 0 | - | `chore(24-01): initialize reproducible Django foundation` | pytest starts, settings load, and custom routes are still absent. |
-| 1 | `test(24-01): specify public health` | `feat(24-01): add public health endpoint` | `GET /health` returns exact 200 JSON. |
-| 2 | `test(24-02): specify empty task board` | `feat(24-02): render empty task board` | `GET /` shows form, count, empty state, CSRF field, and CSS; GREEN adds Task model and initial migration because the board reads tasks. |
-| 3 | `test(24-02): specify task creation and listing` | `feat(24-02): create tasks through rendered workflow` | POST redirects; a separate GET displays the incomplete task. |
-| 4 | `test(24-02): specify invalid task feedback` | `feat(24-02): render task form errors` | Whitespace title shows stable error and a later GET remains empty. |
-| 5 | `test(24-02): specify administration login` | `feat(24-02): expose Django administration` | `GET /admin/login/` shows Django login controls; GREEN mounts admin and registers Task. |
-| 6 | - | `docs(24-03): document Stage 1 reader workflow` | README, lock/export, migration, smoke, and publication inputs are frozen. |
+| Order | Commit Subject | Public Observation |
+|-------|----------------|--------------------|
+| 1 | `chore(24-01): lock approved Django dependencies` | Python 3.12, the exact dependency groups, lock, and runtime export reproduce from five tracked files. |
+| 2 | `chore(24-02): initialize Django project` | pytest starts, settings load, SQLite is configured, and custom public routes remain absent. |
+| 3 | `test(24-02): specify public health` | RED reaches Django and fails on missing `/health`. |
+| 4 | `feat(24-02): add public health endpoint` | `GET /health` returns exact 200 JSON. |
+| 5 | `test(24-03): specify empty task board` | RED reaches Django and fails on the absent rendered board. |
+| 6 | `feat(24-03): render empty task board` | `GET /` shows form, count, empty state, CSRF field, and CSS; GREEN adds Task model and initial migration. |
+| 7 | `test(24-04): specify task creation and listing` | RED fails on the absent POST workflow. |
+| 8 | `feat(24-04): create tasks through rendered workflow` | POST redirects; a separate GET displays the incomplete task. |
+| 9 | `test(24-04): specify invalid task feedback` | RED fails on the stable validation-copy contract. |
+| 10 | `feat(24-04): render task form errors` | Whitespace title shows stable error and a later GET remains empty. |
+| 11 | `test(24-04): specify administration login` | RED fails on the absent framework-native login. |
+| 12 | `feat(24-04): expose Django administration` | `GET /admin/login/` shows Django login controls; GREEN mounts admin and registers Task. |
+| 13 | `docs(24-05): document Stage 1 reader workflow` | README, lock/export, migration, smoke, and publication inputs are frozen. |
 
 Each RED commit must fail for its named missing behavior and be the direct
 parent of its GREEN commit. Preserve the failure output in plan summaries and
-verify the ordered subjects before publication. Refactoring belongs in the
-post-slice review and must preserve all public assertions. `[VERIFIED: TDD skill and Phase 23 verification pattern]`
+verify all 13 ordered subjects locally and in the fresh public tag clone.
+Refactoring belongs in the post-slice review and preserves every public
+assertion. `[VERIFIED: TDD skill and Phase 23 verification pattern]`
 
 ## Project Constraints (from AGENTS.md)
 
@@ -436,11 +447,13 @@ work. `[VERIFIED: environment probes]`
 ### Wave 0
 
 1. Create the repository, `.python-version`, `pyproject.toml`, lock/export, and
-   minimal Django-generated project/app packages after the package-verification
-   checkpoint. Configure pytest and start with custom URL patterns empty.
-2. Create `tests/test_public_http.py` with imports only, then add exactly one
-   test in each RED commit.
-3. Establish baseline commands:
+   exact five-file dependency inventory after the package-verification
+   checkpoint. Remove the two `uv init --app` sample files before the first
+   commit.
+2. Generate the Django project/app package in Plan 24-02, configure pytest and
+   SQLite, create `tests/test_public_http.py` with imports only, and start with
+   custom URL patterns empty.
+3. Add exactly one test in each RED commit and establish baseline commands:
 
 ```bash
 uv sync --locked
@@ -546,12 +559,13 @@ and compare local/remote direct tag object plus peeled commit with
 These are implementation recommendations inside explicit agent discretion.
 `[VERIFIED: 24-CONTEXT.md]`
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **pytest-django 4.12.0 publication metadata:** PyPI and the official Git tag
-   confirm the release while the latest official changelog labels it unreleased.
-   Preserve the locked version and record the discrepancy at the mandatory
-   package checkpoint before installation. `[VERIFIED: official PyPI and GitHub metadata; CITED: https://pytest-django.readthedocs.io/en/latest/changelog.html]`
+1. **RESOLVED: pytest-django 4.12.0 publication metadata.** PyPI and the
+   official Git tag confirm the release while the latest official changelog
+   labels it unreleased. Preserve the locked version and record the discrepancy
+   at the mandatory package checkpoint before installation.
+   `[VERIFIED: official PyPI and GitHub metadata; CITED: https://pytest-django.readthedocs.io/en/latest/changelog.html]`
 
 No user decision is required for the Django architecture or test seams.
 `[VERIFIED: D-01 through D-07]`
