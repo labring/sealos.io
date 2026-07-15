@@ -27,7 +27,7 @@ cleanup of the live Sealos footprint.
 - [x] **Phase 23: FastAPI Production Stage** - Publish the locked non-root (completed 2026-07-15)
   runtime and immutable FastAPI source stages with rollback-ready images.
 
-- [ ] **Phase 24: Django Deploy Stage** - Deliver the public, behavior-tested
+- [x] **Phase 24: Django Deploy Stage** - Deliver the public, behavior-tested (completed 2026-07-15)
   Task Board starter with rendered pages, health, and administration access.
 
 - [ ] **Phase 25: Django PostgreSQL Stage** - Prove both migration paths and
@@ -366,7 +366,7 @@ Phases execute in numeric order: 21 -> 22 -> 23 -> 24 -> 25 -> 26 -> 27 -> 28
 | 21. FastAPI Deploy Stage | 3/3 | Complete    | 2026-07-15 |
 | 22. FastAPI PostgreSQL Stage | 4/4 | Complete    | 2026-07-15 |
 | 23. FastAPI Production Stage | 4/4 | Complete    | 2026-07-15 |
-| 24. Django Deploy Stage | 5/5 | Verifying | - |
+| 24. Django Deploy Stage | 5/5 | Complete    | 2026-07-15 |
 | 25. Django PostgreSQL Stage | 0/TBD | Not started | - |
 | 26. Django Production Stage | 0/TBD | Not started | - |
 | 27. Practice-Backed Tutorial Series | 0/TBD | Not started | - |

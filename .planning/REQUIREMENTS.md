@@ -40,7 +40,7 @@ product.
 
 ### Django Reference Application
 
-- [ ] **DJAN-01**: Reader can clone a public Task Board stage that exposes
+- [x] **DJAN-01**: Reader can clone a public Task Board stage that exposes
   `/health`, rendered task pages, and Django administration on port 8000.
 
 - [ ] **DJAN-02**: Reader can use the PostgreSQL stage with psycopg 3, repeatable
@@ -137,7 +137,7 @@ Roadmap creation maps each v1.3 requirement to exactly one phase.
 | FAST-02 | Phase 22 | Complete |
 | FAST-03 | Phase 23 | Complete |
 | FAST-04 | Phase 23 | Complete |
-| DJAN-01 | Phase 24 | Pending |
+| DJAN-01 | Phase 24 | Complete |
 | DJAN-02 | Phase 25 | Pending |
 | DJAN-03 | Phase 26 | Pending |
 | DJAN-04 | Phase 26 | Pending |

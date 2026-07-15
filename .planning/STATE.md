@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: FastAPI and Django Tutorial Expansion
-current_phase: 24
-current_phase_name: Django Deploy Stage
-status: verifying
+current_phase: 25
+current_phase_name: Django PostgreSQL Stage
+status: planning
 stopped_at: Completed 24-05-PLAN.md
-last_updated: "2026-07-15T21:38:04.786Z"
-last_activity: 2026-07-16
-last_activity_desc: Completed Plan 24-05
+last_updated: "2026-07-15T22:06:21.849Z"
+last_activity: 2026-07-15
+last_activity_desc: Phase 24 complete, transitioned to Phase 25
 progress:
   total_phases: 8
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 16
   completed_plans: 16
-  percent: 38
+  percent: 50
 ---
 
 # Project State
@@ -26,33 +26,35 @@ See: `.planning/PROJECT.md` (updated 2026-07-15)
 **Core value:** Readers can follow framework-specific Sealos tutorials with
 commands, screenshots, and validation evidence that match the current product
 workflow.
-**Current focus:** Phase 24 — Django Deploy Stage
+**Current focus:** Phase 25 — Django PostgreSQL Stage
 
 ## Current Phase
 
 | Field | Value |
 |-------|-------|
-| Phase | 24 of 28 |
-| Name | Django Deploy Stage |
-| Status | Ready for verification |
-| Goal | Readers can clone and run the first public Task Board stage and use its rendered task workflow and administration entry point. |
+| Phase | 25 of 28 |
+| Name | Django PostgreSQL Stage |
+| Status | Ready to discuss and plan |
+| Goal | Readers can use persistent Task Board data after repeatable FastAPI and Django migration Jobs have proven the shared fresh-database contract. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-- DJAN-01
+- TDD-02
+- TDD-03
+- DJAN-02
 
 ## Current Position
 
-Phase: 24 (Django Deploy Stage) — VERIFYING
-Plan: 5 of 5
-Status: Phase complete — ready for verification
-Last activity: 2026-07-16 - Completed Plan 24-05
+Phase: 25 (Django PostgreSQL Stage) — PLANNING
+Plan: -
+Status: Ready to discuss and plan
+Last activity: 2026-07-15 — Phase 24 complete, transitioned to Phase 25
 
 ## Next Action
 
-Run independent Phase 24 verification.
+Run `$gsd-discuss-phase 25 --auto` to capture the confirmed Django PostgreSQL decisions.
 
 ## Session
 
