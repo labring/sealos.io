@@ -220,12 +220,11 @@ four facts agree." `[VERIFIED: official sources and upstream Git]`
 
 | File | Change | Responsibility |
 |------|--------|----------------|
-| `taskboard/database.py` | New | Strict standard-library URL parser returning native Django fields. |
-| `taskboard/settings.py` | Modify | Select `TEST_DATABASE_URL` for pytest, otherwise `DATABASE_URL`; remove SQLite runtime configuration. |
+| `taskboard/settings.py` | Modify | Own the strict standard-library URL parser, select distinct `TEST_DATABASE_URL` for pytest and `DATABASE_URL` otherwise, and remove SQLite runtime configuration. |
 | `tasks/views.py` | Modify | Schema-aware exact 200/503 health response with credential-free logging. |
 | `tests/test_public_http.py` | Modify | Preserve five public cases and run database cases against real PostgreSQL. |
-| `tests/test_database_config.py` | New | Valid encoded URL, both accepted schemes, default port, and invalid-component cases. |
-| `tests/test_health.py` | New | Missing, unreachable, unmigrated, and migrated public health behavior. |
+| `tests/conftest.py` | New | Require distinct runtime/test PostgreSQL URLs and delegate isolated test-database ownership to pytest-django. |
+| `tests/test_postgresql.py` | New | Strict parser cases plus missing, unreachable, unmigrated, and migrated public health behavior. |
 | `tests/test_migrations.py` | New | Immutable `0001`, fresh migrate, current-head rerun, and zero model drift. |
 | `tests/test_migration_job.py` | New | Exact production and source Job contracts. |
 | `tests/test_postgres_harness.py` | New | Modes, ownership, bounded waits, redaction, restart, and cleanup grammar. |
@@ -236,6 +235,14 @@ four facts agree." `[VERIFIED: official sources and upstream Git]`
 
 `tasks/models.py`, `tasks/forms.py`, routes, template, CSS, admin registration,
 and `tasks/migrations/0001_initial.py` remain unchanged. `[VERIFIED: D-02, D-03, and accepted Stage 1 source]`
+
+This is the authoritative 32-file Stage 2 map: preserve the exact 24 Stage 1
+files and add exactly `deploy/migration-job.yaml`,
+`deploy/source-migration-job.yaml`, `scripts/test-postgres.sh`,
+`tests/conftest.py`, `tests/test_migration_job.py`, `tests/test_migrations.py`,
+`tests/test_postgres_harness.py`, and `tests/test_postgresql.py`. The parser
+lives in `taskboard/settings.py`; PostgreSQL configuration/readiness tests live
+in `tests/test_postgresql.py`. `[VERIFIED: 25-VALIDATION.md exact inventory]`
 
 ## Architecture Patterns
 
@@ -355,7 +362,7 @@ validation; the image is executed only after Phase 26 publishes it.
 
 The source adapter projects only tracked migration inputs through a ConfigMap:
 `manage.py`, `taskboard/__init__.py`, `taskboard/settings.py`,
-`taskboard/database.py`, `tasks/__init__.py`, `tasks/apps.py`, `tasks/models.py`,
+`tasks/__init__.py`, `tasks/apps.py`, `tasks/admin.py`, `tasks/models.py`,
 `tasks/migrations/__init__.py`, `tasks/migrations/0001_initial.py`, and
 `requirements.txt`. Its Python 3.12 container creates a temporary venv, installs
 the exact runtime export, runs migrate, and prints only migration state. Run
@@ -436,7 +443,7 @@ under its own run ID. `[VERIFIED: GitHub API readback, D-01, D-06, D-07]`
 |----------|-------|
 | Framework | pytest 9.1.1, pytest-django 4.12.0, Django Client, real PostgreSQL 17, shell/Kubernetes/browser acceptance |
 | Config | Existing `pyproject.toml`; add `tests/conftest.py`, deployment manifests, and `scripts/test-postgres.sh` |
-| Focused run | `DATABASE_URL="$URL" TEST_DATABASE_URL="$TEST_URL" uv run pytest tests/test_health.py -q -x` |
+| Focused run | `./scripts/test-postgres.sh --pytest-only tests/test_postgresql.py -q -x` |
 | Full Django gate | `./scripts/test-postgres.sh --phase-gate` |
 | Shared framework gate | Run public immutable FastAPI Stage 2 `--phase-gate`, then Django Stage 2 `--phase-gate` with independent run IDs |
 | Feedback target | Focused test under 30 seconds after database readiness; full external gate bounded to 15 minutes |
@@ -445,8 +452,8 @@ under its own run ID. `[VERIFIED: GitHub API readback, D-01, D-06, D-07]`
 
 | Requirement | Behavior | Type | Automated Command / Gate | Wave 0 Gap |
 |-------------|----------|------|--------------------------|------------|
-| TDD-02 | Existing five public HTTP behaviors use real PostgreSQL | HTTP integration | `uv run pytest tests/test_public_http.py -q -x` with both URLs | Update existing file and add `tests/conftest.py` |
-| TDD-02 | Missing, unreachable, unmigrated, and migrated health return exact payload/status | HTTP integration | `uv run pytest tests/test_health.py -q -x` plus harness pre-migration probe | Add `tests/test_health.py` |
+| TDD-02 | Existing five public HTTP behaviors use real PostgreSQL | HTTP integration | `./scripts/test-postgres.sh --pytest-only tests/test_public_http.py -q -x` | Update existing file and add `tests/conftest.py` |
+| TDD-02 | Missing, unreachable, unmigrated, and migrated health return exact payload/status | HTTP integration | `./scripts/test-postgres.sh --pytest-only tests/test_postgresql.py -q -x` plus harness pre-migration probe | Add `tests/test_postgresql.py` |
 | TDD-03 | Fresh and current-head migration pass with immutable `0001` | Migration integration | `./scripts/test-postgres.sh --migrations-only` | Add migration tests and harness mode |
 | TDD-03 | Source Job completes twice before readiness | Kubernetes integration | `./scripts/test-postgres.sh --jobs-only --state-file "$STATE"` | Add manifests and harness mode |
 | TDD-02, TDD-03 | Public task survives independent server restart and appears in admin | HTTP/browser integration | Full phase gate | Add owned server/browser acceptance functions |
@@ -475,8 +482,7 @@ and remain the direct parent of its GREEN commit. `[VERIFIED: TDD skill and D-05
 ### Wave 0 Gaps
 
 - [ ] `tests/conftest.py` - required URL checks and explicit real PostgreSQL test database lifecycle.
-- [ ] `tests/test_database_config.py` - strict standard-library parser contract.
-- [ ] `tests/test_health.py` - four readiness states.
+- [ ] `tests/test_postgresql.py` - strict standard-library parser contract and four readiness states.
 - [ ] `tests/test_migrations.py` - immutable fresh/current-head migration proof.
 - [ ] `tests/test_migration_job.py` and `tests/test_postgres_harness.py` - manifest and lifecycle contract.
 - [ ] `deploy/migration-job.yaml` and `deploy/source-migration-job.yaml` - production/source split.
@@ -521,9 +527,10 @@ No project-defined skill directory exists under `.codex/skills` or
 
 ## Evidence and Cleanup Contract
 
-Retain a Phase 25 planning evidence package containing `package-identity.txt`,
-`migrations.txt`, `jobs.txt`, `http.jsonl`, `browser.txt`,
-`source-identity.txt`, `cleanup.txt`, and `checksums.txt`. Record run IDs,
+Retain a Phase 25 planning evidence package containing `README.md`,
+`package-identity.txt`, `django-migrations.txt`, `django-jobs.txt`,
+`django-http.jsonl`, `django-source.txt`, `fastapi-phase-gate.txt`,
+`cleanup.txt`, and `checksums.txt`. Record run IDs,
 resource names, migration state, Job `Complete=True`, public status/payload,
 restart title readback, browser routes, tag object/peeled commit, ruleset fields,
 and zero counts. `[VERIFIED: D-08 and Phase 22 evidence pattern]`
@@ -534,6 +541,12 @@ tokens. Cleanup must prove zero exact-label Deployment, Pod, Service, Job,
 Secret, and ConfigMap; stopped/reaped port-forward and both server PIDs; closed
 named browser sessions; absent secure state/log files; absent replay clones;
 clean target repositories; unchanged protected Stage 1 refs. `[VERIFIED: D-08 and accepted Phase 22 cleanup]`
+
+Implement `--assert-clean-all` as a tested read-only final audit. It queries
+both framework run-label inventories and checks the Phase 25 ownership ledger
+for servers, port-forwards, browser sessions, temporary roots, state files,
+and replay clones. It performs zero deletion, process signaling, browser
+closing, or path removal. `[VERIFIED: D-08 and checker revision]`
 
 ## Environment Availability
 

@@ -48,6 +48,12 @@ screenshots. These concerns must stay outside Phase 25 source and plans.
 7. `deploy/migration-job.yaml`
 8. `deploy/source-migration-job.yaml`
 
+This is the authoritative 32-file Stage 2 map: the exact 24 Stage 1 files plus
+the eight files above. `taskboard/settings.py` owns URL parsing and native
+database assembly; `tests/test_postgresql.py` owns parser and readiness
+behavior. No separate database helper or health-test module is part of the
+accepted source inventory.
+
 ### Files to preserve byte-for-byte
 
 | File | Invariant |
@@ -150,7 +156,7 @@ The runtime contract should have this shape:
 
 ```python
 import os
-from urllib.parse import parse_qs, unquote, urlsplit
+from urllib.parse import unquote, urlsplit
 
 from django.core.exceptions import ImproperlyConfigured
 
@@ -162,6 +168,8 @@ def database_config(database_url: str | None) -> dict[str, object]:
     parsed = urlsplit(database_url)
     if parsed.scheme not in {'postgres', 'postgresql'}:
         raise ImproperlyConfigured('DATABASE_URL must use PostgreSQL')
+    if parsed.query or parsed.fragment:
+        raise ImproperlyConfigured('DATABASE_URL parameters are unsupported')
     if not parsed.hostname or not parsed.username or not parsed.path.strip('/'):
         raise ImproperlyConfigured('DATABASE_URL is missing required components')
 
@@ -170,22 +178,28 @@ def database_config(database_url: str | None) -> dict[str, object]:
     except ValueError as error:
         raise ImproperlyConfigured('DATABASE_URL has an invalid port') from error
 
-    options = parse_qs(parsed.query)
+    name = unquote(parsed.path.removeprefix('/'), errors='strict')
+    if not name or '/' in name:
+        raise ImproperlyConfigured('DATABASE_URL must name one database')
     config: dict[str, object] = {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': unquote(parsed.path.strip('/')),
-        'USER': unquote(parsed.username),
-        'PASSWORD': unquote(parsed.password or ''),
+        'NAME': name,
+        'USER': unquote(parsed.username, errors='strict'),
+        'PASSWORD': unquote(parsed.password or '', errors='strict'),
         'HOST': parsed.hostname,
-        'PORT': port,
+        'PORT': str(port),
         'CONN_MAX_AGE': 0,
+        'OPTIONS': {'connect_timeout': 1},
     }
-    if 'sslmode' in options:
-        config['OPTIONS'] = {'sslmode': options['sslmode'][-1]}
     return config
 
 
-DATABASES = {'default': database_config(os.environ.get('DATABASE_URL'))}
+test_database_url = os.environ.get('TEST_DATABASE_URL')
+configured_url = test_database_url or os.environ.get('DATABASE_URL')
+default_database = database_config(configured_url)
+if test_database_url:
+    default_database['TEST'] = {'NAME': default_database['NAME']}
+DATABASES = {'default': default_database}
 ```
 
 The dummy backend is the explicit unconfigured state used by `/health` to emit
@@ -292,10 +306,12 @@ def test_database_url() -> str:
 ```
 
 Use an autouse session fixture to require both `TEST_DATABASE_URL` and
-`DATABASE_URL`, require equality for the focused suite, and require a PostgreSQL
-scheme. The harness exports both values explicitly. Pytest-django derives and
-creates its isolated test database through the configured Django backend and
-applies committed migrations. Test helpers never create tables directly.
+`DATABASE_URL`, require distinct database names on the same owned PostgreSQL
+service, and require a PostgreSQL scheme. The harness exports both values
+explicitly. `taskboard/settings.py` selects the test URL under pytest and sets
+`TEST.NAME` to that decoded unique name. Pytest-django creates and destroys
+that isolated database through the configured Django backend and applies
+committed migrations. Test helpers never create tables directly.
 
 ### `tests/test_public_http.py` (public behavior, real PostgreSQL)
 
@@ -467,8 +483,10 @@ Copy these harness safety tests with Django names and paths:
 - unexpected and unresolved placeholders fail closed;
 - temporary production renders use mode 0600 and are removed;
 - source ConfigMap inputs are tracked and exactly allowlisted;
-- usage exposes `session-start`, `session-stop`, `assert-clean`, `pytest-only`,
-  `migrations-only`, `jobs-only`, and `phase-gate` modes.
+- usage exposes `session-start`, `session-stop`, `assert-clean`,
+  `assert-clean-all`, `pytest-only`, `migrations-only`, `jobs-only`, and
+  `phase-gate` modes. `assert-clean-all` is a read-only audit with zero
+  mutation commands.
 
 Static tests complement the live Kubernetes gate. Live server-side validation,
 Job completion, HTTP observations, and cleanup remain mandatory acceptance.
@@ -500,8 +518,9 @@ set_run_identity() {
 Retain context and namespace checks, create/delete authorization checks, and the
 inventory-name assertion. Provision PostgreSQL 17 with `emptyDir`, a generated
 Secret, bounded rollout waiting, an ephemeral loopback port, and a supervised
-port-forward. The local test URL uses `postgresql://`; the in-cluster Secret key
-`url` uses the Service DNS name and the same database identity.
+port-forward. The runtime URL and in-cluster Secret key `url` name the base
+database; the local `TEST_DATABASE_URL` names a distinct run-specific database
+on the same owned PostgreSQL service.
 
 #### Detached session and state file
 
@@ -511,8 +530,8 @@ Retain the 0600 atomic state file containing only:
 
 ```text
 RUN_ID=<12 lowercase hex characters>
-DATABASE_URL=postgresql://<credentials>@127.0.0.1:<port>/<database>
-TEST_DATABASE_URL=postgresql://<credentials>@127.0.0.1:<port>/<database>
+DATABASE_URL=postgresql://<credentials>@127.0.0.1:<port>/<runtime-database>
+TEST_DATABASE_URL=postgresql://<credentials>@127.0.0.1:<port>/<distinct-test-database>
 SUPERVISOR_PID=<pid>
 PORT_FORWARD_PID=<pid>
 ```
@@ -605,6 +624,7 @@ Retain these commands:
 ./scripts/test-postgres.sh --session-start --state-file PATH
 ./scripts/test-postgres.sh --session-stop --state-file PATH
 ./scripts/test-postgres.sh --assert-clean --state-file PATH
+./scripts/test-postgres.sh --assert-clean-all
 ./scripts/test-postgres.sh --pytest-only [PYTEST_ARGS...]
 ./scripts/test-postgres.sh --migrations-only
 ./scripts/test-postgres.sh --jobs-only [--state-file PATH]
@@ -644,6 +664,13 @@ ASSERT_CLEAN_OK run_id=<run-id> inventory=0 processes=stopped
 
 The harness never deletes by broad tutorial prefix. Every post-cleanup query
 uses the exact current run label.
+
+The final `--assert-clean-all` mode performs zero deletion. It reads both
+`tutorial-django-pg-test-*` and `tutorial-fastapi-pg-test-*` run-label
+inventories and the Phase 25 ownership ledger, then asserts absent servers,
+port-forwards, browser sessions, temporary roots, state files, and replay
+clones. Source-contract tests reject delete, kill, close, and remove operations
+inside this audit function.
 
 ### `README.md` and public Stage 2 identity
 
