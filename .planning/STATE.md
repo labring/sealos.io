@@ -4,17 +4,17 @@ milestone: v1.3
 milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 21
 current_phase_name: FastAPI Deploy Stage
-status: executing
-stopped_at: Completed 21-02-PLAN.md
-last_updated: "2026-07-15T05:41:01.165Z"
+status: verifying
+stopped_at: Completed 21-03-PLAN.md
+last_updated: "2026-07-15T06:01:12.935Z"
 last_activity: 2026-07-15
 last_activity_desc: Phase 21 execution started
 progress:
   total_phases: 8
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
-  percent: 67
+  completed_plans: 3
+  percent: 13
 ---
 
 # Project State
@@ -48,7 +48,7 @@ Deploy Stage.
 
 Phase: 21 (FastAPI Deploy Stage) — EXECUTING
 Plan: 3 of 3
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-07-15 — Phase 21 execution started
 6/6 requirement plus decision coverage
 
@@ -58,8 +58,8 @@ Run `$gsd-execute-phase 21` to build and publish the FastAPI Deploy Stage.
 
 ## Session
 
-**Last session:** 2026-07-15T05:41:01.157Z
-**Stopped at:** Completed 21-02-PLAN.md
+**Last session:** 2026-07-15T06:01:12.930Z
+**Stopped at:** Completed 21-03-PLAN.md
 **Resume file:** None
 
 ## Performance Metrics
@@ -78,6 +78,7 @@ Run `$gsd-execute-phase 21` to build and publish the FastAPI Deploy Stage.
 | Phase 15 verification | 2026-06-16 | 12/12 must-haves verified | UAT and verification artifacts |
 | Phase 21 P01 | 9 min | 3 tasks | 8 files |
 | Phase 21 P02 | 15 min | 3 tasks | 2 files |
+| Phase 21 P03 | 7 min | 2 tasks | 4 files |
 
 ## Decisions
 
@@ -99,3 +100,5 @@ Run `$gsd-execute-phase 21` to build and publish the FastAPI Deploy Stage.
 - [Phase 21]: Keep the dictionary and ID counter inside create_app() so every fresh application starts empty at ID 1. — This preserves deterministic public HTTP tests and the Stage 1 process-local boundary.
 - [Phase 21]: Use complete PUT replacement with a retained integer ID and verify persistence through a later public GET. — This defines update behavior exclusively through the public seam.
 - [Phase 21]: Centralize unknown-ID resolution for GET, PUT, and DELETE. — This mechanically preserves the stable public 404 response contract.
+- [Phase 21]: 21-03: Publish only the fully accepted README commit after lock, history, export, inventory, and port-8000 gates pass. — This keeps the public branch and immutable tag aligned with the exact locally accepted reader source.
+- [Phase 21]: 21-03: Protect refs/tags/stage-* with one active update-and-deletion ruleset and verify direct plus peeled tag identities. — This preserves both the annotated metadata object and its accepted source commit.

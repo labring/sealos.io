@@ -18,7 +18,7 @@ cleanup of the live Sealos footprint.
 - New phase directories continue after the v1.2 roadmap while all existing
   mixed phase directories remain preserved.
 
-- [ ] **Phase 21: FastAPI Deploy Stage** - Deliver the public, behavior-tested
+- [x] **Phase 21: FastAPI Deploy Stage** - Deliver the public, behavior-tested (completed 2026-07-15)
   Tasks API starter that readers can run on port 8000.
 
 - [ ] **Phase 22: FastAPI PostgreSQL Stage** - Move Tasks API CRUD to a fresh
@@ -72,11 +72,11 @@ its framework-native HTTP behavior.
 
 **Validation Approach**: Run public HTTP behavior tests and a local port 8000
 smoke check from a clean dependency install.
-**Plans**: 2/3 plans executed
+**Plans**: 3/3 plans complete
 
 - [x] 21-01-PLAN.md
 - [x] 21-02-PLAN.md
-- [ ] 21-03-PLAN.md
+- [x] 21-03-PLAN.md
 
 **UI hint**: yes
 
@@ -346,7 +346,7 @@ Phases execute in numeric order: 21 -> 22 -> 23 -> 24 -> 25 -> 26 -> 27 -> 28
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 21. FastAPI Deploy Stage | 2/3 | In Progress|  |
+| 21. FastAPI Deploy Stage | 3/3 | Complete   | 2026-07-15 |
 | 22. FastAPI PostgreSQL Stage | 0/TBD | Not started | - |
 | 23. FastAPI Production Stage | 0/TBD | Not started | - |
 | 24. Django Deploy Stage | 0/TBD | Not started | - |
