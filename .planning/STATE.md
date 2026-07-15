@@ -5,15 +5,15 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 24
 current_phase_name: Django Deploy Stage
 status: executing
-stopped_at: Completed 24-03-PLAN.md
-last_updated: "2026-07-15T21:08:48.204Z"
+stopped_at: Completed 24-04-PLAN.md
+last_updated: "2026-07-15T21:22:16.739Z"
 last_activity: 2026-07-16
-last_activity_desc: Completed Plan 24-03
+last_activity_desc: Completed Plan 24-04
 progress:
   total_phases: 8
   completed_phases: 3
   total_plans: 16
-  completed_plans: 14
+  completed_plans: 15
   percent: 38
 ---
 
@@ -46,18 +46,18 @@ workflow.
 ## Current Position
 
 Phase: 24 (Django Deploy Stage) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 Status: Ready to execute
-Last activity: 2026-07-16 - Completed Plan 24-03
+Last activity: 2026-07-16 - Completed Plan 24-04
 
 ## Next Action
 
-Execute `.planning/phases/24-django-deploy-stage/24-04-PLAN.md`.
+Execute `.planning/phases/24-django-deploy-stage/24-05-PLAN.md`.
 
 ## Session
 
-**Last session:** 2026-07-15T21:08:48.100Z
-**Stopped at:** Completed 24-03-PLAN.md
+**Last session:** 2026-07-15T21:20:13.892Z
+**Stopped at:** Completed 24-04-PLAN.md
 **Resume file:** None
 
 ## Performance Metrics
@@ -89,6 +89,7 @@ Execute `.planning/phases/24-django-deploy-stage/24-04-PLAN.md`.
 | Phase 24 P01 | 3 min | 2 tasks | 6 files |
 | Phase 24 P02 | 7 min | 3 tasks | 15 files |
 | Phase 24 P03 | 7 min | 2 tasks | 8 files |
+| Phase 24 P04 | 6 min | 3 tasks | 7 files |
 
 ## Decisions
 
@@ -140,3 +141,6 @@ Execute `.planning/phases/24-django-deploy-stage/24-04-PLAN.md`.
 - [Phase 24]: Use Task Meta ordering by the unique integer ID so every rendered read has stable creation order. — This preserves deterministic read order without an additional timestamp field.
 - [Phase 24]: Keep the Stage 1 board server-rendered with one local stylesheet, Django autoescaping, and zero script assets. — This preserves the locked accessible and inspectable reader surface.
 - [Phase 24]: Expose only title through TaskForm while the model supplies the incomplete-task default. — This constrains public model input to the confirmed Stage 1 field.
+- [Phase 24]: Use a namespaced tasks:create-task route and redirect successful writes to tasks:board. — This keeps route ownership explicit across the rendered form and PRG response.
+- [Phase 24]: Render invalid bound forms with HTTP 200 while preserving ordered public board state. — This keeps validation feedback on the public response and proves failed writes through a separate board read.
+- [Phase 24]: Mount Django's native administration and keep Task ownership behind the framework authentication stack. — This preserves Django's built-in security boundary and the confirmed Stage 1 login contract.
