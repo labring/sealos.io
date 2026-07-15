@@ -64,7 +64,7 @@ const demos = [
   {
     id: 'github-import-section',
     label: 'GitHub',
-    description: 'Import repository from URL or GitHub authorization.',
+    description: 'Paste a repo. Get a running URL.',
     Icon: Github,
     Demo: GitHubImportDemo,
     durationMs: githubImportDemoDurationMs,
