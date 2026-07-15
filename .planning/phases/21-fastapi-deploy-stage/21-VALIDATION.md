@@ -21,6 +21,7 @@ created: 2026-07-15
 | **Config file** | `/Users/longnv/bin/repo/sealos-fastapi-tutorial/pyproject.toml` |
 | **Quick run command** | `uv run pytest tests/test_api.py -q -x` |
 | **Full suite command** | `uv run pytest -q` |
+| **Behavior contract** | 9 named behavior functions, 12 collected pytest cases (2 invalid-title parameters and 3 missing-task parameters) |
 | **Estimated runtime** | Under 10 seconds |
 
 ---
@@ -64,10 +65,10 @@ created: 2026-07-15
 
 | Gate | Command | Observable result |
 |------|---------|-------------------|
-| Full HTTP contract | `uv run pytest -q` | Nine public behavior tests pass. |
+| Full HTTP contract | `test "$(rg -c '^def test_[A-Za-z0-9_]+\(' tests/test_api.py)" -eq 9 && uv run pytest -q && test "$(uv run pytest tests/test_api.py --collect-only -q \| grep -Ec '::test_')" -eq 12` | Nine independently counted public behavior functions produce and pass 12 collected pytest cases. |
 | Reproducible dependencies | `uv sync --locked && uv lock --check && uv export --locked --no-dev --no-emit-project --no-hashes --format requirements.txt -o requirements.txt && git diff --exit-code -- uv.lock requirements.txt` | Exit 0 and generated artifacts stay unchanged. |
 | Port 8000 | `uv run uvicorn app.main:app --host 0.0.0.0 --port 8000` plus curls to `/health` and `/docs` | Health JSON and Swagger HTML return HTTP 200. |
-| Public clone | Clone `stage-1-deploy`, then run `uv sync --locked && uv run pytest -q` | Clean public clone installs and passes nine tests. |
+| Public clone | Clone `stage-1-deploy`, then run `uv sync --locked && uv run pytest -q` | Clean public clone installs and passes all 12 cases from nine named behavior functions. |
 | Tag integrity | Compare local HEAD to the peeled remote tag and query the active tag ruleset | SHAs match and update/deletion protections are active. |
 
 ---

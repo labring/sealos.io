@@ -17,41 +17,44 @@ framework-native public HTTP contract.
 <decisions>
 ## Implementation Decisions
 
-### D-01: Public HTTP Contract
+### Public HTTP Contract
 
-- Expose `GET /health`, FastAPI's generated `GET /docs`, and in-memory task CRUD.
+- **D-01:** Expose `GET /health`, FastAPI's generated `GET /docs`, and
+  in-memory task CRUD.
 - Model each task with an integer `id`, string `title`, and boolean `completed`.
 - Support `POST /tasks`, `GET /tasks`, `GET /tasks/{task_id}`,
   `PUT /tasks/{task_id}`, and `DELETE /tasks/{task_id}` through JSON HTTP.
 - Bind the local application to `0.0.0.0:8000`.
 
-### D-02: Public Repository and Stage Identity
+### Public Repository and Stage Identity
 
-- Build the local repository at
+- **D-02:** Build the local repository at
   `/Users/longnv/bin/repo/sealos-fastapi-tutorial`.
 - Publish it as `https://github.com/yangchuansheng/sealos-fastapi-tutorial`.
 - Preserve the completed Phase 21 source as the immutable
   `stage-1-deploy` tag.
 - Keep `main` available for the PostgreSQL and production stages that follow.
 
-### D-03: Reproducible Python Baseline
+### Reproducible Python Baseline
 
-- Use Python 3.12, `uv`, `pyproject.toml`, and a committed `uv.lock`.
+- **D-03:** Use Python 3.12, `uv`, `pyproject.toml`, and a committed
+  `uv.lock`.
 - Export exact runtime versions to `requirements.txt` from the lock file.
 - Include clean setup, test, run, and HTTP verification commands in README.md.
 
-### D-04: Behavior-First Delivery
+### Behavior-First Delivery
 
-- Drive the service through public HTTP tests with FastAPI TestClient.
+- **D-04:** Drive the service through public HTTP tests with FastAPI
+  TestClient.
 - Record a failing behavior test before the smallest implementation that makes
   it pass, then repeat for the next behavior.
 - Keep framework collaborators real. Use a boundary substitute only when a
   focused test cannot involve the external boundary.
 - Retain readable red-green evidence in the repository history and test output.
 
-### D-05: Stage Fence
+### Stage Fence
 
-- Keep Phase 21 task persistence in memory.
+- **D-05:** Keep Phase 21 task persistence in memory.
 - PostgreSQL, SQLAlchemy, Alembic, migration Jobs, production containers, and
   image publication belong to Phases 22 and 23.
 - Keep the source structure ready to evolve without adding those later-stage

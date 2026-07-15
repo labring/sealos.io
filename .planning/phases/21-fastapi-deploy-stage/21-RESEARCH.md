@@ -95,12 +95,24 @@ uv export --locked --no-dev --no-emit-project --no-hashes \
 `.python-version`, `uv.lock`, and the generated `requirements.txt` together.
 `[VERIFIED: locked decision and uv CLI]`
 ## Package Legitimacy Audit
-FastAPI, Uvicorn, Pydantic, HTTPX, and pytest each resolve to an established
-official repository and current PyPI project. Before lock generation, verify
-the exact pins through PyPI metadata, inspect the resolved graph with
-`uv tree`, and retain `uv.lock` as the executable dependency record. D-03 and
-the user's patch-version discretion authorize these compatible releases.
-`[VERIFIED: package-legitimacy seam, PyPI metadata, and phase context]`
+
+| Package | Registry | Age / latest release | Downloads | Source Repo | Verdict | Disposition |
+|---------|----------|----------------------|-----------|-------------|---------|-------------|
+| FastAPI | PyPI | Established; latest 2026-07-01 | Unavailable from seam | `github.com/fastapi/fastapi` | SUS (`too-new`, `unknown-downloads`) | Approved through the user's 2026-07-15 dependency-version delegation; verify exact PyPI metadata before lock generation. |
+| Pydantic | PyPI | Established; latest 2026-05-06 | Unavailable from seam | `github.com/pydantic/pydantic` | SUS (`unknown-downloads`) | Approved through the user's 2026-07-15 dependency-version delegation; verify exact PyPI metadata before lock generation. |
+| Uvicorn | PyPI | Established; latest 2026-07-08 | Unavailable from seam | `github.com/Kludex/uvicorn` | SUS (`too-new`, `unknown-downloads`) | Approved through the user's 2026-07-15 dependency-version delegation; verify exact PyPI metadata before lock generation. |
+| HTTPX | PyPI | Established; latest 2024-12-06 | Unavailable from seam | `github.com/encode/httpx` | SUS (`unknown-downloads`) | Approved through the user's 2026-07-15 dependency-version delegation; verify exact PyPI metadata before lock generation. |
+| pytest | PyPI | Established; latest 2026-06-19 | Unavailable from seam | `github.com/pytest-dev/pytest` | SUS (`too-new`, `unknown-downloads`) | Approved through the user's 2026-07-15 dependency-version delegation; verify exact PyPI metadata before lock generation. |
+
+**Packages removed due to SLOP verdict:** none.
+
+**Packages flagged as suspicious (SUS):** FastAPI, Pydantic, Uvicorn, HTTPX,
+and pytest. The automated seam flagged release recency or unavailable download
+counts while confirming each registry project and official source repository.
+The user's confirmed agent discretion for compatible patch versions satisfies
+the blocking human approval. Execution still verifies the exact PyPI release
+metadata, inspects `uv tree`, and retains `uv.lock` as the dependency record.
+`[VERIFIED: package-legitimacy seam, PyPI metadata, official repositories, and phase context]`
 ## Recommended Stage-1 Layout
 ```text
 sealos-fastapi-tutorial/
