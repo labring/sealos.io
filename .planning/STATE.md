@@ -5,16 +5,16 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 23
 current_phase_name: FastAPI Production Stage
 status: executing
-stopped_at: Completed 23-02-PLAN.md
-last_updated: "2026-07-15T15:34:54.000Z"
+stopped_at: Completed 23-03-PLAN.md
+last_updated: "2026-07-15T17:16:19.000Z"
 last_activity: 2026-07-15
-last_activity_desc: FastAPI production workload and final image accepted
+last_activity_desc: FastAPI rollback and recovery evidence accepted
 progress:
   total_phases: 8
   completed_phases: 2
   total_plans: 11
-  completed_plans: 9
-  percent: 82
+  completed_plans: 10
+  percent: 91
 ---
 
 # Project State
@@ -47,19 +47,19 @@ workflow.
 ## Current Position
 
 Phase: 23 (FastAPI Production Stage) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
-Last activity: 2026-07-15 — FastAPI production workload and final image accepted
+Last activity: 2026-07-15 — FastAPI rollback and recovery evidence accepted
 11/11 requirement plus decision coverage
 
 ## Next Action
 
-Run `$gsd-execute-phase 23` to execute Plan 23-03 live rollback and recovery.
+Run `$gsd-execute-phase 23` to execute Plan 23-04 protected Stage 3 publication and public replay.
 
 ## Session
 
-**Last session:** 2026-07-15T15:34:54.000Z
-**Stopped at:** Completed 23-02-PLAN.md
+**Last session:** 2026-07-15T17:16:19.000Z
+**Stopped at:** Completed 23-03-PLAN.md
 **Resume file:** None
 
 ## Performance Metrics
@@ -85,6 +85,7 @@ Run `$gsd-execute-phase 23` to execute Plan 23-03 live rollback and recovery.
 | Phase 22 P04 | 50 min | 3 tasks | 10 files |
 | Phase 23 P01 | 64 min | 3 tasks | 5 files |
 | Phase 23 P02 | 83 min | 3 tasks | 8 files |
+| Phase 23 P03 | 101 min | 2 tasks | 12 files |
 
 ## Decisions
 
@@ -121,3 +122,6 @@ Run `$gsd-execute-phase 23` to execute Plan 23-03 live rollback and recovery.
 - [Phase 23]: Accept the first-package anonymous 403 only with exact error fragments and independent authenticated package absence.
 - [Phase 23]: Render parameterized production Jobs through an exact token allowlist before strict inherited server validation.
 - [Phase 23]: Freeze final reader source before retaining its dynamic GHCR digest in Sealos.io planning evidence.
+- [Phase 23]: Recreate the bounded Service port-forward after each completed rollout before accepting public HTTP behavior.
+- [Phase 23]: Use one persistent public task to prove continuity through baseline, final, rollback, and explicit recovery.
+- [Phase 23]: Freeze reviewed live evidence read-only after semantic, credential, checksum, source, and exact cleanup audits pass.
