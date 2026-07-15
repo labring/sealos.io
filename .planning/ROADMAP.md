@@ -113,10 +113,10 @@ single-owner migration completes.
 **Validation Approach**: Start from an empty PostgreSQL database, execute the
 migration command, run the public HTTP suite, restart the application, and read
 the retained record again.
-**Plans**: 1/4 plans executed
+**Plans**: 2/4 plans executed
 
 - [x] 22-01-PLAN.md - Lock and audit the database stack, provision owned real PostgreSQL, and prove repeatable Alembic migration.
-- [ ] 22-02-PLAN.md - Move every Tasks API CRUD behavior to SQLAlchemy through public HTTP tracer bullets.
+- [x] 22-02-PLAN.md - Move every Tasks API CRUD behavior to SQLAlchemy through public HTTP tracer bullets.
 - [ ] 22-03-PLAN.md - Gate readiness on schema and prove production/source migration Job contracts twice.
 - [ ] 22-04-PLAN.md - Publish the documented, evidenced, protected Stage 2 source and replay it from a fresh clone.
 
@@ -352,7 +352,7 @@ Phases execute in numeric order: 21 -> 22 -> 23 -> 24 -> 25 -> 26 -> 27 -> 28
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 21. FastAPI Deploy Stage | 3/3 | Complete    | 2026-07-15 |
-| 22. FastAPI PostgreSQL Stage | 1/4 | In Progress|  |
+| 22. FastAPI PostgreSQL Stage | 2/4 | In Progress|  |
 | 23. FastAPI Production Stage | 0/TBD | Not started | - |
 | 24. Django Deploy Stage | 0/TBD | Not started | - |
 | 25. Django PostgreSQL Stage | 0/TBD | Not started | - |
