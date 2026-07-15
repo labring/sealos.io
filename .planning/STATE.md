@@ -5,8 +5,8 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 25
 current_phase_name: Django PostgreSQL Stage
 status: planning
-stopped_at: Completed 24-05-PLAN.md
-last_updated: "2026-07-15T22:06:21.849Z"
+stopped_at: Phase 25 context gathered
+last_updated: "2026-07-15T22:10:55.743Z"
 last_activity: 2026-07-15
 last_activity_desc: Phase 24 complete, transitioned to Phase 25
 progress:
@@ -34,7 +34,7 @@ workflow.
 |-------|-------|
 | Phase | 25 of 28 |
 | Name | Django PostgreSQL Stage |
-| Status | Ready to discuss and plan |
+| Status | Ready to plan |
 | Goal | Readers can use persistent Task Board data after repeatable FastAPI and Django migration Jobs have proven the shared fresh-database contract. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
@@ -49,18 +49,18 @@ workflow.
 
 Phase: 25 (Django PostgreSQL Stage) — PLANNING
 Plan: -
-Status: Ready to discuss and plan
-Last activity: 2026-07-15 — Phase 24 complete, transitioned to Phase 25
+Status: Ready to plan
+Last activity: 2026-07-15 — Phase 25 context gathered
 
 ## Next Action
 
-Run `$gsd-discuss-phase 25 --auto` to capture the confirmed Django PostgreSQL decisions.
+Run `$gsd-plan-phase 25` to research and plan the confirmed Django PostgreSQL stage.
 
 ## Session
 
-**Last session:** 2026-07-15T21:37:03.646Z
-**Stopped at:** Completed 24-05-PLAN.md
-**Resume file:** None
+**Last session:** 2026-07-15T22:10:55.739Z
+**Stopped at:** Phase 25 context gathered
+**Resume file:** .planning/phases/25-django-postgresql-stage/25-CONTEXT.md
 
 ## Performance Metrics
 
