@@ -5,15 +5,15 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 22
 current_phase_name: FastAPI PostgreSQL Stage
 status: executing
-stopped_at: Phase 22 planned; ready to execute
-last_updated: "2026-07-15T08:13:59.409Z"
+stopped_at: Completed 22-01-PLAN.md
+last_updated: "2026-07-15T08:59:38.672Z"
 last_activity: 2026-07-15
-last_activity_desc: Phase 22 planned with 4 plans and verification passed
+last_activity_desc: Phase 22 execution started
 progress:
   total_phases: 8
   completed_phases: 1
   total_plans: 7
-  completed_plans: 3
+  completed_plans: 4
   percent: 13
 ---
 
@@ -26,7 +26,7 @@ See: `.planning/PROJECT.md` (updated 2026-07-15)
 **Core value:** Readers can follow framework-specific Sealos tutorials with
 commands, screenshots, and validation evidence that match the current product
 workflow.
-**Current focus:** Phase 22 is planned and ready to execute for the FastAPI
+**Current focus:** Phase 22 — FastAPI PostgreSQL Stage
 PostgreSQL Stage.
 
 ## Current Phase
@@ -47,10 +47,10 @@ PostgreSQL Stage.
 
 ## Current Position
 
-Phase: 22 of 28 (FastAPI PostgreSQL Stage)
-Plan: 4 plans ready
+Phase: 22 (FastAPI PostgreSQL Stage) — EXECUTING
+Plan: 2 of 4
 Status: Ready to execute
-Last activity: 2026-07-15 — Phase 22 plans passed independent verification and
+Last activity: 2026-07-15 — Phase 22 execution started
 10/10 requirement plus decision coverage
 
 ## Next Action
@@ -59,9 +59,9 @@ Run `$gsd-execute-phase 22` to build and publish the FastAPI PostgreSQL Stage.
 
 ## Session
 
-**Last session:** 2026-07-15T06:01:12.930Z
-**Stopped at:** Phase 22 planned; ready to execute
-**Resume file:** `.planning/ROADMAP.md`
+**Last session:** 2026-07-15T08:59:38.661Z
+**Stopped at:** Completed 22-01-PLAN.md
+**Resume file:** .planning/phases/22-fastapi-postgresql-stage/22-02-PLAN.md
 
 ## Performance Metrics
 
@@ -80,6 +80,7 @@ Run `$gsd-execute-phase 22` to build and publish the FastAPI PostgreSQL Stage.
 | Phase 21 P01 | 9 min | 3 tasks | 8 files |
 | Phase 21 P02 | 15 min | 3 tasks | 2 files |
 | Phase 21 P03 | 7 min | 2 tasks | 4 files |
+| Phase 22 P01 | 34 min | 3 tasks | 11 files |
 
 ## Decisions
 
@@ -103,3 +104,6 @@ Run `$gsd-execute-phase 22` to build and publish the FastAPI PostgreSQL Stage.
 - [Phase 21]: Centralize unknown-ID resolution for GET, PUT, and DELETE. — This mechanically preserves the stable public 404 response contract.
 - [Phase 21]: 21-03: Publish only the fully accepted README commit after lock, history, export, inventory, and port-8000 gates pass. — This keeps the public branch and immutable tag aligned with the exact locally accepted reader source.
 - [Phase 21]: 21-03: Protect refs/tags/stage-* with one active update-and-deletion ruleset and verify direct plus peeled tag identities. — This preserves both the annotated metadata object and its accepted source commit.
+- [Phase 22]: 22-01: Launch the PostgreSQL session supervisor in a detached POSIX session so caller and PTY shutdown cannot terminate owned control processes.
+- [Phase 22]: 22-01: Use Alembic as the exclusive schema owner and map the same explicit tasks shape through typed SQLAlchemy 2 metadata.
+- [Phase 22]: 22-01: Start every migration behavior invocation from Alembic base so the public command test is independently replayable.
