@@ -42,6 +42,10 @@ reference applications and real Sealos deployment evidence.
   `yangchuansheng/sealos-fastapi-tutorial`; 12 HTTP cases pass from nine named
   behavior functions and protected `stage-1-deploy` resolves to accepted commit
   `276aa00` — validated in Phase 21.
+- ✓ FastAPI Stage 2 is public at protected `stage-2-postgresql`; 24 public
+  behavior cases, fresh and repeat Alembic migration, two migration Jobs, three
+  clone replays, and zero-footprint cleanup pass at accepted commit `2b256b3`
+  — validated in Phase 22.
 
 ### Active
 
@@ -104,11 +108,11 @@ The project glossary is `CONTEXT.md`.
 |----------|-----------|---------|
 | Use three pages per framework | Matches the established deploy, PostgreSQL, and production reader journey. | — Pending |
 | Use one Reference Application per framework | Keeps code, screenshots, and troubleshooting continuous across each series. | — Pending |
-| Publish two public GitHub repositories | Makes tutorial commands and stage snapshots reproducible. | FastAPI Stage 1 published; Django pending. |
+| Publish two public GitHub repositories | Makes tutorial commands and stage snapshots reproducible. | FastAPI Stages 1-2 published; Django pending. |
 | Require 24 practice-backed screenshots | Preserves the current four-image framework tutorial density. | — Pending |
-| Run migrations as one-shot Jobs | Keeps schema changes single-owner before rollout acceptance and scaling. | — Pending |
+| Run migrations as one-shot Jobs | Keeps schema changes single-owner before rollout acceptance and scaling. | FastAPI Stage 2 completed two Jobs at Alembic revision `0001`. |
 | Gate five-minute titles on measured evidence | Keeps duration claims tied to actual workflow timing. | — Pending |
-| Test four public seams with vertical red-green slices | Keeps tests behavior-focused and durable through implementation changes. | FastAPI Stage 1 completed nine RED/GREEN slices. |
+| Test four public seams with vertical red-green slices | Keeps tests behavior-focused and durable through implementation changes. | FastAPI deploy and PostgreSQL stages retain 16 direct RED/GREEN slices and a 24-case public suite. |
 
 ## Evolution
 
@@ -125,4 +129,4 @@ This document evolves at phase transitions and milestone boundaries.
 3. Record the final milestone outcome.
 
 ---
-*Last updated: 2026-07-15 after Phase 21 verification*
+*Last updated: 2026-07-15 after Phase 22 verification*
