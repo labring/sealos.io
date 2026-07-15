@@ -46,7 +46,7 @@ status: complete
 
 # Phase 23 Plan 02: FastAPI Production Workload and Final Image Summary
 
-**Public main now contains the complete hardened production workload, reader workflow, and a distinct immutable final image ready for the real rollback gate**
+**Public main now contains the complete hardened production workload, reader workflow, per-state HTTP forwarding lifecycle, and a distinct immutable final image ready for the real rollback gate**
 
 ## Performance
 
@@ -61,30 +61,30 @@ status: complete
 - Added exact-token migration Job, two-replica Deployment, and Service contracts with UID/GID 10001, RuntimeDefault seccomp, no service-account token, read-only root, dropped capabilities, bounded resources, Memory-backed 64 MiB `/tmp`, and `/health` readiness.
 - Added a fail-closed production harness for baseline migration/deploy, final migration/update, `kubectl rollout undo`, explicit final recovery, persistent public task checks, exact cleanup, anonymous image gates, and semantic evidence verification.
 - Repaired the inherited PostgreSQL gate so its production Job check renders the new parameterized contract through an allowlist into a mode-0600 temporary manifest before strict server validation.
-- Recovered and froze the reader source at `dfdd7ea83296133fed69ec79459fc8f0a52a6913`, fast-forwarded public main, and accepted workflow run `29432521938` plus final image digest `sha256:128c09e4cb51c75fab66c97222f475461c9153037a621c46ec6841b759496f08`.
+- Recovered and froze the reader source at `1dbbf19185207aed44a29ad6a3509d94a3670c43`, fast-forwarded public main, and accepted workflow run `29434731777` plus final image digest `sha256:c5f6d6df59d05ab9e079aab5dc9a9b0666218ae38f104630587343eaba25b5de`.
 
 ## Release Input Contract
 
 baseline_source=1a5a66f3959f69ff66d85a9562acba738c82edb4
 baseline_image=ghcr.io/yangchuansheng/sealos-fastapi-tutorial@sha256:b11293cf8ebb0e73fbabfd33ef6e812d53cb8176ea2db853769aae3dfa273337
-final_source=dfdd7ea83296133fed69ec79459fc8f0a52a6913
-final_image=ghcr.io/yangchuansheng/sealos-fastapi-tutorial@sha256:128c09e4cb51c75fab66c97222f475461c9153037a621c46ec6841b759496f08
+final_source=1dbbf19185207aed44a29ad6a3509d94a3670c43
+final_image=ghcr.io/yangchuansheng/sealos-fastapi-tutorial@sha256:c5f6d6df59d05ab9e079aab5dc9a9b0666218ae38f104630587343eaba25b5de
 
 ## Accepted Final Identity
 
 | Contract | Accepted value |
 |----------|----------------|
 | Public repository | `yangchuansheng/sealos-fastapi-tutorial` |
-| Public main / final source | `dfdd7ea83296133fed69ec79459fc8f0a52a6913` |
-| Final source tree | `c2f0a34947d3bf5aaa00aaedc3f66417c8ddf06c` |
-| Final source archive SHA-256 | `1cb4d8219d9aa0e5a13ad34a61e96c0be26fec5466d741537a0b6c9fdedbe384` |
-| Successful workflow | `29432521938` |
-| Workflow URL | `https://github.com/yangchuansheng/sealos-fastapi-tutorial/actions/runs/29432521938` |
+| Public main / final source | `1dbbf19185207aed44a29ad6a3509d94a3670c43` |
+| Final source tree | `fe68e6913b536e399d58e4390351cdcc26c0a385` |
+| Final source archive SHA-256 | `decde211658f22971042b7dbecab384129ac37b06344986c7d73eaed7f1cc72e` |
+| Successful workflow | `29434731777` |
+| Workflow URL | `https://github.com/yangchuansheng/sealos-fastapi-tutorial/actions/runs/29434731777` |
 | Workflow event / head / target | `push` / final source / final source |
 | Workflow conclusion | `success` |
-| Full-SHA image tag | `ghcr.io/yangchuansheng/sealos-fastapi-tutorial:sha-dfdd7ea83296133fed69ec79459fc8f0a52a6913` |
-| Final immutable image | `ghcr.io/yangchuansheng/sealos-fastapi-tutorial@sha256:128c09e4cb51c75fab66c97222f475461c9153037a621c46ec6841b759496f08` |
-| Final GHCR package version | `1033619284` |
+| Full-SHA image tag | `ghcr.io/yangchuansheng/sealos-fastapi-tutorial:sha-1dbbf19185207aed44a29ad6a3509d94a3670c43` |
+| Final immutable image | `ghcr.io/yangchuansheng/sealos-fastapi-tutorial@sha256:c5f6d6df59d05ab9e079aab5dc9a9b0666218ae38f104630587343eaba25b5de` |
+| Final GHCR package version | `1033710956` |
 | Package visibility / repository | `public` / `sealos-fastapi-tutorial` |
 | Baseline immutable image | `ghcr.io/yangchuansheng/sealos-fastapi-tutorial@sha256:b11293cf8ebb0e73fbabfd33ef6e812d53cb8176ea2db853769aae3dfa273337` |
 
@@ -103,6 +103,7 @@ OCI identities map to the recorded source SHA and public repository.
 | Inherited parameterized Job validation | `af1753f068d019546dfb7582e3f819a02b4518b4` | `683155b1800587b49f3754c4a803b21c1612ed50` | RED changes only `tests/test_postgres_harness.py`; GREEN changes only `scripts/test-postgres.sh`. |
 | Runtime release identity logging | `6eaa808d099243e70a06fbbe4abde6044f01e5a8` | `9e781775dd88f53f20c85ce2c763270925e123b8` | RED changes only `tests/test_production.py`; GREEN changes exactly `app/main.py`, `deploy/application.yaml`, and `scripts/test-production.sh`. |
 | Server-defaulted logging volume | `627ca96bfafe1adf35dc69f844a1074007e425ef` | `dfdd7ea83296133fed69ec79459fc8f0a52a6913` | RED changes only `tests/test_production.py`; GREEN adds only the API-defaulted mode to `scripts/test-production.sh`. |
+| Per-state HTTP forwarding | `73db0324d0bc7fa8f3f25a36804767146986c43c` | `1dbbf19185207aed44a29ad6a3509d94a3670c43` | RED changes only `tests/test_production.py`; GREEN changes only the port-forward lifecycle in `scripts/test-production.sh`. |
 
 The workload RED exited at the exact absent application-manifest assertion.
 The inherited Job-render RED exited at `render_production_job must exist`.
@@ -118,6 +119,7 @@ three planned production artifacts.
 5. **Task 3: Freeze the immutable production reader source** - `e1a62c7` (`docs`)
 6. **Runtime recovery: Emit baseline and final release identity logs** - `6eaa808`, `9e78177` (`test` / `fix`)
 7. **Runtime recovery: Accept server-defaulted ConfigMap mode** - `627ca96`, `dfdd7ea` (`test` / `fix`)
+8. **Runtime recovery: Refresh HTTP forwarding for every accepted state** - `73db032`, `1dbbf19` (`test` / `fix`)
 
 ## Verification
 
@@ -125,8 +127,9 @@ three planned production artifacts.
 - Exact no-environment PostgreSQL phase gate: `33 passed`, two source migration Jobs at revision `0001`, parameterized production Job strict validation, migrated health `200`, lock/export pass, and `CLEANUP_OK` for run `55ab76c1c416`.
 - Strict server dry-run: parameterized Deployment, Service, and migration Job accepted by the authenticated Kubernetes API.
 - Evidence semantics: live eight-checksum fixture passed; a changed checksum failed; publication preflight passed with stale and absent checksums; full publication nine-checksum fixture passed.
-- Clean clone: `git clone --no-local` at final source passed lock/export, nine focused tests, shell syntax/help, clean-tree readback, and exact clone removal.
-- Workflow run `29432521938`: API event `push`, exact head and normalized target, successful test and publish jobs, and matching final digest output.
+- Clean clone: `git clone --no-local` at final source passed lock/export, six focused tests, shell syntax/help, clean-tree readback, and exact clone removal.
+- Per-state HTTP-forwarding phase gate: `33 passed`, two source migration Jobs at revision `0001`, migrated health `200`, lock/export pass, and `CLEANUP_OK` for run `794abcfd1fb4`.
+- Workflow run `29434731777`: API event `push`, exact head and normalized target, successful test and publish jobs, and matching final digest output.
 
 ## Deviations from Plan
 
@@ -162,19 +165,27 @@ three planned production artifacts.
 - **Verification:** Focused and complete ten-case static suites, server dry-run JSON readback, successful workflow `29432521938`, and anonymous final image readback.
 - **Recovery:** Replacement image version `1033569381` remains immutable for exact Plan 23-04 cleanup.
 
+**5. [Rule 1 - Bug] Refreshed the Service port-forward after every rollout**
+
+- **Found during:** Plan 23-03 replacement live run `e503aad1957e`
+- **Issue:** The one-time `kubectl port-forward service/...` process selected one Pod and exited when the final rollout deleted that baseline Pod, so the first final-state request received an empty reply.
+- **Fix:** Add one static RED for per-state forwarding and make each release verification stop, reap, and recreate its own bounded Service port-forward after rollout completion.
+- **Verification:** Focused and complete ten-case static suites, exact database-backed phase gate `794abcfd1fb4`, successful workflow `29434731777`, and anonymous final image readback.
+- **Recovery:** Replacement image version `1033619284` remains immutable for exact Plan 23-04 cleanup.
+
 ## Protected Source State
 
 - Stage 1 remains direct `77e57a281ecc087041b54273c1bfc63b66f13d1a`, peeled `276aa00e4d5bb7a0d5e375fee530cde3240b2ce8`, message `FastAPI deploy stage`.
 - Stage 2 remains direct `b61254c237885744ae85cb6f81386f77f1e3ac09`, peeled `2b256b3dfc2a7d2a4b930c9970becca8c6da8cd3`, message `FastAPI PostgreSQL stage`.
 - Active ruleset `18970425` still targets only `refs/tags/stage-*` with update and deletion protection, empty bypass, and empty exclude.
 - Stage 3 remains absent for Plan 23-04 publication after the live Plan 23-03 gate.
-- The package contains only full-SHA tags. Failed versions `1033073401`, `1033102122`, and superseded final versions `1033435304` and `1033569381` remain recorded for exact Plan 23-04 cleanup.
+- The package contains only full-SHA tags. Failed versions `1033073401`, `1033102122`, and superseded final versions `1033435304`, `1033569381`, and `1033619284` remain recorded for exact Plan 23-04 cleanup.
 
 ## Cleanup Proof
 
-- Phase-gate and diagnostic runs `f6ce9e66f44f`, `5b1e1cb3fa5c`, `9665120a3aa7`, `c09525bff20f`, `e64cce37d164`, `ed05a513ef74`, `28987171ec52`, `55ab76c1c416`, `2e5e6b75902c`, and `f32736d38f34` have zero Deployments, ReplicaSets, Pods, Services, Jobs, Secrets, ConfigMaps, port-forwards, state files, render files, and owned processes.
+- Phase-gate and diagnostic runs `f6ce9e66f44f`, `5b1e1cb3fa5c`, `9665120a3aa7`, `c09525bff20f`, `e64cce37d164`, `ed05a513ef74`, `28987171ec52`, `55ab76c1c416`, `2e5e6b75902c`, `f32736d38f34`, `e503aad1957e`, and `794abcfd1fb4` have zero Deployments, ReplicaSets, Pods, Services, Jobs, Secrets, ConfigMaps, port-forwards, state files, render files, and owned processes after trap or independent readback.
 - Both anonymous registry directories and the no-local clone directory were removed and independently checked absent.
-- The Reference Application is clean at recovered public final source; no source writes are permitted after `dfdd7ea83296133fed69ec79459fc8f0a52a6913` during the remaining Phase 23 plans.
+- The Reference Application is clean at recovered public final source; no source writes are permitted after `1dbbf19185207aed44a29ad6a3509d94a3670c43` during the remaining Phase 23 plans.
 
 ## Next Phase Readiness
 
