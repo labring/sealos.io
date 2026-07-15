@@ -24,7 +24,7 @@
     "ui_phase": true,
     "ui_safety_gate": true,
     "ai_integration_phase": true,
-    "tdd_mode": false,
+    "tdd_mode": true,
     "human_verify_mode": "end-of-phase",
     "text_mode": false,
     "research_before_questions": false,

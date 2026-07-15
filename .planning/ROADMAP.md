@@ -1,272 +1,314 @@
-# Roadmap: React and Node.js Tutorial Expansion
+# Roadmap: FastAPI and Django Tutorial Expansion
 
 ## Overview
 
-This roadmap expands the Sealos.io tutorial catalog from the existing three
-Next.js tutorials into React and Node.js series. The milestone keeps the
-existing tutorial information architecture, Sealos Skills workflow guidance, and
-validation style while requiring fresh practice evidence for screenshots.
-
-The milestone has five phases: baseline extraction, React tutorial creation,
-Node.js tutorial creation, practice-backed screenshot integration, and final
-expanded-set validation.
+Milestone v1.3 extends the public tutorial catalog with two complete Framework
+Tutorial Series. Delivery follows the same deployable stages that readers use:
+each Reference Application first exposes its framework-native HTTP behavior,
+then adds PostgreSQL and one-shot migrations, then becomes a reproducible
+production release. The final phases turn retained practice evidence into six
+tutorials and 24 screenshots, publish the 15-page catalog, and prove complete
+cleanup of the live Sealos footprint.
 
 ## Phases
 
 **Phase Numbering:**
 
-- Integer phases (16, 17, 18, 19, 20): Planned milestone work.
-- New phase directories continue after the completed v1.1 tutorial phases 13,
-  14, and 15.
+- Integer phases (21 through 28): Planned v1.3 milestone work.
+- New phase directories continue after the v1.2 roadmap while all existing
+  mixed phase directories remain preserved.
 
-- [ ] **Phase 16: Tutorial Template Baseline and Expansion Map** - Extract the
-  reusable tutorial contract from the three Next.js pages and lock the React and
-  Node.js slug, metadata, link, and image plan.
-
-- [ ] **Phase 17: React Tutorial Series** - Create the React beginner,
-  PostgreSQL/full-stack, and production checklist tutorials with metadata,
-  links, screenshots placeholders, and source validation.
-
-- [ ] **Phase 18: Node.js Tutorial Series** - Create the Node.js beginner,
-  PostgreSQL/full-stack, and production checklist tutorials with metadata,
-  links, screenshots placeholders, and source validation.
-
-- [ ] **Phase 19: Practice Evidence and Screenshot Assets** - Run the React and
-  Node.js Sealos practice flows, capture evidence, redact sensitive values,
-  produce WebP screenshots, and wire assets into the six new tutorials.
-
-- [ ] **Phase 20: Expanded Tutorial Validation and Release Check** - Expand and
-  run tutorial validation, image checks, targeted searches, and final
-  TypeScript/content validation for the nine-page tutorial set.
+- [ ] **Phase 21: FastAPI Deploy Stage** - Deliver the public, behavior-tested
+  Tasks API starter that readers can run on port 8000.
+- [ ] **Phase 22: FastAPI PostgreSQL Stage** - Move Tasks API CRUD to a fresh
+  PostgreSQL database through SQLAlchemy, Alembic, and a migration Job.
+- [ ] **Phase 23: FastAPI Production Stage** - Publish the locked non-root
+  runtime and immutable FastAPI source stages with rollback-ready images.
+- [ ] **Phase 24: Django Deploy Stage** - Deliver the public, behavior-tested
+  Task Board starter with rendered pages, health, and administration access.
+- [ ] **Phase 25: Django PostgreSQL Stage** - Prove both migration paths and
+  move Task Board writes and reads to PostgreSQL through a one-shot Job.
+- [ ] **Phase 26: Django Production Stage** - Publish the locked Gunicorn and
+  WhiteNoise runtime with immutable Django source stages and rollback evidence.
+- [ ] **Phase 27: Practice-Backed Tutorial Series** - Turn real local and
+  Sealos runs into six English tutorials, retained evidence, and 24 screenshots.
+- [ ] **Phase 28: Catalog Publication and Cleanup** - Publish the 15-page
+  catalog, pass validator and static HTTP contracts, and prove resource cleanup.
 
 ## Phase Details
 
-### Phase 16: Tutorial Template Baseline and Expansion Map
+### Phase 21: FastAPI Deploy Stage
 
-**Goal**: The implementation team has a locked template contract and expansion
-map before authoring new tutorial content.
+**Goal**: Readers can clone and run the first public Tasks API stage and verify
+its framework-native HTTP behavior.
 **Depends on**: Milestone initialization
-**Rationale**: The user asked to use the three existing Next.js articles as the
-template, so structure, metadata, link topology, screenshot conventions, and
-validation expectations should be explicit before copy creation.
-**Deliverables**:
+**Requirements**: FAST-01
+**Success Criteria** (what must be TRUE):
 
-  1. Baseline notes covering the reusable structure of the three Next.js
-     tutorials.
-  2. Final React and Node.js slug map, image folder map, series order, and
-     related tutorial graph.
-  3. Framework-specific copy checklist for replacing Next.js-only wording while
-     preserving Sealos Skills workflow language.
-  4. Validator expansion plan for the expected nine tutorial slugs.
+1. A reader can clone the public deploy-stage source, install its locked Python
+   3.12 dependencies, and start it on `0.0.0.0:8000`.
+2. A reader receives a successful response from `/health`, can open `/docs`,
+   and can create, list, update, and delete tasks through public HTTP requests.
+3. A maintainer can rerun the focused behavior suite and observe the committed
+   red-green history for the health, documentation, and in-memory CRUD contract.
 
-**Requirements**: BASE-01, BASE-02, BASE-03
-**Success Criteria**:
+**Scope**:
 
-  1. The template baseline names the frontmatter keys, body sections, CTA
-     pattern, link pattern, image convention, and validation checks that new
-     tutorials must follow.
-  2. Every planned React and Node.js page has a final slug, image folder, stage,
-     series order, related tutorial list, and target framework label.
-  3. The copy checklist identifies framework-specific replacements for setup,
-     build, runtime, database, migration, production, and verification language.
-  4. The validation plan explains how `scripts/validate-tutorials.mjs` will
-     accept the expanded tutorial set.
+- Establish the `Tasks API` Reference Application and its public repository.
+- Add the smallest framework-native FastAPI service required by each public
+  behavior test, with `uv`, `pyproject.toml`, `uv.lock`, and an exact exported
+  `requirements.txt`.
+- Preserve this deployable source state for the later `stage-1-deploy` tag.
 
-**Likely Files**: `content/tutorials/**/index.en.mdx`,
-`public/images/*`, `scripts/validate-tutorials.mjs`,
-`lib/utils/tutorial-utils.ts`, `source.config.ts`
-**Validation Approach**: Use CodeGraph for tutorial utilities, targeted `rg`
-over `content/tutorials`, and manual comparison of the three current tutorial
-files.
+**Validation Approach**: Run public HTTP behavior tests and a local port 8000
+smoke check from a clean dependency install.
+**Plans**: TBD
+**UI hint**: yes
 
-### Phase 17: React Tutorial Series
+### Phase 22: FastAPI PostgreSQL Stage
 
-**Goal**: React readers can follow the three-part Sealos tutorial path with
-React-specific content and metadata.
-**Depends on**: Phase 16
-**Rationale**: React is the first requested ecosystem and should reuse the
-established beginner, PostgreSQL/full-stack, and production tutorial taxonomy.
-**Deliverables**:
+**Goal**: Readers can run Tasks API against a fresh PostgreSQL database after a
+single-owner migration completes.
+**Depends on**: Phase 21
+**Requirements**: TDD-01, FAST-02
+**Success Criteria** (what must be TRUE):
 
-  1. React beginner deployment tutorial.
-  2. React PostgreSQL/full-stack tutorial.
-  3. React production checklist tutorial.
-  4. React tutorial metadata, related tutorial links, CTA references, listing
-     behavior, and temporary screenshot references or placeholders.
+1. A maintainer can provision a fresh test PostgreSQL database, run `alembic
+   upgrade head`, and observe the required schema before application readiness
+   succeeds.
+2. A reader can create, list, update, and delete tasks through public HTTP and
+   observe the same records after a process restart.
+3. The focused FastAPI suite exercises `/health`, `/docs`, and `/tasks` against
+   real PostgreSQL with SQLAlchemy 2, Alembic, and psycopg 3.
+4. The one-shot migration Job can be rerun successfully and completes before
+   workload scaling is accepted.
 
-**Requirements**: REACT-01, REACT-02, REACT-03, REACT-04
-**Success Criteria**:
+**Scope**:
 
-  1. The React beginner tutorial can be read independently and follows the
-     beginner Next.js tutorial structure with React-specific commands and
-     deployment expectations.
-  2. The React PostgreSQL tutorial teaches the app, database, environment,
-     migration, and runtime verification path with React-specific language.
-  3. The React production checklist teaches build, deploy, update, rollback,
-     logs, health checks, Runtime Truth Pass, and resource footprint checks with
-     React-specific language.
-  4. React tutorials appear in the tutorial source set with valid frontmatter,
-     related links, CTA data, and no broken `/tutorials/<slug>` references.
+- Replace the in-memory task store with the database-backed vertical slice.
+- Add schema ownership, connection configuration, Alembic revisions, and the
+  reusable migration Job contract.
+- Preserve this deployable source state for the later
+  `stage-2-postgresql` tag.
 
-**Likely Files**: `content/tutorials/react-*/index.en.mdx`,
-`public/images/react-*`, `scripts/validate-tutorials.mjs`,
-`lib/utils/tutorial-utils.ts`
-**Validation Approach**: Run targeted searches for React, Next.js-only remnants,
-required Sealos Skills phrases, and internal tutorial links; run
-`npm run validate-tutorials` after validator updates are in place.
+**Validation Approach**: Start from an empty PostgreSQL database, execute the
+migration command, run the public HTTP suite, restart the application, and read
+the retained record again.
+**Plans**: TBD
 
-### Phase 18: Node.js Tutorial Series
+### Phase 23: FastAPI Production Stage
 
-**Goal**: Node.js readers can follow the three-part Sealos tutorial path with
-Node.js-specific content and metadata.
-**Depends on**: Phase 17
-**Rationale**: Node.js service deployment differs from React static/app
-deployment in entrypoint, process, health, and backend/database language, so it
-gets a dedicated content phase.
-**Deliverables**:
+**Goal**: Readers can reproduce and roll back the complete production FastAPI
+release from immutable public source and image references.
+**Depends on**: Phase 22
+**Requirements**: FAST-03, FAST-04
+**Success Criteria** (what must be TRUE):
 
-  1. Node.js beginner deployment tutorial.
-  2. Node.js PostgreSQL/full-stack tutorial.
-  3. Node.js production checklist tutorial.
-  4. Node.js tutorial metadata, related tutorial links, CTA references, listing
-     behavior, and temporary screenshot references or placeholders.
+1. A reader can build and run the locked Python 3.12 image as a non-root user
+   with one Uvicorn process bound to port 8000.
+2. Sealos readiness observes `/health`, runtime logs identify the deployed
+   image, and a previous immutable image reference can restore the prior
+   working release.
+3. The public repository resolves `stage-1-deploy`, `stage-2-postgresql`, and
+   `stage-3-production`, and `main` matches the production-stage tree.
+4. Each source stage retains its exact lock data and compatibility
+   `requirements.txt` so a reader can reproduce the matching runtime.
 
-**Requirements**: NODE-01, NODE-02, NODE-03, NODE-04
-**Success Criteria**:
+**Scope**:
 
-  1. The Node.js beginner tutorial can be read independently and follows the
-     beginner Next.js tutorial structure with Node.js-specific commands,
-     server entrypoint, and deployment expectations.
-  2. The Node.js PostgreSQL tutorial teaches service, database, environment,
-     migration, and runtime verification with Node.js-specific language.
-  3. The Node.js production checklist teaches process management, health checks,
-     deploy, update, rollback, logs, Runtime Truth Pass, and resource footprint
-     checks with Node.js-specific language.
-  4. Node.js tutorials appear in the tutorial source set with valid frontmatter,
-     related links, CTA data, and no broken `/tutorials/<slug>` references.
+- Add the production container, non-root ownership, runtime command, readiness,
+  logging, and immutable image conventions.
+- Publish the three FastAPI source tags and align `main` with the final stage.
+- Retain rollback inputs needed by the later Sealos practice run.
 
-**Likely Files**: `content/tutorials/nodejs-*/index.en.mdx`,
-`public/images/nodejs-*`, `scripts/validate-tutorials.mjs`,
-`lib/utils/tutorial-utils.ts`
-**Validation Approach**: Run targeted searches for Node.js, Next.js-only
-remnants, required Sealos Skills phrases, and internal tutorial links; run
-`npm run validate-tutorials` after validator updates are in place.
+**Validation Approach**: Inspect the running container identity and process
+model, probe readiness, compare Git trees for all tags, and exercise an image
+rollback and recovery.
+**Plans**: TBD
 
-### Phase 19: Practice Evidence and Screenshot Assets
+### Phase 24: Django Deploy Stage
 
-**Goal**: Every new tutorial screenshot is backed by real Sealos practice
-evidence and wired as a validated WebP asset.
-**Depends on**: Phase 18
-**Rationale**: The user explicitly required self-practice screenshots, and prior
-tutorial work established that runtime truth is stronger than source-only
-claims for tutorial visuals.
-**Deliverables**:
+**Goal**: Readers can clone and run the first public Task Board stage and use
+its rendered task workflow and administration entry point.
+**Depends on**: Phase 23
+**Requirements**: DJAN-01
+**Success Criteria** (what must be TRUE):
 
-  1. React practice evidence package covering beginner, PostgreSQL/full-stack,
-     and production checklist screenshot states.
-  2. Node.js practice evidence package covering beginner, PostgreSQL/full-stack,
-     and production checklist screenshot states.
-  3. Redacted screenshot sources or rendered captures for all new tutorial image
-     slots.
-  4. WebP screenshot assets under the new tutorial image folders.
-  5. Updated MDX references from placeholders to final screenshot assets.
+1. A reader can clone the public deploy-stage source, install its locked Python
+   3.12 dependencies, and start it on `0.0.0.0:8000`.
+2. A reader receives a successful response from `/health`, can create and list
+   tasks through rendered pages, and can open `/admin/login`.
+3. A maintainer can rerun the focused behavior suite and observe the committed
+   red-green history for health, task pages, and administration access.
 
-**Requirements**: SHOT-01, SHOT-02, SHOT-03, SHOT-04
-**Success Criteria**:
+**Scope**:
 
-  1. Each new screenshot has a traceable evidence source from a real Sealos
-     practice command, browser state, or runtime verification step.
-  2. Sensitive tokens, passwords, connection strings, and literal secrets are
-     redacted in evidence and visible screenshot content.
-  3. Every new tutorial image is WebP, has expected dimensions, stays inside the
-     image-size budget, and is referenced by exactly the intended MDX files.
-  4. Screenshot content matches the adjacent tutorial step and does not show
-     contradictory framework, command, or deployment state.
+- Establish the `Task Board` Reference Application and its public repository.
+- Add the smallest Django 5.2 LTS application required by each public behavior
+  test, with `uv`, `pyproject.toml`, `uv.lock`, and an exact exported
+  `requirements.txt`.
+- Preserve this deployable source state for the later `stage-1-deploy` tag.
 
-**Likely Files**: `public/images/react-*/*.webp`,
-`public/images/nodejs-*/*.webp`, `content/tutorials/react-*/index.en.mdx`,
-`content/tutorials/nodejs-*/index.en.mdx`,
-`.planning/phases/19-practice-evidence-and-screenshot-assets/*`
-**Validation Approach**: Run live `kubectl`/`curl`/browser checks as applicable,
-redaction review, image dimension and file-size checks, MDX reference checks,
-and `npm run validate-tutorials`.
+**Validation Approach**: Run public HTTP behavior tests and a local port 8000
+browser and HTTP smoke check from a clean dependency install.
+**Plans**: TBD
+**UI hint**: yes
 
-### Phase 20: Expanded Tutorial Validation and Release Check
+### Phase 25: Django PostgreSQL Stage
 
-**Goal**: The nine-page tutorial catalog is internally consistent, validated,
-and ready for implementation closeout.
-**Depends on**: Phase 19
-**Rationale**: Adding six content pages and image sets expands the validation
-surface, so final checks must cover source metadata, links, screenshots,
-terminology, and TypeScript/content integration.
-**Deliverables**:
+**Goal**: Readers can use persistent Task Board data after repeatable FastAPI
+and Django migration Jobs have proven the shared fresh-database contract.
+**Depends on**: Phase 24 and Phase 22
+**Requirements**: TDD-02, TDD-03, DJAN-02
+**Success Criteria** (what must be TRUE):
 
-  1. Expanded `scripts/validate-tutorials.mjs` coverage for all nine expected
-     tutorial slugs.
-  2. Targeted stale-reference and terminology search report.
-  3. Image reference and asset budget report.
-  4. Passing `npm run validate-tutorials`.
-  5. Passing TypeScript/content validation for touched files.
-  6. Final changed-file scope review.
+1. A maintainer can run `alembic upgrade head` and `python manage.py migrate`
+   through their one-shot Jobs against fresh PostgreSQL databases and observe
+   successful completion before application readiness.
+2. A reader can use `/health`, create a task through the rendered Django form,
+   read it on a later page request, and open `/admin/login` through public HTTP.
+3. A reader can restart or scale the Django workload after migration and still
+   observe the database-backed task record.
+4. Both framework migration and runtime checks prove Job completion, readiness,
+   and public read/write behavior with real PostgreSQL services.
 
-**Requirements**: VALID-01, VALID-02, VALID-03, VALID-04
-**Success Criteria**:
+**Scope**:
 
-  1. `npm run validate-tutorials` passes for the expanded tutorial set.
-  2. Targeted searches prove required Sealos Skills, Runtime Truth Pass,
-     `.sealos/`, DEPLOY/UPDATE, CTA, and internal link terms are intentional.
-  3. Image checks prove every new MDX image reference resolves to a local WebP
-     asset with expected dimensions and file size.
-  4. TypeScript/content validation passes for touched utilities and generated
-     source expectations.
-  5. Final diff review shows the work is scoped to tutorial content, tutorial
-     assets, tutorial metadata/utilities, validation scripts, and GSD artifacts.
+- Replace the initial task persistence with psycopg 3 and Django migrations.
+- Add the Django migration Job, schema-aware readiness, and administrator-backed
+  data verification path.
+- Re-run the shared migration/runtime seam for both Reference Applications and
+  preserve the Django source state for `stage-2-postgresql`.
 
-**Likely Files**: `scripts/validate-tutorials.mjs`,
-`content/tutorials/**/*.mdx`, `public/images/**/*.webp`,
-`lib/utils/tutorial-utils.ts`, `source.config.ts`
-**Validation Approach**: Run `npm run validate-tutorials`, `npm run lint`,
-targeted `rg`, image `sips`/file-size checks, and `git diff --check`.
+**Validation Approach**: Start with empty databases, run both migration Jobs,
+exercise public read/write checks, restart each workload, and verify retained
+records.
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 26: Django Production Stage
+
+**Goal**: Readers can reproduce and roll back the complete production Django
+release from immutable public source and image references.
+**Depends on**: Phase 25
+**Requirements**: DJAN-03, DJAN-04
+**Success Criteria** (what must be TRUE):
+
+1. A reader can build and run the locked Django 5.2 LTS image as a non-root
+   user through Gunicorn WSGI on port 8000.
+2. `collectstatic` output is served by WhiteNoise, Sealos readiness observes
+   `/health`, and runtime logs identify the deployed image.
+3. A previous immutable image reference can restore the prior working release
+   while preserving PostgreSQL data.
+4. The public repository resolves `stage-1-deploy`, `stage-2-postgresql`, and
+   `stage-3-production`, and `main` matches the production-stage tree.
+
+**Scope**:
+
+- Add the production container, Gunicorn, WhiteNoise, static collection,
+  non-root ownership, readiness, logging, and immutable image conventions.
+- Publish the three Django source tags and align `main` with the final stage.
+- Retain rollback inputs needed by the later Sealos practice run.
+
+**Validation Approach**: Inspect the running container identity and process
+model, load rendered pages and static assets, compare Git trees for all tags,
+and exercise an image rollback and recovery.
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 27: Practice-Backed Tutorial Series
+
+**Goal**: Readers can follow six coherent tutorials whose screenshots and
+claims come from retained, reproducible FastAPI and Django practice evidence.
+**Depends on**: Phase 26
+**Requirements**: CONT-01, CONT-02, CONT-03, CONT-04, SHOT-01, SHOT-02, OPS-01
+**Success Criteria** (what must be TRUE):
+
+1. A reader can follow deploy, PostgreSQL, and production pages for either
+   framework, with each page linked to its matching immutable source tag.
+2. All six pages expose valid frontmatter, framework-local series navigation,
+   correct stage order, current Sealos Skills terminology, and the established
+   stage CTA.
+3. Each of the 24 visible screenshots traces to retained local, Sealos,
+   Kubernetes, HTTP, or browser evidence; sensitive values are redacted and the
+   adjacent tutorial step matches the shown result.
+4. Every screenshot is a 1440x900 WebP below 200 KB, and the retained evidence
+   package reproduces deploy, migration, readiness, public read/write, logs,
+   domain, and rollback checks.
+5. Beginner titles apply the same measured deploy-command-to-public-health
+   result for both frameworks and record the observed duration.
+
+**Scope**:
+
+- Run both three-stage workflows in a clean authenticated Sealos workspace and
+  retain redacted commands, resource state, logs, timings, and browser results.
+- Author the six English MDX pages from the verified workflow and immutable
+  source tags.
+- Render four dark evidence-card screenshots per page in the established style
+  and wire them beside their matching steps.
+
+**Validation Approach**: Cross-check every tutorial claim and image against the
+evidence ledger, inspect frontmatter and series links, and verify image format,
+dimensions, file size, redaction, and step relevance.
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 28: Catalog Publication and Cleanup
+
+**Goal**: Readers can navigate the complete 15-page tutorial catalog while
+maintainers can verify its public contracts and the empty practice footprint.
+**Depends on**: Phase 27
+**Requirements**: TDD-04, SHOT-03, PUB-01, PUB-02, PUB-03, OPS-02
+**Success Criteria** (what must be TRUE):
+
+1. The tutorial matrix presents FastAPI and Django as available paths, and a
+   reader can navigate all 15 tutorial pages and each three-page series.
+2. `npm run validate-tutorials` passes for the 15-page catalog, six new source
+   pages, their series relationships, required terminology, and image contract.
+3. Static HTTP smoke checks return successful responses for the tutorial index,
+   six new pages, and 24 new images with the expected image content type.
+4. Every MDX image reference resolves to the intended local and static-output
+   WebP asset.
+5. Cleanup evidence shows that every practice `Instance`, workload, Service,
+   Ingress, Job, PostgreSQL Cluster, PVC, Secret, and temporary image resource
+   has been removed.
+
+**Scope**:
+
+- Complete the public validator CLI through focused red-green tests and promote
+  both framework paths in the catalog matrix.
+- Build the static site and exercise the reader-visible route and asset surface.
+- Remove the full Sealos practice footprint and retain redacted before/after
+  resource evidence.
+
+**Validation Approach**: Run the validator CLI, TypeScript and static build
+checks, issue static HTTP requests for every new route and asset, inspect the
+matrix and navigation, then query each cleanup resource class.
+**Plans**: TBD
+**UI hint**: yes
 
 ## Requirement Coverage
 
-| Requirement | Phase |
-|-------------|-------|
-| BASE-01 | Phase 16 |
-| BASE-02 | Phase 16 |
-| BASE-03 | Phase 16 |
-| REACT-01 | Phase 17 |
-| REACT-02 | Phase 17 |
-| REACT-03 | Phase 17 |
-| REACT-04 | Phase 17 |
-| NODE-01 | Phase 18 |
-| NODE-02 | Phase 18 |
-| NODE-03 | Phase 18 |
-| NODE-04 | Phase 18 |
-| SHOT-01 | Phase 19 |
-| SHOT-02 | Phase 19 |
-| SHOT-03 | Phase 19 |
-| SHOT-04 | Phase 19 |
-| VALID-01 | Phase 20 |
-| VALID-02 | Phase 20 |
-| VALID-03 | Phase 20 |
-| VALID-04 | Phase 20 |
+Every one of the 24 v1.3 requirements is assigned to exactly one Phase detail
+above. Traceability is mirrored in `.planning/REQUIREMENTS.md`.
 
-**Coverage**: 19/19 v1.2 requirements mapped.
+**Coverage**: 24/24 v1.3 requirements mapped.
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 16 -> 17 -> 18 -> 19 -> 20
+Phases execute in numeric order: 21 -> 22 -> 23 -> 24 -> 25 -> 26 -> 27 -> 28
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 16. Tutorial Template Baseline and Expansion Map | 0/2 | Planned | — |
-| 17. React Tutorial Series | 0/0 | Pending | — |
-| 18. Node.js Tutorial Series | 0/0 | Pending | — |
-| 19. Practice Evidence and Screenshot Assets | 0/0 | Pending | — |
-| 20. Expanded Tutorial Validation and Release Check | 0/0 | Pending | — |
+| 21. FastAPI Deploy Stage | 0/TBD | Not started | - |
+| 22. FastAPI PostgreSQL Stage | 0/TBD | Not started | - |
+| 23. FastAPI Production Stage | 0/TBD | Not started | - |
+| 24. Django Deploy Stage | 0/TBD | Not started | - |
+| 25. Django PostgreSQL Stage | 0/TBD | Not started | - |
+| 26. Django Production Stage | 0/TBD | Not started | - |
+| 27. Practice-Backed Tutorial Series | 0/TBD | Not started | - |
+| 28. Catalog Publication and Cleanup | 0/TBD | Not started | - |
 
 ---
-*Roadmap created: 2026-06-29*
-*Last updated: 2026-06-29 after v1.2 milestone initialization*
+*Roadmap created: 2026-07-15 for milestone v1.3*

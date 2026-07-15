@@ -1,15 +1,14 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.2
-milestone_name: React and Node.js Tutorial Expansion
-status: executing
-stopped_at: Phase 16 planned
-last_updated: "2026-07-09T09:24:28Z"
-last_activity: 2026-07-09 - Shipped quick tasks 260708-q6y and 260709-n35 in PR #304
+milestone: v1.3
+milestone_name: FastAPI and Django Tutorial Expansion
+status: planning
+last_updated: "2026-07-15T03:28:00.000Z"
+last_activity: 2026-07-15
 progress:
-  total_phases: 5
+  total_phases: 8
   completed_phases: 0
-  total_plans: 2
+  total_plans: 0
   completed_plans: 0
   percent: 0
 ---
@@ -18,63 +17,44 @@ progress:
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-06-29)
+See: `.planning/PROJECT.md` (updated 2026-07-15)
 
 **Core value:** Readers can follow framework-specific Sealos tutorials with
 commands, screenshots, and validation evidence that match the current product
 workflow.
-**Current focus:** Phase 16 is planned and ready to execute for v1.2 React and
-Node.js Tutorial Expansion.
+**Current focus:** Phase 21 is ready for planning for the FastAPI Deploy Stage.
 
 ## Current Phase
 
 | Field | Value |
 |-------|-------|
-| Phase | 16 |
-| Name | Tutorial Template Baseline and Expansion Map |
-| Status | Ready to execute |
-| Goal | The implementation team has a locked template contract and expansion map before authoring new tutorial content. |
+| Phase | 21 of 28 |
+| Name | FastAPI Deploy Stage |
+| Status | Ready to plan |
+| Goal | Readers can clone and run the first public Tasks API stage and verify its framework-native HTTP behavior. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-- BASE-01
-- BASE-02
-- BASE-03
-- REACT-01
-- REACT-02
-- REACT-03
-- REACT-04
-- NODE-01
-- NODE-02
-- NODE-03
-- NODE-04
-- SHOT-01
-- SHOT-02
-- SHOT-03
-- SHOT-04
-- VALID-01
-- VALID-02
-- VALID-03
-- VALID-04
+- FAST-01
 
 ## Current Position
 
-Phase: 16 — Tutorial Template Baseline and Expansion Map
-Plan: 2 plans ready
-Status: Ready to execute
-Last activity: 2026-07-09 - Shipped quick tasks 260708-q6y and 260709-n35 in PR #304
+Phase: 21 of 28 (FastAPI Deploy Stage)
+Plan: —
+Status: Ready to plan
+Last activity: 2026-07-15 — Milestone v1.3 roadmap created with 24/24
+requirements mapped
 
 ## Next Action
 
-Run `$gsd-execute-phase 16` to create the tutorial template baseline and
-expansion map artifacts.
+Run `$gsd-plan-phase 21` to create the FastAPI Deploy Stage execution plan.
 
 ## Session
 
-Stopped at: Phase 16 planned
-Resume file: .planning/phases/16-tutorial-template-baseline-and-expansion-map/16-CONTEXT.md
+Stopped at: v1.3 roadmap created; Phase 21 ready to plan
+Resume file: `.planning/ROADMAP.md`
 
 ### Quick Tasks Completed
 
