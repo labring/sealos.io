@@ -5,15 +5,15 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 22
 current_phase_name: FastAPI PostgreSQL Stage
 status: executing
-stopped_at: Completed 22-02-PLAN.md
-last_updated: "2026-07-15T09:41:12.664Z"
+stopped_at: Completed 22-03-PLAN.md
+last_updated: "2026-07-15T10:19:19.552Z"
 last_activity: 2026-07-15
 last_activity_desc: Phase 22 execution started
 progress:
   total_phases: 8
   completed_phases: 1
   total_plans: 7
-  completed_plans: 5
+  completed_plans: 6
   percent: 13
 ---
 
@@ -48,7 +48,7 @@ PostgreSQL Stage.
 ## Current Position
 
 Phase: 22 (FastAPI PostgreSQL Stage) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-07-15 — Phase 22 execution started
 10/10 requirement plus decision coverage
@@ -59,9 +59,9 @@ Run `$gsd-execute-phase 22` to build and publish the FastAPI PostgreSQL Stage.
 
 ## Session
 
-**Last session:** 2026-07-15T09:41:12.658Z
-**Stopped at:** Completed 22-02-PLAN.md
-**Resume file:** .planning/phases/22-fastapi-postgresql-stage/22-03-PLAN.md
+**Last session:** 2026-07-15T10:19:19.548Z
+**Stopped at:** Completed 22-03-PLAN.md
+**Resume file:** .planning/phases/22-fastapi-postgresql-stage/22-04-PLAN.md
 
 ## Performance Metrics
 
@@ -82,6 +82,7 @@ Run `$gsd-execute-phase 22` to build and publish the FastAPI PostgreSQL Stage.
 | Phase 21 P03 | 7 min | 2 tasks | 4 files |
 | Phase 22 P01 | 34 min | 3 tasks | 11 files |
 | Phase 22 P02 | 39 min | 3 tasks | 3 files |
+| Phase 22 P03 | 30min | 3 tasks | 7 files |
 
 ## Decisions
 
@@ -108,3 +109,6 @@ Run `$gsd-execute-phase 22` to build and publish the FastAPI PostgreSQL Stage.
 - [Phase 22]: 22-01: Launch the PostgreSQL session supervisor in a detached POSIX session so caller and PTY shutdown cannot terminate owned control processes.
 - [Phase 22]: 22-01: Use Alembic as the exclusive schema owner and map the same explicit tasks shape through typed SQLAlchemy 2 metadata.
 - [Phase 22]: 22-01: Start every migration behavior invocation from Alembic base so the public command test is independently replayable.
+- [Phase 22]: 22-03: Return credential-free readiness categories internally and translate every unready category to one public 503 detail.
+- [Phase 22]: 22-03: Package only the tracked model, Alembic configuration, immutable revision, and runtime export into the source Job ConfigMap.
+- [Phase 22]: 22-03: Recover transient local port-forward loss inside a bounded child process while preserving database and run identity.
