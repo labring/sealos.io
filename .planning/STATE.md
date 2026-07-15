@@ -4,16 +4,16 @@ milestone: v1.3
 milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 24
 current_phase_name: Django Deploy Stage
-status: executing
-stopped_at: Completed 24-04-PLAN.md
-last_updated: "2026-07-15T21:22:16.739Z"
+status: verifying
+stopped_at: Completed 24-05-PLAN.md
+last_updated: "2026-07-15T21:38:04.786Z"
 last_activity: 2026-07-16
-last_activity_desc: Completed Plan 24-04
+last_activity_desc: Completed Plan 24-05
 progress:
   total_phases: 8
   completed_phases: 3
   total_plans: 16
-  completed_plans: 15
+  completed_plans: 16
   percent: 38
 ---
 
@@ -34,7 +34,7 @@ workflow.
 |-------|-------|
 | Phase | 24 of 28 |
 | Name | Django Deploy Stage |
-| Status | Executing |
+| Status | Ready for verification |
 | Goal | Readers can clone and run the first public Task Board stage and use its rendered task workflow and administration entry point. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
@@ -45,19 +45,19 @@ workflow.
 
 ## Current Position
 
-Phase: 24 (Django Deploy Stage) — EXECUTING
+Phase: 24 (Django Deploy Stage) — VERIFYING
 Plan: 5 of 5
-Status: Ready to execute
-Last activity: 2026-07-16 - Completed Plan 24-04
+Status: Phase complete — ready for verification
+Last activity: 2026-07-16 - Completed Plan 24-05
 
 ## Next Action
 
-Execute `.planning/phases/24-django-deploy-stage/24-05-PLAN.md`.
+Run independent Phase 24 verification.
 
 ## Session
 
-**Last session:** 2026-07-15T21:20:13.892Z
-**Stopped at:** Completed 24-04-PLAN.md
+**Last session:** 2026-07-15T21:37:03.646Z
+**Stopped at:** Completed 24-05-PLAN.md
 **Resume file:** None
 
 ## Performance Metrics
@@ -90,6 +90,7 @@ Execute `.planning/phases/24-django-deploy-stage/24-05-PLAN.md`.
 | Phase 24 P02 | 7 min | 3 tasks | 15 files |
 | Phase 24 P03 | 7 min | 2 tasks | 8 files |
 | Phase 24 P04 | 6 min | 3 tasks | 7 files |
+| Phase 24 P05 | 8 min | 3 tasks | 4 files |
 
 ## Decisions
 
@@ -144,3 +145,6 @@ Execute `.planning/phases/24-django-deploy-stage/24-05-PLAN.md`.
 - [Phase 24]: Use a namespaced tasks:create-task route and redirect successful writes to tasks:board. — This keeps route ownership explicit across the rendered form and PRG response.
 - [Phase 24]: Render invalid bound forms with HTTP 200 while preserving ordered public board state. — This keeps validation feedback on the public response and proves failed writes through a separate board read.
 - [Phase 24]: Mount Django's native administration and keep Task ownership behind the framework authentication stack. — This preserves Django's built-in security boundary and the confirmed Stage 1 login contract.
+- [Phase 24]: Freeze public main only after local lock, migration, tests, export, history, inventory, browser, and cleanup gates pass.
+- [Phase 24]: Protect the annotated Stage 1 tag with one exact active update-and-deletion ruleset before publication.
+- [Phase 24]: Accept Stage 1 only after a fresh public HTTPS tag replay and independent zero-residue readback.
