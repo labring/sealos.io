@@ -5,4 +5,5 @@ bd899d36399b0042f686d140d334993b3b957804ce29a4ed45fd75ef1a84819f  .planning/phas
 12999fac36e6f9decb0b8dc2d1fb746fc1f53bd403cbee9fa2be2cbeb0a13cae  .planning/phases/23-fastapi-production-stage/evidence/logs.txt
 ed348ad833228ffb6bbce686a02c07a59f4d024037628a58492cb5efd333dd14  .planning/phases/23-fastapi-production-stage/evidence/http.jsonl
 8b2050a1dd3b192b16eb5244154f7e9c4fa6254f5e1a52cc0c15f0f7b940be25  .planning/phases/23-fastapi-production-stage/evidence/rollback.txt
-6b5c8b7febd85bd6575dcfd0ca472ebece2d81747b18add2e2c3fd0cfd282e8f  .planning/phases/23-fastapi-production-stage/evidence/cleanup.txt
+3c6e9424cb3cde0af2d4171761abe6835b300c2cf48fbbd6e9e40fafcd7e427d  .planning/phases/23-fastapi-production-stage/evidence/publication.txt
+354ca4df2207358e2ef892545495bf69f5f3d2af6b87539de213680a08aee0d5  .planning/phases/23-fastapi-production-stage/evidence/cleanup.txt

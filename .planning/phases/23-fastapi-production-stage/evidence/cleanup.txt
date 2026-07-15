@@ -1,3 +1,4 @@
 run_id=0fd32115da68 selector=tutorial.sealos.io/run-id=0fd32115da68
 deployment=0 replicaset=0 pod=0 service=0 job=0 secret=0 configmap=0
 port_forward=stopped owned_processes=0 state_file=absent rendered_files=0 clone_directories=0
+public_clone_cleanup=passed clones=0 evidence_temp=0 registry_configs=0 database_resources=0 processes=0 state_files=0 rendered_files=0
