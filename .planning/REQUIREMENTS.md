@@ -21,7 +21,7 @@ product.
 
 ### FastAPI Reference Application
 
-- [ ] **FAST-01**: Reader can clone a public Tasks API stage that exposes
+- [x] **FAST-01**: Reader can clone a public Tasks API stage that exposes
   `/health`, `/docs`, and in-memory task CRUD on port 8000.
 - [ ] **FAST-02**: Reader can use the PostgreSQL stage with SQLAlchemy 2,
   Alembic, psycopg 3, a repeatable migration Job, and database-backed CRUD.
@@ -113,7 +113,7 @@ Roadmap creation maps each v1.3 requirement to exactly one phase.
 | TDD-02 | Phase 25 | Pending |
 | TDD-03 | Phase 25 | Pending |
 | TDD-04 | Phase 28 | Pending |
-| FAST-01 | Phase 21 | Pending |
+| FAST-01 | Phase 21 | Complete |
 | FAST-02 | Phase 22 | Pending |
 | FAST-03 | Phase 23 | Pending |
 | FAST-04 | Phase 23 | Pending |

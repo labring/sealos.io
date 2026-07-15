@@ -5,16 +5,16 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 21
 current_phase_name: FastAPI Deploy Stage
 status: executing
-stopped_at: Completed 21-01-PLAN.md
-last_updated: "2026-07-15T05:13:47.247Z"
+stopped_at: Completed 21-02-PLAN.md
+last_updated: "2026-07-15T05:41:01.165Z"
 last_activity: 2026-07-15
 last_activity_desc: Phase 21 execution started
 progress:
   total_phases: 8
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
-  percent: 0
+  completed_plans: 2
+  percent: 67
 ---
 
 # Project State
@@ -47,7 +47,7 @@ Deploy Stage.
 ## Current Position
 
 Phase: 21 (FastAPI Deploy Stage) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-07-15 — Phase 21 execution started
 6/6 requirement plus decision coverage
@@ -58,9 +58,9 @@ Run `$gsd-execute-phase 21` to build and publish the FastAPI Deploy Stage.
 
 ## Session
 
-**Last session:** 2026-07-15T05:13:47.240Z
-**Stopped at:** Completed 21-01-PLAN.md
-**Resume file:** .planning/phases/21-fastapi-deploy-stage/21-02-PLAN.md
+**Last session:** 2026-07-15T05:41:01.157Z
+**Stopped at:** Completed 21-02-PLAN.md
+**Resume file:** None
 
 ## Performance Metrics
 
@@ -77,6 +77,7 @@ Run `$gsd-execute-phase 21` to build and publish the FastAPI Deploy Stage.
 | Phase 15 P01 | 8min | 2 tasks | 1 files |
 | Phase 15 verification | 2026-06-16 | 12/12 must-haves verified | UAT and verification artifacts |
 | Phase 21 P01 | 9 min | 3 tasks | 8 files |
+| Phase 21 P02 | 15 min | 3 tasks | 2 files |
 
 ## Decisions
 
@@ -95,3 +96,6 @@ Run `$gsd-execute-phase 21` to build and publish the FastAPI Deploy Stage.
 - [Phase ?]: [Phase 15]: 15-01: Beginner tutorial FAQ and HowTo metadata now mirror Runtime Truth Pass, .sealos/template/index.yaml, and .sealos/state.json acceptance language.
 - [Phase 15]: verify-work passed for CONSIST-01 through CONSIST-04 and VERIFY-01 through VERIFY-04; next gate is `$gsd-secure-phase 15`.
 - [Phase 21]: 21-01: Fresh create_app() instances define the public HTTP seam, and exact PyPI metadata is verified before locking. — This keeps public behavior tests deterministic and preserves a reproducible dependency trust record.
+- [Phase 21]: Keep the dictionary and ID counter inside create_app() so every fresh application starts empty at ID 1. — This preserves deterministic public HTTP tests and the Stage 1 process-local boundary.
+- [Phase 21]: Use complete PUT replacement with a retained integer ID and verify persistence through a later public GET. — This defines update behavior exclusively through the public seam.
+- [Phase 21]: Centralize unknown-ID resolution for GET, PUT, and DELETE. — This mechanically preserves the stable public 404 response contract.
