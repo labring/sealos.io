@@ -4,16 +4,16 @@ milestone: v1.3
 milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 25
 current_phase_name: Django PostgreSQL Stage
-status: planning
-stopped_at: Phase 25 planning complete
-last_updated: "2026-07-15T23:19:28.007Z"
+status: executing
+stopped_at: Completed 25-01-PLAN.md
+last_updated: "2026-07-15T23:27:52.806Z"
 last_activity: 2026-07-15
-last_activity_desc: Phase 25 planning complete - 5 plans ready
+last_activity_desc: Phase 25 execution started
 progress:
   total_phases: 8
   completed_phases: 4
   total_plans: 21
-  completed_plans: 16
+  completed_plans: 17
   percent: 50
 ---
 
@@ -47,20 +47,20 @@ workflow.
 
 ## Current Position
 
-Phase: 25 (Django PostgreSQL Stage) — PLANNING
-Plan: -
+Phase: 25 (Django PostgreSQL Stage) — EXECUTING
+Plan: 2 of 5
 Status: Ready to execute
-Last activity: 2026-07-15 — Phase 25 planning complete
+Last activity: 2026-07-15 — Phase 25 execution started
 
 ## Next Action
 
-Execute `.planning/phases/25-django-postgresql-stage/25-01-PLAN.md`.
+Execute `.planning/phases/25-django-postgresql-stage/25-02-PLAN.md`.
 
 ## Session
 
-**Last session:** 2026-07-15T22:10:55.739Z
-**Stopped at:** Phase 25 planning complete
-**Resume file:** .planning/phases/25-django-postgresql-stage/25-01-PLAN.md
+**Last session:** 2026-07-15T23:27:52.801Z
+**Stopped at:** Completed 25-01-PLAN.md
+**Resume file:** .planning/phases/25-django-postgresql-stage/25-02-PLAN.md
 
 ## Performance Metrics
 
@@ -93,6 +93,7 @@ Execute `.planning/phases/25-django-postgresql-stage/25-01-PLAN.md`.
 | Phase 24 P03 | 7 min | 2 tasks | 8 files |
 | Phase 24 P04 | 6 min | 3 tasks | 7 files |
 | Phase 24 P05 | 8 min | 3 tasks | 4 files |
+| Phase 25 P01 | 3 min | 2 tasks | 4 files |
 
 ## Decisions
 
@@ -150,3 +151,6 @@ Execute `.planning/phases/25-django-postgresql-stage/25-01-PLAN.md`.
 - [Phase 24]: Freeze public main only after local lock, migration, tests, export, history, inventory, browser, and cleanup gates pass.
 - [Phase 24]: Protect the annotated Stage 1 tag with one exact active update-and-deletion ruleset before publication.
 - [Phase 24]: Accept Stage 1 only after a fresh public HTTPS tag replay and independent zero-residue readback.
+- [Phase 25]: Approve psycopg and psycopg-binary 3.3.4 only after PyPI, official installation documentation, and the annotated upstream tag agree. — This preserves an explicit supply-chain trust record before executable package resolution.
+- [Phase 25]: Preserve the accepted Stage 1 commit, tag, migration, direct pins, and 24-file inventory in the exact three-file Psycopg dependency commit. — This gives every PostgreSQL behavior commit one clean immutable parent.
+- [Phase 25]: Keep DJAN-02, TDD-02, and TDD-03 pending until Phase 25 verification completes. — Plan 25-01 supplies the dependency foundation while later plans prove database behavior and publication.
