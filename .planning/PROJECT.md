@@ -38,6 +38,10 @@ reference applications and real Sealos deployment evidence.
 - ✓ Three React and three Node.js tutorial pages shipped in commit `89215c8`.
 - ✓ Nine-page tutorial source validation passes on 2026-07-15.
 - ✓ Framework matrix already reserves FastAPI and Django slug patterns.
+- ✓ FastAPI Stage 1 is public at
+  `yangchuansheng/sealos-fastapi-tutorial`; 12 HTTP cases pass from nine named
+  behavior functions and protected `stage-1-deploy` resolves to accepted commit
+  `276aa00` — validated in Phase 21.
 
 ### Active
 
@@ -100,11 +104,11 @@ The project glossary is `CONTEXT.md`.
 |----------|-----------|---------|
 | Use three pages per framework | Matches the established deploy, PostgreSQL, and production reader journey. | — Pending |
 | Use one Reference Application per framework | Keeps code, screenshots, and troubleshooting continuous across each series. | — Pending |
-| Publish two public GitHub repositories | Makes tutorial commands and stage snapshots reproducible. | — Pending |
+| Publish two public GitHub repositories | Makes tutorial commands and stage snapshots reproducible. | FastAPI Stage 1 published; Django pending. |
 | Require 24 practice-backed screenshots | Preserves the current four-image framework tutorial density. | — Pending |
 | Run migrations as one-shot Jobs | Keeps schema changes single-owner before rollout acceptance and scaling. | — Pending |
 | Gate five-minute titles on measured evidence | Keeps duration claims tied to actual workflow timing. | — Pending |
-| Test four public seams with vertical red-green slices | Keeps tests behavior-focused and durable through implementation changes. | — Pending |
+| Test four public seams with vertical red-green slices | Keeps tests behavior-focused and durable through implementation changes. | FastAPI Stage 1 completed nine RED/GREEN slices. |
 
 ## Evolution
 
@@ -121,4 +125,4 @@ This document evolves at phase transitions and milestone boundaries.
 3. Record the final milestone outcome.
 
 ---
-*Last updated: 2026-07-15 after v1.3 milestone definition*
+*Last updated: 2026-07-15 after Phase 21 verification*
