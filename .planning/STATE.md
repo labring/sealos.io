@@ -5,15 +5,15 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 21
 current_phase_name: FastAPI Deploy Stage
 status: executing
-stopped_at: Phase 21 planned; ready to execute
-last_updated: "2026-07-15T04:50:31.397Z"
+stopped_at: Completed 21-01-PLAN.md
+last_updated: "2026-07-15T05:13:47.247Z"
 last_activity: 2026-07-15
-last_activity_desc: Phase 21 planned with 3 plans and verification passed
+last_activity_desc: Phase 21 execution started
 progress:
   total_phases: 8
   completed_phases: 0
   total_plans: 3
-  completed_plans: 0
+  completed_plans: 1
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: `.planning/PROJECT.md` (updated 2026-07-15)
 **Core value:** Readers can follow framework-specific Sealos tutorials with
 commands, screenshots, and validation evidence that match the current product
 workflow.
-**Current focus:** Phase 21 is planned and ready to execute for the FastAPI
+**Current focus:** Phase 21 — FastAPI Deploy Stage
 Deploy Stage.
 
 ## Current Phase
@@ -46,10 +46,10 @@ Deploy Stage.
 
 ## Current Position
 
-Phase: 21 of 28 (FastAPI Deploy Stage)
-Plan: 3 plans ready
+Phase: 21 (FastAPI Deploy Stage) — EXECUTING
+Plan: 2 of 3
 Status: Ready to execute
-Last activity: 2026-07-15 — Phase 21 plans passed independent verification and
+Last activity: 2026-07-15 — Phase 21 execution started
 6/6 requirement plus decision coverage
 
 ## Next Action
@@ -58,22 +58,9 @@ Run `$gsd-execute-phase 21` to build and publish the FastAPI Deploy Stage.
 
 ## Session
 
-Stopped at: Phase 21 planned; ready to execute
-Resume file: `.planning/phases/21-fastapi-deploy-stage/21-01-PLAN.md`
-
-### Quick Tasks Completed
-
-| # | Description | Date | Commit | Directory |
-|---|-------------|------|--------|-----------|
-| 260617-kgc | update deployment workflows to refresh App Store templates before build | 2026-06-17 | acb429d | [260617-kgc-update-deployment-workflows-to-refresh-a](./quick/260617-kgc-update-deployment-workflows-to-refresh-a/) |
-| 260617-kt3 | fix GHCR Docker image build failure | 2026-06-17 | fe42f4d | [260617-kt3-fix-ghcr-docker-image-build-failure](./quick/260617-kt3-fix-ghcr-docker-image-build-failure/) |
-| 260708-q6y | Redesign /products/databases to match the current homepage style, keep existing copy except Kafka removal, and validate mobile usability | 2026-07-08 | PR #304 | [260708-q6y-redesign-products-databases-to-match-the](./quick/260708-q6y-redesign-products-databases-to-match-the/) |
-| 260709-n35 | Fix /products/databases footer bottom Sealos word to match homepage | 2026-07-09 | PR #304 | [260709-n35-fix-products-databases-footer-bottom-sea](./quick/260709-n35-fix-products-databases-footer-bottom-sea/) |
-
-Last activity: 2026-07-09 - Shipped quick tasks 260708-q6y and 260709-n35 in PR #304.
-
----
-*Initialized: 2026-06-16*
+**Last session:** 2026-07-15T05:13:47.240Z
+**Stopped at:** Completed 21-01-PLAN.md
+**Resume file:** .planning/phases/21-fastapi-deploy-stage/21-02-PLAN.md
 
 ## Performance Metrics
 
@@ -89,6 +76,7 @@ Last activity: 2026-07-09 - Shipped quick tasks 260708-q6y and 260709-n35 in PR 
 | Phase 14 P05 | 5min | 2 tasks | 5 files |
 | Phase 15 P01 | 8min | 2 tasks | 1 files |
 | Phase 15 verification | 2026-06-16 | 12/12 must-haves verified | UAT and verification artifacts |
+| Phase 21 P01 | 9 min | 3 tasks | 8 files |
 
 ## Decisions
 
@@ -106,3 +94,4 @@ Last activity: 2026-07-09 - Shipped quick tasks 260708-q6y and 260709-n35 in PR 
 - [Phase 14]: Verification passed for DEPLOY-01 through DEPLOY-06 with 14-UAT.md and 14-VERIFICATION.md recorded.
 - [Phase ?]: [Phase 15]: 15-01: Beginner tutorial FAQ and HowTo metadata now mirror Runtime Truth Pass, .sealos/template/index.yaml, and .sealos/state.json acceptance language.
 - [Phase 15]: verify-work passed for CONSIST-01 through CONSIST-04 and VERIFY-01 through VERIFY-04; next gate is `$gsd-secure-phase 15`.
+- [Phase 21]: 21-01: Fresh create_app() instances define the public HTTP seam, and exact PyPI metadata is verified before locking. — This keeps public behavior tests deterministic and preserves a reproducible dependency trust record.

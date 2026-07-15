@@ -20,18 +20,25 @@ cleanup of the live Sealos footprint.
 
 - [ ] **Phase 21: FastAPI Deploy Stage** - Deliver the public, behavior-tested
   Tasks API starter that readers can run on port 8000.
+
 - [ ] **Phase 22: FastAPI PostgreSQL Stage** - Move Tasks API CRUD to a fresh
   PostgreSQL database through SQLAlchemy, Alembic, and a migration Job.
+
 - [ ] **Phase 23: FastAPI Production Stage** - Publish the locked non-root
   runtime and immutable FastAPI source stages with rollback-ready images.
+
 - [ ] **Phase 24: Django Deploy Stage** - Deliver the public, behavior-tested
   Task Board starter with rendered pages, health, and administration access.
+
 - [ ] **Phase 25: Django PostgreSQL Stage** - Prove both migration paths and
   move Task Board writes and reads to PostgreSQL through a one-shot Job.
+
 - [ ] **Phase 26: Django Production Stage** - Publish the locked Gunicorn and
   WhiteNoise runtime with immutable Django source stages and rollback evidence.
+
 - [ ] **Phase 27: Practice-Backed Tutorial Series** - Turn real local and
   Sealos runs into six English tutorials, retained evidence, and 24 screenshots.
+
 - [ ] **Phase 28: Catalog Publication and Cleanup** - Publish the 15-page
   catalog, pass validator and static HTTP contracts, and prove resource cleanup.
 
@@ -47,8 +54,10 @@ its framework-native HTTP behavior.
 
 1. A reader can clone the public deploy-stage source, install its locked Python
    3.12 dependencies, and start it on `0.0.0.0:8000`.
+
 2. A reader receives a successful response from `/health`, can open `/docs`,
    and can create, list, update, and delete tasks through public HTTP requests.
+
 3. A maintainer can rerun the focused behavior suite and observe the committed
    red-green history for the health, documentation, and in-memory CRUD contract.
 
@@ -58,11 +67,17 @@ its framework-native HTTP behavior.
 - Add the smallest framework-native FastAPI service required by each public
   behavior test, with `uv`, `pyproject.toml`, `uv.lock`, and an exact exported
   `requirements.txt`.
+
 - Preserve this deployable source state for the later `stage-1-deploy` tag.
 
 **Validation Approach**: Run public HTTP behavior tests and a local port 8000
 smoke check from a clean dependency install.
-**Plans**: TBD
+**Plans**: 1/3 plans executed
+
+- [x] 21-01-PLAN.md
+- [ ] 21-02-PLAN.md
+- [ ] 21-03-PLAN.md
+
 **UI hint**: yes
 
 ### Phase 22: FastAPI PostgreSQL Stage
@@ -76,10 +91,13 @@ single-owner migration completes.
 1. A maintainer can provision a fresh test PostgreSQL database, run `alembic
    upgrade head`, and observe the required schema before application readiness
    succeeds.
+
 2. A reader can create, list, update, and delete tasks through public HTTP and
    observe the same records after a process restart.
+
 3. The focused FastAPI suite exercises `/health`, `/docs`, and `/tasks` against
    real PostgreSQL with SQLAlchemy 2, Alembic, and psycopg 3.
+
 4. The one-shot migration Job can be rerun successfully and completes before
    workload scaling is accepted.
 
@@ -88,6 +106,7 @@ single-owner migration completes.
 - Replace the in-memory task store with the database-backed vertical slice.
 - Add schema ownership, connection configuration, Alembic revisions, and the
   reusable migration Job contract.
+
 - Preserve this deployable source state for the later
   `stage-2-postgresql` tag.
 
@@ -106,11 +125,14 @@ release from immutable public source and image references.
 
 1. A reader can build and run the locked Python 3.12 image as a non-root user
    with one Uvicorn process bound to port 8000.
+
 2. Sealos readiness observes `/health`, runtime logs identify the deployed
    image, and a previous immutable image reference can restore the prior
    working release.
+
 3. The public repository resolves `stage-1-deploy`, `stage-2-postgresql`, and
    `stage-3-production`, and `main` matches the production-stage tree.
+
 4. Each source stage retains its exact lock data and compatibility
    `requirements.txt` so a reader can reproduce the matching runtime.
 
@@ -118,6 +140,7 @@ release from immutable public source and image references.
 
 - Add the production container, non-root ownership, runtime command, readiness,
   logging, and immutable image conventions.
+
 - Publish the three FastAPI source tags and align `main` with the final stage.
 - Retain rollback inputs needed by the later Sealos practice run.
 
@@ -136,8 +159,10 @@ its rendered task workflow and administration entry point.
 
 1. A reader can clone the public deploy-stage source, install its locked Python
    3.12 dependencies, and start it on `0.0.0.0:8000`.
+
 2. A reader receives a successful response from `/health`, can create and list
    tasks through rendered pages, and can open `/admin/login`.
+
 3. A maintainer can rerun the focused behavior suite and observe the committed
    red-green history for health, task pages, and administration access.
 
@@ -147,6 +172,7 @@ its rendered task workflow and administration entry point.
 - Add the smallest Django 5.2 LTS application required by each public behavior
   test, with `uv`, `pyproject.toml`, `uv.lock`, and an exact exported
   `requirements.txt`.
+
 - Preserve this deployable source state for the later `stage-1-deploy` tag.
 
 **Validation Approach**: Run public HTTP behavior tests and a local port 8000
@@ -165,10 +191,13 @@ and Django migration Jobs have proven the shared fresh-database contract.
 1. A maintainer can run `alembic upgrade head` and `python manage.py migrate`
    through their one-shot Jobs against fresh PostgreSQL databases and observe
    successful completion before application readiness.
+
 2. A reader can use `/health`, create a task through the rendered Django form,
    read it on a later page request, and open `/admin/login` through public HTTP.
+
 3. A reader can restart or scale the Django workload after migration and still
    observe the database-backed task record.
+
 4. Both framework migration and runtime checks prove Job completion, readiness,
    and public read/write behavior with real PostgreSQL services.
 
@@ -177,6 +206,7 @@ and Django migration Jobs have proven the shared fresh-database contract.
 - Replace the initial task persistence with psycopg 3 and Django migrations.
 - Add the Django migration Job, schema-aware readiness, and administrator-backed
   data verification path.
+
 - Re-run the shared migration/runtime seam for both Reference Applications and
   preserve the Django source state for `stage-2-postgresql`.
 
@@ -196,10 +226,13 @@ release from immutable public source and image references.
 
 1. A reader can build and run the locked Django 5.2 LTS image as a non-root
    user through Gunicorn WSGI on port 8000.
+
 2. `collectstatic` output is served by WhiteNoise, Sealos readiness observes
    `/health`, and runtime logs identify the deployed image.
+
 3. A previous immutable image reference can restore the prior working release
    while preserving PostgreSQL data.
+
 4. The public repository resolves `stage-1-deploy`, `stage-2-postgresql`, and
    `stage-3-production`, and `main` matches the production-stage tree.
 
@@ -207,6 +240,7 @@ release from immutable public source and image references.
 
 - Add the production container, Gunicorn, WhiteNoise, static collection,
   non-root ownership, readiness, logging, and immutable image conventions.
+
 - Publish the three Django source tags and align `main` with the final stage.
 - Retain rollback inputs needed by the later Sealos practice run.
 
@@ -226,15 +260,19 @@ claims come from retained, reproducible FastAPI and Django practice evidence.
 
 1. A reader can follow deploy, PostgreSQL, and production pages for either
    framework, with each page linked to its matching immutable source tag.
+
 2. All six pages expose valid frontmatter, framework-local series navigation,
    correct stage order, current Sealos Skills terminology, and the established
    stage CTA.
+
 3. Each of the 24 visible screenshots traces to retained local, Sealos,
    Kubernetes, HTTP, or browser evidence; sensitive values are redacted and the
    adjacent tutorial step matches the shown result.
+
 4. Every screenshot is a 1440x900 WebP below 200 KB, and the retained evidence
    package reproduces deploy, migration, readiness, public read/write, logs,
    domain, and rollback checks.
+
 5. Beginner titles apply the same measured deploy-command-to-public-health
    result for both frameworks and record the observed duration.
 
@@ -242,8 +280,10 @@ claims come from retained, reproducible FastAPI and Django practice evidence.
 
 - Run both three-stage workflows in a clean authenticated Sealos workspace and
   retain redacted commands, resource state, logs, timings, and browser results.
+
 - Author the six English MDX pages from the verified workflow and immutable
   source tags.
+
 - Render four dark evidence-card screenshots per page in the established style
   and wire them beside their matching steps.
 
@@ -263,12 +303,16 @@ maintainers can verify its public contracts and the empty practice footprint.
 
 1. The tutorial matrix presents FastAPI and Django as available paths, and a
    reader can navigate all 15 tutorial pages and each three-page series.
+
 2. `npm run validate-tutorials` passes for the 15-page catalog, six new source
    pages, their series relationships, required terminology, and image contract.
+
 3. Static HTTP smoke checks return successful responses for the tutorial index,
    six new pages, and 24 new images with the expected image content type.
+
 4. Every MDX image reference resolves to the intended local and static-output
    WebP asset.
+
 5. Cleanup evidence shows that every practice `Instance`, workload, Service,
    Ingress, Job, PostgreSQL Cluster, PVC, Secret, and temporary image resource
    has been removed.
@@ -277,6 +321,7 @@ maintainers can verify its public contracts and the empty practice footprint.
 
 - Complete the public validator CLI through focused red-green tests and promote
   both framework paths in the catalog matrix.
+
 - Build the static site and exercise the reader-visible route and asset surface.
 - Remove the full Sealos practice footprint and retain redacted before/after
   resource evidence.
@@ -301,7 +346,7 @@ Phases execute in numeric order: 21 -> 22 -> 23 -> 24 -> 25 -> 26 -> 27 -> 28
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 21. FastAPI Deploy Stage | 0/TBD | Not started | - |
+| 21. FastAPI Deploy Stage | 1/3 | In Progress|  |
 | 22. FastAPI PostgreSQL Stage | 0/TBD | Not started | - |
 | 23. FastAPI Production Stage | 0/TBD | Not started | - |
 | 24. Django Deploy Stage | 0/TBD | Not started | - |
