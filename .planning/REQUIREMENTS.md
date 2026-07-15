@@ -25,10 +25,10 @@ product.
   `/health`, `/docs`, and in-memory task CRUD on port 8000.
 - [x] **FAST-02**: Reader can use the PostgreSQL stage with SQLAlchemy 2,
   Alembic, psycopg 3, a repeatable migration Job, and database-backed CRUD.
-- [ ] **FAST-03**: Reader can use the production stage with a locked Python 3.12
+- [x] **FAST-03**: Reader can use the production stage with a locked Python 3.12
   environment, non-root image, single Uvicorn process, readiness, logs, and
   rollback-ready image tags.
-- [ ] **FAST-04**: Reader can resolve `stage-1-deploy`, `stage-2-postgresql`, and
+- [x] **FAST-04**: Reader can resolve `stage-1-deploy`, `stage-2-postgresql`, and
   `stage-3-production` in the public FastAPI repository while `main` matches the
   production stage.
 
@@ -115,8 +115,8 @@ Roadmap creation maps each v1.3 requirement to exactly one phase.
 | TDD-04 | Phase 28 | Pending |
 | FAST-01 | Phase 21 | Complete |
 | FAST-02 | Phase 22 | Complete |
-| FAST-03 | Phase 23 | Pending |
-| FAST-04 | Phase 23 | Pending |
+| FAST-03 | Phase 23 | Complete |
+| FAST-04 | Phase 23 | Complete |
 | DJAN-01 | Phase 24 | Pending |
 | DJAN-02 | Phase 25 | Pending |
 | DJAN-03 | Phase 26 | Pending |

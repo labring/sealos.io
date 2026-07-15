@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: FastAPI and Django Tutorial Expansion
-current_phase: 23
-current_phase_name: FastAPI Production Stage
-status: verifying
-stopped_at: Completed 23-04-PLAN.md
-last_updated: "2026-07-15T18:01:04.000Z"
+current_phase: 24
+current_phase_name: Django Deploy Stage
+status: planning
+stopped_at: Phase 23 verified; Phase 24 ready to discuss and plan
+last_updated: "2026-07-15T18:23:38Z"
 last_activity: 2026-07-15
-last_activity_desc: FastAPI production stage published and publicly replayed
+last_activity_desc: Phase 23 complete, transitioned to Phase 24
 progress:
   total_phases: 8
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 11
   completed_plans: 11
   percent: 100
@@ -26,41 +26,40 @@ See: `.planning/PROJECT.md` (updated 2026-07-15)
 **Core value:** Readers can follow framework-specific Sealos tutorials with
 commands, screenshots, and validation evidence that match the current product
 workflow.
-**Current focus:** Phase 23 — FastAPI Production Stage
+**Current focus:** Phase 24 — Django Deploy Stage
 
 ## Current Phase
 
 | Field | Value |
 |-------|-------|
-| Phase | 23 of 28 |
-| Name | FastAPI Production Stage |
-| Status | Ready for independent verification |
-| Goal | Readers can reproduce and roll back the complete production FastAPI release from immutable public source and image references. |
+| Phase | 24 of 28 |
+| Name | Django Deploy Stage |
+| Status | Ready to discuss and plan |
+| Goal | Readers can clone and run the first public Task Board stage and use its rendered task workflow and administration entry point. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-- FAST-03
-- FAST-04
+- DJAN-01
 
 ## Current Position
 
-Phase: 23 (FastAPI Production Stage) — VERIFYING
-Plan: 4 of 4 complete
-Status: Ready for phase verification
-Last activity: 2026-07-15 — FastAPI production stage published and publicly replayed
-11/11 requirement plus decision coverage
+Phase: 24 (Django Deploy Stage) — PLANNING
+Plan: -
+Status: Ready to discuss and plan
+Last activity: 2026-07-15 — Phase 23 passed 20/20 must-haves, FAST-03, and
+FAST-04; transitioned to Phase 24
 
 ## Next Action
 
-Run `$gsd-verify-work 23` to independently verify the complete FastAPI production phase.
+Run `$gsd-discuss-phase 24 --auto` to capture the confirmed Django deploy-stage decisions.
 
 ## Session
 
-**Last session:** 2026-07-15T18:01:04.000Z
-**Stopped at:** Completed 23-04-PLAN.md
-**Resume file:** None
+**Last session:** 2026-07-15T18:23:38Z
+**Stopped at:** Phase 23 verified; Phase 24 ready to discuss and plan
+**Resume file:** `.planning/ROADMAP.md`
 
 ## Performance Metrics
 
@@ -87,6 +86,7 @@ Run `$gsd-verify-work 23` to independently verify the complete FastAPI productio
 | Phase 23 P02 | 83 min | 3 tasks | 8 files |
 | Phase 23 P03 | 101 min | 2 tasks | 12 files |
 | Phase 23 P04 | 45 min | 3 tasks | 6 files |
+| Phase 23 verification | 2026-07-15 | 20/20 must-haves verified | FAST-03 and FAST-04 passed |
 
 ## Decisions
 
@@ -130,3 +130,4 @@ Run `$gsd-verify-work 23` to independently verify the complete FastAPI productio
 - [Phase 23]: Derive the final image replay from the peeled public Stage 3 clone and isolate every anonymous registry read in a fresh empty configuration.
 - [Phase 23]: Retain seven immutable full-SHA audit versions after package deletion authorization failed while preserving the accepted baseline/final mappings and zero mutable tags.
 - [Phase 23]: Freeze publication evidence after checksum-independent preflight, atomic nine-entry checksums, and exactly one full verifier run.
+- [Phase 23]: Independent verification passed 20/20 must-haves for FAST-03 and FAST-04; Phase 24 is the next active stage.

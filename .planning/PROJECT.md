@@ -46,6 +46,10 @@ reference applications and real Sealos deployment evidence.
   behavior cases, fresh and repeat Alembic migration, two migration Jobs, three
   clone replays, and zero-footprint cleanup pass at accepted commit `2b256b3`
   — validated in Phase 22.
+- ✓ FastAPI Stage 3 is public at protected `stage-3-production`; two immutable
+  GHCR digests, a migration-first four-state rollout, rollback, recovery,
+  public replay, and zero-footprint cleanup pass at accepted commit `1dbbf19`
+  — validated in Phase 23.
 
 ### Active
 
@@ -108,11 +112,11 @@ The project glossary is `CONTEXT.md`.
 |----------|-----------|---------|
 | Use three pages per framework | Matches the established deploy, PostgreSQL, and production reader journey. | — Pending |
 | Use one Reference Application per framework | Keeps code, screenshots, and troubleshooting continuous across each series. | — Pending |
-| Publish two public GitHub repositories | Makes tutorial commands and stage snapshots reproducible. | FastAPI Stages 1-2 published; Django pending. |
+| Publish two public GitHub repositories | Makes tutorial commands and stage snapshots reproducible. | FastAPI Stages 1-3 published; Django pending. |
 | Require 24 practice-backed screenshots | Preserves the current four-image framework tutorial density. | — Pending |
 | Run migrations as one-shot Jobs | Keeps schema changes single-owner before rollout acceptance and scaling. | FastAPI Stage 2 completed two Jobs at Alembic revision `0001`. |
 | Gate five-minute titles on measured evidence | Keeps duration claims tied to actual workflow timing. | — Pending |
-| Test four public seams with vertical red-green slices | Keeps tests behavior-focused and durable through implementation changes. | FastAPI deploy and PostgreSQL stages retain 16 direct RED/GREEN slices and a 24-case public suite. |
+| Test four public seams with vertical red-green slices | Keeps tests behavior-focused and durable through implementation changes. | FastAPI stages retain 24 direct RED/GREEN slices plus public behavior, static, migration, and runtime gates. |
 
 ## Evolution
 
