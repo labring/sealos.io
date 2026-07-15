@@ -90,7 +90,7 @@ export const siteConfig: SiteConfig = {
     clientId:
       '622445707551-96dmksk4qmjaclc69r18li7qpbnl1bso.apps.googleusercontent.com',
     loginEndpoint: `${desktopApiEndpoint}/api/auth/google/onetap`,
-    redirectUrl: 'https://usw-1.sealos.io',
+    redirectUrl: 'https://usw-1.sealos.io/?openapp=system-brain',
   },
   // Template API configuration
   templateApiEndpoint: 'https://template.usw-1.sealos.io',
