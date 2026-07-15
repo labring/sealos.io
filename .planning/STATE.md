@@ -5,16 +5,16 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 23
 current_phase_name: FastAPI Production Stage
 status: executing
-stopped_at: Completed 23-01-PLAN.md
-last_updated: "2026-07-15T14:11:34.116Z"
+stopped_at: Completed 23-02-PLAN.md
+last_updated: "2026-07-15T15:34:54.000Z"
 last_activity: 2026-07-15
-last_activity_desc: FastAPI production image baseline accepted
+last_activity_desc: FastAPI production workload and final image accepted
 progress:
   total_phases: 8
   completed_phases: 2
   total_plans: 11
-  completed_plans: 8
-  percent: 73
+  completed_plans: 9
+  percent: 82
 ---
 
 # Project State
@@ -47,19 +47,19 @@ workflow.
 ## Current Position
 
 Phase: 23 (FastAPI Production Stage) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
-Last activity: 2026-07-15 — FastAPI production image baseline accepted
+Last activity: 2026-07-15 — FastAPI production workload and final image accepted
 11/11 requirement plus decision coverage
 
 ## Next Action
 
-Run `$gsd-execute-phase 23` to execute Plan 23-02 production workload contracts.
+Run `$gsd-execute-phase 23` to execute Plan 23-03 live rollback and recovery.
 
 ## Session
 
-**Last session:** 2026-07-15T14:11:34.112Z
-**Stopped at:** Completed 23-01-PLAN.md
+**Last session:** 2026-07-15T15:34:54.000Z
+**Stopped at:** Completed 23-02-PLAN.md
 **Resume file:** None
 
 ## Performance Metrics
@@ -84,6 +84,7 @@ Run `$gsd-execute-phase 23` to execute Plan 23-02 production workload contracts.
 | Phase 22 P03 | 30min | 3 tasks | 7 files |
 | Phase 22 P04 | 50 min | 3 tasks | 10 files |
 | Phase 23 P01 | 64 min | 3 tasks | 5 files |
+| Phase 23 P02 | 83 min | 3 tasks | 8 files |
 
 ## Decisions
 
@@ -118,3 +119,5 @@ Run `$gsd-execute-phase 23` to execute Plan 23-02 production workload contracts.
 - [Phase 22]: Keep post-public replay artifacts outside the immutable Reference Application tree.
 - [Phase 23]: Use the GHCR registry readback digest as the deployable release identity across exporter media-type differences.
 - [Phase 23]: Accept the first-package anonymous 403 only with exact error fragments and independent authenticated package absence.
+- [Phase 23]: Render parameterized production Jobs through an exact token allowlist before strict inherited server validation.
+- [Phase 23]: Freeze final reader source before retaining its dynamic GHCR digest in Sealos.io planning evidence.

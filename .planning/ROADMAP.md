@@ -152,10 +152,10 @@ release from immutable public source and image references.
 **Validation Approach**: Inspect the running container identity and process
 model, probe readiness, compare Git trees for all tags, and exercise an image
 rollback and recovery.
-**Plans**: 1/4 plans executed
+**Plans**: 2/4 plans executed
 
 - [x] 23-01-PLAN.md - Publish the hardened baseline image and immutable GHCR digest.
-- [ ] 23-02-PLAN.md - Add production workload contracts, freeze reader source, and publish the final digest.
+- [x] 23-02-PLAN.md - Add production workload contracts, freeze reader source, and publish the final digest.
 - [ ] 23-03-PLAN.md - Prove baseline, final, rollback, and recovery on real Sealos infrastructure.
 - [ ] 23-04-PLAN.md - Publish protected Stage 3 and replay source plus image identities publicly.
 
