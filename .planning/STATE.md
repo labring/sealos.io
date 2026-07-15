@@ -5,16 +5,16 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 23
 current_phase_name: FastAPI Production Stage
 status: executing
-stopped_at: Phase 23 planned; ready to execute
-last_updated: "2026-07-15T12:56:13.026Z"
+stopped_at: Completed 23-01-PLAN.md
+last_updated: "2026-07-15T14:11:34.116Z"
 last_activity: 2026-07-15
-last_activity_desc: Phase 23 planned with 4 plans and verification passed
+last_activity_desc: FastAPI production image baseline accepted
 progress:
   total_phases: 8
   completed_phases: 2
   total_plans: 11
-  completed_plans: 7
-  percent: 25
+  completed_plans: 8
+  percent: 73
 ---
 
 # Project State
@@ -26,8 +26,7 @@ See: `.planning/PROJECT.md` (updated 2026-07-15)
 **Core value:** Readers can follow framework-specific Sealos tutorials with
 commands, screenshots, and validation evidence that match the current product
 workflow.
-**Current focus:** Phase 23 is planned and ready to execute for the FastAPI
-Production Stage.
+**Current focus:** Phase 23 — FastAPI Production Stage
 
 ## Current Phase
 
@@ -35,7 +34,7 @@ Production Stage.
 |-------|-------|
 | Phase | 23 of 28 |
 | Name | FastAPI Production Stage |
-| Status | Ready to execute |
+| Status | In progress |
 | Goal | Readers can reproduce and roll back the complete production FastAPI release from immutable public source and image references. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
@@ -47,21 +46,21 @@ Production Stage.
 
 ## Current Position
 
-Phase: 23 of 28 (FastAPI Production Stage)
-Plan: 4 plans ready
+Phase: 23 (FastAPI Production Stage) — EXECUTING
+Plan: 2 of 4
 Status: Ready to execute
-Last activity: 2026-07-15 — Phase 23 plans passed independent verification and
+Last activity: 2026-07-15 — FastAPI production image baseline accepted
 11/11 requirement plus decision coverage
 
 ## Next Action
 
-Run `$gsd-execute-phase 23` to build and publish the FastAPI Production Stage.
+Run `$gsd-execute-phase 23` to execute Plan 23-02 production workload contracts.
 
 ## Session
 
-**Last session:** 2026-07-15T12:56:13Z
-**Stopped at:** Phase 23 planned; ready to execute
-**Resume file:** `.planning/ROADMAP.md`
+**Last session:** 2026-07-15T14:11:34.112Z
+**Stopped at:** Completed 23-01-PLAN.md
+**Resume file:** None
 
 ## Performance Metrics
 
@@ -84,6 +83,7 @@ Run `$gsd-execute-phase 23` to build and publish the FastAPI Production Stage.
 | Phase 22 P02 | 39 min | 3 tasks | 3 files |
 | Phase 22 P03 | 30min | 3 tasks | 7 files |
 | Phase 22 P04 | 50 min | 3 tasks | 10 files |
+| Phase 23 P01 | 64 min | 3 tasks | 5 files |
 
 ## Decisions
 
@@ -116,3 +116,5 @@ Run `$gsd-execute-phase 23` to build and publish the FastAPI Production Stage.
 - [Phase 22]: Freeze all tracked replay evidence in the accepted commit before advancing public main or creating the Stage 2 tag.
 - [Phase 22]: Accept Stage 2 recovery only when local and remote type, message, direct object, peeled commit, repository metadata, and tag protection are coherent.
 - [Phase 22]: Keep post-public replay artifacts outside the immutable Reference Application tree.
+- [Phase 23]: Use the GHCR registry readback digest as the deployable release identity across exporter media-type differences.
+- [Phase 23]: Accept the first-package anonymous 403 only with exact error fragments and independent authenticated package absence.
