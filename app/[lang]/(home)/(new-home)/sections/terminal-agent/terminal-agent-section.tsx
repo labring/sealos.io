@@ -51,19 +51,19 @@ const visualCards = [
 const featureCards: FeatureCard[] = [
   {
     icon: CheckCircle2,
-    title: 'Scored Assessment Pipeline',
+    title: 'Preflight checks before deploy',
     description:
       'Executes a capability scan scoring deploy readiness from 0-12. Automatically detects frameworks, active package managers, assigned ports, and runtime environment variables without guessing parameters.',
   },
   {
     icon: PencilLine,
-    title: 'Inspectable Local Blueprints',
+    title: 'Generated files you can review',
     description:
       'Maintains total visibility. Every run generates real, local files under the .sealos repository footprint, keeping build metrics and target workspace definitions ready for direct human verification.',
   },
   {
     icon: GalleryVerticalEnd,
-    title: 'Intelligent Routing Paths',
+    title: 'The right path for deploys and updates',
     description:
       'Differentiates tasks post-preflight: switches automatically to a Deploy Path or an Update Path for state configuration tracking and image patch rollouts.',
   },
