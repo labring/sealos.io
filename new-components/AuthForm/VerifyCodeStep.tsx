@@ -155,7 +155,7 @@ export function VerifyCodeStep() {
                       className={cn(
                         'bg-foreground/5 aspect-square h-11 w-11 rounded-xl border text-center text-lg font-medium first:rounded-l-xl last:rounded-r-xl',
                         code[index] ? 'border-foreground' : 'border-border',
-                        error && 'border-red-500',
+                        error && '!border-red-500',
                       )}
                     />
                   ))}

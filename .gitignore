@@ -27,6 +27,7 @@ yarn-error.log*
 .claude
 .taskmaster
 .playwright-mcp
+.superpowers
 .agent
 /.shrimp
 /openspec

@@ -39,6 +39,12 @@ export type SiteConfig = {
   oauth2GithubUrl: string;
   oauth2GoogleUrl: string;
   oauth2Url: string;
+  googleOneTap: {
+    enabled: boolean;
+    clientId: string;
+    loginEndpoint: string;
+    redirectUrl: string;
+  };
   // Template API configuration
   templateApiEndpoint: string;
   // Desktop API configuration

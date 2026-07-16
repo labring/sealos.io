@@ -11,6 +11,7 @@ import { HomepageDarkMode } from './homepage-dark-mode';
 import { ConditionalSiteBanner } from './conditional-site-banner';
 import { AuthFormProvider } from '@/new-components/AuthForm/AuthFormProvider';
 import { AuthForm } from '@/new-components/AuthForm';
+import { GoogleOneTap } from '@/new-components/AuthForm/GoogleOneTap';
 import { DeployModalProvider, DeployModal } from '@/new-components/DeployModal';
 
 export const metadata = generatePageMetadata();
@@ -92,7 +93,7 @@ export default async function LocaleLayout({
 
         <Analytics />
       </head>
-      <body className="flex min-h-screen max-w-[100vw] flex-col overflow-x-hidden">
+      <body className="bg-background flex min-h-screen max-w-[100vw] flex-col overflow-x-hidden">
         <GTMBody />
         <HomepageDarkMode />
         <AuthFormProvider>
@@ -130,6 +131,7 @@ export default async function LocaleLayout({
 
               {children}
               <AuthForm />
+              <GoogleOneTap />
               <DeployModal />
             </RootProvider>
           </DeployModalProvider>

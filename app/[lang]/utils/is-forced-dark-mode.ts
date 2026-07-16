@@ -10,6 +10,10 @@ export function isForcedDarkMode(pathname: string): boolean {
       match: 'full',
     },
     {
+      path: '/brain-caps-preview',
+      match: 'full',
+    },
+    {
       path: '/ai-quick-reference',
       match: 'prefix',
     },

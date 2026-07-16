@@ -21,7 +21,7 @@ const buttonVariants = cva(
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
         'landing-primary':
-          'border border-white hover:border-neutral-200 rounded-full bg-gradient-to-b from-white from-10% to-gray-300 to-90% shadow-[0_10px_15px_-3px_rgba(255,255,255,0.16),0_4px_6px_-2px_rgba(255,255,255,0.05)] hover:from-[#eaeaea] hover:to-[#9e9e9e] text-zinc-900',
+          'rounded-full border border-white bg-gradient-to-b from-white via-zinc-100 to-zinc-300 text-zinc-900 shadow-lg hover:border-neutral-200 hover:from-zinc-100 hover:to-zinc-400',
       },
       size: {
         default: 'h-9 px-4 py-2',
@@ -38,7 +38,8 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
@@ -75,7 +76,7 @@ export function DeployButton({
       rel="noopener noreferrer"
       className="inline-block transition-opacity hover:opacity-90"
     >
-      <div className="relative h-[60px] w-[200px]">
+      <div className="relative h-16 w-52">
         <Image
           src={imageUrl}
           alt={alt || 'Deploy on Sealos'}

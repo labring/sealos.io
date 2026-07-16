@@ -7,6 +7,7 @@ import {
   CrossCircledIcon,
 } from '@radix-ui/react-icons';
 import { cn } from '@/lib/utils';
+import { CopyIcon } from 'lucide-react';
 
 type CopyState = 'idle' | 'copied' | 'failed';
 
@@ -72,7 +73,7 @@ export function CopyCommandButton({
       ? CheckIcon
       : copyState === 'failed'
         ? CrossCircledIcon
-        : ClipboardCopyIcon;
+        : CopyIcon;
   const statusText = copyState === 'failed' ? 'Copy failed' : 'Copied';
 
   return (
@@ -89,7 +90,7 @@ export function CopyCommandButton({
         }
       }}
       className={cn(
-        'inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/[0.045] px-3 font-medium text-[#4CAFE1] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition duration-200 hover:-translate-y-0.5 hover:border-[#4CAFE1]/45 hover:bg-white/[0.075] hover:text-white focus-visible:ring-2 focus-visible:ring-[#4CAFE1]/70 focus-visible:outline-none active:translate-y-px',
+        'inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-xl px-3 font-medium transition duration-200 hover:border-[#4CAFE1]/45 hover:bg-white/[0.075] hover:text-white focus-visible:ring-2 focus-visible:ring-[#4CAFE1]/70 focus-visible:outline-none active:translate-y-px',
         copyState === 'copied' && 'border-[#81C784]/45 text-[#81C784]',
         copyState === 'failed' && 'border-[#D8B25D]/45 text-[#D8B25D]',
         className,

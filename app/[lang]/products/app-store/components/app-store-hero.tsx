@@ -2,6 +2,7 @@
 
 import { Search } from 'lucide-react';
 import { GodRays } from '@/new-components/GodRays';
+import { GradientText } from '@/new-components/GradientText';
 import { AppIcon } from '@/components/ui/app-icon';
 import { type AppConfig } from '@/config/apps';
 import { getMinimumCountLabel } from './app-store-browser-utils';
@@ -87,10 +88,13 @@ export default function AppStoreHero({
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-[minmax(0,700px)_minmax(0,1fr)] lg:px-8">
         <div className="max-w-[760px] min-w-0">
-          <h1 className="max-w-[760px] bg-gradient-to-r from-white to-[#146DFF] bg-clip-text text-[32px] leading-[1.12] font-semibold text-transparent sm:text-[36px] lg:text-[36px] xl:text-[36px]">
+          <GradientText
+            as="h1"
+            className="block max-w-[760px] to-[#146DFF] text-[32px] leading-[1.12] font-semibold sm:text-[36px] lg:text-[36px] xl:text-[36px]"
+          >
             Ready-to-use,{' '}
             <span className="whitespace-nowrap">One-Click Deployment</span>
-          </h1>
+          </GradientText>
           <p className="mt-6 max-w-[680px] text-base leading-7 text-zinc-400 sm:text-lg">
             Discover top-tier open-source applications and run them through the
             Sealos automation engine without writing Kubernetes YAML.

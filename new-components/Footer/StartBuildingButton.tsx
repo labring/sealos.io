@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { getOpenBrainParam } from '@/lib/utils/brain';
 
-export function StartBuildingButton() {
+export function StartBuildingButton({ className }: { className?: string }) {
   const { trackButton } = useGTM();
   const handleAuthRedirect = useAuthRedirect();
 
@@ -17,6 +17,7 @@ export function StartBuildingButton() {
         trackButton('Get Started', 'footer', 'auth-form', '');
         handleAuthRedirect({ openapp: getOpenBrainParam() });
       }}
+      className={className}
     >
       <span>Start Building for Free</span>
       <ArrowRight size={16} className="ml-1" />

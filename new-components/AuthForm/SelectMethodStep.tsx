@@ -90,7 +90,7 @@ export function SelectMethodStep() {
             placeholder="Work Email"
             value={formData.email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-foreground/5 h-10"
+            className="bg-foreground/5 border-border h-10 shadow-none focus-visible:border-blue-400 focus-visible:ring-0"
           />
           {error && (
             <div className="flex items-center gap-1 text-sm text-red-500">
