@@ -5,16 +5,16 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 28
 current_phase_name: Catalog Publication and Cleanup
 status: executing
-stopped_at: Completed 28-01-PLAN.md
-last_updated: "2026-07-16T21:36:28.654Z"
+stopped_at: Completed 28-02-PLAN.md
+last_updated: "2026-07-16T21:42:56.538Z"
 last_activity: 2026-07-17
-last_activity_desc: Phase 28 Plan 01 complete
+last_activity_desc: Phase 28 Plan 02 complete
 progress:
   total_phases: 8
   completed_phases: 7
   total_plans: 34
-  completed_plans: 32
-  percent: 94
+  completed_plans: 33
+  percent: 97
 ---
 
 # Project State
@@ -43,26 +43,25 @@ workflow.
 
 - TDD-04
 - SHOT-03
-- PUB-01
 - PUB-03
 - OPS-02
 
 ## Current Position
 
 Phase: 28 (Catalog Publication and Cleanup) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
-Last activity: 2026-07-17 — Phase 28 Plan 01 complete
+Last activity: 2026-07-17 — Phase 28 Plan 02 complete
 
 ## Next Action
 
-Execute Plan 28-02 catalog promotion and five-framework discoverability gates.
+Execute Plan 28-03 production build, HTTP, browser, evidence, and cleanup gates.
 
 ## Session
 
-**Last session:** 2026-07-16T21:36:28.652Z
-**Stopped at:** Completed 28-01-PLAN.md
-**Resume file:** .planning/phases/28-catalog-publication-and-cleanup/28-02-PLAN.md
+**Last session:** 2026-07-16T21:42:56.536Z
+**Stopped at:** Completed 28-02-PLAN.md
+**Resume file:** .planning/phases/28-catalog-publication-and-cleanup/28-03-PLAN.md
 
 ## Performance Metrics
 
@@ -107,6 +106,7 @@ Execute Plan 28-02 catalog promotion and five-framework discoverability gates.
 | Phase 26 P04 | 33 min | 3 tasks | protected Stage 3, public replays, and 11 sealed evidence files |
 | Phase 26 verification | 2026-07-16 | 21/21 must-haves verified | DJAN-03 and DJAN-04 passed |
 | Phase 28 P01 | 15 min | 2 tasks | 3 files |
+| Phase 28 P02 | 10 min | 2 tasks | 5 files |
 
 ## Decisions
 
@@ -195,3 +195,6 @@ Execute Plan 28-02 catalog promotion and five-framework discoverability gates.
 - [Phase 28]: Validate protected Python source tags through one exact repository link per page.
 - [Phase 28]: Require exactly four unique 1440x900 WebPs below 150 KiB for every strict tutorial.
 - [Phase 28]: Use token-bounded retired-skill detection so evidence filenames remain valid.
+- [Phase 28]: Promote FastAPI and Django through the existing derived catalog state.
+- [Phase 28]: Keep Go and Spring Boot as the exact coming-next framework set.
+- [Phase 28]: Bind availability counts and five-framework copy to the public validator.
