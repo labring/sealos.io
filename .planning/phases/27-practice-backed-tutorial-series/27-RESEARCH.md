@@ -185,7 +185,7 @@
   framework, stage, source artifact and record, capture session, redactions,
   dimensions, byte size, and SHA-256.
 - **D-24:** Cleanup each accepted and failed practice attempt by exact ownership
-  identity. Remove its Instance, Deployment, ReplicaSet, Pod, Service, Ingress,
+  identity. Remove its Instance, App, Deployment, StatefulSet, ReplicaSet, Pod, Service, Ingress,
   Job, PostgreSQL Cluster, PVC, Secret, ConfigMap, port-forward, local server,
   browser session, generated `.sealos/` state clone, render path, image scratch,
   and ownership ledger. Retain public repositories, protected tags, accepted
@@ -241,10 +241,10 @@
 
 | ID | Phase 27 interpretation | Research implication |
 |---|---|---|
-| CONT-01 | Publish the locked FastAPI and Django deploy, PostgreSQL, and production source set. | Create the six English MDX sources with the existing schema and series contracts. [VERIFIED: `.planning/REQUIREMENTS.md`; `27-CONTEXT.md`] |
-| CONT-02 | Ground every tutorial statement in the matching protected source stage or retained practice evidence. | Maintain a claim ledger whose selectors resolve to immutable source or evidence records. [VERIFIED: `.planning/REQUIREMENTS.md`; Phase 21-26 verification/evidence] |
+| CONT-01 | Publish the locked FastAPI deploy, PostgreSQL, and production source set. | Create the three English FastAPI MDX sources with the existing schema, source-tag, and series contracts. [VERIFIED: `.planning/REQUIREMENTS.md`; `27-CONTEXT.md`] |
+| CONT-02 | Publish the locked Django deploy, PostgreSQL, and production source set. | Create the three English Django MDX sources with the existing schema, source-tag, and series contracts. [VERIFIED: `.planning/REQUIREMENTS.md`; `27-CONTEXT.md`] |
 | CONT-03 | Preserve the current tutorial journey, SEO, CTA, related-link, and Sealos Skills vocabulary. | Reuse the Next.js structure and current Fumadocs schema, loader, metadata, and detail layout. [VERIFIED: current nine tutorial sources; `source.config.ts`; tutorial route/layout utilities] |
-| CONT-04 | Keep FastAPI and Django continuity across all three stages. | FastAPI remains the Tasks API; Django remains the Task Board plus native admin. [VERIFIED: protected reference repositories; `27-CONTEXT.md`] |
+| CONT-04 | Apply the confirmed shared five-minute evidence gate to both beginner titles. | Measure both deploy-request-to-public-health intervals identically, retain retries, and select one symmetric title mode from the two accepted clean attempts. [VERIFIED: `.planning/REQUIREMENTS.md`; `27-CONTEXT.md` D-21 and D-22] |
 | SHOT-01 | Supply exactly 24 practice-backed screenshots, four unique 1440x900 WebPs per page. | Implement a deterministic capture, render, compression, and reference pipeline with hard metadata gates. [VERIFIED: `.planning/REQUIREMENTS.md`; `27-CONTEXT.md`] |
 | SHOT-02 | Make each image readable, credential-free, traceable, and adjacent to its proving step. | Validate OCR/text bounds, source selectors, redaction, visual appearance, checksums, and MDX adjacency. [VERIFIED: `.planning/REQUIREMENTS.md`; `27-CONTEXT.md`] |
 | OPS-01 | Practice in a real authenticated Sealos workspace and clean every owned artifact. | Use exact run IDs, fresh timing and domain observations, bounded workloads, exhaustive cleanup, and zero-residue readback. [VERIFIED: `.planning/REQUIREMENTS.md`; `27-CONTEXT.md`] |
@@ -271,7 +271,7 @@ global publication contracts. [VERIFIED: `27-CONTEXT.md` D-25; current
 The screenshot pipeline can use tools already installed on this machine:
 Node.js to render escaped local HTML, `agent-browser` with bundled Chrome to
 capture exact 1440x900 PNGs, `cwebp` to produce metadata-free WebP files,
-FFmpeg and Tesseract to inspect pixels and text, and `view_image` for human
+FFmpeg and Tesseract to inspect pixels and text, and `view_image` for agent
 visual review. No new package installation is required. [VERIFIED: local tool
 probe on 2026-07-16; screenshot and agent-browser skill instructions]
 
@@ -543,6 +543,21 @@ generation writes `.sealos/template/index.yaml`; accepted deployment writes
 `.sealos/state.json`. [VERIFIED: installed Sealos plugin `SKILL.md`, phase
 modules, and scripts]
 
+The execution agent cannot dispatch the interactive `$sealos` composer trigger
+as a shell command. Use the same installed plugin implementation directly from
+`/Users/longnv/.codex/plugins/cache/sealos/sealos/1.1.0/skills/sealos-deploy`:
+run `scripts/score-model.mjs`, generate artifacts from `modules/pipeline.md` and
+the co-installed `../docker-to-sealos` rules, validate them with
+`scripts/validate-artifacts.mjs` and
+`../docker-to-sealos/scripts/quality_gate.py`, then call
+`scripts/deploy-template.mjs` first with `--dry-run` and then for the real
+deploy. Accept the result only after `scripts/sealos-footprint.mjs`, live
+`kubectl` rollout/resource/log reads, public HTTPS checks, and named browser
+observations agree. This is the host-independent execution path for the same
+plugin rules and Template API; retained evidence must identify the exact path
+used and must never claim an interactive `$sealos` invocation occurred.
+[VERIFIED: installed plugin files and current agent capability]
+
 The current internal template deployment helper posts the generated template
 to the Sealos Template API and creates Sealos Instance/App state plus Kubernetes
 workloads. Treat the helper path and API endpoint as implementation details;
@@ -578,7 +593,7 @@ metadata:
 
 Before any mutation, save a read-only baseline of exact run selectors and
 prove that every proposed resource name is absent. After cleanup, query those
-same names and selectors across Instance, App, Deployment, ReplicaSet, Pod,
+same names and selectors across Instance, App, Deployment, StatefulSet, ReplicaSet, Pod,
 Service, Ingress, Job, PostgreSQL Cluster, PVC, Secret, and ConfigMap kinds.
 [VERIFIED: installed Sealos resource model and Phase 23/25/26 cleanup patterns]
 
@@ -679,34 +694,30 @@ D-22]
 
 ## Evidence Package Design
 
-Use this Phase 27 directory:
+Use this compact Phase 27 retained directory:
 
 ```text
 .planning/phases/27-practice-backed-tutorial-series/evidence/
 ├── README.md
-├── source-tags.txt
-├── claims.jsonl
+├── source-identities.jsonl
 ├── timing.jsonl
-├── commands.jsonl
-├── sealos-analysis.jsonl
-├── resource-plans.jsonl
-├── migrations.jsonl
-├── http.jsonl
-├── browser.jsonl
-├── runtime.jsonl
-├── rollback.jsonl
+├── commands.txt
+├── claims.jsonl
+├── practice-events.jsonl
 ├── screenshots.jsonl
 ├── cleanup.jsonl
-├── redaction-review.txt
-├── render-inputs/
-│   └── <slug>/<asset>.json
+├── review.txt
 └── checksums.txt
 ```
 
-This split keeps immutable/public source identities, fresh observations,
-render inputs, image provenance, and cleanup independently addressable while
-retaining a single checksum boundary. [ASSUMED: selected evidence layout under
-the delegated discretion]
+The first nine files are reviewed checksum inputs and `checksums.txt` is
+generated last. Mutable framework staging remains under `evidence/work/` until
+Plan 27-06 consolidates it, then the entire staging tree is removed. Sanitized
+render specifications and raw captures stay in mode-0700 run scratch outside
+the retained directory; their record IDs and digests enter `screenshots.jsonl`.
+This split keeps source identities, fresh observations, image provenance, and
+cleanup independently addressable inside one exact checksum boundary.
+[ASSUMED: selected evidence layout under the delegated discretion]
 
 All JSONL files should use one object per line, stable key ordering, LF endings,
 `schema_version`, `record_id`, `run_id`, `observed_at`, `source_kind`, and a
@@ -858,15 +869,15 @@ GSD research protocol; Phase 27 cross-system scope]
 
 ### Pre-Publication Acceptance Commands
 
-Add Phase 27-specific Node tests and scripts rather than expanding the current
-nine-page validator:
+Add one Phase 27-specific Node test/coordinator pair rather than expanding the
+current nine-page validator:
 
 ```bash
-node --test scripts/validate-phase27-tutorials.test.mjs
-node --test scripts/render-tutorial-evidence.test.mjs
-node --test scripts/validate-phase27-evidence.test.mjs
-node scripts/validate-phase27-tutorials.mjs
-node scripts/validate-phase27-evidence.mjs
+node --test scripts/python-tutorial-assets.test.mjs
+node scripts/python-tutorial-assets.mjs --check-drafts \
+  --repo-root "$PWD" --evidence-root <evidence-root> --phase-base <git-object>
+node scripts/python-tutorial-assets.mjs --check-bundle \
+  --repo-root "$PWD" --evidence-root <evidence-root> --phase-base <git-object>
 npm run lint
 ```
 
@@ -906,21 +917,19 @@ Use Node's built-in test runner and write the failing contract before each
 implementation unit. No new test dependency is needed. [VERIFIED: repository
 test conventions and local Node availability]
 
-1. `scripts/validate-phase27-tutorials.test.mjs` starts red because the six
-   locked sources are absent. It then covers exact paths, required frontmatter,
-   series/order, CTA, protected-tag URLs, related-link ordering, shared title
-   gate, exactly four unique references, descriptive alt text, and Phase 28
-   fences. [ASSUMED: recommended TDD seam]
-2. `scripts/render-tutorial-evidence.test.mjs` starts red around escaped input,
-   deterministic layout/spec output, forbidden-value redaction, required
-   tokens, fixed canvas metrics, and compression command construction.
-   [ASSUMED: recommended TDD seam]
-3. `scripts/validate-phase27-evidence.test.mjs` starts red around JSONL schemas,
-   claim selectors, source checksums, timing gate, screenshot ledger, checksum
-   order, and cleanup completeness. [ASSUMED: recommended TDD seam]
-4. A final image integration gate checks all 24 assets and their MDX references
-   after capture. Phase 28 owns the 15-page global validator and static-route
-   suite. [VERIFIED: D-16, D-17, D-25; ASSUMED: test placement]
+1. `scripts/python-tutorial-assets.test.mjs` creates its complete fixture before
+   dynamically importing the absent coordinator. RED therefore fails with
+   `ERR_MODULE_NOT_FOUND` at the agreed public seam. [ASSUMED: recommended TDD
+   seam]
+2. The unchanged test then covers exact paths and exports, frontmatter,
+   series/order, CTA, protected-tag URLs, related links, shared title gate,
+   exact image references, evidence/cleanup schemas, escaping, redaction,
+   argument-safe browser and codec commands, pixels/OCR, checksums, and Phase 28
+   fences. It exercises the installed browser/WebP/FFmpeg/Tesseract tools
+   through argument arrays and adds no package. [ASSUMED: recommended TDD seam]
+3. A final coordinator integration gate checks all 24 assets and their MDX
+   references after capture. Phase 28 owns the 15-page global validator and
+   static-route suite. [VERIFIED: D-16, D-17, D-25; ASSUMED: test placement]
 
 Capture RED and GREEN commands in plan summaries. Tests may use tiny fixture
 records and generated one-pixel corruption cases; live Sealos calls belong in

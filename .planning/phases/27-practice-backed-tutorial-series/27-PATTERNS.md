@@ -124,8 +124,8 @@ PostgreSQL and production CTA is exactly `Open Sealos Skills` to
 
 Beginner titles are computed from `evidence/timing.jsonl`. Use `in 5 Minutes`
 in both titles only when both accepted clean attempts are at most 300000 ms.
-Otherwise use evergreen `How to Deploy a FastAPI App on Sealos` and
-`How to Deploy a Django App on Sealos` titles. Each beginner body reports its
+Otherwise use evergreen `How to Deploy FastAPI on Sealos` and
+`How to Deploy Django on Sealos` titles. Each beginner body reports its
 observed duration and the exact clock boundary.
 
 ### Body Information Architecture
@@ -207,11 +207,14 @@ Create only:
 - `scripts/python-tutorial-assets.test.mjs`
 - `scripts/python-tutorial-assets.mjs`
 
-Use built-in `node:test`, `node:assert/strict`, `node:crypto`, `node:fs`, and
-`node:path`; use the existing `js-yaml` dependency for frontmatter and the
-existing `sharp` dependency for metadata, pixels, composites, and WebP output.
-Call `agent-browser` and `cwebp` through argument arrays when browser capture or
-final encoding is required. Do not add a dependency or package script.
+Use built-in `node:test`, `node:assert/strict`, `node:child_process`,
+`node:crypto`, `node:fs`, `node:http`, and `node:path`, plus the existing
+`js-yaml` dependency for structured frontmatter. Call `agent-browser`, `cwebp`,
+`ffprobe`, FFmpeg, and Tesseract through literal argument arrays for capture,
+encoding, metadata/pixel inspection, decoding, and OCR. The coordinator may
+start only a loopback Node render server and must close only its exact named
+browser session. `sharp`, ImageMagick, Playwright, new dependencies, and new
+package scripts are outside this contract.
 
 The coordinator should export these focused interfaces:
 
@@ -291,7 +294,7 @@ Every `screenshots.jsonl` record includes:
 - `width`, `height`, `bytes`, `sha256`, `format`
 - `nonblank`, `metadata_stripped`, `desktop_review`, `mobile_review`
 
-Every cleanup terminal records counts for Instance, Deployment, ReplicaSet,
+Every cleanup terminal records counts for Instance, App, Deployment, StatefulSet, ReplicaSet,
 Pod, Service, Ingress, Job, PostgreSQL cluster, PVC, Secret, ConfigMap,
 port-forward, local server, browser session, `.sealos/` clone, render scratch,
 image scratch, ownership ledger, and temporary credentials. Counts are scoped
@@ -322,6 +325,21 @@ For each framework and attempt:
    resource and path.
 7. Run an exact-label and ownership-ledger read-only audit before accepting the
    attempt.
+
+The protected Stage 1 tags contain no Dockerfile and this machine has no usable
+Docker path. Generate the deployable source artifact through the installed
+plugin rules: create a deterministic protected-tag archive in a run-owned
+bootstrap ConfigMap, unpack it in an initContainer based on the pinned Python
+3.12 slim digest, install the tracked `requirements.txt` into a one-GiB
+StatefulSet `volumeClaimTemplates` volume, and run the tracked FastAPI or Django
+entry command from that volume. The same generated Template owns the bootstrap
+ConfigMap, one-replica StatefulSet, Service, standard Sealos HTTPS Ingress, and
+App resource. The PVC is run-owned and deleted after evidence capture. Django adds
+`nginx.ingress.kubernetes.io/upstream-vhost: localhost`; a pinned run-owned
+Nginx sidecar with a ConfigMap proxy configuration is the bounded fallback when
+the live controller rejects that annotation. Dry-run and deploy use the local
+plugin `deploy-template.mjs`, followed by real Kubernetes Runtime Truth Pass
+reads. No public reference source receives a deployment artifact.
 
 ### FastAPI Practice
 
