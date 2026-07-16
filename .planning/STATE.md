@@ -5,16 +5,16 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 28
 current_phase_name: Catalog Publication and Cleanup
 status: executing
-stopped_at: Phase 28 context gathered
-last_updated: "2026-07-16T21:24:47.167Z"
-last_activity: 2026-07-16
-last_activity_desc: Phase 28 planning complete
+stopped_at: Completed 28-01-PLAN.md
+last_updated: "2026-07-16T21:36:28.654Z"
+last_activity: 2026-07-17
+last_activity_desc: Phase 28 Plan 01 complete
 progress:
   total_phases: 8
   completed_phases: 7
-  total_plans: 31
-  completed_plans: 31
-  percent: 88
+  total_plans: 34
+  completed_plans: 32
+  percent: 94
 ---
 
 # Project State
@@ -34,7 +34,7 @@ workflow.
 |-------|-------|
 | Phase | 28 of 28 |
 | Name | Catalog Publication and Cleanup |
-| Status | Ready for discussion and planning |
+| Status | Executing |
 | Goal | Readers can navigate the complete 15-page tutorial catalog while maintainers can verify public contracts and the empty practice footprint. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
@@ -44,27 +44,25 @@ workflow.
 - TDD-04
 - SHOT-03
 - PUB-01
-- PUB-02
 - PUB-03
 - OPS-02
 
 ## Current Position
 
-Phase: 28 (Catalog Publication and Cleanup) — PLANNING
-Plan: 0 of TBD
+Phase: 28 (Catalog Publication and Cleanup) — EXECUTING
+Plan: 2 of 3
 Status: Ready to execute
-Last activity: 2026-07-16 — Phase 28 planning complete
+Last activity: 2026-07-17 — Phase 28 Plan 01 complete
 
 ## Next Action
 
-Research and plan Phase 28 catalog promotion, production validator expansion,
-static build and HTTP acceptance, and final publication cleanup.
+Execute Plan 28-02 catalog promotion and five-framework discoverability gates.
 
 ## Session
 
-**Last session:** 2026-07-16T21:17:51.755Z
-**Stopped at:** Phase 28 context gathered
-**Resume file:** .planning/phases/28-catalog-publication-and-cleanup/28-CONTEXT.md
+**Last session:** 2026-07-16T21:36:28.652Z
+**Stopped at:** Completed 28-01-PLAN.md
+**Resume file:** .planning/phases/28-catalog-publication-and-cleanup/28-02-PLAN.md
 
 ## Performance Metrics
 
@@ -108,6 +106,7 @@ static build and HTTP acceptance, and final publication cleanup.
 | Phase 26 P03 | 21 min | 3 tasks | 11 files |
 | Phase 26 P04 | 33 min | 3 tasks | protected Stage 3, public replays, and 11 sealed evidence files |
 | Phase 26 verification | 2026-07-16 | 21/21 must-haves verified | DJAN-03 and DJAN-04 passed |
+| Phase 28 P01 | 15 min | 2 tasks | 3 files |
 
 ## Decisions
 
@@ -193,3 +192,6 @@ static build and HTTP acceptance, and final publication cleanup.
 - [Phase 26]: Use a removed external browser timing adapter while keeping the target source and assertions frozen. — agent-browser 0.26.0 required bounded navigation and selector readiness waits.
 - [Phase 26]: Keep live evidence writable only for the exact Plan 26-04 publication append and reseal. — The final publication package adds one data file and regenerates the checksum manifest.
 - [Phase 26]: Independent verification passed 21/21 must-haves; DJAN-03 and DJAN-04 are complete, and Phase 27 is ready for discussion and planning.
+- [Phase 28]: Validate protected Python source tags through one exact repository link per page.
+- [Phase 28]: Require exactly four unique 1440x900 WebPs below 150 KiB for every strict tutorial.
+- [Phase 28]: Use token-bounded retired-skill detection so evidence filenames remain valid.

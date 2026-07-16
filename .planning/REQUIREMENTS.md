@@ -85,7 +85,7 @@ product.
 - [ ] **PUB-01**: Reader sees FastAPI and Django as available paths in the
   tutorial framework matrix and can navigate all 15 tutorial pages.
 
-- [ ] **PUB-02**: `npm run validate-tutorials` validates the 15-page catalog,
+- [x] **PUB-02**: `npm run validate-tutorials` validates the 15-page catalog,
   six new source pages, series relationships, required terminology, and image
   contracts.
 
@@ -149,7 +149,7 @@ Roadmap creation maps each v1.3 requirement to exactly one phase.
 | SHOT-02 | Phase 27 | Complete |
 | SHOT-03 | Phase 28 | Pending |
 | PUB-01 | Phase 28 | Pending |
-| PUB-02 | Phase 28 | Pending |
+| PUB-02 | Phase 28 | Complete |
 | PUB-03 | Phase 28 | Pending |
 | OPS-01 | Phase 27 | Complete |
 | OPS-02 | Phase 28 | Pending |
