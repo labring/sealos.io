@@ -710,6 +710,48 @@ function collectMarkdownImageRefs(raw) {
   }));
 }
 
+function parseStringSet(source, name, fileLabel) {
+  const match = source.match(
+    new RegExp(
+      `(?:export\\s+)?const\\s+${name}\\s*=\\s*new Set\\(\\[([\\s\\S]*?)\\]\\);`,
+    ),
+  );
+  if (!match) {
+    fail(`${fileLabel}: unable to parse ${name}`);
+    return null;
+  }
+
+  const keys = [...match[1].matchAll(/'([^']+)'/g)].map(
+    (keyMatch) => keyMatch[1],
+  );
+  const residue = match[1].replace(/'[^']+'\s*,?/g, '').replace(/[\s,]/g, '');
+  if (residue) {
+    fail(`${fileLabel}: ${name} must contain only string keys`);
+    return null;
+  }
+  return keys;
+}
+
+function parseFrameworkKeys(source) {
+  const match = source.match(
+    /export const TUTORIAL_FRAMEWORKS = \[([\s\S]*?)\] as const satisfies/,
+  );
+  if (!match) {
+    fail('tutorial-growth-data.ts: unable to parse TUTORIAL_FRAMEWORKS');
+    return null;
+  }
+  return [...match[1].matchAll(/\bkey:\s*'([^']+)'/g)].map(
+    (keyMatch) => keyMatch[1],
+  );
+}
+
+function orderedValuesEqual(actual, expectedValues) {
+  return (
+    actual.length === expectedValues.length &&
+    actual.every((value, index) => value === expectedValues[index])
+  );
+}
+
 function getImageDimensions(path) {
   const buffer = readFileSync(path);
   if (buffer.toString('ascii', 0, 4) === 'RIFF') {
@@ -1048,6 +1090,22 @@ const tutorialIndexPagePath = join(
   'tutorials',
   'page.tsx',
 );
+const tutorialGrowthDataPath = join(
+  root,
+  'app',
+  '[lang]',
+  '(home)',
+  'tutorials',
+  'tutorial-growth-data.ts',
+);
+const tutorialFrameworkMatrixPath = join(
+  root,
+  'app',
+  '[lang]',
+  '(home)',
+  'tutorials',
+  'TutorialFrameworkMatrix.tsx',
+);
 const sitemapPath = join(root, 'app', 'sitemap.ts');
 const sourcePath = join(root, 'lib', 'source.ts');
 const headerPath = join(root, 'new-components', 'Header.tsx');
@@ -1063,6 +1121,8 @@ for (const [name, path] of [
   ['metadata.ts', metadataPath],
   ['tutorial-metadata.ts', tutorialMetadataPath],
   ['tutorials/page.tsx', tutorialIndexPagePath],
+  ['tutorial-growth-data.ts', tutorialGrowthDataPath],
+  ['TutorialFrameworkMatrix.tsx', tutorialFrameworkMatrixPath],
   ['sitemap.ts', sitemapPath],
   ['source.ts', sourcePath],
   ['Header.tsx', headerPath],
@@ -1098,12 +1158,24 @@ if (existsSync(tutorialIndexPagePath)) {
       'tutorials/page.tsx: index metadata must target expanded deployment tutorial intent',
     );
   }
-  if (
-    !page.includes('Next.js, React, and Node.js') ||
-    !page.includes('React deployment tutorials') ||
-    !page.includes('Node.js deployment tutorials')
-  ) {
-    fail('tutorials/page.tsx: missing expanded catalog metadata and hero copy');
+  const requiredCatalogCopy = [
+    'Next.js, React, Node.js, FastAPI, and Django',
+    'Next.js, React, Node.js, FastAPI, or Django',
+    'React deployment tutorials',
+    'Node.js deployment tutorials',
+    'FastAPI deployment tutorials',
+    'Django deployment tutorials',
+    'deploy FastAPI on Sealos',
+    'deploy Django on Sealos',
+    'FastAPI PostgreSQL deployment',
+    'Django PostgreSQL deployment',
+    'FastAPI production deployment',
+    'Django production deployment',
+  ];
+  if (requiredCatalogCopy.some((phrase) => !page.includes(phrase))) {
+    fail(
+      'tutorials/page.tsx: missing five-framework catalog metadata and hero copy',
+    );
   }
   if (!page.includes('languageAlternates: false')) {
     fail(
@@ -1127,6 +1199,89 @@ if (existsSync(tutorialIndexPagePath)) {
   ) {
     fail(
       'tutorials/page.tsx: non-English tutorial index export must be noindex',
+    );
+  }
+}
+
+if (existsSync(tutorialGrowthDataPath)) {
+  const growthData = readFileSync(tutorialGrowthDataPath, 'utf8');
+  const availableKeys = parseStringSet(
+    growthData,
+    'AVAILABLE_FRAMEWORK_KEYS',
+    'tutorial-growth-data.ts',
+  );
+  const comingNextKeys = parseStringSet(
+    growthData,
+    'COMING_NEXT_FRAMEWORK_KEYS',
+    'tutorial-growth-data.ts',
+  );
+  const frameworkKeys = parseFrameworkKeys(growthData);
+  const expectedAvailableKeys = [
+    'nextjs',
+    'react',
+    'nodejs',
+    'fastapi',
+    'django',
+  ];
+  const expectedComingNextKeys = ['go', 'spring-boot'];
+
+  if (
+    availableKeys &&
+    !orderedValuesEqual(availableKeys, expectedAvailableKeys)
+  ) {
+    fail(
+      'tutorial-growth-data.ts: available framework keys must be exactly nextjs, react, nodejs, fastapi, django',
+    );
+  }
+  if (
+    comingNextKeys &&
+    !orderedValuesEqual(comingNextKeys, expectedComingNextKeys)
+  ) {
+    fail(
+      'tutorial-growth-data.ts: coming-next framework keys must be exactly go, spring-boot',
+    );
+  }
+
+  if (availableKeys && comingNextKeys && frameworkKeys) {
+    const availableSet = new Set(availableKeys);
+    const comingNextSet = new Set(comingNextKeys);
+    const availableCount = frameworkKeys.filter((key) =>
+      availableSet.has(key),
+    ).length;
+    const comingNextCount = frameworkKeys.filter((key) =>
+      comingNextSet.has(key),
+    ).length;
+    const plannedCount =
+      frameworkKeys.length - availableCount - comingNextCount;
+    if (
+      availableCount * 3 !== 15 ||
+      comingNextCount * 3 !== 6 ||
+      plannedCount * 3 !== 33
+    ) {
+      fail(
+        'tutorial-growth-data.ts: derived inventory must contain 15 available, 6 coming-next, and 33 planned cells',
+      );
+    }
+  }
+
+  if (
+    !growthData.includes("pathNote: 'Complete API and AI service path'") ||
+    !growthData.includes("pathNote: 'Complete backend product path'")
+  ) {
+    fail(
+      'tutorial-growth-data.ts: FastAPI and Django must identify complete public paths',
+    );
+  }
+}
+
+if (existsSync(tutorialFrameworkMatrixPath)) {
+  const matrix = readFileSync(tutorialFrameworkMatrixPath, 'utf8');
+  if (
+    !matrix.includes('Five complete public paths link directly') ||
+    !matrix.includes('Remaining entries collect demand')
+  ) {
+    fail(
+      'TutorialFrameworkMatrix.tsx: missing five-framework availability explanation',
     );
   }
 }

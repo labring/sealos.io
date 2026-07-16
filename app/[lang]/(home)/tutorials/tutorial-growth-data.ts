@@ -82,10 +82,22 @@ export const TUTORIAL_FRAMEWORKS = [
   { key: 'nextjs', name: 'Next.js', pathNote: 'Complete public path' },
   { key: 'react', name: 'React', pathNote: 'High-demand frontend path' },
   { key: 'nodejs', name: 'Node.js', pathNote: 'Common full-stack runtime' },
-  { key: 'fastapi', name: 'FastAPI', pathNote: 'API and AI service path' },
-  { key: 'django', name: 'Django', pathNote: 'Backend product path' },
+  {
+    key: 'fastapi',
+    name: 'FastAPI',
+    pathNote: 'Complete API and AI service path',
+  },
+  {
+    key: 'django',
+    name: 'Django',
+    pathNote: 'Complete backend product path',
+  },
   { key: 'go', name: 'Go', pathNote: 'Production backend path' },
-  { key: 'spring-boot', name: 'Spring Boot', pathNote: 'Enterprise service path' },
+  {
+    key: 'spring-boot',
+    name: 'Spring Boot',
+    pathNote: 'Enterprise service path',
+  },
   { key: 'angular', name: 'Angular', pathNote: 'Frontend framework path' },
   { key: 'astro', name: 'Astro', pathNote: 'Content and static app path' },
   { key: 'flask', name: 'Flask', pathNote: 'Python service path' },
@@ -103,14 +115,11 @@ export const AVAILABLE_FRAMEWORK_KEYS = new Set([
   'nextjs',
   'react',
   'nodejs',
-]);
-
-const COMING_NEXT_FRAMEWORK_KEYS = new Set([
   'fastapi',
   'django',
-  'go',
-  'spring-boot',
 ]);
+
+const COMING_NEXT_FRAMEWORK_KEYS = new Set(['go', 'spring-boot']);
 
 export const STATUS_LABELS: Record<TutorialInventoryStatus, string> = {
   available: 'Available',
@@ -141,7 +150,8 @@ function getInventoryTitle(
   stage: TutorialStageDefinition,
 ): string {
   if (stage.id === 'deploy') return `Deploy ${framework.name} on Sealos`;
-  if (stage.id === 'postgresql') return `${framework.name} with PostgreSQL on Sealos`;
+  if (stage.id === 'postgresql')
+    return `${framework.name} with PostgreSQL on Sealos`;
   return `${framework.name} production deployment on Sealos`;
 }
 
