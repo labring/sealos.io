@@ -1,0 +1,11 @@
+{"method":"GET","path":"/health","process":"missing","result":"unavailable","sequence":1,"status":503}
+{"method":"GET","path":"/health","process":"unreachable","result":"unavailable","sequence":2,"status":503}
+{"method":"GET","path":"/health","process":"fresh-schema","result":"unavailable","sequence":3,"status":503}
+{"method":"GET","path":"/health","process":"migrated","result":"ready","sequence":4,"status":200}
+{"method":"GET","path":"/health","process":"A","result":"ready","sequence":5,"status":200}
+{"method":"POST","path":"/tasks/","process":"A","result":"created","sequence":6,"status":302,"task_title":"Task restart d98895ed9879"}
+{"method":"GET","path":"/","process":"A","result":"created","sequence":7,"status":200,"task_title":"Task restart d98895ed9879"}
+{"method":"GET","path":"/health","process":"B","result":"ready","sequence":8,"status":200}
+{"method":"GET","path":"/","process":"B","result":"retained","sequence":9,"status":200,"task_title":"Task restart d98895ed9879"}
+{"method":"GET","path":"/admin/tasks/task/","process":"admin","result":"admin-index","sequence":10,"status":200}
+{"method":"GET","path":"/admin/tasks/task/1/change/","process":"admin","result":"admin-retained","sequence":11,"status":200,"task_title":"Task restart d98895ed9879"}

@@ -1,0 +1,3 @@
+run_id=d98895ed9879 source_job=fresh migration=tasks.0001_initial status=applied
+run_id=d98895ed9879 source_job=repeat migration=tasks.0001_initial status=current
+run_id=d98895ed9879 fresh_migrate=passed repeat_migrate=passed migration=tasks.0001_initial drift=none columns=completed,id,title sha256=745bc45f655bf0b164c1464c0c22786d22910e2aea235772e5dcea38495e4bf3

@@ -230,12 +230,12 @@ and Django migration Jobs have proven the shared fresh-database contract.
 **Validation Approach**: Start with empty databases, run both migration Jobs,
 exercise public read/write checks, restart each workload, and verify retained
 records.
-**Plans**: 3/5 plans executed
+**Plans**: 4/5 plans executed
 
 - [x] 25-01-PLAN.md
 - [x] 25-02-PLAN.md
 - [x] 25-03-PLAN.md
-- [ ] 25-04-PLAN.md
+- [x] 25-04-PLAN.md
 - [ ] 25-05-PLAN.md
 
 **UI hint**: yes
@@ -374,7 +374,7 @@ Phases execute in numeric order: 21 -> 22 -> 23 -> 24 -> 25 -> 26 -> 27 -> 28
 | 22. FastAPI PostgreSQL Stage | 4/4 | Complete    | 2026-07-15 |
 | 23. FastAPI Production Stage | 4/4 | Complete    | 2026-07-15 |
 | 24. Django Deploy Stage | 5/5 | Complete    | 2026-07-15 |
-| 25. Django PostgreSQL Stage | 3/5 | In Progress|  |
+| 25. Django PostgreSQL Stage | 4/5 | In Progress|  |
 | 26. Django Production Stage | 0/TBD | Not started | - |
 | 27. Practice-Backed Tutorial Series | 0/TBD | Not started | - |
 | 28. Catalog Publication and Cleanup | 0/TBD | Not started | - |

@@ -1,0 +1,2 @@
+package=psycopg version=3.3.4 source=github.com/psycopg/psycopg python=3.12 lock_sha256=a02b8d643f521728b080ba4a7b290fabaf26821733713ca1b424dcffcb95910b
+package=psycopg-binary version=3.3.4 source=github.com/psycopg/psycopg python=3.12 lock_sha256=a02b8d643f521728b080ba4a7b290fabaf26821733713ca1b424dcffcb95910b
