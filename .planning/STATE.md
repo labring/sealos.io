@@ -5,8 +5,8 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 26
 current_phase_name: Django Production Stage
 status: ready
-stopped_at: Phase 25 verified; ready for Phase 26
-last_updated: "2026-07-16T04:16:24Z"
+stopped_at: Phase 26 context gathered; ready for research and planning
+last_updated: "2026-07-16T04:32:26.148Z"
 last_activity: 2026-07-16
 progress:
   total_phases: 8
@@ -33,7 +33,7 @@ workflow.
 |-------|-------|
 | Phase | 26 of 28 |
 | Name | Django Production Stage |
-| Status | Ready for discussion and planning |
+| Status | Ready for research and planning |
 | Goal | Readers can reproduce and roll back the complete production Django release from immutable public source and image references. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
@@ -47,19 +47,19 @@ workflow.
 
 Phase: 26 (Django Production Stage) — READY
 Plan: 0 of TBD
-Status: Ready for discussion and planning
+Status: Ready for research and planning
 Last activity: 2026-07-16
 
 ## Next Action
 
-Run `$gsd-discuss-phase 26` to lock the production runtime, immutable image,
-rollback, and publication decisions.
+Run `$gsd-plan-phase 26` to research and plan the locked Django production
+runtime, immutable image, rollback, and publication decisions.
 
 ## Session
 
-**Last session:** 2026-07-16T04:16:24Z
-**Stopped at:** Phase 25 verified; ready for Phase 26
-**Resume file:** None
+**Last session:** 2026-07-16T04:32:26.144Z
+**Stopped at:** Phase 26 context gathered; ready for research and planning
+**Resume file:** .planning/phases/26-django-production-stage/26-CONTEXT.md
 
 ## Performance Metrics
 
