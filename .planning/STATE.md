@@ -4,16 +4,16 @@ milestone: v1.3
 milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 26
 current_phase_name: Django Production Stage
-status: ready
-stopped_at: Phase 26 context gathered; ready for research and planning
-last_updated: "2026-07-16T04:32:26.148Z"
+status: in_progress
+stopped_at: Completed 26-01-PLAN.md
+last_updated: "2026-07-16T07:02:04.926Z"
 last_activity: 2026-07-16
 progress:
   total_phases: 8
   completed_phases: 5
-  total_plans: 21
-  completed_plans: 21
-  percent: 63
+  total_plans: 25
+  completed_plans: 22
+  percent: 88
 ---
 
 # Project State
@@ -33,7 +33,7 @@ workflow.
 |-------|-------|
 | Phase | 26 of 28 |
 | Name | Django Production Stage |
-| Status | Ready for research and planning |
+| Status | In progress |
 | Goal | Readers can reproduce and roll back the complete production Django release from immutable public source and image references. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
@@ -45,21 +45,21 @@ workflow.
 
 ## Current Position
 
-Phase: 26 (Django Production Stage) — READY
-Plan: 0 of TBD
-Status: Ready for research and planning
+Phase: 26 (Django Production Stage) — IN PROGRESS
+Plan: 1 of 4
+Status: Completed 26-01; ready for 26-02
 Last activity: 2026-07-16
 
 ## Next Action
 
-Run `$gsd-plan-phase 26` to research and plan the locked Django production
-runtime, immutable image, rollback, and publication decisions.
+Run Plan `26-02` to add the production workload contracts, freeze the final
+reader source, and publish Image B.
 
 ## Session
 
-**Last session:** 2026-07-16T04:32:26.144Z
-**Stopped at:** Phase 26 context gathered; ready for research and planning
-**Resume file:** .planning/phases/26-django-production-stage/26-CONTEXT.md
+**Last session:** 2026-07-16T07:02:04.922Z
+**Stopped at:** Completed 26-01-PLAN.md
+**Resume file:** None
 
 ## Performance Metrics
 
@@ -98,6 +98,7 @@ runtime, immutable image, rollback, and publication decisions.
 | Phase 25 P04 | 121 min | 2 tasks | 9 files |
 | Phase 25 P05 | 50 min | 3 tasks | 4 evidence files |
 | Phase 25 verification | 2026-07-16 | 23/23 must-haves verified | TDD-02, TDD-03, and DJAN-02 passed |
+| Phase 26 P01 | 44 min | 3 tasks | 9 files |
 
 ## Decisions
 
@@ -172,3 +173,6 @@ runtime, immutable image, rollback, and publication decisions.
 - [Phase 25]: 25-05: Treat the immutable FastAPI evidence-enabled phase gate as the authoritative Stage 2 harness replay.
 - [Phase 25]: 25-05: Freeze exactly eight reviewed evidence inputs before the final GitHub and read-only cleanup audit.
 - [Phase 25]: Independent verification passed 23/23 must-haves; TDD-02, TDD-03, and DJAN-02 are complete, and Phase 26 is the next active stage.
+- [Phase 26]: 26-01: Gate production-only secrets, localhost hosts, manifest static storage, and serving-worker identity behind DJANGO_PRODUCTION=1. — Preserve the accepted Stage 2 development path while production fails closed on every runtime identity input.
+- [Phase 26]: 26-01: Use the anonymous GHCR readback digest as the deployable Image A identity. — The public registry result is the immutable reader and Sealos deployment reference.
+- [Phase 26]: 26-01: Publish package visibility only after repository linkage is exact. — Anonymous replay begins after source ownership and package association are proven.
