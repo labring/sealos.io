@@ -6,6 +6,7 @@ import {
   readFile,
   rm,
   unlink,
+  writeFile,
 } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
@@ -37,6 +38,8 @@ const integrationFiles = [
   'lib/utils/metadata.ts',
   'lib/utils/tutorial-metadata.ts',
   'app/[lang]/(home)/tutorials/page.tsx',
+  'app/[lang]/(home)/tutorials/tutorial-growth-data.ts',
+  'app/[lang]/(home)/tutorials/TutorialFrameworkMatrix.tsx',
   'app/sitemap.ts',
   'lib/source.ts',
   'new-components/Header.tsx',
@@ -81,6 +84,12 @@ async function createTutorialFixture() {
   return fixtureRoot;
 }
 
+async function updateFixtureFile(fixtureRoot, relativePath, transform) {
+  const path = join(fixtureRoot, relativePath);
+  const source = await readFile(path, 'utf8');
+  await writeFile(path, transform(source));
+}
+
 test('validator accepts the exact 15-page publication contract', () => {
   const result = runValidator(root);
 
@@ -108,5 +117,51 @@ test('validator fails closed when a Python evidence asset is missing', async (t)
   assert.match(
     result.stderr,
     /deploy-fastapi-sealos: image reference does not resolve to public asset \/images\/deploy-fastapi-sealos\/local-stage-validation\.webp/,
+  );
+});
+
+test('validator rejects a catalog that omits Django availability', async (t) => {
+  const fixtureRoot = await createTutorialFixture();
+  t.after(() => rm(fixtureRoot, { force: true, recursive: true }));
+
+  await updateFixtureFile(
+    fixtureRoot,
+    'app/[lang]/(home)/tutorials/tutorial-growth-data.ts',
+    (source) =>
+      source.replace(
+        /(export const AVAILABLE_FRAMEWORK_KEYS = new Set\(\[[\s\S]*?)(\]\);)/,
+        (_match, availableKeys, closing) =>
+          `${availableKeys.replace(/\s*'django',?\n?/, '\n')}${closing}`,
+      ),
+  );
+
+  const result = runValidator(fixtureRoot);
+
+  assert.equal(result.status, 1);
+  assert.match(
+    result.stderr,
+    /tutorial-growth-data\.ts: available framework keys must be exactly nextjs, react, nodejs, fastapi, django/,
+  );
+});
+
+test('validator rejects index copy that omits Python framework paths', async (t) => {
+  const fixtureRoot = await createTutorialFixture();
+  t.after(() => rm(fixtureRoot, { force: true, recursive: true }));
+
+  await updateFixtureFile(
+    fixtureRoot,
+    'app/[lang]/(home)/tutorials/page.tsx',
+    (source) =>
+      source
+        .replaceAll('FastAPI', 'Python API')
+        .replaceAll('Django', 'Python web'),
+  );
+
+  const result = runValidator(fixtureRoot);
+
+  assert.equal(result.status, 1);
+  assert.match(
+    result.stderr,
+    /tutorials\/page\.tsx: missing five-framework catalog metadata and hero copy/,
   );
 });
