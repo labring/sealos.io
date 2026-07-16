@@ -4,17 +4,17 @@ milestone: v1.3
 milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 28
 current_phase_name: Catalog Publication and Cleanup
-status: executing
-stopped_at: Completed 28-02-PLAN.md
-last_updated: "2026-07-16T21:42:56.538Z"
+status: verifying
+stopped_at: Completed 28-03-PLAN.md
+last_updated: "2026-07-16T22:15:10.586Z"
 last_activity: 2026-07-17
-last_activity_desc: Phase 28 Plan 02 complete
+last_activity_desc: Phase 28 plans complete
 progress:
   total_phases: 8
-  completed_phases: 7
+  completed_phases: 8
   total_plans: 34
-  completed_plans: 33
-  percent: 97
+  completed_plans: 34
+  percent: 100
 ---
 
 # Project State
@@ -34,34 +34,31 @@ workflow.
 |-------|-------|
 | Phase | 28 of 28 |
 | Name | Catalog Publication and Cleanup |
-| Status | Executing |
+| Status | Verifying |
 | Goal | Readers can navigate the complete 15-page tutorial catalog while maintainers can verify public contracts and the empty practice footprint. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-- TDD-04
-- SHOT-03
-- PUB-03
-- OPS-02
+All Phase 28 requirements are complete.
 
 ## Current Position
 
-Phase: 28 (Catalog Publication and Cleanup) — EXECUTING
+Phase: 28 (Catalog Publication and Cleanup) — VERIFYING
 Plan: 3 of 3
-Status: Ready to execute
-Last activity: 2026-07-17 — Phase 28 Plan 02 complete
+Status: Phase complete — ready for verification
+Last activity: 2026-07-17 — Phase 28 plans complete
 
 ## Next Action
 
-Execute Plan 28-03 production build, HTTP, browser, evidence, and cleanup gates.
+Verify Phase 28 goal achievement and close milestone v1.3.
 
 ## Session
 
-**Last session:** 2026-07-16T21:42:56.536Z
-**Stopped at:** Completed 28-02-PLAN.md
-**Resume file:** .planning/phases/28-catalog-publication-and-cleanup/28-03-PLAN.md
+**Last session:** 2026-07-16T22:15:10.583Z
+**Stopped at:** Completed 28-03-PLAN.md
+**Resume file:** None
 
 ## Performance Metrics
 
@@ -107,6 +104,7 @@ Execute Plan 28-03 production build, HTTP, browser, evidence, and cleanup gates.
 | Phase 26 verification | 2026-07-16 | 21/21 must-haves verified | DJAN-03 and DJAN-04 passed |
 | Phase 28 P01 | 15 min | 2 tasks | 3 files |
 | Phase 28 P02 | 10 min | 2 tasks | 5 files |
+| Phase 28 P03 | 20 min | 3 tasks | 7 files |
 
 ## Decisions
 
@@ -198,3 +196,6 @@ Execute Plan 28-03 production build, HTTP, browser, evidence, and cleanup gates.
 - [Phase 28]: Promote FastAPI and Django through the existing derived catalog state.
 - [Phase 28]: Keep Go and Spring Boot as the exact coming-next framework set.
 - [Phase 28]: Bind availability counts and five-framework copy to the public validator.
+- [Phase 28]: Accept production publication through an exact 31-path loopback HTTP matrix.
+- [Phase 28]: Require two stable DOM samples and original-detail visual review at desktop and mobile.
+- [Phase 28]: Seal Phase 28 separately while preserving every Phase 27 evidence byte and mode.

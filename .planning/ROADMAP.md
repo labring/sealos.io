@@ -39,7 +39,7 @@ cleanup of the live Sealos footprint.
 - [x] **Phase 27: Practice-Backed Tutorial Series** - Turn real local and (completed 2026-07-17)
   Sealos runs into six English tutorials, retained evidence, and 24 screenshots.
 
-- [ ] **Phase 28: Catalog Publication and Cleanup** - Publish the 15-page
+- [x] **Phase 28: Catalog Publication and Cleanup** - Publish the 15-page (completed 2026-07-17)
   catalog, pass validator and static HTTP contracts, and prove resource cleanup.
 
 ## Phase Details
@@ -377,7 +377,7 @@ matrix and navigation, then query each cleanup resource class.
 
 - [x] 28-01-PLAN.md
 - [x] 28-02-PLAN.md
-- [ ] 28-03-PLAN.md
+- [x] 28-03-PLAN.md
 
 **UI hint**: yes
 
@@ -402,7 +402,7 @@ Phases execute in numeric order: 21 -> 22 -> 23 -> 24 -> 25 -> 26 -> 27 -> 28
 | 25. Django PostgreSQL Stage | 5/5 | Complete | 2026-07-16 |
 | 26. Django Production Stage | 4/4 | Complete | 2026-07-16 |
 | 27. Practice-Backed Tutorial Series | 0/TBD | Not started | - |
-| 28. Catalog Publication and Cleanup | 2/3 | In Progress|  |
+| 28. Catalog Publication and Cleanup | 3/3 | Complete   | 2026-07-17 |
 
 ---
 *Roadmap created: 2026-07-15 for milestone v1.3*

@@ -19,7 +19,7 @@ product.
   PostgreSQL database and observe migration completion, readiness, and public
   read/write behavior.
 
-- [ ] **TDD-04**: Maintainer can verify the tutorial catalog through the public
+- [x] **TDD-04**: Maintainer can verify the tutorial catalog through the public
   validator CLI and static HTTP routes.
 
 ### FastAPI Reference Application
@@ -77,7 +77,7 @@ product.
 - [x] **SHOT-02**: Every screenshot is a redacted 1440x900 WebP below 200 KB and
   matches its adjacent tutorial step.
 
-- [ ] **SHOT-03**: Every new MDX image reference resolves locally and through the
+- [x] **SHOT-03**: Every new MDX image reference resolves locally and through the
   static HTTP output with the expected image content type.
 
 ### Publication and Operations
@@ -89,14 +89,14 @@ product.
   six new source pages, series relationships, required terminology, and image
   contracts.
 
-- [ ] **PUB-03**: Static route smoke checks return successful responses for the
+- [x] **PUB-03**: Static route smoke checks return successful responses for the
   tutorial index, six new pages, and 24 new images.
 
 - [x] **OPS-01**: Maintainer can reproduce successful FastAPI and Django Sealos
   deployments, migration Jobs, readiness, and public read/write checks from the
   retained evidence package.
 
-- [ ] **OPS-02**: Maintainer can verify removal of every practice `Instance`,
+- [x] **OPS-02**: Maintainer can verify removal of every practice `Instance`,
   workload, Service, Ingress, Job, PostgreSQL Cluster, PVC, Secret, and temporary
   image resource after evidence capture.
 
@@ -132,7 +132,7 @@ Roadmap creation maps each v1.3 requirement to exactly one phase.
 | TDD-01 | Phase 22 | Complete |
 | TDD-02 | Phase 25 | Complete |
 | TDD-03 | Phase 25 | Complete |
-| TDD-04 | Phase 28 | Pending |
+| TDD-04 | Phase 28 | Complete |
 | FAST-01 | Phase 21 | Complete |
 | FAST-02 | Phase 22 | Complete |
 | FAST-03 | Phase 23 | Complete |
@@ -147,12 +147,12 @@ Roadmap creation maps each v1.3 requirement to exactly one phase.
 | CONT-04 | Phase 27 | Complete |
 | SHOT-01 | Phase 27 | Complete |
 | SHOT-02 | Phase 27 | Complete |
-| SHOT-03 | Phase 28 | Pending |
+| SHOT-03 | Phase 28 | Complete |
 | PUB-01 | Phase 28 | Complete |
 | PUB-02 | Phase 28 | Complete |
-| PUB-03 | Phase 28 | Pending |
+| PUB-03 | Phase 28 | Complete |
 | OPS-01 | Phase 27 | Complete |
-| OPS-02 | Phase 28 | Pending |
+| OPS-02 | Phase 28 | Complete |
 
 **Coverage:**
 
