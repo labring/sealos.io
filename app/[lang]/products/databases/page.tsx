@@ -3,7 +3,7 @@ import Databases from './components/databases';
 import FooterCta from './components/footerCta';
 import { Footer } from '@/new-components/Footer';
 import { Header } from '@/new-components/Header';
-import { HeroBackground } from '@/app/[lang]/(home)/(new-home)/components/HeroBackground';
+import { LegacyHeroBackground } from '@/app/[lang]/(home)/(new-home)/components/LegacyHeroBackground';
 import { GodRays } from '@/new-components/GodRays';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
@@ -60,7 +60,7 @@ export default function DatabasesPage({
 
       <main className="-mt-24 overflow-x-clip bg-black">
         <section className="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-24 lg:pt-48 lg:pb-28">
-          <HeroBackground />
+          <LegacyHeroBackground />
           <GodRays
             sources={[
               {
