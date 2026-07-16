@@ -1,21 +1,22 @@
 #!/usr/bin/env node
-import {
-  existsSync,
-  readFileSync,
-  readdirSync,
-  statSync,
-} from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 const root = process.cwd();
 const tutorialDir = join(root, 'content', 'tutorials');
-const newTutorialSlugs = new Set([
+const strictTutorialSlugs = new Set([
   'deploy-react-sealos',
   'react-postgresql-sealos',
   'react-production-deployment-sealos',
   'deploy-nodejs-sealos',
   'nodejs-postgresql-sealos',
   'nodejs-production-deployment-sealos',
+  'deploy-fastapi-sealos',
+  'fastapi-postgresql-sealos',
+  'fastapi-production-deployment-sealos',
+  'deploy-django-sealos',
+  'django-postgresql-sealos',
+  'django-production-deployment-sealos',
 ]);
 
 const webpBudgetBytes = 153600;
@@ -86,10 +87,7 @@ const tutorialContracts = [
     series: 'sealos-skills-nextjs',
     seriesOrder: 3,
     ctaHref: '/sealos-skills',
-    relatedTutorials: [
-      'deploy-nextjs-sealos',
-      'nextjs-postgresql-sealos',
-    ],
+    relatedTutorials: ['deploy-nextjs-sealos', 'nextjs-postgresql-sealos'],
     frontmatterPhrases: [
       'Runtime Truth Pass',
       'DEPLOY',
@@ -192,10 +190,7 @@ const tutorialContracts = [
     series: 'sealos-skills-react',
     seriesOrder: 3,
     ctaHref: '/sealos-skills',
-    relatedTutorials: [
-      'deploy-react-sealos',
-      'react-postgresql-sealos',
-    ],
+    relatedTutorials: ['deploy-react-sealos', 'react-postgresql-sealos'],
     frontmatterPhrases: [
       'Runtime Truth Pass',
       'DEPLOY',
@@ -307,10 +302,7 @@ const tutorialContracts = [
     series: 'sealos-skills-nodejs',
     seriesOrder: 3,
     ctaHref: '/sealos-skills',
-    relatedTutorials: [
-      'deploy-nodejs-sealos',
-      'nodejs-postgresql-sealos',
-    ],
+    relatedTutorials: ['deploy-nodejs-sealos', 'nodejs-postgresql-sealos'],
     frontmatterPhrases: [
       'Runtime Truth Pass',
       'DEPLOY',
@@ -343,6 +335,228 @@ const tutorialContracts = [
       height: 900,
     },
   },
+  {
+    slug: 'deploy-fastapi-sealos',
+    framework: 'FastAPI',
+    stage: 'beginner',
+    series: 'sealos-skills-fastapi',
+    seriesOrder: 1,
+    ctaHref: 'https://os.sealos.io',
+    sourceTag: 'stage-1-deploy',
+    sourceUrl:
+      'https://github.com/yangchuansheng/sealos-fastapi-tutorial/tree/stage-1-deploy',
+    relatedTutorials: [
+      'fastapi-postgresql-sealos',
+      'fastapi-production-deployment-sealos',
+    ],
+    frontmatterPhrases: [
+      'stage-1-deploy',
+      'Runtime Truth Pass',
+      '.sealos/template/index.yaml',
+      '.sealos/state.json',
+    ],
+    bodyPhrases: [
+      'FastAPI',
+      'Swagger UI',
+      '$sealos',
+      '/sealos',
+      'Runtime Truth Pass',
+      '.sealos/analysis.json',
+      '.sealos/template/index.yaml',
+      '.sealos/state.json',
+    ],
+    imagePolicy: {
+      folder: '/images/deploy-fastapi-sealos/',
+      webpOnly: true,
+      width: 1440,
+      height: 900,
+    },
+  },
+  {
+    slug: 'fastapi-postgresql-sealos',
+    framework: 'FastAPI',
+    stage: 'advanced',
+    series: 'sealos-skills-fastapi',
+    seriesOrder: 2,
+    ctaHref: '/sealos-skills',
+    sourceTag: 'stage-2-postgresql',
+    sourceUrl:
+      'https://github.com/yangchuansheng/sealos-fastapi-tutorial/tree/stage-2-postgresql',
+    relatedTutorials: [
+      'deploy-fastapi-sealos',
+      'fastapi-production-deployment-sealos',
+    ],
+    frontmatterPhrases: [
+      'stage-2-postgresql',
+      'PostgreSQL',
+      'Alembic',
+      'migration',
+      'persistence',
+    ],
+    bodyPhrases: [
+      'FastAPI',
+      'PostgreSQL',
+      'SQLAlchemy 2',
+      'psycopg 3',
+      'Alembic',
+      '0001',
+      '$sealos',
+      '/sealos',
+      'DEPLOY',
+      'rollback',
+    ],
+    imagePolicy: {
+      folder: '/images/fastapi-postgresql-sealos/',
+      webpOnly: true,
+      width: 1440,
+      height: 900,
+    },
+  },
+  {
+    slug: 'fastapi-production-deployment-sealos',
+    framework: 'FastAPI',
+    stage: 'production',
+    series: 'sealos-skills-fastapi',
+    seriesOrder: 3,
+    ctaHref: '/sealos-skills',
+    sourceTag: 'stage-3-production',
+    sourceUrl:
+      'https://github.com/yangchuansheng/sealos-fastapi-tutorial/tree/stage-3-production',
+    relatedTutorials: ['deploy-fastapi-sealos', 'fastapi-postgresql-sealos'],
+    frontmatterPhrases: ['stage-3-production', 'Alembic', 'rollback', 'backup'],
+    bodyPhrases: [
+      'FastAPI',
+      'PostgreSQL',
+      'Alembic',
+      '$sealos',
+      '/sealos',
+      'Runtime Truth Pass',
+      '.sealos/state.json',
+      'DEPLOY',
+      'UPDATE',
+      'rollback',
+      'backup',
+    ],
+    imagePolicy: {
+      folder: '/images/fastapi-production-deployment-sealos/',
+      webpOnly: true,
+      width: 1440,
+      height: 900,
+    },
+  },
+  {
+    slug: 'deploy-django-sealos',
+    framework: 'Django',
+    stage: 'beginner',
+    series: 'sealos-skills-django',
+    seriesOrder: 1,
+    ctaHref: 'https://os.sealos.io',
+    sourceTag: 'stage-1-deploy',
+    sourceUrl:
+      'https://github.com/yangchuansheng/sealos-django-tutorial/tree/stage-1-deploy',
+    relatedTutorials: [
+      'django-postgresql-sealos',
+      'django-production-deployment-sealos',
+    ],
+    frontmatterPhrases: [
+      'stage-1-deploy',
+      'Runtime Truth Pass',
+      '.sealos/template/index.yaml',
+      '.sealos/state.json',
+    ],
+    bodyPhrases: [
+      'Django',
+      'tasks.0001_initial',
+      'Task Board',
+      '$sealos',
+      '/sealos',
+      'Runtime Truth Pass',
+      '.sealos/analysis.json',
+      '.sealos/template/index.yaml',
+      '.sealos/state.json',
+    ],
+    imagePolicy: {
+      folder: '/images/deploy-django-sealos/',
+      webpOnly: true,
+      width: 1440,
+      height: 900,
+    },
+  },
+  {
+    slug: 'django-postgresql-sealos',
+    framework: 'Django',
+    stage: 'advanced',
+    series: 'sealos-skills-django',
+    seriesOrder: 2,
+    ctaHref: '/sealos-skills',
+    sourceTag: 'stage-2-postgresql',
+    sourceUrl:
+      'https://github.com/yangchuansheng/sealos-django-tutorial/tree/stage-2-postgresql',
+    relatedTutorials: [
+      'deploy-django-sealos',
+      'django-production-deployment-sealos',
+    ],
+    frontmatterPhrases: [
+      'stage-2-postgresql',
+      'PostgreSQL',
+      'tasks.0001_initial',
+      'migration',
+      'persistence',
+    ],
+    bodyPhrases: [
+      'Django',
+      'PostgreSQL',
+      'psycopg',
+      'tasks.0001_initial',
+      'Task Board',
+      '$sealos',
+      '/sealos',
+      'DEPLOY',
+      'rollback',
+    ],
+    imagePolicy: {
+      folder: '/images/django-postgresql-sealos/',
+      webpOnly: true,
+      width: 1440,
+      height: 900,
+    },
+  },
+  {
+    slug: 'django-production-deployment-sealos',
+    framework: 'Django',
+    stage: 'production',
+    series: 'sealos-skills-django',
+    seriesOrder: 3,
+    ctaHref: '/sealos-skills',
+    sourceTag: 'stage-3-production',
+    sourceUrl:
+      'https://github.com/yangchuansheng/sealos-django-tutorial/tree/stage-3-production',
+    relatedTutorials: ['deploy-django-sealos', 'django-postgresql-sealos'],
+    frontmatterPhrases: [
+      'stage-3-production',
+      'tasks.0001_initial',
+      'rollback',
+      'backup',
+    ],
+    bodyPhrases: [
+      'Django',
+      'PostgreSQL',
+      'tasks.0001_initial',
+      'Task Board',
+      '/sealos',
+      '.sealos/state.json',
+      'DEPLOY',
+      'UPDATE',
+      'rollback',
+      'backup',
+    ],
+    imagePolicy: {
+      folder: '/images/django-production-deployment-sealos/',
+      webpOnly: true,
+      width: 1440,
+      height: 900,
+    },
+  },
 ];
 
 const expected = tutorialContracts.map((contract) => contract.slug);
@@ -359,14 +573,26 @@ const forbiddenBodyPatterns = [
 ];
 
 const forbiddenDirectSkillPatterns = [
-  { label: '/sealos-deploy', pattern: /\/sealos-deploy/ },
-  { label: '/sealos-database', pattern: /\/sealos-database/ },
-  { label: '/sealos-s3', pattern: /\/sealos-s3/ },
+  {
+    label: '/sealos-deploy',
+    pattern: /(^|[^A-Za-z0-9_-])\/sealos-deploy(?:\s|`|$)/m,
+  },
+  {
+    label: '/sealos-database',
+    pattern: /(^|[^A-Za-z0-9_-])\/sealos-database(?:\s|`|$)/m,
+  },
+  {
+    label: '/sealos-s3',
+    pattern: /(^|[^A-Za-z0-9_-])\/sealos-s3(?:\s|`|$)/m,
+  },
   { label: 'skills.sh', pattern: /skills\.sh/ },
 ];
 
 const forbiddenPublicPatterns = [
-  { label: 'Screenshot placeholder: Phase 19', pattern: /Screenshot placeholder: Phase 19/ },
+  {
+    label: 'Screenshot placeholder: Phase 19',
+    pattern: /Screenshot placeholder: Phase 19/,
+  },
   { label: 'Phase 19 blocker', pattern: /Phase 19 blocker/ },
   { label: 'blocked-live-runtime', pattern: /blocked-live-runtime/ },
   { label: 'RBAC', pattern: /\bRBAC\b/ },
@@ -527,7 +753,9 @@ function validateRelatedTutorials(tutorial, contract, slugs) {
   const related = readList(tutorial.frontmatter, 'relatedTutorials');
   for (const relatedSlug of related) {
     if (!slugs.has(relatedSlug)) {
-      fail(`${tutorial.slug}: relatedTutorials references unknown slug ${relatedSlug}`);
+      fail(
+        `${tutorial.slug}: relatedTutorials references unknown slug ${relatedSlug}`,
+      );
     }
   }
   const expectedRelated = contract.relatedTutorials;
@@ -554,7 +782,9 @@ function validateFrontmatterContract(tutorial, contract) {
   for (const [key, expectedValue] of scalarChecks) {
     const actual = parseScalar(tutorial.frontmatter, key);
     if (actual !== expectedValue) {
-      fail(`${tutorial.slug}: frontmatter ${key} expected ${expectedValue}, found ${actual ?? 'missing'}`);
+      fail(
+        `${tutorial.slug}: frontmatter ${key} expected ${expectedValue}, found ${actual ?? 'missing'}`,
+      );
     }
   }
 
@@ -567,10 +797,25 @@ function validateFrontmatterContract(tutorial, contract) {
 
   const ctaHref = parseNestedScalar(tutorial.frontmatter, 'cta', 'href');
   if (ctaHref !== contract.ctaHref) {
-    fail(`${tutorial.slug}: CTA href expected ${contract.ctaHref}, found ${ctaHref ?? 'missing'}`);
+    fail(
+      `${tutorial.slug}: CTA href expected ${contract.ctaHref}, found ${ctaHref ?? 'missing'}`,
+    );
   }
 
   requireSourcePhrases(tutorial, 'frontmatter', contract.frontmatterPhrases);
+}
+
+function validateProtectedSource(tutorial, contract) {
+  if (!contract.sourceTag || !contract.sourceUrl) return;
+
+  const protectedSourceLinks = collectMarkdownLinks(tutorial.body).filter(
+    (link) => link.href === contract.sourceUrl,
+  );
+  if (protectedSourceLinks.length !== 1) {
+    fail(
+      `${tutorial.slug}: protected source ${contract.sourceTag} must link exactly once to ${contract.sourceUrl}`,
+    );
+  }
 }
 
 function validateImageReferences(tutorial, contract) {
@@ -590,13 +835,17 @@ function validateImageReferences(tutorial, contract) {
 
     const publicPath = publicPathForImageRef(ref);
     if (!publicPath || !existsSync(publicPath)) {
-      fail(`${tutorial.slug}: image reference does not resolve to public asset ${ref}`);
+      fail(
+        `${tutorial.slug}: image reference does not resolve to public asset ${ref}`,
+      );
       continue;
     }
 
     if (!contract.imagePolicy.folder) continue;
     if (!ref.startsWith(contract.imagePolicy.folder)) {
-      fail(`${tutorial.slug}: image reference ${ref} must start with ${contract.imagePolicy.folder}`);
+      fail(
+        `${tutorial.slug}: image reference ${ref} must start with ${contract.imagePolicy.folder}`,
+      );
     }
     if (contract.imagePolicy.webpOnly && !ref.endsWith('.webp')) {
       fail(`${tutorial.slug}: image reference ${ref} must use .webp`);
@@ -604,7 +853,9 @@ function validateImageReferences(tutorial, contract) {
 
     const stats = statSync(publicPath);
     if (stats.size >= webpBudgetBytes) {
-      fail(`${tutorial.slug}: image ${ref} is ${stats.size} bytes, expected below ${webpBudgetBytes}`);
+      fail(
+        `${tutorial.slug}: image ${ref} is ${stats.size} bytes, expected below ${webpBudgetBytes}`,
+      );
     }
 
     if (ref.endsWith('.webp')) {
@@ -624,20 +875,35 @@ function validateImageReferences(tutorial, contract) {
     fail(`${tutorial.slug}: duplicate image reference ${duplicate}`);
   }
 
+  if (contract.imagePolicy.folder) {
+    if (imageRefs.length !== 4) {
+      fail(
+        `${tutorial.slug}: expected exactly 4 evidence image references, found ${imageRefs.length}`,
+      );
+    }
+    if (seen.size !== 4) {
+      fail(
+        `${tutorial.slug}: expected exactly 4 unique evidence image references, found ${seen.size}`,
+      );
+    }
+  }
+
   return imageRefs.map((imageRef) => imageRef.href);
 }
 
 function validatePublishedImageSet(tutorials) {
   const refsBySlug = new Map();
   for (const tutorial of tutorials) {
-    if (!newTutorialSlugs.has(tutorial.slug)) continue;
+    if (!strictTutorialSlugs.has(tutorial.slug)) continue;
     refsBySlug.set(
       tutorial.slug,
-      new Set(collectMarkdownImageRefs(tutorial.body).map((image) => image.href)),
+      new Set(
+        collectMarkdownImageRefs(tutorial.body).map((image) => image.href),
+      ),
     );
   }
 
-  for (const slug of newTutorialSlugs) {
+  for (const slug of strictTutorialSlugs) {
     const folder = join(root, 'public', 'images', slug);
     if (!existsSync(folder)) {
       fail(`${slug}: image folder is missing at public/images/${slug}`);
@@ -730,6 +996,7 @@ for (const tutorial of tutorials) {
   }
 
   validateFrontmatterContract(tutorial, contract);
+  validateProtectedSource(tutorial, contract);
   validateRelatedTutorials(tutorial, contract, slugs);
   validateImageReferences(tutorial, contract);
 
@@ -817,7 +1084,9 @@ if (existsSync(tutorialMetadataPath)) {
   if (!metadata.includes('generateTutorialMetadata'))
     fail('tutorial-metadata.ts: missing generateTutorialMetadata');
   if (!metadata.includes('Sealos Tutorials'))
-    fail('tutorial-metadata.ts: tutorial metadata must use Sealos Tutorials suffix');
+    fail(
+      'tutorial-metadata.ts: tutorial metadata must use Sealos Tutorials suffix',
+    );
   if (!metadata.includes('/tutorials'))
     fail('tutorial-metadata.ts: missing tutorials canonical path handling');
 }
