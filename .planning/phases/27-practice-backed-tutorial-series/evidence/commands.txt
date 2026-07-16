@@ -1,0 +1,77 @@
+# FastAPI reviewed replay commands
+git clone --branch stage-1-deploy https://github.com/yangchuansheng/sealos-fastapi-tutorial.git
+uv sync --locked
+uv run pytest -q
+uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
+node <sealos-deploy-plugin>/scripts/score-model.mjs <run-owned-clone>
+python3 <docker-to-sealos-plugin>/scripts/quality_gate.py --artifacts <run-owned-template>
+node <sealos-deploy-plugin>/scripts/deploy-template.mjs <run-owned-template> --dry-run
+node <sealos-deploy-plugin>/scripts/deploy-template.mjs <run-owned-template>
+node <sealos-deploy-plugin>/scripts/sealos-footprint.mjs --namespace <current-workspace> --app <run-id>
+node <sealos-deploy-plugin>/scripts/sealos-live-smoke.mjs --url <public-url>/health
+node <sealos-deploy-plugin>/scripts/sealos-log-scan.mjs --namespace <current-workspace> --app <run-component>
+git clone --branch stage-2-postgresql https://github.com/yangchuansheng/sealos-fastapi-tutorial.git
+uv sync --locked
+uv export --locked --no-dev --no-emit-project --no-hashes --format requirements.txt --output-file requirements.txt
+DATABASE_URL=<your-database-url> TEST_DATABASE_URL=<your-database-url> uv run pytest -q
+kubectl apply --dry-run=server --validate=strict -f <migration-job>
+kubectl wait --for=condition=complete job/<migration-job> --timeout=300s
+kubectl rollout restart statefulset/<stage2-app>
+kubectl rollout status statefulset/<stage2-app> --timeout=300s
+git clone --branch stage-3-production https://github.com/yangchuansheng/sealos-fastapi-tutorial.git
+docker buildx imagetools inspect ghcr.io/yangchuansheng/sealos-fastapi-tutorial@<immutable-digest>
+kubectl apply --dry-run=server --validate=strict -f <stage3-database-and-application-manifests>
+kubectl wait --for=condition=complete job/<stage3-migration-job> --timeout=300s
+kubectl wait --for=condition=complete job/<stage3-migration-verify-job> --timeout=300s
+kubectl rollout status deployment/<stage3-app> --timeout=300s
+node <sealos-deploy-plugin>/scripts/sealos-footprint.mjs --namespace <current-workspace> --app <stage3-app>
+node <sealos-deploy-plugin>/scripts/sealos-live-smoke.mjs --url <public-url>/health
+node <sealos-deploy-plugin>/scripts/sealos-log-scan.mjs --namespace <current-workspace> --app <stage3-app> --min-window-seconds 60
+kubectl delete -f <exact-run-owned-stage3-manifests>
+
+# Django reviewed replay commands
+# Protected source and local validation
+git clone --branch stage-1-deploy https://github.com/yangchuansheng/sealos-django-tutorial.git
+uv sync --locked
+uv lock --check
+uv run python manage.py migrate --noinput
+uv run python manage.py showmigrations tasks
+uv run python manage.py makemigrations --check --dry-run
+uv run pytest -q
+uv run python manage.py runserver 0.0.0.0:8000 --noreload
+
+# Current Sealos plugin workflow used by the practice
+node <sealos-plugin>/scripts/score-model.mjs <run-owned-clone>
+node <sealos-plugin>/scripts/validate-artifacts.mjs --dir <run-owned-clone>
+python3 <docker-to-sealos>/scripts/quality_gate.py --artifacts <run-owned-template>
+node <sealos-plugin>/scripts/deploy-template.mjs <run-owned-template> --dry-run
+node <sealos-plugin>/scripts/deploy-template.mjs <run-owned-template>
+node <sealos-plugin>/scripts/sealos-footprint.mjs --namespace <workspace> --app <run-id>
+node <sealos-plugin>/scripts/sealos-log-scan.mjs --namespace <workspace> --app <run-id> --since 10m --tail 300
+
+# Reader-facing public checks
+curl --fail --silent https://<your-sealos-url>/health
+curl --fail --silent https://<your-sealos-url>/ | grep 'Task Board'
+curl --fail --silent https://<your-sealos-url>/admin/login/ | grep 'Django administration'
+
+# PostgreSQL stage protected-source practice
+git clone --branch stage-2-postgresql https://github.com/yangchuansheng/sealos-django-tutorial.git
+uv sync --locked
+uv lock --check
+uv export --locked --no-dev --no-emit-project --no-hashes --format requirements.txt --output-file requirements.txt
+./scripts/test-postgres.sh --session-start --state-file <owned-mode-0600-state>
+./scripts/test-postgres.sh --jobs-only --state-file <owned-mode-0600-state>
+./scripts/test-postgres.sh --migrations-only --state-file <owned-mode-0600-state>
+uv run pytest -q
+./scripts/test-postgres.sh --session-stop --state-file <owned-mode-0600-state>
+./scripts/test-postgres.sh --assert-clean --state-file <owned-mode-0600-state>
+
+# Production stage protected source and sealed authority
+git clone --branch stage-3-production https://github.com/yangchuansheng/sealos-django-tutorial.git
+uv sync --locked
+uv lock --check
+./scripts/test-production.sh --verify-evidence publication --evidence-dir <phase26-sealed-evidence>
+kubectl apply --validate=strict -f <same-image-migration-job>
+kubectl rollout status deployment/<run-owned-app> --timeout=240s
+curl --fail --silent https://<run-owned-sealos-host>/health
+curl --fail --silent --dump-header <owned-headers> https://<run-owned-sealos-host>/static/tasks/styles.852e61e8064c.css
