@@ -27,6 +27,8 @@ const expectedSources = new Set([
   '/products/:path*',
   '/sealos-skills',
   '/solutions/:path*',
+  '/tutorials',
+  '/tutorials/:path*',
 ]);
 const layoutOnlyRoutePrefixes = ['/legal', '/products', '/solutions'];
 
