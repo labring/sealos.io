@@ -1,0 +1,331 @@
+---
+title: 'How to Deploy FastAPI on Sealos in 5 Minutes'
+description: 'Deploy a protected FastAPI Tasks API to Sealos, verify its generated HTTPS endpoint, inspect deployment artifacts, and complete Runtime Truth Pass.'
+date: 2026-07-17
+updated: 2026-07-17
+stage: beginner
+framework: FastAPI
+series: sealos-skills-fastapi
+seriesOrder: 1
+estimatedReadingTime: 10 minutes
+primaryKeyword: 'deploy FastAPI on Sealos'
+targetKeywords:
+  - FastAPI deployment guide
+  - FastAPI hosting
+  - Sealos FastAPI deployment
+  - deploy FastAPI from GitHub
+  - FastAPI Swagger deployment
+tags:
+  - tutorial
+  - sealos-skills
+  - fastapi
+  - deployment
+authors: ['default']
+relatedTutorials:
+  - fastapi-postgresql-sealos
+  - fastapi-production-deployment-sealos
+cta:
+  label: 'Start free on Sealos'
+  href: 'https://os.sealos.io'
+faq:
+  - question: 'How long did the practiced FastAPI deployment take?'
+    answer: 'The accepted clean run took 21.106 seconds. The clock started immediately before the native Sealos DEPLOY request and stopped immediately after the generated public HTTPS `/health` endpoint returned `200` with `{"status":"ok"}`.'
+  - question: 'Which FastAPI source does this tutorial use?'
+    answer: 'Every command starts from the protected `stage-1-deploy` tag. That source contains Python 3.12, FastAPI 0.139.0, Pydantic 2.13.4, Uvicorn 0.51.0, 12 HTTP behavior tests, generated Swagger UI, `/health`, and process-local `/tasks` CRUD.'
+  - question: 'What does Runtime Truth Pass verify?'
+    answer: 'For this practiced deployment it verified the generated HTTPS domain, the ready workload, Service, Ingress, endpoint, exact health response, public docs and task behavior, Pod restart count, and a stable log window before acceptance.'
+  - question: 'Do Stage 1 tasks survive a restart?'
+    answer: 'Stage 1 stores tasks inside one Uvicorn process. Restarting the process clears the task list. Continue to the PostgreSQL stage for durable records.'
+howTo:
+  name: 'Deploy FastAPI on Sealos in 5 minutes'
+  description: 'Clone and validate the protected FastAPI source, ask the Sealos plugin to prepare the deployment, review generated artifacts, issue DEPLOY, and accept the public Tasks API through Runtime Truth Pass.'
+  steps:
+    - name: 'Install and open the Sealos plugin'
+      text: 'Install the Sealos plugin through the native Codex or Claude Code marketplace, then use `$sealos`, the Codex App plugin picker, or `/sealos`.'
+    - name: 'Validate the protected Stage 1 source'
+      text: 'Clone `stage-1-deploy`, run `uv sync --locked`, complete all 12 tests, and start Uvicorn on `0.0.0.0:8000`.'
+    - name: 'Request the deployment'
+      text: 'Ask Sealos to deploy the checked-out repository and wait for its assessment before approving DEPLOY.'
+    - name: 'Review analysis and template output'
+      text: 'Inspect `.sealos/analysis.json` and `.sealos/template/index.yaml` for FastAPI, port 8000, workload, Service, Ingress, and public host settings.'
+    - name: 'Deploy and run Runtime Truth Pass'
+      text: 'Issue the native DEPLOY request, wait for the exact public health response, and verify resources, rollout, endpoints, logs, and the generated HTTPS domain.'
+    - name: 'Exercise the public Tasks API'
+      text: 'Open `/docs`, create and list a task through `/tasks`, and confirm `.sealos/state.json` records the accepted deployment.'
+---
+
+This guide deploys the continuous FastAPI Tasks API from its protected first
+source stage. The [stage-1-deploy](https://github.com/yangchuansheng/sealos-fastapi-tutorial/tree/stage-1-deploy)
+tag contains the exact application used here: `/health`, generated `/docs`, and
+in-memory `/tasks` CRUD served by Uvicorn on port `8000`.
+
+The accepted reader practice reached its generated public HTTPS health endpoint
+in **21.106 seconds**. The measurement began immediately before the native
+Sealos **DEPLOY** request and ended immediately after public HTTPS `/health`
+returned `200` with the exact body `{"status":"ok"}`. Local setup, login,
+source validation, and template preparation happened before that interval.
+
+By the end, you will have:
+
+- A protected FastAPI source checkout with 12 passing behavior tests
+- A Sealos-generated workload, Service, Ingress, and public HTTPS domain
+- A verified `/health` response and interactive Swagger UI
+- A public task creation and list result
+- Accepted deployment state under `.sealos/`
+
+## Prerequisites
+
+You need:
+
+- Git
+- Python 3.12
+- [`uv`](https://docs.astral.sh/uv/)
+- `curl`
+- A Sealos Cloud account
+- Codex, Codex App, or Claude Code with the Sealos plugin installed
+
+## Step 1: Install the Sealos plugin
+
+For Codex CLI or Codex App, use the native marketplace flow:
+
+```bash
+codex plugin marketplace add labring/sealos-skills
+codex plugin add sealos@sealos
+```
+
+For Codex compatibility or local plugin testing:
+
+```bash
+npx plugins add https://github.com/labring/sealos-skills --target codex
+```
+
+For Claude Code, use its native marketplace flow:
+
+```bash
+claude plugin marketplace add labring/sealos-skills
+claude plugin install sealos@sealos
+```
+
+For Claude Code compatibility:
+
+```bash
+npx plugins add https://github.com/labring/sealos-skills --target claude-code
+```
+
+Use the entry surface that matches your host:
+
+- Codex CLI: `$sealos`
+- Codex App: **+** -> **Plugins** -> **Sealos**
+- Claude Code: `/sealos`
+
+## Step 2: Validate the protected Stage 1 source locally
+
+Clone the immutable tag by name:
+
+```bash
+git clone --branch stage-1-deploy \
+  https://github.com/yangchuansheng/sealos-fastapi-tutorial.git
+cd sealos-fastapi-tutorial
+```
+
+Install the exact lock and run the public behavior suite:
+
+```bash
+uv sync --locked
+uv run pytest -q
+```
+
+The protected source collects nine named HTTP behaviors as 12 pytest cases.
+The accepted practice completed all 12 and then started the tracked Uvicorn
+entrypoint:
+
+```bash
+uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
+
+From another terminal, verify health and generated documentation:
+
+```bash
+curl --fail --silent http://127.0.0.1:8000/health
+curl --fail --silent http://127.0.0.1:8000/docs | grep 'Swagger UI'
+```
+
+The first command must return:
+
+```json
+{ "status": "ok" }
+```
+
+![Protected FastAPI Stage 1 clone completing 12 tests, health, Swagger, and the tracked Uvicorn start](/images/deploy-fastapi-sealos/local-stage-validation.webp)
+
+## Step 3: Ask Sealos to deploy the checked-out repository
+
+Keep the terminal inside the protected checkout. In Codex CLI, request:
+
+```text
+$sealos deploy this repo to Sealos Cloud
+```
+
+In Claude Code, request:
+
+```text
+/sealos deploy this repo to Sealos Cloud
+```
+
+The plugin runs preflight before deployment. It checks the project path,
+Sealos authentication and workspace access, and the tools needed by the chosen
+image path. Assessment then identifies the application contract before any
+DEPLOY request is issued.
+
+## Step 4: Review analysis and template output
+
+Review `.sealos/analysis.json` before approving the deployment. The fresh
+practice identified FastAPI, port `8000`, and the tracked Uvicorn command. Its
+measured score was `5/12`, with the `Fair` verdict expected for this deliberately
+small first stage.
+
+Then inspect `.sealos/template/index.yaml`. The accepted generated plan used:
+
+- A one-replica StatefulSet for the Stage 1 process
+- A Service on the application port
+- A standard Sealos HTTPS Ingress
+- An App resource for the product surface
+- A run-owned source bootstrap and claimed dependency volume
+
+The plugin validated the generated artifacts and completed a server-side dry
+run before DEPLOY.
+
+![Current Sealos analysis and generated FastAPI StatefulSet, Service, Ingress, and App template summary](/images/deploy-fastapi-sealos/sealos-analysis-template.webp)
+
+## Step 5: Issue DEPLOY and run Runtime Truth Pass
+
+Approve **DEPLOY** after the assessment and template match the protected source.
+Sealos submits `.sealos/template/index.yaml`, creates the application resources,
+and assigns the generated public host.
+
+The accepted timing boundary is intentionally narrow:
+
+```text
+start: immediately before the native Sealos DEPLOY request
+stop:  immediately after generated public HTTPS /health returns 200
+body:  {"status":"ok"}
+observed elapsed: 21.106 seconds
+```
+
+After the first successful response, complete Runtime Truth Pass. Confirm:
+
+- The workload reports `1/1` Ready
+- The init step completed
+- The Service has one endpoint
+- The Pod restart count remains `0`
+- The generated HTTPS `/health` response is exact
+- `/docs` loads Swagger UI
+- Recent application logs have no active failure
+- The observed runtime window remains stable
+
+The accepted practice kept those conditions stable for 77 seconds and closed
+with zero active failures and zero log findings.
+
+![Generated Sealos HTTPS deployment passing health, rollout, endpoint, log, and Runtime Truth checks](/images/deploy-fastapi-sealos/sealos-deployment-health.webp)
+
+## Step 6: Exercise Swagger and the public Tasks API
+
+Open the generated documentation URL:
+
+```text
+https://<your-sealos-url>/docs
+```
+
+The Swagger surface should list `GET /health` and the create, list, read,
+replace, and delete operations under `/tasks`.
+
+Create and list a task from a terminal:
+
+```bash
+curl --fail --silent \
+  --request POST \
+  --header 'Content-Type: application/json' \
+  --data '{"title":"Write the FastAPI tutorial"}' \
+  https://<your-sealos-url>/tasks
+
+curl --fail --silent https://<your-sealos-url>/tasks
+```
+
+The practiced public request returned `201` for create and `200` for list. A
+fresh process assigns the first task ID `1` and defaults `completed` to `false`.
+
+![Live FastAPI Swagger operations and public Tasks API behavior on the generated Sealos domain](/images/deploy-fastapi-sealos/swagger-tasks-api.webp)
+
+## Understand the generated `.sealos/` state
+
+The deployment pipeline uses these project-local artifacts:
+
+```text
+.sealos/
+├── analysis.json
+├── state.json
+├── build/
+│   └── build-result.json
+└── template/
+    └── index.yaml
+```
+
+- `.sealos/analysis.json` records the detected framework, port, runtime command,
+  environment inputs, and deployment assessment.
+- `.sealos/template/index.yaml` is the generated Sealos resource plan.
+- `.sealos/build/build-result.json` exists when the pipeline builds and pushes
+  an image.
+- `.sealos/state.json` records the accepted deployment after Runtime Truth Pass
+  and supports later DEPLOY or UPDATE decisions.
+
+Review these files before committing them because URLs and deployment identity
+can reveal operational context. Keep credentials in the owning secret system.
+
+## Stage 1 data lifecycle
+
+Stage 1 keeps tasks in one Python process. A Uvicorn restart clears the list and
+resets the next ID to `1`. Keep one replica for this source stage. The next
+tutorial adds PostgreSQL while preserving the same `/health`, `/docs`, and
+`/tasks` interface.
+
+## Common failures
+
+### The local health request cannot connect
+
+Confirm Uvicorn is still running and bound to `0.0.0.0:8000`:
+
+```bash
+uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
+
+### Swagger loads but tasks disappear after restart
+
+That is the Stage 1 storage contract. Continue to PostgreSQL for durable task
+records.
+
+### The generated domain returns a startup error
+
+Inspect the workload rollout, Service endpoints, and recent logs as one Runtime
+Truth Pass. Confirm the template exposes port `8000` and starts
+`app.main:app` with Uvicorn.
+
+### The assessment or template differs from the source
+
+Confirm the checkout still points at `stage-1-deploy`, rerun the locked sync,
+and ask Sealos to reassess before issuing another DEPLOY request.
+
+## Completion checklist
+
+- [ ] The checkout points at the protected `stage-1-deploy` tag
+- [ ] `uv sync --locked` succeeds
+- [ ] All 12 tests pass
+- [ ] Local `/health`, `/docs`, and `/tasks` work on port `8000`
+- [ ] `.sealos/analysis.json` identifies FastAPI and the correct runtime
+- [ ] `.sealos/template/index.yaml` exposes the expected resources and port
+- [ ] DEPLOY produces a generated public HTTPS domain
+- [ ] Runtime Truth Pass verifies rollout, endpoints, logs, and exact health
+- [ ] Swagger and a public task create/list request succeed
+- [ ] `.sealos/state.json` records accepted state
+
+Continue with [Deploy FastAPI with PostgreSQL on Sealos](/tutorials/fastapi-postgresql-sealos)
+to make the same Tasks API durable.

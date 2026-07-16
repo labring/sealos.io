@@ -1,0 +1,443 @@
+---
+title: 'FastAPI Production Deployment on Sealos'
+description: 'Launch FastAPI on Sealos with an immutable image, same-image Alembic migration, two hardened replicas, HTTPS, release logs, backup planning, and A-B-A-B recovery.'
+date: 2026-07-17
+updated: 2026-07-17
+stage: production
+framework: FastAPI
+series: sealos-skills-fastapi
+seriesOrder: 3
+estimatedReadingTime: 16 minutes
+primaryKeyword: 'FastAPI production deployment'
+targetKeywords:
+  - FastAPI production checklist
+  - FastAPI immutable container
+  - FastAPI Kubernetes deployment
+  - Sealos FastAPI production
+  - FastAPI rollback recovery
+tags:
+  - tutorial
+  - sealos-skills
+  - fastapi
+  - production
+  - deployment
+authors: ['default']
+relatedTutorials:
+  - deploy-fastapi-sealos
+  - fastapi-postgresql-sealos
+cta:
+  label: 'Open Sealos Skills'
+  href: '/sealos-skills'
+faq:
+  - question: 'Which image should a FastAPI production Deployment use?'
+    answer: 'Resolve the full 40-character source SHA tag once and deploy the returned digest. The accepted final image is `sha256:c5f6d6df59d05ab9e079aab5dc9a9b0666218ae38f104630587343eaba25b5de`, built from protected Stage 3 commit `1dbbf19185207aed44a29ad6a3509d94a3670c43`.'
+  - question: 'How many Uvicorn workers run in each Pod?'
+    answer: 'The protected production contract runs one PID-1 Uvicorn worker per Pod and scales through two replicas. The accepted practice verified both Pods at UID/GID 10001 with zero restarts.'
+  - question: 'When should the migration Job run?'
+    answer: 'Run the migration Job from the exact application image digest and wait for `Complete=True` before applying or updating the two-replica Deployment. The practiced same-image verification read Alembic `0001 (head)`.'
+  - question: 'What does production rollback prove?'
+    answer: 'The checksum-sealed A-B-A-B sequence proves baseline deploy, final update, rollout undo to baseline, and explicit final recovery across controller revisions 1 through 4 while PostgreSQL Task 1 remains readable.'
+howTo:
+  name: 'Launch a production FastAPI deployment on Sealos'
+  description: 'Resolve protected source to an immutable image, migrate with that image, roll out two hardened replicas, verify HTTPS and release logs, prepare operations, and prove rollback plus explicit recovery.'
+  steps:
+    - name: 'Install the plugin and clone Stage 3'
+      text: 'Open the Sealos plugin, clone `stage-3-production`, reproduce the lock, and confirm the protected source identity.'
+    - name: 'Resolve immutable production state'
+      text: 'Resolve the complete source-SHA image tag to its digest and bind the same digest to migration and application manifests.'
+    - name: 'Migrate before the rollout'
+      text: 'Apply the same-image Alembic Job, wait for completion, and verify `0001 (head)` before creating application replicas.'
+    - name: 'Roll out two hardened replicas'
+      text: 'Apply the production Deployment and verify 2/2 Ready, UID/GID 10001, one Uvicorn worker per Pod, exact image IDs, and zero restarts.'
+    - name: 'Verify HTTPS, docs, and release logs'
+      text: 'Run Runtime Truth Pass against public `/health`, `/docs`, Tasks API behavior, endpoints, and credential-free `event=service_start` logs.'
+    - name: 'Operate, roll back, and recover'
+      text: 'Set monitoring and backup ownership, update with a retained final manifest, test rollout undo, explicitly reapply final state, and verify task continuity.'
+---
+
+This production guide completes the FastAPI series. It assumes you have already
+deployed the Tasks API and proved PostgreSQL migration and restart persistence.
+Use the protected
+[stage-3-production](https://github.com/yangchuansheng/sealos-fastapi-tutorial/tree/stage-3-production)
+tag as the source for the image, Job, Deployment, security, and rollback
+contracts.
+
+## Who this checklist is for
+
+Use it when your FastAPI release needs:
+
+- A source-linked immutable container digest
+- Alembic migration before traffic reaches new code
+- Two horizontally safe application replicas backed by PostgreSQL
+- Non-root runtime controls and one clear worker model
+- Public HTTPS, generated docs, release identity logs, and monitoring
+- A documented update, rollback, recovery, backup, and incident path
+
+## Plugin setup
+
+Install the same Sealos plugin used in the earlier stages:
+
+```bash
+codex plugin marketplace add labring/sealos-skills
+codex plugin add sealos@sealos
+```
+
+For Claude Code:
+
+```bash
+claude plugin marketplace add labring/sealos-skills
+claude plugin install sealos@sealos
+```
+
+Use `$sealos` in Codex CLI, select **Sealos** from the Codex App plugin picker,
+or use `/sealos` in Claude Code. A production request should preserve the
+existing PostgreSQL-backed Tasks API and its verified `DATABASE_URL` source.
+
+## Production launch model
+
+```text
+protected Stage 3 source
+   |
+   v
+full-source-SHA image tag -> immutable digest
+   |                         |
+   |                         +-- Alembic migration Job
+   |                         +-- two-replica Deployment
+   v
+KubeBlocks PostgreSQL <- Secret-backed DATABASE_URL
+   |
+   v
+public HTTPS /health, /docs, and /tasks
+```
+
+The accepted practice used the current KubeBlocks PostgreSQL 16.4 runtime and
+the protected Stage 3 application image. The Job and Deployment consumed the
+same final digest.
+
+## Production readiness scorecard
+
+Aim for this state before switching traffic:
+
+```text
+Protected source and lock       Ready
+Immutable image digest          Ready
+Secret-backed database URL      Ready
+Alembic migration               Complete at 0001
+Application replicas            2/2 Ready
+Runtime UID/GID                  10001/10001
+Uvicorn process model           one worker per Pod
+Public HTTPS and Swagger        Ready
+Release identity logs           Present on both Pods
+Monitoring and alerts           Assigned
+Backup and restore path         Rehearsed
+Rollback and final recovery     Verified
+Runbook                         Written
+```
+
+## Step 1: Clone and validate Stage 3
+
+Clone the protected tag and reproduce the lock:
+
+```bash
+git clone --branch stage-3-production \
+  https://github.com/yangchuansheng/sealos-fastapi-tutorial.git
+cd sealos-fastapi-tutorial
+
+uv sync --locked
+uv export --locked --no-dev --no-emit-project --no-hashes \
+  --format requirements.txt --output-file requirements.txt
+git diff --exit-code -- requirements.txt
+```
+
+The protected tag peels to source commit:
+
+```text
+1dbbf19185207aed44a29ad6a3509d94a3670c43
+```
+
+## Step 2: Resolve immutable production state
+
+The publisher exposes a lookup tag for each complete source SHA. Resolve it
+once and use the digest reference for every production workload:
+
+```bash
+SOURCE_SHA="$(git rev-parse HEAD)"
+[[ "$SOURCE_SHA" =~ ^[0-9a-f]{40}$ ]]
+
+IMAGE_REPOSITORY='ghcr.io/yangchuansheng/sealos-fastapi-tutorial'
+IMAGE_TAG="$IMAGE_REPOSITORY:sha-$SOURCE_SHA"
+IMAGE_DIGEST="$(crane digest "$IMAGE_TAG")"
+[[ "$IMAGE_DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]]
+IMAGE_REFERENCE="$IMAGE_REPOSITORY@$IMAGE_DIGEST"
+```
+
+Verify architecture, operating system, revision, source label, and manifest:
+
+```bash
+crane config "$IMAGE_REFERENCE" | jq -e --arg source "$SOURCE_SHA" \
+  '.architecture == "amd64" and .os == "linux" and
+   .config.Labels["org.opencontainers.image.revision"] == $source and
+   .config.Labels["org.opencontainers.image.source"] ==
+     "https://github.com/yangchuansheng/sealos-fastapi-tutorial"'
+
+crane manifest "$IMAGE_REFERENCE" | jq -e . >/dev/null
+```
+
+The accepted final reference is:
+
+```text
+ghcr.io/yangchuansheng/sealos-fastapi-tutorial@sha256:c5f6d6df59d05ab9e079aab5dc9a9b0666218ae38f104630587343eaba25b5de
+```
+
+Keep database values in the generated Secret and render the tracked
+`deploy/migration-job.yaml` and `deploy/application.yaml` placeholders into
+mode-0600 scratch files. Bind both manifests to `IMAGE_REFERENCE` and the same
+source release.
+
+![Protected Stage 3 source, immutable final digest, redacted database state, and same-image migration relation](/images/fastapi-production-deployment-sealos/production-state-redacted.webp)
+
+## Step 3: Migrate before rolling out replicas
+
+Validate the rendered manifests against the active API, then apply the
+migration first:
+
+```bash
+kubectl --namespace <your-namespace> apply \
+  --dry-run=server --validate=strict \
+  -f <render-dir>/migration-job.yaml
+
+kubectl --namespace <your-namespace> apply --validate=strict \
+  -f <render-dir>/migration-job.yaml
+
+kubectl --namespace <your-namespace> wait \
+  --for=condition=complete \
+  job/<migration-job> \
+  --timeout=300s
+```
+
+The accepted migration Job ran as UID/GID `10001`, used the exact final image
+digest, and reached `Complete=True`. An independent same-image verification Job
+returned:
+
+```text
+0001 (head)
+```
+
+## Step 4: Roll out two hardened replicas
+
+Apply the application only after migration completion:
+
+```bash
+kubectl --namespace <your-namespace> apply --validate=strict \
+  -f <render-dir>/application.yaml
+
+kubectl --namespace <your-namespace> rollout status \
+  deployment/<your-fastapi-app> \
+  --timeout=240s
+
+kubectl --namespace <your-namespace> get \
+  deployment/<your-fastapi-app> \
+  -o jsonpath='{.status.readyReplicas}{"/"}{.spec.replicas}{" Ready\n"}'
+```
+
+Require `2/2 Ready`. The protected runtime contract gives each Pod:
+
+- UID/GID `10001`
+- One PID-1 Uvicorn application command
+- One Uvicorn worker bound to `0.0.0.0:8000`
+- A read-only root filesystem
+- Dropped Linux capabilities
+- Disabled privilege escalation
+- `RuntimeDefault` seccomp
+- A memory-backed writable `/tmp`
+
+The fresh practice verified the exact final image ID on both Pods, two Ready
+replicas, and restart counts of `0`.
+
+![Same-image Alembic migration completed before a 2 of 2 Ready rollout at UID and GID 10001 with health 200](/images/fastapi-production-deployment-sealos/immutable-rollout-health.webp)
+
+## Step 5: Verify public HTTPS, docs, tasks, and logs
+
+Use the generated domain as the public acceptance surface:
+
+```bash
+curl --fail --silent https://<your-sealos-url>/health
+curl --fail --silent https://<your-sealos-url>/docs | grep 'Swagger UI'
+curl --fail --silent https://<your-sealos-url>/tasks
+```
+
+The current practice verified TLS without bypass flags, exact health `200`,
+Swagger `200`, public task create `201`, and task read `200`.
+
+Correlate release identity in both Pod logs:
+
+```bash
+kubectl --namespace <your-namespace> logs \
+  -l "app.kubernetes.io/name=<your-fastapi-app>" \
+  --all-containers --prefix | \
+  grep -F 'event=service_start'
+```
+
+Both Pods emitted the credential-free `event=service_start` release marker.
+The final 61-second Runtime Truth window reported zero active failures, zero
+findings, zero restart delta, zero Pod replacement, and stable Ready state.
+
+![Public Sealos HTTPS health and Swagger surface beside credential-free FastAPI release logs with zero runtime findings](/images/fastapi-production-deployment-sealos/domain-runtime-logs.webp)
+
+## Monitoring and incident signals
+
+Monitor the same surfaces used for acceptance:
+
+- Public HTTPS `/health` status and latency
+- Deployment Ready and Available replica counts
+- Pod restarts and replacements
+- Service endpoint inventory
+- Migration Job completion and revision
+- `event=service_start` release identity on each new Pod
+- Database connection failures after task create and read smoke checks
+- Resource saturation for the two-replica workload and PostgreSQL Cluster
+
+Route alerts to a named owner and record the first diagnostic commands in the
+runbook. Keep health checks lightweight and use a real task smoke when you need
+database-path evidence.
+
+## Backup and migration safety
+
+Before a schema-changing release:
+
+- Create or verify a PostgreSQL recovery point
+- Record the current source SHA and image digest
+- Review whether the Alembic change is backward-compatible with the previous app
+- Test restore or forward repair in a separate environment
+- Keep the previous digest available through the recovery window
+- Assign one operator to the application rollback and one to database recovery
+
+Image rollback preserves application code state. Database recovery follows the
+schema and data decision recorded for that release.
+
+## UPDATE workflow
+
+Use **UPDATE** when `.sealos/state.json` and live Sealos resource truth agree on
+the existing application. Resolve the new full-source-SHA image to a digest,
+run its same-image migration, apply the retained final application manifest,
+wait for rollout, and repeat Runtime Truth Pass. Use **DEPLOY** when recorded
+state cannot identify a verifiable live application.
+
+Keep these values in the release record:
+
+```text
+source SHA
+immutable image digest
+migration revision
+Deployment revision
+public health result
+task continuity result
+release log result
+```
+
+## Step 6: Roll back and explicitly recover
+
+The accepted historical authority exercised four states against one PostgreSQL
+Task `1`:
+
+```text
+A  baseline deploy        Deployment revision 1
+B  final update           Deployment revision 2
+A  rollout undo           Deployment revision 3
+B  explicit final apply   Deployment revision 4
+```
+
+For immediate application rollback:
+
+```bash
+kubectl --namespace <your-namespace> rollout undo \
+  deployment/<your-fastapi-app>
+
+kubectl --namespace <your-namespace> rollout status \
+  deployment/<your-fastapi-app> \
+  --timeout=240s
+
+curl --fail --silent https://<your-sealos-url>/tasks/1
+```
+
+Recovery explicitly reapplies the retained final manifest:
+
+```bash
+kubectl --namespace <your-namespace> apply --validate=strict \
+  -f <render-dir>/application.yaml
+
+kubectl --namespace <your-namespace> rollout status \
+  deployment/<your-fastapi-app> \
+  --timeout=240s
+
+curl --fail --silent https://<your-sealos-url>/tasks/1
+```
+
+The checksum-sealed A-B-A-B evidence kept Task `1` readable through all four
+controller revisions, passed rollout undo, and passed explicit final recovery.
+
+![Checksum-sealed A-B-A-B FastAPI controller revisions preserving Task 1 through rollout undo and explicit final recovery](/images/fastapi-production-deployment-sealos/rollback-recovery.webp)
+
+## Production runbook
+
+Record this sequence for every release:
+
+1. Confirm the protected source and clean lock reproduction.
+2. Resolve the complete source-SHA image tag to its immutable digest.
+3. Verify image architecture, source, and revision labels.
+4. Create a database recovery point for a schema-changing release.
+5. Render Job and Deployment from the same digest and Secret reference.
+6. Run the migration Job and verify `Complete=True` plus Alembic head.
+7. Roll out two replicas and verify image IDs, UID/GID, process model, and restarts.
+8. Run public health, Swagger, task create/read, endpoint, and log checks.
+9. Observe a stable Runtime Truth window and record accepted state.
+10. Keep rollout undo and explicit final manifest recovery ready.
+
+## Failure guide
+
+### Migration completes but the app remains unready
+
+Verify the application and Job consume the same Secret-backed `DATABASE_URL`,
+then read Alembic current from the same image. Require `0001 (head)` for this
+source stage.
+
+### One replica has a different image ID
+
+Stop acceptance. Compare the Deployment digest, both Pod image IDs, and the
+source release label. Resume after both replicas use the intended digest.
+
+### Logs lack `event=service_start`
+
+Inspect the PID-1 command and release environment. Each newly started Pod from
+this protected image emits one credential-free marker.
+
+### Rollback restores code but task readback fails
+
+Check PostgreSQL reachability, migration compatibility, and the retained Task
+ID. Use the release's database recovery decision when schema or data state has
+changed.
+
+### `.sealos/state.json` points at stale resources
+
+Use live resource truth to choose repair or a fresh DEPLOY. Record new state
+only after Runtime Truth Pass accepts the replacement.
+
+## Final checklist
+
+- [ ] The checkout points at protected `stage-3-production`
+- [ ] The image resolves from the complete source SHA to an immutable digest
+- [ ] Image architecture and source/revision labels pass
+- [ ] Migration and application manifests use the same digest and Secret source
+- [ ] The migration Job reaches `Complete=True` at `0001 (head)`
+- [ ] The Deployment reaches `2/2 Ready`
+- [ ] Both Pods run as UID/GID 10001 with one Uvicorn worker
+- [ ] Both Pod image IDs match the intended digest and restart count is zero
+- [ ] Public HTTPS `/health`, `/docs`, and `/tasks` pass
+- [ ] Both Pods emit `event=service_start`
+- [ ] Monitoring, backup, restore, and incident ownership are recorded
+- [ ] UPDATE or DEPLOY mode is selected from live resource truth
+- [ ] Rollout undo and explicit final recovery preserve task continuity
+- [ ] The production runbook is stored with the release
+
+The FastAPI Framework Tutorial Series is now complete: deploy, PostgreSQL, and
+production all use one continuous Tasks API and one protected source lifecycle.
