@@ -4,16 +4,16 @@ milestone: v1.3
 milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 27
 current_phase_name: Practice-Backed Tutorial Series
-status: ready_for_discussion
-stopped_at: Phase 26 verified; Phase 27 discussion and planning ready
-last_updated: "2026-07-16T15:15:18.000Z"
+status: planning
+stopped_at: Phase 27 context gathered; research and planning ready
+last_updated: "2026-07-16T15:34:24.757Z"
 last_activity: 2026-07-16
 progress:
   total_phases: 8
   completed_phases: 6
   total_plans: 25
   completed_plans: 25
-  percent: 100
+  percent: 75
 ---
 
 # Project State
@@ -50,21 +50,21 @@ workflow.
 
 ## Current Position
 
-Phase: 27 (Practice-Backed Tutorial Series) — READY FOR DISCUSSION
+Phase: 27 (Practice-Backed Tutorial Series) — PLANNING
 Plan: 0 of TBD
-Status: Phase 26 verified; Phase 27 discussion and planning ready
+Status: Phase 27 context gathered; research and planning ready
 Last activity: 2026-07-16
 
 ## Next Action
 
-Discuss and plan Phase 27 tutorial authoring from the verified public source,
-immutable images, and sealed runtime evidence.
+Research and plan Phase 27 tutorial authoring, screenshot production, fresh
+practice timing, evidence provenance, and exact cleanup.
 
 ## Session
 
-**Last session:** 2026-07-16T15:15:18.000Z
-**Stopped at:** Phase 26 verified; Phase 27 discussion and planning ready
-**Resume file:** None
+**Last session:** 2026-07-16T15:32:56.782Z
+**Stopped at:** Phase 27 context gathered; research and planning ready
+**Resume file:** .planning/phases/27-practice-backed-tutorial-series/27-CONTEXT.md
 
 ## Performance Metrics
 
