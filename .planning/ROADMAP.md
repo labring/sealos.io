@@ -36,7 +36,7 @@ cleanup of the live Sealos footprint.
 - [x] **Phase 26: Django Production Stage** - Publish the locked Gunicorn and (completed 2026-07-16)
   WhiteNoise runtime with immutable Django source stages and rollback evidence.
 
-- [ ] **Phase 27: Practice-Backed Tutorial Series** - Turn real local and
+- [x] **Phase 27: Practice-Backed Tutorial Series** - Turn real local and (completed 2026-07-17)
   Sealos runs into six English tutorials, retained evidence, and 24 screenshots.
 
 - [ ] **Phase 28: Catalog Publication and Cleanup** - Publish the 15-page
@@ -324,7 +324,17 @@ claims come from retained, reproducible FastAPI and Django practice evidence.
 **Validation Approach**: Cross-check every tutorial claim and image against the
 evidence ledger, inspect frontmatter and series links, and verify image format,
 dimensions, file size, redaction, and step relevance.
-**Plans**: TBD
+**Plans**: 6/6 plans executed
+
+- [x] 27-01-PLAN.md - Build the TDD coordinator and freeze source/publication boundaries.
+- [x] 27-02-PLAN.md - Complete fresh FastAPI three-stage practice and cleanup.
+- [x] 27-03-PLAN.md - Complete fresh Django three-stage practice and cleanup.
+- [x] 27-04-PLAN.md - Author both three-page tutorial series from reviewed evidence.
+- [x] 27-05-PLAN.md - Render 24 evidence cards and review six routes responsively.
+- [x] 27-06-PLAN.md - Consolidate, audit, checksum, and seal the evidence package.
+
+**Verification**: Seven requirements complete; 32 source paths, 24 assets,
+38 claims, 68 events, 17 tests, and the ten-file evidence seal pass.
 **UI hint**: yes
 
 ### Phase 28: Catalog Publication and Cleanup

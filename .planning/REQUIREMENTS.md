@@ -56,25 +56,25 @@ product.
 
 ### Tutorial Content
 
-- [ ] **CONT-01**: Reader can follow FastAPI deploy, PostgreSQL, and production
+- [x] **CONT-01**: Reader can follow FastAPI deploy, PostgreSQL, and production
   tutorials using the FastAPI Reference Application and matching source tags.
 
-- [ ] **CONT-02**: Reader can follow Django deploy, PostgreSQL, and production
+- [x] **CONT-02**: Reader can follow Django deploy, PostgreSQL, and production
   tutorials using the Django Reference Application and matching source tags.
 
-- [ ] **CONT-03**: Each new page has valid frontmatter, framework-local related
+- [x] **CONT-03**: Each new page has valid frontmatter, framework-local related
   links, correct series order, current Sealos Skills terminology, and the
   established CTA for its stage.
 
-- [ ] **CONT-04**: Beginner duration titles follow the confirmed measured
+- [x] **CONT-04**: Beginner duration titles follow the confirmed measured
   five-minute evidence gate.
 
 ### Practice Evidence and Assets
 
-- [ ] **SHOT-01**: Maintainer can trace each of the 24 screenshots to actual
+- [x] **SHOT-01**: Maintainer can trace each of the 24 screenshots to actual
   local, Sealos, Kubernetes, HTTP, or browser evidence.
 
-- [ ] **SHOT-02**: Every screenshot is a redacted 1440x900 WebP below 200 KB and
+- [x] **SHOT-02**: Every screenshot is a redacted 1440x900 WebP below 200 KB and
   matches its adjacent tutorial step.
 
 - [ ] **SHOT-03**: Every new MDX image reference resolves locally and through the
@@ -92,7 +92,7 @@ product.
 - [ ] **PUB-03**: Static route smoke checks return successful responses for the
   tutorial index, six new pages, and 24 new images.
 
-- [ ] **OPS-01**: Maintainer can reproduce successful FastAPI and Django Sealos
+- [x] **OPS-01**: Maintainer can reproduce successful FastAPI and Django Sealos
   deployments, migration Jobs, readiness, and public read/write checks from the
   retained evidence package.
 
@@ -141,17 +141,17 @@ Roadmap creation maps each v1.3 requirement to exactly one phase.
 | DJAN-02 | Phase 25 | Complete |
 | DJAN-03 | Phase 26 | Complete |
 | DJAN-04 | Phase 26 | Complete |
-| CONT-01 | Phase 27 | Pending |
-| CONT-02 | Phase 27 | Pending |
-| CONT-03 | Phase 27 | Pending |
-| CONT-04 | Phase 27 | Pending |
-| SHOT-01 | Phase 27 | Pending |
-| SHOT-02 | Phase 27 | Pending |
+| CONT-01 | Phase 27 | Complete |
+| CONT-02 | Phase 27 | Complete |
+| CONT-03 | Phase 27 | Complete |
+| CONT-04 | Phase 27 | Complete |
+| SHOT-01 | Phase 27 | Complete |
+| SHOT-02 | Phase 27 | Complete |
 | SHOT-03 | Phase 28 | Pending |
 | PUB-01 | Phase 28 | Pending |
 | PUB-02 | Phase 28 | Pending |
 | PUB-03 | Phase 28 | Pending |
-| OPS-01 | Phase 27 | Pending |
+| OPS-01 | Phase 27 | Complete |
 | OPS-02 | Phase 28 | Pending |
 
 **Coverage:**
@@ -162,4 +162,4 @@ Roadmap creation maps each v1.3 requirement to exactly one phase.
 
 ---
 *Requirements defined: 2026-07-15*
-*Last updated: 2026-07-16 after Phase 26 verification*
+*Last updated: 2026-07-17 after Phase 27 verification*

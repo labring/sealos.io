@@ -2,18 +2,18 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: FastAPI and Django Tutorial Expansion
-current_phase: 27
-current_phase_name: Practice-Backed Tutorial Series
+current_phase: 28
+current_phase_name: Catalog Publication and Cleanup
 status: planning
-stopped_at: Phase 27 context gathered; research and planning ready
-last_updated: "2026-07-16T15:34:24.757Z"
-last_activity: 2026-07-16
+stopped_at: Phase 27 complete; Phase 28 ready for discussion and planning
+last_updated: "2026-07-16T21:00:00.000Z"
+last_activity: 2026-07-17
 progress:
   total_phases: 8
-  completed_phases: 6
-  total_plans: 25
-  completed_plans: 25
-  percent: 75
+  completed_phases: 7
+  total_plans: 31
+  completed_plans: 31
+  percent: 88
 ---
 
 # Project State
@@ -25,46 +25,45 @@ See: `.planning/PROJECT.md` (updated 2026-07-15)
 **Core value:** Readers can follow framework-specific Sealos tutorials with
 commands, screenshots, and validation evidence that match the current product
 workflow.
-**Current focus:** Phase 27 — Practice-Backed Tutorial Series
+**Current focus:** Phase 28 — Catalog Publication and Cleanup
 
 ## Current Phase
 
 | Field | Value |
 |-------|-------|
-| Phase | 27 of 28 |
-| Name | Practice-Backed Tutorial Series |
+| Phase | 28 of 28 |
+| Name | Catalog Publication and Cleanup |
 | Status | Ready for discussion and planning |
-| Goal | Readers can follow six coherent tutorials whose screenshots and claims come from retained, reproducible FastAPI and Django practice evidence. |
+| Goal | Readers can navigate the complete 15-page tutorial catalog while maintainers can verify public contracts and the empty practice footprint. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-- CONT-01
-- CONT-02
-- CONT-03
-- CONT-04
-- SHOT-01
-- SHOT-02
-- OPS-01
+- TDD-04
+- SHOT-03
+- PUB-01
+- PUB-02
+- PUB-03
+- OPS-02
 
 ## Current Position
 
-Phase: 27 (Practice-Backed Tutorial Series) — PLANNING
+Phase: 28 (Catalog Publication and Cleanup) — PLANNING
 Plan: 0 of TBD
-Status: Phase 27 context gathered; research and planning ready
-Last activity: 2026-07-16
+Status: Phase 27 complete; Phase 28 ready for discussion and planning
+Last activity: 2026-07-17
 
 ## Next Action
 
-Research and plan Phase 27 tutorial authoring, screenshot production, fresh
-practice timing, evidence provenance, and exact cleanup.
+Research and plan Phase 28 catalog promotion, production validator expansion,
+static build and HTTP acceptance, and final publication cleanup.
 
 ## Session
 
-**Last session:** 2026-07-16T15:32:56.782Z
-**Stopped at:** Phase 27 context gathered; research and planning ready
-**Resume file:** .planning/phases/27-practice-backed-tutorial-series/27-CONTEXT.md
+**Last session:** 2026-07-16T21:00:00.000Z
+**Stopped at:** Phase 27 complete; Phase 28 ready for discussion and planning
+**Resume file:** .planning/phases/27-practice-backed-tutorial-series/27-06-SUMMARY.md
 
 ## Performance Metrics
 
