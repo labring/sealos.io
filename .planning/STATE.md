@@ -2,18 +2,18 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: FastAPI and Django Tutorial Expansion
-current_phase: 25
-current_phase_name: Django PostgreSQL Stage
-status: executing
-stopped_at: Completed 25-04-PLAN.md
-last_updated: "2026-07-16T02:52:50.460Z"
+current_phase: 26
+current_phase_name: Django Production Stage
+status: ready
+stopped_at: Phase 25 verified; ready for Phase 26
+last_updated: "2026-07-16T04:16:24Z"
 last_activity: 2026-07-16
 progress:
   total_phases: 8
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 21
-  completed_plans: 20
-  percent: 50
+  completed_plans: 21
+  percent: 63
 ---
 
 # Project State
@@ -25,41 +25,41 @@ See: `.planning/PROJECT.md` (updated 2026-07-15)
 **Core value:** Readers can follow framework-specific Sealos tutorials with
 commands, screenshots, and validation evidence that match the current product
 workflow.
-**Current focus:** Phase 25 — Django PostgreSQL Stage
+**Current focus:** Phase 26 — Django Production Stage
 
 ## Current Phase
 
 | Field | Value |
 |-------|-------|
-| Phase | 25 of 28 |
-| Name | Django PostgreSQL Stage |
-| Status | Ready to execute |
-| Goal | Readers can use persistent Task Board data after repeatable FastAPI and Django migration Jobs have proven the shared fresh-database contract. |
+| Phase | 26 of 28 |
+| Name | Django Production Stage |
+| Status | Ready for discussion and planning |
+| Goal | Readers can reproduce and roll back the complete production Django release from immutable public source and image references. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-- TDD-02
-- TDD-03
-- DJAN-02
+- DJAN-03
+- DJAN-04
 
 ## Current Position
 
-Phase: 25 (Django PostgreSQL Stage) — EXECUTING
-Plan: 5 of 5
-Status: Ready to execute
+Phase: 26 (Django Production Stage) — READY
+Plan: 0 of TBD
+Status: Ready for discussion and planning
 Last activity: 2026-07-16
 
 ## Next Action
 
-Execute `.planning/phases/25-django-postgresql-stage/25-05-PLAN.md`.
+Run `$gsd-discuss-phase 26` to lock the production runtime, immutable image,
+rollback, and publication decisions.
 
 ## Session
 
-**Last session:** 2026-07-16T02:51:39.823Z
-**Stopped at:** Completed 25-04-PLAN.md
-**Resume file:** .planning/phases/25-django-postgresql-stage/25-05-PLAN.md
+**Last session:** 2026-07-16T04:16:24Z
+**Stopped at:** Phase 25 verified; ready for Phase 26
+**Resume file:** None
 
 ## Performance Metrics
 
@@ -96,6 +96,8 @@ Execute `.planning/phases/25-django-postgresql-stage/25-05-PLAN.md`.
 | Phase 25 P02 | 15 min | 3 tasks | 6 files |
 | Phase 25 P03 | 37 min | 2 tasks | 6 files |
 | Phase 25 P04 | 121 min | 2 tasks | 9 files |
+| Phase 25 P05 | 50 min | 3 tasks | 4 evidence files |
+| Phase 25 verification | 2026-07-16 | 23/23 must-haves verified | TDD-02, TDD-03, and DJAN-02 passed |
 
 ## Decisions
 
@@ -166,3 +168,7 @@ Execute `.planning/phases/25-django-postgresql-stage/25-05-PLAN.md`.
 - [Phase 25]: 25-04: Verify native admin registration at the changelist and read the retained title from the linked Task change form.
 - [Phase 25]: 25-04: Keep assert-clean-all read-only and concentrate every lifecycle mutation in exact-run cleanup.
 - [Phase 25]: 25-04: Keep Phase 25 requirements pending until immutable publication and independent phase verification complete.
+- [Phase 25]: 25-05: Publish accepted Django Stage 2 only through normal main and single-tag pushes after local and no-local fresh-database gates.
+- [Phase 25]: 25-05: Treat the immutable FastAPI evidence-enabled phase gate as the authoritative Stage 2 harness replay.
+- [Phase 25]: 25-05: Freeze exactly eight reviewed evidence inputs before the final GitHub and read-only cleanup audit.
+- [Phase 25]: Independent verification passed 23/23 must-haves; TDD-02, TDD-03, and DJAN-02 are complete, and Phase 26 is the next active stage.

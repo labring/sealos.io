@@ -1,0 +1,10 @@
+repository=yangchuansheng/sealos-fastapi-tutorial visibility=public tag=stage-2-postgresql
+tag_object=b61254c237885744ae85cb6f81386f77f1e3ac09 peeled_commit=2b256b3dfc2a7d2a4b930c9970becca8c6da8cd3 type=tag message=FastAPI-PostgreSQL-stage
+run_id=3cdb81734d85 lock=passed export=clean source_status=clean tests=24-passed
+run_id=3cdb81734d85 fresh_upgrade=passed repeat_upgrade=passed revision=0001
+run_id=3cdb81734d85 production_manifest=validated command=alembic-upgrade-head secret_key=url
+run_id=3cdb81734d85 sequence=1 condition=Complete status=True revision=0001 manifest_sha256=544ce23c6d3c926376d80175802d679c16b1fe41c6dc7686f5ff56fd672aecce
+run_id=3cdb81734d85 sequence=2 condition=Complete status=True revision=0001 manifest_sha256=bdb9a55938fc926889eb601bb6819f1f1dae9e483b69d328d5bac080b774f7ee
+run_id=3cdb81734d85 readiness=200 public_write=passed later_read=passed applications=3 requests=9
+run_id=3cdb81734d85 evidence_files=7 redaction=passed checksums=passed
+run_id=3cdb81734d85 inventory=0 port_forward=stopped owned_processes=0 clone=absent
