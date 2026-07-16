@@ -5,15 +5,15 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 25
 current_phase_name: Django PostgreSQL Stage
 status: executing
-stopped_at: Completed 25-02-PLAN.md
-last_updated: "2026-07-15T23:49:52.778Z"
+stopped_at: Completed 25-03-PLAN.md
+last_updated: "2026-07-16T00:37:51.425Z"
 last_activity: 2026-07-15
 last_activity_desc: Phase 25 execution started
 progress:
   total_phases: 8
   completed_phases: 4
   total_plans: 21
-  completed_plans: 18
+  completed_plans: 19
   percent: 50
 ---
 
@@ -48,19 +48,19 @@ workflow.
 ## Current Position
 
 Phase: 25 (Django PostgreSQL Stage) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 Status: Ready to execute
 Last activity: 2026-07-15 — Phase 25 execution started
 
 ## Next Action
 
-Execute `.planning/phases/25-django-postgresql-stage/25-03-PLAN.md`.
+Execute `.planning/phases/25-django-postgresql-stage/25-04-PLAN.md`.
 
 ## Session
 
-**Last session:** 2026-07-15T23:49:52.725Z
-**Stopped at:** Completed 25-02-PLAN.md
-**Resume file:** .planning/phases/25-django-postgresql-stage/25-03-PLAN.md
+**Last session:** 2026-07-16T00:37:51.420Z
+**Stopped at:** Completed 25-03-PLAN.md
+**Resume file:** .planning/phases/25-django-postgresql-stage/25-04-PLAN.md
 
 ## Performance Metrics
 
@@ -95,6 +95,7 @@ Execute `.planning/phases/25-django-postgresql-stage/25-03-PLAN.md`.
 | Phase 24 P05 | 8 min | 3 tasks | 4 files |
 | Phase 25 P01 | 3 min | 2 tasks | 4 files |
 | Phase 25 P02 | 15 min | 3 tasks | 6 files |
+| Phase 25 P03 | 37 min | 2 tasks | 6 files |
 
 ## Decisions
 
@@ -158,3 +159,6 @@ Execute `.planning/phases/25-django-postgresql-stage/25-03-PLAN.md`.
 - [Phase 25]: 25-02: Name each pytest database test_<run-id> while retaining tasks as the runtime database on the same owned PostgreSQL service.
 - [Phase 25]: 25-02: Use Django's dummy backend for the explicit unconfigured health state and provide no usable SQLite fallback.
 - [Phase 25]: 25-02: Gate public readiness on Task._meta.db_table through Django introspection with a one-second PostgreSQL timeout.
+- [Phase 25]: 25-03: Generate a minimal migration-only settings and URLConf overlay in writable /tmp so the exact ten tracked inputs and exact Django migrate command remain intact.
+- [Phase 25]: 25-03: Recreate one exact run-owned source Job name after bounded deletion so idempotence is proven at the Kubernetes object boundary.
+- [Phase 25]: 25-03: Isolate render cleanup traps inside nested subshells so temporary-file cleanup cannot clear the outer exact-run cleanup trap.
