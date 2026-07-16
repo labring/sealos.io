@@ -4,11 +4,11 @@
 
 This project maintains English Sealos.io tutorials for developers who use AI
 agents to deploy framework applications to Sealos Cloud. The public catalog
-currently contains complete Next.js, React, and Node.js tutorial series.
+contains complete Next.js, React, Node.js, FastAPI, and Django tutorial series.
 
-The current milestone adds FastAPI and Django series with public reference
-applications, test-driven implementation, real Sealos practice evidence, and
-verified screenshot assets.
+Milestone v1.3 added the FastAPI and Django series with public reference
+applications, test-driven implementation, real Sealos practice evidence,
+verified screenshot assets, and production publication checks.
 
 ## Core Value
 
@@ -16,6 +16,8 @@ Readers can reproduce framework-specific Sealos deployments from source,
 commands, screenshots, and runtime evidence that match the current product.
 
 ## Current Milestone: v1.3 FastAPI and Django Tutorial Expansion
+
+**Status:** Complete on 2026-07-17.
 
 **Goal:** Publish complete FastAPI and Django tutorial series backed by tested
 reference applications and real Sealos deployment evidence.
@@ -50,20 +52,29 @@ reference applications and real Sealos deployment evidence.
   GHCR digests, a migration-first four-state rollout, rollback, recovery,
   public replay, and zero-footprint cleanup pass at accepted commit `1dbbf19`
   — validated in Phase 23.
+- ✓ Django Stages 1-3 are public, protected, test-driven, migration-first, and
+  production-verified with immutable images and rehearsed rollback — validated
+  in Phases 24-26.
+- ✓ Six English FastAPI/Django tutorials and 24 reviewed 1440x900 WebPs are
+  joined to protected source and real practice evidence — validated in Phase
+  27.
+- ✓ The 15-page catalog, five available framework paths, production static
+  HTTP surface, responsive layout, and zero practice footprint pass the public
+  validator and checksum-sealed publication gate — validated in Phase 28.
 
-### Active
+### Validated In v1.3
 
-- [ ] Publish tested FastAPI and Django Reference Applications under the
+- [x] Publish tested FastAPI and Django Reference Applications under the
   `yangchuansheng` GitHub account.
-- [ ] Preserve stage-specific source through deploy, PostgreSQL, and production
+- [x] Preserve stage-specific source through deploy, PostgreSQL, and production
   tags while `main` represents the complete production stage.
-- [ ] Prove the FastAPI and Django HTTP seams with behavior-first tests.
-- [ ] Prove migration and runtime behavior against fresh PostgreSQL databases.
-- [ ] Capture redacted Practice Evidence from real Sealos deployments.
-- [ ] Publish six English tutorial pages and 24 verified screenshot assets.
-- [ ] Promote FastAPI and Django to available tutorial paths and validate the
+- [x] Prove the FastAPI and Django HTTP seams with behavior-first tests.
+- [x] Prove migration and runtime behavior against fresh PostgreSQL databases.
+- [x] Capture redacted Practice Evidence from real Sealos deployments.
+- [x] Publish six English tutorial pages and 24 verified screenshot assets.
+- [x] Promote FastAPI and Django to available tutorial paths and validate the
   complete 15-page catalog.
-- [ ] Remove all live practice resources after acceptance evidence is complete.
+- [x] Remove all live practice resources after acceptance evidence is complete.
 
 ### Out of Scope
 
@@ -78,9 +89,10 @@ reference applications and real Sealos deployment evidence.
 
 ## Context
 
-The source tree already contains nine English tutorial pages across Next.js,
-React, and Node.js. The current React and Node.js pages establish a four-image
-per-page density and the repository validator currently accepts nine slugs.
+The source tree contains 15 English tutorial pages across Next.js, React,
+Node.js, FastAPI, and Django. React, Node.js, FastAPI, and Django use a
+four-image per-page density, and the repository validator accepts the exact 15
+slugs.
 
 The FastAPI path uses a `Tasks API` Reference Application. The Django path uses
 a `Task Board` Reference Application. Each evolves through deploy, PostgreSQL,
@@ -110,13 +122,13 @@ The project glossary is `CONTEXT.md`.
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Use three pages per framework | Matches the established deploy, PostgreSQL, and production reader journey. | — Pending |
-| Use one Reference Application per framework | Keeps code, screenshots, and troubleshooting continuous across each series. | — Pending |
-| Publish two public GitHub repositories | Makes tutorial commands and stage snapshots reproducible. | FastAPI Stages 1-3 published; Django pending. |
-| Require 24 practice-backed screenshots | Preserves the current four-image framework tutorial density. | — Pending |
-| Run migrations as one-shot Jobs | Keeps schema changes single-owner before rollout acceptance and scaling. | FastAPI Stage 2 completed two Jobs at Alembic revision `0001`. |
-| Gate five-minute titles on measured evidence | Keeps duration claims tied to actual workflow timing. | — Pending |
-| Test four public seams with vertical red-green slices | Keeps tests behavior-focused and durable through implementation changes. | FastAPI stages retain 24 direct RED/GREEN slices plus public behavior, static, migration, and runtime gates. |
+| Use three pages per framework | Matches the established deploy, PostgreSQL, and production reader journey. | FastAPI and Django each publish one complete three-page series. |
+| Use one Reference Application per framework | Keeps code, screenshots, and troubleshooting continuous across each series. | Continuous Tasks API and Task Board sources span all three stages. |
+| Publish two public GitHub repositories | Makes tutorial commands and stage snapshots reproducible. | Both repositories and all six protected stages are public. |
+| Require 24 practice-backed screenshots | Preserves the current four-image framework tutorial density. | All 24 reviewed WebPs are published and validator-bound. |
+| Run migrations as one-shot Jobs | Keeps schema changes single-owner before rollout acceptance and scaling. | Alembic `0001` and `tasks.0001_initial` complete before readiness. |
+| Gate five-minute titles on measured evidence | Keeps duration claims tied to actual workflow timing. | Accepted timings are 21.106 seconds for FastAPI and 26.099 seconds for Django. |
+| Test four public seams with vertical red-green slices | Keeps tests behavior-focused and durable through implementation changes. | All reference-app and catalog CLI seams retain adjacent RED/GREEN history. |
 
 ## Evolution
 
@@ -133,4 +145,4 @@ This document evolves at phase transitions and milestone boundaries.
 3. Record the final milestone outcome.
 
 ---
-*Last updated: 2026-07-15 after Phase 22 verification*
+*Last updated: 2026-07-17 after Phase 28 verification*
