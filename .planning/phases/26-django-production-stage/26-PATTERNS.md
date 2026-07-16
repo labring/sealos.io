@@ -364,6 +364,7 @@ test(26-02): specify Django production workload contract
 
 ```text
 tests/test_migration_job.py
+tests/test_postgres_harness.py
 tests/test_production.py
 ```
 
@@ -721,15 +722,20 @@ checksums, and zero-footprint checks.
 2. Recover/publish annotated Stage 3 through one coherent state.
 3. Replay all three stages from fresh public clones and both images through
    isolated anonymous registry configs.
-4. Add `publication.txt`, run checksum-independent ten-file preflight, replace
+4. Enumerate GHCR package versions, preserve the two accepted image versions,
+   and delete phase-owned temporary versions only by verified immutable ID. If
+   GitHub blocks an exact deletion, record the version ID and disposition for
+   Phase 28.
+5. Add `publication.txt`, run checksum-independent ten-file preflight, replace
    checksums atomically with ten entries, and run full verification once.
-5. Seal evidence read-only and perform final public identity plus zero-residue
+6. Seal evidence read-only and perform final public identity plus zero-residue
    readback.
-6. Commit publication artifacts and `26-04-SUMMARY.md` in Sealos.io.
+7. Commit publication artifacts and `26-04-SUMMARY.md` in Sealos.io.
 
 **Plan acceptance:** public main equals Stage 3 peeled source; all three tag
 identities and ruleset are exact; Stage 3 and both images replay publicly; all
-ten checksums pass; temporary inventory is zero.
+ten checksums pass; temporary inventory is zero or an externally blocked GHCR
+version is recorded by exact ID for Phase 28.
 
 The four plans are sequential. Each consumes identities or sealed evidence from
 the prior plan, so parallel execution would weaken the fail-closed state graph.

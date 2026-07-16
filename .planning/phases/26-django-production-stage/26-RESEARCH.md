@@ -396,13 +396,14 @@ protected Stage 2 commit
 .github/workflows/publish-image.yml     # exact-source test/build/publish gate
 .dockerignore                           # allowlisted build context exclusions
 Dockerfile                              # pinned multi-stage production image
-gunicorn.conf.py                        # one-worker topology and startup identity hook
 deploy/application.yaml                # Secret + Deployment + Service contract
 deploy/migration-job.yaml               # same-digest application migration Job
 scripts/test-production.sh              # registry, runtime, rollback, evidence, cleanup gate
-tests/test_production_image.py           # dependency/settings/container/static RED seam
-tests/test_production_workload.py        # workload/Secret/Job/harness RED seam
+tests/test_production.py                 # both public production RED seams
+tests/test_migration_job.py              # extend exact same-image Job contract
+tests/test_postgres_harness.py           # extend production harness contract
 taskboard/settings.py                   # production secret/hosts/static/logging
+taskboard/wsgi.py                        # one startup identity per serving worker
 pyproject.toml / uv.lock / requirements.txt
 ```
 
@@ -448,43 +449,37 @@ RUN DJANGO_SECRET_KEY=build-only-collectstatic \
     python manage.py collectstatic --noinput
 ```
 
-Copy only the resolved virtual environment, application source, Gunicorn
-config, and collected `staticfiles/` tree into the runtime stage. Keep
+Copy only the resolved virtual environment, application source, and collected
+`staticfiles/` tree into the runtime stage. Keep
 `collectstatic`, uv, caches, source control, tests, and build credentials out of
 the runtime. [VERIFIED: locked context and uv Docker guidance]
 
 ### Pattern 2: One Gunicorn Worker per Pod
 
-Use a tracked `gunicorn.conf.py`:
+Emit the stable startup identity from `taskboard/wsgi.py` when a serving worker
+imports the WSGI application:
 
 ```python
 import os
+import sys
 
-bind = '0.0.0.0:8000'
-workers = 1
-worker_class = 'sync'
-worker_tmp_dir = '/tmp'
-timeout = 30
-graceful_timeout = 25
-accesslog = '-'
-errorlog = '-'
-capture_output = True
-
-
-def post_worker_init(worker):
-    worker.log.info(
-        'event=worker_start source_release=%s image_reference=%s pid=%s',
+print(
+    'event=worker_start source_release=%s image_reference=%s' % (
         os.environ['SOURCE_RELEASE'],
         os.environ['IMAGE_REFERENCE'],
-        worker.pid,
-    )
+    ),
+    file=sys.stderr,
+    flush=True,
+)
 ```
 
-Run `gunicorn --config gunicorn.conf.py taskboard.wsgi:application`. Gunicorn's
-official model is one master/arbiter plus a pre-fork worker pool; `workers=1`
-therefore yields one master and one WSGI worker. The default worker class is
-`sync`, and `post_worker_init` runs directly after the worker initializes the
-application. [VERIFIED: Gunicorn 26.0.0 design/settings docs]
+Run `gunicorn taskboard.wsgi:application` with explicit command-line arguments
+for bind `0.0.0.0:8000`, one sync worker, `/tmp` worker temporary state,
+timeouts, and stdout/stderr logs. Keep `--preload` absent so only the serving
+worker imports the WSGI module and emits the record. Gunicorn's official model
+is one master plus a pre-fork worker pool; one worker therefore yields the
+required master/worker topology. [VERIFIED: Gunicorn 26.0.0 design/settings
+docs]
 
 Gunicorn treats `TERM` as graceful shutdown and waits up to
 `graceful_timeout`; Kubernetes sends `SIGTERM` to PID 1 during Pod termination.
@@ -669,9 +664,9 @@ arithmetic and Kubernetes emptyDir docs]
 |----------|-------|
 | Framework | pytest 9.1.1 + pytest-django 4.12.0, real PostgreSQL wrapper |
 | Existing config | `pyproject.toml` and `tests/conftest.py` |
-| Focused run | `./scripts/test-postgres.sh --pytest-only tests/test_production_image.py -q` |
+| Focused run | `./scripts/test-postgres.sh --pytest-only tests/test_production.py -q` |
 | Full existing gate | `./scripts/test-postgres.sh --phase-gate` |
-| Final production gate | `./scripts/test-production.sh --phase-gate` |
+| Final production gate | `./scripts/test-production.sh --run --baseline-image "$IMAGE_A" --baseline-source "$SOURCE_A" --final-image "$IMAGE_B" --final-source "$SOURCE_B" --evidence-dir "$EVIDENCE_DIR"` |
 
 [VERIFIED: accepted target repository]
 
@@ -679,10 +674,10 @@ arithmetic and Kubernetes emptyDir docs]
 
 | Req ID | Behavior | Test type | Automated command | File state |
 |--------|----------|-----------|-------------------|------------|
-| DJAN-03 | Exact dependencies, production settings, Docker stages, collection output, Gunicorn topology | Public/static integration | `./scripts/test-postgres.sh --pytest-only tests/test_production_image.py -q` | Wave 0: create |
-| DJAN-03 | Secret/Deployment/Service/Job renderer, readiness, security, rollback order, cleanup | Static + real integration | `./scripts/test-postgres.sh --pytest-only tests/test_production_workload.py -q` then `./scripts/test-production.sh --phase-gate` | Wave 0: create |
-| DJAN-03 | Hashed CSS, board/admin continuity, two Pods, logs, four runtime states | Real HTTP/browser/Kubernetes | `./scripts/test-production.sh --phase-gate` | Extend existing harness pattern |
-| DJAN-04 | Direct/peeled refs/messages, main equality, ruleset, three public-clone replays | Public Git/registry integration | `./scripts/test-production.sh --publication-gate` | Extend harness |
+| DJAN-03 | Exact dependencies, production settings, Docker stages, collection output, Gunicorn topology | Public/static integration | `./scripts/test-postgres.sh --pytest-only tests/test_production.py -q` | Wave 1: create |
+| DJAN-03 | Secret/Deployment/Service/Job renderer, readiness, security, rollback order, cleanup | Static + real integration | `./scripts/test-postgres.sh --pytest-only tests/test_migration_job.py tests/test_postgres_harness.py tests/test_production.py -q` then `./scripts/test-production.sh --run ...` | Wave 2: extend |
+| DJAN-03 | Hashed CSS, board/admin continuity, two Pods, logs, four runtime states | Real HTTP/browser/Kubernetes | `./scripts/test-production.sh --run ...` | Extend existing harness pattern |
+| DJAN-04 | Direct/peeled refs/messages, main equality, ruleset, three public-clone replays | Public Git/registry integration | public Git/GitHub checks plus `./scripts/test-production.sh --verify-evidence publication --evidence-dir "$EVIDENCE_DIR"` | Extend harness |
 
 ### Sampling Rate
 
@@ -694,10 +689,11 @@ arithmetic and Kubernetes emptyDir docs]
 
 ### Wave 0 Gaps
 
-- [ ] `tests/test_production_image.py` - first public/static RED seam.
-- [ ] `tests/test_production_workload.py` - second workload/harness RED seam.
+- [ ] `tests/test_production.py` - both public production RED seams.
+- [ ] Extend `tests/test_migration_job.py` and `tests/test_postgres_harness.py`
+  in the second RED.
 - [ ] `scripts/test-production.sh` - production registry/runtime/evidence gate.
-- [ ] `gunicorn.conf.py` - stable worker topology and release hook.
+- [ ] Extend `taskboard/wsgi.py` with the stable per-worker release record.
 - [ ] `.github/workflows/publish-image.yml`, `Dockerfile`, `.dockerignore`, and
   `deploy/application.yaml` - public production contracts.
 
@@ -740,11 +736,11 @@ gh api repos/docker/build-push-action/git/ref/tags/v7.3.0 --jq .object.sha
 ### Static and Runtime Acceptance
 
 ```bash
-./scripts/test-postgres.sh --pytest-only tests/test_production_image.py -q
-./scripts/test-postgres.sh --pytest-only tests/test_production_workload.py -q
-./scripts/test-production.sh --phase-gate
+./scripts/test-postgres.sh --pytest-only tests/test_production.py -q
+./scripts/test-postgres.sh --pytest-only tests/test_migration_job.py tests/test_postgres_harness.py tests/test_production.py -q
+./scripts/test-production.sh --run --baseline-image "$IMAGE_A" --baseline-source "$SOURCE_A" --final-image "$IMAGE_B" --final-source "$SOURCE_B" --evidence-dir "$EVIDENCE_DIR"
 ./scripts/test-production.sh --verify-evidence live --evidence-dir "$EVIDENCE_DIR"
-./scripts/test-production.sh --publication-gate
+./scripts/test-production.sh --verify-evidence publication --evidence-dir "$EVIDENCE_DIR"
 ./scripts/test-production.sh --assert-clean-all
 ```
 
