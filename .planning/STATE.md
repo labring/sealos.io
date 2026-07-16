@@ -5,15 +5,15 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 26
 current_phase_name: Django Production Stage
 status: in_progress
-stopped_at: Completed 26-01-PLAN.md
-last_updated: "2026-07-16T07:02:04.926Z"
+stopped_at: Completed 26-02-PLAN.md
+last_updated: "2026-07-16T13:18:06.000Z"
 last_activity: 2026-07-16
 progress:
   total_phases: 8
   completed_phases: 5
   total_plans: 25
-  completed_plans: 22
-  percent: 88
+  completed_plans: 23
+  percent: 92
 ---
 
 # Project State
@@ -46,19 +46,19 @@ workflow.
 ## Current Position
 
 Phase: 26 (Django Production Stage) — IN PROGRESS
-Plan: 1 of 4
-Status: Completed 26-01; ready for 26-02
+Plan: 2 of 4
+Status: Completed 26-02; ready for 26-03
 Last activity: 2026-07-16
 
 ## Next Action
 
-Run Plan `26-02` to add the production workload contracts, freeze the final
-reader source, and publish Image B.
+Run Plan `26-03` to execute the four-state Image A/Image B rollout, rollback,
+recovery, Task continuity, and live evidence gate on Sealos.
 
 ## Session
 
-**Last session:** 2026-07-16T07:02:04.922Z
-**Stopped at:** Completed 26-01-PLAN.md
+**Last session:** 2026-07-16T13:18:06.000Z
+**Stopped at:** Completed 26-02-PLAN.md
 **Resume file:** None
 
 ## Performance Metrics
@@ -99,6 +99,7 @@ reader source, and publish Image B.
 | Phase 25 P05 | 50 min | 3 tasks | 4 evidence files |
 | Phase 25 verification | 2026-07-16 | 23/23 must-haves verified | TDD-02, TDD-03, and DJAN-02 passed |
 | Phase 26 P01 | 44 min | 3 tasks | 9 files |
+| Phase 26 P02 | 59 min | 3 tasks | 7 target files |
 
 ## Decisions
 
@@ -176,3 +177,7 @@ reader source, and publish Image B.
 - [Phase 26]: 26-01: Gate production-only secrets, localhost hosts, manifest static storage, and serving-worker identity behind DJANGO_PRODUCTION=1. — Preserve the accepted Stage 2 development path while production fails closed on every runtime identity input.
 - [Phase 26]: 26-01: Use the anonymous GHCR readback digest as the deployable Image A identity. — The public registry result is the immutable reader and Sealos deployment reference.
 - [Phase 26]: 26-01: Publish package visibility only after repository linkage is exact. — Anonymous replay begins after source ownership and package association are proven.
+- [Phase 26]: 26-02: Run the same immutable image and Secret through the migration Job before accepting either hardened Gunicorn replica. — Migration completion is the release readiness boundary.
+- [Phase 26]: 26-02: Use one persistent Django Task across baseline, final, rollout undo, and explicit final recovery. — Board and authenticated administration read the same public witness.
+- [Phase 26]: 26-02: Freeze the README-only final source before retaining Image B's dynamic digest in Sealos.io planning evidence. — Public source stays self-consistent and immutable.
+- [Phase 26]: 26-02: Accept cleanup `secret=0` as zero inventory while rejecting every assigned Secret value. — Evidence scanning stays credential-safe and compatible with the cleanup schema.
