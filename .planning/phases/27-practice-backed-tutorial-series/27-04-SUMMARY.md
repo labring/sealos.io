@@ -86,7 +86,7 @@ protected-tag link, and four descriptive adjacent image references.
 ## Commits
 
 - `320af97` - `docs(27-04): add FastAPI tutorial series`
-- `cac722f` - `docs(27-04): add Django tutorial series`
+- `a6ea141` - `docs(27-04): add Django tutorial series`
 
 Each commit contains exactly its three framework MDX files.
 
