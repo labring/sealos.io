@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -8,7 +8,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+} from '@/components/ui/navigation-menu';
 import {
   ChevronDown,
   CodeXmlIcon,
@@ -19,17 +19,23 @@ import {
   School,
   Gamepad2,
   Building2,
-} from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
-import Image from "next/image";
-import { useParams } from "next/navigation";
-import React from "react";
-import GitHubIcon from "@/assets/github.svg";
-import { useGTM } from "@/hooks/use-gtm";
-import { siteConfig } from "@/config/site";
-import { useAuthRedirect } from "@/hooks/use-auth-redirect";
-import { getOpenBrainParam } from "@/lib/utils/brain";
-import { i18n, languagesType } from "@/lib/i18n";
+  BookOpen,
+  MessageCircle,
+  BookOpenText,
+  GraduationCap,
+  FileText,
+  Users,
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import Image from 'next/image';
+import { useParams } from 'next/navigation';
+import React from 'react';
+import GitHubIcon from '@/assets/github.svg';
+import { useGTM } from '@/hooks/use-gtm';
+import { siteConfig } from '@/config/site';
+import { useAuthRedirect } from '@/hooks/use-auth-redirect';
+import { getOpenBrainParam } from '@/lib/utils/brain';
+import { i18n, languagesType } from '@/lib/i18n';
 
 type NavigationChild = {
   text: string;
@@ -50,81 +56,112 @@ type HeaderProps = {
   lang?: languagesType;
 };
 
+// 导航链接数据
 const navigationLinks: NavigationLink[] = [
   {
-    text: "Products",
-    url: "#",
+    text: 'Products',
+    url: '#',
     isExternal: false,
     children: [
       {
-        text: "DevBox",
-        url: "/products/devbox",
+        text: 'DevBox',
+        url: '/products/devbox',
         isExternal: false,
-        description: "Cloud development environment",
-        icon: <CodeXmlIcon className="text-current" size={16} />,
+        description: 'Cloud development environment',
+        icon: <CodeXmlIcon size={16} />,
       },
       {
-        text: "App Store",
-        url: "/products/app-store",
+        text: 'App Store',
+        url: '/products/app-store',
         isExternal: false,
-        description: "Run your favorite apps",
-        icon: <LayoutGridIcon className="text-current" size={16} />,
+        description: 'Run your favorite apps',
+        icon: <LayoutGridIcon size={16} />,
       },
       {
-        text: "Databases",
-        url: "/products/databases",
+        text: 'Databases',
+        url: '/products/databases',
         isExternal: false,
-        description: "1-click managed DB",
-        icon: <DatabaseIcon className="text-current" size={16} />,
+        description: '1-click managed DB',
+        icon: <DatabaseIcon size={16} />,
       },
     ],
   },
   {
-    text: "Docs",
-    url: "/docs",
+    text: 'Docs',
+    url: '/docs',
     isExternal: false,
   },
   {
-    text: "Blog",
-    url: "/blog",
-    isExternal: false,
-  },
-  {
-    text: "Pricing",
-    url: "/pricing",
-    isExternal: false,
-  },
-  {
-    text: "Solutions",
-    url: "#",
+    text: 'Resources',
+    url: '#',
     isExternal: false,
     children: [
       {
-        text: "Education",
-        url: "/solutions/industries/education",
+        text: 'Learn',
+        url: '/blog/category/best-practices',
         isExternal: false,
-        description: "Empower learning with cloud infrastructure",
-        icon: <School className="text-current" size={16} />,
+        description: 'Learn and build with the best practices',
+        icon: <BookOpenText size={16} />,
       },
       {
-        text: "Gaming",
-        url: "/solutions/industries/gaming",
+        text: 'Tutorials',
+        url: '/tutorials',
         isExternal: false,
-        description: "Scale your gaming platform",
-        icon: <Gamepad2 className="text-current" size={16} />,
+        description: 'Step-by-step guides for real app deployments',
+        icon: <GraduationCap size={16} />,
       },
       {
-        text: "Information Technology",
-        url: "/solutions/industries/information-technology",
+        text: 'Blog',
+        url: '/blog',
         isExternal: false,
-        description: "Enterprise-grade IT solutions",
-        icon: <Building2 className="text-current" size={16} />,
+        description: 'Latest news and updates from Sealos',
+        icon: <FileText size={16} />,
+      },
+      {
+        text: 'Community',
+        url: 'https://discord.gg/wdUn538zVP',
+        isExternal: true,
+        description: 'Join our community of developers',
+        icon: <Users size={16} />,
       },
     ],
   },
   {
-    text: "Contact",
-    url: "/contact",
+    text: 'Pricing',
+    url: '/pricing',
+    isExternal: false,
+  },
+  {
+    text: 'Solutions',
+    url: '#',
+    isExternal: false,
+    children: [
+      {
+        text: 'Education',
+        url: '/solutions/industries/education',
+        isExternal: false,
+        description: 'Empower learning with cloud infrastructure',
+        icon: <School size={16} />,
+      },
+      {
+        text: 'Gaming',
+        url: '/solutions/industries/gaming',
+        isExternal: false,
+        description: 'Scale your gaming platform',
+        icon: <Gamepad2 size={16} />,
+      },
+      {
+        text: 'Information Technology',
+        url: '/solutions/industries/information-technology',
+        isExternal: false,
+        description: 'Enterprise-grade IT solutions',
+        icon: <Building2 size={16} />,
+      },
+    ],
+  },
+  {
+    text: 'Contact',
+    url: '/contact',
     isExternal: false,
   },
 ];
@@ -134,8 +171,8 @@ const DropdownMenuItem = ({ child }: { child: NavigationChild }) => {
     <NavigationMenuLink asChild>
       <a
         href={child.url}
-        target={child.isExternal ? "_blank" : undefined}
-        rel={child.isExternal ? "noopener noreferrer" : undefined}
+        target={child.isExternal ? '_blank' : undefined}
+        rel={child.isExternal ? 'noopener noreferrer' : undefined}
         className="relative flex flex-col justify-center rounded-lg px-2 py-2.5 text-white transition-colors hover:bg-white/[0.05] focus:bg-white/[0.05] focus:outline-none hover:[&_svg]:text-blue-400 focus:[&_svg]:text-blue-400"
       >
         <div className="flex items-center gap-2">
@@ -147,7 +184,9 @@ const DropdownMenuItem = ({ child }: { child: NavigationChild }) => {
           <div className="min-w-0 flex-1">
             <div className="text-sm leading-5 text-zinc-200">{child.text}</div>
             {child.description && (
-              <div className="w-[186px] text-xs leading-4 text-zinc-500">{child.description}</div>
+              <div className="w-[186px] text-xs leading-4 text-zinc-500">
+                {child.description}
+              </div>
             )}
           </div>
         </div>
@@ -156,7 +195,13 @@ const DropdownMenuItem = ({ child }: { child: NavigationChild }) => {
   );
 };
 
-const DropdownMenu = ({ title, children }: { title: string; children: NavigationChild[] }) => {
+const DropdownMenu = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: NavigationChild[];
+}) => {
   return (
     <>
       <NavigationMenuTrigger className="h-8 gap-0.5 rounded-md px-2 py-1 text-base font-normal text-white hover:bg-white/10 focus:bg-white/10 data-[state=open]:bg-white/10">
@@ -167,13 +212,15 @@ const DropdownMenu = ({ title, children }: { title: string; children: Navigation
         <div
           className="w-screen max-w-[532px] rounded-lg border border-white/10 bg-[#080A11] p-4 text-white"
           style={{
-            backdropFilter: "blur(40px)",
-            WebkitBackdropFilter: "blur(40px)",
+            backdropFilter: 'blur(40px)',
+            WebkitBackdropFilter: 'blur(40px)',
           }}
         >
-          <div className="mb-1 px-2 text-sm leading-5 text-zinc-500">{title}</div>
+          <div className="mb-1 px-2 text-sm leading-5 text-zinc-500">
+            {title}
+          </div>
           <div className="grid grid-cols-2 gap-2">
-            {children.slice(0, 2).map((child, index) => (
+            {children.map((child, index) => (
               <DropdownMenuItem key={index} child={child} />
             ))}
           </div>
@@ -211,16 +258,16 @@ export function Header({ lang }: HeaderProps) {
     }
 
     const localizeUrl = (url: string, isExternal: boolean) => {
-      if (isExternal || url.startsWith("#")) {
+      if (isExternal || url.startsWith('#')) {
         return url;
       }
       if (url.startsWith(`/${resolvedLang}`)) {
         return url;
       }
-      if (url === "/") {
+      if (url === '/') {
         return `/${resolvedLang}`;
       }
-      if (url.startsWith("/")) {
+      if (url.startsWith('/')) {
         return `/${resolvedLang}${url}`;
       }
       return `/${resolvedLang}/${url}`;
@@ -236,7 +283,7 @@ export function Header({ lang }: HeaderProps) {
     }));
   }, [resolvedLang]);
 
-  const homeHref = resolvedLang ? `/${resolvedLang}` : "/";
+  const homeHref = resolvedLang ? `/${resolvedLang}` : '/';
 
   return (
     <>
@@ -257,21 +304,32 @@ export function Header({ lang }: HeaderProps) {
                 height={24}
                 priority
               />
-              <span className="leading-none font-bold whitespace-nowrap">Sealos</span>
+              <span className="leading-none font-bold whitespace-nowrap">
+                Sealos
+              </span>
             </a>
 
-            <NavigationMenu className="hidden lg:flex" viewport={false} role="navigation">
+            <NavigationMenu
+              className="hidden lg:flex"
+              viewport={false}
+              role="navigation"
+            >
               <NavigationMenuList className="gap-4">
                 {localizedNavigationLinks.map((link, index) => (
                   <NavigationMenuItem key={index}>
                     {link.children ? (
-                      <DropdownMenu title={link.text} children={link.children} />
+                      <DropdownMenu
+                        title={link.text}
+                        children={link.children}
+                      />
                     ) : (
                       <NavigationMenuLink asChild>
                         <a
                           href={link.url}
-                          target={link.isExternal ? "_blank" : undefined}
-                          rel={link.isExternal ? "noopener noreferrer" : undefined}
+                          target={link.isExternal ? '_blank' : undefined}
+                          rel={
+                            link.isExternal ? 'noopener noreferrer' : undefined
+                          }
                           className="inline-flex h-8 items-center justify-center rounded-md px-2 py-1 text-base font-normal text-white transition-colors hover:bg-white/10 focus:bg-white/10 focus:outline-none"
                         >
                           {link.text}
@@ -292,7 +350,14 @@ export function Header({ lang }: HeaderProps) {
                 rel="noopener noreferrer"
                 className="inline-flex h-8 items-center gap-2 rounded-full px-2 py-1 text-sm font-medium text-white transition-colors hover:bg-white/10 focus:bg-white/10 focus:outline-none"
                 aria-label="Open Sealos GitHub page."
-                onClick={() => trackButton("GitHub", "header", "url", siteConfig.links.github)}
+                onClick={() =>
+                  trackButton(
+                    'GitHub',
+                    'header',
+                    'url',
+                    siteConfig.links.github,
+                  )
+                }
               >
                 <Image src={GitHubIcon} alt="" width={16} height={16} />
                 <span>18.3k</span>
@@ -304,7 +369,7 @@ export function Header({ lang }: HeaderProps) {
               className="hidden h-10 rounded-full px-4 py-2 text-sm font-medium shadow-lg lg:flex"
               aria-label="Start using Sealos for free."
               onClick={() => {
-                trackButton("Get Started", "header", "auth-form", "");
+                trackButton('Get Started', 'header', 'auth-form', '');
                 handleAuthRedirect({ openapp: getOpenBrainParam() });
               }}
             >
@@ -336,7 +401,7 @@ export function Header({ lang }: HeaderProps) {
           >
             <motion.div
               initial={{ height: 0 }}
-              animate={{ height: "100%" }}
+              animate={{ height: '100%' }}
               exit={{ height: 0 }}
               transition={{ duration: 1, ease: [0.32, 0.72, 0, 1] }}
               className="w-full overflow-hidden"
@@ -390,7 +455,7 @@ export function Header({ lang }: HeaderProps) {
                               {openMenus[link.text] && (
                                 <motion.div
                                   initial={{ height: 0, opacity: 0 }}
-                                  animate={{ height: "auto", opacity: 1 }}
+                                  animate={{ height: 'auto', opacity: 1 }}
                                   exit={{ height: 0, opacity: 0 }}
                                   transition={{ duration: 0.2 }}
                                   className="overflow-hidden"
@@ -401,15 +466,27 @@ export function Header({ lang }: HeaderProps) {
                                         key={childIndex}
                                         href={child.url}
                                         onClick={closeMobileMenu}
-                                        target={child.isExternal ? "_blank" : undefined}
-                                        rel={child.isExternal ? "noopener noreferrer" : undefined}
+                                        target={
+                                          child.isExternal
+                                            ? '_blank'
+                                            : undefined
+                                        }
+                                        rel={
+                                          child.isExternal
+                                            ? 'noopener noreferrer'
+                                            : undefined
+                                        }
                                         className="flex flex-col gap-1 rounded-lg bg-white/5 p-3 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
                                       >
                                         <div className="flex items-center gap-2">
                                           {child.icon && (
-                                            <div className="flex-shrink-0">{child.icon}</div>
+                                            <div className="flex-shrink-0">
+                                              {child.icon}
+                                            </div>
                                           )}
-                                          <span className="font-medium">{child.text}</span>
+                                          <span className="font-medium">
+                                            {child.text}
+                                          </span>
                                         </div>
                                         {child.description && (
                                           <span className="pl-0 text-sm text-white/50">
@@ -427,8 +504,12 @@ export function Header({ lang }: HeaderProps) {
                           <a
                             href={link.url}
                             onClick={closeMobileMenu}
-                            target={link.isExternal ? "_blank" : undefined}
-                            rel={link.isExternal ? "noopener noreferrer" : undefined}
+                            target={link.isExternal ? '_blank' : undefined}
+                            rel={
+                              link.isExternal
+                                ? 'noopener noreferrer'
+                                : undefined
+                            }
                             className="block py-4 text-lg font-medium text-white transition-colors hover:text-white/80"
                           >
                             {link.text}
@@ -452,7 +533,12 @@ export function Header({ lang }: HeaderProps) {
                         className="flex gap-2"
                         onClick={closeMobileMenu}
                       >
-                        <Image src={GitHubIcon} alt="GitHub" width={16} height={16} />
+                        <Image
+                          src={GitHubIcon}
+                          alt="GitHub"
+                          width={16}
+                          height={16}
+                        />
                         <span>18.3k</span>
                       </a>
                     </Button>
@@ -461,7 +547,12 @@ export function Header({ lang }: HeaderProps) {
                       className="h-12 w-full border border-white text-base"
                       aria-label="Start using Sealos for free."
                       onClick={() => {
-                        trackButton("Get Started", "header-mobile", "auth-form", "");
+                        trackButton(
+                          'Get Started',
+                          'header-mobile',
+                          'auth-form',
+                          '',
+                        );
                         handleAuthRedirect({ openapp: getOpenBrainParam() });
                         closeMobileMenu();
                       }}

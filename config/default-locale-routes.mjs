@@ -9,6 +9,7 @@ const DEFAULT_LOCALE_EXACT_ROUTES = [
   '/docs',
   '/pricing',
   '/sealos-skills',
+  '/tutorials',
 ];
 
 const DEFAULT_LOCALE_CATCH_ALL_PREFIXES = [
@@ -20,6 +21,7 @@ const DEFAULT_LOCALE_CATCH_ALL_PREFIXES = [
   '/legal',
   '/products',
   '/solutions',
+  '/tutorials',
 ];
 
 function normalizeLocale(locale) {
