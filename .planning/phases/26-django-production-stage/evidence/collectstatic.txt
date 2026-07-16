@@ -1,0 +1,6 @@
+role=baseline source=c99384891f45c8df8bfaf7803c8e1d752ffd08c5 image=ghcr.io/yangchuansheng/sealos-django-tutorial@sha256:df3772c3abedfb05c52d696f17ff8295d73f34b8b017f8b6ba2738fceb4247a8 manifest=passed manifest_path=/app/staticfiles/staticfiles.json hashed_css=passed css_path=/static/tasks/styles.852e61e8064c.css filesystem=passed
+role=final source=8e372f93e1a7bb72880be5198430a065d38d65f5 image=ghcr.io/yangchuansheng/sealos-django-tutorial@sha256:aad216002fae3fd2adce92f09e47e936614b16964a6972c226c4058a16568c7b manifest=passed manifest_path=/app/staticfiles/staticfiles.json hashed_css=passed css_path=/static/tasks/styles.852e61e8064c.css filesystem=passed
+state=baseline board=passed hashed_css=passed css_url=/static/tasks/styles.852e61e8064c.css content_type=text/css static_cache=immutable host=localhost
+state=final board=passed hashed_css=passed css_url=/static/tasks/styles.852e61e8064c.css content_type=text/css static_cache=immutable host=localhost
+state=baseline-rollback board=passed hashed_css=passed css_url=/static/tasks/styles.852e61e8064c.css content_type=text/css static_cache=immutable host=localhost
+state=final-recovered board=passed hashed_css=passed css_url=/static/tasks/styles.852e61e8064c.css content_type=text/css static_cache=immutable host=localhost

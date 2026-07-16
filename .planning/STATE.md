@@ -5,15 +5,15 @@ milestone_name: FastAPI and Django Tutorial Expansion
 current_phase: 26
 current_phase_name: Django Production Stage
 status: in_progress
-stopped_at: Completed 26-02-PLAN.md
-last_updated: "2026-07-16T13:18:06.000Z"
+stopped_at: Completed 26-03-PLAN.md
+last_updated: "2026-07-16T13:59:34.615Z"
 last_activity: 2026-07-16
 progress:
   total_phases: 8
   completed_phases: 5
   total_plans: 25
-  completed_plans: 23
-  percent: 92
+  completed_plans: 24
+  percent: 96
 ---
 
 # Project State
@@ -46,19 +46,19 @@ workflow.
 ## Current Position
 
 Phase: 26 (Django Production Stage) — IN PROGRESS
-Plan: 2 of 4
-Status: Completed 26-02; ready for 26-03
+Plan: 3 of 4
+Status: Completed 26-03; ready for 26-04
 Last activity: 2026-07-16
 
 ## Next Action
 
-Run Plan `26-03` to execute the four-state Image A/Image B rollout, rollback,
-recovery, Task continuity, and live evidence gate on Sealos.
+Run Plan `26-04` to publish protected Stage 3, replay all public source and
+image inputs, seal publication evidence, and prove final zero residue.
 
 ## Session
 
-**Last session:** 2026-07-16T13:18:06.000Z
-**Stopped at:** Completed 26-02-PLAN.md
+**Last session:** 2026-07-16T13:59:34.611Z
+**Stopped at:** Completed 26-03-PLAN.md
 **Resume file:** None
 
 ## Performance Metrics
@@ -100,6 +100,7 @@ recovery, Task continuity, and live evidence gate on Sealos.
 | Phase 25 verification | 2026-07-16 | 23/23 must-haves verified | TDD-02, TDD-03, and DJAN-02 passed |
 | Phase 26 P01 | 44 min | 3 tasks | 9 files |
 | Phase 26 P02 | 59 min | 3 tasks | 7 target files |
+| Phase 26 P03 | 21 min | 3 tasks | 11 files |
 
 ## Decisions
 
@@ -181,3 +182,6 @@ recovery, Task continuity, and live evidence gate on Sealos.
 - [Phase 26]: 26-02: Use one persistent Django Task across baseline, final, rollout undo, and explicit final recovery. — Board and authenticated administration read the same public witness.
 - [Phase 26]: 26-02: Freeze the README-only final source before retaining Image B's dynamic digest in Sealos.io planning evidence. — Public source stays self-consistent and immutable.
 - [Phase 26]: 26-02: Accept cleanup `secret=0` as zero inventory while rejecting every assigned Secret value. — Evidence scanning stays credential-safe and compatible with the cleanup schema.
+- [Phase 26]: Accept live run 0f27d3ed8f1f after four ordered production states and exact cleanup. — This run provides the checksum-valid DJAN-03 runtime witness.
+- [Phase 26]: Use a removed external browser timing adapter while keeping the target source and assertions frozen. — agent-browser 0.26.0 required bounded navigation and selector readiness waits.
+- [Phase 26]: Keep live evidence writable only for the exact Plan 26-04 publication append and reseal. — The final publication package adds one data file and regenerates the checksum manifest.
