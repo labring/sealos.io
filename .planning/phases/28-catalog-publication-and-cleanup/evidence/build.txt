@@ -1,0 +1,11 @@
+source_commit=fbfbafc5cb280b1f0a8ac207069e92d1bd498254
+focused_tests=pass tests=4 failures=0
+validator=pass tutorial_pages=15
+typescript_lint=pass
+production_build=pass real_seconds=148.90 static_pages=6171
+default_locale_normalization=pass
+static_output_check=pass real_seconds=0.30 native_artifact_inspection=skipped_with_caveat
+static_routes_check=pass real_seconds=0.15 policy_rows=11 policy_failures=0
+tutorial_detail_html=15
+python_evidence_webp=24
+http_matrix=pass paths=31 html=7 webp=24
