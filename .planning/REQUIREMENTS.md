@@ -153,6 +153,10 @@ Roadmap creation maps each v1.3 requirement to exactly one phase.
 | PUB-03 | Phase 28 | Complete |
 | OPS-01 | Phase 27 | Complete |
 | OPS-02 | Phase 28 | Complete |
+| FUTURE-01 | Future backlog | Deferred |
+| FUTURE-02 | Future backlog | Deferred |
+| FUTURE-03 | Future backlog | Deferred |
+| FUTURE-04 | Future backlog | Deferred |
 
 **Coverage:**
 

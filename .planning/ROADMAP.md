@@ -373,7 +373,7 @@ maintainers can verify its public contracts and the empty practice footprint.
 **Validation Approach**: Run the validator CLI, TypeScript and static build
 checks, issue static HTTP requests for every new route and asset, inspect the
 matrix and navigation, then query each cleanup resource class.
-**Plans**: 0/3 plans executed
+**Plans**: 3/3 plans executed; independent verification passed
 
 - [x] 28-01-PLAN.md
 - [x] 28-02-PLAN.md
@@ -401,8 +401,8 @@ Phases execute in numeric order: 21 -> 22 -> 23 -> 24 -> 25 -> 26 -> 27 -> 28
 | 24. Django Deploy Stage | 5/5 | Complete    | 2026-07-15 |
 | 25. Django PostgreSQL Stage | 5/5 | Complete | 2026-07-16 |
 | 26. Django Production Stage | 4/4 | Complete | 2026-07-16 |
-| 27. Practice-Backed Tutorial Series | 0/TBD | Not started | - |
-| 28. Catalog Publication and Cleanup | 3/3 | Complete   | 2026-07-17 |
+| 27. Practice-Backed Tutorial Series | 6/6 | Complete | 2026-07-17 |
+| 28. Catalog Publication and Cleanup | 3/3 | Complete | 2026-07-17 |
 
 ---
 *Roadmap created: 2026-07-15 for milestone v1.3*
