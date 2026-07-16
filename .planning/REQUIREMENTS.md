@@ -46,11 +46,11 @@ product.
 - [x] **DJAN-02**: Reader can use the PostgreSQL stage with psycopg 3, repeatable
   Django migrations, a one-shot migration Job, and database-backed task reads.
 
-- [ ] **DJAN-03**: Reader can use the production stage with Django 5.2 LTS,
+- [x] **DJAN-03**: Reader can use the production stage with Django 5.2 LTS,
   Gunicorn WSGI, WhiteNoise, `collectstatic`, non-root execution, readiness,
   logs, and rollback-ready image tags.
 
-- [ ] **DJAN-04**: Reader can resolve `stage-1-deploy`, `stage-2-postgresql`, and
+- [x] **DJAN-04**: Reader can resolve `stage-1-deploy`, `stage-2-postgresql`, and
   `stage-3-production` in the public Django repository while `main` matches the
   production stage.
 
@@ -139,8 +139,8 @@ Roadmap creation maps each v1.3 requirement to exactly one phase.
 | FAST-04 | Phase 23 | Complete |
 | DJAN-01 | Phase 24 | Complete |
 | DJAN-02 | Phase 25 | Complete |
-| DJAN-03 | Phase 26 | Pending |
-| DJAN-04 | Phase 26 | Pending |
+| DJAN-03 | Phase 26 | Complete |
+| DJAN-04 | Phase 26 | Complete |
 | CONT-01 | Phase 27 | Pending |
 | CONT-02 | Phase 27 | Pending |
 | CONT-03 | Phase 27 | Pending |
@@ -162,4 +162,4 @@ Roadmap creation maps each v1.3 requirement to exactly one phase.
 
 ---
 *Requirements defined: 2026-07-15*
-*Last updated: 2026-07-15 after v1.3 roadmap creation*
+*Last updated: 2026-07-16 after Phase 26 verification*

@@ -33,7 +33,7 @@ cleanup of the live Sealos footprint.
 - [x] **Phase 25: Django PostgreSQL Stage** - Prove both migration paths and (completed 2026-07-16)
   move Task Board writes and reads to PostgreSQL through a one-shot Job.
 
-- [ ] **Phase 26: Django Production Stage** - Publish the locked Gunicorn and
+- [x] **Phase 26: Django Production Stage** - Publish the locked Gunicorn and (completed 2026-07-16)
   WhiteNoise runtime with immutable Django source stages and rollback evidence.
 
 - [ ] **Phase 27: Practice-Backed Tutorial Series** - Turn real local and
@@ -273,12 +273,14 @@ release from immutable public source and image references.
 **Validation Approach**: Inspect the running container identity and process
 model, load rendered pages and static assets, compare Git trees for all tags,
 and exercise an image rollback and recovery.
-**Plans**: 4/4 plans executed; independent verification pending
+**Plans**: 4/4 plans executed; independent verification passed
 
 - [x] 26-01-PLAN.md
 - [x] 26-02-PLAN.md
 - [x] 26-03-PLAN.md
 - [x] 26-04-PLAN.md
+
+**Verification**: 21/21 must-haves verified; DJAN-03 and DJAN-04 complete.
 
 **UI hint**: yes
 
@@ -383,7 +385,7 @@ Phases execute in numeric order: 21 -> 22 -> 23 -> 24 -> 25 -> 26 -> 27 -> 28
 | 23. FastAPI Production Stage | 4/4 | Complete    | 2026-07-15 |
 | 24. Django Deploy Stage | 5/5 | Complete    | 2026-07-15 |
 | 25. Django PostgreSQL Stage | 5/5 | Complete | 2026-07-16 |
-| 26. Django Production Stage | 4/4 | Verification Pending |  |
+| 26. Django Production Stage | 4/4 | Complete | 2026-07-16 |
 | 27. Practice-Backed Tutorial Series | 0/TBD | Not started | - |
 | 28. Catalog Publication and Cleanup | 0/TBD | Not started | - |
 

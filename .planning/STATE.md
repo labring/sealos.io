@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: FastAPI and Django Tutorial Expansion
-current_phase: 26
-current_phase_name: Django Production Stage
-status: verification_pending
-stopped_at: Completed 26-04-PLAN.md; Phase 26 verification pending
-last_updated: "2026-07-16T14:41:16.000Z"
+current_phase: 27
+current_phase_name: Practice-Backed Tutorial Series
+status: ready_for_discussion
+stopped_at: Phase 26 verified; Phase 27 discussion and planning ready
+last_updated: "2026-07-16T15:15:18.000Z"
 last_activity: 2026-07-16
 progress:
   total_phases: 8
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 25
   completed_plans: 25
   percent: 100
@@ -25,40 +25,45 @@ See: `.planning/PROJECT.md` (updated 2026-07-15)
 **Core value:** Readers can follow framework-specific Sealos tutorials with
 commands, screenshots, and validation evidence that match the current product
 workflow.
-**Current focus:** Phase 26 — Django Production Stage
+**Current focus:** Phase 27 — Practice-Backed Tutorial Series
 
 ## Current Phase
 
 | Field | Value |
 |-------|-------|
-| Phase | 26 of 28 |
-| Name | Django Production Stage |
-| Status | Verification pending |
-| Goal | Readers can reproduce and roll back the complete production Django release from immutable public source and image references. |
+| Phase | 27 of 28 |
+| Name | Practice-Backed Tutorial Series |
+| Status | Ready for discussion and planning |
+| Goal | Readers can follow six coherent tutorials whose screenshots and claims come from retained, reproducible FastAPI and Django practice evidence. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-- DJAN-03
-- DJAN-04
+- CONT-01
+- CONT-02
+- CONT-03
+- CONT-04
+- SHOT-01
+- SHOT-02
+- OPS-01
 
 ## Current Position
 
-Phase: 26 (Django Production Stage) — VERIFICATION PENDING
-Plan: 4 of 4
-Status: Completed 26-04; independent verification pending
+Phase: 27 (Practice-Backed Tutorial Series) — READY FOR DISCUSSION
+Plan: 0 of TBD
+Status: Phase 26 verified; Phase 27 discussion and planning ready
 Last activity: 2026-07-16
 
 ## Next Action
 
-Run independent Phase 26 verification for DJAN-03 and DJAN-04, then advance
-to Phase 27 tutorial authoring from the sealed public and runtime evidence.
+Discuss and plan Phase 27 tutorial authoring from the verified public source,
+immutable images, and sealed runtime evidence.
 
 ## Session
 
-**Last session:** 2026-07-16T14:41:16.000Z
-**Stopped at:** Completed 26-04-PLAN.md; Phase 26 verification pending
+**Last session:** 2026-07-16T15:15:18.000Z
+**Stopped at:** Phase 26 verified; Phase 27 discussion and planning ready
 **Resume file:** None
 
 ## Performance Metrics
@@ -102,6 +107,7 @@ to Phase 27 tutorial authoring from the sealed public and runtime evidence.
 | Phase 26 P02 | 59 min | 3 tasks | 7 target files |
 | Phase 26 P03 | 21 min | 3 tasks | 11 files |
 | Phase 26 P04 | 33 min | 3 tasks | protected Stage 3, public replays, and 11 sealed evidence files |
+| Phase 26 verification | 2026-07-16 | 21/21 must-haves verified | DJAN-03 and DJAN-04 passed |
 
 ## Decisions
 
@@ -186,3 +192,4 @@ to Phase 27 tutorial authoring from the sealed public and runtime evidence.
 - [Phase 26]: Accept live run 0f27d3ed8f1f after four ordered production states and exact cleanup. — This run provides the checksum-valid DJAN-03 runtime witness.
 - [Phase 26]: Use a removed external browser timing adapter while keeping the target source and assertions frozen. — agent-browser 0.26.0 required bounded navigation and selector readiness waits.
 - [Phase 26]: Keep live evidence writable only for the exact Plan 26-04 publication append and reseal. — The final publication package adds one data file and regenerates the checksum manifest.
+- [Phase 26]: Independent verification passed 21/21 must-haves; DJAN-03 and DJAN-04 are complete, and Phase 27 is ready for discussion and planning.
