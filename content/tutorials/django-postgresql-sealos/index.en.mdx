@@ -1,0 +1,368 @@
+---
+title: 'Deploy Django with PostgreSQL on Sealos'
+description: 'Deploy the protected Django Task Board with PostgreSQL on Sealos using psycopg 3, tasks.0001_initial, migration-first readiness, CSRF writes, restart persistence, and native admin readback.'
+date: 2026-07-17
+updated: 2026-07-17
+stage: advanced
+framework: Django
+series: sealos-skills-django
+seriesOrder: 2
+estimatedReadingTime: 14 minutes
+primaryKeyword: 'Django PostgreSQL deployment'
+targetKeywords:
+  - Django psycopg 3
+  - Django PostgreSQL migration
+  - Sealos PostgreSQL
+  - Django migration Job
+  - Django Task Board persistence
+tags:
+  - tutorial
+  - sealos-skills
+  - django
+  - postgresql
+  - deployment
+authors: ['default']
+relatedTutorials:
+  - deploy-django-sealos
+  - django-production-deployment-sealos
+cta:
+  label: 'Open Sealos Skills'
+  href: '/sealos-skills'
+faq:
+  - question: 'Who owns the Django Task schema?'
+    answer: 'The protected Stage 2 source owns one immutable Django migration, `tasks.0001_initial`. The one-shot migration Job runs `python manage.py migrate --noinput`, and application readiness waits for the resulting `tasks_task` table.'
+  - question: 'When does Django report ready?'
+    answer: '`GET /health` returns `200` with `{"status":"ok"}` only after PostgreSQL is configured, reachable, and contains the Task table. Missing configuration, an unreachable server, or an unmigrated schema returns `503` with `{"status":"unavailable"}`.'
+  - question: 'Which PostgreSQL version should I expect?'
+    answer: 'The protected source harness pins PostgreSQL 17.10. The current installed Sealos plugin generated a KubeBlocks `postgresql-16.4.0` plan during Phase 27 practice. Treat the generated Cluster version as current Sealos plan truth and the source version as harness context.'
+  - question: 'How was Task persistence verified?'
+    answer: 'Process A created a CSRF-protected Task and stopped cleanly. Process B used the same PostgreSQL database, returned health 200, rendered the exact title, and exposed it through the native admin changelist and change form.'
+howTo:
+  name: 'Deploy Django with PostgreSQL on Sealos'
+  description: 'Validate the protected database stage, ask Sealos for one application-and-database plan, migrate Django before readiness, create a Task through the CSRF form, and prove persistence plus admin readback after process restart.'
+  steps:
+    - name: 'Inspect the Stage 2 source'
+      text: 'Clone `stage-2-postgresql`, reproduce the lock and runtime export, and confirm psycopg 3.3.4, `DATABASE_URL`, the dummy unconfigured backend, and `tasks.0001_initial`.'
+    - name: 'Request Django and PostgreSQL together'
+      text: 'Ask the Sealos plugin to deploy the checked-out Task Board with PostgreSQL as one generated plan.'
+    - name: 'Review generated resources'
+      text: 'Confirm the application, Service, Ingress, KubeBlocks PostgreSQL Cluster, generated Secret, ConfigMap, and migration Job.'
+    - name: 'Run migration before readiness'
+      text: 'Apply the migration Job, wait for `Complete=True`, verify `tasks.0001_initial`, repeat it safely, and require schema-aware health 200.'
+    - name: 'Create and read a persistent Task'
+      text: 'Submit the public CSRF form through process A, stop it, start process B against the same database, and read the exact title.'
+    - name: 'Verify native administration and cleanup'
+      text: 'Use an ephemeral superuser to read the Task in Django administration, remove that account, close browser state, and audit the run-owned footprint.'
+---
+
+This second guide keeps the same Django Task Board and replaces local SQLite
+with PostgreSQL. The protected
+[stage-2-postgresql](https://github.com/yangchuansheng/sealos-django-tutorial/tree/stage-2-postgresql)
+tag uses Django's PostgreSQL backend, psycopg `3.3.4`, one explicit
+`DATABASE_URL`, immutable migration `tasks.0001_initial`, schema-aware health,
+and native administration.
+
+Start with [the Stage 1 deployment guide](/tutorials/deploy-django-sealos) if
+you still need the plugin, Host adapter, and Runtime Truth workflow. Continue to
+production after this stage proves migration order and persistence.
+
+## Key takeaways
+
+| Question                                   | Verified answer                                     |
+| ------------------------------------------ | --------------------------------------------------- |
+| Which connection key does Django read?     | `DATABASE_URL`                                      |
+| Which driver opens PostgreSQL connections? | psycopg `3.3.4`                                     |
+| Who creates the Task schema?               | Django migration `tasks.0001_initial`               |
+| What blocks readiness?                     | Missing configuration, connectivity, or Task table  |
+| What proves durability?                    | Process A write, process B read, and admin readback |
+
+## Prerequisites
+
+You need:
+
+- The Sealos plugin installed and authenticated
+- Git, Python 3.12, `uv`, `curl`, and `kubectl`
+- Access to a Sealos workspace that can create application and database resources
+- A fresh PostgreSQL database generated by the deployment plan
+
+The protected source harness uses PostgreSQL `17.10`. The current installed
+Sealos plugin generated a KubeBlocks `postgresql-16.4.0` Cluster plan. These
+facts have separate authority: `17.10` describes protected-source validation,
+and `16.4.0` describes the current Sealos plan generated during practice.
+
+## Architecture
+
+```text
+Public HTTPS
+   |
+   v
+localhost Host edge -> Django Task Board
+                         |  DATABASE_URL from Secret key url
+                         v
+                  KubeBlocks PostgreSQL
+
+Migration Job -- migrate --noinput --> tasks.0001_initial
+```
+
+PostgreSQL owns durable Task rows. Django owns the rendered board, CSRF form,
+health contract, and native admin. The migration Job owns schema creation before
+application readiness.
+
+## Step 1: Inspect the database-ready source
+
+Clone the protected stage:
+
+```bash
+git clone --branch stage-2-postgresql \
+  https://github.com/yangchuansheng/sealos-django-tutorial.git
+cd sealos-django-tutorial
+```
+
+Reproduce the lock and runtime compatibility export:
+
+```bash
+uv sync --locked
+uv lock --check
+uv export --locked --no-dev --no-emit-project --no-hashes \
+  --format requirements.txt --output-file requirements.txt
+git diff --exit-code -- uv.lock requirements.txt
+```
+
+The accepted source resolves both `psycopg` and `psycopg-binary` at `3.3.4`.
+It selects `django.db.backends.dummy` while database configuration is absent,
+which keeps an unconfigured application in a clear waiting state.
+
+Supply the real connection through the secret boundary:
+
+```bash
+export DATABASE_URL='<postgresql-url-from-sealos-secret>'
+```
+
+Apply and inspect the immutable migration:
+
+```bash
+uv run python manage.py migrate --noinput
+uv run python manage.py migrate --noinput
+uv run python manage.py showmigrations tasks
+uv run python manage.py makemigrations tasks --check --dry-run
+```
+
+Require `[X] 0001_initial`, `No changes detected`, and the `tasks_task` columns
+`completed`, `id`, and `title`.
+
+![Protected Django Stage 2 source showing psycopg 3.3.4, DATABASE_URL, the dummy waiting backend, and immutable tasks.0001_initial](/images/django-postgresql-sealos/database-ready-source.webp)
+
+## Step 2: Ask Sealos for Django and PostgreSQL together
+
+From the protected checkout, use Codex CLI:
+
+```text
+$sealos deploy this Django Task Board to Sealos with PostgreSQL
+```
+
+Or use Claude Code:
+
+```text
+/sealos deploy this Django Task Board to Sealos with PostgreSQL
+```
+
+The request should produce one resource plan for the board, database, Host
+adapter, and migration. Review it before DEPLOY so the Secret source, migration
+order, and public application path remain explicit.
+
+## Step 3: Review the generated resource plan
+
+The current installed plugin plan contained these functional parts:
+
+- A Django application workload, Service, HTTPS Ingress, and App resource
+- A KubeBlocks PostgreSQL `16.4.0` Cluster and generated Service
+- A generated connection Secret used as the source for `DATABASE_URL`
+- A ConfigMap for protected source or application configuration
+- A one-shot Django migration Job
+- The upstream `localhost` Host contract required by the frozen application
+
+Keep the connection value inside the generated Secret. Review resource names,
+references, and versions in place while retaining redacted output for review.
+
+![Redacted current Sealos plan for the Django app, KubeBlocks PostgreSQL 16.4, Secret, Service, Ingress, and migration Job](/images/django-postgresql-sealos/sealos-postgresql-plan.webp)
+
+## Step 4: Migrate before accepting readiness
+
+The tracked application-image Job reads Secret key `url` and runs:
+
+```text
+python manage.py migrate --noinput
+```
+
+Render the protected placeholders, validate the result against the active API,
+and apply it before the application:
+
+```bash
+kubectl --namespace <your-namespace> apply \
+  --dry-run=server --validate=strict \
+  -f <render-dir>/migration-job.yaml
+
+kubectl --namespace <your-namespace> apply --validate=strict \
+  -f <render-dir>/migration-job.yaml
+
+kubectl --namespace <your-namespace> wait \
+  --for=condition=complete \
+  job/<django-migration-job> \
+  --timeout=300s
+```
+
+The protected repository also includes a source-projection migration adapter
+for pre-image validation. The fresh Phase 27 practice ran that source Job twice
+with strict server-side validation. Both runs reported `Complete=True` and
+`[X] 0001_initial` with the same manifest digest.
+
+Before migration, three public states returned `503 {"status":"unavailable"}`:
+missing configuration, unreachable PostgreSQL, and a reachable empty schema.
+After migration, schema-aware `/health` returned `200 {"status":"ok"}`.
+
+![Two strictly validated Django migration Jobs reaching Complete True at tasks.0001_initial before schema-aware health 200](/images/django-postgresql-sealos/django-migration-complete.webp)
+
+## Step 5: Validate the PostgreSQL behavior suite
+
+The protected harness owns temporary PostgreSQL, generated credentials,
+dynamic loopback ports, migration Jobs, Django processes, and one named browser
+session:
+
+```bash
+./scripts/test-postgres.sh --phase-gate
+./scripts/test-postgres.sh --assert-clean-all
+```
+
+The accepted current practice completed all `43` PostgreSQL-backed tests after
+one bounded local port-forward retry. The database Pod stayed Ready with zero
+restarts throughout that retry.
+
+## Step 6: Create a Task through the public CSRF form
+
+Check schema-aware health and the board first:
+
+```bash
+curl --fail --silent https://<your-sealos-url>/health
+curl --fail --silent https://<your-sealos-url>/ | grep 'Task Board'
+```
+
+Fetch a mode-0600 cookie jar and the hidden CSRF value, then submit one Task:
+
+```bash
+COOKIE_JAR="$(mktemp)"
+chmod 600 "$COOKIE_JAR"
+CSRF_TOKEN="$(curl --fail --silent \
+  --cookie-jar "$COOKIE_JAR" \
+  https://<your-sealos-url>/ \
+  | sed -n 's/.*name="csrfmiddlewaretoken" value="\([^"]*\)".*/\1/p')"
+
+curl --fail --silent \
+  --cookie "$COOKIE_JAR" \
+  --referer https://<your-sealos-url>/ \
+  --data-urlencode "csrfmiddlewaretoken=$CSRF_TOKEN" \
+  --data-urlencode 'title=Verify PostgreSQL persistence' \
+  --output /dev/null \
+  https://<your-sealos-url>/tasks/
+
+curl --fail --silent https://<your-sealos-url>/ \
+  | grep 'Verify PostgreSQL persistence'
+rm -f "$COOKIE_JAR"
+unset CSRF_TOKEN
+```
+
+The POST uses Django's redirect-after-write flow. A later GET renders the
+stored row.
+
+## Step 7: Prove process-restart persistence
+
+Restart the application workload while retaining the generated PostgreSQL
+Cluster:
+
+```bash
+kubectl --namespace <your-namespace> rollout restart \
+  deployment/<your-django-app>
+
+kubectl --namespace <your-namespace> rollout status \
+  deployment/<your-django-app> \
+  --timeout=300s
+```
+
+Read the exact title after the replacement process is Ready:
+
+```bash
+curl --fail --silent https://<your-sealos-url>/ \
+  | grep 'Verify PostgreSQL persistence'
+```
+
+The fresh acceptance used two separately owned Django server processes against
+one PostgreSQL database. Process A returned health `200`, created the Task, and
+stopped and reaped. Process B returned health `200` and rendered the exact
+title with `1 task` and `Open`.
+
+## Step 8: Verify native admin readback
+
+Create a short-lived administrator through your secret-management path, then
+open:
+
+```text
+https://<your-sealos-url>/admin/tasks/task/
+```
+
+Select the created Task and require the change form's title field to match the
+public board. The practiced browser loaded both the native changelist and
+`/admin/tasks/task/1/change/`, read the exact title, closed its named session,
+and deleted the ephemeral superuser.
+
+![Persistent Django Task visible after process replacement and in the authenticated native admin change form with the account identity redacted](/images/django-postgresql-sealos/persistent-board-admin.webp)
+
+## Readiness contract
+
+Use `/health` as a schema-aware gate:
+
+- `200 {"status":"ok"}` means PostgreSQL is configured, reachable, and migrated.
+- `503 {"status":"unavailable"}` means configuration, connectivity, or the
+  Task table still needs attention.
+
+Django startup keeps schema ownership explicit. Run and verify the migration
+Job before accepting readiness or adding replicas.
+
+## Common failures
+
+### `/health` stays at 503
+
+Confirm `DATABASE_URL` comes from the generated Secret, the KubeBlocks Cluster
+is Running, and the migration Job is Complete at `tasks.0001_initial`.
+
+### The migration Job cannot connect
+
+Confirm the Job and application consume the same Secret key `url`. Inspect
+references by name and key while keeping the value in the secret boundary.
+
+### Public Task creation returns 403
+
+Fetch a fresh cookie and CSRF token from the same public host. Preserve the
+browser-facing origin while the run-owned edge sends Django's trusted
+`localhost` Host, Origin, and Referer upstream.
+
+### Tasks disappear after restart
+
+Confirm the replacement process reads the same generated `DATABASE_URL` and
+that the PostgreSQL Cluster remained in place through the rollout.
+
+## Completion checklist
+
+- [ ] The checkout points at protected `stage-2-postgresql`
+- [ ] Lock reproduction and runtime export checks pass
+- [ ] psycopg `3.3.4` and `DATABASE_URL` match protected source
+- [ ] The plan contains app, PostgreSQL, Secret, Service, Ingress, and Job resources
+- [ ] The generated PostgreSQL version is reviewed as current plan truth
+- [ ] Two migration Job runs report `Complete=True` at `tasks.0001_initial`
+- [ ] Schema-aware `/health` returns `200`
+- [ ] All 43 PostgreSQL-backed tests pass
+- [ ] A CSRF-protected Task survives application process replacement
+- [ ] Native admin reads the same title and the ephemeral account is removed
+- [ ] Runtime resources, sessions, and scratch pass exact cleanup
+
+Continue with [Django Production Deployment on Sealos](/tutorials/django-production-deployment-sealos)
+for immutable images, hardened Gunicorn replicas, WhiteNoise, release logs, and
+rollback recovery.

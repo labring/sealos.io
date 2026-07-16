@@ -1,0 +1,511 @@
+---
+title: 'Django Production Deployment on Sealos'
+description: 'Launch Django on Sealos with an immutable image, same-image migration, two hardened Gunicorn replicas, WhiteNoise static assets, HTTPS, operations guidance, and A-B-A-B recovery.'
+date: 2026-07-17
+updated: 2026-07-17
+stage: production
+framework: Django
+series: sealos-skills-django
+seriesOrder: 3
+estimatedReadingTime: 17 minutes
+primaryKeyword: 'Django production deployment'
+targetKeywords:
+  - Django production checklist
+  - Django Gunicorn deployment
+  - Django WhiteNoise static files
+  - Django immutable container
+  - Sealos Django production
+  - Django rollback recovery
+tags:
+  - tutorial
+  - sealos-skills
+  - django
+  - production
+  - deployment
+authors: ['default']
+relatedTutorials:
+  - deploy-django-sealos
+  - django-postgresql-sealos
+cta:
+  label: 'Open Sealos Skills'
+  href: '/sealos-skills'
+faq:
+  - question: 'Which image should the production Django Deployment use?'
+    answer: 'Resolve the full Stage 3 source SHA once and deploy the returned digest. Protected commit `8e372f93e1a7bb72880be5198430a065d38d65f5` maps to the accepted final image `sha256:aad216002fae3fd2adce92f09e47e936614b16964a6972c226c4058a16568c7b`.'
+  - question: 'What did the fresh Phase 27 production check prove?'
+    answer: 'The fresh current check used the baseline digest and proved same-image migration completion, `2/2 Ready`, public HTTPS health, the Task Board, and WhiteNoise CSS with HTTP 200, `text/css`, and immutable caching.'
+  - question: 'How does the final Django process model run?'
+    answer: 'Checksum-valid Phase 26 evidence records two final replicas. Each Pod ran as UID/GID 10001 with one Gunicorn 26.0.0 master and one sync WSGI worker bound to `0.0.0.0:8000`.'
+  - question: 'What does A-B-A-B recovery prove?'
+    answer: 'Checksum-valid Phase 26 evidence records baseline, final, baseline rollback, and explicit final recovery at Deployment revisions 1 through 4. Task 1 remained readable throughout the sequence.'
+howTo:
+  name: 'Launch a production Django deployment on Sealos'
+  description: 'Validate protected Stage 3, resolve an immutable image, migrate with that image, roll out two hardened replicas, verify HTTPS, WhiteNoise, admin and logs, prepare operations, and prove rollback plus explicit recovery.'
+  steps:
+    - name: 'Clone and validate Stage 3'
+      text: 'Clone `stage-3-production`, reproduce the Python 3.12 lock and runtime export, and inspect the production dependency and workload contracts.'
+    - name: 'Resolve and record the immutable image'
+      text: 'Resolve the complete source-SHA lookup tag to one digest, validate its source labels, and render migration and application manifests from the same release tuple.'
+    - name: 'Migrate before readiness'
+      text: 'Apply the same-image migration Job, wait for `Complete=True`, and require `tasks.0001_initial` before the Deployment becomes eligible for acceptance.'
+    - name: 'Roll out two hardened replicas'
+      text: 'Apply the Deployment, wait for `2/2 Ready`, and verify UID/GID 10001, the Gunicorn process model, security context, image identity, and restart counts.'
+    - name: 'Verify public and operational surfaces'
+      text: 'Check public HTTPS health, Task Board, native admin, manifest-named WhiteNoise CSS, and credential-free release logs against their stated evidence authority.'
+    - name: 'Prepare monitoring, backup, and updates'
+      text: 'Record health and replica signals, create a PostgreSQL recovery point, retain release identities, then use UPDATE after live state agrees with recorded state.'
+    - name: 'Roll back and explicitly recover'
+      text: 'Run rollout undo to the retained baseline, verify Task continuity, explicitly reapply the final manifest, and verify the recovered final state.'
+---
+
+This guide completes the continuous Django Task Board series with a production
+release contract. The protected
+[stage-3-production](https://github.com/yangchuansheng/sealos-django-tutorial/tree/stage-3-production)
+tag resolves to commit
+`8e372f93e1a7bb72880be5198430a065d38d65f5`. It pins Python `3.12`, Django
+`5.2.16`, psycopg `3.3.4`, Gunicorn `26.0.0`, and WhiteNoise `6.12.0`.
+
+Start with [the PostgreSQL guide](/tutorials/django-postgresql-sealos) when you
+need to establish `tasks.0001_initial`, schema-aware readiness, CSRF writes,
+restart persistence, and native admin readback. This stage keeps that data
+contract and adds immutable releases, hardened replicas, static assets,
+operational checks, and rehearsed recovery.
+
+## Evidence boundary
+
+The production conclusions come from three explicit authorities:
+
+| Authority                        | What it establishes                                                                                                            |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Protected Stage 3 source         | Dependency versions, manifests, same-image migration, two replicas, Gunicorn, WhiteNoise, security context, and Host contracts |
+| Fresh Phase 27 current practice  | Baseline digest migration, `2/2 Ready`, public HTTPS `/health`, Task Board continuity, and WhiteNoise CSS behavior             |
+| Checksum-valid Phase 26 evidence | Final-digest migration, final admin readback, final Gunicorn identity, final release logs, and the complete A-B-A-B history    |
+
+The fresh current observation used this baseline image:
+
+```text
+ghcr.io/yangchuansheng/sealos-django-tutorial@sha256:df3772c3abedfb05c52d696f17ff8295d73f34b8b017f8b6ba2738fceb4247a8
+```
+
+The sealed final-state records use this Stage 3 image:
+
+```text
+ghcr.io/yangchuansheng/sealos-django-tutorial@sha256:aad216002fae3fd2adce92f09e47e936614b16964a6972c226c4058a16568c7b
+```
+
+Keep these roles separate when reviewing a new deployment. Current live checks
+describe the environment you are operating. Protected source and sealed
+records define the release contract and its previously accepted final-state
+proof.
+
+## Production launch model
+
+Use this release order:
+
+```text
+protected source SHA
+        |
+        v
+immutable image digest
+        |
+        +--> same-image migration Job --> tasks.0001_initial
+        |
+        v
+two-replica Django Deployment --> Service --> localhost Host edge --> HTTPS
+        |                                                        |
+        +--> Gunicorn                                            +--> Task Board
+        +--> WhiteNoise                                          +--> native admin
+```
+
+Migration completion is the readiness boundary. The migration Job and
+application Deployment consume the same image digest, PostgreSQL Secret, and
+run identity. The public Sealos host terminates TLS while the upstream adapter
+preserves the protected Django `localhost` Host contract.
+
+## Production scorecard
+
+| Control            | Required result                                                    |
+| ------------------ | ------------------------------------------------------------------ |
+| Source identity    | Protected `stage-3-production` at the recorded 40-character commit |
+| Execution identity | Full immutable image digest shared by Job and Deployment           |
+| Database gate      | Migration Job `Complete=True` at `tasks.0001_initial`              |
+| Availability       | `2/2 Ready` before public acceptance                               |
+| Process identity   | UID/GID 10001, one Gunicorn master and one sync worker per Pod     |
+| Public surface     | HTTPS health 200, Task Board, native admin, and static CSS         |
+| Recovery           | Rollout undo plus explicit final-manifest recovery                 |
+
+## Step 1: Clone and validate the protected Stage 3 source
+
+Clone the immutable source tag:
+
+```bash
+git clone --branch stage-3-production \
+  https://github.com/yangchuansheng/sealos-django-tutorial.git
+cd sealos-django-tutorial
+```
+
+Reproduce the exact Python dependency graph and runtime export:
+
+```bash
+uv sync --locked
+uv lock --check
+uv export --locked --no-dev --no-emit-project --no-hashes \
+  --format requirements.txt --output-file requirements.txt
+git diff --exit-code -- uv.lock requirements.txt
+```
+
+Inspect the production contracts before rendering them:
+
+```bash
+git rev-parse HEAD
+sed -n '1,240p' deploy/migration-job.yaml
+sed -n '1,320p' deploy/application.yaml
+```
+
+Require the exact Stage 3 commit shown above. The protected application
+contract contains two replicas, port `8000`, the `localhost` readiness Host,
+WhiteNoise static collection, and the hardened Pod settings described below.
+
+## Step 2: Resolve immutable production state
+
+The image publisher exposes a lookup tag for every complete source SHA. Resolve
+that tag once, then use the returned digest as the execution identity:
+
+```bash
+SOURCE_SHA="$(git rev-parse HEAD)"
+[[ "$SOURCE_SHA" =~ ^[0-9a-f]{40}$ ]]
+
+IMAGE_REPOSITORY='ghcr.io/yangchuansheng/sealos-django-tutorial'
+IMAGE_TAG="$IMAGE_REPOSITORY:sha-$SOURCE_SHA"
+IMAGE_DIGEST="$(crane digest "$IMAGE_TAG")"
+[[ "$IMAGE_DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]]
+IMAGE_REFERENCE="$IMAGE_REPOSITORY@$IMAGE_DIGEST"
+
+crane config "$IMAGE_REFERENCE" | jq -e --arg source "$SOURCE_SHA" \
+  '.architecture == "amd64" and .os == "linux" and
+   .config.Labels["org.opencontainers.image.revision"] == $source and
+   .config.Labels["org.opencontainers.image.source"] ==
+     "https://github.com/yangchuansheng/sealos-django-tutorial"'
+crane manifest "$IMAGE_REFERENCE" | jq -e . >/dev/null
+```
+
+Render `deploy/migration-job.yaml` and `deploy/application.yaml` into a private
+temporary directory. Replace every tracked `__TOKEN__`, keep each file at mode
+`0600`, and supply one run-owned application name, migration Job name,
+PostgreSQL Secret name, image reference, and source release. The protected
+README includes the exact token-safe Python renderer.
+
+Validate both rendered documents against the active cluster API:
+
+```bash
+kubectl --namespace <your-namespace> apply \
+  --dry-run=server --validate=strict \
+  -f <render-dir>/migration-job.yaml
+
+kubectl --namespace <your-namespace> apply \
+  --dry-run=server --validate=strict \
+  -f <render-dir>/application.yaml
+```
+
+The protected source identity and checksum-valid final image record join the
+Stage 3 commit to this digest:
+
+```text
+sha256:aad216002fae3fd2adce92f09e47e936614b16964a6972c226c4058a16568c7b
+```
+
+![Protected Django Stage 3 commit resolved to an immutable digest with redacted PostgreSQL state and one shared same-image migration contract](/images/django-production-deployment-sealos/production-state-redacted.webp)
+
+## Step 3: Run the same-image migration before readiness
+
+Apply the migration Job first:
+
+```bash
+kubectl --namespace <your-namespace> apply --validate=strict \
+  -f <render-dir>/migration-job.yaml
+
+kubectl --namespace <your-namespace> wait \
+  --for=condition=complete \
+  job/<your-django-migration-job> \
+  --timeout=300s
+
+kubectl --namespace <your-namespace> get \
+  job/<your-django-migration-job> \
+  -o jsonpath='{.status.conditions[?(@.type=="Complete")].status}{"\n"}' \
+  | grep -Fx True
+```
+
+Read the Job log and require `tasks.0001_initial` to be current. The fresh
+Phase 27 current check proves this sequence with the baseline image and a
+successful Job. Checksum-valid Phase 26 evidence independently proves that the
+final Job used the exact final application digest and completed before
+readiness at the same migration.
+
+## Step 4: Roll out two hardened Gunicorn replicas
+
+Apply the Deployment after migration completion:
+
+```bash
+kubectl --namespace <your-namespace> apply --validate=strict \
+  -f <render-dir>/application.yaml
+
+kubectl --namespace <your-namespace> rollout status \
+  deployment/<your-django-app> \
+  --timeout=240s
+
+kubectl --namespace <your-namespace> get \
+  deployment/<your-django-app> \
+  -o jsonpath='{.status.readyReplicas}{"/"}{.spec.replicas}{" Ready\n"}'
+```
+
+Require `2/2 Ready`. Protected Stage 3 gives each Pod this runtime contract:
+
+- UID/GID `10001`
+- One Gunicorn `26.0.0` master and one sync WSGI worker
+- Bind address `0.0.0.0:8000`
+- Read-only root filesystem
+- Every Linux capability dropped
+- Privilege escalation disabled
+- `RuntimeDefault` seccomp
+- Service-account token mounting disabled
+- A memory-backed `/tmp` limited to `64Mi`
+
+The fresh Phase 27 observation proves `2/2 Ready` on the baseline digest.
+Checksum-valid Phase 26 evidence proves the final two-Pod identity: UID/GID
+`10001`, one Gunicorn master and one worker in each Pod, and zero restarts.
+
+![Django production evidence showing tasks.0001_initial before fresh baseline 2 of 2 Ready and sealed final UID GID 10001 Gunicorn identities](/images/django-production-deployment-sealos/immutable-rollout-health.webp)
+
+## Step 5: Verify HTTPS, the Task Board, WhiteNoise, admin, and logs
+
+The public edge keeps the generated Sealos hostname in the browser and sends
+`Host: localhost` upstream. Accept the public application through HTTPS:
+
+```bash
+curl --fail --silent https://<your-sealos-url>/health
+curl --fail --silent https://<your-sealos-url>/ | grep -F 'Task Board'
+curl --fail --silent https://<your-sealos-url>/admin/login/ \
+  | grep -F 'Django administration'
+```
+
+The fresh Phase 27 baseline returned public HTTPS health `200` with
+`{"status":"ok"}` and rendered the retained Task Board. Checksum-valid Phase
+26 final-state HTTP records supply the authenticated admin authority: the
+native admin login returned `200`, and its Task changelist and change form read
+Task `1`.
+
+Extract the manifest-named stylesheet from the board and inspect it through the
+same public host:
+
+```bash
+BOARD_HTML="$(mktemp)"
+CSS_HEADERS="$(mktemp)"
+
+curl --fail --silent --output "$BOARD_HTML" \
+  https://<your-sealos-url>/
+CSS_PATH="$(sed -n \
+  's/.*href="\(\/static\/tasks\/styles\.[0-9a-f]*\.css\)".*/\1/p' \
+  "$BOARD_HTML")"
+
+curl --fail --silent --dump-header "$CSS_HEADERS" \
+  --output /dev/null "https://<your-sealos-url>$CSS_PATH"
+grep -Eqi '^content-type: text/css' "$CSS_HEADERS"
+grep -Eqi '^cache-control: max-age=315360000, public, immutable' \
+  "$CSS_HEADERS"
+
+rm -f "$BOARD_HTML" "$CSS_HEADERS"
+```
+
+The fresh current check resolved
+`/static/tasks/styles.852e61e8064c.css` and received HTTP `200`,
+`Content-Type: text/css`, and
+`Cache-Control: max-age=315360000, public, immutable`.
+
+Correlate final release identity through credential-free service logs:
+
+```bash
+kubectl --namespace <your-namespace> logs \
+  -l "app.kubernetes.io/name=<your-django-app>" \
+  --all-containers --prefix | \
+  grep -F 'event=service_start'
+```
+
+Checksum-valid Phase 26 logs record one `event=service_start` match from each
+of the two final Pods. This log statement uses sealed final-state authority;
+the fresh Phase 27 current record supplies the baseline HTTPS, board, and
+WhiteNoise results above.
+
+![Fresh public Django HTTPS and WhiteNoise styles 852e61e8064c CSS proof beside checksum-sealed two-Pod service_start logs](/images/django-production-deployment-sealos/domain-static-logs.webp)
+
+## Monitoring and incident signals
+
+Monitor the same surfaces used for release acceptance:
+
+- Public HTTPS `/health` status and latency
+- Deployment Ready and Available replica counts
+- Pod restart and replacement counts
+- Service endpoint inventory
+- Migration Job completion and `tasks.0001_initial`
+- WhiteNoise CSS status, media type, and immutable cache policy
+- `event=service_start` identity for each newly started Pod
+- A CSRF Task create/read smoke check for the PostgreSQL data path
+- PostgreSQL availability, storage, backup age, and resource saturation
+
+Assign every alert to an owner and record the first diagnostic commands in the
+runbook. The health endpoint is a lightweight availability signal. The Task
+smoke check exercises the full application, CSRF, ORM, and PostgreSQL path.
+
+## Backup and migration safety
+
+Before a schema-changing release:
+
+- Create or verify a PostgreSQL recovery point
+- Record the current source SHA, image digest, and migration state
+- Review compatibility with the retained application digest
+- Rehearse restore or forward repair in a separate environment
+- Keep the baseline and final digests available through the recovery window
+- Assign application rollback and database recovery ownership
+
+Image rollback restores application code. Database recovery follows the schema
+and data decision recorded for that release.
+
+## UPDATE workflow
+
+Use **UPDATE** after `.sealos/state.json` and current resource truth identify
+the same live application. Resolve the new complete-source-SHA tag, run its
+same-image migration, apply the retained application manifest, wait for `2/2
+Ready`, and repeat the public and operational checks. Use **DEPLOY** for a new
+application identity and record accepted state only after runtime verification.
+
+Keep this release record:
+
+```text
+source SHA
+immutable image digest
+migration revision
+Deployment revision
+public health result
+Task continuity result
+WhiteNoise result
+admin readback result
+release log result
+```
+
+## Step 6: Roll back and explicitly recover
+
+Checksum-valid Phase 26 evidence owns the complete recovery history. It
+exercised four states against one PostgreSQL Task:
+
+| Sequence | State             | Controller revision | Task witness                              |
+| -------: | ----------------- | ------------------: | ----------------------------------------- |
+|        1 | baseline          |                   1 | Create Task 1 through the CSRF form       |
+|        2 | final             |                   2 | Board and authenticated admin read Task 1 |
+|        3 | baseline rollback |                   3 | Board and authenticated admin read Task 1 |
+|        4 | final recovered   |                   4 | Board and authenticated admin read Task 1 |
+
+Run the immediate application rollback:
+
+```bash
+kubectl --namespace <your-namespace> rollout undo \
+  deployment/<your-django-app>
+
+kubectl --namespace <your-namespace> rollout status \
+  deployment/<your-django-app> \
+  --timeout=240s
+
+curl --fail --silent https://<your-sealos-url>/ \
+  | grep -F 'Task Board'
+```
+
+Recover by explicitly reapplying the retained final manifest:
+
+```bash
+kubectl --namespace <your-namespace> apply --validate=strict \
+  -f <render-dir>/application.yaml
+
+kubectl --namespace <your-namespace> rollout status \
+  deployment/<your-django-app> \
+  --timeout=240s
+
+curl --fail --silent https://<your-sealos-url>/ \
+  | grep -F 'Task Board'
+```
+
+The sealed A-B-A-B record covers Deployment revisions `1`, `2`, `3`, and `4`.
+It passed rollout undo, explicit final recovery, and Task `1` continuity across
+all four states.
+
+![Checksum-sealed Django A-B-A-B revisions 1 2 3 4 preserving Task 1 through rollout undo and explicit final recovery](/images/django-production-deployment-sealos/rollback-recovery.webp)
+
+## Production runbook
+
+Record this sequence for every release:
+
+1. Confirm protected Stage 3 and reproduce the exact lock.
+2. Resolve the complete source-SHA image tag to an immutable digest.
+3. Verify architecture plus source and revision labels.
+4. Create a PostgreSQL recovery point for a schema-changing release.
+5. Render Job and Deployment with the same digest and Secret reference.
+6. Run the migration Job and verify `Complete=True` at `tasks.0001_initial`.
+7. Roll out two replicas and verify image IDs, UID/GID, Gunicorn, and restarts.
+8. Run public health, Task Board, admin, WhiteNoise, endpoint, and log checks.
+9. Observe stable runtime state and write the accepted release record.
+10. Keep rollout undo and explicit final-manifest recovery ready.
+
+## Failure guide
+
+### Migration completes and the app remains unready
+
+Confirm the Job and Deployment read the same Secret-backed `DATABASE_URL` and
+use the same image digest. Inspect `showmigrations tasks` from that image and
+require `[X] 0001_initial`.
+
+### Public health succeeds and the browser receives a Host or CSRF error
+
+Inspect the edge adapter. Preserve the generated public hostname for the
+browser and send `Host: localhost` upstream together with the protected Origin
+and Referer policy.
+
+### Static CSS returns HTML or a generic media type
+
+Read the stylesheet path from rendered board HTML. Confirm WhiteNoise loaded
+the collected manifest and that the request reaches the Django application
+with the expected upstream Host.
+
+### One Pod has a different process or image identity
+
+Compare the Deployment digest, both Pod image IDs, UID/GID, and process lists.
+Resume acceptance after both Pods match the intended release tuple.
+
+### Rollback restores code and Task readback fails
+
+Check PostgreSQL reachability, migration compatibility, and the retained Task
+ID. Follow the database recovery decision stored with the release.
+
+### Recorded Sealos state points at stale resources
+
+Reconcile `.sealos/state.json` with current workloads, Services, endpoints,
+Ingress, and logs. Select UPDATE after identities agree or DEPLOY for a fresh
+application identity.
+
+## Final checklist
+
+- [ ] The checkout points at protected `stage-3-production`
+- [ ] The complete source SHA resolves to one immutable digest
+- [ ] Image architecture and source/revision labels pass
+- [ ] Migration and application manifests use the same digest and Secret source
+- [ ] The migration Job reaches `Complete=True` at `tasks.0001_initial`
+- [ ] The Deployment reaches `2/2 Ready`
+- [ ] Both Pods run as UID/GID 10001 with one Gunicorn master and one worker
+- [ ] Both image IDs match the intended digest and restart counts remain zero
+- [ ] The public Host edge and HTTPS `/health` pass
+- [ ] Task Board, native admin, and Task continuity pass
+- [ ] WhiteNoise CSS returns `200`, `text/css`, and immutable caching
+- [ ] Both final Pods emit the credential-free `event=service_start` marker
+- [ ] Monitoring, backup, restore, and incident ownership are recorded
+- [ ] UPDATE or DEPLOY follows live resource identity
+- [ ] Rollout undo and explicit final recovery preserve Task `1`
+- [ ] The production runbook is stored with the release
+
+The Django Framework Tutorial Series now follows one continuous Task Board from
+local SQLite through PostgreSQL and a rehearsed production release.
