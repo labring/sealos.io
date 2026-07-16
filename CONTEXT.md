@@ -32,3 +32,20 @@ _Avoid_: Demo app, sample project
 The Django Reference Application with a rendered task creation and listing
 workflow plus the framework-native administration entry point.
 _Avoid_: Django demo, Django sample app
+
+**Available Framework Path**:
+A Framework Tutorial Series whose three pages have passed source, asset,
+catalog, production build, and public route acceptance and are linked from the
+tutorial framework matrix.
+_Avoid_: Published framework badge, enabled framework
+
+**Tutorial Publication Gate**:
+The combined source, catalog, validator, static HTTP, image, and cleanup
+acceptance required before a Framework Tutorial Series becomes an Available
+Framework Path.
+_Avoid_: Content check, release smoke
+
+**Static Tutorial Surface**:
+The exported tutorial index, tutorial detail routes, and public evidence assets
+served to readers from the production static build.
+_Avoid_: Build output files, generated pages
