@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { GodRays } from '@/new-components/GodRays';
+import { PageTopRays } from '@/new-components/SideRays';
 import {
   ArrowRightIcon,
   CheckIcon,
@@ -37,51 +37,7 @@ import {
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden pt-36 pb-32">
-      <GodRays
-        sources={[
-          {
-            x: -0.05,
-            y: -0.05,
-            angle: 60,
-            spread: 20,
-            count: 12,
-            color: '220, 220, 220',
-            opacityMin: 0.24,
-            opacityMax: 0.25,
-            minWidth: 120,
-            maxWidth: 180,
-          },
-          {
-            x: -0.05,
-            y: -0.05,
-            angle: 60,
-            spread: 8,
-            count: 6,
-            color: '255, 255, 255',
-            opacityMin: 0.89,
-            opacityMax: 0.9,
-            minWidth: 12,
-            maxWidth: 24,
-          },
-          {
-            x: 0.25,
-            y: -0.06,
-            angle: 50,
-            spread: 20,
-            count: 6,
-            color: '180, 180, 180',
-            opacityMin: 0.14,
-            opacityMax: 0.15,
-            minWidth: 60,
-            maxWidth: 120,
-          },
-        ]}
-        speed={0}
-        maxWidth={48}
-        minLength={1200}
-        maxLength={2000}
-        blur={8}
-      />
+      <PageTopRays />
       <div className="relative z-10 container">
         <div className="pointer-events-none absolute inset-x-4 top-24 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
@@ -105,9 +61,9 @@ export function HeroSection() {
               Deploy from your agent
             </h1>
             <p className="mt-8 max-w-[62ch] text-base leading-7 text-pretty text-zinc-400 sm:text-xl sm:leading-8">
-              Sealos Skills is an open-source deploy plugin that gives AI
-              coding agents a concrete path from source code to Sealos Cloud. It
-              lets an agent inspect a local repo or GitHub URL, create the right
+              Sealos Skills is an open-source deploy plugin that gives AI coding
+              agents a concrete path from source code to Sealos Cloud. It lets
+              an agent inspect a local repo or GitHub URL, create the right
               Docker and Sealos template artifacts, deploy to Sealos Cloud, then
               verify the running app.
             </p>

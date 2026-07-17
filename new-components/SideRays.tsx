@@ -86,13 +86,19 @@ export function SideRays({
 
     cleanupRef.current?.();
 
-    const renderer = new Renderer({
-      dpr: Math.min(window.devicePixelRatio, 2),
-      alpha: true,
-    });
+    let renderer: Renderer;
+    try {
+      renderer = new Renderer({
+        dpr: Math.min(window.devicePixelRatio, 2),
+        alpha: true,
+      });
+    } catch {
+      return;
+    }
     rendererRef.current = renderer;
 
     const gl = renderer.gl;
+    if (!gl) return;
     gl.canvas.style.width = '100%';
     gl.canvas.style.height = '100%';
     containerRef.current.replaceChildren(gl.canvas);
@@ -268,6 +274,25 @@ void main() {
       ref={containerRef}
       className={`pointer-events-none overflow-hidden ${className}`.trim()}
       aria-hidden="true"
+    />
+  );
+}
+
+export function PageTopRays() {
+  return (
+    <SideRays
+      className="absolute top-[-96px] left-0 z-0 h-[720px] max-h-[1440px] w-full"
+      speed={2.5}
+      rayColor1="#5f6664"
+      rayColor2="#e6f2ff"
+      intensity={2}
+      spread={2}
+      origin="top-left"
+      tilt={0}
+      saturation={1.2}
+      blend={0.42}
+      falloff={2}
+      opacity={1}
     />
   );
 }

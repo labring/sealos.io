@@ -109,7 +109,7 @@ export function HeroSection() {
   return (
     <section className="relative isolate overflow-x-clip pt-36 pb-20">
       <SideRays
-        className="absolute top-[-96px] left-0 z-0 max-h-[1440px] w-full"
+        className="absolute top-[-96px] left-0 z-0 h-[720px] max-h-[1440px] w-full"
         speed={2.5}
         rayColor1="#5f6664"
         rayColor2="#e6f2ff"

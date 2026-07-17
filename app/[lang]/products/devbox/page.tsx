@@ -8,7 +8,7 @@ import SocialProof from './components/social-proof';
 import { Footer } from '@/new-components/Footer';
 import { Header } from '@/new-components/Header';
 import { LegacyHeroBackground } from '@/app/[lang]/(home)/(new-home)/components/LegacyHeroBackground';
-import { GodRays } from '@/new-components/GodRays';
+import { PageTopRays } from '@/new-components/SideRays';
 import Image from 'next/image';
 import Video from '@/components/video';
 import { Button } from '@/components/ui/button';
@@ -85,59 +85,15 @@ export default function HomePage({
     <>
       <StructuredDataComponent data={[devboxSchema, breadcrumbSchema]} />
 
-      <div className="min-h-screen overflow-x-clip text-white">
-        <div className="sticky top-0 z-50 container pt-8">
+      <div className="bg-background relative z-10 min-h-screen overflow-x-clip text-white">
+        <div className="sticky top-0 z-50 w-full">
           <Header lang={params.lang} />
         </div>
 
-        <main className="-mt-24 overflow-x-clip bg-black">
+        <main className="bg-background relative z-10 -mt-24 overflow-x-clip">
           <section className="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-24 lg:pt-48 lg:pb-28">
             <LegacyHeroBackground />
-            <GodRays
-              sources={[
-                {
-                  x: -0.05,
-                  y: -0.05,
-                  angle: 60,
-                  spread: 20,
-                  count: 12,
-                  color: '220, 220, 220',
-                  opacityMin: 0.24,
-                  opacityMax: 0.25,
-                  minWidth: 120,
-                  maxWidth: 180,
-                },
-                {
-                  x: -0.05,
-                  y: -0.05,
-                  angle: 60,
-                  spread: 8,
-                  count: 6,
-                  color: '255, 255, 255',
-                  opacityMin: 0.84,
-                  opacityMax: 0.85,
-                  minWidth: 12,
-                  maxWidth: 24,
-                },
-                {
-                  x: 0.25,
-                  y: -0.06,
-                  angle: 50,
-                  spread: 20,
-                  count: 6,
-                  color: '180, 180, 180',
-                  opacityMin: 0.14,
-                  opacityMax: 0.15,
-                  minWidth: 60,
-                  maxWidth: 120,
-                },
-              ]}
-              speed={0}
-              maxWidth={48}
-              minLength={1200}
-              maxLength={2000}
-              blur={8}
-            />
+            <PageTopRays />
 
             <div className="relative z-10 container">
               <div className="mx-auto max-w-5xl text-center">
@@ -203,20 +159,20 @@ export default function HomePage({
             <FooterCta lang={params.lang} />
           </div>
         </main>
+      </div>
 
-        <div className="relative mt-[80px] mb-[400px] h-[800px]">
-          <div className="w-full">
-            <Image
-              src={BottomLightImage}
-              alt=""
-              className="h-auto w-full object-cover select-none"
-              priority
-              fill
-            />
-          </div>
-
-          <Footer lang={params.lang} />
+      <div className="relative mt-[80px] mb-[400px] h-[800px]">
+        <div className="w-full">
+          <Image
+            src={BottomLightImage}
+            alt=""
+            className="h-auto w-full object-cover select-none"
+            priority
+            fill
+          />
         </div>
+
+        <Footer lang={params.lang} />
       </div>
     </>
   );
