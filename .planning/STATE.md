@@ -60,6 +60,15 @@ Milestone v1.3 is complete.
 **Stopped at:** Milestone v1.3 complete
 **Resume file:** None
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260617-kgc | update deployment workflows to refresh App Store templates before build | 2026-06-17 | acb429d | [260617-kgc-update-deployment-workflows-to-refresh-a](./quick/260617-kgc-update-deployment-workflows-to-refresh-a/) |
+| 260617-kt3 | fix GHCR Docker image build failure | 2026-06-17 | fe42f4d | [260617-kt3-fix-ghcr-docker-image-build-failure](./quick/260617-kt3-fix-ghcr-docker-image-build-failure/) |
+| 260708-q6y | Redesign /products/databases to match the current homepage style, keep existing copy except Kafka removal, and validate mobile usability | 2026-07-08 | PR #304 | [260708-q6y-redesign-products-databases-to-match-the](./quick/260708-q6y-redesign-products-databases-to-match-the/) |
+| 260709-n35 | Fix /products/databases footer bottom Sealos word to match homepage | 2026-07-09 | PR #304 | [260709-n35-fix-products-databases-footer-bottom-sea](./quick/260709-n35-fix-products-databases-footer-bottom-sea/) |
+
 ## Performance Metrics
 
 | Phase | Plan | Duration | Notes |
