@@ -117,7 +117,7 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
         style={appStoreDetailBackgroundVars}
         className="bg-background text-foreground isolate min-h-[100dvh]"
       >
-        <div className="sticky top-0 z-50 container pt-4 sm:pt-8">
+        <div className="sticky top-0 z-50 w-full pt-4 sm:pt-8">
           <Header lang={params.lang} />
         </div>
 

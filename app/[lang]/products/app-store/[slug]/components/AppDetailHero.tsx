@@ -7,7 +7,7 @@ import {
   ExternalLink,
   Github,
 } from 'lucide-react';
-import { GodRays } from '@/new-components/GodRays';
+import { PageTopRays } from '@/new-components/SideRays';
 import { GradientLucideIcon } from '@/new-components/GradientLucideIcon';
 import { GradientText } from '@/new-components/GradientText';
 import { AppIcon } from '@/components/ui/app-icon';
@@ -65,51 +65,7 @@ export default function AppDetailHero({
         aria-hidden="true"
       />
       <div className="pointer-events-none absolute inset-0 z-[3]">
-        <GodRays
-          sources={[
-            {
-              x: -0.05,
-              y: -0.05,
-              angle: 60,
-              spread: 20,
-              count: 12,
-              color: '220, 220, 220',
-              opacityMin: 0.24,
-              opacityMax: 0.25,
-              minWidth: 120,
-              maxWidth: 180,
-            },
-            {
-              x: -0.05,
-              y: -0.05,
-              angle: 60,
-              spread: 8,
-              count: 6,
-              color: '255, 255, 255',
-              opacityMin: 0.89,
-              opacityMax: 0.9,
-              minWidth: 12,
-              maxWidth: 24,
-            },
-            {
-              x: 0.25,
-              y: -0.06,
-              angle: 50,
-              spread: 20,
-              count: 6,
-              color: '180, 180, 180',
-              opacityMin: 0.14,
-              opacityMax: 0.15,
-              minWidth: 60,
-              maxWidth: 120,
-            },
-          ]}
-          speed={0}
-          maxWidth={48}
-          minLength={1200}
-          maxLength={2000}
-          blur={8}
-        />
+        <PageTopRays />
       </div>
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-12 px-6 lg:grid-cols-[minmax(0,560px)_minmax(0,1fr)] lg:px-8">

@@ -46,6 +46,10 @@ export function isForcedDarkMode(pathname: string): boolean {
       match: 'prefix',
     },
     {
+      path: '/products/databases',
+      match: 'prefix',
+    },
+    {
       path: '/abuse',
       match: 'full',
     },
