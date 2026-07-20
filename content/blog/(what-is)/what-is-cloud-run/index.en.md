@@ -211,6 +211,8 @@ The **future-proof architecture** that Knative provides means that applications 
 
 Cloud Run containers function as **complete, independent web servers**, enabling sophisticated testing strategies that weren't possible with traditional serverless platforms. This architecture allows developers to test applications locally with identical behavior to production deployments, eliminating many environment-specific issues that plague traditional development workflows.
 
+Teams deploying containerized web applications can use [playwright automation](https://testgrid.io/blog/playwright-testing/) to verify browser functionality across local, staging, and Cloud Run environments before routing production traffic to a new container revision.
+
 ```bash
 # Test locally with identical environment to production
 docker run -p 8080:8080 my-app
