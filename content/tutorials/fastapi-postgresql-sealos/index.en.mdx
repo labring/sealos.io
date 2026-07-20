@@ -1,0 +1,329 @@
+---
+title: 'Deploy FastAPI with PostgreSQL on Sealos'
+description: 'Deploy the protected FastAPI Tasks API with PostgreSQL on Sealos using SQLAlchemy 2, psycopg 3, Alembic 0001, migration-first readiness, and restart persistence.'
+date: 2026-07-17
+updated: 2026-07-17
+stage: advanced
+framework: FastAPI
+series: sealos-skills-fastapi
+seriesOrder: 2
+estimatedReadingTime: 13 minutes
+primaryKeyword: 'FastAPI PostgreSQL deployment'
+targetKeywords:
+  - FastAPI SQLAlchemy deployment
+  - FastAPI psycopg 3
+  - Alembic migration Sealos
+  - Sealos PostgreSQL
+  - FastAPI persistent CRUD
+tags:
+  - tutorial
+  - sealos-skills
+  - fastapi
+  - postgresql
+  - deployment
+authors: ['default']
+relatedTutorials:
+  - deploy-fastapi-sealos
+  - fastapi-production-deployment-sealos
+cta:
+  label: 'Open Sealos Skills'
+  href: '/sealos-skills'
+faq:
+  - question: 'Who owns the FastAPI database schema?'
+    answer: 'Alembic is the only schema owner in the protected Stage 2 source. Revision `0001` creates the tasks table, and application startup never calls SQLAlchemy `create_all()`.'
+  - question: 'When does FastAPI report ready?'
+    answer: '`GET /health` returns `200` only after PostgreSQL is reachable and the tasks schema exists. The practiced unmigrated application returned `503` with `{"detail":"Database is not ready"}` before the migration Job completed.'
+  - question: 'Which PostgreSQL version should I expect?'
+    answer: 'The protected source documents PostgreSQL 17 as its integration prerequisite. The current installed Sealos plugin generated KubeBlocks PostgreSQL 16.4.0 during the accepted practice, so review the generated plan and use its actual version as runtime truth.'
+  - question: 'How was task persistence verified?'
+    answer: 'The practice created a task through public HTTPS, replaced the application process, rolled out the restricted runtime, and read the same task back with status `200` from the shared PostgreSQL database.'
+howTo:
+  name: 'Deploy FastAPI with PostgreSQL on Sealos'
+  description: 'Validate the protected database stage, ask Sealos for one app-and-database plan, migrate Alembic before readiness, exercise public CRUD, and prove task persistence across process restart.'
+  steps:
+    - name: 'Inspect the Stage 2 source'
+      text: 'Clone `stage-2-postgresql`, reproduce the lock and runtime export, and confirm SQLAlchemy 2, psycopg 3, `DATABASE_URL`, and Alembic revision `0001`.'
+    - name: 'Request FastAPI and PostgreSQL together'
+      text: 'Ask the Sealos plugin to deploy the checked-out FastAPI Tasks API with PostgreSQL as one generated plan.'
+    - name: 'Review generated resources'
+      text: 'Confirm the app workload, Service, Ingress, KubeBlocks PostgreSQL resource, Secret-backed database URL, ConfigMap, and migration Job.'
+    - name: 'Run migration before readiness'
+      text: 'Apply the same-image migration Job, wait for `Complete=True`, verify Alembic `0001`, and repeat the migration safely at the same head.'
+    - name: 'Verify public CRUD and restart persistence'
+      text: 'Create a task through public HTTPS, restart the application process against the same database, and read the exact task back.'
+    - name: 'Run the final runtime checks'
+      text: 'Verify schema-aware health, Swagger, endpoints, Pod stability, and logs before continuing to production hardening.'
+---
+
+This second guide keeps the same FastAPI Tasks API and replaces process-local
+storage with PostgreSQL. The protected
+[stage-2-postgresql](https://github.com/yangchuansheng/sealos-fastapi-tutorial/tree/stage-2-postgresql)
+tag uses SQLAlchemy 2, the explicit psycopg 3 dialect, and Alembic revision
+`0001`.
+
+Start with [the Stage 1 deployment guide](/tutorials/deploy-fastapi-sealos) if
+you still need the initial Sealos plugin and Runtime Truth workflow. Continue
+to the production guide after this stage proves migration order and persistence.
+
+## Key takeaways
+
+| Question                                    | Verified answer                                               |
+| ------------------------------------------- | ------------------------------------------------------------- |
+| Which connection key does the app read?     | `DATABASE_URL`                                                |
+| Which library opens PostgreSQL connections? | SQLAlchemy 2 using `postgresql+psycopg`                       |
+| Who creates the schema?                     | Alembic revision `0001`                                       |
+| What blocks readiness?                      | An unreachable database or missing tasks schema               |
+| What proves durability?                     | Public create, process replacement, and exact public readback |
+
+## Prerequisites
+
+You need:
+
+- The Sealos plugin installed and authenticated
+- Git, Python 3.12, `uv`, `curl`, and `kubectl`
+- Access to a Sealos workspace that can create application and database resources
+- A fresh PostgreSQL database generated by the deployment plan
+
+The protected README uses PostgreSQL 17 for its source integration harness.
+The accepted current Sealos practice generated a KubeBlocks
+`postgresql-16.4.0` Cluster from the installed plugin's mandatory database rule.
+Keep both facts in context: PostgreSQL 17 is the source prerequisite, while the
+generated Cluster version is the actual current Sealos runtime selection.
+
+## Architecture
+
+```text
+Public HTTPS
+   |
+   v
+FastAPI Tasks API
+   |  DATABASE_URL from a Secret
+   v
+KubeBlocks PostgreSQL
+
+Migration Job -- same source/runtime contract --> Alembic 0001
+```
+
+The application remains responsible for `/health`, generated `/docs`, and
+`/tasks` CRUD. Alembic owns the schema. PostgreSQL owns durable task rows across
+application process replacement.
+
+## Step 1: Inspect the database-ready source
+
+Clone the protected stage:
+
+```bash
+git clone --branch stage-2-postgresql \
+  https://github.com/yangchuansheng/sealos-fastapi-tutorial.git
+cd sealos-fastapi-tutorial
+```
+
+Reproduce the locked environment and runtime export:
+
+```bash
+uv sync --locked
+uv export --locked --no-dev --no-emit-project --no-hashes \
+  --format requirements.txt --output-file requirements.txt
+git diff --exit-code -- requirements.txt
+```
+
+The source reads one SQLAlchemy URL:
+
+```bash
+export DATABASE_URL='<postgresql+psycopg-url>'
+```
+
+Keep the actual value in a Sealos Secret. The tracked production migration
+contract reads key `url` from Secret `sealos-fastapi-postgresql`.
+
+Inspect the migration sequence locally against an empty database:
+
+```bash
+uv run alembic upgrade head
+uv run alembic current
+uv run alembic upgrade head
+```
+
+The first upgrade records revision `0001`; the final command proves the same
+head is repeatable.
+
+![Protected FastAPI Stage 2 source showing SQLAlchemy 2, psycopg 3, DATABASE_URL, and Alembic revision 0001](/images/fastapi-postgresql-sealos/database-ready-source.webp)
+
+## Step 2: Ask Sealos for FastAPI and PostgreSQL together
+
+From the protected checkout, use Codex CLI:
+
+```text
+$sealos deploy this FastAPI Tasks API to Sealos with PostgreSQL
+```
+
+Or use Claude Code:
+
+```text
+/sealos deploy this FastAPI Tasks API to Sealos with PostgreSQL
+```
+
+The request should produce one resource plan for the application and database.
+Review the plan before DEPLOY so the database URL source, migration order, and
+public application path remain explicit.
+
+## Step 3: Review the generated resource plan
+
+The fresh accepted plan contained these functional parts:
+
+- A FastAPI StatefulSet, Service, HTTPS Ingress, and App resource
+- A KubeBlocks PostgreSQL 16.4 Cluster and its generated Service
+- A generated connection Secret used as the source for `DATABASE_URL`
+- A ConfigMap for the protected source bootstrap
+- A one-shot migration Job
+- Run-owned ServiceAccount, Role, and RoleBinding resources
+
+The plugin completed strict artifact checks, the database quality gate, and a
+server-side dry run before resource creation. Review generated values in place
+and keep the connection URL redacted from output and retained logs.
+
+![Redacted current Sealos plan for the FastAPI app, KubeBlocks PostgreSQL 16.4, Service, Ingress, Secret, and migration Job](/images/fastapi-postgresql-sealos/sealos-postgresql-plan.webp)
+
+## Step 4: Migrate before accepting readiness
+
+The source contract validates and applies `deploy/migration-job.yaml` before the
+application is accepted:
+
+```bash
+kubectl --namespace <your-namespace> apply \
+  --dry-run=server --validate=strict \
+  -f deploy/migration-job.yaml
+
+kubectl --namespace <your-namespace> apply --validate=strict \
+  -f deploy/migration-job.yaml
+
+kubectl --namespace <your-namespace> wait \
+  --for=condition=complete \
+  job/sealos-fastapi-migration \
+  --timeout=300s
+```
+
+Before migration, the practiced app returned `503`:
+
+```json
+{ "detail": "Database is not ready" }
+```
+
+Two independently created migration Jobs then reported `Complete=True` at
+Alembic `0001`. The repeat ran with a restricted security context and reached
+the same revision. Only after that result did schema-aware `/health` return
+`200`.
+
+![Fresh and repeated FastAPI migration Jobs reaching Complete True at Alembic 0001 after the unmigrated 503 state](/images/fastapi-postgresql-sealos/alembic-migration-complete.webp)
+
+## Step 5: Validate the database behavior suite
+
+Point both source test boundaries at a migrated test database:
+
+```bash
+export TEST_DATABASE_URL="$DATABASE_URL"
+uv run pytest -q
+```
+
+The accepted clean practice completed 24 PostgreSQL tests in 203.23 seconds.
+One upstream Starlette deprecation warning was classified as non-blocking. The
+tests observe health, docs, CRUD, validation, stable errors, and persistence
+through public HTTP interfaces.
+
+## Step 6: Verify public CRUD
+
+Check readiness and documentation on the generated domain:
+
+```bash
+curl --fail --silent https://<your-sealos-url>/health
+curl --fail --silent https://<your-sealos-url>/docs | grep 'Swagger UI'
+```
+
+Create and read a task:
+
+```bash
+curl --fail --silent \
+  --request POST \
+  --header 'Content-Type: application/json' \
+  --data '{"title":"Persistent FastAPI task"}' \
+  https://<your-sealos-url>/tasks
+
+curl --fail --silent https://<your-sealos-url>/tasks/1
+```
+
+The accepted practice returned `201` for create and `200` for read.
+
+## Step 7: Prove process-restart persistence
+
+Restart the generated application workload while retaining the database:
+
+```bash
+kubectl --namespace <your-namespace> rollout restart \
+  statefulset/<your-fastapi-app>
+
+kubectl --namespace <your-namespace> rollout status \
+  statefulset/<your-fastapi-app> \
+  --timeout=300s
+```
+
+Read the same task after the replacement process becomes Ready:
+
+```bash
+curl --fail --silent https://<your-sealos-url>/tasks/1
+```
+
+The fresh practice read task `1` back with status `200` after process
+replacement and again after a restricted UID/GID rollout. Its final 85-second
+runtime window had zero active failures, zero log findings, and zero restart
+delta.
+
+![Public FastAPI task remaining readable after process replacement and restricted rollout against the same PostgreSQL database](/images/fastapi-postgresql-sealos/persistent-crud-readback.webp)
+
+## Readiness contract
+
+Use `/health` as a schema-aware gate:
+
+- `200 {"status":"ok"}` means PostgreSQL is reachable and the tasks schema exists.
+- `503 {"detail":"Database is not ready"}` means the URL, server, or schema
+  still needs attention.
+
+Application startup does not create tables. Keep migration completion as an
+explicit prerequisite for readiness and scaling.
+
+## Common failures
+
+### `/health` stays at 503
+
+Check that `DATABASE_URL` comes from the generated database Secret, the
+KubeBlocks Cluster is Running, and the migration Job is Complete at `0001`.
+
+### The migration Job cannot connect
+
+Confirm the Job and application consume the same connection source. Keep the
+URL out of command history and inspect Secret references by name and key.
+
+### Tests report one migration failure
+
+The protected suite uses both `DATABASE_URL` and `TEST_DATABASE_URL`. Set both
+for the test process, and point them at the migrated test database.
+
+### Tasks disappear after restart
+
+Confirm the restarted process still reads the same generated `DATABASE_URL`.
+A fresh local URL or a different database creates a separate task set.
+
+## Completion checklist
+
+- [ ] The checkout points at `stage-2-postgresql`
+- [ ] Lock reproduction and runtime export checks pass
+- [ ] The plan contains app, PostgreSQL, Secret, Service, Ingress, and Job resources
+- [ ] The generated PostgreSQL version is reviewed as runtime truth
+- [ ] The migration Job reports `Complete=True` at `0001`
+- [ ] A repeated migration remains at `0001`
+- [ ] Schema-aware `/health` returns `200`
+- [ ] Public create and read requests succeed
+- [ ] The same task survives application process replacement
+- [ ] Runtime logs and restart deltas remain clean
+
+Continue with [FastAPI Production Deployment on Sealos](/tutorials/fastapi-production-deployment-sealos)
+for immutable images, hardened replicas, release logs, and rollback recovery.

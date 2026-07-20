@@ -1,0 +1,13 @@
+decision=accept
+catalog=pass framework_paths=5 tutorial_pages=15 available_cells=15 coming_next_cells=6 planned_cells=33
+source_validator=pass cli_tests=4
+production_build=pass static_pages=6171 tutorial_detail_html=15 python_evidence_webp=24
+static_checks=pass native_artifact_inspection=skipped_with_caveat hosted_probes=skipped_with_caveat
+http=pass paths=31 unique=31 status_200=31 html=7 webp=24 index_links=15 error_exports=0
+browser=pass desktop=1440x900 mobile=390x844 stable_samples=2_per_viewport overflow=0 overlaps=0 clipped_labels=0 temporary_captures=removed
+cleanup=pass kubernetes_kinds=13 resources=0 processes=0 port_forwards=0 local_servers=0 browser_sessions=0 paths=0 ledgers=0 temporary_images=0
+phase27=pass files=10 checksum_inputs=9 byte_equal=true mode=0444
+reference_repositories=pass clean=2
+terminal_cleanup_note=parallel_preseal_probe_observed_coordinator_browser_lifetime_serial_terminal_probe_passed
+credential_scan=pass raw_local_identity_scan=pass
+evidence_seal=checksum_last read_only=0444

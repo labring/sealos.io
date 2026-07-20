@@ -1,0 +1,8 @@
+repository=yangchuansheng/sealos-django-tutorial visibility=public default_branch=main
+accepted_head=16279958ca774f7a34c25b0102a483df53160d6f public_main=16279958ca774f7a34c25b0102a483df53160d6f subjects=24 files=32
+stage=1 ref=stage-1-deploy direct=0d9254d37914976898039ff3c55f94399aa1d7c0 peeled=ca115bf21b599c14e667b336bd78e3c587c24208 type=tag message=Django-deploy-stage
+stage=2 ref=stage-2-postgresql direct=16f60a44885216fa35d67b0334914d8b8d4e8577 peeled=16279958ca774f7a34c25b0102a483df53160d6f type=tag message=Django-PostgreSQL-stage
+ruleset_id=19014157 name=Protect-tutorial-stage-tags target=tag enforcement=active include=refs/tags/stage-* exclude=empty bypass=empty rules=deletion,update
+migration=tasks.0001_initial sha256=745bc45f655bf0b164c1464c0c22786d22910e2aea235772e5dcea38495e4bf3
+public_focused_run_id=d54fc2398a70 tests=22-passed cleanup=zero
+public_replay_run_id=eafdda9a17fb lock=passed export=clean tests=43-passed jobs=2 readiness=200 restart=passed admin=passed http_records=11 cleanup=zero

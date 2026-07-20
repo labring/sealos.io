@@ -36,22 +36,30 @@ import {
 const TUTORIALS_PATHNAME = '/tutorials';
 const TUTORIALS_PAGE_TITLE = 'Sealos Deployment Tutorials';
 const TUTORIALS_PAGE_DESCRIPTION =
-  'Deploy Next.js, React, and Node.js on Sealos with step-by-step tutorials for PostgreSQL, env vars, domains, monitoring, rollback, and production checks.';
+  'Deploy Next.js, React, Node.js, FastAPI, and Django on Sealos with step-by-step tutorials for PostgreSQL, env vars, domains, monitoring, rollback, and production checks.';
 
 const TUTORIALS_PAGE_KEYWORDS = [
   'Sealos tutorials',
   'Next.js deployment tutorials',
   'React deployment tutorials',
   'Node.js deployment tutorials',
+  'FastAPI deployment tutorials',
+  'Django deployment tutorials',
   'Next.js deployment guide',
   'deploy Next.js on Sealos',
   'deploy React on Sealos',
   'deploy Node.js on Sealos',
+  'deploy FastAPI on Sealos',
+  'deploy Django on Sealos',
   'Sealos Skills',
   'Next.js PostgreSQL deployment',
   'React PostgreSQL deployment',
   'Node.js PostgreSQL deployment',
+  'FastAPI PostgreSQL deployment',
+  'Django PostgreSQL deployment',
   'Next.js production deployment',
+  'FastAPI production deployment',
+  'Django production deployment',
 ];
 
 function getTutorialsStructuredData(
@@ -160,8 +168,8 @@ export default function TutorialsPage({
                 Sealos tutorials for <GradientText>app deployment</GradientText>
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-8 text-zinc-400">
-                Start with Next.js, React, and Node.js, then add PostgreSQL
-                and production checks when the app is ready.
+                Start with Next.js, React, Node.js, FastAPI, or Django, then add
+                PostgreSQL and production checks when the app is ready.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button

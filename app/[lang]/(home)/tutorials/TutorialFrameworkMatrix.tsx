@@ -16,7 +16,7 @@ function MatrixCell({ item }: { item: TutorialInventoryItem }) {
     return (
       <Link
         href={`/tutorials/${item.slug}`}
-        className="group flex min-h-16 items-center justify-between gap-3 rounded-2xl border border-blue-400/25 bg-blue-400/[0.07] px-4 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-blue-200/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300/70 active:translate-y-px"
+        className="group flex min-h-16 items-center justify-between gap-3 rounded-2xl border border-blue-400/25 bg-blue-400/[0.07] px-4 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-blue-200/60 focus-visible:ring-2 focus-visible:ring-blue-300/70 focus-visible:outline-none active:translate-y-px"
       >
         <span>
           <span className="block text-sm font-semibold text-white">
@@ -43,7 +43,7 @@ function MatrixCell({ item }: { item: TutorialInventoryItem }) {
       slug={item.slug}
       status={item.status}
       source="framework-matrix"
-      className="flex min-h-16 items-center justify-between gap-3 rounded-2xl border border-zinc-800 bg-white/[0.025] px-4 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-blue-300/45 hover:bg-blue-400/[0.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300/70 active:translate-y-px"
+      className="flex min-h-16 items-center justify-between gap-3 rounded-2xl border border-zinc-800 bg-white/[0.025] px-4 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-blue-300/45 hover:bg-blue-400/[0.07] focus-visible:ring-2 focus-visible:ring-blue-300/70 focus-visible:outline-none active:translate-y-px"
     >
       <span>
         <span className="block text-sm font-semibold text-white">
@@ -74,9 +74,9 @@ export function TutorialFrameworkMatrix() {
           Framework paths by launch job
         </h2>
         <p className="mt-4 text-sm leading-6 text-zinc-400">
-          Next.js is the complete public path. The remaining entries collect
-          demand without creating unpublished routes, sitemap entries, or
-          canonical URLs.
+          Five complete public paths link directly to deploy, PostgreSQL, and
+          production tutorials. Remaining entries collect demand without
+          creating unpublished routes, sitemap entries, or canonical URLs.
         </p>
       </div>
 
@@ -86,7 +86,7 @@ export function TutorialFrameworkMatrix() {
             <Clock3 size={17} aria-hidden="true" />
             <span className="text-sm font-medium">Coming next</span>
           </div>
-          <p className="mt-3 text-2xl font-semibold tabular-nums text-white">
+          <p className="mt-3 text-2xl font-semibold text-white tabular-nums">
             {comingSoonCount} requested paths
           </p>
         </div>
@@ -95,7 +95,7 @@ export function TutorialFrameworkMatrix() {
             <Layers3 size={17} aria-hidden="true" />
             <span className="text-sm font-medium">Planned inventory</span>
           </div>
-          <p className="mt-3 text-2xl font-semibold tabular-nums text-white">
+          <p className="mt-3 text-2xl font-semibold text-white tabular-nums">
             {plannedCount} mapped paths
           </p>
         </div>
@@ -162,7 +162,7 @@ export function TutorialRequestPanel() {
           slug={nextGuide.slug}
           status={nextGuide.status}
           source="framework-matrix"
-          className="inline-flex min-h-11 items-center justify-center rounded-full border border-blue-300/35 bg-blue-400/12 px-5 py-3 text-sm font-semibold text-blue-50 transition-all hover:border-blue-100/70 hover:bg-blue-400/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300/70 active:translate-y-px"
+          className="inline-flex min-h-11 items-center justify-center rounded-full border border-blue-300/35 bg-blue-400/12 px-5 py-3 text-sm font-semibold text-blue-50 transition-all hover:border-blue-100/70 hover:bg-blue-400/15 focus-visible:ring-2 focus-visible:ring-blue-300/70 focus-visible:outline-none active:translate-y-px"
         >
           Request React Deploy
         </TutorialRequestGuideLink>

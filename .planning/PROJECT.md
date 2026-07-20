@@ -2,172 +2,147 @@
 
 ## What This Is
 
-This project maintains Sealos.io tutorial content for developers who use AI
-agents to deploy applications to Sealos Cloud. The current milestone expands the
-existing Next.js tutorial pattern into React and Node.js tutorial series with
-practice-backed screenshots, verified assets, and tutorial validation coverage.
+This project maintains English Sealos.io tutorials for developers who use AI
+agents to deploy framework applications to Sealos Cloud. The public catalog
+contains complete Next.js, React, Node.js, FastAPI, and Django tutorial series.
 
-The immediate deliverable is an accurate English tutorial set that teaches
-React, Node.js, and Next.js deployment paths with consistent Sealos Skills
-workflow expectations and screenshots captured from real Sealos practice.
+Milestone v1.3 added the FastAPI and Django series with public reference
+applications, test-driven implementation, real Sealos practice evidence,
+verified screenshot assets, and production publication checks.
 
 ## Core Value
 
-Readers can follow framework-specific Sealos tutorials with commands,
-screenshots, and validation evidence that match the current product workflow.
+Readers can reproduce framework-specific Sealos deployments from source,
+commands, screenshots, and runtime evidence that match the current product.
 
-## Current Milestone: v1.2 React and Node.js Tutorial Expansion
+## Current Milestone: v1.3 FastAPI and Django Tutorial Expansion
 
-**Goal:** Use the three existing Next.js tutorials as templates to add React and
-Node.js tutorial series with real practice screenshots and repository validation.
+**Status:** Complete on 2026-07-17.
+
+**Goal:** Publish complete FastAPI and Django tutorial series backed by tested
+reference applications and real Sealos deployment evidence.
 
 **Target features:**
-- React beginner deployment tutorial modeled on
-  `deploy-nextjs-sealos`.
-- React PostgreSQL/full-stack tutorial modeled on
-  `nextjs-postgresql-sealos`.
-- React production checklist tutorial modeled on
-  `nextjs-production-deployment-sealos`.
-- Node.js beginner deployment tutorial modeled on
-  `deploy-nextjs-sealos`.
-- Node.js PostgreSQL/full-stack tutorial modeled on
-  `nextjs-postgresql-sealos`.
-- Node.js production checklist tutorial modeled on
-  `nextjs-production-deployment-sealos`.
-- Practice-backed screenshots for the new tutorials, captured from real Sealos
-  runs, redacted where needed, compressed to WebP, and referenced from MDX.
-- Tutorial metadata, listing, adjacent tutorial navigation, image references,
-  and validation scripts updated to include the new React and Node.js series.
+- Two durable public reference repositories with three reproducible source
+  stages per framework.
+- Three English tutorial pages for FastAPI and three for Django: deploy,
+  PostgreSQL, and production.
+- Twenty-four 1440x900 practice-backed WebP screenshots below 200 KB each.
+- Tutorial matrix, navigation, metadata, and validation coverage for 15 pages.
+- Vertical red-green delivery across the four confirmed public test seams.
 
 ## Requirements
 
 ### Validated
 
-- ✓ Static-first localized Next.js App Router site exists — implemented through
-  `app/[lang]`, `next.config.mjs`, and static export build behavior.
-- ✓ Documentation, blog, and tutorial content are loaded through Fumadocs —
-  implemented in `source.config.ts`, `lib/source.ts`, and `content/**`.
-- ✓ Tutorial listing and detail routes exist — implemented under
-  `app/[lang]/(home)/tutorials/**`.
-- ✓ Next.js tutorial content exists — implemented under `content/tutorials/`
-  with beginner, PostgreSQL, and production checklist articles.
-- ✓ Sealos Skills landing-page routing exists — referenced through
-  `/sealos-skills` and sitemap metadata.
-- ✓ Sealos Skills tutorial install, invocation, deploy-flow, metadata, and
-  validation guidance was aligned with upstream source truth — completed in
-  v1.1 phases 13 through 15.
+- ✓ Static localized Next.js App Router site and Fumadocs tutorial collection.
+- ✓ Three English Next.js tutorial pages with Sealos Skills workflow guidance.
+- ✓ Three React and three Node.js tutorial pages shipped in commit `89215c8`.
+- ✓ Nine-page tutorial source validation passes on 2026-07-15.
+- ✓ Framework matrix already reserves FastAPI and Django slug patterns.
+- ✓ FastAPI Stage 1 is public at
+  `yangchuansheng/sealos-fastapi-tutorial`; 12 HTTP cases pass from nine named
+  behavior functions and protected `stage-1-deploy` resolves to accepted commit
+  `276aa00` — validated in Phase 21.
+- ✓ FastAPI Stage 2 is public at protected `stage-2-postgresql`; 24 public
+  behavior cases, fresh and repeat Alembic migration, two migration Jobs, three
+  clone replays, and zero-footprint cleanup pass at accepted commit `2b256b3`
+  — validated in Phase 22.
+- ✓ FastAPI Stage 3 is public at protected `stage-3-production`; two immutable
+  GHCR digests, a migration-first four-state rollout, rollback, recovery,
+  public replay, and zero-footprint cleanup pass at accepted commit `1dbbf19`
+  — validated in Phase 23.
+- ✓ Django Stages 1-3 are public, protected, test-driven, migration-first, and
+  production-verified with immutable images and rehearsed rollback — validated
+  in Phases 24-26.
+- ✓ Six English FastAPI/Django tutorials and 24 reviewed 1440x900 WebPs are
+  joined to protected source and real practice evidence — validated in Phase
+  27.
+- ✓ The 15-page catalog, five available framework paths, production static
+  HTTP surface, responsive layout, and zero practice footprint pass the public
+  validator and checksum-sealed publication gate — validated in Phase 28.
 
-### Active
+### Validated In v1.3
 
-- [ ] Add a React beginner tutorial that follows the existing beginner Next.js
-  tutorial structure while using React-specific project setup, deployment
-  language, metadata, links, and screenshots.
-- [ ] Add a React PostgreSQL/full-stack tutorial that follows the existing
-  PostgreSQL Next.js tutorial structure while using React-specific app, database,
-  environment, migration, and verification guidance.
-- [ ] Add a React production checklist tutorial that follows the existing
-  production Next.js tutorial structure while using React-specific build,
-  deployment, rollback, and runtime verification guidance.
-- [ ] Add a Node.js beginner tutorial that follows the existing beginner Next.js
-  tutorial structure while using Node.js-specific project setup, deployment
-  language, metadata, links, and screenshots.
-- [ ] Add a Node.js PostgreSQL/full-stack tutorial that follows the existing
-  PostgreSQL Next.js tutorial structure while using Node.js-specific service,
-  database, environment, migration, and verification guidance.
-- [ ] Add a Node.js production checklist tutorial that follows the existing
-  production Next.js tutorial structure while using Node.js-specific build,
-  deployment, rollback, and runtime verification guidance.
-- [ ] Capture real Sealos practice evidence for React and Node.js paths before
-  producing screenshots.
-- [ ] Store tutorial screenshots as referenced WebP assets with validated
-  dimensions, file sizes, and MDX references.
-- [ ] Update tutorial listing, metadata utilities, related tutorial links, and
-  validation scripts so the new series are first-class `/tutorials` pages.
-- [ ] Validate the expanded tutorial set with targeted searches, tutorial
-  validation, image checks, and TypeScript/content checks.
+- [x] Publish tested FastAPI and Django Reference Applications under the
+  `yangchuansheng` GitHub account.
+- [x] Preserve stage-specific source through deploy, PostgreSQL, and production
+  tags while `main` represents the complete production stage.
+- [x] Prove the FastAPI and Django HTTP seams with behavior-first tests.
+- [x] Prove migration and runtime behavior against fresh PostgreSQL databases.
+- [x] Capture redacted Practice Evidence from real Sealos deployments.
+- [x] Publish six English tutorial pages and 24 verified screenshot assets.
+- [x] Promote FastAPI and Django to available tutorial paths and validate the
+  complete 15-page catalog.
+- [x] Remove all live practice resources after acceptance evidence is complete.
 
 ### Out of Scope
 
-- New framework tutorial families beyond React and Node.js — this milestone
-  expands the current tutorial pattern to the two requested ecosystems.
-- Non-English tutorial localization — current tutorial publication remains
-  English-only for this milestone.
-- Visual redesign of the tutorial pages — the work extends content, metadata,
-  screenshots, and validation coverage.
-- Sealos Skills behavior changes — tutorial content consumes the current Sealos
-  workflow as source truth.
-- Screenshot assets generated from imagined states — screenshots must come from
-  this milestone's practice evidence.
+- Additional framework series beyond FastAPI and Django — scheduled after this
+  milestone proves the expansion workflow.
+- Tutorial localization — English remains the current publication contract.
+- Tutorial page visual redesign — this milestone extends the established page
+  and screenshot systems.
+- Sealos Skills feature changes — tutorials consume current upstream behavior.
+- Persistent live demo deployments — public source and evidence provide the
+  durable reproduction path.
 
 ## Context
 
-The active tutorial set contains exactly three English Next.js pages:
+The source tree contains 15 English tutorial pages across Next.js, React,
+Node.js, FastAPI, and Django. React, Node.js, FastAPI, and Django use a
+four-image per-page density, and the repository validator accepts the exact 15
+slugs.
 
-- `content/tutorials/deploy-nextjs-sealos/index.en.mdx`
-- `content/tutorials/nextjs-postgresql-sealos/index.en.mdx`
-- `content/tutorials/nextjs-production-deployment-sealos/index.en.mdx`
+The FastAPI path uses a `Tasks API` Reference Application. The Django path uses
+a `Task Board` Reference Application. Each evolves through deploy, PostgreSQL,
+and production stages while retaining one coherent codebase per framework.
 
-Their image assets live under:
-
-- `public/images/deploy-nextjs-sealos/`
-- `public/images/nextjs-postgresql-sealos/`
-- `public/images/nextjs-production-deployment-sealos/`
-
-The existing tutorial utility and validation surfaces include
-`lib/utils/tutorial-utils.ts`, `source.config.ts`, and
-`scripts/validate-tutorials.mjs`. The validator currently expects the three
-Next.js tutorial slugs and should be expanded or refactored for React and
-Node.js publication.
-
-Prior tutorial screenshot work established a real-evidence workflow: capture
-live namespace evidence with `kubectl` and `curl`, redact literal secrets,
-render screenshots from the actual outputs or browser state, convert assets to
-WebP, verify dimensions and file size, confirm source references, and run
-`npm run validate-tutorials`.
+The decision source is
+`.planning/quick/260715-e9k-define-fastapi-and-django-tutorial-expan/260715-e9k-CONTEXT.md`.
+The project glossary is `CONTEXT.md`.
 
 ## Constraints
 
-- **Template parity**: The React and Node.js series should preserve the
-  information architecture, metadata depth, CTA pattern, and validation style of
-  the three existing Next.js tutorials.
-- **Practice evidence**: Screenshots must be based on real Sealos practice for
-  the React and Node.js paths, with credentials and sensitive values redacted.
-- **Asset quality**: Tutorial screenshots should use WebP, keep stable
-  dimensions, stay reasonably small, and have exact MDX references.
-- **SEO consistency**: Frontmatter, FAQ, HowTo steps, target keywords, related
-  tutorials, and visible body copy must agree for every new tutorial.
-- **Validation**: Use CodeGraph for indexed code exploration, targeted `rg`,
-  `npm run validate-tutorials`, image checks, and the narrowest appropriate
-  TypeScript/content validation.
-- **Language**: Planning docs, code, code comments, commits, and PR text are
-  written in English.
+- **TDD**: Test only the four confirmed public seams and execute one failing
+  behavior test followed by the minimum passing implementation.
+- **Template parity**: Preserve the existing tutorial information architecture,
+  Sealos Skills workflow, metadata depth, CTA rules, and series navigation.
+- **Practice evidence**: Produce screenshots from actual local and Sealos
+  results with sensitive values redacted.
+- **Asset quality**: Export 1440x900 WebP images below 200 KB and verify every
+  MDX reference.
+- **Runtime**: Use Python 3.12, `uv`, exported exact requirements, PostgreSQL,
+  and one-shot migration Jobs.
+- **Language**: Planning docs, source, comments, commits, PR text, and tutorial
+  content are English.
+- **Cleanup**: Remove the complete Sealos practice footprint after acceptance.
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Scope v1.2 to React and Node.js tutorial families | The user asked to use the three `/tutorials` Next.js articles as templates for React and Node.js. | — Pending |
-| Mirror the three-part Next.js tutorial taxonomy for both new ecosystems | Beginner, PostgreSQL/full-stack, and production checklist coverage keeps the tutorial catalog predictable. | — Pending |
-| Require fresh practice evidence before screenshot creation | The user explicitly asked for self-practiced screenshots, and prior tutorial work used evidence-backed assets. | — Pending |
-| Store new tutorial screenshots as WebP assets under framework-specific image folders | Existing tutorial assets use per-slug image folders, and WebP keeps article weight manageable. | — Pending |
-| Start this roadmap at Phase 16 | The previous tutorial-alignment milestone completed phases 13 through 15, so Phase 16 preserves sequential planning history. | — Pending |
+| Use three pages per framework | Matches the established deploy, PostgreSQL, and production reader journey. | FastAPI and Django each publish one complete three-page series. |
+| Use one Reference Application per framework | Keeps code, screenshots, and troubleshooting continuous across each series. | Continuous Tasks API and Task Board sources span all three stages. |
+| Publish two public GitHub repositories | Makes tutorial commands and stage snapshots reproducible. | Both repositories and all six protected stages are public. |
+| Require 24 practice-backed screenshots | Preserves the current four-image framework tutorial density. | All 24 reviewed WebPs are published and validator-bound. |
+| Run migrations as one-shot Jobs | Keeps schema changes single-owner before rollout acceptance and scaling. | Alembic `0001` and `tasks.0001_initial` complete before readiness. |
+| Gate five-minute titles on measured evidence | Keeps duration claims tied to actual workflow timing. | Accepted timings are 21.106 seconds for FastAPI and 26.099 seconds for Django. |
+| Test four public seams with vertical red-green slices | Keeps tests behavior-focused and durable through implementation changes. | All reference-app and catalog CLI seams retain adjacent RED/GREEN history. |
 
 ## Evolution
 
 This document evolves at phase transitions and milestone boundaries.
 
-**After each phase transition** (via `$gsd-transition`):
-1. Requirements invalidated? -> Move to Out of Scope with reason
-2. Requirements validated? -> Move to Validated with phase reference
-3. New requirements emerged? -> Add to Active
-4. Decisions to log? -> Add to Key Decisions
-5. "What This Is" still accurate? -> Update if drifted
+**After each phase transition**:
+1. Move verified requirements to Validated with evidence.
+2. Record scope changes and new decisions.
+3. Update the current implementation focus.
 
-**After each milestone** (via `$gsd-complete-milestone`):
-1. Full review of all sections
-2. Core Value check — still the right priority?
-3. Audit Out of Scope — reasons still valid?
-4. Update Context with current state
+**After each milestone**:
+1. Review the core value and current product truth.
+2. Audit deferred scope and durable evidence.
+3. Record the final milestone outcome.
 
 ---
-*Last updated: 2026-06-29 after v1.2 milestone initialization*
+*Last updated: 2026-07-17 after Phase 28 verification*

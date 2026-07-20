@@ -1,0 +1,3 @@
+run_id=d98895ed9879 type=production validation=passed image=immutable command=python-manage.py-migrate-noinput secret_key=url
+run_id=d98895ed9879 sequence=1 job=tutorial-django-pg-test-d98895ed9879-migration condition=Complete status=True applied=0001_initial manifest_sha256=918a29940c6a555868a03993b95076dbdb475749e763417a0e2e1a879411a2dd
+run_id=d98895ed9879 sequence=2 job=tutorial-django-pg-test-d98895ed9879-migration condition=Complete status=True applied=0001_initial manifest_sha256=918a29940c6a555868a03993b95076dbdb475749e763417a0e2e1a879411a2dd

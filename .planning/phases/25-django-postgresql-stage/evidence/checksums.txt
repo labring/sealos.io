@@ -1,0 +1,8 @@
+6fff667925f48720d6f490125b5a9b732f33052c2f9338982de49fc6622064c5  /Users/longnv/.codex/worktrees/19b8/sealos.io/.planning/phases/25-django-postgresql-stage/evidence/README.md
+c06dfcb6601b652c16a169314b34cb58a9ab24d17e93f2760c0134986be54994  /Users/longnv/.codex/worktrees/19b8/sealos.io/.planning/phases/25-django-postgresql-stage/evidence/cleanup.txt
+e6c321cb91488a0b599024c3fa3b1d87f403ae34e66929aa7b5e927d89c6b6fc  /Users/longnv/.codex/worktrees/19b8/sealos.io/.planning/phases/25-django-postgresql-stage/evidence/django-http.jsonl
+c90cab1cbab426cd6b00d4827f593a184fb5427c412c7d71ea41cc1ccf961389  /Users/longnv/.codex/worktrees/19b8/sealos.io/.planning/phases/25-django-postgresql-stage/evidence/django-jobs.txt
+e34c261aa0ee08a77b796a889c99e027253242ec0291732db5529018aa6a2ac4  /Users/longnv/.codex/worktrees/19b8/sealos.io/.planning/phases/25-django-postgresql-stage/evidence/django-migrations.txt
+61f53024bdcdf1c82d56f08bb9cb2fbba42e55b0b56475541d611164c4f85dd5  /Users/longnv/.codex/worktrees/19b8/sealos.io/.planning/phases/25-django-postgresql-stage/evidence/django-source.txt
+01fa692c7d588253b2ca135ad7dedcf798064ef01ffe4ebd64dfc1c5b4464299  /Users/longnv/.codex/worktrees/19b8/sealos.io/.planning/phases/25-django-postgresql-stage/evidence/fastapi-phase-gate.txt
+5863a67b470706a8f618a2ebe44a0432a4ce3df160774df0c8417dab37d02626  /Users/longnv/.codex/worktrees/19b8/sealos.io/.planning/phases/25-django-postgresql-stage/evidence/package-identity.txt

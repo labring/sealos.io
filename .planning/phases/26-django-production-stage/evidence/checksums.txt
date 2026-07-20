@@ -1,0 +1,10 @@
+2455a51fe21c9a49dabd7eddf8b302ee263b0fa7164a9bb8261cc7216eea4e90  .planning/phases/26-django-production-stage/evidence/cleanup.txt
+2f9a8985ee73279b5b8c2e8188e1c5558dcffa7f501710faa667baab57aacd61  .planning/phases/26-django-production-stage/evidence/collectstatic.txt
+79962d4f1a319eec73c07d043ca93914d6838536f222cfacc3ab7d04e8bcc0c4  .planning/phases/26-django-production-stage/evidence/http.jsonl
+d9fdd69f28b094485f67660ee9f099ffb9066dce16d7456871508eca0185e725  .planning/phases/26-django-production-stage/evidence/images.txt
+150640191e48dc5f74f480e694af43f608c9eba2a8b8352888569420a3333348  .planning/phases/26-django-production-stage/evidence/logs.txt
+3db4f3d068a21d8ba34175f21987b1bec00157f069c295b2760a199ec7e45d46  .planning/phases/26-django-production-stage/evidence/migrations.txt
+b04ed94e2f0630067853f50d5685a92c55210013575c3335e59c4599f0d4d7f5  .planning/phases/26-django-production-stage/evidence/publication.txt
+9b603ae231051db3ba8add5bdb82f9377d20f5ee708b93f56174193f968f833e  .planning/phases/26-django-production-stage/evidence/rollback.txt
+5f62c3f328b4cc2d1dde8779f524d38649c6e826729bf52d56deb4ac98b24bf3  .planning/phases/26-django-production-stage/evidence/runtime.txt
+f518ca5ef580351dc21effd8d115ca7c7552bf89aaad37a6f7ef277b754db0f8  .planning/phases/26-django-production-stage/evidence/workflow.txt

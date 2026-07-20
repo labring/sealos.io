@@ -1,0 +1,11 @@
+session=p28-catalog-publication
+route=/tutorials/
+title=Sealos Deployment Tutorials | Sealos
+desktop=pass viewport=1440x900 samples=2 available_cells=15 python_direct_links=6 coming_next=6 planned=33 root_overflow=0 overlap_pairs=0 clipped_labels=0
+desktop_visual=pass hierarchy=clear matrix=coherent labels=complete footer=clear
+mobile=pass viewport=390x844 samples=2 available_cells=15 python_direct_links=6 coming_next=6 planned=33 root_overflow=0 overlap_pairs=0 clipped_labels=0
+mobile_visual=pass single_column_flow=clear matrix=coherent labels=complete footer=clear
+fastapi_text=pass
+django_text=pass
+temporary_full_page_captures=reviewed_original_and_removed
+browser_session_cleanup=pass
