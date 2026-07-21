@@ -23,6 +23,10 @@ https://sealos.run/en/* https://sealos.io/:splat 302
 /robots.txt /api/robots 200
 
 # Vercel redirect parity
+/products/app-store/lobe-chat /products/app-store/lobehub/ 308
+/products/app-store/lobe-chat/ /products/app-store/lobehub/ 308
+/products/app-store/lobe-chat-db /products/app-store/lobehub/ 308
+/products/app-store/lobe-chat-db/ /products/app-store/lobehub/ 308
 /docs/guides/fundamentals https://sealos.io/docs/guides/devbox/ 308
 /docs/guides/fundamentals/create-a-project https://sealos.io/docs/guides/devbox/create-a-project/ 308
 /docs/guides/fundamentals/develop https://sealos.io/docs/guides/devbox/develop/ 308
