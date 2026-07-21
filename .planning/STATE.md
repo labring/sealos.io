@@ -7,8 +7,8 @@ current_phase_name: Catalog Publication and Cleanup
 status: complete
 stopped_at: Milestone v1.3 complete
 last_updated: "2026-07-20T03:50:34Z"
-last_activity: 2026-07-20
-last_activity_desc: Opened upstream PR #309 for quick task 260720-g4e: Add Playwright verification guidance to the Cloud Run article
+last_activity: 2026-07-21
+last_activity_desc: "Completed quick task 260721-n8f: Add permanent LobeHub legacy app-store redirects across Vercel and Cloudflare Pages"
 progress:
   total_phases: 8
   completed_phases: 8
@@ -48,7 +48,8 @@ All Phase 28 requirements are complete.
 Phase: 28 (Catalog Publication and Cleanup) — COMPLETE
 Plan: 3 of 3
 Status: Milestone v1.3 complete
-Last activity: 2026-07-20 — Opened upstream PR #309 for quick task 260720-g4e
+Last activity: 2026-07-21 — Completed quick task 260721-n8f: Add permanent
+LobeHub legacy app-store redirects across Vercel and Cloudflare Pages
 
 ## Next Action
 
@@ -69,7 +70,7 @@ Milestone v1.3 is complete.
 | 260708-q6y | Redesign /products/databases to match the current homepage style, keep existing copy except Kafka removal, and validate mobile usability | 2026-07-08 | PR #304 | [260708-q6y-redesign-products-databases-to-match-the](./quick/260708-q6y-redesign-products-databases-to-match-the/) |
 | 260709-n35 | Fix /products/databases footer bottom Sealos word to match homepage | 2026-07-09 | PR #304 | [260709-n35-fix-products-databases-footer-bottom-sea](./quick/260709-n35-fix-products-databases-footer-bottom-sea/) |
 | 260720-g4e | Add Playwright verification guidance to the Cloud Run article | 2026-07-20 | e9314f2 | [260720-g4e-update-the-sealos-io-blog-article-for-th](./quick/260720-g4e-update-the-sealos-io-blog-article-for-th/) |
-
+| 260721-n8f | Add permanent LobeHub legacy app-store redirects across Vercel and Cloudflare Pages | 2026-07-21 | ef5aad0 | [260721-n8f-add-permanent-lobehub-legacy-app-store-r](./quick/260721-n8f-add-permanent-lobehub-legacy-app-store-r/) |
 
 ## Performance Metrics
 
