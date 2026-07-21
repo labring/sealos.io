@@ -21,6 +21,26 @@
   ],
   "redirects": [
     {
+      "source": "/products/app-store/lobe-chat",
+      "destination": "/products/app-store/lobehub/",
+      "permanent": true
+    },
+    {
+      "source": "/products/app-store/lobe-chat/",
+      "destination": "/products/app-store/lobehub/",
+      "permanent": true
+    },
+    {
+      "source": "/products/app-store/lobe-chat-db",
+      "destination": "/products/app-store/lobehub/",
+      "permanent": true
+    },
+    {
+      "source": "/products/app-store/lobe-chat-db/",
+      "destination": "/products/app-store/lobehub/",
+      "permanent": true
+    },
+    {
       "source": "/docs/guides/fundamentals",
       "destination": "https://sealos.io/docs/guides/devbox/",
       "permanent": true
