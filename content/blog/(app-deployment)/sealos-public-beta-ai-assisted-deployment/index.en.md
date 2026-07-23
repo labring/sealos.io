@@ -35,6 +35,8 @@ An application needs a runtime and may also depend on PostgreSQL, Redis, storage
 
 Sealos 2.0 brings those steps into one AI-assisted workflow. Give it a GitHub repository, and Sealos reads the project, builds the image, sets up the services it finds, deploys everything, and gives you a public URL. If something goes wrong during deployment, you can keep talking to the same agent because it already has the project and the running infrastructure in context.
 
+![Sealos 2.0 Create New Project menu with GitHub, Docker Image, Database, and Templates](./images/sealos-2-create-new-project-options.png)
+
 You can also call Sealos from Codex or Claude Code, so the agent that worked on the code can carry that context into deployment.
 
 ## What happens after you paste a repo
@@ -54,6 +56,8 @@ Kubernetes runs underneath the platform, while the main view stays focused on th
 I wanted to see how the beta handled a real open-source application, so I chose [Formbricks](https://github.com/formbricks/formbricks), a substantial project with several moving parts. I started without knowing how its infrastructure was set up.
 
 After I connected GitHub and pasted the repository URL, Sealos cloned the source and analyzed the project. It found that Formbricks needed PostgreSQL and Redis, then created both services and connected them to the deployment.
+
+![Formbricks deployment timeline in Sealos, from repository analysis to cloud resource creation](./images/sealos-formbricks-deployment-timeline.png)
 
 The full build and rollout took around 20 minutes. That is the current beta experience for a project of this size, and build speed is one of the areas we are still working on.
 
@@ -105,6 +109,8 @@ After installation, you can ask Codex to deploy the current repository:
 $sealos deploy this repo to Sealos Cloud
 ```
 
+![Codex uses Sealos Skills to inspect Formbricks and confirm the deployment target](./images/codex-sealos-skills-formbricks-deployment.png)
+
 Use the same request with `/sealos` in Claude Code:
 
 ```text
@@ -126,6 +132,8 @@ This workflow is especially useful when the coding agent already understands the
 ## The whole app lives in one project
 
 Sealos organizes resources around the application. The runtime can come from a GitHub repository, Docker image, or template, while PostgreSQL, MySQL, MongoDB, and Redis can run alongside it. The same project can also hold persistent storage, internal services, network configuration, and a public endpoint.
+
+![A Supabase project in Sealos with connected containers, PostgreSQL, and a public endpoint](./images/sealos-supabase-project-canvas.png)
 
 When something changes, you return to the project and continue working from the same application context. This is the idea behind the release: the cloud should feel like part of the application workflow, even when the underlying stack contains several services and Kubernetes resources.
 
