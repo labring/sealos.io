@@ -23,8 +23,8 @@ faq:
     answer: 'Sealos analyzes the project and prepares detected services such as PostgreSQL and Redis. Persistent storage, private networking, and a public HTTPS endpoint can live in the same project.'
   - question: 'How long did the Formbricks deployment take?'
     answer: 'The documented Formbricks build and rollout took around 20 minutes. Smaller services can finish sooner, while large monorepos and custom build systems can take longer.'
-  - question: 'Where is the public beta available?'
-    answer: 'The new Sealos experience is available in the US West region.'
+  - question: 'How do I open the Sealos public beta?'
+    answer: 'Open the [Sealos public beta](https://usw-1.sealos.io?openapp=system-brain), then start with a GitHub repository, container image, or application template.'
   - question: 'How can I deploy from Codex or Claude Code?'
     answer: 'Install Sealos Skills from https://github.com/labring/sealos-skills, then ask the coding agent to deploy the current repository to Sealos Cloud.'
 ---
@@ -39,7 +39,7 @@ You can also call Sealos from Codex or Claude Code, so the agent that worked on 
 
 ## What happens after you paste a repo
 
-Create a project in [Sealos Cloud](https://os.sealos.io), connect GitHub, and paste a repository URL.
+Open the [Sealos public beta](https://usw-1.sealos.io?openapp=system-brain), connect GitHub, and paste a repository URL.
 
 Sealos checks the project structure, runtime, package manager, start command, ports, environment variables, and external services before cloning the source and building a container image. It then prepares the cloud resources and starts the application.
 
@@ -131,7 +131,7 @@ When something changes, you return to the project and continue working from the 
 
 ## What public beta means
 
-The new Sealos experience is available in the US West region.
+Open [Sealos 2.0](https://usw-1.sealos.io?openapp=system-brain) and start a project from a repository, container image, application template, or managed database.
 
 Complex repositories take time to analyze and build. Formbricks took around 20 minutes in our test, while a small service may finish sooner and a large monorepo with custom build steps may take longer.
 
@@ -141,6 +141,6 @@ New users receive a [7-day free trial](https://sealos.io/pricing/), with no cred
 
 Bring a repository you actually care about and either paste it into Sealos or deploy it from your coding agent. See how far the workflow gets, then keep the conversation going when the interesting problems appear.
 
-[Deploy a real repo](https://os.sealos.io/?utm_source=sealos_blog&utm_medium=owned&utm_campaign=sealos_public_beta_20260728&utm_content=article_primary_cta)
+[Deploy a real repo](https://usw-1.sealos.io?openapp=system-brain&utm_source=sealos_blog&utm_medium=owned&utm_campaign=sealos_public_beta_20260728&utm_content=article_primary_cta)
 
 [Install Sealos Skills](https://github.com/labring/sealos-skills?utm_source=sealos_blog&utm_medium=owned&utm_campaign=sealos_public_beta_20260728&utm_content=article_skills_cta)
