@@ -1,3 +1,11 @@
+import { railwayComparablePlans } from '../../pricing/config/plans';
+import {
+  RAILWAY_RATE_CARD,
+  calculateCostDifference,
+  estimateRailwayMonthlyCost,
+  formatUsd,
+} from '../../pricing/config/railway-cost';
+
 export type FAQ = {
   question: string;
   answer: string;
@@ -697,22 +705,36 @@ This is a key difference from Google App Engine, which runs only on GCP infrastr
   }
 
   // Railway-specific FAQs (default)
+  const standardPlan = railwayComparablePlans.find(
+    (plan) => plan.planId === 'standard',
+  )!;
+  const railwayMediumEstimate = estimateRailwayMonthlyCost({
+    averageVcpu: 8,
+    averageRamGb: 16,
+    volumeGb: 50,
+    egressGb: 100,
+  });
+  const railwayMediumDifference = calculateCostDifference(
+    standardPlan.monthlyPrice,
+    railwayMediumEstimate.total,
+  );
+
   return [
     {
       question:
         'How much can I actually save by switching from Railway to Sealos?',
-      answer: `For always-on production workloads, savings typically range from **60-70%**.
+      answer: `For this full-utilization medium workload, the Sealos Standard plan is about **${railwayMediumDifference.percentage}% lower** than the Railway estimate.
 
 **Example calculation for a medium app (8 vCPU, 16GB RAM, 24/7):**
 
 | Cost Component | Railway | Sealos Standard |
 |---------------|---------|-----------------|
-| Compute (monthly) | ~$300 | Included |
-| 50GB storage | $12.50 | Included |
-| 100GB egress | $5.00 | Included |
-| **Total** | **~$317/mo** | **~$128/mo** |
+| Compute (monthly) | ${formatUsd(railwayMediumEstimate.cpu + railwayMediumEstimate.ram)} | Included |
+| 50GB volume | ${formatUsd(railwayMediumEstimate.volume)} | Included |
+| 100GB egress | ${formatUsd(railwayMediumEstimate.egress)} | Included |
+| **Total** | **~${formatUsd(railwayMediumEstimate.total)}/mo** | **${formatUsd(standardPlan.monthlyPrice)}/mo** |
 
-The more resources you use, the more you save. Railway's per-second billing is great for sporadic workloads, but for production apps running continuously, fixed plans win.`,
+This is a rate-card estimate. Low-utilization workloads can cost less on Railway. Railway also provides hard usage limits that shut down workloads at the selected limit.`,
     },
     {
       question: "What's included in Sealos that costs extra on Railway?",
@@ -730,7 +752,8 @@ The more resources you use, the more you save. Railway's per-second billing is g
       question: 'Can I verify these claims myself?',
       answer: `Absolutely. All data in this comparison comes from official, publicly available sources:
 
-- **Railway Pricing**: [railway.com/pricing](https://railway.com/pricing)
+- **Railway Pricing**: [docs.railway.com/pricing/plans](${RAILWAY_RATE_CARD.sourceUrl})
+- **Railway Cost Controls**: [docs.railway.com/pricing/cost-control](${RAILWAY_RATE_CARD.costControlUrl})
 - **Sealos Pricing**: [sealos.io/pricing](https://sealos.io/pricing)
 - **Sealos Source Code**: [github.com/labring/sealos](https://github.com/labring/sealos)
 

@@ -17,7 +17,7 @@ const FREE_TRIAL_URL =
   'https://os.sealos.io/?openapp=system-costcenter?mode%3dcreate';
 
 export function FreeTrialCard({ className }: FreeTrialCardProps) {
-  const { trackButton } = useGTM();
+  const { trackButton, trackCustom } = useGTM();
 
   const handleStartDeploying = () => {
     trackButton(
@@ -30,8 +30,13 @@ export function FreeTrialCard({ className }: FreeTrialCardProps) {
         plan_price: '$0',
       },
     );
+    trackCustom('pricing_plan_selected', {
+      plan_id: 'free-trial',
+      plan_price: 0,
+      location: 'free_trial_card',
+    });
 
-    window.open(FREE_TRIAL_URL, '_blank');
+    window.open(FREE_TRIAL_URL, '_blank', 'noopener,noreferrer');
   };
 
   return (

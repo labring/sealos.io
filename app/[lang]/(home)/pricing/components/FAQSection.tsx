@@ -24,10 +24,10 @@ export function FAQSection({ className }: FAQSectionProps) {
     >
       <div className="flex flex-col items-center gap-6">
         <h2 className="text-center text-4xl font-semibold">
-          <GradientText>Got Questions?</GradientText>
+          <GradientText>Pricing questions</GradientText>
         </h2>
         <p className="text-muted-foreground w-full max-w-2xl text-center text-base">
-          Everything you need to know about Sealos pricing
+          Plan limits, billing boundaries, upgrades, and payment details.
         </p>
       </div>
 
