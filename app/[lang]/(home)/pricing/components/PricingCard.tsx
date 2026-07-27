@@ -69,30 +69,38 @@ export function PricingCard({ plan, className }: PricingCardProps) {
   return (
     <article
       className={cn(
-        'relative flex h-full flex-col rounded-lg border bg-zinc-900 p-7',
-        isPopular && 'border-blue-400/70 ring-1 ring-blue-400/30',
+        'relative grid h-full grid-rows-[auto_auto_auto_auto_1fr] overflow-hidden rounded-lg border border-white/10 bg-zinc-900/70 p-7 transition duration-200 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_24px_60px_-36px_rgba(59,130,246,0.45)] motion-reduce:transform-none motion-reduce:transition-none',
+        isPopular &&
+          'border-blue-400/40 bg-blue-500/[0.06] before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-blue-400',
         className,
       )}
     >
-      {isPopular && (
-        <p className="absolute top-0 right-5 -translate-y-1/2 rounded-full bg-blue-500 px-3 py-1 text-xs font-semibold text-white">
-          MOST POPULAR
-        </p>
-      )}
+      <div className="mb-5 h-4">
+        {isPopular ? (
+          <p className="flex items-center gap-2 text-xs font-medium text-blue-300">
+            <span className="size-1.5 bg-blue-400" aria-hidden="true" />
+            Recommended for most projects
+          </p>
+        ) : (
+          <span className="sr-only">Standard plan option</span>
+        )}
+      </div>
 
       <div className="min-h-24">
         <h3 className="text-2xl font-semibold">{name}</h3>
-        <p className="text-muted-foreground mt-3 text-sm">{description}</p>
+        <p className="text-muted-foreground mt-3 max-w-sm text-sm leading-6 text-pretty">
+          {description}
+        </p>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-7 min-h-20">
         <div className="flex items-end gap-2">
           {originalPrice && (
-            <span className="text-muted-foreground text-xl line-through">
+            <span className="text-muted-foreground text-xl leading-none tabular-nums line-through">
               {originalPrice}
             </span>
           )}
-          <span className="text-4xl font-bold">{price}</span>
+          <span className="text-4xl font-semibold tabular-nums">{price}</span>
           <span className="text-muted-foreground pb-1">/ month</span>
         </div>
         <p className="text-muted-foreground mt-2 text-xs">
@@ -100,29 +108,30 @@ export function PricingCard({ plan, className }: PricingCardProps) {
         </p>
       </div>
 
-      <Button
-        variant={isPopular ? 'landing-primary' : buttonVariant}
-        className="mt-6 h-11 rounded-full"
-        {...getRybbitCtaProps({
-          id: `pricing_${toRybbitCtaId(name)}_get_started`,
-          location: 'pricing_plan_card',
-          destination: action.type === 'auth' ? 'signup_modal' : 'checkout',
-        })}
-        onClick={handleButtonClick}
-      >
-        {buttonText}
-      </Button>
-
-      {resources && (
+      <div className="mt-6">
         <Button
-          variant="ghost"
-          className="mt-2 h-10 rounded-full border border-white/10"
-          onClick={handleCompare}
+          variant={isPopular ? 'landing-primary' : buttonVariant}
+          className="h-11 w-full rounded-md transition duration-200 active:translate-y-px motion-reduce:transition-none"
+          {...getRybbitCtaProps({
+            id: `pricing_${toRybbitCtaId(name)}_get_started`,
+            location: 'pricing_plan_card',
+            destination: action.type === 'auth' ? 'signup_modal' : 'checkout',
+          })}
+          onClick={handleButtonClick}
         >
-          <GitCompare className="mr-2 size-4" />
-          See Railway estimate
+          {buttonText}
         </Button>
-      )}
+        {resources && (
+          <button
+            type="button"
+            className="mt-4 inline-flex items-center text-sm font-medium text-zinc-300 transition-colors hover:text-white focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none motion-reduce:transition-none"
+            onClick={handleCompare}
+          >
+            <GitCompare className="mr-2 size-4 text-blue-400" />
+            Compare with Railway
+          </button>
+        )}
+      </div>
 
       <div className="mt-7 border-t border-white/10 pt-6">
         <p className="mb-4 text-sm font-medium">Included resources</p>

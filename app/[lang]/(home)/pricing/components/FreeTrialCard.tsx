@@ -2,9 +2,6 @@
 
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { AiAgentStar } from '@/new-components/AiAgentStar';
-import { GradientText } from '@/new-components/GradientText';
-import { FeatureItem } from './FeatureItem';
 import { cn } from '@/lib/utils';
 import { useGTM } from '@/hooks/use-gtm';
 import { getRybbitCtaProps } from '@/lib/analytics/rybbit-cta';
@@ -40,35 +37,41 @@ export function FreeTrialCard({ className }: FreeTrialCardProps) {
   };
 
   return (
-    <div
+    <aside
       className={cn(
-        'flex w-full flex-row flex-wrap items-center rounded-xl border bg-zinc-900 p-7',
+        'grid w-full items-center gap-7 border-y border-white/10 py-6 lg:grid-cols-[0.9fr_1.65fr_auto] lg:gap-10',
         className,
       )}
     >
-      <div className="flex w-full flex-col gap-4 sm:w-2/3 xl:w-auto">
-        <div className="flex w-fit items-center gap-1 rounded-full border border-white/5 bg-white/5 px-3 py-1.5 text-sm backdrop-blur-sm">
-          <GradientText>New User Offer</GradientText>
-          <AiAgentStar className="size-1.5" />
-        </div>
-
-        <div className="flex max-w-md flex-col gap-3">
-          <div className="flex items-end gap-3">
-            <p className="text-foreground text-4xl font-bold">Free $0</p>
-          </div>
-          <p className="text-muted-foreground text-base whitespace-pre-wrap">
-            For individuals. Perfect for getting started and deploying small
-            apps on Sealos.
-          </p>
+      <div>
+        <p className="flex items-center gap-2 text-sm font-medium text-blue-400">
+          <span className="size-1.5 bg-blue-400" aria-hidden="true" />
+          Free trial
+        </p>
+        <div className="mt-2 flex items-end gap-3">
+          <p className="text-4xl font-semibold tabular-nums">$0</p>
+          <p className="text-muted-foreground pb-1 text-sm">for new users</p>
         </div>
       </div>
 
-      <div className="mx-10 mt-10 hidden h-[6rem] w-px shrink-0 items-center justify-center border-l xl:block" />
+      <dl className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-4">
+        {[
+          ['Duration', '7 days'],
+          ['Compute', '4 vCPU'],
+          ['Memory', '4GB RAM'],
+          ['AI credits', '100'],
+        ].map(([label, value]) => (
+          <div key={label}>
+            <dt className="text-muted-foreground text-xs">{label}</dt>
+            <dd className="mt-1 text-sm font-semibold tabular-nums">{value}</dd>
+          </div>
+        ))}
+      </dl>
 
-      <div className="mt-8 ml-auto flex w-full flex-col justify-center gap-3 sm:mt-0 sm:w-1/3 sm:max-w-2xs xl:order-4 xl:w-auto">
+      <div className="flex flex-col items-start gap-2 lg:items-end">
         <Button
           variant="landing-primary"
-          className="h-10 px-8"
+          className="h-10 rounded-md px-6 transition duration-200 active:translate-y-px motion-reduce:transition-none"
           {...getRybbitCtaProps({
             id: 'pricing_free_trial_start_deploying',
             location: 'pricing_free_trial_card',
@@ -76,24 +79,11 @@ export function FreeTrialCard({ className }: FreeTrialCardProps) {
           })}
           onClick={handleStartDeploying}
         >
-          <span>Start Deploying</span>
+          <span>Start free</span>
           <ArrowRight className="ml-2 size-4" />
         </Button>
-        <p className="text-muted-foreground text-sm whitespace-pre-wrap sm:text-center">
-          No credit card required
-        </p>
+        <p className="text-muted-foreground text-xs">No credit card required</p>
       </div>
-
-      <div className="my-4 h-px w-full shrink-0 items-center justify-center border-t xl:hidden" />
-
-      <div className="grid grow grid-cols-1 flex-col items-start gap-3 sm:grid-cols-2 sm:flex-row lg:grid-cols-3 xl:order-3 xl:mt-12 xl:grid-cols-2">
-        <FeatureItem text="Start with a 7-day free trial" />
-        <FeatureItem text="4 vCPU" />
-        <FeatureItem text="4GB RAM" />
-        <FeatureItem text="5 GB of volume storage" />
-        <FeatureItem text="500 MB included bandwidth" />
-        <FeatureItem text="100 AI Credits" />
-      </div>
-    </div>
+    </aside>
   );
 }

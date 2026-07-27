@@ -52,6 +52,17 @@ export function MorePlans({ className }: MorePlansProps) {
       ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const formatCapacity = (plan: PricingPlan) => {
+    if (!plan.resources) return plan.description;
+
+    const traffic =
+      plan.resources.traffic >= 1000
+        ? `${plan.resources.traffic / 1000}TB traffic`
+        : `${plan.resources.traffic}GB traffic`;
+
+    return `${plan.resources.cpu} vCPU · ${plan.resources.ram}Gi RAM · ${plan.resources.disk}Gi disk · ${traffic}`;
+  };
+
   return (
     <section className={cn('container py-24', className)}>
       <div className="mb-10 max-w-2xl">
@@ -64,28 +75,51 @@ export function MorePlans({ className }: MorePlansProps) {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="overflow-hidden border-y border-white/10">
+        <div className="text-muted-foreground hidden grid-cols-[0.65fr_1.7fr_0.55fr_auto] gap-6 border-b border-white/10 px-5 py-3 text-xs lg:grid">
+          <span>Plan</span>
+          <span>Capacity</span>
+          <span>Price</span>
+          <span className="min-w-40 text-right">Action</span>
+        </div>
         {morePlans.map((plan) => (
           <article
             key={plan.planId}
-            className="flex min-h-72 flex-col rounded-lg border bg-zinc-900 p-6"
+            className="grid gap-5 border-b border-white/10 px-1 py-7 transition-colors last:border-b-0 hover:bg-white/[0.025] sm:px-5 lg:grid-cols-[0.65fr_1.7fr_0.55fr_auto] lg:items-center lg:gap-6"
           >
-            <h3 className="text-xl font-semibold">{plan.name}</h3>
-            <p className="text-muted-foreground mt-3 min-h-16 text-sm">
-              {plan.description}
+            <div>
+              <h3 className="text-lg font-semibold">{plan.name}</h3>
+              <p className="text-muted-foreground mt-1 text-xs lg:hidden">
+                Plan
+              </p>
+            </div>
+            <p className="text-muted-foreground max-w-2xl text-sm leading-6 text-pretty">
+              {formatCapacity(plan)}
             </p>
-            <div className="mt-6 flex items-end gap-1">
-              <span className="text-3xl font-semibold">{plan.price}</span>
+            <div className="flex items-end gap-1">
+              <span className="text-xl font-semibold tabular-nums">
+                {plan.price}
+              </span>
               {plan.monthlyPrice && (
                 <span className="text-muted-foreground pb-1 text-sm">
                   / month
                 </span>
               )}
             </div>
-            <div className="mt-auto flex flex-col gap-2 pt-6">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-3 lg:min-w-40 lg:justify-end">
+              {plan.planId === 'pro' && (
+                <button
+                  type="button"
+                  className="inline-flex items-center text-sm font-medium text-zinc-300 transition-colors hover:text-white focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+                  onClick={() => handleCompare(plan)}
+                >
+                  <GitCompare className="mr-2 size-4 text-blue-400" />
+                  Estimate
+                </button>
+              )}
               <Button
                 variant="secondary"
-                className="h-10 rounded-full"
+                className="h-9 px-4 transition duration-200 active:translate-y-px motion-reduce:transition-none"
                 {...getRybbitCtaProps({
                   id: `pricing_${toRybbitCtaId(plan.name)}_get_started`,
                   location: 'pricing_more_plans',
@@ -97,16 +131,6 @@ export function MorePlans({ className }: MorePlansProps) {
                 {plan.buttonText}
                 <ArrowUpRight className="ml-2 size-4" />
               </Button>
-              {plan.planId === 'pro' && (
-                <Button
-                  variant="ghost"
-                  className="h-10 rounded-full"
-                  onClick={() => handleCompare(plan)}
-                >
-                  <GitCompare className="mr-2 size-4" />
-                  See Railway estimate
-                </Button>
-              )}
             </div>
           </article>
         ))}

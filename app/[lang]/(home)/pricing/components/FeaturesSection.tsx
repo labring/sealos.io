@@ -1,20 +1,12 @@
-import {
-  Boxes,
-  Database,
-  Globe2,
-  HardDrive,
-  LayoutGrid,
-  Server,
-} from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const includedCapabilities = [
-  { icon: Server, label: 'Application deployment' },
-  { icon: Database, label: 'Managed databases' },
-  { icon: HardDrive, label: 'S3-compatible storage' },
-  { icon: Globe2, label: 'Custom domains and SSL' },
-  { icon: LayoutGrid, label: 'App Store templates' },
-  { icon: Boxes, label: 'Kubernetes-native infrastructure' },
+  'Application deployment',
+  'Managed databases',
+  'S3-compatible storage',
+  'Custom domains and SSL',
+  'App Store templates',
+  'Kubernetes-native infrastructure',
 ];
 
 interface FeaturesSectionProps {
@@ -23,29 +15,36 @@ interface FeaturesSectionProps {
 
 export function FeaturesSection({ className }: FeaturesSectionProps) {
   return (
-    <section className={cn('border-y border-white/10 py-14', className)}>
+    <section className={cn('border-y border-white/10 py-16', className)}>
       <div className="container">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-          <div className="max-w-sm">
-            <p className="text-sm font-medium text-blue-400">
+        <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-center lg:gap-16">
+          <div className="max-w-md">
+            <p className="flex items-center gap-2 text-sm font-medium text-blue-400">
+              <span className="size-1.5 bg-blue-400" aria-hidden="true" />
               Included with every paid plan
             </p>
-            <h2 className="mt-3 text-2xl font-semibold">
+            <h2 className="mt-3 text-2xl font-semibold text-balance">
               One platform for running your apps
             </h2>
-            <p className="text-muted-foreground mt-3 text-sm">
+            <p className="text-muted-foreground mt-3 text-sm leading-6">
               Availability follows the resource limits shown on each plan.
             </p>
           </div>
 
-          <div className="grid flex-1 grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2 lg:max-w-3xl lg:grid-cols-3">
-            {includedCapabilities.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-3">
-                <Icon className="size-5 shrink-0 text-blue-400" />
-                <span className="text-sm font-medium">{label}</span>
-              </div>
+          <ul className="grid grid-cols-1 border-t border-white/10 sm:grid-cols-2">
+            {includedCapabilities.map((label, index) => (
+              <li
+                key={label}
+                className={cn(
+                  'flex items-center gap-3 border-b border-white/10 py-4 text-sm font-medium',
+                  index % 2 === 0 ? 'sm:pr-6' : 'sm:border-l sm:pl-6',
+                )}
+              >
+                <span className="size-1.5 shrink-0 bg-blue-400" />
+                {label}
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </section>

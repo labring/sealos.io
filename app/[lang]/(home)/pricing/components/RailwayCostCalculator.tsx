@@ -178,27 +178,88 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
     difference.lowerCost === 'equal'
       ? 'Both options have the same monthly cost in this example.'
       : `${difference.lowerCost === 'sealos' ? 'Sealos' : 'Railway'} is about ${formatUsd(difference.amount)} lower in this example.`;
+  const lowerCostName =
+    difference.lowerCost === 'equal'
+      ? 'Equal monthly cost'
+      : `${difference.lowerCost === 'sealos' ? 'Sealos' : 'Railway'} lower`;
+  const currentComputeUtilization = Math.max(
+    0,
+    Math.min(
+      100,
+      ((inputs.averageVcpu / selectedPlan.resources.cpu +
+        inputs.averageRamGb / selectedPlan.resources.ram) /
+        2) *
+        100,
+    ),
+  );
+  const markerTransform = (position: number) => {
+    if (position <= 8) return 'translateX(0)';
+    if (position >= 92) return 'translateX(-100%)';
+    return 'translateX(-50%)';
+  };
+  const costLineItems = [
+    {
+      label: 'CPU',
+      value: estimate.cpu,
+      rate: `${formatUsd(RAILWAY_RATE_CARD.cpuPerVcpuMonth)} / avg vCPU`,
+    },
+    {
+      label: 'RAM',
+      value: estimate.ram,
+      rate: `${formatUsd(RAILWAY_RATE_CARD.ramPerGbMonth)} / avg GB`,
+    },
+    {
+      label: 'Volume',
+      value: estimate.volume,
+      rate: `${formatUsd(RAILWAY_RATE_CARD.volumePerGbMonth)} / GB`,
+    },
+    {
+      label: 'Egress',
+      value: estimate.egress,
+      rate: `${formatUsd(RAILWAY_RATE_CARD.egressPerGb)} / GB`,
+    },
+  ];
 
   return (
     <section
       ref={sectionRef}
       id="railway-cost"
-      className="scroll-mt-20 border-y border-white/10 bg-zinc-950/60 py-24"
+      className="scroll-mt-20 border-y border-white/10 bg-zinc-950/60 py-24 sm:py-28"
     >
       <div className="container">
-        <div className="max-w-3xl">
-          <p className="text-sm font-medium text-blue-400">Cost comparison</p>
-          <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
-            Same workload. Different billing model.
-          </h2>
-          <p className="text-muted-foreground mt-4 max-w-2xl">
-            Sealos lists a monthly resource package. Railway starts with a $5
-            minimum usage commitment and bills measured CPU, memory, volume, and
-            egress.
-          </p>
+        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div className="max-w-3xl">
+            <p className="flex items-center gap-2 text-sm font-medium text-blue-400">
+              <span className="size-1.5 bg-blue-400" aria-hidden="true" />
+              Cost comparison
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold text-balance sm:text-4xl">
+              Same workload. Different billing model.
+            </h2>
+            <p className="text-muted-foreground mt-4 max-w-2xl leading-7 text-pretty">
+              Sealos lists a monthly resource package. Railway starts with a $5
+              minimum usage commitment and bills measured CPU, memory, volume,
+              and egress.
+            </p>
+          </div>
+          <div className="flex flex-col items-start gap-1 lg:items-end lg:text-right">
+            <a
+              href={RAILWAY_RATE_CARD.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => handleSourceClick('railway_pricing_plans')}
+              className="inline-flex items-center text-sm font-medium text-zinc-200 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+            >
+              Official Railway rate model
+              <ExternalLink className="ml-1.5 size-3.5" />
+            </a>
+            <p className="text-muted-foreground text-xs">
+              Verified {RAILWAY_RATE_CARD.verifiedAt}
+            </p>
+          </div>
         </div>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="mt-10 grid gap-7 border-y border-white/10 py-6 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <p className="mb-3 text-sm font-medium">Sealos plan</p>
             <div
@@ -213,7 +274,7 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
                   aria-pressed={selectedPlan.planId === plan.planId}
                   onClick={() => selectPlan(plan.planId, true)}
                   className={cn(
-                    'h-10 rounded-md px-4 text-sm font-medium transition-colors',
+                    'h-10 rounded-md px-3 text-sm font-medium transition duration-200 focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none active:translate-y-px motion-reduce:transition-none',
                     selectedPlan.planId === plan.planId
                       ? 'bg-white text-zinc-950'
                       : 'text-muted-foreground hover:text-foreground',
@@ -239,7 +300,7 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
                   aria-pressed={utilization === option}
                   onClick={() => handleUtilizationChange(option)}
                   className={cn(
-                    'h-10 min-w-16 rounded-md px-3 text-sm font-medium transition-colors',
+                    'h-10 min-w-0 rounded-md px-2 text-sm font-medium transition duration-200 focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none active:translate-y-px motion-reduce:transition-none sm:min-w-16 sm:px-3',
                     utilization === option
                       ? 'bg-white text-zinc-950'
                       : 'text-muted-foreground hover:text-foreground',
@@ -252,34 +313,39 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
           </div>
         </div>
 
-        <div className="mt-8 grid gap-5 lg:grid-cols-2">
-          <article className="flex min-h-72 flex-col rounded-lg border border-blue-400/40 bg-zinc-900 p-6 sm:p-8">
-            <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-md bg-white p-2">
-                <Image src={SealosIcon} alt="Sealos" width={28} height={28} />
+        <div className="mt-10 grid gap-5 lg:grid-cols-2">
+          <article className="flex min-h-72 flex-col rounded-lg border border-blue-400/40 bg-blue-500/[0.06] p-6 shadow-[0_24px_70px_-44px_rgba(59,130,246,0.8)] sm:p-8">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="flex size-10 items-center justify-center rounded-md bg-white p-2">
+                  <Image src={SealosIcon} alt="Sealos" width={28} height={28} />
+                </div>
+                <div>
+                  <p className="font-semibold">Sealos {selectedPlan.name}</p>
+                  <p className="text-muted-foreground text-sm">
+                    Known monthly plan price
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="font-semibold">Sealos {selectedPlan.name}</p>
-                <p className="text-muted-foreground text-sm">
-                  Known monthly plan price
-                </p>
-              </div>
+              <span className="border border-blue-400/25 bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-200">
+                Fixed resource package
+              </span>
             </div>
-            <div className="mt-8 flex items-end gap-2">
-              <span className="text-5xl font-semibold">
+            <div className="mt-auto flex items-end gap-2 pt-10">
+              <span className="text-5xl font-semibold tabular-nums">
                 {formatUsd(selectedPlan.monthlyPrice)}
               </span>
               <span className="text-muted-foreground pb-1">/ month</span>
             </div>
-            <p className="text-muted-foreground mt-5 text-sm leading-6">
+            <p className="text-muted-foreground mt-5 border-t border-blue-300/15 pt-5 text-sm leading-6">
               Includes {selectedPlan.resources.cpu} vCPU,{' '}
               {selectedPlan.resources.ram}GB RAM, {selectedPlan.resources.disk}
               GB disk, and {selectedPlan.resources.traffic}GB traffic.
             </p>
           </article>
 
-          <article className="flex min-h-72 flex-col rounded-lg border bg-zinc-900 p-6 sm:p-8">
-            <div className="flex items-center justify-between gap-4">
+          <article className="flex min-h-72 flex-col rounded-lg border border-white/10 bg-white/[0.025] p-6 sm:p-8">
+            <div className="flex flex-wrap items-start justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="flex size-10 items-center justify-center rounded-md border border-white/10 bg-black p-2">
                   <Image
@@ -296,17 +362,22 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
                   </p>
                 </div>
               </div>
-              <span className="rounded-full border border-white/10 px-3 py-1 text-xs">
-                $5 minimum usage
-              </span>
+              <div className="flex flex-wrap gap-2">
+                <span className="border border-white/10 bg-white/5 px-2 py-1 text-xs font-medium text-zinc-200">
+                  Usage estimate
+                </span>
+                <span className="border border-white/10 px-2 py-1 text-xs text-zinc-400">
+                  $5 minimum usage
+                </span>
+              </div>
             </div>
-            <div className="mt-8 flex items-end gap-2">
-              <span className="text-5xl font-semibold">
+            <div className="mt-auto flex items-end gap-2 pt-10">
+              <span className="text-5xl font-semibold tabular-nums">
                 ~{formatUsd(estimate.total)}
               </span>
               <span className="text-muted-foreground pb-1">/ month</span>
             </div>
-            <p className="text-muted-foreground mt-5 text-sm leading-6">
+            <p className="text-muted-foreground mt-5 border-t border-white/10 pt-5 text-sm leading-6">
               Assumes {inputs.averageVcpu.toFixed(2)} average vCPU,{' '}
               {inputs.averageRamGb.toFixed(2)}GB average RAM, {inputs.volumeGb}
               GB volume, and {inputs.egressGb}GB egress.
@@ -314,28 +385,109 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
           </article>
         </div>
 
-        <div className="mt-6 grid gap-6 border-y border-white/10 py-7 md:grid-cols-2 md:items-center">
+        <div className="mt-6 grid gap-10 border-y border-white/10 py-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-center lg:gap-14">
           <div>
-            <p className="text-lg font-semibold">{comparisonMessage}</p>
-            <p className="text-muted-foreground mt-2 text-sm">
-              Absolute difference: {formatUsd(difference.amount)} (
-              {difference.percentage}% of the Railway estimate).
+            <p className="text-muted-foreground text-sm">Monthly difference</p>
+            <div className="mt-2 flex flex-wrap items-end gap-x-3 gap-y-1">
+              <p className="text-4xl font-semibold tabular-nums">
+                {formatUsd(difference.amount)}
+              </p>
+              <p className="pb-1 text-sm font-medium text-zinc-200">
+                {lowerCostName}
+              </p>
+            </div>
+            <p className="text-muted-foreground mt-3 max-w-sm text-sm leading-6">
+              {comparisonMessage} The difference is {difference.percentage}% of
+              the Railway estimate.
             </p>
           </div>
-          <p className="text-muted-foreground text-sm leading-6 md:text-right">
-            With the listed volume and egress, Railway reaches{' '}
-            {formatUsd(selectedPlan.monthlyPrice)} at about{' '}
-            <span className="text-foreground font-medium">
-              {crossover?.toFixed(1)}% average compute utilization
-            </span>
-            .
-          </p>
+          <div>
+            <div className="flex items-center justify-between gap-4">
+              <p className="text-sm font-medium">
+                Compute utilization threshold
+              </p>
+              <p className="text-muted-foreground text-xs">
+                0–100% average CPU and RAM
+              </p>
+            </div>
+            <div
+              className="relative mt-10 h-2 bg-zinc-800"
+              role="img"
+              aria-label={`Current compute utilization ${currentComputeUtilization.toFixed(1)} percent${
+                crossover === null
+                  ? ''
+                  : `, break-even ${crossover.toFixed(1)} percent`
+              }`}
+            >
+              <div
+                className="absolute inset-y-0 left-0 bg-blue-500/50"
+                style={{ width: `${currentComputeUtilization}%` }}
+              />
+              <span
+                className="absolute top-1/2 size-3 -translate-y-1/2 bg-blue-400 ring-4 ring-zinc-950"
+                style={{ left: `${currentComputeUtilization}%` }}
+                aria-hidden="true"
+              />
+              <span
+                className="absolute -top-8 text-xs font-medium whitespace-nowrap text-blue-300"
+                style={{
+                  left: `${currentComputeUtilization}%`,
+                  transform: markerTransform(currentComputeUtilization),
+                }}
+              >
+                Current {currentComputeUtilization.toFixed(1)}%
+              </span>
+              {crossover !== null && (
+                <>
+                  <span
+                    className="absolute top-1/2 h-5 w-px -translate-y-1/2 bg-white"
+                    style={{ left: `${crossover}%` }}
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="absolute top-5 text-xs font-medium whitespace-nowrap text-zinc-200"
+                    style={{
+                      left: `${crossover}%`,
+                      transform: markerTransform(crossover),
+                    }}
+                  >
+                    Break-even {crossover.toFixed(1)}%
+                  </span>
+                </>
+              )}
+            </div>
+            <div className="text-muted-foreground mt-9 flex justify-between text-xs">
+              <span>Lower use</span>
+              <span>Full use</span>
+            </div>
+          </div>
         </div>
 
-        <div className="mt-6">
+        <dl className="grid grid-cols-2 border-b border-white/10 lg:grid-cols-4">
+          {costLineItems.map((item, index) => (
+            <div
+              key={item.label}
+              className={cn(
+                'py-6',
+                index % 2 === 0 ? 'pr-4' : 'border-l border-white/10 pl-4',
+                index >= 2 && 'border-t border-white/10 lg:border-t-0',
+                index > 0 && 'lg:border-l lg:border-white/10 lg:px-6',
+                index === 0 && 'lg:pr-6',
+              )}
+            >
+              <dt className="text-muted-foreground text-xs">{item.label}</dt>
+              <dd className="mt-2 text-xl font-semibold tabular-nums">
+                {formatUsd(item.value)}
+              </dd>
+              <p className="text-muted-foreground mt-1 text-xs">{item.rate}</p>
+            </div>
+          ))}
+        </dl>
+
+        <div className="border-b border-white/10 py-6">
           <Button
             variant="ghost"
-            className="h-10 rounded-full border border-white/10"
+            className="h-10 px-3 transition-colors"
             onClick={() => setShowAdvanced((current) => !current)}
             aria-expanded={showAdvanced}
           >
@@ -350,7 +502,7 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
           </Button>
 
           {showAdvanced && (
-            <div className="mt-5 grid gap-4 rounded-lg border border-white/10 bg-black/20 p-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-5 grid gap-5 border-t border-white/10 pt-6 sm:grid-cols-2 lg:grid-cols-4">
               {(
                 [
                   ['averageVcpu', 'Average vCPU', 0.01],
@@ -368,7 +520,7 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
                     value={inputs[key]}
                     onChange={(event) => updateInput(key, event.target.value)}
                     onBlur={() => handleAdvancedBlur(key)}
-                    className="mt-2 h-11 bg-zinc-950"
+                    className="mt-2 h-11 rounded-md border-white/10 bg-zinc-950 tabular-nums focus-visible:ring-blue-400"
                   />
                 </label>
               ))}
@@ -376,9 +528,9 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
           )}
         </div>
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
           <div className="text-muted-foreground text-sm leading-6">
-            <p className="font-mono text-xs text-zinc-300">
+            <p className="font-mono text-xs [overflow-wrap:anywhere] break-words whitespace-normal text-zinc-300">
               max($5, {inputs.averageVcpu.toFixed(2)} vCPU × $20 +{' '}
               {inputs.averageRamGb.toFixed(2)}GB RAM × $10 + {inputs.volumeGb}GB
               volume × $0.15 + {inputs.egressGb}GB egress × $0.05)
@@ -395,7 +547,7 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => handleSourceClick('railway_pricing_plans')}
-                className="text-foreground inline-flex items-center underline underline-offset-4"
+                className="text-foreground inline-flex items-center underline decoration-white/30 underline-offset-4 transition-colors hover:text-white focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
               >
                 Railway pricing source
                 <ExternalLink className="ml-1.5 size-3.5" />
@@ -405,7 +557,7 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => handleSourceClick('railway_cost_control')}
-                className="text-foreground inline-flex items-center underline underline-offset-4"
+                className="text-foreground inline-flex items-center underline decoration-white/30 underline-offset-4 transition-colors hover:text-white focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
               >
                 Railway cost controls
                 <ExternalLink className="ml-1.5 size-3.5" />
@@ -413,7 +565,7 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
               <Link
                 href={`/${lang}/comparison/sealos-vs-railway/`}
                 onClick={() => handleSourceClick('full_railway_comparison')}
-                className="text-foreground inline-flex items-center underline underline-offset-4"
+                className="text-foreground inline-flex items-center underline decoration-white/30 underline-offset-4 transition-colors hover:text-white focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
               >
                 View full Sealos vs. Railway comparison
                 <ArrowRight className="ml-1.5 size-3.5" />
@@ -423,7 +575,7 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
 
           <Button
             variant="landing-primary"
-            className="h-11 px-6"
+            className="h-11 w-full rounded-md px-6 transition duration-200 active:translate-y-px motion-reduce:transition-none lg:w-auto"
             onClick={handleChoosePlan}
           >
             Choose {selectedPlan.name}
