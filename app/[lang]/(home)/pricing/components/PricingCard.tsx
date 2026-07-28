@@ -6,6 +6,7 @@ import { FeatureItem } from './FeatureItem';
 import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { useGTM } from '@/hooks/use-gtm';
 import type { PricingPlan } from '../config/plans';
+import { getRybbitCtaProps, toRybbitCtaId } from '@/lib/analytics/rybbit-cta';
 
 interface PricingCardProps {
   plan: PricingPlan;
@@ -71,6 +72,11 @@ export function PricingCard({ plan, className }: PricingCardProps) {
       <Button
         variant={isPopular ? 'landing-primary' : buttonVariant}
         className="h-11 rounded-full"
+        {...getRybbitCtaProps({
+          id: `pricing_${toRybbitCtaId(name)}_get_started`,
+          location: 'pricing_plan_card',
+          destination: action.type === 'auth' ? 'signup_modal' : 'checkout',
+        })}
         onClick={handleButtonClick}
       >
         {buttonText}

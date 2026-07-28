@@ -7,6 +7,7 @@ import { GradientText } from '@/new-components/GradientText';
 import { FeatureItem } from './FeatureItem';
 import { cn } from '@/lib/utils';
 import { useGTM } from '@/hooks/use-gtm';
+import { getRybbitCtaProps } from '@/lib/analytics/rybbit-cta';
 
 interface FreeTrialCardProps {
   className?: string;
@@ -63,6 +64,11 @@ export function FreeTrialCard({ className }: FreeTrialCardProps) {
         <Button
           variant="landing-primary"
           className="h-10 px-8"
+          {...getRybbitCtaProps({
+            id: 'pricing_free_trial_start_deploying',
+            location: 'pricing_free_trial_card',
+            destination: 'costcenter_topup',
+          })}
           onClick={handleStartDeploying}
         >
           <span>Start Deploying</span>

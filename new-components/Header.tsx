@@ -36,6 +36,7 @@ import { siteConfig } from '@/config/site';
 import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { getOpenBrainParam } from '@/lib/utils/brain';
 import { i18n, languagesType } from '@/lib/i18n';
+import { getRybbitCtaProps } from '@/lib/analytics/rybbit-cta';
 
 type NavigationChild = {
   text: string;
@@ -368,6 +369,11 @@ export function Header({ lang }: HeaderProps) {
               variant="landing-primary"
               className="hidden h-10 rounded-full px-4 py-2 text-sm font-medium shadow-lg lg:flex"
               aria-label="Start using Sealos for free."
+              {...getRybbitCtaProps({
+                id: 'home_header_get_started',
+                location: 'header',
+                destination: 'signup_modal',
+              })}
               onClick={() => {
                 trackButton('Get Started', 'header', 'auth-form', '');
                 handleAuthRedirect({ openapp: getOpenBrainParam() });
@@ -546,6 +552,11 @@ export function Header({ lang }: HeaderProps) {
                       variant="landing-primary"
                       className="h-12 w-full border border-white text-base"
                       aria-label="Start using Sealos for free."
+                      {...getRybbitCtaProps({
+                        id: 'home_header_mobile_get_started',
+                        location: 'header_mobile_menu',
+                        destination: 'signup_modal',
+                      })}
                       onClick={() => {
                         trackButton(
                           'Get Started',
