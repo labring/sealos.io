@@ -21,6 +21,7 @@ import { StarBorder } from '@/components/ui/star-border';
 import { useGTM } from '@/hooks/use-gtm';
 import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { getOpenBrainParam } from '@/lib/utils/brain';
+import { getRybbitCtaProps } from '@/lib/analytics/rybbit-cta';
 import { GradientText } from '@/new-components/GradientText';
 import { SideRays } from '@/new-components/SideRays';
 
@@ -146,6 +147,11 @@ function HeroGetStartedButton() {
       <StarBorder
         color="var(--color-blue-500)"
         contentClassName="h-10 gap-2 border border-blue-500/80 bg-gradient-to-b from-white via-zinc-100 to-zinc-300 px-4 text-sm font-medium text-zinc-900 shadow-lg"
+        {...getRybbitCtaProps({
+          id: 'home_hero_get_started',
+          location: 'hero',
+          destination: 'signup_modal',
+        })}
         onClick={() => {
           trackButton('Get Started', 'hero', 'auth-form', '');
           handleAuthRedirect({ openapp: getOpenBrainParam() });

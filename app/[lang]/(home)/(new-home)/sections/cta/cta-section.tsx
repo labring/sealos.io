@@ -6,6 +6,7 @@ import { StarBorder } from '@/components/ui/star-border';
 import { useGTM } from '@/hooks/use-gtm';
 import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { getOpenBrainParam } from '@/lib/utils/brain';
+import { getRybbitCtaProps } from '@/lib/analytics/rybbit-cta';
 import { GradientText } from '@/new-components/GradientText';
 
 import styles from './cta-section.module.css';
@@ -35,6 +36,11 @@ export function CTASection() {
           <StarBorder
             color="white"
             contentClassName="h-10 gap-2 border border-white bg-gradient-to-b from-white via-zinc-100 to-zinc-300 px-4 text-sm font-medium text-zinc-900 shadow-lg"
+            {...getRybbitCtaProps({
+              id: 'home_bottom_deploy_free',
+              location: 'bottom_cta',
+              destination: 'signup_modal',
+            })}
             onClick={() => {
               trackButton('Deploy for free', 'home_cta', 'auth-form', '');
               handleAuthRedirect({ openapp: getOpenBrainParam() });

@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils';
 import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { useGTM } from '@/hooks/use-gtm';
 import { morePlans, type PricingPlan } from '../config/plans';
+import { getRybbitCtaProps, toRybbitCtaId } from '@/lib/analytics/rybbit-cta';
 
 interface MorePlansProps {
   className?: string;
@@ -159,6 +160,12 @@ export function MorePlans({ className }: MorePlansProps) {
         <Button
           variant="secondary"
           className="h-11 shrink-0 rounded-full px-8"
+          {...getRybbitCtaProps({
+            id: `pricing_${toRybbitCtaId(selectedPlan.name)}_get_started`,
+            location: 'pricing_more_plans',
+            destination:
+              selectedPlan.action.type === 'auth' ? 'signup_modal' : 'checkout',
+          })}
           onClick={handleGetStarted}
         >
           Get Started
