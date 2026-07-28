@@ -10,6 +10,8 @@ export const RAILWAY_RATE_CARD = {
   verifiedAt: '2026-07-24',
 } as const;
 
+export const DEFAULT_RAILWAY_UTILIZATION = 50;
+
 export interface RailwayCostInput {
   averageVcpu: number;
   averageRamGb: number;

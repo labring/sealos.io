@@ -66,26 +66,8 @@ export function PricingCard({ plan, className }: PricingCardProps) {
       ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  return (
-    <article
-      className={cn(
-        'relative grid h-full grid-rows-[auto_auto_auto_auto_1fr] overflow-hidden rounded-lg border border-white/10 bg-zinc-900/70 p-7 transition duration-200 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_24px_60px_-36px_rgba(59,130,246,0.45)] motion-reduce:transform-none motion-reduce:transition-none',
-        isPopular &&
-          'border-blue-400/40 bg-blue-500/[0.06] before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-blue-400',
-        className,
-      )}
-    >
-      <div className="mb-5 h-4">
-        {isPopular ? (
-          <p className="flex items-center gap-2 text-xs font-medium text-blue-300">
-            <span className="size-1.5 bg-blue-400" aria-hidden="true" />
-            Recommended for most projects
-          </p>
-        ) : (
-          <span className="sr-only">Standard plan option</span>
-        )}
-      </div>
-
+  const cardContent = (
+    <>
       <div className="min-h-24">
         <h3 className="text-2xl font-semibold">{name}</h3>
         <p className="text-muted-foreground mt-3 max-w-sm text-sm leading-6 text-pretty">
@@ -96,7 +78,7 @@ export function PricingCard({ plan, className }: PricingCardProps) {
       <div className="mt-7 min-h-20">
         <div className="flex items-end gap-2">
           {originalPrice && (
-            <span className="text-muted-foreground text-xl leading-none tabular-nums line-through">
+            <span className="text-muted-foreground text-4xl leading-none font-semibold tabular-nums line-through opacity-70">
               {originalPrice}
             </span>
           )}
@@ -141,6 +123,31 @@ export function PricingCard({ plan, className }: PricingCardProps) {
           ))}
         </div>
       </div>
-    </article>
+    </>
+  );
+
+  return (
+    <div
+      className={cn(
+        'relative flex h-full flex-col',
+        !isPopular && 'xl:py-7',
+        className,
+      )}
+    >
+      {isPopular ? (
+        <article className="flex h-full flex-col rounded-2xl bg-gradient-to-r from-white via-blue-300 to-blue-600 p-1 transition duration-200 hover:-translate-y-1 hover:shadow-[0_24px_60px_-30px_rgba(59,130,246,0.65)] motion-reduce:transform-none motion-reduce:transition-none">
+          <div className="flex h-10 shrink-0 items-center justify-center px-4">
+            <p className="text-sm font-bold text-zinc-950">MOST POPULAR</p>
+          </div>
+          <div className="grid h-full flex-1 grid-rows-[auto_auto_auto_1fr] rounded-xl bg-zinc-900 p-7">
+            {cardContent}
+          </div>
+        </article>
+      ) : (
+        <article className="relative grid h-full flex-1 grid-rows-[auto_auto_auto_1fr] overflow-hidden rounded-lg border border-white/10 bg-zinc-900/70 p-7 transition duration-200 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_24px_60px_-36px_rgba(59,130,246,0.45)] motion-reduce:transform-none motion-reduce:transition-none">
+          {cardContent}
+        </article>
+      )}
+    </div>
   );
 }

@@ -17,6 +17,7 @@ import { useGTM } from '@/hooks/use-gtm';
 import { cn } from '@/lib/utils';
 import { railwayComparablePlans, type PricingPlanId } from '../config/plans';
 import {
+  DEFAULT_RAILWAY_UTILIZATION,
   RAILWAY_RATE_CARD,
   calculateBreakEvenUtilization,
   calculateCostDifference,
@@ -50,9 +51,11 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
     ({ planId }) => planId === 'hobby',
   )!;
   const [selectedPlanId, setSelectedPlanId] = useState<PricingPlanId>('hobby');
-  const [utilization, setUtilization] = useState<Utilization>(25);
+  const [utilization, setUtilization] = useState<Utilization>(
+    DEFAULT_RAILWAY_UTILIZATION,
+  );
   const [inputs, setInputs] = useState<RailwayCostInput>(() =>
-    buildInputs(defaultPlan, 25),
+    buildInputs(defaultPlan, DEFAULT_RAILWAY_UTILIZATION),
   );
   const [showAdvanced, setShowAdvanced] = useState(false);
 
@@ -107,7 +110,7 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
           hasTrackedView.current = true;
           trackCustom('pricing_railway_compare_viewed', {
             default_plan_id: 'hobby',
-            default_utilization: 25,
+            default_utilization: DEFAULT_RAILWAY_UTILIZATION,
           });
         }
       },

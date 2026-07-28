@@ -86,6 +86,7 @@ const allPricingPlans: PricingPlan[] = [
     name: 'Starter',
     description: 'For lightweight apps and existing container images.',
     price: '$7',
+    originalPrice: '$34',
     monthlyPrice: 7,
     buttonText: 'Choose Starter',
     action: {
@@ -100,6 +101,7 @@ const allPricingPlans: PricingPlan[] = [
     name: 'Hobby',
     description: 'For side projects, demos, and personal services.',
     price: '$25',
+    originalPrice: '$70',
     monthlyPrice: 25,
     buttonText: 'Choose Hobby',
     action: {

@@ -15,6 +15,7 @@ import { RailwayCostCalculator } from './components/RailwayCostCalculator';
 import HeroLinesImage from './assets/hero-lines.svg';
 import { mainPricingPlans, railwayComparablePlans } from './config/plans';
 import {
+  DEFAULT_RAILWAY_UTILIZATION,
   calculateCostDifference,
   estimateRailwayMonthlyCost,
   formatUsd,
@@ -35,13 +36,12 @@ export function generateMetadata(): Metadata {
   });
 }
 
-const heroUtilization = 25;
 const heroPlan = railwayComparablePlans.find(
   ({ planId }) => planId === 'hobby',
 )!;
 const heroRailwayEstimate = estimateRailwayMonthlyCost({
-  averageVcpu: heroPlan.resources.cpu * (heroUtilization / 100),
-  averageRamGb: heroPlan.resources.ram * (heroUtilization / 100),
+  averageVcpu: heroPlan.resources.cpu * (DEFAULT_RAILWAY_UTILIZATION / 100),
+  averageRamGb: heroPlan.resources.ram * (DEFAULT_RAILWAY_UTILIZATION / 100),
   volumeGb: heroPlan.resources.disk,
   egressGb: heroPlan.resources.traffic,
 });
@@ -122,7 +122,7 @@ export default async function PricingPage({ params }: PageProps) {
                 </p>
               </div>
               <span className="border border-white/10 bg-white/5 px-2 py-1 text-xs text-zinc-300">
-                {heroUtilization}% average use
+                {DEFAULT_RAILWAY_UTILIZATION}% average use
               </span>
             </div>
 
