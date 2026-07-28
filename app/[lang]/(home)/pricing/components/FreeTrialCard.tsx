@@ -54,11 +54,13 @@ export function FreeTrialCard({ className }: FreeTrialCardProps) {
         </div>
       </div>
 
-      <dl className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-4">
+      <dl className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3">
         {[
           ['Duration', '7 days'],
           ['Compute', '4 vCPU'],
           ['Memory', '4GB RAM'],
+          ['Storage', '5GB'],
+          ['Bandwidth', '500MB'],
           ['AI credits', '100'],
         ].map(([label, value]) => (
           <div key={label}>

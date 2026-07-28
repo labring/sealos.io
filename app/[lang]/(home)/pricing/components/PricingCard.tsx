@@ -23,6 +23,9 @@ export function PricingCard({ plan, className }: PricingCardProps) {
     description,
     price,
     originalPrice,
+    priceLabel,
+    originalPriceLabel,
+    offerEligibility,
     monthlyPrice,
     buttonText,
     buttonVariant = 'secondary',
@@ -75,18 +78,34 @@ export function PricingCard({ plan, className }: PricingCardProps) {
         </p>
       </div>
 
-      <div className="mt-7 min-h-20">
-        <div className="flex items-end gap-2">
+      <div className="mt-7 min-h-24">
+        <div className="flex items-end gap-3">
           {originalPrice && (
-            <span className="text-muted-foreground text-4xl leading-none font-semibold tabular-nums line-through opacity-70">
-              {originalPrice}
-            </span>
+            <div className="shrink-0">
+              <p className="text-muted-foreground mb-2 text-[11px] font-medium uppercase">
+                {originalPriceLabel ?? 'Regular price'}
+              </p>
+              <p className="text-muted-foreground text-3xl leading-none font-semibold tabular-nums line-through opacity-70">
+                {originalPrice}
+              </p>
+            </div>
           )}
-          <span className="text-4xl font-semibold tabular-nums">{price}</span>
-          <span className="text-muted-foreground pb-1">/ month</span>
+          <div>
+            <p className="text-muted-foreground mb-2 text-[11px] font-medium uppercase">
+              {priceLabel ?? 'Monthly plan price'}
+            </p>
+            <div className="flex items-end gap-2">
+              <span className="text-4xl leading-none font-semibold tabular-nums">
+                {price}
+              </span>
+              <span className="text-muted-foreground pb-0.5">/ month</span>
+            </div>
+          </div>
         </div>
         <p className="text-muted-foreground mt-2 text-xs">
-          Monthly resource package
+          {offerEligibility
+            ? `${offerEligibility} · Eligibility confirmed in Cost Center`
+            : 'Fixed monthly resource package'}
         </p>
       </div>
 
@@ -137,7 +156,9 @@ export function PricingCard({ plan, className }: PricingCardProps) {
       {isPopular ? (
         <article className="flex h-full flex-col rounded-2xl bg-gradient-to-r from-white via-blue-300 to-blue-600 p-1 transition duration-200 hover:-translate-y-1 hover:shadow-[0_24px_60px_-30px_rgba(59,130,246,0.65)] motion-reduce:transform-none motion-reduce:transition-none">
           <div className="flex h-10 shrink-0 items-center justify-center px-4">
-            <p className="text-sm font-bold text-zinc-950">MOST POPULAR</p>
+            <p className="text-center text-sm font-bold text-zinc-950">
+              RECOMMENDED FOR MOST PROJECTS
+            </p>
           </div>
           <div className="grid h-full flex-1 grid-rows-[auto_auto_auto_1fr] rounded-xl bg-zinc-900 p-7">
             {cardContent}

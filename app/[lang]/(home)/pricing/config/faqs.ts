@@ -7,7 +7,12 @@ export const faqItems: FAQItem[] = [
   {
     question: 'Can my monthly charge exceed the listed plan price?',
     answer:
-      'The listed amount is the monthly subscription price for the included resource package. Taxes and separately purchased services can appear as additional line items. Review the Cost Center total before confirming a purchase or upgrade.',
+      'Your plan price covers the resources listed on the plan card. Existing workloads continue within those limits, and allocating more resources requires a manual plan upgrade. Taxes and optional services are shown separately in Cost Center before confirmation.',
+  },
+  {
+    question: 'Who qualifies for new-user pricing?',
+    answer:
+      'The $7 Starter and $25 Hobby prices apply to accounts making their first paid plan purchase. Cost Center confirms eligibility and the final price before purchase.',
   },
   {
     question: 'What resources are included in each plan?',
@@ -17,12 +22,12 @@ export const faqItems: FAQItem[] = [
   {
     question: 'What does Railway’s $5 price mean in the calculator?',
     answer:
-      'Railway Hobby includes a $5 minimum monthly usage commitment. That amount counts toward measured CPU, memory, volume, and egress usage. The final estimate increases when measured usage exceeds $5.',
+      'Railway Hobby costs $5 per month and includes $5 of resource usage. When measured CPU, memory, volume, and egress total $5 or less, the monthly bill remains $5. When measured usage exceeds $5, the monthly total follows measured usage.',
   },
   {
     question: 'What is included in the Sealos free trial?',
     answer:
-      'New users can start with a 7-day trial that includes 4 vCPU, 4GB RAM, 5GB volume storage, 500MB bandwidth, and 100 AI credits. No credit card is required.',
+      'New users receive 7 days with 4 vCPU, 4GB RAM, 5GB storage, 500MB bandwidth, and 100 AI credits. No credit card is required.',
   },
   {
     question: 'Can I change or cancel my plan?',
@@ -32,7 +37,7 @@ export const faqItems: FAQItem[] = [
   {
     question: 'What payment methods do you accept?',
     answer:
-      'Sealos accepts major credit cards, including Visa, Mastercard, and American Express, through Stripe.',
+      'Major credit cards are processed by Stripe. Available payment methods are shown in Cost Center at checkout.',
   },
   {
     question: 'Can I deploy with my own domain?',

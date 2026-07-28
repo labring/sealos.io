@@ -31,7 +31,7 @@ export function generateMetadata(): Metadata {
   return generatePageMetadata({
     title: 'Predictable Cloud Pricing',
     description:
-      'Compare Sealos monthly resource plans with a transparent Railway usage-based cost estimate.',
+      'Choose a fixed monthly Sealos resource package and compare it with a transparent Railway usage-based cost estimate.',
     pathname: '/pricing',
   });
 }
@@ -75,12 +75,12 @@ export default async function PricingPage({ params }: PageProps) {
             </p>
 
             <h1 className="mt-7 max-w-3xl text-5xl leading-[0.98] font-semibold text-balance sm:text-6xl lg:text-7xl">
-              Know what you’ll pay{' '}
+              Know your plan price{' '}
               <span className="text-blue-400">before you deploy.</span>
             </h1>
             <p className="text-muted-foreground mt-7 max-w-xl text-base leading-7 text-pretty sm:text-lg">
-              Choose a monthly resource package, then compare the same workload
-              with Railway’s usage-based pricing.
+              Choose a fixed monthly resource package, then estimate how the
+              same workload would be billed on Railway.
             </p>
             <div className="mt-9 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
               <Button
@@ -97,12 +97,13 @@ export default async function PricingPage({ params }: PageProps) {
                 href="#railway-cost"
                 className="group inline-flex items-center py-2 text-sm font-medium text-zinc-200 transition-colors hover:text-white focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none motion-reduce:transition-none"
               >
-                Compare the same workload
+                Compare with Railway
                 <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none" />
               </a>
             </div>
             <p className="text-muted-foreground mt-7 max-w-lg text-sm leading-6">
-              Resource limits and cost assumptions are shown before purchase.
+              Your plan covers the resources listed below. Taxes and optional
+              services are shown separately before checkout.
             </p>
           </div>
 
@@ -116,13 +117,14 @@ export default async function PricingPage({ params }: PageProps) {
             />
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-medium">Hobby cost example</p>
+                <p className="text-sm font-medium">Hobby workload example</p>
                 <p className="text-muted-foreground mt-1 text-xs">
-                  Same resources, different billing models
+                  Same workload inputs, different billing models
                 </p>
               </div>
-              <span className="border border-white/10 bg-white/5 px-2 py-1 text-xs text-zinc-300">
-                {DEFAULT_RAILWAY_UTILIZATION}% average use
+              <span className="max-w-48 border border-white/10 bg-white/5 px-2 py-1 text-right text-xs leading-5 text-zinc-300">
+                {DEFAULT_RAILWAY_UTILIZATION}% average CPU and RAM · full listed
+                volume and egress
               </span>
             </div>
 
@@ -135,7 +137,7 @@ export default async function PricingPage({ params }: PageProps) {
                   <div>
                     <p className="text-sm font-medium">Sealos Hobby</p>
                     <p className="text-muted-foreground mt-0.5 text-xs">
-                      Fixed resource package
+                      Known plan price
                     </p>
                   </div>
                 </div>
@@ -164,16 +166,17 @@ export default async function PricingPage({ params }: PageProps) {
             <div className="mt-6 grid gap-2 sm:grid-cols-[1fr_auto] sm:items-end">
               <div>
                 <p className="text-muted-foreground text-xs">
-                  Monthly difference
+                  Estimated monthly difference
                 </p>
                 <p className="mt-1 text-xl font-semibold tabular-nums">
-                  {formatUsd(heroDifference.amount)} lower with Sealos
+                  Sealos is {formatUsd(heroDifference.amount)} lower in this
+                  example.
                 </p>
               </div>
               <p className="text-muted-foreground text-xs sm:text-right">
-                4 vCPU · 4GB RAM
+                4 vCPU · 4Gi RAM
                 <br />
-                20GB volume · 50GB egress
+                20Gi volume · 50GB egress
               </p>
             </div>
           </aside>

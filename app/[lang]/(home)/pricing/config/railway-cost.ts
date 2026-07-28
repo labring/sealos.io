@@ -1,5 +1,6 @@
 export const RAILWAY_RATE_CARD = {
-  minimumMonthlySpend: 5,
+  hobbyMonthlySubscription: 5,
+  hobbyIncludedUsage: 5,
   cpuPerVcpuMonth: 20,
   ramPerGbMonth: 10,
   volumePerGbMonth: 0.15,
@@ -7,7 +8,7 @@ export const RAILWAY_RATE_CARD = {
   sourceUrl: 'https://docs.railway.com/pricing/plans',
   faqUrl: 'https://docs.railway.com/pricing/faqs',
   costControlUrl: 'https://docs.railway.com/pricing/cost-control',
-  verifiedAt: '2026-07-24',
+  verifiedAt: '2026-07-28',
 } as const;
 
 export const DEFAULT_RAILWAY_UTILIZATION = 50;
@@ -43,7 +44,10 @@ export const estimateRailwayMonthlyCost = (
     clampToZero(input.volumeGb) * RAILWAY_RATE_CARD.volumePerGbMonth;
   const egress = clampToZero(input.egressGb) * RAILWAY_RATE_CARD.egressPerGb;
   const usageSubtotal = cpu + ram + volume + egress;
-  const total = Math.max(RAILWAY_RATE_CARD.minimumMonthlySpend, usageSubtotal);
+  const total = Math.max(
+    RAILWAY_RATE_CARD.hobbyMonthlySubscription,
+    usageSubtotal,
+  );
 
   return {
     cpu: roundCurrency(cpu),
@@ -52,7 +56,7 @@ export const estimateRailwayMonthlyCost = (
     egress: roundCurrency(egress),
     usageSubtotal: roundCurrency(usageSubtotal),
     total: roundCurrency(total),
-    minimumApplied: usageSubtotal < RAILWAY_RATE_CARD.minimumMonthlySpend,
+    minimumApplied: usageSubtotal < RAILWAY_RATE_CARD.hobbyMonthlySubscription,
   };
 };
 
@@ -94,10 +98,9 @@ export const calculateCostDifference = (
   const amount = roundCurrency(
     Math.abs(railwayMonthlyEstimate - sealosMonthlyPrice),
   );
+  const higherCost = Math.max(sealosMonthlyPrice, railwayMonthlyEstimate);
   const percentage =
-    railwayMonthlyEstimate === 0
-      ? 0
-      : Math.round((amount / railwayMonthlyEstimate) * 100);
+    higherCost === 0 ? 0 : Math.round((amount / higherCost) * 100);
 
   return {
     amount,

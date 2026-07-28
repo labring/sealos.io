@@ -2,6 +2,7 @@ const assert = require('node:assert/strict');
 const test = require('node:test');
 
 const {
+  DEFAULT_RAILWAY_UTILIZATION,
   RAILWAY_RATE_CARD,
   calculateBreakEvenUtilization,
   calculateCostDifference,
@@ -19,14 +20,23 @@ const estimatePlan = ({ cpu, ram, disk, traffic }, utilization) =>
 test('uses the verified Railway rate card', () => {
   assert.deepEqual(
     {
-      minimum: RAILWAY_RATE_CARD.minimumMonthlySpend,
+      hobbySubscription: RAILWAY_RATE_CARD.hobbyMonthlySubscription,
+      hobbyIncludedUsage: RAILWAY_RATE_CARD.hobbyIncludedUsage,
       cpu: RAILWAY_RATE_CARD.cpuPerVcpuMonth,
       ram: RAILWAY_RATE_CARD.ramPerGbMonth,
       volume: RAILWAY_RATE_CARD.volumePerGbMonth,
       egress: RAILWAY_RATE_CARD.egressPerGb,
     },
-    { minimum: 5, cpu: 20, ram: 10, volume: 0.15, egress: 0.05 },
+    {
+      hobbySubscription: 5,
+      hobbyIncludedUsage: 5,
+      cpu: 20,
+      ram: 10,
+      volume: 0.15,
+      egress: 0.05,
+    },
   );
+  assert.equal(DEFAULT_RAILWAY_UTILIZATION, 50);
 });
 
 test('estimates Starter at 10%, 25%, 50%, and 100% utilization', () => {
@@ -47,7 +57,7 @@ test('estimates Hobby at 10%, 25%, 50%, and 100% utilization', () => {
   );
 });
 
-test('applies the Railway minimum monthly usage', () => {
+test('applies the Railway Hobby subscription minimum', () => {
   const estimate = estimateRailwayMonthlyCost({
     averageVcpu: 0,
     averageRamGb: 0,
@@ -66,8 +76,13 @@ test('reports either platform as the lower-cost result', () => {
   });
   assert.deepEqual(calculateCostDifference(25, 17.5), {
     amount: 7.5,
-    percentage: 43,
+    percentage: 30,
     lowerCost: 'railway',
+  });
+  assert.deepEqual(calculateCostDifference(25, 25), {
+    amount: 0,
+    percentage: 0,
+    lowerCost: 'equal',
   });
 });
 

@@ -21,13 +21,13 @@ export function FeaturesSection({ className }: FeaturesSectionProps) {
           <div className="max-w-md">
             <p className="flex items-center gap-2 text-sm font-medium text-blue-400">
               <span className="size-1.5 bg-blue-400" aria-hidden="true" />
-              Included with every paid plan
+              Available on every paid plan
             </p>
             <h2 className="mt-3 text-2xl font-semibold text-balance">
-              One platform for running your apps
+              Deploy apps, databases, and storage from one platform
             </h2>
             <p className="text-muted-foreground mt-3 text-sm leading-6">
-              Availability follows the resource limits shown on each plan.
+              These services use the resources included in your plan.
             </p>
           </div>
 

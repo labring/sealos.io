@@ -27,6 +27,9 @@ export interface PricingPlan {
   price: string;
   monthlyPrice?: number;
   originalPrice?: string;
+  priceLabel?: string;
+  originalPriceLabel?: string;
+  offerEligibility?: string;
   buttonText: string;
   buttonVariant?: 'default' | 'outline' | 'secondary' | 'ghost';
   features: string[];
@@ -84,9 +87,13 @@ const allPricingPlans: PricingPlan[] = [
   {
     planId: 'starter',
     name: 'Starter',
-    description: 'For lightweight apps and existing container images.',
+    description:
+      'For lightweight experiments and existing container workloads.',
     price: '$7',
     originalPrice: '$34',
+    priceLabel: 'New user price',
+    originalPriceLabel: 'Regular price',
+    offerEligibility: 'First paid plan purchase',
     monthlyPrice: 7,
     buttonText: 'Choose Starter',
     action: {
@@ -99,9 +106,13 @@ const allPricingPlans: PricingPlan[] = [
   {
     planId: 'hobby',
     name: 'Hobby',
-    description: 'For side projects, demos, and personal services.',
+    description:
+      'For side projects and always-on personal apps that need more capacity.',
     price: '$25',
     originalPrice: '$70',
+    priceLabel: 'New user price',
+    originalPriceLabel: 'Regular price',
+    offerEligibility: 'First paid plan purchase',
     monthlyPrice: 25,
     buttonText: 'Choose Hobby',
     action: {
@@ -109,16 +120,14 @@ const allPricingPlans: PricingPlan[] = [
       url: 'https://os.sealos.io/?openapp=system-costcenter?mode%3Dcreate%26plan%3Dhobby',
     },
     resources: hobbyResources,
-    features: [
-      ...buildResourceFeatures(hobbyResources),
-      'All Starter features',
-    ],
+    features: buildResourceFeatures(hobbyResources),
     isPopular: true,
   },
   {
     planId: 'standard',
     name: 'Standard',
-    description: 'For production apps and growing startups.',
+    description:
+      'For production workloads that need more memory, traffic, and priority support.',
     price: '$128',
     monthlyPrice: 128,
     buttonText: 'Choose Standard',
@@ -194,7 +203,7 @@ const allPricingPlans: PricingPlan[] = [
   },
   {
     planId: 'customized',
-    name: 'Customized',
+    name: 'Custom',
     description: 'A resource package and support plan built around your needs.',
     price: 'Contact us',
     buttonText: 'Contact sales',

@@ -68,7 +68,7 @@ export const railwayConfig: ComparisonConfig = {
     overview:
       'Railway is a managed Platform-as-a-Service (PaaS) that simplifies application deployment through Git integration and usage-based billing. It automates builds and deploys for web services, background workers, Cron Jobs, and databases. Railway provides a fast path from code to production with automatic scaling (including scale-to-zero), abstracting away infrastructure complexity for individual developers and small teams.',
     pricing: `Railway Usage-Based Rates:
-• Hobby minimum usage: $5/month, counted toward resource usage
+• Hobby subscription: $${RAILWAY_RATE_CARD.hobbyMonthlySubscription}/month, including $${RAILWAY_RATE_CARD.hobbyIncludedUsage} of resource usage
 • CPU: $${RAILWAY_RATE_CARD.cpuPerVcpuMonth}/vCPU-month
 • Memory: $${RAILWAY_RATE_CARD.ramPerGbMonth}/GB-month
 • Egress: $${RAILWAY_RATE_CARD.egressPerGb}/GB
@@ -330,7 +330,7 @@ export const railwayConfig: ComparisonConfig = {
       {
         icon: <Clock className="size-full" />,
         content:
-          'Run mostly **stateless, low-traffic hobby projects** under $5/month',
+          "Run mostly **stateless, low-traffic hobby projects** near Railway's $5 Hobby minimum",
       },
       {
         icon: <CodeXml className="size-full" />,
