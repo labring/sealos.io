@@ -2,10 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
-import {
-  getRybbitCtaProps,
-  toRybbitCtaId,
-} from '../lib/analytics/rybbit-cta.ts';
+import { getRybbitCtaProps, toRybbitCtaId } from '../lib/analytics/rybbit-cta';
 
 const root = process.cwd();
 
@@ -61,7 +58,7 @@ const pricingCtas = [
   },
   {
     file: 'app/[lang]/(home)/pricing/components/MorePlans.tsx',
-    idSource: 'id: `pricing_${toRybbitCtaId(selectedPlan.name)}_get_started`',
+    idSource: 'id: `pricing_${toRybbitCtaId(plan.name)}_get_started`',
   },
 ];
 
