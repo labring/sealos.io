@@ -21,6 +21,44 @@ import {
   DollarSign,
 } from 'lucide-react';
 import { ComparisonConfig } from './platforms';
+import {
+  RAILWAY_RATE_CARD,
+  calculateCostDifference,
+  estimateRailwayMonthlyCost,
+  formatUsd,
+} from '../../pricing/config/railway-cost';
+import { railwayComparablePlans } from '../../pricing/config/plans';
+
+const railwayWorkloadInputs = [
+  { averageVcpu: 2, averageRamGb: 4, volumeGb: 0, egressGb: 0 },
+  { averageVcpu: 8, averageRamGb: 16, volumeGb: 0, egressGb: 0 },
+  { averageVcpu: 16, averageRamGb: 32, volumeGb: 0, egressGb: 0 },
+] as const;
+
+const comparableSealosPrices = ['hobby', 'standard', 'pro'].map(
+  (planId) =>
+    railwayComparablePlans.find((plan) => plan.planId === planId)!.monthlyPrice,
+);
+
+const railwayCostRows = railwayWorkloadInputs.map((input, index) => {
+  const estimate = estimateRailwayMonthlyCost(input);
+  const difference = calculateCostDifference(
+    comparableSealosPrices[index],
+    estimate.total,
+  );
+
+  return {
+    cost: `~${formatUsd(estimate.total)}/mo`,
+    sealosSavings: {
+      type: 'comparable' as const,
+      savings:
+        difference.lowerCost === 'sealos'
+          ? difference.percentage
+          : -difference.percentage,
+    },
+    label: 'Railway usage estimate',
+  };
+});
 
 export const railwayConfig: ComparisonConfig = {
   name: 'Railway',
@@ -30,11 +68,11 @@ export const railwayConfig: ComparisonConfig = {
     overview:
       'Railway is a managed Platform-as-a-Service (PaaS) that simplifies application deployment through Git integration and usage-based billing. It automates builds and deploys for web services, background workers, Cron Jobs, and databases. Railway provides a fast path from code to production with automatic scaling (including scale-to-zero), abstracting away infrastructure complexity for individual developers and small teams.',
     pricing: `Railway Usage-Based Rates:
-• CPU: $0.000463/vCPU-minute (~$0.028/vCPU-hour)
-• Memory: $0.000231/GB-minute (~$0.014/GB-hour)
-• Egress: $0.05/GB
-• Storage: $0.25/GB-month
-• Object Storage: $0.015/GB-month`,
+• Hobby subscription: $${RAILWAY_RATE_CARD.hobbyMonthlySubscription}/month, including $${RAILWAY_RATE_CARD.hobbyIncludedUsage} of resource usage
+• CPU: $${RAILWAY_RATE_CARD.cpuPerVcpuMonth}/vCPU-month
+• Memory: $${RAILWAY_RATE_CARD.ramPerGbMonth}/GB-month
+• Egress: $${RAILWAY_RATE_CARD.egressPerGb}/GB
+• Volume storage: $${RAILWAY_RATE_CARD.volumePerGbMonth}/GB-month`,
     dimensions: {
       overview: {
         features: [
@@ -262,27 +300,11 @@ export const railwayConfig: ComparisonConfig = {
       },
     },
     costs: {
-      rows: [
-        {
-          cost: '~$90/mo',
-          sealosSavings: { type: 'comparable', savings: 72 }, // $25 vs $90，节省 72%
-          label: 'Railway (Usage-Based)',
-        },
-        {
-          cost: '~$320/mo',
-          sealosSavings: { type: 'comparable', savings: 60 }, // $128 vs $320，节省 60%
-          label: 'Railway (Usage-Based)',
-        },
-        {
-          cost: '~$640/mo',
-          sealosSavings: { type: 'comparable', savings: 20 }, // $512 vs $640，节省 20%
-          label: 'Railway (Usage-Based)',
-        },
-      ],
-      note: 'Railway calculation: $0.000463/vCPU-min + $0.000231/GB-min = 43,200 min/month',
+      rows: railwayCostRows,
+      note: `Estimate uses $${RAILWAY_RATE_CARD.cpuPerVcpuMonth}/vCPU-month and $${RAILWAY_RATE_CARD.ramPerGbMonth}/GB-month at the listed average usage. Volume and egress are excluded from these three examples. Verified ${RAILWAY_RATE_CARD.verifiedAt}.`,
       source: {
-        url: 'https://railway.com/pricing',
-        label: 'Railway Pricing',
+        url: RAILWAY_RATE_CARD.sourceUrl,
+        label: 'Railway pricing documentation',
       },
     },
     guidance: [
@@ -308,7 +330,7 @@ export const railwayConfig: ComparisonConfig = {
       {
         icon: <Clock className="size-full" />,
         content:
-          'Run mostly **stateless, low-traffic hobby projects** under $5/month',
+          "Run mostly **stateless, low-traffic hobby projects** near Railway's $5 Hobby minimum",
       },
       {
         icon: <CodeXml className="size-full" />,

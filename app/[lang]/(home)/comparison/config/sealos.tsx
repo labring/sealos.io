@@ -15,6 +15,18 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import { ComparisonConfig } from './platforms';
+import { railwayComparablePlans } from '../../pricing/config/plans';
+
+const sealosPricingSummary = railwayComparablePlans
+  .map(
+    (plan) =>
+      `• ${plan.name}: ${plan.price}/mo → ${plan.resources.cpu} vCPU, ${plan.resources.ram}GB RAM, ${plan.resources.disk}GB disk, ${plan.resources.traffic >= 1000 ? `${plan.resources.traffic / 1000}TB` : `${plan.resources.traffic}GB`} traffic`,
+  )
+  .join('\n');
+
+const sealosComparisonCostPlans = ['hobby', 'standard', 'pro'].map(
+  (planId) => railwayComparablePlans.find((plan) => plan.planId === planId)!,
+);
 
 export const sealosConfig: ComparisonConfig = {
   name: 'Sealos',
@@ -23,10 +35,8 @@ export const sealosConfig: ComparisonConfig = {
   content: {
     overview:
       'Sealos is an AI-native Cloud Operating System built on Kubernetes that unifies the entire application lifecycle, from development in Cloud Development Environments (CDEs) to production deployment and management. It is perfect for building and scaling modern AI applications, SaaS platforms, managed databases (MySQL, PostgreSQL, Redis, MongoDB) and complex microservice architectures. The platform is 100% source-available, and for production you can choose either a fully managed cloud service or self-host on your own infrastructure.',
-    pricing: `Sealos Fixed Plans (All-Inclusive):
-• Hobby: $25/mo → 4 vCPU, 4GB RAM, 30GB disk, 50GB traffic
-• Standard: $128/mo → 8 vCPU, 8GB RAM, 50GB disk, 300GB traffic
-• Pro: $512/mo → 16 vCPU, 32GB RAM, 200GB disk, 1TB traffic
+    pricing: `Sealos Monthly Resource Plans:
+${sealosPricingSummary}
 • 7-day free trial with 4 vCPU + 4GB (no credit card required)`,
     dimensions: {
       overview: {
@@ -213,20 +223,11 @@ export const sealosConfig: ComparisonConfig = {
       },
     },
     costs: {
-      rows: [
-        {
-          cost: '~$25/mo (Hobby)',
-          label: 'Sealos (Fixed Plan)',
-        },
-        {
-          cost: '~$128/mo (Standard)',
-          label: 'Sealos (Fixed Plan)',
-        },
-        {
-          cost: '~$512/mo (Pro)',
-          label: 'Sealos (Fixed Plan)',
-        },
-      ],
+      rows: sealosComparisonCostPlans.map((plan) => ({
+        cost: `${plan.price}/mo`,
+        label: `Sealos ${plan.name} plan`,
+      })),
+      note: 'Plan prices include the resource package listed on the Sealos pricing page.',
       source: {
         url: 'https://sealos.io/pricing',
         label: 'Sealos Pricing',

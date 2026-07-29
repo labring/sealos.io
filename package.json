@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "lint": "rm -f tsconfig.tsbuildinfo && tsc --noEmit",
+    "test:pricing": "node --test scripts/railway-cost.test.js",
     "build": "next build && node scripts/normalize-root-locale.js",
     "validate-tutorials": "node scripts/validate-tutorials.mjs",
     "build:analyze": "ANALYZE=true next build && node scripts/normalize-root-locale.js",

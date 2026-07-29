@@ -1,17 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { Check, ChevronDown } from 'lucide-react';
+import { ArrowUpRight, GitCompare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { cn } from '@/lib/utils';
 import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { useGTM } from '@/hooks/use-gtm';
+import { cn } from '@/lib/utils';
 import { morePlans, type PricingPlan } from '../config/plans';
 import { getRybbitCtaProps, toRybbitCtaId } from '@/lib/analytics/rybbit-cta';
 
@@ -21,156 +14,127 @@ interface MorePlansProps {
 
 export function MorePlans({ className }: MorePlansProps) {
   const handleAuthRedirect = useAuthRedirect();
-  const { trackButton } = useGTM();
-  const [isMorePlansEnabled, setIsMorePlansEnabled] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<PricingPlan>(morePlans[0]);
+  const { trackButton, trackCustom } = useGTM();
 
-  const handleGetStarted = () => {
-    const url =
-      selectedPlan.action.type === 'direct' ? selectedPlan.action.url : '';
-    trackButton(
-      'Get Started',
-      `pricing-more-plans-${selectedPlan.name.toLowerCase()}`,
-      'url',
-      url,
-      {
-        plan_name: selectedPlan.name,
-        plan_price: selectedPlan.price,
-      },
-    );
+  const handlePlanClick = (plan: PricingPlan) => {
+    const url = plan.action.type === 'direct' ? plan.action.url : '';
+    trackButton(plan.buttonText, `pricing-scale-${plan.planId}`, 'url', url, {
+      plan_id: plan.planId,
+      plan_name: plan.name,
+      plan_price: plan.monthlyPrice,
+    });
+    trackCustom('pricing_plan_selected', {
+      plan_id: plan.planId,
+      plan_price: plan.monthlyPrice,
+      location: 'scale_plan_card',
+    });
 
-    if (selectedPlan.action.type === 'auth') {
-      handleAuthRedirect(selectedPlan.action.params);
-    } else {
-      window.open(selectedPlan.action.url, '_blank');
+    if (plan.action.type === 'auth') {
+      handleAuthRedirect(plan.action.params);
+      return;
     }
+
+    window.open(plan.action.url, '_blank', 'noopener,noreferrer');
   };
 
-  const displayPlan = selectedPlan;
+  const handleCompare = (plan: PricingPlan) => {
+    trackCustom('pricing_compare_plan_selected', {
+      plan_id: plan.planId,
+      location: 'scale_plan_card',
+    });
+    window.dispatchEvent(
+      new CustomEvent('pricing:compare-plan', {
+        detail: { planId: plan.planId },
+      }),
+    );
+    document
+      .getElementById('railway-cost')
+      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
-  const handlePlanSelect = (plan: PricingPlan) => {
-    setSelectedPlan(plan);
-    setIsDropdownOpen(false);
+  const formatCapacity = (plan: PricingPlan) => {
+    if (!plan.resources) return plan.description;
+
+    const traffic =
+      plan.resources.traffic >= 1000
+        ? `${plan.resources.traffic / 1000}TB traffic`
+        : `${plan.resources.traffic}GB traffic`;
+
+    return `${plan.resources.cpu} vCPU · ${plan.resources.ram}Gi RAM · ${plan.resources.disk}Gi disk · ${traffic}`;
   };
 
   return (
-    <div
-      className={cn(
-        'flex w-full flex-col items-center gap-4 lg:flex-row',
-        className,
-      )}
-    >
-      <div className="flex w-full flex-1 flex-col items-start gap-4 overflow-hidden rounded-2xl border bg-zinc-900 px-4 py-3 lg:flex-row lg:items-center">
-        <label className="flex w-full shrink-0 items-center justify-start gap-2 lg:w-auto">
-          <button
-            onClick={() => setIsMorePlansEnabled(!isMorePlansEnabled)}
-            className={cn(
-              'border-primary bg-background pointer-events-none flex size-4 shrink-0 items-center justify-center rounded-sm border transition-colors',
-              isMorePlansEnabled && 'bg-primary',
-            )}
-          >
-            {isMorePlansEnabled && (
-              <Check className="text-primary-foreground size-3" />
-            )}
-          </button>
-          <p className="text-primary text-base font-normal whitespace-nowrap">
-            More Plans
-          </p>
-        </label>
-
-        <DropdownMenu
-          open={isMorePlansEnabled ? isDropdownOpen : false}
-          onOpenChange={(open) => {
-            if (isMorePlansEnabled) {
-              setIsDropdownOpen(open);
-            }
-          }}
-          modal={false}
-        >
-          <DropdownMenuTrigger asChild>
-            <button
-              className={cn(
-                'flex w-full flex-1 cursor-pointer items-center justify-between overflow-hidden rounded-xl bg-zinc-950 px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50',
-              )}
-              disabled={!isMorePlansEnabled}
-            >
-              <div className="flex flex-1 flex-col gap-3 lg:flex-row lg:items-center">
-                <p className="text-primary shrink-0 text-base font-semibold whitespace-nowrap">
-                  {displayPlan.name}
-                </p>
-                {displayPlan.description && (
-                  <>
-                    <div className="hidden h-4 w-px shrink-0 border-l lg:block" />
-                    <div className="block h-px w-full shrink-0 border-t lg:hidden" />
-                    <p className="text-muted-foreground w-full flex-1 overflow-hidden text-start text-base font-normal text-ellipsis">
-                      {displayPlan.description}
-                    </p>
-                  </>
-                )}
-                <div className="hidden h-4 w-px shrink-0 border-l lg:block" />
-                <div className="block h-px w-full shrink-0 border-t lg:hidden" />
-                <p className="text-muted-foreground shrink-0 text-base font-semibold whitespace-nowrap">
-                  {displayPlan.price}
-                </p>
-              </div>
-              <ChevronDown
-                className={cn(
-                  'text-muted-foreground ml-2 size-4 shrink-0 transition-transform',
-                  isDropdownOpen && 'rotate-180',
-                )}
-              />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="w-[var(--radix-dropdown-menu-trigger-width)] rounded-xl border bg-zinc-900 p-0"
-            align="start"
-          >
-            {morePlans.map((plan, index) => (
-              <DropdownMenuItem
-                key={plan.name}
-                onSelect={() => handlePlanSelect(plan)}
-                className={cn(
-                  'flex cursor-pointer flex-col items-start gap-3 px-3 py-2.5 focus:bg-white/5 lg:flex-row lg:items-center',
-                  index > 0 && 'border-t border-white/5',
-                )}
-              >
-                <p className="text-primary shrink-0 text-base font-semibold whitespace-nowrap">
-                  {plan.name}
-                </p>
-                {plan.description && (
-                  <>
-                    <div className="hidden h-4 w-px shrink-0 border-l lg:block" />
-                    <p className="text-muted-foreground flex-1 overflow-hidden text-base font-normal text-ellipsis">
-                      {plan.description}
-                    </p>
-                  </>
-                )}
-                <div className="hidden h-4 w-px shrink-0 border-l lg:block" />
-                <p className="text-muted-foreground shrink-0 text-base font-semibold whitespace-nowrap">
-                  {plan.price}
-                </p>
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+    <section className={cn('container py-24', className)}>
+      <div className="mb-10 max-w-2xl">
+        <p className="text-sm font-medium text-blue-400">Scale</p>
+        <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
+          More capacity for growing workloads
+        </h2>
+        <p className="text-muted-foreground mt-4">
+          Move into larger resource packages or define a custom configuration.
+        </p>
       </div>
 
-      {isMorePlansEnabled && (
-        <Button
-          variant="secondary"
-          className="h-11 shrink-0 rounded-full px-8"
-          {...getRybbitCtaProps({
-            id: `pricing_${toRybbitCtaId(selectedPlan.name)}_get_started`,
-            location: 'pricing_more_plans',
-            destination:
-              selectedPlan.action.type === 'auth' ? 'signup_modal' : 'checkout',
-          })}
-          onClick={handleGetStarted}
-        >
-          Get Started
-        </Button>
-      )}
-    </div>
+      <div className="overflow-hidden border-y border-white/10">
+        <div className="text-muted-foreground hidden grid-cols-[0.65fr_1.7fr_0.55fr_auto] gap-6 border-b border-white/10 px-5 py-3 text-xs lg:grid">
+          <span>Plan</span>
+          <span>Capacity</span>
+          <span>Price</span>
+          <span className="min-w-40 text-right">Action</span>
+        </div>
+        {morePlans.map((plan) => (
+          <article
+            key={plan.planId}
+            className="grid gap-5 border-b border-white/10 px-1 py-7 transition-colors last:border-b-0 hover:bg-white/[0.025] sm:px-5 lg:grid-cols-[0.65fr_1.7fr_0.55fr_auto] lg:items-center lg:gap-6"
+          >
+            <div>
+              <h3 className="text-lg font-semibold">{plan.name}</h3>
+              <p className="text-muted-foreground mt-1 text-xs lg:hidden">
+                Plan
+              </p>
+            </div>
+            <p className="text-muted-foreground max-w-2xl text-sm leading-6 text-pretty">
+              {formatCapacity(plan)}
+            </p>
+            <div className="flex items-end gap-1">
+              <span className="text-xl font-semibold tabular-nums">
+                {plan.price}
+              </span>
+              {plan.monthlyPrice && (
+                <span className="text-muted-foreground pb-1 text-sm">
+                  / month
+                </span>
+              )}
+            </div>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-3 lg:min-w-40 lg:justify-end">
+              {plan.planId === 'pro' && (
+                <button
+                  type="button"
+                  className="inline-flex items-center text-sm font-medium text-zinc-300 transition-colors hover:text-white focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+                  onClick={() => handleCompare(plan)}
+                >
+                  <GitCompare className="mr-2 size-4 text-blue-400" />
+                  Estimate
+                </button>
+              )}
+              <Button
+                variant="secondary"
+                className="h-9 px-4 transition duration-200 active:translate-y-px motion-reduce:transition-none"
+                {...getRybbitCtaProps({
+                  id: `pricing_${toRybbitCtaId(plan.name)}_get_started`,
+                  location: 'pricing_more_plans',
+                  destination:
+                    plan.action.type === 'auth' ? 'signup_modal' : 'checkout',
+                })}
+                onClick={() => handlePlanClick(plan)}
+              >
+                {plan.buttonText}
+                <ArrowUpRight className="ml-2 size-4" />
+              </Button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }

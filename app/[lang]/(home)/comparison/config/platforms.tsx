@@ -266,9 +266,9 @@ export type PlatformDimensionData = {
 };
 
 export const COSTS = {
-  title: 'Why Teams Switch: The Cost Reality Check',
+  title: 'Monthly Cost Examples: Plans vs. Usage Billing',
   description:
-    "For production workloads running 24/7 usage-based billing adds up fast. Here's a transparent comparison using publicly available pricing data.",
+    'Estimates use the listed average CPU and RAM for a 30-day month. Storage and egress are excluded unless a platform note says otherwise.',
   rows: [
     {
       workload: 'Small API',

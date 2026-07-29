@@ -1,233 +1,244 @@
 'use client';
 
-import { ComparisonConfig, COSTS } from '../../config/platforms';
-import { TrendingDown, InfoIcon, WebcamIcon } from 'lucide-react';
+import type { ReactNode } from 'react';
+import { ExternalLink, InfoIcon, TrendingDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ComparisonConfig, COSTS, type CostRow } from '../../config/platforms';
 
 interface CostComparisonSectionProps {
   firstPlatform: ComparisonConfig;
   secondPlatform: ComparisonConfig;
 }
 
+interface PlatformCostProps {
+  icon: ReactNode;
+  name: string;
+  costData?: CostRow;
+  percentage: number;
+}
+
+function PlatformCost({ icon, name, costData, percentage }: PlatformCostProps) {
+  const isSealos = name.toLowerCase() === 'sealos';
+
+  return (
+    <div className="grid grid-cols-[minmax(7.5rem,auto)_minmax(2rem,1fr)_auto] items-center gap-3">
+      <div className="flex min-w-0 items-center gap-2.5">
+        <span className="flex size-5 shrink-0 items-center justify-center">
+          {icon}
+        </span>
+        <div className="min-w-0">
+          <span className="block truncate text-sm font-medium">{name}</span>
+          <span
+            className={cn(
+              'mt-1 inline-block border px-1.5 py-0.5 text-[10px] leading-none',
+              isSealos
+                ? 'border-blue-400/25 bg-blue-400/10 text-blue-200'
+                : 'border-white/10 bg-white/5 text-zinc-400',
+            )}
+          >
+            {isSealos ? 'Fixed' : 'Estimate'}
+          </span>
+        </div>
+      </div>
+      <div className="relative h-1.5 min-w-8 overflow-hidden bg-zinc-800">
+        <div
+          role="progressbar"
+          aria-valuenow={Math.round(percentage)}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label={`${name} cost: ${costData?.cost ?? 'unavailable'}, ${percentage.toFixed(0)}% of highest cost`}
+          className={cn(
+            'absolute inset-y-0 left-0',
+            isSealos ? 'bg-blue-500' : 'bg-zinc-500',
+          )}
+          style={{ width: `${Math.max(percentage, 2)}%` }}
+        />
+      </div>
+      <span className="min-w-20 text-right font-mono text-sm font-semibold tabular-nums">
+        {costData?.cost ?? '—'}
+      </span>
+    </div>
+  );
+}
+
+const parseCost = (cost: string): number => {
+  const match = cost.replaceAll(',', '').match(/\$(\d+(?:\.\d+)?)/);
+  return match ? Number(match[1]) : 0;
+};
+
 export function CostComparisonSection({
   firstPlatform,
   secondPlatform,
 }: CostComparisonSectionProps) {
-  // Extract numeric values from cost strings for visualization
-  const parseCost = (costStr: string): number => {
-    const match = costStr.match(/\$(\d+)/);
-    return match ? parseInt(match[1], 10) : 0;
-  };
-
   return (
     <section className="container-compact pb-16 sm:pb-24">
-      <div className="mb-12">
-        <h2 className="mb-6 text-center text-2xl font-medium">{COSTS.title}</h2>
-        <p className="text-muted-foreground">{COSTS.description}</p>
+      <div className="mb-10 max-w-3xl">
+        <p className="mb-3 flex items-center gap-2 text-sm font-medium text-blue-400">
+          <span className="size-1.5 bg-blue-400" aria-hidden="true" />
+          Cost evidence
+        </p>
+        <h2 className="mb-4 text-2xl font-semibold sm:text-3xl">
+          {COSTS.title}
+        </h2>
+        <p className="text-muted-foreground max-w-3xl leading-7">
+          {COSTS.description}
+        </p>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[960px] border-collapse whitespace-nowrap">
-          <thead>
-            <tr className="text-primary border-y text-lg">
-              <th className="p-4 text-start font-normal">Workload Example</th>
-              <th className="p-4 text-start font-normal" colSpan={2}>
-                Cost Comparison
-              </th>
-              <th className="p-4 text-center font-normal">Savings</th>
-            </tr>
-          </thead>
-          <tbody>
-            {COSTS.rows.map((row, index) => {
-              const firstCostData = firstPlatform.content.costs.rows[index];
-              const secondCostData = secondPlatform.content.costs.rows[index];
+      <div className="hidden md:block">
+        <div className="text-muted-foreground grid grid-cols-[minmax(10rem,0.75fr)_minmax(22rem,1.7fr)_minmax(9rem,0.55fr)] border-y border-white/10 px-4 py-4 text-xs font-medium">
+          <span>Workload example</span>
+          <span>Platform and monthly cost</span>
+          <span className="text-right">Estimated difference</span>
+        </div>
 
-              const firstCost = firstCostData?.cost || '';
-              const secondCost = secondCostData?.cost || '';
-              const firstCostNum = parseCost(firstCost);
-              const secondCostNum = parseCost(secondCost);
+        {COSTS.rows.map((row, index) => {
+          const firstCostData = firstPlatform.content.costs.rows[index];
+          const secondCostData = secondPlatform.content.costs.rows[index];
+          const firstCost = parseCost(firstCostData?.cost ?? '');
+          const secondCost = parseCost(secondCostData?.cost ?? '');
+          const highestCost = Math.max(firstCost, secondCost, 1);
+          const savingsData = secondCostData?.sealosSavings;
+          const savings =
+            savingsData?.type === 'comparable' ? savingsData.savings : null;
 
-              // Determine which price is higher
-              const higherCost = Math.max(firstCostNum, secondCostNum, 1);
-
-              // Calculate percentages: higher price = 100%, lower price = percentage of higher
-              const firstPercentage =
-                firstCostNum === higherCost
-                  ? 100
-                  : higherCost > 0
-                    ? (firstCostNum / higherCost) * 100
-                    : 0;
-              const secondPercentage =
-                secondCostNum === higherCost
-                  ? 100
-                  : higherCost > 0
-                    ? (secondCostNum / higherCost) * 100
-                    : 0;
-
-              // Determine which platform has higher price for gradient styling
-              // Price higher = gray gradient, price lower = blue gradient
-              const firstIsHigher = firstCostNum > secondCostNum;
-              const secondIsHigher = secondCostNum > firstCostNum;
-
-              // Get savings from sealosSavings in the row
-              const sealosSavingsData = secondCostData?.sealosSavings;
-
-              let savings: number | null = null;
-              let isInvalidComparison = false;
-
-              if (sealosSavingsData) {
-                if (sealosSavingsData.type === 'not-applicable') {
-                  isInvalidComparison = true;
-                } else if (sealosSavingsData.type === 'comparable') {
-                  savings = sealosSavingsData.savings;
-                }
-              }
-
-              return (
-                <tr key={row.workload} className={cn('border-b')}>
-                  <td className="w-[25%] px-4 py-6">
-                    <div className="flex flex-col gap-3">
-                      <div className="text-primary text-sm">{row.workload}</div>
-                      <div className="text-muted-foreground text-sm">
-                        {row.specs}
-                      </div>
-                    </div>
-                  </td>
-                  {/* Progress bars column */}
-                  <td className="w-[25%] px-4 py-6">
-                    <div className="flex flex-col gap-6">
-                      {/* First Platform Progress Bar */}
-                      <div className="flex items-center gap-4">
-                        <div className="relative flex-1">
-                          <div className="h-1.5 w-full rounded-full bg-zinc-800" />
-                          <div
-                            role="progressbar"
-                            aria-valuenow={firstPercentage}
-                            aria-valuemin={0}
-                            aria-valuemax={100}
-                            aria-label={`${firstPlatform.name} cost: ${firstCost}, ${firstPercentage.toFixed(0)}% of highest cost`}
-                            className={cn(
-                              'absolute top-0 h-1.5 rounded-full',
-                              firstIsHigher
-                                ? 'bg-gradient-to-r from-zinc-400 to-zinc-600'
-                                : 'bg-gradient-to-r from-white to-blue-600',
-                            )}
-                            style={{
-                              width: `${firstPercentage}%`,
-                            }}
-                          />
-                        </div>
-                      </div>
-
-                      {/* Second Platform Progress Bar */}
-                      <div className="flex items-center gap-4">
-                        <div className="relative flex-1">
-                          <div className="h-1.5 w-full rounded-full bg-zinc-800" />
-                          <div
-                            role="progressbar"
-                            aria-valuenow={secondPercentage}
-                            aria-valuemin={0}
-                            aria-valuemax={100}
-                            aria-label={`${secondPlatform.name} cost: ${secondCost}, ${secondPercentage.toFixed(0)}% of highest cost`}
-                            className={cn(
-                              'absolute top-0 h-1.5 rounded-full',
-                              secondIsHigher
-                                ? 'bg-gradient-to-r from-zinc-400 to-zinc-600'
-                                : 'bg-gradient-to-r from-white to-blue-600',
-                            )}
-                            style={{
-                              width: `${secondPercentage}%`,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-
-                  {/* Labels and costs column */}
-                  <td className="w-[30%] px-4 py-6">
-                    <div className="flex flex-col gap-3">
-                      {/* First Platform Info */}
-                      <div className="flex items-center gap-2">
-                        <span className="text-primary text-sm">
-                          {firstCost}
-                        </span>
-                        <span className="text-muted-foreground text-sm">
-                          | {firstCostData?.label || firstPlatform.name}
-                        </span>
-                      </div>
-
-                      {/* Second Platform Info */}
-                      <div className="flex items-center gap-2">
-                        <span className="text-primary text-sm">
-                          {secondCost}
-                        </span>
-                        <span className="text-muted-foreground text-sm">
-                          | {secondCostData?.label || secondPlatform.name}
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-
-                  <td className="w-[20%] px-4 py-6 text-center">
-                    {isInvalidComparison || savings === null ? (
-                      <span className="text-muted-foreground text-sm">-</span>
-                    ) : savings > 0 ? (
-                      <div className="flex items-center justify-center gap-1 text-green-500">
-                        <span className="text-sm">{savings}%</span>
-                        <TrendingDown className="size-3.5" />
-                      </div>
-                    ) : savings < 0 ? (
-                      <div className="flex items-center justify-center gap-1 text-red-500">
-                        <span className="text-sm">{savings}%</span>
-                      </div>
-                    ) : (
-                      <span className="text-muted-foreground text-sm">0%</span>
+          return (
+            <div
+              key={row.workload}
+              className="grid grid-cols-[minmax(10rem,0.75fr)_minmax(22rem,1.7fr)_minmax(9rem,0.55fr)] items-center border-b border-white/10 px-4 py-7 transition-colors hover:bg-white/[0.02]"
+            >
+              <div>
+                <p className="text-sm font-medium">{row.workload}</p>
+                <p className="text-muted-foreground mt-2 text-sm">
+                  {row.specs}
+                </p>
+              </div>
+              <div className="space-y-5 pr-8">
+                <PlatformCost
+                  icon={firstPlatform.icon}
+                  name={firstPlatform.name}
+                  costData={firstCostData}
+                  percentage={(firstCost / highestCost) * 100}
+                />
+                <PlatformCost
+                  icon={secondPlatform.icon}
+                  name={secondPlatform.name}
+                  costData={secondCostData}
+                  percentage={(secondCost / highestCost) * 100}
+                />
+              </div>
+              <div className="text-right">
+                {savings === null ? (
+                  <span className="text-muted-foreground text-sm">
+                    Not comparable
+                  </span>
+                ) : savings === 0 ? (
+                  <span className="text-muted-foreground text-sm">Equal</span>
+                ) : (
+                  <span
+                    className={cn(
+                      'inline-flex items-center gap-1 text-sm font-medium',
+                      savings > 0 ? 'text-blue-300' : 'text-zinc-300',
                     )}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                  >
+                    {savings > 0 ? firstPlatform.name : secondPlatform.name}{' '}
+                    {Math.abs(savings)}% lower
+                    {savings > 0 && <TrendingDown className="size-3.5" />}
+                  </span>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
-      <div className="mt-6 space-y-2">
+      <div className="space-y-4 md:hidden">
+        {COSTS.rows.map((row, index) => {
+          const firstCostData = firstPlatform.content.costs.rows[index];
+          const secondCostData = secondPlatform.content.costs.rows[index];
+          const firstCost = parseCost(firstCostData?.cost ?? '');
+          const secondCost = parseCost(secondCostData?.cost ?? '');
+          const highestCost = Math.max(firstCost, secondCost, 1);
+          const savingsData = secondCostData?.sealosSavings;
+          const savings =
+            savingsData?.type === 'comparable' ? savingsData.savings : null;
+
+          return (
+            <article
+              key={row.workload}
+              className="rounded-lg border border-white/10 bg-white/[0.025] p-5"
+            >
+              <h3 className="font-medium">{row.workload}</h3>
+              <p className="text-muted-foreground mt-1 text-sm">{row.specs}</p>
+              <div className="mt-5 space-y-5 border-y border-white/10 py-5">
+                <PlatformCost
+                  icon={firstPlatform.icon}
+                  name={firstPlatform.name}
+                  costData={firstCostData}
+                  percentage={(firstCost / highestCost) * 100}
+                />
+                <PlatformCost
+                  icon={secondPlatform.icon}
+                  name={secondPlatform.name}
+                  costData={secondCostData}
+                  percentage={(secondCost / highestCost) * 100}
+                />
+              </div>
+              <p
+                className={cn(
+                  'mt-4 text-sm font-medium',
+                  savings !== null && savings > 0
+                    ? 'text-blue-300'
+                    : 'text-zinc-300',
+                )}
+              >
+                {savings === null
+                  ? 'Cost comparison unavailable'
+                  : savings === 0
+                    ? 'Equal estimated monthly cost'
+                    : `${savings > 0 ? firstPlatform.name : secondPlatform.name} ${Math.abs(savings)}% lower`}
+              </p>
+            </article>
+          );
+        })}
+      </div>
+
+      <div className="mt-6 space-y-3">
         {firstPlatform.content.costs.note && (
-          <p className="text-muted-foreground flex items-center gap-1 text-xs">
-            <InfoIcon size={16} />
+          <p className="text-muted-foreground flex items-start gap-2 text-xs leading-5">
+            <InfoIcon className="mt-0.5 size-4 shrink-0" />
             {firstPlatform.content.costs.note}
           </p>
         )}
         {secondPlatform.content.costs.note && (
-          <p className="text-muted-foreground flex items-center gap-1 text-xs">
-            <InfoIcon size={16} />
+          <p className="text-muted-foreground flex items-start gap-2 text-xs leading-5">
+            <InfoIcon className="mt-0.5 size-4 shrink-0" />
             {secondPlatform.content.costs.note}
           </p>
         )}
         {(firstPlatform.content.costs.source ||
           secondPlatform.content.costs.source) && (
-          <p className="text-muted-foreground mt-2 flex items-center gap-1 text-xs">
-            <WebcamIcon size={16} />
-            Sources:{' '}
+          <p className="text-muted-foreground flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+            <ExternalLink className="size-4 shrink-0" />
+            <span>Sources:</span>
             {firstPlatform.content.costs.source && (
               <a
                 href={firstPlatform.content.costs.source.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline"
+                className="text-foreground underline decoration-white/30 underline-offset-4 focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
               >
                 {firstPlatform.content.costs.source.label}
               </a>
             )}
             {firstPlatform.content.costs.source &&
-              secondPlatform.content.costs.source && <> | </>}
+              secondPlatform.content.costs.source && <span>·</span>}
             {secondPlatform.content.costs.source && (
               <a
                 href={secondPlatform.content.costs.source.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline"
+                className="text-foreground underline decoration-white/30 underline-offset-4 focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
               >
                 {secondPlatform.content.costs.source.label}
               </a>
