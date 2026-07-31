@@ -107,7 +107,7 @@ export default function ContactPage({
   return (
     <>
       <div className="bg-background relative z-10">
-        <div className="sticky top-0 z-50 w-full max-lg:-mb-8">
+        <div className="sticky top-0 z-50 w-full">
           <Header lang={params.lang} />
         </div>
 

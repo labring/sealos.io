@@ -67,9 +67,10 @@ test('README fallback communicates unavailable content while keeping app preview
   assert.match(readmeWindowSource, /alt=\{`\$\{app\.name\} screenshot`\}/);
 });
 
-test('app store detail page tightens mobile shell and footer spacing', () => {
+test('app store detail page delegates navbar top spacing to the shared Header', () => {
   assert.match(source, /min-h-\[100dvh\]/);
-  assert.match(source, /pt-4 sm:pt-8/);
+  assert.match(source, /className="sticky top-0 z-50 w-full"/);
+  assert.doesNotMatch(source, /pt-4 sm:pt-8/);
   assert.match(
     source,
     /h-\[520px\] sm:mt-\[80px\] sm:mb-\[400px\] sm:h-\[800px\]/,
