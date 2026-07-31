@@ -1,30 +1,15 @@
 import assert from 'node:assert/strict';
-import { readdir, readFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { groupByNormalizedSlug, loadFAQPages } from './ai-faq-fixture.mjs';
 
 const target = process.argv[2] || 'out';
 const isRemote = /^https?:\/\//i.test(target);
-const sourceDirectory = resolve('content/ai-quick-reference');
-const sourceFiles = (await readdir(sourceDirectory))
-  .filter((file) => file.endsWith('.en.json'))
-  .sort();
-const pages = [];
-for (const file of sourceFiles) {
-  pages.push({
-    slug: file.slice(0, -'.en.json'.length),
-    data: JSON.parse(await readFile(resolve(sourceDirectory, file), 'utf8')),
-  });
-}
+const pages = await loadFAQPages();
 
 assert.equal(pages.length, 2000);
 
-const groups = new Map();
-for (const page of pages) {
-  const normalizedSlug = page.slug.replace(/^\d+-/, '');
-  const group = groups.get(normalizedSlug) || [];
-  group.push(page);
-  groups.set(normalizedSlug, group);
-}
+const groups = groupByNormalizedSlug(pages);
 
 const collision = [...groups.values()].find((group) => group.length > 1);
 assert.ok(collision);

@@ -1,6 +1,6 @@
 import { faqSource } from '@/lib/source';
 import type { Page } from 'fumadocs-core/source';
-import { getFAQPageSlug, resolveFAQPageBySlug } from '@/lib/utils/faq-slug';
+import { getFAQPageSlug, resolveFAQPageBySlug } from '@/lib/utils/faq-slug.mjs';
 
 export interface FAQItem {
   title: string;
@@ -167,44 +167,34 @@ export function getAdjacentFAQs(
   }
 
   // Find current page index in the full category list
-  const currentIndex = allCategoryFAQs.findIndex((page) => {
-    return page === currentPage || getFAQPageSlug(page) === currentPageSlug;
-  });
+  const currentIndex = allCategoryFAQs.findIndex(
+    (page) => getFAQPageSlug(page) === currentPageSlug,
+  );
 
   if (currentIndex === -1) {
-    // Current page not found in category, return first and last (excluding current)
-    const categoryFAQsWithoutCurrent = allCategoryFAQs.filter((page) => {
-      return page !== currentPage;
-    });
-
-    if (categoryFAQsWithoutCurrent.length === 0) {
-      return {};
-    }
-
     return {
-      previous:
-        categoryFAQsWithoutCurrent[categoryFAQsWithoutCurrent.length - 1],
-      next: categoryFAQsWithoutCurrent[0],
+      previous: allCategoryFAQs[allCategoryFAQs.length - 1],
+      next: allCategoryFAQs[0],
     };
+  }
+
+  if (allCategoryFAQs.length === 1) {
+    return {};
   }
 
   // Get previous (wrap around if at start)
   const previousIndex =
     currentIndex > 0 ? currentIndex - 1 : allCategoryFAQs.length - 1;
   const previous = allCategoryFAQs[previousIndex];
-  const isPreviousCurrent =
-    previous === currentPage || getFAQPageSlug(previous) === currentPageSlug;
 
   // Get next (wrap around if at end)
   const nextIndex =
     currentIndex < allCategoryFAQs.length - 1 ? currentIndex + 1 : 0;
   const next = allCategoryFAQs[nextIndex];
-  const isNextCurrent =
-    next === currentPage || getFAQPageSlug(next) === currentPageSlug;
 
   return {
-    previous: isPreviousCurrent ? undefined : previous,
-    next: isNextCurrent ? undefined : next,
+    previous,
+    next,
   };
 }
 
