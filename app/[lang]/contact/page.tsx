@@ -1,10 +1,9 @@
 import { ArrowUpRight, Mail, Youtube } from 'lucide-react';
 
-import { LegacyHeroBackground } from '@/app/[lang]/(home)/(new-home)/components/LegacyHeroBackground';
 import { siteConfig } from '@/config/site';
 import { languagesType } from '@/lib/i18n';
 import { generatePageMetadata } from '@/lib/utils/metadata';
-import { Footer } from '@/new-components/Footer';
+import { FooterV2 } from '@/new-components/Footer';
 import {
   BilibiliIcon,
   DiscordIcon,
@@ -107,22 +106,16 @@ export default function ContactPage({
 
   return (
     <>
-      <div className="bg-background relative z-10 min-h-screen overflow-x-clip text-white">
-        <div
-          className="pointer-events-none fixed inset-0 -z-20 bg-[#0A0A0A]"
-          aria-hidden="true"
-        />
-
-        <div className="sticky top-0 z-50 w-full">
+      <div className="bg-background relative z-10">
+        <div className="sticky top-0 z-50 w-full max-lg:-mb-8">
           <Header lang={params.lang} />
         </div>
 
         <main
           id="main-content"
-          className="bg-background relative z-10 -mt-24 overflow-x-clip"
+          className="relative min-h-screen overflow-x-clip text-white"
         >
           <section className="relative isolate overflow-hidden pt-40 pb-20 sm:pt-48 sm:pb-24 lg:pt-52 lg:pb-32">
-            <LegacyHeroBackground />
             <PageTopRays />
 
             <div className="relative z-10 container">
@@ -211,7 +204,7 @@ export default function ContactPage({
         </main>
       </div>
 
-      <Footer lang={params.lang} />
+      <FooterV2 lang={params.lang} />
     </>
   );
 }
