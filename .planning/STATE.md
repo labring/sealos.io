@@ -70,6 +70,7 @@ Deploy the release branch and run the live AI Quick Reference route verifier.
 | 260709-n35 | Fix /products/databases footer bottom Sealos word to match homepage | 2026-07-09 | PR #304 | [260709-n35-fix-products-databases-footer-bottom-sea](./quick/260709-n35-fix-products-databases-footer-bottom-sea/) |
 | 260720-g4e | Add Playwright verification guidance to the Cloud Run article | 2026-07-20 | e9314f2 | [260720-g4e-update-the-sealos-io-blog-article-for-th](./quick/260720-g4e-update-the-sealos-io-blog-article-for-th/) |
 | 260721-n8f | Add permanent LobeHub legacy app-store redirects across Vercel and Cloudflare Pages | 2026-07-21 | ef5aad0 | [260721-n8f-add-permanent-lobehub-legacy-app-store-r](./quick/260721-n8f-add-permanent-lobehub-legacy-app-store-r/) |
+| 260731-lqa | Update the /contact page to match the homepage visual theme while preserving functionality | 2026-07-31 | f220df8 | [260731-lqa-update-the-contact-page-to-match-the-hom](./quick/260731-lqa-update-the-contact-page-to-match-the-hom/) |
 
 ## Performance Metrics
 
