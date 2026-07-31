@@ -11,6 +11,7 @@
     "dev": "next dev",
     "start": "next start",
     "test:ai-faq-slugs": "node scripts/verify-ai-faq-slugs.mjs",
+    "verify:ai-faq-routes": "node scripts/verify-ai-faq-routes.mjs",
     "postinstall": "fumadocs-mdx",
     "default-locale:check": "node scripts/check-default-locale-routes.mjs",
     "app-store:diff": "node scripts/check-generated-app-assets.js",
