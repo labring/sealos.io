@@ -53,6 +53,10 @@ export function isForcedDarkMode(pathname: string): boolean {
       path: '/abuse',
       match: 'full',
     },
+    {
+      path: '/contact',
+      match: 'full',
+    },
   ];
 
   // Match language codes at the start of the path (temporary solution)
