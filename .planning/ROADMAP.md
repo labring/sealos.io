@@ -381,6 +381,43 @@ matrix and navigation, then query each cleanup resource class.
 
 **UI hint**: yes
 
+## Milestone v1.4: AI Quick Reference Slug Integrity and Deployment
+
+### Phase 29: Deterministic Slug Resolution and Regression Coverage
+
+**Goal:** Every requested full slug displays the matching source entry and all
+page identity fields derive from that resolution.
+**Depends on:** Phase 28
+**Requirements:** SLUG-01, SLUG-02, SLUG-03, QA-01, QA-02
+**Success Criteria:**
+
+1. Every complete source slug resolves to its own source entry.
+2. Every ambiguous normalized slug and unknown numbered slug remains unresolved.
+3. H1, metadata, canonical URL, related content, and adjacent navigation share
+   the resolved page identity.
+4. Automated checks cover all 2,000 exact slugs and all 288 collision groups.
+5. TypeScript and focused regression checks pass on the release branch.
+
+**Validation Approach:** Run the source-wide slug verifier, build the detail
+  pages, and inspect representative collision output.
+
+### Phase 30: Production Deployment Verification
+
+**Goal:** Production serves corrected AI Quick Reference identities across the
+complete generated inventory.
+**Depends on:** Phase 29
+**Requirements:** DEPLOY-01, DEPLOY-02
+**Success Criteria:**
+
+1. The production build generates all static params and the AI Quick Reference
+   sitemap.
+2. The deployed sitemap count matches the 2,000-entry source inventory.
+3. Sample collision URLs return successful responses with H1 and canonical
+   values matching their requested full slugs.
+
+**Validation Approach:** Run the route verifier against the built export and
+  the deployed URL, then record status, H1, title, and canonical evidence.
+
 ## Requirement Coverage
 
 Every one of the 24 v1.3 requirements is assigned to exactly one Phase detail
@@ -388,10 +425,12 @@ above. Traceability is mirrored in `.planning/REQUIREMENTS.md`.
 
 **Coverage**: 24/24 v1.3 requirements mapped.
 
+v1.4 adds seven requirements mapped to Phases 29 and 30.
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 21 -> 22 -> 23 -> 24 -> 25 -> 26 -> 27 -> 28
+Phases execute in numeric order: 21 -> 22 -> 23 -> 24 -> 25 -> 26 -> 27 -> 28 -> 29 -> 30
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -403,6 +442,8 @@ Phases execute in numeric order: 21 -> 22 -> 23 -> 24 -> 25 -> 26 -> 27 -> 28
 | 26. Django Production Stage | 4/4 | Complete | 2026-07-16 |
 | 27. Practice-Backed Tutorial Series | 6/6 | Complete | 2026-07-17 |
 | 28. Catalog Publication and Cleanup | 3/3 | Complete | 2026-07-17 |
+| 29. Deterministic Slug Resolution and Regression Coverage | 1/1 | In progress | - |
+| 30. Production Deployment Verification | 0/1 | Pending | - |
 
 ---
 *Roadmap created: 2026-07-15 for milestone v1.3*

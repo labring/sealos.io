@@ -100,6 +100,38 @@ product.
   workload, Service, Ingress, Job, PostgreSQL Cluster, PVC, Secret, and temporary
   image resource after evidence capture.
 
+## v1.4 Requirements: AI Quick Reference Slug Integrity and Deployment
+
+### Exact Slug Resolution
+
+- [ ] **SLUG-01**: A complete AI Quick Reference slug resolves to the source
+  entry with that exact full slug, and title, description, and body come from
+  the same entry.
+- [ ] **SLUG-02**: A normalized slug with multiple source candidates produces
+  an explicit not-found result.
+- [ ] **SLUG-03**: Canonical URL, H1, metadata, related content, and adjacent
+  navigation derive from one exact resolution result.
+
+### Regression Verification
+
+- [ ] **QA-01**: Automated checks cover every exact source slug, missing slugs,
+  unknown numbered slugs, and all normalized collision groups.
+- [ ] **QA-02**: Built detail pages keep metadata and rendered identity aligned
+  with the requested full slug.
+
+### Deployment Verification
+
+- [ ] **DEPLOY-01**: The production build succeeds with complete AI Quick
+  Reference static params and sitemap generation.
+- [ ] **DEPLOY-02**: Post-deployment checks validate sitemap count and sample
+  collision URLs for HTTP status, H1, and canonical alignment.
+
+### v1.4 Deferred
+
+- FAQ JSON index synchronization.
+- Locale, hreflang, and `/zh-cn` routing cleanup.
+- Broad metadata, content-quality, and sitemap taxonomy cleanup.
+
 ## Future Requirements
 
 ### Tutorial Expansion
@@ -157,13 +189,23 @@ Roadmap creation maps each v1.3 requirement to exactly one phase.
 | FUTURE-02 | Future backlog | Deferred |
 | FUTURE-03 | Future backlog | Deferred |
 | FUTURE-04 | Future backlog | Deferred |
+| SLUG-01 | Phase 29 | In progress |
+| SLUG-02 | Phase 29 | In progress |
+| SLUG-03 | Phase 29 | In progress |
+| QA-01 | Phase 29 | In progress |
+| QA-02 | Phase 29 | In progress |
+| DEPLOY-01 | Phase 30 | Pending |
+| DEPLOY-02 | Phase 30 | Pending |
 
 **Coverage:**
 
 - v1.3 requirements: 24 total
 - Mapped to phases: 24
 - Unmapped: 0
+- v1.4 requirements: 7 total
+- v1.4 mapped to phases: 7
+- v1.4 unmapped: 0
 
 ---
 *Requirements defined: 2026-07-15*
-*Last updated: 2026-07-17 after Phase 27 verification*
+*Last updated: 2026-07-31 after v1.4 milestone initialization*
