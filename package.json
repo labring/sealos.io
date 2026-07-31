@@ -10,6 +10,7 @@
     "build:analyze": "ANALYZE=true next build && node scripts/normalize-root-locale.js",
     "dev": "next dev",
     "start": "next start",
+    "test:ai-faq-slugs": "node scripts/verify-ai-faq-slugs.mjs",
     "postinstall": "fumadocs-mdx",
     "default-locale:check": "node scripts/check-default-locale-routes.mjs",
     "app-store:diff": "node scripts/check-generated-app-assets.js",
