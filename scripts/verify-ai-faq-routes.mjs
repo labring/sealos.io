@@ -32,15 +32,37 @@ const normalizedSlug = collision[0].slug.replace(/^\d+-/, '');
 const samplePages = collision.slice(0, 2);
 const unknownNumberedSlug = `999999-${normalizedSlug}`;
 
-function decodeHtml(value) {
+function escapeHtml(value) {
   return value
-    .replace(/<[^>]+>/g, '')
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/&#x27;|&#39;/g, "'")
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .trim();
+    .replaceAll('&', '&amp;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#x27;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
+}
+
+function extractTagText(html, tagName) {
+  const openingTagStart = html.indexOf(`<${tagName}`);
+  if (openingTagStart < 0) return undefined;
+
+  const contentStart = html.indexOf('>', openingTagStart);
+  const closingTag = `</${tagName}>`;
+  const contentEnd = html.indexOf(closingTag, contentStart + 1);
+  if (contentStart < 0 || contentEnd < 0) return undefined;
+
+  let text = '';
+  let insideTag = false;
+  for (let index = contentStart + 1; index < contentEnd; index += 1) {
+    const character = html[index];
+    if (character === '<') {
+      insideTag = true;
+    } else if (character === '>' && insideTag) {
+      insideTag = false;
+    } else if (!insideTag) {
+      text += character;
+    }
+  }
+  return text;
 }
 
 async function readTarget(pathname) {
@@ -85,16 +107,16 @@ for (const page of samplePages) {
   const pathname = `/ai-quick-reference/${page.slug}`;
   const result = await readTarget(pathname);
   assert.equal(result.status, 200, `${pathname} must return 200`);
-  const h1Match = result.html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
   const canonicalMatch = result.html.match(
     /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i,
   );
-  const titleMatch = result.html.match(/<title>([\s\S]*?)<\/title>/i);
-  assert.ok(h1Match);
+  const h1Text = extractTagText(result.html, 'h1');
+  const titleText = extractTagText(result.html, 'title');
   assert.ok(canonicalMatch);
-  assert.ok(titleMatch);
-  assert.equal(decodeHtml(h1Match[1]), page.data.title);
-  assert.equal(decodeHtml(titleMatch[1]), `${page.data.title} | Sealos`);
+  assert.ok(h1Text);
+  assert.ok(titleText);
+  assert.equal(h1Text, escapeHtml(page.data.title));
+  assert.equal(titleText, escapeHtml(`${page.data.title} | Sealos`));
   assert.equal(canonicalMatch[1], `https://sealos.io${pathname}/`);
 }
 
