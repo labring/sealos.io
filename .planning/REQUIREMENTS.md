@@ -1,60 +1,169 @@
-# Requirements: AI Quick Reference Slug Integrity and Deployment
+# Requirements: FastAPI and Django Tutorial Expansion
 
-**Defined:** 2026-07-31
-**Milestone:** v1.4
-**Core Value:** Search visitors reach the exact content represented by the URL.
+**Defined:** 2026-07-15
+**Core Value:** Readers can reproduce framework-specific Sealos deployments
+from source, commands, screenshots, and runtime evidence that match the current
+product.
 
-## Exact Slug Resolution
+## v1.3 Requirements
 
-- [ ] **SLUG-01**: A complete AI Quick Reference slug resolves to the source
-  entry with that exact full slug, and title, description, and body come from
-  the same entry.
-- [ ] **SLUG-02**: A normalized slug with multiple source candidates produces
-  an explicit not-found result.
-- [ ] **SLUG-03**: Canonical URL, H1, metadata, related content, and adjacent
-  navigation derive from one exact resolution result.
+### Test-Driven Delivery
 
-## Regression Verification
+- [x] **TDD-01**: Maintainer can verify FastAPI health, documentation, and task
+  CRUD through its public HTTP interface with a real test PostgreSQL database.
 
-- [ ] **QA-01**: Automated checks cover every exact source slug, missing slugs,
-  unknown numbered slugs, and all normalized collision groups.
-- [ ] **QA-02**: Representative built detail pages keep metadata and rendered
-  identity aligned with the requested full slug.
+- [x] **TDD-02**: Maintainer can verify Django health, task creation and listing,
+  and administration login through its public HTTP interface.
 
-## Deployment Verification
+- [x] **TDD-03**: Maintainer can run each migration command against a fresh
+  PostgreSQL database and observe migration completion, readiness, and public
+  read/write behavior.
 
-- [ ] **DEPLOY-01**: The production build succeeds with complete AI Quick
-  Reference static params and sitemap generation.
-- [ ] **DEPLOY-02**: Post-deployment checks validate sitemap count and sample
-  collision URLs for HTTP status, H1, and canonical alignment.
+- [x] **TDD-04**: Maintainer can verify the tutorial catalog through the public
+  validator CLI and static HTTP routes.
+
+### FastAPI Reference Application
+
+- [x] **FAST-01**: Reader can clone a public Tasks API stage that exposes
+  `/health`, `/docs`, and in-memory task CRUD on port 8000.
+
+- [x] **FAST-02**: Reader can use the PostgreSQL stage with SQLAlchemy 2,
+  Alembic, psycopg 3, a repeatable migration Job, and database-backed CRUD.
+
+- [x] **FAST-03**: Reader can use the production stage with a locked Python 3.12
+  environment, non-root image, single Uvicorn process, readiness, logs, and
+  rollback-ready image tags.
+
+- [x] **FAST-04**: Reader can resolve `stage-1-deploy`, `stage-2-postgresql`, and
+  `stage-3-production` in the public FastAPI repository while `main` matches the
+  production stage.
+
+### Django Reference Application
+
+- [x] **DJAN-01**: Reader can clone a public Task Board stage that exposes
+  `/health`, rendered task pages, and Django administration on port 8000.
+
+- [x] **DJAN-02**: Reader can use the PostgreSQL stage with psycopg 3, repeatable
+  Django migrations, a one-shot migration Job, and database-backed task reads.
+
+- [x] **DJAN-03**: Reader can use the production stage with Django 5.2 LTS,
+  Gunicorn WSGI, WhiteNoise, `collectstatic`, non-root execution, readiness,
+  logs, and rollback-ready image tags.
+
+- [x] **DJAN-04**: Reader can resolve `stage-1-deploy`, `stage-2-postgresql`, and
+  `stage-3-production` in the public Django repository while `main` matches the
+  production stage.
+
+### Tutorial Content
+
+- [x] **CONT-01**: Reader can follow FastAPI deploy, PostgreSQL, and production
+  tutorials using the FastAPI Reference Application and matching source tags.
+
+- [x] **CONT-02**: Reader can follow Django deploy, PostgreSQL, and production
+  tutorials using the Django Reference Application and matching source tags.
+
+- [x] **CONT-03**: Each new page has valid frontmatter, framework-local related
+  links, correct series order, current Sealos Skills terminology, and the
+  established CTA for its stage.
+
+- [x] **CONT-04**: Beginner duration titles follow the confirmed measured
+  five-minute evidence gate.
+
+### Practice Evidence and Assets
+
+- [x] **SHOT-01**: Maintainer can trace each of the 24 screenshots to actual
+  local, Sealos, Kubernetes, HTTP, or browser evidence.
+
+- [x] **SHOT-02**: Every screenshot is a redacted 1440x900 WebP below 200 KB and
+  matches its adjacent tutorial step.
+
+- [x] **SHOT-03**: Every new MDX image reference resolves locally and through the
+  static HTTP output with the expected image content type.
+
+### Publication and Operations
+
+- [x] **PUB-01**: Reader sees FastAPI and Django as available paths in the
+  tutorial framework matrix and can navigate all 15 tutorial pages.
+
+- [x] **PUB-02**: `npm run validate-tutorials` validates the 15-page catalog,
+  six new source pages, series relationships, required terminology, and image
+  contracts.
+
+- [x] **PUB-03**: Static route smoke checks return successful responses for the
+  tutorial index, six new pages, and 24 new images.
+
+- [x] **OPS-01**: Maintainer can reproduce successful FastAPI and Django Sealos
+  deployments, migration Jobs, readiness, and public read/write checks from the
+  retained evidence package.
+
+- [x] **OPS-02**: Maintainer can verify removal of every practice `Instance`,
+  workload, Service, Ingress, Job, PostgreSQL Cluster, PVC, Secret, and temporary
+  image resource after evidence capture.
 
 ## Future Requirements
 
-- Synchronize the published FAQ JSON index with current source slugs.
-- Repair locale, hreflang, and `/zh-cn` route generation.
-- Clean up broad metadata, content-quality, and sitemap taxonomy issues.
+### Tutorial Expansion
+
+- **FUTURE-01**: Add additional framework tutorial series using the verified
+  expansion workflow.
+
+- **FUTURE-02**: Add localized tutorial sources after the English catalog is
+  stable.
+
+- **FUTURE-03**: Automate repeatable browser and terminal evidence capture.
+- **FUTURE-04**: Add browser walkthrough videos for complete framework paths.
 
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| FAQ JSON synchronization | Separate publishing pipeline concern |
-| Locale and hreflang cleanup | Requires independent multilingual crawl validation |
-| Broad content and sitemap cleanup | Exceeds the resolver release |
+| Additional framework families | v1.3 is committed to FastAPI and Django. |
+| Localized tutorials | Current publication remains English. |
+| Tutorial page redesign | Existing page composition remains the visual baseline. |
+| Sealos Skills implementation changes | Tutorials consume current upstream behavior. |
+| Persistent live demos | Public source, tags, and retained evidence provide reproducibility. |
 
 ## Traceability
 
+Roadmap creation maps each v1.3 requirement to exactly one phase.
+
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SLUG-01 | Phase 29 | In progress |
-| SLUG-02 | Phase 29 | In progress |
-| SLUG-03 | Phase 29 | In progress |
-| QA-01 | Phase 29 | In progress |
-| QA-02 | Phase 29 | In progress |
-| DEPLOY-01 | Phase 30 | Pending |
-| DEPLOY-02 | Phase 30 | Pending |
+| TDD-01 | Phase 22 | Complete |
+| TDD-02 | Phase 25 | Complete |
+| TDD-03 | Phase 25 | Complete |
+| TDD-04 | Phase 28 | Complete |
+| FAST-01 | Phase 21 | Complete |
+| FAST-02 | Phase 22 | Complete |
+| FAST-03 | Phase 23 | Complete |
+| FAST-04 | Phase 23 | Complete |
+| DJAN-01 | Phase 24 | Complete |
+| DJAN-02 | Phase 25 | Complete |
+| DJAN-03 | Phase 26 | Complete |
+| DJAN-04 | Phase 26 | Complete |
+| CONT-01 | Phase 27 | Complete |
+| CONT-02 | Phase 27 | Complete |
+| CONT-03 | Phase 27 | Complete |
+| CONT-04 | Phase 27 | Complete |
+| SHOT-01 | Phase 27 | Complete |
+| SHOT-02 | Phase 27 | Complete |
+| SHOT-03 | Phase 28 | Complete |
+| PUB-01 | Phase 28 | Complete |
+| PUB-02 | Phase 28 | Complete |
+| PUB-03 | Phase 28 | Complete |
+| OPS-01 | Phase 27 | Complete |
+| OPS-02 | Phase 28 | Complete |
+| FUTURE-01 | Future backlog | Deferred |
+| FUTURE-02 | Future backlog | Deferred |
+| FUTURE-03 | Future backlog | Deferred |
+| FUTURE-04 | Future backlog | Deferred |
 
-**Coverage:** 7 requirements, 7 mapped, 0 unmapped.
+**Coverage:**
+
+- v1.3 requirements: 24 total
+- Mapped to phases: 24
+- Unmapped: 0
 
 ---
-*Last updated: 2026-07-31 after roadmap creation*
+*Requirements defined: 2026-07-15*
+*Last updated: 2026-07-17 after Phase 27 verification*
