@@ -28,10 +28,7 @@ function indexRecord(record) {
 }
 
 test('compares complete route inventories independently of input order', () => {
-  const source = [
-    sourceRecord(1, '1-alpha'),
-    sourceRecord(2, '2-beta'),
-  ];
+  const source = [sourceRecord(1, '1-alpha'), sourceRecord(2, '2-beta')];
   const report = compareFAQRouteInventories({
     source,
     index: source.toReversed().map(indexRecord),
@@ -59,17 +56,20 @@ test('compares complete route inventories independently of input order', () => {
 test('reports duplicates and every directional inventory difference deterministically', () => {
   const alpha = sourceRecord(1, '1-alpha');
   const beta = sourceRecord(2, '2-beta');
-  const report = compareFAQRouteInventories({
+  const gamma = indexRecord(sourceRecord(3, '3-gamma'));
+  const inputs = {
     source: [beta, alpha, alpha],
-    index: [indexRecord(beta), indexRecord(sourceRecord(3, '3-gamma'))],
+    index: [indexRecord(beta), gamma, gamma],
     sitemap: ['4-delta', beta.slug, beta.slug],
     route: ['5-epsilon', beta.slug, beta.slug],
-  });
+  };
+  const report = compareFAQRouteInventories(inputs);
 
   assert.deepEqual(
     report.findings.map(({ category, slug }) => [category, slug]),
     [
       ['duplicate-source-slugs', '1-alpha'],
+      ['duplicate-index-slugs', '3-gamma'],
       ['duplicate-sitemap-slugs', '2-beta'],
       ['duplicate-route-slugs', '2-beta'],
       ['source-only-index-slugs', '1-alpha'],
@@ -92,6 +92,25 @@ test('reports duplicates and every directional inventory difference deterministi
     sitemap: true,
     route: true,
   });
+  assert.deepEqual(
+    report.findings.find(
+      ({ category }) => category === 'source-only-index-slugs',
+    ).presentIn,
+    report.membership['1-alpha'],
+  );
+  assert.equal(
+    JSON.stringify(report),
+    JSON.stringify(
+      compareFAQRouteInventories(
+        Object.fromEntries(
+          Object.entries(inputs).map(([name, values]) => [
+            name,
+            values.toReversed(),
+          ]),
+        ),
+      ),
+    ),
+  );
 });
 
 test('validates all page identity fields with nested markup and entities', () => {
@@ -120,16 +139,17 @@ test('reports missing, duplicate, and mismatched identity fields independently',
     </head><body></body></html>`;
 
   assert.deepEqual(
-    inspectFAQPageIdentity({ html, record }).map(
-      ({ category, field }) => [category, field],
-    ),
+    inspectFAQPageIdentity({ html, record }).map(({ category, field }) => [
+      category,
+      field,
+    ]),
     [
-      ['duplicate-page-identity', 'title'],
-      ['mismatched-page-identity', 'title'],
       ['missing-page-identity', 'h1'],
-      ['mismatched-page-identity', 'description'],
       ['duplicate-page-identity', 'canonical'],
+      ['duplicate-page-identity', 'title'],
       ['mismatched-page-identity', 'canonical'],
+      ['mismatched-page-identity', 'description'],
+      ['mismatched-page-identity', 'title'],
     ],
   );
 });
