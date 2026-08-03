@@ -60,11 +60,19 @@ export const FAQ_INDEX_FINDING_CATEGORIES = [
 
 const SOURCE_FINDING_BUCKET_MAP = {
   'malformed-source-identifier': 'malformed-source-identifiers',
+  'non-regular-source-entry': 'malformed-source-identifiers',
   'invalid-source-projection-schema': 'invalid-source-projection-schemas',
+  'source-read-failure': 'invalid-source-projection-schemas',
+  'invalid-source-json': 'invalid-source-projection-schemas',
   'duplicate-source-id': 'duplicate-source-ids',
   'duplicate-source-slug': 'duplicate-source-slugs',
   'missing-source-id': 'source-only-ids',
   'unexpected-source-id': 'malformed-source-identifiers',
+};
+
+const INDEX_FINDING_BUCKET_MAP = {
+  'index-read-failure': 'invalid-index-projection-schemas',
+  'invalid-index-json': 'invalid-index-projection-schemas',
 };
 
 export class FAQSourceValidationError extends Error {
@@ -218,7 +226,7 @@ function createReadFailureFinding({ sourcePath, id, sourcePosition, error }) {
     id,
     sourcePath,
     sourcePosition,
-    code: error?.code ?? 'UNKNOWN',
+    code: error?.code ?? 'SOURCE_READ_FAILED',
     field: '$read',
     expected: 'readable source file',
     actual: error instanceof Error ? error.message : String(error),
@@ -231,7 +239,7 @@ function createInvalidJsonFinding({ sourcePath, id, sourcePosition, error }) {
     id,
     sourcePath,
     sourcePosition,
-    ...(error?.code ? { code: error.code } : {}),
+    code: error?.code ?? 'INVALID_SOURCE_JSON',
     field: '$json',
     expected: 'valid UTF-8 JSON',
     actual: error instanceof Error ? error.message : String(error),
@@ -430,39 +438,30 @@ function addFinding(buckets, key, finding) {
   bucket.findings.push(finding);
 }
 
-function mergeSourceFindings(buckets, sourceFindings) {
-  const ingestionFindings = [];
-
-  for (const finding of sourceFindings) {
-    const bucket = SOURCE_FINDING_BUCKET_MAP[finding.category];
-    if (bucket) {
-      addFinding(buckets, bucket, finding);
-    } else {
-      ingestionFindings.push(finding);
-    }
+function mergeFindings(buckets, findings, bucketMap, fallbackBucket) {
+  for (const finding of findings) {
+    const bucket = bucketMap[finding.category] ?? fallbackBucket;
+    addFinding(
+      buckets,
+      bucket,
+      bucketMap[finding.category]
+        ? finding
+        : { ...finding, code: finding.code ?? finding.category },
+    );
   }
-
-  return ingestionFindings;
 }
 
-function finalizeReport({
-  buckets,
-  sourceFindings,
-  indexFindings,
-  recordCount,
-}) {
+function finalizeReport({ buckets, recordCount }) {
   const categories = finalizeFindingBuckets(buckets);
-  const totalFindings =
-    sourceFindings.length +
-    indexFindings.length +
-    categories.reduce((total, category) => total + category.total, 0);
+  const totalFindings = categories.reduce(
+    (total, category) => total + category.total,
+    0,
+  );
 
   return {
     ok: totalFindings === 0,
     recordCount,
     totalFindings,
-    sourceFindings,
-    indexFindings,
     categories,
   };
 }
@@ -473,12 +472,21 @@ export function createFAQIndexIngestionReport({
   recordCount = 0,
 } = {}) {
   const buckets = createFindingBuckets();
-  const remainingSourceFindings = mergeSourceFindings(buckets, sourceFindings);
+  mergeFindings(
+    buckets,
+    sourceFindings,
+    SOURCE_FINDING_BUCKET_MAP,
+    'invalid-source-projection-schemas',
+  );
+  mergeFindings(
+    buckets,
+    indexFindings,
+    INDEX_FINDING_BUCKET_MAP,
+    'invalid-index-projection-schemas',
+  );
 
   return finalizeReport({
     buckets,
-    sourceFindings: remainingSourceFindings,
-    indexFindings,
     recordCount,
   });
 }
@@ -830,7 +838,18 @@ export function compareFAQIndexRecords({
     : Buffer.from(JSON.stringify(indexRecords), 'utf8'),
 }) {
   const buckets = createFindingBuckets();
-  const remainingSourceFindings = mergeSourceFindings(buckets, sourceFindings);
+  mergeFindings(
+    buckets,
+    sourceFindings,
+    SOURCE_FINDING_BUCKET_MAP,
+    'invalid-source-projection-schemas',
+  );
+  mergeFindings(
+    buckets,
+    indexFindings,
+    INDEX_FINDING_BUCKET_MAP,
+    'invalid-index-projection-schemas',
+  );
   const sourceIsArray = Array.isArray(sourceRecords);
   const sourceInputCount = sourceIsArray ? sourceRecords.length : null;
   if (!sourceIsArray) {
@@ -924,8 +943,6 @@ export function compareFAQIndexRecords({
 
   return finalizeReport({
     buckets,
-    sourceFindings: remainingSourceFindings,
-    indexFindings,
     recordCount: normalizedSourceRecords.length,
   });
 }
@@ -935,49 +952,12 @@ function stringifyReportValue(value) {
   return serialized === undefined ? 'undefined' : serialized;
 }
 
-const INGESTION_FINDING_LABELS = {
-  'source-read-failure': 'source read failures',
-  'invalid-source-json': 'invalid source JSON',
-  'index-read-failure': 'index read failures',
-  'invalid-index-json': 'invalid index JSON',
-  'non-regular-source-entry': 'non-regular source entries',
-};
-
-function formatIngestionFindings(lines, findings) {
-  const grouped = new Map();
-  for (const finding of findings) {
-    const label =
-      INGESTION_FINDING_LABELS[finding.category] ?? finding.category;
-    const group = grouped.get(label) ?? [];
-    group.push(finding);
-    grouped.set(label, group);
-  }
-
-  for (const [label, group] of grouped) {
-    lines.push(`${label}: ${group.length}`);
-    for (const finding of group.slice(0, 20)) {
-      const details = [];
-      for (const field of REPORT_FINDING_FIELDS) {
-        if (Object.hasOwn(finding, field)) {
-          details.push(`${field}=${stringifyReportValue(finding[field])}`);
-        }
-      }
-      lines.push(`  - ${details.join(' ')}`);
-    }
-  }
-}
-
 export function formatFAQIndexReport(report) {
   if (report.ok) {
     return `AI FAQ index parity passed for ${report.recordCount} records.\n`;
   }
 
   const lines = ['AI FAQ index parity failed for public/ai-faqs.en.json.'];
-
-  formatIngestionFindings(lines, [
-    ...(report.sourceFindings ?? []),
-    ...(report.indexFindings ?? []),
-  ]);
 
   for (const category of report.categories) {
     lines.push(`${category.label}: ${category.total}`);
