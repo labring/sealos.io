@@ -1,8 +1,12 @@
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import {
   compareFAQRouteInventories,
+  formatFAQRouteReport,
   inspectFAQPageIdentity,
+  parseFAQRouteTarget,
+  runVerifyFAQRoutes,
 } from './verify-ai-faq-routes.mjs';
 
 function sourceRecord(id, slug, overrides = {}) {
@@ -24,6 +28,42 @@ function indexRecord(record) {
     question: record.data.title,
     description: record.data.description,
     slug: record.slug,
+  };
+}
+
+function createStreamCapture() {
+  let output = '';
+  return {
+    stream: {
+      write(value) {
+        output += value;
+      },
+    },
+    read() {
+      return output;
+    },
+  };
+}
+
+function createReport(overrides = {}) {
+  return {
+    target: 'out',
+    mode: 'local',
+    checkedAt: '2026-08-04T00:00:00.000Z',
+    inventories: Object.fromEntries(
+      ['source', 'index', 'sitemap', 'route'].map((name) => [
+        name,
+        { total: 2, unique: 2, duplicates: 0 },
+      ]),
+    ),
+    statusHistogram: { 200: 2 },
+    routesAttempted: 2,
+    identityPagesChecked: 2,
+    identityFieldsChecked: 8,
+    invalidRoutesAttempted: 2,
+    invalidRoutesAccepted: 2,
+    findings: [],
+    ...overrides,
   };
 }
 
@@ -151,5 +191,111 @@ test('reports missing, duplicate, and mismatched identity fields independently',
       ['mismatched-page-identity', 'description'],
       ['mismatched-page-identity', 'title'],
     ],
+  );
+});
+
+test('parses the retained local and remote target contract', () => {
+  assert.deepEqual(parseFAQRouteTarget([]), {
+    target: 'out',
+    mode: 'local',
+    findings: [],
+  });
+  assert.deepEqual(parseFAQRouteTarget(['https://sealos.io/']), {
+    target: 'https://sealos.io',
+    mode: 'remote',
+    findings: [],
+  });
+  assert.equal(parseFAQRouteTarget(['ftp://sealos.io']).findings.length, 1);
+  assert.equal(parseFAQRouteTarget(['out', 'extra']).findings.length, 1);
+});
+
+test('writes a complete passing report to stdout and returns zero', async () => {
+  const stdout = createStreamCapture();
+  const stderr = createStreamCapture();
+  const status = await runVerifyFAQRoutes({
+    args: [],
+    inspectTarget: async () => createReport(),
+    now: () => new Date('2026-08-04T00:00:00.000Z'),
+    stdout: stdout.stream,
+    stderr: stderr.stream,
+  });
+
+  assert.equal(status, 0);
+  assert.equal(stderr.read(), '');
+  assert.match(stdout.read(), /Target: "out"/);
+  assert.match(stdout.read(), /Mode: local/);
+  assert.match(stdout.read(), /source: total=2 unique=2 duplicates=0/);
+  assert.match(stdout.read(), /HTTP statuses: 200=2/);
+  assert.match(stdout.read(), /Identity fields checked: 8/);
+  assert.match(stdout.read(), /Result: PASS/);
+});
+
+test('renders complete totals, bounded escaped details, and deterministic bytes', () => {
+  const findings = Array.from({ length: 21 }, (_, index) => ({
+    category: 'mismatched-page-identity',
+    id: 21 - index,
+    slug: `${21 - index}-slug`,
+    field: 'title',
+    expected: 'expected',
+    actual: `line ${21 - index}\nvalue`,
+  }));
+  const report = createReport({ findings });
+  const output = formatFAQRouteReport(report);
+  const reversedOutput = formatFAQRouteReport({
+    ...report,
+    findings: findings.toReversed(),
+  });
+
+  assert.equal(output, reversedOutput);
+  assert.match(output, /Mismatched page identity fields: 21/);
+  assert.equal(output.match(/^    \{/gm)?.length, 20);
+  assert.match(output, /line 1\\nvalue/);
+  assert.doesNotMatch(output, /line 21\\nvalue/);
+  assert.match(output, /Result: FAIL/);
+  assert.match(output, /Rerun: npm run verify:ai-faq-routes/);
+});
+
+test('writes one complete failing report to stderr after inspection', async () => {
+  const stdout = createStreamCapture();
+  const stderr = createStreamCapture();
+  const report = createReport({
+    findings: [
+      {
+        category: 'source-only-index-slugs',
+        id: 2,
+        slug: '2-beta',
+        field: 'slug',
+        expected: true,
+        actual: false,
+      },
+    ],
+  });
+  const status = await runVerifyFAQRoutes({
+    args: ['https://sealos.io/'],
+    inspectTarget: async ({ target, mode, checkedAt }) => ({
+      ...report,
+      target,
+      mode,
+      checkedAt,
+    }),
+    now: () => new Date('2026-08-04T00:00:00.000Z'),
+    stdout: stdout.stream,
+    stderr: stderr.stream,
+  });
+
+  assert.equal(status, 1);
+  assert.equal(stdout.read(), '');
+  assert.match(stderr.read(), /Source slugs missing from index: 1/);
+  assert.match(
+    stderr.read(),
+    /Rerun: npm run verify:ai-faq-routes -- https:\/\/sealos\.io/,
+  );
+});
+
+test('retains the package command exactly', async () => {
+  const packageJson = JSON.parse(await readFile('package.json', 'utf8'));
+  assert.equal(
+    packageJson.scripts['verify:ai-faq-routes'],
+    'node scripts/verify-ai-faq-routes.mjs',
   );
 });
