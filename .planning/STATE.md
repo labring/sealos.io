@@ -4,15 +4,15 @@ milestone: v1.5
 milestone_name: AI Quick Reference Index Consistency
 current_phase: 31
 current_phase_name: Canonical Index Generation And Local Parity
-status: planning
-stopped_at: Phase 31 context gathered
-last_updated: "2026-08-03T08:18:59.921Z"
+status: planned
+stopped_at: Phase 31 planning complete
+last_updated: "2026-08-03T10:06:10Z"
 last_activity: 2026-08-03
-last_activity_desc: v1.5 roadmap created with 6/6 requirements mapped
+last_activity_desc: Phase 31 planning complete with 3 execution plans
 progress:
   total_phases: 2
   completed_phases: 0
-  total_plans: 0
+  total_plans: 3
   completed_plans: 0
   percent: 0
 ---
@@ -40,26 +40,25 @@ represented by the URL and current source data.
 
 ## Active Requirements
 
-The v1.5 roadmap is approved in `.planning/ROADMAP.md`; Phase 31 is ready for
-discussion and planning.
+Phase 31 plans cover SOURCE-01, SOURCE-02, PARITY-01, and DELIVERY-01 and are
+ready for execution.
 
 ## Current Position
 
 Phase: 31 (Canonical Index Generation And Local Parity)
-Plan: —
-Status: Ready to discuss
-Last activity: 2026-08-03 — v1.5 roadmap created with 6/6 requirements mapped
+Plan: 3 execution plans (31-01 -> 31-03)
+Status: Ready to execute
+Last activity: 2026-08-03 — Phase 31 planning complete with 3 plans
 
 ## Next Action
 
-Run `$gsd-discuss-phase 31` to clarify implementation decisions, then
-`$gsd-plan-phase 31` to create the execution plan.
+Run `$gsd-execute-phase 31` to execute the plans in wave order.
 
 ## Session
 
 **Last session:** 2026-08-03T08:18:59.916Z
-**Stopped at:** Phase 31 context gathered
-**Resume file:** .planning/phases/31-canonical-index-generation-and-local-parity/31-CONTEXT.md
+**Stopped at:** Phase 31 planning complete
+**Resume file:** .planning/phases/31-canonical-index-generation-and-local-parity/31-01-PLAN.md
 
 ### Quick Tasks Completed
 
@@ -214,5 +213,4 @@ Run `$gsd-discuss-phase 31` to clarify implementation decisions, then
 
 ## Operator Next Steps
 
-- Run `$gsd-discuss-phase 31` to lock implementation decisions.
-- Run `$gsd-plan-phase 31` to create the execution plan.
+- Run `$gsd-execute-phase 31` to execute the approved plans in wave order.

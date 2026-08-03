@@ -36,6 +36,21 @@ collection and receive a precise failure report for every data mismatch.
    output, inject representative stale and missing records into a temporary
    fixture, verify actionable failures, then run lint and the build preflight.
 
+**Plans:** 3
+
+**Plan Waves:**
+
+- **Wave 1:** `31-01-PLAN.md` establishes the canonical source loader,
+  deterministic projection, shared parity comparison, and focused fixtures.
+- **Wave 2:** `31-02-PLAN.md` adds the atomic generator and regenerates the
+  committed page-index asset from source.
+- **Wave 3:** `31-03-PLAN.md` adds the read-only verifier and preflight wiring
+  for package and timed static-export paths.
+
+**Cross-Cutting Constraints:** Preserve the existing FAQSearch asset contract,
+keep verification read-only, retain existing slug and route verifier commands,
+and reserve sitemap and deployed route checks for Phase 32.
+
 ### Phase 32: Sitemap Route Parity And Production Verification
 
 **Goal:** Every page-index entry has the same canonical slug in the sitemap and

@@ -556,22 +556,22 @@ This lets compact temp fixtures exercise the CLI contract without adding public 
 |---|-------|---------|---------------|
 | A1 | A read concurrency of 32 balances throughput and descriptor stability for this 2,000-file, 3.76 MB corpus. | Architecture Patterns / Standard Stack | A lower bound may be faster on Node 20's filesystem thread pool; a higher bound may still be safe. Keep it one constant and verify runtime under Node 20. |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Does the linked Vercel project override its Build Command?**
    - What we know: the repository has no `buildCommand`; Vercel documentation says a configured `buildCommand` overrides the package build script. [VERIFIED: `vercel.json`; CITED: https://vercel.com/docs/project-configuration#buildcommand]
    - What's unclear: dashboard state is external to git and was unavailable during this planning-only run.
-   - Recommendation: require one Vercel build-log acceptance check proving `verify:ai-faq-index` runs before Next; treat an override that bypasses it as a release blocker and route that override through `npm run build`.
+   - RESOLVED: Phase 31 accepts the delivery path only after one Vercel build log proves `verify:ai-faq-index` completes before Next. The operator routes any dashboard Build Command through `npm run build` before acceptance.
 
 2. **When will the repository move beyond Node 20?**
    - What we know: repository execution is pinned to Node 20, and the Node.js Release Working Group records Node 20 end-of-life as 2026-04-30. [VERIFIED: repository config; CITED: https://github.com/nodejs/Release#release-schedule]
    - What's unclear: the runtime-upgrade owner and schedule are outside Phase 31.
-   - Recommendation: preserve Node 20 compatibility in this phase, verify on pinned CI, and record a separate runtime-upgrade/security task.
+   - RESOLVED: Phase 31 retains Node 20 compatibility and records focused suite plus both static build commands on pinned Node 20 CI. Runtime upgrade ownership remains a separate security task.
 
 3. **Should atomic publication include crash durability?**
    - What we know: same-filesystem rename gives atomic visibility; guaranteed post-crash durability can require file and directory synchronization. [CITED: https://pubs.opengroup.org/onlinepubs/9799919799/xrat/V4_xbd_chap01.html]
    - What's unclear: D-04 requires atomic replacement and does not require power-loss durability.
-   - Recommendation: implement atomic visibility only; keep `fsync` and directory synchronization outside Phase 31.
+   - RESOLVED: D-04 accepts same-filesystem atomic visibility through temporary write and rename. Power-loss durability and directory synchronization remain outside Phase 31 scope.
 
 ## Environment Availability
 
