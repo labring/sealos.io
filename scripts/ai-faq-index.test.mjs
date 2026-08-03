@@ -1217,7 +1217,7 @@ test('production verifier CLI covers source and index ingestion matrix', async (
     {
       name: 'sparse source IDs',
       mutate: (sourceDirectory) => rm(join(sourceDirectory, '2-beta.en.json')),
-      expected: /source-only IDs: [1-9]\d*/,
+      expected: /index-only IDs: [1-9]\d*/,
     },
     {
       name: 'duplicate source IDs',
