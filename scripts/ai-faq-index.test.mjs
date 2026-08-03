@@ -416,6 +416,164 @@ test('runVerifyFAQIndex separates source read failures from invalid JSON', async
   assertExactTopLevelFindingCategories(invalidJsonStderr.output());
 });
 
+test('source content failures preserve identity without derivative findings', async (t) => {
+  const cases = [
+    {
+      name: 'read failure',
+      field: '$read',
+      configure(fixture) {
+        return {
+          readFile: async (sourcePath) => {
+            if (sourcePath.endsWith('1-alpha.en.json')) {
+              const error = new Error('permission denied');
+              error.code = 'EACCES';
+              throw error;
+            }
+            return readFile(sourcePath);
+          },
+        };
+      },
+    },
+    {
+      name: 'invalid JSON',
+      field: '$json',
+      async configure(fixture) {
+        await writeFile(join(fixture.sourceDirectory, '1-alpha.en.json'), '{');
+        return {};
+      },
+    },
+  ];
+
+  for (const fixtureCase of cases) {
+    await t.test(fixtureCase.name, async (subtest) => {
+      const fixture = await createVerifierFixture(subtest);
+      const filesystem = await fixtureCase.configure(fixture);
+      const sourceInspection = await inspectCanonicalFAQSource({
+        sourceDirectory: fixture.sourceDirectory,
+        expectedCount: 2,
+        filesystem,
+      });
+      const report = compareFAQIndexRecords({
+        sourceRecords: sourceInspection.records,
+        sourceFindings: sourceInspection.findings,
+        indexRecords: fixture.indexRecords,
+        indexBytes: JSON.stringify(fixture.indexRecords),
+      });
+
+      assert.equal(
+        getReportCategory(report, 'invalid-source-projection-schemas').total,
+        1,
+      );
+      assert.equal(
+        getReportCategory(report, 'invalid-source-projection-schemas')
+          .findings[0].field,
+        fixtureCase.field,
+      );
+      assert.equal(getReportCategory(report, 'source-only-ids').total, 0);
+      assert.equal(getReportCategory(report, 'index-only-ids').total, 0);
+      assert.equal(
+        getReportCategory(report, 'non-canonical-serialization').total,
+        0,
+      );
+    });
+  }
+});
+
+test('sparse source reports source continuity and index membership once', async (t) => {
+  const fixture = await createVerifierFixture(t);
+  await rm(join(fixture.sourceDirectory, '2-beta.en.json'));
+  const sourceInspection = await inspectCanonicalFAQSource({
+    sourceDirectory: fixture.sourceDirectory,
+    expectedCount: 2,
+  });
+  const report = compareFAQIndexRecords({
+    sourceRecords: sourceInspection.records,
+    sourceFindings: sourceInspection.findings,
+    indexRecords: fixture.indexRecords,
+    indexBytes: JSON.stringify(fixture.indexRecords),
+  });
+
+  assert.equal(
+    getReportCategory(report, 'malformed-source-identifiers').total,
+    1,
+  );
+  assert.equal(getReportCategory(report, 'source-only-ids').total, 0);
+  assert.equal(getReportCategory(report, 'index-only-ids').total, 1);
+  assert.equal(getReportCategory(report, 'ordering-drift').total, 0);
+  assert.equal(
+    getReportCategory(report, 'non-canonical-serialization').total,
+    0,
+  );
+});
+
+test('blank source projection produces one canonical field finding', async (t) => {
+  const fixture = await createVerifierFixture(t);
+  await writeFile(
+    join(fixture.sourceDirectory, '1-alpha.en.json'),
+    JSON.stringify(makeSourceData({ title: '   ' })),
+  );
+  const sourceInspection = await inspectCanonicalFAQSource({
+    sourceDirectory: fixture.sourceDirectory,
+    expectedCount: 2,
+  });
+  const report = compareFAQIndexRecords({
+    sourceRecords: sourceInspection.records,
+    sourceFindings: sourceInspection.findings,
+    indexRecords: fixture.indexRecords,
+    indexBytes: JSON.stringify(fixture.indexRecords),
+  });
+  const findings = getReportCategory(
+    report,
+    'invalid-source-projection-schemas',
+  ).findings;
+
+  assert.deepEqual(
+    findings.map(({ id, field, actual }) => ({ id, field, actual })),
+    [{ id: 1, field: 'question', actual: '   ' }],
+  );
+  assert.equal(getReportCategory(report, 'source-only-ids').total, 0);
+  assert.equal(getReportCategory(report, 'index-only-ids').total, 0);
+  assert.equal(
+    getReportCategory(report, 'non-canonical-serialization').total,
+    0,
+  );
+});
+
+test('source directory read failure suppresses cross-set cascades', async () => {
+  const sourceDirectory = '/fixture/source';
+  const sourceError = new Error('directory unavailable');
+  sourceError.code = 'EACCES';
+  const indexRecords = makeCanonicalIndexRecords(makeCanonicalSourceRecords(2));
+
+  const sourceInspection = await inspectCanonicalFAQSource({
+    sourceDirectory,
+    expectedCount: 2,
+    filesystem: {
+      readdir: async () => {
+        throw sourceError;
+      },
+    },
+  });
+  const report = compareFAQIndexRecords({
+    sourceRecords: sourceInspection.records,
+    sourceFindings: sourceInspection.findings,
+    indexRecords,
+    indexBytes: JSON.stringify(indexRecords),
+  });
+
+  assert.equal(
+    getReportCategory(report, 'invalid-source-projection-schemas').total,
+    1,
+  );
+  assert.equal(getReportCategory(report, 'source-only-ids').total, 0);
+  assert.equal(getReportCategory(report, 'index-only-ids').total, 0);
+  assert.equal(getReportCategory(report, 'ordering-drift').total, 0);
+  assert.equal(
+    getReportCategory(report, 'non-canonical-serialization').total,
+    0,
+  );
+});
+
 test('runVerifyFAQIndex reports source and index ingestion findings through the shared formatter', async (t) => {
   const sourceFixture = await createVerifierFixture(t);
   await writeFile(
