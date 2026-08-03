@@ -126,11 +126,7 @@ export function collectFAQSourceRecordFindings(
 ) {
   const findings = [
     ...collectDuplicateFindings(records, 'id', 'duplicate-source-id'),
-    ...collectDuplicateFindings(
-      records,
-      'slug',
-      'duplicate-source-slug',
-    ),
+    ...collectDuplicateFindings(records, 'slug', 'duplicate-source-slug'),
   ];
   const presentIds = new Set(records.map(({ id }) => id));
 
@@ -201,10 +197,7 @@ async function readSourceRecordsInBatches(entries) {
     offset < entries.length;
     offset += FAQ_SOURCE_READ_BATCH_SIZE
   ) {
-    const batch = entries.slice(
-      offset,
-      offset + FAQ_SOURCE_READ_BATCH_SIZE,
-    );
+    const batch = entries.slice(offset, offset + FAQ_SOURCE_READ_BATCH_SIZE);
     const results = await Promise.all(
       batch.map(async (entry) => {
         try {
@@ -397,7 +390,11 @@ function normalizeSourceRecords(sourceRecords, buckets) {
 function normalizeIndexRecords(indexRecords, buckets) {
   return indexRecords.flatMap((record, index) => {
     const indexPosition = index + 1;
-    if (record === null || typeof record !== 'object' || Array.isArray(record)) {
+    if (
+      record === null ||
+      typeof record !== 'object' ||
+      Array.isArray(record)
+    ) {
       addFinding(buckets, 'invalid-index-projection-schemas', {
         id: null,
         indexPosition,
@@ -423,7 +420,9 @@ function normalizeIndexRecords(indexRecords, buckets) {
       }
     }
 
-    for (const field of keys.filter((key) => !INDEX_FIELDS.includes(key)).sort()) {
+    for (const field of keys
+      .filter((key) => !INDEX_FIELDS.includes(key))
+      .sort()) {
       validSchema = false;
       addFinding(buckets, 'invalid-index-projection-schemas', {
         id: null,
@@ -473,13 +472,7 @@ function groupRecords(records, key) {
   return groups;
 }
 
-function addDuplicateGroupFindings({
-  buckets,
-  groups,
-  category,
-  field,
-  side,
-}) {
+function addDuplicateGroupFindings({ buckets, groups, category, field, side }) {
   for (const [value, group] of groups) {
     if (group.length < 2) {
       continue;
@@ -499,14 +492,10 @@ function addDuplicateGroupFindings({
   }
 }
 
-function addMembershipFindings({
-  buckets,
-  sourceIdGroups,
-  indexIdGroups,
-}) {
-  const ids = [...new Set([...sourceIdGroups.keys(), ...indexIdGroups.keys()])].sort(
-    (left, right) => left - right,
-  );
+function addMembershipFindings({ buckets, sourceIdGroups, indexIdGroups }) {
+  const ids = [
+    ...new Set([...sourceIdGroups.keys(), ...indexIdGroups.keys()]),
+  ].sort((left, right) => left - right);
 
   for (const id of ids) {
     const sourceGroup = sourceIdGroups.get(id) ?? [];
@@ -670,9 +659,7 @@ export function compareFAQIndexRecords({
 }) {
   const buckets = createFindingBuckets();
   const sourceIsArray = Array.isArray(sourceRecords);
-  const sourceInputCount = sourceIsArray
-    ? sourceRecords.length
-    : null;
+  const sourceInputCount = sourceIsArray ? sourceRecords.length : null;
   if (!sourceIsArray) {
     addFinding(buckets, 'invalid-source-projection-schemas', {
       id: null,
@@ -780,11 +767,11 @@ function stringifyReportValue(value) {
 }
 
 export function formatFAQIndexReport(report) {
-  const lines = [
-    report.ok
-      ? `AI FAQ index parity passed for ${report.recordCount} records.`
-      : 'AI FAQ index parity failed for public/ai-faqs.en.json.',
-  ];
+  if (report.ok) {
+    return `AI FAQ index parity passed for ${report.recordCount} records.\n`;
+  }
+
+  const lines = ['AI FAQ index parity failed for public/ai-faqs.en.json.'];
 
   for (const category of report.categories) {
     lines.push(`${category.label}: ${category.total}`);
@@ -800,9 +787,7 @@ export function formatFAQIndexReport(report) {
     }
   }
 
-  if (!report.ok) {
-    lines.push('Regenerate with: npm run generate:ai-faq-index');
-  }
+  lines.push('Regenerate with: npm run generate:ai-faq-index');
 
   return `${lines.join('\n')}\n`;
 }
