@@ -620,6 +620,59 @@ test('runVerifyFAQIndex reports source and index ingestion findings through the 
   assertExactTopLevelFindingCategories(indexStderr.output());
 });
 
+test('index ingestion diagnostics use indexPath exclusively', async (t) => {
+  const cases = [
+    {
+      name: 'read failure',
+      field: '$read',
+      configure(fixture) {
+        return {
+          readFile: async (filePath) => {
+            if (filePath === fixture.indexPath) {
+              const error = new Error('index unavailable');
+              error.code = 'EACCES';
+              throw error;
+            }
+            return readFile(filePath);
+          },
+        };
+      },
+    },
+    {
+      name: 'invalid JSON',
+      field: '$json',
+      async configure(fixture) {
+        await writeFile(fixture.indexPath, '{');
+        return {};
+      },
+    },
+  ];
+
+  for (const fixtureCase of cases) {
+    await t.test(fixtureCase.name, async (subtest) => {
+      const fixture = await createVerifierFixture(subtest);
+      const filesystem = await fixtureCase.configure(fixture);
+      const stderr = createCaptureStream();
+      const status = await runVerifyFAQIndex({
+        sourceDirectory: fixture.sourceDirectory,
+        indexPath: fixture.indexPath,
+        expectedCount: 2,
+        filesystem,
+        stdout: createCaptureStream().stream,
+        stderr: stderr.stream,
+      });
+      const output = stderr.output();
+      const serializedIndexPath = JSON.stringify(fixture.indexPath);
+
+      assert.equal(status, 1);
+      assert.equal(output.includes(`indexPath=${serializedIndexPath}`), true);
+      assert.equal(output.includes(`sourcePath=${serializedIndexPath}`), false);
+      assert.equal(output.includes(`field=${JSON.stringify(fixtureCase.field)}`), true);
+      assertExactTopLevelFindingCategories(output);
+    });
+  }
+});
+
 test('runVerifyFAQIndex reports stale fixture categories without mutation', async (t) => {
   const cases = [
     {
