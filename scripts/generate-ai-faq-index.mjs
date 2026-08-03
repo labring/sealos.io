@@ -6,7 +6,9 @@ import { fileURLToPath } from 'node:url';
 import {
   DEFAULT_FAQ_SOURCE_COUNT,
   DEFAULT_FAQ_SOURCE_DIRECTORY,
-  loadCanonicalFAQSource,
+  createFAQIndexIngestionReport,
+  formatFAQIndexReport,
+  inspectCanonicalFAQSource,
   serializeCanonicalFAQIndex,
 } from './ai-faq-index.mjs';
 
@@ -38,10 +40,21 @@ export async function generateFAQIndex({
   let cleanupTemporaryPath = false;
 
   try {
-    const sourceRecords = await loadCanonicalFAQSource({
+    const sourceInspection = await inspectCanonicalFAQSource({
       sourceDirectory,
       expectedCount,
+      filesystem,
     });
+    if (sourceInspection.findings.length > 0) {
+      const report = createFAQIndexIngestionReport({
+        sourceFindings: sourceInspection.findings,
+        recordCount: sourceInspection.records.length,
+      });
+      stderr.write(formatFAQIndexReport(report));
+      return 1;
+    }
+
+    const sourceRecords = sourceInspection.records;
     const canonicalBytes = serializeCanonicalFAQIndex(sourceRecords);
     temporaryPath = createTemporaryPath(outputPath);
     cleanupTemporaryPath = true;
@@ -60,11 +73,19 @@ export async function generateFAQIndex({
 
     await filesystem.rename(temporaryPath, outputPath);
     cleanupTemporaryPath = false;
-    stdout.write(
-      `Generated ${sourceRecords.length} AI FAQ records at ${outputPath} (${Buffer.byteLength(
-        canonicalBytes,
-      )} bytes).\n`,
-    );
+    try {
+      stdout.write(
+        `Generated ${sourceRecords.length} AI FAQ records at ${outputPath} (${Buffer.byteLength(
+          canonicalBytes,
+        )} bytes).\n`,
+      );
+    } catch (error) {
+      stderr.write(
+        `AI FAQ index was generated, but summary output failed: ${getErrorMessage(
+          error,
+        )}\n`,
+      );
+    }
     return 0;
   } catch (error) {
     publicationError = error;

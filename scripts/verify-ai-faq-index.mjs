@@ -6,14 +6,66 @@ import {
   DEFAULT_FAQ_SOURCE_COUNT,
   DEFAULT_FAQ_SOURCE_DIRECTORY,
   compareFAQIndexRecords,
+  decodeJSONBuffer,
   formatFAQIndexReport,
-  loadCanonicalFAQSource,
+  inspectCanonicalFAQSource,
 } from './ai-faq-index.mjs';
 
 export const DEFAULT_FAQ_INDEX_PATH = resolve('public/ai-faqs.en.json');
 
+const DEFAULT_FILESYSTEM = { readFile };
+
 function getErrorMessage(error) {
   return error instanceof Error ? error.message : String(error);
+}
+
+async function inspectFAQIndex(indexPath, filesystem) {
+  const readIndexFile = filesystem.readFile ?? readFile;
+  let indexBytes;
+
+  try {
+    indexBytes = await readIndexFile(indexPath);
+  } catch (error) {
+    return {
+      records: null,
+      bytes: Buffer.alloc(0),
+      findings: [
+        {
+          category: 'index-read-failure',
+          id: null,
+          sourcePath: indexPath,
+          code: error?.code ?? 'UNKNOWN',
+          field: '$read',
+          expected: 'readable index file',
+          actual: getErrorMessage(error),
+        },
+      ],
+    };
+  }
+
+  try {
+    return {
+      records: decodeJSONBuffer(indexBytes),
+      bytes: Buffer.from(indexBytes),
+      findings: [],
+    };
+  } catch (error) {
+    return {
+      records: null,
+      bytes: Buffer.from(indexBytes),
+      findings: [
+        {
+          category: 'invalid-index-json',
+          id: null,
+          sourcePath: indexPath,
+          ...(error?.code ? { code: error.code } : {}),
+          field: '$json',
+          expected: 'valid UTF-8 JSON',
+          actual: getErrorMessage(error),
+        },
+      ],
+    };
+  }
 }
 
 export async function runVerifyFAQIndex({
@@ -22,18 +74,21 @@ export async function runVerifyFAQIndex({
   expectedCount = DEFAULT_FAQ_SOURCE_COUNT,
   stdout = process.stdout,
   stderr = process.stderr,
+  filesystem = DEFAULT_FILESYSTEM,
 } = {}) {
   try {
-    const sourceRecords = await loadCanonicalFAQSource({
+    const sourceInspection = await inspectCanonicalFAQSource({
       sourceDirectory,
       expectedCount,
+      filesystem,
     });
-    const indexBytes = await readFile(indexPath, 'utf8');
-    const indexRecords = JSON.parse(indexBytes);
+    const indexInspection = await inspectFAQIndex(indexPath, filesystem);
     const report = compareFAQIndexRecords({
-      sourceRecords,
-      indexRecords,
-      indexBytes,
+      sourceRecords: sourceInspection.records,
+      sourceFindings: sourceInspection.findings,
+      indexRecords: indexInspection.records,
+      indexFindings: indexInspection.findings,
+      indexBytes: indexInspection.bytes,
     });
     const output = formatFAQIndexReport(report);
 

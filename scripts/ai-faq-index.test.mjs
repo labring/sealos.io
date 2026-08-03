@@ -699,7 +699,14 @@ test('runGenerateFAQIndex validates before publication and retains destination b
   assert.equal(stdout.output(), '');
   assert.match(
     stderr.output(),
-    /^AI FAQ index generation failed: .*validation failed.*\n$/i,
+    /^AI FAQ index parity failed for public\/ai-faqs\.en\.json\./,
+  );
+  assert.match(stderr.output(), /invalid source projection schemas: 1/);
+  assert.equal(
+    stderr.output().endsWith(
+      'Regenerate with: npm run generate:ai-faq-index\n',
+    ),
+    true,
   );
 });
 

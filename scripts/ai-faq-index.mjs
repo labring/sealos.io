@@ -1,5 +1,6 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { TextDecoder } from 'node:util';
 
 export const FAQ_SOURCE_READ_BATCH_SIZE = 32;
 export const DEFAULT_FAQ_SOURCE_COUNT = 2000;
@@ -8,6 +9,7 @@ export const DEFAULT_FAQ_SOURCE_DIRECTORY = resolve(
 );
 
 const SOURCE_FILENAME_PATTERN = /^([1-9]\d*)-(.+)\.en\.json$/;
+const utf8Decoder = new TextDecoder('utf-8', { fatal: true });
 const PROJECTED_SOURCE_FIELDS = ['title', 'description', 'category'];
 const INDEX_FIELDS = ['category', 'question', 'description', 'slug'];
 const COMPARED_FIELDS = ['slug', 'question', 'description', 'category'];
@@ -16,6 +18,7 @@ const REPORT_FINDING_FIELDS = [
   'sourcePosition',
   'indexPosition',
   'sourcePath',
+  'code',
   'field',
   'expected',
   'actual',
@@ -55,6 +58,15 @@ export const FAQ_INDEX_FINDING_CATEGORIES = [
   },
 ];
 
+const SOURCE_FINDING_BUCKET_MAP = {
+  'malformed-source-identifier': 'malformed-source-identifiers',
+  'invalid-source-projection-schema': 'invalid-source-projection-schemas',
+  'duplicate-source-id': 'duplicate-source-ids',
+  'duplicate-source-slug': 'duplicate-source-slugs',
+  'missing-source-id': 'source-only-ids',
+  'unexpected-source-id': 'malformed-source-identifiers',
+};
+
 export class FAQSourceValidationError extends Error {
   constructor(findings) {
     super(`AI FAQ source validation failed with ${findings.length} finding(s)`);
@@ -82,7 +94,19 @@ export function parseFAQSourceFilename(filename) {
 }
 
 function compareSourceRecords(left, right) {
-  return left.id - right.id || left.filename.localeCompare(right.filename);
+  if (left.id !== right.id) {
+    return left.id - right.id;
+  }
+
+  if (left.filename < right.filename) {
+    return -1;
+  }
+
+  if (left.filename > right.filename) {
+    return 1;
+  }
+
+  return 0;
 }
 
 function collectDuplicateFindings(records, key, category) {
@@ -156,7 +180,7 @@ export function collectFAQSourceRecordFindings(
       });
     }
 
-    if (record.jsonError) {
+    if (record.jsonError || record.ingestionError) {
       continue;
     }
 
@@ -188,7 +212,37 @@ export function validateFAQSourceRecords(records, options = {}) {
   return records;
 }
 
-async function readSourceRecordsInBatches(entries) {
+function createReadFailureFinding({ sourcePath, id, sourcePosition, error }) {
+  return {
+    category: 'source-read-failure',
+    id,
+    sourcePath,
+    sourcePosition,
+    code: error?.code ?? 'UNKNOWN',
+    field: '$read',
+    expected: 'readable source file',
+    actual: error instanceof Error ? error.message : String(error),
+  };
+}
+
+function createInvalidJsonFinding({ sourcePath, id, sourcePosition, error }) {
+  return {
+    category: 'invalid-source-json',
+    id,
+    sourcePath,
+    sourcePosition,
+    ...(error?.code ? { code: error.code } : {}),
+    field: '$json',
+    expected: 'valid UTF-8 JSON',
+    actual: error instanceof Error ? error.message : String(error),
+  };
+}
+
+export function decodeJSONBuffer(buffer) {
+  return JSON.parse(utf8Decoder.decode(Buffer.from(buffer)));
+}
+
+async function readSourceRecordsInBatches(entries, sourceReadFile = readFile) {
   const records = [];
   const findings = [];
 
@@ -200,11 +254,26 @@ async function readSourceRecordsInBatches(entries) {
     const batch = entries.slice(offset, offset + FAQ_SOURCE_READ_BATCH_SIZE);
     const results = await Promise.all(
       batch.map(async (entry) => {
+        let sourceBuffer;
+
+        try {
+          sourceBuffer = await sourceReadFile(entry.sourcePath);
+        } catch (error) {
+          return {
+            record: {
+              ...entry,
+              data: undefined,
+              ingestionError: error,
+            },
+            finding: createReadFailureFinding({ ...entry, error }),
+          };
+        }
+
         try {
           return {
             record: {
               ...entry,
-              data: JSON.parse(await readFile(entry.sourcePath, 'utf8')),
+              data: decodeJSONBuffer(sourceBuffer),
             },
           };
         } catch (error) {
@@ -214,15 +283,7 @@ async function readSourceRecordsInBatches(entries) {
               data: undefined,
               jsonError: error,
             },
-            finding: {
-              category: 'invalid-source-json',
-              id: entry.id,
-              sourcePath: entry.sourcePath,
-              sourcePosition: entry.sourcePosition,
-              field: '$json',
-              expected: 'valid JSON',
-              actual: error instanceof Error ? error.message : String(error),
-            },
+            finding: createInvalidJsonFinding({ ...entry, error }),
           };
         }
       }),
@@ -239,13 +300,32 @@ async function readSourceRecordsInBatches(entries) {
   return { records, findings };
 }
 
-export async function loadCanonicalFAQSource({
+export async function inspectCanonicalFAQSource({
   sourceDirectory = DEFAULT_FAQ_SOURCE_DIRECTORY,
   expectedCount = DEFAULT_FAQ_SOURCE_COUNT,
+  filesystem = {},
 } = {}) {
-  const directoryEntries = await readdir(sourceDirectory, {
-    withFileTypes: true,
-  });
+  const readDirectory = filesystem.readdir ?? readdir;
+  const sourceReadFile = filesystem.readFile ?? readFile;
+  let directoryEntries;
+
+  try {
+    directoryEntries = await readDirectory(sourceDirectory, {
+      withFileTypes: true,
+    });
+  } catch (error) {
+    return {
+      records: [],
+      findings: [
+        createReadFailureFinding({
+          sourcePath: resolve(sourceDirectory),
+          id: null,
+          error,
+        }),
+      ],
+    };
+  }
+
   const findings = [];
   const sourceEntries = [];
 
@@ -288,7 +368,10 @@ export async function loadCanonicalFAQSource({
     entry.sourcePosition = index + 1;
   });
 
-  const loaded = await readSourceRecordsInBatches(sourceEntries);
+  const loaded = await readSourceRecordsInBatches(
+    sourceEntries,
+    sourceReadFile,
+  );
   findings.push(...loaded.findings);
   findings.push(
     ...collectFAQSourceRecordFindings(loaded.records, {
@@ -297,11 +380,16 @@ export async function loadCanonicalFAQSource({
     }),
   );
 
-  if (findings.length > 0) {
-    throw new FAQSourceValidationError(findings);
+  return { records: loaded.records, findings };
+}
+
+export async function loadCanonicalFAQSource(options = {}) {
+  const inspection = await inspectCanonicalFAQSource(options);
+  if (inspection.findings.length > 0) {
+    throw new FAQSourceValidationError(inspection.findings);
   }
 
-  return loaded.records;
+  return inspection.records;
 }
 
 export function projectFAQIndexRecord(sourceRecord) {
@@ -321,13 +409,76 @@ function createFindingBuckets() {
   return new Map(
     FAQ_INDEX_FINDING_CATEGORIES.map(({ key, label }) => [
       key,
-      { key, label, findings: [] },
+      { key, label, findings: [], findingKeys: new Set() },
     ]),
   );
 }
 
 function addFinding(buckets, key, finding) {
-  buckets.get(key).findings.push(finding);
+  const bucket = buckets.get(key);
+  const findingKey = JSON.stringify(finding);
+  if (bucket.findingKeys.has(findingKey)) {
+    return;
+  }
+
+  bucket.findingKeys.add(findingKey);
+  bucket.findings.push(finding);
+}
+
+function mergeSourceFindings(buckets, sourceFindings) {
+  const ingestionFindings = [];
+
+  for (const finding of sourceFindings) {
+    const bucket = SOURCE_FINDING_BUCKET_MAP[finding.category];
+    if (bucket) {
+      addFinding(buckets, bucket, finding);
+    } else {
+      ingestionFindings.push(finding);
+    }
+  }
+
+  return ingestionFindings;
+}
+
+function finalizeReport({
+  buckets,
+  sourceFindings,
+  indexFindings,
+  recordCount,
+}) {
+  const categories = finalizeFindingBuckets(buckets);
+  const totalFindings =
+    sourceFindings.length +
+    indexFindings.length +
+    categories.reduce((total, category) => total + category.total, 0);
+
+  return {
+    ok: totalFindings === 0,
+    recordCount,
+    totalFindings,
+    sourceFindings,
+    indexFindings,
+    categories,
+  };
+}
+
+export function createFAQIndexIngestionReport({
+  sourceFindings = [],
+  indexFindings = [],
+  recordCount = 0,
+} = {}) {
+  const buckets = createFindingBuckets();
+  const remainingSourceFindings = mergeSourceFindings(
+    buckets,
+    sourceFindings,
+  );
+
+  return finalizeReport({
+    buckets,
+    sourceFindings: remainingSourceFindings,
+    indexFindings,
+    recordCount,
+  });
 }
 
 function isNonEmptyString(value) {
@@ -348,6 +499,10 @@ function normalizeSourceRecords(sourceRecords, buckets) {
         expected: '<id>-<slug>.en.json',
         actual: record?.filename,
       });
+      return [];
+    }
+
+    if (record?.jsonError || record?.ingestionError) {
       return [];
     }
 
@@ -620,12 +775,18 @@ function addSerializationFinding({
     return;
   }
 
-  const expectedBytes = JSON.stringify(
-    [...sourceRecords]
-      .sort((left, right) => left.id - right.id)
-      .map((record) => record.projected),
+  const expectedBytes = Buffer.from(
+    JSON.stringify(
+      [...sourceRecords]
+        .sort((left, right) => left.id - right.id)
+        .map((record) => record.projected),
+    ),
+    'utf8',
   );
-  if (expectedBytes === indexBytes) {
+  const actualBytes = Buffer.isBuffer(indexBytes)
+    ? indexBytes
+    : Buffer.from(String(indexBytes), 'utf8');
+  if (expectedBytes.equals(actualBytes)) {
     return;
   }
 
@@ -633,11 +794,11 @@ function addSerializationFinding({
     id: null,
     field: 'bytes',
     expected: {
-      byteLength: Buffer.byteLength(expectedBytes),
+      byteLength: expectedBytes.length,
     },
     actual: {
-      byteLength: Buffer.byteLength(indexBytes),
-      firstDifferenceOffset: findFirstDifference(expectedBytes, indexBytes),
+      byteLength: actualBytes.length,
+      firstDifferenceOffset: findFirstDifference(expectedBytes, actualBytes),
     },
   });
 }
@@ -646,7 +807,9 @@ function finalizeFindingBuckets(buckets) {
   return FAQ_INDEX_FINDING_CATEGORIES.map(({ key }) => {
     const category = buckets.get(key);
     return {
-      ...category,
+      key: category.key,
+      label: category.label,
+      findings: category.findings,
       total: category.findings.length,
     };
   });
@@ -654,10 +817,19 @@ function finalizeFindingBuckets(buckets) {
 
 export function compareFAQIndexRecords({
   sourceRecords,
+  sourceFindings = [],
   indexRecords,
-  indexBytes = JSON.stringify(indexRecords),
+  indexFindings = [],
+  indexBytes =
+    indexRecords === null || indexRecords === undefined
+      ? Buffer.alloc(0)
+      : Buffer.from(JSON.stringify(indexRecords), 'utf8'),
 }) {
   const buckets = createFindingBuckets();
+  const remainingSourceFindings = mergeSourceFindings(
+    buckets,
+    sourceFindings,
+  );
   const sourceIsArray = Array.isArray(sourceRecords);
   const sourceInputCount = sourceIsArray ? sourceRecords.length : null;
   if (!sourceIsArray) {
@@ -670,7 +842,7 @@ export function compareFAQIndexRecords({
   }
 
   const indexIsArray = Array.isArray(indexRecords);
-  if (!indexIsArray) {
+  if (!indexIsArray && indexFindings.length === 0) {
     addFinding(buckets, 'invalid-index-projection-schemas', {
       id: null,
       field: '$root',
@@ -720,7 +892,7 @@ export function compareFAQIndexRecords({
     side: 'index',
   });
 
-  if (indexIsArray) {
+  if (indexIsArray && indexFindings.length === 0) {
     addMembershipFindings({ buckets, sourceIdGroups, indexIdGroups });
     const comparableIds = getComparableIds(sourceIdGroups, indexIdGroups);
     addOrderingFindings({
@@ -744,26 +916,52 @@ export function compareFAQIndexRecords({
     sourceInputCount,
     sourceIdGroups,
     sourceSlugGroups,
-    indexBytes: String(indexBytes),
+    indexBytes,
   });
 
-  const categories = finalizeFindingBuckets(buckets);
-  const totalFindings = categories.reduce(
-    (total, category) => total + category.total,
-    0,
-  );
-
-  return {
-    ok: totalFindings === 0,
+  return finalizeReport({
+    buckets,
+    sourceFindings: remainingSourceFindings,
+    indexFindings,
     recordCount: normalizedSourceRecords.length,
-    totalFindings,
-    categories,
-  };
+  });
 }
 
 function stringifyReportValue(value) {
   const serialized = JSON.stringify(value);
   return serialized === undefined ? 'undefined' : serialized;
+}
+
+const INGESTION_FINDING_LABELS = {
+  'source-read-failure': 'source read failures',
+  'invalid-source-json': 'invalid source JSON',
+  'index-read-failure': 'index read failures',
+  'invalid-index-json': 'invalid index JSON',
+  'non-regular-source-entry': 'non-regular source entries',
+};
+
+function formatIngestionFindings(lines, findings) {
+  const grouped = new Map();
+  for (const finding of findings) {
+    const label =
+      INGESTION_FINDING_LABELS[finding.category] ?? finding.category;
+    const group = grouped.get(label) ?? [];
+    group.push(finding);
+    grouped.set(label, group);
+  }
+
+  for (const [label, group] of grouped) {
+    lines.push(`${label}: ${group.length}`);
+    for (const finding of group.slice(0, 20)) {
+      const details = [];
+      for (const field of REPORT_FINDING_FIELDS) {
+        if (Object.hasOwn(finding, field)) {
+          details.push(`${field}=${stringifyReportValue(finding[field])}`);
+        }
+      }
+      lines.push(`  - ${details.join(' ')}`);
+    }
+  }
 }
 
 export function formatFAQIndexReport(report) {
@@ -772,6 +970,11 @@ export function formatFAQIndexReport(report) {
   }
 
   const lines = ['AI FAQ index parity failed for public/ai-faqs.en.json.'];
+
+  formatIngestionFindings(lines, [
+    ...(report.sourceFindings ?? []),
+    ...(report.indexFindings ?? []),
+  ]);
 
   for (const category of report.categories) {
     lines.push(`${category.label}: ${category.total}`);
