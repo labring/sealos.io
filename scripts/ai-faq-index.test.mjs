@@ -405,6 +405,40 @@ test('runVerifyFAQIndex reports stale fixture categories without mutation', asyn
   }
 });
 
+test('package scripts expose FAQ index commands and gate Next builds', async () => {
+  const packageJson = JSON.parse(await readFile('package.json', 'utf8'));
+  const { scripts } = packageJson;
+
+  assert.equal(
+    scripts['generate:ai-faq-index'],
+    'node scripts/generate-ai-faq-index.mjs',
+  );
+  assert.equal(
+    scripts['verify:ai-faq-index'],
+    'node scripts/verify-ai-faq-index.mjs',
+  );
+  assert.equal(
+    scripts['test:ai-faq-index'],
+    'node --test scripts/ai-faq-index.test.mjs',
+  );
+  assert.equal(
+    scripts.build,
+    'npm run verify:ai-faq-index && next build && node scripts/normalize-root-locale.js',
+  );
+  assert.equal(
+    scripts['build:analyze'],
+    'npm run verify:ai-faq-index && ANALYZE=true next build && node scripts/normalize-root-locale.js',
+  );
+  assert.equal(
+    scripts['test:ai-faq-slugs'],
+    'node scripts/verify-ai-faq-slugs.mjs',
+  );
+  assert.equal(
+    scripts['verify:ai-faq-routes'],
+    'node scripts/verify-ai-faq-routes.mjs',
+  );
+});
+
 test('runGenerateFAQIndex publishes deterministic bytes through one sibling rename', async (t) => {
   const { sourceDirectory, outputPath } = await createGeneratorFixture(t);
   const stdout = createCaptureStream();
