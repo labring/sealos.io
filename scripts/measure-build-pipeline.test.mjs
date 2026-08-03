@@ -66,6 +66,7 @@ test('build mode separates Next build from root locale normalization', () => {
       'pre generated diff guard',
       'Next production build',
       'root locale normalization',
+      'AI FAQ route parity',
       'post generated diff guard',
     ],
   );
@@ -74,6 +75,7 @@ test('build mode separates Next build from root locale normalization', () => {
   assert.equal(stages[2].command, getLocalNextCommand());
   assert.deepEqual(stages[2].args, ['build']);
   assert.deepEqual(stages[3].args, ['scripts/normalize-root-locale.js']);
+  assert.deepEqual(stages[4].args, ['run', 'verify:ai-faq-routes']);
 });
 
 test('analyze mode scopes ANALYZE=true to the Next build stage', () => {
@@ -86,11 +88,13 @@ test('analyze mode scopes ANALYZE=true to the Next build stage', () => {
       'pre generated diff guard',
       'Next analyzer build',
       'root locale normalization',
+      'AI FAQ route parity',
       'post generated diff guard',
     ],
   );
   assert.equal(stages[2].env.ANALYZE, 'true');
   assert.equal(stages[3].env, undefined);
+  assert.deepEqual(stages[4].args, ['run', 'verify:ai-faq-routes']);
 });
 
 test('runMeasuredStage reports nonzero status and duration', () => {
@@ -169,6 +173,50 @@ test('runPipeline stops after failed FAQ parity before spawning Next', () => {
   assert.deepEqual(
     logs.filter((line) => /^  .*: .*ms \(exit \d+\)$/.test(line)),
     [logs.find((line) => line.startsWith('  AI FAQ parity:'))],
+  );
+});
+
+test('runPipeline stops after failed route parity before the post-build guard', () => {
+  const seen = [];
+  const logs = [];
+  const originalLog = console.log;
+  console.log = (...args) => logs.push(args.join(' '));
+
+  let result;
+  try {
+    result = runPipeline(
+      { mode: 'build' },
+      {
+        execFile: () => '10.9.0\n',
+        spawn: (command, args) => {
+          seen.push([command, args]);
+          return { status: seen.length === 5 ? 7 : 0 };
+        },
+      },
+    );
+  } finally {
+    console.log = originalLog;
+  }
+
+  assert.equal(result.exitCode, 7);
+  assert.deepEqual(
+    result.results.map(({ name, status }) => ({ name, status })),
+    [
+      { name: 'AI FAQ parity', status: 0 },
+      { name: 'pre generated diff guard', status: 0 },
+      { name: 'Next production build', status: 0 },
+      { name: 'root locale normalization', status: 0 },
+      { name: 'AI FAQ route parity', status: 7 },
+    ],
+  );
+  assert.deepEqual(seen.at(-1), [
+    'npm',
+    ['run', 'verify:ai-faq-routes'],
+  ]);
+  assert.equal(seen.length, 5);
+  assert.equal(
+    logs.filter((line) => /^  .*: .*ms \(exit \d+\)$/.test(line)).length,
+    5,
   );
 });
 

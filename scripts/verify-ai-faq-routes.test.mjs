@@ -365,6 +365,14 @@ test('retains the package command exactly', async () => {
     packageJson.scripts['verify:ai-faq-routes'],
     'node scripts/verify-ai-faq-routes.mjs',
   );
+  assert.equal(
+    packageJson.scripts.build,
+    'npm run verify:ai-faq-index && next build && node scripts/normalize-root-locale.js && npm run verify:ai-faq-routes',
+  );
+  assert.equal(
+    packageJson.scripts['build:analyze'],
+    'npm run verify:ai-faq-index && ANALYZE=true next build && node scripts/normalize-root-locale.js && npm run verify:ai-faq-routes',
+  );
 });
 
 test('inspects every local page in deterministic batches of at most 32', async (t) => {
