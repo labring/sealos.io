@@ -839,11 +839,11 @@ test('package scripts expose FAQ index commands and gate Next builds', async () 
   );
   assert.equal(
     scripts.build,
-    'npm run verify:ai-faq-index && next build && node scripts/normalize-root-locale.js',
+    'npm run verify:ai-faq-index && next build && node scripts/normalize-root-locale.js && npm run verify:ai-faq-routes',
   );
   assert.equal(
     scripts['build:analyze'],
-    'npm run verify:ai-faq-index && ANALYZE=true next build && node scripts/normalize-root-locale.js',
+    'npm run verify:ai-faq-index && ANALYZE=true next build && node scripts/normalize-root-locale.js && npm run verify:ai-faq-routes',
   );
   assert.equal(
     scripts['test:ai-faq-slugs'],
