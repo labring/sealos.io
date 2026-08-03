@@ -1,7 +1,15 @@
 import assert from 'node:assert/strict';
-import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import {
+  mkdir,
+  mkdtemp,
+  readFile,
+  readdir,
+  rename,
+  rm,
+  writeFile,
+} from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { basename, dirname, join } from 'node:path';
 import test from 'node:test';
 
 import {
@@ -15,6 +23,7 @@ import {
   serializeCanonicalFAQIndex,
   validateFAQSourceRecords,
 } from './ai-faq-index.mjs';
+import { runGenerateFAQIndex } from './generate-ai-faq-index.mjs';
 
 const EXPECTED_FINDING_CATEGORY_KEYS = [
   'malformed-source-identifiers',
@@ -67,6 +76,97 @@ function makeCanonicalIndexRecords(sourceRecords) {
   return sourceRecords.map(projectFAQIndexRecord);
 }
 
+function createCaptureStream() {
+  const chunks = [];
+
+  return {
+    stream: {
+      write(chunk) {
+        chunks.push(String(chunk));
+        return true;
+      },
+    },
+    output() {
+      return chunks.join('');
+    },
+  };
+}
+
+async function createGeneratorFixture(t) {
+  const rootDirectory = await mkdtemp(join(tmpdir(), 'ai-faq-generator-'));
+  const sourceDirectory = join(rootDirectory, 'source');
+  const outputPath = join(rootDirectory, 'ai-faqs.en.json');
+
+  await mkdir(sourceDirectory);
+  await writeFile(
+    join(sourceDirectory, '1-alpha.en.json'),
+    JSON.stringify(
+      makeSourceData({
+        title: 'Question 1',
+        description: 'Description 1',
+        category: 'Category 1',
+      }),
+    ),
+  );
+  await writeFile(
+    join(sourceDirectory, '2-beta.en.json'),
+    JSON.stringify(
+      makeSourceData({
+        title: 'Question 2',
+        description: 'Description 2',
+        category: 'Category 2',
+      }),
+    ),
+  );
+  await writeFile(outputPath, 'original index bytes');
+
+  t.after(() => rm(rootDirectory, { recursive: true, force: true }));
+
+  return { rootDirectory, sourceDirectory, outputPath };
+}
+
+function createRecordingFilesystem(overrides = {}) {
+  const operations = [];
+
+  return {
+    operations,
+    filesystem: {
+      writeFile: async (...args) => {
+        operations.push({
+          type: 'writeFile',
+          path: args[0],
+          bytes: args[1],
+          options: args[2],
+        });
+        return (overrides.writeFile ?? writeFile)(...args);
+      },
+      rename: async (...args) => {
+        operations.push({
+          type: 'rename',
+          sourcePath: args[0],
+          destinationPath: args[1],
+        });
+        return (overrides.rename ?? rename)(...args);
+      },
+      rm: async (...args) => {
+        operations.push({
+          type: 'rm',
+          path: args[0],
+          options: args[1],
+        });
+        return (overrides.rm ?? rm)(...args);
+      },
+    },
+  };
+}
+
+async function listOwnedTemporaryFiles(outputPath) {
+  const prefix = `.${basename(outputPath)}.`;
+  return (await readdir(dirname(outputPath))).filter(
+    (name) => name.startsWith(prefix) && name.endsWith('.tmp'),
+  );
+}
+
 function getReportCategory(report, key) {
   const category = report.categories.find((item) => item.key === key);
   assert.ok(category, `missing report category: ${key}`);
@@ -103,6 +203,194 @@ async function captureSourceValidationError(action) {
   });
   return captured;
 }
+
+test('runGenerateFAQIndex publishes deterministic bytes through one sibling rename', async (t) => {
+  const { sourceDirectory, outputPath } = await createGeneratorFixture(t);
+  const stdout = createCaptureStream();
+  const stderr = createCaptureStream();
+  const { filesystem, operations } = createRecordingFilesystem();
+  const options = {
+    sourceDirectory,
+    outputPath,
+    expectedCount: 2,
+    stdout: stdout.stream,
+    stderr: stderr.stream,
+    filesystem,
+  };
+
+  assert.equal(await runGenerateFAQIndex(options), 0);
+  const firstBytes = await readFile(outputPath, 'utf8');
+  assert.equal(await runGenerateFAQIndex(options), 0);
+  const secondBytes = await readFile(outputPath, 'utf8');
+
+  assert.equal(secondBytes, firstBytes);
+  assert.equal(secondBytes.endsWith(']'), true);
+  assert.equal(secondBytes.endsWith('\n'), false);
+  assert.deepEqual(JSON.parse(secondBytes), [
+    {
+      category: 'Category 1',
+      question: 'Question 1',
+      description: 'Description 1',
+      slug: '1-alpha',
+    },
+    {
+      category: 'Category 2',
+      question: 'Question 2',
+      description: 'Description 2',
+      slug: '2-beta',
+    },
+  ]);
+
+  const writeOperations = operations.filter(({ type }) => type === 'writeFile');
+  const renameOperations = operations.filter(({ type }) => type === 'rename');
+  assert.equal(writeOperations.length, 2);
+  assert.equal(renameOperations.length, 2);
+  assert.equal(
+    operations.some(({ type }) => type === 'rm'),
+    false,
+  );
+
+  for (let index = 0; index < writeOperations.length; index += 1) {
+    const writeOperation = writeOperations[index];
+    const renameOperation = renameOperations[index];
+    assert.equal(dirname(writeOperation.path), dirname(outputPath));
+    assert.match(
+      basename(writeOperation.path),
+      /^\.ai-faqs\.en\.json\.\d+\.[0-9a-f-]{36}\.tmp$/,
+    );
+    assert.deepEqual(writeOperation.options, {
+      encoding: 'utf8',
+      flag: 'wx',
+    });
+    assert.equal(writeOperation.bytes, firstBytes);
+    assert.equal(renameOperation.sourcePath, writeOperation.path);
+    assert.equal(renameOperation.destinationPath, outputPath);
+  }
+
+  assert.notEqual(writeOperations[0].path, writeOperations[1].path);
+  assert.deepEqual(await listOwnedTemporaryFiles(outputPath), []);
+  assert.equal(stderr.output(), '');
+
+  const summary = `Generated 2 AI FAQ records at ${outputPath} (${Buffer.byteLength(
+    firstBytes,
+  )} bytes).\n`;
+  assert.equal(stdout.output(), `${summary}${summary}`);
+});
+
+test('runGenerateFAQIndex validates before publication and retains destination bytes', async (t) => {
+  const { sourceDirectory, outputPath } = await createGeneratorFixture(t);
+  await writeFile(
+    join(sourceDirectory, '1-alpha.en.json'),
+    JSON.stringify(makeSourceData({ title: '   ' })),
+  );
+  const stdout = createCaptureStream();
+  const stderr = createCaptureStream();
+  const { filesystem, operations } = createRecordingFilesystem();
+
+  const status = await runGenerateFAQIndex({
+    sourceDirectory,
+    outputPath,
+    expectedCount: 2,
+    stdout: stdout.stream,
+    stderr: stderr.stream,
+    filesystem,
+  });
+
+  assert.equal(status, 1);
+  assert.equal(await readFile(outputPath, 'utf8'), 'original index bytes');
+  assert.deepEqual(operations, []);
+  assert.deepEqual(await listOwnedTemporaryFiles(outputPath), []);
+  assert.equal(stdout.output(), '');
+  assert.match(
+    stderr.output(),
+    /^AI FAQ index generation failed: .*validation failed.*\n$/i,
+  );
+});
+
+test('runGenerateFAQIndex cleans its exact temporary path after write or rename failure', async (t) => {
+  for (const failureKind of ['write', 'rename']) {
+    await t.test(failureKind, async (subtest) => {
+      const { sourceDirectory, outputPath } =
+        await createGeneratorFixture(subtest);
+      const stdout = createCaptureStream();
+      const stderr = createCaptureStream();
+      const overrides =
+        failureKind === 'write'
+          ? {
+              writeFile: async (temporaryPath, _bytes, options) => {
+                await writeFile(temporaryPath, 'partial bytes', options);
+                throw new Error('injected write failure');
+              },
+            }
+          : {
+              rename: async () => {
+                throw new Error('injected rename failure');
+              },
+            };
+      const { filesystem, operations } = createRecordingFilesystem(overrides);
+
+      const status = await runGenerateFAQIndex({
+        sourceDirectory,
+        outputPath,
+        expectedCount: 2,
+        stdout: stdout.stream,
+        stderr: stderr.stream,
+        filesystem,
+      });
+
+      const writeOperation = operations.find(
+        ({ type }) => type === 'writeFile',
+      );
+      const cleanupOperation = operations.find(({ type }) => type === 'rm');
+      assert.equal(status, 1);
+      assert.equal(await readFile(outputPath, 'utf8'), 'original index bytes');
+      assert.ok(writeOperation);
+      assert.equal(cleanupOperation.path, writeOperation.path);
+      assert.deepEqual(cleanupOperation.options, { force: true });
+      assert.deepEqual(await listOwnedTemporaryFiles(outputPath), []);
+      assert.equal(stdout.output(), '');
+      assert.match(
+        stderr.output(),
+        new RegExp(
+          `^AI FAQ index generation failed: injected ${failureKind} failure\\n$`,
+        ),
+      );
+    });
+  }
+});
+
+test('runGenerateFAQIndex keeps publication failure primary when cleanup also fails', async (t) => {
+  const { sourceDirectory, outputPath } = await createGeneratorFixture(t);
+  const stdout = createCaptureStream();
+  const stderr = createCaptureStream();
+  const { filesystem } = createRecordingFilesystem({
+    rename: async () => {
+      throw new Error('injected rename failure');
+    },
+    rm: async (...args) => {
+      await rm(...args);
+      throw new Error('injected cleanup failure');
+    },
+  });
+
+  const status = await runGenerateFAQIndex({
+    sourceDirectory,
+    outputPath,
+    expectedCount: 2,
+    stdout: stdout.stream,
+    stderr: stderr.stream,
+    filesystem,
+  });
+
+  assert.equal(status, 1);
+  assert.equal(await readFile(outputPath, 'utf8'), 'original index bytes');
+  assert.deepEqual(await listOwnedTemporaryFiles(outputPath), []);
+  assert.equal(stdout.output(), '');
+  assert.match(
+    stderr.output(),
+    /^AI FAQ index generation failed: injected rename failure\nAI FAQ index cleanup failed: injected cleanup failure\n$/,
+  );
+});
 
 test('parseFAQSourceFilename accepts the canonical numeric filename shape', () => {
   assert.deepEqual(parseFAQSourceFilename('12-alpha-beta.en.json'), {
@@ -258,9 +546,7 @@ test('loadCanonicalFAQSource reports gaps in the expected ID range', async () =>
     );
 
     assert.deepEqual(
-      error.findings.filter(
-        ({ category }) => category === 'missing-source-id',
-      ),
+      error.findings.filter(({ category }) => category === 'missing-source-id'),
       [
         {
           category: 'missing-source-id',
@@ -294,10 +580,7 @@ test('loadCanonicalFAQSource rejects non-regular canonical entries', async () =>
     assert.equal(finding.id, 2);
     assert.equal(finding.field, 'entryType');
     assert.equal(finding.actual, 'non-regular');
-    assert.equal(
-      finding.sourcePath,
-      join(sourceDirectory, '2-beta.en.json'),
-    );
+    assert.equal(finding.sourcePath, join(sourceDirectory, '2-beta.en.json'));
   } finally {
     await rm(sourceDirectory, { recursive: true, force: true });
   }
@@ -526,10 +809,7 @@ test('compareFAQIndexRecords counts every parity finding category', async (t) =>
     {
       key: 'ordering-drift',
       mutate({ indexRecords }) {
-        [indexRecords[1], indexRecords[2]] = [
-          indexRecords[2],
-          indexRecords[1],
-        ];
+        [indexRecords[1], indexRecords[2]] = [indexRecords[2], indexRecords[1]];
       },
     },
     {
@@ -643,7 +923,9 @@ test('formatFAQIndexReport emits stable totals and caps details at 20', () => {
   const output = formatFAQIndexReport(report);
   const questionDetails = output
     .split('\n')
-    .filter((line) => line.startsWith('  - ') && line.includes('field="question"'));
+    .filter(
+      (line) => line.startsWith('  - ') && line.includes('field="question"'),
+    );
 
   assert.equal(getReportCategory(report, 'question-drift').total, 21);
   assert.equal(questionDetails.length, 20);
