@@ -72,6 +72,7 @@ Deploy the release branch and run the live AI Quick Reference route verifier.
 | 260721-n8f | Add permanent LobeHub legacy app-store redirects across Vercel and Cloudflare Pages | 2026-07-21 | ef5aad0 | [260721-n8f-add-permanent-lobehub-legacy-app-store-r](./quick/260721-n8f-add-permanent-lobehub-legacy-app-store-r/) |
 | 260731-lqa | Update the /contact page to match the homepage visual theme while preserving functionality | 2026-07-31 | f220df8 | [260731-lqa-update-the-contact-page-to-match-the-hom](./quick/260731-lqa-update-the-contact-page-to-match-the-hom/) |
 | 260731-n14 | Remove the contact grid background and align its footer and bottom wordmark with the homepage | 2026-07-31 | fc4bbc2 | [260731-n14-remove-the-contact-page-grid-background-](./quick/260731-n14-remove-the-contact-page-grid-background-/) |
+| 260731-ogr | Restore the shared navbar to the pre-846a308 visual design across all pages while preserving current navigation behavior and analytics | 2026-08-03 | 7c889c8 | [260731-ogr-restore-the-shared-navbar-to-the-pre-846](./quick/260731-ogr-restore-the-shared-navbar-to-the-pre-846/) |
 
 ## Performance Metrics
 
