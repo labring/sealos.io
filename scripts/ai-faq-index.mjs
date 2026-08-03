@@ -911,14 +911,16 @@ export function compareFAQIndexRecords({
     });
   }
 
-  addSerializationFinding({
-    buckets,
-    sourceRecords: normalizedSourceRecords,
-    sourceInputCount,
-    sourceIdGroups,
-    sourceSlugGroups,
-    indexBytes,
-  });
+  if (indexFindings.length === 0) {
+    addSerializationFinding({
+      buckets,
+      sourceRecords: normalizedSourceRecords,
+      sourceInputCount,
+      sourceIdGroups,
+      sourceSlugGroups,
+      indexBytes,
+    });
+  }
 
   return finalizeReport({
     buckets,

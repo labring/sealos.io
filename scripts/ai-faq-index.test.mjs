@@ -337,8 +337,8 @@ test('runVerifyFAQIndex preserves raw index bytes for canonical comparison', asy
   });
 
   assert.equal(status, 1);
-  assert.match(stderr.output(), /non-canonical serialization: 1/);
-  assert.match(stderr.output(), /byteLength/);
+  assert.match(stderr.output(), /invalid index JSON: 1/);
+  assert.doesNotMatch(stderr.output(), /non-canonical serialization: [1-9]/);
   assert.deepEqual(await readFile(fixture.indexPath), invalidUtf8Bytes);
 });
 
