@@ -21,7 +21,7 @@ The complete v1.4 planning record is preserved in
 
 ### Parity Verification
 
-- [ ] **PARITY-01**: Maintainer can run a local parity check that compares source
+- [x] **PARITY-01**: Maintainer can run a local parity check that compares source
   and page index in both directions and reports missing, orphaned, duplicate,
   field-drift, and ordering mismatches with record-level details.
 
@@ -31,7 +31,7 @@ The complete v1.4 planning record is preserved in
 
 ### Build And Delivery
 
-- [ ] **DELIVERY-01**: The build or CI gate runs page-index generation or parity
+- [x] **DELIVERY-01**: The build or CI gate runs page-index generation or parity
   verification before static export and fails with an actionable diagnostic
   when source and derived data diverge.
 
@@ -83,9 +83,9 @@ Roadmap creation maps each v1.5 requirement to exactly one phase.
 |-------------|-------|--------|
 | SOURCE-01 | Phase 31 | Complete |
 | SOURCE-02 | Phase 31 | Complete |
-| PARITY-01 | Phase 31 | Pending |
+| PARITY-01 | Phase 31 | Complete |
 | PARITY-02 | Phase 32 | Pending |
-| DELIVERY-01 | Phase 31 | Pending |
+| DELIVERY-01 | Phase 31 | Complete |
 | DELIVERY-02 | Phase 32 | Pending |
 
 **Coverage:** 6/6 v1.5 requirements mapped.

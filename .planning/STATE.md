@@ -4,17 +4,17 @@ milestone: v1.5
 milestone_name: AI Quick Reference Index Consistency
 current_phase: 31
 current_phase_name: Canonical Index Generation And Local Parity
-status: executing
-stopped_at: Completed 31-02-PLAN.md
-last_updated: "2026-08-03T18:10:08.322Z"
+status: verifying
+stopped_at: Completed 31-03-PLAN.md
+last_updated: "2026-08-03T19:13:52.479Z"
 last_activity: 2026-08-03
-last_activity_desc: Phase 31 execution started
+last_activity_desc: Completed Phase 31 Plan 03
 progress:
   total_phases: 2
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
-  percent: 0
+  completed_plans: 3
+  percent: 50
 ---
 
 # Project State
@@ -25,7 +25,7 @@ See: `.planning/PROJECT.md` (updated 2026-08-03)
 
 **Core value:** Readers and search engines reach the exact Sealos content
 represented by the URL and current source data.
-**Current focus:** Phase 31 — Canonical Index Generation And Local Parity
+**Current focus:** Phase 31 — canonical-index-generation-and-local-parity
 
 ## Current Phase
 
@@ -33,31 +33,31 @@ represented by the URL and current source data.
 |-------|-------|
 | Phase | 31 of 32 |
 | Name | Canonical Index Generation And Local Parity |
-| Status | Planned |
+| Status | Ready for verification |
 | Goal | Source JSON, page index entries, sitemap URLs, and detail-page routes stay aligned. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-Phase 31 plans cover SOURCE-01, SOURCE-02, PARITY-01, and DELIVERY-01 and are
-ready for execution.
+Phase 31 implementation covers SOURCE-01, SOURCE-02, PARITY-01, and DELIVERY-01.
+Phase 32 requirements remain pending.
 
 ## Current Position
 
-Phase: 31 (Canonical Index Generation And Local Parity) — EXECUTING
+Phase: 31 (Canonical Index Generation And Local Parity) — VERIFYING
 Plan: 3 of 3
-Status: Ready to execute
-Last activity: 2026-08-03 — Phase 31 execution started
+Status: Phase complete — ready for verification
+Last activity: 2026-08-03 — Completed Plan 31-03
 
 ## Next Action
 
-Run `$gsd-execute-phase 31` to execute the plans in wave order.
+Run `$gsd-verify-work 31` to verify the Phase 31 goal.
 
 ## Session
 
-**Last session:** 2026-08-03T18:10:08.317Z
-**Stopped at:** Completed 31-02-PLAN.md
+**Last session:** 2026-08-03T19:13:52.475Z
+**Stopped at:** Completed 31-03-PLAN.md
 **Resume file:** None
 
 ### Quick Tasks Completed
@@ -118,6 +118,7 @@ Run `$gsd-execute-phase 31` to execute the plans in wave order.
 | Phase 28 P03 | 20 min | 3 tasks | 7 files |
 | Phase 31 P01 | 25 min | 2 tasks | 3 files |
 | Phase 31 P02 | 27 min | 2 tasks | 3 files |
+| Phase 31 P03 | 47 min | 2 tasks | 6 files |
 
 ## Decisions
 
@@ -218,7 +219,10 @@ Run `$gsd-execute-phase 31` to execute the plans in wave order.
 - [Phase 31]: 31-02: Validate and serialize the complete source set before creating publication state. — Invalid source input leaves destination and filesystem publication state unchanged.
 - [Phase 31]: 31-02: Publish through a UUID-bearing destination sibling opened with wx and one same-directory rename. — The destination observes complete canonical bytes.
 - [Phase 31]: 31-02: Remove only the exact owned temporary path and retain publication failures as primary. — Cleanup stays scoped and failure diagnostics remain actionable.
+- [Phase 31]: 31-03: Keep parity verification read-only and delegate source, comparison, serialization, and diagnostics to the shared boundary. — This preserves one canonical semantic implementation and makes mutation safety directly testable.
+- [Phase 31]: 31-03: Gate package and timed Next build entry points with verify:ai-faq-index as the first executable stage. — Every repository-owned static export now stops before Next when the committed index is stale.
+- [Phase 31]: 31-03: Preserve legacy exact-slug and route commands while Phase 32 retains sitemap and deployed-route parity ownership. — This keeps the current contracts stable and holds the milestone boundary.
 
 ## Operator Next Steps
 
-- Run `$gsd-execute-phase 31` to execute the approved plans in wave order.
+- Run `$gsd-verify-work 31` to verify the Phase 31 goal.
