@@ -12,14 +12,8 @@ import {
 } from '@/components/ui/navigation-menu';
 import {
   ChevronDown,
-  CodeXmlIcon,
-  DatabaseIcon,
-  LayoutGridIcon,
   Menu,
   X,
-  School,
-  Gamepad2,
-  Building2,
   BookOpenText,
   GraduationCap,
   FileText,
@@ -68,35 +62,9 @@ type HeaderProps = {
 // 导航链接数据
 const navigationLinks: NavigationLink[] = [
   {
-    text: 'Products',
-    url: '#',
+    text: 'Templates',
+    url: '/products/app-store',
     isExternal: false,
-    dropdownConfig: {
-      className: 'w-[40rem]! md:w-[40rem]!',
-    },
-    children: [
-      {
-        text: 'DevBox',
-        url: '/products/devbox',
-        isExternal: false,
-        description: 'Cloud development environment',
-        icon: <CodeXmlIcon size={16} />,
-      },
-      {
-        text: 'App Store',
-        url: '/products/app-store',
-        isExternal: false,
-        description: 'Run your favorite apps',
-        icon: <LayoutGridIcon size={16} />,
-      },
-      {
-        text: 'Databases',
-        url: '/products/databases',
-        isExternal: false,
-        description: '1-click managed DB',
-        icon: <DatabaseIcon size={16} />,
-      },
-    ],
   },
   {
     text: 'Docs',
@@ -145,37 +113,6 @@ const navigationLinks: NavigationLink[] = [
     text: 'Pricing',
     url: '/pricing',
     isExternal: false,
-  },
-  {
-    text: 'Solutions',
-    url: '#',
-    isExternal: false,
-    dropdownConfig: {
-      className: 'w-[40rem]! md:w-[40rem]!',
-    },
-    children: [
-      {
-        text: 'Education',
-        url: '/solutions/industries/education',
-        isExternal: false,
-        description: 'Empower learning with cloud infrastructure',
-        icon: <School size={16} />,
-      },
-      {
-        text: 'Gaming',
-        url: '/solutions/industries/gaming',
-        isExternal: false,
-        description: 'Scale your gaming platform',
-        icon: <Gamepad2 size={16} />,
-      },
-      {
-        text: 'Information Technology',
-        url: '/solutions/industries/information-technology',
-        isExternal: false,
-        description: 'Enterprise-grade IT solutions',
-        icon: <Building2 size={16} />,
-      },
-    ],
   },
   {
     text: 'Contact',

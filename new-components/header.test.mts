@@ -68,7 +68,7 @@ test('all current dropdown children render in historical two-column panels', () 
   assert.equal(
     (navigationLinks.match(/className: 'w-\[40rem\]! md:w-\[40rem\]!'/g) ?? [])
       .length,
-    3,
+    1,
   );
   assert.match(
     source,
@@ -79,11 +79,10 @@ test('all current dropdown children render in historical two-column panels', () 
   assert.doesNotMatch(source, /children\.slice/);
 
   for (const label of [
-    'Products',
+    'Templates',
     'Docs',
     'Resources',
     'Pricing',
-    'Solutions',
     'Contact',
     'Learn',
     'Tutorials',
@@ -91,6 +90,24 @@ test('all current dropdown children render in historical two-column panels', () 
     'Community',
   ]) {
     assert.match(navigationLinks, new RegExp(`text: '${label}'`));
+  }
+
+  assert.match(
+    navigationLinks,
+    /text: 'Templates'[\s\S]*text: 'Docs'[\s\S]*text: 'Resources'[\s\S]*text: 'Pricing'[\s\S]*text: 'Contact'/,
+  );
+  assert.match(navigationLinks, /url: '\/products\/app-store'/);
+  for (const removedLabel of [
+    'Products',
+    'Solutions',
+    'DevBox',
+    'App Store',
+    'Databases',
+    'Education',
+    'Gaming',
+    'Information Technology',
+  ]) {
+    assert.doesNotMatch(navigationLinks, new RegExp(`text: '${removedLabel}'`));
   }
 });
 
