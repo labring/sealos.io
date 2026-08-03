@@ -79,6 +79,7 @@ test('all current dropdown children render in historical two-column panels', () 
   assert.doesNotMatch(source, /children\.slice/);
 
   for (const label of [
+    'Skills',
     'Templates',
     'Docs',
     'Resources',
@@ -94,8 +95,9 @@ test('all current dropdown children render in historical two-column panels', () 
 
   assert.match(
     navigationLinks,
-    /text: 'Templates'[\s\S]*text: 'Docs'[\s\S]*text: 'Resources'[\s\S]*text: 'Pricing'[\s\S]*text: 'Contact'/,
+    /text: 'Skills'[\s\S]*text: 'Templates'[\s\S]*text: 'Docs'[\s\S]*text: 'Resources'[\s\S]*text: 'Pricing'[\s\S]*text: 'Contact'/,
   );
+  assert.match(navigationLinks, /url: '\/sealos-skills'/);
   assert.match(navigationLinks, /url: '\/products\/app-store'/);
   for (const removedLabel of [
     'Products',

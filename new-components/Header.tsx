@@ -62,6 +62,11 @@ type HeaderProps = {
 // 导航链接数据
 const navigationLinks: NavigationLink[] = [
   {
+    text: 'Skills',
+    url: '/sealos-skills',
+    isExternal: false,
+  },
+  {
     text: 'Templates',
     url: '/products/app-store',
     isExternal: false,
