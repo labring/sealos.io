@@ -22,6 +22,7 @@ const REPORT_FINDING_FIELDS = [
   'sourcePosition',
   'indexPosition',
   'sourcePath',
+  'indexPath',
   'code',
   'field',
   'expected',

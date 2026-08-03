@@ -33,7 +33,7 @@ async function inspectFAQIndex(indexPath, filesystem) {
         {
           category: 'index-read-failure',
           id: null,
-          sourcePath: indexPath,
+          indexPath,
           code: error?.code ?? 'INDEX_READ_FAILED',
           field: '$read',
           expected: 'readable index file',
@@ -57,7 +57,7 @@ async function inspectFAQIndex(indexPath, filesystem) {
         {
           category: 'invalid-index-json',
           id: null,
-          sourcePath: indexPath,
+          indexPath,
           code: error?.code ?? 'INVALID_INDEX_JSON',
           field: '$json',
           expected: 'valid UTF-8 JSON',

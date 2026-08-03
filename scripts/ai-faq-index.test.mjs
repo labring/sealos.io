@@ -422,7 +422,6 @@ test('source content failures preserve identity without derivative findings', as
     {
       name: 'read failure',
       field: '$read',
-      code: 'EACCES',
       configure(fixture) {
         return {
           readFile: async (sourcePath) => {
@@ -439,7 +438,6 @@ test('source content failures preserve identity without derivative findings', as
     {
       name: 'invalid JSON',
       field: '$json',
-      code: 'INVALID_INDEX_JSON',
       async configure(fixture) {
         await writeFile(join(fixture.sourceDirectory, '1-alpha.en.json'), '{');
         return {};
@@ -628,6 +626,7 @@ test('index ingestion diagnostics use indexPath exclusively', async (t) => {
     {
       name: 'read failure',
       field: '$read',
+      code: 'EACCES',
       configure(fixture) {
         return {
           readFile: async (filePath) => {
@@ -644,6 +643,7 @@ test('index ingestion diagnostics use indexPath exclusively', async (t) => {
     {
       name: 'invalid JSON',
       field: '$json',
+      code: 'INVALID_INDEX_JSON',
       async configure(fixture) {
         await writeFile(fixture.indexPath, '{');
         return {};
