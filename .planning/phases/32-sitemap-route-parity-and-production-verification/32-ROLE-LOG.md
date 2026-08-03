@@ -127,3 +127,9 @@ all 18 Phase 32 sources covered.
 
 Plan checking stopped at PASS. Execution, deployment, and phase verification
 remain unstarted.
+
+## Execution Ledger
+
+| Plan | Inline roles | Generic fallback | Result |
+|---|---|---|---|
+| 32-01 | executor, test reviewer, closeout | dedicated child dispatch was unavailable by contract; the replacement executed every role sequentially | complete; summary and full regression evidence recorded |

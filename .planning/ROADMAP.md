@@ -95,14 +95,22 @@ and reserve sitemap and deployed route checks for Phase 32.
    sitemap and page index, and inspect all four identity fields on every one of
    the 2,000 local and deployed page-index routes.
 
-**Plans:** 0/4 plans executed
+**Plans:** 1/4 plans executed
+
+- [x] 32-01-PLAN.md
+- [ ] 32-02-PLAN.md
+- [ ] 32-03-PLAN.md
+- [ ] 32-04-PLAN.md
 
 - **Wave 1:** `32-01-PLAN.md` establishes deterministic four-set, four-field,
   diagnostic, and retained CLI semantics through focused TDD.
+
 - **Wave 2:** `32-02-PLAN.md` completes the bounded 2,000-page local static
   gate and adds it after standard and timed static builds.
+
 - **Wave 3:** `32-03-PLAN.md` completes the eight-worker, timeout-bounded
   2,000-route remote gate with structured English diagnostics.
+
 - **Wave 4:** `32-04-PLAN.md` preserves the stale production baseline and
   requires exact-SHA Vercel, Cloudflare, and live Sealos evidence.
 
@@ -116,7 +124,7 @@ requests, and retain full-SHA production evidence from both hosting workflows.
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 31. Canonical Index Generation And Local Parity | 3/3 | Complete | 2026-08-03 |
-| 32. Sitemap Route Parity And Production Verification | 0/4 | Planned    |  |
+| 32. Sitemap Route Parity And Production Verification | 1/4 | In Progress|  |
 
 ## Execution Order
 
