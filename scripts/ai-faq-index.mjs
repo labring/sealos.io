@@ -105,20 +105,22 @@ export function parseFAQSourceFilename(filename) {
   };
 }
 
-function compareSourceRecords(left, right) {
-  if (left.id !== right.id) {
-    return left.id - right.id;
-  }
-
-  if (left.filename < right.filename) {
+function compareCodeUnitStrings(left, right) {
+  if (left < right) {
     return -1;
   }
 
-  if (left.filename > right.filename) {
+  if (left > right) {
     return 1;
   }
 
   return 0;
+}
+
+function compareSourceRecords(left, right) {
+  return left.id === right.id
+    ? compareCodeUnitStrings(left.filename, right.filename)
+    : left.id - right.id;
 }
 
 function collectDuplicateFindings(records, key, category) {
@@ -341,7 +343,9 @@ export async function inspectCanonicalFAQSource({
   const findings = [];
   const sourceEntries = [];
 
-  for (const directoryEntry of directoryEntries) {
+  for (const directoryEntry of [...directoryEntries].sort((left, right) =>
+    compareCodeUnitStrings(left.name, right.name),
+  )) {
     const parsed = parseFAQSourceFilename(directoryEntry.name);
     const sourcePath = resolve(sourceDirectory, directoryEntry.name);
 
