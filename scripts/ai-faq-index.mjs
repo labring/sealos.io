@@ -608,11 +608,13 @@ function findFirstDifference(left, right) {
 function addSerializationFinding({
   buckets,
   sourceRecords,
+  sourceInputCount,
   sourceIdGroups,
   sourceSlugGroups,
   indexBytes,
 }) {
   const sourceIsCanonical =
+    sourceRecords.length === sourceInputCount &&
     sourceRecords.every((record) => record.validSchema) &&
     [...sourceIdGroups.values()].every((group) => group.length === 1) &&
     [...sourceSlugGroups.values()].every((group) => group.length === 1);
@@ -648,6 +650,9 @@ export function compareFAQIndexRecords({
   indexBytes = JSON.stringify(indexRecords),
 }) {
   const buckets = createFindingBuckets();
+  const sourceInputCount = Array.isArray(sourceRecords)
+    ? sourceRecords.length
+    : null;
   if (!Array.isArray(sourceRecords)) {
     addFinding(buckets, 'invalid-source-projection-schemas', {
       id: null,
@@ -730,6 +735,7 @@ export function compareFAQIndexRecords({
   addSerializationFinding({
     buckets,
     sourceRecords: normalizedSourceRecords,
+    sourceInputCount,
     sourceIdGroups,
     sourceSlugGroups,
     indexBytes: String(indexBytes),
