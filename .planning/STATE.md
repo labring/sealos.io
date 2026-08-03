@@ -5,15 +5,15 @@ milestone_name: AI Quick Reference Index Consistency
 current_phase: 31
 current_phase_name: Canonical Index Generation And Local Parity
 status: executing
-stopped_at: Completed 31-01-PLAN.md
-last_updated: "2026-08-03T17:16:15.516Z"
+stopped_at: Completed 31-02-PLAN.md
+last_updated: "2026-08-03T18:10:08.322Z"
 last_activity: 2026-08-03
 last_activity_desc: Phase 31 execution started
 progress:
   total_phases: 2
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -46,7 +46,7 @@ ready for execution.
 ## Current Position
 
 Phase: 31 (Canonical Index Generation And Local Parity) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-08-03 — Phase 31 execution started
 
@@ -56,8 +56,8 @@ Run `$gsd-execute-phase 31` to execute the plans in wave order.
 
 ## Session
 
-**Last session:** 2026-08-03T17:16:15.510Z
-**Stopped at:** Completed 31-01-PLAN.md
+**Last session:** 2026-08-03T18:10:08.317Z
+**Stopped at:** Completed 31-02-PLAN.md
 **Resume file:** None
 
 ### Quick Tasks Completed
@@ -117,6 +117,7 @@ Run `$gsd-execute-phase 31` to execute the plans in wave order.
 | Phase 28 P02 | 10 min | 2 tasks | 5 files |
 | Phase 28 P03 | 20 min | 3 tasks | 7 files |
 | Phase 31 P01 | 25 min | 2 tasks | 3 files |
+| Phase 31 P02 | 27 min | 2 tasks | 3 files |
 
 ## Decisions
 
@@ -214,6 +215,9 @@ Run `$gsd-execute-phase 31` to execute the plans in wave order.
 - [Phase 31]: Canonical source identity comes from strict numeric filenames, and source reads run in sequential batches of 32. — This preserves deterministic order and bounds file descriptor use across 2,000 source files.
 - [Phase 31]: Parity aligns by numeric ID and compares exact slugs as fields across common valid unique records. — This reports stale slugs as field drift and prevents missing records from causing ordering cascades.
 - [Phase 31]: Canonical-byte findings require a fully valid source set. — Primary source validation remains actionable without derivative serialization noise.
+- [Phase 31]: 31-02: Validate and serialize the complete source set before creating publication state. — Invalid source input leaves destination and filesystem publication state unchanged.
+- [Phase 31]: 31-02: Publish through a UUID-bearing destination sibling opened with wx and one same-directory rename. — The destination observes complete canonical bytes.
+- [Phase 31]: 31-02: Remove only the exact owned temporary path and retain publication failures as primary. — Cleanup stays scoped and failure diagnostics remain actionable.
 
 ## Operator Next Steps
 

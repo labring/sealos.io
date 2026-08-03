@@ -39,10 +39,10 @@ collection and receive a precise failure report for every data mismatch.
    output, inject representative stale and missing records into a temporary
    fixture, verify actionable failures, then run lint and the build preflight.
 
-**Plans:** 1/3 plans executed
+**Plans:** 2/3 plans executed
 
 - [x] 31-01-PLAN.md
-- [ ] 31-02-PLAN.md
+- [x] 31-02-PLAN.md
 - [ ] 31-03-PLAN.md
 
 **Plan Waves:**

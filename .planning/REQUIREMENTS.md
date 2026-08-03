@@ -10,11 +10,11 @@ The complete v1.4 planning record is preserved in
 
 ### Canonical Source Projection
 
-- [ ] **SOURCE-01**: Maintainer can generate `public/ai-faqs.en.json` from
+- [x] **SOURCE-01**: Maintainer can generate `public/ai-faqs.en.json` from
   `content/ai-quick-reference/*.en.json`, with the source collection serving as
   the only hand-edited input.
 
-- [ ] **SOURCE-02**: The generated page index contains exactly 2,000 records,
+- [x] **SOURCE-02**: The generated page index contains exactly 2,000 records,
   maps each source `slug`, `title`, `description`, and `category` to the
   expected index fields, repairs the 28 stale slugs and five description
   drifts, and preserves numeric ID order.
@@ -81,8 +81,8 @@ Roadmap creation maps each v1.5 requirement to exactly one phase.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SOURCE-01 | Phase 31 | Pending |
-| SOURCE-02 | Phase 31 | Pending |
+| SOURCE-01 | Phase 31 | Complete |
+| SOURCE-02 | Phase 31 | Complete |
 | PARITY-01 | Phase 31 | Pending |
 | PARITY-02 | Phase 32 | Pending |
 | DELIVERY-01 | Phase 31 | Pending |
