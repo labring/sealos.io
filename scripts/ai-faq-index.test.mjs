@@ -706,6 +706,46 @@ test('the committed source corpus loads as 2,000 canonical numeric records', asy
   ]);
 });
 
+test('the committed FAQ index matches all 2,000 canonical source records and bytes', async () => {
+  const sourceRecords = await loadCanonicalFAQSource();
+  const indexBytes = await readFile('public/ai-faqs.en.json', 'utf8');
+  const indexRecords = JSON.parse(indexBytes);
+  const report = compareFAQIndexRecords({
+    sourceRecords,
+    indexRecords,
+    indexBytes,
+  });
+  const nonzeroFindings = Object.fromEntries(
+    report.categories
+      .filter(({ total }) => total > 0)
+      .map(({ key, total }) => [key, total]),
+  );
+
+  assert.equal(sourceRecords.length, 2000);
+  assert.equal(indexRecords.length, 2000);
+  assert.deepEqual(
+    indexRecords.map(
+      ({ slug }) => parseFAQSourceFilename(`${slug}.en.json`)?.id,
+    ),
+    Array.from({ length: 2000 }, (_, index) => index + 1),
+  );
+  assert.equal(
+    indexRecords.findIndex(
+      (record) =>
+        Object.keys(record).join(',') !==
+        ['category', 'question', 'description', 'slug'].join(','),
+    ),
+    -1,
+  );
+  assert.equal(indexBytes.endsWith('\n'), false);
+  assert.deepEqual(
+    nonzeroFindings,
+    {},
+    `Committed index drift: ${JSON.stringify(nonzeroFindings)}`,
+  );
+  assert.equal(indexBytes, serializeCanonicalFAQIndex(sourceRecords));
+});
+
 test('compareFAQIndexRecords accepts exact records and preserves category order', () => {
   const sourceRecords = makeCanonicalSourceRecords();
   const indexRecords = makeCanonicalIndexRecords(sourceRecords);
