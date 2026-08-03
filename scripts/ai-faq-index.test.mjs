@@ -1545,7 +1545,7 @@ test('loadCanonicalFAQSource reports blank projected fields independently', asyn
     assert.deepEqual(
       findings.map(({ id, field, actual }) => ({ id, field, actual })),
       [
-        { id: 1, field: 'title', actual: '   ' },
+        { id: 1, field: 'question', actual: '   ' },
         { id: 2, field: 'description', actual: '' },
         { id: 3, field: 'category', actual: null },
       ],

@@ -10,7 +10,11 @@ export const DEFAULT_FAQ_SOURCE_DIRECTORY = resolve(
 
 const SOURCE_FILENAME_PATTERN = /^([1-9]\d*)-(.+)\.en\.json$/;
 const utf8Decoder = new TextDecoder('utf-8', { fatal: true });
-const PROJECTED_SOURCE_FIELDS = ['title', 'description', 'category'];
+const SOURCE_PROJECTION_FIELDS = [
+  ['title', 'question'],
+  ['description', 'description'],
+  ['category', 'category'],
+];
 const INDEX_FIELDS = ['category', 'question', 'description', 'slug'];
 const COMPARED_FIELDS = ['slug', 'question', 'description', 'category'];
 const REPORT_FINDING_FIELDS = [
@@ -66,7 +70,7 @@ const SOURCE_FINDING_BUCKET_MAP = {
   'invalid-source-json': 'invalid-source-projection-schemas',
   'duplicate-source-id': 'duplicate-source-ids',
   'duplicate-source-slug': 'duplicate-source-slugs',
-  'missing-source-id': 'source-only-ids',
+  'missing-source-id': 'malformed-source-identifiers',
   'unexpected-source-id': 'malformed-source-identifiers',
 };
 
@@ -192,15 +196,15 @@ export function collectFAQSourceRecordFindings(
       continue;
     }
 
-    for (const field of PROJECTED_SOURCE_FIELDS) {
-      const value = record.data?.[field];
+    for (const [sourceField, projectedField] of SOURCE_PROJECTION_FIELDS) {
+      const value = record.data?.[sourceField];
       if (typeof value !== 'string' || value.trim().length === 0) {
         findings.push({
           category: 'invalid-source-projection-schema',
           id: record.id,
           sourcePath: record.sourcePath,
           sourcePosition: record.sourcePosition,
-          field,
+          field: projectedField,
           expected: 'non-empty string',
           actual: value,
         });
@@ -513,7 +517,16 @@ function normalizeSourceRecords(sourceRecords, buckets) {
     }
 
     if (record?.jsonError || record?.ingestionError) {
-      return [];
+      return [
+        {
+          id: parsed.id,
+          slug: parsed.slug,
+          sourcePosition,
+          sourcePath: record?.sourcePath,
+          projected: null,
+          validSchema: false,
+        },
+      ];
     }
 
     const projectedValues = {
@@ -844,6 +857,10 @@ export function compareFAQIndexRecords({
     SOURCE_FINDING_BUCKET_MAP,
     'invalid-source-projection-schemas',
   );
+  const sourceEnumerationFailed = sourceFindings.some(
+    (finding) =>
+      finding.category === 'source-read-failure' && finding.id === null,
+  );
   mergeFindings(
     buckets,
     indexFindings,
@@ -912,7 +929,11 @@ export function compareFAQIndexRecords({
     side: 'index',
   });
 
-  if (indexIsArray && indexFindings.length === 0) {
+  if (
+    !sourceEnumerationFailed &&
+    indexIsArray &&
+    indexFindings.length === 0
+  ) {
     addMembershipFindings({ buckets, sourceIdGroups, indexIdGroups });
     const comparableIds = getComparableIds(sourceIdGroups, indexIdGroups);
     addOrderingFindings({
@@ -930,7 +951,11 @@ export function compareFAQIndexRecords({
     });
   }
 
-  if (indexFindings.length === 0) {
+  if (
+    !sourceEnumerationFailed &&
+    sourceFindings.length === 0 &&
+    indexFindings.length === 0
+  ) {
     addSerializationFinding({
       buckets,
       sourceRecords: normalizedSourceRecords,
