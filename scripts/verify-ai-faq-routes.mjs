@@ -4,8 +4,49 @@ import { resolve } from 'node:path';
 import { groupByNormalizedSlug, loadFAQPages } from './ai-faq-fixture.mjs';
 
 export const FAQ_ROUTE_DETAIL_LIMIT = 20;
+export const DEFAULT_FAQ_ROUTE_TARGET = 'out';
+export const LOCAL_ROUTE_READ_BATCH_SIZE = 32;
+export const REMOTE_ROUTE_WORKER_COUNT = 8;
+export const REMOTE_REQUEST_TIMEOUT_MS = 10_000;
+export const REMOTE_RETRY_COUNT = 0;
 
 export const FAQ_ROUTE_FINDING_CATEGORIES = [
+  {
+    key: 'invalid-targets',
+    label: 'Invalid targets',
+  },
+  {
+    key: 'target-inspection-failures',
+    label: 'Target inspection failures',
+  },
+  {
+    key: 'source-read-failures',
+    label: 'Source read failures',
+  },
+  {
+    key: 'index-read-failures',
+    label: 'Index read failures',
+  },
+  {
+    key: 'invalid-index-data',
+    label: 'Invalid index data',
+  },
+  {
+    key: 'sitemap-read-failures',
+    label: 'Sitemap read failures',
+  },
+  {
+    key: 'invalid-sitemap-data',
+    label: 'Invalid sitemap data',
+  },
+  {
+    key: 'route-enumeration-failures',
+    label: 'Route enumeration failures',
+  },
+  {
+    key: 'route-read-failures',
+    label: 'Route read failures',
+  },
   {
     key: 'duplicate-source-slugs',
     label: 'Duplicate source slugs',
@@ -47,6 +88,38 @@ export const FAQ_ROUTE_FINDING_CATEGORIES = [
     label: 'Route slugs missing from source',
   },
   {
+    key: 'index-category-mismatches',
+    label: 'Index category mismatches',
+  },
+  {
+    key: 'index-question-mismatches',
+    label: 'Index question mismatches',
+  },
+  {
+    key: 'index-description-mismatches',
+    label: 'Index description mismatches',
+  },
+  {
+    key: 'index-slug-mismatches',
+    label: 'Index slug mismatches',
+  },
+  {
+    key: 'route-network-failures',
+    label: 'Route network failures',
+  },
+  {
+    key: 'route-timeout-failures',
+    label: 'Route timeout failures',
+  },
+  {
+    key: 'route-status-failures',
+    label: 'Route status failures',
+  },
+  {
+    key: 'route-body-read-failures',
+    label: 'Route body read failures',
+  },
+  {
     key: 'missing-page-identity',
     label: 'Missing page identity fields',
   },
@@ -57,6 +130,10 @@ export const FAQ_ROUTE_FINDING_CATEGORIES = [
   {
     key: 'mismatched-page-identity',
     label: 'Mismatched page identity fields',
+  },
+  {
+    key: 'invalid-route-status-failures',
+    label: 'Invalid route status failures',
   },
 ];
 
@@ -371,8 +448,159 @@ export function inspectFAQPageIdentity({ html, record }) {
   return findings.sort(compareFindings);
 }
 
-async function runLegacyVerification(target) {
-  const isRemote = /^https?:\/\//i.test(target);
+function createEmptyInventories() {
+  return Object.fromEntries(
+    INVENTORY_NAMES.map((name) => [
+      name,
+      { total: 0, unique: 0, duplicates: 0 },
+    ]),
+  );
+}
+
+function normalizeFAQRouteReport(report) {
+  return {
+    target: report.target ?? DEFAULT_FAQ_ROUTE_TARGET,
+    mode: report.mode ?? 'local',
+    checkedAt: report.checkedAt ?? new Date(0).toISOString(),
+    limits: {
+      localBatch: LOCAL_ROUTE_READ_BATCH_SIZE,
+      remoteWorkers: REMOTE_ROUTE_WORKER_COUNT,
+      timeoutMs: REMOTE_REQUEST_TIMEOUT_MS,
+      retries: REMOTE_RETRY_COUNT,
+      details: FAQ_ROUTE_DETAIL_LIMIT,
+      ...report.limits,
+    },
+    inventories: {
+      ...createEmptyInventories(),
+      ...report.inventories,
+    },
+    statusHistogram: report.statusHistogram ?? {},
+    routesAttempted: report.routesAttempted ?? 0,
+    identityPagesChecked: report.identityPagesChecked ?? 0,
+    identityFieldsChecked: report.identityFieldsChecked ?? 0,
+    invalidRoutesAttempted: report.invalidRoutesAttempted ?? 0,
+    invalidRoutesAccepted: report.invalidRoutesAccepted ?? 0,
+    findings: [...(report.findings ?? [])].sort(compareFindings),
+  };
+}
+
+export function parseFAQRouteTarget(args = []) {
+  const invalid = (target, actual) => ({
+    target,
+    mode: 'invalid',
+    findings: [
+      {
+        category: 'invalid-targets',
+        id: null,
+        slug: null,
+        field: 'target',
+        expected: 'zero or one local path or absolute HTTP(S) base URL',
+        actual,
+      },
+    ],
+  });
+
+  if (args.length === 0) {
+    return { target: DEFAULT_FAQ_ROUTE_TARGET, mode: 'local', findings: [] };
+  }
+  if (
+    args.length !== 1 ||
+    typeof args[0] !== 'string' ||
+    args[0].length === 0
+  ) {
+    return invalid(args.join(' '), args);
+  }
+
+  const target = args[0];
+  if (!target.includes('://')) {
+    return { target, mode: 'local', findings: [] };
+  }
+
+  try {
+    const url = new URL(target);
+    if (!['http:', 'https:'].includes(url.protocol)) {
+      return invalid(target, target);
+    }
+    url.hash = '';
+    url.search = '';
+    return {
+      target: url.href.replace(/\/+$/, ''),
+      mode: 'remote',
+      findings: [],
+    };
+  } catch {
+    return invalid(target, target);
+  }
+}
+
+function formatStatusHistogram(histogram) {
+  const entries = Object.entries(histogram).sort(
+    ([left], [right]) => Number(left) - Number(right),
+  );
+  return entries.length > 0
+    ? entries.map(([status, total]) => `${status}=${total}`).join(' ')
+    : 'none';
+}
+
+function countIdentityFindings(findings, field) {
+  return findings.filter(
+    (finding) =>
+      finding.field === field &&
+      [
+        'missing-page-identity',
+        'duplicate-page-identity',
+        'mismatched-page-identity',
+      ].includes(finding.category),
+  ).length;
+}
+
+export function formatFAQRouteReport(input) {
+  const report = normalizeFAQRouteReport(input);
+  const lines = [
+    'AI FAQ route verification',
+    `Target: ${JSON.stringify(report.target)}`,
+    `Mode: ${report.mode}`,
+    `Checked at: ${report.checkedAt}`,
+    `Limits: local batch=${report.limits.localBatch} remote workers=${report.limits.remoteWorkers} timeout=${report.limits.timeoutMs}ms retries=${report.limits.retries} details=${report.limits.details}`,
+    'Inventories:',
+  ];
+
+  for (const name of INVENTORY_NAMES) {
+    const inventory = report.inventories[name];
+    lines.push(
+      `  ${name}: total=${inventory.total} unique=${inventory.unique} duplicates=${inventory.duplicates}`,
+    );
+  }
+
+  lines.push(
+    `HTTP statuses: ${formatStatusHistogram(report.statusHistogram)}`,
+    `Routes attempted: ${report.routesAttempted}`,
+    `Identity pages checked: ${report.identityPagesChecked}`,
+    `Identity fields checked: ${report.identityFieldsChecked}`,
+    `Identity findings: title=${countIdentityFindings(report.findings, 'title')} h1=${countIdentityFindings(report.findings, 'h1')} description=${countIdentityFindings(report.findings, 'description')} canonical=${countIdentityFindings(report.findings, 'canonical')}`,
+    `Invalid routes: attempted=${report.invalidRoutesAttempted} accepted=${report.invalidRoutesAccepted}`,
+    'Findings:',
+  );
+
+  for (const category of FAQ_ROUTE_FINDING_CATEGORIES) {
+    const findings = report.findings.filter(
+      (finding) => finding.category === category.key,
+    );
+    lines.push(`  ${category.label}: ${findings.length}`);
+    for (const finding of findings.slice(0, report.limits.details)) {
+      lines.push(`    ${JSON.stringify(finding)}`);
+    }
+  }
+
+  const passed = report.findings.length === 0;
+  lines.push(`Result: ${passed ? 'PASS' : 'FAIL'}`);
+  const remoteSuffix = report.mode === 'remote' ? ` -- ${report.target}` : '';
+  lines.push(`Rerun: npm run verify:ai-faq-routes${remoteSuffix}`);
+  return lines.join('\n');
+}
+
+async function inspectLegacyTarget({ target, mode, checkedAt }) {
+  const isRemote = mode === 'remote';
   const pages = await loadFAQPages();
   const groups = groupByNormalizedSlug(pages);
   const collision = [...groups.values()].find((group) => group.length > 1);
@@ -430,17 +658,28 @@ async function runLegacyVerification(target) {
     route: pages,
   });
   const findings = [...comparison.findings];
+  const statusHistogram = {};
+  let identityPagesChecked = 0;
+  let identityFieldsChecked = 0;
+  let invalidRoutesAccepted = 0;
+
+  function recordStatus(status) {
+    statusHistogram[status] = (statusHistogram[status] ?? 0) + 1;
+  }
 
   for (const page of samplePages) {
     const pathname = `/ai-quick-reference/${page.slug}`;
     const result = await readTarget(pathname);
+    recordStatus(result.status);
     if (result.status === 200) {
+      identityPagesChecked += 1;
+      identityFieldsChecked += IDENTITY_FIELDS.length;
       findings.push(
         ...inspectFAQPageIdentity({ html: result.html, record: page }),
       );
     } else {
       findings.push({
-        category: 'source-only-route-slugs',
+        category: 'route-status-failures',
         id: getNumericSlugId(page.slug),
         slug: page.slug,
         field: 'status',
@@ -455,36 +694,88 @@ async function runLegacyVerification(target) {
     `/ai-quick-reference/${unknownNumberedSlug}`,
   ]) {
     const result = await readTarget(pathname);
+    recordStatus(result.status);
     if (result.status !== 404 && result.status !== 410) {
       findings.push({
-        category: 'route-only-source-slugs',
+        category: 'invalid-route-status-failures',
         id: null,
         slug: pathname.split('/').at(-1),
         field: 'status',
         expected: [404, 410],
         actual: result.status,
       });
+    } else {
+      invalidRoutesAccepted += 1;
     }
   }
 
-  if (findings.length > 0) {
-    throw new Error(
-      `AI FAQ route verification found ${findings.length} finding(s).`,
-    );
+  return {
+    target,
+    mode,
+    checkedAt,
+    inventories: comparison.inventories,
+    statusHistogram,
+    routesAttempted: samplePages.length,
+    identityPagesChecked,
+    identityFieldsChecked,
+    invalidRoutesAttempted: 2,
+    invalidRoutesAccepted,
+    findings,
+  };
+}
+
+export async function runVerifyFAQRoutes({
+  args = [],
+  inspectTarget = inspectLegacyTarget,
+  now = () => new Date(),
+  stdout = process.stdout,
+  stderr = process.stderr,
+} = {}) {
+  const parsedTarget = parseFAQRouteTarget(args);
+  const checkedAt = now().toISOString();
+  let report;
+
+  if (parsedTarget.findings.length > 0) {
+    report = normalizeFAQRouteReport({
+      ...parsedTarget,
+      checkedAt,
+    });
+  } else {
+    try {
+      report = normalizeFAQRouteReport(
+        await inspectTarget({
+          target: parsedTarget.target,
+          mode: parsedTarget.mode,
+          checkedAt,
+        }),
+      );
+    } catch (error) {
+      report = normalizeFAQRouteReport({
+        ...parsedTarget,
+        checkedAt,
+        findings: [
+          {
+            category: 'target-inspection-failures',
+            id: null,
+            slug: null,
+            field: 'target',
+            expected: 'complete inspection',
+            actual: error instanceof Error ? error.message : String(error),
+          },
+        ],
+      });
+    }
   }
-  console.log(
-    `Verified sitemap (${sitemapUrls.length} URLs), ${samplePages.length} collision pages, and unresolved routes at ${target}.`,
-  );
+
+  const output = `${formatFAQRouteReport(report)}\n`;
+  const passed = report.findings.length === 0;
+  (passed ? stdout : stderr).write(output);
+  return passed ? 0 : 1;
 }
 
 if (
   process.argv[1] &&
   resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url))
 ) {
-  try {
-    await runLegacyVerification(process.argv[2] || 'out');
-  } catch (error) {
-    console.error(error instanceof Error ? error.message : String(error));
-    process.exitCode = 1;
-  }
+  process.exitCode = await runVerifyFAQRoutes({ args: process.argv.slice(2) });
 }
