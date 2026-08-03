@@ -8,6 +8,16 @@ const source = readFileSync(
   join(dirname(fileURLToPath(import.meta.url)), 'Header.tsx'),
   'utf8',
 );
+const legacyHeaderSource = readFileSync(
+  join(
+    dirname(fileURLToPath(import.meta.url)),
+    '..',
+    'components',
+    'header',
+    'index.tsx',
+  ),
+  'utf8',
+);
 
 const headerProps =
   source.match(/type HeaderProps = \{[\s\S]*?\n\};/)?.[0] ?? '';
@@ -24,6 +34,13 @@ test('shared Header keeps a single optional language prop', () => {
     1,
     'HeaderProps must expose only lang',
   );
+});
+
+test('legacy Header entrypoint keeps fixed positioning around the shared Header', () => {
+  assert.match(legacyHeaderSource, /Header as SharedHeader/);
+  assert.match(legacyHeaderSource, /fixed top-0 z-50 w-full/);
+  assert.match(legacyHeaderSource, /<SharedHeader lang=\{lang\} \/>/);
+  assert.doesNotMatch(legacyHeaderSource, /ctaClassName|appearance|variant/);
 });
 
 test('shared Header owns the historical pill presentation', () => {
@@ -84,6 +101,7 @@ test('locale, analytics, auth, and mobile menu contracts remain current', () => 
   assert.match(source, /https:\/\/discord\.gg\/wdUn538zVP/);
 
   assert.equal((source.match(/<span>18\.3k<\/span>/g) ?? []).length, 2);
+  assert.equal((source.match(/<Github size=\{16\}/g) ?? []).length, 2);
   assert.match(source, />\s*Get Started For Free\s*</);
   assert.match(source, />\s*Get Start For Free\s*</);
   assert.match(source, /home_header_get_started/);
@@ -102,6 +120,8 @@ test('locale, analytics, auth, and mobile menu contracts remain current', () => 
     source,
     /className="fixed inset-0 z-50 bg-black\/95 backdrop-blur-lg lg:hidden"/,
   );
+  assert.match(source, /document\.body\.style\.overflow = 'hidden'/);
+  assert.match(source, /document\.documentElement\.style\.overflow = 'hidden'/);
   assert.match(source, /\{link\.children\.map\(\(child, childIndex\) => \(/);
   assert.match(source, /onClick=\{closeMobileMenu\}/);
 });

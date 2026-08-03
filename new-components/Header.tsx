@@ -23,6 +23,7 @@ import {
   BookOpenText,
   GraduationCap,
   FileText,
+  Github,
   Users,
 } from 'lucide-react';
 import {
@@ -35,7 +36,6 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import React from 'react';
 import { cn } from '@/lib/utils';
-import GitHubIcon from '@/assets/github.svg';
 import { useGTM } from '@/hooks/use-gtm';
 import { siteConfig } from '@/config/site';
 import { useAuthRedirect } from '@/hooks/use-auth-redirect';
@@ -279,6 +279,23 @@ export function Header({ lang }: HeaderProps) {
     }));
   };
 
+  React.useEffect(() => {
+    if (!isMobileMenuOpen) {
+      return;
+    }
+
+    const bodyOverflow = document.body.style.overflow;
+    const documentOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = bodyOverflow;
+      document.documentElement.style.overflow = documentOverflow;
+    };
+  }, [isMobileMenuOpen]);
+
   const localizedNavigationLinks = React.useMemo(() => {
     if (!resolvedLang || resolvedLang === i18n.defaultLanguage) {
       return navigationLinks;
@@ -406,7 +423,7 @@ export function Header({ lang }: HeaderProps) {
                   )
                 }
               >
-                <Image src={GitHubIcon} alt="GitHub" width={16} height={16} />
+                <Github size={16} aria-hidden="true" />
                 <span>18.3k</span>
               </a>
             </Button>
@@ -584,12 +601,7 @@ export function Header({ lang }: HeaderProps) {
                         className="flex gap-2"
                         onClick={closeMobileMenu}
                       >
-                        <Image
-                          src={GitHubIcon}
-                          alt="GitHub"
-                          width={16}
-                          height={16}
-                        />
+                        <Github size={16} aria-hidden="true" />
                         <span>18.3k</span>
                       </a>
                     </Button>
