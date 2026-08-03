@@ -13,14 +13,25 @@ const footerSources = [
   source: readFileSync(filePath, 'utf8'),
 }));
 
-test('both Footer implementations keep only App Store in Products', () => {
+test('both Footer implementations put Skills above Templates in Products', () => {
   for (const { filePath, source } of footerSources) {
+    const productsBlock = source.match(
+      /products:\s*\{[\s\S]*?\n\s*\},\n\s*services:/,
+    )?.[0];
+
+    assert.ok(productsBlock, `${filePath} must define a Products category`);
+    assert.match(productsBlock, /textKey: 'skills'[\s\S]*textKey: 'templates'/);
     assert.match(
-      source,
-      /products:\s*\{\s*titleKey: 'productsTitle',\s*links:\s*\[\s*\{\s*textKey: 'appStore',\s*urlKey: 'appStoreUrl'(?:,\s*isExternal: (?:true|false))?\s*\},?\s*\],/,
-      `${filePath} Products must contain only App Store`,
+      productsBlock,
+      /urlKey: 'skillsUrl'[\s\S]*urlKey: 'templatesUrl'/,
     );
-    assert.match(source, /appStoreUrl: '\/products\/app-store'/);
-    assert.doesNotMatch(source, /devbox|databases/i);
+    assert.equal(
+      (productsBlock.match(/textKey:/g) ?? []).length,
+      2,
+      `${filePath} Products must contain Skills and Templates only`,
+    );
+    assert.match(source, /skillsUrl: '\/sealos-skills'/);
+    assert.match(source, /templatesUrl: '\/products\/app-store'/);
+    assert.doesNotMatch(source, /appStore|devbox|databases/i);
   }
 });
