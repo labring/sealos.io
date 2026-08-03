@@ -1048,6 +1048,67 @@ test('duplicate source diagnostics use code-unit filename ordering', async () =>
   }
 });
 
+test('source diagnostics stay byte-stable across reversed directory enumeration', async () => {
+  const sourceDirectory = '/fixture/source';
+  const entrySpecs = [
+    { name: 'z.bad', regular: true },
+    { name: '3-z.en.json', regular: false },
+    { name: '2-beta.en.json', regular: true },
+    { name: 'a.bad', regular: true },
+    { name: '3-a.en.json', regular: false },
+    { name: '1-alpha.en.json', regular: true },
+  ];
+  const indexRecords = [
+    {
+      category: 'Question category',
+      question: 'Question title',
+      description: 'Question description',
+      slug: '1-alpha',
+    },
+    {
+      category: 'Question category',
+      question: 'Question title',
+      description: 'Question description',
+      slug: '2-beta',
+    },
+  ];
+
+  const inspect = async (entries) => {
+    const sourceInspection = await inspectCanonicalFAQSource({
+      sourceDirectory,
+      expectedCount: 2,
+      filesystem: {
+        readdir: async () =>
+          entries.map(({ name, regular }) => ({
+            name,
+            isFile: () => regular,
+          })),
+        readFile: async () => Buffer.from(JSON.stringify(makeSourceData())),
+      },
+    });
+    return compareFAQIndexRecords({
+      sourceRecords: sourceInspection.records,
+      sourceFindings: sourceInspection.findings,
+      indexRecords,
+      indexBytes: JSON.stringify(indexRecords),
+    });
+  };
+
+  const forwardReport = await inspect(entrySpecs);
+  const reverseReport = await inspect([...entrySpecs].reverse());
+  const forwardOutput = formatFAQIndexReport(forwardReport);
+  const reverseOutput = formatFAQIndexReport(reverseReport);
+
+  assert.equal(reverseOutput, forwardOutput);
+  assertExactTopLevelFindingCategories(forwardOutput);
+  assert.deepEqual(
+    getReportCategory(forwardReport, 'malformed-source-identifiers').findings.map(
+      ({ sourcePath }) => basename(sourcePath),
+    ),
+    ['3-a.en.json', '3-z.en.json', 'a.bad', 'z.bad'],
+  );
+});
+
 test('production CLI reports structured source ingestion failures end to end', async (t) => {
   const fixture = await createVerifierFixture(t);
   const contentDirectory = join(
