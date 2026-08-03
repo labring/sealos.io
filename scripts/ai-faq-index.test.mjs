@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import {
+  cp,
   mkdir,
   mkdtemp,
   readFile,
@@ -18,6 +19,7 @@ import {
   FAQ_SOURCE_READ_BATCH_SIZE,
   compareFAQIndexRecords,
   formatFAQIndexReport,
+  inspectCanonicalFAQSource,
   loadCanonicalFAQSource,
   parseFAQSourceFilename,
   projectFAQIndexRecord,
@@ -211,7 +213,7 @@ async function createSourceFixture(entries) {
     }
 
     const contents =
-      typeof entry.contents === 'string'
+      typeof entry.contents === 'string' || Buffer.isBuffer(entry.contents)
         ? entry.contents
         : JSON.stringify(entry.contents ?? makeSourceData());
     await writeFile(sourcePath, contents);
@@ -265,6 +267,165 @@ test('runVerifyFAQIndex reports valid fixture parity without mutation', async (t
   assert.equal(stdout.output(), 'AI FAQ index parity passed for 2 records.\n');
   assert.equal(stderr.output(), '');
   assert.deepEqual(await readFile(indexPath), beforeBytes);
+});
+
+test('inspectCanonicalFAQSource reports fatal UTF-8 decoding as structured input', async (t) => {
+  const sourceDirectory = await createSourceFixture([
+    {
+      name: '1-invalid.en.json',
+      contents: Buffer.from(
+        '{"title":"bad\xff","description":"Description","category":"Category"}',
+        'binary',
+      ),
+    },
+  ]);
+
+  t.after(() => rm(sourceDirectory, { recursive: true, force: true }));
+
+  const inspection = await inspectCanonicalFAQSource({
+    sourceDirectory,
+    expectedCount: 1,
+  });
+
+  assert.equal(inspection.records.length, 1);
+  assert.deepEqual(
+    inspection.findings.map(({ category, code, field }) => ({
+      category,
+      code,
+      field,
+    })),
+    [
+      {
+        category: 'invalid-source-json',
+        code: 'ERR_ENCODING_INVALID_ENCODED_DATA',
+        field: '$json',
+      },
+    ],
+  );
+});
+
+test('runVerifyFAQIndex preserves raw index bytes for canonical comparison', async (t) => {
+  const fixture = await createVerifierFixture(t);
+  const indexRecords = fixture.indexRecords;
+  indexRecords[0].question = 'Replacement \ufffd';
+  await writeFile(
+    join(fixture.sourceDirectory, '1-alpha.en.json'),
+    JSON.stringify(makeSourceData({ title: 'Replacement \ufffd' })),
+  );
+
+  const canonicalBytes = Buffer.from(JSON.stringify(indexRecords), 'utf8');
+  const replacementOffset = canonicalBytes.indexOf(
+    Buffer.from([0xef, 0xbf, 0xbd]),
+  );
+  assert.ok(replacementOffset >= 0);
+  const invalidUtf8Bytes = Buffer.concat([
+    canonicalBytes.subarray(0, replacementOffset),
+    Buffer.from([0xff]),
+    canonicalBytes.subarray(replacementOffset + 3),
+  ]);
+  await writeFile(fixture.indexPath, invalidUtf8Bytes);
+
+  const stdout = createCaptureStream();
+  const stderr = createCaptureStream();
+  const status = await runVerifyFAQIndex({
+    sourceDirectory: fixture.sourceDirectory,
+    indexPath: fixture.indexPath,
+    expectedCount: 2,
+    stdout: stdout.stream,
+    stderr: stderr.stream,
+  });
+
+  assert.equal(status, 1);
+  assert.match(stderr.output(), /non-canonical serialization: 1/);
+  assert.match(stderr.output(), /byteLength/);
+  assert.deepEqual(await readFile(fixture.indexPath), invalidUtf8Bytes);
+});
+
+test('runVerifyFAQIndex separates source read failures from invalid JSON', async (t) => {
+  const readFailureFixture = await createVerifierFixture(t);
+  const readFailureFilesystem = {
+    readFile: async (sourcePath) => {
+      if (sourcePath.endsWith('1-alpha.en.json')) {
+        const error = new Error('permission denied');
+        error.code = 'EACCES';
+        throw error;
+      }
+      return readFile(sourcePath);
+    },
+  };
+  const readFailureStderr = createCaptureStream();
+  const readFailureStatus = await runVerifyFAQIndex({
+    sourceDirectory: readFailureFixture.sourceDirectory,
+    indexPath: readFailureFixture.indexPath,
+    expectedCount: 2,
+    filesystem: readFailureFilesystem,
+    stdout: createCaptureStream().stream,
+    stderr: readFailureStderr.stream,
+  });
+
+  assert.equal(readFailureStatus, 1);
+  assert.match(readFailureStderr.output(), /source read failures: 1/);
+  assert.match(readFailureStderr.output(), /code="EACCES"/);
+  assert.doesNotMatch(readFailureStderr.output(), /invalid source JSON: [1-9]/);
+
+  const invalidJsonFixture = await createVerifierFixture(t);
+  await writeFile(
+    join(invalidJsonFixture.sourceDirectory, '1-alpha.en.json'),
+    '{',
+  );
+  const invalidJsonStderr = createCaptureStream();
+  const invalidJsonStatus = await runVerifyFAQIndex({
+    sourceDirectory: invalidJsonFixture.sourceDirectory,
+    indexPath: invalidJsonFixture.indexPath,
+    expectedCount: 2,
+    stdout: createCaptureStream().stream,
+    stderr: invalidJsonStderr.stream,
+  });
+
+  assert.equal(invalidJsonStatus, 1);
+  assert.match(invalidJsonStderr.output(), /invalid source JSON: 1/);
+  assert.doesNotMatch(invalidJsonStderr.output(), /source read failures: [1-9]/);
+});
+
+test('runVerifyFAQIndex reports source and index ingestion findings through the shared formatter', async (t) => {
+  const sourceFixture = await createVerifierFixture(t);
+  await writeFile(
+    join(sourceFixture.sourceDirectory, 'malformed-name.json'),
+    JSON.stringify(makeSourceData()),
+  );
+  const sourceStderr = createCaptureStream();
+  const sourceStatus = await runVerifyFAQIndex({
+    sourceDirectory: sourceFixture.sourceDirectory,
+    indexPath: sourceFixture.indexPath,
+    expectedCount: 2,
+    stdout: createCaptureStream().stream,
+    stderr: sourceStderr.stream,
+  });
+
+  assert.equal(sourceStatus, 1);
+  assert.match(sourceStderr.output(), /malformed source identifiers: 1/);
+  assert.match(sourceStderr.output(), /sourcePath=/);
+  assert.equal(
+    sourceStderr.output().endsWith(
+      'Regenerate with: npm run generate:ai-faq-index\n',
+    ),
+    true,
+  );
+
+  const indexFixture = await createVerifierFixture(t);
+  await writeFile(indexFixture.indexPath, Buffer.from([0xff, 0x7b]));
+  const indexStderr = createCaptureStream();
+  const indexStatus = await runVerifyFAQIndex({
+    sourceDirectory: indexFixture.sourceDirectory,
+    indexPath: indexFixture.indexPath,
+    expectedCount: 2,
+    stdout: createCaptureStream().stream,
+    stderr: indexStderr.stream,
+  });
+
+  assert.equal(indexStatus, 1);
+  assert.match(indexStderr.output(), /invalid index JSON: 1/);
+  assert.match(indexStderr.output(), /code="ERR_ENCODING_INVALID_ENCODED_DATA"/);
 });
 
 test('runVerifyFAQIndex reports stale fixture categories without mutation', async (t) => {
@@ -624,6 +785,102 @@ test('runGenerateFAQIndex keeps publication failure primary when cleanup also fa
   assert.match(
     stderr.output(),
     /^AI FAQ index generation failed: injected rename failure\nAI FAQ index cleanup failed: injected cleanup failure\n$/,
+  );
+});
+
+test('runGenerateFAQIndex reports publication truth when summary output fails', async (t) => {
+  const { sourceDirectory, outputPath } = await createGeneratorFixture(t);
+  const stderr = createCaptureStream();
+  const stdout = {
+    write() {
+      throw new Error('injected stdout failure');
+    },
+  };
+
+  const status = await runGenerateFAQIndex({
+    sourceDirectory,
+    outputPath,
+    expectedCount: 2,
+    stdout,
+    stderr: stderr.stream,
+  });
+
+  assert.equal(status, 0);
+  assert.deepEqual(JSON.parse(await readFile(outputPath, 'utf8')), [
+    {
+      category: 'Category 1',
+      question: 'Question 1',
+      description: 'Description 1',
+      slug: '1-alpha',
+    },
+    {
+      category: 'Category 2',
+      question: 'Question 2',
+      description: 'Description 2',
+      slug: '2-beta',
+    },
+  ]);
+  assert.match(
+    stderr.output(),
+    /AI FAQ index was generated, but summary output failed: injected stdout failure/,
+  );
+});
+
+test('duplicate source diagnostics use code-unit filename ordering', async () => {
+  const sourceDirectory = await createSourceFixture([
+    { name: '1-z.en.json' },
+    { name: '1-ä.en.json' },
+  ]);
+
+  try {
+    const error = await captureSourceValidationError(() =>
+      loadCanonicalFAQSource({ sourceDirectory, expectedCount: 1 }),
+    );
+    const duplicateFindings = error.findings.filter(
+      ({ category }) => category === 'duplicate-source-id',
+    );
+
+    assert.deepEqual(
+      duplicateFindings.map(({ sourcePath }) => basename(sourcePath)),
+      ['1-z.en.json', '1-ä.en.json'],
+    );
+  } finally {
+    await rm(sourceDirectory, { recursive: true, force: true });
+  }
+});
+
+test('production CLI reports structured source ingestion failures end to end', async (t) => {
+  const fixture = await createVerifierFixture(t);
+  const contentDirectory = join(
+    fixture.rootDirectory,
+    'content',
+    'ai-quick-reference',
+  );
+  const publicDirectory = join(fixture.rootDirectory, 'public');
+  await mkdir(contentDirectory, { recursive: true });
+  await mkdir(publicDirectory, { recursive: true });
+  await cp(fixture.sourceDirectory, contentDirectory, { recursive: true });
+  await cp(fixture.indexPath, join(publicDirectory, 'ai-faqs.en.json'));
+  await writeFile(join(contentDirectory, '1-alpha.en.json'), '{');
+
+  const verifier = spawnSync(
+    process.execPath,
+    [join(process.cwd(), 'scripts/verify-ai-faq-index.mjs')],
+    { cwd: fixture.rootDirectory, encoding: 'utf8' },
+  );
+  const generator = spawnSync(
+    process.execPath,
+    [join(process.cwd(), 'scripts/generate-ai-faq-index.mjs')],
+    { cwd: fixture.rootDirectory, encoding: 'utf8' },
+  );
+
+  assert.equal(verifier.status, 1);
+  assert.match(verifier.stderr, /invalid source JSON: 1/);
+  assert.equal(generator.status, 1);
+  assert.match(generator.stderr, /invalid source JSON: 1/);
+  assert.equal(
+    await readFile(join(publicDirectory, 'ai-faqs.en.json'), 'utf8'),
+    await readFile(fixture.indexPath, 'utf8'),
   );
 });
 
