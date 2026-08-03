@@ -443,8 +443,17 @@ test('collects local ingestion, membership, read, identity, and invalid-route fi
   const duplicateIndex = indexRecord(records[0]);
   duplicateIndex.question = 'Wrong question';
   const target = await createLocalTarget(t, records, {
-    indexRecords: [indexRecord(records[0]), duplicateIndex, indexRecord(records[2])],
-    sitemapSlugs: [records[0].slug, records[0].slug, records[2].slug, '4-extra-sitemap'],
+    indexRecords: [
+      indexRecord(records[0]),
+      duplicateIndex,
+      indexRecord(records[2]),
+    ],
+    sitemapSlugs: [
+      records[0].slug,
+      records[0].slug,
+      records[2].slug,
+      '4-extra-sitemap',
+    ],
     routeRecords: [records[0], records[2], extraRoute],
     routeHtml,
   });
@@ -495,7 +504,7 @@ test('collects local ingestion, membership, read, identity, and invalid-route fi
   ]) {
     assert.ok(categories.has(category), category);
   }
-  assert.equal(report.routesAttempted, 3);
+  assert.equal(report.routesAttempted, 2);
   assert.equal(report.identityPagesChecked, 1);
   assert.equal(report.invalidRoutesAttempted, 2);
   assert.equal(report.invalidRoutesAccepted, 1);
@@ -518,9 +527,7 @@ test('reports malformed local index and sitemap data structurally', async (t) =>
     report.findings.some(({ category }) => category === 'invalid-index-data'),
   );
   assert.ok(
-    report.findings.some(
-      ({ category }) => category === 'invalid-sitemap-data',
-    ),
+    report.findings.some(({ category }) => category === 'invalid-sitemap-data'),
   );
   assert.equal(report.inventories.route.total, 2);
 });

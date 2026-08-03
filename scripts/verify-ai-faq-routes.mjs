@@ -1,7 +1,8 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { groupByNormalizedSlug, loadFAQPages } from './ai-faq-fixture.mjs';
+import { decodeJSONBuffer, loadCanonicalFAQSource } from './ai-faq-index.mjs';
 
 export const FAQ_ROUTE_DETAIL_LIMIT = 20;
 export const DEFAULT_FAQ_ROUTE_TARGET = 'out';
@@ -599,6 +600,437 @@ export function formatFAQRouteReport(input) {
   return lines.join('\n');
 }
 
+function describeError(error) {
+  return {
+    code: typeof error?.code === 'string' ? error.code : null,
+    message: error instanceof Error ? error.message : String(error),
+  };
+}
+
+function createIngestionFinding(category, field, expected, error) {
+  return {
+    category,
+    id: null,
+    slug: null,
+    field,
+    expected,
+    actual: describeError(error),
+  };
+}
+
+function parseLocalIndex(buffer) {
+  const findings = [];
+  let value;
+  try {
+    value = decodeJSONBuffer(buffer);
+  } catch (error) {
+    return {
+      records: [],
+      findings: [
+        createIngestionFinding(
+          'invalid-index-data',
+          '$json',
+          'valid UTF-8 JSON array',
+          error,
+        ),
+      ],
+    };
+  }
+
+  if (!Array.isArray(value)) {
+    return {
+      records: [],
+      findings: [
+        {
+          category: 'invalid-index-data',
+          id: null,
+          slug: null,
+          field: '$root',
+          expected: 'array',
+          actual: value,
+        },
+      ],
+    };
+  }
+
+  const records = [];
+  for (const [position, record] of value.entries()) {
+    const invalidFields = [
+      'category',
+      'question',
+      'description',
+      'slug',
+    ].filter(
+      (field) =>
+        typeof record?.[field] !== 'string' ||
+        record[field].trim().length === 0,
+    );
+    const slug = typeof record?.slug === 'string' ? record.slug : '';
+    const id = getNumericSlugId(slug);
+    if (invalidFields.length > 0 || !Number.isSafeInteger(id)) {
+      findings.push({
+        category: 'invalid-index-data',
+        id: Number.isSafeInteger(id) ? id : null,
+        slug: slug || null,
+        field: invalidFields.length > 0 ? invalidFields.join(',') : 'slug',
+        expected: 'non-empty projected fields and a numeric slug',
+        actual: record,
+        position,
+      });
+      continue;
+    }
+    records.push({ ...record, id, position });
+  }
+
+  return { records, findings };
+}
+
+function parseSitemapSlugs(buffer) {
+  const findings = [];
+  let xml;
+  try {
+    xml = new TextDecoder('utf-8', { fatal: true }).decode(Buffer.from(buffer));
+  } catch (error) {
+    return {
+      slugs: [],
+      findings: [
+        createIngestionFinding(
+          'invalid-sitemap-data',
+          '$xml',
+          'valid UTF-8 sitemap XML',
+          error,
+        ),
+      ],
+    };
+  }
+
+  const locations = [...xml.matchAll(/<loc>([\s\S]*?)<\/loc>/gi)].map((match) =>
+    decodeHtmlEntities(match[1].trim()),
+  );
+  if (locations.length === 0) {
+    findings.push({
+      category: 'invalid-sitemap-data',
+      id: null,
+      slug: null,
+      field: 'loc',
+      expected: 'at least one canonical AI FAQ URL',
+      actual: locations,
+    });
+  }
+
+  const slugs = [];
+  for (const [position, location] of locations.entries()) {
+    try {
+      const url = new URL(location);
+      const match = /^\/ai-quick-reference\/([^/]+)\/$/.exec(url.pathname);
+      if (url.origin !== 'https://sealos.io' || !match) {
+        throw new Error('URL is outside the canonical English FAQ route.');
+      }
+      slugs.push(match[1]);
+    } catch (error) {
+      findings.push({
+        category: 'invalid-sitemap-data',
+        id: null,
+        slug: null,
+        field: 'loc',
+        expected: 'https://sealos.io/ai-quick-reference/<slug>/',
+        actual: location,
+        position,
+        error: describeError(error),
+      });
+    }
+  }
+
+  return { slugs, findings };
+}
+
+function compareLocalIndexFields(sourceRecords, indexRecords) {
+  const sourceById = new Map(
+    sourceRecords.map((record) => [record.id, record]),
+  );
+  const fields = [
+    ['category', 'category', 'index-category-mismatches'],
+    ['title', 'question', 'index-question-mismatches'],
+    ['description', 'description', 'index-description-mismatches'],
+    ['slug', 'slug', 'index-slug-mismatches'],
+  ];
+  const findings = [];
+
+  for (const indexRecord of indexRecords) {
+    const sourceRecord = sourceById.get(indexRecord.id);
+    if (!sourceRecord) continue;
+    for (const [sourceField, indexField, category] of fields) {
+      const expected =
+        sourceField === 'slug'
+          ? sourceRecord.slug
+          : sourceRecord.data[sourceField];
+      const actual = indexRecord[indexField];
+      if (expected === actual) continue;
+      findings.push({
+        category,
+        id: sourceRecord.id,
+        slug: indexRecord.slug,
+        field: indexField,
+        expected,
+        actual,
+      });
+    }
+  }
+
+  return findings;
+}
+
+async function mapInBatches(values, batchSize, mapper) {
+  const results = [];
+  for (let offset = 0; offset < values.length; offset += batchSize) {
+    results.push(
+      ...(await Promise.all(
+        values.slice(offset, offset + batchSize).map(mapper),
+      )),
+    );
+  }
+  return results;
+}
+
+async function inspectInvalidLocalRoutes({
+  target,
+  sourceRecords,
+  targetReadFile,
+}) {
+  const groups = groupByNormalizedSlug(sourceRecords);
+  const collision = [...groups.entries()].find(([, group]) => group.length > 1);
+  if (!collision) {
+    return { attempted: 0, accepted: 0, statuses: [], findings: [] };
+  }
+
+  const [normalizedSlug] = collision;
+  const probes = [normalizedSlug, `999999-${normalizedSlug}`];
+  const findings = [];
+  const statuses = [];
+  let accepted = 0;
+
+  for (const slug of probes) {
+    let status;
+    try {
+      await targetReadFile(
+        resolve(target, 'ai-quick-reference', slug, 'index.html'),
+      );
+      status = 200;
+    } catch (error) {
+      if (error?.code === 'ENOENT') {
+        status = 404;
+      } else {
+        status = 0;
+        findings.push({
+          category: 'route-read-failures',
+          id: getNumericSlugId(slug),
+          slug,
+          field: 'route',
+          expected: 'readable file or missing route',
+          actual: describeError(error),
+        });
+      }
+    }
+    statuses.push(status);
+    if (status === 404 || status === 410) {
+      accepted += 1;
+    } else {
+      findings.push({
+        category: 'invalid-route-status-failures',
+        id: getNumericSlugId(slug),
+        slug,
+        field: 'status',
+        expected: [404, 410],
+        actual: status,
+      });
+    }
+  }
+
+  return { attempted: probes.length, accepted, statuses, findings };
+}
+
+export async function inspectLocalFAQTarget({
+  target,
+  mode = 'local',
+  checkedAt,
+  loadSource = loadCanonicalFAQSource,
+  filesystem = {},
+}) {
+  const targetReadFile = filesystem.readFile ?? readFile;
+  const targetReadDirectory = filesystem.readdir ?? readdir;
+  const findings = [];
+  let sourceRecords = [];
+  let indexRecords = [];
+  let sitemapSlugs = [];
+
+  try {
+    sourceRecords = await loadSource();
+  } catch (error) {
+    findings.push(
+      createIngestionFinding(
+        'source-read-failures',
+        'source',
+        'canonical source records',
+        error,
+      ),
+    );
+  }
+
+  try {
+    const parsed = parseLocalIndex(
+      await targetReadFile(resolve(target, 'ai-faqs.en.json')),
+    );
+    indexRecords = parsed.records;
+    findings.push(...parsed.findings);
+  } catch (error) {
+    findings.push(
+      createIngestionFinding(
+        'index-read-failures',
+        'index',
+        'readable ai-faqs.en.json',
+        error,
+      ),
+    );
+  }
+
+  try {
+    const parsed = parseSitemapSlugs(
+      await targetReadFile(
+        resolve(target, 'ai-quick-reference', 'sitemap.xml'),
+      ),
+    );
+    sitemapSlugs = parsed.slugs;
+    findings.push(...parsed.findings);
+  } catch (error) {
+    findings.push(
+      createIngestionFinding(
+        'sitemap-read-failures',
+        'sitemap',
+        'readable AI FAQ sitemap',
+        error,
+      ),
+    );
+  }
+
+  const routeRoot = resolve(target, 'ai-quick-reference');
+  let routeSlugs = [];
+  try {
+    const entries = await targetReadDirectory(routeRoot, {
+      withFileTypes: true,
+    });
+    routeSlugs = entries
+      .filter((entry) => entry?.isDirectory?.())
+      .map((entry) => entry.name)
+      .sort((left, right) =>
+        compareEntries(
+          { id: getNumericSlugId(left), slug: left },
+          { id: getNumericSlugId(right), slug: right },
+        ),
+      );
+  } catch (error) {
+    findings.push(
+      createIngestionFinding(
+        'route-enumeration-failures',
+        'route',
+        'readable immediate route directories',
+        error,
+      ),
+    );
+  }
+
+  const routeResults = await mapInBatches(
+    routeSlugs,
+    LOCAL_ROUTE_READ_BATCH_SIZE,
+    async (slug) => {
+      try {
+        const buffer = await targetReadFile(
+          resolve(routeRoot, slug, 'index.html'),
+        );
+        return { slug, html: Buffer.from(buffer).toString('utf8') };
+      } catch (error) {
+        return { slug, error };
+      }
+    },
+  );
+  const readableRoutes = new Map();
+  const failedRoutes = new Set();
+  for (const result of routeResults) {
+    if (result.error) {
+      failedRoutes.add(result.slug);
+      findings.push({
+        category: 'route-read-failures',
+        id: getNumericSlugId(result.slug),
+        slug: result.slug,
+        field: 'route',
+        expected: 'readable index.html',
+        actual: describeError(result.error),
+      });
+    } else {
+      readableRoutes.set(result.slug, result.html);
+    }
+  }
+
+  const comparison = compareFAQRouteInventories({
+    source: sourceRecords,
+    index: indexRecords,
+    sitemap: sitemapSlugs,
+    route: [...readableRoutes.keys()],
+  });
+  findings.push(
+    ...comparison.findings,
+    ...compareLocalIndexFields(sourceRecords, indexRecords),
+  );
+
+  const sourceById = new Map(
+    sourceRecords.map((record) => [record.id, record]),
+  );
+  const indexCandidates = [
+    ...new Map(indexRecords.map((record) => [record.slug, record])).values(),
+  ].sort(compareEntries);
+  const statusHistogram = {};
+  let identityPagesChecked = 0;
+  let identityFieldsChecked = 0;
+  const recordStatus = (status) => {
+    statusHistogram[status] = (statusHistogram[status] ?? 0) + 1;
+  };
+
+  for (const indexRecord of indexCandidates) {
+    const html = readableRoutes.get(indexRecord.slug);
+    if (html === undefined) {
+      if (!failedRoutes.has(indexRecord.slug)) recordStatus(404);
+      continue;
+    }
+    recordStatus(200);
+    const sourceRecord = sourceById.get(indexRecord.id);
+    if (!sourceRecord) continue;
+    identityPagesChecked += 1;
+    identityFieldsChecked += IDENTITY_FIELDS.length;
+    findings.push(...inspectFAQPageIdentity({ html, record: sourceRecord }));
+  }
+
+  const invalidRoutes = await inspectInvalidLocalRoutes({
+    target,
+    sourceRecords,
+    targetReadFile,
+  });
+  findings.push(...invalidRoutes.findings);
+  for (const status of invalidRoutes.statuses) recordStatus(status);
+
+  return normalizeFAQRouteReport({
+    target,
+    mode,
+    checkedAt,
+    inventories: comparison.inventories,
+    statusHistogram,
+    routesAttempted: indexCandidates.length,
+    identityPagesChecked,
+    identityFieldsChecked,
+    invalidRoutesAttempted: invalidRoutes.attempted,
+    invalidRoutesAccepted: invalidRoutes.accepted,
+    findings,
+  });
+}
+
 async function inspectLegacyTarget({ target, mode, checkedAt }) {
   const isRemote = mode === 'remote';
   const pages = await loadFAQPages();
@@ -724,9 +1156,15 @@ async function inspectLegacyTarget({ target, mode, checkedAt }) {
   };
 }
 
+async function inspectFAQTarget(options) {
+  return options.mode === 'local'
+    ? inspectLocalFAQTarget(options)
+    : inspectLegacyTarget(options);
+}
+
 export async function runVerifyFAQRoutes({
   args = [],
-  inspectTarget = inspectLegacyTarget,
+  inspectTarget = inspectFAQTarget,
   now = () => new Date(),
   stdout = process.stdout,
   stderr = process.stderr,
