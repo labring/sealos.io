@@ -412,6 +412,7 @@ test('runVerifyFAQIndex separates source read failures from invalid JSON', async
     invalidJsonStderr.output(),
     /invalid source projection schemas: 1/,
   );
+  assert.match(invalidJsonStderr.output(), /code="INVALID_SOURCE_JSON"/);
   assert.match(invalidJsonStderr.output(), /field="\$json"/);
   assertExactTopLevelFindingCategories(invalidJsonStderr.output());
 });
@@ -421,6 +422,7 @@ test('source content failures preserve identity without derivative findings', as
     {
       name: 'read failure',
       field: '$read',
+      code: 'EACCES',
       configure(fixture) {
         return {
           readFile: async (sourcePath) => {
@@ -437,6 +439,7 @@ test('source content failures preserve identity without derivative findings', as
     {
       name: 'invalid JSON',
       field: '$json',
+      code: 'INVALID_INDEX_JSON',
       async configure(fixture) {
         await writeFile(join(fixture.sourceDirectory, '1-alpha.en.json'), '{');
         return {};
@@ -668,6 +671,7 @@ test('index ingestion diagnostics use indexPath exclusively', async (t) => {
       assert.equal(output.includes(`indexPath=${serializedIndexPath}`), true);
       assert.equal(output.includes(`sourcePath=${serializedIndexPath}`), false);
       assert.equal(output.includes(`field=${JSON.stringify(fixtureCase.field)}`), true);
+      assert.equal(output.includes(`code=${JSON.stringify(fixtureCase.code)}`), true);
       assertExactTopLevelFindingCategories(output);
     });
   }
