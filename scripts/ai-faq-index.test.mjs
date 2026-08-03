@@ -677,3 +677,24 @@ test('canonical byte drift is reported when parsed records are equal', () => {
     1,
   );
 });
+
+test('invalid source identity suppresses derivative byte findings', () => {
+  const sourceRecords = makeCanonicalSourceRecords();
+  const indexRecords = makeCanonicalIndexRecords(sourceRecords);
+  sourceRecords[0].filename = 'malformed.en.json';
+
+  const report = compareFAQIndexRecords({
+    sourceRecords,
+    indexRecords,
+    indexBytes: JSON.stringify(indexRecords),
+  });
+
+  assert.equal(
+    getReportCategory(report, 'malformed-source-identifiers').total,
+    1,
+  );
+  assert.equal(
+    getReportCategory(report, 'non-canonical-serialization').total,
+    0,
+  );
+});
