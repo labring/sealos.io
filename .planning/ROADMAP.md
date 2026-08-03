@@ -92,14 +92,31 @@ and reserve sitemap and deployed route checks for Phase 32.
 
 **Validation Approach:** Compare all four slug sets locally, exercise every
    generated route from static output, repeat the comparison against the live
-   sitemap and page index, and inspect representative page identity fields.
+   sitemap and page index, and inspect all four identity fields on every one of
+   the 2,000 local and deployed page-index routes.
+
+**Plans:** 0/4 plans executed
+
+- **Wave 1:** `32-01-PLAN.md` establishes deterministic four-set, four-field,
+  diagnostic, and retained CLI semantics through focused TDD.
+- **Wave 2:** `32-02-PLAN.md` completes the bounded 2,000-page local static
+  gate and adds it after standard and timed static builds.
+- **Wave 3:** `32-03-PLAN.md` completes the eight-worker, timeout-bounded
+  2,000-route remote gate with structured English diagnostics.
+- **Wave 4:** `32-04-PLAN.md` preserves the stale production baseline and
+  requires exact-SHA Vercel, Cloudflare, and live Sealos evidence.
+
+**Cross-Cutting Constraints:** Retain `verify:ai-faq-routes`, require exact
+2,000-entry source/index/sitemap/route parity, inspect title, H1, meta
+description, and canonical on every route, bound local reads and remote
+requests, and retain full-SHA production evidence from both hosting workflows.
 
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 31. Canonical Index Generation And Local Parity | 3/3 | Complete | 2026-08-03 |
-| 32. Sitemap Route Parity And Production Verification | 0/0 | Ready to plan | - |
+| 32. Sitemap Route Parity And Production Verification | 0/4 | Planned    |  |
 
 ## Execution Order
 
