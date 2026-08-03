@@ -5,13 +5,35 @@ import { join } from 'node:path';
 import test from 'node:test';
 
 import {
+  FAQ_INDEX_FINDING_CATEGORIES,
   FAQ_SOURCE_READ_BATCH_SIZE,
+  compareFAQIndexRecords,
+  formatFAQIndexReport,
   loadCanonicalFAQSource,
   parseFAQSourceFilename,
   projectFAQIndexRecord,
   serializeCanonicalFAQIndex,
   validateFAQSourceRecords,
 } from './ai-faq-index.mjs';
+
+const EXPECTED_FINDING_CATEGORY_KEYS = [
+  'malformed-source-identifiers',
+  'malformed-index-identifiers',
+  'invalid-source-projection-schemas',
+  'invalid-index-projection-schemas',
+  'duplicate-source-ids',
+  'duplicate-index-ids',
+  'duplicate-source-slugs',
+  'duplicate-index-slugs',
+  'source-only-ids',
+  'index-only-ids',
+  'ordering-drift',
+  'slug-drift',
+  'question-drift',
+  'description-drift',
+  'category-drift',
+  'non-canonical-serialization',
+];
 
 function makeSourceData(overrides = {}) {
   return {
@@ -20,6 +42,35 @@ function makeSourceData(overrides = {}) {
     category: 'Question category',
     ...overrides,
   };
+}
+
+function makeCanonicalSourceRecords(count = 3) {
+  return Array.from({ length: count }, (_, index) => {
+    const id = index + 1;
+    const slug = `${id}-slug-${id}`;
+    return {
+      id,
+      filename: `${slug}.en.json`,
+      slug,
+      sourcePath: `/fixture/${slug}.en.json`,
+      sourcePosition: id,
+      data: makeSourceData({
+        title: `Question ${id}`,
+        description: `Description ${id}`,
+        category: `Category ${id}`,
+      }),
+    };
+  });
+}
+
+function makeCanonicalIndexRecords(sourceRecords) {
+  return sourceRecords.map(projectFAQIndexRecord);
+}
+
+function getReportCategory(report, key) {
+  const category = report.categories.find((item) => item.key === key);
+  assert.ok(category, `missing report category: ${key}`);
+  return category;
 }
 
 async function createSourceFixture(entries) {
@@ -370,4 +421,259 @@ test('the committed source corpus loads as 2,000 canonical numeric records', asy
     'description',
     'slug',
   ]);
+});
+
+test('compareFAQIndexRecords accepts exact records and preserves category order', () => {
+  const sourceRecords = makeCanonicalSourceRecords();
+  const indexRecords = makeCanonicalIndexRecords(sourceRecords);
+  const indexBytes = JSON.stringify(indexRecords);
+
+  const report = compareFAQIndexRecords({
+    sourceRecords,
+    indexRecords,
+    indexBytes,
+  });
+
+  assert.deepEqual(
+    FAQ_INDEX_FINDING_CATEGORIES.map(({ key }) => key),
+    EXPECTED_FINDING_CATEGORY_KEYS,
+  );
+  assert.deepEqual(
+    report.categories.map(({ key }) => key),
+    EXPECTED_FINDING_CATEGORY_KEYS,
+  );
+  assert.equal(report.ok, true);
+  assert.equal(report.totalFindings, 0);
+  assert.equal(report.recordCount, 3);
+});
+
+test('compareFAQIndexRecords counts every parity finding category', async (t) => {
+  const cases = [
+    {
+      key: 'malformed-source-identifiers',
+      mutate({ sourceRecords }) {
+        sourceRecords[0].filename = 'malformed.en.json';
+      },
+    },
+    {
+      key: 'malformed-index-identifiers',
+      mutate({ indexRecords }) {
+        indexRecords[0].slug = 'malformed';
+      },
+    },
+    {
+      key: 'invalid-source-projection-schemas',
+      mutate({ sourceRecords }) {
+        sourceRecords[0].data.title = '   ';
+      },
+    },
+    {
+      key: 'invalid-index-projection-schemas',
+      mutate({ indexRecords }) {
+        delete indexRecords[0].question;
+      },
+    },
+    {
+      key: 'duplicate-source-ids',
+      mutate({ sourceRecords }) {
+        sourceRecords.push({
+          ...sourceRecords[0],
+          filename: '1-other.en.json',
+          slug: '1-other',
+          sourcePath: '/fixture/1-other.en.json',
+          sourcePosition: 4,
+        });
+      },
+    },
+    {
+      key: 'duplicate-index-ids',
+      mutate({ indexRecords }) {
+        indexRecords.push({ ...indexRecords[0], slug: '1-other' });
+      },
+    },
+    {
+      key: 'duplicate-source-slugs',
+      mutate({ sourceRecords }) {
+        sourceRecords.push({
+          ...sourceRecords[0],
+          sourcePosition: 4,
+        });
+      },
+    },
+    {
+      key: 'duplicate-index-slugs',
+      mutate({ indexRecords }) {
+        indexRecords.push({ ...indexRecords[0] });
+      },
+    },
+    {
+      key: 'source-only-ids',
+      mutate({ indexRecords }) {
+        indexRecords.splice(1, 1);
+      },
+    },
+    {
+      key: 'index-only-ids',
+      mutate({ indexRecords }) {
+        indexRecords.push({
+          category: 'Category 4',
+          question: 'Question 4',
+          description: 'Description 4',
+          slug: '4-slug-4',
+        });
+      },
+    },
+    {
+      key: 'ordering-drift',
+      mutate({ indexRecords }) {
+        [indexRecords[1], indexRecords[2]] = [
+          indexRecords[2],
+          indexRecords[1],
+        ];
+      },
+    },
+    {
+      key: 'slug-drift',
+      mutate({ indexRecords }) {
+        indexRecords[0].slug = '1-changed-slug';
+      },
+    },
+    {
+      key: 'question-drift',
+      mutate({ indexRecords }) {
+        indexRecords[0].question = 'Changed question';
+      },
+    },
+    {
+      key: 'description-drift',
+      mutate({ indexRecords }) {
+        indexRecords[0].description = 'Changed description';
+      },
+    },
+    {
+      key: 'category-drift',
+      mutate({ indexRecords }) {
+        indexRecords[0].category = 'Changed category';
+      },
+    },
+    {
+      key: 'non-canonical-serialization',
+      mutate(state) {
+        state.indexBytes = `${JSON.stringify(state.indexRecords, null, 2)}\n`;
+      },
+    },
+  ];
+
+  for (const fixtureCase of cases) {
+    await t.test(fixtureCase.key, () => {
+      const sourceRecords = makeCanonicalSourceRecords();
+      const indexRecords = makeCanonicalIndexRecords(sourceRecords);
+      const state = { sourceRecords, indexRecords, indexBytes: null };
+      fixtureCase.mutate(state);
+
+      const report = compareFAQIndexRecords({
+        sourceRecords,
+        indexRecords,
+        indexBytes: state.indexBytes ?? JSON.stringify(indexRecords),
+      });
+
+      assert.equal(report.ok, false);
+      assert.ok(getReportCategory(report, fixtureCase.key).total > 0);
+      assert.deepEqual(
+        report.categories.map(({ key }) => key),
+        EXPECTED_FINDING_CATEGORY_KEYS,
+      );
+    });
+  }
+});
+
+test('field drift stays aligned by numeric ID without membership findings', () => {
+  const sourceRecords = makeCanonicalSourceRecords();
+  const indexRecords = makeCanonicalIndexRecords(sourceRecords);
+  indexRecords[1].slug = '2-correct-id-with-stale-slug';
+
+  const report = compareFAQIndexRecords({
+    sourceRecords,
+    indexRecords,
+    indexBytes: JSON.stringify(indexRecords),
+  });
+
+  assert.equal(getReportCategory(report, 'slug-drift').total, 1);
+  assert.equal(getReportCategory(report, 'source-only-ids').total, 0);
+  assert.equal(getReportCategory(report, 'index-only-ids').total, 0);
+  assert.deepEqual(getReportCategory(report, 'slug-drift').findings[0], {
+    id: 2,
+    sourcePosition: 2,
+    indexPosition: 2,
+    field: 'slug',
+    expected: '2-slug-2',
+    actual: '2-correct-id-with-stale-slug',
+  });
+});
+
+test('one membership error does not create relative ordering drift', () => {
+  const sourceRecords = makeCanonicalSourceRecords();
+  const indexRecords = makeCanonicalIndexRecords(sourceRecords);
+  indexRecords.splice(1, 1);
+
+  const report = compareFAQIndexRecords({
+    sourceRecords,
+    indexRecords,
+    indexBytes: JSON.stringify(indexRecords),
+  });
+
+  assert.equal(getReportCategory(report, 'source-only-ids').total, 1);
+  assert.equal(getReportCategory(report, 'ordering-drift').total, 0);
+});
+
+test('formatFAQIndexReport emits stable totals and caps details at 20', () => {
+  const sourceRecords = makeCanonicalSourceRecords(21);
+  const indexRecords = makeCanonicalIndexRecords(sourceRecords).map(
+    (record, index) => ({
+      ...record,
+      question: `Changed question\n${index + 1}`,
+    }),
+  );
+  const report = compareFAQIndexRecords({
+    sourceRecords,
+    indexRecords,
+    indexBytes: JSON.stringify(indexRecords),
+  });
+
+  const output = formatFAQIndexReport(report);
+  const questionDetails = output
+    .split('\n')
+    .filter((line) => line.startsWith('  - ') && line.includes('field="question"'));
+
+  assert.equal(getReportCategory(report, 'question-drift').total, 21);
+  assert.equal(questionDetails.length, 20);
+  assert.match(output, /question drift: 21/);
+  assert.match(output, /expected="Question 1"/);
+  assert.match(output, /actual="Changed question\\n1"/);
+  assert.doesNotMatch(output, /actual="Changed question\n1"/);
+  assert.ok(
+    output.indexOf('malformed source identifiers: 0') <
+      output.indexOf('malformed index identifiers: 0'),
+  );
+  assert.ok(
+    output.indexOf('category drift: 0') <
+      output.indexOf('non-canonical serialization: 1'),
+  );
+  assert.equal(output.endsWith('npm run generate:ai-faq-index\n'), true);
+});
+
+test('canonical byte drift is reported when parsed records are equal', () => {
+  const sourceRecords = makeCanonicalSourceRecords();
+  const indexRecords = makeCanonicalIndexRecords(sourceRecords);
+  const report = compareFAQIndexRecords({
+    sourceRecords,
+    indexRecords,
+    indexBytes: `${JSON.stringify(indexRecords)}\n`,
+  });
+
+  assert.equal(report.totalFindings, 1);
+  assert.equal(
+    getReportCategory(report, 'non-canonical-serialization').total,
+    1,
+  );
 });
