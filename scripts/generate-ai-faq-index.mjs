@@ -25,7 +25,7 @@ function createTemporaryPath(outputPath) {
   );
 }
 
-export async function runGenerateFAQIndex({
+export async function generateFAQIndex({
   sourceDirectory = DEFAULT_FAQ_SOURCE_DIRECTORY,
   outputPath = DEFAULT_FAQ_INDEX_OUTPUT_PATH,
   expectedCount = DEFAULT_FAQ_SOURCE_COUNT,
@@ -85,6 +85,8 @@ export async function runGenerateFAQIndex({
     }
   }
 }
+
+export const runGenerateFAQIndex = generateFAQIndex;
 
 if (
   process.argv[1] &&
