@@ -1,26 +1,12 @@
-import { readdir, readFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
-
-const sourceDirectory = resolve('content/ai-quick-reference');
-const sourceSuffix = '.en.json';
+import { loadCanonicalFAQSource } from './ai-faq-index.mjs';
 
 export async function loadFAQPages() {
-  const sourceFiles = (await readdir(sourceDirectory))
-    .filter((file) => file.endsWith(sourceSuffix))
-    .sort();
-
-  return Promise.all(
-    sourceFiles.map(async (file) => {
-      const slug = file.slice(0, -sourceSuffix.length);
-      return {
-        slug,
-        url: `/ai-quick-reference/${slug}`,
-        data: JSON.parse(
-          await readFile(resolve(sourceDirectory, file), 'utf8'),
-        ),
-      };
-    }),
-  );
+  const sourceRecords = await loadCanonicalFAQSource();
+  return sourceRecords.map(({ slug, data }) => ({
+    slug,
+    url: `/ai-quick-reference/${slug}`,
+    data,
+  }));
 }
 
 export function groupByNormalizedSlug(pages) {
