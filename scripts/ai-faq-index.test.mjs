@@ -670,8 +670,14 @@ test('index ingestion diagnostics use indexPath exclusively', async (t) => {
       assert.equal(status, 1);
       assert.equal(output.includes(`indexPath=${serializedIndexPath}`), true);
       assert.equal(output.includes(`sourcePath=${serializedIndexPath}`), false);
-      assert.equal(output.includes(`field=${JSON.stringify(fixtureCase.field)}`), true);
-      assert.equal(output.includes(`code=${JSON.stringify(fixtureCase.code)}`), true);
+      assert.equal(
+        output.includes(`field=${JSON.stringify(fixtureCase.field)}`),
+        true,
+      );
+      assert.equal(
+        output.includes(`code=${JSON.stringify(fixtureCase.code)}`),
+        true,
+      );
       assertExactTopLevelFindingCategories(output);
     });
   }
@@ -1159,9 +1165,10 @@ test('source diagnostics stay byte-stable across reversed directory enumeration'
   assert.equal(reverseOutput, forwardOutput);
   assertExactTopLevelFindingCategories(forwardOutput);
   assert.deepEqual(
-    getReportCategory(forwardReport, 'malformed-source-identifiers').findings.map(
-      ({ sourcePath }) => basename(sourcePath),
-    ),
+    getReportCategory(
+      forwardReport,
+      'malformed-source-identifiers',
+    ).findings.map(({ sourcePath }) => basename(sourcePath)),
     ['3-a.en.json', '3-z.en.json', 'a.bad', 'z.bad'],
   );
 });

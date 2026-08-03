@@ -934,11 +934,7 @@ export function compareFAQIndexRecords({
     side: 'index',
   });
 
-  if (
-    !sourceEnumerationFailed &&
-    indexIsArray &&
-    indexFindings.length === 0
-  ) {
+  if (!sourceEnumerationFailed && indexIsArray && indexFindings.length === 0) {
     addMembershipFindings({ buckets, sourceIdGroups, indexIdGroups });
     const comparableIds = getComparableIds(sourceIdGroups, indexIdGroups);
     addOrderingFindings({
