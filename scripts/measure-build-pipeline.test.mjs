@@ -209,10 +209,7 @@ test('runPipeline stops after failed route parity before the post-build guard', 
       { name: 'AI FAQ route parity', status: 7 },
     ],
   );
-  assert.deepEqual(seen.at(-1), [
-    'npm',
-    ['run', 'verify:ai-faq-routes'],
-  ]);
+  assert.deepEqual(seen.at(-1), ['npm', ['run', 'verify:ai-faq-routes']]);
   assert.equal(seen.length, 5);
   assert.equal(
     logs.filter((line) => /^  .*: .*ms \(exit \d+\)$/.test(line)).length,

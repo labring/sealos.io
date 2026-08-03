@@ -135,6 +135,10 @@ function getStagesForMode(mode, passthrough = []) {
       createStage('root locale normalization', 'node', [
         'scripts/normalize-root-locale.js',
       ]),
+      createStage('AI FAQ route parity', 'npm', [
+        'run',
+        'verify:ai-faq-routes',
+      ]),
       createStage('post generated diff guard', 'npm', [
         'run',
         'app-store:diff',
@@ -149,6 +153,7 @@ function getStagesForMode(mode, passthrough = []) {
     createStage('root locale normalization', 'node', [
       'scripts/normalize-root-locale.js',
     ]),
+    createStage('AI FAQ route parity', 'npm', ['run', 'verify:ai-faq-routes']),
     createStage('post generated diff guard', 'npm', ['run', 'app-store:diff']),
   ];
 }
