@@ -76,14 +76,14 @@ Roadmap creation maps each v1.5 requirement to exactly one phase.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SOURCE-01 | Pending | Unmapped |
-| SOURCE-02 | Pending | Unmapped |
-| PARITY-01 | Pending | Unmapped |
-| PARITY-02 | Pending | Unmapped |
-| DELIVERY-01 | Pending | Unmapped |
-| DELIVERY-02 | Pending | Unmapped |
+| SOURCE-01 | Phase 31 | Pending |
+| SOURCE-02 | Phase 31 | Pending |
+| PARITY-01 | Phase 31 | Pending |
+| PARITY-02 | Phase 32 | Pending |
+| DELIVERY-01 | Phase 31 | Pending |
+| DELIVERY-02 | Phase 32 | Pending |
 
-**Coverage:** 6 total requirements; 0 mapped; roadmap pending.
+**Coverage:** 6/6 v1.5 requirements mapped.
 
 ---
-*Last updated: 2026-08-03 after v1.5 requirements confirmation*
+*Last updated: 2026-08-03 after v1.5 roadmap creation*

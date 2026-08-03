@@ -2,11 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: AI Quick Reference Index Consistency
+current_phase: 31
+current_phase_name: Canonical Index Generation And Local Parity
 status: planning
-last_updated: "2026-08-03T06:19:55.401Z"
+last_updated: "2026-08-03T06:28:00Z"
 last_activity: 2026-08-03
 progress:
-  total_phases: 0
+  total_phases: 2
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -27,33 +29,34 @@ represented by the URL and current source data.
 
 | Field | Value |
 |-------|-------|
-| Phase | Not started |
-| Name | Requirements Definition |
-| Status | Planning |
+| Phase | 31 of 32 |
+| Name | Canonical Index Generation And Local Parity |
+| Status | Planned |
 | Goal | Source JSON, page index entries, sitemap URLs, and detail-page routes stay aligned. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-Milestone v1.5 is defining requirements for source/index synchronization,
-deterministic generation, and parity verification.
+The v1.5 roadmap is approved in `.planning/ROADMAP.md`; Phase 31 is ready for
+discussion and planning.
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 31 (Canonical Index Generation And Local Parity)
 Plan: —
-Status: Defining requirements
-Last activity: 2026-08-03 — Milestone v1.5 started
+Status: Ready to discuss
+Last activity: 2026-08-03 — v1.5 roadmap created with 6/6 requirements mapped
 
 ## Next Action
 
-Choose the research path, define requirements, and create the v1.5 roadmap.
+Run `$gsd-discuss-phase 31` to clarify implementation decisions, then
+`$gsd-plan-phase 31` to create the execution plan.
 
 ## Session
 
 **Last session:** 2026-08-03T06:19:55Z
-**Stopped at:** Milestone v1.5 initialized after v1.4 production verification
+**Stopped at:** Milestone v1.5 roadmap created; Phase 31 ready for discussion
 **Resume file:** None
 
 ### Quick Tasks Completed
@@ -209,4 +212,5 @@ Choose the research path, define requirements, and create the v1.5 roadmap.
 
 ## Operator Next Steps
 
-- Start the next milestone with /gsd-new-milestone
+- Run `$gsd-discuss-phase 31` to lock implementation decisions.
+- Run `$gsd-plan-phase 31` to create the execution plan.
