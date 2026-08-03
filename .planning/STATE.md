@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: AI Quick Reference Index Consistency
-current_phase: 31
-current_phase_name: Canonical Index Generation And Local Parity
-status: verifying
-stopped_at: Completed 31-03-PLAN.md
-last_updated: "2026-08-03T19:13:52.479Z"
+current_phase: 32
+current_phase_name: Sitemap Route Parity And Production Verification
+status: ready_to_plan
+stopped_at: Phase 31 complete, ready to plan Phase 32
+last_updated: "2026-08-03T22:11:29.296Z"
 last_activity: 2026-08-03
-last_activity_desc: Completed Phase 31 Plan 03
+last_activity_desc: Phase 31 complete, transitioned to Phase 32
 progress:
   total_phases: 2
   completed_phases: 1
@@ -25,39 +25,39 @@ See: `.planning/PROJECT.md` (updated 2026-08-03)
 
 **Core value:** Readers and search engines reach the exact Sealos content
 represented by the URL and current source data.
-**Current focus:** Phase 31 — canonical-index-generation-and-local-parity
+**Current focus:** Phase 32 — Sitemap Route Parity And Production Verification
 
 ## Current Phase
 
 | Field | Value |
 |-------|-------|
-| Phase | 31 of 32 |
-| Name | Canonical Index Generation And Local Parity |
-| Status | Ready for verification |
-| Goal | Source JSON, page index entries, sitemap URLs, and detail-page routes stay aligned. |
+| Phase | 32 of 32 |
+| Name | Sitemap Route Parity And Production Verification |
+| Status | Ready to plan |
+| Goal | Every page-index entry has the same canonical slug in the sitemap and deployed detail-page route. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-Phase 31 implementation covers SOURCE-01, SOURCE-02, PARITY-01, and DELIVERY-01.
-Phase 32 requirements remain pending.
+Phase 31 completed SOURCE-01, SOURCE-02, PARITY-01, and DELIVERY-01.
+Phase 32 owns the pending PARITY-02 and DELIVERY-02 requirements.
 
 ## Current Position
 
-Phase: 31 (Canonical Index Generation And Local Parity) — VERIFYING
-Plan: 3 of 3
-Status: Phase complete — ready for verification
-Last activity: 2026-08-03 — Completed Plan 31-03
+Phase: 32 — Sitemap Route Parity And Production Verification
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-08-03 — Phase 31 complete, transitioned to Phase 32
 
 ## Next Action
 
-Run `$gsd-verify-work 31` to verify the Phase 31 goal.
+Phase 32 is ready for a later `$gsd-discuss-phase 32`; no Phase 32 workflow has started.
 
 ## Session
 
-**Last session:** 2026-08-03T19:13:52.475Z
-**Stopped at:** Completed 31-03-PLAN.md
+**Last session:** 2026-08-03T22:11:29.296Z
+**Stopped at:** Phase 31 complete, ready to plan Phase 32
 **Resume file:** None
 
 ### Quick Tasks Completed
@@ -225,4 +225,4 @@ Run `$gsd-verify-work 31` to verify the Phase 31 goal.
 
 ## Operator Next Steps
 
-- Run `$gsd-verify-work 31` to verify the Phase 31 goal.
+- Phase 31 is complete. Phase 32 remains ready for discussion and planning.

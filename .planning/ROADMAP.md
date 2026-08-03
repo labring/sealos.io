@@ -7,6 +7,11 @@ sitemap URLs, and detail-page routes.
 
 **Phases:** 2
 
+## Phases
+
+- [x] **Phase 31: Canonical Index Generation And Local Parity** - Establish source-derived page-index generation and local parity gates. (completed 2026-08-03)
+- [ ] **Phase 32: Sitemap Route Parity And Production Verification** - Verify canonical sitemap and route identity through production evidence.
+
 ### Phase 31: Canonical Index Generation And Local Parity
 
 **Goal:** Maintainers can regenerate the client page index from the source
@@ -88,6 +93,13 @@ and reserve sitemap and deployed route checks for Phase 32.
 **Validation Approach:** Compare all four slug sets locally, exercise every
    generated route from static output, repeat the comparison against the live
    sitemap and page index, and inspect representative page identity fields.
+
+## Progress
+
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 31. Canonical Index Generation And Local Parity | 3/3 | Complete | 2026-08-03 |
+| 32. Sitemap Route Parity And Production Verification | 0/0 | Ready to plan | - |
 
 ## Execution Order
 

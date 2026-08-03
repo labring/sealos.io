@@ -45,11 +45,13 @@ The complete v1.4 planning record is preserved in
 - `public/ai-faqs.en.json` is fetched by `FAQSearch` for the client-side list,
   filtering, and pagination.
 
-- The current page index has 28 slug mismatches and five description-field
-  mismatches against the source collection.
+- The pre-Phase 31 page index had 28 slug mismatches and five description-field
+  mismatches against the source collection. Canonical regeneration resolved
+  every source-to-index mismatch.
 
-- The live sitemap contains the 2,000 source slugs; all 28 stale page-index
-  slugs return 404 in production.
+- The previously verified live sitemap contains the 2,000 source slugs; Phase
+  32 owns refreshed production route and sitemap evidence for the canonical
+  page index.
 
 - The static page index remains useful for client performance, so generation
   should retain the existing public asset contract.
@@ -91,4 +93,4 @@ Roadmap creation maps each v1.5 requirement to exactly one phase.
 **Coverage:** 6/6 v1.5 requirements mapped.
 
 ---
-*Last updated: 2026-08-03 after v1.5 roadmap creation*
+*Last updated: 2026-08-03 after Phase 31 verification*
