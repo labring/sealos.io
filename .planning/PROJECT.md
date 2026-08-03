@@ -12,10 +12,10 @@ verified screenshot assets, and production publication checks.
 
 ## Core Value
 
-Readers can reproduce framework-specific Sealos deployments from source,
-commands, screenshots, and runtime evidence that match the current product.
+Readers and search engines reach the exact Sealos content represented by the
+URL and current source data.
 
-## Current Milestone: v1.3 FastAPI and Django Tutorial Expansion
+## Previous Milestone: v1.3 FastAPI and Django Tutorial Expansion
 
 **Status:** Complete on 2026-07-17.
 
@@ -30,6 +30,23 @@ reference applications and real Sealos deployment evidence.
 - Twenty-four 1440x900 practice-backed WebP screenshots below 200 KB each.
 - Tutorial matrix, navigation, metadata, and validation coverage for 15 pages.
 - Vertical red-green delivery across the four confirmed public test seams.
+
+## Current Milestone: v1.4 AI Quick Reference Slug Integrity and Deployment
+
+**Status:** In progress on 2026-07-31.
+
+**Goal:** Resolve every complete AI Quick Reference slug to its own source
+entry, then prove the correction through a production deployment.
+
+**Active scope:**
+- Exact full-slug resolution before compatibility fallback.
+- Explicit handling for ambiguous normalized candidates.
+- Metadata, H1, canonical, related, and adjacent identity checks.
+- Source-wide regression coverage and live deployment verification.
+
+The collection contains 2,000 English entries and 288 normalized collision
+groups affecting 1,453 pages. FAQ JSON synchronization, locale/hreflang
+cleanup, and broad taxonomy cleanup remain separate work.
 
 ## Requirements
 

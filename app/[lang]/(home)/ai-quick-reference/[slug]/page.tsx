@@ -20,6 +20,7 @@ import { SealosBrandCard } from '@/new-components/SealosBrandCard';
 import { SocialLinks } from '@/new-components/SocialLinks';
 import { GradientText } from '@/new-components/GradientText';
 import { getPageUrl, generatePageMetadata } from '@/lib/utils/metadata';
+import { getFAQPageSlug } from '@/lib/utils/faq-slug';
 import { Metadata } from 'next';
 
 export async function generateMetadata({
@@ -39,7 +40,7 @@ export async function generateMetadata({
   return generatePageMetadata({
     title: faqItem.title,
     description: faqItem.description,
-    pathname: `/ai-quick-reference/${slug}`,
+    pathname: faqPage.url,
     lang,
   });
 }
@@ -65,6 +66,7 @@ export default async function FAQDetailPage({ params }: PageProps) {
   // Generate full page URL for social sharing
   const pageUrl = getPageUrl(lang, faqPage.url);
   const category = faqItem.category;
+  const currentPageSlug = getFAQPageSlug(faqPage);
 
   // Get related FAQs
   const relatedPages = findRelatedFAQs(slug, lang, 4);
@@ -85,15 +87,13 @@ export default async function FAQDetailPage({ params }: PageProps) {
 
   // Get keep reading from the same category, excluding current page and related questions
   const relatedSlugs = new Set(
-    relatedPages.map((p) => p.url.split('/').pop() || ''),
+    relatedPages.map((page) => getFAQPageSlug(page)),
   );
   const keepReadingPages = getFAQsByCategory(category, lang)
     .filter((page) => {
-      const pageSlug = page.url.split('/').pop() || '';
       return (
-        pageSlug !== slug &&
-        pageSlug.replace(/^\d+-/, '') !== slug.replace(/^\d+-/, '') &&
-        !relatedSlugs.has(pageSlug)
+        getFAQPageSlug(page) !== currentPageSlug &&
+        !relatedSlugs.has(getFAQPageSlug(page))
       );
     })
     .slice(0, 4);
@@ -102,13 +102,11 @@ export default async function FAQDetailPage({ params }: PageProps) {
   if (keepReadingPages.length < 4) {
     const additionalPages = getAllFAQs(lang)
       .filter((page) => {
-        const pageSlug = page.url.split('/').pop() || '';
         const pageCategory = getCategory(page);
         return (
           pageCategory !== category &&
-          pageSlug !== slug &&
-          pageSlug.replace(/^\d+-/, '') !== slug.replace(/^\d+-/, '') &&
-          !relatedSlugs.has(pageSlug)
+          getFAQPageSlug(page) !== currentPageSlug &&
+          !relatedSlugs.has(getFAQPageSlug(page))
         );
       })
       .slice(0, 4 - keepReadingPages.length);

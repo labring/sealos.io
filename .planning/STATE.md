@@ -1,20 +1,19 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.3
-milestone_name: FastAPI and Django Tutorial Expansion
-current_phase: 28
-current_phase_name: Catalog Publication and Cleanup
-status: complete
-stopped_at: Milestone v1.3 complete
-last_updated: "2026-07-20T03:50:34Z"
-last_activity: 2026-07-21
-last_activity_desc: "Completed quick task 260721-n8f: Add permanent LobeHub legacy app-store redirects across Vercel and Cloudflare Pages"
+milestone: v1.4
+milestone_name: AI Quick Reference slug integrity and deployment
+current_phase: 29
+current_phase_name: Deterministic Slug Resolution and Regression Coverage
+status: executing
+last_updated: "2026-07-31T08:57:00Z"
+last_activity: 2026-07-31
+last_activity_desc: "Implemented exact slug resolution and completed local build verification"
 progress:
-  total_phases: 8
+  total_phases: 10
   completed_phases: 8
-  total_plans: 34
-  completed_plans: 34
-  percent: 100
+  total_plans: 36
+  completed_plans: 35
+  percent: 80
 ---
 
 # Project State
@@ -23,37 +22,37 @@ progress:
 
 See: `.planning/PROJECT.md` (updated 2026-07-15)
 
-**Core value:** Readers can follow framework-specific Sealos tutorials with
-commands, screenshots, and validation evidence that match the current product
-workflow.
-**Current focus:** Milestone v1.3 complete — FastAPI and Django Tutorial Expansion
+**Core value:** Readers and search engines reach the exact Sealos content
+represented by the URL and current source data.
+**Current focus:** Milestone v1.4 — AI Quick Reference slug integrity and deployment
 
 ## Current Phase
 
 | Field | Value |
 |-------|-------|
-| Phase | 28 of 28 |
-| Name | Catalog Publication and Cleanup |
-| Status | Complete |
-| Goal | Readers can navigate the complete 15-page tutorial catalog while maintainers can verify public contracts and the empty practice footprint. |
+| Phase | 29 of 30 |
+| Name | Deterministic Slug Resolution and Regression Coverage |
+| Status | In progress |
+| Goal | Every complete AI Quick Reference slug resolves to its own source entry and page identity fields stay aligned. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-All Phase 28 requirements are complete.
+Phase 29 implementation and local build checks are complete. Production
+deployment verification remains.
 
 ## Current Position
 
-Phase: 28 (Catalog Publication and Cleanup) — COMPLETE
-Plan: 3 of 3
-Status: Milestone v1.3 complete
-Last activity: 2026-07-21 — Completed quick task 260721-n8f: Add permanent
-LobeHub legacy app-store redirects across Vercel and Cloudflare Pages
+Phase: 29 (Deterministic Slug Resolution and Regression Coverage)
+Plan: 1 of 1
+Status: Phase 29 implementation complete; Phase 30 deployment pending
+Last activity: 2026-07-31 — Exact resolver, exhaustive collision regression, and
+production build completed on the release branch
 
 ## Next Action
 
-Milestone v1.3 is complete.
+Deploy the release branch and run the live AI Quick Reference route verifier.
 
 ## Session
 
