@@ -15,6 +15,26 @@ verified screenshot assets, and production publication checks.
 Readers and search engines reach the exact Sealos content represented by the
 URL and current source data.
 
+## Previous Milestone: v1.4 AI Quick Reference Slug Integrity and Deployment
+
+**Status:** Complete on 2026-08-03.
+
+**Goal:** Resolve every complete AI Quick Reference slug to its own source
+entry, then prove the correction through a production deployment.
+
+**Delivered:**
+- Exact full-slug resolution with explicit handling for ambiguous normalized
+  candidates.
+- Source-wide regression coverage for 2,000 entries and 288 normalized
+  collision groups.
+- Metadata, H1, canonical, related, and adjacent identity checks tied to one
+  resolved page.
+- Production sitemap and route verification after PR `#315` merged into
+  `upstream/main`.
+
+FAQ JSON synchronization, locale/hreflang cleanup, and broad taxonomy cleanup
+are carried into v1.5 and later milestones.
+
 ## Previous Milestone: v1.3 FastAPI and Django Tutorial Expansion
 
 **Status:** Complete on 2026-07-17.
@@ -31,22 +51,24 @@ reference applications and real Sealos deployment evidence.
 - Tutorial matrix, navigation, metadata, and validation coverage for 15 pages.
 - Vertical red-green delivery across the four confirmed public test seams.
 
-## Current Milestone: v1.4 AI Quick Reference Slug Integrity and Deployment
+## Current Milestone: v1.5 AI Quick Reference Index Consistency
 
-**Status:** In progress on 2026-07-31.
+**Status:** Planning on 2026-08-03.
 
-**Goal:** Resolve every complete AI Quick Reference slug to its own source
-entry, then prove the correction through a production deployment.
+**Goal:** Make the source JSON the canonical dataset for page index entries,
+sitemap URLs, and detail-page routes.
 
-**Active scope:**
-- Exact full-slug resolution before compatibility fallback.
-- Explicit handling for ambiguous normalized candidates.
-- Metadata, H1, canonical, related, and adjacent identity checks.
-- Source-wide regression coverage and live deployment verification.
+**Target features:**
+- Deterministic generation of `public/ai-faqs.en.json` from
+  `content/ai-quick-reference/*.en.json`.
+- Repair of 28 stale slugs and five description-field drifts with stable
+  numeric ordering across the 2,000-entry inventory.
+- Bidirectional source/index/sitemap/route parity checks in local and
+  production verification.
 
 The collection contains 2,000 English entries and 288 normalized collision
-groups affecting 1,453 pages. FAQ JSON synchronization, locale/hreflang
-cleanup, and broad taxonomy cleanup remain separate work.
+groups affecting 1,453 pages. Locale/hreflang cleanup, broad taxonomy cleanup,
+and content-quality expansion remain later scope.
 
 ## Requirements
 
@@ -78,6 +100,10 @@ cleanup, and broad taxonomy cleanup remain separate work.
 - ✓ The 15-page catalog, five available framework paths, production static
   HTTP surface, responsive layout, and zero practice footprint pass the public
   validator and checksum-sealed publication gate — validated in Phase 28.
+- ✓ AI Quick Reference exact slug resolution, collision handling, and page
+  identity alignment pass source-wide regression checks — validated in v1.4.
+- ✓ Production AI Quick Reference sitemap and representative collision routes
+  pass live HTTP verification after PR `#315` — validated on 2026-08-03.
 
 ### Validated In v1.3
 
@@ -162,4 +188,4 @@ This document evolves at phase transitions and milestone boundaries.
 3. Record the final milestone outcome.
 
 ---
-*Last updated: 2026-07-17 after Phase 28 verification*
+*Last updated: 2026-08-03 after v1.5 milestone initialization*

@@ -1,63 +1,59 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.4
-milestone_name: AI Quick Reference slug integrity and deployment
-current_phase: 29
-current_phase_name: Deterministic Slug Resolution and Regression Coverage
-status: executing
-last_updated: "2026-08-03T09:10:12Z"
+milestone: v1.5
+milestone_name: AI Quick Reference Index Consistency
+status: planning
+last_updated: "2026-08-03T06:19:55.401Z"
 last_activity: 2026-08-03
-last_activity_desc: "Completed quick task 260803-npm: Rename Footer App Store to Templates and add Skills above it"
 progress:
-  total_phases: 10
-  completed_phases: 8
-  total_plans: 36
-  completed_plans: 35
-  percent: 80
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-07-15)
+See: `.planning/PROJECT.md` (updated 2026-08-03)
 
 **Core value:** Readers and search engines reach the exact Sealos content
 represented by the URL and current source data.
-**Current focus:** Milestone v1.4 — AI Quick Reference slug integrity and deployment
+**Current focus:** Milestone v1.5 — AI Quick Reference index consistency
 
 ## Current Phase
 
 | Field | Value |
 |-------|-------|
-| Phase | 29 of 30 |
-| Name | Deterministic Slug Resolution and Regression Coverage |
-| Status | In progress |
-| Goal | Every complete AI Quick Reference slug resolves to its own source entry and page identity fields stay aligned. |
+| Phase | Not started |
+| Name | Requirements Definition |
+| Status | Planning |
+| Goal | Source JSON, page index entries, sitemap URLs, and detail-page routes stay aligned. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-Phase 29 implementation and local build checks are complete. Production
-deployment verification remains.
+Milestone v1.5 is defining requirements for source/index synchronization,
+deterministic generation, and parity verification.
 
 ## Current Position
 
-Phase: 29 (Deterministic Slug Resolution and Regression Coverage)
-Plan: 1 of 1
-Status: Phase 29 implementation complete; Phase 30 deployment pending
-Last activity: 2026-07-31 — Exact resolver, exhaustive collision regression, and
-production build completed on the release branch
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-08-03 — Milestone v1.5 started
 
 ## Next Action
 
-Deploy the release branch and run the live AI Quick Reference route verifier.
+Choose the research path, define requirements, and create the v1.5 roadmap.
 
 ## Session
 
-**Last session:** 2026-07-16T22:15:10.583Z
-**Stopped at:** Milestone v1.3 complete
+**Last session:** 2026-08-03T06:19:55Z
+**Stopped at:** Milestone v1.5 initialized after v1.4 production verification
 **Resume file:** None
 
 ### Quick Tasks Completed
@@ -70,12 +66,6 @@ Deploy the release branch and run the live AI Quick Reference route verifier.
 | 260709-n35 | Fix /products/databases footer bottom Sealos word to match homepage | 2026-07-09 | PR #304 | [260709-n35-fix-products-databases-footer-bottom-sea](./quick/260709-n35-fix-products-databases-footer-bottom-sea/) |
 | 260720-g4e | Add Playwright verification guidance to the Cloud Run article | 2026-07-20 | e9314f2 | [260720-g4e-update-the-sealos-io-blog-article-for-th](./quick/260720-g4e-update-the-sealos-io-blog-article-for-th/) |
 | 260721-n8f | Add permanent LobeHub legacy app-store redirects across Vercel and Cloudflare Pages | 2026-07-21 | ef5aad0 | [260721-n8f-add-permanent-lobehub-legacy-app-store-r](./quick/260721-n8f-add-permanent-lobehub-legacy-app-store-r/) |
-| 260731-lqa | Update the /contact page to match the homepage visual theme while preserving functionality | 2026-07-31 | f220df8 | [260731-lqa-update-the-contact-page-to-match-the-hom](./quick/260731-lqa-update-the-contact-page-to-match-the-hom/) |
-| 260731-n14 | Remove the contact grid background and align its footer and bottom wordmark with the homepage | 2026-07-31 | fc4bbc2 | [260731-n14-remove-the-contact-page-grid-background-](./quick/260731-n14-remove-the-contact-page-grid-background-/) |
-| 260731-ogr | Restore the shared navbar to the pre-846a308 visual design across all pages while preserving current navigation behavior and analytics | 2026-08-03 | 7c889c8 | [260731-ogr-restore-the-shared-navbar-to-the-pre-846](./quick/260731-ogr-restore-the-shared-navbar-to-the-pre-846/) |
-| 260803-lix | Simplify the Navbar menu to Templates, Docs, Resources, Pricing, and Contact while preserving current navigation behavior | 2026-08-03 | 2e9dbf0 | [260803-lix-simplify-navbar-menu](./quick/260803-lix-simplify-navbar-menu/) |
-| 260803-my3 | Add Skills before Templates and remove DevBox and Databases from both Footer implementations | 2026-08-03 | 2b46fc8 | [260803-my3-navbar-footer-skills](./quick/260803-my3-navbar-footer-skills/) |
-| 260803-npm | Rename Footer App Store to Templates and add Skills above it | 2026-08-03 | 4bc4a09 | [260803-npm-footer-products-labels](./quick/260803-npm-footer-products-labels/) |
 
 ## Performance Metrics
 
@@ -216,3 +206,7 @@ Deploy the release branch and run the live AI Quick Reference route verifier.
 - [Phase 28]: Accept production publication through an exact 31-path loopback HTTP matrix.
 - [Phase 28]: Require two stable DOM samples and original-detail visual review at desktop and mobile.
 - [Phase 28]: Seal Phase 28 separately while preserving every Phase 27 evidence byte and mode.
+
+## Operator Next Steps
+
+- Start the next milestone with /gsd-new-milestone
