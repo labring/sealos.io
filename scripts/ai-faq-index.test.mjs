@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import {
+  chmod,
   cp,
   mkdir,
   mkdtemp,
@@ -384,7 +385,10 @@ test('runVerifyFAQIndex separates source read failures from invalid JSON', async
 
   assert.equal(invalidJsonStatus, 1);
   assert.match(invalidJsonStderr.output(), /invalid source JSON: 1/);
-  assert.doesNotMatch(invalidJsonStderr.output(), /source read failures: [1-9]/);
+  assert.doesNotMatch(
+    invalidJsonStderr.output(),
+    /source read failures: [1-9]/,
+  );
 });
 
 test('runVerifyFAQIndex reports source and index ingestion findings through the shared formatter', async (t) => {
@@ -406,9 +410,9 @@ test('runVerifyFAQIndex reports source and index ingestion findings through the 
   assert.match(sourceStderr.output(), /malformed source identifiers: 1/);
   assert.match(sourceStderr.output(), /sourcePath=/);
   assert.equal(
-    sourceStderr.output().endsWith(
-      'Regenerate with: npm run generate:ai-faq-index\n',
-    ),
+    sourceStderr
+      .output()
+      .endsWith('Regenerate with: npm run generate:ai-faq-index\n'),
     true,
   );
 
@@ -425,7 +429,10 @@ test('runVerifyFAQIndex reports source and index ingestion findings through the 
 
   assert.equal(indexStatus, 1);
   assert.match(indexStderr.output(), /invalid index JSON: 1/);
-  assert.match(indexStderr.output(), /code="ERR_ENCODING_INVALID_ENCODED_DATA"/);
+  assert.match(
+    indexStderr.output(),
+    /code="ERR_ENCODING_INVALID_ENCODED_DATA"/,
+  );
 });
 
 test('runVerifyFAQIndex reports stale fixture categories without mutation', async (t) => {
@@ -703,9 +710,9 @@ test('runGenerateFAQIndex validates before publication and retains destination b
   );
   assert.match(stderr.output(), /invalid source projection schemas: 1/);
   assert.equal(
-    stderr.output().endsWith(
-      'Regenerate with: npm run generate:ai-faq-index\n',
-    ),
+    stderr
+      .output()
+      .endsWith('Regenerate with: npm run generate:ai-faq-index\n'),
     true,
   );
 });
@@ -889,6 +896,104 @@ test('production CLI reports structured source ingestion failures end to end', a
     await readFile(join(publicDirectory, 'ai-faqs.en.json'), 'utf8'),
     await readFile(fixture.indexPath, 'utf8'),
   );
+});
+
+test('production verifier CLI covers source and index ingestion matrix', async (t) => {
+  const cases = [
+    {
+      name: 'malformed source filename',
+      mutate: (sourceDirectory) =>
+        writeFile(
+          join(sourceDirectory, 'bad-name.json'),
+          JSON.stringify(makeSourceData()),
+        ),
+      expected: /malformed source identifiers: 1/,
+    },
+    {
+      name: 'sparse source IDs',
+      mutate: (sourceDirectory) => rm(join(sourceDirectory, '2-beta.en.json')),
+      expected: /source-only IDs: [1-9]\d*/,
+    },
+    {
+      name: 'duplicate source IDs',
+      mutate: (sourceDirectory) =>
+        writeFile(
+          join(sourceDirectory, '1-other.en.json'),
+          JSON.stringify(makeSourceData()),
+        ),
+      expected: /duplicate source IDs: 2/,
+    },
+    {
+      name: 'unreadable source file',
+      mutate: async (sourceDirectory) => {
+        const sourcePath = join(sourceDirectory, '1-alpha.en.json');
+        await chmod(sourcePath, 0o000);
+        return () => chmod(sourcePath, 0o644);
+      },
+      expected: /source read failures: 1/,
+    },
+    {
+      name: 'invalid UTF-8 source bytes',
+      mutate: (sourceDirectory) =>
+        writeFile(
+          join(sourceDirectory, '1-alpha.en.json'),
+          Buffer.from([0x7b, 0x22, 0xff, 0x22, 0x3a, 0x31, 0x7d]),
+        ),
+      expected: /invalid source JSON: 1/,
+    },
+    {
+      name: 'invalid index JSON',
+      mutate: (_sourceDirectory, indexPath) => writeFile(indexPath, '{'),
+      expected: /invalid index JSON: 1/,
+    },
+    {
+      name: 'invalid UTF-8 index bytes',
+      mutate: (_sourceDirectory, indexPath) =>
+        writeFile(indexPath, Buffer.from([0xff, 0x7b])),
+      expected: /invalid index JSON: 1/,
+    },
+  ];
+
+  for (const fixtureCase of cases) {
+    await t.test(fixtureCase.name, async (subtest) => {
+      const fixture = await createVerifierFixture(subtest);
+      const contentDirectory = join(
+        fixture.rootDirectory,
+        'content',
+        'ai-quick-reference',
+      );
+      const publicDirectory = join(fixture.rootDirectory, 'public');
+      await mkdir(contentDirectory, { recursive: true });
+      await mkdir(publicDirectory, { recursive: true });
+      await cp(fixture.sourceDirectory, contentDirectory, { recursive: true });
+      await cp(fixture.indexPath, join(publicDirectory, 'ai-faqs.en.json'));
+
+      const restorePermissions = await fixtureCase.mutate(
+        contentDirectory,
+        join(publicDirectory, 'ai-faqs.en.json'),
+      );
+      const indexBefore = await readFile(
+        join(publicDirectory, 'ai-faqs.en.json'),
+      );
+      const result = spawnSync(
+        process.execPath,
+        [join(process.cwd(), 'scripts/verify-ai-faq-index.mjs')],
+        { cwd: fixture.rootDirectory, encoding: 'utf8' },
+      );
+      await restorePermissions?.();
+
+      assert.equal(result.status, 1, result.stdout);
+      assert.match(result.stderr, fixtureCase.expected);
+      assert.deepEqual(
+        await readFile(join(publicDirectory, 'ai-faqs.en.json')),
+        indexBefore,
+      );
+      assert.match(
+        result.stderr,
+        /Regenerate with: npm run generate:ai-faq-index\n$/,
+      );
+    });
+  }
 });
 
 test('parseFAQSourceFilename accepts the canonical numeric filename shape', () => {

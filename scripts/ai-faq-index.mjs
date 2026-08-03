@@ -416,7 +416,12 @@ function createFindingBuckets() {
 
 function addFinding(buckets, key, finding) {
   const bucket = buckets.get(key);
-  const findingKey = JSON.stringify(finding);
+  const findingKey = JSON.stringify(
+    finding,
+    Object.keys(finding)
+      .filter((field) => field !== 'category')
+      .sort(),
+  );
   if (bucket.findingKeys.has(findingKey)) {
     return;
   }
@@ -468,10 +473,7 @@ export function createFAQIndexIngestionReport({
   recordCount = 0,
 } = {}) {
   const buckets = createFindingBuckets();
-  const remainingSourceFindings = mergeSourceFindings(
-    buckets,
-    sourceFindings,
-  );
+  const remainingSourceFindings = mergeSourceFindings(buckets, sourceFindings);
 
   return finalizeReport({
     buckets,
@@ -637,7 +639,10 @@ function addDuplicateGroupFindings({ buckets, groups, category, field, side }) {
       addFinding(buckets, category, {
         id: record.id,
         ...(side === 'source'
-          ? { sourcePosition: record.sourcePosition }
+          ? {
+              sourcePosition: record.sourcePosition,
+              sourcePath: record.sourcePath,
+            }
           : { indexPosition: record.indexPosition }),
         field,
         expected: 'unique value',
@@ -820,16 +825,12 @@ export function compareFAQIndexRecords({
   sourceFindings = [],
   indexRecords,
   indexFindings = [],
-  indexBytes =
-    indexRecords === null || indexRecords === undefined
-      ? Buffer.alloc(0)
-      : Buffer.from(JSON.stringify(indexRecords), 'utf8'),
+  indexBytes = indexRecords === null || indexRecords === undefined
+    ? Buffer.alloc(0)
+    : Buffer.from(JSON.stringify(indexRecords), 'utf8'),
 }) {
   const buckets = createFindingBuckets();
-  const remainingSourceFindings = mergeSourceFindings(
-    buckets,
-    sourceFindings,
-  );
+  const remainingSourceFindings = mergeSourceFindings(buckets, sourceFindings);
   const sourceIsArray = Array.isArray(sourceRecords);
   const sourceInputCount = sourceIsArray ? sourceRecords.length : null;
   if (!sourceIsArray) {
