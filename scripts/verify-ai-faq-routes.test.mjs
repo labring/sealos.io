@@ -1,9 +1,19 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import {
+  mkdir,
+  mkdtemp,
+  readFile,
+  readdir,
+  rm,
+  writeFile,
+} from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import test from 'node:test';
 import {
   compareFAQRouteInventories,
   formatFAQRouteReport,
+  inspectLocalFAQTarget,
   inspectFAQPageIdentity,
   parseFAQRouteTarget,
   runVerifyFAQRoutes,
@@ -65,6 +75,63 @@ function createReport(overrides = {}) {
     findings: [],
     ...overrides,
   };
+}
+
+function createPageHtml(record, overrides = {}) {
+  const title = overrides.title ?? `${record.data.title} | Sealos`;
+  const h1 = overrides.h1 ?? record.data.title;
+  const description = overrides.description ?? record.data.description;
+  const canonical =
+    overrides.canonical ??
+    `https://sealos.io/ai-quick-reference/${record.slug}/`;
+  return `<!doctype html><html><head>
+    <title>${title}</title>
+    <meta content="${description}" name="description">
+    <link href="${canonical}" rel="canonical">
+    </head><body><h1><span>${h1}</span></h1></body></html>`;
+}
+
+async function createLocalTarget(
+  t,
+  records,
+  {
+    indexRecords = records.map(indexRecord),
+    sitemapSlugs = records.map(({ slug }) => slug),
+    routeRecords = records,
+    routeHtml = new Map(),
+    indexText,
+    sitemapText,
+  } = {},
+) {
+  const target = await mkdtemp(join(tmpdir(), 'faq-routes-'));
+  t.after(() => rm(target, { recursive: true, force: true }));
+  const routeRoot = join(target, 'ai-quick-reference');
+  await mkdir(routeRoot, { recursive: true });
+  await writeFile(
+    join(target, 'ai-faqs.en.json'),
+    indexText ?? JSON.stringify(indexRecords),
+  );
+  await writeFile(
+    join(routeRoot, 'sitemap.xml'),
+    sitemapText ??
+      `<urlset>${sitemapSlugs
+        .map(
+          (slug) =>
+            `<url><loc>https://sealos.io/ai-quick-reference/${slug}/</loc></url>`,
+        )
+        .join('')}</urlset>`,
+  );
+
+  for (const record of routeRecords) {
+    const directory = join(routeRoot, record.slug);
+    await mkdir(directory, { recursive: true });
+    await writeFile(
+      join(directory, 'index.html'),
+      routeHtml.get(record.slug) ?? createPageHtml(record),
+    );
+  }
+
+  return target;
 }
 
 test('compares complete route inventories independently of input order', () => {
@@ -298,4 +365,162 @@ test('retains the package command exactly', async () => {
     packageJson.scripts['verify:ai-faq-routes'],
     'node scripts/verify-ai-faq-routes.mjs',
   );
+});
+
+test('inspects every local page in deterministic batches of at most 32', async (t) => {
+  const records = Array.from({ length: 40 }, (_, index) => {
+    const id = index + 1;
+    const slug = id <= 2 ? `${id}-shared` : `${id}-slug-${id}`;
+    return sourceRecord(id, slug);
+  });
+  const target = await createLocalTarget(t, records);
+  let activeRouteReads = 0;
+  let maximumRouteReads = 0;
+  const observedRouteReads = [];
+  const filesystem = {
+    async readFile(path) {
+      if (path.endsWith('index.html')) {
+        activeRouteReads += 1;
+        maximumRouteReads = Math.max(maximumRouteReads, activeRouteReads);
+        observedRouteReads.push(path);
+        await new Promise((resolvePromise) => setImmediate(resolvePromise));
+        try {
+          return await readFile(path);
+        } finally {
+          activeRouteReads -= 1;
+        }
+      }
+      return readFile(path);
+    },
+    async readdir(path, options) {
+      return (await readdir(path, options)).toReversed();
+    },
+  };
+
+  const report = await inspectLocalFAQTarget({
+    target,
+    mode: 'local',
+    checkedAt: '2026-08-04T00:00:00.000Z',
+    loadSource: async () => records,
+    filesystem,
+  });
+
+  assert.deepEqual(report.findings, []);
+  assert.equal(maximumRouteReads, 32);
+  assert.equal(observedRouteReads.length, 42);
+  assert.deepEqual(
+    Object.fromEntries(
+      Object.entries(report.inventories).map(([name, inventory]) => [
+        name,
+        [inventory.total, inventory.unique],
+      ]),
+    ),
+    {
+      source: [40, 40],
+      index: [40, 40],
+      sitemap: [40, 40],
+      route: [40, 40],
+    },
+  );
+  assert.equal(report.routesAttempted, 40);
+  assert.equal(report.identityPagesChecked, 40);
+  assert.equal(report.identityFieldsChecked, 160);
+  assert.deepEqual(report.statusHistogram, { 200: 40, 404: 2 });
+  assert.equal(report.invalidRoutesAttempted, 2);
+  assert.equal(report.invalidRoutesAccepted, 2);
+});
+
+test('collects local ingestion, membership, read, identity, and invalid-route findings', async (t) => {
+  const records = [
+    sourceRecord(1, '1-shared'),
+    sourceRecord(2, '2-shared'),
+    sourceRecord(3, '3-third'),
+  ];
+  const extraRoute = sourceRecord(5, '5-extra-route');
+  const routeHtml = new Map([
+    [records[0].slug, createPageHtml(records[0], { title: 'Wrong title' })],
+  ]);
+  const duplicateIndex = indexRecord(records[0]);
+  duplicateIndex.question = 'Wrong question';
+  const target = await createLocalTarget(t, records, {
+    indexRecords: [indexRecord(records[0]), duplicateIndex, indexRecord(records[2])],
+    sitemapSlugs: [records[0].slug, records[0].slug, records[2].slug, '4-extra-sitemap'],
+    routeRecords: [records[0], records[2], extraRoute],
+    routeHtml,
+  });
+  const ambiguousDirectory = join(target, 'ai-quick-reference', 'shared');
+  await mkdir(ambiguousDirectory);
+  await writeFile(
+    join(ambiguousDirectory, 'index.html'),
+    createPageHtml(sourceRecord(9, 'shared')),
+  );
+  const unreadablePath = join(
+    target,
+    'ai-quick-reference',
+    records[2].slug,
+    'index.html',
+  );
+
+  const report = await inspectLocalFAQTarget({
+    target,
+    mode: 'local',
+    checkedAt: '2026-08-04T00:00:00.000Z',
+    loadSource: async () => records,
+    filesystem: {
+      async readFile(path) {
+        if (path === unreadablePath) {
+          const error = new Error('permission denied');
+          error.code = 'EACCES';
+          throw error;
+        }
+        return readFile(path);
+      },
+      readdir,
+    },
+  });
+  const categories = new Set(report.findings.map(({ category }) => category));
+
+  for (const category of [
+    'duplicate-index-slugs',
+    'duplicate-sitemap-slugs',
+    'source-only-index-slugs',
+    'source-only-sitemap-slugs',
+    'sitemap-only-source-slugs',
+    'source-only-route-slugs',
+    'route-only-source-slugs',
+    'index-question-mismatches',
+    'route-read-failures',
+    'mismatched-page-identity',
+    'invalid-route-status-failures',
+  ]) {
+    assert.ok(categories.has(category), category);
+  }
+  assert.equal(report.routesAttempted, 3);
+  assert.equal(report.identityPagesChecked, 1);
+  assert.equal(report.invalidRoutesAttempted, 2);
+  assert.equal(report.invalidRoutesAccepted, 1);
+});
+
+test('reports malformed local index and sitemap data structurally', async (t) => {
+  const records = [sourceRecord(1, '1-shared'), sourceRecord(2, '2-shared')];
+  const target = await createLocalTarget(t, records, {
+    indexText: '{broken',
+    sitemapText: '<urlset><loc>broken</loc>',
+  });
+  const report = await inspectLocalFAQTarget({
+    target,
+    mode: 'local',
+    checkedAt: '2026-08-04T00:00:00.000Z',
+    loadSource: async () => records,
+  });
+
+  assert.ok(
+    report.findings.some(({ category }) => category === 'invalid-index-data'),
+  );
+  assert.ok(
+    report.findings.some(
+      ({ category }) => category === 'invalid-sitemap-data',
+    ),
+  );
+  assert.equal(report.inventories.route.total, 2);
 });
