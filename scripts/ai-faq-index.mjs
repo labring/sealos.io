@@ -11,6 +11,15 @@ const SOURCE_FILENAME_PATTERN = /^([1-9]\d*)-(.+)\.en\.json$/;
 const PROJECTED_SOURCE_FIELDS = ['title', 'description', 'category'];
 const INDEX_FIELDS = ['category', 'question', 'description', 'slug'];
 const COMPARED_FIELDS = ['slug', 'question', 'description', 'category'];
+const REPORT_FINDING_FIELDS = [
+  'id',
+  'sourcePosition',
+  'indexPosition',
+  'sourcePath',
+  'field',
+  'expected',
+  'actual',
+];
 
 export const FAQ_INDEX_FINDING_CATEGORIES = [
   {
@@ -644,23 +653,33 @@ function addSerializationFinding({
   });
 }
 
+function finalizeFindingBuckets(buckets) {
+  return FAQ_INDEX_FINDING_CATEGORIES.map(({ key }) => {
+    const category = buckets.get(key);
+    return {
+      ...category,
+      total: category.findings.length,
+    };
+  });
+}
+
 export function compareFAQIndexRecords({
   sourceRecords,
   indexRecords,
   indexBytes = JSON.stringify(indexRecords),
 }) {
   const buckets = createFindingBuckets();
-  const sourceInputCount = Array.isArray(sourceRecords)
+  const sourceIsArray = Array.isArray(sourceRecords);
+  const sourceInputCount = sourceIsArray
     ? sourceRecords.length
     : null;
-  if (!Array.isArray(sourceRecords)) {
+  if (!sourceIsArray) {
     addFinding(buckets, 'invalid-source-projection-schemas', {
       id: null,
       field: '$root',
       expected: 'array',
       actual: sourceRecords,
     });
-    sourceRecords = [];
   }
 
   const indexIsArray = Array.isArray(indexRecords);
@@ -674,7 +693,7 @@ export function compareFAQIndexRecords({
   }
 
   const normalizedSourceRecords = normalizeSourceRecords(
-    sourceRecords,
+    sourceIsArray ? sourceRecords : [],
     buckets,
   );
   const normalizedIndexRecords = indexIsArray
@@ -741,13 +760,7 @@ export function compareFAQIndexRecords({
     indexBytes: String(indexBytes),
   });
 
-  const categories = FAQ_INDEX_FINDING_CATEGORIES.map(({ key }) => {
-    const category = buckets.get(key);
-    return {
-      ...category,
-      total: category.findings.length,
-    };
-  });
+  const categories = finalizeFindingBuckets(buckets);
   const totalFindings = categories.reduce(
     (total, category) => total + category.total,
     0,
@@ -778,15 +791,7 @@ export function formatFAQIndexReport(report) {
 
     for (const finding of category.findings.slice(0, 20)) {
       const details = [];
-      for (const field of [
-        'id',
-        'sourcePosition',
-        'indexPosition',
-        'sourcePath',
-        'field',
-        'expected',
-        'actual',
-      ]) {
+      for (const field of REPORT_FINDING_FIELDS) {
         if (Object.hasOwn(finding, field)) {
           details.push(`${field}=${stringifyReportValue(finding[field])}`);
         }
