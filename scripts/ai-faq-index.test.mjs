@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import {
   mkdir,
   mkdtemp,
@@ -24,6 +25,7 @@ import {
   validateFAQSourceRecords,
 } from './ai-faq-index.mjs';
 import { runGenerateFAQIndex } from './generate-ai-faq-index.mjs';
+import { runVerifyFAQIndex } from './verify-ai-faq-index.mjs';
 
 const EXPECTED_FINDING_CATEGORY_KEYS = [
   'malformed-source-identifiers',
@@ -125,6 +127,31 @@ async function createGeneratorFixture(t) {
   return { rootDirectory, sourceDirectory, outputPath };
 }
 
+async function createVerifierFixture(t) {
+  const fixture = await createGeneratorFixture(t);
+  const indexRecords = [
+    {
+      category: 'Category 1',
+      question: 'Question 1',
+      description: 'Description 1',
+      slug: '1-alpha',
+    },
+    {
+      category: 'Category 2',
+      question: 'Question 2',
+      description: 'Description 2',
+      slug: '2-beta',
+    },
+  ];
+  await writeFile(fixture.outputPath, JSON.stringify(indexRecords));
+
+  return {
+    ...fixture,
+    indexPath: fixture.outputPath,
+    indexRecords,
+  };
+}
+
 function createRecordingFilesystem(overrides = {}) {
   const operations = [];
 
@@ -203,6 +230,180 @@ async function captureSourceValidationError(action) {
   });
   return captured;
 }
+
+test('verify-ai-faq-index CLI accepts the committed corpus without mutation', async () => {
+  const indexPath = 'public/ai-faqs.en.json';
+  const beforeBytes = await readFile(indexPath);
+  const result = spawnSync(
+    process.execPath,
+    ['scripts/verify-ai-faq-index.mjs'],
+    { encoding: 'utf8' },
+  );
+  const afterBytes = await readFile(indexPath);
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.stdout, 'AI FAQ index parity passed for 2000 records.\n');
+  assert.equal(result.stderr, '');
+  assert.deepEqual(afterBytes, beforeBytes);
+});
+
+test('runVerifyFAQIndex reports valid fixture parity without mutation', async (t) => {
+  const { sourceDirectory, indexPath } = await createVerifierFixture(t);
+  const beforeBytes = await readFile(indexPath);
+  const stdout = createCaptureStream();
+  const stderr = createCaptureStream();
+
+  const status = await runVerifyFAQIndex({
+    sourceDirectory,
+    indexPath,
+    expectedCount: 2,
+    stdout: stdout.stream,
+    stderr: stderr.stream,
+  });
+
+  assert.equal(status, 0);
+  assert.equal(stdout.output(), 'AI FAQ index parity passed for 2 records.\n');
+  assert.equal(stderr.output(), '');
+  assert.deepEqual(await readFile(indexPath), beforeBytes);
+});
+
+test('runVerifyFAQIndex reports stale fixture categories without mutation', async (t) => {
+  const cases = [
+    {
+      name: 'source-only membership',
+      category: 'source-only-ids',
+      mutate(records) {
+        records.splice(1, 1);
+      },
+    },
+    {
+      name: 'index-only membership',
+      category: 'index-only-ids',
+      mutate(records) {
+        records.push({
+          category: 'Category 3',
+          question: 'Question 3',
+          description: 'Description 3',
+          slug: '3-gamma',
+        });
+      },
+    },
+    {
+      name: 'duplicate ID',
+      category: 'duplicate-index-ids',
+      mutate(records) {
+        records.push({ ...records[0], slug: '1-other' });
+      },
+    },
+    {
+      name: 'duplicate slug',
+      category: 'duplicate-index-slugs',
+      mutate(records) {
+        records.push({ ...records[0] });
+      },
+    },
+    {
+      name: 'malformed identifier',
+      category: 'malformed-index-identifiers',
+      mutate(records) {
+        records[0].slug = 'malformed';
+      },
+    },
+    {
+      name: 'invalid schema',
+      category: 'invalid-index-projection-schemas',
+      mutate(records) {
+        delete records[0].question;
+      },
+    },
+    {
+      name: 'ordering drift',
+      category: 'ordering-drift',
+      mutate(records) {
+        [records[0], records[1]] = [records[1], records[0]];
+      },
+    },
+    {
+      name: 'slug drift',
+      category: 'slug-drift',
+      mutate(records) {
+        records[0].slug = '1-stale';
+      },
+    },
+    {
+      name: 'question drift',
+      category: 'question-drift',
+      mutate(records) {
+        records[0].question = 'Stale question';
+      },
+    },
+    {
+      name: 'description drift',
+      category: 'description-drift',
+      mutate(records) {
+        records[0].description = 'Stale description';
+      },
+    },
+    {
+      name: 'category drift',
+      category: 'category-drift',
+      mutate(records) {
+        records[0].category = 'Stale category';
+      },
+    },
+    {
+      name: 'canonical-byte drift',
+      category: 'non-canonical-serialization',
+      serialize(records) {
+        return `${JSON.stringify(records, null, 2)}\n`;
+      },
+    },
+  ];
+
+  for (const fixtureCase of cases) {
+    await t.test(fixtureCase.name, async (subtest) => {
+      const { sourceDirectory, indexPath, indexRecords } =
+        await createVerifierFixture(subtest);
+      fixtureCase.mutate?.(indexRecords);
+      const fixtureBytes = fixtureCase.serialize
+        ? fixtureCase.serialize(indexRecords)
+        : JSON.stringify(indexRecords);
+      await writeFile(indexPath, fixtureBytes);
+      const beforeBytes = await readFile(indexPath);
+      const stdout = createCaptureStream();
+      const stderr = createCaptureStream();
+
+      const status = await runVerifyFAQIndex({
+        sourceDirectory,
+        indexPath,
+        expectedCount: 2,
+        stdout: stdout.stream,
+        stderr: stderr.stream,
+      });
+      const output = stderr.output();
+      const categoryLabel = FAQ_INDEX_FINDING_CATEGORIES.find(
+        ({ key }) => key === fixtureCase.category,
+      )?.label;
+
+      assert.equal(status, 1);
+      assert.equal(stdout.output(), '');
+      assert.match(
+        output,
+        /^AI FAQ index parity failed for public\/ai-faqs\.en\.json\./,
+      );
+      for (const { label } of FAQ_INDEX_FINDING_CATEGORIES) {
+        assert.match(output, new RegExp(`^${label}: \\d+$`, 'm'));
+      }
+      assert.match(output, new RegExp(`^${categoryLabel}: [1-9]\\d*$`, 'm'));
+      assert.match(output, /^  - .*field=/m);
+      assert.equal(
+        output.endsWith('Regenerate with: npm run generate:ai-faq-index\n'),
+        true,
+      );
+      assert.deepEqual(await readFile(indexPath), beforeBytes);
+    });
+  }
+});
 
 test('runGenerateFAQIndex publishes deterministic bytes through one sibling rename', async (t) => {
   const { sourceDirectory, outputPath } = await createGeneratorFixture(t);
