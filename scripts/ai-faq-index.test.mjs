@@ -49,6 +49,10 @@ const EXPECTED_FINDING_CATEGORY_KEYS = [
   'non-canonical-serialization',
 ];
 
+const EXPECTED_FINDING_CATEGORY_LABELS = FAQ_INDEX_FINDING_CATEGORIES.map(
+  ({ label }) => label,
+);
+
 function makeSourceData(overrides = {}) {
   return {
     title: 'Question title',
@@ -203,6 +207,20 @@ function getReportCategory(report, key) {
   return category;
 }
 
+function getTopLevelFindingCategoryLabels(output) {
+  return output
+    .split('\n')
+    .map((line) => /^([^\s].*): \d+$/.exec(line)?.[1])
+    .filter(Boolean);
+}
+
+function assertExactTopLevelFindingCategories(output) {
+  assert.deepEqual(
+    getTopLevelFindingCategoryLabels(output),
+    EXPECTED_FINDING_CATEGORY_LABELS,
+  );
+}
+
 async function createSourceFixture(entries) {
   const sourceDirectory = await mkdtemp(join(tmpdir(), 'ai-faq-source-'));
 
@@ -337,8 +355,10 @@ test('runVerifyFAQIndex preserves raw index bytes for canonical comparison', asy
   });
 
   assert.equal(status, 1);
-  assert.match(stderr.output(), /invalid index JSON: 1/);
+  assert.match(stderr.output(), /invalid index projection schemas: 1/);
+  assert.match(stderr.output(), /field="\$json"/);
   assert.doesNotMatch(stderr.output(), /non-canonical serialization: [1-9]/);
+  assertExactTopLevelFindingCategories(stderr.output());
   assert.deepEqual(await readFile(fixture.indexPath), invalidUtf8Bytes);
 });
 
@@ -365,9 +385,13 @@ test('runVerifyFAQIndex separates source read failures from invalid JSON', async
   });
 
   assert.equal(readFailureStatus, 1);
-  assert.match(readFailureStderr.output(), /source read failures: 1/);
+  assert.match(
+    readFailureStderr.output(),
+    /invalid source projection schemas: 1/,
+  );
   assert.match(readFailureStderr.output(), /code="EACCES"/);
-  assert.doesNotMatch(readFailureStderr.output(), /invalid source JSON: [1-9]/);
+  assert.match(readFailureStderr.output(), /field="\$read"/);
+  assertExactTopLevelFindingCategories(readFailureStderr.output());
 
   const invalidJsonFixture = await createVerifierFixture(t);
   await writeFile(
@@ -384,11 +408,12 @@ test('runVerifyFAQIndex separates source read failures from invalid JSON', async
   });
 
   assert.equal(invalidJsonStatus, 1);
-  assert.match(invalidJsonStderr.output(), /invalid source JSON: 1/);
-  assert.doesNotMatch(
+  assert.match(
     invalidJsonStderr.output(),
-    /source read failures: [1-9]/,
+    /invalid source projection schemas: 1/,
   );
+  assert.match(invalidJsonStderr.output(), /field="\$json"/);
+  assertExactTopLevelFindingCategories(invalidJsonStderr.output());
 });
 
 test('runVerifyFAQIndex reports source and index ingestion findings through the shared formatter', async (t) => {
@@ -428,11 +453,13 @@ test('runVerifyFAQIndex reports source and index ingestion findings through the 
   });
 
   assert.equal(indexStatus, 1);
-  assert.match(indexStderr.output(), /invalid index JSON: 1/);
+  assert.match(indexStderr.output(), /invalid index projection schemas: 1/);
   assert.match(
     indexStderr.output(),
     /code="ERR_ENCODING_INVALID_ENCODED_DATA"/,
   );
+  assert.match(indexStderr.output(), /field="\$json"/);
+  assertExactTopLevelFindingCategories(indexStderr.output());
 });
 
 test('runVerifyFAQIndex reports stale fixture categories without mutation', async (t) => {
@@ -889,9 +916,11 @@ test('production CLI reports structured source ingestion failures end to end', a
   );
 
   assert.equal(verifier.status, 1);
-  assert.match(verifier.stderr, /invalid source JSON: 1/);
+  assert.match(verifier.stderr, /invalid source projection schemas: 1/);
+  assertExactTopLevelFindingCategories(verifier.stderr);
   assert.equal(generator.status, 1);
-  assert.match(generator.stderr, /invalid source JSON: 1/);
+  assert.match(generator.stderr, /invalid source projection schemas: 1/);
+  assertExactTopLevelFindingCategories(generator.stderr);
   assert.equal(
     await readFile(join(publicDirectory, 'ai-faqs.en.json'), 'utf8'),
     await readFile(fixture.indexPath, 'utf8'),
@@ -930,7 +959,7 @@ test('production verifier CLI covers source and index ingestion matrix', async (
         await chmod(sourcePath, 0o000);
         return () => chmod(sourcePath, 0o644);
       },
-      expected: /source read failures: 1/,
+      expected: /invalid source projection schemas: 1/,
     },
     {
       name: 'invalid UTF-8 source bytes',
@@ -939,18 +968,18 @@ test('production verifier CLI covers source and index ingestion matrix', async (
           join(sourceDirectory, '1-alpha.en.json'),
           Buffer.from([0x7b, 0x22, 0xff, 0x22, 0x3a, 0x31, 0x7d]),
         ),
-      expected: /invalid source JSON: 1/,
+      expected: /invalid source projection schemas: 1/,
     },
     {
       name: 'invalid index JSON',
       mutate: (_sourceDirectory, indexPath) => writeFile(indexPath, '{'),
-      expected: /invalid index JSON: 1/,
+      expected: /invalid index projection schemas: 1/,
     },
     {
       name: 'invalid UTF-8 index bytes',
       mutate: (_sourceDirectory, indexPath) =>
         writeFile(indexPath, Buffer.from([0xff, 0x7b])),
-      expected: /invalid index JSON: 1/,
+      expected: /invalid index projection schemas: 1/,
     },
   ];
 
@@ -984,6 +1013,7 @@ test('production verifier CLI covers source and index ingestion matrix', async (
 
       assert.equal(result.status, 1, result.stdout);
       assert.match(result.stderr, fixtureCase.expected);
+      assertExactTopLevelFindingCategories(result.stderr);
       assert.deepEqual(
         await readFile(join(publicDirectory, 'ai-faqs.en.json')),
         indexBefore,
