@@ -349,3 +349,25 @@ test('projection and serialization preserve fixed fields, values, and compact by
   assert.equal(bytes.endsWith(']'), true);
   assert.equal(bytes.endsWith('\n'), false);
 });
+
+test('the committed source corpus loads as 2,000 canonical numeric records', async () => {
+  const records = await loadCanonicalFAQSource();
+
+  assert.equal(records.length, 2000);
+  assert.equal(records[0].id, 1);
+  assert.equal(records[1999].id, 2000);
+  assert.deepEqual(
+    records.map(({ id }) => id),
+    Array.from({ length: 2000 }, (_, index) => index + 1),
+  );
+
+  const bytes = serializeCanonicalFAQIndex(records);
+  assert.equal(bytes.endsWith(']'), true);
+  assert.equal(bytes.endsWith('\n'), false);
+  assert.deepEqual(Object.keys(JSON.parse(bytes)[0]), [
+    'category',
+    'question',
+    'description',
+    'slug',
+  ]);
+});
