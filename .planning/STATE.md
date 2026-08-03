@@ -5,9 +5,9 @@ milestone_name: AI Quick Reference slug integrity and deployment
 current_phase: 29
 current_phase_name: Deterministic Slug Resolution and Regression Coverage
 status: executing
-last_updated: "2026-08-03T08:41:28Z"
+last_updated: "2026-08-03T09:10:12Z"
 last_activity: 2026-08-03
-last_activity_desc: "Completed quick task 260803-my3: Add Skills to the shared Navbar and trim DevBox and Databases from both Footer implementations"
+last_activity_desc: "Completed quick task 260803-npm: Rename Footer App Store to Templates and add Skills above it"
 progress:
   total_phases: 10
   completed_phases: 8
@@ -75,6 +75,7 @@ Deploy the release branch and run the live AI Quick Reference route verifier.
 | 260731-ogr | Restore the shared navbar to the pre-846a308 visual design across all pages while preserving current navigation behavior and analytics | 2026-08-03 | 7c889c8 | [260731-ogr-restore-the-shared-navbar-to-the-pre-846](./quick/260731-ogr-restore-the-shared-navbar-to-the-pre-846/) |
 | 260803-lix | Simplify the Navbar menu to Templates, Docs, Resources, Pricing, and Contact while preserving current navigation behavior | 2026-08-03 | 2e9dbf0 | [260803-lix-simplify-navbar-menu](./quick/260803-lix-simplify-navbar-menu/) |
 | 260803-my3 | Add Skills before Templates and remove DevBox and Databases from both Footer implementations | 2026-08-03 | 2b46fc8 | [260803-my3-navbar-footer-skills](./quick/260803-my3-navbar-footer-skills/) |
+| 260803-npm | Rename Footer App Store to Templates and add Skills above it | 2026-08-03 | 4bc4a09 | [260803-npm-footer-products-labels](./quick/260803-npm-footer-products-labels/) |
 
 ## Performance Metrics
 
