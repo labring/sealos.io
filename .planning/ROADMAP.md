@@ -19,12 +19,15 @@ collection and receive a precise failure report for every data mismatch.
 1. A deterministic generator reads every English source JSON and emits one
    page-index record with the exact `slug`, `title`, `description`, and
    `category` projection required by `FAQSearch`.
+
 2. A fresh generation produces 2,000 records in numeric ID order, with zero
    source-only, index-only, duplicate, or field-drift records; the 28 stale
    slugs and five description drifts are corrected.
+
 3. A local parity command compares both directions and reports the first set of
    missing, orphaned, duplicate, ordering, and field mismatches with record
    identifiers and field names.
+
 4. The build or CI preflight runs generation or parity verification before
    static export and returns a non-zero status for a deliberately stale index.
 
@@ -36,14 +39,20 @@ collection and receive a precise failure report for every data mismatch.
    output, inject representative stale and missing records into a temporary
    fixture, verify actionable failures, then run lint and the build preflight.
 
-**Plans:** 3
+**Plans:** 1/3 plans executed
+
+- [x] 31-01-PLAN.md
+- [ ] 31-02-PLAN.md
+- [ ] 31-03-PLAN.md
 
 **Plan Waves:**
 
 - **Wave 1:** `31-01-PLAN.md` establishes the canonical source loader,
   deterministic projection, shared parity comparison, and focused fixtures.
+
 - **Wave 2:** `31-02-PLAN.md` adds the atomic generator and regenerates the
   committed page-index asset from source.
+
 - **Wave 3:** `31-03-PLAN.md` adds the read-only verifier and preflight wiring
   for package and timed static-export paths.
 
@@ -62,10 +71,13 @@ and reserve sitemap and deployed route checks for Phase 32.
 
 1. The built AI Quick Reference sitemap contains exactly the 2,000 source and
    page-index slugs, with one canonical URL per slug.
+
 2. The static output verifier checks every page-index URL and confirms HTTP 200
    plus matching title, H1, description, and canonical identity fields.
+
 3. The deployed verifier confirms the same 2,000-URL sitemap and zero stale
    page-index URLs, with bounded concurrency and a retained status summary.
+
 4. The release evidence records source, index, sitemap, and route counts plus
    the exact commit used for production verification.
 

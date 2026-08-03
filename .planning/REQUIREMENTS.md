@@ -44,10 +44,13 @@ The complete v1.4 planning record is preserved in
 - `content/ai-quick-reference/*.en.json` contains 2,000 English source entries.
 - `public/ai-faqs.en.json` is fetched by `FAQSearch` for the client-side list,
   filtering, and pagination.
+
 - The current page index has 28 slug mismatches and five description-field
   mismatches against the source collection.
+
 - The live sitemap contains the 2,000 source slugs; all 28 stale page-index
   slugs return 404 in production.
+
 - The static page index remains useful for client performance, so generation
   should retain the existing public asset contract.
 
@@ -55,8 +58,10 @@ The complete v1.4 planning record is preserved in
 
 - **FUTURE-01**: Align locale, hreflang, and `/zh-cn` AI Quick Reference
   inventories with the same canonical projection.
+
 - **FUTURE-02**: Add broad metadata, content-quality, and sitemap taxonomy
   cleanup after the inventory contract is stable.
+
 - **FUTURE-03**: Integrate Search Console recrawl and indexing follow-up into
   the publication checklist.
 

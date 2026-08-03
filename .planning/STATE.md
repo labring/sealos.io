@@ -4,16 +4,16 @@ milestone: v1.5
 milestone_name: AI Quick Reference Index Consistency
 current_phase: 31
 current_phase_name: Canonical Index Generation And Local Parity
-status: planned
-stopped_at: Phase 31 planning complete
-last_updated: "2026-08-03T10:06:10Z"
+status: executing
+stopped_at: Completed 31-01-PLAN.md
+last_updated: "2026-08-03T17:16:15.516Z"
 last_activity: 2026-08-03
-last_activity_desc: Phase 31 planning complete with 3 execution plans
+last_activity_desc: Phase 31 execution started
 progress:
   total_phases: 2
   completed_phases: 0
   total_plans: 3
-  completed_plans: 0
+  completed_plans: 1
   percent: 0
 ---
 
@@ -25,7 +25,7 @@ See: `.planning/PROJECT.md` (updated 2026-08-03)
 
 **Core value:** Readers and search engines reach the exact Sealos content
 represented by the URL and current source data.
-**Current focus:** Milestone v1.5 — AI Quick Reference index consistency
+**Current focus:** Phase 31 — Canonical Index Generation And Local Parity
 
 ## Current Phase
 
@@ -45,10 +45,10 @@ ready for execution.
 
 ## Current Position
 
-Phase: 31 (Canonical Index Generation And Local Parity)
-Plan: 3 execution plans (31-01 -> 31-03)
+Phase: 31 (Canonical Index Generation And Local Parity) — EXECUTING
+Plan: 2 of 3
 Status: Ready to execute
-Last activity: 2026-08-03 — Phase 31 planning complete with 3 plans
+Last activity: 2026-08-03 — Phase 31 execution started
 
 ## Next Action
 
@@ -56,9 +56,9 @@ Run `$gsd-execute-phase 31` to execute the plans in wave order.
 
 ## Session
 
-**Last session:** 2026-08-03T08:18:59.916Z
-**Stopped at:** Phase 31 planning complete
-**Resume file:** .planning/phases/31-canonical-index-generation-and-local-parity/31-01-PLAN.md
+**Last session:** 2026-08-03T17:16:15.510Z
+**Stopped at:** Completed 31-01-PLAN.md
+**Resume file:** None
 
 ### Quick Tasks Completed
 
@@ -116,6 +116,7 @@ Run `$gsd-execute-phase 31` to execute the plans in wave order.
 | Phase 28 P01 | 15 min | 2 tasks | 3 files |
 | Phase 28 P02 | 10 min | 2 tasks | 5 files |
 | Phase 28 P03 | 20 min | 3 tasks | 7 files |
+| Phase 31 P01 | 25 min | 2 tasks | 3 files |
 
 ## Decisions
 
@@ -210,6 +211,9 @@ Run `$gsd-execute-phase 31` to execute the plans in wave order.
 - [Phase 28]: Accept production publication through an exact 31-path loopback HTTP matrix.
 - [Phase 28]: Require two stable DOM samples and original-detail visual review at desktop and mobile.
 - [Phase 28]: Seal Phase 28 separately while preserving every Phase 27 evidence byte and mode.
+- [Phase 31]: Canonical source identity comes from strict numeric filenames, and source reads run in sequential batches of 32. — This preserves deterministic order and bounds file descriptor use across 2,000 source files.
+- [Phase 31]: Parity aligns by numeric ID and compares exact slugs as fields across common valid unique records. — This reports stale slugs as field drift and prevents missing records from causing ordering cascades.
+- [Phase 31]: Canonical-byte findings require a fully valid source set. — Primary source validation remains actionable without derivative serialization noise.
 
 ## Operator Next Steps
 
