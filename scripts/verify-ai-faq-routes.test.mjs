@@ -13,8 +13,9 @@ import test from 'node:test';
 import {
   compareFAQRouteInventories,
   formatFAQRouteReport,
-  inspectLocalFAQTarget,
   inspectFAQPageIdentity,
+  inspectLocalFAQTarget,
+  inspectRemoteFAQTarget,
   parseFAQRouteTarget,
   runVerifyFAQRoutes,
 } from './verify-ai-faq-routes.mjs';
@@ -132,6 +133,86 @@ async function createLocalTarget(
   }
 
   return target;
+}
+
+function createRemoteFixture(
+  records,
+  {
+    indexRecords = records.map(indexRecord),
+    sitemapSlugs = records.map(({ slug }) => slug),
+    overrides = new Map(),
+    reverseCompletion = false,
+  } = {},
+) {
+  const calls = [];
+  const bodyReads = new Map();
+  let active = 0;
+  let maximumActive = 0;
+  const pageBySlug = new Map(records.map((record) => [record.slug, record]));
+
+  async function fetchImpl(input, options) {
+    const url = new URL(input);
+    const pathname = url.pathname.replace(/\/$/, '') || '/';
+    calls.push({ pathname, options });
+    active += 1;
+    maximumActive = Math.max(maximumActive, active);
+    const numericId = Number(
+      /^\/ai-quick-reference\/(\d+)-/.exec(pathname)?.[1],
+    );
+    const delayTurns = Number.isSafeInteger(numericId)
+      ? reverseCompletion
+        ? numericId
+        : records.length - numericId
+      : 0;
+    for (let turn = 0; turn < Math.min(delayTurns, 3); turn += 1) {
+      await new Promise((resolvePromise) => setImmediate(resolvePromise));
+    }
+
+    try {
+      const override = overrides.get(pathname);
+      if (override?.error) throw override.error;
+
+      let status = override?.status;
+      let body = override?.body;
+      if (pathname === '/ai-faqs.en.json') {
+        status ??= 200;
+        body ??= JSON.stringify(indexRecords);
+      } else if (pathname === '/ai-quick-reference/sitemap.xml') {
+        status ??= 200;
+        body ??= `<urlset>${sitemapSlugs
+          .map(
+            (slug) =>
+              `<url><loc>https://sealos.io/ai-quick-reference/${slug}/</loc></url>`,
+          )
+          .join('')}</urlset>`;
+      } else {
+        const slug = pathname.split('/').at(-1);
+        const record = pageBySlug.get(slug);
+        status ??= record ? 200 : 404;
+        body ??= record ? createPageHtml(record) : '';
+      }
+
+      return {
+        status,
+        async text() {
+          bodyReads.set(pathname, (bodyReads.get(pathname) ?? 0) + 1);
+          if (override?.bodyError) throw override.bodyError;
+          return body;
+        },
+      };
+    } finally {
+      active -= 1;
+    }
+  }
+
+  return {
+    fetchImpl,
+    calls,
+    bodyReads,
+    get maximumActive() {
+      return maximumActive;
+    },
+  };
 }
 
 test('compares complete route inventories independently of input order', () => {
@@ -538,4 +619,174 @@ test('reports malformed local index and sitemap data structurally', async (t) =>
     report.findings.some(({ category }) => category === 'invalid-sitemap-data'),
   );
   assert.equal(report.inventories.route.total, 2);
+});
+
+test('fetches every remote route once with eight workers and fixed request bounds', async () => {
+  const records = Array.from({ length: 18 }, (_, index) => {
+    const id = index + 1;
+    return sourceRecord(id, id <= 2 ? `${id}-shared` : `${id}-slug-${id}`);
+  });
+  const fixture = createRemoteFixture(records, { reverseCompletion: true });
+  const timeoutSignals = [];
+  const report = await inspectRemoteFAQTarget({
+    target: 'https://example.test',
+    mode: 'remote',
+    checkedAt: '2026-08-04T00:00:00.000Z',
+    loadSource: async () => records,
+    fetchImpl: fixture.fetchImpl,
+    createTimeoutSignal(timeoutMs) {
+      const signal = { timeoutMs };
+      timeoutSignals.push(signal);
+      return signal;
+    },
+  });
+
+  assert.deepEqual(report.findings, []);
+  assert.equal(fixture.maximumActive, 8);
+  assert.equal(fixture.calls.length, 22);
+  assert.equal(timeoutSignals.length, 22);
+  assert.ok(timeoutSignals.every(({ timeoutMs }) => timeoutMs === 10_000));
+  assert.ok(
+    fixture.calls.every(
+      ({ options }) =>
+        options.redirect === 'manual' && options.signal.timeoutMs === 10_000,
+    ),
+  );
+  for (const record of records) {
+    const pathname = `/ai-quick-reference/${record.slug}`;
+    assert.equal(
+      fixture.calls.filter((call) => call.pathname === pathname).length,
+      1,
+    );
+    assert.equal(fixture.bodyReads.get(pathname), 1);
+  }
+  assert.equal(fixture.bodyReads.get('/ai-faqs.en.json'), 1);
+  assert.equal(fixture.bodyReads.get('/ai-quick-reference/sitemap.xml'), 1);
+  assert.equal(fixture.bodyReads.get('/ai-quick-reference/shared'), undefined);
+  assert.deepEqual(report.statusHistogram, { 200: 18, 404: 2 });
+  assert.equal(report.routesAttempted, 18);
+  assert.equal(report.identityPagesChecked, 18);
+  assert.equal(report.identityFieldsChecked, 72);
+  assert.equal(report.invalidRoutesAccepted, 2);
+});
+
+test('keeps remote output stable across opposite completion schedules', async () => {
+  const records = Array.from({ length: 12 }, (_, index) => {
+    const id = index + 1;
+    return sourceRecord(id, id <= 2 ? `${id}-shared` : `${id}-slug-${id}`);
+  });
+  const forward = createRemoteFixture(records);
+  const reverse = createRemoteFixture(records, { reverseCompletion: true });
+  const options = {
+    target: 'https://example.test',
+    mode: 'remote',
+    checkedAt: '2026-08-04T00:00:00.000Z',
+    loadSource: async () => records,
+    createTimeoutSignal: (timeoutMs) => ({ timeoutMs }),
+  };
+
+  const forwardReport = await inspectRemoteFAQTarget({
+    ...options,
+    fetchImpl: forward.fetchImpl,
+  });
+  const reverseReport = await inspectRemoteFAQTarget({
+    ...options,
+    fetchImpl: reverse.fetchImpl,
+  });
+  assert.equal(
+    formatFAQRouteReport(forwardReport),
+    formatFAQRouteReport(reverseReport),
+  );
+});
+
+test('collects remote timeout, network, status, body, and identity failures in one pass', async () => {
+  const records = Array.from({ length: 8 }, (_, index) => {
+    const id = index + 1;
+    return sourceRecord(id, id <= 2 ? `${id}-shared` : `${id}-slug-${id}`);
+  });
+  const overrides = new Map([
+    ['/ai-quick-reference/1-shared', { error: new Error('connection reset') }],
+    [
+      '/ai-quick-reference/2-shared',
+      {
+        error: Object.assign(new Error('timed out'), { name: 'TimeoutError' }),
+      },
+    ],
+    ['/ai-quick-reference/3-slug-3', { status: 301 }],
+    ['/ai-quick-reference/4-slug-4', { status: 404 }],
+    ['/ai-quick-reference/5-slug-5', { status: 500 }],
+    [
+      '/ai-quick-reference/6-slug-6',
+      { bodyError: new Error('body stream failed') },
+    ],
+    [
+      '/ai-quick-reference/7-slug-7',
+      { body: createPageHtml(records[6], { title: 'Wrong title' }) },
+    ],
+  ]);
+  const fixture = createRemoteFixture(records, { overrides });
+  const report = await inspectRemoteFAQTarget({
+    target: 'https://example.test',
+    mode: 'remote',
+    checkedAt: '2026-08-04T00:00:00.000Z',
+    loadSource: async () => records,
+    fetchImpl: fixture.fetchImpl,
+    createTimeoutSignal: (timeoutMs) => ({ timeoutMs }),
+  });
+  const totals = Object.fromEntries(
+    [
+      'route-network-failures',
+      'route-timeout-failures',
+      'route-status-failures',
+      'route-body-read-failures',
+      'mismatched-page-identity',
+    ].map((category) => [
+      category,
+      report.findings.filter((finding) => finding.category === category).length,
+    ]),
+  );
+
+  assert.deepEqual(totals, {
+    'route-network-failures': 1,
+    'route-timeout-failures': 1,
+    'route-status-failures': 3,
+    'route-body-read-failures': 1,
+    'mismatched-page-identity': 1,
+  });
+  assert.equal(report.routesAttempted, 8);
+  assert.equal(report.identityPagesChecked, 2);
+  assert.equal(report.inventories.route.total, 3);
+  for (const record of records) {
+    assert.equal(
+      fixture.calls.filter(
+        ({ pathname }) => pathname === `/ai-quick-reference/${record.slug}`,
+      ).length,
+      1,
+    );
+  }
+});
+
+test('reports malformed remote index and sitemap bodies independently', async () => {
+  const records = [sourceRecord(1, '1-shared'), sourceRecord(2, '2-shared')];
+  const fixture = createRemoteFixture(records, {
+    overrides: new Map([
+      ['/ai-faqs.en.json', { body: '{broken' }],
+      ['/ai-quick-reference/sitemap.xml', { body: '<broken>' }],
+    ]),
+  });
+  const report = await inspectRemoteFAQTarget({
+    target: 'https://example.test',
+    mode: 'remote',
+    checkedAt: '2026-08-04T00:00:00.000Z',
+    loadSource: async () => records,
+    fetchImpl: fixture.fetchImpl,
+    createTimeoutSignal: (timeoutMs) => ({ timeoutMs }),
+  });
+
+  assert.ok(
+    report.findings.some(({ category }) => category === 'invalid-index-data'),
+  );
+  assert.ok(
+    report.findings.some(({ category }) => category === 'invalid-sitemap-data'),
+  );
 });
