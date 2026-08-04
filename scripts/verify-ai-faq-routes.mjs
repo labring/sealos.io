@@ -5,6 +5,7 @@ import { groupByNormalizedSlug } from './ai-faq-fixture.mjs';
 import { decodeJSONBuffer, loadCanonicalFAQSource } from './ai-faq-index.mjs';
 
 export const FAQ_ROUTE_DETAIL_LIMIT = 20;
+export const DEFAULT_FAQ_ROUTE_COUNT = 2000;
 export const DEFAULT_FAQ_ROUTE_TARGET = 'out';
 export const LOCAL_ROUTE_READ_BATCH_SIZE = 32;
 export const REMOTE_ROUTE_WORKER_COUNT = 8;
@@ -39,6 +40,10 @@ export const FAQ_ROUTE_FINDING_CATEGORIES = [
   {
     key: 'invalid-sitemap-data',
     label: 'Invalid sitemap data',
+  },
+  {
+    key: 'inventory-count-mismatches',
+    label: 'Inventory count mismatches',
   },
   {
     key: 'route-enumeration-failures',
@@ -469,6 +474,7 @@ function normalizeFAQRouteReport(report) {
       timeoutMs: REMOTE_REQUEST_TIMEOUT_MS,
       retries: REMOTE_RETRY_COUNT,
       details: FAQ_ROUTE_DETAIL_LIMIT,
+      expectedRoutes: DEFAULT_FAQ_ROUTE_COUNT,
       ...report.limits,
     },
     inventories: {
@@ -562,7 +568,7 @@ export function formatFAQRouteReport(input) {
     `Target: ${JSON.stringify(report.target)}`,
     `Mode: ${report.mode}`,
     `Checked at: ${report.checkedAt}`,
-    `Limits: local batch=${report.limits.localBatch} remote workers=${report.limits.remoteWorkers} timeout=${report.limits.timeoutMs}ms retries=${report.limits.retries} details=${report.limits.details}`,
+    `Limits: local batch=${report.limits.localBatch} remote workers=${report.limits.remoteWorkers} timeout=${report.limits.timeoutMs}ms retries=${report.limits.retries} details=${report.limits.details} expected routes=${report.limits.expectedRoutes}`,
     'Inventories:',
   ];
 
@@ -777,6 +783,28 @@ function compareLocalIndexFields(sourceRecords, indexRecords) {
     }
   }
 
+  return findings;
+}
+
+function collectInventoryCountFindings(inventories, expectedCount) {
+  const findings = [];
+  for (const name of INVENTORY_NAMES) {
+    const inventory = inventories[name];
+    if (
+      inventory.total === expectedCount &&
+      inventory.unique === expectedCount
+    ) {
+      continue;
+    }
+    findings.push({
+      category: 'inventory-count-mismatches',
+      id: null,
+      slug: null,
+      field: name,
+      expected: { total: expectedCount, unique: expectedCount },
+      actual: { total: inventory.total, unique: inventory.unique },
+    });
+  }
   return findings;
 }
 
@@ -1173,6 +1201,7 @@ export async function inspectRemoteFAQTarget({
   loadSource = loadCanonicalFAQSource,
   fetchImpl = fetch,
   createTimeoutSignal = (timeoutMs) => AbortSignal.timeout(timeoutMs),
+  expectedCount = DEFAULT_FAQ_ROUTE_COUNT,
 }) {
   const findings = [];
   let sourceRecords = [];
@@ -1306,12 +1335,14 @@ export async function inspectRemoteFAQTarget({
   findings.push(
     ...comparison.findings,
     ...compareLocalIndexFields(sourceRecords, indexRecords),
+    ...collectInventoryCountFindings(comparison.inventories, expectedCount),
   );
 
   return normalizeFAQRouteReport({
     target,
     mode,
     checkedAt,
+    limits: { expectedRoutes: expectedCount },
     inventories: comparison.inventories,
     statusHistogram,
     routesAttempted: indexCandidates.length,

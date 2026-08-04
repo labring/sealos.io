@@ -632,6 +632,7 @@ test('fetches every remote route once with eight workers and fixed request bound
     target: 'https://example.test',
     mode: 'remote',
     checkedAt: '2026-08-04T00:00:00.000Z',
+    expectedCount: records.length,
     loadSource: async () => records,
     fetchImpl: fixture.fetchImpl,
     createTimeoutSignal(timeoutMs) {
@@ -681,6 +682,7 @@ test('keeps remote output stable across opposite completion schedules', async ()
     target: 'https://example.test',
     mode: 'remote',
     checkedAt: '2026-08-04T00:00:00.000Z',
+    expectedCount: records.length,
     loadSource: async () => records,
     createTimeoutSignal: (timeoutMs) => ({ timeoutMs }),
   };
@@ -729,6 +731,7 @@ test('collects remote timeout, network, status, body, and identity failures in o
     target: 'https://example.test',
     mode: 'remote',
     checkedAt: '2026-08-04T00:00:00.000Z',
+    expectedCount: records.length,
     loadSource: async () => records,
     fetchImpl: fixture.fetchImpl,
     createTimeoutSignal: (timeoutMs) => ({ timeoutMs }),
@@ -778,6 +781,7 @@ test('reports malformed remote index and sitemap bodies independently', async ()
     target: 'https://example.test',
     mode: 'remote',
     checkedAt: '2026-08-04T00:00:00.000Z',
+    expectedCount: records.length,
     loadSource: async () => records,
     fetchImpl: fixture.fetchImpl,
     createTimeoutSignal: (timeoutMs) => ({ timeoutMs }),
