@@ -134,3 +134,4 @@ remain unstarted.
 |---|---|---|---|
 | 32-01 | executor, test reviewer, closeout | dedicated child dispatch was unavailable by contract; the replacement executed every role sequentially | complete; summary and full regression evidence recorded |
 | 32-02 | executor, code reviewer, fixer, closeout | the replacement retained all roles inline and used no collaboration thread | complete; inherited assertion fixed and two fresh static builds accepted |
+| 32-03 | executor, code reviewer, fixer gate, closeout | generic fallback ran all roles sequentially with no child dispatch | complete; fake-network contract passed and fresh production stale baseline retained |
