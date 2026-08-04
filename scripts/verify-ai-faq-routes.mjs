@@ -1,7 +1,7 @@
 import { readFile, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
-import { groupByNormalizedSlug, loadFAQPages } from './ai-faq-fixture.mjs';
+import { groupByNormalizedSlug } from './ai-faq-fixture.mjs';
 import { decodeJSONBuffer, loadCanonicalFAQSource } from './ai-faq-index.mjs';
 
 export const FAQ_ROUTE_DETAIL_LIMIT = 20;
@@ -1031,135 +1031,302 @@ export async function inspectLocalFAQTarget({
   });
 }
 
-async function inspectLegacyTarget({ target, mode, checkedAt }) {
-  const isRemote = mode === 'remote';
-  const pages = await loadFAQPages();
-  const groups = groupByNormalizedSlug(pages);
-  const collision = [...groups.values()].find((group) => group.length > 1);
-  const normalizedSlug = collision[0].slug.replace(/^\d+-/, '');
-  const samplePages = collision.slice(0, 2);
-  const unknownNumberedSlug = `999999-${normalizedSlug}`;
+function isTimeoutError(error) {
+  return (
+    error?.name === 'TimeoutError' ||
+    error?.name === 'AbortError' ||
+    error?.code === 'ETIMEDOUT'
+  );
+}
 
-  async function readTarget(pathname) {
-    if (isRemote) {
-      const response = await fetch(`${target.replace(/\/+$/, '')}${pathname}`);
-      return {
-        status: response.status,
-        html: response.status === 200 ? await response.text() : '',
-      };
-    }
+function createRemoteRequestFinding({
+  category,
+  resource,
+  url,
+  id = null,
+  slug = null,
+  field,
+  expected,
+  actual,
+}) {
+  return {
+    category,
+    id,
+    slug,
+    field,
+    expected,
+    actual,
+    resource,
+    url,
+  };
+}
 
-    try {
-      return {
-        status: 200,
-        html: await readFile(
-          resolve(target, `.${pathname}/index.html`),
-          'utf8',
-        ),
-      };
-    } catch (error) {
-      if (error.code === 'ENOENT') return { status: 404, html: '' };
-      throw error;
+async function fetchRemoteResource({
+  target,
+  pathname,
+  resource,
+  id = null,
+  slug = null,
+  acceptedStatuses = [200],
+  readBody = true,
+  statusCategory = 'route-status-failures',
+  fetchImpl,
+  createTimeoutSignal,
+}) {
+  const url = new URL(pathname, `${target}/`).href;
+  let response;
+  try {
+    response = await fetchImpl(url, {
+      redirect: 'manual',
+      signal: createTimeoutSignal(REMOTE_REQUEST_TIMEOUT_MS),
+    });
+  } catch (error) {
+    return {
+      status: null,
+      body: null,
+      findings: [
+        createRemoteRequestFinding({
+          category: isTimeoutError(error)
+            ? 'route-timeout-failures'
+            : 'route-network-failures',
+          resource,
+          url,
+          id,
+          slug,
+          field: 'request',
+          expected: 'one completed request',
+          actual: describeError(error),
+        }),
+      ],
+    };
+  }
+
+  if (!acceptedStatuses.includes(response.status)) {
+    return {
+      status: response.status,
+      body: null,
+      findings: [
+        createRemoteRequestFinding({
+          category: statusCategory,
+          resource,
+          url,
+          id,
+          slug,
+          field: 'status',
+          expected: acceptedStatuses,
+          actual: response.status,
+        }),
+      ],
+    };
+  }
+
+  if (!readBody) {
+    return { status: response.status, body: null, findings: [] };
+  }
+
+  try {
+    return {
+      status: response.status,
+      body: await response.text(),
+      findings: [],
+    };
+  } catch (error) {
+    return {
+      status: response.status,
+      body: null,
+      findings: [
+        createRemoteRequestFinding({
+          category: 'route-body-read-failures',
+          resource,
+          url,
+          id,
+          slug,
+          field: 'body',
+          expected: 'one readable response body',
+          actual: describeError(error),
+        }),
+      ],
+    };
+  }
+}
+
+async function mapWithWorkers(values, workerCount, mapper) {
+  const results = new Array(values.length);
+  let cursor = 0;
+
+  async function worker() {
+    while (cursor < values.length) {
+      const index = cursor;
+      cursor += 1;
+      results[index] = await mapper(values[index], index);
     }
   }
 
-  async function readSitemap() {
-    if (isRemote) {
-      const response = await fetch(
-        `${target.replace(/\/+$/, '')}/ai-quick-reference/sitemap.xml`,
-      );
-      if (response.status !== 200) {
-        throw new Error(`Sitemap returned HTTP ${response.status}.`);
-      }
-      return response.text();
-    }
-    return readFile(
-      resolve(target, './ai-quick-reference/sitemap.xml'),
-      'utf8',
+  await Promise.all(Array.from({ length: workerCount }, () => worker()));
+  return results;
+}
+
+export async function inspectRemoteFAQTarget({
+  target,
+  mode = 'remote',
+  checkedAt,
+  loadSource = loadCanonicalFAQSource,
+  fetchImpl = fetch,
+  createTimeoutSignal = (timeoutMs) => AbortSignal.timeout(timeoutMs),
+}) {
+  const findings = [];
+  let sourceRecords = [];
+  try {
+    sourceRecords = await loadSource();
+  } catch (error) {
+    findings.push(
+      createIngestionFinding(
+        'source-read-failures',
+        'source',
+        'canonical source records',
+        error,
+      ),
     );
   }
 
-  const sitemap = await readSitemap();
-  const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
-    (match) => match[1],
+  const [indexResponse, sitemapResponse] = await Promise.all([
+    fetchRemoteResource({
+      target,
+      pathname: '/ai-faqs.en.json',
+      resource: 'index',
+      fetchImpl,
+      createTimeoutSignal,
+    }),
+    fetchRemoteResource({
+      target,
+      pathname: '/ai-quick-reference/sitemap.xml',
+      resource: 'sitemap',
+      fetchImpl,
+      createTimeoutSignal,
+    }),
+  ]);
+  findings.push(...indexResponse.findings, ...sitemapResponse.findings);
+
+  let indexRecords = [];
+  if (indexResponse.body !== null) {
+    const parsed = parseLocalIndex(Buffer.from(indexResponse.body, 'utf8'));
+    indexRecords = parsed.records;
+    findings.push(...parsed.findings);
+  }
+  let sitemapSlugs = [];
+  if (sitemapResponse.body !== null) {
+    const parsed = parseSitemapSlugs(Buffer.from(sitemapResponse.body, 'utf8'));
+    sitemapSlugs = parsed.slugs;
+    findings.push(...parsed.findings);
+  }
+
+  const indexCandidates = [
+    ...new Map(indexRecords.map((record) => [record.slug, record])).values(),
+  ].sort(compareEntries);
+  const routeResults = await mapWithWorkers(
+    indexCandidates,
+    REMOTE_ROUTE_WORKER_COUNT,
+    async (record) => ({
+      record,
+      response: await fetchRemoteResource({
+        target,
+        pathname: `/ai-quick-reference/${record.slug}/`,
+        resource: 'detail',
+        id: record.id,
+        slug: record.slug,
+        fetchImpl,
+        createTimeoutSignal,
+      }),
+    }),
   );
-  const comparison = compareFAQRouteInventories({
-    source: pages,
-    index: pages,
-    sitemap: sitemapUrls,
-    route: pages,
-  });
-  const findings = [...comparison.findings];
+
+  const routeSlugs = [];
   const statusHistogram = {};
+  const sourceById = new Map(
+    sourceRecords.map((record) => [record.id, record]),
+  );
   let identityPagesChecked = 0;
   let identityFieldsChecked = 0;
-  let invalidRoutesAccepted = 0;
-
-  function recordStatus(status) {
+  const recordStatus = (status) => {
+    if (!Number.isInteger(status)) return;
     statusHistogram[status] = (statusHistogram[status] ?? 0) + 1;
+  };
+
+  for (const { record, response } of routeResults) {
+    recordStatus(response.status);
+    findings.push(...response.findings);
+    if (response.status === 200) routeSlugs.push(record.slug);
+    if (response.body === null) continue;
+    const sourceRecord = sourceById.get(record.id);
+    if (!sourceRecord) continue;
+    identityPagesChecked += 1;
+    identityFieldsChecked += IDENTITY_FIELDS.length;
+    findings.push(
+      ...inspectFAQPageIdentity({ html: response.body, record: sourceRecord }),
+    );
   }
 
-  for (const page of samplePages) {
-    const pathname = `/ai-quick-reference/${page.slug}`;
-    const result = await readTarget(pathname);
-    recordStatus(result.status);
-    if (result.status === 200) {
-      identityPagesChecked += 1;
-      identityFieldsChecked += IDENTITY_FIELDS.length;
-      findings.push(
-        ...inspectFAQPageIdentity({ html: result.html, record: page }),
-      );
-    } else {
-      findings.push({
-        category: 'route-status-failures',
-        id: getNumericSlugId(page.slug),
-        slug: page.slug,
-        field: 'status',
-        expected: 200,
-        actual: result.status,
-      });
-    }
+  const groups = groupByNormalizedSlug(sourceRecords);
+  const collision = [...groups.entries()].find(([, group]) => group.length > 1);
+  const invalidSlugs = collision
+    ? [collision[0], `999999-${collision[0]}`]
+    : [];
+  const invalidResults = [];
+  for (const slug of invalidSlugs) {
+    invalidResults.push(
+      await fetchRemoteResource({
+        target,
+        pathname: `/ai-quick-reference/${slug}/`,
+        resource: 'invalid-detail',
+        id: getNumericSlugId(slug),
+        slug,
+        acceptedStatuses: [404, 410],
+        readBody: false,
+        statusCategory: 'invalid-route-status-failures',
+        fetchImpl,
+        createTimeoutSignal,
+      }),
+    );
   }
-
-  for (const pathname of [
-    `/ai-quick-reference/${normalizedSlug}`,
-    `/ai-quick-reference/${unknownNumberedSlug}`,
-  ]) {
-    const result = await readTarget(pathname);
-    recordStatus(result.status);
-    if (result.status !== 404 && result.status !== 410) {
-      findings.push({
-        category: 'invalid-route-status-failures',
-        id: null,
-        slug: pathname.split('/').at(-1),
-        field: 'status',
-        expected: [404, 410],
-        actual: result.status,
-      });
-    } else {
+  let invalidRoutesAccepted = 0;
+  for (const response of invalidResults) {
+    recordStatus(response.status);
+    findings.push(...response.findings);
+    if (response.status === 404 || response.status === 410) {
       invalidRoutesAccepted += 1;
     }
   }
 
-  return {
+  const comparison = compareFAQRouteInventories({
+    source: sourceRecords,
+    index: indexRecords,
+    sitemap: sitemapSlugs,
+    route: routeSlugs,
+  });
+  findings.push(
+    ...comparison.findings,
+    ...compareLocalIndexFields(sourceRecords, indexRecords),
+  );
+
+  return normalizeFAQRouteReport({
     target,
     mode,
     checkedAt,
     inventories: comparison.inventories,
     statusHistogram,
-    routesAttempted: samplePages.length,
+    routesAttempted: indexCandidates.length,
     identityPagesChecked,
     identityFieldsChecked,
-    invalidRoutesAttempted: 2,
+    invalidRoutesAttempted: invalidResults.length,
     invalidRoutesAccepted,
     findings,
-  };
+  });
 }
 
 async function inspectFAQTarget(options) {
   return options.mode === 'local'
     ? inspectLocalFAQTarget(options)
-    : inspectLegacyTarget(options);
+    : inspectRemoteFAQTarget(options);
 }
 
 export async function runVerifyFAQRoutes({
