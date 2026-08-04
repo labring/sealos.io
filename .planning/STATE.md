@@ -5,10 +5,10 @@ milestone_name: AI Quick Reference Index Consistency
 current_phase: 32
 current_phase_name: sitemap-route-parity-and-production-verification
 status: blocked
-stopped_at: Plan 32-04 execution complete; handed off to gsd-verify-work 32 with production acceptance BLOCKED
-last_updated: "2026-08-04T00:32:17Z"
+stopped_at: Independent Phase 32 verification complete with production acceptance BLOCKED
+last_updated: "2026-08-04T00:49:07Z"
 last_activity: 2026-08-04
-last_activity_desc: Phase 32 Plan 32-04 execution closed with authoritative BLOCKED production evidence; verification handoff ready
+last_activity_desc: Independent Phase 32 verification recorded 14/16 must-haves and authoritative production blockers
 progress:
   total_phases: 2
   completed_phases: 1
@@ -33,7 +33,7 @@ represented by the URL and current source data.
 |-------|-------|
 | Phase | 32 of 32 |
 | Name | Sitemap Route Parity And Production Verification |
-| Status | Plan execution complete; production acceptance BLOCKED |
+| Status | Independent verification complete with gaps; production acceptance BLOCKED |
 | Goal | Every page-index entry has the same canonical slug in the sitemap and deployed detail-page route. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
@@ -47,17 +47,18 @@ Phase 32 owns the pending PARITY-02 and DELIVERY-02 requirements.
 
 Phase: 32 (sitemap-route-parity-and-production-verification) — BLOCKED
 Plan: 4 of 4
-Status: Plan 32-04 execution complete; production acceptance BLOCKED
-Last activity: 2026-08-04 — Plan 32-04 closeout recorded; Vercel disabled_manually and remote parity failing
+Status: Independent verification complete with 14/16 must-haves; production acceptance BLOCKED
+Last activity: 2026-08-04 — Fresh production verification retained 28 route 404 findings, 28 slug drifts, five description drifts, and the disabled Vercel workflow
 
 ## Next Action
 
-Phase 32 is ready for independent `$gsd-verify-work 32`; production release acceptance remains blocked.
+Plan the production release gap after maintainer authorization: complete both
+production workflows for one SHA, then require a zero-finding live rerun.
 
 ## Session
 
-**Last session:** 2026-08-04T00:32:17Z
-**Stopped at:** Plan 32-04 execution complete; handed off to `$gsd-verify-work 32` with production acceptance BLOCKED
+**Last session:** 2026-08-04T00:49:07Z
+**Stopped at:** Independent `$gsd-verify-work 32` completed with status `gaps_found` and production acceptance BLOCKED
 **Resume file:** None
 
 ### Quick Tasks Completed
@@ -231,4 +232,4 @@ Phase 32 is ready for independent `$gsd-verify-work 32`; production release acce
 
 ## Operator Next Steps
 
-- Phase 31 is complete. Phase 32 plan execution is complete and ready for independent `$gsd-verify-work 32`; production acceptance stays blocked pending active Vercel and a passing exact-SHA production rerun.
+- Phase 31 is complete. Independent Phase 32 verification recorded 14/16 must-haves, 8 automated UAT passes, and 4 blocked production checks. Production acceptance stays blocked pending active Vercel, same-SHA workflow success, and a passing live rerun.

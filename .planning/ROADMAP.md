@@ -95,7 +95,11 @@ and reserve sitemap and deployed route checks for Phase 32.
    sitemap and page index, and inspect all four identity fields on every one of
    the 2,000 local and deployed page-index routes.
 
-**Plans:** 4/4 plans executed; Wave 4 release checkpoint BLOCKED
+**Plans:** 4/4 plans executed; independent verification found 14/16 must-haves
+verified and retained the Wave 4 production release checkpoint as BLOCKED.
+
+**Verification:** `32-VERIFICATION.md` status is `gaps_found`; `32-UAT.md` is
+partial with 8 automated passes and 4 production checks blocked.
 
 - [x] 32-01-PLAN.md
 - [x] 32-02-PLAN.md
