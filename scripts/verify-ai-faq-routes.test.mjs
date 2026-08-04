@@ -790,3 +790,118 @@ test('reports malformed remote index and sitemap bodies independently', async ()
     report.findings.some(({ category }) => category === 'invalid-sitemap-data'),
   );
 });
+
+test('requires every remote inventory to match the configured acceptance count', async () => {
+  const records = [sourceRecord(1, '1-shared'), sourceRecord(2, '2-shared')];
+  const fixture = createRemoteFixture(records);
+  const report = await inspectRemoteFAQTarget({
+    target: 'https://example.test',
+    mode: 'remote',
+    checkedAt: '2026-08-04T00:00:00.000Z',
+    expectedCount: 3,
+    loadSource: async () => records,
+    fetchImpl: fixture.fetchImpl,
+    createTimeoutSignal: (timeoutMs) => ({ timeoutMs }),
+  });
+
+  assert.equal(
+    report.findings.filter(
+      ({ category }) => category === 'inventory-count-mismatches',
+    ).length,
+    4,
+  );
+});
+
+test('runs a complete remote acceptance report with 404 and 410 invalid routes', async () => {
+  const records = [
+    sourceRecord(1, '1-shared'),
+    sourceRecord(2, '2-shared'),
+    sourceRecord(3, '3-third'),
+  ];
+  const fixture = createRemoteFixture(records, {
+    overrides: new Map([['/ai-quick-reference/shared', { status: 410 }]]),
+  });
+  const stdout = createStreamCapture();
+  const stderr = createStreamCapture();
+  const run = () =>
+    runVerifyFAQRoutes({
+      args: ['https://example.test/'],
+      inspectTarget: (options) =>
+        inspectRemoteFAQTarget({
+          ...options,
+          expectedCount: records.length,
+          loadSource: async () => records,
+          fetchImpl: fixture.fetchImpl,
+          createTimeoutSignal: (timeoutMs) => ({ timeoutMs }),
+        }),
+      now: () => new Date('2026-08-04T00:00:00.000Z'),
+      stdout: stdout.stream,
+      stderr: stderr.stream,
+    });
+
+  assert.equal(await run(), 0);
+  assert.equal(stderr.read(), '');
+  assert.match(stdout.read(), /Target: "https:\/\/example\.test"/);
+  assert.match(
+    stdout.read(),
+    /Limits: local batch=32 remote workers=8 timeout=10000ms retries=0/,
+  );
+  assert.match(stdout.read(), /source: total=3 unique=3 duplicates=0/);
+  assert.match(stdout.read(), /route: total=3 unique=3 duplicates=0/);
+  assert.match(stdout.read(), /HTTP statuses: 200=3 404=1 410=1/);
+  assert.match(stdout.read(), /Identity fields checked: 12/);
+  assert.match(stdout.read(), /Invalid routes: attempted=2 accepted=2/);
+  assert.match(stdout.read(), /Result: PASS/);
+
+  assert.equal(await run(), 0);
+  assert.equal(fixture.calls.length, 14);
+  for (const record of records) {
+    assert.equal(
+      fixture.calls.filter(
+        ({ pathname }) => pathname === `/ai-quick-reference/${record.slug}`,
+      ).length,
+      2,
+    );
+  }
+});
+
+test('reports count-valid stale remote index membership, fields, and dead routes together', async () => {
+  const records = [
+    sourceRecord(1, '1-shared'),
+    sourceRecord(2, '2-shared'),
+    sourceRecord(3, '3-third'),
+  ];
+  const stale = indexRecord(records[0]);
+  stale.slug = '1-stale';
+  stale.description = 'Stale description';
+  const fixture = createRemoteFixture(records, {
+    indexRecords: [stale, indexRecord(records[1]), indexRecord(records[2])],
+  });
+  const report = await inspectRemoteFAQTarget({
+    target: 'https://example.test',
+    mode: 'remote',
+    checkedAt: '2026-08-04T00:00:00.000Z',
+    expectedCount: records.length,
+    loadSource: async () => records,
+    fetchImpl: fixture.fetchImpl,
+    createTimeoutSignal: (timeoutMs) => ({ timeoutMs }),
+  });
+  const categories = new Set(report.findings.map(({ category }) => category));
+
+  for (const category of [
+    'source-only-index-slugs',
+    'index-only-source-slugs',
+    'source-only-route-slugs',
+    'index-slug-mismatches',
+    'index-description-mismatches',
+    'route-status-failures',
+  ]) {
+    assert.ok(categories.has(category), category);
+  }
+  assert.equal(report.inventories.source.total, 3);
+  assert.equal(report.inventories.index.total, 3);
+  assert.equal(report.inventories.sitemap.total, 3);
+  assert.equal(report.inventories.route.total, 2);
+  assert.deepEqual(report.statusHistogram, { 200: 2, 404: 3 });
+  assert.match(formatFAQRouteReport(report), /Result: FAIL/);
+});
