@@ -1,30 +1,11 @@
 import assert from 'node:assert/strict';
-import { readdir, readFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
-import ts from 'typescript';
+import {
+  getFAQPageSlug,
+  resolveFAQPageBySlug,
+} from '../lib/utils/faq-slug.mjs';
+import { groupByNormalizedSlug, loadFAQPages } from './ai-faq-fixture.mjs';
 
-const resolverSource = await readFile(resolve('lib/utils/faq-slug.ts'), 'utf8');
-const resolverCode = ts.transpileModule(resolverSource, {
-  compilerOptions: {
-    module: ts.ModuleKind.ES2022,
-    target: ts.ScriptTarget.ES2022,
-  },
-}).outputText;
-const { getFAQPageSlug, normalizeFAQSlug, resolveFAQPageBySlug } = await import(
-  `data:text/javascript;base64,${Buffer.from(resolverCode).toString('base64')}`
-);
-
-const sourceDirectory = resolve('content/ai-quick-reference');
-const sourceFiles = (await readdir(sourceDirectory))
-  .filter((file) => file.endsWith('.en.json'))
-  .sort();
-const pages = [];
-for (const file of sourceFiles) {
-  pages.push({
-    url: `/ai-quick-reference/${file.slice(0, -'.en.json'.length)}`,
-    data: JSON.parse(await readFile(resolve(sourceDirectory, file), 'utf8')),
-  });
-}
+const pages = await loadFAQPages();
 
 assert.equal(
   pages.length,
@@ -32,13 +13,7 @@ assert.equal(
   'the source collection must contain 2,000 pages',
 );
 
-const collisionGroups = new Map();
-for (const page of pages) {
-  const normalizedSlug = normalizeFAQSlug(getFAQPageSlug(page));
-  const group = collisionGroups.get(normalizedSlug) || [];
-  group.push(page);
-  collisionGroups.set(normalizedSlug, group);
-}
+const collisionGroups = groupByNormalizedSlug(pages);
 
 for (const page of pages) {
   assert.equal(
@@ -75,12 +50,16 @@ assert.equal(
   'a missing slug must remain unresolved',
 );
 
-const uniqueGroup = [...collisionGroups.values()].find(
-  (group) => group.length === 1,
+const uniqueGroupEntry = [...collisionGroups.entries()].find(
+  ([, group]) => group.length === 1,
 );
-assert.ok(uniqueGroup, 'the fixture must contain a unique normalized slug');
+assert.ok(
+  uniqueGroupEntry,
+  'the fixture must contain a unique normalized slug',
+);
+const [uniqueSlug, uniqueGroup] = uniqueGroupEntry;
 assert.equal(
-  resolveFAQPageBySlug(pages, normalizeFAQSlug(getFAQPageSlug(uniqueGroup[0]))),
+  resolveFAQPageBySlug(pages, uniqueSlug),
   uniqueGroup[0],
   'an unnumbered unique slug should retain compatibility',
 );

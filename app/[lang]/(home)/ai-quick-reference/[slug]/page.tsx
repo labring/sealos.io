@@ -20,7 +20,7 @@ import { SealosBrandCard } from '@/new-components/SealosBrandCard';
 import { SocialLinks } from '@/new-components/SocialLinks';
 import { GradientText } from '@/new-components/GradientText';
 import { getPageUrl, generatePageMetadata } from '@/lib/utils/metadata';
-import { getFAQPageSlug } from '@/lib/utils/faq-slug';
+import { getFAQPageSlug } from '@/lib/utils/faq-slug.mjs';
 import { Metadata } from 'next';
 
 export async function generateMetadata({

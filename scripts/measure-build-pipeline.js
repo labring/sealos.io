@@ -37,7 +37,9 @@ function readJsonIfExists(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
-function collectDependencyVersions(lock = readJsonIfExists('package-lock.json')) {
+function collectDependencyVersions(
+  lock = readJsonIfExists('package-lock.json'),
+) {
   const versions = {};
   const packages = lock?.packages || {};
 
@@ -71,7 +73,9 @@ function collectEnvironmentContext({
 
   const nodeMajor = process.versions.node.split('.')[0];
   const lockedDependenciesAvailable = fs.existsSync(`${cwd}/node_modules`);
-  const expectedNodeMajor = nvmrc ? nvmrc.replace(/^v/, '').split('.')[0] : null;
+  const expectedNodeMajor = nvmrc
+    ? nvmrc.replace(/^v/, '').split('.')[0]
+    : null;
 
   return {
     node: process.version,
@@ -121,6 +125,7 @@ function getStagesForMode(mode, passthrough = []) {
 
   if (mode === 'analyze') {
     return [
+      createStage('AI FAQ parity', 'npm', ['run', 'verify:ai-faq-index']),
       createStage('pre generated diff guard', 'npm', ['run', 'app-store:diff']),
       createStage('Next analyzer build', getLocalNextCommand(), ['build'], {
         env: {
@@ -130,21 +135,33 @@ function getStagesForMode(mode, passthrough = []) {
       createStage('root locale normalization', 'node', [
         'scripts/normalize-root-locale.js',
       ]),
-      createStage('post generated diff guard', 'npm', ['run', 'app-store:diff']),
+      createStage('AI FAQ route parity', 'npm', [
+        'run',
+        'verify:ai-faq-routes',
+      ]),
+      createStage('post generated diff guard', 'npm', [
+        'run',
+        'app-store:diff',
+      ]),
     ];
   }
 
   return [
+    createStage('AI FAQ parity', 'npm', ['run', 'verify:ai-faq-index']),
     createStage('pre generated diff guard', 'npm', ['run', 'app-store:diff']),
     createStage('Next production build', getLocalNextCommand(), ['build']),
     createStage('root locale normalization', 'node', [
       'scripts/normalize-root-locale.js',
     ]),
+    createStage('AI FAQ route parity', 'npm', ['run', 'verify:ai-faq-routes']),
     createStage('post generated diff guard', 'npm', ['run', 'app-store:diff']),
   ];
 }
 
-function runMeasuredStage(stage, { spawn = spawnSync, cwd = process.cwd() } = {}) {
+function runMeasuredStage(
+  stage,
+  { spawn = spawnSync, cwd = process.cwd() } = {},
+) {
   const startedAt = process.hrtime.bigint();
   const result = spawn(stage.command, stage.args, {
     cwd,

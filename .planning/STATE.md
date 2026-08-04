@@ -1,63 +1,64 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.4
-milestone_name: AI Quick Reference slug integrity and deployment
-current_phase: 29
-current_phase_name: Deterministic Slug Resolution and Regression Coverage
-status: executing
-last_updated: "2026-08-03T09:10:12Z"
-last_activity: 2026-08-03
-last_activity_desc: "Completed quick task 260803-npm: Rename Footer App Store to Templates and add Skills above it"
+milestone: v1.5
+milestone_name: AI Quick Reference Index Consistency
+current_phase: 32
+current_phase_name: sitemap-route-parity-and-production-verification
+status: blocked
+stopped_at: Independent Phase 32 verification complete with production acceptance BLOCKED
+last_updated: "2026-08-04T00:49:07Z"
+last_activity: 2026-08-04
+last_activity_desc: Independent Phase 32 verification recorded 14/16 must-haves and authoritative production blockers
 progress:
-  total_phases: 10
-  completed_phases: 8
-  total_plans: 36
-  completed_plans: 35
-  percent: 80
+  total_phases: 2
+  completed_phases: 1
+  total_plans: 7
+  completed_plans: 7
+  percent: 50
 ---
 
 # Project State
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-07-15)
+See: `.planning/PROJECT.md` (updated 2026-08-03)
 
 **Core value:** Readers and search engines reach the exact Sealos content
 represented by the URL and current source data.
-**Current focus:** Milestone v1.4 — AI Quick Reference slug integrity and deployment
+**Current focus:** Phase 32 — sitemap-route-parity-and-production-verification
 
 ## Current Phase
 
 | Field | Value |
 |-------|-------|
-| Phase | 29 of 30 |
-| Name | Deterministic Slug Resolution and Regression Coverage |
-| Status | In progress |
-| Goal | Every complete AI Quick Reference slug resolves to its own source entry and page identity fields stay aligned. |
+| Phase | 32 of 32 |
+| Name | Sitemap Route Parity And Production Verification |
+| Status | Independent verification complete with gaps; production acceptance BLOCKED |
+| Goal | Every page-index entry has the same canonical slug in the sitemap and deployed detail-page route. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
 
 ## Active Requirements
 
-Phase 29 implementation and local build checks are complete. Production
-deployment verification remains.
+Phase 31 completed SOURCE-01, SOURCE-02, PARITY-01, and DELIVERY-01.
+Phase 32 owns the pending PARITY-02 and DELIVERY-02 requirements.
 
 ## Current Position
 
-Phase: 29 (Deterministic Slug Resolution and Regression Coverage)
-Plan: 1 of 1
-Status: Phase 29 implementation complete; Phase 30 deployment pending
-Last activity: 2026-07-31 — Exact resolver, exhaustive collision regression, and
-production build completed on the release branch
+Phase: 32 (sitemap-route-parity-and-production-verification) — BLOCKED
+Plan: 4 of 4
+Status: Independent verification complete with 14/16 must-haves; production acceptance BLOCKED
+Last activity: 2026-08-04 — Fresh production verification retained 28 route 404 findings, 28 slug drifts, five description drifts, and the disabled Vercel workflow
 
 ## Next Action
 
-Deploy the release branch and run the live AI Quick Reference route verifier.
+Plan the production release gap after maintainer authorization: complete both
+production workflows for one SHA, then require a zero-finding live rerun.
 
 ## Session
 
-**Last session:** 2026-07-16T22:15:10.583Z
-**Stopped at:** Milestone v1.3 complete
+**Last session:** 2026-08-04T00:49:07Z
+**Stopped at:** Independent `$gsd-verify-work 32` completed with status `gaps_found` and production acceptance BLOCKED
 **Resume file:** None
 
 ### Quick Tasks Completed
@@ -70,12 +71,6 @@ Deploy the release branch and run the live AI Quick Reference route verifier.
 | 260709-n35 | Fix /products/databases footer bottom Sealos word to match homepage | 2026-07-09 | PR #304 | [260709-n35-fix-products-databases-footer-bottom-sea](./quick/260709-n35-fix-products-databases-footer-bottom-sea/) |
 | 260720-g4e | Add Playwright verification guidance to the Cloud Run article | 2026-07-20 | e9314f2 | [260720-g4e-update-the-sealos-io-blog-article-for-th](./quick/260720-g4e-update-the-sealos-io-blog-article-for-th/) |
 | 260721-n8f | Add permanent LobeHub legacy app-store redirects across Vercel and Cloudflare Pages | 2026-07-21 | ef5aad0 | [260721-n8f-add-permanent-lobehub-legacy-app-store-r](./quick/260721-n8f-add-permanent-lobehub-legacy-app-store-r/) |
-| 260731-lqa | Update the /contact page to match the homepage visual theme while preserving functionality | 2026-07-31 | f220df8 | [260731-lqa-update-the-contact-page-to-match-the-hom](./quick/260731-lqa-update-the-contact-page-to-match-the-hom/) |
-| 260731-n14 | Remove the contact grid background and align its footer and bottom wordmark with the homepage | 2026-07-31 | fc4bbc2 | [260731-n14-remove-the-contact-page-grid-background-](./quick/260731-n14-remove-the-contact-page-grid-background-/) |
-| 260731-ogr | Restore the shared navbar to the pre-846a308 visual design across all pages while preserving current navigation behavior and analytics | 2026-08-03 | 7c889c8 | [260731-ogr-restore-the-shared-navbar-to-the-pre-846](./quick/260731-ogr-restore-the-shared-navbar-to-the-pre-846/) |
-| 260803-lix | Simplify the Navbar menu to Templates, Docs, Resources, Pricing, and Contact while preserving current navigation behavior | 2026-08-03 | 2e9dbf0 | [260803-lix-simplify-navbar-menu](./quick/260803-lix-simplify-navbar-menu/) |
-| 260803-my3 | Add Skills before Templates and remove DevBox and Databases from both Footer implementations | 2026-08-03 | 2b46fc8 | [260803-my3-navbar-footer-skills](./quick/260803-my3-navbar-footer-skills/) |
-| 260803-npm | Rename Footer App Store to Templates and add Skills above it | 2026-08-03 | 4bc4a09 | [260803-npm-footer-products-labels](./quick/260803-npm-footer-products-labels/) |
 
 ## Performance Metrics
 
@@ -122,6 +117,13 @@ Deploy the release branch and run the live AI Quick Reference route verifier.
 | Phase 28 P01 | 15 min | 2 tasks | 3 files |
 | Phase 28 P02 | 10 min | 2 tasks | 5 files |
 | Phase 28 P03 | 20 min | 3 tasks | 7 files |
+| Phase 31 P01 | 25 min | 2 tasks | 3 files |
+| Phase 31 P02 | 27 min | 2 tasks | 3 files |
+| Phase 31 P03 | 47 min | 2 tasks | 6 files |
+| Phase 32 P01 | 7 min | 2 tasks | 2 files |
+| Phase 32 P02 | 11 min | 2 tasks | 6 files |
+| Phase 32 P03 | 7 min | 2 tasks | 2 files |
+| Phase 32 P04 | 4 min | 1 task; release checkpoint blocked | 4 planning files |
 
 ## Decisions
 
@@ -216,3 +218,18 @@ Deploy the release branch and run the live AI Quick Reference route verifier.
 - [Phase 28]: Accept production publication through an exact 31-path loopback HTTP matrix.
 - [Phase 28]: Require two stable DOM samples and original-detail visual review at desktop and mobile.
 - [Phase 28]: Seal Phase 28 separately while preserving every Phase 27 evidence byte and mode.
+- [Phase 31]: Canonical source identity comes from strict numeric filenames, and source reads run in sequential batches of 32. — This preserves deterministic order and bounds file descriptor use across 2,000 source files.
+- [Phase 31]: Parity aligns by numeric ID and compares exact slugs as fields across common valid unique records. — This reports stale slugs as field drift and prevents missing records from causing ordering cascades.
+- [Phase 31]: Canonical-byte findings require a fully valid source set. — Primary source validation remains actionable without derivative serialization noise.
+- [Phase 31]: 31-02: Validate and serialize the complete source set before creating publication state. — Invalid source input leaves destination and filesystem publication state unchanged.
+- [Phase 31]: 31-02: Publish through a UUID-bearing destination sibling opened with wx and one same-directory rename. — The destination observes complete canonical bytes.
+- [Phase 31]: 31-02: Remove only the exact owned temporary path and retain publication failures as primary. — Cleanup stays scoped and failure diagnostics remain actionable.
+- [Phase 31]: 31-03: Keep parity verification read-only and delegate source, comparison, serialization, and diagnostics to the shared boundary. — This preserves one canonical semantic implementation and makes mutation safety directly testable.
+- [Phase 31]: 31-03: Gate package and timed Next build entry points with verify:ai-faq-index as the first executable stage. — Every repository-owned static export now stops before Next when the committed index is stale.
+- [Phase 31]: 31-03: Preserve legacy exact-slug and route commands while Phase 32 retains sitemap and deployed-route parity ownership. — This keeps the current contracts stable and holds the milestone boundary.
+- [Phase 32]: Preserve the plan-time stale production snapshot beside the fresh remote readback and workflow records. — Historical evidence stays distinguishable from current release readiness.
+- [Phase 32]: Treat Vercel `disabled_manually`, the failed mismatched latest run, and the non-zero remote verifier as blocking facts. — PARITY-02 and DELIVERY-02 remain pending until exact-SHA production acceptance exists.
+
+## Operator Next Steps
+
+- Phase 31 is complete. Independent Phase 32 verification recorded 14/16 must-haves, 8 automated UAT passes, and 4 blocked production checks. Production acceptance stays blocked pending active Vercel, same-SHA workflow success, and a passing live rerun.
