@@ -316,6 +316,19 @@ test('validates all page identity fields with nested markup and entities', () =>
   assert.deepEqual(inspectFAQPageIdentity({ html, record }), []);
 });
 
+test('drops malformed nested markup before comparing page identity text', () => {
+  const record = sourceRecord(7, '7-malformed-markup', {
+    title: 'Safe title',
+  });
+  const html = '<title>Safe <script</title>';
+  const findings = inspectFAQPageIdentity({ html, record });
+  const titleFinding = findings.find(({ field }) => field === 'title');
+
+  assert.equal(titleFinding.category, 'mismatched-page-identity');
+  assert.deepEqual(titleFinding.actual, ['Safe']);
+  assert.equal(JSON.stringify(findings).includes('<script'), false);
+});
+
 test('reports missing, duplicate, and mismatched identity fields independently', () => {
   const record = sourceRecord(8, '8-identity');
   const html = `<!doctype html>

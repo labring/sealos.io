@@ -386,9 +386,26 @@ function extractElementText(html, tagName) {
     'gi',
   );
   for (const match of html.matchAll(pattern)) {
-    values.push(decodeHtmlEntities(match[1].replace(/<[^>]*>/g, '')).trim());
+    values.push(decodeHtmlEntities(stripMarkup(match[1])).trim());
   }
   return values;
+}
+
+function stripMarkup(value) {
+  let insideTag = false;
+  let text = '';
+  for (const character of value) {
+    if (character === '<') {
+      insideTag = true;
+      continue;
+    }
+    if (insideTag) {
+      if (character === '>') insideTag = false;
+      continue;
+    }
+    text += character;
+  }
+  return text;
 }
 
 function extractMetaDescriptions(html) {
