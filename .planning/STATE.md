@@ -4,16 +4,16 @@ milestone: v1.5
 milestone_name: AI Quick Reference Index Consistency
 current_phase: 32
 current_phase_name: sitemap-route-parity-and-production-verification
-status: executing
-stopped_at: Completed 32-03-PLAN.md
-last_updated: "2026-08-04T00:14:35.149Z"
-last_activity: 2026-08-03
-last_activity_desc: Phase 32 execution resumed (wave continue)
+status: blocked
+stopped_at: Plan 32-04 execution complete; handed off to gsd-verify-work 32 with production acceptance BLOCKED
+last_updated: "2026-08-04T00:32:17Z"
+last_activity: 2026-08-04
+last_activity_desc: Phase 32 Plan 32-04 execution closed with authoritative BLOCKED production evidence; verification handoff ready
 progress:
   total_phases: 2
   completed_phases: 1
   total_plans: 7
-  completed_plans: 6
+  completed_plans: 7
   percent: 50
 ---
 
@@ -33,7 +33,7 @@ represented by the URL and current source data.
 |-------|-------|
 | Phase | 32 of 32 |
 | Name | Sitemap Route Parity And Production Verification |
-| Status | Ready to execute |
+| Status | Plan execution complete; production acceptance BLOCKED |
 | Goal | Every page-index entry has the same canonical slug in the sitemap and deployed detail-page route. |
 | Roadmap | `.planning/ROADMAP.md` |
 | Requirements | `.planning/REQUIREMENTS.md` |
@@ -45,19 +45,19 @@ Phase 32 owns the pending PARITY-02 and DELIVERY-02 requirements.
 
 ## Current Position
 
-Phase: 32 (sitemap-route-parity-and-production-verification) — EXECUTING
+Phase: 32 (sitemap-route-parity-and-production-verification) — BLOCKED
 Plan: 4 of 4
-Status: Ready to execute
-Last activity: 2026-08-03 — Phase 32 execution resumed (wave continue)
+Status: Plan 32-04 execution complete; production acceptance BLOCKED
+Last activity: 2026-08-04 — Plan 32-04 closeout recorded; Vercel disabled_manually and remote parity failing
 
 ## Next Action
 
-Phase 32 is ready for `$gsd-execute-phase 32`.
+Phase 32 is ready for independent `$gsd-verify-work 32`; production release acceptance remains blocked.
 
 ## Session
 
-**Last session:** 2026-08-04T00:14:35.145Z
-**Stopped at:** Completed 32-03-PLAN.md
+**Last session:** 2026-08-04T00:32:17Z
+**Stopped at:** Plan 32-04 execution complete; handed off to `$gsd-verify-work 32` with production acceptance BLOCKED
 **Resume file:** None
 
 ### Quick Tasks Completed
@@ -122,6 +122,7 @@ Phase 32 is ready for `$gsd-execute-phase 32`.
 | Phase 32 P01 | 7 min | 2 tasks | 2 files |
 | Phase 32 P02 | 11 min | 2 tasks | 6 files |
 | Phase 32 P03 | 7 min | 2 tasks | 2 files |
+| Phase 32 P04 | 4 min | 1 task; release checkpoint blocked | 4 planning files |
 
 ## Decisions
 
@@ -225,7 +226,9 @@ Phase 32 is ready for `$gsd-execute-phase 32`.
 - [Phase 31]: 31-03: Keep parity verification read-only and delegate source, comparison, serialization, and diagnostics to the shared boundary. — This preserves one canonical semantic implementation and makes mutation safety directly testable.
 - [Phase 31]: 31-03: Gate package and timed Next build entry points with verify:ai-faq-index as the first executable stage. — Every repository-owned static export now stops before Next when the committed index is stale.
 - [Phase 31]: 31-03: Preserve legacy exact-slug and route commands while Phase 32 retains sitemap and deployed-route parity ownership. — This keeps the current contracts stable and holds the milestone boundary.
+- [Phase 32]: Preserve the plan-time stale production snapshot beside the fresh remote readback and workflow records. — Historical evidence stays distinguishable from current release readiness.
+- [Phase 32]: Treat Vercel `disabled_manually`, the failed mismatched latest run, and the non-zero remote verifier as blocking facts. — PARITY-02 and DELIVERY-02 remain pending until exact-SHA production acceptance exists.
 
 ## Operator Next Steps
 
-- Phase 31 is complete. Phase 32 remains ready for discussion and planning.
+- Phase 31 is complete. Phase 32 plan execution is complete and ready for independent `$gsd-verify-work 32`; production acceptance stays blocked pending active Vercel and a passing exact-SHA production rerun.

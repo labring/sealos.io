@@ -135,3 +135,11 @@ remain unstarted.
 | 32-01 | executor, test reviewer, closeout | dedicated child dispatch was unavailable by contract; the replacement executed every role sequentially | complete; summary and full regression evidence recorded |
 | 32-02 | executor, code reviewer, fixer, closeout | the replacement retained all roles inline and used no collaboration thread | complete; inherited assertion fixed and two fresh static builds accepted |
 | 32-03 | executor, code reviewer, fixer gate, closeout | generic fallback ran all roles sequentially with no child dispatch | complete; fake-network contract passed and fresh production stale baseline retained |
+| 32-04 | executor, release-evidence closeout | generic-agent fallback executed inline with no collaboration thread; no human checkpoint wait | Task 1 complete; Task 2 BLOCKED by disabled Vercel and failing remote parity |
+
+## Plan 32-04 Release Checkpoint Record
+
+- Fresh remote command: `npm run verify:ai-faq-routes -- https://sealos.io` at `2026-08-04T00:22:56.697Z`, exit `1`, route `1972/1972`, HTTP `200=1972`, `404=30`, 28 slug findings, 5 description findings.
+- `deploy.yml`: `disabled_manually`; latest `main` run `22211308372`, SHA `ac6e452a9deb1a00f2ceaf08a50d7554e4d5d9a9`, `completed/failure`.
+- `deploy-cloudflare.yml`: `active`; latest `main` run `30782942312`, SHA `942980cc85a9fd4613c67dc89243a82cac732e14`, `completed/success`.
+- Checkpoint result: **BLOCKED**. PARITY-02 and DELIVERY-02 remain pending. No merge, push, workflow dispatch, deployment, or source change was attempted.
