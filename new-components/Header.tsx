@@ -8,29 +8,28 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import {
   ChevronDown,
-  CodeXmlIcon,
-  DatabaseIcon,
-  LayoutGridIcon,
   Menu,
   X,
-  School,
-  Gamepad2,
-  Building2,
-  BookOpen,
-  MessageCircle,
   BookOpenText,
   GraduationCap,
   FileText,
+  Github,
   Users,
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import {
+  useScroll,
+  motion,
+  useMotionValueEvent,
+  AnimatePresence,
+} from 'motion/react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import React from 'react';
-import GitHubIcon from '@/assets/github.svg';
+import { cn } from '@/lib/utils';
 import { useGTM } from '@/hooks/use-gtm';
 import { siteConfig } from '@/config/site';
 import { useAuthRedirect } from '@/hooks/use-auth-redirect';
@@ -51,6 +50,9 @@ type NavigationLink = {
   url: string;
   isExternal: boolean;
   children?: NavigationChild[];
+  dropdownConfig?: {
+    className?: string;
+  };
 };
 
 type HeaderProps = {
@@ -60,32 +62,14 @@ type HeaderProps = {
 // 导航链接数据
 const navigationLinks: NavigationLink[] = [
   {
-    text: 'Products',
-    url: '#',
+    text: 'Skills',
+    url: '/sealos-skills',
     isExternal: false,
-    children: [
-      {
-        text: 'DevBox',
-        url: '/products/devbox',
-        isExternal: false,
-        description: 'Cloud development environment',
-        icon: <CodeXmlIcon size={16} />,
-      },
-      {
-        text: 'App Store',
-        url: '/products/app-store',
-        isExternal: false,
-        description: 'Run your favorite apps',
-        icon: <LayoutGridIcon size={16} />,
-      },
-      {
-        text: 'Databases',
-        url: '/products/databases',
-        isExternal: false,
-        description: '1-click managed DB',
-        icon: <DatabaseIcon size={16} />,
-      },
-    ],
+  },
+  {
+    text: 'Templates',
+    url: '/products/app-store',
+    isExternal: false,
   },
   {
     text: 'Docs',
@@ -96,6 +80,9 @@ const navigationLinks: NavigationLink[] = [
     text: 'Resources',
     url: '#',
     isExternal: false,
+    dropdownConfig: {
+      className: 'w-[40rem]! md:w-[40rem]!',
+    },
     children: [
       {
         text: 'Learn',
@@ -133,34 +120,6 @@ const navigationLinks: NavigationLink[] = [
     isExternal: false,
   },
   {
-    text: 'Solutions',
-    url: '#',
-    isExternal: false,
-    children: [
-      {
-        text: 'Education',
-        url: '/solutions/industries/education',
-        isExternal: false,
-        description: 'Empower learning with cloud infrastructure',
-        icon: <School size={16} />,
-      },
-      {
-        text: 'Gaming',
-        url: '/solutions/industries/gaming',
-        isExternal: false,
-        description: 'Scale your gaming platform',
-        icon: <Gamepad2 size={16} />,
-      },
-      {
-        text: 'Information Technology',
-        url: '/solutions/industries/information-technology',
-        isExternal: false,
-        description: 'Enterprise-grade IT solutions',
-        icon: <Building2 size={16} />,
-      },
-    ],
-  },
-  {
     text: 'Contact',
     url: '/contact',
     isExternal: false,
@@ -174,20 +133,20 @@ const DropdownMenuItem = ({ child }: { child: NavigationChild }) => {
         href={child.url}
         target={child.isExternal ? '_blank' : undefined}
         rel={child.isExternal ? 'noopener noreferrer' : undefined}
-        className="relative flex flex-col justify-center rounded-lg px-2 py-2.5 text-white transition-colors hover:bg-white/[0.05] focus:bg-white/[0.05] focus:outline-none hover:[&_svg]:text-blue-400 focus:[&_svg]:text-blue-400"
+        className="group relative flex flex-col justify-center rounded-xl border border-transparent px-2 py-2.5 transition-all hover:bg-white/10 focus:bg-white/10 focus:outline-none"
       >
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {child.icon && (
-            <div className="flex flex-shrink-0 items-center justify-center rounded-md border border-white/[0.05] bg-white/[0.05] p-1.5 text-zinc-400 transition-colors [&_svg]:transition-colors">
+            <div className="flex flex-shrink-0 items-center justify-center rounded-lg bg-white/5 p-2">
               {child.icon}
             </div>
           )}
           <div className="min-w-0 flex-1">
-            <div className="text-sm leading-5 text-zinc-200">{child.text}</div>
+            <div className="text-base text-white group-hover:text-white">
+              {child.text}
+            </div>
             {child.description && (
-              <div className="w-[186px] text-xs leading-4 text-zinc-500">
-                {child.description}
-              </div>
+              <div className="text-sm text-white/60">{child.description}</div>
             )}
           </div>
         </div>
@@ -199,28 +158,27 @@ const DropdownMenuItem = ({ child }: { child: NavigationChild }) => {
 const DropdownMenu = ({
   title,
   children,
+  config,
 }: {
   title: string;
   children: NavigationChild[];
+  config?: {
+    className?: string;
+  };
 }) => {
   return (
     <>
-      <NavigationMenuTrigger className="h-8 gap-0.5 rounded-md px-2 py-1 text-base font-normal text-white hover:bg-white/10 focus:bg-white/10 data-[state=open]:bg-white/10">
-        {title}
-      </NavigationMenuTrigger>
+      <NavigationMenuTrigger>{title}</NavigationMenuTrigger>
 
-      <NavigationMenuContent className="relative !overflow-visible !rounded-none !border-none !bg-transparent !p-0 !shadow-none">
+      <NavigationMenuContent className="relative !border-none !bg-transparent !shadow-none">
         <div
-          className="w-screen max-w-[532px] rounded-lg border border-white/10 bg-[#080A11] p-4 text-white"
-          style={{
-            backdropFilter: 'blur(40px)',
-            WebkitBackdropFilter: 'blur(40px)',
-          }}
+          className={cn(
+            'inset-shadow-bubble rounded-xl bg-neutral-950 p-4 backdrop-blur-xl',
+            config?.className,
+          )}
         >
-          <div className="mb-1 px-2 text-sm leading-5 text-zinc-500">
-            {title}
-          </div>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="text-muted-foreground text-sm">{title}</div>
+          <div className="grid grid-cols-2 gap-3">
             {children.map((child, index) => (
               <DropdownMenuItem key={index} child={child} />
             ))}
@@ -238,8 +196,18 @@ export function Header({ lang }: HeaderProps) {
   const paramLang = Array.isArray(params?.lang) ? params.lang[0] : params?.lang;
   const resolvedLang = lang ?? (paramLang as languagesType | undefined);
 
+  const { scrollY } = useScroll();
+  const [hideLogotype, setHideLogotype] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [openMenus, setOpenMenus] = React.useState<Record<string, boolean>>({});
+
+  useMotionValueEvent(scrollY, 'change', (current) => {
+    if (current > 0 && scrollY.getPrevious() !== 0) {
+      setHideLogotype(true);
+    } else {
+      setHideLogotype(false);
+    }
+  });
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
@@ -252,6 +220,23 @@ export function Header({ lang }: HeaderProps) {
       [menuText]: !prev[menuText],
     }));
   };
+
+  React.useEffect(() => {
+    if (!isMobileMenuOpen) {
+      return;
+    }
+
+    const bodyOverflow = document.body.style.overflow;
+    const documentOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = bodyOverflow;
+      document.documentElement.style.overflow = documentOverflow;
+    };
+  }, [isMobileMenuOpen]);
 
   const localizedNavigationLinks = React.useMemo(() => {
     if (!resolvedLang || resolvedLang === i18n.defaultLanguage) {
@@ -288,26 +273,39 @@ export function Header({ lang }: HeaderProps) {
 
   return (
     <>
-      <div className="w-full px-2 text-white lg:bg-black/20 lg:backdrop-blur-xl">
-        <nav className="container mx-auto flex min-h-16 items-center justify-between rounded-full bg-white/10 px-4 py-3 shadow-lg backdrop-blur-3xl lg:h-24 lg:rounded-none lg:bg-transparent lg:px-0 lg:py-2 lg:shadow-none lg:backdrop-blur-none">
-          <div className="flex min-w-0 items-center gap-9">
+      <div className="container pt-8">
+        <nav className="inset-shadow-bubble flex w-full justify-between rounded-full bg-white/5 px-6 py-3 backdrop-blur-lg">
+          <div className="flex">
             <a
               href={homeHref}
-              className="flex min-w-0 items-center gap-1"
+              className="mr-4 flex items-center justify-center"
               aria-label="Sealos Logotype"
               role="banner"
             >
               <Image
                 alt="Sealos Logo"
                 src="/logo.svg"
-                className="h-6 w-6 rounded-full"
-                width={24}
-                height={24}
+                className="h-8 w-8"
+                width={36}
+                height={36}
                 priority
               />
-              <span className="leading-none font-bold whitespace-nowrap">
-                Sealos
-              </span>
+              <motion.div
+                initial={{ width: 'auto', opacity: 1 }}
+                animate={{
+                  width: hideLogotype ? 0 : 'auto',
+                  opacity: hideLogotype ? 0 : 1,
+                }}
+                transition={{
+                  duration: 0.2,
+                  ease: [0, 0, 0.2, 1],
+                }}
+                className="overflow-hidden"
+              >
+                <span className="pl-1 leading-none font-bold whitespace-nowrap">
+                  Sealos
+                </span>
+              </motion.div>
             </a>
 
             <NavigationMenu
@@ -315,23 +313,26 @@ export function Header({ lang }: HeaderProps) {
               viewport={false}
               role="navigation"
             >
-              <NavigationMenuList className="gap-4">
+              <NavigationMenuList>
                 {localizedNavigationLinks.map((link, index) => (
                   <NavigationMenuItem key={index}>
                     {link.children ? (
                       <DropdownMenu
                         title={link.text}
                         children={link.children}
+                        config={link.dropdownConfig}
                       />
                     ) : (
-                      <NavigationMenuLink asChild>
+                      <NavigationMenuLink
+                        asChild
+                        className={navigationMenuTriggerStyle()}
+                      >
                         <a
                           href={link.url}
                           target={link.isExternal ? '_blank' : undefined}
                           rel={
                             link.isExternal ? 'noopener noreferrer' : undefined
                           }
-                          className="inline-flex h-8 items-center justify-center rounded-md px-2 py-1 text-base font-normal text-white transition-colors hover:bg-white/10 focus:bg-white/10 focus:outline-none"
                         >
                           {link.text}
                         </a>
@@ -343,14 +344,18 @@ export function Header({ lang }: HeaderProps) {
             </NavigationMenu>
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="hidden items-center gap-4 lg:flex">
+          <div className="flex items-center gap-3">
+            <Button
+              asChild
+              variant="ghost"
+              className="hidden h-10 rounded-full lg:flex"
+              aria-label="Open Sealos GitHub page."
+            >
               <a
                 href={siteConfig.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-8 items-center gap-2 rounded-full px-2 py-1 text-sm font-medium text-white transition-colors hover:bg-white/10 focus:bg-white/10 focus:outline-none"
-                aria-label="Open Sealos GitHub page."
+                className="flex gap-2"
                 onClick={() =>
                   trackButton(
                     'GitHub',
@@ -360,14 +365,13 @@ export function Header({ lang }: HeaderProps) {
                   )
                 }
               >
-                <Image src={GitHubIcon} alt="" width={16} height={16} />
+                <Github size={16} aria-hidden="true" />
                 <span>18.3k</span>
               </a>
-              <div className="h-4 w-px bg-white/30" aria-hidden="true" />
-            </div>
+            </Button>
             <Button
               variant="landing-primary"
-              className="hidden h-10 rounded-full px-4 py-2 text-sm font-medium shadow-lg lg:flex"
+              className="hidden h-10 lg:flex"
               aria-label="Start using Sealos for free."
               {...getRybbitCtaProps({
                 id: 'home_header_get_started',
@@ -385,7 +389,7 @@ export function Header({ lang }: HeaderProps) {
             <Button
               variant="ghost"
               size="icon"
-              className="h-10 w-10 rounded-full text-white hover:bg-white/10 lg:hidden"
+              className="h-10 w-10 lg:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle navigation menu"
             >
@@ -539,12 +543,7 @@ export function Header({ lang }: HeaderProps) {
                         className="flex gap-2"
                         onClick={closeMobileMenu}
                       >
-                        <Image
-                          src={GitHubIcon}
-                          alt="GitHub"
-                          width={16}
-                          height={16}
-                        />
+                        <Github size={16} aria-hidden="true" />
                         <span>18.3k</span>
                       </a>
                     </Button>

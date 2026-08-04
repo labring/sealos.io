@@ -71,9 +71,8 @@ const FooterLinksData: Record<string, FooterCategoryType> = {
   products: {
     titleKey: 'productsTitle',
     links: [
-      { textKey: 'devbox', urlKey: 'devboxUrl', isExternal: false },
-      { textKey: 'databases', urlKey: 'databasesUrl', isExternal: false },
-      { textKey: 'appStore', urlKey: 'appStoreUrl', isExternal: true },
+      { textKey: 'skills', urlKey: 'skillsUrl', isExternal: false },
+      { textKey: 'templates', urlKey: 'templatesUrl', isExternal: true },
     ],
   },
   services: {
@@ -123,9 +122,8 @@ export const footerTranslations: Record<
     docs: 'Docs',
     education: 'Education',
     blog: 'Blog',
-    appStore: 'App Store',
-    devbox: 'DevBox',
-    databases: 'Databases',
+    skills: 'Skills',
+    templates: 'Templates',
     fastgpt: 'FastGPT',
     contactUs: 'Contact Us',
     reportAbuse: 'Report Abuse',
@@ -140,9 +138,8 @@ export const footerTranslations: Record<
     docsUrl: '/docs/quick-start',
     educationUrl: '/education',
     blogUrl: '/blog',
-    appStoreUrl: '/products/app-store',
-    devboxUrl: '/products/devbox',
-    databasesUrl: '/products/databases',
+    skillsUrl: '/sealos-skills',
+    templatesUrl: '/products/app-store',
     fastgptUrl: 'https://tryfastgpt.ai',
     pricingUrl: '/pricing',
     contactUsUrl: '/contact',
@@ -163,9 +160,8 @@ export const footerTranslations: Record<
     docs: '文档',
     education: '教育',
     blog: '博客',
-    appStore: '应用商店',
-    devbox: 'DevBox',
-    databases: '数据库',
+    skills: 'Skills',
+    templates: 'Templates',
     fastgpt: 'FastGPT',
     aiproxy: 'AI Proxy',
     case: '案例',
@@ -182,9 +178,8 @@ export const footerTranslations: Record<
     docsUrl: '/docs/quick-start',
     educationUrl: '/education',
     blogUrl: '/blog',
-    appStoreUrl: '/products/app-store',
-    devboxUrl: '/products/devbox',
-    databasesUrl: '/products/databases',
+    skillsUrl: '/sealos-skills',
+    templatesUrl: '/products/app-store',
     fastgptUrl: 'https://fastgpt.cn',
     aiproxyUrl: '/aiproxy',
     // Use internal subscription pricing page
@@ -313,7 +308,7 @@ const Footer = ({
         {/* Footer Links: single column on small screens, grid on large */}
         <div className="mt-10 hidden w-full grid-cols-1 gap-4 text-center sm:grid sm:grid-cols-2 sm:gap-y-8 lg:mt-0 lg:grid-cols-4 lg:items-start lg:gap-10 lg:text-left">
           <FooterLinkColumn>
-            <div className="text-base font-semibold text-foreground uppercase hover:text-foreground hover:no-underline">
+            <div className="text-foreground hover:text-foreground text-base font-semibold uppercase hover:no-underline">
               {footerLinks.resources.title}
             </div>
             {footerLinks.resources.links.map((link, index) => (
@@ -323,7 +318,7 @@ const Footer = ({
             ))}
           </FooterLinkColumn>
           <FooterLinkColumn>
-            <div className="text-base font-semibold text-foreground uppercase hover:text-foreground hover:no-underline">
+            <div className="text-foreground hover:text-foreground text-base font-semibold uppercase hover:no-underline">
               {footerLinks.products.title}
             </div>
             {footerLinks.products.links.map((link, index) => (
@@ -333,7 +328,7 @@ const Footer = ({
             ))}
           </FooterLinkColumn>
           <FooterLinkColumn>
-            <div className="text-base font-semibold text-foreground uppercase hover:text-foreground hover:no-underline">
+            <div className="text-foreground hover:text-foreground text-base font-semibold uppercase hover:no-underline">
               {footerLinks.services.title}
             </div>
             {footerLinks.services.links.map((link, index) => (
@@ -343,7 +338,7 @@ const Footer = ({
             ))}
           </FooterLinkColumn>
           <FooterLinkColumn>
-            <div className="text-base font-semibold text-foreground uppercase hover:text-foreground hover:no-underline">
+            <div className="text-foreground hover:text-foreground text-base font-semibold uppercase hover:no-underline">
               {footerLinks.support.title}
             </div>
             {footerLinks.support.links.map((link, index) => (
