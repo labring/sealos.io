@@ -62,6 +62,15 @@ const pricingCtas = [
   },
 ];
 
+const sealosSkillsSources = [
+  'app/[lang]/(home)/sealos-skills/content.ts',
+  'app/[lang]/(home)/sealos-skills/top-sections.tsx',
+  'app/[lang]/(home)/sealos-skills/bottom-sections.tsx',
+  'app/[lang]/(home)/sealos-skills/interactive-sections.tsx',
+]
+  .map(readSource)
+  .join('\n');
+
 test('homepage conversion CTAs use unique stable Rybbit CTA IDs', () => {
   const seenIds = new Set<string>();
 
@@ -87,6 +96,25 @@ test('Pricing CTA IDs normalize dynamic plan names', () => {
     assert.ok(
       readSource(cta.file).includes(cta.idSource),
       `${cta.file} must declare ${cta.idSource}`,
+    );
+  }
+});
+
+test('Sealos Skills conversion CTAs keep stable business IDs', () => {
+  const stableIds = [
+    'skills_hero_copy_codex_install',
+    'skills_hero_view_github',
+    'skills_install_copy_codex',
+    'skills_install_copy_claude',
+    'skills_install_copy_skills_sh',
+    'skills_repository_view_github',
+    'skills_final_copy_codex_install',
+  ];
+
+  for (const id of stableIds) {
+    assert.ok(
+      sealosSkillsSources.includes(id),
+      `Sealos Skills must declare ${id}`,
     );
   }
 });

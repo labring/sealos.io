@@ -1,27 +1,27 @@
 import {
-  CompatibilitySection,
+  AgentDirectorySection,
+  CapabilitiesSection,
   HeroSection,
-  PipelineSection,
+  SupportMatrixSection,
 } from './top-sections';
 import {
   FinalCtaSection,
-  RepositorySection,
-  SetupSection,
-  UseCasesSection,
+  InstallSection,
+  SetupFaqSection,
+  WorkflowSection,
 } from './bottom-sections';
 
 export function SealosSkillsLanding() {
   return (
-    <>
-      <div className="-mt-24 overflow-x-clip" role="main">
-        <HeroSection />
-      </div>
-      <CompatibilitySection />
-      <PipelineSection />
-      <SetupSection />
-      <RepositorySection />
-      <UseCasesSection />
+    <main className="-mt-24 min-w-0 overflow-x-clip bg-[#13111C] text-[#F5F2F8] selection:bg-[#4CAFE1] selection:text-[#0D1720]">
+      <HeroSection />
+      <AgentDirectorySection />
+      <SupportMatrixSection />
+      <CapabilitiesSection />
+      <WorkflowSection />
+      <InstallSection />
+      <SetupFaqSection />
       <FinalCtaSection />
-    </>
+    </main>
   );
 }

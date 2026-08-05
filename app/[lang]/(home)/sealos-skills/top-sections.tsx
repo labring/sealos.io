@@ -1,335 +1,382 @@
 import Image from 'next/image';
-import { PageTopRays } from '@/new-components/SideRays';
 import {
-  ArrowRightIcon,
-  CheckIcon,
-  LoopIcon,
-  PaperPlaneIcon,
-  CodeIcon,
-} from '@radix-ui/react-icons';
-import {
-  COMPATIBILITY,
-  DEPLOY_COMMAND,
-  DEPLOY_PATH,
-  DIRECT_DEPLOY_COMMAND,
-  INSTALL_COMMAND,
-  PIPELINE_NOTES,
-  RUN_STATES,
-  UPDATE_PATH,
-} from './content';
+  Blocks,
+  Boxes,
+  Check,
+  Container,
+  Database,
+  HardDrive,
+  PanelsTopLeft,
+  Rocket,
+  ScanSearch,
+  type LucideIcon,
+} from 'lucide-react';
 import { CopyCommandButton } from './copy-command';
-import { EmptyPreview, ErrorPreview, SkeletonPreview } from './state-previews';
 import {
-  AgentLogoStack,
-  type AgentLogoKey,
-  CodeGlyph,
-  CommandStrip,
-  Eyebrow,
-  ICONS,
-  RepositoryLink,
+  AGENT_TARGETS,
+  CODEX_INSTALL_COMMAND,
+  CORE_CAPABILITIES,
+  PAGE_COPY,
+  PROOF_ITEMS,
+  REPO_URL,
+  SKILL_CATALOG,
+  type SkillIconName,
+} from './content';
+import {
+  AgentMark,
+  AnchorAlias,
+  SectionHeading,
   SectionShell,
-  SkillCommandCard,
-  StateBadge,
-  TextLink,
-  WarningIcon,
+  TrackedLink,
 } from './shared';
+import { cn } from '@/lib/utils';
+
+const SKILL_ICONS: Record<SkillIconName, LucideIcon> = {
+  rocket: Rocket,
+  database: Database,
+  storage: HardDrive,
+  canvas: PanelsTopLeft,
+  blocks: Blocks,
+  readiness: ScanSearch,
+  container: Container,
+  compose: Boxes,
+};
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden pt-36 pb-32">
-      <PageTopRays />
-      <div className="relative z-10 container">
-        <div className="pointer-events-none absolute inset-x-4 top-24 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-          <div className="max-w-3xl min-w-0">
-            <div className="mb-8 flex items-center gap-3">
-              <Image
-                src="/logo.svg"
-                alt="Sealos"
-                width={40}
-                height={40}
-                priority
-              />
-              <span className="text-sm font-semibold tracking-[0.22em] text-zinc-100 uppercase">
-                Sealos <span className="text-[#4CAFE1]">Skills</span>
-              </span>
-            </div>
-            <Eyebrow className="mb-6">
-              Agent deploy plugin for Sealos Cloud
-            </Eyebrow>
-            <h1 className="max-w-[760px] text-[4rem] leading-[0.98] font-medium text-balance text-zinc-100 sm:text-7xl lg:text-[5.45rem]">
-              Deploy from your agent
-            </h1>
-            <p className="mt-8 max-w-[62ch] text-base leading-7 text-pretty text-zinc-400 sm:text-xl sm:leading-8">
-              Sealos Skills is an open-source deploy plugin that gives AI coding
-              agents a concrete path from source code to Sealos Cloud. It lets
-              an agent inspect a local repo or GitHub URL, create the right
-              Docker and Sealos template artifacts, deploy to Sealos Cloud, then
-              verify the running app.
+    <section id="skills" className="relative scroll-mt-24 pt-24 pb-14 sm:pb-20">
+      <SectionShell>
+        <div className="grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-12">
+          <div className="max-w-xl">
+            <p className="mb-6 font-mono text-xs font-semibold text-[#4CAFE1] uppercase">
+              {PAGE_COPY.hero.eyebrow}
             </p>
-            <div className="mt-10 grid min-w-0 gap-4 sm:max-w-2xl">
-              <CommandStrip />
-              <div className="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
-                <SkillCommandCard />
-                <RepositoryLink label="View source" />
-              </div>
+            <h1
+              className="text-[42px] leading-[46px] font-medium text-balance text-[#F5F2F8] lg:text-[56px] lg:leading-[60px]"
+              style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+            >
+              {PAGE_COPY.hero.title}
+            </h1>
+            <p className="mt-6 max-w-[58ch] text-base leading-7 text-[#AAA4B4] sm:text-lg sm:leading-8">
+              {PAGE_COPY.hero.description}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <CopyCommandButton
+                value={CODEX_INSTALL_COMMAND}
+                label={PAGE_COPY.hero.primaryCta}
+                showStatus
+                tone="accent"
+                className="min-w-[148px]"
+                tracking={{
+                  id: 'skills_hero_copy_codex_install',
+                  location: 'sealos_skills_hero',
+                  destination: 'clipboard_codex_install',
+                }}
+              />
+              <TrackedLink
+                href={REPO_URL}
+                tracking={{
+                  id: 'skills_hero_view_github',
+                  location: 'sealos_skills_hero',
+                  destination: 'github_sealos_skills',
+                }}
+              >
+                {PAGE_COPY.hero.secondaryCta}
+              </TrackedLink>
             </div>
           </div>
-          <HeroTerminal />
+
+          <div className="min-w-0 overflow-hidden rounded-lg border border-[#F5F2F8]/12 bg-[#0F0D17] shadow-[0_28px_80px_rgba(8,7,14,0.42)]">
+            <div className="grid gap-3 border-b border-[#F5F2F8]/10 px-4 py-4 sm:grid-cols-[150px_1fr] sm:items-start sm:px-5">
+              <span className="font-mono text-[11px] font-semibold text-[#4CAFE1] sm:text-xs">
+                {PAGE_COPY.hero.commandLabel}
+              </span>
+              <pre className="min-w-0 overflow-x-auto font-mono text-[11px] leading-5 whitespace-pre text-[#D8D2E0] sm:text-xs">
+                <code>{CODEX_INSTALL_COMMAND}</code>
+              </pre>
+            </div>
+            <div className="bg-[#191624] p-2 sm:p-3">
+              <Image
+                src="/images/sealos-skills/codex-sealos.png"
+                alt="Codex plugin picker showing Sealos Skills"
+                width={2922}
+                height={1888}
+                priority
+                sizes="(max-width: 1023px) 100vw, 680px"
+                className="h-[140px] w-full rounded-md border border-[#F5F2F8]/10 object-contain sm:h-auto"
+              />
+            </div>
+            <div className="hidden border-t border-[#F5F2F8]/10 px-4 py-3 font-mono text-xs text-[#AAA4B4] sm:block sm:px-5">
+              {PAGE_COPY.hero.invocation}
+            </div>
+          </div>
         </div>
-      </div>
+      </SectionShell>
     </section>
   );
 }
 
-export function CompatibilitySection() {
+export function AgentDirectorySection() {
   return (
-    <SectionShell className="py-16 sm:py-24" id="compatibility">
-      <div className="grid gap-10 lg:grid-cols-[1.35fr_0.65fr] lg:items-center">
-        <div className="relative rounded-[2rem] border border-white/10 bg-[#080A0C]/82 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_36px_100px_rgba(0,26,41,0.42)] transition duration-300 hover:border-white/16">
-          <div className="absolute inset-y-8 left-4 hidden w-10 border-r border-white/10 lg:block">
-            <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 text-sm font-medium tracking-[0.13em] whitespace-nowrap text-zinc-400">
-              file + terminal access
-            </span>
-          </div>
-          <div className="overflow-hidden rounded-[1.45rem] border border-white/8 bg-[#090B0D] lg:ml-12">
-            {COMPATIBILITY.map(({ name, note, vendor, icon, logos }, index) => {
-              const Icon = ICONS[icon];
-              return (
-                <div
-                  key={name}
-                  className="group grid gap-4 border-b border-white/10 p-5 transition duration-300 last:border-b-0 hover:bg-white/[0.025] sm:grid-cols-[72px_1fr_1fr] sm:items-center sm:p-7"
-                >
-                  <AgentLogoStack
-                    fallbackIcon={Icon}
-                    logos={logos as readonly AgentLogoKey[]}
-                  />
-                  <div>
-                    <p className="mb-2 text-xs font-medium tracking-[0.12em] text-zinc-500 uppercase">
-                      {String(index + 1).padStart(2, '0')} / {vendor}
-                    </p>
-                    <h3 className="text-3xl font-light text-zinc-100 sm:text-4xl">
-                      {name}
-                    </h3>
-                  </div>
-                  <div className="text-sm leading-6 text-zinc-400">
-                    <div className="mb-3 flex items-center gap-2 text-xs font-medium tracking-[0.13em] text-[#4CAFE1] uppercase">
-                      <span className="size-2 rounded-full bg-[#4CAFE1] shadow-[0_0_0_4px_rgba(76,175,225,0.12)]" />{' '}
-                      Supported
-                    </div>
-                    {note}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className="lg:pl-8">
-          <Eyebrow className="mb-7 text-zinc-500">Install once</Eyebrow>
-          <h2 className="text-5xl leading-none font-light text-balance text-zinc-100 sm:text-6xl">
-            Works where agents work
-          </h2>
-          <p className="mt-8 max-w-[36ch] text-lg leading-8 text-pretty text-zinc-400">
-            The repository ships both plugin packaging and direct skill entry
-            points, so the same deploy logic can travel across agent hosts.
-          </p>
-          <TextLink
-            label="Read install notes"
-            href="#setup"
-            className="mt-10"
-          />
-        </div>
-      </div>
-    </SectionShell>
-  );
-}
-
-export function PipelineSection() {
-  return (
-    <SectionShell className="py-16 sm:py-28" id="pipeline">
-      <div className="max-w-4xl">
-        <Eyebrow className="mb-5">Deploy intelligence</Eyebrow>
-        <h2 className="text-5xl leading-none font-semibold text-balance text-zinc-100 sm:text-7xl">
-          One command, two clean paths
-        </h2>
-        <p className="mt-6 max-w-[58ch] text-base leading-7 text-zinc-400 sm:text-lg">
-          The skill chooses deploy or update after preflight instead of asking
-          the agent to guess what kind of project it is handling.
-        </p>
-      </div>
-      <div className="mt-16 overflow-hidden rounded-[2rem] border border-white/10 bg-[#07090B]/88 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_35px_100px_rgba(0,23,36,0.5)] sm:p-8">
-        <div className="scrollbar-hide mb-9 inline-flex max-w-full items-center gap-3 overflow-x-auto rounded-xl border border-white/15 bg-white/[0.035] px-4 py-4 font-mono text-sm text-zinc-100">
-          <CodeIcon className="size-5 shrink-0 text-[#4CAFE1]" />
-          <span className="whitespace-nowrap">{DEPLOY_COMMAND}</span>
-          <CopyCommandButton
-            value={DEPLOY_COMMAND}
-            label="Copy deploy command"
-            className="min-h-8 rounded-lg px-2"
-          />
-        </div>
-        <PipelineLane
-          icon={PaperPlaneIcon}
-          label="Deploy path"
-          items={[...DEPLOY_PATH]}
-        />
-        <div className="my-8 border-t border-dashed border-white/12" />
-        <PipelineLane
-          icon={LoopIcon}
-          label="Update path"
-          items={[...UPDATE_PATH]}
-        />
-        <div className="mt-10 grid gap-4 border-t border-white/10 pt-8 lg:grid-cols-3">
-          {PIPELINE_NOTES.map((item) => (
-            <div key={item.title} className="border-l border-white/12 pl-4">
-              <h3 className="text-sm font-medium text-zinc-100">
-                {item.title}
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-zinc-500">
-                {item.detail}
-              </p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-12 border-t border-white/10 pt-8 text-left sm:text-center">
-          <TextLink label="Read the pipeline" href="#pipeline" />
-        </div>
-      </div>
-      <RunStatesPanel />
-    </SectionShell>
-  );
-}
-
-function HeroTerminal() {
-  const installLines = [
-    'Reading plugin metadata',
-    'Registering $sealos command',
-    'Checking Sealos auth helpers',
-    'Linking deploy skill',
-    'Ready for project analysis',
-  ];
-
-  return (
-    <div className="relative min-h-[330px] min-w-0 lg:min-h-[500px]">
-      <div className="absolute inset-x-8 top-0 h-52 rounded-full bg-[#4CAFE1]/10 blur-3xl" />
-      <div className="absolute -top-2 right-10 hidden h-24 w-px bg-gradient-to-b from-transparent via-[#4CAFE1]/40 to-transparent lg:block" />
-      <div className="relative mt-12 rounded-[2rem] border border-white/12 bg-[#0A0C0E]/92 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_40px_120px_rgba(0,15,25,0.72)] transition duration-300 hover:-translate-y-1 hover:border-white/20 lg:mt-28 lg:rotate-[-1.5deg] lg:hover:rotate-[-1deg]">
-        <div className="rounded-[1.45rem] border border-white/8 bg-[linear-gradient(145deg,#101315,#060809)] p-5 sm:p-8">
-          <div className="mb-7 flex items-center justify-between gap-4 border-b border-white/10 pb-5">
-            <span className="truncate font-mono text-sm text-[#4CAFE1]">
-              $ {INSTALL_COMMAND}
-            </span>
-            <StateBadge state="Ready" />
-          </div>
-          {installLines.map((item, index) => (
-            <div
-              key={item}
-              className="flex items-center gap-3 py-1.5 font-mono text-sm text-zinc-300"
-              style={{ animationDelay: `${index * 70}ms` }}
-            >
-              <CheckIcon className="size-4 text-[#4CAFE1]" />
-              <span>{item}</span>
-            </div>
-          ))}
-          <div className="mt-8 grid gap-5 border-t border-white/10 pt-7 sm:grid-cols-[1fr_auto] sm:items-center">
-            <div>
-              <Image
-                src="/logo.svg"
-                alt=""
-                width={48}
-                height={48}
-                className="mb-4"
-              />
-              <p className="text-lg font-medium tracking-[0.16em] text-zinc-100 uppercase">
-                Sealos Skills
-              </p>
-              <p className="mt-2 text-xs font-medium tracking-[0.18em] text-zinc-500 uppercase">
-                agent-owned deploy
-              </p>
-            </div>
-            <div className="flex items-center gap-2 font-mono text-sm text-[#4CAFE1]">
-              <span>Run {DIRECT_DEPLOY_COMMAND}</span>
-              <CopyCommandButton
-                value={DIRECT_DEPLOY_COMMAND}
-                label="Copy direct deploy command"
-                className="min-h-8 rounded-lg px-2"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function PipelineLane({
-  icon: Icon,
-  label,
-  items,
-}: {
-  icon: React.ForwardRefExoticComponent<
-    React.ComponentProps<typeof PaperPlaneIcon>
-  >;
-  label: string;
-  items: string[];
-}) {
-  return (
-    <div className="grid gap-5 lg:grid-cols-[180px_1fr] lg:items-center">
-      <div className="flex items-center gap-3 text-2xl text-zinc-100">
-        <Icon className="size-7 text-[#4CAFE1]" />
-        {label}
-      </div>
-      <div className="grid gap-3 sm:grid-cols-2 lg:auto-cols-fr lg:grid-flow-col lg:grid-cols-none lg:items-center">
-        {items.map((item, index) => (
-          <div key={item} className="relative flex items-center gap-3">
-            <div className="flex min-h-14 w-full items-center justify-center rounded-full border border-white/22 bg-[#0D1113]/70 px-5 text-sm font-medium text-zinc-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition duration-300 hover:-translate-y-0.5 hover:border-[#4CAFE1]/45 hover:bg-white/[0.045] active:translate-y-px">
-              {item}
-            </div>
-            {index < items.length - 1 && (
-              <ArrowRightIcon className="hidden size-5 shrink-0 text-zinc-500 lg:block" />
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function RunStatesPanel() {
-  return (
-    <div className="mt-10 grid gap-4 lg:grid-cols-[0.8fr_1.2fr] lg:items-stretch">
-      <div className="rounded-[1.65rem] border border-white/10 bg-white/[0.025] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]">
-        <Eyebrow className="mb-4 text-zinc-500">Operational states</Eyebrow>
-        <h3 className="text-3xl leading-tight font-medium text-balance text-zinc-100">
-          Finished screens include the in-between moments
-        </h3>
-        <p className="mt-5 text-sm leading-7 text-zinc-500">
-          Loading, empty, and error states are shown as first-class deploy
-          moments, not hidden behind a generic spinner.
-        </p>
-      </div>
-      <div className="grid gap-4 md:grid-cols-[1.05fr_0.9fr_1.05fr]">
-        {RUN_STATES.map((state) => (
+    <SectionShell id="compatibility" className="py-16 sm:py-24">
+      <div className="mb-16 grid border-y border-[#F5F2F8]/10 sm:grid-cols-2 lg:grid-cols-4">
+        {PROOF_ITEMS.map((proof) => (
           <div
-            key={state.kind}
-            className="rounded-[1.45rem] border border-white/10 bg-[#080B0D]/84 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition duration-300 hover:-translate-y-0.5 hover:border-white/18"
-            aria-label={`${state.status}: ${state.title}`}
+            key={proof.label}
+            className="border-b border-[#F5F2F8]/10 px-4 py-6 last:border-b-0 sm:border-r lg:border-b-0 lg:[&:last-child]:border-r-0 sm:[&:nth-child(2)]:border-r-0 lg:[&:nth-child(2)]:border-r sm:[&:nth-child(3)]:border-b-0"
           >
-            <div className="mb-5 flex items-center justify-between gap-3">
-              <StateBadge state={state.status} />
-              {state.kind === 'error' ? <WarningIcon /> : <CodeGlyph />}
-            </div>
-            {state.kind === 'loading' && <SkeletonPreview />}
-            {state.kind === 'empty' && <EmptyPreview />}
-            {state.kind === 'error' && <ErrorPreview />}
-            <h4 className="mt-5 text-sm font-medium text-zinc-100">
-              {state.title}
-            </h4>
-            <p className="mt-2 text-sm leading-6 text-zinc-500">
-              {state.detail}
+            <p className="font-mono text-xl font-semibold text-[#F5F2F8]">
+              {proof.value}
             </p>
+            <p className="mt-1 text-sm text-[#8F899B]">{proof.label}</p>
           </div>
         ))}
       </div>
-    </div>
+
+      <SectionHeading
+        title={PAGE_COPY.directory.title}
+        description={PAGE_COPY.directory.description}
+      />
+
+      <div className="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+        {AGENT_TARGETS.map((agent, index) => (
+          <article
+            key={agent.id}
+            className={cn(
+              'flex min-h-[336px] min-w-0 flex-col rounded-lg border border-[#F5F2F8]/10 bg-[#191624] p-5 transition duration-200 hover:-translate-y-0.5 hover:border-[#4CAFE1]/45 motion-reduce:transform-none motion-reduce:transition-none',
+              index >= 8 && 'lg:col-span-2',
+            )}
+          >
+            <div className="flex items-start justify-between gap-4">
+              <AgentMark icon={agent.icon} name={agent.name} />
+              <span className="rounded-sm border border-[#F5F2F8]/12 px-2 py-1 font-mono text-[11px] text-[#AAA4B4]">
+                {agent.mode}
+              </span>
+            </div>
+            <p className="mt-5 text-xs text-[#7F798A]">{agent.vendor}</p>
+            <h3 className="mt-1 text-xl font-semibold text-[#F5F2F8]">
+              {agent.name}
+            </h3>
+            <p className="mt-3 min-h-[42px] text-sm leading-6 text-[#AAA4B4]">
+              {agent.installNote}
+            </p>
+            <pre className="mt-4 min-h-[64px] min-w-0 overflow-x-auto rounded-md border border-[#F5F2F8]/10 bg-[#100E18] p-3 font-mono text-[11px] leading-5 whitespace-pre text-[#D8D2E0]">
+              <code>{agent.install}</code>
+            </pre>
+            <p className="mt-3 min-h-[40px] font-mono text-xs leading-5 text-[#4CAFE1]">
+              Invoke: {agent.invocation}
+            </p>
+            <div className="mt-4 grid grid-cols-2 gap-x-3 gap-y-2">
+              {agent.capabilities.map((capability) => (
+                <span
+                  key={capability}
+                  className="flex items-center gap-2 text-xs text-[#9F99AA]"
+                >
+                  <Check
+                    className="size-3.5 text-[#4CAFE1]"
+                    strokeWidth={1.8}
+                    aria-hidden="true"
+                  />
+                  {capability}
+                </span>
+              ))}
+            </div>
+            <div className="mt-auto grid grid-cols-2 gap-2 pt-5">
+              <CopyCommandButton
+                value={agent.install}
+                label="Copy install"
+                showStatus
+                tone="quiet"
+                className="w-full"
+                tracking={{
+                  id: agent.copyTrackingId,
+                  location: 'sealos_skills_agent_directory',
+                  destination: `clipboard_${agent.id}_install`,
+                }}
+              />
+              <TrackedLink
+                href={agent.guideHref}
+                className="min-h-9 w-full px-3 text-xs"
+                tracking={{
+                  id: agent.guideTrackingId,
+                  location: 'sealos_skills_agent_directory',
+                  destination: `github_sealos_skills_${agent.id}`,
+                }}
+              >
+                View guide
+              </TrackedLink>
+            </div>
+          </article>
+        ))}
+      </div>
+    </SectionShell>
+  );
+}
+
+export function SupportMatrixSection() {
+  return (
+    <SectionShell id="support" className="py-16 sm:py-24">
+      <SectionHeading
+        title={PAGE_COPY.support.title}
+        description={PAGE_COPY.support.description}
+      />
+      <div
+        className="mt-10 overflow-x-auto rounded-lg border border-[#F5F2F8]/10 bg-[#15121E] focus-visible:ring-2 focus-visible:ring-[#4CAFE1] focus-visible:outline-none"
+        tabIndex={0}
+        role="region"
+        aria-label="Sealos Skills host support matrix"
+      >
+        <table className="w-full min-w-[1080px] border-collapse text-left">
+          <caption className="sr-only">
+            Installation and capability support for Sealos Skills agent hosts
+          </caption>
+          <thead className="bg-[#211D2B]">
+            <tr>
+              {[
+                'Agent',
+                'Install mode',
+                'Install path',
+                'Invoke',
+                ...CORE_CAPABILITIES,
+              ].map((column, index) => (
+                <th
+                  key={column}
+                  scope="col"
+                  className={cn(
+                    'border-b border-[#F5F2F8]/12 px-4 py-4 font-mono text-xs font-medium text-[#AAA4B4]',
+                    index === 0 &&
+                      'sticky left-0 z-[1] min-w-[160px] bg-[#211D2B]',
+                  )}
+                >
+                  {column}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {AGENT_TARGETS.map((agent) => (
+              <tr key={agent.id} className="group">
+                <th
+                  scope="row"
+                  className="sticky left-0 z-[1] border-b border-[#F5F2F8]/8 bg-[#15121E] px-4 py-4 text-sm font-semibold text-[#F5F2F8] group-hover:bg-[#1A1723]"
+                >
+                  {agent.name}
+                </th>
+                <td className="border-b border-[#F5F2F8]/8 px-4 py-4 text-sm text-[#C3BDCC]">
+                  {agent.mode}
+                </td>
+                <td className="border-b border-[#F5F2F8]/8 px-4 py-4 text-sm text-[#AAA4B4]">
+                  <code className="block max-w-[420px] text-xs leading-5 whitespace-pre-wrap text-[#D8D2E0]">
+                    {agent.install}
+                  </code>
+                  <span className="mt-2 block text-xs text-[#7F798A]">
+                    {agent.installSummary}
+                  </span>
+                  {agent.id === 'qoder' && (
+                    <span className="mt-1 block text-xs text-[#7F798A]">
+                      {agent.installNote}
+                    </span>
+                  )}
+                </td>
+                <td className="border-b border-[#F5F2F8]/8 px-4 py-4 font-mono text-xs text-[#4CAFE1]">
+                  {agent.invocation}
+                </td>
+                {agent.capabilities.map((capability) => (
+                  <td
+                    key={capability}
+                    className="border-b border-[#F5F2F8]/8 px-4 py-4 text-center"
+                  >
+                    <Check
+                      className="mx-auto size-4 text-[#4CAFE1]"
+                      strokeWidth={1.8}
+                      aria-hidden="true"
+                    />
+                    <span className="sr-only">Available</span>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </SectionShell>
+  );
+}
+
+export function CapabilitiesSection() {
+  return (
+    <SectionShell id="runtime" className="py-16 sm:py-24">
+      <AnchorAlias id="repository" />
+      <SectionHeading
+        eyebrow={PAGE_COPY.capabilities.eyebrow}
+        title={PAGE_COPY.capabilities.title}
+        description={PAGE_COPY.capabilities.description}
+      />
+      <div className="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+        {SKILL_CATALOG.map((skill) => {
+          const Icon = SKILL_ICONS[skill.icon];
+
+          return (
+            <article
+              key={skill.id}
+              className={cn(
+                'flex min-h-[250px] flex-col rounded-lg border p-5 sm:p-6',
+                skill.span === 'wide' && 'lg:col-span-2',
+                skill.span === 'full' && 'lg:col-span-4',
+                skill.surface === 'accent' &&
+                  'border-[#4CAFE1]/35 bg-[#162630]',
+                skill.surface === 'panel' && 'border-[#F5F2F8]/10 bg-[#191624]',
+                skill.surface === 'code' && 'border-[#F5F2F8]/10 bg-[#100E18]',
+              )}
+            >
+              <div
+                className={cn(
+                  'flex h-full flex-col',
+                  skill.span === 'full' &&
+                    'sm:grid sm:grid-cols-[auto_1fr_0.8fr] sm:items-center sm:gap-6',
+                )}
+              >
+                <span className="flex size-11 items-center justify-center rounded-md border border-[#F5F2F8]/12 bg-[#F5F2F8]/[0.04] text-[#4CAFE1]">
+                  <Icon
+                    className="size-5"
+                    strokeWidth={1.6}
+                    aria-hidden="true"
+                  />
+                </span>
+                <div
+                  className={cn(
+                    skill.span === 'full' ? 'mt-5 sm:mt-0' : 'mt-8',
+                  )}
+                >
+                  <p className="font-mono text-xs text-[#4CAFE1]">
+                    {skill.name}
+                  </p>
+                  <h3 className="mt-2 text-xl font-semibold text-[#F5F2F8]">
+                    {skill.title}
+                  </h3>
+                  <p className="mt-3 max-w-[46ch] text-sm leading-6 text-[#AAA4B4]">
+                    {skill.description}
+                  </p>
+                </div>
+                <div
+                  className={cn(
+                    'mt-auto flex items-start gap-2 border-t border-[#F5F2F8]/10 pt-5 text-sm leading-6 text-[#D8D2E0]',
+                    skill.span === 'full' &&
+                      'mt-6 sm:mt-0 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-6',
+                  )}
+                >
+                  <Check
+                    className="mt-1 size-4 shrink-0 text-[#4CAFE1]"
+                    strokeWidth={1.8}
+                    aria-hidden="true"
+                  />
+                  <span>{skill.output}</span>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </SectionShell>
   );
 }
