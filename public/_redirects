@@ -1,5 +1,6 @@
 # Middleware + Nginx behavior migrated to Cloudflare Pages redirects.
 
+https://www.sealos.io/* https://sealos.io/:splat 301
 # Domain/language routing
 https://sealos.io/zh-cn https://sealos.run/zh-cn 302
 https://sealos.io/zh-cn/ https://sealos.run/zh-cn/ 302
