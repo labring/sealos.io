@@ -1,4 +1,5 @@
 import { appDomain } from './site';
+import { appendAttributionToUrl } from '@/lib/attribution-url';
 
 export interface AppConfig {
   name: string;
@@ -223,9 +224,10 @@ export function getTemplateName(
  * Generate deploy URL for an app
  */
 export function getDeployUrl(slug: string): string {
-  return (
+  const deployUrl =
     appDomain + '?openapp=system-template%3F%2Fdeploy%3FtemplateName%3D' + slug
-  );
+
+  return appendAttributionToUrl(deployUrl);
 }
 
 /**

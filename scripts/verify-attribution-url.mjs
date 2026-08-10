@@ -71,6 +71,36 @@ assert.ok(
   'ButtonLink must render the decorated href',
 );
 
+const attributionLinkSource = await readFile(
+  resolve('components/ui/attribution-link.tsx'),
+  'utf8',
+);
+assert.match(attributionLinkSource, /export function AttributionLink/);
+assert.match(attributionLinkSource, /from ['"]@\/lib\/attribution-url['"]/);
+const attributionLinkCall = attributionLinkSource.indexOf('appendAttributionToUrl(');
+const attributionLinkHref = attributionLinkSource.indexOf('href={renderedHref}');
+assert.ok(
+  attributionLinkCall >= 0,
+  'AttributionLink must call appendAttributionToUrl',
+);
+assert.ok(
+  attributionLinkCall < attributionLinkHref,
+  'AttributionLink must render the decorated href',
+);
+
+const appsLoaderSource = await readFile(resolve('config/apps-loader.ts'), 'utf8');
+assert.match(appsLoaderSource, /from ['"]@\/lib\/attribution-url['"]/);
+const getDeployUrlStart = appsLoaderSource.indexOf('export function getDeployUrl');
+const getDeployUrlCall = appsLoaderSource.indexOf(
+  'appendAttributionToUrl(',
+  getDeployUrlStart,
+);
+assert.ok(getDeployUrlStart >= 0, 'getDeployUrl source must exist');
+assert.ok(
+  getDeployUrlCall > getDeployUrlStart,
+  'getDeployUrl must return a decorated deploy URL',
+);
+
 const siteConfigSource = await readFile(resolve('config/site.ts'), 'utf8');
 const oauth2Match = siteConfigSource.match(/oauth2Url:\s*'([^']+)'/);
 assert.ok(oauth2Match, 'oauth2Url must exist in config/site.ts');
