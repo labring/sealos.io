@@ -10,6 +10,7 @@ import { z } from 'zod';
 import { useAuthForm } from './AuthFormContext';
 import { useCountdown } from './hooks';
 import { SealosLogo, GoogleIcon, GithubIcon } from './components';
+import { appendAttributionToUrl } from '@/lib/attribution';
 
 export function SelectMethodStep() {
   const {
@@ -68,7 +69,7 @@ export function SelectMethodStep() {
       });
     }
     setOpen(false);
-    window.location.href = targetUrl.toString();
+    window.location.href = appendAttributionToUrl(targetUrl).toString();
   };
 
   return (

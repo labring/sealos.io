@@ -2,6 +2,7 @@ import { locales } from '@/lib/i18n';
 import { RootProvider } from 'fumadocs-ui/provider';
 import type { ReactNode } from 'react';
 import { Analytics } from '@/components/analytics';
+import { ConsentModeDefault } from '@/components/analytics/consent-mode-default';
 import { GTMBody } from '@/components/analytics/gtm-body';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import StructuredDataComponent from '@/components/structured-data';
@@ -38,6 +39,7 @@ export default async function LocaleLayout({
   return (
     <html lang={htmlLang} className={htmlClassName} suppressHydrationWarning>
       <head>
+        <ConsentModeDefault />
         {/* Favicon and App Icons */}
         <link
           rel="icon"
