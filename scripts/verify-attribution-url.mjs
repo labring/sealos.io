@@ -47,6 +47,30 @@ const helperCall = authSource.indexOf('appendAttributionToUrl(target.toString())
 assert.ok(builderStart >= 0, 'buildAuthRedirectUrl source must exist');
 assert.ok(helperCall > builderStart, 'buildAuthRedirectUrl must call appendAttributionToUrl');
 
+const buttonHandlerSource = await readFile(resolve('hooks/use-button-handler.ts'), 'utf8');
+assert.match(buttonHandlerSource, /from ['"]@\/lib\/attribution-url['"]/);
+const handlerCall = buttonHandlerSource.indexOf('appendAttributionToUrl(');
+const handlerWindowOpen = buttonHandlerSource.indexOf('window.open(');
+const handlerLocationHref = buttonHandlerSource.indexOf('window.location.href');
+const handlerRouterPush = buttonHandlerSource.indexOf('router.push(');
+assert.ok(handlerCall >= 0, 'useButtonHandler must call appendAttributionToUrl');
+assert.ok(
+  handlerCall < handlerWindowOpen &&
+    handlerCall < handlerLocationHref &&
+    handlerCall < handlerRouterPush,
+  'appendAttributionToUrl must run before navigation branches in useButtonHandler',
+);
+
+const buttonLinkSource = await readFile(resolve('components/ui/button-link.tsx'), 'utf8');
+assert.match(buttonLinkSource, /from ['"]@\/lib\/attribution-url['"]/);
+const buttonLinkCall = buttonLinkSource.indexOf('appendAttributionToUrl(');
+const buttonLinkHref = buttonLinkSource.indexOf('href={renderedHref}');
+assert.ok(buttonLinkCall >= 0, 'ButtonLink must call appendAttributionToUrl');
+assert.ok(
+  buttonLinkCall < buttonLinkHref,
+  'ButtonLink must render the decorated href',
+);
+
 const siteConfigSource = await readFile(resolve('config/site.ts'), 'utf8');
 const oauth2Match = siteConfigSource.match(/oauth2Url:\s*'([^']+)'/);
 assert.ok(oauth2Match, 'oauth2Url must exist in config/site.ts');
