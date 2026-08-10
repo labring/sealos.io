@@ -156,6 +156,76 @@ for (const file of rawAnchorFiles) {
   );
 }
 
+const authFormProviderSource = await readFile(
+  resolve('new-components/AuthForm/AuthFormProvider.tsx'),
+  'utf8',
+);
+assert.match(authFormProviderSource, /from ['"]@\/lib\/attribution-url['"]/);
+const authFormProviderCall = authFormProviderSource.indexOf(
+  'appendAttributionToUrl(',
+);
+const authFormProviderHref = authFormProviderSource.indexOf(
+  'window.location.href',
+);
+assert.ok(
+  authFormProviderCall >= 0 && authFormProviderCall < authFormProviderHref,
+  'AuthFormProvider must decorate the final verification redirect',
+);
+
+const selectMethodStepSource = await readFile(
+  resolve('new-components/AuthForm/SelectMethodStep.tsx'),
+  'utf8',
+);
+assert.match(selectMethodStepSource, /from ['"]@\/lib\/attribution-url['"]/);
+const selectMethodStepCall = selectMethodStepSource.indexOf(
+  'appendAttributionToUrl(',
+);
+const selectMethodStepHref = selectMethodStepSource.indexOf(
+  'window.location.href',
+);
+assert.ok(
+  selectMethodStepCall >= 0 && selectMethodStepCall < selectMethodStepHref,
+  'SelectMethodStep must decorate OAuth redirects before navigation',
+);
+
+const deployModalSource = await readFile(
+  resolve('new-components/DeployModal/DeployModalContext.tsx'),
+  'utf8',
+);
+assert.match(deployModalSource, /buildAuthRedirectUrl\(deployParams\)/);
+assert.match(deployModalSource, /window.location.href = urlString/);
+
+const promptInputSource = await readFile(
+  resolve('app/[lang]/(home)/(new-home)/components/PromptInput.tsx'),
+  'utf8',
+);
+assert.match(promptInputSource, /useAuthRedirect\(\)/);
+assert.match(
+  promptInputSource,
+  /handleAuthRedirect\(\{\s*openapp:\s*getOpenBrainParam\(textToSend\)\s*\}\)/,
+  'PromptInput must continue delegating prompt launches through the auth redirect boundary',
+);
+
+const pricingFiles = [
+  'app/[lang]/(home)/pricing/components/FreeTrialCard.tsx',
+  'app/[lang]/(home)/pricing/components/PricingCard.tsx',
+  'app/[lang]/(home)/pricing/components/MorePlans.tsx',
+];
+for (const file of pricingFiles) {
+  const source = await readFile(resolve(file), 'utf8');
+  assert.match(
+    source,
+    /from ['"]@\/lib\/attribution-url['"]/,
+    `${file} must import appendAttributionToUrl`,
+  );
+  const helperCall = source.indexOf('appendAttributionToUrl(');
+  const windowOpen = source.indexOf('window.open(');
+  assert.ok(
+    helperCall >= 0 && helperCall < windowOpen,
+    `${file} must decorate the target before window.open`,
+  );
+}
+
 const siteConfigSource = await readFile(resolve('config/site.ts'), 'utf8');
 const oauth2Match = siteConfigSource.match(/oauth2Url:\s*'([^']+)'/);
 assert.ok(oauth2Match, 'oauth2Url must exist in config/site.ts');
