@@ -101,6 +101,61 @@ assert.ok(
   'getDeployUrl must return a decorated deploy URL',
 );
 
+const carouselCardSource = await readFile(
+  resolve('app/[lang]/(home)/(new-home)/components/CarouselCard.tsx'),
+  'utf8',
+);
+assert.match(carouselCardSource, /from ['"]@\/lib\/attribution-url['"]/);
+const carouselHelperCall = carouselCardSource.indexOf('appendAttributionToUrl(');
+const carouselRenderedHref = carouselCardSource.indexOf('href={renderedButtonLink}');
+assert.ok(
+  carouselHelperCall >= 0 && carouselHelperCall < carouselRenderedHref,
+  'CarouselCard must render an attribution-aware buttonLink href',
+);
+
+const redirectSuggestSource = await readFile(
+  resolve('components/redirectSuggest.tsx'),
+  'utf8',
+);
+assert.match(redirectSuggestSource, /from ['"]@\/components\/ui\/attribution-link['"]/);
+assert.match(
+  redirectSuggestSource,
+  /<AttributionLink[\s\S]*href=\{redirectDomain\}/,
+  'RedirectSuggest must render through AttributionLink',
+);
+
+const brandCardSource = await readFile(
+  resolve('new-components/SealosBrandCard.tsx'),
+  'utf8',
+);
+assert.match(brandCardSource, /useAuthRedirect/);
+assert.match(
+  brandCardSource,
+  /handleAuthRedirect\(\{\s*openapp:\s*getOpenBrainParam\(\)\s*\}\)/,
+  'SealosBrandCard must use the attribution-aware auth redirect boundary',
+);
+
+const rawAnchorFiles = [
+  'components/docs/Links.tsx',
+  'app/[lang]/customers/components/hero.tsx',
+  'app/[lang]/customers/components/call-to-action.tsx',
+  'app/[lang]/customers/[slug]/page.tsx',
+  'app/[lang]/products/databases/components/footerCta.tsx',
+];
+for (const file of rawAnchorFiles) {
+  const source = await readFile(resolve(file), 'utf8');
+  assert.match(
+    source,
+    /from ['"]@\/components\/ui\/attribution-link['"]/,
+    `${file} must import AttributionLink`,
+  );
+  assert.match(
+    source,
+    /<AttributionLink[\s\S]*href=/,
+    `${file} must render product anchors through AttributionLink`,
+  );
+}
+
 const siteConfigSource = await readFile(resolve('config/site.ts'), 'utf8');
 const oauth2Match = siteConfigSource.match(/oauth2Url:\s*'([^']+)'/);
 assert.ok(oauth2Match, 'oauth2Url must exist in config/site.ts');
