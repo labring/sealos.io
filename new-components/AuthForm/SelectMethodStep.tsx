@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { ArrowRight, AlertCircle } from 'lucide-react';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { siteConfig } from '@/config/site';
+import { appendAttributionToUrl } from '@/lib/attribution-url';
 import { z } from 'zod';
 import { useAuthForm } from './AuthFormContext';
 import { useCountdown } from './hooks';
@@ -67,8 +68,9 @@ export function SelectMethodStep() {
         targetUrl.searchParams.append(key, value);
       });
     }
+    const decoratedTargetUrl = appendAttributionToUrl(targetUrl.toString());
     setOpen(false);
-    window.location.href = targetUrl.toString();
+    window.location.href = decoratedTargetUrl;
   };
 
   return (
