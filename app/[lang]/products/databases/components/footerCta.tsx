@@ -1,6 +1,7 @@
 'use client';
 
 import { appDomain } from '@/config/site';
+import { AttributionLink } from '@/components/ui/attribution-link';
 
 export default function FooterCta() {
   return (
@@ -18,14 +19,14 @@ export default function FooterCta() {
           </p>
 
           <div className="mb-10 flex flex-col items-center justify-center gap-4 sm:flex-row lg:mb-12">
-            <a
+            <AttributionLink
               href={`${appDomain}/?openapp=system-database`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-12 w-full items-center justify-center rounded-full border border-white bg-white px-8 text-base font-semibold text-zinc-950 shadow-[0_10px_30px_rgba(255,255,255,0.14)] transition-all duration-300 hover:bg-zinc-200 sm:w-auto"
             >
               Deploy Your First Database
-            </a>
+            </AttributionLink>
           </div>
 
           <div className="grid gap-4 text-center md:grid-cols-3">

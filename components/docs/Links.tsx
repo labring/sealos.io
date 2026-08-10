@@ -1,5 +1,6 @@
 import { appDomain } from '@/config/site';
+import { AttributionLink } from '@/components/ui/attribution-link';
 
 export function AppDashboardLink() {
-  return <a href={appDomain}>Sealos Dashbord</a>;
+  return <AttributionLink href={appDomain}>Sealos Dashbord</AttributionLink>;
 }
