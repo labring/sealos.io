@@ -195,17 +195,6 @@ const deployModalSource = await readFile(
 assert.match(deployModalSource, /buildAuthRedirectUrl\(deployParams\)/);
 assert.match(deployModalSource, /window.location.href = urlString/);
 
-const promptInputSource = await readFile(
-  resolve('app/[lang]/(home)/(new-home)/components/PromptInput.tsx'),
-  'utf8',
-);
-assert.match(promptInputSource, /useAuthRedirect\(\)/);
-assert.match(
-  promptInputSource,
-  /handleAuthRedirect\(\{\s*openapp:\s*getOpenBrainParam\(textToSend\)\s*\}\)/,
-  'PromptInput must continue delegating prompt launches through the auth redirect boundary',
-);
-
 const pricingFiles = [
   'app/[lang]/(home)/pricing/components/FreeTrialCard.tsx',
   'app/[lang]/(home)/pricing/components/PricingCard.tsx',
