@@ -2,6 +2,8 @@ import {
   AgentDirectorySection,
   CapabilitiesSection,
   HeroSection,
+  ProblemBridgeSection,
+  CloudValueSection,
   SupportMatrixSection,
 } from './top-sections';
 import {
@@ -15,10 +17,12 @@ export function SealosSkillsLanding() {
   return (
     <main className="-mt-24 min-w-0 overflow-x-clip bg-[#13111C] text-[#F5F2F8] selection:bg-[#4CAFE1] selection:text-[#0D1720]">
       <HeroSection />
+      <ProblemBridgeSection />
+      <WorkflowSection />
+      <CapabilitiesSection />
+      <CloudValueSection />
       <AgentDirectorySection />
       <SupportMatrixSection />
-      <CapabilitiesSection />
-      <WorkflowSection />
       <InstallSection />
       <SetupFaqSection />
       <FinalCtaSection />

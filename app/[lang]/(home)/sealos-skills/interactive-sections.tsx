@@ -101,7 +101,7 @@ export function WorkflowTabs() {
             <code>{activeScenario.prompt}</code>
           </pre>
           <h3 className="mt-8 text-sm font-semibold text-[#F5F2F8]">
-            What the agent does
+            Three steps
           </h3>
           <ol className="mt-4 space-y-4">
             {activeScenario.action.map((action) => (
@@ -127,7 +127,7 @@ export function WorkflowTabs() {
               strokeWidth={1.7}
               aria-hidden="true"
             />
-            <h3 className="text-sm font-semibold">What you can review</h3>
+            <h3 className="text-sm font-semibold">Reviewable evidence</h3>
           </div>
           <div className="mt-5 border-t border-[#F5F2F8]/10">
             {activeScenario.evidence.map((evidence) => (
@@ -235,12 +235,15 @@ export function InstallTabs() {
               <p className="mt-5 font-mono text-sm text-[#4CAFE1]">
                 Invoke with {activeTarget.invocation}
               </p>
+              <p className="mt-2 text-xs leading-5 text-[#8F899B]">
+                {activeTarget.note}
+              </p>
             </div>
             <CopyCommandButton
               value={activeTarget.command}
               label={
                 activeTarget.id === 'codex'
-                  ? 'Install in Codex'
+                  ? 'Copy Codex install'
                   : 'Copy install'
               }
               showStatus
@@ -265,18 +268,21 @@ export function InstallTabs() {
                     <h3 className="text-sm font-semibold text-[#F5F2F8]">
                       {agent.name}
                     </h3>
-                    <span className="font-mono text-[11px] text-[#7F798A]">
-                      {agent.mode}
+                    <span className="rounded-sm border border-[#4CAFE1]/20 bg-[#4CAFE1]/10 px-2 py-1 font-mono text-[11px] text-[#BFE8F7]">
+                      {agent.supportLevel}
                     </span>
                   </div>
                   <code className="mt-2 block overflow-x-auto font-mono text-[11px] leading-5 whitespace-pre text-[#AAA4B4]">
                     {agent.install}
                   </code>
                   <p className="mt-2 text-xs leading-5 text-[#8F899B]">
-                    {agent.installNote}
+                    {agent.supportNote}
                   </p>
                   <p className="mt-2 font-mono text-xs leading-5 text-[#4CAFE1]">
                     Invoke: {agent.invocation}
+                  </p>
+                  <p className="mt-1 text-xs leading-5 text-[#7F798A]">
+                    Command surface: {agent.commandSupport}
                   </p>
                 </div>
                 <CopyCommandButton
