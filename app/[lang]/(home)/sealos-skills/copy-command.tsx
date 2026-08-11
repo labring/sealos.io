@@ -46,6 +46,7 @@ export function CopyCommandButton({
   className,
   iconClassName,
   label,
+  copiedLabel = 'Copied',
   showStatus = false,
   tone = 'secondary',
   tracking,
@@ -54,6 +55,7 @@ export function CopyCommandButton({
   className?: string;
   iconClassName?: string;
   label: string;
+  copiedLabel?: string;
   showStatus?: boolean;
   tone?: CopyButtonTone;
   tracking?: RybbitCtaTracking;
@@ -80,7 +82,7 @@ export function CopyCommandButton({
         : Copy;
   const visibleLabel =
     copyState === 'copied'
-      ? 'Copied'
+      ? copiedLabel
       : copyState === 'failed'
         ? 'Try again'
         : label;

@@ -129,6 +129,7 @@ export function FinalCtaSection() {
           <CopyCommandButton
             value={CODEX_INSTALL_COMMAND}
             label={PAGE_COPY.final.primaryCta}
+            copiedLabel="Copied - paste in your terminal"
             showStatus
             tone="accent"
             className="min-w-[148px]"
@@ -155,6 +156,9 @@ export function FinalCtaSection() {
           </TrackedLink>
         </div>
         <div className="mt-8 flex flex-wrap justify-center gap-5 text-sm">
+          <span className="text-[#AAA4B4]">
+            {PAGE_COPY.final.trust}
+          </span>
           <a
             href={REPO_URL}
             target="_blank"
