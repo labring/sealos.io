@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { useGTM } from '@/hooks/use-gtm';
 import { cn } from '@/lib/utils';
+import { appendAttributionToUrl } from '@/lib/attribution-url';
 import { morePlans, type PricingPlan } from '../config/plans';
 import { getRybbitCtaProps, toRybbitCtaId } from '@/lib/analytics/rybbit-cta';
 
@@ -34,7 +35,8 @@ export function MorePlans({ className }: MorePlansProps) {
       return;
     }
 
-    window.open(plan.action.url, '_blank', 'noopener,noreferrer');
+    const decoratedPlanUrl = appendAttributionToUrl(plan.action.url);
+    window.open(decoratedPlanUrl, '_blank', 'noopener,noreferrer');
   };
 
   const handleCompare = (plan: PricingPlan) => {

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { useGTM } from '@/hooks/use-gtm';
 import { useButtonHandler } from '@/hooks/use-button-handler';
+import { AttributionLink } from '@/components/ui/attribution-link';
 
 const redirectDomain = 'https://sealos.run/';
 
@@ -112,13 +113,13 @@ export default function RedirectSuggest() {
                 检测到您是中国大陆IP，推荐您使用 Sealos
                 中国大陆版（人民币计费）以享受本地化价格与服务。
               </p>
-              <a
+              <AttributionLink
                 className="absolute right-0 bottom-0 cursor-pointer text-[#52AEFF] hover:underline"
                 href={redirectDomain}
                 onClick={handleRedirectClick}
               >
                 立即前往&gt;&gt;
-              </a>
+              </AttributionLink>
             </div>
           </div>
           <div

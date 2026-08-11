@@ -2,6 +2,7 @@
 
 import { useCallback } from 'react';
 import { siteConfig } from '@/config/site';
+import { appendAttributionToUrl } from '@/lib/attribution-url';
 import { verifySharedAuth } from '@/lib/utils/shared-auth';
 import { useOpenAuthForm } from '@/new-components/AuthForm/AuthFormContext';
 
@@ -14,7 +15,7 @@ export function buildAuthRedirectUrl(params?: Record<string, string>) {
     });
   }
 
-  return target.toString();
+  return appendAttributionToUrl(target.toString());
 }
 
 export function useAuthRedirect() {

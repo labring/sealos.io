@@ -1,6 +1,7 @@
 import { languagesType } from '@/lib/i18n';
 import { GetStartedButton } from '@/components/ui/button-shiny';
 import { appDomain } from '@/config/site';
+import { AttributionLink } from '@/components/ui/attribution-link';
 
 const translations = {
   en: {
@@ -49,7 +50,7 @@ export default function CallToAction({ lang }: { lang: languagesType }) {
         </p>
 
         <div className="relative z-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
-          <a href={appDomain} target="_blank" rel="noopener noreferrer">
+          <AttributionLink href={appDomain} target="_blank" rel="noopener noreferrer">
             <div className="shadow-button relative flex cursor-pointer items-center justify-center gap-[6px] overflow-hidden rounded-md bg-[#b2e3ff] px-6 py-3 text-[#005b9c] hover:bg-[#97D9FF] sm:px-8 sm:py-3 sm:text-base md:px-8 md:py-4">
               <div className="z-10">{t.getStarted}</div>
               <svg
@@ -65,7 +66,7 @@ export default function CallToAction({ lang }: { lang: languagesType }) {
                 />
               </svg>
             </div>
-          </a>
+          </AttributionLink>
 
           <a
             href={`/docs`}

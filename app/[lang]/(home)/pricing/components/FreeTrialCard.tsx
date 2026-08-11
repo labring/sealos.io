@@ -5,6 +5,7 @@ import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useGTM } from '@/hooks/use-gtm';
 import { getRybbitCtaProps } from '@/lib/analytics/rybbit-cta';
+import { appendAttributionToUrl } from '@/lib/attribution-url';
 
 interface FreeTrialCardProps {
   className?: string;
@@ -33,7 +34,8 @@ export function FreeTrialCard({ className }: FreeTrialCardProps) {
       location: 'free_trial_card',
     });
 
-    window.open(FREE_TRIAL_URL, '_blank', 'noopener,noreferrer');
+    const decoratedTrialUrl = appendAttributionToUrl(FREE_TRIAL_URL);
+    window.open(decoratedTrialUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (

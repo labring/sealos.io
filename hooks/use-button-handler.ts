@@ -3,6 +3,7 @@
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useGTM } from '@/hooks/use-gtm';
+import { appendAttributionToUrl } from '@/lib/attribution-url';
 import { ButtonActionType } from '@/lib/gtm';
 import { sanitizeForGTM } from '@/lib/gtm-utils';
 
@@ -72,21 +73,24 @@ export function useButtonHandler({
           }
           return;
         }
+
+        const decoratedHref = appendAttributionToUrl(href);
+
         if (newWindow) {
-          window.open(href, '_blank', 'noopener,noreferrer');
+          window.open(decoratedHref, '_blank', 'noopener,noreferrer');
         } else if (
-          href.startsWith('http://') ||
-          href.startsWith('https://') ||
-          href.startsWith('mailto:') ||
-          href.startsWith('tel:') ||
-          href.startsWith('ftp://') ||
-          href.startsWith('//') // Protocol-relative URLs
+          decoratedHref.startsWith('http://') ||
+          decoratedHref.startsWith('https://') ||
+          decoratedHref.startsWith('mailto:') ||
+          decoratedHref.startsWith('tel:') ||
+          decoratedHref.startsWith('ftp://') ||
+          decoratedHref.startsWith('//') // Protocol-relative URLs
         ) {
           // External links or special protocols
-          window.location.href = href;
+          window.location.href = decoratedHref;
         } else {
           // Internal navigation using Next.js router
-          router.push(href);
+          router.push(decoratedHref);
         }
       }
     },

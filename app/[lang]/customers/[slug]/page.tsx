@@ -3,6 +3,7 @@ import { languagesType } from '@/lib/i18n';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { appDomain } from '@/config/site';
+import { AttributionLink } from '@/components/ui/attribution-link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import TocSidebar from '../components/toc-sidebar';
@@ -789,7 +790,7 @@ function CaseStudyPageContent({
               </span>
             </h2>
             <div className="flex justify-center">
-              <a href={appDomain} target="_blank" rel="noopener noreferrer">
+              <AttributionLink href={appDomain} target="_blank" rel="noopener noreferrer">
                 <div
                   className="relative flex cursor-pointer items-center justify-center gap-[6px] overflow-hidden rounded-md bg-[#b2e3ff] px-6 py-2 text-[#005b9c] shadow-button hover:bg-[#97D9FF] sm:px-8 sm:py-3 sm:text-base"
                 >
@@ -798,7 +799,7 @@ function CaseStudyPageContent({
                     <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
                 </div>
-              </a>
+              </AttributionLink>
             </div>
           </div>
 

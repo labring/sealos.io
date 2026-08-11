@@ -23,6 +23,16 @@ declare module '*.webp' {
   export default src;
 }
 
+declare module '*.gif' {
+  const src: import('next/image').StaticImageData;
+  export default src;
+}
+
+declare module '*.avif' {
+  const src: import('next/image').StaticImageData;
+  export default src;
+}
+
 declare module '*.ico' {
   const src: import('next/image').StaticImageData;
   export default src;

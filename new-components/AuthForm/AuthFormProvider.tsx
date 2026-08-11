@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { AuthFormProvider as BaseAuthFormProvider } from './AuthFormContext';
 import { EmailVerifyResponse } from './types';
 import { siteConfig } from '@/config/site';
+import { appendAttributionToUrl } from '@/lib/attribution-url';
 
 export function AuthFormProvider({ children }: { children: ReactNode }) {
   const handleVerifySuccess = (
@@ -23,7 +24,8 @@ export function AuthFormProvider({ children }: { children: ReactNode }) {
       });
     }
 
-    window.location.href = target.toString();
+    const decoratedTarget = appendAttributionToUrl(target.toString());
+    window.location.href = decoratedTarget;
   };
 
   return (

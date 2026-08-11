@@ -1,6 +1,7 @@
 import { languagesType } from '@/lib/i18n';
 import Image from 'next/image';
 import { appDomain } from '@/config/site';
+import { AttributionLink } from '@/components/ui/attribution-link';
 
 const translations = {
   'en': {
@@ -35,7 +36,7 @@ export default function Hero({ lang }: { lang: languagesType }) {
           <p className="mb-8 text-lg leading-relaxed text-gray-300 md:text-xl">
             {t.description}
           </p>
-          <a href={appDomain} target="_blank" rel="noopener noreferrer">
+          <AttributionLink href={appDomain} target="_blank" rel="noopener noreferrer">
             <div
               className="relative flex cursor-pointer items-center justify-center gap-[6px] overflow-hidden rounded-md bg-[#b2e3ff] px-4 py-2 text-[#005b9c] shadow-button hover:bg-[#97D9FF] sm:px-5 sm:py-3 w-fit"
             >
@@ -44,7 +45,7 @@ export default function Hero({ lang }: { lang: languagesType }) {
                 <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
             </div>
-          </a>
+          </AttributionLink>
         </div>
 
         {/* Right illustration */}

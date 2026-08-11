@@ -2,6 +2,7 @@
 
 import { ReactNode, forwardRef } from 'react';
 import Link from 'next/link';
+import { appendAttributionToUrl } from '@/lib/attribution-url';
 import { ButtonActionType } from '@/lib/gtm';
 
 type ButtonLinkProps = {
@@ -37,6 +38,8 @@ export const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
       }
     };
 
+    const renderedHref = appendAttributionToUrl(href);
+
     const isExternal =
       href.startsWith('http://') ||
       href.startsWith('https://') ||
@@ -57,7 +60,7 @@ export const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
     if (isExternal || newWindow) {
       return (
         <a
-          href={href}
+          href={renderedHref}
           target={newWindow || isExternal ? '_blank' : undefined}
           rel={newWindow || isExternal ? 'noopener noreferrer' : undefined}
           {...linkProps}
@@ -69,7 +72,7 @@ export const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
 
     // Internal links use Next.js Link for optimal performance
     return (
-      <Link href={href} {...linkProps}>
+      <Link href={renderedHref} {...linkProps}>
         {children}
       </Link>
     );

@@ -6,6 +6,7 @@ import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { useGTM } from '@/hooks/use-gtm';
 import { cn } from '@/lib/utils';
 import { FeatureItem } from './FeatureItem';
+import { appendAttributionToUrl } from '@/lib/attribution-url';
 import type { PricingPlan } from '../config/plans';
 import { getRybbitCtaProps, toRybbitCtaId } from '@/lib/analytics/rybbit-cta';
 
@@ -53,7 +54,8 @@ export function PricingCard({ plan, className }: PricingCardProps) {
       return;
     }
 
-    window.open(action.url, '_blank', 'noopener,noreferrer');
+    const decoratedActionUrl = appendAttributionToUrl(action.url);
+    window.open(decoratedActionUrl, '_blank', 'noopener,noreferrer');
   };
 
   const handleCompare = () => {
