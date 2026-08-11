@@ -21,7 +21,7 @@ const SEALOS_SKILLS_URL = 'https://sealos.io/sealos-skills/';
 const SEALOS_SKILLS_IMAGE =
   'https://sealos.io/images/sealos-skills/codex-sealos.png';
 const SEO_DESCRIPTION =
-  'Install Sealos Skills in Codex, Claude Code, Qoder, and other AI coding agents. Deploy apps, connect databases and S3, and verify rollouts on Sealos Cloud.';
+  'Install Sealos Skills in Codex, Claude Code, Qoder, Gemini, Qwen, and compatible AI coding agents. Deploy apps, connect databases and S3 storage, and verify cloud rollouts on Sealos.';
 
 export function generateMetadata(): Metadata {
   return generatePageMetadata({
