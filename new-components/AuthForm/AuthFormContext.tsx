@@ -2,13 +2,14 @@
 
 import { createContext, useContext, useState, useRef, ReactNode } from 'react';
 import { TurnstileInstance } from '@marsidev/react-turnstile';
-import { EmailVerifyRequest, EmailVerifyResponse } from './types';
+import { EmailVerifyResponse } from './types';
 
 type AuthStep = 'select-method' | 'verify-code';
 
 interface AuthFormData {
   email: string;
   captchaToken: string | null;
+  challengeId: string | null;
   startTime: number;
 }
 
@@ -57,6 +58,7 @@ export function AuthFormProvider({
   const [formData, setFormData] = useState<AuthFormData>({
     email: '',
     captchaToken: null,
+    challengeId: null,
     startTime: 0,
   });
   const [step, setStep] = useState<AuthStep>('select-method');
@@ -78,6 +80,8 @@ export function AuthFormProvider({
     setOpen(newOpen);
     if (!newOpen) {
       clearFormData();
+      setStep('select-method');
+      setError(null);
       setAdditionalParams(null);
     }
   };
@@ -106,6 +110,7 @@ export function AuthFormProvider({
     setFormData({
       email: '',
       captchaToken: null,
+      challengeId: null,
       startTime: 0,
     });
   };
@@ -119,9 +124,21 @@ export function AuthFormProvider({
 
       setIsSendingCode(true);
       setError(null);
+      setFormData((prev) => ({ ...prev, challengeId: null }));
 
-      await requestEmailCode(formData.email, formData.captchaToken);
+      const result = await requestEmailCode(
+        formData.email,
+        formData.captchaToken,
+      );
+      const challengeId = result.data?.challengeId;
+      if (!challengeId) {
+        throw new Error('Invalid verification challenge response');
+      }
 
+      setFormData((prev) => ({
+        ...prev,
+        challengeId,
+      }));
       updateStartTime();
       return true;
     } catch (error) {
