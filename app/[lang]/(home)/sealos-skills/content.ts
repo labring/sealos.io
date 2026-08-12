@@ -45,14 +45,14 @@ export const PAGE_COPY = {
       'Every workflow shows what Sealos Skills did, what it checked, and what you can review before you call it done.',
   },
   install: {
-    eyebrow: 'INSTALL SEALOS SKILLS',
-    title: 'Choose your agent. Copy one install path.',
+    eyebrow: 'AGENT GUIDES',
+    title: 'Connect Sealos Skills to your coding agent.',
     description:
-      'Start with the managed Codex or Claude Code plugin. Eight more documented paths bring the same Sealos skill source to other supported tools.',
-    proof: 'One skill source. 10 documented install paths.',
-    moreTitle: 'More install paths',
-    moreDescription: 'Open one path to see its command, invocation, and guide.',
-    moreCount: '8 documented paths',
+      'Choose your agent for the exact install path, invocation, example prompts, update guidance, and deployment evidence.',
+    proof: '9 Agent guides. One shared skill source.',
+    distributionTitle: 'Install through skills.sh',
+    distributionDescription:
+      'Use the direct skill-pack path when your coding agent already supports the skills.sh ecosystem.',
   },
   setup: {
     eyebrow: 'Before the first run',
@@ -84,6 +84,9 @@ export type AgentIconKey =
   | 'gemini'
   | 'qwen'
   | 'codebuddy'
+  | 'openclaw'
+  | 'amp'
+  | 'kimi'
   | 'bot'
   | 'terminal'
   | 'code';
@@ -194,7 +197,7 @@ export const AGENT_TARGETS = [
     name: 'OpenClaw',
     vendor: 'ClawHub',
     integration: 'ClawHub bundle',
-    icon: 'bot',
+    icon: 'openclaw',
     install: 'clawhub install labring/sealos-skills',
     installSummary: 'ClawHub bundle',
     installNote:
@@ -222,29 +225,30 @@ export const AGENT_TARGETS = [
   {
     id: 'amp',
     name: 'Amp',
-    vendor: 'Amp',
+    vendor: 'Sourcegraph',
     integration: 'Repository import',
-    icon: 'code',
-    install: `${REPO_URL}.git`,
-    installSummary: 'Repository import',
+    icon: 'amp',
+    install: 'amp skill add https://github.com/labring/sealos-skills.git',
+    installSummary: 'Amp skill import',
     installNote:
-      'Import the root skills repository. Invocation follows the host.',
-    invocation: 'Host workflow',
+      'Import the shared repository through the native Amp skill command.',
+    invocation: 'Ask Amp to use the installed Sealos skill',
     guideHref: `${REPO_URL}#other-supported-ai-tools`,
     guideTrackingId: 'skills_install_guide_amp',
     installTrackingId: 'skills_install_copy_amp',
   },
   {
     id: 'kimi',
-    name: 'Kimi',
-    vendor: 'Kimi',
+    name: 'Kimi Code',
+    vendor: 'Moonshot AI',
     integration: 'Repository import',
-    icon: 'code',
-    install: `${REPO_URL}.git`,
-    installSummary: 'Repository import',
+    icon: 'kimi',
+    install:
+      'git clone --depth 1 https://github.com/labring/sealos-skills.git .sealos-skills\nmkdir -p .agents/skills\ncp -R .sealos-skills/skills/. .agents/skills/',
+    installSummary: 'Project Skills directory',
     installNote:
-      'Import the root skills repository. Invocation follows the host.',
-    invocation: 'Host workflow',
+      'Copy the root skills into the project .agents/skills directory.',
+    invocation: '/skill:sealos-deploy',
     guideHref: `${REPO_URL}#other-supported-ai-tools`,
     guideTrackingId: 'skills_install_guide_kimi',
     installTrackingId: 'skills_install_copy_kimi',
@@ -265,6 +269,459 @@ export const AGENT_TARGETS = [
     installTrackingId: 'skills_install_copy_skills_sh',
   },
 ] as const satisfies readonly AgentTarget[];
+
+export const AGENT_IDS = [
+  'codex',
+  'claude',
+  'gemini',
+  'openclaw',
+  'qwen',
+  'kimi',
+  'amp',
+  'qoder',
+  'codebuddy',
+] as const;
+
+export type AgentId = (typeof AGENT_IDS)[number];
+export type AgentQuickStartStep = {
+  title: string;
+  description: string;
+  command?: string;
+};
+export type AgentPrompt = {
+  id: 'deploy' | 'database' | 'host-workflow' | 'inspect';
+  label: string;
+  prompt: string;
+};
+export type AgentGuideFaq = { question: string; answer: string };
+
+export type AgentGuide = AgentTarget & {
+  id: AgentId;
+  path: `/sealos-skills/${AgentId}`;
+  productDescription: string;
+  integrationDescription: string;
+  availabilityNote?: string;
+  officialDocsUrl: string;
+  manifestUrl: string;
+  iconSourceUrl: string;
+  quickStart: readonly AgentQuickStartStep[];
+  prompts: readonly AgentPrompt[];
+  faq: readonly AgentGuideFaq[];
+  related: readonly AgentId[];
+};
+
+type AgentGuideDetails = Pick<
+  AgentGuide,
+  | 'productDescription'
+  | 'integrationDescription'
+  | 'availabilityNote'
+  | 'officialDocsUrl'
+  | 'manifestUrl'
+  | 'iconSourceUrl'
+  | 'quickStart'
+  | 'prompts'
+  | 'faq'
+  | 'related'
+>;
+
+const VERIFIED_RESULT_STEP = {
+  title: 'Review the verified result',
+  description:
+    'Check the live URL, rollout, logs, relevant page checks, resource footprint, and saved .sealos/state.json.',
+} as const;
+
+function createQuickStart(
+  installTitle: string,
+  installDescription: string,
+  installCommand: string,
+  startTitle: string,
+  startDescription: string,
+  startCommand: string,
+): readonly AgentQuickStartStep[] {
+  return [
+    {
+      title: installTitle,
+      description: installDescription,
+      command: installCommand,
+    },
+    {
+      title: startTitle,
+      description: startDescription,
+      command: startCommand,
+    },
+    VERIFIED_RESULT_STEP,
+  ];
+}
+
+function createPrompts(
+  deploy: string,
+  database: string,
+  hostWorkflow: string,
+  inspect: string,
+): readonly AgentPrompt[] {
+  return [
+    { id: 'deploy', label: 'Deploy this repo', prompt: deploy },
+    { id: 'database', label: 'Connect Postgres', prompt: database },
+    {
+      id: 'host-workflow',
+      label: 'Prepare the runtime',
+      prompt: hostWorkflow,
+    },
+    { id: 'inspect', label: 'Inspect the result', prompt: inspect },
+  ];
+}
+
+function createAgentFaq(
+  name: string,
+  installAnswer: string,
+  invokeAnswer: string,
+  updateAnswer: string,
+): readonly AgentGuideFaq[] {
+  return [
+    {
+      question: `Where does ${name} install Sealos Skills?`,
+      answer: installAnswer,
+    },
+    {
+      question: `How do I start Sealos Skills in ${name}?`,
+      answer: invokeAnswer,
+    },
+    {
+      question: `How do I update Sealos Skills in ${name}?`,
+      answer: updateAnswer,
+    },
+  ];
+}
+
+export const DEPLOYMENT_EVIDENCE = [
+  {
+    title: 'Live application URL',
+    description: 'Open the deployed application and test the relevant path.',
+  },
+  {
+    title: 'Rollout and workload health',
+    description: 'Confirm the workload reaches its expected ready state.',
+  },
+  {
+    title: 'Runtime logs',
+    description: 'Review startup and request logs for actionable failures.',
+  },
+  {
+    title: 'Relevant page checks',
+    description:
+      'Exercise setup, login, upload, or data paths used by the app.',
+  },
+  {
+    title: 'Resource footprint',
+    description: 'Report the Sealos resources created or updated by the run.',
+  },
+  {
+    title: 'Saved run state',
+    description: 'Persist the verified target in .sealos/state.json.',
+  },
+] as const;
+
+const AGENT_GUIDE_DETAILS = {
+  codex: {
+    productDescription:
+      "Codex is OpenAI's coding agent for working across repositories from the terminal and Codex App. The managed Sealos plugin keeps its commands, skills, prompts, and metadata together.",
+    integrationDescription:
+      'Add the Labring marketplace, install the Sealos plugin, then open it with $sealos in Codex CLI or the plugin picker in Codex App.',
+    officialDocsUrl: 'https://developers.openai.com/codex/',
+    manifestUrl: `${REPO_URL}/blob/main/.codex-plugin/plugin.json`,
+    iconSourceUrl: 'https://openai.com/codex/',
+    quickStart: createQuickStart(
+      'Install the managed plugin',
+      'Register the Sealos Skills marketplace and install the Sealos plugin.',
+      CODEX_INSTALL_COMMAND,
+      'Start with $sealos',
+      'Type $sealos in Codex CLI, or choose Sealos from the Codex App plugin picker.',
+      '$sealos deploy this repo to Sealos Cloud',
+    ),
+    prompts: createPrompts(
+      '$sealos deploy this repo to Sealos Cloud',
+      '$sealos create a cloud Postgres database for this repo and wire DATABASE_URL',
+      '$sealos assess this repo for cloud deployment blockers and fix the highest-priority issue',
+      '$sealos show the live resources created by the last deployment',
+    ),
+    faq: createAgentFaq(
+      'Codex',
+      'Codex installs Sealos as a managed plugin from the Labring marketplace. The plugin references the eight skills in the repository root.',
+      'Type $sealos in Codex CLI. In Codex App, open the plugin picker from the chat composer and choose Sealos.',
+      'Refresh the Labring marketplace, then update or reinstall the Sealos plugin through the Codex plugin manager.',
+    ),
+    related: ['claude', 'qoder', 'amp'],
+  },
+  claude: {
+    productDescription:
+      "Claude Code is Anthropic's agentic coding tool for terminal-based repository work. Sealos Skills installs through Claude Code's managed plugin marketplace.",
+    integrationDescription:
+      'Register the Labring marketplace, install the Sealos plugin, and use /sealos to route deployment and cloud-service requests.',
+    officialDocsUrl: 'https://docs.anthropic.com/en/docs/claude-code/overview',
+    manifestUrl: `${REPO_URL}/blob/main/.claude-plugin/plugin.json`,
+    iconSourceUrl: 'https://www.anthropic.com/claude-code',
+    quickStart: createQuickStart(
+      'Install the managed plugin',
+      'Register the Sealos marketplace and install the plugin in Claude Code.',
+      CLAUDE_INSTALL_COMMAND,
+      'Start with /sealos',
+      'Run the plugin command from a project and describe the cloud outcome you want.',
+      '/sealos deploy this repo to Sealos Cloud',
+    ),
+    prompts: createPrompts(
+      '/sealos deploy this repo to Sealos Cloud',
+      '/sealos create a cloud Postgres database for this repo and wire DATABASE_URL',
+      '/sealos add private S3 storage for uploads and verify the application path',
+      '/sealos update the last deployment and verify the new rollout',
+    ),
+    faq: createAgentFaq(
+      'Claude Code',
+      "Claude Code installs Sealos from the Labring plugin marketplace and loads the repository's commands and eight root skills.",
+      'Run /sealos in a project, followed by a deployment, database, S3, Canvas, or readiness request.',
+      "Update the Labring marketplace and reinstall or update sealos@sealos through Claude Code's plugin manager.",
+    ),
+    related: ['codex', 'codebuddy', 'qoder'],
+  },
+  gemini: {
+    productDescription:
+      "Gemini CLI is Google's open-source AI agent for terminal workflows. The Sealos extension supplies repository context that Gemini can use while planning and running cloud work.",
+    integrationDescription:
+      'Install the GitHub extension, open a project, and ask Gemini to use Sealos Skills for the requested deployment or service workflow.',
+    availabilityNote:
+      'Gemini CLI supports Google sign-in, Gemini API keys, and Vertex AI. Authentication requirements vary by account type and organization policy.',
+    officialDocsUrl: 'https://geminicli.com/docs/',
+    manifestUrl: `${REPO_URL}/blob/main/gemini-extension.json`,
+    iconSourceUrl: 'https://github.com/google-gemini/gemini-cli',
+    quickStart: createQuickStart(
+      'Install the context extension',
+      'Install Sealos Skills directly from the public GitHub repository.',
+      'gemini extensions install https://github.com/labring/sealos-skills',
+      'Name Sealos Skills in your prompt',
+      'Gemini loads the repository context; state the skill source and the outcome you need.',
+      'Use Sealos Skills to deploy this repo to Sealos Cloud and verify the result.',
+    ),
+    prompts: createPrompts(
+      'Use Sealos Skills to deploy this repo to Sealos Cloud and verify the result.',
+      'Use Sealos Skills to create a cloud Postgres database and wire DATABASE_URL.',
+      'Use Sealos Skills to create and build-check the missing Dockerfile for this repo.',
+      'Use Sealos Skills to read the last deployment state and inspect the live resources.',
+    ),
+    faq: createAgentFaq(
+      'Gemini CLI',
+      'Gemini CLI stores Sealos Skills as a GitHub-backed context extension that points at the shared root skill source.',
+      'Ask Gemini to use Sealos Skills and describe the deployment, database, S3, Canvas, or readiness outcome.',
+      'Run the Gemini CLI extension update flow for the installed Sealos extension to pull the current repository version.',
+    ),
+    related: ['qwen', 'amp', 'kimi'],
+  },
+  openclaw: {
+    productDescription:
+      'OpenClaw is an open-source personal AI assistant that connects tools and messaging surfaces. Sealos Skills is published as a ClawHub-compatible bundle pointer.',
+    integrationDescription:
+      'Install the repository bundle through ClawHub, reload the OpenClaw runtime when required, and ask the active agent to use Sealos Skills.',
+    officialDocsUrl: 'https://docs.openclaw.ai/',
+    manifestUrl: `${REPO_URL}/blob/main/openclaw.plugin.json`,
+    iconSourceUrl: 'https://openclaw.ai/favicon.svg',
+    quickStart: createQuickStart(
+      'Install the ClawHub bundle',
+      'Add the Sealos Skills bundle to the OpenClaw environment.',
+      'clawhub install labring/sealos-skills',
+      'Ask for a Sealos workflow',
+      'Reload the host when required, then name Sealos Skills in the task.',
+      'Use Sealos Skills to deploy this repo to Sealos Cloud and verify the result.',
+    ),
+    prompts: createPrompts(
+      'Use the Sealos Skills bundle to deploy this repo to Sealos Cloud and verify the result.',
+      'Use the Sealos Skills bundle to create Postgres and connect this application.',
+      'Use the Sealos Skills bundle to prepare this service for a persistent OpenClaw workload.',
+      'Use the Sealos Skills bundle to report the last deployment resource footprint.',
+    ),
+    faq: createAgentFaq(
+      'OpenClaw',
+      'ClawHub installs the Sealos Skills bundle into the OpenClaw environment. The repository keeps the bundle pointer in openclaw.plugin.json.',
+      'Ask the active OpenClaw agent to use the Sealos Skills bundle and state the cloud outcome.',
+      "Use ClawHub's update flow for the installed labring/sealos-skills bundle, then reload the OpenClaw runtime when required.",
+    ),
+    related: ['kimi', 'amp', 'qwen'],
+  },
+  qwen: {
+    productDescription:
+      'Qwen Code is an open-source agentic coding tool for terminal workflows. Its Sealos context extension points at the same root skill source used by the managed plugins.',
+    integrationDescription:
+      'Install the GitHub extension and name Sealos Skills in the prompt when you want Qwen Code to prepare, deploy, or inspect a project.',
+    officialDocsUrl: 'https://qwenlm.github.io/qwen-code-docs/en/',
+    manifestUrl: `${REPO_URL}/blob/main/qwen-extension.json`,
+    iconSourceUrl: 'https://github.com/QwenLM/qwen-code',
+    quickStart: createQuickStart(
+      'Install the context extension',
+      'Install Sealos Skills directly from the public GitHub repository.',
+      'qwen extensions install https://github.com/labring/sealos-skills',
+      'Name Sealos Skills in your prompt',
+      'Open the target project and ask Qwen Code for a concrete Sealos outcome.',
+      'Use Sealos Skills to deploy this repo to Sealos Cloud and verify the result.',
+    ),
+    prompts: createPrompts(
+      'Use Sealos Skills to deploy this repo to Sealos Cloud and verify the result.',
+      'Use Sealos Skills to create a cloud Postgres database and wire DATABASE_URL.',
+      'Use Sealos Skills to convert this Docker Compose project into a validated Sealos template.',
+      'Use Sealos Skills to update the saved deployment and report the rollout and logs.',
+    ),
+    faq: createAgentFaq(
+      'Qwen Code',
+      'Qwen Code installs Sealos Skills as a GitHub-backed context extension and reads its guidance from the shared repository source.',
+      'Ask Qwen Code to use Sealos Skills and describe the deployment or cloud-service task.',
+      "Use Qwen Code's extension update command for the installed Sealos extension to pull the current repository version.",
+    ),
+    related: ['gemini', 'kimi', 'amp'],
+  },
+  kimi: {
+    productDescription:
+      "Kimi Code is Moonshot AI's open-source agentic coding tool. It discovers project skills from .agents/skills and supports explicit named-skill invocation.",
+    integrationDescription:
+      'Clone the shared Sealos repository into the project, copy its root skills into .agents/skills, and invoke the workflow with /skill:<name>.',
+    officialDocsUrl:
+      'https://moonshotai.github.io/kimi-code/en/customization/skills.html',
+    manifestUrl: `${REPO_URL}/tree/main/skills`,
+    iconSourceUrl:
+      'https://raw.githubusercontent.com/MoonshotAI/kimi-cli/main/web/public/logo.png',
+    quickStart: createQuickStart(
+      'Add the project skills',
+      "Clone the source and copy all eight skills into Kimi Code's project Skills directory.",
+      'git clone --depth 1 https://github.com/labring/sealos-skills.git .sealos-skills\nmkdir -p .agents/skills\ncp -R .sealos-skills/skills/. .agents/skills/',
+      'Invoke a named skill',
+      "Use Kimi Code's explicit skill command or let the agent select a relevant skill.",
+      '/skill:sealos-deploy deploy this repo to Sealos Cloud and verify the result',
+    ),
+    prompts: createPrompts(
+      '/skill:sealos-deploy deploy this repo to Sealos Cloud and verify the result',
+      '/skill:sealos-database create Postgres and wire DATABASE_URL for this repo',
+      '/skill:dockerfile-skill create and build-check a production Dockerfile for this repo',
+      '/skill:sealos-canvas show the live resources created by the last deployment',
+    ),
+    faq: createAgentFaq(
+      'Kimi Code',
+      'Kimi Code discovers the copied Sealos skill folders from the project .agents/skills directory.',
+      'Run /skill:sealos-deploy for deployment, or invoke another named Sealos skill such as /skill:sealos-database.',
+      'Pull the latest .sealos-skills repository and copy its skills directory into .agents/skills again.',
+    ),
+    related: ['amp', 'qwen', 'openclaw'],
+  },
+  amp: {
+    productDescription:
+      'Amp is an agentic coding tool for repository work in the terminal and editor. Its native skill command can register a GitHub-backed skill source.',
+    integrationDescription:
+      'Add the Sealos repository through amp skill add, open the target project, and ask Amp to use the installed Sealos skill.',
+    officialDocsUrl: 'https://ampcode.com/manual',
+    manifestUrl: `${REPO_URL}/tree/main/skills`,
+    iconSourceUrl: 'https://ampcode.com/app-icon.png?v=3',
+    quickStart: createQuickStart(
+      'Add the skill source',
+      "Register the public repository through Amp's native skill command.",
+      'amp skill add https://github.com/labring/sealos-skills.git',
+      'Ask Amp for a Sealos outcome',
+      'Open the project and name the installed Sealos skill in your request.',
+      'Use the installed Sealos skill to deploy this repo to Sealos Cloud and verify the result.',
+    ),
+    prompts: createPrompts(
+      'Use the installed Sealos skill to deploy this repo to Sealos Cloud and verify the result.',
+      'Use the installed Sealos skill to create Postgres and connect this application.',
+      'Use the installed Sealos skill to assess this repo for cloud readiness and fix the first blocker.',
+      'Use the installed Sealos skill to summarize the last rollout, logs, and resources.',
+    ),
+    faq: createAgentFaq(
+      'Amp',
+      'Amp registers the GitHub-backed source through its native skill system and makes the Sealos guidance available to the agent.',
+      'Ask Amp to use the installed Sealos skill and describe the deployment or cloud-service outcome.',
+      'Run the Amp skill add flow again for the Sealos repository when you need the current source.',
+    ),
+    related: ['kimi', 'codex', 'gemini'],
+  },
+  qoder: {
+    productDescription:
+      'Qoder is an agentic coding environment with packaged plugin support. Sealos Skills includes a dedicated Qoder manifest and build script.',
+    integrationDescription:
+      'Build the official ZIP from the repository, import dist/sealos-1.2.5.zip into Qoder, and start a workflow with /sealos.',
+    officialDocsUrl: 'https://docs.qoder.com/',
+    manifestUrl: `${REPO_URL}/blob/main/.qoder-plugin/plugin.json`,
+    iconSourceUrl: 'https://qoder.com/',
+    quickStart: createQuickStart(
+      'Build the Qoder package',
+      'Clone the repository and run its official packaging script.',
+      'git clone https://github.com/labring/sealos-skills.git\ncd sealos-skills\npython3 scripts/package-qoder-plugin.py',
+      'Import and run /sealos',
+      'Import dist/sealos-1.2.5.zip in Qoder, open the project, and run the plugin command.',
+      '/sealos deploy this repo to Sealos Cloud',
+    ),
+    prompts: createPrompts(
+      '/sealos deploy this repo to Sealos Cloud',
+      '/sealos create a cloud Postgres database for this repo and wire DATABASE_URL',
+      '/sealos package this repo for deployment and report every generated artifact',
+      '/sealos show the resources created by the last deployment',
+    ),
+    faq: createAgentFaq(
+      'Qoder',
+      'Qoder imports Sealos Skills from the generated dist/sealos-1.2.5.zip package. The package exposes the same eight root skills.',
+      'Run /sealos in the target project, followed by the deployment or cloud-service request.',
+      'Pull the current repository, rebuild the ZIP, and import the newly generated package into Qoder.',
+    ),
+    related: ['codebuddy', 'claude', 'codex'],
+  },
+  codebuddy: {
+    productDescription:
+      'CodeBuddy is an AI coding assistant with a plugin marketplace workflow. The Sealos repository includes a CodeBuddy marketplace entry for the shared plugin source.',
+    integrationDescription:
+      "Register the Labring marketplace, choose Sealos through CodeBuddy's plugin flow, and ask for a deployment or cloud-service workflow.",
+    officialDocsUrl: 'https://www.codebuddy.ai/docs/cli/plugin-marketplaces',
+    manifestUrl: `${REPO_URL}/blob/main/.codebuddy-plugin/marketplace.json`,
+    iconSourceUrl: 'https://www.codebuddy.ai/',
+    quickStart: createQuickStart(
+      'Register the marketplace',
+      "Add the public repository to CodeBuddy's plugin marketplaces.",
+      '/plugin marketplace add labring/sealos-skills',
+      'Open the Sealos plugin',
+      'Choose Sealos from the registered marketplace and describe the cloud result you need.',
+      'Use Sealos Skills to deploy this repo to Sealos Cloud and verify the result.',
+    ),
+    prompts: createPrompts(
+      'Use Sealos Skills to deploy this repo to Sealos Cloud and verify the result.',
+      'Use Sealos Skills to create Postgres and wire DATABASE_URL for this project.',
+      'Use Sealos Skills to prepare this CodeBuddy project and explain each generated artifact.',
+      'Use Sealos Skills to report the last deployment URL, rollout, and logs.',
+    ),
+    faq: createAgentFaq(
+      'CodeBuddy',
+      "CodeBuddy registers the Labring repository as a plugin marketplace. The repository's CodeBuddy marketplace file exposes the Sealos plugin entry.",
+      "Choose Sealos through CodeBuddy's plugin flow and describe the deployment or cloud-service task.",
+      'Refresh the Labring marketplace in CodeBuddy, then update or reinstall the Sealos plugin entry.',
+    ),
+    related: ['qoder', 'claude', 'codex'],
+  },
+} as const satisfies Record<AgentId, AgentGuideDetails>;
+
+export function getAgentPath(id: AgentId): `/sealos-skills/${AgentId}` {
+  return `/sealos-skills/${id}`;
+}
+
+export const AGENT_GUIDES: readonly AgentGuide[] = AGENT_IDS.map((id) => {
+  const target = AGENT_TARGETS.find((candidate) => candidate.id === id);
+
+  if (!target) {
+    throw new Error(`Missing Sealos Skills target for ${id}`);
+  }
+
+  return {
+    ...target,
+    id,
+    path: getAgentPath(id),
+    ...AGENT_GUIDE_DETAILS[id],
+  };
+});
+
+export function getAgentGuide(id: string): AgentGuide | undefined {
+  return AGENT_GUIDES.find((agent) => agent.id === id);
+}
+
+export const SKILLS_SH_TARGET = AGENT_TARGETS[9];
 
 export type SkillIconName =
   | 'rocket'
@@ -380,7 +837,7 @@ export const SKILL_CATALOG = [
 
 export const PROOF_ITEMS = [
   { value: String(SKILL_CATALOG.length), label: 'skills from one source' },
-  { value: String(AGENT_TARGETS.length), label: 'documented install paths' },
+  { value: String(AGENT_GUIDES.length), label: 'Agent-specific guides' },
   { value: 'URL + rollout', label: 'checked before handoff' },
   { value: '.sealos/', label: 'inspectable run evidence' },
 ] as const;

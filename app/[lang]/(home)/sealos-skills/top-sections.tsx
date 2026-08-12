@@ -41,11 +41,11 @@ const SKILL_ICONS: Record<SkillIconName, LucideIcon> = {
 
 export function HeroSection() {
   return (
-    <section id="skills" className="relative scroll-mt-24 pt-24 pb-14 sm:pb-20">
+    <section id="skills" className="relative scroll-mt-24 pt-24 pb-8 sm:pb-20">
       <SectionShell>
-        <div className="grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-12">
+        <div className="grid items-center gap-6 sm:gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-12">
           <div className="max-w-xl">
-            <p className="mb-6 font-mono text-xs font-semibold text-[#4CAFE1] uppercase">
+            <p className="mb-4 font-mono text-xs font-semibold text-[#4CAFE1] uppercase sm:mb-6">
               {PAGE_COPY.hero.eyebrow}
             </p>
             <h1
@@ -54,10 +54,10 @@ export function HeroSection() {
             >
               {PAGE_COPY.hero.title}
             </h1>
-            <p className="mt-6 max-w-[58ch] text-base leading-7 text-[#AAA4B4] sm:text-lg sm:leading-8">
+            <p className="mt-4 max-w-[58ch] text-base leading-7 text-[#AAA4B4] sm:mt-6 sm:text-lg sm:leading-8">
               {PAGE_COPY.hero.description}
             </p>
-            <div className="mt-8 grid grid-cols-[0.9fr_1.1fr] gap-3 sm:flex sm:flex-wrap">
+            <div className="mt-6 grid grid-cols-[0.9fr_1.1fr] gap-3 sm:mt-8 sm:flex sm:flex-wrap">
               <CopyCommandButton
                 value={CODEX_INSTALL_COMMAND}
                 label={PAGE_COPY.hero.primaryCta}
@@ -85,15 +85,15 @@ export function HeroSection() {
           </div>
 
           <div className="min-w-0 overflow-hidden rounded-lg border border-[#F5F2F8]/12 bg-[#0F0D17] shadow-[0_28px_80px_rgba(8,7,14,0.42)]">
-            <div className="grid gap-3 border-b border-[#F5F2F8]/10 px-4 py-4 sm:grid-cols-[150px_1fr] sm:items-start sm:px-5">
+            <div className="grid grid-cols-[104px_1fr] items-start gap-2 border-b border-[#F5F2F8]/10 px-3 py-2 sm:grid-cols-[150px_1fr] sm:gap-3 sm:px-5 sm:py-4">
               <span className="font-mono text-[11px] font-semibold text-[#4CAFE1] sm:text-xs">
                 {PAGE_COPY.hero.commandLabel}
               </span>
-              <pre className="min-w-0 overflow-x-auto font-mono text-[11px] leading-5 whitespace-pre text-[#D8D2E0] sm:text-xs">
+              <pre className="min-w-0 overflow-x-auto font-mono text-[10px] leading-5 whitespace-pre text-[#D8D2E0] sm:text-xs">
                 <code>{CODEX_INSTALL_COMMAND}</code>
               </pre>
             </div>
-            <div className="bg-[#191624] p-2 sm:p-3">
+            <div className="bg-[#191624] p-1.5 sm:p-3">
               <Image
                 src="/images/sealos-skills/codex-sealos.png"
                 alt="Codex plugin picker showing Sealos Skills"
@@ -101,7 +101,7 @@ export function HeroSection() {
                 height={1888}
                 priority
                 sizes="(max-width: 1023px) 100vw, 680px"
-                className="h-[140px] w-full rounded-md border border-[#F5F2F8]/10 object-contain sm:h-auto"
+                className="h-[86px] w-full rounded-md border border-[#F5F2F8]/10 object-contain sm:h-auto"
               />
             </div>
             <div className="hidden border-t border-[#F5F2F8]/10 px-4 py-3 font-mono text-xs text-[#AAA4B4] sm:block sm:px-5">
@@ -110,16 +110,18 @@ export function HeroSection() {
           </div>
         </div>
 
-        <div className="mt-6 grid border-y border-[#F5F2F8]/10 sm:mt-14 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
+        <div className="mt-4 flex overflow-x-auto border-y border-[#F5F2F8]/10 sm:mt-14 sm:grid sm:grid-cols-2 sm:overflow-visible lg:mt-20 lg:grid-cols-4">
           {PROOF_ITEMS.map((proof) => (
             <div
               key={proof.label}
-              className="border-b border-[#F5F2F8]/10 px-4 py-6 last:border-b-0 sm:border-r lg:border-b-0 lg:[&:last-child]:border-r-0 sm:[&:nth-child(2)]:border-r-0 lg:[&:nth-child(2)]:border-r sm:[&:nth-child(3)]:border-b-0"
+              className="min-w-[158px] flex-1 border-r border-[#F5F2F8]/10 px-4 py-3 last:border-r-0 sm:min-w-0 sm:border-b sm:py-6 lg:border-b-0 lg:[&:last-child]:border-r-0 sm:[&:nth-child(2)]:border-r-0 lg:[&:nth-child(2)]:border-r sm:[&:nth-child(3)]:border-b-0"
             >
-              <p className="font-mono text-xl font-semibold text-[#F5F2F8]">
+              <p className="font-mono text-lg font-semibold text-[#F5F2F8] sm:text-xl">
                 {proof.value}
               </p>
-              <p className="mt-1 text-sm text-[#8F899B]">{proof.label}</p>
+              <p className="mt-1 text-xs leading-5 text-[#8F899B] sm:text-sm">
+                {proof.label}
+              </p>
             </div>
           ))}
         </div>

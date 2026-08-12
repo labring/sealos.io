@@ -5,6 +5,7 @@ import test from 'node:test';
 
 const root = process.cwd();
 const route = 'app/[lang]/(home)/sealos-skills';
+const detailRoute = `${route}/[agent]`;
 const readSource = (filePath: string) =>
   readFileSync(path.join(root, filePath), 'utf8');
 
@@ -17,16 +18,36 @@ const routeFiles = [
   `${route}/interactive-sections.tsx`,
   `${route}/copy-command.tsx`,
   `${route}/shared.tsx`,
+  `${route}/agent-directory.tsx`,
+  `${detailRoute}/page.tsx`,
+  `${detailRoute}/agent-guide-page.tsx`,
 ];
 const routeSource = routeFiles.map(readSource).join('\n');
 const contentSource = readSource(`${route}/content.ts`);
 const contextSource = readSource(`${route}/CONTEXT.md`);
 const pageSource = readSource(`${route}/page.tsx`);
+const detailPageSource = readSource(`${detailRoute}/page.tsx`);
+const detailViewSource = readSource(`${detailRoute}/agent-guide-page.tsx`);
 const landingSource = readSource(`${route}/components.tsx`);
+const directorySource = readSource(`${route}/agent-directory.tsx`);
 const topSource = readSource(`${route}/top-sections.tsx`);
-const accordionSource = readSource('components/ui/accordion.tsx');
+const sharedSource = readSource(`${route}/shared.tsx`);
+const sitemapSource = readSource('app/sitemap.ts');
+const localeRoutesSource = readSource('config/default-locale-routes.mjs');
 
-test('Sealos Skills uses the official host install paths', () => {
+const agentIds = [
+  'codex',
+  'claude',
+  'gemini',
+  'openclaw',
+  'qwen',
+  'kimi',
+  'amp',
+  'qoder',
+  'codebuddy',
+] as const;
+
+test('Sealos Skills keeps every verified install path and distribution command', () => {
   const commands = [
     'codex plugin marketplace add labring/sealos-skills',
     'codex plugin add sealos@sealos',
@@ -37,6 +58,8 @@ test('Sealos Skills uses the official host install paths', () => {
     'qwen extensions install https://github.com/labring/sealos-skills',
     'clawhub install labring/sealos-skills',
     '/plugin marketplace add labring/sealos-skills',
+    'amp skill add https://github.com/labring/sealos-skills.git',
+    'cp -R .sealos-skills/skills/. .agents/skills/',
     'npx skills add labring/sealos-skills',
     'dist/sealos-1.2.5.zip',
   ];
@@ -48,126 +71,83 @@ test('Sealos Skills uses the official host install paths', () => {
   for (const host of [
     'Codex',
     'Claude Code',
-    'Qoder',
     'Gemini CLI',
-    'Qwen Code',
     'OpenClaw',
-    'CodeBuddy',
+    'Qwen Code',
+    'Kimi Code',
     'Amp',
-    'Kimi',
+    'Qoder',
+    'CodeBuddy',
     'skills.sh',
   ]) {
     assert.ok(
       contentSource.includes(`name: '${host}'`),
-      `missing host: ${host}`,
+      `missing target: ${host}`,
     );
   }
 
-  const agentsBlock = contentSource.slice(
-    contentSource.indexOf('export const AGENT_TARGETS = ['),
-    contentSource.indexOf('export type SkillIconName'),
-  );
-  assert.equal([...agentsBlock.matchAll(/installTrackingId:/g)].length, 10);
-  assert.equal([...agentsBlock.matchAll(/guideTrackingId:/g)].length, 10);
-  for (const integration of [
-    'Managed plugin',
-    'Packaged plugin',
-    'Context extension',
-    'ClawHub bundle',
-    'Marketplace plugin',
-    'Repository import',
-    'Direct skill pack',
-  ]) {
-    assert.ok(
-      agentsBlock.includes(`integration: '${integration}'`),
-      `missing integration: ${integration}`,
-    );
-  }
-  for (const invocation of [
-    'invocation: CODEX_INVOCATION',
-    "invocation: '/sealos'",
-    "invocation: 'Ask Gemini to use Sealos Skills'",
-    "invocation: 'Host runtime'",
-    "invocation: 'Host workflow'",
-    "invocation: '/sealos-deploy'",
-  ]) {
-    assert.ok(
-      agentsBlock.includes(invocation),
-      `missing invocation: ${invocation}`,
-    );
-  }
+  assert.ok(contentSource.includes("invocation: '/skill:sealos-deploy'"));
+  assert.ok(contentSource.includes('AGENT_IDS = ['));
+  assert.ok(contentSource.includes('SKILLS_SH_TARGET = AGENT_TARGETS[9]'));
   assert.equal(contentSource.includes('dist/sealos-1.2.0.zip'), false);
 });
 
-test('Sealos Skills exposes the eight repository skills', () => {
-  const skills = [
+test('Sealos Skills exposes eight real skills and six deployment evidence types', () => {
+  for (const skill of [
     'sealos-deploy',
     'sealos-database',
     'sealos-s3',
-    'dockerfile-skill',
     'sealos-canvas',
     'sealos-app-builder',
     'cloud-native-readiness',
+    'dockerfile-skill',
     'docker-to-sealos',
-  ];
-
-  for (const skill of skills) {
+  ]) {
     assert.ok(
       contentSource.includes(`id: '${skill}'`),
       `missing skill: ${skill}`,
     );
   }
 
-  const skillsBlock = contentSource.slice(
-    contentSource.indexOf('export const SKILL_CATALOG = ['),
-    contentSource.indexOf('export const PROOF_ITEMS'),
-  );
-  assert.equal([...skillsBlock.matchAll(/surface:/g)].length, 8);
-  assert.deepEqual(
-    [...skillsBlock.matchAll(/title: '([^']+)'/g)].map((match) => match[1]),
-    [
-      'Deploy and verify your app',
-      'Connect a managed database',
-      'Add private object storage',
-      'Inspect live resources',
-      'Build for Sealos Desktop',
-      'Find deployment blockers',
-      'Create a production Dockerfile',
-      'Convert Compose into Sealos',
-    ],
-  );
+  for (const evidence of [
+    'Live application URL',
+    'Rollout and workload health',
+    'Runtime logs',
+    'Relevant page checks',
+    'Resource footprint',
+    'Saved run state',
+    '.sealos/state.json',
+  ]) {
+    assert.ok(
+      contentSource.includes(evidence),
+      `missing evidence: ${evidence}`,
+    );
+  }
 });
 
-test('Sealos Skills renders the approved conversion hierarchy and section order', () => {
+test('Hub places the Agent directory directly after the Hero', () => {
   for (const copy of [
     'Deploy from your coding agent. See the proof.',
-    'Install in Codex',
-    'View source on GitHub',
+    'Connect Sealos Skills to your coding agent.',
+    '9 Agent guides. One shared skill source.',
+    'Install through skills.sh',
     'From prompt to evidence.',
     'The cloud work between your repo and a live app.',
-    'Choose your agent. Copy one install path.',
-    'One skill source. 10 documented install paths.',
-    'More install paths',
     'Before the first run',
     'Deploy your repo. Keep the evidence.',
-    'skills from one source',
-    'documented install paths',
-    'checked before handoff',
-    'inspectable run evidence',
   ]) {
-    assert.ok(contentSource.includes(copy), `missing page copy: ${copy}`);
+    assert.ok(contentSource.includes(copy), `missing Hub copy: ${copy}`);
   }
 
   const orderedSections = [
     '<HeroSection />',
+    '<AgentDirectorySection lang={lang} />',
     '<WorkflowSection />',
     '<CapabilitiesSection />',
-    '<InstallSection />',
     '<SetupFaqSection />',
     '<FinalCtaSection />',
   ];
   let previousIndex = -1;
-
   for (const section of orderedSections) {
     const sectionIndex = landingSource.indexOf(section);
     assert.ok(
@@ -176,6 +156,100 @@ test('Sealos Skills renders the approved conversion hierarchy and section order'
     );
     previousIndex = sectionIndex;
   }
+
+  assert.ok(directorySource.includes('AGENT_GUIDES.map'));
+  assert.ok(directorySource.includes('View {agent.name} guide'));
+  assert.ok(directorySource.includes('SKILLS_SH_TARGET'));
+  assert.equal(routeSource.includes('InstallTabs'), false);
+
+  for (const removedCopy of [
+    'Use Sealos Skills in the agent you already use.',
+    'Pick the install path for your agent.',
+    'Install Sealos Skills where you code.',
+  ]) {
+    assert.equal(routeSource.includes(removedCopy), false);
+  }
+});
+
+test('Agent guide data covers nine routes with tailored content', () => {
+  for (const id of agentIds) {
+    assert.ok(contentSource.includes(`'${id}'`), `missing Agent id: ${id}`);
+    assert.ok(
+      contentSource.includes(`${id}: {`),
+      `missing guide details: ${id}`,
+    );
+    assert.ok(
+      contentSource.includes(`skills_install_copy_${id}`),
+      `missing install analytics: ${id}`,
+    );
+    assert.ok(
+      contentSource.includes(`skills_install_guide_${id}`),
+      `missing guide analytics: ${id}`,
+    );
+  }
+
+  assert.ok(contentSource.includes('createQuickStart('));
+  assert.ok(contentSource.includes('createPrompts('));
+  assert.ok(contentSource.includes('createAgentFaq('));
+  assert.ok(contentSource.includes('related:'));
+  assert.ok(contentSource.includes('Gemini CLI supports Google sign-in'));
+  assert.ok(contentSource.includes('Kimi Code'));
+});
+
+test('Agent guide route generates localized static pages, metadata, and five schemas', () => {
+  assert.ok(detailPageSource.includes('LANGUAGES.flatMap'));
+  assert.ok(detailPageSource.includes('AGENT_GUIDES.map'));
+  assert.ok(
+    detailPageSource.includes(
+      'Sealos Skills for ${agent.name}: Deploy to Sealos Cloud',
+    ),
+  );
+  assert.ok(detailPageSource.includes('pathname: agent.path'));
+  assert.ok(detailPageSource.includes("'@type': 'SoftwareApplication'"));
+  assert.ok(detailPageSource.includes('generateHowToSchema({'));
+  assert.ok(detailPageSource.includes('generateFAQSchema([...agent.faq])'));
+  assert.ok(detailPageSource.includes("'@type': 'ItemList'"));
+  assert.ok(detailPageSource.includes('generateBreadcrumbSchema('));
+  assert.ok(detailPageSource.includes("softwareVersion: '1.2.5'"));
+  assert.ok(sitemapSource.includes('AGENT_GUIDES.map((agent) => agent.path)'));
+  assert.ok(localeRoutesSource.includes("'/sealos-skills'"));
+});
+
+test('Agent guide visual contract includes navigation, three steps, prompts, FAQ, and final CTA', () => {
+  for (const copy of [
+    'Deploy to Sealos Cloud with {agent.name}',
+    'Copy install path',
+    'Quick Start',
+    'What gets verified',
+    'Example prompts',
+    'Resources',
+    'What Sealos Skills verifies',
+    'Start with a concrete cloud outcome',
+    '{agent.name} installation FAQ',
+    'Deploy with {agent.name}. Keep the evidence.',
+  ]) {
+    assert.ok(detailViewSource.includes(copy), `missing detail copy: ${copy}`);
+  }
+
+  assert.ok(detailViewSource.includes('sticky top-16'));
+  assert.ok(detailViewSource.includes('agent.quickStart.map'));
+  assert.ok(detailViewSource.includes('agent.prompts.map'));
+  assert.ok(detailViewSource.includes('agent.faq.map'));
+  assert.ok(detailViewSource.includes('relatedAgents.map'));
+  assert.ok(detailViewSource.includes('overflow-x-auto'));
+  assert.ok(detailViewSource.includes('focus-visible:ring-2'));
+  assert.ok(detailViewSource.includes('motion-reduce:transition-none'));
+});
+
+test('Hub keeps its metadata, structured data, anchors, and workflow contract', () => {
+  assert.ok(pageSource.includes("pathname: '/sealos-skills'"));
+  assert.ok(pageSource.includes('lang: params.lang'));
+  assert.ok(pageSource.includes('numberOfItems: AGENT_GUIDES.length'));
+  assert.ok(pageSource.includes("'@type': 'SoftwareApplication'"));
+  assert.ok(pageSource.includes('generateHowToSchema({'));
+  assert.ok(pageSource.includes('generateFAQSchema([...FAQ_ITEMS])'));
+  assert.ok(pageSource.includes("'@type': 'ItemList'"));
+  assert.ok(pageSource.includes('generateBreadcrumbSchema(['));
 
   for (const anchor of [
     'skills',
@@ -195,67 +269,6 @@ test('Sealos Skills renders the approved conversion hierarchy and section order'
     );
   }
 
-  for (const removedCopy of [
-    'Use Sealos Skills in the agent you already use.',
-    'Pick the install path for your agent.',
-    'Install Sealos Skills where you code.',
-  ]) {
-    assert.equal(
-      routeSource.includes(removedCopy),
-      false,
-      `repeated copy remains: ${removedCopy}`,
-    );
-  }
-});
-
-test('Sealos Skills defines the copy terminology contract', () => {
-  for (const term of [
-    'Sealos Skills',
-    'Agent',
-    'Plugin',
-    'Install Path',
-    'Evidence',
-    'Verified Deployment',
-    '.sealos/state.json',
-  ]) {
-    assert.ok(contextSource.includes(term), `missing terminology: ${term}`);
-  }
-});
-
-test('Sealos Skills keeps the Railway-inspired visual contract focused', () => {
-  for (const token of ['#13111C', '#191624', '#4CAFE1', 'rounded-lg']) {
-    assert.ok(routeSource.includes(token), `missing visual token: ${token}`);
-  }
-
-  assert.ok(topSource.includes('Georgia, "Times New Roman", serif'));
-  assert.ok(topSource.includes('text-[42px]'));
-  assert.ok(topSource.includes('lg:text-[56px]'));
-  assert.equal(routeSource.includes('PageTopRays'), false);
-  assert.equal(routeSource.includes('bg-gradient'), false);
-  assert.equal(/[—–]/u.test(routeSource), false);
-});
-
-test('Sealos Skills install decision, workflows, and FAQ cover the public contract', () => {
-  assert.equal(routeSource.includes('AgentDirectorySection'), false);
-  assert.equal(routeSource.includes('SupportMatrixSection'), false);
-  assert.equal(routeSource.includes('INSTALL_TARGETS'), false);
-  assert.equal(routeSource.includes('<table'), false);
-  assert.ok(routeSource.includes("type PrimaryInstallId = 'codex' | 'claude'"));
-  assert.ok(routeSource.includes('More install paths'));
-  assert.ok(routeSource.includes('type="single"'));
-  assert.ok(routeSource.includes('collapsible'));
-  assert.ok(routeSource.includes('Open install guide'));
-  assert.ok(routeSource.includes('Start with {activeTarget.invocation}'));
-  assert.ok(routeSource.includes('Start with {agent.invocation}'));
-  assert.ok(routeSource.includes('<AnchorAlias id="compatibility" />'));
-  assert.ok(routeSource.includes('<AnchorAlias id="support" />'));
-  assert.ok(
-    accordionSource.includes('motion-reduce:data-[state=closed]:animate-none'),
-  );
-  assert.ok(
-    accordionSource.includes('motion-reduce:data-[state=open]:animate-none'),
-  );
-
   for (const workflowLabel of [
     'Your prompt',
     'What Sealos Skills does',
@@ -264,67 +277,34 @@ test('Sealos Skills install decision, workflows, and FAQ cover the public contra
   ]) {
     assert.ok(routeSource.includes(workflowLabel));
   }
+});
 
-  for (const workflow of ['deploy', 'postgres', 's3', 'canvas']) {
-    assert.ok(contentSource.includes(`id: '${workflow}'`));
+test('Agent icons are localized and retain official source URLs', () => {
+  for (const asset of [
+    'public/images/apps/openclaw.svg',
+    'public/images/sealos-skills/agent-icons/amp.png',
+    'public/images/sealos-skills/agent-icons/kimi.png',
+  ]) {
+    const assetPath = path.join(root, asset);
+    assert.equal(existsSync(assetPath), true, `missing icon: ${asset}`);
+    assert.ok(statSync(assetPath).size > 500, `invalid icon: ${asset}`);
   }
 
-  for (const prerequisite of [
-    'A project and a supported agent',
-    'Sealos Cloud access',
-    'A container registry for deploys',
-    'Tools checked on demand',
-    'Sealos workspace',
-    'Docker',
-    'kubectl',
-    '.sealos/state.json',
-  ]) {
-    assert.ok(
-      contentSource.includes(prerequisite),
-      `missing prerequisite: ${prerequisite}`,
-    );
+  for (const icon of ['openclaw', 'amp', 'kimi']) {
+    assert.ok(sharedSource.includes(`${icon}: { src:`));
   }
 
-  const faqBlock = contentSource.slice(
-    contentSource.indexOf('export const FAQ_ITEMS = ['),
-  );
-  assert.equal([...faqBlock.matchAll(/question:/g)].length, 8);
-  for (const question of [
-    'What do I need to start?',
-    'Do I need a Sealos account before installation?',
-    'How does Sealos Skills verify a deployment?',
-    'How are credentials handled?',
-    'When are Docker and kubectl used?',
-    'When can I use Canvas?',
-    'Can Sealos Skills update an existing deployment?',
-    'What comes with the plugin?',
+  for (const sourceUrl of [
+    'https://openclaw.ai/favicon.svg',
+    'https://ampcode.com/app-icon.png?v=3',
+    'raw.githubusercontent.com/MoonshotAI/kimi-cli',
   ]) {
-    assert.ok(faqBlock.includes(question), `missing FAQ: ${question}`);
+    assert.ok(contentSource.includes(sourceUrl));
   }
 });
 
-test('Sealos Skills metadata includes canonical routing and five schema types', () => {
-  assert.ok(pageSource.includes("pathname: '/sealos-skills'"));
-  assert.ok(
-    pageSource.includes('Sealos Skills: Deploy and Verify Apps with AI Agents'),
-  );
-  assert.ok(pageSource.includes("softwareVersion: '1.2.5'"));
-  assert.ok(
-    pageSource.includes(
-      'Install Sealos Skills in Codex, Claude Code, and compatible agents. Deploy to Sealos Cloud and review the live URL, rollout, logs, and resources.',
-    ),
-  );
-  assert.ok(pageSource.includes("'@type': 'SoftwareApplication'"));
-  assert.ok(pageSource.includes('generateHowToSchema({'));
-  assert.ok(pageSource.includes('generateFAQSchema([...FAQ_ITEMS])'));
-  assert.ok(pageSource.includes("'@type': 'ItemList'"));
-  assert.ok(pageSource.includes('generateBreadcrumbSchema(['));
-  assert.ok(pageSource.includes('featureList: SKILL_CATALOG.map('));
-  assert.ok(pageSource.includes('numberOfItems: AGENT_TARGETS.length'));
-});
-
-test('Sealos Skills conversion CTAs use stable Rybbit IDs', () => {
-  const trackingIds = [
+test('Sealos Skills keeps stable Hub analytics and unique Agent analytics templates', () => {
+  for (const id of [
     'skills_hero_copy_codex_install',
     'skills_hero_view_github',
     'skills_install_copy_codex',
@@ -332,46 +312,48 @@ test('Sealos Skills conversion CTAs use stable Rybbit IDs', () => {
     'skills_install_copy_skills_sh',
     'skills_repository_view_github',
     'skills_final_copy_codex_install',
-  ];
-
-  for (const id of trackingIds) {
+  ]) {
     assert.ok(routeSource.includes(id), `missing CTA tracking ID: ${id}`);
   }
 
-  for (const pathId of [
-    'codex',
-    'claude',
-    'qoder',
-    'gemini',
-    'qwen',
-    'openclaw',
-    'codebuddy',
-    'amp',
-    'kimi',
-    'skills_sh',
+  for (const template of [
+    'skills_agent_guide_${agent.id}',
+    'skills_agent_copy_${agent.id}',
+    'skills_agent_source_${agent.id}',
+    'skills_agent_prompt_${agent.id}_${prompt.id}',
   ]) {
-    assert.ok(routeSource.includes(`skills_install_copy_${pathId}`));
-    assert.ok(routeSource.includes(`skills_install_guide_${pathId}`));
+    assert.ok(routeSource.includes(template), `missing template: ${template}`);
   }
-
-  assert.equal(routeSource.includes('skills_agent_copy_'), false);
-  assert.equal(routeSource.includes('skills_agent_guide_'), false);
-
-  const declaredInstallIds = [
-    ...contentSource.matchAll(
-      /(?:guideTrackingId|installTrackingId): '(skills_install_[^']+)'/g,
-    ),
-  ].map((match) => match[1]);
-  assert.equal(declaredInstallIds.length, 20);
-  assert.equal(new Set(declaredInstallIds).size, 20);
 });
 
-test('Sealos Skills ships the real Codex plugin screenshot', () => {
+test('Sealos Skills keeps terminology and visual contracts', () => {
+  for (const term of [
+    'Sealos Skills',
+    'Agent',
+    'Agent Guide',
+    'Plugin',
+    'Install Path',
+    'Evidence',
+    'Verified Deployment',
+    '.sealos/state.json',
+  ]) {
+    assert.ok(contextSource.includes(term), `missing term: ${term}`);
+  }
+
+  for (const token of ['#13111C', '#191624', '#4CAFE1', 'rounded-lg']) {
+    assert.ok(routeSource.includes(token), `missing visual token: ${token}`);
+  }
+  assert.ok(topSource.includes('Georgia, "Times New Roman", serif'));
+  assert.equal(routeSource.includes('PageTopRays'), false);
+  assert.equal(routeSource.includes('bg-gradient'), false);
+  assert.equal(/[—–]/u.test(routeSource), false);
+});
+
+test('Sealos Skills ships the real Codex product screenshot', () => {
   const assetPath = path.join(
     root,
     'public/images/sealos-skills/codex-sealos.png',
   );
-
   assert.equal(existsSync(assetPath), true);
   assert.ok(statSync(assetPath).size > 100_000);
   assert.ok(topSource.includes('width={2922}'));

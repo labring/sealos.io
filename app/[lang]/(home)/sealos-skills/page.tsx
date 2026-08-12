@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import StructuredDataComponent from '@/components/structured-data';
+import type { languagesType } from '@/lib/i18n';
 import { generatePageMetadata } from '@/lib/utils/metadata';
 import {
   generateBreadcrumbSchema,
@@ -9,7 +10,7 @@ import {
 } from '@/lib/utils/structured-data';
 import { SealosSkillsLanding } from './components';
 import {
-  AGENT_TARGETS,
+  AGENT_GUIDES,
   CODEX_INSTALL_COMMAND,
   DEPLOY_PROMPT,
   FAQ_ITEMS,
@@ -23,11 +24,16 @@ const SEALOS_SKILLS_IMAGE =
 const SEO_DESCRIPTION =
   'Install Sealos Skills in Codex, Claude Code, and compatible agents. Deploy to Sealos Cloud and review the live URL, rollout, logs, and resources.';
 
-export function generateMetadata(): Metadata {
+export function generateMetadata({
+  params,
+}: {
+  params: { lang: languagesType };
+}): Metadata {
   return generatePageMetadata({
     title: 'Sealos Skills: Deploy and Verify Apps with AI Agents',
     description: SEO_DESCRIPTION,
     pathname: '/sealos-skills',
+    lang: params.lang,
     keywords: [
       'Sealos Skills',
       'AI coding agent deployment',
@@ -47,11 +53,15 @@ export function generateMetadata(): Metadata {
   });
 }
 
-export default function SealosSkillsPage() {
+export default function SealosSkillsPage({
+  params,
+}: {
+  params: { lang: languagesType };
+}) {
   return (
     <>
       <StructuredDataComponent data={getSealosSkillsStructuredData()} />
-      <SealosSkillsLanding />
+      <SealosSkillsLanding lang={params.lang} />
     </>
   );
 }
@@ -111,8 +121,8 @@ function getSealosSkillsStructuredData(): StructuredData[] {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
       name: 'Sealos Skills supported agent hosts',
-      numberOfItems: AGENT_TARGETS.length,
-      itemListElement: AGENT_TARGETS.map((agent, index) => ({
+      numberOfItems: AGENT_GUIDES.length,
+      itemListElement: AGENT_GUIDES.map((agent, index) => ({
         '@type': 'ListItem',
         position: index + 1,
         name: agent.name,
@@ -121,7 +131,7 @@ function getSealosSkillsStructuredData(): StructuredData[] {
           name: agent.name,
           description: `${agent.integration}: ${agent.installNote}`,
           applicationCategory: 'DeveloperApplication',
-          url: agent.guideHref,
+          url: `${SEALOS_SKILLS_URL}${agent.id}/`,
         },
       })),
     },

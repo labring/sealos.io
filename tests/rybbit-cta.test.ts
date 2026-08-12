@@ -67,6 +67,8 @@ const sealosSkillsSources = [
   'app/[lang]/(home)/sealos-skills/top-sections.tsx',
   'app/[lang]/(home)/sealos-skills/bottom-sections.tsx',
   'app/[lang]/(home)/sealos-skills/interactive-sections.tsx',
+  'app/[lang]/(home)/sealos-skills/agent-directory.tsx',
+  'app/[lang]/(home)/sealos-skills/[agent]/agent-guide-page.tsx',
 ]
   .map(readSource)
   .join('\n');
@@ -111,7 +113,7 @@ test('Sealos Skills conversion CTAs keep stable business IDs', () => {
     'skills_final_copy_codex_install',
   ];
 
-  const installPathIds = [
+  const agentPathIds = [
     'codex',
     'claude',
     'qoder',
@@ -121,7 +123,6 @@ test('Sealos Skills conversion CTAs keep stable business IDs', () => {
     'codebuddy',
     'amp',
     'kimi',
-    'skills_sh',
   ];
 
   for (const id of stableIds) {
@@ -131,7 +132,7 @@ test('Sealos Skills conversion CTAs keep stable business IDs', () => {
     );
   }
 
-  for (const pathId of installPathIds) {
+  for (const pathId of agentPathIds) {
     for (const action of ['copy', 'guide']) {
       const id = `skills_install_${action}_${pathId}`;
       assert.ok(
@@ -141,6 +142,19 @@ test('Sealos Skills conversion CTAs keep stable business IDs', () => {
     }
   }
 
-  assert.equal(sealosSkillsSources.includes('skills_agent_copy_'), false);
-  assert.equal(sealosSkillsSources.includes('skills_agent_guide_'), false);
+  for (const id of [
+    'skills_install_copy_skills_sh',
+    'skills_install_guide_skills_sh',
+  ]) {
+    assert.ok(sealosSkillsSources.includes(id));
+  }
+
+  for (const template of [
+    'skills_agent_guide_${agent.id}',
+    'skills_agent_copy_${agent.id}',
+    'skills_agent_source_${agent.id}',
+    'skills_agent_prompt_${agent.id}_${prompt.id}',
+  ]) {
+    assert.ok(sealosSkillsSources.includes(template));
+  }
 });

@@ -15,6 +15,12 @@ The coding tool that loads Sealos Skills, such as Codex, Claude Code, Qoder,
 Gemini CLI, or Qwen Code. Use this term in customer-facing copy.
 _Avoid_: Host, runtime
 
+**Agent Guide**:
+An indexable page for one Agent that documents its verified installation model,
+invocation, prompts, update guidance, deployment evidence, and official source
+links. The Hub lists nine Agent Guides; skills.sh remains a distribution path.
+_Avoid_: Generic compatibility card
+
 **Plugin**:
 A managed or packaged integration that loads the root Sealos skill source and
 exposes a product entry point. Codex and Claude Code use managed plugins;

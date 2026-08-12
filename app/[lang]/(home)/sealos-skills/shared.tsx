@@ -7,6 +7,9 @@ import QwenLogo from '@/assets/aiagent-appicons/qwen.svg';
 import ClaudeCodeLogo from '@/assets/stacks-appicons/claude-code.svg';
 import CodeBuddyLogo from '@/assets/ide-icons/codebuddy.svg';
 import QoderLogo from '@/assets/ide-icons/qoder.svg';
+import OpenClawLogo from '@/public/images/apps/openclaw.svg';
+import AmpLogo from '@/public/images/sealos-skills/agent-icons/amp.png';
+import KimiLogo from '@/public/images/sealos-skills/agent-icons/kimi.png';
 import {
   getRybbitCtaProps,
   type RybbitCtaTracking,
@@ -26,6 +29,9 @@ const AGENT_LOGOS: Record<
   gemini: { src: GeminiLogo },
   qwen: { src: QwenLogo },
   codebuddy: { src: CodeBuddyLogo },
+  openclaw: { src: OpenClawLogo },
+  amp: { src: AmpLogo },
+  kimi: { src: KimiLogo },
 };
 
 const FALLBACK_ICONS = {

@@ -20,6 +20,7 @@ const DEFAULT_LOCALE_CATCH_ALL_PREFIXES = [
   '/docs',
   '/legal',
   '/products',
+  '/sealos-skills',
   '/solutions',
   '/tutorials',
 ];

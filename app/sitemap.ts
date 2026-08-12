@@ -3,6 +3,7 @@ import { source, blog, tutorials } from '@/lib/source';
 import { appsConfig } from '@/config/apps';
 import { getAppDetailPathname } from '@/app/[lang]/products/app-store/app-store-seo';
 import { getAllPlatformSlugs } from '@/app/[lang]/(home)/comparison/config/platforms';
+import { AGENT_GUIDES } from '@/app/[lang]/(home)/sealos-skills/content';
 
 export const revalidate = false;
 
@@ -54,11 +55,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/products/app-store',
   ].map((path) => toSitemapItem(getUrl, path, 'monthly', 0.8));
 
-  const staticMarketingPages: MetadataRoute.Sitemap = isZhCn
-    ? []
-    : ['/sealos-skills'].map((path) =>
-        toSitemapItem(getUrl, path, 'monthly', 0.75),
-      );
+  const staticMarketingPages: MetadataRoute.Sitemap = [
+    '/sealos-skills',
+    ...AGENT_GUIDES.map((agent) => agent.path),
+  ].map((path) => toSitemapItem(getUrl, path, 'monthly', 0.75));
 
   const appStorePages: MetadataRoute.Sitemap = appsConfig.map((app) =>
     toSitemapItem(getUrl, getAppDetailPathname(app.slug), 'weekly', 0.7),
