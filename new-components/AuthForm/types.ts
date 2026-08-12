@@ -10,13 +10,18 @@ export interface EmailSmsRequest {
 export interface EmailSmsResponse {
   code: number;
   message: string;
-  data: null;
+  data: {
+    challengeId: string;
+    expiresIn: number;
+    resendAfter: number;
+  } | null;
 }
 
 // 验证验证码请求
 export interface EmailVerifyRequest {
   code: string; // verification code
   id: string; // email
+  challengeId: string;
 }
 
 // 验证验证码响应

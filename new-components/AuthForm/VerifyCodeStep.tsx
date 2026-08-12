@@ -37,6 +37,10 @@ export function VerifyCodeStep() {
       setError('Please enter a 6-digit verification code');
       return;
     }
+    if (!formData.challengeId) {
+      setError('Verification session expired. Please request a new code.');
+      return;
+    }
 
     setIsVerifying(true);
     setError(null);
@@ -45,6 +49,7 @@ export function VerifyCodeStep() {
       const requestBody: EmailVerifyRequest = {
         code: verificationCode,
         id: formData.email,
+        challengeId: formData.challengeId,
       };
 
       const response = await fetch(siteConfig.emailVerifyEndpoint, {
