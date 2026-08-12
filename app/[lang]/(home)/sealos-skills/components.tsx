@@ -6,16 +6,17 @@ import {
   WorkflowSection,
 } from './bottom-sections';
 import { AgentDirectorySection } from './agent-directory';
+import { SkillsPageShell } from './shared';
 
 export function SealosSkillsLanding({ lang }: { lang: languagesType }) {
   return (
-    <main className="-mt-24 min-w-0 overflow-x-clip bg-[#13111C] text-[#F5F2F8] selection:bg-[#4CAFE1] selection:text-[#0D1720]">
+    <SkillsPageShell>
       <HeroSection />
       <AgentDirectorySection lang={lang} />
       <WorkflowSection />
       <CapabilitiesSection />
       <SetupFaqSection />
       <FinalCtaSection />
-    </main>
+    </SkillsPageShell>
   );
 }

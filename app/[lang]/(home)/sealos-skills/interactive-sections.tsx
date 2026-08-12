@@ -41,11 +41,11 @@ export function WorkflowTabs() {
     WORKFLOW_SCENARIOS[0];
 
   return (
-    <div className="overflow-hidden rounded-lg border border-[#F5F2F8]/10 bg-[#15121E]">
+    <div className="overflow-hidden rounded-lg border border-white/10 bg-[#101219]">
       <div
         role="tablist"
         aria-label="Sealos Skills workflow examples"
-        className="flex max-w-full gap-1 overflow-x-auto border-b border-[#F5F2F8]/10 bg-[#191624] p-2"
+        className="flex max-w-full gap-1 overflow-x-auto border-b border-white/10 bg-[#13151C] p-2"
       >
         {WORKFLOW_SCENARIOS.map((scenario, index) => (
           <button
@@ -64,8 +64,8 @@ export function WorkflowTabs() {
               )
             }
             className={cn(
-              'min-h-10 shrink-0 rounded-md px-4 text-sm font-semibold text-[#918B9B] transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[#4CAFE1] focus-visible:outline-none motion-reduce:transition-none',
-              activeId === scenario.id && 'bg-[#4CAFE1] text-[#0D1720]',
+              'min-h-10 shrink-0 rounded-md px-4 text-sm font-semibold text-zinc-500 transition-colors duration-200 hover:text-zinc-200 focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none motion-reduce:transition-none',
+              activeId === scenario.id && 'bg-blue-500 text-white',
             )}
           >
             {scenario.label}
@@ -79,11 +79,9 @@ export function WorkflowTabs() {
         aria-labelledby={`workflow-tab-${activeScenario.id}`}
         className="grid min-h-[430px] lg:grid-cols-[0.82fr_1.18fr]"
       >
-        <div className="border-b border-[#F5F2F8]/10 p-5 sm:p-7 lg:border-r lg:border-b-0">
+        <div className="border-b border-white/10 p-5 sm:p-7 lg:border-r lg:border-b-0">
           <div className="flex items-center justify-between gap-4">
-            <span className="font-mono text-xs text-[#4CAFE1]">
-              Your prompt
-            </span>
+            <span className="font-mono text-xs text-blue-400">Your prompt</span>
             <CopyCommandButton
               value={activeScenario.prompt}
               label="Copy prompt"
@@ -91,20 +89,20 @@ export function WorkflowTabs() {
               tone="quiet"
             />
           </div>
-          <pre className="mt-5 min-w-0 overflow-x-auto rounded-md border border-[#F5F2F8]/10 bg-[#100E18] p-4 font-mono text-xs leading-6 whitespace-pre-wrap text-[#D8D2E0]">
+          <pre className="mt-5 min-w-0 overflow-x-auto rounded-md border border-white/10 bg-[#080A11] p-4 font-mono text-xs leading-6 whitespace-pre-wrap text-zinc-300">
             <code>{activeScenario.prompt}</code>
           </pre>
-          <h3 className="mt-8 text-sm font-semibold text-[#F5F2F8]">
+          <h3 className="mt-8 text-sm font-semibold text-zinc-100">
             What Sealos Skills does
           </h3>
           <ol className="mt-4 space-y-4">
             {activeScenario.action.map((action) => (
               <li
                 key={action}
-                className="flex gap-3 text-sm leading-6 text-[#AAA4B4]"
+                className="flex gap-3 text-sm leading-6 text-zinc-400"
               >
                 <Check
-                  className="mt-1 size-4 shrink-0 text-[#4CAFE1]"
+                  className="mt-1 size-4 shrink-0 text-blue-400"
                   strokeWidth={1.8}
                   aria-hidden="true"
                 />
@@ -115,28 +113,28 @@ export function WorkflowTabs() {
         </div>
 
         <div className="flex flex-col p-5 sm:p-7">
-          <div className="flex items-center gap-3 text-[#F5F2F8]">
+          <div className="flex items-center gap-3 text-zinc-100">
             <FileCheck2
-              className="size-5 text-[#4CAFE1]"
+              className="size-5 text-blue-400"
               strokeWidth={1.7}
               aria-hidden="true"
             />
             <h3 className="text-sm font-semibold">Evidence you get</h3>
           </div>
-          <div className="mt-5 border-t border-[#F5F2F8]/10">
+          <div className="mt-5 border-t border-white/10">
             {activeScenario.evidence.map((evidence) => (
               <div
                 key={evidence}
-                className="flex min-h-12 items-center gap-3 border-b border-[#F5F2F8]/8 font-mono text-xs text-[#C8C2D0]"
+                className="flex min-h-12 items-center gap-3 border-b border-white/[0.08] font-mono text-xs text-zinc-300"
               >
-                <span className="text-[#4CAFE1]">&gt;</span>
+                <span className="text-blue-400">&gt;</span>
                 <span>{evidence}</span>
               </div>
             ))}
           </div>
-          <div className="mt-auto flex items-center justify-between gap-4 border-t border-[#F5F2F8]/10 pt-6">
-            <span className="text-sm text-[#8F899B]">Verified result</span>
-            <span className="flex items-center gap-2 rounded-sm border border-[#4CAFE1]/35 bg-[#4CAFE1]/10 px-3 py-2 text-sm font-semibold text-[#BFE8F7]">
+          <div className="mt-auto flex items-center justify-between gap-4 border-t border-white/10 pt-6">
+            <span className="text-sm text-zinc-500">Verified result</span>
+            <span className="flex items-center gap-2 rounded-sm border border-blue-400/35 bg-blue-400/10 px-3 py-2 text-sm font-semibold text-blue-200">
               <Check className="size-4" strokeWidth={1.8} aria-hidden="true" />
               {activeScenario.result}
             </span>

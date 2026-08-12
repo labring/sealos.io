@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
@@ -21,6 +22,7 @@ const routeFiles = [
   `${route}/agent-directory.tsx`,
   `${detailRoute}/page.tsx`,
   `${detailRoute}/agent-guide-page.tsx`,
+  `${detailRoute}/agent-guide-nav.tsx`,
 ];
 const routeSource = routeFiles.map(readSource).join('\n');
 const contentSource = readSource(`${route}/content.ts`);
@@ -28,6 +30,8 @@ const contextSource = readSource(`${route}/CONTEXT.md`);
 const pageSource = readSource(`${route}/page.tsx`);
 const detailPageSource = readSource(`${detailRoute}/page.tsx`);
 const detailViewSource = readSource(`${detailRoute}/agent-guide-page.tsx`);
+const detailNavSource = readSource(`${detailRoute}/agent-guide-nav.tsx`);
+const detailUiSource = `${detailViewSource}\n${detailNavSource}`;
 const landingSource = readSource(`${route}/components.tsx`);
 const directorySource = readSource(`${route}/agent-directory.tsx`);
 const topSource = readSource(`${route}/top-sections.tsx`);
@@ -228,10 +232,13 @@ test('Agent guide visual contract includes navigation, three steps, prompts, FAQ
     '{agent.name} installation FAQ',
     'Deploy with {agent.name}. Keep the evidence.',
   ]) {
-    assert.ok(detailViewSource.includes(copy), `missing detail copy: ${copy}`);
+    assert.ok(detailUiSource.includes(copy), `missing detail copy: ${copy}`);
   }
 
-  assert.ok(detailViewSource.includes('sticky top-16'));
+  assert.ok(detailViewSource.includes('<AgentGuideNav'));
+  assert.ok(detailNavSource.includes('sticky top-16'));
+  assert.ok(detailNavSource.includes('IntersectionObserver'));
+  assert.ok(detailNavSource.includes("aria-current={active ? 'location'"));
   assert.ok(detailViewSource.includes('agent.quickStart.map'));
   assert.ok(detailViewSource.includes('agent.prompts.map'));
   assert.ok(detailViewSource.includes('agent.faq.map'));
@@ -326,7 +333,7 @@ test('Sealos Skills keeps stable Hub analytics and unique Agent analytics templa
   }
 });
 
-test('Sealos Skills keeps terminology and visual contracts', () => {
+test('Sealos Skills keeps terminology and uses the Homepage visual system', () => {
   for (const term of [
     'Sealos Skills',
     'Agent',
@@ -340,23 +347,69 @@ test('Sealos Skills keeps terminology and visual contracts', () => {
     assert.ok(contextSource.includes(term), `missing term: ${term}`);
   }
 
-  for (const token of ['#13111C', '#191624', '#4CAFE1', 'rounded-lg']) {
+  for (const token of [
+    'bg-background',
+    '#101219',
+    '#13151C',
+    '#080A11',
+    'blue-500',
+    'blue-400',
+    'rounded-lg',
+  ]) {
     assert.ok(routeSource.includes(token), `missing visual token: ${token}`);
   }
-  assert.ok(topSource.includes('Georgia, "Times New Roman", serif'));
+  for (const removedToken of [
+    '#13111C',
+    '#191624',
+    '#15121E',
+    '#100E18',
+    '#4CAFE1',
+    'Georgia',
+    'Times New Roman',
+  ]) {
+    assert.equal(
+      routeSource.includes(removedToken),
+      false,
+      `obsolete visual token remains: ${removedToken}`,
+    );
+  }
+  assert.ok(routeSource.includes('tracking-normal'));
   assert.equal(routeSource.includes('PageTopRays'), false);
   assert.equal(routeSource.includes('bg-gradient'), false);
   assert.equal(/[—–]/u.test(routeSource), false);
 });
 
-test('Sealos Skills ships the real Codex product screenshot', () => {
+test('Sealos Skills keeps the Codex asset but removes it from the rendered Hero', () => {
   const assetPath = path.join(
     root,
     'public/images/sealos-skills/codex-sealos.png',
   );
   assert.equal(existsSync(assetPath), true);
   assert.ok(statSync(assetPath).size > 100_000);
-  assert.ok(topSource.includes('width={2922}'));
-  assert.ok(topSource.includes('height={1888}'));
-  assert.ok(topSource.includes('Codex plugin picker showing Sealos Skills'));
+  assert.equal(topSource.includes('codex-sealos.png'), false);
+  assert.equal(topSource.includes("from 'next/image'"), false);
+});
+
+test('Sealos Skills uses continuous panels and complete mobile proof', () => {
+  assert.ok(topSource.includes('data-skills-hero-command'));
+  assert.ok(topSource.includes('data-skills-proof-grid'));
+  assert.ok(topSource.includes('grid-cols-2'));
+  assert.ok(topSource.includes('lg:grid-cols-4'));
+  assert.ok(directorySource.includes('data-skills-agent-directory'));
+  assert.ok(directorySource.includes('gap-px'));
+  assert.ok(topSource.includes('data-skills-capability-grid'));
+  assert.ok(detailViewSource.includes('data-agent-quick-start-grid'));
+  assert.ok(detailViewSource.includes('data-agent-evidence-grid'));
+  assert.ok(detailViewSource.includes('data-agent-prompt-grid'));
+});
+
+test('Sealos Skills copy source remains byte-for-byte unchanged', () => {
+  const contentHash = createHash('sha256')
+    .update(readSource(`${route}/content.ts`))
+    .digest('hex');
+
+  assert.equal(
+    contentHash,
+    '4e7d08050b640903ba7602ffb456734f3ae623e8dda6d6efb126ea54d86dc085',
+  );
 });

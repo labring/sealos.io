@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import {
   Blocks,
   Boxes,
@@ -43,18 +42,15 @@ export function HeroSection() {
   return (
     <section id="skills" className="relative scroll-mt-24 pt-24 pb-8 sm:pb-20">
       <SectionShell>
-        <div className="grid items-center gap-6 sm:gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-12">
+        <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-[5fr_7fr] lg:gap-14">
           <div className="max-w-xl">
-            <p className="mb-4 font-mono text-xs font-semibold text-[#4CAFE1] uppercase sm:mb-6">
+            <p className="mb-4 font-mono text-xs font-semibold text-blue-400 uppercase sm:mb-6">
               {PAGE_COPY.hero.eyebrow}
             </p>
-            <h1
-              className="text-[42px] leading-[46px] font-medium text-balance text-[#F5F2F8] lg:text-[56px] lg:leading-[60px]"
-              style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
-            >
+            <h1 className="text-[42px] leading-[46px] font-medium tracking-normal text-balance text-zinc-100 lg:text-[56px] lg:leading-[60px]">
               {PAGE_COPY.hero.title}
             </h1>
-            <p className="mt-4 max-w-[58ch] text-base leading-7 text-[#AAA4B4] sm:mt-6 sm:text-lg sm:leading-8">
+            <p className="mt-4 max-w-[58ch] text-base leading-7 text-pretty text-zinc-400 sm:mt-6 sm:text-lg sm:leading-8">
               {PAGE_COPY.hero.description}
             </p>
             <div className="mt-6 grid grid-cols-[0.9fr_1.1fr] gap-3 sm:mt-8 sm:flex sm:flex-wrap">
@@ -84,42 +80,39 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="min-w-0 overflow-hidden rounded-lg border border-[#F5F2F8]/12 bg-[#0F0D17] shadow-[0_28px_80px_rgba(8,7,14,0.42)]">
-            <div className="grid grid-cols-[104px_1fr] items-start gap-2 border-b border-[#F5F2F8]/10 px-3 py-2 sm:grid-cols-[150px_1fr] sm:gap-3 sm:px-5 sm:py-4">
-              <span className="font-mono text-[11px] font-semibold text-[#4CAFE1] sm:text-xs">
+          <div
+            className="min-w-0 overflow-hidden rounded-lg border border-white/10 bg-[#101219] shadow-[0_28px_80px_rgba(3,7,18,0.32)]"
+            data-skills-hero-command
+          >
+            <div className="border-b border-white/10 px-5 py-4 sm:px-6">
+              <span className="font-mono text-xs font-semibold text-blue-400">
                 {PAGE_COPY.hero.commandLabel}
               </span>
-              <pre className="min-w-0 overflow-x-auto font-mono text-[10px] leading-5 whitespace-pre text-[#D8D2E0] sm:text-xs">
+            </div>
+            <div className="bg-[#080A11] px-5 py-8 sm:px-7 sm:py-10 lg:py-12">
+              <pre className="min-w-0 overflow-x-auto font-mono text-xs leading-7 whitespace-pre text-zinc-200 sm:text-sm sm:leading-8">
                 <code>{CODEX_INSTALL_COMMAND}</code>
               </pre>
             </div>
-            <div className="bg-[#191624] p-1.5 sm:p-3">
-              <Image
-                src="/images/sealos-skills/codex-sealos.png"
-                alt="Codex plugin picker showing Sealos Skills"
-                width={2922}
-                height={1888}
-                priority
-                sizes="(max-width: 1023px) 100vw, 680px"
-                className="h-[86px] w-full rounded-md border border-[#F5F2F8]/10 object-contain sm:h-auto"
-              />
-            </div>
-            <div className="hidden border-t border-[#F5F2F8]/10 px-4 py-3 font-mono text-xs text-[#AAA4B4] sm:block sm:px-5">
+            <div className="border-t border-white/10 px-5 py-4 font-mono text-xs leading-5 text-zinc-400 sm:px-6">
               {PAGE_COPY.hero.invocation}
             </div>
           </div>
         </div>
 
-        <div className="mt-4 flex overflow-x-auto border-y border-[#F5F2F8]/10 sm:mt-14 sm:grid sm:grid-cols-2 sm:overflow-visible lg:mt-20 lg:grid-cols-4">
+        <div
+          className="mt-8 grid grid-cols-2 overflow-hidden border-y border-white/10 sm:mt-14 lg:mt-20 lg:grid-cols-4"
+          data-skills-proof-grid
+        >
           {PROOF_ITEMS.map((proof) => (
             <div
               key={proof.label}
-              className="min-w-[158px] flex-1 border-r border-[#F5F2F8]/10 px-4 py-3 last:border-r-0 sm:min-w-0 sm:border-b sm:py-6 lg:border-b-0 lg:[&:last-child]:border-r-0 sm:[&:nth-child(2)]:border-r-0 lg:[&:nth-child(2)]:border-r sm:[&:nth-child(3)]:border-b-0"
+              className="min-w-0 border-r border-b border-white/10 px-4 py-5 sm:px-5 sm:py-6 lg:border-b-0 lg:last:border-r-0 [&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r [&:nth-child(n+3)]:border-b-0"
             >
-              <p className="font-mono text-lg font-semibold text-[#F5F2F8] sm:text-xl">
+              <p className="font-mono text-base font-semibold break-words text-zinc-100 tabular-nums sm:text-xl">
                 {proof.value}
               </p>
-              <p className="mt-1 text-xs leading-5 text-[#8F899B] sm:text-sm">
+              <p className="mt-1 text-xs leading-5 text-pretty text-zinc-500 sm:text-sm">
                 {proof.label}
               </p>
             </div>
@@ -139,7 +132,10 @@ export function CapabilitiesSection() {
         title={PAGE_COPY.capabilities.title}
         description={PAGE_COPY.capabilities.description}
       />
-      <div className="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+      <div
+        className="mt-10 grid gap-px overflow-hidden rounded-lg border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-4"
+        data-skills-capability-grid
+      >
         {SKILL_CATALOG.map((skill) => {
           const Icon = SKILL_ICONS[skill.icon];
 
@@ -147,13 +143,12 @@ export function CapabilitiesSection() {
             <article
               key={skill.id}
               className={cn(
-                'flex min-h-[250px] flex-col rounded-lg border p-5 sm:p-6',
+                'flex min-h-[250px] flex-col p-5 transition-colors duration-200 hover:bg-[#161923] motion-reduce:transition-none sm:p-6',
                 skill.span === 'wide' && 'lg:col-span-2',
                 skill.span === 'full' && 'lg:col-span-4',
-                skill.surface === 'accent' &&
-                  'border-[#4CAFE1]/35 bg-[#162630]',
-                skill.surface === 'panel' && 'border-[#F5F2F8]/10 bg-[#191624]',
-                skill.surface === 'code' && 'border-[#F5F2F8]/10 bg-[#100E18]',
+                skill.surface === 'accent' && 'bg-[#13151C]',
+                skill.surface === 'panel' && 'bg-[#101219]',
+                skill.surface === 'code' && 'bg-[#080A11]',
               )}
             >
               <div
@@ -163,7 +158,7 @@ export function CapabilitiesSection() {
                     'sm:grid sm:grid-cols-[auto_1fr_0.8fr] sm:items-center sm:gap-6',
                 )}
               >
-                <span className="flex size-11 items-center justify-center rounded-md border border-[#F5F2F8]/12 bg-[#F5F2F8]/[0.04] text-[#4CAFE1]">
+                <span className="flex size-11 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-blue-400">
                   <Icon
                     className="size-5"
                     strokeWidth={1.6}
@@ -175,25 +170,25 @@ export function CapabilitiesSection() {
                     skill.span === 'full' ? 'mt-5 sm:mt-0' : 'mt-8',
                   )}
                 >
-                  <p className="font-mono text-xs text-[#4CAFE1]">
+                  <p className="font-mono text-xs text-blue-400">
                     {skill.name}
                   </p>
-                  <h3 className="mt-2 text-xl font-semibold text-[#F5F2F8]">
+                  <h3 className="mt-2 text-xl font-semibold tracking-normal text-zinc-100">
                     {skill.title}
                   </h3>
-                  <p className="mt-3 max-w-[46ch] text-sm leading-6 text-[#AAA4B4]">
+                  <p className="mt-3 max-w-[46ch] text-sm leading-6 text-pretty text-zinc-400">
                     {skill.description}
                   </p>
                 </div>
                 <div
                   className={cn(
-                    'mt-auto flex items-start gap-2 border-t border-[#F5F2F8]/10 pt-5 text-sm leading-6 text-[#D8D2E0]',
+                    'mt-auto flex items-start gap-2 border-t border-white/10 pt-5 text-sm leading-6 text-zinc-300',
                     skill.span === 'full' &&
                       'mt-6 sm:mt-0 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-6',
                   )}
                 >
                   <Check
-                    className="mt-1 size-4 shrink-0 text-[#4CAFE1]"
+                    className="mt-1 size-4 shrink-0 text-blue-400"
                     strokeWidth={1.8}
                     aria-hidden="true"
                   />

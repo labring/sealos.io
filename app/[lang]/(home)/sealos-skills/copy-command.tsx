@@ -100,13 +100,13 @@ export function CopyCommandButton({
         }
       }}
       className={cn(
-        'inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-md border px-4 text-sm font-semibold whitespace-nowrap transition duration-200 focus-visible:ring-2 focus-visible:ring-[#4CAFE1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#13111C] focus-visible:outline-none active:translate-y-px motion-reduce:transition-none',
+        'focus-visible:ring-offset-background inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-md border px-4 text-sm font-semibold whitespace-nowrap transition duration-200 focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-px motion-reduce:transition-none',
         tone === 'accent' &&
-          'border-[#4CAFE1] bg-[#4CAFE1] text-[#0D1720] hover:border-[#77C4E9] hover:bg-[#77C4E9]',
+          'border-blue-500 bg-blue-500 text-white hover:border-blue-400 hover:bg-blue-400',
         tone === 'secondary' &&
-          'border-[#F5F2F8]/20 bg-[#F5F2F8]/[0.04] text-[#F5F2F8] hover:border-[#4CAFE1]/60 hover:bg-[#F5F2F8]/[0.08]',
+          'border-white/15 bg-white/[0.04] text-zinc-100 hover:border-blue-400/60 hover:bg-white/[0.08]',
         tone === 'quiet' &&
-          'min-h-9 border-[#F5F2F8]/12 bg-transparent px-3 text-xs text-[#C6C0CF] hover:border-[#4CAFE1]/60 hover:text-[#F5F2F8]',
+          'min-h-9 border-white/10 bg-transparent px-3 text-xs text-zinc-300 hover:border-blue-400/60 hover:text-zinc-100',
         className,
       )}
       {...(tracking ? getRybbitCtaProps(tracking) : {})}

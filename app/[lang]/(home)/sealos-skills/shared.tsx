@@ -17,6 +17,14 @@ import {
 import { cn } from '@/lib/utils';
 import type { AgentIconKey } from './content';
 
+export function SkillsPageShell({ children }: { children: ReactNode }) {
+  return (
+    <main className="bg-background -mt-24 min-w-0 overflow-x-clip text-zinc-100 selection:bg-blue-500 selection:text-white">
+      {children}
+    </main>
+  );
+}
+
 type LogoIconKey = Exclude<AgentIconKey, 'bot' | 'terminal' | 'code'>;
 
 const AGENT_LOGOS: Record<
@@ -80,17 +88,14 @@ export function SectionHeading({
   return (
     <header className={cn('max-w-3xl', className)}>
       {eyebrow && (
-        <p className="mb-5 font-mono text-xs font-semibold text-[#4CAFE1] uppercase">
+        <p className="mb-5 font-mono text-xs font-semibold text-blue-400 uppercase">
           {eyebrow}
         </p>
       )}
-      <h2
-        className="text-[36px] leading-[42px] font-medium text-[#F5F2F8] sm:text-[44px] sm:leading-[50px]"
-        style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
-      >
+      <h2 className="text-[36px] leading-[42px] font-medium tracking-normal text-balance text-zinc-100 sm:text-[44px] sm:leading-[50px]">
         {title}
       </h2>
-      <p className="mt-5 max-w-[62ch] text-base leading-7 text-[#AAA4B4] sm:text-lg sm:leading-8">
+      <p className="mt-5 max-w-[62ch] text-base leading-7 text-pretty text-zinc-400 sm:text-lg sm:leading-8">
         {description}
       </p>
     </header>
@@ -103,7 +108,7 @@ export function AgentMark({ icon }: { icon: AgentIconKey }) {
 
     return (
       <span
-        className="flex size-12 shrink-0 items-center justify-center rounded-md border border-[#F5F2F8]/12 bg-[#F5F2F8]/[0.04]"
+        className="flex size-12 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.04]"
         aria-hidden="true"
       >
         <Image
@@ -121,7 +126,7 @@ export function AgentMark({ icon }: { icon: AgentIconKey }) {
 
   return (
     <span
-      className="flex size-12 shrink-0 items-center justify-center rounded-md border border-[#F5F2F8]/12 bg-[#F5F2F8]/[0.04] text-[#D8D2E0]"
+      className="flex size-12 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-zinc-300"
       aria-hidden="true"
     >
       <Icon className="size-6" strokeWidth={1.6} aria-hidden="true" />
@@ -148,7 +153,7 @@ export function TrackedLink({
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
       className={cn(
-        'inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-[#F5F2F8]/20 px-4 text-sm font-semibold whitespace-nowrap text-[#F5F2F8] transition duration-200 hover:border-[#4CAFE1]/60 hover:bg-[#F5F2F8]/[0.06] focus-visible:ring-2 focus-visible:ring-[#4CAFE1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#13111C] focus-visible:outline-none active:translate-y-px motion-reduce:transition-none',
+        'focus-visible:ring-offset-background inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-white/15 px-4 text-sm font-semibold whitespace-nowrap text-zinc-100 transition duration-200 hover:border-blue-400/60 hover:bg-white/[0.06] focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-px motion-reduce:transition-none',
         className,
       )}
       {...(tracking ? getRybbitCtaProps(tracking) : {})}
