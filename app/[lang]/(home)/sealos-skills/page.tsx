@@ -21,11 +21,11 @@ const SEALOS_SKILLS_URL = 'https://sealos.io/sealos-skills/';
 const SEALOS_SKILLS_IMAGE =
   'https://sealos.io/images/sealos-skills/codex-sealos.png';
 const SEO_DESCRIPTION =
-  'Install Sealos Skills in Codex, Claude Code, Qoder, Gemini, Qwen, and compatible AI coding agents. Deploy apps, connect databases and S3 storage, and verify cloud rollouts on Sealos.';
+  'Install Sealos Skills in Codex, Claude Code, and compatible agents. Deploy to Sealos Cloud and review the live URL, rollout, logs, and resources.';
 
 export function generateMetadata(): Metadata {
   return generatePageMetadata({
-    title: 'Sealos Skills: Deploy with Your AI Coding Agent',
+    title: 'Sealos Skills: Deploy and Verify Apps with AI Agents',
     description: SEO_DESCRIPTION,
     pathname: '/sealos-skills',
     keywords: [
@@ -70,6 +70,7 @@ function getSealosSkillsStructuredData(): StructuredData[] {
       sameAs: REPO_URL,
       installUrl: REPO_URL,
       screenshot: SEALOS_SKILLS_IMAGE,
+      softwareVersion: '1.2.5',
       publisher: {
         '@type': 'Organization',
         name: 'Labring',
@@ -80,7 +81,7 @@ function getSealosSkillsStructuredData(): StructuredData[] {
         name: 'Sealos',
       },
       softwareRequirements:
-        'A compatible AI coding agent, a Sealos Cloud account, and container registry access for deployment.',
+        'A compatible AI coding agent and project, with Sealos Cloud and registry access when the selected workflow requires them.',
       featureList: SKILL_CATALOG.map(
         (skill) => `${skill.title}: ${skill.description}`,
       ),
@@ -88,7 +89,7 @@ function getSealosSkillsStructuredData(): StructuredData[] {
     generateHowToSchema({
       name: 'Deploy an app with Sealos Skills',
       description:
-        'Install Sealos Skills, invoke the deploy workflow, and review the verified Sealos Cloud runtime.',
+        'Install Sealos Skills, deploy a repo, and review the live URL, rollout, logs, and resources.',
       image: SEALOS_SKILLS_IMAGE,
       steps: [
         {
@@ -118,6 +119,7 @@ function getSealosSkillsStructuredData(): StructuredData[] {
         item: {
           '@type': 'SoftwareApplication',
           name: agent.name,
+          description: `${agent.integration}: ${agent.installNote}`,
           applicationCategory: 'DeveloperApplication',
           url: agent.guideHref,
         },

@@ -25,70 +25,63 @@ export const DEPLOY_PROMPT = '$sealos deploy <project>';
 export const PAGE_COPY = {
   hero: {
     eyebrow: 'SEALOS SKILLS',
-    title: 'Your agent writes the code. Sealos ships it.',
+    title: 'Deploy from your coding agent. See the proof.',
     description:
-      'One open-source skill pack for deploying apps, connecting data, and verifying cloud changes from the agent you already use.',
+      'Point Sealos Skills at a repo. Your agent prepares the runtime, deploys it to Sealos Cloud, and returns a live URL with rollout, log, and resource checks.',
     commandLabel: 'INSTALL FOR CODEX',
     primaryCta: 'Install in Codex',
-    secondaryCta: 'Browse the source',
-    invocation: `Then run ${DEPLOY_PROMPT}.`,
+    secondaryCta: 'View source on GitHub',
+    invocation: 'Then run $sealos deploy this repo to Sealos Cloud.',
   },
   directory: {
-    title: 'Bring the same cloud path to your favorite agent.',
+    title: 'Use Sealos Skills in the agent you already use.',
     description:
-      'Choose a host, copy its install path, and keep Sealos deployment close to your code.',
+      'Codex and Claude Code use managed plugins. Other agents load the same root skill source through their documented install model.',
   },
   support: {
-    title: 'One skill pack. Clear host paths.',
+    title: 'Pick the install path for your agent.',
     description:
-      'Every integration reaches the same eight skills through a host-specific install and invocation surface.',
+      'The skill source stays the same. Installation and invocation follow each agent.',
   },
   capabilities: {
     eyebrow: 'CLOUD CAPABILITIES',
-    title: 'What your agent can finish on Sealos Cloud',
+    title: 'The cloud work between your repo and a live app.',
     description:
-      'The pack covers the handoffs between a repository and a running application.',
+      'Prepare the runtime, connect the services your app needs, deploy, update, and inspect the result from the same agent.',
   },
   workflow: {
     title: 'From prompt to evidence.',
     description:
-      'Each workflow ends with concrete artifacts, live checks, and a result you can review.',
+      'Every workflow shows what Sealos Skills did, what it checked, and what you can review before you call it done.',
   },
   install: {
-    title: 'Install once. Use the same workflow everywhere.',
+    title: 'Install Sealos Skills where you code.',
     description:
-      'Start with a native plugin or import the same root skill pack into your preferred agent.',
+      'Use the managed Codex or Claude Code plugin, or choose the documented path for another agent.',
   },
   setup: {
     eyebrow: 'Before the first run',
-    title: 'Bring a project. Sealos Skills guides the cloud setup.',
+    title: 'Start with a project. Set up the rest as you go.',
     description:
-      'Preflight identifies the account, workspace, registry, and local tools required by the selected workflow.',
+      'Sealos Skills checks the tools and access each workflow needs, then guides login, registry, and workspace setup.',
   },
   final: {
-    title: 'Install the skill. Ship the runtime.',
+    title: 'Deploy your repo. Keep the evidence.',
     description:
-      'Give your coding agent a cloud path it can inspect, repeat, and update.',
+      'Install Sealos Skills in Codex, run $sealos, and review the live result before you call it shipped.',
     primaryCta: 'Install in Codex',
-    secondaryCta: 'Browse install paths',
+    secondaryCta: 'View all install paths',
   },
 } as const;
 
-export const CORE_CAPABILITIES = [
-  'Deploy',
-  'Database',
-  'S3',
-  'Canvas',
-] as const;
-
-export type CoreCapability = (typeof CORE_CAPABILITIES)[number];
-export type InstallMode =
-  | 'Plugin'
-  | 'Package import'
-  | 'Extension'
-  | 'Bundle'
-  | 'Repo import'
-  | 'Skill pack';
+export type AgentIntegration =
+  | 'Managed plugin'
+  | 'Packaged plugin'
+  | 'Context extension'
+  | 'ClawHub bundle'
+  | 'Marketplace plugin'
+  | 'Repository import'
+  | 'Direct skill pack';
 export type AgentIconKey =
   | 'openai'
   | 'claude'
@@ -114,14 +107,13 @@ export type AgentTarget = {
     | 'skills-sh';
   name: string;
   vendor: string;
-  mode: InstallMode;
+  integration: AgentIntegration;
   icon: AgentIconKey;
   install: string;
   installSummary: string;
   installNote: string;
   invocation: string;
   guideHref: string;
-  capabilities: readonly CoreCapability[];
   copyTrackingId: string;
   guideTrackingId: string;
   installTrackingId: string;
@@ -132,14 +124,13 @@ export const AGENT_TARGETS = [
     id: 'codex',
     name: 'Codex',
     vendor: 'OpenAI',
-    mode: 'Plugin',
+    integration: 'Managed plugin',
     icon: 'openai',
     install: CODEX_INSTALL_COMMAND,
     installSummary: 'Marketplace + plugin',
-    installNote: 'Native marketplace install for Codex CLI and Codex App.',
+    installNote: 'Native plugin for Codex CLI and Codex App.',
     invocation: CODEX_INVOCATION,
     guideHref: `${REPO_URL}#recommended-install-in-codex`,
-    capabilities: CORE_CAPABILITIES,
     copyTrackingId: 'skills_agent_copy_codex',
     guideTrackingId: 'skills_agent_guide_codex',
     installTrackingId: 'skills_install_copy_codex',
@@ -148,14 +139,13 @@ export const AGENT_TARGETS = [
     id: 'claude',
     name: 'Claude Code',
     vendor: 'Anthropic',
-    mode: 'Plugin',
+    integration: 'Managed plugin',
     icon: 'claude',
     install: CLAUDE_INSTALL_COMMAND,
     installSummary: 'Marketplace + plugin',
     installNote: 'Managed plugin install with the same eight root skills.',
     invocation: '/sealos',
     guideHref: `${REPO_URL}#install-in-claude-code`,
-    capabilities: CORE_CAPABILITIES,
     copyTrackingId: 'skills_agent_copy_claude',
     guideTrackingId: 'skills_agent_guide_claude',
     installTrackingId: 'skills_install_copy_claude',
@@ -164,14 +154,14 @@ export const AGENT_TARGETS = [
     id: 'qoder',
     name: 'Qoder',
     vendor: 'Qoder',
-    mode: 'Package import',
+    integration: 'Packaged plugin',
     icon: 'qoder',
     install: 'python3 scripts/package-qoder-plugin.py',
     installSummary: 'Build + import ZIP',
-    installNote: 'Build the package, then import dist/sealos-1.2.0.zip.',
+    installNote:
+      'Build the package, import dist/sealos-1.2.5.zip, then run /sealos.',
     invocation: '/sealos',
     guideHref: `${REPO_URL}#test-in-qoder`,
-    capabilities: CORE_CAPABILITIES,
     copyTrackingId: 'skills_agent_copy_qoder',
     guideTrackingId: 'skills_agent_guide_qoder',
     installTrackingId: 'skills_install_copy_qoder',
@@ -180,15 +170,14 @@ export const AGENT_TARGETS = [
     id: 'gemini',
     name: 'Gemini CLI',
     vendor: 'Google',
-    mode: 'Extension',
+    integration: 'Context extension',
     icon: 'gemini',
     install:
       'gemini extensions install https://github.com/labring/sealos-skills',
     installSummary: 'GitHub extension',
-    installNote: 'Loads repository guidance through the Gemini extension.',
+    installNote: 'Context extension. Ask Gemini to use Sealos Skills.',
     invocation: 'Ask Gemini to use Sealos Skills',
     guideHref: `${REPO_URL}#other-supported-ai-tools`,
-    capabilities: CORE_CAPABILITIES,
     copyTrackingId: 'skills_agent_copy_gemini',
     guideTrackingId: 'skills_agent_guide_gemini',
     installTrackingId: 'skills_install_copy_gemini',
@@ -197,14 +186,13 @@ export const AGENT_TARGETS = [
     id: 'qwen',
     name: 'Qwen Code',
     vendor: 'Qwen',
-    mode: 'Extension',
+    integration: 'Context extension',
     icon: 'qwen',
     install: 'qwen extensions install https://github.com/labring/sealos-skills',
     installSummary: 'GitHub extension',
-    installNote: 'Loads repository guidance through the Qwen extension.',
+    installNote: 'Context extension. Ask Qwen to use Sealos Skills.',
     invocation: 'Ask Qwen to use Sealos Skills',
     guideHref: `${REPO_URL}#other-supported-ai-tools`,
-    capabilities: CORE_CAPABILITIES,
     copyTrackingId: 'skills_agent_copy_qwen',
     guideTrackingId: 'skills_agent_guide_qwen',
     installTrackingId: 'skills_install_copy_qwen',
@@ -213,14 +201,14 @@ export const AGENT_TARGETS = [
     id: 'openclaw',
     name: 'OpenClaw',
     vendor: 'ClawHub',
-    mode: 'Bundle',
+    integration: 'ClawHub bundle',
     icon: 'bot',
     install: 'clawhub install labring/sealos-skills',
     installSummary: 'ClawHub bundle',
-    installNote: 'Installs the complete skill pack through ClawHub.',
-    invocation: 'Host command exposure depends on the ClawHub runtime',
+    installNote:
+      'Install from ClawHub. Command exposure follows the host runtime.',
+    invocation: 'Host runtime',
     guideHref: `${REPO_URL}#other-supported-ai-tools`,
-    capabilities: CORE_CAPABILITIES,
     copyTrackingId: 'skills_agent_copy_openclaw',
     guideTrackingId: 'skills_agent_guide_openclaw',
     installTrackingId: 'skills_install_copy_openclaw',
@@ -229,14 +217,14 @@ export const AGENT_TARGETS = [
     id: 'codebuddy',
     name: 'CodeBuddy',
     vendor: 'CodeBuddy',
-    mode: 'Plugin',
+    integration: 'Marketplace plugin',
     icon: 'codebuddy',
     install: '/plugin marketplace add labring/sealos-skills',
     installSummary: 'Marketplace plugin',
-    installNote: 'Registers the repository with the CodeBuddy marketplace.',
-    invocation: 'Host command exposure depends on the CodeBuddy runtime',
+    installNote:
+      'Register the Sealos marketplace. Command exposure follows the host runtime.',
+    invocation: 'Host runtime',
     guideHref: `${REPO_URL}#other-supported-ai-tools`,
-    capabilities: CORE_CAPABILITIES,
     copyTrackingId: 'skills_agent_copy_codebuddy',
     guideTrackingId: 'skills_agent_guide_codebuddy',
     installTrackingId: 'skills_install_copy_codebuddy',
@@ -245,14 +233,14 @@ export const AGENT_TARGETS = [
     id: 'amp',
     name: 'Amp',
     vendor: 'Amp',
-    mode: 'Repo import',
+    integration: 'Repository import',
     icon: 'code',
     install: `${REPO_URL}.git`,
     installSummary: 'Repository import',
-    installNote: 'Import the root skills directory from GitHub.',
-    invocation: 'Host-dependent',
+    installNote:
+      'Import the root skills repository. Invocation follows the host.',
+    invocation: 'Host workflow',
     guideHref: `${REPO_URL}#other-supported-ai-tools`,
-    capabilities: CORE_CAPABILITIES,
     copyTrackingId: 'skills_agent_copy_amp',
     guideTrackingId: 'skills_agent_guide_amp',
     installTrackingId: 'skills_install_copy_amp',
@@ -261,14 +249,14 @@ export const AGENT_TARGETS = [
     id: 'kimi',
     name: 'Kimi',
     vendor: 'Kimi',
-    mode: 'Repo import',
+    integration: 'Repository import',
     icon: 'code',
     install: `${REPO_URL}.git`,
     installSummary: 'Repository import',
-    installNote: 'Import the root skills directory from GitHub.',
-    invocation: 'Host-dependent',
+    installNote:
+      'Import the root skills repository. Invocation follows the host.',
+    invocation: 'Host workflow',
     guideHref: `${REPO_URL}#other-supported-ai-tools`,
-    capabilities: CORE_CAPABILITIES,
     copyTrackingId: 'skills_agent_copy_kimi',
     guideTrackingId: 'skills_agent_guide_kimi',
     installTrackingId: 'skills_install_copy_kimi',
@@ -277,14 +265,14 @@ export const AGENT_TARGETS = [
     id: 'skills-sh',
     name: 'skills.sh',
     vendor: 'Skills ecosystem',
-    mode: 'Skill pack',
+    integration: 'Direct skill pack',
     icon: 'terminal',
     install: SKILLS_SH_INSTALL_COMMAND,
     installSummary: 'Direct skill pack',
-    installNote: 'Installs the root skills for compatible coding agents.',
+    installNote:
+      'Install the root skill pack and invoke each Sealos skill directly.',
     invocation: '/sealos-deploy',
     guideHref: `${REPO_URL}#alternative-install-as-a-skillssh-skill-pack`,
-    capabilities: CORE_CAPABILITIES,
     copyTrackingId: 'skills_agent_copy_skills_sh',
     guideTrackingId: 'skills_agent_guide_skills_sh',
     installTrackingId: 'skills_install_copy_skills_sh',
@@ -327,7 +315,7 @@ export const INSTALL_TARGETS = [
     label: 'skills.sh',
     command: SKILLS_SH_INSTALL_COMMAND,
     invocation: '/sealos-deploy',
-    note: 'Direct skill-pack install for compatible coding agents.',
+    note: 'Direct access to the root Sealos skills in compatible agents.',
     trackingId: 'skills_install_copy_skills_sh',
   },
 ] as const satisfies readonly InstallTarget[];
@@ -357,10 +345,10 @@ export const SKILL_CATALOG = [
   {
     id: 'sealos-deploy',
     name: 'sealos-deploy',
-    title: 'Deploy a verified app',
+    title: 'Deploy and verify your app',
     description:
-      'Inspect a repo, prepare its runtime, deploy it to Sealos Cloud, and verify the live workload.',
-    output: 'Verified application URL and workload status',
+      'Inspect the repo, prepare its runtime, deploy to Sealos Cloud, and check the live result.',
+    output: 'Live URL, healthy rollout, and saved run state',
     icon: 'rocket',
     span: 'wide',
     surface: 'accent',
@@ -368,10 +356,10 @@ export const SKILL_CATALOG = [
   {
     id: 'sealos-database',
     name: 'sealos-database',
-    title: 'Connect managed databases',
+    title: 'Connect a managed database',
     description:
-      'Create or connect Postgres, MySQL, MongoDB, or Redis and verify the application path.',
-    output: 'Connected data service and tested environment key',
+      'Create or reuse Postgres, MySQL, MongoDB, or Redis and wire only the environment values the app needs.',
+    output: 'Connected service and tested app path',
     icon: 'database',
     span: 'standard',
     surface: 'panel',
@@ -379,10 +367,10 @@ export const SKILL_CATALOG = [
   {
     id: 'sealos-s3',
     name: 'sealos-s3',
-    title: 'Provision private S3 storage',
+    title: 'Add private object storage',
     description:
-      'Create a private bucket, wire the required environment values, and test real object operations.',
-    output: 'Working storage path with protected credentials',
+      "Create a private bucket, place credentials safely, and verify the app's real object-storage path.",
+    output: 'Working S3 path with protected credentials',
     icon: 'storage',
     span: 'standard',
     surface: 'panel',
@@ -392,7 +380,7 @@ export const SKILL_CATALOG = [
     name: 'sealos-canvas',
     title: 'Inspect live resources',
     description:
-      'Read saved deployment state and open a local, read-only view of Sealos resources.',
+      'Read saved deployment state and open a temporary, read-only view of current Sealos resources.',
     output: 'Local canvas backed by live resource data',
     icon: 'canvas',
     span: 'standard',
@@ -401,10 +389,10 @@ export const SKILL_CATALOG = [
   {
     id: 'sealos-app-builder',
     name: 'sealos-app-builder',
-    title: 'Build a Sealos Desktop app',
+    title: 'Build for Sealos Desktop',
     description:
-      'Apply SDK-aware guidance and platform conventions to a Sealos Desktop application.',
-    output: 'Desktop app foundation with integration context',
+      'Apply Sealos SDK and platform conventions while the agent builds the app.',
+    output: 'Desktop app foundation ready for Sealos',
     icon: 'blocks',
     span: 'standard',
     surface: 'panel',
@@ -412,10 +400,10 @@ export const SKILL_CATALOG = [
   {
     id: 'cloud-native-readiness',
     name: 'cloud-native-readiness',
-    title: 'Assess cloud readiness',
+    title: 'Find deployment blockers',
     description:
-      'Review runtime, state, storage, configuration, and operational signals before deployment.',
-    output: 'Concrete readiness findings and next actions',
+      'Check runtime, state, storage, configuration, and operations before deployment.',
+    output: 'Prioritized blockers and next steps',
     icon: 'readiness',
     span: 'standard',
     surface: 'panel',
@@ -423,9 +411,9 @@ export const SKILL_CATALOG = [
   {
     id: 'dockerfile-skill',
     name: 'dockerfile-skill',
-    title: 'Generate a Dockerfile',
+    title: 'Create a production Dockerfile',
     description:
-      'Generate and validate a production-ready Dockerfile for the detected framework and runtime.',
+      'Generate and build-check a Dockerfile for the detected framework and runtime.',
     output: 'Build-tested container definition',
     icon: 'container',
     span: 'standard',
@@ -434,10 +422,10 @@ export const SKILL_CATALOG = [
   {
     id: 'docker-to-sealos',
     name: 'docker-to-sealos',
-    title: 'Convert Compose to Sealos',
+    title: 'Convert Compose into Sealos',
     description:
-      'Convert Docker Compose services into reviewable Sealos templates with quality gates.',
-    output: 'Validated Sealos deployment template',
+      'Turn Docker Compose services into a reviewable Sealos template and run quality checks.',
+    output: 'Validated Sealos template',
     icon: 'compose',
     span: 'full',
     surface: 'panel',
@@ -445,10 +433,10 @@ export const SKILL_CATALOG = [
 ] as const satisfies readonly Skill[];
 
 export const PROOF_ITEMS = [
-  { value: String(SKILL_CATALOG.length), label: 'skills included' },
-  { value: String(AGENT_TARGETS.length), label: 'documented host paths' },
-  { value: '.sealos/', label: 'inspectable run state' },
-  { value: 'MIT', label: 'open-source license' },
+  { value: String(SKILL_CATALOG.length), label: 'skills from one source' },
+  { value: String(AGENT_TARGETS.length), label: 'documented agent paths' },
+  { value: 'URL + rollout', label: 'checked before handoff' },
+  { value: '.sealos/', label: 'inspectable run evidence' },
 ] as const;
 
 export type WorkflowScenarioId = 'deploy' | 'postgres' | 's3' | 'canvas';
@@ -478,7 +466,7 @@ export const WORKFLOW_SCENARIOS = [
       '.sealos/state.json',
       'Live application URL and workload status',
     ],
-    result: 'Live app verified',
+    result: 'Deployment verified',
   },
   {
     id: 'postgres',
@@ -496,7 +484,7 @@ export const WORKFLOW_SCENARIOS = [
       'Migration, introspection, or startup check',
       'Credential values retained in local protected files',
     ],
-    result: 'Database connected',
+    result: 'Postgres connected',
   },
   {
     id: 's3',
@@ -514,7 +502,7 @@ export const WORKFLOW_SCENARIOS = [
       'Upload and list result',
       'Download, delete, or presigned URL check',
     ],
-    result: 'Storage path verified',
+    result: 'S3 path verified',
   },
   {
     id: 'canvas',
@@ -531,28 +519,30 @@ export const WORKFLOW_SCENARIOS = [
       'Local canvas address',
       'Read-only cluster inspection',
     ],
-    result: 'Resources ready to inspect',
+    result: 'Live resources ready',
   },
 ] as const satisfies readonly WorkflowScenario[];
 
 export const PREREQUISITES = [
   {
-    title: 'Sealos Cloud account',
-    detail: 'Authentication connects the agent to the target Sealos region.',
-  },
-  {
-    title: 'Container registry access',
-    detail: 'Docker Hub or GHCR stores images built during deployment.',
-  },
-  {
-    title: 'Sealos workspace',
+    title: 'A project and a supported agent',
     detail:
-      'Database and S3 workflows create resources in an active workspace.',
+      'Start with a local repo or GitHub URL in a documented coding agent.',
   },
   {
-    title: 'Workflow tools',
+    title: 'Sealos Cloud access',
     detail:
-      'Preflight requests Docker or kubectl when the selected path uses them.',
+      'Sign in when a workflow needs to create or inspect resources in your Sealos workspace.',
+  },
+  {
+    title: 'A container registry for deploys',
+    detail:
+      'Use Docker Hub, GHCR, or an existing image path when deployment needs an image.',
+  },
+  {
+    title: 'Tools checked on demand',
+    detail:
+      'Preflight asks for Docker or kubectl when the selected workflow uses them.',
   },
 ] as const;
 
@@ -560,38 +550,43 @@ export type FaqItem = { question: string; answer: string };
 
 export const FAQ_ITEMS = [
   {
-    question: 'What do I need before my first deploy?',
+    question: 'What do I need to start?',
     answer:
-      'Bring a compatible coding agent and a project. Deployment uses a Sealos Cloud account and container registry access. Database and S3 workflows also use an active Sealos workspace.',
+      'Bring a supported coding agent and a local repo or GitHub URL. Sealos Skills checks the selected workflow and requests the required Sealos, registry, workspace, Docker, or kubectl access.',
   },
   {
-    question: 'What does the Sealos plugin install?',
+    question: 'Do I need a Sealos account before installation?',
     answer:
-      'One managed package installs all eight root skills: deploy, database, S3, Canvas, app builder, cloud-native readiness, Dockerfile generation, and Docker Compose conversion.',
+      'Install the skill pack first. Deployment, database, and S3 workflows guide Sealos login when they need cloud access.',
   },
   {
-    question: 'Which coding agents can use Sealos Skills?',
+    question: 'How does Sealos Skills verify a deployment?',
     answer:
-      'Codex and Claude Code use plugins. Qoder imports a package. OpenClaw uses a bundle. Gemini and Qwen use context extensions. Amp and Kimi import the repository.',
-  },
-  {
-    question: 'When are Docker and kubectl used?',
-    answer:
-      'Docker supports local image builds. kubectl supports deployment discovery, updates, rollout verification, and Canvas inspection. Preflight selects the tools required by each workflow.',
+      'It checks the real application URL, rollout status, logs, web setup or login flow, and resource footprint before reporting the app usable.',
   },
   {
     question: 'How are credentials handled?',
     answer:
-      'Sealos authentication, kubeconfig, database credentials, and S3 keys remain in protected local files or project environment files. Reports include resource references and verification evidence.',
+      'Sealos authentication, kubeconfig, database credentials, and S3 keys stay in protected local or project environment files. Reports contain resource references and test results.',
+  },
+  {
+    question: 'When are Docker and kubectl used?',
+    answer:
+      'Docker builds images when the project needs one. kubectl discovers targets, updates workloads, checks rollouts, and powers read-only Canvas inspection.',
   },
   {
     question: 'When can I use Canvas?',
     answer:
-      'Canvas works after a deploy run creates .sealos/state.json. It reads the saved target, queries resources with read-only commands, and opens a temporary local view.',
+      'Canvas opens after a verified deploy writes .sealos/state.json. It reads the saved target, queries current resources with read-only commands, and starts a temporary local view.',
   },
   {
     question: 'Can Sealos Skills update an existing deployment?',
     answer:
-      'Yes. A later deploy run reads .sealos/state.json, confirms the target, rebuilds or reuses the image, patches the rollout, and records the result.',
+      'A later deploy reads .sealos/state.json, confirms the target, rebuilds or reuses the image, updates the workload, verifies rollout, and saves the new result.',
+  },
+  {
+    question: 'What comes with the plugin?',
+    answer:
+      'The managed plugin loads eight skills from one source: deploy, database, S3, Canvas, app builder, cloud-native readiness, Dockerfile generation, and Compose conversion.',
   },
 ] as const satisfies readonly FaqItem[];

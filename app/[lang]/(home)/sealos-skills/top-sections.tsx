@@ -15,7 +15,6 @@ import { CopyCommandButton } from './copy-command';
 import {
   AGENT_TARGETS,
   CODEX_INSTALL_COMMAND,
-  CORE_CAPABILITIES,
   PAGE_COPY,
   PROOF_ITEMS,
   REPO_URL,
@@ -60,13 +59,13 @@ export function HeroSection() {
             <p className="mt-6 max-w-[58ch] text-base leading-7 text-[#AAA4B4] sm:text-lg sm:leading-8">
               {PAGE_COPY.hero.description}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 grid grid-cols-[0.9fr_1.1fr] gap-3 sm:flex sm:flex-wrap">
               <CopyCommandButton
                 value={CODEX_INSTALL_COMMAND}
                 label={PAGE_COPY.hero.primaryCta}
                 showStatus
                 tone="accent"
-                className="min-w-[148px]"
+                className="min-w-0 px-3 text-xs sm:min-w-[148px] sm:px-4 sm:text-sm"
                 tracking={{
                   id: 'skills_hero_copy_codex_install',
                   location: 'sealos_skills_hero',
@@ -75,6 +74,7 @@ export function HeroSection() {
               />
               <TrackedLink
                 href={REPO_URL}
+                className="min-w-0 px-3 text-xs sm:px-4 sm:text-sm"
                 tracking={{
                   id: 'skills_hero_view_github',
                   location: 'sealos_skills_hero',
@@ -111,6 +111,20 @@ export function HeroSection() {
             </div>
           </div>
         </div>
+
+        <div className="mt-6 grid border-y border-[#F5F2F8]/10 sm:mt-14 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
+          {PROOF_ITEMS.map((proof) => (
+            <div
+              key={proof.label}
+              className="border-b border-[#F5F2F8]/10 px-4 py-6 last:border-b-0 sm:border-r lg:border-b-0 lg:[&:last-child]:border-r-0 sm:[&:nth-child(2)]:border-r-0 lg:[&:nth-child(2)]:border-r sm:[&:nth-child(3)]:border-b-0"
+            >
+              <p className="font-mono text-xl font-semibold text-[#F5F2F8]">
+                {proof.value}
+              </p>
+              <p className="mt-1 text-sm text-[#8F899B]">{proof.label}</p>
+            </div>
+          ))}
+        </div>
       </SectionShell>
     </section>
   );
@@ -119,20 +133,6 @@ export function HeroSection() {
 export function AgentDirectorySection() {
   return (
     <SectionShell id="compatibility" className="py-16 sm:py-24">
-      <div className="mb-16 grid border-y border-[#F5F2F8]/10 sm:grid-cols-2 lg:grid-cols-4">
-        {PROOF_ITEMS.map((proof) => (
-          <div
-            key={proof.label}
-            className="border-b border-[#F5F2F8]/10 px-4 py-6 last:border-b-0 sm:border-r lg:border-b-0 lg:[&:last-child]:border-r-0 sm:[&:nth-child(2)]:border-r-0 lg:[&:nth-child(2)]:border-r sm:[&:nth-child(3)]:border-b-0"
-          >
-            <p className="font-mono text-xl font-semibold text-[#F5F2F8]">
-              {proof.value}
-            </p>
-            <p className="mt-1 text-sm text-[#8F899B]">{proof.label}</p>
-          </div>
-        ))}
-      </div>
-
       <SectionHeading
         title={PAGE_COPY.directory.title}
         description={PAGE_COPY.directory.description}
@@ -143,44 +143,32 @@ export function AgentDirectorySection() {
           <article
             key={agent.id}
             className={cn(
-              'flex min-h-[336px] min-w-0 flex-col rounded-lg border border-[#F5F2F8]/10 bg-[#191624] p-5 transition duration-200 hover:-translate-y-0.5 hover:border-[#4CAFE1]/45 motion-reduce:transform-none motion-reduce:transition-none',
+              'flex min-h-[310px] min-w-0 flex-col rounded-lg border border-[#F5F2F8]/10 bg-[#191624] p-5 transition duration-200 hover:-translate-y-0.5 hover:border-[#4CAFE1]/45 motion-reduce:transform-none motion-reduce:transition-none',
               index >= 8 && 'lg:col-span-2',
             )}
           >
             <div className="flex items-start justify-between gap-4">
               <AgentMark icon={agent.icon} name={agent.name} />
               <span className="rounded-sm border border-[#F5F2F8]/12 px-2 py-1 font-mono text-[11px] text-[#AAA4B4]">
-                {agent.mode}
+                {agent.integration}
               </span>
             </div>
             <p className="mt-5 text-xs text-[#7F798A]">{agent.vendor}</p>
             <h3 className="mt-1 text-xl font-semibold text-[#F5F2F8]">
               {agent.name}
             </h3>
-            <p className="mt-3 min-h-[42px] text-sm leading-6 text-[#AAA4B4]">
+            <p className="mt-3 font-mono text-xs text-[#4CAFE1]">
+              {agent.installSummary}
+            </p>
+            <p className="mt-2 min-h-[42px] text-sm leading-6 text-[#AAA4B4]">
               {agent.installNote}
             </p>
             <pre className="mt-4 min-h-[64px] min-w-0 overflow-x-auto rounded-md border border-[#F5F2F8]/10 bg-[#100E18] p-3 font-mono text-[11px] leading-5 whitespace-pre text-[#D8D2E0]">
               <code>{agent.install}</code>
             </pre>
             <p className="mt-3 min-h-[40px] font-mono text-xs leading-5 text-[#4CAFE1]">
-              Invoke: {agent.invocation}
+              Start with: {agent.invocation}
             </p>
-            <div className="mt-4 grid grid-cols-2 gap-x-3 gap-y-2">
-              {agent.capabilities.map((capability) => (
-                <span
-                  key={capability}
-                  className="flex items-center gap-2 text-xs text-[#9F99AA]"
-                >
-                  <Check
-                    className="size-3.5 text-[#4CAFE1]"
-                    strokeWidth={1.8}
-                    aria-hidden="true"
-                  />
-                  {capability}
-                </span>
-              ))}
-            </div>
             <div className="mt-auto grid grid-cols-2 gap-2 pt-5">
               <CopyCommandButton
                 value={agent.install}
@@ -203,7 +191,7 @@ export function AgentDirectorySection() {
                   destination: `github_sealos_skills_${agent.id}`,
                 }}
               >
-                View guide
+                Open guide
               </TrackedLink>
             </div>
           </article>
@@ -234,10 +222,10 @@ export function SupportMatrixSection() {
             <tr>
               {[
                 'Agent',
-                'Install mode',
+                'Integration',
                 'Install path',
-                'Invoke',
-                ...CORE_CAPABILITIES,
+                'Start with',
+                'Notes',
               ].map((column, index) => (
                 <th
                   key={column}
@@ -263,7 +251,7 @@ export function SupportMatrixSection() {
                   {agent.name}
                 </th>
                 <td className="border-b border-[#F5F2F8]/8 px-4 py-4 text-sm text-[#C3BDCC]">
-                  {agent.mode}
+                  {agent.integration}
                 </td>
                 <td className="border-b border-[#F5F2F8]/8 px-4 py-4 text-sm text-[#AAA4B4]">
                   <code className="block max-w-[420px] text-xs leading-5 whitespace-pre-wrap text-[#D8D2E0]">
@@ -272,28 +260,13 @@ export function SupportMatrixSection() {
                   <span className="mt-2 block text-xs text-[#7F798A]">
                     {agent.installSummary}
                   </span>
-                  {agent.id === 'qoder' && (
-                    <span className="mt-1 block text-xs text-[#7F798A]">
-                      {agent.installNote}
-                    </span>
-                  )}
                 </td>
                 <td className="border-b border-[#F5F2F8]/8 px-4 py-4 font-mono text-xs text-[#4CAFE1]">
                   {agent.invocation}
                 </td>
-                {agent.capabilities.map((capability) => (
-                  <td
-                    key={capability}
-                    className="border-b border-[#F5F2F8]/8 px-4 py-4 text-center"
-                  >
-                    <Check
-                      className="mx-auto size-4 text-[#4CAFE1]"
-                      strokeWidth={1.8}
-                      aria-hidden="true"
-                    />
-                    <span className="sr-only">Available</span>
-                  </td>
-                ))}
+                <td className="max-w-[320px] border-b border-[#F5F2F8]/8 px-4 py-4 text-sm leading-6 text-[#AAA4B4]">
+                  {agent.installNote}
+                </td>
               </tr>
             ))}
           </tbody>

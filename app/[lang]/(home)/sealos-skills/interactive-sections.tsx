@@ -89,7 +89,9 @@ export function WorkflowTabs() {
       >
         <div className="border-b border-[#F5F2F8]/10 p-5 sm:p-7 lg:border-r lg:border-b-0">
           <div className="flex items-center justify-between gap-4">
-            <span className="font-mono text-xs text-[#4CAFE1]">Prompt</span>
+            <span className="font-mono text-xs text-[#4CAFE1]">
+              Your prompt
+            </span>
             <CopyCommandButton
               value={activeScenario.prompt}
               label="Copy prompt"
@@ -101,7 +103,7 @@ export function WorkflowTabs() {
             <code>{activeScenario.prompt}</code>
           </pre>
           <h3 className="mt-8 text-sm font-semibold text-[#F5F2F8]">
-            What the agent does
+            What Sealos Skills does
           </h3>
           <ol className="mt-4 space-y-4">
             {activeScenario.action.map((action) => (
@@ -127,7 +129,7 @@ export function WorkflowTabs() {
               strokeWidth={1.7}
               aria-hidden="true"
             />
-            <h3 className="text-sm font-semibold">What you can review</h3>
+            <h3 className="text-sm font-semibold">Evidence you get</h3>
           </div>
           <div className="mt-5 border-t border-[#F5F2F8]/10">
             {activeScenario.evidence.map((evidence) => (
@@ -141,7 +143,7 @@ export function WorkflowTabs() {
             ))}
           </div>
           <div className="mt-auto flex items-center justify-between gap-4 border-t border-[#F5F2F8]/10 pt-6">
-            <span className="text-sm text-[#8F899B]">Workflow result</span>
+            <span className="text-sm text-[#8F899B]">Verified result</span>
             <span className="flex items-center gap-2 rounded-sm border border-[#4CAFE1]/35 bg-[#4CAFE1]/10 px-3 py-2 text-sm font-semibold text-[#BFE8F7]">
               <Check className="size-4" strokeWidth={1.8} aria-hidden="true" />
               {activeScenario.result}
@@ -161,7 +163,7 @@ export function InstallTabs() {
       id: target.id as InstallTabId,
       label: target.label,
     })),
-    { id: 'more' as const, label: 'More hosts' },
+    { id: 'more' as const, label: 'More agents' },
   ];
   const moreHosts = AGENT_TARGETS.filter(
     (agent) => !['codex', 'claude', 'skills-sh'].includes(agent.id),
@@ -226,14 +228,14 @@ export function InstallTabs() {
               {'compatibilityCommand' in activeTarget &&
                 activeTarget.compatibilityCommand && (
                   <div className="mt-4 text-xs leading-6 text-[#8F899B]">
-                    <span className="mr-2">Compatibility path</span>
+                    <span className="mr-2">Cross-host installer</span>
                     <code className="font-mono text-[#C8C2D0]">
                       {activeTarget.compatibilityCommand}
                     </code>
                   </div>
                 )}
               <p className="mt-5 font-mono text-sm text-[#4CAFE1]">
-                Invoke with {activeTarget.invocation}
+                Start with {activeTarget.invocation}
               </p>
             </div>
             <CopyCommandButton
@@ -266,7 +268,7 @@ export function InstallTabs() {
                       {agent.name}
                     </h3>
                     <span className="font-mono text-[11px] text-[#7F798A]">
-                      {agent.mode}
+                      {agent.integration}
                     </span>
                   </div>
                   <code className="mt-2 block overflow-x-auto font-mono text-[11px] leading-5 whitespace-pre text-[#AAA4B4]">
@@ -276,7 +278,7 @@ export function InstallTabs() {
                     {agent.installNote}
                   </p>
                   <p className="mt-2 font-mono text-xs leading-5 text-[#4CAFE1]">
-                    Invoke: {agent.invocation}
+                    Start with: {agent.invocation}
                   </p>
                 </div>
                 <CopyCommandButton
