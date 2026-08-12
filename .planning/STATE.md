@@ -6,9 +6,9 @@ current_phase: 32
 current_phase_name: sitemap-route-parity-and-production-verification
 status: blocked
 stopped_at: Independent Phase 32 verification complete with production acceptance BLOCKED
-last_updated: "2026-08-04T00:49:07Z"
-last_activity: 2026-08-04
-last_activity_desc: Independent Phase 32 verification recorded 14/16 must-haves and authoritative production blockers
+last_updated: "2026-08-12T02:11:03Z"
+last_activity: 2026-08-12
+last_activity_desc: Completed quick task 260812-3k5 for the Sealos Skills evidence-led landing page
 progress:
   total_phases: 2
   completed_phases: 1
@@ -48,7 +48,7 @@ Phase 32 owns the pending PARITY-02 and DELIVERY-02 requirements.
 Phase: 32 (sitemap-route-parity-and-production-verification) — BLOCKED
 Plan: 4 of 4
 Status: Independent verification complete with 14/16 must-haves; production acceptance BLOCKED
-Last activity: 2026-08-04 — Fresh production verification retained 28 route 404 findings, 28 slug drifts, five description drifts, and the disabled Vercel workflow
+Last activity: 2026-08-12 — Completed quick task 260812-3k5 for the Sealos Skills evidence-led landing page
 
 ## Next Action
 
@@ -71,6 +71,7 @@ production workflows for one SHA, then require a zero-finding live rerun.
 | 260709-n35 | Fix /products/databases footer bottom Sealos word to match homepage | 2026-07-09 | PR #304 | [260709-n35-fix-products-databases-footer-bottom-sea](./quick/260709-n35-fix-products-databases-footer-bottom-sea/) |
 | 260720-g4e | Add Playwright verification guidance to the Cloud Run article | 2026-07-20 | e9314f2 | [260720-g4e-update-the-sealos-io-blog-article-for-th](./quick/260720-g4e-update-the-sealos-io-blog-article-for-th/) |
 | 260721-n8f | Add permanent LobeHub legacy app-store redirects across Vercel and Cloudflare Pages | 2026-07-21 | ef5aad0 | [260721-n8f-add-permanent-lobehub-legacy-app-store-r](./quick/260721-n8f-add-permanent-lobehub-legacy-app-store-r/) |
+| 260812-3k5 | Refine the Sealos Skills landing page around verified deployment evidence | 2026-08-12 | 8fd9635 | [260812-3k5-refine-the-sealos-skills-landing-page-co](./quick/260812-3k5-refine-the-sealos-skills-landing-page-co/) |
 
 ## Performance Metrics
 
