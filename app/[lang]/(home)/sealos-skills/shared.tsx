@@ -18,14 +18,14 @@ type LogoIconKey = Exclude<AgentIconKey, 'bot' | 'terminal' | 'code'>;
 
 const AGENT_LOGOS: Record<
   LogoIconKey,
-  { alt: string; src: StaticImageData; className?: string }
+  { src: StaticImageData; className?: string }
 > = {
-  openai: { alt: 'OpenAI', src: OpenAILogo },
-  claude: { alt: 'Claude Code', src: ClaudeCodeLogo },
-  qoder: { alt: 'Qoder', src: QoderLogo },
-  gemini: { alt: 'Gemini', src: GeminiLogo },
-  qwen: { alt: 'Qwen', src: QwenLogo },
-  codebuddy: { alt: 'CodeBuddy', src: CodeBuddyLogo },
+  openai: { src: OpenAILogo },
+  claude: { src: ClaudeCodeLogo },
+  qoder: { src: QoderLogo },
+  gemini: { src: GeminiLogo },
+  qwen: { src: QwenLogo },
+  codebuddy: { src: CodeBuddyLogo },
 };
 
 const FALLBACK_ICONS = {
@@ -91,21 +91,18 @@ export function SectionHeading({
   );
 }
 
-export function AgentMark({
-  icon,
-  name,
-}: {
-  icon: AgentIconKey;
-  name: string;
-}) {
+export function AgentMark({ icon }: { icon: AgentIconKey }) {
   if (isLogoIcon(icon)) {
     const logo = AGENT_LOGOS[icon];
 
     return (
-      <span className="flex size-12 shrink-0 items-center justify-center rounded-md border border-[#F5F2F8]/12 bg-[#F5F2F8]/[0.04]">
+      <span
+        className="flex size-12 shrink-0 items-center justify-center rounded-md border border-[#F5F2F8]/12 bg-[#F5F2F8]/[0.04]"
+        aria-hidden="true"
+      >
         <Image
           src={logo.src}
-          alt={logo.alt}
+          alt=""
           width={28}
           height={28}
           className={cn('size-7 object-contain', logo.className)}
@@ -119,7 +116,7 @@ export function AgentMark({
   return (
     <span
       className="flex size-12 shrink-0 items-center justify-center rounded-md border border-[#F5F2F8]/12 bg-[#F5F2F8]/[0.04] text-[#D8D2E0]"
-      aria-label={name}
+      aria-hidden="true"
     >
       <Icon className="size-6" strokeWidth={1.6} aria-hidden="true" />
     </span>

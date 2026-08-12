@@ -22,7 +22,8 @@ Qoder imports a packaged plugin.
 _Avoid_: Extension when describing plugin integrations
 
 **Install Path**:
-The documented command or import flow an Agent uses to load Sealos Skills.
+The documented command or import flow used to load Sealos Skills. Most paths
+target an Agent; skills.sh is a direct skill-pack distribution path.
 _Avoid_: Cloud path, setup route
 
 **Evidence**:

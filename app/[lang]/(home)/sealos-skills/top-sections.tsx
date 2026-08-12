@@ -13,7 +13,6 @@ import {
 } from 'lucide-react';
 import { CopyCommandButton } from './copy-command';
 import {
-  AGENT_TARGETS,
   CODEX_INSTALL_COMMAND,
   PAGE_COPY,
   PROOF_ITEMS,
@@ -22,7 +21,6 @@ import {
   type SkillIconName,
 } from './content';
 import {
-  AgentMark,
   AnchorAlias,
   SectionHeading,
   SectionShell,
@@ -127,152 +125,6 @@ export function HeroSection() {
         </div>
       </SectionShell>
     </section>
-  );
-}
-
-export function AgentDirectorySection() {
-  return (
-    <SectionShell id="compatibility" className="py-16 sm:py-24">
-      <SectionHeading
-        title={PAGE_COPY.directory.title}
-        description={PAGE_COPY.directory.description}
-      />
-
-      <div className="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
-        {AGENT_TARGETS.map((agent, index) => (
-          <article
-            key={agent.id}
-            className={cn(
-              'flex min-h-[310px] min-w-0 flex-col rounded-lg border border-[#F5F2F8]/10 bg-[#191624] p-5 transition duration-200 hover:-translate-y-0.5 hover:border-[#4CAFE1]/45 motion-reduce:transform-none motion-reduce:transition-none',
-              index >= 8 && 'lg:col-span-2',
-            )}
-          >
-            <div className="flex items-start justify-between gap-4">
-              <AgentMark icon={agent.icon} name={agent.name} />
-              <span className="rounded-sm border border-[#F5F2F8]/12 px-2 py-1 font-mono text-[11px] text-[#AAA4B4]">
-                {agent.integration}
-              </span>
-            </div>
-            <p className="mt-5 text-xs text-[#7F798A]">{agent.vendor}</p>
-            <h3 className="mt-1 text-xl font-semibold text-[#F5F2F8]">
-              {agent.name}
-            </h3>
-            <p className="mt-3 font-mono text-xs text-[#4CAFE1]">
-              {agent.installSummary}
-            </p>
-            <p className="mt-2 min-h-[42px] text-sm leading-6 text-[#AAA4B4]">
-              {agent.installNote}
-            </p>
-            <pre className="mt-4 min-h-[64px] min-w-0 overflow-x-auto rounded-md border border-[#F5F2F8]/10 bg-[#100E18] p-3 font-mono text-[11px] leading-5 whitespace-pre text-[#D8D2E0]">
-              <code>{agent.install}</code>
-            </pre>
-            <p className="mt-3 min-h-[40px] font-mono text-xs leading-5 text-[#4CAFE1]">
-              Start with: {agent.invocation}
-            </p>
-            <div className="mt-auto grid grid-cols-2 gap-2 pt-5">
-              <CopyCommandButton
-                value={agent.install}
-                label="Copy install"
-                showStatus
-                tone="quiet"
-                className="w-full"
-                tracking={{
-                  id: agent.copyTrackingId,
-                  location: 'sealos_skills_agent_directory',
-                  destination: `clipboard_${agent.id}_install`,
-                }}
-              />
-              <TrackedLink
-                href={agent.guideHref}
-                className="min-h-9 w-full px-3 text-xs"
-                tracking={{
-                  id: agent.guideTrackingId,
-                  location: 'sealos_skills_agent_directory',
-                  destination: `github_sealos_skills_${agent.id}`,
-                }}
-              >
-                Open guide
-              </TrackedLink>
-            </div>
-          </article>
-        ))}
-      </div>
-    </SectionShell>
-  );
-}
-
-export function SupportMatrixSection() {
-  return (
-    <SectionShell id="support" className="py-16 sm:py-24">
-      <SectionHeading
-        title={PAGE_COPY.support.title}
-        description={PAGE_COPY.support.description}
-      />
-      <div
-        className="mt-10 overflow-x-auto rounded-lg border border-[#F5F2F8]/10 bg-[#15121E] focus-visible:ring-2 focus-visible:ring-[#4CAFE1] focus-visible:outline-none"
-        tabIndex={0}
-        role="region"
-        aria-label="Sealos Skills host support matrix"
-      >
-        <table className="w-full min-w-[1080px] border-collapse text-left">
-          <caption className="sr-only">
-            Installation and capability support for Sealos Skills agent hosts
-          </caption>
-          <thead className="bg-[#211D2B]">
-            <tr>
-              {[
-                'Agent',
-                'Integration',
-                'Install path',
-                'Start with',
-                'Notes',
-              ].map((column, index) => (
-                <th
-                  key={column}
-                  scope="col"
-                  className={cn(
-                    'border-b border-[#F5F2F8]/12 px-4 py-4 font-mono text-xs font-medium text-[#AAA4B4]',
-                    index === 0 &&
-                      'sticky left-0 z-[1] min-w-[160px] bg-[#211D2B]',
-                  )}
-                >
-                  {column}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {AGENT_TARGETS.map((agent) => (
-              <tr key={agent.id} className="group">
-                <th
-                  scope="row"
-                  className="sticky left-0 z-[1] border-b border-[#F5F2F8]/8 bg-[#15121E] px-4 py-4 text-sm font-semibold text-[#F5F2F8] group-hover:bg-[#1A1723]"
-                >
-                  {agent.name}
-                </th>
-                <td className="border-b border-[#F5F2F8]/8 px-4 py-4 text-sm text-[#C3BDCC]">
-                  {agent.integration}
-                </td>
-                <td className="border-b border-[#F5F2F8]/8 px-4 py-4 text-sm text-[#AAA4B4]">
-                  <code className="block max-w-[420px] text-xs leading-5 whitespace-pre-wrap text-[#D8D2E0]">
-                    {agent.install}
-                  </code>
-                  <span className="mt-2 block text-xs text-[#7F798A]">
-                    {agent.installSummary}
-                  </span>
-                </td>
-                <td className="border-b border-[#F5F2F8]/8 px-4 py-4 font-mono text-xs text-[#4CAFE1]">
-                  {agent.invocation}
-                </td>
-                <td className="max-w-[320px] border-b border-[#F5F2F8]/8 px-4 py-4 text-sm leading-6 text-[#AAA4B4]">
-                  {agent.installNote}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </SectionShell>
   );
 }
 

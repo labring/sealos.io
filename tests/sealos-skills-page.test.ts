@@ -24,6 +24,7 @@ const contextSource = readSource(`${route}/CONTEXT.md`);
 const pageSource = readSource(`${route}/page.tsx`);
 const landingSource = readSource(`${route}/components.tsx`);
 const topSource = readSource(`${route}/top-sections.tsx`);
+const accordionSource = readSource('components/ui/accordion.tsx');
 
 test('Sealos Skills uses the official host install paths', () => {
   const commands = [
@@ -64,9 +65,10 @@ test('Sealos Skills uses the official host install paths', () => {
 
   const agentsBlock = contentSource.slice(
     contentSource.indexOf('export const AGENT_TARGETS = ['),
-    contentSource.indexOf('export type InstallTargetId'),
+    contentSource.indexOf('export type SkillIconName'),
   );
-  assert.equal([...agentsBlock.matchAll(/copyTrackingId:/g)].length, 10);
+  assert.equal([...agentsBlock.matchAll(/installTrackingId:/g)].length, 10);
+  assert.equal([...agentsBlock.matchAll(/guideTrackingId:/g)].length, 10);
   for (const integration of [
     'Managed plugin',
     'Packaged plugin',
@@ -143,13 +145,13 @@ test('Sealos Skills renders the approved conversion hierarchy and section order'
     'View source on GitHub',
     'From prompt to evidence.',
     'The cloud work between your repo and a live app.',
-    'Use Sealos Skills in the agent you already use.',
-    'Pick the install path for your agent.',
-    'Install Sealos Skills where you code.',
+    'Choose your agent. Copy one install path.',
+    'One skill source. 10 documented install paths.',
+    'More install paths',
     'Before the first run',
     'Deploy your repo. Keep the evidence.',
     'skills from one source',
-    'documented agent paths',
+    'documented install paths',
     'checked before handoff',
     'inspectable run evidence',
   ]) {
@@ -160,8 +162,6 @@ test('Sealos Skills renders the approved conversion hierarchy and section order'
     '<HeroSection />',
     '<WorkflowSection />',
     '<CapabilitiesSection />',
-    '<AgentDirectorySection />',
-    '<SupportMatrixSection />',
     '<InstallSection />',
     '<SetupFaqSection />',
     '<FinalCtaSection />',
@@ -194,6 +194,18 @@ test('Sealos Skills renders the approved conversion hierarchy and section order'
       `missing anchor: ${anchor}`,
     );
   }
+
+  for (const removedCopy of [
+    'Use Sealos Skills in the agent you already use.',
+    'Pick the install path for your agent.',
+    'Install Sealos Skills where you code.',
+  ]) {
+    assert.equal(
+      routeSource.includes(removedCopy),
+      false,
+      `repeated copy remains: ${removedCopy}`,
+    );
+  }
 });
 
 test('Sealos Skills defines the copy terminology contract', () => {
@@ -223,22 +235,26 @@ test('Sealos Skills keeps the Railway-inspired visual contract focused', () => {
   assert.equal(/[—–]/u.test(routeSource), false);
 });
 
-test('Sealos Skills matrix, workflows, and FAQ cover the public contract', () => {
-  for (const column of [
-    'Agent',
-    'Integration',
-    'Install path',
-    'Start with',
-    'Notes',
-  ]) {
-    assert.ok(
-      routeSource.includes(`'${column}'`),
-      `missing matrix column: ${column}`,
-    );
-  }
-
-  assert.equal(topSource.includes('CORE_CAPABILITIES'), false);
-  assert.equal(topSource.includes('agent.capabilities'), false);
+test('Sealos Skills install decision, workflows, and FAQ cover the public contract', () => {
+  assert.equal(routeSource.includes('AgentDirectorySection'), false);
+  assert.equal(routeSource.includes('SupportMatrixSection'), false);
+  assert.equal(routeSource.includes('INSTALL_TARGETS'), false);
+  assert.equal(routeSource.includes('<table'), false);
+  assert.ok(routeSource.includes("type PrimaryInstallId = 'codex' | 'claude'"));
+  assert.ok(routeSource.includes('More install paths'));
+  assert.ok(routeSource.includes('type="single"'));
+  assert.ok(routeSource.includes('collapsible'));
+  assert.ok(routeSource.includes('Open install guide'));
+  assert.ok(routeSource.includes('Start with {activeTarget.invocation}'));
+  assert.ok(routeSource.includes('Start with {agent.invocation}'));
+  assert.ok(routeSource.includes('<AnchorAlias id="compatibility" />'));
+  assert.ok(routeSource.includes('<AnchorAlias id="support" />'));
+  assert.ok(
+    accordionSource.includes('motion-reduce:data-[state=closed]:animate-none'),
+  );
+  assert.ok(
+    accordionSource.includes('motion-reduce:data-[state=open]:animate-none'),
+  );
 
   for (const workflowLabel of [
     'Your prompt',
@@ -322,7 +338,7 @@ test('Sealos Skills conversion CTAs use stable Rybbit IDs', () => {
     assert.ok(routeSource.includes(id), `missing CTA tracking ID: ${id}`);
   }
 
-  for (const agentId of [
+  for (const pathId of [
     'codex',
     'claude',
     'qoder',
@@ -334,9 +350,20 @@ test('Sealos Skills conversion CTAs use stable Rybbit IDs', () => {
     'kimi',
     'skills_sh',
   ]) {
-    assert.ok(routeSource.includes(`skills_agent_copy_${agentId}`));
-    assert.ok(routeSource.includes(`skills_agent_guide_${agentId}`));
+    assert.ok(routeSource.includes(`skills_install_copy_${pathId}`));
+    assert.ok(routeSource.includes(`skills_install_guide_${pathId}`));
   }
+
+  assert.equal(routeSource.includes('skills_agent_copy_'), false);
+  assert.equal(routeSource.includes('skills_agent_guide_'), false);
+
+  const declaredInstallIds = [
+    ...contentSource.matchAll(
+      /(?:guideTrackingId|installTrackingId): '(skills_install_[^']+)'/g,
+    ),
+  ].map((match) => match[1]);
+  assert.equal(declaredInstallIds.length, 20);
+  assert.equal(new Set(declaredInstallIds).size, 20);
 });
 
 test('Sealos Skills ships the real Codex plugin screenshot', () => {

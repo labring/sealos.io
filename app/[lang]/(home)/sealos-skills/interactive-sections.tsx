@@ -1,18 +1,37 @@
 'use client';
 
 import { useState, type KeyboardEvent } from 'react';
-import { Check, FileCheck2, Terminal } from 'lucide-react';
+import { Check, FileCheck2 } from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import { cn } from '@/lib/utils';
 import {
   AGENT_TARGETS,
-  INSTALL_TARGETS,
+  PAGE_COPY,
   WORKFLOW_SCENARIOS,
-  type InstallTargetId,
   type WorkflowScenarioId,
 } from './content';
 import { CopyCommandButton } from './copy-command';
+import { AgentMark, TrackedLink } from './shared';
 
-type InstallTabId = InstallTargetId | 'more';
+type PrimaryInstallId = 'codex' | 'claude';
+type AgentTarget = (typeof AGENT_TARGETS)[number];
+type PrimaryInstallTarget = Extract<
+  AgentTarget,
+  { readonly id: PrimaryInstallId }
+>;
+
+const PRIMARY_INSTALL_IDS: readonly PrimaryInstallId[] = ['codex', 'claude'];
+
+function isPrimaryInstallTarget(
+  agent: AgentTarget,
+): agent is PrimaryInstallTarget {
+  return agent.id === 'codex' || agent.id === 'claude';
+}
 
 function handleTabKeyDown(
   event: KeyboardEvent<HTMLButtonElement>,
@@ -156,17 +175,11 @@ export function WorkflowTabs() {
 }
 
 export function InstallTabs() {
-  const [activeId, setActiveId] = useState<InstallTabId>('codex');
-  const activeTarget = INSTALL_TARGETS.find((target) => target.id === activeId);
-  const tabItems = [
-    ...INSTALL_TARGETS.map((target) => ({
-      id: target.id as InstallTabId,
-      label: target.label,
-    })),
-    { id: 'more' as const, label: 'More agents' },
-  ];
-  const moreHosts = AGENT_TARGETS.filter(
-    (agent) => !['codex', 'claude', 'skills-sh'].includes(agent.id),
+  const [activeId, setActiveId] = useState<PrimaryInstallId>('codex');
+  const primaryTargets = AGENT_TARGETS.filter(isPrimaryInstallTarget);
+  const activeTarget = primaryTargets.find((agent) => agent.id === activeId)!;
+  const moreTargets = AGENT_TARGETS.filter(
+    (agent) => !PRIMARY_INSTALL_IDS.includes(agent.id as PrimaryInstallId),
   );
 
   return (
@@ -176,28 +189,28 @@ export function InstallTabs() {
         aria-label="Sealos Skills install paths"
         className="flex max-w-full gap-1 overflow-x-auto border-b border-[#F5F2F8]/10 bg-[#191624] p-2"
       >
-        {tabItems.map((tab, index) => (
+        {primaryTargets.map((agent, index) => (
           <button
-            key={tab.id}
+            key={agent.id}
             type="button"
             role="tab"
-            id={`install-tab-${tab.id}`}
-            aria-controls={`install-panel-${tab.id}`}
-            aria-selected={activeId === tab.id}
-            tabIndex={activeId === tab.id ? 0 : -1}
-            data-tab-id={tab.id}
-            onClick={() => setActiveId(tab.id)}
+            id={`install-tab-${agent.id}`}
+            aria-controls={`install-panel-${agent.id}`}
+            aria-selected={activeId === agent.id}
+            tabIndex={activeId === agent.id ? 0 : -1}
+            data-tab-id={agent.id}
+            onClick={() => setActiveId(agent.id)}
             onKeyDown={(event) =>
               handleTabKeyDown(event, index, (id) =>
-                setActiveId(id as InstallTabId),
+                setActiveId(id as PrimaryInstallId),
               )
             }
             className={cn(
-              'min-h-10 shrink-0 rounded-md px-4 text-sm font-semibold text-[#918B9B] transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[#4CAFE1] focus-visible:outline-none motion-reduce:transition-none',
-              activeId === tab.id && 'bg-[#4CAFE1] text-[#0D1720]',
+              'flex min-h-11 shrink-0 items-center gap-2 rounded-md px-4 text-sm font-semibold text-[#918B9B] transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[#4CAFE1] focus-visible:outline-none motion-reduce:transition-none',
+              activeId === agent.id && 'bg-[#4CAFE1] text-[#0D1720]',
             )}
           >
-            {tab.label}
+            {agent.name}
           </button>
         ))}
       </div>
@@ -206,40 +219,43 @@ export function InstallTabs() {
         role="tabpanel"
         id={`install-panel-${activeId}`}
         aria-labelledby={`install-tab-${activeId}`}
-        className="min-h-[320px] p-5 sm:p-8"
+        className="p-5 sm:p-8"
       >
-        {activeTarget ? (
-          <div className="grid gap-7 lg:grid-cols-[1fr_auto] lg:items-end">
-            <div className="min-w-0">
-              <div className="flex items-center gap-3 text-[#F5F2F8]">
-                <Terminal
-                  className="size-5 text-[#4CAFE1]"
-                  strokeWidth={1.7}
-                  aria-hidden="true"
-                />
-                <h3 className="text-lg font-semibold">{activeTarget.label}</h3>
+        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div className="min-w-0">
+            <div className="flex items-center gap-4">
+              <AgentMark icon={activeTarget.icon} />
+              <div>
+                <h3 className="text-lg font-semibold text-[#F5F2F8]">
+                  {activeTarget.name}
+                </h3>
+                <p className="mt-1 font-mono text-xs text-[#4CAFE1]">
+                  {activeTarget.integration}
+                </p>
               </div>
-              <p className="mt-3 text-sm leading-6 text-[#AAA4B4]">
-                {activeTarget.note}
-              </p>
-              <pre className="mt-6 min-w-0 overflow-x-auto rounded-md border border-[#F5F2F8]/10 bg-[#100E18] p-4 font-mono text-xs leading-6 whitespace-pre text-[#D8D2E0]">
-                <code>{activeTarget.command}</code>
-              </pre>
-              {'compatibilityCommand' in activeTarget &&
-                activeTarget.compatibilityCommand && (
-                  <div className="mt-4 text-xs leading-6 text-[#8F899B]">
-                    <span className="mr-2">Cross-host installer</span>
-                    <code className="font-mono text-[#C8C2D0]">
-                      {activeTarget.compatibilityCommand}
-                    </code>
-                  </div>
-                )}
-              <p className="mt-5 font-mono text-sm text-[#4CAFE1]">
-                Start with {activeTarget.invocation}
-              </p>
             </div>
+            <p className="mt-5 text-sm leading-6 text-[#AAA4B4]">
+              {activeTarget.installNote}
+            </p>
+            <pre className="mt-6 min-w-0 overflow-x-auto rounded-md border border-[#F5F2F8]/10 bg-[#100E18] p-4 font-mono text-xs leading-6 whitespace-pre text-[#D8D2E0]">
+              <code>{activeTarget.install}</code>
+            </pre>
+            {'compatibilityCommand' in activeTarget &&
+              activeTarget.compatibilityCommand && (
+                <div className="mt-4 text-xs leading-6 text-[#8F899B]">
+                  <span className="mr-2">Cross-host installer</span>
+                  <code className="font-mono text-[#C8C2D0]">
+                    {activeTarget.compatibilityCommand}
+                  </code>
+                </div>
+              )}
+            <p className="mt-5 font-mono text-sm text-[#4CAFE1]">
+              Start with {activeTarget.invocation}
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-4 lg:flex-col lg:items-end">
             <CopyCommandButton
-              value={activeTarget.command}
+              value={activeTarget.install}
               label={
                 activeTarget.id === 'codex'
                   ? 'Install in Codex'
@@ -249,53 +265,103 @@ export function InstallTabs() {
               tone="accent"
               className="min-w-[148px]"
               tracking={{
-                id: activeTarget.trackingId,
+                id: activeTarget.installTrackingId,
                 location: 'sealos_skills_install',
                 destination: `clipboard_${activeTarget.id}_install`,
               }}
             />
+            <TrackedLink
+              href={activeTarget.guideHref}
+              className="min-h-0 border-0 px-0 py-1 text-xs font-medium text-[#AAA4B4] hover:bg-transparent hover:text-[#F5F2F8]"
+              tracking={{
+                id: activeTarget.guideTrackingId,
+                location: 'sealos_skills_install',
+                destination: `github_sealos_skills_${activeTarget.id}`,
+              }}
+            >
+              Open install guide
+            </TrackedLink>
           </div>
-        ) : (
-          <div className="grid gap-x-8 md:grid-cols-2">
-            {moreHosts.map((agent) => (
-              <div
-                key={agent.id}
-                className="grid min-w-0 gap-3 border-t border-[#F5F2F8]/10 py-5 sm:grid-cols-[1fr_auto] sm:items-center"
-              >
-                <div className="min-w-0">
-                  <div className="flex items-center gap-3">
-                    <h3 className="text-sm font-semibold text-[#F5F2F8]">
-                      {agent.name}
-                    </h3>
-                    <span className="font-mono text-[11px] text-[#7F798A]">
+        </div>
+      </div>
+
+      <div className="border-t border-[#F5F2F8]/10 px-5 py-6 sm:px-8 sm:py-8">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h3 className="text-lg font-semibold text-[#F5F2F8]">
+              {PAGE_COPY.install.moreTitle}
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-[#8F899B]">
+              {PAGE_COPY.install.moreDescription}
+            </p>
+          </div>
+          <span className="font-mono text-xs text-[#4CAFE1]">
+            {PAGE_COPY.install.moreCount}
+          </span>
+        </div>
+
+        <Accordion
+          type="single"
+          collapsible
+          className="mt-6 border-t border-[#F5F2F8]/10"
+        >
+          {moreTargets.map((agent) => (
+            <AccordionItem
+              key={agent.id}
+              value={agent.id}
+              className="border-[#F5F2F8]/10"
+            >
+              <AccordionTrigger className="gap-4 py-4 text-left hover:no-underline focus-visible:ring-2 focus-visible:ring-[#4CAFE1] focus-visible:outline-none [&>svg]:text-[#7F798A] [&[data-state=open]>svg]:text-[#4CAFE1]">
+                <div className="flex min-w-0 flex-1 items-center gap-4">
+                  <AgentMark icon={agent.icon} />
+                  <div className="min-w-0">
+                    <p className="font-semibold text-[#F5F2F8]">{agent.name}</p>
+                    <p className="mt-1 font-mono text-[11px] text-[#8F899B]">
                       {agent.integration}
-                    </span>
+                    </p>
                   </div>
-                  <code className="mt-2 block overflow-x-auto font-mono text-[11px] leading-5 whitespace-pre text-[#AAA4B4]">
-                    {agent.install}
-                  </code>
-                  <p className="mt-2 text-xs leading-5 text-[#8F899B]">
-                    {agent.installNote}
-                  </p>
-                  <p className="mt-2 font-mono text-xs leading-5 text-[#4CAFE1]">
-                    Start with: {agent.invocation}
-                  </p>
                 </div>
-                <CopyCommandButton
-                  value={agent.install}
-                  label="Copy install"
-                  showStatus
-                  tone="quiet"
-                  tracking={{
-                    id: agent.installTrackingId,
-                    location: 'sealos_skills_install_more_hosts',
-                    destination: `clipboard_${agent.id}_install`,
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-        )}
+              </AccordionTrigger>
+              <AccordionContent className="pb-6 pl-0 sm:pl-16">
+                <p className="max-w-2xl text-sm leading-6 text-[#AAA4B4]">
+                  {agent.installNote}
+                </p>
+                <pre className="mt-4 min-w-0 overflow-x-auto rounded-md border border-[#F5F2F8]/10 bg-[#100E18] p-4 font-mono text-xs leading-6 whitespace-pre text-[#D8D2E0]">
+                  <code>{agent.install}</code>
+                </pre>
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
+                  <p className="font-mono text-xs text-[#4CAFE1]">
+                    Start with {agent.invocation}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-4">
+                    <CopyCommandButton
+                      value={agent.install}
+                      label="Copy install"
+                      showStatus
+                      tone="quiet"
+                      tracking={{
+                        id: agent.installTrackingId,
+                        location: 'sealos_skills_install_more_paths',
+                        destination: `clipboard_${agent.id}_install`,
+                      }}
+                    />
+                    <TrackedLink
+                      href={agent.guideHref}
+                      className="min-h-0 border-0 px-0 py-1 text-xs font-medium text-[#AAA4B4] hover:bg-transparent hover:text-[#F5F2F8]"
+                      tracking={{
+                        id: agent.guideTrackingId,
+                        location: 'sealos_skills_install_more_paths',
+                        destination: `github_sealos_skills_${agent.id}`,
+                      }}
+                    >
+                      Open install guide
+                    </TrackedLink>
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
     </div>
   );

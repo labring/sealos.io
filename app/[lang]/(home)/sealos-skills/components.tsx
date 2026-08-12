@@ -1,9 +1,4 @@
-import {
-  AgentDirectorySection,
-  CapabilitiesSection,
-  HeroSection,
-  SupportMatrixSection,
-} from './top-sections';
+import { CapabilitiesSection, HeroSection } from './top-sections';
 import {
   FinalCtaSection,
   InstallSection,
@@ -17,8 +12,6 @@ export function SealosSkillsLanding() {
       <HeroSection />
       <WorkflowSection />
       <CapabilitiesSection />
-      <AgentDirectorySection />
-      <SupportMatrixSection />
       <InstallSection />
       <SetupFaqSection />
       <FinalCtaSection />

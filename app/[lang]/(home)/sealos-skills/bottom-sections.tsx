@@ -41,10 +41,16 @@ export function WorkflowSection() {
 export function InstallSection() {
   return (
     <SectionShell id="install" className="py-16 sm:py-24">
+      <AnchorAlias id="compatibility" />
+      <AnchorAlias id="support" />
       <SectionHeading
+        eyebrow={PAGE_COPY.install.eyebrow}
         title={PAGE_COPY.install.title}
         description={PAGE_COPY.install.description}
       />
+      <p className="mt-5 font-mono text-xs text-[#4CAFE1]">
+        {PAGE_COPY.install.proof}
+      </p>
       <div className="mt-10">
         <InstallTabs />
       </div>

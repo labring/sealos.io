@@ -111,10 +111,36 @@ test('Sealos Skills conversion CTAs keep stable business IDs', () => {
     'skills_final_copy_codex_install',
   ];
 
+  const installPathIds = [
+    'codex',
+    'claude',
+    'qoder',
+    'gemini',
+    'qwen',
+    'openclaw',
+    'codebuddy',
+    'amp',
+    'kimi',
+    'skills_sh',
+  ];
+
   for (const id of stableIds) {
     assert.ok(
       sealosSkillsSources.includes(id),
       `Sealos Skills must declare ${id}`,
     );
   }
+
+  for (const pathId of installPathIds) {
+    for (const action of ['copy', 'guide']) {
+      const id = `skills_install_${action}_${pathId}`;
+      assert.ok(
+        sealosSkillsSources.includes(id),
+        `Sealos Skills must declare ${id}`,
+      );
+    }
+  }
+
+  assert.equal(sealosSkillsSources.includes('skills_agent_copy_'), false);
+  assert.equal(sealosSkillsSources.includes('skills_agent_guide_'), false);
 });

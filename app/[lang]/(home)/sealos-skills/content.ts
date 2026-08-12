@@ -33,16 +33,6 @@ export const PAGE_COPY = {
     secondaryCta: 'View source on GitHub',
     invocation: 'Then run $sealos deploy this repo to Sealos Cloud.',
   },
-  directory: {
-    title: 'Use Sealos Skills in the agent you already use.',
-    description:
-      'Codex and Claude Code use managed plugins. Other agents load the same root skill source through their documented install model.',
-  },
-  support: {
-    title: 'Pick the install path for your agent.',
-    description:
-      'The skill source stays the same. Installation and invocation follow each agent.',
-  },
   capabilities: {
     eyebrow: 'CLOUD CAPABILITIES',
     title: 'The cloud work between your repo and a live app.',
@@ -55,9 +45,14 @@ export const PAGE_COPY = {
       'Every workflow shows what Sealos Skills did, what it checked, and what you can review before you call it done.',
   },
   install: {
-    title: 'Install Sealos Skills where you code.',
+    eyebrow: 'INSTALL SEALOS SKILLS',
+    title: 'Choose your agent. Copy one install path.',
     description:
-      'Use the managed Codex or Claude Code plugin, or choose the documented path for another agent.',
+      'Start with the managed Codex or Claude Code plugin. Eight more documented paths bring the same Sealos skill source to other supported tools.',
+    proof: 'One skill source. 10 documented install paths.',
+    moreTitle: 'More install paths',
+    moreDescription: 'Open one path to see its command, invocation, and guide.',
+    moreCount: '8 documented paths',
   },
   setup: {
     eyebrow: 'Before the first run',
@@ -114,7 +109,7 @@ export type AgentTarget = {
   installNote: string;
   invocation: string;
   guideHref: string;
-  copyTrackingId: string;
+  compatibilityCommand?: string;
   guideTrackingId: string;
   installTrackingId: string;
 };
@@ -131,8 +126,8 @@ export const AGENT_TARGETS = [
     installNote: 'Native plugin for Codex CLI and Codex App.',
     invocation: CODEX_INVOCATION,
     guideHref: `${REPO_URL}#recommended-install-in-codex`,
-    copyTrackingId: 'skills_agent_copy_codex',
-    guideTrackingId: 'skills_agent_guide_codex',
+    compatibilityCommand: CODEX_COMPATIBILITY_COMMAND,
+    guideTrackingId: 'skills_install_guide_codex',
     installTrackingId: 'skills_install_copy_codex',
   },
   {
@@ -146,8 +141,8 @@ export const AGENT_TARGETS = [
     installNote: 'Managed plugin install with the same eight root skills.',
     invocation: '/sealos',
     guideHref: `${REPO_URL}#install-in-claude-code`,
-    copyTrackingId: 'skills_agent_copy_claude',
-    guideTrackingId: 'skills_agent_guide_claude',
+    compatibilityCommand: CLAUDE_COMPATIBILITY_COMMAND,
+    guideTrackingId: 'skills_install_guide_claude',
     installTrackingId: 'skills_install_copy_claude',
   },
   {
@@ -162,8 +157,7 @@ export const AGENT_TARGETS = [
       'Build the package, import dist/sealos-1.2.5.zip, then run /sealos.',
     invocation: '/sealos',
     guideHref: `${REPO_URL}#test-in-qoder`,
-    copyTrackingId: 'skills_agent_copy_qoder',
-    guideTrackingId: 'skills_agent_guide_qoder',
+    guideTrackingId: 'skills_install_guide_qoder',
     installTrackingId: 'skills_install_copy_qoder',
   },
   {
@@ -178,8 +172,7 @@ export const AGENT_TARGETS = [
     installNote: 'Context extension. Ask Gemini to use Sealos Skills.',
     invocation: 'Ask Gemini to use Sealos Skills',
     guideHref: `${REPO_URL}#other-supported-ai-tools`,
-    copyTrackingId: 'skills_agent_copy_gemini',
-    guideTrackingId: 'skills_agent_guide_gemini',
+    guideTrackingId: 'skills_install_guide_gemini',
     installTrackingId: 'skills_install_copy_gemini',
   },
   {
@@ -193,8 +186,7 @@ export const AGENT_TARGETS = [
     installNote: 'Context extension. Ask Qwen to use Sealos Skills.',
     invocation: 'Ask Qwen to use Sealos Skills',
     guideHref: `${REPO_URL}#other-supported-ai-tools`,
-    copyTrackingId: 'skills_agent_copy_qwen',
-    guideTrackingId: 'skills_agent_guide_qwen',
+    guideTrackingId: 'skills_install_guide_qwen',
     installTrackingId: 'skills_install_copy_qwen',
   },
   {
@@ -209,8 +201,7 @@ export const AGENT_TARGETS = [
       'Install from ClawHub. Command exposure follows the host runtime.',
     invocation: 'Host runtime',
     guideHref: `${REPO_URL}#other-supported-ai-tools`,
-    copyTrackingId: 'skills_agent_copy_openclaw',
-    guideTrackingId: 'skills_agent_guide_openclaw',
+    guideTrackingId: 'skills_install_guide_openclaw',
     installTrackingId: 'skills_install_copy_openclaw',
   },
   {
@@ -225,8 +216,7 @@ export const AGENT_TARGETS = [
       'Register the Sealos marketplace. Command exposure follows the host runtime.',
     invocation: 'Host runtime',
     guideHref: `${REPO_URL}#other-supported-ai-tools`,
-    copyTrackingId: 'skills_agent_copy_codebuddy',
-    guideTrackingId: 'skills_agent_guide_codebuddy',
+    guideTrackingId: 'skills_install_guide_codebuddy',
     installTrackingId: 'skills_install_copy_codebuddy',
   },
   {
@@ -241,8 +231,7 @@ export const AGENT_TARGETS = [
       'Import the root skills repository. Invocation follows the host.',
     invocation: 'Host workflow',
     guideHref: `${REPO_URL}#other-supported-ai-tools`,
-    copyTrackingId: 'skills_agent_copy_amp',
-    guideTrackingId: 'skills_agent_guide_amp',
+    guideTrackingId: 'skills_install_guide_amp',
     installTrackingId: 'skills_install_copy_amp',
   },
   {
@@ -257,8 +246,7 @@ export const AGENT_TARGETS = [
       'Import the root skills repository. Invocation follows the host.',
     invocation: 'Host workflow',
     guideHref: `${REPO_URL}#other-supported-ai-tools`,
-    copyTrackingId: 'skills_agent_copy_kimi',
-    guideTrackingId: 'skills_agent_guide_kimi',
+    guideTrackingId: 'skills_install_guide_kimi',
     installTrackingId: 'skills_install_copy_kimi',
   },
   {
@@ -273,52 +261,10 @@ export const AGENT_TARGETS = [
       'Install the root skill pack and invoke each Sealos skill directly.',
     invocation: '/sealos-deploy',
     guideHref: `${REPO_URL}#alternative-install-as-a-skillssh-skill-pack`,
-    copyTrackingId: 'skills_agent_copy_skills_sh',
-    guideTrackingId: 'skills_agent_guide_skills_sh',
+    guideTrackingId: 'skills_install_guide_skills_sh',
     installTrackingId: 'skills_install_copy_skills_sh',
   },
 ] as const satisfies readonly AgentTarget[];
-
-export type InstallTargetId = 'codex' | 'claude' | 'skills-sh';
-
-export type InstallTarget = {
-  id: InstallTargetId;
-  label: string;
-  command: string;
-  compatibilityCommand?: string;
-  invocation: string;
-  note: string;
-  trackingId: string;
-};
-
-export const INSTALL_TARGETS = [
-  {
-    id: 'codex',
-    label: 'Codex',
-    command: CODEX_INSTALL_COMMAND,
-    compatibilityCommand: CODEX_COMPATIBILITY_COMMAND,
-    invocation: CODEX_INVOCATION,
-    note: 'Native marketplace install for Codex CLI and Codex App.',
-    trackingId: 'skills_install_copy_codex',
-  },
-  {
-    id: 'claude',
-    label: 'Claude Code',
-    command: CLAUDE_INSTALL_COMMAND,
-    compatibilityCommand: CLAUDE_COMPATIBILITY_COMMAND,
-    invocation: '/sealos',
-    note: 'Managed plugin install with the same eight root skills.',
-    trackingId: 'skills_install_copy_claude',
-  },
-  {
-    id: 'skills-sh',
-    label: 'skills.sh',
-    command: SKILLS_SH_INSTALL_COMMAND,
-    invocation: '/sealos-deploy',
-    note: 'Direct access to the root Sealos skills in compatible agents.',
-    trackingId: 'skills_install_copy_skills_sh',
-  },
-] as const satisfies readonly InstallTarget[];
 
 export type SkillIconName =
   | 'rocket'
@@ -434,7 +380,7 @@ export const SKILL_CATALOG = [
 
 export const PROOF_ITEMS = [
   { value: String(SKILL_CATALOG.length), label: 'skills from one source' },
-  { value: String(AGENT_TARGETS.length), label: 'documented agent paths' },
+  { value: String(AGENT_TARGETS.length), label: 'documented install paths' },
   { value: 'URL + rollout', label: 'checked before handoff' },
   { value: '.sealos/', label: 'inspectable run evidence' },
 ] as const;
