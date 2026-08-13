@@ -188,6 +188,20 @@ assert.ok(
   'SelectMethodStep must decorate OAuth redirects before navigation',
 );
 
+const googleOneTapSource = await readFile(
+  resolve('new-components/AuthForm/GoogleOneTap.tsx'),
+  'utf8',
+);
+assert.match(googleOneTapSource, /from ['"]@\/lib\/attribution-url['"]/);
+const googleOneTapCall = googleOneTapSource.indexOf(
+  'appendAttributionToUrl(target.toString())',
+);
+const googleOneTapHref = googleOneTapSource.indexOf('window.location.href');
+assert.ok(
+  googleOneTapCall >= 0 && googleOneTapCall < googleOneTapHref,
+  'GoogleOneTap must decorate the final login redirect before navigation',
+);
+
 const deployModalSource = await readFile(
   resolve('new-components/DeployModal/DeployModalContext.tsx'),
   'utf8',

@@ -3,6 +3,7 @@
 import Script from 'next/script';
 import { useCallback } from 'react';
 import { appDomain, siteConfig } from '@/config/site';
+import { appendAttributionToUrl } from '@/lib/attribution-url';
 
 type GoogleCredentialResponse = {
   credential?: string;
@@ -36,7 +37,7 @@ function buildOneTapRedirectUrl(data: { token: string; needInit?: boolean }) {
     target.searchParams.append('workspaceName', 'My Workspace');
   }
 
-  return target.toString();
+  return appendAttributionToUrl(target.toString());
 }
 
 declare global {
