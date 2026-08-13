@@ -45,9 +45,6 @@ export function HeroSection() {
   return (
     <section id="skills" className="relative scroll-mt-24 pt-24 pb-8 sm:pb-20">
       <SectionShell className="flex flex-col items-center text-center">
-        <p className="font-mono text-xs font-semibold text-blue-400 uppercase">
-          {PAGE_COPY.hero.eyebrow}
-        </p>
         <h1 className="mt-5 flex max-w-5xl flex-wrap items-center justify-center gap-x-[0.18em] text-[42px] leading-[54px] font-medium tracking-normal text-zinc-100 lg:text-[56px] lg:leading-[68px]">
           <span aria-hidden="true">Build with</span>
           <AgentLogoRotator

@@ -441,6 +441,11 @@ test('Sealos Skills uses continuous panels and complete mobile proof', () => {
 
 test('Sealos Skills centers the Hero terminal and rotates all Agent logos', () => {
   assert.ok(topSource.includes('flex flex-col items-center text-center'));
+  assert.equal(
+    topSource.includes('{PAGE_COPY.hero.eyebrow}'),
+    false,
+    'Hero eyebrow should not render',
+  );
   assert.ok(topSource.includes('gap-x-[0.18em]'));
   assert.ok(topSource.includes('leading-[54px]'));
   assert.ok(topSource.includes('lg:leading-[68px]'));
