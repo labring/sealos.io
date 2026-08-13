@@ -1,15 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Check, CircleAlert, Copy } from 'lucide-react';
 import {
-  CheckIcon,
-  ClipboardCopyIcon,
-  CrossCircledIcon,
-} from '@radix-ui/react-icons';
+  getRybbitCtaProps,
+  type RybbitCtaTracking,
+} from '@/lib/analytics/rybbit-cta';
 import { cn } from '@/lib/utils';
-import { CopyIcon } from 'lucide-react';
 
 type CopyState = 'idle' | 'copied' | 'failed';
+type CopyButtonTone = 'accent' | 'secondary' | 'quiet';
 
 const COPY_RESET_DELAY = 1800;
 
@@ -47,12 +47,16 @@ export function CopyCommandButton({
   iconClassName,
   label,
   showStatus = false,
+  tone = 'secondary',
+  tracking,
   value,
 }: {
   className?: string;
   iconClassName?: string;
   label: string;
   showStatus?: boolean;
+  tone?: CopyButtonTone;
+  tracking?: RybbitCtaTracking;
   value: string;
 }) {
   const [copyState, setCopyState] = useState<CopyState>('idle');
@@ -70,16 +74,22 @@ export function CopyCommandButton({
 
   const Icon =
     copyState === 'copied'
-      ? CheckIcon
+      ? Check
       : copyState === 'failed'
-        ? CrossCircledIcon
-        : CopyIcon;
-  const statusText = copyState === 'failed' ? 'Copy failed' : 'Copied';
+        ? CircleAlert
+        : Copy;
+  const visibleLabel =
+    copyState === 'copied'
+      ? 'Copied'
+      : copyState === 'failed'
+        ? 'Try again'
+        : label;
 
   return (
     <button
       type="button"
       aria-label={label}
+      aria-live="polite"
       title={label}
       onClick={async () => {
         try {
@@ -90,16 +100,23 @@ export function CopyCommandButton({
         }
       }}
       className={cn(
-        'inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-xl px-3 font-medium transition duration-200 hover:border-[#4CAFE1]/45 hover:bg-white/[0.075] hover:text-white focus-visible:ring-2 focus-visible:ring-[#4CAFE1]/70 focus-visible:outline-none active:translate-y-px',
-        copyState === 'copied' && 'border-[#81C784]/45 text-[#81C784]',
-        copyState === 'failed' && 'border-[#D8B25D]/45 text-[#D8B25D]',
+        'focus-visible:ring-offset-background inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-md border px-4 text-sm font-semibold whitespace-nowrap transition duration-200 focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-px motion-reduce:transition-none',
+        tone === 'accent' &&
+          'border-blue-500 bg-blue-500 text-white hover:border-blue-400 hover:bg-blue-400',
+        tone === 'secondary' &&
+          'border-white/15 bg-white/[0.04] text-zinc-100 hover:border-blue-400/60 hover:bg-white/[0.08]',
+        tone === 'quiet' &&
+          'min-h-9 border-white/10 bg-transparent px-3 text-xs text-zinc-300 hover:border-blue-400/60 hover:text-zinc-100',
         className,
       )}
+      {...(tracking ? getRybbitCtaProps(tracking) : {})}
     >
-      <Icon className={cn('size-4', iconClassName)} />
-      {showStatus && copyState !== 'idle' && (
-        <span className="font-mono text-xs">{statusText}</span>
-      )}
+      <Icon
+        className={cn('size-4', iconClassName)}
+        strokeWidth={1.8}
+        aria-hidden="true"
+      />
+      {(copyState === 'idle' || showStatus) && <span>{visibleLabel}</span>}
     </button>
   );
 }

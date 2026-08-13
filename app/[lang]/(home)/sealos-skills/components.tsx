@@ -1,27 +1,22 @@
-import {
-  CompatibilitySection,
-  HeroSection,
-  PipelineSection,
-} from './top-sections';
+import type { languagesType } from '@/lib/i18n';
+import { CapabilitiesSection, HeroSection } from './top-sections';
 import {
   FinalCtaSection,
-  RepositorySection,
-  SetupSection,
-  UseCasesSection,
+  SetupFaqSection,
+  WorkflowSection,
 } from './bottom-sections';
+import { AgentDirectorySection } from './agent-directory';
+import { SkillsPageShell } from './shared';
 
-export function SealosSkillsLanding() {
+export function SealosSkillsLanding({ lang }: { lang: languagesType }) {
   return (
-    <>
-      <div className="-mt-24 overflow-x-clip" role="main">
-        <HeroSection />
-      </div>
-      <CompatibilitySection />
-      <PipelineSection />
-      <SetupSection />
-      <RepositorySection />
-      <UseCasesSection />
+    <SkillsPageShell>
+      <HeroSection />
+      <AgentDirectorySection lang={lang} />
+      <WorkflowSection />
+      <CapabilitiesSection />
+      <SetupFaqSection />
       <FinalCtaSection />
-    </>
+    </SkillsPageShell>
   );
 }

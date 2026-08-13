@@ -62,6 +62,17 @@ const pricingCtas = [
   },
 ];
 
+const sealosSkillsSources = [
+  'app/[lang]/(home)/sealos-skills/content.ts',
+  'app/[lang]/(home)/sealos-skills/top-sections.tsx',
+  'app/[lang]/(home)/sealos-skills/bottom-sections.tsx',
+  'app/[lang]/(home)/sealos-skills/interactive-sections.tsx',
+  'app/[lang]/(home)/sealos-skills/agent-directory.tsx',
+  'app/[lang]/(home)/sealos-skills/[agent]/agent-guide-page.tsx',
+]
+  .map(readSource)
+  .join('\n');
+
 test('homepage conversion CTAs use unique stable Rybbit CTA IDs', () => {
   const seenIds = new Set<string>();
 
@@ -88,5 +99,62 @@ test('Pricing CTA IDs normalize dynamic plan names', () => {
       readSource(cta.file).includes(cta.idSource),
       `${cta.file} must declare ${cta.idSource}`,
     );
+  }
+});
+
+test('Sealos Skills conversion CTAs keep stable business IDs', () => {
+  const stableIds = [
+    'skills_hero_copy_codex_install',
+    'skills_hero_view_github',
+    'skills_install_copy_codex',
+    'skills_install_copy_claude',
+    'skills_install_copy_skills_sh',
+    'skills_repository_view_github',
+    'skills_final_copy_codex_install',
+  ];
+
+  const agentPathIds = [
+    'codex',
+    'claude',
+    'qoder',
+    'gemini',
+    'qwen',
+    'openclaw',
+    'codebuddy',
+    'amp',
+    'kimi',
+  ];
+
+  for (const id of stableIds) {
+    assert.ok(
+      sealosSkillsSources.includes(id),
+      `Sealos Skills must declare ${id}`,
+    );
+  }
+
+  for (const pathId of agentPathIds) {
+    for (const action of ['copy', 'guide']) {
+      const id = `skills_install_${action}_${pathId}`;
+      assert.ok(
+        sealosSkillsSources.includes(id),
+        `Sealos Skills must declare ${id}`,
+      );
+    }
+  }
+
+  for (const id of [
+    'skills_install_copy_skills_sh',
+    'skills_install_guide_skills_sh',
+  ]) {
+    assert.ok(sealosSkillsSources.includes(id));
+  }
+
+  for (const template of [
+    'skills_agent_guide_${agent.id}',
+    'skills_agent_copy_${agent.id}',
+    'skills_agent_source_${agent.id}',
+    'skills_agent_prompt_${agent.id}_${prompt.id}',
+  ]) {
+    assert.ok(sealosSkillsSources.includes(template));
   }
 });

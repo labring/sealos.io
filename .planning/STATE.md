@@ -6,9 +6,9 @@ current_phase: 32
 current_phase_name: sitemap-route-parity-and-production-verification
 status: blocked
 stopped_at: Independent Phase 32 verification complete with production acceptance BLOCKED
-last_updated: "2026-08-04T00:49:07Z"
-last_activity: 2026-08-04
-last_activity_desc: Independent Phase 32 verification recorded 14/16 must-haves and authoritative production blockers
+last_updated: "2026-08-12T07:22:00Z"
+last_activity: 2026-08-13
+last_activity_desc: Completed quick task 260814 for renaming navigation labels to Agents
 progress:
   total_phases: 2
   completed_phases: 1
@@ -48,7 +48,7 @@ Phase 32 owns the pending PARITY-02 and DELIVERY-02 requirements.
 Phase: 32 (sitemap-route-parity-and-production-verification) — BLOCKED
 Plan: 4 of 4
 Status: Independent verification complete with 14/16 must-haves; production acceptance BLOCKED
-Last activity: 2026-08-04 — Fresh production verification retained 28 route 404 findings, 28 slug drifts, five description drifts, and the disabled Vercel workflow
+Last activity: 2026-08-13 — Completed quick task 260813-gu4 for the centered Sealos Skills Hero
 
 ## Next Action
 
@@ -71,6 +71,17 @@ production workflows for one SHA, then require a zero-finding live rerun.
 | 260709-n35 | Fix /products/databases footer bottom Sealos word to match homepage | 2026-07-09 | PR #304 | [260709-n35-fix-products-databases-footer-bottom-sea](./quick/260709-n35-fix-products-databases-footer-bottom-sea/) |
 | 260720-g4e | Add Playwright verification guidance to the Cloud Run article | 2026-07-20 | e9314f2 | [260720-g4e-update-the-sealos-io-blog-article-for-th](./quick/260720-g4e-update-the-sealos-io-blog-article-for-th/) |
 | 260721-n8f | Add permanent LobeHub legacy app-store redirects across Vercel and Cloudflare Pages | 2026-07-21 | ef5aad0 | [260721-n8f-add-permanent-lobehub-legacy-app-store-r](./quick/260721-n8f-add-permanent-lobehub-legacy-app-store-r/) |
+| 260812-3k5 | Refine the Sealos Skills landing page around verified deployment evidence | 2026-08-12 | 8fd9635 | [260812-3k5-refine-the-sealos-skills-landing-page-co](./quick/260812-3k5-refine-the-sealos-skills-landing-page-co/) |
+| 260812-k69 | Consolidate the Sealos Skills agent directory, support matrix, and install tabs into one install decision | 2026-08-12 | 5fd399a | [260812-k69-consolidate-the-sealos-skills-agent-dire](./quick/260812-k69-consolidate-the-sealos-skills-agent-dire/) |
+| 260812-nea | Build nine Agent-specific Sealos Skills installation pages | 2026-08-13 | ffe7f99 | [260812-nea-build-nine-agent-specific-sealos-skills-](./quick/260812-nea-build-nine-agent-specific-sealos-skills-/) |
+| 260813-1rl | Unify the Sealos Skills Hub and Agent guides with the Homepage visual system | 2026-08-13 | 2a66f88 | Verified | [260813-1rl-unify-the-sealos-skills-hub-and-agent-gu](./quick/260813-1rl-unify-the-sealos-skills-hub-and-agent-gu/) |
+| 260813-gu4 | Recenter the Sealos Skills Hero around a macOS terminal and rotating Agent logos | 2026-08-13 | 0964256 | [260813-gu4-recenter-the-sealos-skills-hero-around-a](./quick/260813-gu4-recenter-the-sealos-skills-hero-around-a/) |
+| 260813-ink | Update the Sealos Skills Hero title and transparent Agent logos | 2026-08-13 | 8ba2071 | [260813-ink-update-the-sealos-skills-hero-title-to-b](./quick/260813-ink-update-the-sealos-skills-hero-title-to-b/) |
+| 260813-jve | Scale the Sealos Skills Hero Agent logos to match the Insforge proportion | 2026-08-13 | 346a44f | [260813-jve-scale-the-sealos-skills-hero-agent-logos](./quick/260813-jve-scale-the-sealos-skills-hero-agent-logos/) |
+| 260813-m3k | Remove the SEALOS SKILLS eyebrow above the Sealos Skills Hero title | 2026-08-13 | 864d342 | [260813-m3k-remove-the-sealos-skills-eyebrow-above-t](./quick/260813-m3k-remove-the-sealos-skills-eyebrow-above-t/) |
+| 260813-mkr | Remove dead Sealos Skills Hero data, replaced PNG assets, logo configuration, and hash test | 2026-08-13 | c19c09b | [260813-mkr-remove-dead-sealos-skills-hero-data-repl](./quick/260813-mkr-remove-dead-sealos-skills-hero-data-repl/) |
+| 260813-hsp | Improve Sealos Skills Hero top spacing below the shared header | 2026-08-13 | Pending | [260813-hsp-improve-sealos-skills-hero-top-spacing](./quick/260813-hsp-improve-sealos-skills-hero-top-spacing/) |
+| 260814 | Rename Header and Footer Sealos Skills labels to Agents | 2026-08-14 | Pending | [260814-rename-nav-footer-agents](./quick/260814-rename-nav-footer-agents/) |
 
 ## Performance Metrics
 

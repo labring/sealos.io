@@ -26,6 +26,7 @@ const expectedSources = new Set([
   '/pricing',
   '/products/:path*',
   '/sealos-skills',
+  '/sealos-skills/:path*',
   '/solutions/:path*',
   '/tutorials',
   '/tutorials/:path*',

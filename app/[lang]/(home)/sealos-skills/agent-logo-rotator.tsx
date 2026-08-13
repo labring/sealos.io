@@ -1,0 +1,172 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import type { AgentIconKey } from './content';
+import { AgentLogo } from './shared';
+
+const ROTATION_DELAY = 2400;
+const TRANSITION_DURATION = 320;
+
+export function AgentLogoRotator({
+  agents,
+}: {
+  agents: readonly { icon: AgentIconKey; name: string }[];
+}) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [transitionEnabled, setTransitionEnabled] = useState(true);
+  const [isRotatorHovered, setIsRotatorHovered] = useState(false);
+  const [isNavHovered, setIsNavHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updateMotionPreference = () => setReducedMotion(mediaQuery.matches);
+    updateMotionPreference();
+    mediaQuery.addEventListener('change', updateMotionPreference);
+
+    return () =>
+      mediaQuery.removeEventListener('change', updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    const updateVisibility = () =>
+      setIsHidden(document.visibilityState !== 'visible');
+    const updateFocus = (event: FocusEvent) => {
+      setIsFocused(
+        Boolean((event.target as HTMLElement).closest('[data-agent-logo-nav]')),
+      );
+    };
+    const clearFocus = (event: FocusEvent) => {
+      setIsFocused(
+        Boolean(
+          (event.relatedTarget as HTMLElement | null)?.closest(
+            '[data-agent-logo-nav]',
+          ),
+        ),
+      );
+    };
+    const updateNavHover = (event: MouseEvent) => {
+      setIsNavHovered(
+        Boolean((event.target as HTMLElement).closest('[data-agent-logo-nav]')),
+      );
+    };
+    const clearNavHover = (event: MouseEvent) => {
+      setIsNavHovered(
+        Boolean(
+          (event.relatedTarget as HTMLElement | null)?.closest(
+            '[data-agent-logo-nav]',
+          ),
+        ),
+      );
+    };
+
+    updateVisibility();
+    document.addEventListener('visibilitychange', updateVisibility);
+    document.addEventListener('focusin', updateFocus);
+    document.addEventListener('focusout', clearFocus);
+    document.addEventListener('mouseover', updateNavHover);
+    document.addEventListener('mouseout', clearNavHover);
+
+    return () => {
+      document.removeEventListener('visibilitychange', updateVisibility);
+      document.removeEventListener('focusin', updateFocus);
+      document.removeEventListener('focusout', clearFocus);
+      document.removeEventListener('mouseover', updateNavHover);
+      document.removeEventListener('mouseout', clearNavHover);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setActiveIndex(0);
+      return;
+    }
+
+    if (
+      isRotatorHovered ||
+      isNavHovered ||
+      isFocused ||
+      isHidden ||
+      agents.length < 2
+    ) {
+      return;
+    }
+
+    const rotationTimer = window.setTimeout(() => {
+      setActiveIndex((current) => current + 1);
+    }, ROTATION_DELAY);
+
+    return () => window.clearTimeout(rotationTimer);
+  }, [
+    activeIndex,
+    agents.length,
+    isFocused,
+    isHidden,
+    isNavHovered,
+    isRotatorHovered,
+    reducedMotion,
+  ]);
+
+  useEffect(() => {
+    if (activeIndex !== agents.length) return;
+
+    let animationFrame = 0;
+    const resetTimer = window.setTimeout(() => {
+      setTransitionEnabled(false);
+      setActiveIndex(0);
+      animationFrame = window.requestAnimationFrame(() =>
+        setTransitionEnabled(true),
+      );
+    }, TRANSITION_DURATION);
+
+    return () => {
+      window.clearTimeout(resetTimer);
+      window.cancelAnimationFrame(animationFrame);
+    };
+  }, [activeIndex, agents.length]);
+
+  const rotatingAgents = agents.length > 0 ? [...agents, agents[0]] : [];
+  const activeAgent = agents[activeIndex % agents.length];
+
+  return (
+    <>
+      <span className="sr-only">Build with {activeAgent.name} on Sealos</span>
+      <span
+        aria-hidden="true"
+        className={
+          activeAgent.icon === 'amp'
+            ? 'relative inline-block h-[52px] w-[102px] overflow-hidden align-middle transition-[width] duration-[320ms] motion-reduce:transition-none lg:h-16 lg:w-[125px]'
+            : 'relative inline-block size-[52px] overflow-hidden align-middle transition-[width] duration-[320ms] motion-reduce:transition-none lg:size-16'
+        }
+        data-agent-logo-rotator
+        onMouseEnter={() => setIsRotatorHovered(true)}
+        onMouseLeave={() => setIsRotatorHovered(false)}
+      >
+        <span
+          className={
+            transitionEnabled
+              ? 'absolute inset-x-0 top-0 transition-transform duration-[320ms] ease-out motion-reduce:transition-none'
+              : 'absolute inset-x-0 top-0 transition-none'
+          }
+          style={{
+            transform: `translateY(-${(activeIndex * 100) / rotatingAgents.length}%)`,
+          }}
+        >
+          {rotatingAgents.map((agent, index) => (
+            <span
+              key={`${agent.icon}-${index}`}
+              className="flex h-[52px] w-full shrink-0 items-center justify-center lg:h-16"
+            >
+              <AgentLogo
+                icon={agent.icon}
+                className="h-[52px] w-auto max-w-none lg:h-16"
+              />
+            </span>
+          ))}
+        </span>
+      </span>
+    </>
+  );
+}
