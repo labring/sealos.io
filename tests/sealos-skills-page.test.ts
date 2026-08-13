@@ -439,6 +439,12 @@ test('Sealos Skills uses continuous panels and complete mobile proof', () => {
 
 test('Sealos Skills centers the Hero terminal and rotates all Agent logos', () => {
   assert.ok(topSource.includes('flex flex-col items-center text-center'));
+  assert.ok(
+    topSource.includes(
+      'className="relative scroll-mt-24 pt-32 pb-8 sm:pt-44 sm:pb-20"',
+    ),
+    'Hero should keep deliberate top breathing room below the shared header',
+  );
   assert.equal(
     contentSource.includes("eyebrow: 'SEALOS SKILLS'"),
     false,

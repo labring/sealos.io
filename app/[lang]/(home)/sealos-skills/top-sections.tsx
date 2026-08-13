@@ -43,7 +43,7 @@ const SKILL_ICONS: Record<SkillIconName, LucideIcon> = {
 
 export function HeroSection() {
   return (
-    <section id="skills" className="relative scroll-mt-24 pt-24 pb-8 sm:pb-20">
+    <section id="skills" className="relative scroll-mt-24 pt-32 pb-8 sm:pt-44 sm:pb-20">
       <SectionShell className="flex flex-col items-center text-center">
         <h1 className="mt-5 flex max-w-5xl flex-wrap items-center justify-center gap-x-[0.18em] text-[42px] leading-[54px] font-medium tracking-normal text-zinc-100 lg:text-[56px] lg:leading-[68px]">
           <span aria-hidden="true">Build with</span>
