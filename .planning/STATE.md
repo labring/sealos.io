@@ -8,7 +8,7 @@ status: blocked
 stopped_at: Independent Phase 32 verification complete with production acceptance BLOCKED
 last_updated: "2026-08-12T07:22:00Z"
 last_activity: 2026-08-13
-last_activity_desc: Completed quick task 260813-m3k for removing the Sealos Skills Hero eyebrow
+last_activity_desc: Completed quick task 260813-mkr for removing dead Sealos Skills Hero and logo complexity
 progress:
   total_phases: 2
   completed_phases: 1
@@ -79,6 +79,7 @@ production workflows for one SHA, then require a zero-finding live rerun.
 | 260813-ink | Update the Sealos Skills Hero title and transparent Agent logos | 2026-08-13 | 8ba2071 | [260813-ink-update-the-sealos-skills-hero-title-to-b](./quick/260813-ink-update-the-sealos-skills-hero-title-to-b/) |
 | 260813-jve | Scale the Sealos Skills Hero Agent logos to match the Insforge proportion | 2026-08-13 | 346a44f | [260813-jve-scale-the-sealos-skills-hero-agent-logos](./quick/260813-jve-scale-the-sealos-skills-hero-agent-logos/) |
 | 260813-m3k | Remove the SEALOS SKILLS eyebrow above the Sealos Skills Hero title | 2026-08-13 | 864d342 | [260813-m3k-remove-the-sealos-skills-eyebrow-above-t](./quick/260813-m3k-remove-the-sealos-skills-eyebrow-above-t/) |
+| 260813-mkr | Remove dead Sealos Skills Hero data, replaced PNG assets, logo configuration, and hash test | 2026-08-13 | c19c09b | [260813-mkr-remove-dead-sealos-skills-hero-data-repl](./quick/260813-mkr-remove-dead-sealos-skills-hero-data-repl/) |
 
 ## Performance Metrics
 
