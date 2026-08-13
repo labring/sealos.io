@@ -49,12 +49,11 @@ export function HeroSection() {
           {PAGE_COPY.hero.eyebrow}
         </p>
         <h1 className="mt-5 max-w-5xl text-[42px] leading-[46px] font-medium tracking-normal text-balance text-zinc-100 lg:text-[56px] lg:leading-[60px]">
-          <span className="sr-only">{PAGE_COPY.hero.title}</span>
-          <span aria-hidden="true">
-            Deploy from your{' '}
-            <AgentLogoRotator icons={AGENT_GUIDES.map(({ icon }) => icon)} />
-            <span className="-ml-2">.</span> See the proof.
-          </span>
+          <span aria-hidden="true">Build with </span>
+          <AgentLogoRotator
+            agents={AGENT_GUIDES.map(({ icon, name }) => ({ icon, name }))}
+          />
+          <span aria-hidden="true"> on Sealos</span>
         </h1>
         <p className="mt-5 max-w-2xl text-base leading-7 text-pretty text-zinc-400 sm:text-lg sm:leading-8">
           {PAGE_COPY.hero.description}

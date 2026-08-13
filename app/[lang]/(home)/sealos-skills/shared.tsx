@@ -2,14 +2,14 @@ import type { ReactNode } from 'react';
 import Image, { type StaticImageData } from 'next/image';
 import { ArrowUpRight, Bot, Code2, Github, Terminal } from 'lucide-react';
 import OpenAILogo from '@/assets/aiagent-appicons/openai.svg';
+import ClaudeLogo from '@/assets/aiagent-appicons/claude.svg';
 import GeminiLogo from '@/assets/aiagent-appicons/gemini.svg';
 import QwenLogo from '@/assets/aiagent-appicons/qwen.svg';
-import ClaudeCodeLogo from '@/assets/stacks-appicons/claude-code.svg';
-import CodeBuddyLogo from '@/assets/ide-icons/codebuddy.svg';
-import QoderLogo from '@/assets/ide-icons/qoder.svg';
 import OpenClawLogo from '@/public/images/apps/openclaw.svg';
-import AmpLogo from '@/public/images/sealos-skills/agent-icons/amp.png';
-import KimiLogo from '@/public/images/sealos-skills/agent-icons/kimi.png';
+import AmpLogo from '@/public/images/sealos-skills/agent-icons/amp.svg';
+import CodeBuddyLogo from '@/public/images/sealos-skills/agent-icons/codebuddy.svg';
+import KimiLogo from '@/public/images/sealos-skills/agent-icons/kimi.svg';
+import QoderLogo from '@/public/images/sealos-skills/agent-icons/qoder.svg';
 import {
   getRybbitCtaProps,
   type RybbitCtaTracking,
@@ -32,7 +32,7 @@ const AGENT_LOGOS: Record<
   { src: StaticImageData; className?: string }
 > = {
   openai: { src: OpenAILogo },
-  claude: { src: ClaudeCodeLogo },
+  claude: { src: ClaudeLogo },
   qoder: { src: QoderLogo },
   gemini: { src: GeminiLogo },
   qwen: { src: QwenLogo },

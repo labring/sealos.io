@@ -8,9 +8,9 @@ const ROTATION_DELAY = 2400;
 const TRANSITION_DURATION = 320;
 
 export function AgentLogoRotator({
-  icons,
+  agents,
 }: {
-  icons: readonly AgentIconKey[];
+  agents: readonly { icon: AgentIconKey; name: string }[];
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [transitionEnabled, setTransitionEnabled] = useState(true);
@@ -89,7 +89,7 @@ export function AgentLogoRotator({
       isNavHovered ||
       isFocused ||
       isHidden ||
-      icons.length < 2
+      agents.length < 2
     ) {
       return;
     }
@@ -101,7 +101,7 @@ export function AgentLogoRotator({
     return () => window.clearTimeout(rotationTimer);
   }, [
     activeIndex,
-    icons.length,
+    agents.length,
     isFocused,
     isHidden,
     isNavHovered,
@@ -110,7 +110,7 @@ export function AgentLogoRotator({
   ]);
 
   useEffect(() => {
-    if (activeIndex !== icons.length) return;
+    if (activeIndex !== agents.length) return;
 
     let animationFrame = 0;
     const resetTimer = window.setTimeout(() => {
@@ -125,37 +125,41 @@ export function AgentLogoRotator({
       window.clearTimeout(resetTimer);
       window.cancelAnimationFrame(animationFrame);
     };
-  }, [activeIndex, icons.length]);
+  }, [activeIndex, agents.length]);
 
-  const rotatingIcons = icons.length > 0 ? [...icons, icons[0]] : [];
+  const rotatingAgents = agents.length > 0 ? [...agents, agents[0]] : [];
+  const activeAgent = agents[activeIndex % agents.length];
 
   return (
-    <span
-      aria-hidden="true"
-      className="relative inline-block size-12 overflow-hidden align-middle lg:size-14"
-      data-agent-logo-rotator
-      onMouseEnter={() => setIsRotatorHovered(true)}
-      onMouseLeave={() => setIsRotatorHovered(false)}
-    >
+    <>
+      <span className="sr-only">Build with {activeAgent.name} on Sealos</span>
       <span
-        className={
-          transitionEnabled
-            ? 'absolute inset-x-0 top-0 transition-transform duration-[320ms] ease-out motion-reduce:transition-none'
-            : 'absolute inset-x-0 top-0 transition-none'
-        }
-        style={{
-          transform: `translateY(-${(activeIndex * 100) / rotatingIcons.length}%)`,
-        }}
+        aria-hidden="true"
+        className="relative inline-block size-12 overflow-hidden align-middle lg:size-14"
+        data-agent-logo-rotator
+        onMouseEnter={() => setIsRotatorHovered(true)}
+        onMouseLeave={() => setIsRotatorHovered(false)}
       >
-        {rotatingIcons.map((icon, index) => (
-          <span
-            key={`${icon}-${index}`}
-            className="flex size-12 shrink-0 items-center justify-center lg:size-14"
-          >
-            <AgentLogo icon={icon} className="size-10 lg:size-12" />
-          </span>
-        ))}
+        <span
+          className={
+            transitionEnabled
+              ? 'absolute inset-x-0 top-0 transition-transform duration-[320ms] ease-out motion-reduce:transition-none'
+              : 'absolute inset-x-0 top-0 transition-none'
+          }
+          style={{
+            transform: `translateY(-${(activeIndex * 100) / rotatingAgents.length}%)`,
+          }}
+        >
+          {rotatingAgents.map((agent, index) => (
+            <span
+              key={`${agent.icon}-${index}`}
+              className="flex size-12 shrink-0 items-center justify-center lg:size-14"
+            >
+              <AgentLogo icon={agent.icon} className="size-10 lg:size-12" />
+            </span>
+          ))}
+        </span>
       </span>
-    </span>
+    </>
   );
 }

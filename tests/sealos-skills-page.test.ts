@@ -133,7 +133,7 @@ test('Sealos Skills exposes eight real skills and six deployment evidence types'
 
 test('Hub places the Agent directory directly after the Hero', () => {
   for (const copy of [
-    'Deploy from your coding agent. See the proof.',
+    'Build with your agent on Sealos',
     'Connect Sealos Skills to your coding agent.',
     '9 Agent guides. One shared skill source.',
     'Install through skills.sh',
@@ -288,19 +288,53 @@ test('Hub keeps its metadata, structured data, anchors, and workflow contract', 
   }
 });
 
-test('Agent icons are localized and retain official source URLs', () => {
+test('Agent icons use localized transparent assets and retain official source URLs', () => {
   for (const asset of [
     'public/images/apps/openclaw.svg',
-    'public/images/sealos-skills/agent-icons/amp.png',
-    'public/images/sealos-skills/agent-icons/kimi.png',
+    'public/images/sealos-skills/agent-icons/amp.svg',
+    'public/images/sealos-skills/agent-icons/codebuddy.svg',
+    'public/images/sealos-skills/agent-icons/kimi.svg',
+    'public/images/sealos-skills/agent-icons/qoder.svg',
   ]) {
     const assetPath = path.join(root, asset);
     assert.equal(existsSync(assetPath), true, `missing icon: ${asset}`);
-    assert.ok(statSync(assetPath).size > 500, `invalid icon: ${asset}`);
+    assert.ok(statSync(assetPath).size > 300, `invalid icon: ${asset}`);
+
+    const assetSource = readSource(asset);
+    assert.equal(
+      /<rect[^>]+(?:width="(?:64|281|100%)"|height="(?:64|144|100%)")[^>]+fill=/u.test(
+        assetSource,
+      ),
+      false,
+      `full-canvas background remains: ${asset}`,
+    );
   }
 
-  for (const icon of ['openclaw', 'amp', 'kimi']) {
+  for (const icon of [
+    'openai',
+    'claude',
+    'qoder',
+    'gemini',
+    'qwen',
+    'codebuddy',
+    'openclaw',
+    'amp',
+    'kimi',
+  ]) {
     assert.ok(sharedSource.includes(`${icon}: { src:`));
+  }
+
+  for (const transparentAsset of [
+    'aiagent-appicons/claude.svg',
+    'agent-icons/amp.svg',
+    'agent-icons/codebuddy.svg',
+    'agent-icons/kimi.svg',
+    'agent-icons/qoder.svg',
+  ]) {
+    assert.ok(
+      sharedSource.includes(transparentAsset),
+      `missing transparent mapping: ${transparentAsset}`,
+    );
   }
 
   for (const sourceUrl of [
@@ -407,10 +441,13 @@ test('Sealos Skills uses continuous panels and complete mobile proof', () => {
 
 test('Sealos Skills centers the Hero terminal and rotates all Agent logos', () => {
   assert.ok(topSource.includes('flex flex-col items-center text-center'));
-  assert.ok(topSource.includes('icons={AGENT_GUIDES.map(({ icon }) => icon)}'));
   assert.ok(
-    topSource.includes('<span className="sr-only">{PAGE_COPY.hero.title}'),
+    topSource.includes(
+      'agents={AGENT_GUIDES.map(({ icon, name }) => ({ icon, name }))}',
+    ),
   );
+  assert.ok(topSource.includes('aria-hidden="true">Build with </span>'));
+  assert.ok(topSource.includes('aria-hidden="true"> on Sealos</span>'));
   assert.ok(topSource.includes('aria-label="Jump to Agent guide"'));
   assert.ok(topSource.includes('data-agent-logo-nav'));
   assert.ok(topSource.includes('href={`#agent-${agent.id}`}'));
@@ -425,15 +462,21 @@ test('Sealos Skills centers the Hero terminal and rotates all Agent logos', () =
   assert.ok(rotatorSource.includes('data-agent-logo-rotator'));
   assert.ok(rotatorSource.includes('duration-[320ms]'));
   assert.ok(rotatorSource.includes('aria-hidden="true"'));
+  assert.ok(
+    rotatorSource.includes(
+      '<span className="sr-only">Build with {activeAgent.name} on Sealos</span>',
+    ),
+  );
+  assert.equal(rotatorSource.includes('aria-live'), false);
 });
 
-test('Sealos Skills copy source remains byte-for-byte unchanged', () => {
+test('Sealos Skills content matches the approved Hero title revision', () => {
   const contentHash = createHash('sha256')
     .update(readSource(`${route}/content.ts`))
     .digest('hex');
 
   assert.equal(
     contentHash,
-    '4e7d08050b640903ba7602ffb456734f3ae623e8dda6d6efb126ea54d86dc085',
+    '3fd8c6d2b5db518dcb244d25f498ab70fb710950ba1ced80503e298a8208a5af',
   );
 });

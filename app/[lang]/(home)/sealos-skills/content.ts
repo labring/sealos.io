@@ -25,7 +25,7 @@ export const DEPLOY_PROMPT = '$sealos deploy <project>';
 export const PAGE_COPY = {
   hero: {
     eyebrow: 'SEALOS SKILLS',
-    title: 'Deploy from your coding agent. See the proof.',
+    title: 'Build with your agent on Sealos',
     description:
       'Point Sealos Skills at a repo. Your agent prepares the runtime, deploys it to Sealos Cloud, and returns a live URL with rollout, log, and resource checks.',
     commandLabel: 'INSTALL FOR CODEX',

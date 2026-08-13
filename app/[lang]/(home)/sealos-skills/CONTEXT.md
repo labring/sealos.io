@@ -48,6 +48,11 @@ _Avoid_: Deployment created, runtime shipped
 The nine Agent Guides supported by the same Sealos Skills source.
 _Avoid_: Host list, compatibility claim
 
+**Agent Logo**:
+The transparent brand mark that identifies an Agent across the Hub and Agent
+Guide surfaces.
+_Avoid_: App icon, logo tile
+
 **Primary Install Path**:
 The Codex Install Path presented as the main Hub action while Agent Coverage
 links readers to the other documented paths.
