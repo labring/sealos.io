@@ -135,7 +135,11 @@ export function AgentLogoRotator({
       <span className="sr-only">Build with {activeAgent.name} on Sealos</span>
       <span
         aria-hidden="true"
-        className="relative inline-block size-12 overflow-hidden align-middle lg:size-14"
+        className={
+          activeAgent.icon === 'amp'
+            ? 'relative inline-block h-[52px] w-[102px] overflow-hidden align-middle transition-[width] duration-[320ms] motion-reduce:transition-none lg:h-16 lg:w-[125px]'
+            : 'relative inline-block size-[52px] overflow-hidden align-middle transition-[width] duration-[320ms] motion-reduce:transition-none lg:size-16'
+        }
         data-agent-logo-rotator
         onMouseEnter={() => setIsRotatorHovered(true)}
         onMouseLeave={() => setIsRotatorHovered(false)}
@@ -153,9 +157,12 @@ export function AgentLogoRotator({
           {rotatingAgents.map((agent, index) => (
             <span
               key={`${agent.icon}-${index}`}
-              className="flex size-12 shrink-0 items-center justify-center lg:size-14"
+              className="flex h-[52px] w-full shrink-0 items-center justify-center lg:h-16"
             >
-              <AgentLogo icon={agent.icon} className="size-10 lg:size-12" />
+              <AgentLogo
+                icon={agent.icon}
+                className="h-[52px] w-auto max-w-none lg:h-16"
+              />
             </span>
           ))}
         </span>

@@ -127,8 +127,8 @@ export function AgentLogo({
       <Image
         src={logo.src}
         alt=""
-        width={28}
-        height={28}
+        width={logo.src.width}
+        height={logo.src.height}
         className={cn('size-7 object-contain', logo.className, className)}
       />
     );

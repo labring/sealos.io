@@ -48,12 +48,12 @@ export function HeroSection() {
         <p className="font-mono text-xs font-semibold text-blue-400 uppercase">
           {PAGE_COPY.hero.eyebrow}
         </p>
-        <h1 className="mt-5 max-w-5xl text-[42px] leading-[46px] font-medium tracking-normal text-balance text-zinc-100 lg:text-[56px] lg:leading-[60px]">
-          <span aria-hidden="true">Build with </span>
+        <h1 className="mt-5 flex max-w-5xl flex-wrap items-center justify-center gap-x-[0.18em] text-[42px] leading-[54px] font-medium tracking-normal text-zinc-100 lg:text-[56px] lg:leading-[68px]">
+          <span aria-hidden="true">Build with</span>
           <AgentLogoRotator
             agents={AGENT_GUIDES.map(({ icon, name }) => ({ icon, name }))}
           />
-          <span aria-hidden="true"> on Sealos</span>
+          <span aria-hidden="true">on Sealos</span>
         </h1>
         <p className="mt-5 max-w-2xl text-base leading-7 text-pretty text-zinc-400 sm:text-lg sm:leading-8">
           {PAGE_COPY.hero.description}

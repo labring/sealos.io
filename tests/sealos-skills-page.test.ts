@@ -441,13 +441,16 @@ test('Sealos Skills uses continuous panels and complete mobile proof', () => {
 
 test('Sealos Skills centers the Hero terminal and rotates all Agent logos', () => {
   assert.ok(topSource.includes('flex flex-col items-center text-center'));
+  assert.ok(topSource.includes('gap-x-[0.18em]'));
+  assert.ok(topSource.includes('leading-[54px]'));
+  assert.ok(topSource.includes('lg:leading-[68px]'));
   assert.ok(
     topSource.includes(
       'agents={AGENT_GUIDES.map(({ icon, name }) => ({ icon, name }))}',
     ),
   );
-  assert.ok(topSource.includes('aria-hidden="true">Build with </span>'));
-  assert.ok(topSource.includes('aria-hidden="true"> on Sealos</span>'));
+  assert.ok(topSource.includes('aria-hidden="true">Build with</span>'));
+  assert.ok(topSource.includes('aria-hidden="true">on Sealos</span>'));
   assert.ok(topSource.includes('aria-label="Jump to Agent guide"'));
   assert.ok(topSource.includes('data-agent-logo-nav'));
   assert.ok(topSource.includes('href={`#agent-${agent.id}`}'));
@@ -462,6 +465,13 @@ test('Sealos Skills centers the Hero terminal and rotates all Agent logos', () =
   assert.ok(rotatorSource.includes('data-agent-logo-rotator'));
   assert.ok(rotatorSource.includes('duration-[320ms]'));
   assert.ok(rotatorSource.includes('aria-hidden="true"'));
+  assert.ok(rotatorSource.includes('h-[52px] w-[102px]'));
+  assert.ok(rotatorSource.includes('lg:h-16 lg:w-[125px]'));
+  assert.ok(rotatorSource.includes('size-[52px]'));
+  assert.ok(rotatorSource.includes('lg:size-16'));
+  assert.ok(rotatorSource.includes('h-[52px] w-auto max-w-none lg:h-16'));
+  assert.ok(sharedSource.includes('width={logo.src.width}'));
+  assert.ok(sharedSource.includes('height={logo.src.height}'));
   assert.ok(
     rotatorSource.includes(
       '<span className="sr-only">Build with {activeAgent.name} on Sealos</span>',
