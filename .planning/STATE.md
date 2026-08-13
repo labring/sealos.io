@@ -8,7 +8,7 @@ status: blocked
 stopped_at: Independent Phase 32 verification complete with production acceptance BLOCKED
 last_updated: "2026-08-12T07:22:00Z"
 last_activity: 2026-08-13
-last_activity_desc: Completed quick task 260813-hsp for improving Sealos Skills Hero top spacing
+last_activity_desc: Completed quick task 260814 for renaming navigation labels to Agents
 progress:
   total_phases: 2
   completed_phases: 1
@@ -81,6 +81,7 @@ production workflows for one SHA, then require a zero-finding live rerun.
 | 260813-m3k | Remove the SEALOS SKILLS eyebrow above the Sealos Skills Hero title | 2026-08-13 | 864d342 | [260813-m3k-remove-the-sealos-skills-eyebrow-above-t](./quick/260813-m3k-remove-the-sealos-skills-eyebrow-above-t/) |
 | 260813-mkr | Remove dead Sealos Skills Hero data, replaced PNG assets, logo configuration, and hash test | 2026-08-13 | c19c09b | [260813-mkr-remove-dead-sealos-skills-hero-data-repl](./quick/260813-mkr-remove-dead-sealos-skills-hero-data-repl/) |
 | 260813-hsp | Improve Sealos Skills Hero top spacing below the shared header | 2026-08-13 | Pending | [260813-hsp-improve-sealos-skills-hero-top-spacing](./quick/260813-hsp-improve-sealos-skills-hero-top-spacing/) |
+| 260814 | Rename Header and Footer Sealos Skills labels to Agents | 2026-08-14 | Pending | [260814-rename-nav-footer-agents](./quick/260814-rename-nav-footer-agents/) |
 
 ## Performance Metrics
 
