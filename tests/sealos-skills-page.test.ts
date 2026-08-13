@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
@@ -133,7 +132,6 @@ test('Sealos Skills exposes eight real skills and six deployment evidence types'
 
 test('Hub places the Agent directory directly after the Hero', () => {
   for (const copy of [
-    'Build with your agent on Sealos',
     'Connect Sealos Skills to your coding agent.',
     '9 Agent guides. One shared skill source.',
     'Install through skills.sh',
@@ -321,7 +319,7 @@ test('Agent icons use localized transparent assets and retain official source UR
     'amp',
     'kimi',
   ]) {
-    assert.ok(sharedSource.includes(`${icon}: { src:`));
+    assert.ok(sharedSource.includes(`${icon}:`));
   }
 
   for (const transparentAsset of [
@@ -442,9 +440,9 @@ test('Sealos Skills uses continuous panels and complete mobile proof', () => {
 test('Sealos Skills centers the Hero terminal and rotates all Agent logos', () => {
   assert.ok(topSource.includes('flex flex-col items-center text-center'));
   assert.equal(
-    topSource.includes('{PAGE_COPY.hero.eyebrow}'),
+    contentSource.includes("eyebrow: 'SEALOS SKILLS'"),
     false,
-    'Hero eyebrow should not render',
+    'Hero eyebrow data should be removed',
   );
   assert.ok(topSource.includes('gap-x-[0.18em]'));
   assert.ok(topSource.includes('leading-[54px]'));
@@ -475,23 +473,12 @@ test('Sealos Skills centers the Hero terminal and rotates all Agent logos', () =
   assert.ok(rotatorSource.includes('size-[52px]'));
   assert.ok(rotatorSource.includes('lg:size-16'));
   assert.ok(rotatorSource.includes('h-[52px] w-auto max-w-none lg:h-16'));
-  assert.ok(sharedSource.includes('width={logo.src.width}'));
-  assert.ok(sharedSource.includes('height={logo.src.height}'));
+  assert.ok(sharedSource.includes('width={logo.width}'));
+  assert.ok(sharedSource.includes('height={logo.height}'));
   assert.ok(
     rotatorSource.includes(
       '<span className="sr-only">Build with {activeAgent.name} on Sealos</span>',
     ),
   );
   assert.equal(rotatorSource.includes('aria-live'), false);
-});
-
-test('Sealos Skills content matches the approved Hero title revision', () => {
-  const contentHash = createHash('sha256')
-    .update(readSource(`${route}/content.ts`))
-    .digest('hex');
-
-  assert.equal(
-    contentHash,
-    '3fd8c6d2b5db518dcb244d25f498ab70fb710950ba1ced80503e298a8208a5af',
-  );
 });

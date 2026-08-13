@@ -27,19 +27,16 @@ export function SkillsPageShell({ children }: { children: ReactNode }) {
 
 type LogoIconKey = Exclude<AgentIconKey, 'bot' | 'terminal' | 'code'>;
 
-const AGENT_LOGOS: Record<
-  LogoIconKey,
-  { src: StaticImageData; className?: string }
-> = {
-  openai: { src: OpenAILogo },
-  claude: { src: ClaudeLogo },
-  qoder: { src: QoderLogo },
-  gemini: { src: GeminiLogo },
-  qwen: { src: QwenLogo },
-  codebuddy: { src: CodeBuddyLogo },
-  openclaw: { src: OpenClawLogo },
-  amp: { src: AmpLogo },
-  kimi: { src: KimiLogo },
+const AGENT_LOGOS: Record<LogoIconKey, StaticImageData> = {
+  openai: OpenAILogo,
+  claude: ClaudeLogo,
+  qoder: QoderLogo,
+  gemini: GeminiLogo,
+  qwen: QwenLogo,
+  codebuddy: CodeBuddyLogo,
+  openclaw: OpenClawLogo,
+  amp: AmpLogo,
+  kimi: KimiLogo,
 };
 
 const FALLBACK_ICONS = {
@@ -125,11 +122,11 @@ export function AgentLogo({
 
     return (
       <Image
-        src={logo.src}
+        src={logo}
         alt=""
-        width={logo.src.width}
-        height={logo.src.height}
-        className={cn('size-7 object-contain', logo.className, className)}
+        width={logo.width}
+        height={logo.height}
+        className={cn('size-7 object-contain', className)}
       />
     );
   }
