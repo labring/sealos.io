@@ -40,7 +40,8 @@ export function AgentDirectorySection({ lang }: { lang: languagesType }) {
         {AGENT_GUIDES.map((agent) => (
           <article
             key={agent.id}
-            className="group flex min-h-[244px] flex-col bg-[#101219] p-5 transition-colors duration-200 hover:bg-[#161923] motion-reduce:transition-none sm:p-6"
+            id={`agent-${agent.id}`}
+            className="group flex min-h-[244px] scroll-mt-32 flex-col bg-[#101219] p-5 transition-colors duration-200 hover:bg-[#161923] motion-reduce:transition-none sm:p-6"
           >
             <div className="flex items-start justify-between gap-4">
               <AgentMark icon={agent.icon} />

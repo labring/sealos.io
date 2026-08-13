@@ -43,3 +43,12 @@ A deployment with a confirmed application URL, rollout status, logs, relevant
 web setup or login checks, resource footprint, and saved run state in
 `.sealos/state.json`.
 _Avoid_: Deployment created, runtime shipped
+
+**Agent Coverage**:
+The nine Agent Guides supported by the same Sealos Skills source.
+_Avoid_: Host list, compatibility claim
+
+**Primary Install Path**:
+The Codex Install Path presented as the main Hub action while Agent Coverage
+links readers to the other documented paths.
+_Avoid_: Rotating install path, automatic host selection

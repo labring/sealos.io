@@ -103,34 +103,45 @@ export function SectionHeading({
 }
 
 export function AgentMark({ icon }: { icon: AgentIconKey }) {
+  return (
+    <span
+      className="flex size-12 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.04]"
+      aria-hidden="true"
+    >
+      <AgentLogo icon={icon} />
+    </span>
+  );
+}
+
+export function AgentLogo({
+  className,
+  icon,
+}: {
+  className?: string;
+  icon: AgentIconKey;
+}) {
   if (isLogoIcon(icon)) {
     const logo = AGENT_LOGOS[icon];
 
     return (
-      <span
-        className="flex size-12 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.04]"
-        aria-hidden="true"
-      >
-        <Image
-          src={logo.src}
-          alt=""
-          width={28}
-          height={28}
-          className={cn('size-7 object-contain', logo.className)}
-        />
-      </span>
+      <Image
+        src={logo.src}
+        alt=""
+        width={28}
+        height={28}
+        className={cn('size-7 object-contain', logo.className, className)}
+      />
     );
   }
 
   const Icon = FALLBACK_ICONS[icon];
 
   return (
-    <span
-      className="flex size-12 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-zinc-300"
+    <Icon
+      className={cn('size-6 text-zinc-300', className)}
+      strokeWidth={1.6}
       aria-hidden="true"
-    >
-      <Icon className="size-6" strokeWidth={1.6} aria-hidden="true" />
-    </span>
+    />
   );
 }
 

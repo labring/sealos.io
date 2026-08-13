@@ -20,6 +20,7 @@ const routeFiles = [
   `${route}/copy-command.tsx`,
   `${route}/shared.tsx`,
   `${route}/agent-directory.tsx`,
+  `${route}/agent-logo-rotator.tsx`,
   `${detailRoute}/page.tsx`,
   `${detailRoute}/agent-guide-page.tsx`,
   `${detailRoute}/agent-guide-nav.tsx`,
@@ -35,6 +36,7 @@ const detailUiSource = `${detailViewSource}\n${detailNavSource}`;
 const landingSource = readSource(`${route}/components.tsx`);
 const directorySource = readSource(`${route}/agent-directory.tsx`);
 const topSource = readSource(`${route}/top-sections.tsx`);
+const rotatorSource = readSource(`${route}/agent-logo-rotator.tsx`);
 const sharedSource = readSource(`${route}/shared.tsx`);
 const sitemapSource = readSource('app/sitemap.ts');
 const localeRoutesSource = readSource('config/default-locale-routes.mjs');
@@ -401,6 +403,28 @@ test('Sealos Skills uses continuous panels and complete mobile proof', () => {
   assert.ok(detailViewSource.includes('data-agent-quick-start-grid'));
   assert.ok(detailViewSource.includes('data-agent-evidence-grid'));
   assert.ok(detailViewSource.includes('data-agent-prompt-grid'));
+});
+
+test('Sealos Skills centers the Hero terminal and rotates all Agent logos', () => {
+  assert.ok(topSource.includes('flex flex-col items-center text-center'));
+  assert.ok(topSource.includes('icons={AGENT_GUIDES.map(({ icon }) => icon)}'));
+  assert.ok(
+    topSource.includes('<span className="sr-only">{PAGE_COPY.hero.title}'),
+  );
+  assert.ok(topSource.includes('aria-label="Jump to Agent guide"'));
+  assert.ok(topSource.includes('data-agent-logo-nav'));
+  assert.ok(topSource.includes('href={`#agent-${agent.id}`}'));
+  assert.ok(topSource.includes('data-agent-logo-id={agent.id}'));
+  assert.ok(topSource.includes('bg-[#13151C]'));
+  assert.ok(topSource.includes('rounded-full bg-white/20'));
+  assert.ok(directorySource.includes('id={`agent-${agent.id}`}'));
+  assert.ok(directorySource.includes('scroll-mt-32'));
+  assert.ok(rotatorSource.includes('ROTATION_DELAY = 2400'));
+  assert.ok(rotatorSource.includes('prefers-reduced-motion: reduce'));
+  assert.ok(rotatorSource.includes('visibilitychange'));
+  assert.ok(rotatorSource.includes('data-agent-logo-rotator'));
+  assert.ok(rotatorSource.includes('duration-[320ms]'));
+  assert.ok(rotatorSource.includes('aria-hidden="true"'));
 });
 
 test('Sealos Skills copy source remains byte-for-byte unchanged', () => {

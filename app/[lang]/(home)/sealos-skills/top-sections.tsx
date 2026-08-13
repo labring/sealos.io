@@ -11,7 +11,9 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { CopyCommandButton } from './copy-command';
+import { AgentLogoRotator } from './agent-logo-rotator';
 import {
+  AGENT_GUIDES,
   CODEX_INSTALL_COMMAND,
   PAGE_COPY,
   PROOF_ITEMS,
@@ -20,6 +22,7 @@ import {
   type SkillIconName,
 } from './content';
 import {
+  AgentLogo,
   AnchorAlias,
   SectionHeading,
   SectionShell,
@@ -41,67 +44,94 @@ const SKILL_ICONS: Record<SkillIconName, LucideIcon> = {
 export function HeroSection() {
   return (
     <section id="skills" className="relative scroll-mt-24 pt-24 pb-8 sm:pb-20">
-      <SectionShell>
-        <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-[5fr_7fr] lg:gap-14">
-          <div className="max-w-xl">
-            <p className="mb-4 font-mono text-xs font-semibold text-blue-400 uppercase sm:mb-6">
-              {PAGE_COPY.hero.eyebrow}
-            </p>
-            <h1 className="text-[42px] leading-[46px] font-medium tracking-normal text-balance text-zinc-100 lg:text-[56px] lg:leading-[60px]">
-              {PAGE_COPY.hero.title}
-            </h1>
-            <p className="mt-4 max-w-[58ch] text-base leading-7 text-pretty text-zinc-400 sm:mt-6 sm:text-lg sm:leading-8">
-              {PAGE_COPY.hero.description}
-            </p>
-            <div className="mt-6 grid grid-cols-[0.9fr_1.1fr] gap-3 sm:mt-8 sm:flex sm:flex-wrap">
-              <CopyCommandButton
-                value={CODEX_INSTALL_COMMAND}
-                label={PAGE_COPY.hero.primaryCta}
-                showStatus
-                tone="accent"
-                className="min-w-0 px-3 text-xs sm:min-w-[148px] sm:px-4 sm:text-sm"
-                tracking={{
-                  id: 'skills_hero_copy_codex_install',
-                  location: 'sealos_skills_hero',
-                  destination: 'clipboard_codex_install',
-                }}
-              />
-              <TrackedLink
-                href={REPO_URL}
-                className="min-w-0 px-3 text-xs sm:px-4 sm:text-sm"
-                tracking={{
-                  id: 'skills_hero_view_github',
-                  location: 'sealos_skills_hero',
-                  destination: 'github_sealos_skills',
-                }}
-              >
-                {PAGE_COPY.hero.secondaryCta}
-              </TrackedLink>
-            </div>
-          </div>
+      <SectionShell className="flex flex-col items-center text-center">
+        <p className="font-mono text-xs font-semibold text-blue-400 uppercase">
+          {PAGE_COPY.hero.eyebrow}
+        </p>
+        <h1 className="mt-5 max-w-5xl text-[42px] leading-[46px] font-medium tracking-normal text-balance text-zinc-100 lg:text-[56px] lg:leading-[60px]">
+          <span className="sr-only">{PAGE_COPY.hero.title}</span>
+          <span aria-hidden="true">
+            Deploy from your{' '}
+            <AgentLogoRotator icons={AGENT_GUIDES.map(({ icon }) => icon)} />
+            <span className="-ml-2">.</span> See the proof.
+          </span>
+        </h1>
+        <p className="mt-5 max-w-2xl text-base leading-7 text-pretty text-zinc-400 sm:text-lg sm:leading-8">
+          {PAGE_COPY.hero.description}
+        </p>
 
-          <div
-            className="min-w-0 overflow-hidden rounded-lg border border-white/10 bg-[#101219] shadow-[0_28px_80px_rgba(3,7,18,0.32)]"
-            data-skills-hero-command
-          >
-            <div className="border-b border-white/10 px-5 py-4 sm:px-6">
-              <span className="font-mono text-xs font-semibold text-blue-400">
-                {PAGE_COPY.hero.commandLabel}
-              </span>
-            </div>
-            <div className="bg-[#080A11] px-5 py-8 sm:px-7 sm:py-10 lg:py-12">
-              <pre className="min-w-0 overflow-x-auto font-mono text-xs leading-7 whitespace-pre text-zinc-200 sm:text-sm sm:leading-8">
-                <code>{CODEX_INSTALL_COMMAND}</code>
-              </pre>
-            </div>
-            <div className="border-t border-white/10 px-5 py-4 font-mono text-xs leading-5 text-zinc-400 sm:px-6">
-              {PAGE_COPY.hero.invocation}
-            </div>
+        <div
+          className="mt-8 w-full max-w-[860px] overflow-hidden rounded-lg border border-white/10 bg-[#101219] text-left shadow-[0_28px_80px_rgba(3,7,18,0.32)] sm:mt-12"
+          data-skills-hero-command
+        >
+          <div className="flex min-h-14 items-center gap-4 border-b border-white/10 bg-[#13151C] px-4 sm:px-5">
+            <span className="flex shrink-0 gap-1.5" aria-hidden="true">
+              <span className="size-2.5 rounded-full bg-white/20" />
+              <span className="size-2.5 rounded-full bg-white/20" />
+              <span className="size-2.5 rounded-full bg-white/20" />
+            </span>
+            <span className="min-w-0 flex-1 font-mono text-[11px] font-semibold text-blue-400 sm:text-xs">
+              {PAGE_COPY.hero.commandLabel}
+            </span>
+            <CopyCommandButton
+              value={CODEX_INSTALL_COMMAND}
+              label={PAGE_COPY.hero.primaryCta}
+              showStatus
+              tone="quiet"
+              className="min-h-9 px-2.5 text-[11px] sm:px-3 sm:text-xs"
+              tracking={{
+                id: 'skills_hero_copy_codex_install',
+                location: 'sealos_skills_hero',
+                destination: 'clipboard_codex_install',
+              }}
+            />
+          </div>
+          <div className="bg-[#080A11] px-5 py-4 sm:px-8 sm:py-12">
+            <pre className="min-w-0 overflow-x-auto font-mono text-xs leading-7 whitespace-pre text-zinc-200 sm:text-sm sm:leading-8">
+              <code>{CODEX_INSTALL_COMMAND}</code>
+            </pre>
+          </div>
+          <div className="border-t border-white/10 px-5 py-4 font-mono text-xs leading-5 text-zinc-400 sm:px-6">
+            {PAGE_COPY.hero.invocation}
           </div>
         </div>
 
+        <TrackedLink
+          href={REPO_URL}
+          className="mt-3 min-h-0 border-0 px-0 text-sm text-zinc-500 hover:bg-transparent hover:text-zinc-100 sm:mt-5"
+          tracking={{
+            id: 'skills_hero_view_github',
+            location: 'sealos_skills_hero',
+            destination: 'github_sealos_skills',
+          }}
+        >
+          {PAGE_COPY.hero.secondaryCta}
+        </TrackedLink>
+
+        <nav
+          aria-label="Jump to Agent guide"
+          className="mt-6 flex w-full max-w-[620px] flex-wrap justify-center gap-2 sm:mt-11 sm:grid sm:grid-cols-9 sm:gap-3"
+          data-agent-logo-nav
+        >
+          {AGENT_GUIDES.map((agent) => (
+            <a
+              key={agent.id}
+              href={`#agent-${agent.id}`}
+              aria-label={`Jump to ${agent.name} guide`}
+              title={agent.name}
+              className="group flex aspect-square w-[calc((100%_-_2rem)/5)] items-center justify-center rounded-md border border-white/10 bg-[#101219] transition-colors duration-200 hover:border-blue-400/60 hover:bg-[#161923] focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none motion-reduce:transition-none sm:w-auto"
+              data-agent-logo-id={agent.id}
+            >
+              <AgentLogo
+                icon={agent.icon}
+                className="size-8 transition-transform duration-200 group-hover:scale-110 motion-reduce:transition-none sm:size-9"
+              />
+            </a>
+          ))}
+        </nav>
+
         <div
-          className="mt-8 grid grid-cols-2 overflow-hidden border-y border-white/10 sm:mt-14 lg:mt-20 lg:grid-cols-4"
+          className="mt-12 grid w-full grid-cols-2 overflow-hidden border-y border-white/10 sm:mt-14 lg:mt-20 lg:grid-cols-4"
           data-skills-proof-grid
         >
           {PROOF_ITEMS.map((proof) => (
