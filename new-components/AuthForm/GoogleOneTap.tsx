@@ -25,10 +25,7 @@ type OneTapLoginResponse = {
   };
 };
 
-export function buildOneTapRedirectUrl(data: {
-  token: string;
-  needInit?: boolean;
-}) {
+function buildOneTapRedirectUrl(data: { token: string; needInit?: boolean }) {
   const target = new URL(siteConfig.googleOneTap.redirectUrl || appDomain);
   if (target.pathname === '/') {
     target.pathname = '/oauth';
