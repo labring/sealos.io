@@ -8,7 +8,7 @@ status: blocked
 stopped_at: Independent Phase 32 verification complete with production acceptance BLOCKED
 last_updated: "2026-08-12T07:22:00Z"
 last_activity: 2026-08-13
-last_activity_desc: Completed quick task 260813-gu4 for the centered Sealos Skills Hero
+last_activity_desc: Completed quick task 260813-ink for the Sealos Skills Hero title and transparent Agent logos
 progress:
   total_phases: 2
   completed_phases: 1
@@ -76,6 +76,7 @@ production workflows for one SHA, then require a zero-finding live rerun.
 | 260812-nea | Build nine Agent-specific Sealos Skills installation pages | 2026-08-13 | ffe7f99 | [260812-nea-build-nine-agent-specific-sealos-skills-](./quick/260812-nea-build-nine-agent-specific-sealos-skills-/) |
 | 260813-1rl | Unify the Sealos Skills Hub and Agent guides with the Homepage visual system | 2026-08-13 | 2a66f88 | Verified | [260813-1rl-unify-the-sealos-skills-hub-and-agent-gu](./quick/260813-1rl-unify-the-sealos-skills-hub-and-agent-gu/) |
 | 260813-gu4 | Recenter the Sealos Skills Hero around a macOS terminal and rotating Agent logos | 2026-08-13 | 0964256 | [260813-gu4-recenter-the-sealos-skills-hero-around-a](./quick/260813-gu4-recenter-the-sealos-skills-hero-around-a/) |
+| 260813-ink | Update the Sealos Skills Hero title and transparent Agent logos | 2026-08-13 | 8ba2071 | [260813-ink-update-the-sealos-skills-hero-title-to-b](./quick/260813-ink-update-the-sealos-skills-hero-title-to-b/) |
 
 ## Performance Metrics
 
