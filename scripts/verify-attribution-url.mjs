@@ -188,6 +188,23 @@ assert.ok(
   'SelectMethodStep must decorate OAuth redirects before navigation',
 );
 
+const googleOneTapPath = resolve('new-components/AuthForm/GoogleOneTap.tsx');
+const googleOneTapSource = await readFile(googleOneTapPath, 'utf8');
+assert.match(googleOneTapSource, /from ['"]@\/lib\/attribution-url['"]/);
+assert.match(
+  googleOneTapSource,
+  /export function buildOneTapRedirectUrl/,
+  'GoogleOneTap must expose its redirect builder for regression coverage',
+);
+const googleOneTapCall = googleOneTapSource.indexOf(
+  'appendAttributionToUrl(target.toString())',
+);
+const googleOneTapHref = googleOneTapSource.indexOf('window.location.href');
+assert.ok(
+  googleOneTapCall >= 0 && googleOneTapCall < googleOneTapHref,
+  'GoogleOneTap must decorate the final login redirect before navigation',
+);
+
 const deployModalSource = await readFile(
   resolve('new-components/DeployModal/DeployModalContext.tsx'),
   'utf8',
@@ -266,6 +283,66 @@ vm.runInNewContext(authCode, hookSandbox, { filename: authPath });
 const { buildAuthRedirectUrl } = hookModule.exports;
 
 assert.equal(typeof buildAuthRedirectUrl, 'function');
+
+const googleOneTapCode = ts.transpileModule(googleOneTapSource, {
+  compilerOptions: {
+    jsx: ts.JsxEmit.ReactJSX,
+    module: ts.ModuleKind.CommonJS,
+    target: ts.ScriptTarget.ES2022,
+  },
+}).outputText;
+
+const googleOneTapModule = { exports: {} };
+const googleOneTapSandbox = {
+  module: googleOneTapModule,
+  exports: googleOneTapModule.exports,
+  require(specifier) {
+    if (specifier === 'next/script') {
+      return { __esModule: true, default: () => null };
+    }
+
+    if (specifier === 'react') {
+      return { useCallback: (fn) => fn };
+    }
+
+    if (specifier === 'react/jsx-runtime') {
+      return { jsx: () => null };
+    }
+
+    if (specifier === '@/config/site') {
+      return {
+        appDomain: 'https://os.sealos.io',
+        siteConfig: {
+          googleOneTap: {
+            clientId: 'test-client',
+            enabled: true,
+            loginEndpoint: '/api/auth/google/onetap',
+            redirectUrl: 'https://os.sealos.io',
+          },
+        },
+      };
+    }
+
+    if (specifier === '@/lib/attribution-url') {
+      return { appendAttributionToUrl };
+    }
+
+    throw new Error(`Unexpected import: ${specifier}`);
+  },
+  console,
+  fetch: async () => ({ json: async () => ({}) }),
+  URL,
+  URLSearchParams,
+};
+
+googleOneTapSandbox.globalThis = googleOneTapSandbox;
+googleOneTapSandbox.window = globalThis.window;
+vm.runInNewContext(googleOneTapCode, googleOneTapSandbox, {
+  filename: googleOneTapPath,
+});
+const { buildOneTapRedirectUrl } = googleOneTapModule.exports;
+
+assert.equal(typeof buildOneTapRedirectUrl, 'function');
 
 const previousWindow = globalThis.window;
 const previousDocument = globalThis.document;
@@ -418,6 +495,29 @@ try {
     buildAuthRedirectUrl({ openapp: 'system-brain' }),
     `${oauth2Url}?openapp=system-brain&sea_attr=runtime`,
   );
+
+  const oneTapRedirect = new URL(
+    buildOneTapRedirectUrl({ token: 'test-token', needInit: true }),
+  );
+  assert.equal(oneTapRedirect.pathname, '/oauth');
+  assert.equal(oneTapRedirect.searchParams.get('token'), 'test-token');
+  assert.equal(oneTapRedirect.searchParams.get('switchRegionType'), 'INIT');
+  assert.equal(
+    oneTapRedirect.searchParams.get('workspaceName'),
+    'My Workspace',
+  );
+  assert.equal(oneTapRedirect.searchParams.get('sea_attr'), 'runtime');
+
+  setBrowserFixtures({ href: 'https://sealos.io/' });
+  const unattributedOneTapRedirect = new URL(
+    buildOneTapRedirectUrl({ token: 'test-token' }),
+  );
+  assert.equal(unattributedOneTapRedirect.pathname, '/oauth');
+  assert.equal(
+    unattributedOneTapRedirect.searchParams.get('token'),
+    'test-token',
+  );
+  assert.equal(unattributedOneTapRedirect.searchParams.has('sea_attr'), false);
 } finally {
   restoreBrowserFixtures();
 }

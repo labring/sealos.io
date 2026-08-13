@@ -49,3 +49,10 @@ _Avoid_: Content check, release smoke
 The exported tutorial index, tutorial detail routes, and public evidence assets
 served to readers from the production static build.
 _Avoid_: Build output files, generated pages
+
+## Website Attribution Language
+
+**Attribution Handoff (归因交接)**:
+The transfer of acquisition context from the public website to a Sealos product
+surface during a cross-origin user journey.
+_Avoid_: CTA attribution, redirect tracking

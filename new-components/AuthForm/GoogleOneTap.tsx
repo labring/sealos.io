@@ -3,6 +3,7 @@
 import Script from 'next/script';
 import { useCallback } from 'react';
 import { appDomain, siteConfig } from '@/config/site';
+import { appendAttributionToUrl } from '@/lib/attribution-url';
 
 type GoogleCredentialResponse = {
   credential?: string;
@@ -24,7 +25,10 @@ type OneTapLoginResponse = {
   };
 };
 
-function buildOneTapRedirectUrl(data: { token: string; needInit?: boolean }) {
+export function buildOneTapRedirectUrl(data: {
+  token: string;
+  needInit?: boolean;
+}) {
   const target = new URL(siteConfig.googleOneTap.redirectUrl || appDomain);
   if (target.pathname === '/') {
     target.pathname = '/oauth';
@@ -36,7 +40,7 @@ function buildOneTapRedirectUrl(data: { token: string; needInit?: boolean }) {
     target.searchParams.append('workspaceName', 'My Workspace');
   }
 
-  return target.toString();
+  return appendAttributionToUrl(target.toString());
 }
 
 declare global {
