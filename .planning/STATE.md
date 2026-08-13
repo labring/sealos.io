@@ -8,7 +8,7 @@ status: blocked
 stopped_at: Independent Phase 32 verification complete with production acceptance BLOCKED
 last_updated: "2026-08-12T07:22:00Z"
 last_activity: 2026-08-13
-last_activity_desc: Completed quick task 260813-1rl for the Sealos Skills visual system
+last_activity_desc: Completed quick task 260813-gu4 for the centered Sealos Skills Hero
 progress:
   total_phases: 2
   completed_phases: 1
@@ -48,7 +48,7 @@ Phase 32 owns the pending PARITY-02 and DELIVERY-02 requirements.
 Phase: 32 (sitemap-route-parity-and-production-verification) — BLOCKED
 Plan: 4 of 4
 Status: Independent verification complete with 14/16 must-haves; production acceptance BLOCKED
-Last activity: 2026-08-13 — Completed quick task 260813-1rl for the Sealos Skills visual system
+Last activity: 2026-08-13 — Completed quick task 260813-gu4 for the centered Sealos Skills Hero
 
 ## Next Action
 
@@ -75,6 +75,7 @@ production workflows for one SHA, then require a zero-finding live rerun.
 | 260812-k69 | Consolidate the Sealos Skills agent directory, support matrix, and install tabs into one install decision | 2026-08-12 | 5fd399a | [260812-k69-consolidate-the-sealos-skills-agent-dire](./quick/260812-k69-consolidate-the-sealos-skills-agent-dire/) |
 | 260812-nea | Build nine Agent-specific Sealos Skills installation pages | 2026-08-13 | ffe7f99 | [260812-nea-build-nine-agent-specific-sealos-skills-](./quick/260812-nea-build-nine-agent-specific-sealos-skills-/) |
 | 260813-1rl | Unify the Sealos Skills Hub and Agent guides with the Homepage visual system | 2026-08-13 | 2a66f88 | Verified | [260813-1rl-unify-the-sealos-skills-hub-and-agent-gu](./quick/260813-1rl-unify-the-sealos-skills-hub-and-agent-gu/) |
+| 260813-gu4 | Recenter the Sealos Skills Hero around a macOS terminal and rotating Agent logos | 2026-08-13 | 0964256 | [260813-gu4-recenter-the-sealos-skills-hero-around-a](./quick/260813-gu4-recenter-the-sealos-skills-hero-around-a/) |
 
 ## Performance Metrics
 
