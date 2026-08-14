@@ -58,6 +58,7 @@ export function SelectMethodStep() {
       setStep('verify-code');
     } else {
       handleCaptchaError();
+      turnstileRef.current?.reset();
     }
   };
 
