@@ -15,9 +15,9 @@ test('collectEnvironmentContext records runtime and locked dependency versions',
   });
 
   assert.match(context.node, /^v\d+\./);
-  assert.equal(context.npm, '10.9.0');
+  assert.equal(context.pnpm, '10.9.0');
   assert.equal(context.nvmrc, '20');
-  assert.equal(context.lockfileVersion, 3);
+  assert.equal(context.lockfileVersion, '9.0');
 
   for (const name of [
     'next',
@@ -70,7 +70,7 @@ test('build mode separates Next build from root locale normalization', () => {
       'post generated diff guard',
     ],
   );
-  assert.equal(stages[0].command, 'npm');
+  assert.equal(stages[0].command, 'pnpm');
   assert.deepEqual(stages[0].args, ['run', 'verify:ai-faq-index']);
   assert.equal(stages[2].command, getLocalNextCommand());
   assert.deepEqual(stages[2].args, ['build']);
@@ -133,8 +133,8 @@ test('runPipeline stops after failed stage and returns completed timings', () =>
 
   assert.equal(result.exitCode, 2);
   assert.equal(result.results.length, 3);
-  assert.deepEqual(seen[0], ['npm', ['run', 'verify:ai-faq-index']]);
-  assert.deepEqual(seen[1], ['npm', ['run', 'app-store:diff']]);
+  assert.deepEqual(seen[0], ['pnpm', ['run', 'verify:ai-faq-index']]);
+  assert.deepEqual(seen[1], ['pnpm', ['run', 'app-store:diff']]);
   assert.deepEqual(seen[2], [getLocalNextCommand(), ['build']]);
 });
 
@@ -165,7 +165,7 @@ test('runPipeline stops after failed FAQ parity before spawning Next', () => {
     result.results.map(({ name, status }) => ({ name, status })),
     [{ name: 'AI FAQ parity', status: 9 }],
   );
-  assert.deepEqual(seen, [['npm', ['run', 'verify:ai-faq-index']]]);
+  assert.deepEqual(seen, [['pnpm', ['run', 'verify:ai-faq-index']]]);
   assert.equal(
     seen.some(([command]) => command === getLocalNextCommand()),
     false,
@@ -209,7 +209,7 @@ test('runPipeline stops after failed route parity before the post-build guard', 
       { name: 'AI FAQ route parity', status: 7 },
     ],
   );
-  assert.deepEqual(seen.at(-1), ['npm', ['run', 'verify:ai-faq-routes']]);
+  assert.deepEqual(seen.at(-1), ['pnpm', ['run', 'verify:ai-faq-routes']]);
   assert.equal(seen.length, 5);
   assert.equal(
     logs.filter((line) => /^  .*: .*ms \(exit \d+\)$/.test(line)).length,

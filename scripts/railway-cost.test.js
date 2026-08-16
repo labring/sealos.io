@@ -1,5 +1,21 @@
 const assert = require('node:assert/strict');
+const { readFileSync } = require('node:fs');
+const { resolve } = require('node:path');
 const test = require('node:test');
+const vm = require('node:vm');
+const ts = require('typescript');
+
+const sourcePath = resolve(
+  __dirname,
+  '../app/[lang]/(home)/pricing/config/railway-cost.ts',
+);
+const compiledSource = ts.transpileModule(readFileSync(sourcePath, 'utf8'), {
+  compilerOptions: { module: ts.ModuleKind.CommonJS },
+}).outputText;
+const railwayCost = {};
+vm.compileFunction(compiledSource, ['exports'], { filename: sourcePath })(
+  railwayCost,
+);
 
 const {
   DEFAULT_RAILWAY_UTILIZATION,
@@ -7,7 +23,7 @@ const {
   calculateBreakEvenUtilization,
   calculateCostDifference,
   estimateRailwayMonthlyCost,
-} = require('../app/[lang]/(home)/pricing/config/railway-cost.ts');
+} = railwayCost;
 
 const estimatePlan = ({ cpu, ram, disk, traffic }, utilization) =>
   estimateRailwayMonthlyCost({

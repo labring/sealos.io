@@ -89,11 +89,11 @@ const ANALYZER_ARTIFACTS = [
 
 const REQUIRED_COMMANDS = [
   'node --test scripts/check-shell-bundle-baseline.test.mjs',
-  'npm run shell-bundle:check',
-  'npm run app-store:diff',
-  'npm run build:analyze:timed',
-  'npm run static-output:check',
-  'npm run validate:deployment',
+  'pnpm shell-bundle:check',
+  'pnpm app-store:diff',
+  'pnpm build:analyze:timed',
+  'pnpm static-output:check',
+  'pnpm validate:deployment',
 ];
 
 const ANALYZER_GROUPS = [
@@ -205,10 +205,11 @@ function collectAnalyzerEvidence({
   }
 
   const caveat =
-    'analyzer artifacts are absent; SHELL-04 final movement evidence requires Node 20, installed locked dependencies, and npm run build:analyze:timed.';
+    'analyzer artifacts are absent; SHELL-04 final movement evidence requires Node 20, installed locked dependencies, and pnpm build:analyze:timed.';
 
   return {
-    status: env.PHASE11_REQUIRE_ANALYZER === '1' ? 'FAIL' : 'SKIPPED_WITH_CAVEAT',
+    status:
+      env.PHASE11_REQUIRE_ANALYZER === '1' ? 'FAIL' : 'SKIPPED_WITH_CAVEAT',
     artifacts,
     groups: ANALYZER_GROUPS,
     caveat:
@@ -229,8 +230,7 @@ function collectShellSurfaceEvidence({
     environment: collectEnvironmentContext({ rootDir }),
     requiredCommands: REQUIRED_COMMANDS,
     phaseBoundaries: {
-      phase12:
-        'Phase 12 owns OG and blog thumbnail native rendering policy.',
+      phase12: 'Phase 12 owns OG and blog thumbnail native rendering policy.',
       phase13:
         'Phase 13 owns representative browser trace closeout and final audit status updates.',
     },
@@ -267,7 +267,9 @@ function collectShellSurfaceEvidence({
 
 function validateLazyBoundaryExpectations({ rootDir = process.cwd() } = {}) {
   const failures = [];
-  const layout = readTextIfExists(resolveInside(rootDir, 'app/[lang]/layout.tsx'));
+  const layout = readTextIfExists(
+    resolveInside(rootDir, 'app/[lang]/layout.tsx'),
+  );
   const authFacade = readTextIfExists(
     resolveInside(rootDir, 'new-components/AuthForm/index.tsx'),
   );
@@ -290,7 +292,9 @@ function validateLazyBoundaryExpectations({ rootDir = process.cwd() } = {}) {
       );
     }
     if (!layout.includes('SearchDialog')) {
-      failures.push('locale shell does not wire a Fumadocs SearchDialog surface');
+      failures.push(
+        'locale shell does not wire a Fumadocs SearchDialog surface',
+      );
     }
   }
 
@@ -311,7 +315,9 @@ function validateLazyBoundaryExpectations({ rootDir = process.cwd() } = {}) {
   }
 
   if (deployContext === null) {
-    failures.push('new-components/DeployModal/DeployModalContext.tsx is missing');
+    failures.push(
+      'new-components/DeployModal/DeployModalContext.tsx is missing',
+    );
   } else if (hasStaticImport(deployContext, '@/hooks/use-template-source')) {
     failures.push(
       'DeployModalContext imports useTemplateSource eagerly; template-source loading must start from deploy intent.',

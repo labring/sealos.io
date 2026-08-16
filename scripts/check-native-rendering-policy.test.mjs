@@ -1,13 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {
-  cp,
-  mkdir,
-  mkdtemp,
-  readFile,
-  rm,
-  writeFile,
-} from 'node:fs/promises';
+import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -37,7 +30,10 @@ test('native rendering policy and docs define the Phase 12 contract', async () =
     'PERF-502',
     'og-native-rendering',
   ]) {
-    assert.match(combined, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+    assert.match(
+      combined,
+      new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+    );
   }
 
   assert.deepEqual(policy.cacheKeys.requiredDimensions, [
@@ -157,14 +153,13 @@ test('fixture policies fail closed for route ownership, fonts, and validation co
 
     await copyRepositoryFixture(dir);
     const commandPolicy = JSON.parse(await readFile(policyPath, 'utf8'));
-    commandPolicy.validationCommands =
-      commandPolicy.validationCommands.filter(
-        (command) => command !== 'npm run native-rendering:check',
-      );
+    commandPolicy.validationCommands = commandPolicy.validationCommands.filter(
+      (command) => command !== 'pnpm native-rendering:check',
+    );
     await writeFile(policyPath, JSON.stringify(commandPolicy, null, 2));
     assert.match(
       validateNativePolicyConfig({ rootDir: dir }).failures.join('\n'),
-      /validationCommands missing npm run native-rendering:check/,
+      /validationCommands missing pnpm native-rendering:check/,
     );
   } finally {
     await rm(dir, { recursive: true, force: true });
@@ -181,34 +176,37 @@ test('package scripts include native benchmark wiring', async () => {
   );
 });
 
-test('environment caveats report current shell blockers without failing source validation', () => {
-  const result = validateNativeEnvironmentCaveats({
-    rootDir: process.cwd(),
-    env: { PATH: '' },
-    nodeVersion: 'v24.13.0',
-  });
+test('environment caveats report current shell blockers without failing source validation', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'phase12-environment-'));
 
-  assert.equal(result.status, 'PASS_WITH_CAVEATS');
-  assert.match(result.caveats.join('\n'), /active Node v24\.13\.0/);
-  assert.match(result.caveats.join('\n'), /\.nvmrc requires 20/);
-  assert.match(result.caveats.join('\n'), /node_modules is absent/);
-  assert.match(result.caveats.join('\n'), /\.source is absent/);
-  assert.match(result.caveats.join('\n'), /out is absent/);
-  assert.match(result.caveats.join('\n'), /Docker CLI is unavailable/);
+  try {
+    await writeFile(join(dir, '.nvmrc'), '20\n');
+    const result = validateNativeEnvironmentCaveats({
+      rootDir: dir,
+      env: { PATH: '' },
+      nodeVersion: 'v24.13.0',
+    });
+
+    assert.equal(result.status, 'PASS_WITH_CAVEATS');
+    assert.match(result.caveats.join('\n'), /active Node v24\.13\.0/);
+    assert.match(result.caveats.join('\n'), /\.nvmrc requires 20/);
+    assert.match(result.caveats.join('\n'), /node_modules is absent/);
+    assert.match(result.caveats.join('\n'), /\.source is absent/);
+    assert.match(result.caveats.join('\n'), /out is absent/);
+    assert.match(result.caveats.join('\n'), /Docker CLI is unavailable/);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
 });
 
 test('native rendering helpers expose cache, font, OG, and blog contracts', async () => {
-  const [
-    cacheKeyText,
-    fontsText,
-    ogRendererText,
-    blogRendererText,
-  ] = await Promise.all([
-    readFile('lib/native-rendering/cache-key.ts', 'utf8'),
-    readFile('lib/native-rendering/fonts.ts', 'utf8'),
-    readFile('lib/native-rendering/og-renderer.ts', 'utf8'),
-    readFile('lib/native-rendering/blog-thumbnail-renderer.tsx', 'utf8'),
-  ]);
+  const [cacheKeyText, fontsText, ogRendererText, blogRendererText] =
+    await Promise.all([
+      readFile('lib/native-rendering/cache-key.ts', 'utf8'),
+      readFile('lib/native-rendering/fonts.ts', 'utf8'),
+      readFile('lib/native-rendering/og-renderer.ts', 'utf8'),
+      readFile('lib/native-rendering/blog-thumbnail-renderer.tsx', 'utf8'),
+    ]);
 
   assert.match(cacheKeyText, /buildNativeImageCacheKey/);
   assert.match(
@@ -226,7 +224,10 @@ test('native rendering helpers expose cache, font, OG, and blog contracts', asyn
     'cold',
     'warm',
   ]) {
-    assert.match(fontsText, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+    assert.match(
+      fontsText,
+      new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+    );
   }
 
   for (const token of [
@@ -237,7 +238,10 @@ test('native rendering helpers expose cache, font, OG, and blog contracts', asyn
     'width: 1200',
     'height: 630',
   ]) {
-    assert.match(ogRendererText, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+    assert.match(
+      ogRendererText,
+      new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+    );
   }
 
   for (const token of [
@@ -250,17 +254,17 @@ test('native rendering helpers expose cache, font, OG, and blog contracts', asyn
     'MAX_DPR = 3',
     'MAX_DIM = 4000',
   ]) {
-    assert.match(blogRendererText, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+    assert.match(
+      blogRendererText,
+      new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+    );
   }
 });
 
 test('native rendering routes delegate to shared helper adapters', async () => {
   const [ogRoute, blogRoute] = await Promise.all([
     readFile('app/api/og/route.ts', 'utf8'),
-    readFile(
-      'app/api/blog/[lang]/[slug]/thumbnail/[format]/route.ts',
-      'utf8',
-    ),
+    readFile('app/api/blog/[lang]/[slug]/thumbnail/[format]/route.ts', 'utf8'),
   ]);
 
   assert.match(ogRoute, /renderOgWebpBuffer/);
@@ -276,7 +280,10 @@ test('native rendering routes delegate to shared helper adapters', async () => {
     assert.match(blogRoute, new RegExp(token));
   }
 
-  assert.match(blogRoute, /Invalid format\. Use <width>x<height>\[@dpr\]\.\(png\|svg\)/);
+  assert.match(
+    blogRoute,
+    /Invalid format\. Use <width>x<height>\[@dpr\]\.\(png\|svg\)/,
+  );
   assert.match(blogRoute, /Blog post not found/);
   assert.match(blogRoute, /image\/svg\+xml/);
 });
@@ -288,7 +295,7 @@ async function copyRepositoryFixture(dir) {
     'app/api/og/route.ts',
     'app/api/blog/[lang]/[slug]/thumbnail/[format]/route.ts',
     'package.json',
-    'package-lock.json',
+    'pnpm-lock.yaml',
     '.nvmrc',
     'fonts/arial.ttf',
     'fonts/arial-bold.ttf',

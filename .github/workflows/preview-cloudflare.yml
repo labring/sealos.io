@@ -176,10 +176,14 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'pnpm'
 
       - name: Build
         env:
@@ -187,9 +191,9 @@ jobs:
           NEXT_PUBLIC_OPEN_SOURCE_URL: ${{ vars.NEXT_PUBLIC_OPEN_SOURCE_URL || '' }}
           NEXT_PUBLIC_DEFAULT_LOCALE: ${{ vars.NEXT_PUBLIC_DEFAULT_LOCALE || 'en' }}
         run: |
-          npm ci
-          npm run app-store:refresh
-          npm run build
+          pnpm install --frozen-lockfile
+          pnpm app-store:refresh
+          pnpm build
 
       - name: Upload static output
         uses: actions/upload-artifact@v4

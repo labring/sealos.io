@@ -4,22 +4,22 @@ on:
   workflow_dispatch:
   pull_request:
     branches:
-      - "main"
+      - 'main'
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: false
 
 jobs:
   deploy:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     permissions:
-        actions: read # Only required for private GitHub Repo
-        contents: read
-        deployments: write
-        pull-requests: write
+      actions: read # Only required for private GitHub Repo
+      contents: read
+      deployments: write
+      pull-requests: write
     runs-on: ubuntu-latest
 
     # Job outputs
@@ -34,25 +34,28 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           submodules: recursive # Fetch submodules
           fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'pnpm'
       - name: Install dependencies
-        run: npm install
+        run: pnpm install --frozen-lockfile
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        run: pnpm add --global vercel@latest
       - name: Pull environment variables
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Refresh App Store templates
-        run: npm run app-store:refresh
+        run: pnpm app-store:refresh
       - name: Build
         run: vercel build --local-config ./vercel.json
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
         id: deploy
         with:
-          vercel-version: "41.4.1"
+          vercel-version: '41.4.1'
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }} #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} #Required
@@ -73,10 +76,10 @@ jobs:
             const deploymentUrl = `${process.env.PREVIEW_URL}`;
             const status = success ? '✅ Success' : '❌ Failed';
             console.log(process.env.JOB_STATUS);
-  
+
             const commentBody = `**Deployment Status: ${status}**
             ${success ? `🔗 Preview URL: ${deploymentUrl}` : ''}`;
-  
+
             await github.rest.issues.createComment({
               ...context.repo,
               issue_number: context.payload.pull_request.number,

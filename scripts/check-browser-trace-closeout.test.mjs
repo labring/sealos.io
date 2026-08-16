@@ -22,14 +22,13 @@ test('closed browser trace gate exits 0 with route and control caveats', async (
     env: {},
     context: {
       node: 'v20.11.1',
-      npm: '10.9.0',
+      pnpm: '10.9.0',
       nvmrc: '20',
-      lockfileVersion: 3,
       nodeMajorMatchesNvmrc: true,
       nodeModules: true,
       sourceGenerated: true,
       staticExportOutput: true,
-      packageLock: true,
+      pnpmLock: true,
       adapterAvailable: false,
     },
     loadAdapter: async () => {
@@ -52,17 +51,19 @@ test('open browser trace gate reports every missing prerequisite as BLOCKED', as
     argv: [],
     context: {
       node: 'v24.13.0',
-      npm: '11.6.2',
+      pnpm: '11.6.2',
       nvmrc: '20',
-      lockfileVersion: 3,
       nodeMajorMatchesNvmrc: false,
       nodeModules: false,
       sourceGenerated: false,
       staticExportOutput: false,
-      packageLock: false,
+      pnpmLock: false,
       adapterAvailable: false,
     },
-    loadAdapter: async () => ({ adapter: null, caveat: 'optional browser adapter is absent' }),
+    loadAdapter: async () => ({
+      adapter: null,
+      caveat: 'optional browser adapter is absent',
+    }),
   });
 
   const caveats = result.caveats.join('\n');
@@ -73,7 +74,7 @@ test('open browser trace gate reports every missing prerequisite as BLOCKED', as
   assert.match(caveats, /node_modules is absent/);
   assert.match(caveats, /\.source is absent/);
   assert.match(caveats, /out is absent/);
-  assert.match(caveats, /package-lock\.json is absent/);
+  assert.match(caveats, /pnpm-lock\.yaml is absent/);
   assert.match(caveats, /local base URL is required/);
   assert.match(caveats, /optional browser adapter is absent/);
 });
@@ -139,14 +140,13 @@ test('external controls allow local requests and fail unexpected external traffi
     argv: ['--base-url=http://127.0.0.1:3000'],
     context: {
       node: 'v20.11.1',
-      npm: '10.9.0',
+      pnpm: '10.9.0',
       nvmrc: '20',
-      lockfileVersion: 3,
       nodeMajorMatchesNvmrc: true,
       nodeModules: true,
       sourceGenerated: true,
       staticExportOutput: true,
-      packageLock: true,
+      pnpmLock: true,
       adapterAvailable: true,
     },
     loadAdapter: async () => ({
@@ -193,7 +193,7 @@ test('environment context and optional adapter helpers are injectable', async ()
   });
 
   assert.equal(context.node, 'v20.11.1');
-  assert.equal(context.npm, '10.9.0');
+  assert.equal(context.pnpm, '10.9.0');
   assert.equal(context.nodeMajorMatchesNvmrc, true);
   assert.equal(context.nodeModules, false);
   assert.equal(context.staticExportOutput, false);

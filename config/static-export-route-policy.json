@@ -59,13 +59,11 @@
   "validationGates": {
     "phase9Composition": {
       "commands": [
-        "npm run static-output:check",
+        "pnpm static-output:check",
         "node scripts/check-deployment-parity.js"
       ],
       "scope": "Phase 9 static-output inspection, deployment parity gating, hosted probe opt-in, local output caveat semantics, and locked-build validation composition.",
-      "traceIds": [
-        "ROUTEFIX-04"
-      ]
+      "traceIds": ["ROUTEFIX-04"]
     }
   },
   "routes": [
@@ -82,7 +80,7 @@
       "runtimeDependency": "Next.js static export and local content/config loaders",
       "externalDependency": "none",
       "budgetOwner": "main-sitemap",
-      "validationCommand": "npm run static-routes:check",
+      "validationCommand": "pnpm static-routes:check",
       "traceIds": [
         "ROUTEFIX-01",
         "ROUTEFIX-02",
@@ -105,7 +103,7 @@
       "runtimeDependency": "Next.js static export and Fumadocs source loader",
       "externalDependency": "none",
       "budgetOwner": "ai-faq-sitemap",
-      "validationCommand": "npm run static-routes:check",
+      "validationCommand": "pnpm static-routes:check",
       "traceIds": [
         "ROUTEFIX-01",
         "ROUTEFIX-02",
@@ -128,7 +126,7 @@
       "runtimeDependency": "Next.js route handler static export, feed package, blog loader",
       "externalDependency": "none",
       "budgetOwner": "rss",
-      "validationCommand": "npm run static-routes:check",
+      "validationCommand": "pnpm static-routes:check",
       "traceIds": [
         "ROUTEFIX-01",
         "ROUTEFIX-02",
@@ -149,7 +147,7 @@
       "runtimeDependency": "Next.js route handler static export",
       "externalDependency": "none",
       "budgetOwner": "sitemap-index",
-      "validationCommand": "npm run static-routes:check",
+      "validationCommand": "pnpm static-routes:check",
       "traceIds": [
         "ROUTEFIX-01",
         "ROUTEFIX-02",
@@ -170,7 +168,7 @@
       "runtimeDependency": "Node filesystem, fast-glob, gray-matter, remark pipeline during generation",
       "externalDependency": "none",
       "budgetOwner": "llms",
-      "validationCommand": "npm run static-routes:check",
+      "validationCommand": "pnpm static-routes:check",
       "traceIds": [
         "ROUTEFIX-01",
         "ROUTEFIX-02",
@@ -194,7 +192,7 @@
       "runtimeDependency": "Fumadocs search staticGET and Mandarin tokenizer during generation",
       "externalDependency": "none",
       "budgetOwner": "search-index",
-      "validationCommand": "npm run static-routes:check",
+      "validationCommand": "pnpm static-routes:check",
       "traceIds": [
         "ROUTEFIX-01",
         "ROUTEFIX-02",
@@ -218,7 +216,7 @@
       "runtimeDependency": "Cloudflare Pages rewrite support or static public file serving",
       "externalDependency": "none",
       "budgetOwner": "robots",
-      "validationCommand": "npm run static-routes:check",
+      "validationCommand": "pnpm static-routes:check",
       "traceIds": [
         "ROUTEFIX-01",
         "ROUTEFIX-02",
@@ -239,7 +237,7 @@
       "runtimeDependency": "Next.js route support and apps API adapter",
       "externalDependency": "template.sealos.io API when network refresh is available",
       "budgetOwner": "api-apps",
-      "validationCommand": "npm run static-routes:check",
+      "validationCommand": "pnpm static-routes:check",
       "traceIds": [
         "ROUTEFIX-01",
         "ROUTEFIX-02",
@@ -260,7 +258,7 @@
       "runtimeDependency": "canvas renderer and sharp native libraries",
       "externalDependency": "none",
       "budgetOwner": "phase-12-native-rendering",
-      "validationCommand": "npm run static-routes:check",
+      "validationCommand": "pnpm static-routes:check",
       "traceIds": [
         "ROUTEFIX-01",
         "PERF-406",
@@ -281,7 +279,7 @@
       "runtimeDependency": "Next ImageResponse, Satori renderer, local font reads",
       "externalDependency": "none",
       "budgetOwner": "phase-12-native-rendering",
-      "validationCommand": "npm run static-routes:check",
+      "validationCommand": "pnpm static-routes:check",
       "traceIds": [
         "ROUTEFIX-01",
         "PERF-406",
@@ -302,7 +300,7 @@
       "runtimeDependency": "Server runtime, environment secret, process-local rate limit map",
       "externalDependency": "Cloudflare Turnstile siteverify API",
       "budgetOwner": "external-service-boundary",
-      "validationCommand": "npm run static-routes:check",
+      "validationCommand": "pnpm static-routes:check",
       "traceIds": [
         "ROUTEFIX-01",
         "PERF-406",

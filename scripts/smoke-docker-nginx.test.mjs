@@ -20,7 +20,11 @@ test('Docker smoke gate is closed by default with skip rationale', () => {
 test('Docker smoke reports blocked when CLI or daemon is unavailable', () => {
   const result = runDockerSmoke({
     env: { PHASE9_RUN_DOCKER_SMOKE: '1' },
-    commandRunner: () => ({ status: 127, stdout: '', stderr: 'missing docker' }),
+    commandRunner: () => ({
+      status: 127,
+      stdout: '',
+      stderr: 'missing docker',
+    }),
   });
 
   assert.equal(result.status, 'BLOCKED');
@@ -48,18 +52,27 @@ test('Docker smoke plan uses disposable image, container, probes, and cleanup', 
     'libharfbuzz-dev',
     'libfribidi-dev',
     'fontconfig',
-    'npm ci && npm run build',
+    'pnpm install --frozen-lockfile && pnpm build',
     '/app/out',
     '/usr/share/nginx/html',
   ]) {
-    assert.match(commandText, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+    assert.match(
+      commandText,
+      new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+    );
   }
-  assert(commands.some((command) => command.includes('native-rendering:check')));
-  assert(commands.some((command) => command.includes('native-rendering:benchmark')));
+  assert(
+    commands.some((command) => command.includes('native-rendering:check')),
+  );
+  assert(
+    commands.some((command) => command.includes('native-rendering:benchmark')),
+  );
   assert(plan.probes.some((probe) => probe.path === '/'));
   assert(plan.probes.some((probe) => probe.path === '/mtc.js'));
   assert(plan.probes.some((probe) => probe.path === '/robots.txt'));
-  assert(plan.cleanup.some((command) => command.args.includes(plan.containerName)));
+  assert(
+    plan.cleanup.some((command) => command.args.includes(plan.containerName)),
+  );
   assert(plan.cleanup.some((command) => command.args.includes(plan.imageName)));
 });
 
@@ -76,18 +89,19 @@ test('Docker smoke runs generated diff guards around Docker work', () => {
 
   assert.equal(result.status, 'PASS');
   assert.equal(seen[0][0], 'docker');
-  assert.deepEqual(seen[1], ['npm', ['run', 'app-store:diff']]);
+  assert.deepEqual(seen[1], ['pnpm', ['run', 'app-store:diff']]);
   assert.ok(
     seen.some(
       ([command, args]) =>
-        command === 'npm' && args.join(' ') === 'run native-rendering:check',
+        command === 'pnpm' && args.join(' ') === 'run native-rendering:check',
     ),
   );
   assert.ok(
     seen.some(
       ([command, args]) =>
-        command === 'npm' && args.join(' ') === 'run native-rendering:benchmark',
+        command === 'pnpm' &&
+        args.join(' ') === 'run native-rendering:benchmark',
     ),
   );
-  assert.deepEqual(seen.at(-3), ['npm', ['run', 'app-store:diff']]);
+  assert.deepEqual(seen.at(-3), ['pnpm', ['run', 'app-store:diff']]);
 });

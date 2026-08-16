@@ -116,39 +116,40 @@ Run the focused source checks and composed deployment guards:
 
 ```bash
 node --test scripts/check-native-rendering-policy.test.mjs scripts/benchmark-native-rendering.test.mjs scripts/smoke-docker-nginx.test.mjs scripts/check-deployment-parity.test.mjs scripts/check-static-output.test.mjs scripts/check-static-export-routes.test.mjs
-npm run native-rendering:check
-npm run native-rendering:benchmark
-npm run static-routes:check
-npm run static-output:check
-npm run validate:deployment
-npm run docker:smoke
+pnpm native-rendering:check
+pnpm native-rendering:benchmark
+pnpm static-routes:check
+pnpm static-output:check
+pnpm validate:deployment
+pnpm docker:smoke
 ```
 
-`npm run native-rendering:check` validates policy rows, source files,
+`pnpm native-rendering:check` validates policy rows, source files,
 route-policy alignment, cache-key fields, accepted formats, DPR caps, exact font
 bytes, package entries, package-script wiring, and current-shell caveats.
 
-`npm run native-rendering:benchmark` exits 0 with `SKIPPED_WITH_CAVEAT` while
+`pnpm native-rendering:benchmark` exits 0 with `SKIPPED_WITH_CAVEAT` while
 `PHASE12_RUN_NATIVE_BENCHMARK` is closed. When the gate is open, it requires
 Node 20, installed dependencies, generated Fumadocs source, and static export
 output before importing native renderers or running PNG `ImageResponse` smoke.
 
-`npm run static-routes:check` keeps the Phase 10 classification link active for
+`pnpm static-routes:check` keeps the Phase 10 classification link active for
 the two runtime native route rows and verifies Phase 12 native image surfaces
 stay owned by `phase-12-native-rendering`.
 
-`npm run static-output:check` reports native artifact status from
+`pnpm static-output:check` reports native artifact status from
 `public/generated/native-images` and `out/generated/native-images` only when
 source artifacts or static export output exist. Missing `out` remains
 `SKIPPED_WITH_CAVEAT` while the locked build gate is closed.
 
-`npm run validate:deployment` runs `npm run native-rendering:check` between the
+`pnpm validate:deployment` runs `pnpm native-rendering:check` between the
 generated App Store diff guard and static-output/Docker smoke checks.
 
-`npm run docker:smoke` exits 0 with `SKIPPED_WITH_CAVEAT` while
+`pnpm docker:smoke` exits 0 with `SKIPPED_WITH_CAVEAT` while
 `PHASE9_RUN_DOCKER_SMOKE` is closed. When opened, the Docker plan verifies
-Dockerfile tokens for Node 20, native library packages, `npm ci && npm run
-build`, `/app/out`, `/usr/share/nginx/html`, then runs the native rendering
+Dockerfile tokens for Node 20, native library packages,
+`pnpm install --frozen-lockfile && pnpm build`, `/app/out`,
+`/usr/share/nginx/html`, then runs the native rendering
 source check and gated benchmark command before disposable image/container
 smoke probes.
 

@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const { spawnSync } = require('child_process');
+const { hasLockedDependency, readPnpmLockIfExists } = require('./pnpm-lock');
 
 const POLICY_PATH = 'config/native-rendering-policy.json';
 const ROUTE_POLICY_PATH = 'config/static-export-route-policy.json';
@@ -25,8 +26,8 @@ const REQUIRED_CACHE_KEY_FIELDS = [
 ];
 const REQUIRED_VALIDATION_COMMANDS = [
   'node --test scripts/check-native-rendering-policy.test.mjs',
-  'npm run native-rendering:check',
-  'npm run static-routes:check',
+  'pnpm native-rendering:check',
+  'pnpm static-routes:check',
 ];
 const REQUIRED_TRACE_IDS = ['NATIVE-01', 'og-native-rendering'];
 const REQUIRED_NATIVE_PACKAGES = ['canvas', 'sharp', 'satori'];
@@ -131,7 +132,9 @@ function validateNativePolicyConfig({
     }
   }
 
-  if (loadedPolicy.sourceArtifactDirectory !== 'public/generated/native-images') {
+  if (
+    loadedPolicy.sourceArtifactDirectory !== 'public/generated/native-images'
+  ) {
     failures.push(
       'sourceArtifactDirectory must be public/generated/native-images',
     );
@@ -215,7 +218,9 @@ function validateNativePolicyConfig({
     }
 
     if (surface.runtimeCacheHeader !== 'public, max-age=86400') {
-      failures.push(`${surface.id} runtimeCacheHeader must be public, max-age=86400`);
+      failures.push(
+        `${surface.id} runtimeCacheHeader must be public, max-age=86400`,
+      );
     }
 
     if (surface.dpr > surface.maxDpr) {
@@ -244,15 +249,16 @@ function validateNativePolicyConfig({
           failures.push(`${surface.id} traceIds missing ${traceId}`);
         }
       }
-      const perfId = surface.imageType === 'homepage-og' ? 'PERF-501' : 'PERF-502';
+      const perfId =
+        surface.imageType === 'homepage-og' ? 'PERF-501' : 'PERF-502';
       if (!surface.traceIds.includes(perfId)) {
         failures.push(`${surface.id} traceIds missing ${perfId}`);
       }
     }
 
-    if (surface.validationCommand !== 'npm run native-rendering:check') {
+    if (surface.validationCommand !== 'pnpm native-rendering:check') {
       failures.push(
-        `${surface.id} validationCommand must be npm run native-rendering:check`,
+        `${surface.id} validationCommand must be pnpm native-rendering:check`,
       );
     }
   }
@@ -270,8 +276,8 @@ function validateNativePolicyConfig({
 
 function validateNativePackageEntries({ rootDir, policy, failures }) {
   const packageJson = readJsonFile(path.join(rootDir, 'package.json'));
-  const lockPath = path.join(rootDir, 'package-lock.json');
-  const lockJson = fs.existsSync(lockPath) ? readJsonFile(lockPath) : null;
+  const lockPath = path.join(rootDir, 'pnpm-lock.yaml');
+  const lock = readPnpmLockIfExists(lockPath);
   const dependencyRows = Array.isArray(policy.nativeDependencies)
     ? policy.nativeDependencies
     : [];
@@ -294,12 +300,8 @@ function validateNativePackageEntries({ rootDir, policy, failures }) {
       );
     }
 
-    const lockPackage = lockJson?.packages?.[`node_modules/${packageName}`];
-    const rootPackageRange =
-      lockJson?.packages?.['']?.dependencies?.[packageName] ||
-      lockJson?.packages?.['']?.devDependencies?.[packageName];
-    if (!lockPackage && !rootPackageRange) {
-      failures.push(`package-lock.json missing ${packageName}`);
+    if (!hasLockedDependency(lock, packageName)) {
+      failures.push(`pnpm-lock.yaml missing ${packageName}`);
     }
   }
 }
@@ -372,7 +374,9 @@ function validateNativeRoutePolicyAlignment({
           row.requiredBudgetOwner === required.requiredBudgetOwner,
       )
     ) {
-      failures.push(`native policy missing route alignment ${required.routePath}`);
+      failures.push(
+        `native policy missing route alignment ${required.routePath}`,
+      );
     }
   }
 
@@ -397,10 +401,17 @@ function validateNativeRoutePolicyAlignment({
       );
     }
     if (!String(row.validationCommand || '').includes('static-routes:check')) {
-      failures.push(`${expected.routePath} validationCommand must include static-routes:check`);
+      failures.push(
+        `${expected.routePath} validationCommand must include static-routes:check`,
+      );
     }
-    if (!Array.isArray(row.traceIds) || !row.traceIds.includes('og-native-rendering')) {
-      failures.push(`${expected.routePath} traceIds must include og-native-rendering`);
+    if (
+      !Array.isArray(row.traceIds) ||
+      !row.traceIds.includes('og-native-rendering')
+    ) {
+      failures.push(
+        `${expected.routePath} traceIds must include og-native-rendering`,
+      );
     }
   }
 

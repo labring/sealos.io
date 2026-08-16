@@ -1,5 +1,7 @@
 FROM node:20-bookworm-slim AS builder
 
+RUN corepack enable
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     git \
@@ -32,7 +34,7 @@ ENV DOCKER_BUILD=true
 COPY . .
 # Replace relative image paths with CDN URLs
 RUN chmod +x ./scripts/replace-image-paths.sh && ./scripts/replace-image-paths.sh
-RUN npm ci && npm run build
+RUN pnpm install --frozen-lockfile && pnpm build
 
 FROM nginx:1.27-alpine AS runner
 

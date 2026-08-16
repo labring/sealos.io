@@ -413,7 +413,7 @@ test('renders complete totals, bounded escaped details, and deterministic bytes'
   assert.match(output, /line 1\\nvalue/);
   assert.doesNotMatch(output, /line 21\\nvalue/);
   assert.match(output, /Result: FAIL/);
-  assert.match(output, /Rerun: npm run verify:ai-faq-routes/);
+  assert.match(output, /Rerun: pnpm verify:ai-faq-routes/);
 });
 
 test('writes one complete failing report to stderr after inspection', async () => {
@@ -449,7 +449,7 @@ test('writes one complete failing report to stderr after inspection', async () =
   assert.match(stderr.read(), /Source slugs missing from index: 1/);
   assert.match(
     stderr.read(),
-    /Rerun: npm run verify:ai-faq-routes -- https:\/\/sealos\.io/,
+    /Rerun: pnpm verify:ai-faq-routes -- https:\/\/sealos\.io/,
   );
 });
 
@@ -461,11 +461,11 @@ test('retains the package command exactly', async () => {
   );
   assert.equal(
     packageJson.scripts.build,
-    'npm run verify:ai-faq-index && next build && node scripts/normalize-root-locale.js && npm run verify:ai-faq-routes',
+    'pnpm verify:ai-faq-index && next build && node scripts/normalize-root-locale.js && pnpm verify:ai-faq-routes',
   );
   assert.equal(
     packageJson.scripts['build:analyze'],
-    'npm run verify:ai-faq-index && ANALYZE=true next build && node scripts/normalize-root-locale.js && npm run verify:ai-faq-routes',
+    'pnpm verify:ai-faq-index && ANALYZE=true next build && node scripts/normalize-root-locale.js && pnpm verify:ai-faq-routes',
   );
 });
 

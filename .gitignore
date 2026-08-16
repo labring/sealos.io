@@ -31,7 +31,8 @@ yarn-error.log*
 .agent
 /.shrimp
 /openspec
-/docs
+/docs/*
+!/docs/adr/
 /CLAUDE.md
 /AGENTS.md
 /helloagents
@@ -46,7 +47,6 @@ progress.md
 next-env.d.ts
 .cursorrules
 
-pnpm-lock.yaml
 bun.lock
 
 seo

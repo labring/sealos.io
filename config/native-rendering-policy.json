@@ -62,10 +62,7 @@
       "templateVersion",
       "fontVersion"
     ],
-    "runtimeRoutes": [
-      "/api/og",
-      "/api/blog/:lang/:slug/thumbnail/:format"
-    ],
+    "runtimeRoutes": ["/api/og", "/api/blog/:lang/:slug/thumbnail/:format"],
     "dynamicVariantPolicy": "Runtime variants must include every required cache-key dimension before renderer output is accepted."
   },
   "fonts": [
@@ -179,7 +176,7 @@
         "fontVersion"
       ],
       "traceIds": ["NATIVE-01", "PERF-501", "og-native-rendering"],
-      "validationCommand": "npm run native-rendering:check"
+      "validationCommand": "pnpm native-rendering:check"
     },
     {
       "id": "blog-thumbnail-svg-default",
@@ -210,7 +207,7 @@
         "fontVersion"
       ],
       "traceIds": ["NATIVE-01", "PERF-502", "og-native-rendering"],
-      "validationCommand": "npm run native-rendering:check"
+      "validationCommand": "pnpm native-rendering:check"
     },
     {
       "id": "blog-thumbnail-svg-card",
@@ -241,7 +238,7 @@
         "fontVersion"
       ],
       "traceIds": ["NATIVE-01", "PERF-502", "og-native-rendering"],
-      "validationCommand": "npm run native-rendering:check"
+      "validationCommand": "pnpm native-rendering:check"
     },
     {
       "id": "blog-thumbnail-png-large",
@@ -272,13 +269,13 @@
         "fontVersion"
       ],
       "traceIds": ["NATIVE-01", "PERF-502", "og-native-rendering"],
-      "validationCommand": "npm run native-rendering:check"
+      "validationCommand": "pnpm native-rendering:check"
     }
   ],
   "validationCommands": [
     "node --test scripts/check-native-rendering-policy.test.mjs",
-    "npm run native-rendering:check",
-    "npm run static-routes:check"
+    "pnpm native-rendering:check",
+    "pnpm static-routes:check"
   ],
   "environmentCaveats": {
     "acceptedNodeMajor": 20,
