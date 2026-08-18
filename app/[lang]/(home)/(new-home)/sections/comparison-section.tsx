@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image, { type StaticImageData } from 'next/image';
 
 import {
   ArrowRight,
@@ -22,7 +22,7 @@ import { GradientText } from '@/new-components/GradientText';
 
 type Platform = {
   name: string;
-  icon: string;
+  icon: StaticImageData;
 };
 
 type Cell = {

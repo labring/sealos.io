@@ -4,39 +4,42 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "main"
+      - 'main'
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: false
 
 jobs:
   deploy:
     permissions:
-        actions: read # Only required for private GitHub Repo
-        contents: read
-        deployments: write
-        pull-requests: write
+      actions: read # Only required for private GitHub Repo
+      contents: read
+      deployments: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'pnpm'
       - name: Install dependencies
-        run: npm install
+        run: pnpm install --frozen-lockfile
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        run: pnpm add --global vercel@latest
       - name: Pull environment variables
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Refresh App Store templates
-        run: npm run app-store:refresh
+        run: pnpm app-store:refresh
       - name: Build
         run: vercel build --prod --local-config ./vercel.json
       - name: Link to Vercel

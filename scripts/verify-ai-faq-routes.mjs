@@ -619,7 +619,7 @@ export function formatFAQRouteReport(input) {
   const passed = report.findings.length === 0;
   lines.push(`Result: ${passed ? 'PASS' : 'FAIL'}`);
   const remoteSuffix = report.mode === 'remote' ? ` -- ${report.target}` : '';
-  lines.push(`Rerun: npm run verify:ai-faq-routes${remoteSuffix}`);
+  lines.push(`Rerun: pnpm verify:ai-faq-routes${remoteSuffix}`);
   return lines.join('\n');
 }
 

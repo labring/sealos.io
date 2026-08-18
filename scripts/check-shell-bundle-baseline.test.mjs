@@ -17,28 +17,29 @@ test('collectShellSurfaceEvidence reports every Phase 11 shell surface', async (
     const evidence = collectShellSurfaceEvidence({ rootDir: dir, env: {} });
     const surfaceIds = evidence.surfaces.map((surface) => surface.id);
 
-    assert.deepEqual(surfaceIds.sort(), [
-      'analytics-loader',
-      'auth-dialog',
-      'auth-provider',
-      'deploy-dialog',
-      'deploy-provider',
-      'docs-search',
-      'gtm-body',
-      'legacy-footer',
-      'legacy-header',
-      'locale-shell',
-      'new-footer',
-      'new-header',
-    ].sort());
+    assert.deepEqual(
+      surfaceIds.sort(),
+      [
+        'analytics-loader',
+        'auth-dialog',
+        'auth-provider',
+        'deploy-dialog',
+        'deploy-provider',
+        'docs-search',
+        'gtm-body',
+        'legacy-footer',
+        'legacy-header',
+        'locale-shell',
+        'new-footer',
+        'new-header',
+      ].sort(),
+    );
     assert.equal(evidence.environment.node, process.version);
     assert.equal(evidence.environment.nvmrc, '20');
     assert.equal(evidence.environment.nodeModules, 'absent');
     assert.equal(evidence.environment.out, 'absent');
     assert.equal(evidence.analyzer.status, 'SKIPPED_WITH_CAVEAT');
-    assert.ok(
-      evidence.requiredCommands.includes('npm run build:analyze:timed'),
-    );
+    assert.ok(evidence.requiredCommands.includes('pnpm build:analyze:timed'));
   } finally {
     await rm(dir, { recursive: true, force: true });
   }
@@ -99,8 +100,14 @@ test('validateShellBundleBaseline catches eager search, auth, deploy, and templa
     assert.match(failures, /locale shell imports docs search directly/);
     assert.match(failures, /auth facade imports AuthFormInner eagerly/);
     assert.match(failures, /deploy facade imports DeployModalInner eagerly/);
-    assert.match(failures, /DeployModalContext imports useTemplateSource eagerly/);
-    assert.match(failures, /use-template-source statically imports template-sources\.json/);
+    assert.match(
+      failures,
+      /DeployModalContext imports useTemplateSource eagerly/,
+    );
+    assert.match(
+      failures,
+      /use-template-source statically imports template-sources\.json/,
+    );
   } finally {
     await rm(dir, { recursive: true, force: true });
   }
@@ -145,10 +152,10 @@ test('guard output names runtime caveats and required Phase 8-10 commands', asyn
       'node_modules',
       'out',
       'analyzer artifacts',
-      'npm run app-store:diff',
-      'npm run build:analyze:timed',
-      'npm run static-output:check',
-      'npm run validate:deployment',
+      'pnpm app-store:diff',
+      'pnpm build:analyze:timed',
+      'pnpm static-output:check',
+      'pnpm validate:deployment',
     ]) {
       assert.ok(report.includes(token), `missing ${token}`);
     }
@@ -177,9 +184,9 @@ async function writePassingShellFixture(rootDir) {
       '<DeployModal />',
     ].join('\n'),
     'components/analytics/index.tsx':
-      "export function Analytics() { return null; }\n",
+      'export function Analytics() { return null; }\n',
     'components/analytics/gtm-body.tsx':
-      "export function GTMBody() { return null; }\n",
+      'export function GTMBody() { return null; }\n',
     'components/docs/Search.tsx':
       "import { useDocsSearch } from 'fumadocs-core/search/client';\nimport { createTokenizer } from '@orama/tokenizers/mandarin';\nexport function DefaultSearchDialog() { return null; }\n",
     'new-components/AuthForm/AuthFormProvider.tsx':
@@ -192,7 +199,8 @@ async function writePassingShellFixture(rootDir) {
       "const loadTemplateSource = () => import('@/hooks/use-template-source');\nexport function DeployModalProvider({ children }) { return children; }\nexport function openDeployModal() { return loadTemplateSource(); }\n",
     'hooks/use-template-source.ts':
       "export async function loadTemplateSources() { return import('@/config/template-sources.json'); }\n",
-    'new-components/Header.tsx': "'use client';\nexport function Header() { return null; }\n",
+    'new-components/Header.tsx':
+      "'use client';\nexport function Header() { return null; }\n",
     'new-components/Footer/index.tsx':
       "import { StartBuildingButton } from './StartBuildingButton';\nexport function Footer() { return null; }\n",
     'components/header/index.tsx':

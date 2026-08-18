@@ -596,7 +596,7 @@ test('runVerifyFAQIndex reports source and index ingestion findings through the 
   assert.equal(
     sourceStderr
       .output()
-      .endsWith('Regenerate with: npm run generate:ai-faq-index\n'),
+      .endsWith('Regenerate with: pnpm generate:ai-faq-index\n'),
     true,
   );
 
@@ -813,7 +813,7 @@ test('runVerifyFAQIndex reports stale fixture categories without mutation', asyn
       assert.match(output, new RegExp(`^${categoryLabel}: [1-9]\\d*$`, 'm'));
       assert.match(output, /^  - .*field=/m);
       assert.equal(
-        output.endsWith('Regenerate with: npm run generate:ai-faq-index\n'),
+        output.endsWith('Regenerate with: pnpm generate:ai-faq-index\n'),
         true,
       );
       assert.deepEqual(await readFile(indexPath), beforeBytes);
@@ -839,11 +839,11 @@ test('package scripts expose FAQ index commands and gate Next builds', async () 
   );
   assert.equal(
     scripts.build,
-    'npm run verify:ai-faq-index && next build && node scripts/normalize-root-locale.js && npm run verify:ai-faq-routes',
+    'pnpm verify:ai-faq-index && next build && node scripts/normalize-root-locale.js && pnpm verify:ai-faq-routes',
   );
   assert.equal(
     scripts['build:analyze'],
-    'npm run verify:ai-faq-index && ANALYZE=true next build && node scripts/normalize-root-locale.js && npm run verify:ai-faq-routes',
+    'pnpm verify:ai-faq-index && ANALYZE=true next build && node scripts/normalize-root-locale.js && pnpm verify:ai-faq-routes',
   );
   assert.equal(
     scripts['test:ai-faq-slugs'],
@@ -958,9 +958,7 @@ test('runGenerateFAQIndex validates before publication and retains destination b
   );
   assert.match(stderr.output(), /invalid source projection schemas: 1/);
   assert.equal(
-    stderr
-      .output()
-      .endsWith('Regenerate with: npm run generate:ai-faq-index\n'),
+    stderr.output().endsWith('Regenerate with: pnpm generate:ai-faq-index\n'),
     true,
   );
 });
@@ -1303,7 +1301,7 @@ test('production verifier CLI covers source and index ingestion matrix', async (
       );
       assert.match(
         result.stderr,
-        /Regenerate with: npm run generate:ai-faq-index\n$/,
+        /Regenerate with: pnpm generate:ai-faq-index\n$/,
       );
     });
   }
@@ -1898,7 +1896,7 @@ test('formatFAQIndexReport emits stable totals and caps details at 20', () => {
     output.indexOf('category drift: 0') <
       output.indexOf('non-canonical serialization: 1'),
   );
-  assert.equal(output.endsWith('npm run generate:ai-faq-index\n'), true);
+  assert.equal(output.endsWith('pnpm generate:ai-faq-index\n'), true);
 });
 
 test('canonical byte drift is reported when parsed records are equal', () => {

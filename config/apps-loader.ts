@@ -64,7 +64,7 @@ export async function loadAppsByCategory(
   } catch (error) {
     console.error(`Failed to load apps for category ${category}:`, error);
     throw new Error(
-      `category: "${category}" not available. Please run "npm run generate-apps" first.`,
+      `category: "${category}" not available. Please run "pnpm generate-apps" first.`,
     );
   }
 }
@@ -126,7 +126,7 @@ async function loadStaticApps(): Promise<AppConfig[]> {
   } catch (error) {
     console.error('Failed to load apps from apps.json:', error);
     throw new Error(
-      'Apps configuration not available. Please run "npm run generate-apps" first.',
+      'Apps configuration not available. Please run "pnpm generate-apps" first.',
     );
   }
 }
@@ -225,7 +225,7 @@ export function getTemplateName(
  */
 export function getDeployUrl(slug: string): string {
   const deployUrl =
-    appDomain + '?openapp=system-template%3F%2Fdeploy%3FtemplateName%3D' + slug
+    appDomain + '?openapp=system-template%3F%2Fdeploy%3FtemplateName%3D' + slug;
 
   return appendAttributionToUrl(deployUrl);
 }

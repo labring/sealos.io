@@ -2,27 +2,13 @@
 
 const fs = require('fs');
 const { execFileSync } = require('child_process');
+const { collectLockedVersions, readPnpmLockIfExists } = require('./pnpm-lock');
 
 const NATIVE_DEPENDENCIES = ['canvas', 'sharp', 'satori', 'next'];
 const BENCHMARK_GATE = 'PHASE12_RUN_NATIVE_BENCHMARK';
 
-function readJsonIfExists(filePath) {
-  if (!fs.existsSync(filePath)) {
-    return null;
-  }
-
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
-}
-
-function collectNativeDependencyVersions(lock = readJsonIfExists('package-lock.json')) {
-  const versions = {};
-  const packages = lock?.packages || {};
-
-  for (const name of NATIVE_DEPENDENCIES) {
-    versions[name] = packages[`node_modules/${name}`]?.version || null;
-  }
-
-  return versions;
+function collectNativeDependencyVersions(lock = readPnpmLockIfExists()) {
+  return collectLockedVersions(lock, NATIVE_DEPENDENCIES);
 }
 
 function collectEnvironmentContext({
@@ -32,20 +18,20 @@ function collectEnvironmentContext({
   nodeVersion = process.version,
 } = {}) {
   const nvmrcPath = `${cwd}/.nvmrc`;
-  const lock = readJsonIfExists(`${cwd}/package-lock.json`);
+  const lock = readPnpmLockIfExists(`${cwd}/pnpm-lock.yaml`);
   const nvmrc = exists(nvmrcPath)
     ? fs.readFileSync(nvmrcPath, 'utf8').trim()
     : null;
-  let npm = null;
+  let pnpm = null;
 
   try {
-    npm = execFile('npm', ['--version'], {
+    pnpm = execFile('pnpm', ['--version'], {
       cwd,
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'ignore'],
     }).trim();
   } catch {
-    npm = null;
+    pnpm = null;
   }
 
   const activeMajor = String(nodeVersion).match(/^v?(\d+)/)?.[1] || null;
@@ -53,7 +39,7 @@ function collectEnvironmentContext({
 
   return {
     node: nodeVersion,
-    npm,
+    pnpm,
     nvmrc,
     lockfileVersion: lock?.lockfileVersion || null,
     nativeDependencyVersions: collectNativeDependencyVersions(lock),
@@ -200,7 +186,9 @@ function getOpenGateBlockers(context) {
   const blockers = [];
 
   if (context.nvmrc && context.nodeMajorMatchesNvmrc === false) {
-    blockers.push(`active Node ${context.node} differs from .nvmrc ${context.nvmrc}; accepted benchmark requires Node 20`);
+    blockers.push(
+      `active Node ${context.node} differs from .nvmrc ${context.nvmrc}; accepted benchmark requires Node 20`,
+    );
   }
   if (!context.nodeModules) {
     blockers.push('node_modules is absent');
@@ -225,8 +213,7 @@ async function importNativeRenderers() {
   return {
     renderOgWebpBuffer: ogRenderer.renderOgWebpBuffer,
     renderBlogThumbnailSvg: blogRenderer.renderBlogThumbnailSvg,
-    renderBlogThumbnailPngResponse:
-      blogRenderer.renderBlogThumbnailPngResponse,
+    renderBlogThumbnailPngResponse: blogRenderer.renderBlogThumbnailPngResponse,
     getNativeRenderFontStatus: fonts.getNativeRenderFontStatus,
   };
 }
@@ -282,8 +269,7 @@ async function runNativeRenderingBenchmark({
     results.push(
       await runBenchmarkFixture(fixture, {
         renderers,
-        getNativeRenderFontStatus:
-          nativeRenderers.getNativeRenderFontStatus,
+        getNativeRenderFontStatus: nativeRenderers.getNativeRenderFontStatus,
       }),
     );
   }
@@ -300,9 +286,11 @@ async function runNativeRenderingBenchmark({
 function printBenchmarkResult(result) {
   console.log('[native-rendering-benchmark] environment');
   console.log(`  node: ${result.context.node}`);
-  console.log(`  npm: ${result.context.npm || 'unavailable'}`);
+  console.log(`  pnpm: ${result.context.pnpm || 'unavailable'}`);
   console.log(`  .nvmrc: ${result.context.nvmrc || 'missing'}`);
-  console.log(`  lockfileVersion: ${result.context.lockfileVersion || 'missing'}`);
+  console.log(
+    `  lockfileVersion: ${result.context.lockfileVersion || 'missing'}`,
+  );
   console.log(`  node_modules: ${result.context.nodeModules}`);
   console.log(`  .source: ${result.context.sourceGenerated}`);
   console.log(`  out: ${result.context.staticExportOutput}`);

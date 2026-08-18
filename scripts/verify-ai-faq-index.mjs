@@ -98,7 +98,7 @@ export async function runVerifyFAQIndex({
     stderr.write(
       `AI FAQ index parity failed for public/ai-faqs.en.json.\n` +
         `AI FAQ index verification error: ${getErrorMessage(error)}\n` +
-        'Regenerate with: npm run generate:ai-faq-index\n',
+        'Regenerate with: pnpm generate:ai-faq-index\n',
     );
     return 1;
   }

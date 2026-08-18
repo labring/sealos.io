@@ -35,44 +35,38 @@ const GATE_DEFINITIONS = [
     name: 'PHASE9_RUN_LOCKED_BUILD',
     opens:
       'Node 20 locked-dependency lint, build, analyzer, and generated diff stages.',
-    skip:
-      'Closed by default because accepted build/analyzer evidence requires Node 20 and installed locked dependencies.',
+    skip: 'Closed by default because accepted build/analyzer evidence requires Node 20 and installed locked dependencies.',
   },
   {
     name: 'PHASE9_RUN_DOCKER_SMOKE',
     opens: 'Disposable Docker image, Nginx container, and local HTTP probes.',
-    skip:
-      'Closed by default because Docker crosses package install, native library, daemon, image, and serving boundaries.',
+    skip: 'Closed by default because Docker crosses package install, native library, daemon, image, and serving boundaries.',
   },
   {
     name: 'PHASE9_RUN_HOSTED_PROBES',
     opens: 'Hosted preview or production header, redirect, and route probes.',
-    skip:
-      'Closed by default because hosted probes require network access and deployment URLs.',
+    skip: 'Closed by default because hosted probes require network access and deployment URLs.',
   },
   {
     name: 'PHASE9_RUN_BROWSER_TRACE',
-    opens: 'Browser automation or trace capture for later UI/runtime validation.',
-    skip:
-      'Closed by default because browser traces require automation runtime and target URLs.',
+    opens:
+      'Browser automation or trace capture for later UI/runtime validation.',
+    skip: 'Closed by default because browser traces require automation runtime and target URLs.',
   },
   {
     name: 'PHASE9_RUN_NETWORK_REFRESH',
     opens: 'Remote catalog refreshes or external service fetches.',
-    skip:
-      'Closed by default because network refreshes can be slow and can change generated artifacts.',
+    skip: 'Closed by default because network refreshes can be slow and can change generated artifacts.',
   },
   {
     name: 'PHASE9_RUN_DEPLOY',
     opens: 'Credentialed deploy commands.',
-    skip:
-      'Closed by default because deploys require credentials and can mutate hosted environments.',
+    skip: 'Closed by default because deploys require credentials and can mutate hosted environments.',
   },
   {
     name: 'PHASE9_ACCEPT_GENERATED_CHANGES',
     opens: 'Reviewed generated App Store artifact mutation acceptance.',
-    skip:
-      'Closed by default because generated changes require explicit review.',
+    skip: 'Closed by default because generated changes require explicit review.',
   },
 ];
 
@@ -94,11 +88,11 @@ const SOURCE_EXPECTATIONS = [
     file: '.github/workflows/deploy.yml',
     tokens: [
       'node-version: 20',
-      'npm install',
-      'vercel@latest',
+      'pnpm install --frozen-lockfile',
+      'pnpm add --global vercel@latest',
       'vercel pull',
       '--environment=preview',
-      'npm run app-store:refresh',
+      'pnpm app-store:refresh',
       'vercel build --prod --local-config ./vercel.json',
       'vercel deploy --prod',
       '--prebuilt',
@@ -110,10 +104,10 @@ const SOURCE_EXPECTATIONS = [
     tokens: [
       'pull_request:',
       'node-version: 20',
-      'npm install',
-      'vercel@latest',
+      'pnpm install --frozen-lockfile',
+      'pnpm add --global vercel@latest',
       'vercel pull',
-      'npm run app-store:refresh',
+      'pnpm app-store:refresh',
       'vercel build --local-config ./vercel.json',
       'vercel-action',
       '--prebuilt',
@@ -125,9 +119,9 @@ const SOURCE_EXPECTATIONS = [
     file: '.github/workflows/deploy-cloudflare.yml',
     tokens: [
       'node-version: 20',
-      'npm ci',
-      'npm run app-store:refresh',
-      'npm run build',
+      'pnpm install --frozen-lockfile',
+      'pnpm app-store:refresh',
+      'pnpm build',
       'pages deploy ./out',
     ],
   },
@@ -136,9 +130,9 @@ const SOURCE_EXPECTATIONS = [
     file: '.github/workflows/preview-cloudflare.yml',
     tokens: [
       'node-version: 20',
-      'npm ci',
-      'npm run app-store:refresh',
-      'npm run build',
+      'pnpm install --frozen-lockfile',
+      'pnpm app-store:refresh',
+      'pnpm build',
       'actions/upload-artifact',
       'actions/download-artifact',
       'path: out',
@@ -152,7 +146,7 @@ const SOURCE_EXPECTATIONS = [
       'node:20-bookworm-slim',
       'libcairo2-dev',
       'DOCKER_BUILD=true',
-      'npm ci && npm run build',
+      'pnpm install --frozen-lockfile && pnpm build',
       'nginx:1.27-alpine',
       '/app/out',
       '/usr/share/nginx/html',
@@ -164,8 +158,8 @@ const SOURCE_EXPECTATIONS = [
     tokens: [
       'REGISTRY: ghcr.io',
       'node-version: 20',
-      'npm ci',
-      'npm run app-store:refresh',
+      'pnpm install --frozen-lockfile',
+      'pnpm app-store:refresh',
       'docker/build-push-action@v5',
       'file: ./Dockerfile',
       'platforms: linux/amd64',
@@ -205,7 +199,9 @@ function parseGateState(env = process.env) {
 
 function validateChecklistTokens(docText) {
   return {
-    missingTargets: REQUIRED_TARGETS.filter((target) => !docText.includes(target)),
+    missingTargets: REQUIRED_TARGETS.filter(
+      (target) => !docText.includes(target),
+    ),
     missingDimensions: REQUIRED_DIMENSIONS.filter(
       (dimension) => !docText.includes(dimension),
     ),
@@ -235,11 +231,7 @@ function validatePackageScripts(pkg) {
     }
   }
 
-  for (const name of [
-    'app-store:diff',
-    'build:timed',
-    'build:analyze:timed',
-  ]) {
+  for (const name of ['app-store:diff', 'build:timed', 'build:analyze:timed']) {
     if (!scripts[name]) {
       missingScripts.push(name);
     }
@@ -322,17 +314,17 @@ function getLockedValidationStages({
   }
 
   const stages = [
-    { name: 'pre generated diff guard', command: 'npm run app-store:diff' },
-    { name: 'typecheck', command: 'npm run lint' },
-    { name: 'timed production build', command: 'npm run build:timed' },
-    { name: 'post build generated diff guard', command: 'npm run app-store:diff' },
+    { name: 'pre generated diff guard', command: 'pnpm app-store:diff' },
+    { name: 'typecheck', command: 'pnpm lint' },
+    { name: 'timed production build', command: 'pnpm build:timed' },
+    { name: 'post build generated diff guard', command: 'pnpm app-store:diff' },
     {
       name: 'timed analyzer build',
-      command: 'npm run build:analyze:timed',
+      command: 'pnpm build:analyze:timed',
     },
     {
       name: 'post analyzer generated diff guard',
-      command: 'npm run app-store:diff',
+      command: 'pnpm app-store:diff',
     },
   ];
 
@@ -401,13 +393,13 @@ function runLockedValidationPlan({
   };
 }
 
-function runNpmScript({
+function runPnpmScript({
   script,
   cwd = process.cwd(),
   env = process.env,
   spawn = spawnSync,
 } = {}) {
-  const result = spawn('npm', ['run', script], {
+  const result = spawn('pnpm', [script], {
     cwd,
     stdio: 'inherit',
     shell: false,
@@ -463,7 +455,10 @@ function printLockedValidationSummary(result, stdout = process.stdout) {
   }
 }
 
-function validateDeploymentParity({ rootDir = process.cwd(), env = process.env } = {}) {
+function validateDeploymentParity({
+  rootDir = process.cwd(),
+  env = process.env,
+} = {}) {
   const docPath = path.join(rootDir, 'docs/deployment-parity.md');
   const pkgPath = path.join(rootDir, 'package.json');
   const docText = readTextFile(docPath);
@@ -474,7 +469,9 @@ function validateDeploymentParity({ rootDir = process.cwd(), env = process.env }
   const gates = parseGateState(env);
   const lockedValidation = getLockedValidationStages({ cwd: rootDir, env });
   const failures = [
-    ...checklist.missingTargets.map((item) => `missing checklist target: ${item}`),
+    ...checklist.missingTargets.map(
+      (item) => `missing checklist target: ${item}`,
+    ),
     ...checklist.missingDimensions.map(
       (item) => `missing checklist dimension: ${item}`,
     ),
@@ -504,7 +501,10 @@ function printDeploymentParitySummary(
   stderr = process.stderr,
 ) {
   writeLine(stdout, '[deployment-parity] checklist');
-  writeLine(stdout, `  targets missing: ${result.checklist.missingTargets.length}`);
+  writeLine(
+    stdout,
+    `  targets missing: ${result.checklist.missingTargets.length}`,
+  );
   writeLine(
     stdout,
     `  dimensions missing: ${result.checklist.missingDimensions.length}`,
@@ -512,7 +512,8 @@ function printDeploymentParitySummary(
   writeLine(stdout, `  gates missing: ${result.checklist.missingGates.length}`);
   writeLine(stdout, '[deployment-parity] sources');
   for (const check of result.sources.checks) {
-    const status = check.exists && check.missingTokens.length === 0 ? 'PASS' : 'FAIL';
+    const status =
+      check.exists && check.missingTokens.length === 0 ? 'PASS' : 'FAIL';
     writeLine(stdout, `  ${status}: ${check.label} (${check.file})`);
   }
   writeLine(stdout, '[deployment-parity] package scripts');
@@ -529,7 +530,10 @@ function printDeploymentParitySummary(
   const locked = result.lockedValidation;
   if (locked.gate.isOpen) {
     if (locked.ready) {
-      writeLine(stdout, '[deployment-parity] PHASE9_RUN_LOCKED_BUILD open and ready');
+      writeLine(
+        stdout,
+        '[deployment-parity] PHASE9_RUN_LOCKED_BUILD open and ready',
+      );
     } else {
       writeLine(
         stdout,
@@ -561,7 +565,10 @@ function runDeploymentValidation({
   printDeploymentParitySummary(sourceResult, stdout, stderr);
 
   if (sourceResult.failures.length > 0) {
-    writeLine(stderr, '[deployment-parity] FAIL: deployment parity source check');
+    writeLine(
+      stderr,
+      '[deployment-parity] FAIL: deployment parity source check',
+    );
     return {
       status: 'FAIL',
       exitCode: 1,
@@ -589,7 +596,7 @@ function runDeploymentValidation({
       };
     }
   } else {
-    const diffStatus = runNpmScript({
+    const diffStatus = runPnpmScript({
       script: 'app-store:diff',
       cwd,
       env,
@@ -597,7 +604,7 @@ function runDeploymentValidation({
     });
 
     if (diffStatus !== 0) {
-      writeLine(stderr, '[deployment-parity] FAIL: npm run app-store:diff');
+      writeLine(stderr, '[deployment-parity] FAIL: pnpm app-store:diff');
       return {
         status: 'FAIL',
         exitCode: diffStatus,
@@ -611,9 +618,9 @@ function runDeploymentValidation({
     'static-output:check',
     'docker:smoke',
   ]) {
-    const status = runNpmScript({ script, cwd, env, spawn });
+    const status = runPnpmScript({ script, cwd, env, spawn });
     if (status !== 0) {
-      writeLine(stderr, `[deployment-parity] FAIL: npm run ${script}`);
+      writeLine(stderr, `[deployment-parity] FAIL: pnpm ${script}`);
       return {
         status: 'FAIL',
         exitCode: status,

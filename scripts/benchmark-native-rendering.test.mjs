@@ -16,9 +16,9 @@ test('collectEnvironmentContext reports native rendering prerequisites', () => {
   });
 
   assert.equal(context.node, 'v20.11.1');
-  assert.equal(context.npm, '10.9.0');
+  assert.equal(context.pnpm, '10.9.0');
   assert.equal(context.nvmrc, '20');
-  assert.equal(context.lockfileVersion, 3);
+  assert.equal(context.lockfileVersion, '9.0');
   assert.equal(context.nodeMajorMatchesNvmrc, true);
   assert.equal(context.nodeModules, false);
   assert.equal(typeof context.sourceGenerated, 'boolean');
@@ -39,7 +39,10 @@ test('closed benchmark gate exits 0 with SKIPPED_WITH_CAVEAT and no renderers', 
 
   assert.equal(result.exitCode, 0);
   assert.equal(result.status, 'SKIPPED_WITH_CAVEAT');
-  assert.match(result.caveats.join('\n'), /PHASE12_RUN_NATIVE_BENCHMARK is closed/);
+  assert.match(
+    result.caveats.join('\n'),
+    /PHASE12_RUN_NATIVE_BENCHMARK is closed/,
+  );
 });
 
 test('open benchmark gate fails closed with BLOCKED when prerequisites are missing', async () => {
@@ -47,9 +50,9 @@ test('open benchmark gate fails closed with BLOCKED when prerequisites are missi
     env: { PHASE12_RUN_NATIVE_BENCHMARK: '1' },
     context: {
       node: 'v24.13.0',
-      npm: '11.6.2',
+      pnpm: '11.6.2',
       nvmrc: '20',
-      lockfileVersion: 3,
+      lockfileVersion: '9.0',
       nodeMajorMatchesNvmrc: false,
       nodeModules: false,
       sourceGenerated: false,

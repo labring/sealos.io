@@ -145,19 +145,18 @@ function collectEnvironmentContext({
   nodeVersion = process.version,
 } = {}) {
   const nvmrcPath = path.join(cwd, '.nvmrc');
-  const packageLockPath = path.join(cwd, 'package-lock.json');
-  const lock = readJsonIfExists(packageLockPath);
+  const pnpmLockPath = path.join(cwd, 'pnpm-lock.yaml');
   const nvmrc = exists(nvmrcPath) ? readTextIfExists(nvmrcPath).trim() : null;
-  let npm = null;
+  let pnpm = null;
 
   try {
-    npm = execFile('npm', ['--version'], {
+    pnpm = execFile('pnpm', ['--version'], {
       cwd,
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'ignore'],
     }).trim();
   } catch {
-    npm = null;
+    pnpm = null;
   }
 
   const activeMajor = String(nodeVersion).match(/^v?(\d+)/)?.[1] || null;
@@ -165,9 +164,8 @@ function collectEnvironmentContext({
 
   return {
     node: nodeVersion,
-    npm,
+    pnpm,
     nvmrc,
-    lockfileVersion: lock?.lockfileVersion || null,
     nodeMajorMatchesNvmrc:
       expectedMajor === null || activeMajor === null
         ? null
@@ -175,7 +173,7 @@ function collectEnvironmentContext({
     nodeModules: exists(path.join(cwd, 'node_modules')),
     sourceGenerated: exists(path.join(cwd, '.source')),
     staticExportOutput: exists(path.join(cwd, 'out')),
-    packageLock: exists(packageLockPath),
+    pnpmLock: exists(pnpmLockPath),
     adapterAvailable: null,
   };
 }
@@ -188,7 +186,10 @@ function isLocalHostname(hostname) {
   return hostname === 'localhost' || hostname === '127.0.0.1';
 }
 
-function resolveBaseUrl({ argv = process.argv.slice(2), env = process.env } = {}) {
+function resolveBaseUrl({
+  argv = process.argv.slice(2),
+  env = process.env,
+} = {}) {
   const arg = argv.find((item) => item.startsWith('--base-url='));
   const rawValue = arg ? arg.slice('--base-url='.length) : env[BASE_URL_ENV];
 
@@ -304,7 +305,8 @@ function createPlaywrightAdapter(playwrightTest) {
     controls,
     artifactDir,
   }) {
-    const chromium = playwrightTest.chromium || playwrightTest.default?.chromium;
+    const chromium =
+      playwrightTest.chromium || playwrightTest.default?.chromium;
 
     if (!chromium?.launch) {
       throw new Error('Playwright chromium launcher is unavailable');
@@ -462,8 +464,8 @@ function getOpenGateBlockers({ context, baseUrlResult, adapterResult }) {
   if (!context.staticExportOutput) {
     blockers.push('out is absent');
   }
-  if (!context.packageLock) {
-    blockers.push('package-lock.json is absent');
+  if (!context.pnpmLock) {
+    blockers.push('pnpm-lock.yaml is absent');
   }
   if (baseUrlResult.caveat) {
     blockers.push(baseUrlResult.caveat);
@@ -635,13 +637,13 @@ function printBrowserTraceCloseout(result, { write = console.log } = {}) {
   write(
     `[browser-trace] context: ${JSON.stringify({
       node: result.context.node,
-      npm: result.context.npm,
+      pnpm: result.context.pnpm,
       nvmrc: result.context.nvmrc,
       nodeMajorMatchesNvmrc: result.context.nodeMajorMatchesNvmrc,
       nodeModules: result.context.nodeModules,
       sourceGenerated: result.context.sourceGenerated,
       staticExportOutput: result.context.staticExportOutput,
-      packageLock: result.context.packageLock,
+      pnpmLock: result.context.pnpmLock,
       adapterAvailable: result.context.adapterAvailable,
       adapterSource: result.context.adapterSource,
     })}`,
@@ -690,7 +692,9 @@ function printBrowserTraceCloseout(result, { write = console.log } = {}) {
   }
 }
 
-function validatePackageScripts(packageJson = readJsonIfExists('package.json')) {
+function validatePackageScripts(
+  packageJson = readJsonIfExists('package.json'),
+) {
   const expectedCommand = 'node scripts/check-browser-trace-closeout.js';
   const failures = [];
 

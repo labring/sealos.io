@@ -19,7 +19,7 @@ export interface TerminalAnimationRef {
 
 const terminalCommands = [
   {
-    command: '$ npm run dev',
+    command: '$ pnpm dev',
     output: [
       '> next dev',
       '',

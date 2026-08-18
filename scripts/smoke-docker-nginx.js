@@ -14,7 +14,7 @@ const REQUIRED_DOCKERFILE_TOKENS = [
   'libharfbuzz-dev',
   'libfribidi-dev',
   'fontconfig',
-  'npm ci && npm run build',
+  'pnpm install --frozen-lockfile && pnpm build',
   '/app/out',
   '/usr/share/nginx/html',
 ];
@@ -57,8 +57,10 @@ function getDockerSmokePlan({
     { path: '/_next/static/', label: 'representative Next static asset path' },
   ];
   const commands = [
-    createCommand('docker', ['version'], { label: 'Docker CLI and daemon check' }),
-    createCommand('npm', ['run', 'app-store:diff'], {
+    createCommand('docker', ['version'], {
+      label: 'Docker CLI and daemon check',
+    }),
+    createCommand('pnpm', ['run', 'app-store:diff'], {
       label: 'pre Docker generated diff guard',
     }),
     createCommand(
@@ -72,15 +74,19 @@ function getDockerSmokePlan({
           'verify Dockerfile Node 20 native library and static output evidence',
       },
     ),
-    createCommand('npm', ['run', 'native-rendering:check'], {
+    createCommand('pnpm', ['run', 'native-rendering:check'], {
       label: 'native rendering source policy and dependency contract check',
     }),
-    createCommand('npm', ['run', 'native-rendering:benchmark'], {
+    createCommand('pnpm', ['run', 'native-rendering:benchmark'], {
       label: 'native rendering gated fixture benchmark command',
     }),
-    createCommand('docker', ['build', '-t', imageName, '-f', 'Dockerfile', '.'], {
-      label: 'build disposable image from Dockerfile',
-    }),
+    createCommand(
+      'docker',
+      ['build', '-t', imageName, '-f', 'Dockerfile', '.'],
+      {
+        label: 'build disposable image from Dockerfile',
+      },
+    ),
     createCommand(
       'docker',
       [
@@ -102,7 +108,14 @@ function getDockerSmokePlan({
     ),
     createCommand(
       'docker',
-      ['run', '--rm', imageName, 'test', '-e', '/usr/share/nginx/html/index.html'],
+      [
+        'run',
+        '--rm',
+        imageName,
+        'test',
+        '-e',
+        '/usr/share/nginx/html/index.html',
+      ],
       { label: 'verify static index exists in Nginx root' },
     ),
     ...probes.map((probe) =>
@@ -111,7 +124,7 @@ function getDockerSmokePlan({
         optional: probe.path === '/_next/static/',
       }),
     ),
-    createCommand('npm', ['run', 'app-store:diff'], {
+    createCommand('pnpm', ['run', 'app-store:diff'], {
       label: 'post Docker generated diff guard',
     }),
   ];
@@ -238,7 +251,9 @@ function printDockerSmokeSummary(result) {
   }
 
   for (const item of result.results || []) {
-    console.log(`[docker:smoke] ${item.status === 0 ? 'PASS' : 'FAIL'}: ${item.label}`);
+    console.log(
+      `[docker:smoke] ${item.status === 0 ? 'PASS' : 'FAIL'}: ${item.label}`,
+    );
   }
 }
 

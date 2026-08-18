@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const { execFileSync, spawnSync } = require('child_process');
+const { collectLockedVersions, readPnpmLockIfExists } = require('./pnpm-lock');
 
 const DEPENDENCY_VERSION_NAMES = [
   'next',
@@ -29,26 +30,8 @@ function parseArgs(argv = process.argv.slice(2)) {
   };
 }
 
-function readJsonIfExists(filePath) {
-  if (!fs.existsSync(filePath)) {
-    return null;
-  }
-
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
-}
-
-function collectDependencyVersions(
-  lock = readJsonIfExists('package-lock.json'),
-) {
-  const versions = {};
-  const packages = lock?.packages || {};
-
-  for (const name of DEPENDENCY_VERSION_NAMES) {
-    const entry = packages[`node_modules/${name}`];
-    versions[name] = entry?.version || null;
-  }
-
-  return versions;
+function collectDependencyVersions(lock = readPnpmLockIfExists()) {
+  return collectLockedVersions(lock, DEPENDENCY_VERSION_NAMES);
 }
 
 function collectEnvironmentContext({
@@ -58,17 +41,17 @@ function collectEnvironmentContext({
   const nvmrc = fs.existsSync(`${cwd}/.nvmrc`)
     ? fs.readFileSync(`${cwd}/.nvmrc`, 'utf8').trim()
     : null;
-  const lock = readJsonIfExists(`${cwd}/package-lock.json`);
-  let npmVersion = null;
+  const lock = readPnpmLockIfExists(`${cwd}/pnpm-lock.yaml`);
+  let pnpmVersion = null;
 
   try {
-    npmVersion = execFile('npm', ['--version'], {
+    pnpmVersion = execFile('pnpm', ['--version'], {
       cwd,
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'ignore'],
     }).trim();
   } catch {
-    npmVersion = null;
+    pnpmVersion = null;
   }
 
   const nodeMajor = process.versions.node.split('.')[0];
@@ -79,7 +62,7 @@ function collectEnvironmentContext({
 
   return {
     node: process.version,
-    npm: npmVersion,
+    pnpm: pnpmVersion,
     nvmrc,
     lockfileVersion: lock?.lockfileVersion || null,
     dependencyVersions: collectDependencyVersions(lock),
@@ -107,14 +90,17 @@ function getLocalNextCommand() {
 function getStagesForMode(mode, passthrough = []) {
   if (mode === 'refresh') {
     return [
-      createStage('pre generated diff guard', 'npm', ['run', 'app-store:diff']),
-      createStage('explicit App Store refresh', 'npm', [
+      createStage('pre generated diff guard', 'pnpm', [
+        'run',
+        'app-store:diff',
+      ]),
+      createStage('explicit App Store refresh', 'pnpm', [
         'run',
         'app-store:refresh',
         '--',
         ...passthrough,
       ]),
-      createStage('post generated diff guard', 'npm', [
+      createStage('post generated diff guard', 'pnpm', [
         'run',
         'app-store:diff',
         '--',
@@ -125,8 +111,11 @@ function getStagesForMode(mode, passthrough = []) {
 
   if (mode === 'analyze') {
     return [
-      createStage('AI FAQ parity', 'npm', ['run', 'verify:ai-faq-index']),
-      createStage('pre generated diff guard', 'npm', ['run', 'app-store:diff']),
+      createStage('AI FAQ parity', 'pnpm', ['run', 'verify:ai-faq-index']),
+      createStage('pre generated diff guard', 'pnpm', [
+        'run',
+        'app-store:diff',
+      ]),
       createStage('Next analyzer build', getLocalNextCommand(), ['build'], {
         env: {
           ANALYZE: 'true',
@@ -135,11 +124,11 @@ function getStagesForMode(mode, passthrough = []) {
       createStage('root locale normalization', 'node', [
         'scripts/normalize-root-locale.js',
       ]),
-      createStage('AI FAQ route parity', 'npm', [
+      createStage('AI FAQ route parity', 'pnpm', [
         'run',
         'verify:ai-faq-routes',
       ]),
-      createStage('post generated diff guard', 'npm', [
+      createStage('post generated diff guard', 'pnpm', [
         'run',
         'app-store:diff',
       ]),
@@ -147,14 +136,14 @@ function getStagesForMode(mode, passthrough = []) {
   }
 
   return [
-    createStage('AI FAQ parity', 'npm', ['run', 'verify:ai-faq-index']),
-    createStage('pre generated diff guard', 'npm', ['run', 'app-store:diff']),
+    createStage('AI FAQ parity', 'pnpm', ['run', 'verify:ai-faq-index']),
+    createStage('pre generated diff guard', 'pnpm', ['run', 'app-store:diff']),
     createStage('Next production build', getLocalNextCommand(), ['build']),
     createStage('root locale normalization', 'node', [
       'scripts/normalize-root-locale.js',
     ]),
-    createStage('AI FAQ route parity', 'npm', ['run', 'verify:ai-faq-routes']),
-    createStage('post generated diff guard', 'npm', ['run', 'app-store:diff']),
+    createStage('AI FAQ route parity', 'pnpm', ['run', 'verify:ai-faq-routes']),
+    createStage('post generated diff guard', 'pnpm', ['run', 'app-store:diff']),
   ];
 }
 
@@ -187,7 +176,7 @@ function runMeasuredStage(
 function printEnvironmentContext(context) {
   console.log('[build-pipeline] environment');
   console.log(`  node: ${context.node}`);
-  console.log(`  npm: ${context.npm || 'unavailable'}`);
+  console.log(`  pnpm: ${context.pnpm || 'unavailable'}`);
   console.log(`  .nvmrc: ${context.nvmrc || 'missing'}`);
   console.log(`  lockfileVersion: ${context.lockfileVersion || 'missing'}`);
   console.log(

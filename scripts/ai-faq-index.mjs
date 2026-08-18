@@ -999,7 +999,7 @@ export function formatFAQIndexReport(report) {
     }
   }
 
-  lines.push('Regenerate with: npm run generate:ai-faq-index');
+  lines.push('Regenerate with: pnpm generate:ai-faq-index');
 
   return `${lines.join('\n')}\n`;
 }
