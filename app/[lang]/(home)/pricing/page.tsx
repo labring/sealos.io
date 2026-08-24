@@ -16,6 +16,7 @@ import HeroLinesImage from './assets/hero-lines.svg';
 import { mainPricingPlans, railwayComparablePlans } from './config/plans';
 import {
   DEFAULT_RAILWAY_UTILIZATION,
+  RAILWAY_RATE_CARD,
   calculateCostDifference,
   estimateRailwayMonthlyCost,
   formatUsd,
@@ -45,6 +46,8 @@ const heroRailwayEstimate = estimateRailwayMonthlyCost({
   volumeGb: heroPlan.resources.disk,
   egressGb: heroPlan.resources.traffic,
 });
+const heroRailwayPlan =
+  RAILWAY_RATE_CARD.plans[heroRailwayEstimate.selectedPlan];
 const heroDifference = calculateCostDifference(
   heroPlan.monthlyPrice,
   heroRailwayEstimate.total,
@@ -117,9 +120,11 @@ export default async function PricingPage({ params }: PageProps) {
             />
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-medium">Hobby workload example</p>
+                <p className="text-sm font-medium">
+                  Hobby workload example · Railway {heroRailwayPlan.name}
+                </p>
                 <p className="text-muted-foreground mt-1 text-xs">
-                  Same workload inputs, different billing models
+                  {heroRailwayEstimate.validationResult.message}
                 </p>
               </div>
               <span className="max-w-48 border border-white/10 bg-white/5 px-2 py-1 text-right text-xs leading-5 text-zinc-300">
@@ -151,9 +156,13 @@ export default async function PricingPage({ params }: PageProps) {
                     <Image src={RailwayIcon} alt="" width={24} height={24} />
                   </span>
                   <div>
-                    <p className="text-sm font-medium">Railway</p>
+                    <p className="text-sm font-medium">
+                      Railway {heroRailwayPlan.name}
+                    </p>
                     <p className="text-muted-foreground mt-0.5 text-xs">
-                      Usage estimate
+                      {formatUsd(heroRailwayEstimate.planMinimum)} minimum ·{' '}
+                      {formatUsd(heroRailwayEstimate.planIncludedUsage)}{' '}
+                      included
                     </p>
                   </div>
                 </div>

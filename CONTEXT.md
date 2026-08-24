@@ -1,7 +1,7 @@
-# Tutorial Publishing
+# Shared Product Language
 
-This context defines the shared language used to plan and publish framework
-tutorial paths under `/tutorials`.
+This context defines the shared language used across tutorial publishing,
+website attribution, and competitor acquisition work.
 
 ## Language
 
@@ -56,3 +56,21 @@ _Avoid_: Build output files, generated pages
 The transfer of acquisition context from the public website to a Sealos product
 surface during a cross-origin user journey.
 _Avoid_: CTA attribution, redirect tracking
+
+## Competitor Acquisition Language
+
+**Alternative Page**:
+A high-intent acquisition page for visitors evaluating a named competitor
+replacement and selecting a concrete next action.
+_Avoid_: Comparison Page, migration automation
+
+**Comparison Page**:
+A neutral product-evaluation page that explains differences and workload fit
+between two platforms.
+_Avoid_: Alternative Page, campaign landing page
+
+**Deployment Intent**:
+The concrete deployment task selected by a visitor and carried through an
+Attribution Handoff, such as `github_repo` or `docker_image`; `unselected`
+records a research CTA before a deployment task is chosen.
+_Avoid_: Generic signup, CTA click

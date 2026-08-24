@@ -206,12 +206,95 @@ const githubSteps: GithubStep[] = shortenDemoSteps<GithubStep>([
   },
 ]);
 
+const compactGithubSteps: GithubStep[] = shortenDemoSteps<GithubStep>([
+  {
+    duration: 2000,
+    screen: 'form',
+    cursor: { x: 72, y: 74 },
+    authorized: true,
+    expanded: true,
+  },
+  {
+    duration: 900,
+    screen: 'form',
+    cursor: { x: 78, y: 74 },
+    authorized: true,
+    expanded: true,
+    clickTarget: 'repoDeploy',
+  },
+  {
+    duration: 1400,
+    screen: 'ready',
+    cursor: { x: 58, y: 48 },
+    readyStage: 0,
+    holdCursor: true,
+  },
+  {
+    duration: 1400,
+    screen: 'ready',
+    cursor: { x: 58, y: 48 },
+    readyStage: 4,
+    holdCursor: true,
+  },
+  {
+    duration: 1400,
+    screen: 'ready',
+    cursor: { x: 58, y: 48 },
+    readyStage: 7,
+    holdCursor: true,
+  },
+  {
+    duration: 1400,
+    screen: 'ready',
+    cursor: { x: 58, y: 48 },
+    readyStage: 12,
+    holdCursor: true,
+  },
+  {
+    duration: 1400,
+    screen: 'ready',
+    cursor: { x: 58, y: 48 },
+    readyStage: 14,
+    holdCursor: true,
+  },
+  {
+    duration: 1600,
+    screen: 'ready',
+    cursor: { x: 58, y: 48 },
+    readyStage: 15,
+    holdCursor: true,
+  },
+  {
+    duration: 6000,
+    screen: 'ready',
+    cursor: { x: 58, y: 48 },
+    formClosed: true,
+    readyStage: 15,
+    holdCursor: true,
+  },
+]);
+
 export const githubImportDemoDurationMs = githubSteps.reduce(
   (total, step) => total + step.duration,
   0,
 );
 
-export function GitHubImportDemo({ active = true }: { active?: boolean }) {
+type GitHubImportDemoProps = {
+  active?: boolean;
+  loop?: boolean;
+  onComplete?: () => void;
+  paused?: boolean;
+  variant?: 'compact' | 'full';
+};
+
+export function GitHubImportDemo({
+  active = true,
+  loop = true,
+  onComplete,
+  paused = false,
+  variant = 'full',
+}: GitHubImportDemoProps) {
+  const steps = variant === 'compact' ? compactGithubSteps : githubSteps;
   const {
     actionProgress,
     actionReady,
@@ -225,15 +308,18 @@ export function GitHubImportDemo({ active = true }: { active?: boolean }) {
   } = useDemoPlayback({
     active,
     getTargetId: getGithubStepTarget,
-    steps: githubSteps,
+    loop,
+    onComplete,
+    paused,
+    steps,
   });
   const readyStage = reduceMotion ? 15 : step.readyStage;
   const secret = reduceMotion
     ? githubFinalValues.secret
-    : getGithubFieldText('secret', effectiveIndex, actionProgress);
+    : getGithubFieldText('secret', effectiveIndex, actionProgress, steps);
   const activeField = actionReady
     ? step.activeField
-    : getPreviousGithubField(effectiveIndex);
+    : getPreviousGithubField(effectiveIndex, steps);
 
   return (
     <DemoStageShell
@@ -242,6 +328,9 @@ export function GitHubImportDemo({ active = true }: { active?: boolean }) {
         step.screen === 'ready' ? (
           <DeploymentCanvas
             readyStage={readyStage ?? 0}
+            runtimeStatus={
+              variant === 'compact' && readyStage === 15 ? 'Running' : undefined
+            }
             shifted={!step.formClosed}
             variant="github"
           />
@@ -317,15 +406,16 @@ function getGithubFieldText(
   field: GithubFieldId,
   index: number,
   progress: number,
+  steps: GithubStep[],
 ) {
-  const step = githubSteps[index];
-  const target = getLatestGithubFieldValue(field, index);
+  const step = steps[index];
+  const target = getLatestGithubFieldValue(field, index, steps);
 
   if (step.activeField !== field || step.typed?.[field] === undefined) {
     return target;
   }
 
-  const previous = getLatestGithubFieldValue(field, index - 1);
+  const previous = getLatestGithubFieldValue(field, index - 1, steps);
   const next = step.typed[field] ?? '';
   const localProgress = Math.min(1, Math.max(0, progress));
 
@@ -337,18 +427,22 @@ function getGithubFieldText(
   return next.slice(0, Math.round(next.length * localProgress));
 }
 
-function getLatestGithubFieldValue(field: GithubFieldId, index: number) {
+function getLatestGithubFieldValue(
+  field: GithubFieldId,
+  index: number,
+  steps: GithubStep[],
+) {
   for (let i = index; i >= 0; i -= 1) {
-    const value = githubSteps[i]?.typed?.[field];
+    const value = steps[i]?.typed?.[field];
     if (value !== undefined) return value;
   }
 
   return '';
 }
 
-function getPreviousGithubField(index: number) {
+function getPreviousGithubField(index: number, steps: GithubStep[]) {
   for (let i = index - 1; i >= 0; i -= 1) {
-    const field = githubSteps[i]?.activeField;
+    const field = steps[i]?.activeField;
     if (field) return field;
   }
 }

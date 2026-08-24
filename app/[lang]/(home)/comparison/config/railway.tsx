@@ -40,15 +40,19 @@ const comparableSealosPrices = ['hobby', 'standard', 'pro'].map(
     railwayComparablePlans.find((plan) => plan.planId === planId)!.monthlyPrice,
 );
 
+const railwayPlanEvidence = `See [Railway plans](${RAILWAY_RATE_CARD.sourceUrl}), verified ${RAILWAY_RATE_CARD.verifiedAt}.`;
+const railwayDeploymentEvidence = `See [Railway deployment guides](${RAILWAY_RATE_CARD.deploymentSourceUrl}), verified ${RAILWAY_RATE_CARD.verifiedAt}.`;
+
 const railwayCostRows = railwayWorkloadInputs.map((input, index) => {
   const estimate = estimateRailwayMonthlyCost(input);
   const difference = calculateCostDifference(
     comparableSealosPrices[index],
-    estimate.total,
+    estimate.billedTotal,
   );
+  const railwayPlan = RAILWAY_RATE_CARD.plans[estimate.selectedPlan];
 
   return {
-    cost: `~${formatUsd(estimate.total)}/mo`,
+    cost: `~${formatUsd(estimate.billedTotal)}/mo`,
     sealosSavings: {
       type: 'comparable' as const,
       savings:
@@ -56,7 +60,7 @@ const railwayCostRows = railwayWorkloadInputs.map((input, index) => {
           ? difference.percentage
           : -difference.percentage,
     },
-    label: 'Railway usage estimate',
+    label: `Railway ${railwayPlan.name} estimate · ${formatUsd(estimate.planMinimum)} minimum · ${estimate.resourceEligibility.eligible ? 'eligible' : estimate.validationResult.message}`,
   };
 });
 
@@ -66,13 +70,15 @@ export const railwayConfig: ComparisonConfig = {
   order: 1,
   content: {
     overview:
-      'Railway is a managed Platform-as-a-Service (PaaS) that simplifies application deployment through Git integration and usage-based billing. It automates builds and deploys for web services, background workers, Cron Jobs, and databases. Railway provides a fast path from code to production with automatic scaling (including scale-to-zero), abstracting away infrastructure complexity for individual developers and small teams.',
+      'Railway is a managed Platform-as-a-Service (PaaS) that simplifies application deployment through Git integration and usage-based billing. It automates builds and deploys for web services, background workers, Cron Jobs, and databases. Railway provides a fast path from code to production while abstracting away infrastructure complexity for individual developers and small teams.',
     pricing: `Railway Usage-Based Rates:
 • Hobby subscription: $${RAILWAY_RATE_CARD.hobbyMonthlySubscription}/month, including $${RAILWAY_RATE_CARD.hobbyIncludedUsage} of resource usage
+• Pro subscription: $${RAILWAY_RATE_CARD.proMonthlySubscription}/month, including $${RAILWAY_RATE_CARD.proIncludedUsage} of resource usage
 • CPU: $${RAILWAY_RATE_CARD.cpuPerVcpuMonth}/vCPU-month
 • Memory: $${RAILWAY_RATE_CARD.ramPerGbMonth}/GB-month
 • Egress: $${RAILWAY_RATE_CARD.egressPerGb}/GB
-• Volume storage: $${RAILWAY_RATE_CARD.volumePerGbMonth}/GB-month`,
+• Volume storage: $${RAILWAY_RATE_CARD.volumePerGbMonth}/GB-month
+• Verified ${RAILWAY_RATE_CARD.verifiedAt}: ${RAILWAY_RATE_CARD.sourceUrl}`,
     dimensions: {
       overview: {
         features: [
@@ -80,16 +86,16 @@ export const railwayConfig: ComparisonConfig = {
           { type: 'check', value: false },
           {
             type: 'text-multi-check',
-            value: ['Cloud only', 'BYO Cloud: Enterprise'],
+            value: ['Managed cloud', 'Plan-dependent'],
           },
-          { type: 'text', value: '30 days, $5 credit' },
-          { type: 'text', value: 'Hobby: 8, Pro: 32' },
-          { type: 'text', value: 'Hobby: 8GB, Pro: 32GB' },
-          { type: 'text', value: 'Hobby: 2, Pro: 20' },
-          { type: 'text', value: 'Hobby: 5, Pro: 50' },
-          { type: 'text', value: 'Hobby: 50, Pro: 100' },
-          { type: 'text', value: 'Free: 3d, Hobby: 7d, Pro: 30d' },
-          { type: 'text-with-check', value: '(saves on idle)' },
+          { type: 'text', value: 'Plan terms vary' },
+          { type: 'text', value: 'Plan-dependent' },
+          { type: 'text', value: 'Plan-dependent' },
+          { type: 'text', value: 'Plan-dependent' },
+          { type: 'text', value: 'Plan-dependent' },
+          { type: 'text', value: 'Plan-dependent' },
+          { type: 'text', value: 'Plan-dependent' },
+          { type: 'text', value: 'Usage-based billing' },
           { type: 'check', value: true },
         ],
         strengths: [],
@@ -109,32 +115,28 @@ export const railwayConfig: ComparisonConfig = {
           {
             icon: <GitCompare className="size-full" />,
             title: 'Streamlined Git-Push-to-Deploy',
-            content:
-              'Railway offers a remarkably streamlined git-push-to-deploy workflow with automatic buildpack detection—no configuration required for most frameworks.',
+            content: `Railway supports a streamlined Git-to-URL workflow for repository-based deployments. ${railwayDeploymentEvidence}`,
           },
           {
             icon: <CodeXml className="size-full" />,
             title: 'Preview Environments',
-            content:
-              "The platform's **Preview Environments** automatically spin up isolated instances for every pull request, making code review and testing seamless.",
+            content: `Railway preview environments can support pull-request testing when enabled for a project. ${railwayDeploymentEvidence}`,
           },
           {
             icon: <Settings className="size-full" />,
             title: 'CLI Tool Integration',
-            content:
-              "Railway's CLI tool (`railway run`) allows developers to run local code while connected to cloud-provisioned databases, bridging the local-cloud gap elegantly.",
+            content: `Railway's CLI provides a repository-adjacent workflow for local development and deployment tasks. ${railwayDeploymentEvidence}`,
           },
           {
             icon: <CodeXml className="size-full" />,
             title: 'Config-as-Code',
-            content:
-              'The `railway.toml` config-as-code approach keeps deployment settings versioned alongside your code.',
+            content: `Railway supports config-as-code workflows for keeping deployment settings with a repository. ${railwayDeploymentEvidence}`,
           },
         ],
         keyDifference: {
           title: 'Railway Approach',
           content:
-            "Railway prioritizes deployment simplicity through zero-config automation. Teams that want the fastest path from git push to production URL will appreciate Railway's streamlined workflow.",
+            'Railway prioritizes managed deployment simplicity. Teams that want a fast path from a repository to a production URL may find its workflow a good fit.',
         },
       },
       architecture: {
@@ -143,8 +145,8 @@ export const railwayConfig: ComparisonConfig = {
           { type: 'check', value: false },
           {
             type: 'warning',
-            value: 'Enterprise',
-            note: 'Available only on Railway Enterprise plan',
+            value: 'Plan-dependent',
+            note: railwayPlanEvidence,
           },
           { type: 'check', value: false },
           { type: 'check', value: false },
@@ -158,9 +160,8 @@ export const railwayConfig: ComparisonConfig = {
         strengths: [
           {
             icon: <TrendingUp className="size-full" />,
-            title: 'Scale-to-Zero',
-            content:
-              "Railway's automatic **scale-to-zero** capability is a standout feature for intermittent workloads. When your service receives no traffic for ~5-10 minutes, Railway automatically suspends the container and resumes it on the next request (with <1 second cold-start)—you only pay for actual usage.",
+            title: 'Usage-Based Scaling',
+            content: `Railway's usage-based billing supports intermittent workloads. See [Railway pricing documentation](${RAILWAY_RATE_CARD.sourceUrl}), verified ${RAILWAY_RATE_CARD.verifiedAt}.`,
           },
           {
             icon: <Box className="size-full" />,
@@ -170,21 +171,18 @@ export const railwayConfig: ComparisonConfig = {
           },
           {
             icon: <Globe className="size-full" />,
-            title: 'Multi-Region Deployment',
-            content:
-              'Railway also offers native **multi-region deployment** on Pro plans, allowing you to run replicas across US, Europe, and Asia simultaneously.',
+            title: 'Regional Deployment Options',
+            content: `Railway documents regional deployment options in its current plan documentation. ${railwayPlanEvidence}`,
           },
           {
             icon: <TrendingUp className="size-full" />,
-            title: 'Automatic Vertical Scaling',
-            content:
-              "The platform's **automatic vertical scaling** adjusts CPU/RAM allocation dynamically based on actual usage, without manual intervention.",
+            title: 'Managed Resource Controls',
+            content: `Railway provides managed resource controls; current limits vary by plan. ${railwayPlanEvidence}`,
           },
         ],
         keyDifference: {
           title: 'Railway Approach',
-          content:
-            'Railway provides maximum operational simplicity at the cost of vendor lock-in. Enterprise customers on Railway can access "Bring Your Own Cloud" for dedicated infrastructure, but this is a premium feature not available on standard plans.',
+          content: `Railway provides a managed experience focused on operational simplicity. Additional infrastructure options are documented in its current plan materials. ${railwayPlanEvidence}`,
         },
       },
       collaboration: {
@@ -196,59 +194,53 @@ export const railwayConfig: ComparisonConfig = {
           { type: 'check', value: true },
           {
             type: 'warning',
-            value: 'Pro',
-            note: 'Available only on Railway Pro plan',
+            value: 'Plan-dependent',
+            note: railwayPlanEvidence,
           },
           { type: 'check', value: true },
           { type: 'check', value: false },
           { type: 'check', value: true },
           {
             type: 'warning',
-            value: 'Enterprise',
-            note: 'Available only on Railway Enterprise plan',
+            value: 'Plan-dependent',
+            note: railwayPlanEvidence,
           },
           {
             type: 'warning',
-            value: 'Enterprise',
-            note: 'Available only on Railway Enterprise plan',
+            value: 'Plan-dependent',
+            note: railwayPlanEvidence,
           },
         ],
         strengths: [
           {
             icon: <Users className="size-full" />,
             title: 'Straightforward Team Model',
-            content:
-              'Railway offers a straightforward team model with three predefined roles (Admin, Developer, Deploy-only) that covers most use cases without complexity.',
+            content: `Railway documents a team model for managed deployment. ${railwayPlanEvidence}`,
           },
           {
             icon: <Users className="size-full" />,
-            title: 'Unlimited Team Seats',
-            content:
-              'The **Pro plan includes unlimited team seats** at no extra cost—a significant advantage for growing teams.',
+            title: 'Team Collaboration',
+            content: `Team collaboration terms vary by plan. ${railwayPlanEvidence}`,
           },
           {
             icon: <Network className="size-full" />,
             title: 'Private Network Isolation',
-            content:
-              'Each project has its own private network, providing natural isolation between environments.',
+            content: `Railway projects can use private networking for service-to-service communication. ${railwayDeploymentEvidence}`,
           },
           {
             icon: <Key className="size-full" />,
             title: 'Activity Feed & Audit Trail',
-            content:
-              'The activity feed provides a clear audit trail of all deployments and changes.',
+            content: `Railway provides deployment activity history for project operations. ${railwayDeploymentEvidence}`,
           },
           {
             icon: <Shield className="size-full" />,
             title: 'Enterprise Compliance',
-            content:
-              "For compliance-heavy industries, Railway's **Enterprise plan offers HIPAA/BAA compliance**, SSO/SAML integration, and 90-day audit logs.",
+            content: `Railway documents additional compliance and audit controls in its current plan materials. ${railwayPlanEvidence}`,
           },
         ],
         keyDifference: {
           title: 'Railway Approach',
-          content:
-            'Railway provides simpler team management that "just works" for most teams, with enterprise compliance features available at higher tiers.',
+          content: `Railway provides a managed team experience, with additional compliance features documented at higher tiers. ${railwayPlanEvidence}`,
         },
       },
       ecosystem: {
@@ -262,7 +254,7 @@ export const railwayConfig: ComparisonConfig = {
           { type: 'check', value: true },
           { type: 'check', value: false },
           { type: 'check', value: true },
-          { type: 'text', value: 'Hobby: 50, Pro: 100' },
+          { type: 'text', value: 'Plan-dependent' },
           { type: 'check', value: false },
           { type: 'check', value: false },
         ],
@@ -270,38 +262,33 @@ export const railwayConfig: ComparisonConfig = {
           {
             icon: <Wrench className="size-full" />,
             title: 'Polished Developer Experience',
-            content:
-              'Railway offers a polished, integrated developer experience for its managed services.',
+            content: `Railway offers an integrated developer experience for its managed services. ${railwayDeploymentEvidence}`,
           },
           {
             icon: <Database className="size-full" />,
             title: 'Built-in Database Viewer',
-            content:
-              'The **built-in database viewer** lets you browse tables, view records, and inspect Redis keys directly in the dashboard without external tools.',
+            content: `Railway's database tooling supports inspecting managed data services from the project workflow. ${railwayDeploymentEvidence}`,
           },
           {
             icon: <Settings className="size-full" />,
             title: 'First-Class Cron Jobs UI',
-            content:
-              '**Cron Jobs** get first-class UI treatment with visual scheduling, execution logs, and manual trigger buttons—Railway supports up to 50 cron jobs on Hobby and 100 on Pro plans.',
+            content: `Railway provides a managed cron-job workflow with current plan terms documented in its official materials. ${railwayPlanEvidence}`,
           },
           {
             icon: <Plug className="size-full" />,
             title: 'Tightly Integrated Services',
-            content:
-              'The platform\'s services (PostgreSQL, MySQL, MongoDB, Redis, storage buckets) are tightly integrated with the deployment workflow, providing a cohesive experience that "just works" without configuration.',
+            content: `Railway groups application and data services within a managed project workflow. ${railwayDeploymentEvidence}`,
           },
         ],
         keyDifference: {
           title: 'Railway Approach',
-          content:
-            "Railway offers a narrower but more polished set of built-in tools with superior UI/UX for common use cases. If you want the most streamlined experience for standard web apps with PostgreSQL/Redis, Railway's integrated tooling shines.",
+          content: `Railway offers an integrated managed workflow for common web applications and data services. ${railwayDeploymentEvidence}`,
         },
       },
     },
     costs: {
       rows: railwayCostRows,
-      note: `Estimate uses $${RAILWAY_RATE_CARD.cpuPerVcpuMonth}/vCPU-month and $${RAILWAY_RATE_CARD.ramPerGbMonth}/GB-month at the listed average usage. Volume and egress are excluded from these three examples. Verified ${RAILWAY_RATE_CARD.verifiedAt}.`,
+      note: `Each row uses estimateRailwayMonthlyCost() with automatic plan selection. Billed totals, plan minimums, included usage, and resource eligibility come from the shared estimate and rate card. Volume and egress are excluded from these three examples. ${railwayPlanEvidence}`,
       source: {
         url: RAILWAY_RATE_CARD.sourceUrl,
         label: 'Railway pricing documentation',
@@ -311,7 +298,7 @@ export const railwayConfig: ComparisonConfig = {
       {
         icon: <TrendingUp className="size-full" />,
         content:
-          'Have **intermittent workloads** that benefit from scale-to-zero billing',
+          'Have **intermittent workloads** that benefit from usage-based billing',
       },
       {
         icon: <DollarSign className="size-full" />,
@@ -330,11 +317,16 @@ export const railwayConfig: ComparisonConfig = {
       {
         icon: <Clock className="size-full" />,
         content:
-          "Run mostly **stateless, low-traffic hobby projects** near Railway's $5 Hobby minimum",
+          "Run mostly **stateless, low-traffic hobby projects** near Railway's Hobby subscription",
       },
       {
         icon: <CodeXml className="size-full" />,
         content: 'Want **Preview Environments** for pull request testing',
+      },
+      {
+        icon: <GitCompare className="size-full" />,
+        content:
+          'Ready to migrate or deploy? Read the [Railway alternative page](/railway-alternative/).',
       },
     ],
   },

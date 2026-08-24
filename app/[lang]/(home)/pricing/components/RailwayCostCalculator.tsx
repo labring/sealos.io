@@ -14,6 +14,7 @@ import SealosIcon from '@/assets/shared-icons/sealos.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useGTM } from '@/hooks/use-gtm';
+import { getLanguageSlug } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 import { railwayComparablePlans, type PricingPlanId } from '../config/plans';
 import {
@@ -121,6 +122,7 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
   }, [trackCustom]);
 
   const estimate = useMemo(() => estimateRailwayMonthlyCost(inputs), [inputs]);
+  const railwayPlan = RAILWAY_RATE_CARD.plans[estimate.selectedPlan];
   const difference = calculateCostDifference(
     selectedPlan.monthlyPrice,
     estimate.total,
@@ -131,6 +133,7 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
     ram: selectedPlan.resources.ram,
     volume: inputs.volumeGb,
     egress: inputs.egressGb,
+    railwayPlan: estimate.selectedPlan,
   });
 
   const handleUtilizationChange = (nextUtilization: Utilization) => {
@@ -177,14 +180,16 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
     }
   };
 
-  const comparisonMessage =
-    difference.lowerCost === 'equal'
+  const comparisonMessage = estimate.validationResult.valid
+    ? difference.lowerCost === 'equal'
       ? 'Both options have the same estimated monthly cost.'
-      : `${difference.lowerCost === 'sealos' ? 'Sealos' : 'Railway'} is estimated to cost ${formatUsd(difference.amount)} (${difference.percentage}%) less than ${difference.lowerCost === 'sealos' ? 'Railway' : 'Sealos'} in this example.`;
-  const lowerCostName =
-    difference.lowerCost === 'equal'
+      : `${difference.lowerCost === 'sealos' ? 'Sealos' : 'Railway'} is estimated to cost ${formatUsd(difference.amount)} (${difference.percentage}%) less than ${difference.lowerCost === 'sealos' ? 'Railway' : 'Sealos'} in this example.`
+    : estimate.validationResult.message;
+  const lowerCostName = estimate.validationResult.valid
+    ? difference.lowerCost === 'equal'
       ? 'Equal estimated cost'
-      : `${difference.lowerCost === 'sealos' ? 'Sealos' : 'Railway'} lower`;
+      : `${difference.lowerCost === 'sealos' ? 'Sealos' : 'Railway'} lower`
+    : 'Plan validation required';
   const currentComputeUtilization = Math.max(
     0,
     Math.min(
@@ -203,12 +208,15 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
   const getLowerCostAtUtilization = (percentage: number) =>
     calculateCostDifference(
       selectedPlan.monthlyPrice,
-      estimateRailwayMonthlyCost({
-        averageVcpu: selectedPlan.resources.cpu * (percentage / 100),
-        averageRamGb: selectedPlan.resources.ram * (percentage / 100),
-        volumeGb: inputs.volumeGb,
-        egressGb: inputs.egressGb,
-      }).total,
+      estimateRailwayMonthlyCost(
+        {
+          averageVcpu: selectedPlan.resources.cpu * (percentage / 100),
+          averageRamGb: selectedPlan.resources.ram * (percentage / 100),
+          volumeGb: inputs.volumeGb,
+          egressGb: inputs.egressGb,
+        },
+        estimate.selectedPlan,
+      ).total,
     ).lowerCost;
   const lowerCostAtZero = getLowerCostAtUtilization(0);
   const lowerCostAtFull = getLowerCostAtUtilization(100);
@@ -266,9 +274,19 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
             <p className="text-muted-foreground mt-4 max-w-2xl leading-7 text-pretty">
               Sealos provides the listed resources for a known monthly plan
               price. Railway bills measured CPU, memory, volume, and egress.
-              This estimate uses Railway Hobby’s $5 monthly subscription, which
-              includes $5 of resource usage.
+              This estimate uses Railway {railwayPlan.name}&apos;s{' '}
+              {formatUsd(estimate.planMinimum)} monthly subscription, which
+              includes {formatUsd(estimate.planIncludedUsage)} of resource
+              usage. {estimate.validationResult.message}
             </p>
+            <Link
+              href={`${getLanguageSlug(lang)}/railway-alternative/`}
+              onClick={() => handleSourceClick('railway_alternative_page')}
+              className="text-foreground mt-4 inline-flex items-center text-sm underline decoration-white/30 underline-offset-4 transition-colors hover:text-white focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+            >
+              Evaluate the Railway alternative and migration path
+              <ArrowRight className="ml-1.5 size-3.5" />
+            </Link>
           </div>
           <div className="flex flex-col items-start gap-1 lg:items-end lg:text-right">
             <a
@@ -386,7 +404,7 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
                   />
                 </div>
                 <div>
-                  <p className="font-semibold">Railway</p>
+                  <p className="font-semibold">Railway {railwayPlan.name}</p>
                   <p className="text-muted-foreground text-sm">
                     Estimated usage bill
                   </p>
@@ -394,10 +412,13 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
               </div>
               <div className="flex flex-wrap gap-2">
                 <span className="border border-white/10 bg-white/5 px-2 py-1 text-xs font-medium text-zinc-200">
-                  Usage estimate
+                  {estimate.requiredPlan
+                    ? `${railwayPlan.name} required`
+                    : `${railwayPlan.name} eligible`}
                 </span>
                 <span className="border border-white/10 px-2 py-1 text-xs text-zinc-400">
-                  $5/mo incl. $5 usage
+                  {formatUsd(estimate.planMinimum)}/mo incl.{' '}
+                  {formatUsd(estimate.planIncludedUsage)} usage
                 </span>
               </div>
             </div>
@@ -410,7 +431,8 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
             <p className="text-muted-foreground mt-5 border-t border-white/10 pt-5 text-sm leading-6">
               Assumes {inputs.averageVcpu.toFixed(2)} average vCPU,{' '}
               {inputs.averageRamGb.toFixed(2)}GB average RAM, {inputs.volumeGb}
-              GB volume, and {inputs.egressGb}GB egress.
+              GB volume, and {inputs.egressGb}GB egress.{' '}
+              {estimate.validationResult.message}
             </p>
           </article>
         </div>
@@ -420,7 +442,9 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
             <p className="text-muted-foreground text-sm">Monthly difference</p>
             <div className="mt-2 flex flex-wrap items-end gap-x-3 gap-y-1">
               <p className="text-4xl font-semibold tabular-nums">
-                {formatUsd(difference.amount)}
+                {estimate.validationResult.valid
+                  ? formatUsd(difference.amount)
+                  : '—'}
               </p>
               <p className="pb-1 text-sm font-medium text-zinc-200">
                 {lowerCostName}
@@ -573,8 +597,8 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
           <div className="text-muted-foreground text-sm leading-6">
             <p className="font-mono text-xs [overflow-wrap:anywhere] break-words whitespace-normal text-zinc-300">
               max(
-              {formatUsd(RAILWAY_RATE_CARD.hobbyMonthlySubscription)}{' '}
-              subscription, {inputs.averageVcpu.toFixed(2)} vCPU ×{' '}
+              {formatUsd(estimate.planMinimum)} {railwayPlan.name} subscription,{' '}
+              {inputs.averageVcpu.toFixed(2)} vCPU ×{' '}
               {formatUsd(RAILWAY_RATE_CARD.cpuPerVcpuMonth)} +{' '}
               {inputs.averageRamGb.toFixed(2)}GB RAM ×{' '}
               {formatUsd(RAILWAY_RATE_CARD.ramPerGbMonth)} + {inputs.volumeGb}GB
@@ -585,15 +609,16 @@ export function RailwayCostCalculator({ lang }: RailwayCostCalculatorProps) {
             <p className="mt-3">
               CPU {formatUsd(estimate.cpu)} · RAM {formatUsd(estimate.ram)} ·
               Volume {formatUsd(estimate.volume)} · Egress{' '}
-              {formatUsd(estimate.egress)}. Estimate verified on{' '}
+              {formatUsd(estimate.egress)} · Usage subtotal{' '}
+              {formatUsd(estimate.usageSubtotal)} · Billed total{' '}
+              {formatUsd(estimate.billedTotal)}. Estimate verified on{' '}
               {RAILWAY_RATE_CARD.verifiedAt}.
             </p>
             <p className="mt-3">
-              This calculator applies Railway Hobby’s{' '}
-              {formatUsd(RAILWAY_RATE_CARD.hobbyMonthlySubscription)}/month
-              subscription and {formatUsd(RAILWAY_RATE_CARD.hobbyIncludedUsage)}{' '}
-              of included usage. Some workloads may require another Railway plan
-              because plan limits vary.
+              {estimate.validationResult.message} Railway {railwayPlan.name}{' '}
+              applies a {formatUsd(estimate.planMinimum)}/month subscription and{' '}
+              {formatUsd(estimate.planIncludedUsage)} of included usage.
+              Measured usage above that minimum becomes the billed total.
             </p>
             <p className="mt-2">
               Sealos plan capacities use Gi. Railway publishes RAM and volume
