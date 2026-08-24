@@ -278,12 +278,14 @@ export const calculateBreakEvenUtilization = ({
 
   if (fullComputeCost === 0) return null;
 
+  const baselineCost = Math.max(planMinimum, fixedUsageCost);
+  if (sealosMonthlyPrice <= baselineCost) return 0;
+
   return Math.max(
     0,
     Math.min(
       100,
-      ((sealosMonthlyPrice - planMinimum - fixedUsageCost) / fullComputeCost) *
-        100,
+      ((sealosMonthlyPrice - fixedUsageCost) / fullComputeCost) * 100,
     ),
   );
 };

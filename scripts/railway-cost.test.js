@@ -256,7 +256,7 @@ test('calculates the Starter and Hobby cost crossover points', () => {
       volume: 10,
       egress: 10,
     })?.toFixed(1),
-    '0.0',
+    '8.3',
   );
   assert.equal(
     calculateBreakEvenUtilization({
@@ -265,7 +265,18 @@ test('calculates the Starter and Hobby cost crossover points', () => {
       ram: 4,
       volume: 20,
       egress: 50,
-    })?.toFixed(1),
-    '12.1',
+    })?.toFixed(2),
+    '16.25',
+  );
+  assert.equal(
+    calculateBreakEvenUtilization({
+      sealosMonthlyPrice: 10,
+      cpu: 4,
+      ram: 4,
+      volume: 20,
+      egress: 50,
+      railwayPlan: 'pro',
+    }),
+    0,
   );
 });

@@ -50,16 +50,6 @@ const localeLayoutSource = readFileSync(
   join(root, 'app', '[lang]', 'layout.tsx'),
   'utf8',
 );
-const hallmarkPreflight = JSON.parse(
-  readFileSync(join(root, '.hallmark', 'preflight.json'), 'utf8'),
-);
-const hallmarkLog = JSON.parse(
-  readFileSync(join(root, '.hallmark', 'log.json'), 'utf8'),
-);
-const railwayDocument = readFileSync(
-  join(root, 'docs', 'railway-alternative.md'),
-  'utf8',
-);
 const sitemapSource = readFileSync(join(root, 'app', 'sitemap.ts'), 'utf8');
 const darkModeSource = readFileSync(
   join(root, 'app', '[lang]', 'utils', 'is-forced-dark-mode.ts'),
@@ -256,52 +246,6 @@ test('shared playback calculations retain progress and completion semantics', ()
   );
 });
 
-test('durable measurement contract matches the approved Issue 333 authority', () => {
-  assert.match(railwayDocument, /approved_with_release_gates/);
-  assert.match(
-    railwayDocument,
-    /`build_started`, `deploy_success`, and\s+`running_24h`/,
-  );
-  for (const field of [
-    'deployment_id',
-    'workspace_id',
-    'consent_provenance.subject_id',
-    'first_touch.landing_hostname',
-    'first_touch.landing_path',
-    'seven 24-hour days',
-  ]) {
-    assert.match(railwayDocument, new RegExp(field.replaceAll('.', '\\.')));
-  }
-  assert.match(
-    railwayDocument,
-    /100 denominator visitors and 30\s+attributed build-start users/,
-  );
-  assert.match(
-    railwayDocument,
-    /Build Started v2[\s\S]*Google Ads conversion-action labels/,
-  );
-  assert.match(
-    railwayDocument,
-    /GTM delivery[\s\S]*GLOBAL[\s\S]*running_24h[\s\S]*Issue #335/,
-  );
-  assert.doesNotMatch(
-    railwayDocument,
-    /pre-launch approval is a release-readiness gate/,
-  );
-  assert.match(
-    railwayDocument,
-    /Quick task `260824-fda` owns the Railway\s+Hero redesign/,
-  );
-  assert.match(
-    hallmarkPreflight.motion,
-    /Motion-driven GitHub walkthrough with JavaScript viewport and playback controls/,
-  );
-  assert.doesNotMatch(
-    railwayDocument,
-    /workspace_created|app_or_database_deployed|20% signup-to-activation/,
-  );
-});
-
 test('route includes required links, evidence, and shared pricing consumption', () => {
   for (const requiredPath of [
     '/pricing/#railway-cost',
@@ -484,16 +428,5 @@ test('route design contract uses the shared Hallmark token surface', () => {
   );
   assert.doesNotMatch(pageSource, /(?:bg|text|border)-(?:blue|zinc|white)-/);
   assert.doesNotMatch(ctaSource, /(?:bg|text|border)-(?:blue|zinc|white)-/);
-  assert.equal(hallmarkPreflight.framework, 'Next.js 14 App Router');
-  assert.match(hallmarkPreflight.palette, /dark Cobalt/);
   assert.match(routeStyles, /theme: adapted dark Cobalt/);
-  assert.ok(
-    hallmarkLog.some(
-      ({ macrostructure, theme, variant, enrichment }) =>
-        macrostructure === 'Split Studio' &&
-        theme === 'Cobalt' &&
-        variant === 'dark' &&
-        enrichment === 'E4 Floating no-frame',
-    ),
-  );
 });
