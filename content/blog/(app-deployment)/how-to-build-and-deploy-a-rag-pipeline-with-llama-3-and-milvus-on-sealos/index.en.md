@@ -8,7 +8,7 @@ tags:
 authors: ["default"]
 ---
 
-If you’ve experimented with large language models (LLMs), you’ve likely encountered hallucinations and outdated answers. Retrieval-Augmented Generation (RAG) fixes that by grounding an LLM’s output in your own data. In this guide, you’ll learn how to build and deploy a production-ready RAG pipeline using Llama 3 for generation, Milvus for vector search, and Sealos for seamless cloud deployment. We’ll walk through architecture, deployment, code, and best practices—so you can go from zero to working system quickly and safely.
+If you’ve experimented with large language models (LLMs), you’ve likely encountered hallucinations and outdated answers. Retrieval-Augmented Generation (RAG) fixes that by grounding an LLM’s output in your own data. In this guide, you’ll learn how to build and deploy a production-ready RAG pipeline using Llama 3 for generation, [Milvus](https://milvus.io/) for vector search, and Sealos for seamless cloud deployment. We’ll walk through architecture, deployment, code, and best practices—so you can go from zero to working system quickly and safely.
 
 ## What You’ll Build
 
