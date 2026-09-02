@@ -21,6 +21,36 @@
   ],
   "redirects": [
     {
+      "source": "/tutorials/deploy-django-sealos",
+      "destination": "/tutorials/django/deploy/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/deploy-django-sealos/",
+      "destination": "/tutorials/django/deploy/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/django-postgresql-sealos",
+      "destination": "/tutorials/django/deploy/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/django-postgresql-sealos/",
+      "destination": "/tutorials/django/deploy/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/django-production-deployment-sealos",
+      "destination": "/tutorials/django/deploy/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/django-production-deployment-sealos/",
+      "destination": "/tutorials/django/deploy/",
+      "permanent": true
+    },
+    {
       "source": "/products/app-store/lobe-chat",
       "destination": "/products/app-store/lobehub/",
       "permanent": true
