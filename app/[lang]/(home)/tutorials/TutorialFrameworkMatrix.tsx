@@ -74,9 +74,10 @@ export function TutorialFrameworkMatrix() {
           Framework paths by launch job
         </h2>
         <p className="mt-4 text-sm leading-6 text-zinc-400">
-          Five complete public paths link directly to deploy, PostgreSQL, and
-          production tutorials. Remaining entries collect demand without
-          creating unpublished routes, sitemap entries, or canonical URLs.
+          Four complete public paths link directly to deploy, PostgreSQL, and
+          production tutorials. Django Deploy is available; its PostgreSQL and
+          production opportunities collect demand without creating unpublished
+          routes, sitemap entries, or canonical URLs.
         </p>
       </div>
 

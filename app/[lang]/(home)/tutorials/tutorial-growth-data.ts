@@ -90,7 +90,7 @@ export const TUTORIAL_FRAMEWORKS = [
   {
     key: 'django',
     name: 'Django',
-    pathNote: 'Complete backend product path',
+    pathNote: 'Core deployment path',
   },
   { key: 'go', name: 'Go', pathNote: 'Production backend path' },
   {
@@ -132,6 +132,7 @@ function getTutorialSlug(
   stage: TutorialStageDefinition,
 ): string {
   if (framework.key === 'nextjs') return stage.availableSlug;
+  if (framework.key === 'django') return `django/${stage.id}`;
   if (stage.id === 'deploy') return `deploy-${framework.key}-sealos`;
   if (stage.id === 'postgresql') return `${framework.key}-postgresql-sealos`;
   return `${framework.key}-production-deployment-sealos`;
@@ -139,7 +140,11 @@ function getTutorialSlug(
 
 function getInventoryStatus(
   framework: TutorialFrameworkDefinition,
+  stage: TutorialStageDefinition,
 ): TutorialInventoryStatus {
+  if (framework.key === 'django') {
+    return stage.id === 'deploy' ? 'available' : 'planned';
+  }
   if (AVAILABLE_FRAMEWORK_KEYS.has(framework.key)) return 'available';
   if (COMING_NEXT_FRAMEWORK_KEYS.has(framework.key)) return 'coming_next';
   return 'planned';
@@ -165,7 +170,7 @@ export function getTutorialInventoryItem(
     stage: stage.id,
     stageLabel: stage.label,
     slug: getTutorialSlug(framework, stage),
-    status: getInventoryStatus(framework),
+    status: getInventoryStatus(framework, stage),
     title: getInventoryTitle(framework, stage),
     requestCta: stage.requestCta,
   };
