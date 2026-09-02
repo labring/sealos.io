@@ -79,60 +79,6 @@ const PAGE_CONTRACTS = Object.freeze([
       'rollback-recovery.webp',
     ],
   },
-  {
-    slug: 'deploy-django-sealos',
-    framework: 'Django',
-    stage: 'beginner',
-    series: 'sealos-skills-django',
-    order: 1,
-    tag: 'stage-1-deploy',
-    repo: 'sealos-django-tutorial',
-    related: [
-      'django-postgresql-sealos',
-      'django-production-deployment-sealos',
-    ],
-    cta: ['Start free on Sealos', 'https://os.sealos.io'],
-    files: [
-      'local-stage-validation.webp',
-      'sealos-analysis-template.webp',
-      'sealos-deployment-health.webp',
-      'task-board-admin.webp',
-    ],
-  },
-  {
-    slug: 'django-postgresql-sealos',
-    framework: 'Django',
-    stage: 'advanced',
-    series: 'sealos-skills-django',
-    order: 2,
-    tag: 'stage-2-postgresql',
-    repo: 'sealos-django-tutorial',
-    related: ['deploy-django-sealos', 'django-production-deployment-sealos'],
-    cta: ['Open Sealos Skills', '/sealos-skills'],
-    files: [
-      'database-ready-source.webp',
-      'sealos-postgresql-plan.webp',
-      'django-migration-complete.webp',
-      'persistent-board-admin.webp',
-    ],
-  },
-  {
-    slug: 'django-production-deployment-sealos',
-    framework: 'Django',
-    stage: 'production',
-    series: 'sealos-skills-django',
-    order: 3,
-    tag: 'stage-3-production',
-    repo: 'sealos-django-tutorial',
-    related: ['deploy-django-sealos', 'django-postgresql-sealos'],
-    cta: ['Open Sealos Skills', '/sealos-skills'],
-    files: [
-      'production-state-redacted.webp',
-      'immutable-rollout-health.webp',
-      'domain-static-logs.webp',
-      'rollback-recovery.webp',
-    ],
-  },
 ]);
 
 const ADJACENT_STEPS = Object.freeze({
@@ -152,24 +98,6 @@ const ADJACENT_STEPS = Object.freeze({
     'Resolve immutable production state',
     'Roll out two healthy replicas',
     'Verify HTTPS and runtime logs',
-    'Roll back and explicitly recover',
-  ],
-  'deploy-django-sealos': [
-    'Validate the protected Stage 1 source locally',
-    'Review Sealos analysis and template output',
-    'Accept the host-rewritten deployment',
-    'Use the Task Board and native admin',
-  ],
-  'django-postgresql-sealos': [
-    'Inspect the database-ready source',
-    'Review the generated PostgreSQL plan',
-    'Complete the Django migration',
-    'Verify board and admin persistence',
-  ],
-  'django-production-deployment-sealos': [
-    'Resolve immutable production state',
-    'Roll out two healthy replicas',
-    'Verify HTTPS, static assets, and logs',
     'Roll back and explicitly recover',
   ],
 });
@@ -241,7 +169,7 @@ function sourceUrl(page) {
 }
 
 function normalizeFramework(value) {
-  if (value === 'FastAPI' || value === 'Django') return value;
+  if (value === 'FastAPI') return value;
   return null;
 }
 
@@ -360,7 +288,7 @@ function acceptedFiveMinuteMode(timings) {
   for (const record of timings) {
     const framework = String(record.framework || '').toLowerCase();
     if (
-      ['fastapi', 'django'].includes(framework) &&
+      framework === 'fastapi' &&
       record.accepted === true &&
       record.evidence_complete === true &&
       record.http_status === 200 &&
@@ -369,11 +297,7 @@ function acceptedFiveMinuteMode(timings) {
       accepted.set(framework, record.elapsed_ms);
     }
   }
-  return (
-    accepted.size === 2 &&
-    accepted.get('fastapi') <= 300000 &&
-    accepted.get('django') <= 300000
-  );
+  return accepted.get('fastapi') <= 300000;
 }
 
 function expectedBeginnerTitle(framework, fiveMinutes) {
@@ -679,7 +603,7 @@ export async function validateDraftBundle({
     throw new UsageError('repoRoot, evidenceRoot, and phaseBase are required');
   const normalizedFramework = framework ? normalizeFramework(framework) : null;
   if (framework && !normalizedFramework)
-    throw new UsageError('framework must be FastAPI or Django');
+    throw new UsageError('framework must be FastAPI');
   const root = resolve(repoRoot);
   const evidence = resolve(evidenceRoot);
   const issues = [];
@@ -792,8 +716,8 @@ async function assertNoSymlink(root, target) {
 }
 
 function renderHtml(spec, evidence, captureData) {
-  const accent = spec.framework === 'FastAPI' ? '#009688' : '#44b78b';
-  const secondary = spec.framework === 'FastAPI' ? '#60a5fa' : '#7aa7d8';
+  const accent = '#009688';
+  const secondary = '#60a5fa';
   const lines = stringLines(
     evidence.output || evidence.lines || 'Observed result',
   );
@@ -1306,7 +1230,7 @@ function parseCli(argv) {
   if (mode !== '--check-bundle' && options.framework)
     throw new UsageError('--framework is valid only for --check-bundle');
   if (options.framework && !normalizeFramework(options.framework))
-    throw new UsageError('--framework must be FastAPI or Django');
+    throw new UsageError('--framework must be FastAPI');
   return { mode, ...options };
 }
 
