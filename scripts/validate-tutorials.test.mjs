@@ -4,6 +4,7 @@ import {
   mkdir,
   mkdtemp,
   readFile,
+  readdir,
   rm,
   unlink,
   writeFile,
@@ -15,35 +16,11 @@ import test from 'node:test';
 
 const root = process.cwd();
 const validatorPath = join(root, 'scripts', 'validate-tutorials.mjs');
-
-const tutorialSlugs = [
-  'deploy-nextjs-sealos',
-  'nextjs-postgresql-sealos',
-  'nextjs-production-deployment-sealos',
-  'deploy-react-sealos',
-  'react-postgresql-sealos',
-  'react-production-deployment-sealos',
-  'deploy-nodejs-sealos',
-  'nodejs-postgresql-sealos',
-  'nodejs-production-deployment-sealos',
-  'deploy-fastapi-sealos',
-  'fastapi-postgresql-sealos',
-  'fastapi-production-deployment-sealos',
-  'deploy-django-sealos',
-  'django-postgresql-sealos',
-  'django-production-deployment-sealos',
-];
-
 const integrationFiles = [
-  'lib/utils/metadata.ts',
+  'app/[lang]/(home)/tutorials/[...slug]/layout.tsx',
+  'app/[lang]/(home)/tutorials/[...slug]/page.tsx',
   'lib/utils/tutorial-metadata.ts',
-  'app/[lang]/(home)/tutorials/page.tsx',
-  'app/[lang]/(home)/tutorials/tutorial-growth-data.ts',
-  'app/[lang]/(home)/tutorials/TutorialFrameworkMatrix.tsx',
-  'app/sitemap.ts',
-  'lib/source.ts',
-  'new-components/Header.tsx',
-  'app/[lang]/utils/is-forced-dark-mode.ts',
+  'lib/utils/tutorial-utils.ts',
 ];
 
 function runValidator(cwd) {
@@ -60,18 +37,31 @@ async function copyRootFile(relativePath, fixtureRoot) {
   await copyFile(join(root, relativePath), destination);
 }
 
+async function findFiles(directory, filename) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = [];
+  for (const entry of entries) {
+    const path = join(directory, entry.name);
+    if (entry.isDirectory()) files.push(...(await findFiles(path, filename)));
+    if (entry.name === filename) files.push(path);
+  }
+  return files;
+}
+
 async function createTutorialFixture() {
   const fixtureRoot = await mkdtemp(join(tmpdir(), 'validate-tutorials-'));
+  const tutorialFiles = await findFiles(
+    join(root, 'content', 'tutorials'),
+    'index.en.mdx',
+  );
 
-  for (const slug of tutorialSlugs) {
-    const tutorialPath = join('content', 'tutorials', slug, 'index.en.mdx');
-    await copyRootFile(tutorialPath, fixtureRoot);
-
-    const source = await readFile(join(root, tutorialPath), 'utf8');
+  for (const file of tutorialFiles) {
+    const relativePath = file.slice(root.length + 1);
+    await copyRootFile(relativePath, fixtureRoot);
+    const source = await readFile(file, 'utf8');
     const imageRefs = [...source.matchAll(/!\[[^\]]*]\((\/[^)]+)\)/g)].map(
       (match) => match[1],
     );
-
     for (const imageRef of imageRefs) {
       await copyRootFile(join('public', imageRef.slice(1)), fixtureRoot);
     }
@@ -80,7 +70,6 @@ async function createTutorialFixture() {
   for (const relativePath of integrationFiles) {
     await copyRootFile(relativePath, fixtureRoot);
   }
-
   return fixtureRoot;
 }
 
@@ -90,78 +79,97 @@ async function updateFixtureFile(fixtureRoot, relativePath, transform) {
   await writeFile(path, transform(source));
 }
 
-test('validator accepts the exact 15-page publication contract', () => {
+test('validator accepts the 13-page public tutorial contract', () => {
   const result = runValidator(root);
 
   assert.equal(result.status, 0, result.stderr);
   assert.equal(
     result.stdout.trim(),
-    'validate-tutorials passed: 15 tutorial pages checked.',
+    'validate-tutorials passed: 13 tutorial pages checked.',
   );
 });
 
-test('validator fails closed when a Python evidence asset is missing', async (t) => {
+test('validator fails when a required Django screenshot is missing', async (t) => {
   const fixtureRoot = await createTutorialFixture();
   t.after(() => rm(fixtureRoot, { force: true, recursive: true }));
 
   await unlink(
     join(
       fixtureRoot,
-      'public/images/deploy-fastapi-sealos/local-stage-validation.webp',
+      'public/images/tutorials/django/django-sealos-project-ops-running.webp',
     ),
   );
-
   const result = runValidator(fixtureRoot);
 
   assert.equal(result.status, 1);
   assert.match(
     result.stderr,
-    /deploy-fastapi-sealos: image reference does not resolve to public asset \/images\/deploy-fastapi-sealos\/local-stage-validation\.webp/,
+    /image does not resolve to \/images\/tutorials\/django\/django-sealos-project-ops-running\.webp/,
   );
 });
 
-test('validator rejects a catalog that omits Django availability', async (t) => {
+test('validator rejects internal publishing fields in public MDX', async (t) => {
   const fixtureRoot = await createTutorialFixture();
   t.after(() => rm(fixtureRoot, { force: true, recursive: true }));
 
   await updateFixtureFile(
     fixtureRoot,
-    'app/[lang]/(home)/tutorials/tutorial-growth-data.ts',
+    'content/tutorials/django/deploy/index.en.mdx',
     (source) =>
       source.replace(
-        /(export const AVAILABLE_FRAMEWORK_KEYS = new Set\(\[[\s\S]*?)(\]\);)/,
-        (_match, availableKeys, closing) =>
-          `${availableKeys.replace(/\s*'django',?\n?/, '\n')}${closing}`,
+        'stage: beginner',
+        "stage: beginner\nprimaryKeyword: 'deploy Django'",
       ),
   );
-
   const result = runValidator(fixtureRoot);
 
   assert.equal(result.status, 1);
   assert.match(
     result.stderr,
-    /tutorial-growth-data\.ts: available framework keys must be exactly nextjs, react, nodejs, fastapi, django/,
+    /contains internal frontmatter key primaryKeyword/,
   );
 });
 
-test('validator rejects index copy that omits Python framework paths', async (t) => {
+test('validator rejects an unresolved tutorial entrypoint', async (t) => {
   const fixtureRoot = await createTutorialFixture();
   t.after(() => rm(fixtureRoot, { force: true, recursive: true }));
 
   await updateFixtureFile(
     fixtureRoot,
-    'app/[lang]/(home)/tutorials/page.tsx',
+    'content/tutorials/django/deploy/index.en.mdx',
     (source) =>
-      source
-        .replaceAll('FastAPI', 'Python API')
-        .replaceAll('Django', 'Python web'),
+      source.replace(
+        "existing_project: '#prepare-django-for-production'",
+        "existing_project: '#missing-section'",
+      ),
   );
-
   const result = runValidator(fixtureRoot);
 
   assert.equal(result.status, 1);
   assert.match(
     result.stderr,
-    /tutorials\/page\.tsx: missing five-framework catalog metadata and hero copy/,
+    /entrypoint existing_project does not resolve to #missing-section/,
+  );
+});
+
+test('validator rejects a Core page that links to a planned Django tutorial', async (t) => {
+  const fixtureRoot = await createTutorialFixture();
+  t.after(() => rm(fixtureRoot, { force: true, recursive: true }));
+
+  await updateFixtureFile(
+    fixtureRoot,
+    'content/tutorials/django/deploy/index.en.mdx',
+    (source) =>
+      source.replace(
+        'related: []',
+        "related:\n  - '/tutorials/django/postgresql/'",
+      ),
+  );
+  const result = runValidator(fixtureRoot);
+
+  assert.equal(result.status, 1);
+  assert.match(
+    result.stderr,
+    /references unpublished tutorial \/tutorials\/django\/postgresql\//,
   );
 });
