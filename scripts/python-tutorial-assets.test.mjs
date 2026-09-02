@@ -75,60 +75,6 @@ const PAGE_FIXTURES = [
       'rollback-recovery.webp',
     ],
   },
-  {
-    slug: 'deploy-django-sealos',
-    framework: 'Django',
-    stage: 'beginner',
-    series: 'sealos-skills-django',
-    order: 1,
-    tag: 'stage-1-deploy',
-    title: 'How to Deploy Django on Sealos in 5 Minutes',
-    related: [
-      'django-postgresql-sealos',
-      'django-production-deployment-sealos',
-    ],
-    cta: ['Start free on Sealos', 'https://os.sealos.io'],
-    files: [
-      'local-stage-validation.webp',
-      'sealos-analysis-template.webp',
-      'sealos-deployment-health.webp',
-      'task-board-admin.webp',
-    ],
-  },
-  {
-    slug: 'django-postgresql-sealos',
-    framework: 'Django',
-    stage: 'advanced',
-    series: 'sealos-skills-django',
-    order: 2,
-    tag: 'stage-2-postgresql',
-    title: 'Deploy Django with PostgreSQL on Sealos',
-    related: ['deploy-django-sealos', 'django-production-deployment-sealos'],
-    cta: ['Open Sealos Skills', '/sealos-skills'],
-    files: [
-      'database-ready-source.webp',
-      'sealos-postgresql-plan.webp',
-      'django-migration-complete.webp',
-      'persistent-board-admin.webp',
-    ],
-  },
-  {
-    slug: 'django-production-deployment-sealos',
-    framework: 'Django',
-    stage: 'production',
-    series: 'sealos-skills-django',
-    order: 3,
-    tag: 'stage-3-production',
-    title: 'Django Production Deployment on Sealos',
-    related: ['deploy-django-sealos', 'django-postgresql-sealos'],
-    cta: ['Open Sealos Skills', '/sealos-skills'],
-    files: [
-      'production-state-redacted.webp',
-      'immutable-rollout-health.webp',
-      'domain-static-logs.webp',
-      'rollback-recovery.webp',
-    ],
-  },
 ];
 
 const BOUNDARY_PATHS = [
@@ -146,11 +92,7 @@ function jsonl(records) {
 }
 
 function sourceUrl(page) {
-  const repo =
-    page.framework === 'FastAPI'
-      ? 'sealos-fastapi-tutorial'
-      : 'sealos-django-tutorial';
-  return `https://github.com/yangchuansheng/${repo}/tree/${page.tag}`;
+  return `https://github.com/yangchuansheng/sealos-fastapi-tutorial/tree/${page.tag}`;
 }
 
 function mdxFor(page) {
@@ -269,17 +211,6 @@ async function makeFixture({ pages = PAGE_FIXTURES } = {}) {
       elapsed_ms: 240000,
       cleanup_record_id: 'cleanup-fastapi',
     },
-    {
-      schema_version: 1,
-      record_id: 'timing-django',
-      run_id: 'p27-django-fixture',
-      framework: 'django',
-      accepted: true,
-      evidence_complete: true,
-      http_status: 200,
-      elapsed_ms: 280000,
-      cleanup_record_id: 'cleanup-django',
-    },
   ];
   const events = screenshotRecords.map((record) => ({
     schema_version: 1,
@@ -288,7 +219,7 @@ async function makeFixture({ pages = PAGE_FIXTURES } = {}) {
     event: 'observed-result',
     status: 200,
   }));
-  const cleanup = ['fastapi', 'django'].map((framework) => ({
+  const cleanup = ['fastapi'].map((framework) => ({
     schema_version: 1,
     record_id: `cleanup-${framework}`,
     run_id: `p27-${framework}-fixture`,
@@ -367,7 +298,7 @@ function encodeWebp(input, output) {
 test('imports the coordinator after fixture setup', async (t) => {
   const initialFixture = await makeFixture();
   assert.equal((await stat(initialFixture.root)).mode & 0o777, 0o700);
-  assert.equal(initialFixture.screenshotRecords.length, 24);
+  assert.equal(initialFixture.screenshotRecords.length, 12);
 
   const coordinator = await import(
     `${pathToFileURL(SCRIPT_PATH).href}?test=${Date.now()}`
@@ -381,18 +312,18 @@ test('imports the coordinator after fixture setup', async (t) => {
       'validateEvidenceCard',
     ]);
     assert.equal(Object.isFrozen(coordinator.SCREENSHOT_CONTRACT), true);
-    assert.equal(coordinator.SCREENSHOT_CONTRACT.length, 24);
+    assert.equal(coordinator.SCREENSHOT_CONTRACT.length, 12);
     assert.equal(
       new Set(
         coordinator.SCREENSHOT_CONTRACT.map(
           ({ page, filename }) => `${page}/${filename}`,
         ),
       ).size,
-      24,
+      12,
     );
   });
 
-  await t.test('accepts six drafts and reports 24 pending assets', async () => {
+  await t.test('accepts three drafts and reports 12 pending assets', async () => {
     const result = await coordinator.validateDraftBundle({
       repoRoot: initialFixture.root,
       evidenceRoot: initialFixture.evidenceRoot,
@@ -400,30 +331,10 @@ test('imports the coordinator after fixture setup', async (t) => {
     });
     assert.equal(result.ok, true, JSON.stringify(result.issues, null, 2));
     assert.deepEqual(result.counts, {
-      draftsValid: 6,
-      draftsPending: 0,
-      assetsPending: 24,
-    });
-  });
-
-  await t.test('reports only the three missing Django drafts', async () => {
-    const fixture = await makeFixture({ pages: PAGE_FIXTURES.slice(0, 3) });
-    t.after(() => rm(fixture.root, { recursive: true, force: true }));
-    const result = await coordinator.validateDraftBundle({
-      repoRoot: fixture.root,
-      evidenceRoot: fixture.evidenceRoot,
-      phaseBase: fixture.phaseBase,
-    });
-    assert.equal(result.ok, false);
-    assert.equal(result.issues.length, 1);
-    assert.equal(result.issues[0].code, 'DRAFT_PAGE_SET_MISMATCH');
-    assert.deepEqual(result.counts, {
       draftsValid: 3,
-      draftsPending: 3,
-      assetsPending: 24,
+      draftsPending: 0,
+      assetsPending: 12,
     });
-    for (const page of PAGE_FIXTURES.slice(3))
-      assert.match(result.issues[0].message, new RegExp(page.slug));
   });
 
   const draftMutations = [
@@ -705,7 +616,7 @@ test('imports the coordinator after fixture setup', async (t) => {
     assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
     assert.match(
       result.stdout,
-      /drafts_valid=6 drafts_pending=0 assets_pending=24 issues=0/,
+      /drafts_valid=3 drafts_pending=0 assets_pending=12 issues=0/,
     );
     result = spawnSync(process.execPath, [
       SCRIPT_PATH,
@@ -715,6 +626,14 @@ test('imports the coordinator after fixture setup', async (t) => {
       'FastAPI',
     ]);
     assert.equal(result.status, 1);
+    result = spawnSync(process.execPath, [
+      SCRIPT_PATH,
+      '--check-bundle',
+      ...base.slice(1),
+      '--framework',
+      'Django',
+    ]);
+    assert.equal(result.status, 2);
   });
 
   t.after(() => rm(initialFixture.root, { recursive: true, force: true }));
