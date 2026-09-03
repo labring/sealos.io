@@ -1,28 +1,35 @@
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
-interface BlogFooterProps {
-  adjacentPosts: {
-    previous:
-      | {
-          name: string;
-          url: string;
-        }
-      | undefined;
-    next:
-      | {
-          name: string;
-          url: string;
-        }
-      | undefined;
+interface ArticlePagerProps {
+  adjacentItems: {
+    previous?: {
+      name: string;
+      url: string;
+    };
+    next?: {
+      name: string;
+      url: string;
+    };
   };
+  ariaLabel?: string;
+  nextLabel?: string;
+  previousLabel?: string;
 }
 
-export function BlogFooter({ adjacentPosts }: BlogFooterProps) {
-  const { previous, next } = adjacentPosts;
+export function ArticlePager({
+  adjacentItems,
+  ariaLabel = 'Adjacent articles',
+  nextLabel = 'Next Page',
+  previousLabel = 'Previous Page',
+}: ArticlePagerProps): JSX.Element {
+  const { previous, next } = adjacentItems;
 
   return (
-    <div className="flex flex-row items-center justify-between gap-4 font-medium">
+    <nav
+      aria-label={ariaLabel}
+      className="flex flex-row items-center justify-between gap-4 font-medium"
+    >
       {previous ? (
         <Link href={previous.url} className="w-full">
           <div className="bg-primary-foreground hover:border-primary flex flex-col gap-3 rounded-xl border p-4 transition-colors duration-300">
@@ -32,7 +39,7 @@ export function BlogFooter({ adjacentPosts }: BlogFooterProps) {
               </div>
               <div className="line-clamp-2">{previous.name}</div>
             </div>
-            <div className="text-muted-foreground text-xs">Previous Page</div>
+            <div className="text-muted-foreground text-xs">{previousLabel}</div>
           </div>
         </Link>
       ) : null}
@@ -46,11 +53,11 @@ export function BlogFooter({ adjacentPosts }: BlogFooterProps) {
               </div>
             </div>
             <div className="text-muted-foreground justify-end text-end text-xs">
-              Next Page
+              {nextLabel}
             </div>
           </div>
         </Link>
       ) : null}
-    </div>
+    </nav>
   );
 }
