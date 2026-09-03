@@ -86,6 +86,7 @@ production workflows for one SHA, then require a zero-finding live rerun.
 | 260903-1yz | Retire unqualified legacy Django tutorials and align the public tutorial matrix with opportunity-level strategy | 2026-09-03 | ecd8d8e | Verified | [260903-1yz-retire-unqualified-legacy-django-tutoria](./quick/260903-1yz-retire-unqualified-legacy-django-tutoria/) |
 | 260903-gj1 | Unify tutorial detail pages with the blog visual system | 2026-09-03 | 18403b1 | Verified | [260903-gj1-unify-tutorial-detail-pages-with-the-blo](./quick/260903-gj1-unify-tutorial-detail-pages-with-the-blo/) |
 | 260903-nrv | Retire all remaining legacy tutorial pages and align the public tutorial matrix | 2026-09-03 | 7359e0c | Verified | [260903-nrv-retire-all-remaining-legacy-tutorial-pag](./quick/260903-nrv-retire-all-remaining-legacy-tutorial-pag/) |
+| 260903-rb1 | Align the Tutorial Catalog with the Blog visual system while preserving its learning-path matrix | 2026-09-03 | 1071c45 | Verified | [260903-rb1-align-the-tutorial-catalog-with-the-blog](./quick/260903-rb1-align-the-tutorial-catalog-with-the-blog/) |
 
 ## Performance Metrics
 

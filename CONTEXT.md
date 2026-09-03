@@ -91,6 +91,11 @@ The exported tutorial index, tutorial detail routes, and public evidence assets
 served to readers from the production static build.
 _Avoid_: Build output files, generated pages
 
+**Tutorial Catalog**:
+The public `/tutorials/` page that groups Framework Tutorial Paths by learning
+stage, framework, publication status, and request entry.
+_Avoid_: Tutorial landing page, Tutorial Matrix
+
 ## Website Attribution Language
 
 **Attribution Handoff (归因交接)**:
