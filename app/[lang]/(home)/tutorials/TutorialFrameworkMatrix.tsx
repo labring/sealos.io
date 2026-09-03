@@ -1,5 +1,4 @@
-import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle2, Clock3, Layers3 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { TutorialRequestGuideLink } from './TutorialRequestGuideLink';
 import { TutorialStatusChip } from './TutorialStatusChip';
@@ -7,7 +6,7 @@ import {
   STATUS_LABELS,
   TUTORIAL_STAGES,
   getTutorialFrameworkMatrix,
-  getTutorialInventoryItem,
+  getTutorialInventory,
   type TutorialInventoryItem,
 } from './tutorial-growth-data';
 
@@ -16,19 +15,19 @@ function MatrixCell({ item }: { item: TutorialInventoryItem }) {
     return (
       <Link
         href={`/tutorials/${item.slug}`}
-        className="group flex min-h-16 items-center justify-between gap-3 rounded-2xl border border-blue-400/25 bg-blue-400/[0.07] px-4 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-blue-200/60 focus-visible:ring-2 focus-visible:ring-blue-300/70 focus-visible:outline-none active:translate-y-px"
+        className="group focus-visible:ring-ring flex min-h-16 items-center justify-between gap-3 rounded-lg border border-blue-400/35 bg-blue-400/10 px-4 py-3 text-left transition-colors hover:border-blue-300/70 hover:bg-blue-400/15 focus-visible:ring-2 focus-visible:outline-none"
       >
         <span>
-          <span className="block text-sm font-semibold text-white">
+          <span className="text-foreground block text-sm font-semibold">
             {item.stageLabel}
           </span>
-          <span className="mt-1 block text-xs text-blue-100/75">
+          <span className="mt-1 block text-xs text-blue-200">
             Available tutorial
           </span>
         </span>
         <ArrowRight
           size={15}
-          className="text-blue-100 transition-transform group-hover:translate-x-1"
+          className="text-primary transition-transform group-hover:translate-x-1"
           aria-hidden="true"
         />
       </Link>
@@ -43,13 +42,13 @@ function MatrixCell({ item }: { item: TutorialInventoryItem }) {
       slug={item.slug}
       status={item.status}
       source="framework-matrix"
-      className="flex min-h-16 items-center justify-between gap-3 rounded-2xl border border-zinc-800 bg-white/[0.025] px-4 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-blue-300/45 hover:bg-blue-400/[0.07] focus-visible:ring-2 focus-visible:ring-blue-300/70 focus-visible:outline-none active:translate-y-px"
+      className="group border-border bg-card hover:border-primary/40 hover:bg-muted focus-visible:ring-ring flex min-h-16 items-center justify-between gap-3 rounded-lg border px-4 py-3 text-left transition-colors focus-visible:ring-2 focus-visible:outline-none"
     >
       <span>
-        <span className="block text-sm font-semibold text-white">
+        <span className="text-foreground block text-sm font-semibold">
           {item.stageLabel}
         </span>
-        <span className="mt-1 block text-xs text-zinc-500">
+        <span className="text-muted-foreground mt-1 block text-xs">
           {STATUS_LABELS[item.status]}
         </span>
       </span>
@@ -58,67 +57,73 @@ function MatrixCell({ item }: { item: TutorialInventoryItem }) {
   );
 }
 
+function getStatusCounts() {
+  const inventory = getTutorialInventory();
+  return [
+    [
+      'Available',
+      inventory.filter((item) => item.status === 'available').length,
+    ],
+    [
+      'Coming next',
+      inventory.filter((item) => item.status === 'coming_next').length,
+    ],
+    ['Planned', inventory.filter((item) => item.status === 'planned').length],
+  ] as const;
+}
+
 export function TutorialFrameworkMatrix() {
   const matrix = getTutorialFrameworkMatrix();
-  const comingSoonCount = matrix
-    .flatMap((row) => row.items)
-    .filter((item) => item.status === 'coming_next').length;
-  const plannedCount = matrix
-    .flatMap((row) => row.items)
-    .filter((item) => item.status === 'planned').length;
 
   return (
-    <section id="frameworks" className="mx-auto mt-24 max-w-7xl scroll-mt-28">
-      <div className="mb-8 max-w-3xl">
-        <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
-          Framework paths by launch job
-        </h2>
-        <p className="mt-4 text-sm leading-6 text-zinc-400">
-          Django Deploy is the qualified Core guide. Every planned framework,
-          PostgreSQL, and production opportunity collects demand through the
-          matrix until its implementation is ready to publish.
-        </p>
-      </div>
-
-      <div className="mb-5 grid gap-3 md:grid-cols-2">
-        <div className="rounded-2xl border border-blue-400/20 bg-blue-400/[0.07] p-4">
-          <div className="flex items-center gap-3 text-blue-100">
-            <Clock3 size={17} aria-hidden="true" />
-            <span className="text-sm font-medium">Coming next</span>
-          </div>
-          <p className="mt-3 text-2xl font-semibold text-white tabular-nums">
-            {comingSoonCount} requested paths
+    <section id="frameworks" className="mx-auto mt-20 max-w-7xl scroll-mt-28">
+      <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div className="max-w-3xl">
+          <h2 className="text-foreground text-3xl font-semibold tracking-tight md:text-4xl">
+            Framework paths by launch job
+          </h2>
+          <p className="text-muted-foreground mt-4 text-sm leading-6">
+            Django Deploy is the qualified Core guide. Every planned framework,
+            PostgreSQL, and production opportunity collects demand through the
+            matrix until its implementation is ready to publish.
           </p>
         </div>
-        <div className="rounded-2xl border border-zinc-800 bg-white/[0.03] p-4">
-          <div className="flex items-center gap-3 text-zinc-300">
-            <Layers3 size={17} aria-hidden="true" />
-            <span className="text-sm font-medium">Planned inventory</span>
-          </div>
-          <p className="mt-3 text-2xl font-semibold text-white tabular-nums">
-            {plannedCount} mapped paths
-          </p>
-        </div>
+        <dl className="border-border grid grid-cols-3 gap-4 border-t pt-4 lg:min-w-96 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-6">
+          {getStatusCounts().map(([label, value]) => (
+            <div key={label}>
+              <dt className="text-muted-foreground text-xs">{label}</dt>
+              <dd className="text-foreground mt-1 text-2xl font-semibold tabular-nums">
+                {value}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
 
-      <div className="space-y-3">
+      <div className="border-border bg-card overflow-hidden rounded-xl border">
+        <div className="text-muted-foreground border-border bg-muted hidden grid-cols-[13rem_repeat(3,minmax(0,1fr))] gap-3 border-b px-4 py-3 text-xs font-medium tracking-wide uppercase lg:grid">
+          <span>Framework</span>
+          {TUTORIAL_STAGES.map((stage) => (
+            <span key={stage.id}>{stage.label}</span>
+          ))}
+        </div>
         {matrix.map((row) => (
           <article
             key={row.framework.key}
-            className="grid gap-3 rounded-3xl border border-zinc-800 bg-white/[0.03] p-4 lg:grid-cols-[13rem_repeat(3,minmax(0,1fr))] lg:items-center"
+            className="border-border grid gap-3 border-b p-4 last:border-b-0 lg:grid-cols-[13rem_repeat(3,minmax(0,1fr))] lg:items-center"
           >
-            <div>
+            <div className="lg:pr-4">
               <div className="flex flex-wrap items-center gap-2">
-                <h3 className="text-lg font-semibold text-white">
+                <h3 className="text-foreground text-lg font-semibold">
                   {row.framework.name}
                 </h3>
                 {row.framework.key === 'django' && (
-                  <span className="inline-flex min-h-7 items-center rounded-full border border-blue-400/35 bg-blue-400/10 px-3 py-1 text-xs font-medium text-blue-100">
+                  <span className="text-primary text-xs font-medium">
                     Published path
                   </span>
                 )}
               </div>
-              <p className="mt-2 text-sm text-zinc-500">
+              <p className="text-muted-foreground mt-2 text-sm">
                 {row.framework.pathNote}
               </p>
             </div>
@@ -133,47 +138,17 @@ export function TutorialFrameworkMatrix() {
 }
 
 export function TutorialRequestPanel() {
-  const nextGuide = getTutorialInventoryItem(
-    { key: 'react', name: 'React', pathNote: 'High-demand frontend path' },
-    TUTORIAL_STAGES[0],
-  );
-
   return (
-    <section className="mx-auto mt-16 grid max-w-7xl gap-5 rounded-3xl border border-blue-400/20 bg-blue-400/[0.055] p-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
-      <div>
-        <div className="mb-3 inline-flex min-h-8 items-center gap-2 rounded-full border border-zinc-700 bg-neutral-950/70 px-3 py-1 text-xs font-medium text-zinc-400">
-          <CheckCircle2 size={14} aria-hidden="true" />
-          Request signal
-        </div>
-        <h2 className="text-2xl font-semibold tracking-tight text-white">
-          Want a framework guide sooner?
-        </h2>
-        <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-400">
-          Every unavailable guide records framework, stage, and slug intent when
-          analytics is available. The same action opens a prefilled email; if
-          mail does not open, use the contact page.
-        </p>
-      </div>
-      <div className="flex flex-col gap-3 sm:flex-row md:justify-end">
-        <TutorialRequestGuideLink
-          framework={nextGuide.framework}
-          stage={nextGuide.stage}
-          stageLabel={nextGuide.stageLabel}
-          slug={nextGuide.slug}
-          status={nextGuide.status}
-          source="framework-matrix"
-          className="inline-flex min-h-11 items-center justify-center rounded-full border border-blue-300/35 bg-blue-400/12 px-5 py-3 text-sm font-semibold text-blue-50 transition-all hover:border-blue-100/70 hover:bg-blue-400/15 focus-visible:ring-2 focus-visible:ring-blue-300/70 focus-visible:outline-none active:translate-y-px"
-        >
-          Request React Deploy
-        </TutorialRequestGuideLink>
-        <Button
-          variant="outline"
-          className="min-h-11 rounded-full border-white/10 bg-neutral-900/80 px-5 text-white transition-transform hover:bg-zinc-800 hover:text-white active:translate-y-px"
-          asChild
-        >
-          <Link href="/contact">Contact us</Link>
-        </Button>
-      </div>
-    </section>
+    <p className="text-muted-foreground border-border mx-auto mt-8 max-w-7xl border-t pt-6 text-sm leading-6">
+      Select a planned matrix cell to request a framework guide with a prefilled
+      email, or{' '}
+      <Link
+        href="/contact"
+        className="text-primary focus-visible:ring-ring font-medium underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none"
+      >
+        contact us directly
+      </Link>
+      .
+    </p>
   );
 }
