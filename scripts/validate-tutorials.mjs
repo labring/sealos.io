@@ -293,8 +293,8 @@ if (!existsSync(tutorialDir)) fail('content/tutorials directory is missing');
 const tutorials = findTutorialFiles(tutorialDir)
   .map(parseTutorial)
   .filter(Boolean);
-if (tutorials.length !== 13) {
-  fail(`expected 13 published tutorial pages, found ${tutorials.length}`);
+if (tutorials.length !== 1) {
+  fail(`expected 1 published tutorial page, found ${tutorials.length}`);
 }
 
 const publishedPaths = new Set(
@@ -326,5 +326,5 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `validate-tutorials passed: ${tutorials.length} tutorial pages checked.`,
+  `validate-tutorials passed: ${tutorials.length} tutorial page checked.`,
 );

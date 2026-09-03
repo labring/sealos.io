@@ -41,7 +41,7 @@ function AvailableTutorialCard({
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <TutorialStatusChip status="available" />
         <span className="inline-flex min-h-7 items-center rounded-full border border-zinc-700 bg-white/[0.04] px-3 py-1 text-xs font-medium text-zinc-400">
-          Next.js
+          {tutorial.framework}
         </span>
       </div>
       <h3 className="text-lg font-semibold leading-snug text-white transition-colors group-hover:text-blue-100">

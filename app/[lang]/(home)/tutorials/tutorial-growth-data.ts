@@ -45,7 +45,7 @@ export const TUTORIAL_STAGES = [
     intent: 'I have a framework project and need a live URL.',
     outcome:
       'Analyze the project, set deployment artifacts, and launch on Sealos.',
-    availableSlug: 'deploy-nextjs-sealos',
+    availableSlug: 'django/deploy',
     availableCta: 'Start the deployment path',
     requestCta: 'Request a deployment guide',
     sourceStage: 'beginner',
@@ -58,7 +58,7 @@ export const TUTORIAL_STAGES = [
     intent: 'I need the app to run with a managed database.',
     outcome:
       'Connect database settings, environment variables, migrations, and checks.',
-    availableSlug: 'nextjs-postgresql-sealos',
+    availableSlug: 'django/postgresql',
     availableCta: 'Connect PostgreSQL',
     requestCta: 'Request a PostgreSQL guide',
     sourceStage: 'advanced',
@@ -71,7 +71,7 @@ export const TUTORIAL_STAGES = [
     intent: 'I need release readiness before real users arrive.',
     outcome:
       'Check ports, logs, domains, HTTPS, rollback, and deployment state.',
-    availableSlug: 'nextjs-production-deployment-sealos',
+    availableSlug: 'django/production',
     availableCta: 'Prepare production rollout',
     requestCta: 'Request a production guide',
     sourceStage: 'production',
@@ -79,13 +79,13 @@ export const TUTORIAL_STAGES = [
 ] as const satisfies readonly TutorialStageDefinition[];
 
 export const TUTORIAL_FRAMEWORKS = [
-  { key: 'nextjs', name: 'Next.js', pathNote: 'Complete public path' },
+  { key: 'nextjs', name: 'Next.js', pathNote: 'Validated opportunity path' },
   { key: 'react', name: 'React', pathNote: 'High-demand frontend path' },
   { key: 'nodejs', name: 'Node.js', pathNote: 'Common full-stack runtime' },
   {
     key: 'fastapi',
     name: 'FastAPI',
-    pathNote: 'Complete API and AI service path',
+    pathNote: 'Validated API and AI service path',
   },
   {
     key: 'django',
@@ -111,14 +111,6 @@ export const TUTORIAL_FRAMEWORKS = [
   { key: 'vue', name: 'Vue', pathNote: 'Frontend framework path' },
 ] as const satisfies readonly TutorialFrameworkDefinition[];
 
-export const AVAILABLE_FRAMEWORK_KEYS = new Set([
-  'nextjs',
-  'react',
-  'nodejs',
-  'fastapi',
-  'django',
-]);
-
 const COMING_NEXT_FRAMEWORK_KEYS = new Set(['go', 'spring-boot']);
 
 export const STATUS_LABELS: Record<TutorialInventoryStatus, string> = {
@@ -131,11 +123,7 @@ function getTutorialSlug(
   framework: TutorialFrameworkDefinition,
   stage: TutorialStageDefinition,
 ): string {
-  if (framework.key === 'nextjs') return stage.availableSlug;
-  if (framework.key === 'django') return `django/${stage.id}`;
-  if (stage.id === 'deploy') return `deploy-${framework.key}-sealos`;
-  if (stage.id === 'postgresql') return `${framework.key}-postgresql-sealos`;
-  return `${framework.key}-production-deployment-sealos`;
+  return `${framework.key}/${stage.id}`;
 }
 
 function getInventoryStatus(
@@ -145,7 +133,6 @@ function getInventoryStatus(
   if (framework.key === 'django') {
     return stage.id === 'deploy' ? 'available' : 'planned';
   }
-  if (AVAILABLE_FRAMEWORK_KEYS.has(framework.key)) return 'available';
   if (COMING_NEXT_FRAMEWORK_KEYS.has(framework.key)) return 'coming_next';
   return 'planned';
 }

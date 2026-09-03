@@ -74,10 +74,9 @@ export function TutorialFrameworkMatrix() {
           Framework paths by launch job
         </h2>
         <p className="mt-4 text-sm leading-6 text-zinc-400">
-          Four complete public paths link directly to deploy, PostgreSQL, and
-          production tutorials. Django Deploy is available; its PostgreSQL and
-          production opportunities collect demand without creating unpublished
-          routes, sitemap entries, or canonical URLs.
+          Django Deploy is the qualified Core guide. Every planned framework,
+          PostgreSQL, and production opportunity collects demand through the
+          matrix until its implementation is ready to publish.
         </p>
       </div>
 
@@ -113,9 +112,9 @@ export function TutorialFrameworkMatrix() {
                 <h3 className="text-lg font-semibold text-white">
                   {row.framework.name}
                 </h3>
-                {row.framework.key === 'nextjs' && (
+                {row.framework.key === 'django' && (
                   <span className="inline-flex min-h-7 items-center rounded-full border border-blue-400/35 bg-blue-400/10 px-3 py-1 text-xs font-medium text-blue-100">
-                    Default path
+                    Published path
                   </span>
                 )}
               </div>
