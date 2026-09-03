@@ -8,7 +8,7 @@ status: blocked
 stopped_at: Independent Phase 32 verification complete with production acceptance BLOCKED
 last_updated: "2026-08-12T07:22:00Z"
 last_activity: 2026-09-03
-last_activity_desc: Completed quick task 260903-1yz for retiring unqualified legacy Django tutorials
+last_activity_desc: Completed quick task 260903-gj1 for unifying Tutorial and Blog article visuals
 progress:
   total_phases: 2
   completed_phases: 1
@@ -48,7 +48,7 @@ Phase 32 owns the pending PARITY-02 and DELIVERY-02 requirements.
 Phase: 32 (sitemap-route-parity-and-production-verification) — BLOCKED
 Plan: 4 of 4
 Status: Independent verification complete with 14/16 must-haves; production acceptance BLOCKED
-Last activity: 2026-09-03 — Completed quick task 260903-1yz for retiring unqualified legacy Django tutorials
+Last activity: 2026-09-03 — Completed quick task 260903-gj1 for unifying Tutorial and Blog article visuals
 
 ## Next Action
 
@@ -84,6 +84,7 @@ production workflows for one SHA, then require a zero-finding live rerun.
 | 260814 | Rename Header and Footer Sealos Skills labels to Agents | 2026-08-14 | Pending |  | [260814-rename-nav-footer-agents](./quick/260814-rename-nav-footer-agents/) |
 | 260816-m0b | Migrate current upstream main from npm to pnpm for shared Codex worktree dependencies | 2026-08-16 | 32919bc | Verified | [260816-m0b-migrate-current-upstream-main-from-npm-t](./quick/260816-m0b-migrate-current-upstream-main-from-npm-t/) |
 | 260903-1yz | Retire unqualified legacy Django tutorials and align the public tutorial matrix with opportunity-level strategy | 2026-09-03 | ecd8d8e | Verified | [260903-1yz-retire-unqualified-legacy-django-tutoria](./quick/260903-1yz-retire-unqualified-legacy-django-tutoria/) |
+| 260903-gj1 | Unify tutorial detail pages with the blog visual system | 2026-09-03 | 18403b1 | Verified | [260903-gj1-unify-tutorial-detail-pages-with-the-blo](./quick/260903-gj1-unify-tutorial-detail-pages-with-the-blo/) |
 
 ## Performance Metrics
 
