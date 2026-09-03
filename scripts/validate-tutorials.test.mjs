@@ -79,13 +79,13 @@ async function updateFixtureFile(fixtureRoot, relativePath, transform) {
   await writeFile(path, transform(source));
 }
 
-test('validator accepts the 13-page public tutorial contract', () => {
+test('validator accepts the sole Django Core public tutorial contract', () => {
   const result = runValidator(root);
 
   assert.equal(result.status, 0, result.stderr);
   assert.equal(
     result.stdout.trim(),
-    'validate-tutorials passed: 13 tutorial pages checked.',
+    'validate-tutorials passed: 1 tutorial page checked.',
   );
 });
 

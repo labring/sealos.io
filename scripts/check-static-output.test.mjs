@@ -44,6 +44,27 @@ const LEGACY_DJANGO_REDIRECTS = [
   status: 308,
 }));
 
+const LEGACY_TUTORIAL_REDIRECTS = [
+  'deploy-fastapi-sealos',
+  'fastapi-postgresql-sealos',
+  'fastapi-production-deployment-sealos',
+  'deploy-nextjs-sealos',
+  'nextjs-postgresql-sealos',
+  'nextjs-production-deployment-sealos',
+  'deploy-nodejs-sealos',
+  'nodejs-postgresql-sealos',
+  'nodejs-production-deployment-sealos',
+  'deploy-react-sealos',
+  'react-postgresql-sealos',
+  'react-production-deployment-sealos',
+].flatMap((slug) =>
+  [`/tutorials/${slug}`, `/tutorials/${slug}/`].map((source) => ({
+    source,
+    destination: '/tutorials/',
+    status: 308,
+  })),
+);
+
 test('header parsers normalize Vercel and Cloudflare immutable cache rules', () => {
   const vercel = parseVercelHeaders({
     headers: [
@@ -115,6 +136,29 @@ test('legacy Django URLs permanently consolidate on the Core tutorial', async ()
   }));
 
   for (const expected of LEGACY_DJANGO_REDIRECTS) {
+    assert.deepEqual(
+      normalizedVercel.find(({ source }) => source === expected.source),
+      expected,
+    );
+    assert.deepEqual(
+      cloudflare.find(({ source }) => source === expected.source),
+      expected,
+    );
+  }
+});
+
+test('remaining legacy tutorial URLs permanently redirect to the tutorial matrix', async () => {
+  const vercel = JSON.parse(await readFile('vercel.json', 'utf8'));
+  const cloudflare = parseCloudflareRedirects(
+    await readFile('public/_redirects', 'utf8'),
+  );
+  const normalizedVercel = vercel.redirects.map((redirect) => ({
+    source: redirect.source,
+    destination: redirect.destination,
+    status: redirect.permanent ? 308 : 307,
+  }));
+
+  for (const expected of LEGACY_TUTORIAL_REDIRECTS) {
     assert.deepEqual(
       normalizedVercel.find(({ source }) => source === expected.source),
       expected,
