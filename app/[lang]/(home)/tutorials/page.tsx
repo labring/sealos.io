@@ -47,31 +47,31 @@ const DJANGO_GUIDE_CHAPTERS = [
 const DJANGO_REQUEST_TRACE = [
   {
     marker: '01',
-    label: 'FORM POST',
-    title: 'Task submitted',
-    evidence: 'Runtime proof from Sealos',
-    transport: 'POST / · CSRF',
+    label: 'FORM',
+    title: 'POST /',
+    evidence: 'title="Runtime proof from Sealos"',
+    transport: '302 FOUND',
   },
   {
     marker: '02',
-    label: 'WSGI',
-    title: 'Gunicorn',
-    evidence: 'Django 5.2 application',
-    transport: ':8000 · 1 replica',
+    label: 'GUNICORN',
+    title: 'WSGI :8000',
+    evidence: 'Django 5.2 request accepted',
+    transport: 'PASS',
   },
   {
     marker: '03',
-    label: 'DATA',
-    title: 'PostgreSQL',
-    evidence: 'Task row committed',
-    transport: ':5432 · private',
+    label: 'POSTGRESQL',
+    title: 'INSERT tasks_task',
+    evidence: 'id=1 · private :5432',
+    transport: 'COMMIT',
   },
   {
     marker: '04',
-    label: 'BROWSER GET',
-    title: '200 OK',
-    evidence: 'Saved task returned',
-    transport: 'HTTPS :443',
+    label: 'BROWSER',
+    title: 'GET /',
+    evidence: 'response.html returned saved task',
+    transport: '200 OK',
   },
 ] as const;
 
@@ -123,45 +123,30 @@ function TutorialCatalogCard({
                 </code>
               </div>
 
-              <div className="relative px-6 py-8 sm:px-8 md:py-10">
-                <span
-                  className="absolute top-[9.375rem] right-[12.5%] left-[12.5%] hidden h-px bg-[#146dff] md:block"
-                  aria-hidden="true"
-                />
-                <ol className="grid gap-8 md:grid-cols-12 md:gap-x-6">
-                  {DJANGO_REQUEST_TRACE.map((step) => (
-                    <li
-                      key={step.marker}
-                      className="relative min-w-0 md:col-span-3 md:text-center"
-                    >
-                      <div className="flex items-center justify-between gap-3 md:justify-center">
-                        <span className="font-mono text-sm font-bold text-[#146dff]">
-                          {step.marker}
-                        </span>
-                        <span className="font-mono text-xs font-semibold text-zinc-600">
-                          {step.label}
-                        </span>
-                      </div>
-                      <h3 className="mt-5 text-xl font-semibold tracking-tight">
-                        {step.title}
-                      </h3>
-                      <p className="mt-2 min-h-10 text-sm leading-5 text-zinc-600">
-                        {step.evidence}
-                      </p>
-
-                      <div className="relative mt-6 md:flex md:justify-center">
-                        <span className="relative z-10 flex size-5 items-center justify-center rounded-full bg-[#e5e7e4] ring-2 ring-[#146dff]">
-                          <span className="size-2 rounded-full bg-[#146dff]" />
-                        </span>
-                      </div>
-
-                      <code className="mt-5 block text-xs font-semibold text-zinc-700">
-                        {step.transport}
-                      </code>
-                    </li>
-                  ))}
-                </ol>
-              </div>
+              <ol className="divide-y divide-zinc-400/50 px-6 sm:px-8">
+                {DJANGO_REQUEST_TRACE.map((step) => (
+                  <li
+                    key={step.marker}
+                    className="grid grid-cols-[3rem_minmax(0,1fr)] gap-x-4 gap-y-1 py-4 md:grid-cols-12 md:items-center md:gap-x-6 md:py-5"
+                  >
+                    <span className="row-span-4 font-mono text-2xl font-medium tracking-[-0.08em] text-[#146dff] md:col-span-1 md:row-span-1">
+                      {step.marker}
+                    </span>
+                    <span className="col-start-2 font-mono text-xs font-bold tracking-[0.08em] text-zinc-600 md:col-span-2 md:col-start-auto">
+                      {step.label}
+                    </span>
+                    <code className="col-start-2 text-base font-bold text-[#101318] md:col-span-3 md:col-start-auto">
+                      {step.title}
+                    </code>
+                    <code className="col-start-2 text-sm text-zinc-600 md:col-span-4 md:col-start-auto">
+                      {step.evidence}
+                    </code>
+                    <strong className="col-start-2 font-mono text-sm font-bold text-[#146dff] md:col-span-2 md:col-start-auto md:text-right">
+                      {step.transport}
+                    </strong>
+                  </li>
+                ))}
+              </ol>
 
               <div className="grid gap-2 bg-[#146dff] px-6 py-4 text-white sm:px-8 md:grid-cols-12 md:items-center md:gap-x-6">
                 <span className="font-mono text-xs font-bold tracking-[0.08em] md:col-span-3">
@@ -193,34 +178,43 @@ function TutorialCatalogCard({
                 service.
               </p>
             </div>
-            <ol className="mt-6 border-y border-white/15">
+            <ol className="mt-7 grid gap-8 border-t border-white/15 pt-7 md:grid-cols-12 md:gap-x-6">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                <li
-                  key={chapter.hash}
-                  className="border-b border-white/15 last:border-b-0"
-                >
+                <li key={chapter.hash} className="md:col-span-4">
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid grid-cols-[3rem_minmax(0,1fr)_1rem] items-center gap-x-5 py-4 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-12 sm:gap-x-6"
+                    className="group block h-full focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
-                    <span className="font-mono text-2xl font-medium tracking-[-0.08em] text-[#5f96ff] sm:col-span-2">
-                      0{index + 1}
+                    <span className="flex items-center justify-between gap-4">
+                      <span className="font-mono text-3xl font-medium tracking-[-0.08em] text-[#5f96ff]">
+                        0{index + 1}
+                      </span>
+                      <ArrowRight
+                        size={16}
+                        className="text-zinc-400 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
+                        aria-hidden="true"
+                      />
                     </span>
-                    <strong className="text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff] sm:col-span-5">
+                    <strong className="mt-6 block text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
                       {chapter.title}
                     </strong>
-                    <span className="col-start-2 mt-1 text-sm text-zinc-300 sm:col-span-4 sm:col-start-auto sm:mt-0">
+                    <span className="mt-3 block max-w-sm text-sm leading-6 text-zinc-300">
                       {chapter.detail}
                     </span>
-                    <ArrowRight
-                      size={15}
-                      className="col-start-3 row-start-1 justify-self-end text-zinc-400 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff] sm:col-span-1 sm:col-start-auto sm:row-start-auto"
-                      aria-hidden="true"
-                    />
                   </Link>
                 </li>
               ))}
             </ol>
+            <div className="mt-8 grid md:grid-cols-12 md:gap-x-6">
+              <TutorialRequestGuideLink className="group inline-flex items-center justify-self-start border-b border-[#146dff] py-1 text-sm font-semibold text-[#5f96ff] transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-white hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-5 md:col-start-8">
+                Request a different stack
+                <ArrowRight
+                  size={16}
+                  className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </TutorialRequestGuideLink>
+            </div>
           </nav>
         </div>
       ) : (
@@ -369,7 +363,7 @@ export default function TutorialsPage({
               </div>
             )}
           </div>
-          <aside className="mt-9 md:col-span-5 md:col-start-8 md:mt-0">
+          <aside className="mt-9 md:col-span-5 md:col-start-8 md:mt-0 md:self-end">
             <p className="text-sm font-semibold text-[#5f96ff]">
               What you will ship
             </p>
@@ -453,28 +447,6 @@ export default function TutorialsPage({
               ))}
             </div>
           )}
-
-          <section className="mt-14 grid gap-4 border-t border-white/10 pt-8 md:grid-cols-12 md:items-center md:gap-x-6">
-            <p className="text-sm font-semibold text-[#5f96ff] md:col-span-2">
-              Next field note
-            </p>
-            <div className="md:col-span-5">
-              <h2 className="text-2xl font-semibold tracking-tight text-white">
-                Missing your stack?
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-zinc-300">
-                Share the deployment job you need.
-              </p>
-            </div>
-            <TutorialRequestGuideLink className="group inline-flex h-10 shrink-0 items-center justify-self-start rounded-sm border border-[#146dff]/70 px-4 text-sm font-semibold text-[#5f96ff] transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-[#146dff] hover:bg-[#146dff] hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-5">
-              Request the next field note
-              <ArrowRight
-                size={16}
-                className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
-                aria-hidden="true"
-              />
-            </TutorialRequestGuideLink>
-          </section>
         </section>
       </main>
     </>
