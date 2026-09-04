@@ -131,7 +131,7 @@ function TutorialCatalogCard({
             <Image
               src={tutorial.image}
               alt={`${tutorial.title} deployment result`}
-              className="h-full w-full object-contain"
+              className="h-full w-full scale-[1.38] object-cover object-center"
               fill
               priority={priorityImage}
               sizes="(max-width: 760px) 90vw, 55vw"
