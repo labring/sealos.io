@@ -25,49 +25,8 @@ const TUTORIALS_PAGE_TITLE = 'Sealos Deployment Tutorials';
 const TUTORIALS_PAGE_DESCRIPTION =
   'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
-
-const DEPLOYMENT_NODES = [
-  {
-    marker: 'A',
-    x: 150,
-    y: 220,
-    position: { left: '12.5%', top: '65.5%' },
-    title: 'Public HTTPS',
-    evidence: 'GET / HTTP/2',
-    status: 'Reachable',
-    detail: 'TLS ingress · :443',
-  },
-  {
-    marker: 'B',
-    x: 450,
-    y: 140,
-    position: { left: '37.5%', top: '41.7%' },
-    title: 'Django container',
-    evidence: 'config.wsgi:application',
-    status: 'Running',
-    detail: ':8000 · 1 replica',
-  },
-  {
-    marker: 'C',
-    x: 750,
-    y: 194,
-    position: { left: '62.5%', top: '57.7%' },
-    title: 'PostgreSQL',
-    evidence: 'DATABASE_URL → :5432',
-    status: 'Attached',
-    detail: 'Private network',
-  },
-  {
-    marker: 'D',
-    x: 1050,
-    y: 100,
-    position: { left: '87.5%', top: '29.8%' },
-    title: 'Browser response',
-    evidence: 'HTTP/2 200 · response.html',
-    status: 'Verified',
-    detail: 'Task persisted',
-  },
-] as const;
+const DJANGO_PRODUCTION_EVIDENCE =
+  '/images/tutorials/django/django-sealos-project-ops-running.webp';
 
 const DJANGO_GUIDE_CHAPTERS = [
   {
@@ -132,7 +91,7 @@ function TutorialCatalogCard({
           <figure>
             <figcaption className="flex flex-wrap items-center justify-between gap-4 border-y border-white/15 py-5">
               <span className="text-2xl font-medium tracking-[-0.035em] text-white">
-                Production trace
+                Production evidence
               </span>
               <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#44b78b]">
                 <span
@@ -143,122 +102,32 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="relative hidden h-[22rem] overflow-hidden border-b border-white/15 bg-[#0d1015] text-white md:block">
-              <svg
-                viewBox="0 0 1200 336"
-                preserveAspectRatio="none"
-                className="absolute inset-0 size-full"
-                aria-hidden="true"
-              >
-                <path
-                  d="M150 220 L450 140 L750 194"
-                  fill="none"
-                  stroke="#146dff"
-                  strokeWidth="4"
-                  vectorEffect="non-scaling-stroke"
-                />
-                <path
-                  d="M750 194 L1050 100"
-                  fill="none"
-                  stroke="#44b78b"
-                  strokeWidth="4"
-                  vectorEffect="non-scaling-stroke"
-                />
-                {DEPLOYMENT_NODES.map((node) => (
-                  <line
-                    key={`stem-${node.marker}`}
-                    x1={node.x}
-                    x2={node.x}
-                    y1={node.y + 10}
-                    y2={node.y + 24}
-                    stroke="#71717a"
-                    strokeWidth="1"
-                    vectorEffect="non-scaling-stroke"
-                  />
-                ))}
-                {DEPLOYMENT_NODES.map((node, index) => (
-                  <circle
-                    key={node.marker}
-                    cx={node.x}
-                    cy={node.y}
-                    r="10"
-                    fill={
-                      index === DEPLOYMENT_NODES.length - 1
-                        ? '#44b78b'
-                        : '#146dff'
-                    }
-                    stroke="#0d1015"
-                    strokeWidth="7"
-                    vectorEffect="non-scaling-stroke"
-                  />
-                ))}
-              </svg>
-
-              <ol className="absolute inset-0">
-                {DEPLOYMENT_NODES.map((node, index) => (
-                  <li
-                    key={node.marker}
-                    style={node.position}
-                    className="absolute w-72 -translate-x-1/2 translate-y-7 text-center"
-                  >
-                    <span className="font-mono text-sm font-bold tracking-[0.12em] text-[#5f96ff]">
-                      {node.marker}
-                    </span>
-                    <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em]">
-                      {node.title}
-                    </h3>
-                    <code className="mt-3 block truncate font-mono text-[15px] font-bold text-zinc-100">
-                      <span className="text-zinc-400" aria-hidden="true">
-                        &gt;{' '}
-                      </span>
-                      {node.evidence}
-                    </code>
-                    <span
-                      className={`mt-2 block font-mono text-sm font-bold tracking-[0.01em] uppercase ${
-                        index === DEPLOYMENT_NODES.length - 1
-                          ? 'text-[#44b78b]'
-                          : 'text-[#5f96ff]'
-                      }`}
-                    >
-                      {node.status}
-                      <span className="text-zinc-400"> · {node.detail}</span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
+            <div className="relative aspect-video overflow-hidden border-b border-white/15 bg-[#0d1015] md:aspect-[2.8/1]">
+              <Image
+                src={DJANGO_PRODUCTION_EVIDENCE}
+                alt="Sealos project canvas with a public Django service, running container, and attached PostgreSQL database"
+                className="object-cover object-center"
+                fill
+                priority
+                quality={90}
+                sizes="(max-width: 760px) 100vw, 1248px"
+              />
             </div>
 
-            <ol className="divide-y divide-white/10 border-b border-white/15 bg-[#0d1015] md:hidden">
-              {DEPLOYMENT_NODES.map((node, index) => (
-                <li key={node.marker} className="relative py-6 pl-8">
-                  <span
-                    className={`absolute top-7 left-0 size-3 rounded-full ${
-                      index === DEPLOYMENT_NODES.length - 1
-                        ? 'bg-[#44b78b]'
-                        : 'bg-[#146dff]'
-                    }`}
-                    aria-hidden="true"
-                  />
-                  <span className="font-mono text-xs font-bold tracking-[0.12em] text-[#5f96ff]">
-                    {node.marker}
-                  </span>
-                  <h3 className="mt-1 text-xl font-semibold text-white">
-                    {node.title}
-                  </h3>
-                  <code className="mt-3 block font-mono text-xs font-bold text-zinc-300">
-                    {node.evidence}
-                  </code>
-                  <span
-                    className={`mt-2 block font-mono text-xs font-bold uppercase ${
-                      index === DEPLOYMENT_NODES.length - 1
-                        ? 'text-[#44b78b]'
-                        : 'text-[#5f96ff]'
-                    }`}
-                  >
-                    {node.status} · {node.detail}
-                  </span>
-                </li>
-              ))}
+            <ol className="flex flex-col gap-3 border-b border-white/15 py-4 font-mono text-xs font-bold tracking-[0.02em] uppercase sm:flex-row sm:items-center sm:justify-between">
+              <li className="text-[#5f96ff]">Public HTTPS · reachable</li>
+              <li className="hidden text-zinc-700 sm:block" aria-hidden="true">
+                →
+              </li>
+              <li className="text-[#5f96ff]">Django · running</li>
+              <li className="hidden text-zinc-700 sm:block" aria-hidden="true">
+                →
+              </li>
+              <li className="text-[#5f96ff]">PostgreSQL · attached</li>
+              <li className="hidden text-zinc-700 sm:block" aria-hidden="true">
+                →
+              </li>
+              <li className="text-[#44b78b]">HTTP 200 · verified</li>
             </ol>
           </figure>
 
