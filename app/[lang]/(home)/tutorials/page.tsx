@@ -107,12 +107,12 @@ function TutorialCatalogCard({
             className="bg-[#f2f0e8] text-[#0a0a0a]"
             aria-label="Guide chapters"
           >
-            <div className="grid gap-8 py-9 lg:grid-cols-2 lg:items-start lg:gap-0">
+            <div className="grid gap-6 py-6 lg:grid-cols-2 lg:items-center lg:gap-0">
               <div className="lg:pr-12">
                 <p className="text-sm font-semibold text-zinc-600">
                   Inside the guide
                 </p>
-                <h3 className="mt-3 text-5xl leading-none font-medium tracking-[-0.055em]">
+                <h3 className="mt-2 text-4xl leading-none font-medium tracking-[-0.05em]">
                   Three decisive checks.
                 </h3>
               </div>
@@ -139,7 +139,7 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group flex min-h-80 flex-col py-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none"
+                    className="group flex min-h-72 flex-col py-7 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none"
                   >
                     <span className="flex items-center gap-4">
                       <span
@@ -152,7 +152,7 @@ function TutorialCatalogCard({
                         0{index + 1}
                       </span>
                       <span
-                        className={`text-xs font-bold tracking-[0.12em] uppercase ${
+                        className={`text-sm font-semibold ${
                           index === DJANGO_GUIDE_CHAPTERS.length - 1
                             ? 'text-[#16815d]'
                             : 'text-zinc-600'
@@ -162,20 +162,18 @@ function TutorialCatalogCard({
                       </span>
                     </span>
 
-                    <strong className="mt-7 block max-w-sm text-2xl leading-tight font-semibold tracking-[-0.035em] transition-colors group-hover:text-[#146dff]">
+                    <strong className="mt-6 block max-w-sm text-2xl leading-tight font-semibold tracking-[-0.035em] transition-colors group-hover:text-[#146dff]">
                       {chapter.title}
                     </strong>
                     <span className="mt-4 block max-w-sm text-base leading-7 text-zinc-700">
                       {chapter.detail}
                     </span>
 
-                    <span className="mt-auto flex min-w-0 items-center gap-3 pt-8">
+                    <span className="mt-auto flex min-w-0 items-center gap-3 pt-7">
                       <span
-                        className="grid size-5 shrink-0 place-items-center border border-[#16815d]"
+                        className="size-2 shrink-0 bg-[#16815d]"
                         aria-hidden="true"
-                      >
-                        <span className="size-2 bg-[#16815d]" />
-                      </span>
+                      />
                       <span className="min-w-0">
                         <code className="block truncate font-mono text-sm font-bold text-zinc-900">
                           {chapter.evidence}
@@ -344,19 +342,19 @@ export default function TutorialsPage({
                     height={52}
                     className="h-7 w-auto opacity-80 invert"
                   />
-                  <span className="font-mono text-[11px] font-semibold tracking-[0.08em] text-[#44b78b] uppercase">
+                  <span className="font-mono text-xs font-semibold text-[#44b78b]">
                     Verified · 2026.09.02
                   </span>
                 </div>
 
                 <div className="flex flex-1 flex-col justify-center px-7 py-7">
-                  <p className="text-xs font-semibold tracking-[0.16em] text-[#44b78b] uppercase">
+                  <p className="text-sm font-semibold text-[#44b78b]">
                     Live persistence check
                   </p>
-                  <p className="mt-3 font-mono text-5xl font-medium tracking-[-0.06em] text-white">
+                  <p className="mt-3 font-mono text-6xl font-medium tracking-[-0.06em] text-white">
                     <span className="text-[#44b78b]">200</span> OK
                   </p>
-                  <p className="mt-3 max-w-xs text-[15px] leading-6 text-zinc-300">
+                  <p className="mt-4 max-w-xs text-base leading-6 text-zinc-300">
                     The submitted task remained after a fresh HTTP/2 load.
                   </p>
                 </div>
