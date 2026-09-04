@@ -28,28 +28,28 @@ const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 
 const DEPLOYMENT_NODES = [
   {
-    marker: '01.A',
+    marker: 'A',
     title: 'Public HTTPS',
     evidence: 'GET / · :443',
     status: 'Reachable',
     detail: 'TLS ingress',
   },
   {
-    marker: '01.B',
+    marker: 'B',
     title: 'Django container',
     evidence: 'gunicorn config.wsgi · :8000',
     status: 'Running',
     detail: '1 replica',
   },
   {
-    marker: '01.C',
+    marker: 'C',
     title: 'PostgreSQL',
     evidence: 'DATABASE_URL · :5432',
     status: 'Attached',
     detail: 'Private network',
   },
   {
-    marker: '01.D',
+    marker: 'D',
     title: 'Browser response',
     evidence: 'response.html · 200',
     status: 'Verified',
@@ -114,7 +114,7 @@ function TutorialCatalogCard({
           <figure>
             <figcaption className="mb-5 flex flex-wrap items-end justify-between gap-3">
               <span className="text-2xl font-medium tracking-[-0.035em] text-white">
-                Production trace / DJANGO–01
+                Production trace
               </span>
               <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#44b78b]">
                 <span
@@ -125,109 +125,88 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="grid overflow-hidden bg-[#e3e5df] text-[#101318] md:grid-cols-[6rem_minmax(0,1fr)]">
-              <aside className="flex min-h-48 flex-col justify-between border-r border-black/15 bg-[#111419] p-4 text-white">
-                <p className="font-mono text-xs font-bold tracking-[0.06em]">
-                  RUN
-                  <br />
-                  DJANGO
-                </p>
-                <p>
-                  <strong className="block font-mono text-3xl leading-none font-medium tracking-[-0.08em] text-[#3887ff]">
-                    01
-                  </strong>
-                  <span className="mt-1 block text-xs font-semibold">
-                    VERIFIED
-                  </span>
-                </p>
-              </aside>
-
-              <div className="px-7 py-5 md:px-9">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <span className="text-sm font-semibold text-[#146dff]">
-                    Verified request path
-                  </span>
-                  <code className="font-mono text-xs font-bold text-zinc-600">
-                    GET / → response.html
-                  </code>
-                </div>
-
-                <ol className="mt-5 grid gap-7 md:grid-cols-4 md:gap-8">
-                  {DEPLOYMENT_NODES.map((node, index) => (
-                    <li key={node.marker} className="relative min-w-0">
-                      <span className="font-mono text-xs font-bold tracking-[0.08em] text-[#146dff]">
-                        {node.marker}
-                      </span>
-                      <h3 className="mt-1 text-lg font-semibold tracking-[-0.02em]">
-                        {node.title}
-                      </h3>
-                      <div className="relative mt-4">
-                        {index < DEPLOYMENT_NODES.length - 1 && (
-                          <span
-                            className="absolute top-1/2 left-3 hidden h-1 w-[calc(100%+2rem)] -translate-y-1/2 bg-[#146dff] md:block"
-                            aria-hidden="true"
-                          >
-                            <span className="absolute top-1/2 left-1/2 size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff]" />
-                          </span>
-                        )}
-                        <span
-                          className={`relative z-10 flex items-center justify-center rounded-full ring-[#146dff] ${
-                            index === 1
-                              ? 'size-7 bg-[#146dff] ring-4 ring-[#146dff]/25'
-                              : index === DEPLOYMENT_NODES.length - 1
-                                ? 'size-7 bg-[#44b78b] ring-4 ring-[#44b78b]/25'
-                                : 'size-6 bg-[#e3e5df] ring-2'
-                          }`}
-                        >
-                          <span
-                            className={`rounded-full ${
-                              index === 1 ||
-                              index === DEPLOYMENT_NODES.length - 1
-                                ? 'size-2.5 bg-white'
-                                : 'size-2 bg-[#146dff]'
-                            }`}
-                          />
-                        </span>
-                      </div>
-                      <code className="mt-4 block truncate font-mono text-[13px] font-bold text-zinc-900">
-                        {node.evidence}
-                      </code>
-                      <span className="mt-2 flex items-center gap-3 text-[13px] font-bold">
-                        <span className="inline-flex items-center gap-2 text-emerald-800">
-                          <span
-                            className="size-1.5 rounded-full bg-emerald-600"
-                            aria-hidden="true"
-                          />
-                          {node.status}
-                        </span>
-                        <span className="text-zinc-600">{node.detail}</span>
-                      </span>
-                    </li>
-                  ))}
-                </ol>
+            <div className="overflow-hidden bg-[#e3e5df] px-7 py-6 text-[#101318] md:px-9">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <span className="text-sm font-semibold text-[#146dff]">
+                  Verified request path
+                </span>
+                <code className="font-mono text-xs font-bold text-zinc-600">
+                  GET / → response.html
+                </code>
               </div>
+
+              <ol className="mt-5 grid gap-7 md:grid-cols-4 md:gap-8">
+                {DEPLOYMENT_NODES.map((node, index) => (
+                  <li key={node.marker} className="relative min-w-0">
+                    <span className="font-mono text-xs font-bold tracking-[0.08em] text-[#146dff]">
+                      {node.marker}
+                    </span>
+                    <h3 className="mt-1 text-lg font-semibold tracking-[-0.02em]">
+                      {node.title}
+                    </h3>
+                    <div className="relative mt-4">
+                      {index < DEPLOYMENT_NODES.length - 1 && (
+                        <span
+                          className="absolute top-1/2 left-3 hidden h-1 w-[calc(100%+2rem)] -translate-y-1/2 bg-[#146dff] md:block"
+                          aria-hidden="true"
+                        >
+                          <span className="absolute top-1/2 left-1/2 size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff]" />
+                        </span>
+                      )}
+                      <span
+                        className={`relative z-10 flex items-center justify-center rounded-full ring-[#146dff] ${
+                          index === 1
+                            ? 'size-7 bg-[#146dff] ring-4 ring-[#146dff]/25'
+                            : index === DEPLOYMENT_NODES.length - 1
+                              ? 'size-7 bg-[#44b78b] ring-4 ring-[#44b78b]/25'
+                              : 'size-6 bg-[#e3e5df] ring-2'
+                        }`}
+                      >
+                        <span
+                          className={`rounded-full ${
+                            index === 1 || index === DEPLOYMENT_NODES.length - 1
+                              ? 'size-2.5 bg-white'
+                              : 'size-2 bg-[#146dff]'
+                          }`}
+                        />
+                      </span>
+                    </div>
+                    <code className="mt-4 block truncate font-mono text-[13px] font-bold text-zinc-900">
+                      {node.evidence}
+                    </code>
+                    <span className="mt-2 flex items-center gap-3 text-[13px] font-bold">
+                      <span className="inline-flex items-center gap-2 text-emerald-800">
+                        <span
+                          className="size-1.5 rounded-full bg-emerald-600"
+                          aria-hidden="true"
+                        />
+                        {node.status}
+                      </span>
+                      <span className="text-zinc-600">{node.detail}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
             </div>
           </figure>
 
           <nav
-            className="mt-10 border-t border-white/15 pt-7"
+            className="mt-12 grid border-t border-white/15 md:grid-cols-12"
             aria-label="Guide chapters"
           >
-            <div className="grid gap-3 sm:grid-cols-[3.5rem_7rem_minmax(0,1fr)] sm:items-end sm:gap-x-5">
-              <p className="text-sm font-semibold text-[#5f96ff] sm:col-span-2">
+            <div className="py-8 md:col-span-4 md:pr-10">
+              <p className="text-sm font-semibold text-[#5f96ff]">
                 Inside the guide
               </p>
-              <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
-                <h3 className="text-3xl leading-none font-medium tracking-[-0.035em] text-white">
-                  Three decisive checks
-                </h3>
-                <p className="text-sm leading-6 text-zinc-300">
-                  Configure, deploy, then verify the public flow.
-                </p>
-              </div>
+              <h3 className="mt-5 text-4xl leading-[0.95] font-medium tracking-[-0.045em] text-white">
+                Three decisive checks
+              </h3>
+              <p className="mt-5 max-w-xs text-sm leading-6 text-zinc-300">
+                Configure, deploy, then verify the public flow.
+              </p>
             </div>
 
-            <ol className="mt-6 border-y border-white/15">
+            <ol className="border-t border-white/15 md:col-span-8 md:border-t-0 md:border-l">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
@@ -235,7 +214,7 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-5 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_7rem_minmax(0,1fr)]"
+                    className="group grid items-center gap-x-5 p-6 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_6rem_minmax(0,1fr)]"
                   >
                     <span className="font-mono text-2xl font-medium tracking-[-0.08em] text-[#5f96ff]">
                       0{index + 1}
@@ -262,14 +241,14 @@ function TutorialCatalogCard({
             </ol>
           </nav>
 
-          <div className="mt-12 grid gap-5 bg-[#e3e5df] p-7 text-[#101318] md:grid-cols-12 md:items-center">
-            <h3 className="text-3xl leading-none font-medium tracking-[-0.035em] md:col-span-4">
+          <div className="mt-10 grid gap-5 bg-[#e3e5df] p-6 text-[#101318] md:grid-cols-12 md:items-center">
+            <h3 className="text-2xl leading-none font-medium tracking-[-0.035em] md:col-span-4">
               Missing your stack?
             </h3>
             <p className="text-sm leading-6 text-zinc-700 md:col-span-4">
               Share the deployment job you need.
             </p>
-            <TutorialRequestGuideLink className="group inline-flex h-11 items-center justify-between bg-[#146dff] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#101318] focus-visible:ring-offset-2 focus-visible:ring-offset-[#e3e5df] focus-visible:outline-none md:col-span-4">
+            <TutorialRequestGuideLink className="group inline-flex h-10 items-center justify-between bg-[#146dff] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#101318] focus-visible:ring-offset-2 focus-visible:ring-offset-[#e3e5df] focus-visible:outline-none md:col-span-4">
               Request the next field note
               <ArrowRight
                 size={16}
@@ -394,7 +373,7 @@ export default function TutorialsPage({
           <div className="grid gap-8 md:grid-cols-12 md:items-stretch">
             <div className="md:col-span-8">
               <p className="text-sm font-semibold text-[#5f96ff]">
-                Deployment field note / 01
+                Deployment field note
               </p>
               <h1 className="mt-6 text-6xl leading-[0.92] font-medium tracking-[-0.055em] text-white md:text-[4.75rem]">
                 <span className="block">Deploy Django</span>
@@ -436,7 +415,7 @@ export default function TutorialsPage({
                   className="h-9 w-auto invert"
                 />
                 <span className="font-mono text-xs font-bold tracking-[0.04em] text-zinc-300">
-                  5.2 / 01
+                  Django 5.2
                 </span>
               </div>
               <p className="mt-8 max-w-64 text-3xl leading-[1.08] font-medium tracking-[-0.035em] text-white">

@@ -193,9 +193,9 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
 
   return (
     <footer className="border-t border-white/10 text-white">
-      <div className="py-8">
-        <div className="container flex flex-col gap-8">
-          <div className="grid gap-8 lg:grid-cols-[minmax(18rem,1fr)_minmax(0,2fr)] lg:items-start">
+      <div className="py-6">
+        <div className="container flex flex-col gap-6">
+          <div className="grid gap-6 lg:grid-cols-[minmax(18rem,1fr)_minmax(0,3fr)] lg:items-center">
             <div>
               <Link
                 href={homeHref}
@@ -207,7 +207,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
               <p className="mt-2 text-sm text-zinc-300">
                 Build, deploy, and run applications on a cloud operating system.
               </p>
-              <div className="mt-5 flex items-center gap-4">
+              <div className="mt-4 flex items-center gap-4">
                 <SocialLink href={siteConfig.links.github} title="GitHub">
                   <GithubIcon />
                 </SocialLink>
@@ -238,7 +238,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
               </p>
               <nav
                 aria-label="Footer"
-                className="mt-5 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"
+                className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-6"
               >
                 {footerLinks.columns.flatMap((category) =>
                   category.links.map((link) => (
@@ -254,7 +254,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-between gap-4 border-t border-zinc-900 pt-5 text-sm leading-5 text-zinc-300 lg:flex-row">
+          <div className="flex flex-col items-center justify-between gap-4 border-t border-zinc-900 pt-4 text-sm leading-5 text-zinc-300 lg:flex-row">
             <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 lg:justify-start">
               {footerLinks.legal.map((link) => (
                 <FooterLink key={link.text} href={link.url}>
