@@ -137,26 +137,59 @@ function TutorialCatalogCard({
 
               <ol className="mt-7 grid gap-8 md:grid-cols-4 md:gap-9">
                 {DEPLOYMENT_NODES.map((node, index) => (
-                  <li key={node.marker} className="relative min-w-0">
-                    <span className="font-mono text-sm font-bold tracking-[0.08em] text-[#146dff]">
-                      {node.marker}
-                    </span>
-                    <h3 className="mt-1 text-xl font-semibold tracking-[-0.025em]">
-                      {node.title}
-                    </h3>
-                    <div className="relative mt-5">
+                  <li
+                    key={node.marker}
+                    className="relative grid min-w-0 md:grid-rows-[7rem_3rem_7rem] md:text-center"
+                  >
+                    <div
+                      className={`mb-4 min-w-0 md:mb-0 ${
+                        index % 2 === 0
+                          ? 'md:row-start-1 md:self-end md:pb-5'
+                          : 'md:row-start-3 md:pt-5'
+                      }`}
+                    >
+                      <span className="font-mono text-sm font-bold tracking-[0.08em] text-[#146dff]">
+                        {node.marker}
+                      </span>
+                      <h3 className="mt-1 text-xl font-semibold tracking-[-0.025em]">
+                        {node.title}
+                      </h3>
+                      <code className="mt-3 block truncate font-mono text-sm font-bold text-zinc-900">
+                        {node.evidence}
+                      </code>
+                      <span className="mt-2.5 flex items-center gap-3 text-sm font-bold md:justify-center">
+                        <span
+                          className={`inline-flex items-center gap-2 ${
+                            index === DEPLOYMENT_NODES.length - 1
+                              ? 'text-emerald-800'
+                              : 'text-[#0d5fd6]'
+                          }`}
+                        >
+                          <span
+                            className={`size-1.5 rounded-full ${
+                              index === DEPLOYMENT_NODES.length - 1
+                                ? 'bg-emerald-600'
+                                : 'bg-[#146dff]'
+                            }`}
+                            aria-hidden="true"
+                          />
+                          {node.status}
+                        </span>
+                        <span className="text-zinc-600">{node.detail}</span>
+                      </span>
+                    </div>
+
+                    <div className="relative flex items-center md:row-start-2 md:justify-center">
                       {index < DEPLOYMENT_NODES.length - 1 && (
                         <span
-                          className="absolute top-1/2 left-4 hidden h-1.5 w-[calc(100%+2.25rem)] -translate-y-1/2 bg-[#146dff] md:block"
+                          className="absolute top-1/2 left-1/2 hidden h-1.5 w-[calc(100%+2.25rem)] -translate-y-1/2 bg-[#146dff] md:block"
                           aria-hidden="true"
-                        >
-                          <span className="absolute top-1/2 left-1/2 size-0 -translate-x-1/2 -translate-y-1/2 border-y-[5px] border-l-8 border-y-transparent border-l-[#146dff]" />
-                        </span>
+                        />
                       )}
                       <span
                         className={`relative z-10 flex items-center justify-center rounded-full ring-[#146dff] ${
                           index === DEPLOYMENT_NODES.length - 1
-                            ? 'size-9 bg-[#44b78b] ring-4 ring-[#44b78b]/25'
+                            ? 'size-9 bg-[#44b78b]'
                             : 'size-8 bg-[#e3e5df] ring-[3px]'
                         }`}
                       >
@@ -169,29 +202,6 @@ function TutorialCatalogCard({
                         />
                       </span>
                     </div>
-                    <code className="mt-5 block truncate font-mono text-sm font-bold text-zinc-900">
-                      {node.evidence}
-                    </code>
-                    <span className="mt-2.5 flex items-center gap-3 text-sm font-bold">
-                      <span
-                        className={`inline-flex items-center gap-2 ${
-                          index === DEPLOYMENT_NODES.length - 1
-                            ? 'text-emerald-800'
-                            : 'text-[#0d5fd6]'
-                        }`}
-                      >
-                        <span
-                          className={`size-1.5 rounded-full ${
-                            index === DEPLOYMENT_NODES.length - 1
-                              ? 'bg-emerald-600'
-                              : 'bg-[#146dff]'
-                          }`}
-                          aria-hidden="true"
-                        />
-                        {node.status}
-                      </span>
-                      <span className="text-zinc-600">{node.detail}</span>
-                    </span>
                   </li>
                 ))}
               </ol>
@@ -377,9 +387,9 @@ export default function TutorialsPage({
       )}
 
       <main>
-        <section className="container -mt-24 pt-32 pb-8">
+        <section className="container -mt-24 pt-32 pb-6">
           <div className="grid gap-8 md:grid-cols-12 md:items-stretch">
-            <div className="md:col-span-8">
+            <div className="md:col-span-8 lg:col-span-9">
               <p className="text-sm font-semibold text-[#5f96ff]">
                 Deployment field note
               </p>
@@ -413,7 +423,7 @@ export default function TutorialsPage({
               )}
             </div>
 
-            <aside className="border-l border-[#44b78b] pl-8 md:col-span-4 md:py-1">
+            <aside className="border-l border-[#44b78b] pl-7 md:col-span-4 md:py-1 lg:col-span-3">
               <div className="flex items-start justify-between gap-5">
                 <Image
                   src="/icons/django.svg"
@@ -426,20 +436,42 @@ export default function TutorialsPage({
                   Django 5.2
                 </span>
               </div>
-              <p className="mt-8 max-w-64 text-3xl leading-[1.08] font-medium tracking-[-0.035em] text-white">
+              <p className="mt-7 max-w-64 text-3xl leading-[1.08] font-medium tracking-[-0.035em] text-white">
                 A 35-minute production runbook.
               </p>
-              <p className="mt-6 max-w-60 text-sm leading-6 text-zinc-300">
-                Configure the app, connect its services, and prove the public
-                response.
-              </p>
+              <dl className="mt-7 border-t border-white/15 text-sm">
+                <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
+                  <dt className="font-mono text-xs font-bold text-zinc-500">
+                    RUNTIME
+                  </dt>
+                  <dd className="font-semibold text-white">Gunicorn</dd>
+                </div>
+                <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
+                  <dt className="font-mono text-xs font-bold text-zinc-500">
+                    STATIC
+                  </dt>
+                  <dd className="font-semibold text-white">WhiteNoise</dd>
+                </div>
+                <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
+                  <dt className="font-mono text-xs font-bold text-zinc-500">
+                    DATA
+                  </dt>
+                  <dd className="font-semibold text-white">PostgreSQL</dd>
+                </div>
+                <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
+                  <dt className="font-mono text-xs font-bold text-zinc-500">
+                    RESULT
+                  </dt>
+                  <dd className="font-semibold text-[#44b78b]">HTTPS · 200</dd>
+                </div>
+              </dl>
             </aside>
           </div>
         </section>
 
         <section
           id="published-tutorials"
-          className="container scroll-mt-28 border-t border-white/10 pt-8 pb-12"
+          className="container scroll-mt-28 border-t border-white/10 pt-6 pb-12"
           aria-labelledby="published-tutorials-heading"
         >
           {firstTutorial && (
