@@ -122,12 +122,8 @@ function TutorialCatalogCard({
             </div>
 
             <div className="relative mt-10">
-              <span
-                className="absolute top-24 right-[8%] left-[8%] hidden h-0.5 bg-[#146dff] md:block"
-                aria-hidden="true"
-              />
               <ol className="grid gap-10 md:grid-cols-3 md:gap-12">
-                {DEPLOYMENT_NODES.map((node) => (
+                {DEPLOYMENT_NODES.map((node, index) => (
                   <li key={node.marker} className="relative">
                     <span className="font-mono text-xs font-semibold tracking-[0.1em] text-[#146dff]">
                       {node.marker}
@@ -135,9 +131,19 @@ function TutorialCatalogCard({
                     <h3 className="mt-3 text-2xl font-semibold tracking-tight">
                       {node.title}
                     </h3>
-                    <span className="relative z-10 mt-8 flex size-5 items-center justify-center rounded-full bg-[#f1f1ed] ring-2 ring-[#146dff]">
-                      <span className="size-2 rounded-full bg-[#146dff]" />
-                    </span>
+                    <div className="relative mt-8">
+                      {index < DEPLOYMENT_NODES.length - 1 && (
+                        <span
+                          className="absolute top-1/2 left-2.5 hidden h-0.5 w-[calc(100%+3rem)] -translate-y-1/2 bg-[#146dff] md:block"
+                          aria-hidden="true"
+                        >
+                          <span className="absolute top-1/2 left-1/2 size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff]" />
+                        </span>
+                      )}
+                      <span className="relative z-10 flex size-5 items-center justify-center rounded-full bg-[#f1f1ed] ring-2 ring-[#146dff]">
+                        <span className="size-2 rounded-full bg-[#146dff]" />
+                      </span>
+                    </div>
                     <code className="mt-8 block truncate text-sm font-semibold text-zinc-900">
                       {node.value}
                     </code>
@@ -161,26 +167,43 @@ function TutorialCatalogCard({
             </div>
           </div>
 
-          <nav className="mt-10" aria-label="Guide chapters">
-            <h3 className="text-lg font-semibold text-white">
-              Inside the 35-minute guide
-            </h3>
-            <ol className="mt-6 grid gap-7 md:grid-cols-3 md:gap-10">
+          <nav
+            className="mt-12 grid gap-8 border-t border-white/10 pt-8 md:grid-cols-12 md:gap-10"
+            aria-label="Guide chapters"
+          >
+            <div className="md:col-span-4">
+              <p className="font-mono text-xs font-semibold tracking-[0.12em] text-[#5f96ff] uppercase">
+                Guide anatomy
+              </p>
+              <h3 className="mt-3 max-w-xs text-2xl leading-tight font-semibold tracking-tight text-white">
+                35 minutes. Three decisive checks.
+              </h3>
+              <p className="mt-3 max-w-xs text-sm leading-6 text-zinc-400">
+                Follow the shortest route from a local Django project to a
+                verified production service.
+              </p>
+            </div>
+            <ol className="border-t border-white/15 md:col-span-8">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                <li key={chapter.hash}>
+                <li key={chapter.hash} className="border-b border-white/15">
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group block rounded-sm focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group grid items-center gap-x-4 rounded-sm py-4 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[2rem_minmax(0,1fr)_minmax(0,0.85fr)_1rem]"
                   >
-                    <span className="text-sm font-medium text-[#5f96ff]">
+                    <span className="font-mono text-xs font-semibold text-[#5f96ff]">
                       0{index + 1}
                     </span>
-                    <strong className="mt-3 block text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                    <strong className="text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
                       {chapter.title}
                     </strong>
-                    <span className="mt-2 block text-sm text-zinc-400">
+                    <span className="col-start-2 mt-1 text-sm text-zinc-400 sm:col-start-auto sm:mt-0">
                       {chapter.detail}
                     </span>
+                    <ArrowRight
+                      size={15}
+                      className="hidden text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff] sm:block"
+                      aria-hidden="true"
+                    />
                   </Link>
                 </li>
               ))}
@@ -423,8 +446,8 @@ export default function TutorialsPage({
             </div>
           )}
 
-          <section className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 py-2">
-            <h2 className="text-xl font-semibold tracking-tight text-white">
+          <section className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/10 pt-7">
+            <h2 className="text-2xl font-semibold tracking-tight text-white">
               Missing your stack?
             </h2>
             <p className="text-sm leading-6 text-zinc-400">
