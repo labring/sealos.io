@@ -28,6 +28,27 @@ const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 const DJANGO_DEPLOYMENT_IMAGE =
   '/images/tutorials/django/django-sealos-project-ops-running.webp';
 
+const DJANGO_PROOF_NODES = [
+  {
+    label: '01 / PUBLIC HTTPS',
+    title: 'Public edge',
+    detail: 'Reachable on port 443',
+    imageClassName: 'origin-left scale-[2.2]',
+  },
+  {
+    label: '02 / APP RUNTIME',
+    title: 'Django container',
+    detail: 'Gunicorn process running',
+    imageClassName: 'origin-center scale-[2.2]',
+  },
+  {
+    label: '03 / PRIVATE DATA',
+    title: 'PostgreSQL',
+    detail: 'Private service attached',
+    imageClassName: 'origin-right scale-[2.2]',
+  },
+] as const;
+
 const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
@@ -91,26 +112,36 @@ function TutorialCatalogCard({
             </p>
           </div>
 
-          <figure className="overflow-hidden border border-white/15">
-            <div className="relative aspect-video overflow-hidden">
-              <Image
-                src={DJANGO_DEPLOYMENT_IMAGE}
-                alt="Sealos project with public access, Django container, and PostgreSQL running"
-                className="object-cover object-center"
-                fill
-                priority={priorityImage}
-                quality={90}
-                sizes="(max-width: 760px) 100vw, 90vw"
-              />
-              <span className="absolute top-5 left-5 bg-[#e3e5df] px-3 py-2 font-mono text-xs font-bold tracking-[0.05em] text-[#101318]">
-                01 / PUBLIC HTTPS
-              </span>
-              <span className="absolute top-5 right-5 hidden bg-[#e3e5df] px-3 py-2 font-mono text-xs font-bold tracking-[0.05em] text-[#101318] sm:block">
-                02 / PRIVATE POSTGRESQL
-              </span>
-            </div>
+          <div className="grid overflow-hidden border border-white/15 md:grid-cols-3 md:divide-x md:divide-white/15">
+            {DJANGO_PROOF_NODES.map((node, index) => (
+              <figure
+                key={node.label}
+                className="border-b border-white/15 last:border-b-0 md:border-b-0"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#10131c]">
+                  <Image
+                    src={DJANGO_DEPLOYMENT_IMAGE}
+                    alt={`${node.title} deployment evidence`}
+                    className={`object-cover object-center ${node.imageClassName}`}
+                    fill
+                    priority={priorityImage && index === 0}
+                    quality={90}
+                    sizes="(max-width: 760px) 100vw, 30vw"
+                  />
+                </div>
+                <figcaption className="bg-[#111419] p-5">
+                  <p className="font-mono text-xs font-bold tracking-[0.05em] text-zinc-400">
+                    {node.label}
+                  </p>
+                  <p className="mt-5 text-xl font-medium tracking-[-0.02em] text-white">
+                    {node.title}
+                  </p>
+                  <p className="mt-1 text-sm text-zinc-300">{node.detail}</p>
+                </figcaption>
+              </figure>
+            ))}
 
-            <figcaption className="grid bg-[#e3e5df] text-[#101318] md:grid-cols-12">
+            <div className="grid bg-[#e3e5df] text-[#101318] md:col-span-3 md:grid-cols-12">
               <div className="border-b border-black/15 p-6 md:col-span-3 md:border-r md:border-b-0">
                 <p className="text-xs font-semibold tracking-[0.05em] text-zinc-600 uppercase">
                   Final response
@@ -125,7 +156,7 @@ function TutorialCatalogCard({
                   path.
                 </h3>
                 <p className="mt-3 text-sm leading-6 text-zinc-700">
-                  The running topology records every service used by the guide.
+                  Three live services form the deployment recorded in the guide.
                 </p>
               </div>
               <p className="p-6 text-sm leading-6 text-zinc-700 md:col-span-3">
@@ -135,8 +166,8 @@ function TutorialCatalogCard({
                 <br />
                 PostgreSQL
               </p>
-            </figcaption>
-          </figure>
+            </div>
+          </div>
 
           <nav
             className="mt-16"
@@ -158,7 +189,7 @@ function TutorialCatalogCard({
                     href={`${tutorial.url}${chapter.hash}`}
                     className="group flex min-h-60 flex-col p-6 text-left focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
-                    <span className="font-mono text-5xl leading-none font-medium tracking-[-0.06em] text-white/40">
+                    <span className="font-mono text-5xl leading-none font-medium tracking-[-0.06em] text-white/55">
                       0{index + 1}
                     </span>
                     <span className="mt-8 text-sm font-semibold text-zinc-400">
@@ -167,11 +198,11 @@ function TutorialCatalogCard({
                     <strong className="mt-2 text-xl font-medium tracking-[-0.02em] text-white transition-colors group-hover:text-[#5f96ff]">
                       {chapter.title}
                     </strong>
-                    <span className="mt-auto flex items-end justify-between gap-5 pt-6 text-sm leading-6 text-zinc-300">
+                    <span className="mt-auto flex items-end justify-between gap-5 pt-6 text-sm leading-6 text-zinc-200">
                       {chapter.detail}
                       <ArrowRight
                         size={18}
-                        className="shrink-0 text-zinc-400 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white"
+                        className="shrink-0 text-zinc-200 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white"
                         aria-hidden="true"
                       />
                     </span>
