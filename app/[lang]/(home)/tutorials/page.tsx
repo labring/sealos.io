@@ -91,10 +91,10 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="grid overflow-hidden border-b border-white/15 md:grid-cols-3">
-              <figure className="bg-[#0d1015] md:col-span-2">
+            <div className="grid overflow-hidden border-b border-white/15 md:grid-cols-3 md:divide-x md:divide-white/15">
+              <figure className="bg-[#0d1015]">
                 <div
-                  className="relative aspect-video overflow-hidden bg-[#08101f]"
+                  className="relative aspect-[4/3] overflow-hidden bg-[#08101f]"
                   role="img"
                   aria-label="Running Django container in the Sealos project view"
                 >
@@ -107,14 +107,6 @@ function TutorialCatalogCard({
                     }}
                     aria-hidden="true"
                   />
-                  <div className="absolute top-5 left-5 bg-[#0d1015]/90 px-4 py-3 ring-1 ring-white/15 backdrop-blur-sm">
-                    <span className="font-mono text-sm font-bold text-zinc-500">
-                      01
-                    </span>
-                    <strong className="ml-4 text-sm font-semibold text-white">
-                      Django container running
-                    </strong>
-                  </div>
                 </div>
                 <figcaption className="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-t border-white/15 px-5 py-4">
                   <span className="font-mono text-sm font-bold text-zinc-500">
@@ -122,74 +114,85 @@ function TutorialCatalogCard({
                   </span>
                   <span>
                     <strong className="block text-sm font-semibold text-white">
-                      Sealos application runtime
+                      Django container running
                     </strong>
-                    <code className="mt-1 block font-mono text-sm text-zinc-300">
-                      ghcr.io/yangchuansheng/sealos-django:latest
+                    <code className="mt-1 block font-mono text-xs text-zinc-300">
+                      sealos-django:latest · Running
                     </code>
                   </span>
                 </figcaption>
               </figure>
 
-              <div className="flex border-t border-white/15 md:border-t-0 md:border-l">
-                <div className="flex w-full flex-col">
-                  <section className="flex flex-1 flex-col bg-[#0d1015] p-5 text-white">
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="font-mono text-sm font-bold text-zinc-500">
-                        02
+              <figure className="border-t border-white/15 bg-[#0d1015] md:border-t-0">
+                <div className="flex aspect-[4/3] bg-[#e8ebef] p-6 text-[#111827]">
+                  <div className="flex w-full flex-col border border-black/20 bg-[#f7f7f4] p-5">
+                    <h4 className="text-2xl font-semibold tracking-[-0.04em]">
+                      Django tasks
+                    </h4>
+                    <p className="mt-5 text-sm font-medium">Title</p>
+                    <div className="mt-2 flex gap-2 text-xs">
+                      <span className="min-w-0 flex-1 border border-zinc-400 px-3 py-2.5 text-zinc-600">
+                        Ship Django on Sealos
                       </span>
-                      <p className="text-sm font-semibold text-[#146dff]">
-                        Django task submitted
-                      </p>
-                    </div>
-                    <div className="mt-4 flex flex-1 flex-col border border-white/15 bg-[#e8ebef] p-4 text-[#111827]">
-                      <h4 className="text-xl font-semibold tracking-[-0.035em]">
-                        Django tasks
-                      </h4>
-                      <p className="mt-3 text-xs font-medium">Title</p>
-                      <div className="mt-1.5 flex gap-2 text-[10px]">
-                        <span className="min-w-0 flex-1 border border-zinc-400 px-2.5 py-2 text-zinc-600">
-                          Ship Django on Sealos
-                        </span>
-                        <span className="bg-[#146dff] px-3 py-2 font-semibold text-white">
-                          Add task
-                        </span>
-                      </div>
-                      <p className="mt-auto flex items-center gap-2 pt-4 text-xs">
-                        <span className="size-1.5 rounded-full bg-[#16815d]" />
-                        Runtime proof from Sealos
-                      </p>
-                    </div>
-                  </section>
-
-                  <section className="flex flex-1 flex-col border-t border-white/15 bg-[#0d1015] p-6 text-white">
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="font-mono text-sm font-bold text-zinc-500">
-                        03
+                      <span className="bg-[#146dff] px-4 py-2.5 font-semibold text-white">
+                        Add task
                       </span>
-                      <p className="text-sm font-semibold text-[#44b78b]">
-                        Public response
-                      </p>
                     </div>
-                    <div className="mt-6 flex items-baseline justify-between gap-5">
-                      <p className="text-5xl leading-none font-semibold tracking-[-0.055em] text-[#44b78b]">
-                        200 OK
-                      </p>
-                      <code className="font-mono text-sm text-zinc-300">
-                        GET / · HTTP/2
-                      </code>
-                    </div>
-                    <div className="mt-auto border-t border-white/20 pt-5">
-                      <p className="text-sm font-semibold text-white">
-                        Read after redirect
-                      </p>
-                      <code className="mt-2 block font-mono text-sm text-zinc-300">
-                        django-tasks-mpbrofzu.usw.sealos.io
-                      </code>
-                    </div>
-                  </section>
+                    <p className="mt-auto flex items-center gap-2 border-t border-zinc-300 pt-5 text-sm">
+                      <span className="size-2 rounded-full bg-[#16815d]" />
+                      Saved to PostgreSQL
+                    </p>
+                  </div>
                 </div>
-              </div>
+                <figcaption className="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-t border-white/15 px-5 py-4">
+                  <span className="font-mono text-sm font-bold text-zinc-500">
+                    02
+                  </span>
+                  <span>
+                    <strong className="block text-sm font-semibold text-white">
+                      Django task submitted
+                    </strong>
+                    <code className="mt-1 block font-mono text-xs text-zinc-300">
+                      Ship Django on Sealos · saved
+                    </code>
+                  </span>
+                </figcaption>
+              </figure>
+
+              <figure className="border-t border-white/15 bg-[#0d1015] md:border-t-0">
+                <div className="flex aspect-[4/3] flex-col bg-[#10141b] p-7 text-white">
+                  <div className="flex items-center justify-between gap-4 border-b border-white/20 pb-5">
+                    <code className="font-mono text-sm font-bold text-[#5f96ff]">
+                      GET /
+                    </code>
+                    <span className="text-sm text-zinc-400">HTTP/2</span>
+                  </div>
+                  <p className="my-auto text-6xl leading-none font-semibold tracking-[-0.06em] text-[#44b78b]">
+                    200 OK
+                  </p>
+                  <div className="border-t border-white/20 pt-5">
+                    <p className="text-sm font-semibold text-white">
+                      Read after redirect
+                    </p>
+                    <code className="mt-2 block font-mono text-xs text-zinc-300">
+                      django-tasks-mpbrofzu.usw.sealos.io
+                    </code>
+                  </div>
+                </div>
+                <figcaption className="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-t border-white/15 px-5 py-4">
+                  <span className="font-mono text-sm font-bold text-zinc-500">
+                    03
+                  </span>
+                  <span>
+                    <strong className="block text-sm font-semibold text-[#44b78b]">
+                      Public response verified
+                    </strong>
+                    <code className="mt-1 block font-mono text-xs text-zinc-300">
+                      live URL · HTTP 200
+                    </code>
+                  </span>
+                </figcaption>
+              </figure>
             </div>
           </figure>
 
