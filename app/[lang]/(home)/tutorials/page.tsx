@@ -93,12 +93,17 @@ function TutorialCatalogCard({
             </figcaption>
 
             <div className="overflow-hidden border-b border-white/15 bg-[#10151d] px-7 py-8">
-              <div
-                className="grid gap-6 md:grid-cols-[1fr_2rem_1fr_2rem_1fr_2rem_1fr] md:items-center md:gap-0"
+              <ol
+                className="relative grid gap-7 md:grid-cols-4 md:gap-0"
                 aria-label="Live deployment path from public HTTPS through Django and PostgreSQL to an HTTP 200 response"
               >
-                <section className="flex min-h-40 flex-col py-3 text-white">
-                  <div className="flex items-center justify-between gap-5">
+                <span
+                  className="absolute top-[4.25rem] right-[12.5%] left-[12.5%] hidden h-px bg-gradient-to-r from-[#146dff] to-[#44b78b] md:block"
+                  aria-hidden="true"
+                />
+
+                <li className="relative flex min-h-44 flex-col items-center text-center text-white">
+                  <div className="flex items-center gap-3">
                     <span className="font-mono text-sm font-bold text-zinc-500">
                       01
                     </span>
@@ -106,27 +111,23 @@ function TutorialCatalogCard({
                       Public ingress
                     </span>
                   </div>
-                  <p className="mt-6 text-3xl font-semibold tracking-[-0.045em]">
+                  <span
+                    className="relative z-10 mt-6 size-4 rounded-full bg-[#146dff] ring-4 ring-[#10151d]"
+                    aria-hidden="true"
+                  />
+                  <p className="mt-5 text-3xl font-semibold tracking-[-0.045em]">
                     HTTPS
                   </p>
                   <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
                     django-tasks…sealos.io
                   </code>
-                  <p className="mt-auto flex items-center gap-2 pt-4 text-sm font-semibold text-[#44b78b]">
-                    <span className="size-2 rounded-full bg-current" />
+                  <p className="mt-auto pt-3 text-sm font-semibold text-[#44b78b]">
                     Connected
                   </p>
-                </section>
+                </li>
 
-                <span
-                  className="hidden items-center justify-center text-xl text-[#3d8cff] md:flex"
-                  aria-hidden="true"
-                >
-                  →
-                </span>
-
-                <section className="flex min-h-40 flex-col py-3 text-white">
-                  <div className="flex items-center justify-between gap-5">
+                <li className="relative flex min-h-44 flex-col items-center text-center text-white">
+                  <div className="flex items-center gap-3">
                     <span className="font-mono text-sm font-bold text-zinc-500">
                       02
                     </span>
@@ -134,27 +135,23 @@ function TutorialCatalogCard({
                       Application
                     </span>
                   </div>
-                  <p className="mt-6 text-3xl font-semibold tracking-[-0.045em]">
+                  <span
+                    className="relative z-10 mt-6 size-4 rounded-full bg-[#287bff] ring-4 ring-[#10151d]"
+                    aria-hidden="true"
+                  />
+                  <p className="mt-5 text-3xl font-semibold tracking-[-0.045em]">
                     Django 5.2
                   </p>
                   <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
                     Gunicorn · WhiteNoise
                   </code>
-                  <p className="mt-auto flex items-center gap-2 pt-4 text-sm font-semibold text-[#44b78b]">
-                    <span className="size-2 rounded-full bg-current" />
+                  <p className="mt-auto pt-3 text-sm font-semibold text-[#44b78b]">
                     Container running
                   </p>
-                </section>
+                </li>
 
-                <span
-                  className="hidden items-center justify-center text-xl text-[#3d8cff] md:flex"
-                  aria-hidden="true"
-                >
-                  →
-                </span>
-
-                <section className="flex min-h-40 flex-col py-3 text-white">
-                  <div className="flex items-center justify-between gap-5">
+                <li className="relative flex min-h-44 flex-col items-center text-center text-white">
+                  <div className="flex items-center gap-3">
                     <span className="font-mono text-sm font-bold text-zinc-500">
                       03
                     </span>
@@ -162,27 +159,23 @@ function TutorialCatalogCard({
                       Managed data
                     </span>
                   </div>
-                  <p className="mt-6 text-3xl font-semibold tracking-[-0.045em]">
+                  <span
+                    className="relative z-10 mt-6 size-4 rounded-full bg-[#38aebd] ring-4 ring-[#10151d]"
+                    aria-hidden="true"
+                  />
+                  <p className="mt-5 text-3xl font-semibold tracking-[-0.045em]">
                     PostgreSQL
                   </p>
                   <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
                     DATABASE_URL → :5432
                   </code>
-                  <p className="mt-auto flex items-center gap-2 pt-4 text-sm font-semibold text-[#44b78b]">
-                    <span className="size-2 rounded-full bg-current" />
+                  <p className="mt-auto pt-3 text-sm font-semibold text-[#44b78b]">
                     Private connection
                   </p>
-                </section>
+                </li>
 
-                <span
-                  className="hidden items-center justify-center text-xl text-[#3d8cff] md:flex"
-                  aria-hidden="true"
-                >
-                  →
-                </span>
-
-                <section className="flex min-h-40 flex-col py-3 text-white">
-                  <div className="flex items-center justify-between gap-5">
+                <li className="relative flex min-h-44 flex-col items-center text-center text-white">
+                  <div className="flex items-center gap-3">
                     <span className="font-mono text-sm font-bold text-zinc-500">
                       04
                     </span>
@@ -190,18 +183,21 @@ function TutorialCatalogCard({
                       Public response
                     </span>
                   </div>
-                  <p className="mt-6 text-3xl font-semibold tracking-[-0.045em] text-[#44b78b]">
+                  <span
+                    className="relative z-10 mt-6 size-4 rounded-full bg-[#44b78b] ring-4 ring-[#10151d]"
+                    aria-hidden="true"
+                  />
+                  <p className="mt-5 text-3xl font-semibold tracking-[-0.045em] text-[#44b78b]">
                     200 OK
                   </p>
                   <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
                     GET / · HTTP/2
                   </code>
-                  <p className="mt-auto flex items-center gap-2 pt-4 text-sm font-semibold text-[#44b78b]">
-                    <span className="size-2 rounded-full bg-current" />
+                  <p className="mt-auto pt-3 text-sm font-semibold text-[#44b78b]">
                     Verified
                   </p>
-                </section>
-              </div>
+                </li>
+              </ol>
             </div>
           </figure>
 
@@ -233,20 +229,17 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <ol className="grid border-t border-black/15 lg:grid-cols-3 lg:gap-10 lg:px-7">
+            <ol className="divide-y divide-black/15 border-t border-black/15 px-7">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                <li
-                  key={chapter.hash}
-                  className="border-t border-black/15 first:border-t-0 lg:border-t-0"
-                >
+                <li key={chapter.hash}>
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group flex min-h-56 flex-col px-0 py-7 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none"
+                    className="group grid min-h-28 gap-5 py-6 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[4rem_1.15fr_1fr_16rem] md:items-center"
                   >
-                    <span className="flex items-baseline justify-between gap-5">
-                      <span className="font-mono text-4xl font-bold tracking-[-0.06em] text-zinc-400">
-                        0{index + 1}
-                      </span>
+                    <span className="font-mono text-4xl font-bold tracking-[-0.06em] text-zinc-400">
+                      0{index + 1}
+                    </span>
+                    <span>
                       <span
                         className={`text-sm font-semibold ${
                           chapter.phase === 'Verify'
@@ -256,14 +249,14 @@ function TutorialCatalogCard({
                       >
                         {chapter.phase}
                       </span>
+                      <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff]">
+                        {chapter.title}
+                      </strong>
                     </span>
-                    <strong className="mt-8 text-2xl leading-tight font-semibold tracking-[-0.035em] transition-colors group-hover:text-[#146dff]">
-                      {chapter.title}
-                    </strong>
-                    <span className="mt-4 text-base leading-7 text-zinc-700">
+                    <span className="text-base leading-7 text-zinc-700">
                       {chapter.detail}
                     </span>
-                    <code className="mt-auto pt-7 font-mono text-[13px] font-bold text-zinc-600">
+                    <code className="font-mono text-[13px] font-bold text-zinc-600 md:text-right">
                       {chapter.evidence}
                     </code>
                   </Link>
@@ -427,6 +420,11 @@ export default function TutorialsPage({
                 <p className="mt-4 font-mono text-sm font-bold tracking-[0.04em] text-zinc-300">
                   Django 5.2 · Field note 01
                 </p>
+              </div>
+              <div className="flex items-center gap-3 font-mono text-xs font-bold tracking-[0.04em] text-zinc-400 uppercase">
+                <span>Repository</span>
+                <span className="h-px flex-1 bg-[#146dff]" />
+                <span>HTTPS</span>
               </div>
               <div className="pt-10">
                 <div className="flex items-end justify-between gap-6">
