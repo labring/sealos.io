@@ -94,21 +94,21 @@ function TutorialCatalogCard({
             <div className="grid overflow-hidden border-b border-white/15 md:grid-cols-3 md:divide-x md:divide-white/15">
               <figure className="bg-[#0d1015]">
                 <div
-                  className="relative aspect-[4/3] overflow-hidden bg-[#08101f]"
+                  className="aspect-[4/3] bg-[#0d1015] p-6"
                   role="img"
                   aria-label="Running Django container in the Sealos project view"
                 >
                   <div
-                    className="absolute inset-0 bg-no-repeat brightness-[1.45] contrast-[1.15] saturate-[0.72]"
+                    className="h-full border-t-2 border-[#146dff] bg-no-repeat ring-1 ring-white/15 brightness-[1.45] contrast-[1.15] saturate-[0.72]"
                     style={{
                       backgroundImage: `url('${DJANGO_PROJECT_EVIDENCE}')`,
                       backgroundPosition: '55% 34%',
-                      backgroundSize: '300% auto',
+                      backgroundSize: '340% auto',
                     }}
                     aria-hidden="true"
                   />
                 </div>
-                <figcaption className="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-t border-white/15 px-5 py-4">
+                <figcaption className="relative grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-t border-white/15 px-5 py-4">
                   <span className="font-mono text-sm font-bold text-zinc-500">
                     01
                   </span>
@@ -116,35 +116,43 @@ function TutorialCatalogCard({
                     <strong className="block text-sm font-semibold text-white">
                       Django container running
                     </strong>
-                    <code className="mt-1 block font-mono text-xs text-zinc-300">
+                    <code className="mt-1 block font-mono text-[13px] text-zinc-300">
                       sealos-django:latest · Running
                     </code>
+                  </span>
+                  <span
+                    className="absolute right-4 text-base text-[#146dff]"
+                    aria-hidden="true"
+                  >
+                    →
                   </span>
                 </figcaption>
               </figure>
 
               <figure className="border-t border-white/15 bg-[#0d1015] md:border-t-0">
-                <div className="flex aspect-[4/3] bg-[#10141b] p-8 text-[#111827]">
-                  <div className="flex w-full flex-col bg-[#dfe3e8] p-5 ring-1 ring-white/15">
+                <div className="flex aspect-[4/3] bg-[#0d1015] p-6 text-white">
+                  <div className="flex w-full flex-col border-t-2 border-[#3d8cff] bg-[#141923] p-5 ring-1 ring-white/15">
                     <h4 className="text-2xl font-semibold tracking-[-0.04em]">
                       Django tasks
                     </h4>
-                    <p className="mt-5 text-sm font-medium">Title</p>
+                    <p className="mt-5 text-sm font-medium text-zinc-300">
+                      Title
+                    </p>
                     <div className="mt-2 flex gap-2 text-xs">
-                      <span className="min-w-0 flex-1 border border-zinc-400 px-3 py-2.5 text-zinc-600">
+                      <span className="min-w-0 flex-1 border border-white/25 bg-[#0d1015] px-3 py-2.5 text-zinc-300">
                         Ship Django on Sealos
                       </span>
                       <span className="bg-[#146dff] px-4 py-2.5 font-semibold text-white">
                         Add task
                       </span>
                     </div>
-                    <p className="mt-auto flex items-center gap-2 border-t border-zinc-300 pt-5 text-sm">
+                    <p className="mt-auto flex items-center gap-2 border-t border-white/15 pt-5 text-sm text-zinc-200">
                       <span className="size-2 rounded-full bg-[#16815d]" />
                       Saved to PostgreSQL
                     </p>
                   </div>
                 </div>
-                <figcaption className="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-t border-white/15 px-5 py-4">
+                <figcaption className="relative grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-t border-white/15 px-5 py-4">
                   <span className="font-mono text-sm font-bold text-zinc-500">
                     02
                   </span>
@@ -152,31 +160,39 @@ function TutorialCatalogCard({
                     <strong className="block text-sm font-semibold text-white">
                       Django task submitted
                     </strong>
-                    <code className="mt-1 block font-mono text-xs text-zinc-300">
+                    <code className="mt-1 block font-mono text-[13px] text-zinc-300">
                       Ship Django on Sealos · saved
                     </code>
+                  </span>
+                  <span
+                    className="absolute right-4 text-base text-[#3d8cff]"
+                    aria-hidden="true"
+                  >
+                    →
                   </span>
                 </figcaption>
               </figure>
 
               <figure className="border-t border-white/15 bg-[#0d1015] md:border-t-0">
-                <div className="flex aspect-[4/3] flex-col bg-[#10141b] p-7 text-white">
-                  <div className="flex items-center justify-between gap-4 border-b border-white/20 pb-5">
-                    <code className="font-mono text-sm font-bold text-[#5f96ff]">
-                      GET /
-                    </code>
-                    <span className="text-sm text-zinc-400">HTTP/2</span>
-                  </div>
-                  <p className="my-auto text-6xl leading-none font-semibold tracking-[-0.06em] text-[#44b78b]">
-                    200 OK
-                  </p>
-                  <div className="border-t border-white/20 pt-5">
-                    <p className="text-sm font-semibold text-white">
-                      Read after redirect
+                <div className="flex aspect-[4/3] bg-[#0d1015] p-6 text-white">
+                  <div className="flex w-full flex-col border-t-2 border-[#44b78b] bg-[#141923] p-5 ring-1 ring-white/15">
+                    <div className="flex items-center justify-between gap-4 border-b border-white/15 pb-5">
+                      <code className="font-mono text-sm font-bold text-[#5f96ff]">
+                        GET /
+                      </code>
+                      <span className="text-sm text-zinc-400">HTTP/2</span>
+                    </div>
+                    <p className="my-auto text-6xl leading-none font-semibold tracking-[-0.06em] text-[#44b78b]">
+                      200 OK
                     </p>
-                    <code className="mt-2 block font-mono text-xs text-zinc-300">
-                      django-tasks-mpbrofzu.usw.sealos.io
-                    </code>
+                    <div className="border-t border-white/15 pt-5">
+                      <p className="text-sm font-semibold text-white">
+                        Read after redirect
+                      </p>
+                      <code className="mt-2 block font-mono text-xs text-zinc-300">
+                        django-tasks-mpbrofzu.usw.sealos.io
+                      </code>
+                    </div>
                   </div>
                 </div>
                 <figcaption className="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-t border-white/15 px-5 py-4">
@@ -187,7 +203,7 @@ function TutorialCatalogCard({
                     <strong className="block text-sm font-semibold text-[#44b78b]">
                       Public response verified
                     </strong>
-                    <code className="mt-1 block font-mono text-xs text-zinc-300">
+                    <code className="mt-1 block font-mono text-[13px] text-zinc-300">
                       live URL · HTTP 200
                     </code>
                   </span>
