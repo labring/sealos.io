@@ -25,8 +25,6 @@ const TUTORIALS_PAGE_TITLE = 'Sealos Deployment Tutorials';
 const TUTORIALS_PAGE_DESCRIPTION =
   'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
-const DJANGO_LIVE_EVIDENCE =
-  '/images/tutorials/django/django-sealos-live-app-https-proof.webp';
 const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
@@ -92,16 +90,56 @@ function TutorialCatalogCard({
             </figcaption>
 
             <div className="grid overflow-hidden border-b border-white/15 bg-[#0d1015] md:grid-cols-[minmax(0,1fr)_21rem]">
-              <div className="relative aspect-[16/10] overflow-hidden bg-[#eef1f6]">
-                <Image
-                  src={DJANGO_LIVE_EVIDENCE}
-                  alt="Live Django application showing the submitted task and persisted result"
-                  fill
-                  className="origin-[65%_50%] scale-[1.3] object-cover object-center"
-                  priority
-                  quality={100}
-                  sizes="(max-width: 768px) 100vw, 72vw"
-                />
+              <div
+                className="flex min-h-[30rem] bg-[#e8ebef] p-6 text-[#111827]"
+                role="img"
+                aria-label="Live Django application showing the submitted task and persisted result"
+              >
+                <div className="flex w-full flex-col border border-black/20 bg-white">
+                  <div className="flex h-10 items-center gap-3 border-b border-black/15 bg-[#f4f5f7] px-4">
+                    <span className="size-2 rounded-full bg-[#16815d]" />
+                    <code className="font-mono text-[11px] text-zinc-500">
+                      django-tasks-mpbrofzu.usw.sealos.io
+                    </code>
+                    <span className="ml-auto text-[11px] font-medium text-zinc-500">
+                      HTTPS
+                    </span>
+                  </div>
+
+                  <div className="flex flex-1 flex-col px-10 py-8">
+                    <p className="text-sm font-bold tracking-[0.06em] text-[#146dff]">
+                      DJANGO + SEALOS
+                    </p>
+                    <h4 className="mt-4 text-4xl font-semibold tracking-[-0.045em]">
+                      Django tasks
+                    </h4>
+                    <p className="mt-4 text-base text-zinc-600">
+                      Create a task, then read it from the list below.
+                    </p>
+
+                    <div className="mt-7 flex items-end gap-4">
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium">Title</p>
+                        <div className="mt-2 border border-zinc-400 px-4 py-3 text-sm text-zinc-600">
+                          Ship Django on Sealos
+                        </div>
+                      </div>
+                      <span className="bg-[#146dff] px-5 py-3 text-sm font-semibold text-white">
+                        Add task
+                      </span>
+                    </div>
+
+                    <div className="mt-8 border-t border-zinc-200 pt-6">
+                      <h5 className="text-2xl font-semibold tracking-[-0.035em]">
+                        Task list
+                      </h5>
+                      <p className="mt-5 flex items-center gap-3 text-base">
+                        <span className="size-2 rounded-full bg-[#16815d]" />
+                        Runtime proof from Sealos
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="flex flex-col border-t-2 border-[#146dff] bg-[#0d1015] p-7 text-white md:border-t-0 md:border-l-2">
@@ -109,7 +147,7 @@ function TutorialCatalogCard({
                   <p className="text-sm font-semibold text-[#5f96ff]">
                     Verified request
                   </p>
-                  <time className="text-right text-xs leading-5 text-zinc-500">
+                  <time className="text-right text-xs leading-5 text-zinc-400">
                     Sep 03 2026
                     <span className="block">14:22 UTC</span>
                   </time>
@@ -166,7 +204,7 @@ function TutorialCatalogCard({
           </figure>
 
           <nav
-            className="bg-[#f2f0e8] text-[#0a0a0a]"
+            className="border-b border-white/15 bg-[#0d1015] text-white"
             aria-label="Guide chapters"
           >
             <div className="grid lg:grid-cols-[18rem_1fr]">
@@ -177,7 +215,7 @@ function TutorialCatalogCard({
                 <h3 className="mt-3 text-3xl leading-none font-medium tracking-[-0.045em]">
                   Three decisive checks.
                 </h3>
-                <p className="mt-5 text-sm leading-6 text-zinc-600">
+                <p className="mt-5 text-sm leading-6 text-zinc-400">
                   Configure, deploy, then verify the public flow.
                 </p>
                 <TutorialRequestGuideLink className="group mt-auto inline-flex items-center justify-between gap-5 pt-8 text-sm font-semibold text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none">
@@ -190,14 +228,14 @@ function TutorialCatalogCard({
                 </TutorialRequestGuideLink>
               </div>
 
-              <ol className="border-t border-black/20 lg:border-t-0 lg:border-l">
+              <ol className="border-t border-white/15 lg:border-t-0 lg:border-l">
                 {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                  <li key={chapter.hash} className="border-b border-black/20">
+                  <li key={chapter.hash} className="border-b border-white/15">
                     <Link
                       href={`${tutorial.url}${chapter.hash}`}
                       className="group grid min-h-20 grid-cols-[2.5rem_1fr] items-center gap-4 px-6 py-4 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[2.5rem_1fr_auto]"
                     >
-                      <span className="font-mono text-sm font-bold text-zinc-500">
+                      <span className="font-mono text-sm font-bold text-zinc-600">
                         0{index + 1}
                       </span>
                       <span>
@@ -214,9 +252,9 @@ function TutorialCatalogCard({
                           {chapter.title}
                         </strong>
                       </span>
-                      <span className="col-start-2 text-sm leading-6 text-zinc-600 md:col-start-auto md:max-w-64">
+                      <span className="col-start-2 text-sm leading-6 text-zinc-400 md:col-start-auto md:max-w-64">
                         <span>{chapter.detail}</span>
-                        <code className="mt-1 block font-mono text-xs font-bold text-zinc-600">
+                        <code className="mt-1 block font-mono text-xs font-bold text-zinc-500">
                           {chapter.evidence}
                         </code>
                       </span>
@@ -388,7 +426,7 @@ export default function TutorialsPage({
                     Django 5.2
                   </span>
                 </div>
-                <span className="text-xs font-semibold text-zinc-500">
+                <span className="text-xs font-semibold text-zinc-300">
                   Field note 01
                 </span>
               </div>
@@ -398,12 +436,12 @@ export default function TutorialsPage({
                 </span>
                 <span className="pb-1 font-mono text-xs leading-5 font-bold tracking-[0.06em] text-zinc-300 uppercase">
                   Minutes
-                  <span className="block text-zinc-500">From repo</span>
-                  <span className="block text-zinc-500">To HTTPS</span>
+                  <span className="block text-zinc-400">From repo</span>
+                  <span className="block text-zinc-400">To HTTPS</span>
                 </span>
               </div>
               <div className="mt-5 flex items-center justify-between gap-5 border-b border-white/15 pb-5 text-xs font-semibold">
-                <span className="text-zinc-500">Live proof below</span>
+                <span className="text-zinc-300">Live proof below</span>
                 <span className="inline-flex items-center gap-2 text-[#44b78b]">
                   <span className="size-1.5 rounded-full bg-current" />
                   Verified
