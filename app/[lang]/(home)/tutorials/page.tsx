@@ -16,7 +16,6 @@ import {
   type TutorialSummary,
   toTutorialSummary,
 } from '@/lib/utils/tutorial-utils';
-import { PageTopRays } from '@/new-components/SideRays';
 import { ArrowRight, BookOpen } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -27,6 +26,9 @@ const TUTORIALS_PATHNAME = '/tutorials';
 const TUTORIALS_PAGE_TITLE = 'Sealos Deployment Tutorials';
 const TUTORIALS_PAGE_DESCRIPTION =
   'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
+const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
+const DJANGO_PROJECT_PROOF_IMAGE =
+  '/images/tutorials/django/django-sealos-project-ops-running.webp';
 
 const TUTORIALS_PAGE_KEYWORDS = [
   'Sealos tutorials',
@@ -51,26 +53,24 @@ function TutorialCatalogCard({
   tutorial: TutorialCatalogItem;
   priorityImage?: boolean;
 }) {
+  const isDjangoGuide = tutorial.url === DJANGO_TUTORIAL_PATH;
+  const proofImage = isDjangoGuide
+    ? DJANGO_PROJECT_PROOF_IMAGE
+    : tutorial.image;
+
   return (
     <Link
       href={tutorial.url}
       className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12 md:items-center"
     >
-      <div className="flex flex-col gap-5 p-6 md:col-span-5 md:p-7">
-        <div>
+      <div className="flex flex-col gap-4 p-6 md:col-span-5 md:p-6">
+        <div className="flex flex-col gap-2">
           <h2
             id="published-tutorials-heading"
             className="text-primary text-base font-semibold tracking-tight"
           >
-            Published deployment tutorials
+            Published guide
           </h2>
-          <p className="text-muted-foreground mt-2 text-xs leading-5">
-            Each Core guide takes one technology from a working repository to a
-            verified public application on Sealos.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-3">
           <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-xs font-medium">
             <span>01</span>
             <span aria-hidden="true">/</span>
@@ -82,11 +82,14 @@ function TutorialCatalogCard({
                 : tutorial.stageLabel}
             </span>
           </div>
-          <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">
             <span className="text-foreground group-hover:text-primary transition-colors">
               {tutorial.title}
             </span>
-          </h2>
+          </h3>
           <p className="text-foreground/85 text-sm leading-6">
             {tutorial.description}
           </p>
@@ -107,14 +110,14 @@ function TutorialCatalogCard({
           </li>
         </ul>
 
-        <div className="text-muted-foreground border-border/80 mt-auto flex flex-wrap items-center justify-between gap-3 border-t pt-5 text-sm">
+        <div className="text-muted-foreground border-border/80 mt-auto flex flex-wrap items-center justify-between gap-3 border-t pt-4 text-sm">
           {tutorial.estimatedReadingTime && (
             <span className="inline-flex items-center gap-2">
               <BookOpen size={14} aria-hidden="true" />
               {tutorial.estimatedReadingTime}
             </span>
           )}
-          <span className="bg-primary text-primary-foreground group-hover:bg-primary/90 inline-flex items-center rounded-md px-4 py-2 font-semibold transition-colors">
+          <span className="inline-flex items-center rounded-md bg-[#146dff] px-4 py-2 font-semibold text-white transition-colors group-hover:bg-[#0f5dd6]">
             Read tutorial
             <ArrowRight
               size={15}
@@ -125,17 +128,36 @@ function TutorialCatalogCard({
         </div>
       </div>
 
-      {tutorial.image && (
+      {proofImage && (
         <figure className="border-border/80 order-first flex w-full flex-col gap-3 border-b bg-zinc-950 p-4 md:order-none md:col-span-7 md:border-b-0 md:border-l">
           <div className="relative aspect-video w-full overflow-hidden rounded-md">
             <Image
-              src={tutorial.image}
-              alt={`${tutorial.title} deployment result`}
-              className="h-full w-full scale-[1.3] object-cover object-[52%_50%]"
+              src={proofImage}
+              alt={
+                isDjangoGuide
+                  ? 'Sealos Project Canvas showing public access, container, and PostgreSQL running'
+                  : `${tutorial.title} deployment result`
+              }
+              className="h-full w-full object-cover object-center"
               fill
               priority={priorityImage}
+              quality={90}
               sizes="(max-width: 760px) 90vw, 55vw"
             />
+            {isDjangoGuide && tutorial.image && (
+              <div className="absolute right-3 bottom-3 w-[38%] overflow-hidden rounded-md border border-white/15 bg-zinc-950 p-1.5">
+                <div className="relative aspect-video w-full overflow-hidden rounded-[0.25rem]">
+                  <Image
+                    src={tutorial.image}
+                    alt={`${tutorial.title} live HTTPS create/read verification`}
+                    className="h-full w-full object-contain"
+                    fill
+                    quality={90}
+                    sizes="(max-width: 760px) 34vw, 16vw"
+                  />
+                </div>
+              </div>
+            )}
           </div>
           <figcaption className="grid grid-cols-2 gap-3 px-1 text-xs leading-5">
             <span>
@@ -246,8 +268,6 @@ export default function TutorialsPage({
         <StructuredDataComponent data={structuredData} />
       )}
 
-      <PageTopRays />
-
       <main>
         <section className="container -mt-24 pt-32 pb-6">
           <h1
@@ -269,7 +289,58 @@ export default function TutorialsPage({
           aria-labelledby="published-tutorials-heading"
         >
           {firstTutorial && (
-            <TutorialCatalogCard tutorial={firstTutorial} priorityImage />
+            <>
+              <TutorialCatalogCard tutorial={firstTutorial} priorityImage />
+              <section
+                className="border-border mt-6 border-t"
+                aria-labelledby="inside-guide-heading"
+              >
+                <h2
+                  id="inside-guide-heading"
+                  className="text-foreground py-5 text-xl font-semibold tracking-tight"
+                >
+                  Inside this guide
+                </h2>
+                <div className="border-border grid border-t md:grid-cols-3">
+                  <Link
+                    href={`${firstTutorial.url}#prepare-django-for-production`}
+                    className="group border-border px-0 py-5 focus-visible:ring-2 focus-visible:outline-none md:pr-6"
+                  >
+                    <span className="text-primary text-xs font-medium">01</span>
+                    <h3 className="text-foreground group-hover:text-primary mt-2 font-semibold">
+                      Prepare Django for production
+                    </h3>
+                    <p className="text-muted-foreground mt-2 text-sm leading-6">
+                      Configure Gunicorn and WhiteNoise for deployment.
+                    </p>
+                  </Link>
+                  <Link
+                    href={`${firstTutorial.url}#deploy-with-sealos-skills`}
+                    className="group border-border border-t py-5 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:px-6"
+                  >
+                    <span className="text-primary text-xs font-medium">02</span>
+                    <h3 className="text-foreground group-hover:text-primary mt-2 font-semibold">
+                      Deploy with Sealos Skills
+                    </h3>
+                    <p className="text-muted-foreground mt-2 text-sm leading-6">
+                      Connect the application, container, and database.
+                    </p>
+                  </Link>
+                  <Link
+                    href={`${firstTutorial.url}#verify-the-live-django-application`}
+                    className="group border-border border-t py-5 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:pl-6"
+                  >
+                    <span className="text-primary text-xs font-medium">03</span>
+                    <h3 className="text-foreground group-hover:text-primary mt-2 font-semibold">
+                      Verify the live Django application
+                    </h3>
+                    <p className="text-muted-foreground mt-2 text-sm leading-6">
+                      Confirm the HTTPS create/read flow on Sealos.
+                    </p>
+                  </Link>
+                </div>
+              </section>
+            </>
           )}
 
           {tutorials.length > 1 && (
