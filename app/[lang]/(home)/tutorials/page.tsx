@@ -57,11 +57,11 @@ function TutorialCatalogCard({
       href={tutorial.url}
       className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12 md:items-center"
     >
-      <div className="flex flex-col gap-6 p-6 md:col-span-7 md:p-10">
+      <div className="flex flex-col gap-7 p-6 md:col-span-5 md:p-10">
         <div>
           <h2
             id="published-tutorials-heading"
-            className="text-foreground text-xl font-semibold tracking-tight"
+            className="text-primary text-lg font-semibold tracking-tight"
           >
             Published deployment tutorials
           </h2>
@@ -71,8 +71,8 @@ function TutorialCatalogCard({
           </p>
         </div>
 
-        <div className="flex flex-col gap-3">
-          <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-sm font-medium">
+        <div className="flex flex-col gap-4">
+          <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-xs font-medium">
             <span>{tutorial.framework}</span>
             <span aria-hidden="true">·</span>
             <span>
@@ -81,22 +81,28 @@ function TutorialCatalogCard({
                 : tutorial.stageLabel}
             </span>
           </div>
-          <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
             <GradientText>
               <span className="text-foreground transition-colors group-hover:text-transparent">
                 {tutorial.title}
               </span>
             </GradientText>
           </h2>
-          <p className="text-foreground/80 text-base leading-7">
+          <p className="text-foreground/85 text-base leading-7">
             {tutorial.description}
           </p>
         </div>
 
-        <ul className="text-foreground/80 border-border/80 grid list-none gap-3 border-y py-4 text-sm leading-6 sm:grid-cols-3">
-          <li>Deploy the Django app with Gunicorn and WhiteNoise.</li>
-          <li>Connect PostgreSQL to the running application.</li>
-          <li>Verify the live create/read flow on Sealos.</li>
+        <ul className="text-foreground/80 border-border/80 divide-border/80 grid list-none divide-y border-y text-sm leading-6">
+          <li className="py-2.5 first:pt-0">
+            Deploy the Django app with Gunicorn and WhiteNoise.
+          </li>
+          <li className="py-2.5">
+            Connect PostgreSQL to the running application.
+          </li>
+          <li className="py-2.5 last:pb-0">
+            Verify the live create/read flow on Sealos.
+          </li>
         </ul>
 
         <div className="text-muted-foreground border-border/80 mt-auto flex flex-wrap items-center justify-between gap-3 border-t pt-5 text-sm">
@@ -118,7 +124,7 @@ function TutorialCatalogCard({
       </div>
 
       {tutorial.image && (
-        <figure className="border-border bg-background order-first w-full border-b p-2 md:order-none md:col-span-5 md:border-b-0 md:border-l">
+        <figure className="border-border bg-background order-first w-full border-b p-2 md:order-none md:col-span-7 md:border-b-0 md:border-l">
           <div className="relative aspect-video w-full overflow-hidden rounded-[0.375rem]">
             <Image
               src={tutorial.image}
@@ -126,7 +132,7 @@ function TutorialCatalogCard({
               className="h-full w-full scale-[1.2] object-cover object-center"
               fill
               priority={priorityImage}
-              sizes="(max-width: 760px) 90vw, 42vw"
+              sizes="(max-width: 760px) 90vw, 55vw"
             />
           </div>
           <figcaption className="text-muted-foreground px-1 pt-3 pb-1 text-xs leading-5">
@@ -232,15 +238,15 @@ export default function TutorialsPage({
       <PageTopRays />
 
       <main>
-        <section className="container -mt-24 pt-44 pb-10">
+        <section className="container -mt-24 pt-32 pb-6">
           <h1
             aria-label="Sealos tutorials for app deployment"
-            className="text-foreground max-w-2xl text-4xl font-medium tracking-tight md:text-5xl"
+            className="text-foreground max-w-5xl text-5xl font-medium tracking-tight md:text-6xl"
           >
             <span>Sealos tutorials for </span>
             <GradientText>app deployment</GradientText>
           </h1>
-          <p className="text-muted-foreground mt-4 max-w-xl text-sm leading-6">
+          <p className="text-muted-foreground mt-5 max-w-2xl text-base leading-7">
             Follow complete deployment guides built from verified repositories
             and live application evidence.
           </p>
