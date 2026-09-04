@@ -59,6 +59,24 @@ const DJANGO_VERIFIED_PATH = [
   'HTTP/2',
 ] as const;
 
+const DJANGO_LIVE_PROOF = [
+  {
+    stage: 'Request',
+    command: 'POST / · task="Runtime proof…"',
+    result: '302',
+  },
+  {
+    stage: 'Write',
+    command: 'INSERT tasks_task · PostgreSQL',
+    result: 'COMMIT',
+  },
+  {
+    stage: 'Fresh load',
+    command: 'GET / HTTP/2 · task[0]',
+    result: '200 OK',
+  },
+] as const;
+
 const TUTORIALS_PAGE_KEYWORDS = [
   'Sealos tutorials',
   'Django deployment tutorials',
@@ -337,7 +355,7 @@ export default function TutorialsPage({
                 className="absolute top-0 bottom-0 left-0 z-10 w-px bg-[#44b78b]/60"
                 aria-hidden="true"
               />
-              <div className="relative grid grid-rows-[auto_auto_auto] border border-white/15">
+              <div className="relative grid h-full grid-rows-[auto_1fr_auto] border border-white/15">
                 <span
                   className="absolute top-6 -left-1 z-20 size-2 bg-[#44b78b]"
                   aria-hidden="true"
@@ -358,33 +376,34 @@ export default function TutorialsPage({
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 border-y border-white/15">
-                  <div className="py-5 pr-4 pl-7">
-                    <p className="text-xs font-semibold text-[#5f96ff]">
-                      01 · Create
-                    </p>
-                    <div className="mt-4 grid gap-1.5 font-mono text-[11px] leading-4">
-                      <code className="text-white">POST /</code>
-                      <code className="text-zinc-400">
-                        task = &quot;Runtime proof…&quot;
+                <div className="grid grid-rows-3 divide-y divide-white/15 border-y border-white/15">
+                  {DJANGO_LIVE_PROOF.map((proof, index) => (
+                    <div
+                      key={proof.stage}
+                      className="grid grid-cols-[2rem_1fr_auto] items-center gap-3 pr-4 pl-7"
+                    >
+                      <span className="text-xs font-medium text-zinc-500">
+                        0{index + 1}
+                      </span>
+                      <span className="min-w-0">
+                        <strong className="block text-sm font-semibold text-white">
+                          {proof.stage}
+                        </strong>
+                        <code className="mt-1 block truncate font-mono text-[11px] text-zinc-400">
+                          {proof.command}
+                        </code>
+                      </span>
+                      <code
+                        className={`font-mono text-xs font-bold ${
+                          index === DJANGO_LIVE_PROOF.length - 1
+                            ? 'text-[#44b78b]'
+                            : 'text-zinc-300'
+                        }`}
+                      >
+                        {proof.result}
                       </code>
-                      <code className="text-zinc-300">302 Found</code>
                     </div>
-                  </div>
-                  <div className="border-l border-white/15 px-4 py-5">
-                    <p className="text-xs font-semibold text-[#5f96ff]">
-                      02 · Fresh load
-                    </p>
-                    <div className="mt-4 grid gap-1.5 font-mono text-[11px] leading-4">
-                      <code className="text-white">GET / HTTP/2</code>
-                      <code className="text-zinc-400">
-                        task[0] = &quot;Runtime proof…&quot;
-                      </code>
-                      <code className="font-bold text-[#44b78b]">
-                        200 OK · persisted
-                      </code>
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 py-3 pr-4 pl-7 text-xs text-zinc-400">
