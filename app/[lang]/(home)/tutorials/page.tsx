@@ -125,7 +125,7 @@ function TutorialCatalogCard({
                 <p className="text-base leading-7 text-zinc-700">
                   Configure, deploy, then verify the public flow.
                 </p>
-                <TutorialRequestGuideLink className="group mt-5 inline-flex w-full items-center justify-between gap-5 text-sm font-semibold text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none">
+                <TutorialRequestGuideLink className="group mt-5 inline-flex items-center gap-3 text-sm font-semibold text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none">
                   Request the next field note
                   <ArrowRight
                     size={16}
@@ -146,10 +146,24 @@ function TutorialCatalogCard({
                 <li key={chapter.hash}>
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid min-h-28 gap-5 py-6 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-3 md:items-center md:gap-0"
+                    className={`group grid gap-5 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-3 md:items-center md:gap-0 ${
+                      index === 0
+                        ? 'min-h-24 py-5'
+                        : index === 1
+                          ? 'min-h-28 bg-[#e9edf2] py-6'
+                          : 'min-h-32 bg-[#dfeae4] py-8'
+                    }`}
                   >
                     <span className="grid grid-cols-[3.25rem_1fr] items-center gap-5 md:pr-7">
-                      <span className="font-mono text-4xl font-bold tracking-[-0.06em] text-zinc-500">
+                      <span
+                        className={`font-mono font-bold tracking-[-0.06em] ${
+                          index === 0
+                            ? 'text-3xl text-zinc-400'
+                            : index === 1
+                              ? 'text-4xl text-[#146dff]'
+                              : 'text-5xl text-[#16815d]'
+                        }`}
+                      >
                         0{index + 1}
                       </span>
                       <span>
@@ -170,7 +184,15 @@ function TutorialCatalogCard({
                     <span className="text-base leading-7 text-zinc-700 md:px-7">
                       {chapter.detail}
                     </span>
-                    <code className="border-l-2 border-[#16815d] py-2 pl-4 font-mono text-[13px] font-bold text-zinc-800 md:ml-7">
+                    <code
+                      className={`font-mono text-[13px] font-bold md:ml-7 ${
+                        index === 0
+                          ? 'border-l-2 border-black/25 py-2 pl-4 text-zinc-700'
+                          : index === 1
+                            ? 'border-l-2 border-[#146dff] py-2 pl-4 text-zinc-800'
+                            : 'bg-[#16815d] px-4 py-3 text-white'
+                      }`}
+                    >
                       {chapter.evidence}
                     </code>
                   </Link>
