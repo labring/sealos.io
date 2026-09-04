@@ -60,18 +60,21 @@ const DEPLOYMENT_NODES = [
 const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
+    evidence: 'config.wsgi:application',
     title: 'Prepare Django for production',
     detail: 'Configure Gunicorn and WhiteNoise.',
     hash: '#prepare-django-for-production',
   },
   {
     phase: 'Deploy',
+    evidence: 'DATABASE_URL → :5432',
     title: 'Deploy with Sealos Skills',
     detail: 'Connect the application and database.',
     hash: '#deploy-with-sealos-skills',
   },
   {
     phase: 'Verify',
+    evidence: 'GET / → HTTP 200',
     title: 'Verify the live application',
     detail: 'Confirm the HTTPS create/read flow.',
     hash: '#verify-the-live-django-application',
@@ -112,11 +115,11 @@ function TutorialCatalogCard({
       {isDjangoGuide ? (
         <div>
           <figure>
-            <figcaption className="mb-5 flex flex-wrap items-end justify-between gap-3">
-              <span className="text-2xl font-medium tracking-[-0.035em] text-white">
+            <figcaption className="grid border-y border-white/15 md:grid-cols-4">
+              <span className="py-5 text-2xl font-medium tracking-[-0.035em] text-white md:col-span-3 md:pr-7">
                 Production trace
               </span>
-              <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#44b78b]">
+              <span className="inline-flex items-center gap-2 py-5 text-sm font-semibold text-[#44b78b] md:justify-end md:border-l md:border-white/15 md:pl-7">
                 <span
                   className="size-2 rounded-full bg-current"
                   aria-hidden="true"
@@ -125,29 +128,31 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="overflow-hidden border-y border-white/15 bg-[#0d1015] px-7 py-7 text-white md:px-10">
-              <ol className="grid gap-8 md:grid-cols-4 md:gap-10">
+            <div className="overflow-hidden border-b border-white/15 bg-[#0d1015] text-white">
+              <ol className="grid md:grid-cols-4">
                 {DEPLOYMENT_NODES.map((node, index) => (
                   <li
                     key={node.marker}
-                    className="relative min-w-0 md:text-center"
+                    className="relative min-w-0 border-b border-white/10 py-7 last:border-b-0 md:border-b-0 md:border-l md:text-center md:first:border-l-0"
                   >
-                    <span className="font-mono text-xs font-bold tracking-[0.12em] text-[#5f96ff]">
-                      {node.marker}
-                    </span>
-                    <h3 className="mt-1 text-lg font-semibold tracking-[-0.02em]">
-                      {node.title}
-                    </h3>
+                    <div className="px-7">
+                      <span className="font-mono text-xs font-bold tracking-[0.12em] text-[#5f96ff]">
+                        {node.marker}
+                      </span>
+                      <h3 className="mt-2 text-xl font-semibold tracking-[-0.025em]">
+                        {node.title}
+                      </h3>
+                    </div>
 
-                    <div className="relative mt-5 flex items-center md:justify-center">
+                    <div className="relative mt-6 flex items-center md:justify-center">
                       {index < DEPLOYMENT_NODES.length - 1 && (
                         <span
-                          className="absolute top-1/2 left-1/2 hidden h-0.5 w-[calc(100%+2.5rem)] -translate-y-1/2 bg-[#146dff] md:block"
+                          className="absolute top-1/2 left-1/2 hidden h-1 w-full -translate-y-1/2 bg-[#146dff] md:block"
                           aria-hidden="true"
                         />
                       )}
                       <span
-                        className={`relative z-10 size-3 rounded-full ring-4 ring-[#0d1015] ${
+                        className={`relative z-10 size-5 rounded-full ring-4 ring-[#0d1015] ${
                           index === DEPLOYMENT_NODES.length - 1
                             ? 'bg-[#44b78b]'
                             : 'bg-[#146dff]'
@@ -157,28 +162,30 @@ function TutorialCatalogCard({
                         <ArrowRight
                           size={22}
                           strokeWidth={2.5}
-                          className="absolute top-1/2 -right-7 z-20 hidden -translate-y-1/2 bg-[#0d1015] px-1 text-[#5f96ff] md:block"
+                          className="absolute top-1/2 left-full z-20 hidden -translate-x-1/2 -translate-y-1/2 bg-[#0d1015] px-1 text-[#5f96ff] md:block"
                           aria-hidden="true"
                         />
                       )}
                     </div>
 
-                    <code className="mt-5 block truncate font-mono text-xs font-bold text-zinc-200">
-                      <span className="text-zinc-500" aria-hidden="true">
-                        &gt;{' '}
+                    <div className="px-7">
+                      <code className="mt-6 block truncate font-mono text-[13px] font-bold text-zinc-200">
+                        <span className="text-zinc-500" aria-hidden="true">
+                          &gt;{' '}
+                        </span>
+                        {node.evidence}
+                      </code>
+                      <span
+                        className={`mt-2 block font-mono text-xs font-bold tracking-[0.01em] uppercase ${
+                          index === DEPLOYMENT_NODES.length - 1
+                            ? 'text-[#44b78b]'
+                            : 'text-[#5f96ff]'
+                        }`}
+                      >
+                        {node.status}
+                        <span className="text-zinc-600"> · {node.detail}</span>
                       </span>
-                      {node.evidence}
-                    </code>
-                    <span
-                      className={`mt-2 block font-mono text-xs font-bold tracking-[0.01em] uppercase ${
-                        index === DEPLOYMENT_NODES.length - 1
-                          ? 'text-[#44b78b]'
-                          : 'text-[#5f96ff]'
-                      }`}
-                    >
-                      {node.status}
-                      <span className="text-zinc-600"> · {node.detail}</span>
-                    </span>
+                    </div>
                   </li>
                 ))}
               </ol>
@@ -189,11 +196,11 @@ function TutorialCatalogCard({
             className="grid border-b border-white/15 md:grid-cols-12"
             aria-label="Guide chapters"
           >
-            <div className="py-8 md:col-span-4 md:pr-10">
+            <div className="py-8 md:col-span-3 md:pr-8">
               <p className="text-sm font-semibold text-[#5f96ff]">
                 Inside the guide
               </p>
-              <h3 className="mt-5 text-4xl leading-[0.95] font-medium tracking-[-0.045em] text-white">
+              <h3 className="mt-5 text-3xl leading-[0.95] font-medium tracking-[-0.04em] text-white">
                 Three decisive checks
               </h3>
               <p className="mt-5 max-w-xs text-sm leading-6 text-zinc-300">
@@ -201,22 +208,22 @@ function TutorialCatalogCard({
               </p>
             </div>
 
-            <ol className="border-t border-white/15 md:col-span-8 md:border-t-0 md:border-l">
-              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
+            <ol className="border-t border-white/15 md:col-span-9 md:border-t-0 md:border-l">
+              {DJANGO_GUIDE_CHAPTERS.map((chapter) => (
                 <li
                   key={chapter.hash}
                   className="border-b border-white/15 last:border-b-0"
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-5 p-6 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_6rem_minmax(0,1fr)]"
+                    className="group grid items-center gap-x-5 p-6 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[5.5rem_12rem_minmax(0,1fr)]"
                   >
-                    <span className="font-mono text-2xl font-medium tracking-[-0.08em] text-[#5f96ff]">
-                      0{index + 1}
-                    </span>
-                    <span className="text-sm font-semibold text-zinc-300">
+                    <span className="font-mono text-xs font-bold tracking-[0.08em] text-[#5f96ff] uppercase">
                       {chapter.phase}
                     </span>
+                    <code className="truncate font-mono text-xs font-bold text-zinc-500">
+                      {chapter.evidence}
+                    </code>
                     <span className="mt-2 sm:mt-0">
                       <strong className="inline-flex items-center gap-3 text-xl font-semibold tracking-[-0.025em] text-white transition-colors group-hover:text-[#5f96ff]">
                         {chapter.title}
@@ -236,14 +243,14 @@ function TutorialCatalogCard({
             </ol>
           </nav>
 
-          <div className="mt-10 grid gap-5 bg-[#e3e5df] p-6 text-[#101318] md:grid-cols-12 md:items-center">
-            <h3 className="text-2xl leading-none font-medium tracking-[-0.035em] md:col-span-4">
+          <div className="grid border-b border-white/15 text-white md:grid-cols-12 md:items-stretch">
+            <h3 className="p-6 text-2xl leading-none font-medium tracking-[-0.035em] md:col-span-3">
               Missing your stack?
             </h3>
-            <p className="text-sm leading-6 text-zinc-700 md:col-span-4">
+            <p className="border-t border-white/15 p-6 text-sm leading-6 text-zinc-300 md:col-span-4 md:border-t-0 md:border-l">
               Share the deployment job you need.
             </p>
-            <TutorialRequestGuideLink className="group inline-flex h-10 items-center justify-between bg-[#146dff] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#101318] focus-visible:ring-offset-2 focus-visible:ring-offset-[#e3e5df] focus-visible:outline-none md:col-span-4">
+            <TutorialRequestGuideLink className="group inline-flex items-center justify-between border-t border-white/15 p-6 text-sm font-semibold text-[#5f96ff] transition-colors hover:bg-[#146dff]/10 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-5 md:border-t-0 md:border-l">
               Request the next field note
               <ArrowRight
                 size={16}
@@ -364,7 +371,7 @@ export default function TutorialsPage({
       )}
 
       <main>
-        <section className="container -mt-24 pt-32 pb-6">
+        <section className="container -mt-24 pt-32">
           <div className="grid gap-8 md:grid-cols-12 md:items-stretch">
             <div className="md:col-span-8 lg:col-span-9">
               <p className="text-sm font-semibold text-[#5f96ff]">
@@ -387,12 +394,12 @@ export default function TutorialsPage({
                 <div className="mt-7 flex flex-wrap items-center gap-5">
                   <Link
                     href={firstTutorial.url}
-                    className="group inline-flex h-11 items-center bg-[#146dff] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group inline-flex items-center gap-4 border-b border-[#146dff] py-2 text-sm font-semibold text-white transition-colors hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
-                    Read tutorial
+                    Read the field note
                     <ArrowRight
                       size={15}
-                      className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                      className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
                       aria-hidden="true"
                     />
                   </Link>
@@ -448,7 +455,7 @@ export default function TutorialsPage({
 
         <section
           id="published-tutorials"
-          className="container scroll-mt-28 border-t border-white/10 pt-6 pb-12"
+          className="container scroll-mt-28 pb-12"
           aria-labelledby="published-tutorials-heading"
         >
           {firstTutorial && (
