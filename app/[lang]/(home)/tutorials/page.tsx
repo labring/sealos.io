@@ -102,11 +102,11 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="relative aspect-video overflow-hidden border-b border-white/15 bg-[#0d1015] md:aspect-[2.8/1]">
+            <div className="relative aspect-video overflow-hidden bg-[#0d1015] md:aspect-[3/1]">
               <Image
                 src={DJANGO_PRODUCTION_EVIDENCE}
                 alt="Sealos project canvas with a public Django service, running container, and attached PostgreSQL database"
-                className="object-cover object-center"
+                className="object-cover object-center md:scale-[1.35]"
                 fill
                 priority
                 quality={90}
@@ -131,8 +131,8 @@ function TutorialCatalogCard({
             </ol>
           </figure>
 
-          <nav className="border-b border-white/15" aria-label="Guide chapters">
-            <div className="flex flex-wrap items-end justify-between gap-5 py-7">
+          <nav className="pt-10" aria-label="Guide chapters">
+            <div className="flex flex-wrap items-end justify-between gap-5">
               <div>
                 <p className="text-sm font-semibold text-[#5f96ff]">
                   Inside the guide
@@ -146,17 +146,17 @@ function TutorialCatalogCard({
               </p>
             </div>
 
-            <ol className="border-t border-white/15">
+            <ol className="mt-7 grid border-t border-white/15 md:grid-cols-3">
               {DJANGO_GUIDE_CHAPTERS.map((chapter) => (
                 <li
                   key={chapter.hash}
-                  className="border-b border-white/15 last:border-b-0"
+                  className="border-b border-white/15 md:border-b-0 md:border-l md:first:border-l-0"
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-8 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:grid-cols-[8rem_minmax(20rem,1.5fr)_minmax(14rem,1fr)_1.25rem]"
+                    className="group flex h-full min-h-60 flex-col p-7 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
-                    <span className="font-mono text-xs font-bold tracking-[0.06em] uppercase">
+                    <span className="flex items-center justify-between gap-4 font-mono text-xs font-bold tracking-[0.06em] uppercase">
                       <span
                         className={
                           chapter.phase === 'Verify'
@@ -166,33 +166,33 @@ function TutorialCatalogCard({
                       >
                         {chapter.phase}
                       </span>
-                      <span className="mt-2 block text-zinc-400">
-                        {chapter.result}
-                      </span>
+                      <span className="text-zinc-400">{chapter.result}</span>
                     </span>
-                    <span className="mt-3 md:mt-0">
-                      <strong className="block text-xl font-semibold tracking-[-0.025em] text-white transition-colors group-hover:text-[#5f96ff]">
+                    <span className="mt-8">
+                      <strong className="block text-2xl leading-tight font-semibold tracking-[-0.03em] text-white transition-colors group-hover:text-[#5f96ff]">
                         {chapter.title}
                       </strong>
                       <span className="mt-1 block text-sm leading-6 text-zinc-300">
                         {chapter.detail}
                       </span>
                     </span>
-                    <code className="mt-3 truncate font-mono text-sm font-bold text-zinc-300 md:mt-0">
-                      {chapter.evidence}
-                    </code>
-                    <ArrowRight
-                      size={17}
-                      className="mt-3 text-zinc-300 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white md:mt-0"
-                      aria-hidden="true"
-                    />
+                    <span className="mt-auto flex items-center justify-between gap-4 pt-8">
+                      <code className="truncate font-mono text-sm font-bold text-zinc-300">
+                        {chapter.evidence}
+                      </code>
+                      <ArrowRight
+                        size={17}
+                        className="shrink-0 text-zinc-300 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white"
+                        aria-hidden="true"
+                      />
+                    </span>
                   </Link>
                 </li>
               ))}
             </ol>
           </nav>
 
-          <div className="flex flex-wrap items-center justify-between gap-6 border-b border-white/15 py-6 text-white">
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-6 bg-[#0d1015] px-6 py-5 text-white">
             <div className="flex flex-wrap items-baseline gap-x-8 gap-y-2">
               <h3 className="text-2xl leading-none font-medium tracking-[-0.035em]">
                 Missing your stack?
