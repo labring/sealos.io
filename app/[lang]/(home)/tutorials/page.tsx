@@ -89,60 +89,51 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="overflow-hidden border-b border-white/15 bg-white text-[#111827]">
-              <div className="p-7 md:px-10 md:py-8">
-                <div className="flex flex-wrap items-end justify-between gap-5">
-                  <div>
-                    <p className="text-sm font-bold tracking-[0.08em] text-[#146dff] uppercase">
-                      Django + Sealos
-                    </p>
-                    <h4 className="mt-2 text-4xl font-semibold tracking-[-0.04em]">
-                      Django tasks
-                    </h4>
-                  </div>
-                  <p className="text-base text-zinc-600">
-                    Create a task, then read it from the list below.
-                  </p>
-                </div>
-
-                <div className="mt-7 grid items-center gap-3 sm:grid-cols-[auto_1fr_auto]">
-                  <span className="font-semibold">Title:</span>
-                  <span className="border border-zinc-500 px-4 py-3 text-zinc-600">
-                    Ship Django on Sealos
-                  </span>
-                  <span className="bg-[#146dff] px-5 py-3 text-center font-semibold text-white">
-                    Add task
-                  </span>
-                </div>
-
-                <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-2 border-t border-zinc-300 pt-5">
-                  <h5 className="text-2xl font-semibold tracking-[-0.025em]">
-                    Task list
-                  </h5>
-                  <p className="inline-flex items-center gap-3 text-lg font-semibold">
-                    <span className="size-2 rounded-full bg-[#44b78b]" />
-                    Runtime proof from Sealos
-                  </p>
-                </div>
+            <div className="grid border-b border-black/20 bg-[#f2f0e8] text-[#111827] md:grid-cols-[1.05fr_1.35fr_0.65fr]">
+              <div className="py-7 pr-7">
+                <p className="text-xs font-bold tracking-[0.06em] text-[#146dff] uppercase">
+                  Created task
+                </p>
+                <h4 className="mt-3 text-3xl leading-tight font-semibold tracking-[-0.04em]">
+                  Runtime proof from Sealos
+                </h4>
+                <p className="mt-5 inline-flex items-center gap-3 text-sm font-semibold text-[#16815d]">
+                  <span className="size-2 rounded-full bg-current" />
+                  Persisted after redirect
+                </p>
               </div>
 
-              <div className="grid gap-3 border-t-2 border-[#146dff] bg-[#0d1015] px-6 py-4 font-mono text-xs font-bold text-white md:grid-cols-[1fr_auto_auto] md:items-center md:gap-8">
-                <span className="truncate">
+              <div className="border-t border-black/20 px-7 py-7 md:border-t-0 md:border-l">
+                <p className="text-xs font-bold tracking-[0.06em] text-zinc-500 uppercase">
+                  Public URL
+                </p>
+                <code className="mt-3 block font-mono text-sm leading-6 font-bold break-all">
                   https://django-tasks-mpbrofzu.usw.sealos.io/
-                </span>
-                <code className="text-[#44b78b]">GET / · 200 OK</code>
-                <time className="text-zinc-400 uppercase">
+                </code>
+                <time className="mt-7 block font-mono text-xs font-bold text-zinc-500 uppercase">
                   Sep 03 2026 · 14:22 UTC
                 </time>
+              </div>
+
+              <div className="border-t-2 border-[#146dff] bg-[#0d1015] px-7 py-7 text-white md:border-t-0 md:border-l-2">
+                <p className="text-xs font-bold tracking-[0.06em] text-zinc-400 uppercase">
+                  Request
+                </p>
+                <code className="mt-3 block font-mono text-sm font-bold">
+                  GET /
+                </code>
+                <p className="mt-7 text-4xl leading-none font-semibold tracking-[-0.05em] text-[#44b78b]">
+                  200 OK
+                </p>
               </div>
             </div>
           </figure>
 
           <nav
-            className="mt-10 bg-[#f2f0e8] text-[#0a0a0a]"
+            className="border-t border-black/20 bg-[#f2f0e8] text-[#0a0a0a]"
             aria-label="Guide chapters"
           >
-            <div className="flex flex-wrap items-end justify-between gap-6 p-6 md:px-8">
+            <div className="flex flex-wrap items-end justify-between gap-6 py-6">
               <div>
                 <p className="text-sm font-semibold text-[#146dff]">
                   Inside the guide
@@ -156,7 +147,7 @@ function TutorialCatalogCard({
               </p>
             </div>
 
-            <ol className="border-t border-black/20 px-6 md:px-8">
+            <ol className="border-t border-black/20">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li key={chapter.hash} className="border-b border-black/25">
                   <Link
@@ -192,7 +183,7 @@ function TutorialCatalogCard({
             </ol>
           </nav>
 
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-6 bg-[#0d1015] px-6 py-5 text-white">
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-6 bg-[#0d1015] py-5 text-white">
             <div className="flex flex-wrap items-baseline gap-x-8 gap-y-2">
               <h3 className="text-2xl leading-none font-medium tracking-[-0.035em]">
                 Missing your stack?
