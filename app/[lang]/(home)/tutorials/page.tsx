@@ -148,7 +148,7 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid gap-5 bg-[#f2f0e8] py-5 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none lg:grid-cols-[3rem_16.5rem_1fr] lg:items-center lg:gap-5"
+                    className="group relative grid gap-5 bg-[#f2f0e8] py-5 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none lg:grid-cols-[3rem_16.5rem_1fr] lg:items-center lg:gap-5"
                   >
                     <span
                       className={`font-medium tracking-[-0.055em] ${
@@ -179,6 +179,16 @@ function TutorialCatalogCard({
                     </span>
                     <span className="text-[15px] leading-6 text-zinc-700">
                       {chapter.detail}
+                    </span>
+                    <span
+                      className={`absolute top-1/2 right-0 z-10 hidden h-7 w-7 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#f2f0e8] font-mono text-sm transition-colors lg:flex ${
+                        index === DJANGO_GUIDE_CHAPTERS.length - 1
+                          ? 'bg-[#16815d] text-white'
+                          : 'bg-[#090909] text-zinc-300 group-hover:bg-[#146dff] group-hover:text-white'
+                      }`}
+                      aria-hidden="true"
+                    >
+                      →
                     </span>
                   </Link>
 
