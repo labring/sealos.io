@@ -141,7 +141,7 @@ function TutorialCatalogCard({
                     href={`${tutorial.url}${chapter.hash}`}
                     className="group flex min-h-80 flex-col py-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none"
                   >
-                    <span className="flex items-start justify-between gap-5">
+                    <span className="flex items-center gap-4">
                       <span
                         className={`text-4xl font-medium tracking-[-0.055em] ${
                           index === DJANGO_GUIDE_CHAPTERS.length - 1
@@ -151,7 +151,13 @@ function TutorialCatalogCard({
                       >
                         0{index + 1}
                       </span>
-                      <span className="pt-1 text-sm font-semibold text-zinc-600">
+                      <span
+                        className={`text-xs font-bold tracking-[0.12em] uppercase ${
+                          index === DJANGO_GUIDE_CHAPTERS.length - 1
+                            ? 'text-[#16815d]'
+                            : 'text-zinc-600'
+                        }`}
+                      >
                         {chapter.phase}
                       </span>
                     </span>
@@ -302,11 +308,11 @@ export default function TutorialsPage({
               <p className="text-sm font-semibold text-zinc-400">
                 Deployment field note
               </p>
-              <h1 className="mt-6 text-6xl leading-[0.92] font-medium tracking-[-0.055em] text-white md:text-[4.75rem]">
+              <h1 className="mt-6 text-6xl leading-[0.92] font-medium tracking-[-0.06em] text-white md:text-[6rem] md:leading-[0.86]">
                 <span className="block">Deploy Django</span>
                 <span className="block">on Sealos</span>
               </h1>
-              <div className="mt-7 pt-6">
+              <div className="mt-8">
                 <p className="max-w-[35rem] text-lg leading-8 text-zinc-300">
                   Build a Django 5.2 Task app with Gunicorn, WhiteNoise, and
                   PostgreSQL. Deploy it on Sealos and verify a live create/read
@@ -338,8 +344,8 @@ export default function TutorialsPage({
                     height={52}
                     className="h-7 w-auto opacity-80 invert"
                   />
-                  <span className="font-mono text-xs text-zinc-500">
-                    Django 5.2
+                  <span className="font-mono text-[11px] font-semibold tracking-[0.08em] text-[#44b78b] uppercase">
+                    Verified · 2026.09.02
                   </span>
                 </div>
 
@@ -350,7 +356,7 @@ export default function TutorialsPage({
                   <p className="mt-3 font-mono text-5xl font-medium tracking-[-0.06em] text-white">
                     <span className="text-[#44b78b]">200</span> OK
                   </p>
-                  <p className="mt-3 max-w-xs text-sm leading-6 text-zinc-400">
+                  <p className="mt-3 max-w-xs text-[15px] leading-6 text-zinc-300">
                     The submitted task remained after a fresh HTTP/2 load.
                   </p>
                 </div>
@@ -361,20 +367,15 @@ export default function TutorialsPage({
                       key={proof.stage}
                       className="border-l border-white/10 px-3 py-3 first:border-l-0"
                     >
-                      <span className="block text-[10px] font-medium text-zinc-500">
+                      <span className="block text-[11px] font-medium text-zinc-400">
                         0{index + 1} · {proof.stage}
                       </span>
-                      <code className="mt-1 block font-mono text-xs font-bold text-zinc-300">
+                      <code className="mt-1 block font-mono text-[13px] font-bold text-zinc-200">
                         {proof.value}
                       </code>
                     </li>
                   ))}
                 </ol>
-
-                <div className="flex justify-between gap-4 border-t border-white/10 px-7 py-3 text-xs text-zinc-500">
-                  <span>PostgreSQL</span>
-                  <span>2026-09-02</span>
-                </div>
               </div>
             </aside>
           </div>
