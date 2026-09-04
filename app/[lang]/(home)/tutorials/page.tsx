@@ -33,19 +33,19 @@ const DJANGO_PROOF_NODES = [
     label: '01 / PUBLIC HTTPS',
     title: 'Public edge',
     detail: 'Reachable on port 443',
-    imageClassName: 'origin-left scale-[2.2]',
+    imageClassName: 'origin-[13%_28%] scale-[2.6]',
   },
   {
     label: '02 / APP RUNTIME',
     title: 'Django container',
     detail: 'Gunicorn process running',
-    imageClassName: 'origin-center scale-[2.2]',
+    imageClassName: 'origin-[56%_37%] scale-[2.6]',
   },
   {
     label: '03 / PRIVATE DATA',
     title: 'PostgreSQL',
     detail: 'Private service attached',
-    imageClassName: 'origin-right scale-[2.2]',
+    imageClassName: 'origin-[98%_53%] scale-[2.6]',
   },
 ] as const;
 
@@ -107,65 +107,60 @@ function TutorialCatalogCard({
             <h2 className="text-2xl font-medium tracking-[-0.035em] text-white">
               Production evidence / DJANGO–01
             </h2>
-            <p className="hidden text-sm text-zinc-400 sm:block">
-              Captured from a live Sealos project
+            <p className="hidden items-baseline gap-3 sm:flex">
+              <span className="text-sm text-zinc-400">Final response</span>
+              <strong className="font-mono text-base text-white">200 OK</strong>
             </p>
           </div>
 
-          <div className="grid overflow-hidden border border-white/15 md:grid-cols-3 md:divide-x md:divide-white/15">
-            {DJANGO_PROOF_NODES.map((node, index) => (
-              <figure
-                key={node.label}
-                className="border-b border-white/15 last:border-b-0 md:border-b-0"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#10131c]">
-                  <Image
-                    src={DJANGO_DEPLOYMENT_IMAGE}
-                    alt={`${node.title} deployment evidence`}
-                    className={`object-cover object-center ${node.imageClassName}`}
-                    fill
-                    priority={priorityImage && index === 0}
-                    quality={90}
-                    sizes="(max-width: 760px) 100vw, 30vw"
-                  />
-                </div>
-                <figcaption className="bg-[#111419] p-5">
-                  <p className="font-mono text-xs font-bold tracking-[0.05em] text-zinc-400">
-                    {node.label}
-                  </p>
-                  <p className="mt-5 text-xl font-medium tracking-[-0.02em] text-white">
-                    {node.title}
-                  </p>
-                  <p className="mt-1 text-sm text-zinc-300">{node.detail}</p>
-                </figcaption>
-              </figure>
-            ))}
+          <div className="overflow-hidden border border-white/15">
+            <figure>
+              <div className="relative aspect-[8/3] overflow-hidden bg-[#10131c]">
+                <Image
+                  src={DJANGO_DEPLOYMENT_IMAGE}
+                  alt="Complete Sealos path from public access through the Django container to PostgreSQL"
+                  className="object-cover object-center"
+                  fill
+                  priority={priorityImage}
+                  quality={90}
+                  sizes="(max-width: 760px) 100vw, 90vw"
+                />
+              </div>
+              <figcaption className="flex items-center justify-between gap-4 border-t border-white/15 bg-[#111419] px-5 py-3 text-sm text-zinc-300">
+                <span>Complete running topology</span>
+                <span className="font-mono text-xs font-bold tracking-[0.04em]">
+                  PUBLIC → RUNTIME → DATA
+                </span>
+              </figcaption>
+            </figure>
 
-            <div className="grid bg-[#e3e5df] text-[#101318] md:col-span-3 md:grid-cols-12">
-              <div className="border-b border-black/15 p-6 md:col-span-3 md:border-r md:border-b-0">
-                <p className="text-xs font-semibold tracking-[0.05em] text-zinc-600 uppercase">
-                  Final response
-                </p>
-                <p className="mt-3 font-mono text-4xl leading-none font-medium tracking-[-0.06em]">
-                  200 OK
-                </p>
-              </div>
-              <div className="border-b border-black/15 p-6 md:col-span-6 md:border-r md:border-b-0">
-                <h3 className="text-2xl leading-tight font-medium tracking-[-0.035em]">
-                  Public edge, app runtime, and private data on one visible
-                  path.
-                </h3>
-                <p className="mt-3 text-sm leading-6 text-zinc-700">
-                  Three live services form the deployment recorded in the guide.
-                </p>
-              </div>
-              <p className="p-6 text-sm leading-6 text-zinc-700 md:col-span-3">
-                Django 5.2
-                <br />
-                Gunicorn + WhiteNoise
-                <br />
-                PostgreSQL
-              </p>
+            <div className="grid border-t border-white/15 md:grid-cols-3 md:divide-x md:divide-white/15">
+              {DJANGO_PROOF_NODES.map((node) => (
+                <figure
+                  key={node.label}
+                  className="border-b border-white/15 last:border-b-0 md:border-b-0"
+                >
+                  <div className="relative aspect-[11/5] overflow-hidden bg-[#10131c]">
+                    <Image
+                      src={DJANGO_DEPLOYMENT_IMAGE}
+                      alt={`${node.title} deployment evidence`}
+                      className={`object-cover object-center ${node.imageClassName}`}
+                      fill
+                      quality={90}
+                      sizes="(max-width: 760px) 100vw, 30vw"
+                    />
+                  </div>
+                  <figcaption className="bg-[#e3e5df] p-5 text-[#101318]">
+                    <p className="font-mono text-xs font-bold tracking-[0.05em] text-zinc-600">
+                      {node.label}
+                    </p>
+                    <p className="mt-4 text-lg font-medium tracking-[-0.02em]">
+                      {node.title}
+                    </p>
+                    <p className="mt-1 text-sm text-zinc-700">{node.detail}</p>
+                  </figcaption>
+                </figure>
+              ))}
             </div>
           </div>
 
@@ -353,9 +348,13 @@ export default function TutorialsPage({
                 <span className="block">on Sealos</span>
               </h1>
               <p className="mt-7 max-w-2xl text-base leading-7 text-zinc-300">
-                Build a Django 5.2 Task app with Gunicorn, WhiteNoise, and
-                PostgreSQL, then deploy it on Sealos and verify a live
-                create/read flow.
+                <span className="block">
+                  Build a Django 5.2 Task app with Gunicorn, WhiteNoise, and
+                  PostgreSQL.
+                </span>
+                <span className="block">
+                  Deploy it on Sealos and verify a live create/read flow.
+                </span>
               </p>
               {firstTutorial && (
                 <div className="mt-7 flex flex-wrap items-center gap-5">
