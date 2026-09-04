@@ -25,6 +25,8 @@ const TUTORIALS_PAGE_TITLE = 'Sealos Deployment Tutorials';
 const TUTORIALS_PAGE_DESCRIPTION =
   'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
+const DJANGO_LIVE_EVIDENCE =
+  '/images/tutorials/django/django-sealos-live-app-https-proof-hd.png';
 const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
@@ -89,41 +91,52 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="grid border-b border-black/20 bg-[#f2f0e8] text-[#111827] md:grid-cols-[1.05fr_1.35fr_0.65fr]">
-              <div className="py-7 pr-7">
-                <p className="text-xs font-bold tracking-[0.06em] text-[#146dff] uppercase">
-                  Created task
-                </p>
-                <h4 className="mt-3 text-3xl leading-tight font-semibold tracking-[-0.04em]">
-                  Runtime proof from Sealos
-                </h4>
-                <p className="mt-5 inline-flex items-center gap-3 text-sm font-semibold text-[#16815d]">
+            <div className="grid overflow-hidden border-b border-white/15 bg-[#08101f] md:grid-cols-[1fr_18rem]">
+              <div className="relative aspect-video overflow-hidden bg-[#eef1f6] md:aspect-auto md:min-h-96">
+                <Image
+                  src={DJANGO_LIVE_EVIDENCE}
+                  alt="Live Django task application showing the saved Runtime proof from Sealos task"
+                  fill
+                  className="object-cover object-center"
+                  priority
+                  quality={100}
+                  sizes="(max-width: 768px) 100vw, 76vw"
+                />
+              </div>
+
+              <div className="flex flex-col border-t-2 border-[#146dff] bg-[#0d1015] p-7 text-white md:border-t-0 md:border-l-2">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase">
+                    Request receipt
+                  </span>
+                  <time className="font-mono text-[10px] font-bold text-zinc-500 uppercase">
+                    14:22 UTC
+                  </time>
+                </div>
+
+                <div className="mt-8 font-mono text-xs leading-6">
+                  <span className="text-zinc-500">$</span>{' '}
+                  <span className="font-bold">curl --fail</span>
+                  <code className="mt-2 block break-all text-zinc-300">
+                    https://django-tasks-mpbrofzu.usw.sealos.io/
+                  </code>
+                </div>
+
+                <div className="mt-8 border-y border-white/20 py-5">
+                  <p className="font-mono text-3xl font-semibold tracking-[-0.04em] text-[#44b78b]">
+                    HTTP/2 200
+                  </p>
+                  <p className="mt-3 font-mono text-xs text-zinc-400">
+                    content-type: text/html
+                  </p>
+                  <p className="mt-1 font-mono text-xs text-zinc-400">
+                    x-forwarded-proto: https
+                  </p>
+                </div>
+
+                <p className="mt-auto inline-flex items-center gap-3 pt-6 text-sm font-semibold text-[#44b78b]">
                   <span className="size-2 rounded-full bg-current" />
-                  Persisted after redirect
-                </p>
-              </div>
-
-              <div className="border-t border-black/20 px-7 py-7 md:border-t-0 md:border-l">
-                <p className="text-xs font-bold tracking-[0.06em] text-zinc-500 uppercase">
-                  Public URL
-                </p>
-                <code className="mt-3 block font-mono text-sm leading-6 font-bold break-all">
-                  https://django-tasks-mpbrofzu.usw.sealos.io/
-                </code>
-                <time className="mt-7 block font-mono text-xs font-bold text-zinc-500 uppercase">
-                  Sep 03 2026 · 14:22 UTC
-                </time>
-              </div>
-
-              <div className="border-t-2 border-[#146dff] bg-[#0d1015] px-7 py-7 text-white md:border-t-0 md:border-l-2">
-                <p className="text-xs font-bold tracking-[0.06em] text-zinc-400 uppercase">
-                  Request
-                </p>
-                <code className="mt-3 block font-mono text-sm font-bold">
-                  GET /
-                </code>
-                <p className="mt-7 text-4xl leading-none font-semibold tracking-[-0.05em] text-[#44b78b]">
-                  200 OK
+                  Saved row persisted
                 </p>
               </div>
             </div>
