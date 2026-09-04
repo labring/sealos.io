@@ -33,22 +33,22 @@ const DJANGO_EVIDENCE_NODES = [
     phase: '01 · Configure',
     label: 'Django runtime',
     status: 'Running · :8000',
-    position: '56% 34%',
-    highlightClassName: 'top-[38%] right-[4%] bottom-[12%] left-[4%]',
+    proof: 'Gunicorn · config.wsgi:application',
+    position: '56% 42%',
   },
   {
     phase: '02 · Deploy',
     label: 'PostgreSQL',
     status: 'Private · attached',
-    position: '88% 34%',
-    highlightClassName: 'top-[37%] right-[4%] bottom-[10%] left-[4%]',
+    proof: 'DATABASE_URL · private service',
+    position: '87% 39%',
   },
   {
     phase: '03 · Verify',
     label: 'Public HTTPS',
     status: 'HTTP 200 · live',
-    position: '22% 34%',
-    highlightClassName: 'top-[39%] right-[4%] bottom-[9%] left-[4%]',
+    proof: 'GET / · HTTPS 200',
+    position: '22% 42%',
   },
 ] as const;
 
@@ -155,21 +155,21 @@ function TutorialCatalogCard({
                     <div
                       role="img"
                       aria-label={`${node.label}: ${node.status}`}
-                      className="relative mt-4 h-48 bg-no-repeat brightness-[1.4] contrast-125"
+                      className="mt-4 h-44 bg-no-repeat brightness-[1.4] contrast-125"
                       style={{
                         backgroundImage: `url(${DJANGO_PRODUCTION_EVIDENCE})`,
                         backgroundPosition: node.position,
-                        backgroundSize: '460% auto',
+                        backgroundSize: '480% auto',
                       }}
-                    >
-                      <span
-                        className={`absolute border border-[#5f96ff] bg-[#146dff]/5 shadow-[0_0_0_1px_rgba(0,0,0,0.6)] ${node.highlightClassName}`}
-                        aria-hidden="true"
-                      />
+                    />
+                    <div className="mt-4 border-l-2 border-[#146dff] pl-3">
+                      <p className="text-xl font-semibold tracking-[-0.025em] text-white">
+                        {node.label}
+                      </p>
+                      <code className="mt-1 block font-mono text-xs font-bold text-zinc-300">
+                        {node.proof}
+                      </code>
                     </div>
-                    <p className="mt-4 text-xl font-semibold tracking-[-0.025em] text-white">
-                      {node.label}
-                    </p>
                   </li>
                 ))}
               </ol>
@@ -194,20 +194,22 @@ function TutorialCatalogCard({
               </p>
             </div>
 
-            <ol className="border-t border-black/20">
+            <ol className="grid border-t border-black/20 md:grid-cols-3">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
-                  className="border-b border-black/20 last:border-b-0"
+                  className={`border-b border-black/20 last:border-b-0 md:border-b-0 md:border-l md:first:border-l-0 ${
+                    chapter.phase === 'Verify' ? 'bg-[#e7efe9]' : ''
+                  }`}
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid min-h-28 grid-cols-[3.5rem_1fr_auto] items-center gap-x-5 p-6 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[4.5rem_1.15fr_1fr_auto] md:px-10"
+                    className="group flex min-h-56 flex-col p-7 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none"
                   >
-                    <span className="font-mono text-3xl leading-none font-medium tracking-[-0.05em] text-zinc-400">
-                      0{index + 1}
-                    </span>
-                    <span>
+                    <span className="flex items-center justify-between gap-4">
+                      <span className="font-mono text-3xl leading-none font-medium tracking-[-0.05em] text-zinc-500">
+                        0{index + 1}
+                      </span>
                       <span
                         className={`font-mono text-xs font-bold tracking-[0.06em] uppercase ${
                           chapter.phase === 'Verify'
@@ -215,25 +217,34 @@ function TutorialCatalogCard({
                             : 'text-[#146dff]'
                         }`}
                       >
-                        {chapter.phase} · {chapter.result}
+                        {chapter.result}
                       </span>
-                      <strong className="mt-4 block text-2xl leading-tight font-semibold tracking-[-0.035em] transition-colors group-hover:text-[#146dff]">
-                        {chapter.title}
-                      </strong>
                     </span>
-                    <span className="col-start-2 mt-3 md:col-start-auto md:mt-0">
-                      <span className="mt-1 block text-sm leading-6 text-zinc-600">
-                        {chapter.detail}
-                      </span>
-                      <code className="mt-4 block font-mono text-xs font-bold text-zinc-600">
+                    <span
+                      className={`mt-6 font-mono text-xs font-bold tracking-[0.06em] uppercase ${
+                        chapter.phase === 'Verify'
+                          ? 'text-[#16815d]'
+                          : 'text-[#146dff]'
+                      }`}
+                    >
+                      {chapter.phase}
+                    </span>
+                    <strong className="mt-3 block text-2xl leading-tight font-semibold tracking-[-0.035em] transition-colors group-hover:text-[#146dff]">
+                      {chapter.title}
+                    </strong>
+                    <span className="mt-1 block text-sm leading-6 text-zinc-600">
+                      {chapter.detail}
+                    </span>
+                    <span className="mt-auto flex items-center justify-between gap-4 pt-7">
+                      <code className="font-mono text-xs font-bold text-zinc-600">
                         {chapter.evidence}
                       </code>
+                      <ArrowRight
+                        size={20}
+                        className="shrink-0 text-[#146dff] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                        aria-hidden="true"
+                      />
                     </span>
-                    <ArrowRight
-                      size={20}
-                      className="self-center text-[#146dff] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
-                      aria-hidden="true"
-                    />
                   </Link>
                 </li>
               ))}
