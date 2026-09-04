@@ -57,7 +57,9 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#prepare-django-for-production',
     image: '/images/tutorials/django/django-sealos-project-ops-running.webp',
     imageAlt: 'Public HTTPS service captured in the live Sealos project',
-    cropClassName: 'scale-[2.25] origin-[23%_47%]',
+    imageSize: '290% auto',
+    imagePosition: '12% 47%',
+    imageClassName: 'brightness-125 contrast-110',
   },
   {
     title: 'Deploy with Sealos Skills',
@@ -65,7 +67,9 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#deploy-with-sealos-skills',
     image: '/images/tutorials/django/django-sealos-project-ops-running.webp',
     imageAlt: 'Running Django container captured in the live Sealos project',
-    cropClassName: 'scale-[2.25] origin-[50%_47%]',
+    imageSize: '290% auto',
+    imagePosition: '50% 47%',
+    imageClassName: 'brightness-125 contrast-110',
   },
   {
     title: 'Verify the live application',
@@ -73,7 +77,9 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#verify-the-live-django-application',
     image: '/images/tutorials/django/django-sealos-live-app-https-proof.webp',
     imageAlt: 'Live Django task application after deployment',
-    cropClassName: 'scale-[1.45] origin-[50%_47%]',
+    imageSize: '145% auto',
+    imagePosition: '50% 47%',
+    imageClassName: 'brightness-75 contrast-110',
   },
 ] as const;
 
@@ -166,7 +172,7 @@ function TutorialCatalogCard({
                       <span className="size-2 rounded-full bg-emerald-400" />
                       {node.status}
                     </span>
-                    <span className="mt-3 text-xs text-zinc-500">
+                    <span className="mt-3 text-xs text-zinc-400">
                       {node.evidence}
                     </span>
                   </li>
@@ -198,17 +204,22 @@ function TutorialCatalogCard({
                     href={`${tutorial.url}${chapter.hash}`}
                     className="group block h-full p-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:p-6"
                   >
-                    <span className="relative block h-36 overflow-hidden bg-[#101726]">
-                      <Image
-                        src={chapter.image}
-                        alt={chapter.imageAlt}
-                        fill
-                        className={`object-cover opacity-90 transition-opacity duration-500 group-hover:opacity-100 ${chapter.cropClassName}`}
-                        sizes="(max-width: 760px) 90vw, 26vw"
+                    <span className="mb-3 flex items-center justify-between font-mono text-xs font-semibold">
+                      <span className="text-[#5f96ff]">0{index + 1}</span>
+                      <span className="text-zinc-500">Evidence capture</span>
+                    </span>
+                    <span className="relative block h-40 overflow-hidden bg-[#101726]">
+                      <span
+                        role="img"
+                        aria-label={chapter.imageAlt}
+                        className={`absolute inset-0 bg-no-repeat transition-opacity duration-500 group-hover:opacity-100 ${chapter.imageClassName}`}
+                        style={{
+                          backgroundImage: `url(${chapter.image})`,
+                          backgroundPosition: chapter.imagePosition,
+                          backgroundSize: chapter.imageSize,
+                        }}
                       />
-                      <span className="absolute top-3 left-3 bg-[#090909]/90 px-2 py-1 font-mono text-xs font-semibold text-[#5f96ff]">
-                        0{index + 1}
-                      </span>
+                      <span className="absolute inset-0 ring-1 ring-white/10 ring-inset" />
                     </span>
                     <strong className="mt-5 inline-flex items-center gap-3 text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
                       {chapter.title}
@@ -218,7 +229,7 @@ function TutorialCatalogCard({
                         aria-hidden="true"
                       />
                     </strong>
-                    <span className="mt-2 block text-sm text-zinc-400">
+                    <span className="mt-2 block text-sm text-zinc-300">
                       {chapter.detail}
                     </span>
                   </Link>
@@ -374,13 +385,13 @@ export default function TutorialsPage({
               </div>
             )}
           </div>
-          <div className="mt-8 md:col-span-4 md:mt-0 md:flex md:items-end md:pb-2 md:pl-8">
+          <div className="mt-8 md:col-span-4 md:mt-0 md:flex md:items-end md:self-stretch md:pb-2 md:pl-8">
             <div className="max-w-sm">
               <span
-                className="block h-1 w-12 bg-[#146dff]"
+                className="block h-1 w-full bg-[#146dff]"
                 aria-hidden="true"
               />
-              <p className="mt-5 text-2xl leading-8 font-medium tracking-tight text-zinc-100">
+              <p className="mt-5 text-3xl leading-9 font-medium tracking-[-0.035em] text-zinc-100">
                 A field-tested route from a Django repository to a public
                 response.
               </p>
@@ -457,7 +468,7 @@ export default function TutorialsPage({
             <p className="text-sm leading-6 text-zinc-400">
               Share the deployment job you need.
             </p>
-            <TutorialRequestGuideLink className="group inline-flex h-10 shrink-0 items-center rounded-sm border border-[#146dff]/70 px-4 text-sm font-semibold text-[#5f96ff] transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-[#146dff] hover:bg-[#146dff] hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none">
+            <TutorialRequestGuideLink className="group inline-flex shrink-0 items-center border-b border-[#146dff] py-1 text-sm font-semibold text-[#5f96ff] transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-white hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none">
               Request the next field note
               <ArrowRight
                 size={16}
