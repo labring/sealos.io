@@ -114,22 +114,22 @@ function TutorialCatalogCard({
 
       {isDjangoGuide ? (
         <div>
-          <figure className="overflow-hidden border border-l-4 border-white/15 border-l-[#146dff]">
+          <figure className="overflow-hidden border border-white/15">
             <figcaption className="flex items-center justify-between gap-4 border-b border-white/15 bg-[#111419] px-6 py-4 text-white">
               <span className="text-xl font-semibold tracking-tight">
                 Django deployment receipt
               </span>
-              <span className="font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff]">
+              <span className="font-mono text-xs font-bold tracking-[0.06em] text-zinc-400">
                 RUN 01 / VERIFIED
               </span>
             </figcaption>
 
-            <div className="grid bg-[#c3c8c5] text-[#101318] md:grid-cols-12">
-              <div className="border-b border-zinc-600/30 bg-[#b6bcb9] p-6 md:col-span-3 md:border-r md:border-b-0">
+            <div className="grid bg-[#d4d7d4] text-[#101318] md:grid-cols-12">
+              <div className="border-b border-zinc-600/30 bg-[#b3bab6] p-6 md:col-span-3 md:border-r md:border-b-0">
                 <p className="text-sm font-semibold text-zinc-700">
                   Request trace
                 </p>
-                <p className="mt-4 font-mono text-5xl leading-none font-medium tracking-[-0.08em] text-[#146dff]">
+                <p className="mt-4 font-mono text-5xl leading-none font-medium tracking-[-0.08em] text-[#101318]">
                   04
                 </p>
                 <p className="mt-3 text-lg font-bold">Request events</p>
@@ -138,7 +138,7 @@ function TutorialCatalogCard({
                 </code>
               </div>
 
-              <div className="relative md:col-span-9">
+              <div className="relative bg-[repeating-linear-gradient(0deg,rgba(16,19,24,0.018)_0,rgba(16,19,24,0.018)_1px,transparent_1px,transparent_4px)] md:col-span-9">
                 <span
                   className="absolute top-7 bottom-7 left-[2.2rem] w-px bg-[#146dff]/45"
                   aria-hidden="true"
@@ -163,7 +163,13 @@ function TutorialCatalogCard({
                           {step.evidence}
                         </code>
                       </span>
-                      <strong className="col-start-2 font-mono text-xs font-bold text-[#146dff] md:col-span-2 md:col-start-auto md:text-right">
+                      <strong
+                        className={`col-start-2 font-mono text-xs font-bold md:col-span-2 md:col-start-auto md:text-right ${
+                          step.marker === '04'
+                            ? 'text-[#146dff]'
+                            : 'text-zinc-700'
+                        }`}
+                      >
                         {step.transport}
                       </strong>
                     </li>
@@ -173,8 +179,12 @@ function TutorialCatalogCard({
             </div>
 
             <div className="grid gap-2 bg-[#101318] px-6 py-3.5 text-white md:grid-cols-12 md:items-center md:gap-x-6">
-              <span className="text-sm font-bold text-[#44b78b] md:col-span-3">
-                ✓ Persisted task
+              <span className="inline-flex items-center gap-2 text-sm font-bold text-zinc-100 md:col-span-3">
+                <span
+                  className="size-1.5 rounded-full bg-[#44b78b]"
+                  aria-hidden="true"
+                />
+                Persisted task
               </span>
               <strong className="text-sm font-semibold md:col-span-6">
                 Runtime proof from Sealos
@@ -225,8 +235,12 @@ function TutorialCatalogCard({
                           {chapter.detail}
                         </span>
                       </span>
-                      <span className="text-sm font-semibold whitespace-nowrap text-[#44b78b] md:col-span-2 md:text-right">
-                        ✓ {chapter.result}
+                      <span className="inline-flex items-center gap-2 text-sm font-semibold whitespace-nowrap text-zinc-300 md:col-span-2 md:justify-end">
+                        <span
+                          className="size-1.5 rounded-full bg-[#44b78b]"
+                          aria-hidden="true"
+                        />
+                        {chapter.result}
                       </span>
                     </Link>
                   </li>
@@ -405,12 +419,12 @@ export default function TutorialsPage({
               )}
             </div>
 
-            <aside className="border-t border-white/15 pt-6 md:col-span-4 md:border-t-0 md:border-l md:pt-0 md:pl-8">
+            <aside className="border border-[#44b78b]/40 bg-[#0c4b33] p-6 md:col-span-4">
               <div className="flex items-center justify-between gap-4">
-                <p className="text-sm font-semibold text-[#5f96ff]">
+                <p className="text-sm font-semibold text-[#b8e8d1]">
                   Runtime profile
                 </p>
-                <span className="text-sm font-semibold text-zinc-400">
+                <span className="text-sm font-semibold text-[#b8e8d1]">
                   Production
                 </span>
               </div>
@@ -422,28 +436,32 @@ export default function TutorialsPage({
                   height={36}
                   className="h-7 w-auto invert"
                 />
-                <span className="font-mono text-4xl leading-none font-medium tracking-[-0.08em] text-[#5f96ff]">
+                <span className="font-mono text-4xl leading-none font-medium tracking-[-0.08em] text-white">
                   5.2
                 </span>
               </div>
-              <dl className="mt-7 divide-y divide-white/15 border-y border-white/15">
+              <dl className="mt-7 divide-y divide-white/20 border-y border-white/20">
                 <div className="flex items-center justify-between gap-4 py-3">
-                  <dt className="text-sm text-zinc-400">WSGI server</dt>
+                  <dt className="text-sm text-[#b8e8d1]">WSGI server</dt>
                   <dd className="text-sm font-semibold text-white">Gunicorn</dd>
                 </div>
                 <div className="flex items-center justify-between gap-4 py-3">
-                  <dt className="text-sm text-zinc-400">Data service</dt>
+                  <dt className="text-sm text-[#b8e8d1]">Data service</dt>
                   <dd className="text-sm font-semibold text-white">
                     PostgreSQL
                   </dd>
                 </div>
                 <div className="flex items-center justify-between gap-4 py-3">
-                  <dt className="text-sm text-zinc-400">Public edge</dt>
+                  <dt className="text-sm text-[#b8e8d1]">Public edge</dt>
                   <dd className="text-sm font-semibold text-white">HTTPS</dd>
                 </div>
               </dl>
-              <p className="mt-4 text-sm font-semibold text-[#44b78b]">
-                ✓ Production stack verified
+              <p className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white">
+                <span
+                  className="size-1.5 rounded-full bg-[#73d6aa]"
+                  aria-hidden="true"
+                />
+                Production stack verified
               </p>
             </aside>
           </div>
