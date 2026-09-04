@@ -29,7 +29,6 @@ const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
     evidence: 'config.wsgi:application',
-    result: 'WSGI ready',
     title: 'Prepare Django for production',
     detail: 'Configure Gunicorn and WhiteNoise.',
     hash: '#prepare-django-for-production',
@@ -37,7 +36,6 @@ const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Deploy',
     evidence: 'DATABASE_URL → :5432',
-    result: 'Services linked',
     title: 'Deploy with Sealos Skills',
     detail: 'Connect the application and database.',
     hash: '#deploy-with-sealos-skills',
@@ -45,7 +43,6 @@ const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Verify',
     evidence: 'GET / → HTTP 200',
-    result: 'Flow verified',
     title: 'Verify the live application',
     detail: 'Confirm the HTTPS create/read flow.',
     hash: '#verify-the-live-django-application',
@@ -86,74 +83,57 @@ function TutorialCatalogCard({
       {isDjangoGuide ? (
         <div>
           <figure>
-            <figcaption className="flex flex-wrap items-center justify-between gap-4 border-y border-white/15 py-5">
+            <figcaption className="border-y border-white/15 py-5">
               <span className="text-2xl font-medium tracking-[-0.035em] text-white">
                 Production evidence
               </span>
-              <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#44b78b]">
-                <span
-                  className="size-2 rounded-full bg-current"
-                  aria-hidden="true"
-                />
-                Verified live path
-              </span>
             </figcaption>
 
-            <div className="overflow-hidden border-b border-white/15 bg-[#eef1f6]">
-              <div className="flex min-h-11 flex-wrap items-center gap-5 border-b border-black/15 bg-[#e4e8ee] px-5 py-2 text-[#10131a]">
-                <span className="font-mono text-[11px] font-bold tracking-[0.04em] text-[#146dff] uppercase">
-                  Verified result
-                </span>
-                <span className="min-w-0 flex-1 truncate font-mono text-xs font-semibold">
-                  https://django-tasks-mpbrofzu.usw.sealos.io/
-                </span>
-                <time className="font-mono text-[11px] font-bold tracking-[0.04em] text-zinc-600 uppercase">
-                  Sep 03 2026 · 14:22 UTC
-                </time>
-              </div>
-
-              <div className="bg-[#eef1f6] p-7 text-[#111827] md:min-h-[21rem] md:p-10">
-                <div className="mx-auto max-w-5xl border border-zinc-300 bg-white p-7 shadow-[0_18px_50px_rgba(22,39,74,0.08)] md:p-9">
-                  <p className="text-sm font-bold tracking-[0.08em] text-[#146dff] uppercase">
-                    Django + Sealos
-                  </p>
-                  <h4 className="mt-3 text-4xl font-semibold tracking-[-0.04em]">
-                    Django tasks
-                  </h4>
-                  <p className="mt-3 text-base text-zinc-600">
+            <div className="overflow-hidden border-b border-white/15 bg-white text-[#111827]">
+              <div className="p-7 md:px-10 md:py-8">
+                <div className="flex flex-wrap items-end justify-between gap-5">
+                  <div>
+                    <p className="text-sm font-bold tracking-[0.08em] text-[#146dff] uppercase">
+                      Django + Sealos
+                    </p>
+                    <h4 className="mt-2 text-4xl font-semibold tracking-[-0.04em]">
+                      Django tasks
+                    </h4>
+                  </div>
+                  <p className="text-base text-zinc-600">
                     Create a task, then read it from the list below.
                   </p>
-                  <div className="mt-7 grid items-center gap-3 sm:grid-cols-[auto_1fr_auto]">
-                    <span className="font-semibold">Title:</span>
-                    <span className="border border-zinc-500 px-4 py-3 text-zinc-600">
-                      Ship Django on Sealos
-                    </span>
-                    <span className="bg-[#146dff] px-5 py-3 text-center font-semibold text-white">
-                      Add task
-                    </span>
-                  </div>
-                  <div className="mt-7 flex flex-wrap items-baseline gap-x-8 gap-y-2">
-                    <h5 className="text-2xl font-semibold tracking-[-0.025em]">
-                      Task list
-                    </h5>
-                    <p className="inline-flex items-center gap-3 text-base font-medium">
-                      <span className="size-2 rounded-full bg-[#44b78b]" />
-                      Runtime proof from Sealos
-                    </p>
-                  </div>
+                </div>
+
+                <div className="mt-7 grid items-center gap-3 sm:grid-cols-[auto_1fr_auto]">
+                  <span className="font-semibold">Title:</span>
+                  <span className="border border-zinc-500 px-4 py-3 text-zinc-600">
+                    Ship Django on Sealos
+                  </span>
+                  <span className="bg-[#146dff] px-5 py-3 text-center font-semibold text-white">
+                    Add task
+                  </span>
+                </div>
+
+                <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-2 border-t border-zinc-300 pt-5">
+                  <h5 className="text-2xl font-semibold tracking-[-0.025em]">
+                    Task list
+                  </h5>
+                  <p className="inline-flex items-center gap-3 text-lg font-semibold">
+                    <span className="size-2 rounded-full bg-[#44b78b]" />
+                    Runtime proof from Sealos
+                  </p>
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center justify-between gap-4 border-t-2 border-[#146dff] bg-[#0d1015] px-6 py-5 text-white">
-                <div className="flex items-center gap-4">
-                  <span className="size-2 rounded-full bg-[#44b78b]" />
-                  <code className="font-mono text-sm font-bold text-[#44b78b]">
-                    GET / · 200 OK
-                  </code>
-                </div>
-                <p className="text-sm font-semibold">
-                  “Runtime proof from Sealos” persisted after redirect.
-                </p>
+              <div className="grid gap-3 border-t-2 border-[#146dff] bg-[#0d1015] px-6 py-4 font-mono text-xs font-bold text-white md:grid-cols-[1fr_auto_auto] md:items-center md:gap-8">
+                <span className="truncate">
+                  https://django-tasks-mpbrofzu.usw.sealos.io/
+                </span>
+                <code className="text-[#44b78b]">GET / · 200 OK</code>
+                <time className="text-zinc-400 uppercase">
+                  Sep 03 2026 · 14:22 UTC
+                </time>
               </div>
             </div>
           </figure>
@@ -194,7 +174,7 @@ function TutorialCatalogCard({
                             : 'text-[#146dff]'
                         }`}
                       >
-                        {chapter.phase} · {chapter.result}
+                        {chapter.phase}
                       </span>
                       <strong className="mt-1.5 block text-lg leading-tight font-semibold tracking-[-0.025em] transition-colors group-hover:text-[#146dff]">
                         {chapter.title}
@@ -379,7 +359,7 @@ export default function TutorialsPage({
             </div>
 
             <aside className="flex flex-col border-l border-white/15 pl-7 md:py-1">
-              <div className="flex items-end gap-5">
+              <div>
                 <Image
                   src="/icons/django.svg"
                   alt="Django"
@@ -387,7 +367,7 @@ export default function TutorialsPage({
                   height={52}
                   className="h-9 w-auto invert"
                 />
-                <span className="pb-1 font-mono text-xs font-bold tracking-[0.04em] text-zinc-300">
+                <span className="mt-3 block font-mono text-xs font-bold tracking-[0.04em] text-zinc-300">
                   Django 5.2
                 </span>
               </div>
