@@ -318,16 +318,15 @@ export default function TutorialsPage({
                 Deployment field note · 01
               </p>
               <h1
-                className="mt-5 text-6xl leading-[0.92] font-medium tracking-[-0.06em] text-white md:text-[6rem] md:leading-[0.86]"
+                className="mt-6 flex items-center gap-4 text-[2.9rem] leading-none font-medium tracking-[-0.06em] whitespace-nowrap text-white sm:text-6xl md:text-[5.5rem]"
                 aria-label="Deploy Django on Sealos"
               >
-                <span className="block" aria-hidden="true">
-                  Django
-                </span>
-                <span className="flex items-baseline gap-5" aria-hidden="true">
-                  <ArrowRight className="h-[0.75em] w-[1.45em] shrink-0 stroke-[1.25] text-[#146dff]" />
-                  <span>Sealos</span>
-                </span>
+                <span aria-hidden="true">Django</span>
+                <ArrowRight
+                  className="h-[0.68em] w-[1.2em] shrink-0 stroke-[1.25] text-[#146dff]"
+                  aria-hidden="true"
+                />
+                <span aria-hidden="true">Sealos</span>
               </h1>
               <div className="mt-7">
                 <p className="max-w-[38rem] text-lg leading-8 text-zinc-300">
@@ -338,7 +337,7 @@ export default function TutorialsPage({
                 {firstTutorial && (
                   <Link
                     href={firstTutorial.url}
-                    className="group relative z-10 mt-6 mb-4 inline-flex min-w-[19rem] items-center justify-between gap-8 border-y border-white/30 py-3 text-[1.375rem] font-semibold text-white transition-colors hover:border-[#5f96ff] hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group relative z-10 mt-6 mb-4 inline-flex min-w-[19rem] items-center justify-between gap-8 border-b-2 border-[#146dff] pb-3 text-[1.375rem] font-semibold text-white transition-colors hover:border-[#5f96ff] hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     Read the field note
                     <ArrowRight
@@ -358,30 +357,19 @@ export default function TutorialsPage({
                   <span>2026.09.02</span>
                 </div>
                 <dl className="mt-7 divide-y divide-white/15 border-y border-white/15">
-                  <div className="grid grid-cols-[4.5rem_1fr_auto] items-baseline gap-3 py-3">
+                  <div className="grid grid-cols-[4.5rem_1fr] items-baseline gap-3 py-4">
                     <dt className="text-xs text-zinc-400">BUILD</dt>
                     <dd className="text-sm text-zinc-200">collectstatic</dd>
-                    <dd className="text-xs font-bold text-white">PASS</dd>
                   </div>
-                  <div className="grid grid-cols-[4.5rem_1fr_auto] items-baseline gap-3 py-3">
+                  <div className="grid grid-cols-[4.5rem_1fr] items-baseline gap-3 py-4">
                     <dt className="text-xs text-zinc-400">MIGRATE</dt>
                     <dd className="text-sm text-zinc-200">PostgreSQL</dd>
-                    <dd className="text-xs font-bold text-white">APPLIED</dd>
                   </div>
-                  <div className="grid grid-cols-[4.5rem_1fr_auto] items-baseline gap-3 py-3">
+                  <div className="grid grid-cols-[4.5rem_1fr] items-baseline gap-3 py-4">
                     <dt className="text-xs text-zinc-400">SERVE</dt>
                     <dd className="text-sm text-zinc-200">:8080</dd>
-                    <dd className="text-xs font-bold text-[#44b78b]">
-                      HEALTHY
-                    </dd>
                   </div>
                 </dl>
-                <p className="mt-5 flex items-center justify-between gap-4 text-sm font-semibold">
-                  <span className="text-[#44b78b]">LIVE</span>
-                  <span className="text-right text-zinc-300">
-                    task survives fresh load
-                  </span>
-                </p>
                 <p className="mt-auto border-t border-white/15 pt-4 text-sm text-zinc-400">
                   Django 5.2 · Gunicorn · PostgreSQL
                 </p>
