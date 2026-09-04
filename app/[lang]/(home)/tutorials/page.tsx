@@ -27,8 +27,6 @@ const TUTORIALS_PAGE_DESCRIPTION =
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 const DJANGO_PROJECT_EVIDENCE =
   '/images/tutorials/django/django-sealos-project-ops-running.webp';
-const DJANGO_LIVE_EVIDENCE =
-  '/images/tutorials/django/django-sealos-live-app-https-proof.webp';
 const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
@@ -93,62 +91,125 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="grid overflow-hidden border-b border-white/15 md:grid-cols-2">
+            <div className="grid overflow-hidden border-b border-white/15 md:grid-cols-3">
               <figure className="bg-[#0d1015]">
-                <div className="relative aspect-video overflow-hidden bg-[#08101f]">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#08101f]">
                   <Image
                     src={DJANGO_PROJECT_EVIDENCE}
                     alt="Running Sealos project with public domain, Django container, and PostgreSQL database"
                     fill
-                    className="scale-[1.25] object-cover object-center"
+                    className="origin-[33%_50%] scale-[1.35] object-cover object-center"
                     priority
                     quality={100}
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    sizes="(max-width: 768px) 100vw, 34vw"
                   />
                 </div>
-                <figcaption className="flex items-center justify-between gap-5 border-t border-white/15 px-6 py-4 text-sm">
+                <figcaption className="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-t border-white/15 px-5 py-4">
                   <span className="font-mono text-xs font-bold text-zinc-500">
                     01
                   </span>
-                  <span className="font-semibold text-white">
-                    Domain → container → PostgreSQL
+                  <span>
+                    <strong className="block text-sm font-semibold text-white">
+                      Sealos service graph
+                    </strong>
+                    <code className="mt-1 block font-mono text-xs text-zinc-500">
+                      public domain → container
+                    </code>
                   </span>
                 </figcaption>
               </figure>
 
               <figure className="border-t border-white/15 bg-[#0d1015] md:border-t-0 md:border-l">
-                <div className="relative aspect-video overflow-hidden bg-[#eef1f6]">
-                  <Image
-                    src={DJANGO_LIVE_EVIDENCE}
-                    alt="Live Django application showing the created task after redirect"
-                    fill
-                    className="origin-[65%_50%] scale-[1.3] object-cover object-center"
-                    priority
-                    quality={100}
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
+                <div
+                  className="flex aspect-[4/3] bg-[#e8ebef] p-5 text-[#111827]"
+                  role="img"
+                  aria-label="Live Django application task submission form"
+                >
+                  <div className="flex w-full flex-col border border-black/20 bg-white p-5">
+                    <p className="text-[10px] font-bold tracking-[0.06em] text-[#146dff]">
+                      DJANGO + SEALOS
+                    </p>
+                    <h4 className="mt-2.5 text-2xl font-semibold tracking-[-0.04em]">
+                      Django tasks
+                    </h4>
+                    <p className="mt-2 text-xs text-zinc-600">
+                      Create a task, then read it from the list below.
+                    </p>
+                    <div className="mt-4">
+                      <p className="text-[11px] font-medium">Title</p>
+                      <div className="mt-1.5 flex gap-2 text-[10px]">
+                        <span className="min-w-0 flex-1 border border-zinc-400 px-2.5 py-2 text-zinc-600">
+                          Ship Django on Sealos
+                        </span>
+                        <span className="bg-[#146dff] px-3 py-2 font-semibold text-white">
+                          Add task
+                        </span>
+                      </div>
+                    </div>
+                    <div className="mt-4 border-t border-zinc-200 pt-3">
+                      <h5 className="text-lg font-semibold tracking-[-0.025em]">
+                        Task list
+                      </h5>
+                      <p className="mt-2.5 flex items-center gap-2 text-xs">
+                        <span className="size-1.5 rounded-full bg-[#16815d]" />
+                        Runtime proof from Sealos
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <figcaption className="flex items-center justify-between gap-5 border-t border-white/15 px-6 py-4 text-sm">
+                <figcaption className="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-t border-white/15 px-5 py-4">
                   <span className="font-mono text-xs font-bold text-zinc-500">
                     02
                   </span>
-                  <span className="font-semibold text-[#44b78b]">
-                    Task created and read back
+                  <span>
+                    <strong className="block text-sm font-semibold text-white">
+                      Django task submitted
+                    </strong>
+                    <code className="mt-1 block font-mono text-xs text-zinc-500">
+                      Ship Django on Sealos
+                    </code>
                   </span>
                 </figcaption>
               </figure>
-            </div>
 
-            <div className="grid items-center gap-5 border-b border-white/15 bg-[#0d1015] px-6 py-5 text-sm text-white md:grid-cols-[1fr_auto_auto] md:gap-10">
-              <code className="font-mono text-xs text-zinc-400">
-                django-tasks-mpbrofzu.usw.sealos.io
-              </code>
-              <code className="font-mono text-xs font-bold text-white">
-                03 · GET / · HTTP/2
-              </code>
-              <strong className="text-2xl tracking-[-0.035em] text-[#44b78b]">
-                200 OK
-              </strong>
+              <figure className="border-t border-white/15 bg-[#0d1015] md:border-t-0 md:border-l">
+                <div className="flex aspect-[4/3] flex-col bg-[#0d1015] p-7 text-white">
+                  <div className="flex items-center justify-between gap-4 border-b border-white/20 pb-5">
+                    <code className="font-mono text-xs font-bold text-[#5f96ff]">
+                      GET /
+                    </code>
+                    <time className="text-xs text-zinc-500">14:22 UTC</time>
+                  </div>
+                  <div className="my-auto">
+                    <p className="font-mono text-xs text-zinc-500">HTTP/2</p>
+                    <p className="mt-3 text-5xl leading-none font-semibold tracking-[-0.055em] text-[#44b78b]">
+                      200 OK
+                    </p>
+                  </div>
+                  <div className="border-t border-white/20 pt-5">
+                    <p className="text-sm font-semibold text-white">
+                      Read after redirect
+                    </p>
+                    <p className="mt-3 inline-flex items-center gap-3 text-sm font-semibold text-[#44b78b]">
+                      <span className="size-2 rounded-full bg-current" />
+                      Runtime proof from Sealos
+                    </p>
+                  </div>
+                </div>
+                <figcaption className="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-t border-white/15 px-5 py-4">
+                  <span className="font-mono text-xs font-bold text-zinc-500">
+                    03
+                  </span>
+                  <span>
+                    <strong className="block text-sm font-semibold text-[#44b78b]">
+                      Public response recorded
+                    </strong>
+                    <code className="mt-1 block font-mono text-xs text-zinc-500">
+                      django-tasks-mpbrofzu.usw.sealos.io
+                    </code>
+                  </span>
+                </figcaption>
+              </figure>
             </div>
           </figure>
 
@@ -156,7 +217,7 @@ function TutorialCatalogCard({
             className="border-b border-white/15 bg-[#0d1015] text-white"
             aria-label="Guide chapters"
           >
-            <div className="grid lg:grid-cols-[18rem_1fr]">
+            <div className="grid lg:grid-cols-3">
               <div className="flex flex-col py-7 pr-8">
                 <p className="text-sm font-semibold text-[#146dff]">
                   Inside the guide
@@ -177,7 +238,7 @@ function TutorialCatalogCard({
                 </TutorialRequestGuideLink>
               </div>
 
-              <ol className="border-t border-white/15 lg:border-t-0 lg:border-l">
+              <ol className="border-t border-white/15 lg:col-span-2 lg:border-t-0 lg:border-l">
                 {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                   <li key={chapter.hash} className="border-b border-white/15">
                     <Link
@@ -326,8 +387,8 @@ export default function TutorialsPage({
 
       <main>
         <section className="container -mt-24 pt-32">
-          <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_24rem] md:items-stretch md:gap-0">
-            <div className="md:pr-12">
+          <div className="grid gap-8 md:grid-cols-3 md:items-stretch md:gap-0">
+            <div className="md:col-span-2 md:pr-12">
               <p className="text-sm font-semibold text-[#5f96ff]">
                 Deployment field note
               </p>
