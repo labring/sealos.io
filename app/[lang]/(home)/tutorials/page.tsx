@@ -111,27 +111,24 @@ function TutorialCatalogCard({
               </div>
             </div>
             <ol>
-              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
+              {DJANGO_GUIDE_CHAPTERS.map((chapter) => (
                 <li
                   key={chapter.hash}
                   className="border-b border-white/15 last:border-b-0"
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid grid-cols-[2rem_minmax(0,1fr)_1rem] items-center gap-x-5 px-6 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[2rem_20rem_minmax(0,1fr)_1rem]"
+                    className="group grid grid-cols-[minmax(0,1fr)_1rem] items-center gap-x-5 px-6 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[20rem_minmax(15rem,1fr)_1rem]"
                   >
-                    <span className="font-mono text-sm font-semibold text-[#5f96ff]">
-                      0{index + 1}
-                    </span>
                     <strong className="text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
                       {chapter.title}
                     </strong>
-                    <span className="col-start-2 mt-1 text-sm text-zinc-300 sm:col-start-auto sm:mt-0">
+                    <span className="col-start-1 mt-1 text-sm text-zinc-300 sm:col-start-auto sm:mt-0">
                       {chapter.detail}
                     </span>
                     <ArrowRight
                       size={16}
-                      className="col-start-3 row-start-1 justify-self-end text-zinc-400 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff] sm:col-start-auto sm:row-start-auto"
+                      className="col-start-2 row-start-1 justify-self-end text-zinc-400 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff] sm:col-start-auto sm:row-start-auto"
                       aria-hidden="true"
                     />
                   </Link>
@@ -143,23 +140,21 @@ function TutorialCatalogCard({
           <figure className="mt-10">
             <figcaption className="mb-4 flex flex-wrap items-end justify-between gap-3">
               <span className="text-xl font-semibold tracking-tight text-white">
-                Deployment evidence / DJANGO-01
-              </span>
-              <span className="font-mono text-xs font-semibold text-zinc-400">
-                01 / LIVE PROJECT CAPTURE
+                Live deployment proof
               </span>
             </figcaption>
 
-            <div className="grid border border-white/15 lg:grid-cols-[minmax(0,1fr)_17rem]">
-              <div className="relative aspect-[2.3/1] overflow-hidden bg-[#07101d]">
+            <div className="grid border border-white/15 lg:grid-cols-[minmax(0,1fr)_15rem]">
+              <div className="relative aspect-[2.45/1] overflow-hidden bg-white">
                 <Image
                   src="/images/tutorials/django/django-sealos-live-app-https-proof.webp"
                   alt="Live Django task application with a verified task write and read result"
-                  fill
+                  width={3200}
+                  height={1800}
                   priority={priorityImage}
-                  quality={95}
-                  className="origin-[40%_40%] scale-[1.35] object-cover object-[50%_37%]"
-                  sizes="(max-width: 760px) 100vw, 88vw"
+                  unoptimized
+                  className="absolute top-[-32%] left-[-14%] h-auto w-[135%] max-w-none"
+                  sizes="(max-width: 760px) 135vw, 120vw"
                 />
               </div>
               <ol className="grid grid-cols-3 border-t border-white/15 bg-[#0c0d0f] lg:grid-cols-1 lg:grid-rows-3 lg:border-t-0 lg:border-l">
@@ -191,7 +186,7 @@ function TutorialCatalogCard({
                 Live create/read verified
               </strong>
               <span className="text-zinc-300 sm:text-right">
-                Django 5.2 · Gunicorn · WhiteNoise · PostgreSQL · HTTPS :443
+                Gunicorn · WhiteNoise · PostgreSQL · HTTPS :443
               </span>
             </div>
           </figure>
@@ -311,18 +306,18 @@ export default function TutorialsPage({
       <main>
         <section className="container -mt-24 pt-32 pb-12">
           <p className="text-sm font-semibold text-[#5f96ff]">
-            Field note 01 · Django 5.2 · Live evidence
+            Deployment field note · Django 5.2
           </p>
           <h1 className="mt-5 text-5xl leading-[0.92] font-medium tracking-[-0.055em] text-white md:text-[5.75rem]">
             Deploy Django on Sealos
           </h1>
-          <div className="mt-8 flex flex-wrap items-end gap-x-8 gap-y-6">
-            <p className="max-w-2xl flex-1 text-base leading-7 text-zinc-300">
+          <div className="mt-8 max-w-3xl">
+            <p className="text-base leading-7 text-zinc-300">
               Build a Django 5.2 Task app, prepare Gunicorn, WhiteNoise, and
               PostgreSQL, then deploy it and verify a live create/read flow.
             </p>
             {firstTutorial && (
-              <div className="flex flex-wrap items-center gap-5">
+              <div className="mt-6 flex flex-wrap items-center gap-5">
                 <Link
                   href={firstTutorial.url}
                   className="group inline-flex h-11 items-center rounded-sm bg-[#146dff] px-5 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none active:translate-y-0"
@@ -336,8 +331,7 @@ export default function TutorialsPage({
                 </Link>
                 <span className="inline-flex items-center gap-2 text-sm text-zinc-300">
                   <BookOpen size={14} aria-hidden="true" />
-                  {firstTutorial.estimatedReadingTime} · 3 proofs ·{' '}
-                  <span className="text-emerald-400">HTTP 200</span>
+                  {firstTutorial.estimatedReadingTime} · 3 chapters
                 </span>
               </div>
             )}
