@@ -341,8 +341,8 @@ export default function TutorialsPage({
               <div className="mt-7 lg:pr-12">
                 <p className="max-w-[38rem] text-lg leading-8 text-zinc-300">
                   Build a Django 5.2 Task app with Gunicorn, WhiteNoise, and
-                  PostgreSQL. Deploy it on Sealos and verify a live create/read
-                  flow.
+                  PostgreSQL, then deploy it on Sealos and verify a live
+                  create/read flow.
                 </p>
                 {firstTutorial && (
                   <Link
@@ -360,7 +360,13 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <figure className="flex min-h-[18rem] flex-col overflow-hidden border-t border-t-white/15 bg-[#090909] lg:h-full lg:min-h-0 lg:border-l-2 lg:border-l-[#146dff]">
+            <figure className="relative flex min-h-[18rem] flex-col overflow-hidden border-t border-t-white/15 bg-[#090909] lg:h-full lg:min-h-0">
+              <span
+                className="absolute top-[5.375rem] left-0 hidden h-0.5 w-7 bg-[#146dff] lg:block"
+                aria-hidden="true"
+              >
+                <span className="absolute -top-[3px] right-0 size-2 bg-[#146dff]" />
+              </span>
               <figcaption className="flex shrink-0 items-center justify-between border-b border-white/15 px-6 py-3 font-mono text-[13px] font-semibold tracking-wide text-white">
                 <span>LIVE APPLICATION</span>
                 <span className="text-zinc-300">DJANGO · 5.2</span>
@@ -370,15 +376,28 @@ export default function TutorialsPage({
                   DJANGO TASKS · PUBLIC
                 </p>
                 <h2 className="mt-2 font-sans text-2xl font-semibold tracking-[-0.04em]">
-                  One task. Three verified states.
+                  Create once. Read after refresh.
                 </h2>
                 <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto] bg-[#f2f0e8] text-[#111827]">
                   <span className="flex h-10 items-center px-3 text-xs">
                     Runtime proof from Sealos
                   </span>
-                  <span className="flex h-10 items-center bg-[#146dff] px-4 font-mono text-[11px] font-bold tracking-wide text-white">
+                  <span className="flex h-10 items-center bg-[#146dff] px-4 font-mono text-xs font-bold text-white">
                     SUBMIT →
                   </span>
+                </div>
+                <div className="mt-3 flex items-center justify-between gap-4 border-y border-white/20 py-3">
+                  <span>
+                    <span className="block text-[11px] text-zinc-300">
+                      TASK_001
+                    </span>
+                    <strong className="mt-1 block text-[13px]">
+                      Runtime proof from Sealos
+                    </strong>
+                  </span>
+                  <strong className="text-[13px] text-[#44b78b]">
+                    PERSISTED
+                  </strong>
                 </div>
               </div>
             </figure>

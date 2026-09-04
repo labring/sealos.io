@@ -58,7 +58,7 @@ export const footerTranslations: Record<string, Record<string, string>> = {
     templates: 'Templates',
     pricing: 'Pricing',
     fastgpt: 'FastGPT',
-    contactUs: 'Contact Us',
+    contactUs: 'Contact',
     reportAbuse: 'Report Abuse',
     termsOfService: 'Terms of Service',
     privacyPolicy: 'Privacy Policy',
