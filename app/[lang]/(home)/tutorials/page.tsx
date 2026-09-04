@@ -106,7 +106,7 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <div className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l lg:border-white/15">
+            <div className="border-[#146dff] bg-[#090909] px-6 py-5 font-mono text-white lg:border-l-4">
               <p className="text-sm font-bold tracking-wide text-white">
                 DEPLOYMENT / PROOF
               </p>
@@ -162,8 +162,8 @@ function TutorialCatalogCard({
               ))}
             </ol>
 
-            <div className="grid bg-[#090909] font-mono text-white lg:grid-rows-3 lg:border-l lg:border-white/15">
-              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 px-6 py-4">
+            <div className="grid bg-[#090909] font-mono text-white lg:grid-rows-3">
+              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-[#146dff] px-6 py-4 lg:border-l-4">
                 <code className="text-sm text-zinc-300">01</code>
                 <span>
                   <code className="block text-xl font-bold">wsgi.py</code>
@@ -175,7 +175,7 @@ function TutorialCatalogCard({
                   READY
                 </code>
               </div>
-              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-y border-white/15 px-6 py-4">
+              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-y border-white/15 border-l-[#146dff] px-6 py-4 lg:border-l-4">
                 <code className="text-sm text-zinc-300">02</code>
                 <span>
                   <code className="block text-xl font-bold">:8080</code>
@@ -187,7 +187,7 @@ function TutorialCatalogCard({
                   RUNNING
                 </code>
               </div>
-              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 px-6 py-4">
+              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-[#44b78b] px-6 py-4 lg:border-l-4">
                 <code className="text-sm text-zinc-300">03</code>
                 <span>
                   <code className="block text-xl font-bold">POST → GET</code>
@@ -356,66 +356,47 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <figure className="flex min-h-[18rem] flex-col overflow-hidden border-t border-white/15 bg-[#090909] lg:h-full lg:min-h-0 lg:border-l">
+            <figure className="flex min-h-[18rem] flex-col overflow-hidden border-t border-[#146dff] border-white/15 bg-[#090909] lg:h-full lg:min-h-0 lg:border-l-4">
               <figcaption className="flex shrink-0 items-center justify-between border-b border-white/15 px-6 py-3 font-mono text-xs font-semibold tracking-wide text-white">
                 <span>LIVE APPLICATION</span>
                 <span className="text-[#44b78b]">HTTPS · 200</span>
               </figcaption>
-              <div className="flex min-h-0 flex-1 flex-col bg-[#f5f6f8] px-6 py-5 text-[#111827]">
-                <p className="font-mono text-[11px] font-bold tracking-[0.12em] text-[#146dff]">
-                  DJANGO 5.2 · SEALOS
+              <div className="flex min-h-0 flex-1 flex-col px-6 py-5 font-mono text-white">
+                <p className="text-xs font-bold tracking-[0.12em] text-[#5f96ff]">
+                  DJANGO TASKS · PUBLIC
                 </p>
-                <h2 className="mt-1 text-2xl font-semibold tracking-[-0.04em]">
-                  Django tasks
+                <h2 className="mt-2 font-sans text-2xl font-semibold tracking-[-0.04em]">
+                  One task. Three verified states.
                 </h2>
-                <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto]">
-                  <span className="flex h-10 items-center border border-zinc-400 bg-white px-3 text-xs text-zinc-500">
-                    Ship Django on Sealos
+                <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto] bg-[#f2f0e8] text-[#111827]">
+                  <span className="flex h-10 items-center px-3 text-xs">
+                    Runtime proof from Sealos
                   </span>
                   <span className="flex h-10 items-center bg-[#146dff] px-4 font-mono text-[11px] font-bold tracking-wide text-white">
-                    ADD TASK
+                    SUBMIT →
                   </span>
                 </div>
-                <div className="mt-3 border-y border-zinc-300">
-                  <div className="flex items-center justify-between gap-4 py-2.5">
-                    <span>
-                      <span className="block font-mono text-[10px] font-bold tracking-wide text-zinc-500">
-                        TASK_001
-                      </span>
-                      <strong className="mt-0.5 block text-sm font-semibold">
-                        Runtime proof from Sealos
-                      </strong>
+                <div className="mt-auto grid grid-cols-3 border-y border-white/20">
+                  <span className="py-3 pr-2">
+                    <span className="block text-[10px] text-zinc-400">
+                      01 CREATE
                     </span>
-                    <span className="font-mono text-xs font-bold text-[#16815d]">
-                      VISIBLE
+                    <strong className="mt-1 block text-xs">TASK_001</strong>
+                  </span>
+                  <span className="border-x border-white/20 px-3 py-3">
+                    <span className="block text-[10px] text-zinc-400">
+                      02 STORE
                     </span>
-                  </div>
-                  <div className="grid grid-cols-3 border-t border-zinc-300 font-mono">
-                    <span className="py-2 pr-2">
-                      <span className="block text-[9px] text-zinc-500">
-                        CREATED
-                      </span>
-                      <strong className="mt-0.5 block text-[10px]">
-                        14:32:18
-                      </strong>
+                    <strong className="mt-1 block text-xs">POSTGRESQL</strong>
+                  </span>
+                  <span className="py-3 pl-3">
+                    <span className="block text-[10px] text-zinc-400">
+                      03 REFRESH
                     </span>
-                    <span className="border-x border-zinc-300 px-3 py-2">
-                      <span className="block text-[9px] text-zinc-500">
-                        STORED
-                      </span>
-                      <strong className="mt-0.5 block text-[10px]">
-                        POSTGRESQL
-                      </strong>
-                    </span>
-                    <span className="py-2 pl-3">
-                      <span className="block text-[9px] text-zinc-500">
-                        REFRESH
-                      </span>
-                      <strong className="mt-0.5 block text-[10px] text-[#16815d]">
-                        200 OK
-                      </strong>
-                    </span>
-                  </div>
+                    <strong className="mt-1 block text-xs text-[#44b78b]">
+                      200 OK
+                    </strong>
+                  </span>
                 </div>
               </div>
             </figure>
