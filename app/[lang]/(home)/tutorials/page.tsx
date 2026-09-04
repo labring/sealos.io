@@ -158,11 +158,11 @@ function TutorialCatalogCard({
                       <code className="truncate font-mono text-[13px] font-bold text-zinc-800">
                         {chapter.evidence}
                       </code>
-                      <span className="text-xs font-semibold text-[#16815d]">
-                        {index === DJANGO_GUIDE_CHAPTERS.length - 1
-                          ? 'Verified'
-                          : 'Passed'}
-                      </span>
+                      {index === DJANGO_GUIDE_CHAPTERS.length - 1 && (
+                        <span className="text-xs font-semibold text-[#16815d]">
+                          Verified
+                        </span>
+                      )}
                     </span>
                   </Link>
                 </li>
@@ -319,7 +319,7 @@ export default function TutorialsPage({
                 {firstTutorial && (
                   <Link
                     href={firstTutorial.url}
-                    className="group relative z-10 mt-5 inline-flex w-60 items-center justify-between border-x border-t border-black/20 bg-[#f2f0e8] px-6 py-4 text-base font-semibold text-[#0a0a0a] transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group relative z-10 mt-5 inline-flex w-60 items-center justify-between border-x border-t border-[#146dff] bg-[#146dff] px-6 py-4 text-base font-semibold text-white transition-colors hover:bg-[#2f7bff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     Read the field note
                     <ArrowRight
@@ -350,34 +350,45 @@ export default function TutorialsPage({
                     height={52}
                     className="h-8 w-auto invert"
                   />
-                  <span className="text-right text-[#44b78b]">
-                    <span className="flex items-baseline justify-end gap-2">
-                      <span className="text-4xl leading-none font-medium tracking-[-0.055em]">
-                        200
-                      </span>
-                      <span className="text-base font-semibold">OK</span>
-                    </span>
-                    <span className="mt-1 block text-xs text-zinc-400">
-                      Final response
+                  <span className="text-right text-xs font-semibold text-white">
+                    Live create / read
+                    <span className="mt-1 block text-[#44b78b]">
+                      Verified run
                     </span>
                   </span>
                 </div>
 
-                <div className="border-y border-white/15 py-5 pr-4 pl-7">
-                  <p className="text-sm font-semibold text-zinc-200">
-                    Captured response
-                  </p>
-                  <div className="mt-4 grid gap-1.5 font-mono text-xs leading-5">
-                    <code className="text-zinc-400">› GET / HTTP/2</code>
-                    <code className="font-bold text-[#44b78b]">‹ 200 OK</code>
-                    <code className="text-zinc-300">
-                      task = &quot;Runtime proof from Sealos&quot;
-                    </code>
+                <div className="grid grid-cols-2 border-y border-white/15">
+                  <div className="py-5 pr-4 pl-7">
+                    <p className="text-xs font-semibold text-[#5f96ff]">
+                      01 · Create
+                    </p>
+                    <div className="mt-4 grid gap-1.5 font-mono text-[11px] leading-4">
+                      <code className="text-white">POST /</code>
+                      <code className="text-zinc-400">
+                        task = &quot;Runtime proof…&quot;
+                      </code>
+                      <code className="text-zinc-300">302 Found</code>
+                    </div>
+                  </div>
+                  <div className="border-l border-white/15 px-4 py-5">
+                    <p className="text-xs font-semibold text-[#5f96ff]">
+                      02 · Fresh load
+                    </p>
+                    <div className="mt-4 grid gap-1.5 font-mono text-[11px] leading-4">
+                      <code className="text-white">GET / HTTP/2</code>
+                      <code className="text-zinc-400">
+                        task[0] = &quot;Runtime proof…&quot;
+                      </code>
+                      <code className="font-bold text-[#44b78b]">
+                        200 OK · persisted
+                      </code>
+                    </div>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 py-3 pr-4 pl-7 text-xs text-zinc-400">
-                  <span>Django 5.2 · Field note 01</span>
+                  <span>Django 5.2 · PostgreSQL</span>
                   <span className="text-right">35 min · 2026-09-02</span>
                 </div>
               </div>
