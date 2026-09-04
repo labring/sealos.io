@@ -103,7 +103,7 @@ function TutorialCatalogCard({
       {isDjangoGuide ? (
         <nav className="text-[#0a0a0a]" aria-label="Guide chapters">
           <div className="grid lg:grid-cols-[minmax(0,1fr)_24rem]">
-            <div className="grid gap-5 bg-[#f2f0e8] py-5 pr-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-0">
+            <div className="grid gap-5 bg-[#f2f0e8] py-5 pr-8 lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-center lg:gap-0">
               <div className="lg:pr-8">
                 <p className="text-sm font-semibold text-zinc-600">
                   Inside the guide
@@ -150,7 +150,7 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group relative grid gap-5 bg-[#f2f0e8] py-5 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none lg:grid-cols-[3rem_16.5rem_1fr] lg:items-center lg:gap-5"
+                    className="group grid gap-5 bg-[#f2f0e8] py-5 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none lg:grid-cols-[3rem_16.5rem_1fr] lg:items-center lg:gap-5"
                   >
                     <span
                       className={`font-medium tracking-[-0.055em] ${
@@ -344,10 +344,10 @@ export default function TutorialsPage({
                 {firstTutorial && (
                   <Link
                     href={firstTutorial.url}
-                    className="group relative z-10 mt-5 mb-4 inline-grid grid-cols-[auto_2.75rem] items-stretch border border-white/30 bg-[#f2f0e8] text-base font-semibold text-[#090909] transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                    className="group relative z-10 mt-5 mb-4 inline-grid grid-cols-[auto_2.75rem] items-stretch border border-[#5f96ff] bg-[#146dff] text-base font-semibold text-white transition-colors hover:bg-[#2879ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     <span className="px-5 py-3">Read the field note</span>
-                    <span className="flex items-center justify-center border-l border-black/15">
+                    <span className="flex items-center justify-center border-l border-white/30">
                       <ArrowRight
                         size={15}
                         className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
