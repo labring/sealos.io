@@ -98,7 +98,7 @@ function TutorialCatalogCard({
                 aria-label="Live deployment path from public HTTPS through Django and PostgreSQL to an HTTP 200 response"
               >
                 <span
-                  className="absolute top-[4.25rem] right-[12.5%] left-[12.5%] hidden h-px bg-gradient-to-r from-[#146dff] to-[#44b78b] md:block"
+                  className="absolute top-[4.25rem] right-[12.5%] left-[12.5%] hidden h-px bg-[#5f96ff] md:block"
                   aria-hidden="true"
                 />
 
@@ -112,7 +112,7 @@ function TutorialCatalogCard({
                     </span>
                   </div>
                   <span
-                    className="relative z-10 mt-6 size-4 rounded-full bg-[#146dff] ring-4 ring-[#10151d]"
+                    className="relative z-10 mt-6 size-4 rounded-full border border-[#5f96ff] bg-[#10151d] ring-4 ring-[#10151d]"
                     aria-hidden="true"
                   />
                   <p className="mt-5 text-3xl font-semibold tracking-[-0.045em]">
@@ -121,7 +121,7 @@ function TutorialCatalogCard({
                   <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
                     django-tasks…sealos.io
                   </code>
-                  <p className="mt-auto pt-3 text-sm font-semibold text-[#44b78b]">
+                  <p className="mt-auto pt-3 text-sm font-semibold text-zinc-300">
                     Connected
                   </p>
                 </li>
@@ -136,7 +136,7 @@ function TutorialCatalogCard({
                     </span>
                   </div>
                   <span
-                    className="relative z-10 mt-6 size-4 rounded-full bg-[#287bff] ring-4 ring-[#10151d]"
+                    className="relative z-10 mt-6 size-4 rounded-full border border-[#5f96ff] bg-[#10151d] ring-4 ring-[#10151d]"
                     aria-hidden="true"
                   />
                   <p className="mt-5 text-3xl font-semibold tracking-[-0.045em]">
@@ -145,7 +145,7 @@ function TutorialCatalogCard({
                   <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
                     Gunicorn · WhiteNoise
                   </code>
-                  <p className="mt-auto pt-3 text-sm font-semibold text-[#44b78b]">
+                  <p className="mt-auto pt-3 text-sm font-semibold text-zinc-300">
                     Container running
                   </p>
                 </li>
@@ -155,12 +155,12 @@ function TutorialCatalogCard({
                     <span className="font-mono text-sm font-bold text-zinc-500">
                       03
                     </span>
-                    <span className="text-sm font-semibold text-[#44b78b]">
+                    <span className="text-sm font-semibold text-[#5f96ff]">
                       Managed data
                     </span>
                   </div>
                   <span
-                    className="relative z-10 mt-6 size-4 rounded-full bg-[#38aebd] ring-4 ring-[#10151d]"
+                    className="relative z-10 mt-6 size-4 rounded-full border border-[#5f96ff] bg-[#10151d] ring-4 ring-[#10151d]"
                     aria-hidden="true"
                   />
                   <p className="mt-5 text-3xl font-semibold tracking-[-0.045em]">
@@ -169,7 +169,7 @@ function TutorialCatalogCard({
                   <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
                     DATABASE_URL → :5432
                   </code>
-                  <p className="mt-auto pt-3 text-sm font-semibold text-[#44b78b]">
+                  <p className="mt-auto pt-3 text-sm font-semibold text-zinc-300">
                     Private connection
                   </p>
                 </li>
@@ -229,14 +229,20 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <ol className="divide-y divide-black/15 border-t border-black/15 px-7">
+            <div className="hidden grid-cols-[4rem_1.15fr_1fr_16rem] gap-5 border-y border-black/15 px-7 py-3 font-mono text-[11px] font-bold tracking-[0.08em] text-zinc-500 uppercase md:grid">
+              <span>No.</span>
+              <span>Operation</span>
+              <span>Outcome</span>
+              <span className="text-right">Proof</span>
+            </div>
+            <ol className="divide-y divide-black/15 px-7">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li key={chapter.hash}>
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
                     className="group grid min-h-28 gap-5 py-6 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[4rem_1.15fr_1fr_16rem] md:items-center"
                   >
-                    <span className="font-mono text-4xl font-bold tracking-[-0.06em] text-zinc-400">
+                    <span className="font-mono text-4xl font-bold tracking-[-0.06em] text-zinc-500">
                       0{index + 1}
                     </span>
                     <span>
@@ -408,25 +414,45 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <aside className="flex flex-col justify-between border-l border-white/15 pl-7 md:py-1">
-              <div>
-                <Image
-                  src="/icons/django.svg"
-                  alt="Django"
-                  width={148}
-                  height={52}
-                  className="h-9 w-auto invert"
-                />
-                <p className="mt-4 font-mono text-sm font-bold tracking-[0.04em] text-zinc-300">
-                  Django 5.2 · Field note 01
-                </p>
+            <aside className="grid border-l border-white/15 pl-7 md:grid-rows-[auto_1fr_auto] md:py-1">
+              <div className="flex items-start justify-between gap-6">
+                <div>
+                  <Image
+                    src="/icons/django.svg"
+                    alt="Django"
+                    width={148}
+                    height={52}
+                    className="h-9 w-auto invert"
+                  />
+                  <p className="mt-4 font-mono text-sm font-bold tracking-[0.04em] text-zinc-300">
+                    Django 5.2 · Field note 01
+                  </p>
+                </div>
+                <span className="font-mono text-[11px] font-bold tracking-[0.08em] text-[#5f96ff] uppercase">
+                  Verification / 01
+                </span>
               </div>
-              <div className="flex items-center gap-3 font-mono text-xs font-bold tracking-[0.04em] text-zinc-400 uppercase">
-                <span>Repository</span>
-                <span className="h-px flex-1 bg-[#146dff]" />
-                <span>HTTPS</span>
-              </div>
-              <div className="pt-10">
+
+              <dl className="mt-7 divide-y divide-white/15 self-center border-y border-white/15 font-mono text-xs">
+                <div className="grid grid-cols-[5.25rem_1fr] gap-4 py-3.5">
+                  <dt className="font-bold tracking-[0.08em] text-zinc-500 uppercase">
+                    Source
+                  </dt>
+                  <dd className="font-bold text-zinc-200">
+                    django-sealos-tasks
+                  </dd>
+                </div>
+                <div className="grid grid-cols-[5.25rem_1fr] gap-4 py-3.5">
+                  <dt className="font-bold tracking-[0.08em] text-zinc-500 uppercase">
+                    Response
+                  </dt>
+                  <dd className="font-bold text-zinc-200">
+                    GET / · HTTP/2 200
+                  </dd>
+                </div>
+              </dl>
+
+              <div className="border-t border-white/15 pt-5">
                 <div className="flex items-end justify-between gap-6">
                   <span className="flex items-baseline gap-2 text-white">
                     <span className="text-5xl leading-none font-medium tracking-[-0.06em]">
@@ -441,7 +467,7 @@ export default function TutorialsPage({
                     Verified
                   </span>
                 </div>
-                <p className="mt-6 text-sm text-zinc-300">
+                <p className="mt-5 text-sm text-zinc-300">
                   Gunicorn · WhiteNoise · PostgreSQL
                 </p>
               </div>
