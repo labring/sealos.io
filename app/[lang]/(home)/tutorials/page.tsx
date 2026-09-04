@@ -29,6 +29,7 @@ const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
     evidence: 'config.wsgi:application',
+    proofDetail: 'Gunicorn entrypoint',
     title: 'Prepare Django for production',
     detail:
       'Set the WSGI entrypoint, static file middleware, and production hosts.',
@@ -37,6 +38,7 @@ const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Deploy',
     evidence: 'DATABASE_URL → :5432',
+    proofDetail: 'Private PostgreSQL',
     title: 'Deploy with Sealos Skills',
     detail:
       'Provision the app and PostgreSQL, then release it with Sealos Skills.',
@@ -45,18 +47,12 @@ const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Verify',
     evidence: 'GET / → HTTP 200',
+    proofDetail: 'Persisted after fresh load',
     title: 'Verify the live application',
     detail:
       'Submit a task over HTTPS and confirm it persists after a fresh load.',
     hash: '#verify-the-live-django-application',
   },
-] as const;
-
-const DJANGO_VERIFIED_PATH = [
-  'HTTPS',
-  'Django 5.2',
-  'PostgreSQL',
-  'HTTP/2',
 ] as const;
 
 const DJANGO_LIVE_PROOF = [
@@ -166,21 +162,21 @@ function TutorialCatalogCard({
                     <span className="text-base leading-7 text-zinc-700 md:px-7">
                       {chapter.detail}
                     </span>
-                    <span className="relative grid grid-cols-[1fr_auto] items-center gap-3 md:pl-7">
+                    <span className="relative md:pl-7">
                       <span
-                        className="absolute -left-2 z-10 grid size-4 place-items-center border border-[#16815d] bg-[#f2f0e8]"
+                        className="absolute -left-2.5 z-10 hidden size-5 place-items-center border border-[#16815d] bg-[#f2f0e8] md:grid"
                         aria-hidden="true"
                       >
-                        <span className="size-1.5 bg-[#16815d]" />
+                        <span className="size-2 bg-[#16815d]" />
                       </span>
-                      <code className="truncate font-mono text-[13px] font-bold text-zinc-800">
-                        {chapter.evidence}
-                      </code>
-                      {index === DJANGO_GUIDE_CHAPTERS.length - 1 && (
-                        <span className="text-xs font-semibold text-[#16815d]">
-                          Verified
+                      <span className="block min-w-0">
+                        <code className="block truncate font-mono text-sm font-bold text-zinc-900">
+                          {chapter.evidence}
+                        </code>
+                        <span className="mt-1 block text-xs text-zinc-600">
+                          {chapter.proofDetail}
                         </span>
-                      )}
+                      </span>
                     </span>
                   </Link>
                 </li>
@@ -301,25 +297,6 @@ export default function TutorialsPage({
       <main>
         <section className="container -mt-24 pt-32">
           <div className="relative grid gap-8 md:grid-cols-3 md:items-stretch md:gap-0">
-            <span
-              className="absolute top-[13.3125rem] right-[33.333333%] left-0 hidden h-px bg-white/15 md:block"
-              aria-hidden="true"
-            />
-            <ol
-              className="absolute top-[12.65rem] left-[27.5rem] z-10 hidden items-center gap-2 text-xs font-semibold text-white lg:flex"
-              aria-label="HTTPS to Django 5.2 to PostgreSQL to HTTP/2"
-            >
-              {DJANGO_VERIFIED_PATH.map((stage, index) => (
-                <li key={stage} className="contents">
-                  <span className="bg-[#090909] px-1.5">{stage}</span>
-                  {index < DJANGO_VERIFIED_PATH.length - 1 && (
-                    <span className="text-[#5f96ff]" aria-hidden="true">
-                      →
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ol>
             <div className="md:col-span-2 md:pr-12">
               <p className="text-sm font-semibold text-zinc-400">
                 Deployment field note
@@ -328,7 +305,7 @@ export default function TutorialsPage({
                 <span className="block">Deploy Django</span>
                 <span className="block">on Sealos</span>
               </h1>
-              <div className="mt-7 pt-6">
+              <div className="mt-7 border-t border-white/15 pt-6 md:-mr-12 md:pr-12">
                 <p className="max-w-[35rem] text-lg leading-8 text-zinc-300">
                   Build a Django 5.2 Task app with Gunicorn, WhiteNoise, and
                   PostgreSQL. Deploy it on Sealos and verify a live create/read
@@ -356,10 +333,6 @@ export default function TutorialsPage({
                 aria-hidden="true"
               />
               <div className="relative grid h-full grid-rows-[auto_1fr_auto] border border-white/15">
-                <span
-                  className="absolute top-6 -left-1 z-20 size-2 bg-[#44b78b]"
-                  aria-hidden="true"
-                />
                 <div className="grid grid-cols-2 items-start py-4 pr-4 pl-7">
                   <Image
                     src="/icons/django.svg"
@@ -380,8 +353,14 @@ export default function TutorialsPage({
                   {DJANGO_LIVE_PROOF.map((proof, index) => (
                     <div
                       key={proof.stage}
-                      className="grid grid-cols-[2rem_1fr_auto] items-center gap-3 pr-4 pl-7"
+                      className="relative grid grid-cols-[2rem_1fr_auto] items-center gap-3 pr-4 pl-7"
                     >
+                      <span
+                        className="absolute top-1/2 -left-2 z-20 grid size-4 -translate-y-1/2 place-items-center border border-[#44b78b] bg-[#090909]"
+                        aria-hidden="true"
+                      >
+                        <span className="size-1.5 bg-[#44b78b]" />
+                      </span>
                       <span className="text-xs font-medium text-zinc-500">
                         0{index + 1}
                       </span>
