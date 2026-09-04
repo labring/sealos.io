@@ -113,58 +113,75 @@ function TutorialCatalogCard({
               Django deployment receipt
             </figcaption>
 
-            <div className="overflow-hidden bg-[#e5e7e4] text-[#101318]">
-              <div className="grid gap-2 border-b border-zinc-400/50 px-6 py-4 sm:px-8 md:grid-cols-12 md:items-center md:gap-x-6">
-                <span className="inline-flex items-center gap-3 text-xs font-bold tracking-[0.12em] text-[#146dff] md:col-span-6">
-                  <Image
-                    src="/logo.svg"
-                    alt=""
-                    width={20}
-                    height={20}
-                    className="size-5"
-                  />
-                  DJANGO 5.2 / CREATE + READ
+            <div className="grid overflow-hidden border border-white/15 md:grid-cols-12">
+              <aside className="flex items-center justify-between gap-6 bg-[#146dff] p-5 text-white md:col-span-2 md:min-h-full md:flex-col md:items-start">
+                <span className="font-mono text-xs font-bold tracking-[0.08em]">
+                  LIVE TRACE
                 </span>
-                <code className="text-xs font-semibold text-zinc-600 md:col-span-6 md:text-right">
-                  response.html · run 01
-                </code>
-              </div>
-
-              <ol className="divide-y divide-zinc-400/50 px-6 sm:px-8">
-                {DJANGO_REQUEST_TRACE.map((step) => (
-                  <li
-                    key={step.marker}
-                    className="grid grid-cols-[3rem_minmax(0,1fr)] gap-x-4 gap-y-1 py-4 md:grid-cols-12 md:items-center md:gap-x-6 md:py-5"
-                  >
-                    <span className="row-span-4 font-mono text-2xl font-medium tracking-[-0.08em] text-[#146dff] md:col-span-1 md:row-span-1">
-                      {step.marker}
-                    </span>
-                    <span className="col-start-2 font-mono text-xs font-bold tracking-[0.08em] text-zinc-600 md:col-span-2 md:col-start-auto">
-                      {step.label}
-                    </span>
-                    <code className="col-start-2 text-base font-bold text-[#101318] md:col-span-3 md:col-start-auto">
-                      {step.title}
-                    </code>
-                    <code className="col-start-2 text-sm text-zinc-600 md:col-span-4 md:col-start-auto">
-                      {step.evidence}
-                    </code>
-                    <strong className="col-start-2 font-mono text-sm font-bold text-[#146dff] md:col-span-2 md:col-start-auto md:text-right">
-                      {step.transport}
-                    </strong>
-                  </li>
-                ))}
-              </ol>
-
-              <div className="grid gap-2 bg-[#146dff] px-6 py-4 text-white sm:px-8 md:grid-cols-12 md:items-center md:gap-x-6">
-                <span className="font-mono text-xs font-bold tracking-[0.08em] md:col-span-3">
-                  ✓ PERSISTED TASK
+                <p>
+                  <strong className="block text-5xl leading-none font-semibold tracking-[-0.06em]">
+                    200
+                  </strong>
+                  <span className="mt-1 block text-sm font-semibold">OK</span>
+                </p>
+                <span className="font-mono text-xs font-semibold text-blue-100">
+                  RUN 01
                 </span>
-                <strong className="text-sm font-semibold md:col-span-6">
-                  Runtime proof from Sealos
-                </strong>
-                <code className="text-xs font-semibold text-blue-100 md:col-span-3 md:text-right">
-                  POST → 302 → GET → 200
-                </code>
+              </aside>
+
+              <div className="bg-[#e5e7e4] text-[#101318] md:col-span-10">
+                <div className="grid gap-2 border-b border-zinc-400/50 px-6 py-4 sm:px-8 md:grid-cols-12 md:items-center md:gap-x-6">
+                  <span className="inline-flex items-center gap-3 text-xs font-bold tracking-[0.12em] text-[#146dff] md:col-span-6">
+                    <Image
+                      src="/logo.svg"
+                      alt=""
+                      width={20}
+                      height={20}
+                      className="size-5"
+                    />
+                    DJANGO 5.2 / CREATE + READ
+                  </span>
+                  <code className="text-xs font-semibold text-zinc-600 md:col-span-6 md:text-right">
+                    response.html · run 01
+                  </code>
+                </div>
+
+                <ol className="divide-y divide-zinc-400/50 px-6 sm:px-8">
+                  {DJANGO_REQUEST_TRACE.map((step) => (
+                    <li
+                      key={step.marker}
+                      className="grid grid-cols-[3rem_minmax(0,1fr)] gap-x-4 gap-y-1 py-4 md:grid-cols-12 md:items-center md:gap-x-6 md:py-5"
+                    >
+                      <span className="row-span-4 font-mono text-2xl font-medium tracking-[-0.08em] text-[#146dff] md:col-span-1 md:row-span-1">
+                        {step.marker}
+                      </span>
+                      <span className="col-start-2 font-mono text-xs font-bold tracking-[0.08em] text-zinc-600 md:col-span-2 md:col-start-auto">
+                        {step.label}
+                      </span>
+                      <code className="col-start-2 text-base font-bold text-[#101318] md:col-span-3 md:col-start-auto">
+                        {step.title}
+                      </code>
+                      <code className="col-start-2 text-sm text-zinc-600 md:col-span-4 md:col-start-auto">
+                        {step.evidence}
+                      </code>
+                      <strong className="col-start-2 font-mono text-sm font-bold text-[#146dff] md:col-span-2 md:col-start-auto md:text-right">
+                        {step.transport}
+                      </strong>
+                    </li>
+                  ))}
+                </ol>
+
+                <div className="grid gap-2 bg-[#101318] px-6 py-4 text-white sm:px-8 md:grid-cols-12 md:items-center md:gap-x-6">
+                  <span className="font-mono text-xs font-bold tracking-[0.08em] text-emerald-400 md:col-span-3">
+                    ✓ PERSISTED TASK
+                  </span>
+                  <strong className="text-sm font-semibold md:col-span-6">
+                    Runtime proof from Sealos
+                  </strong>
+                  <code className="text-xs font-semibold text-zinc-300 md:col-span-3 md:text-right">
+                    POST → 302 → GET → 200
+                  </code>
+                </div>
               </div>
             </div>
           </figure>
@@ -185,39 +202,51 @@ function TutorialCatalogCard({
                 service.
               </p>
             </div>
-            <div className="relative mt-7 grid gap-8 border-t border-white/15 pt-7 md:grid-cols-12 md:gap-x-6">
-              <span
-                className="absolute top-[5.5rem] right-[12.5%] left-[12.5%] hidden h-px bg-white/20 md:block"
-                aria-hidden="true"
-              />
-              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                <Link
-                  key={chapter.hash}
-                  href={`${tutorial.url}${chapter.hash}`}
-                  className="group relative text-center focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3"
-                >
-                  <span className="font-mono text-3xl font-medium tracking-[-0.08em] text-[#5f96ff]">
-                    0{index + 1}
-                  </span>
-                  <span className="relative z-10 mx-auto mt-5 block size-2 rotate-45 bg-[#146dff] ring-4 ring-[#08090a]" />
-                  <strong className="mt-6 block text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
-                    {chapter.title}
-                  </strong>
-                  <span className="mx-auto mt-3 block max-w-60 text-sm leading-6 text-zinc-300">
-                    {chapter.detail}
-                  </span>
-                </Link>
-              ))}
-              <TutorialRequestGuideLink className="group relative text-center focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3">
-                <span className="font-mono text-3xl font-medium tracking-[-0.08em] text-[#5f96ff]">
-                  NEXT
+            <div className="mt-7 grid gap-8 md:grid-cols-12 md:gap-x-6">
+              <div className="relative border-t border-white/15 pt-7 md:col-span-9">
+                <span
+                  className="absolute top-[5.5rem] right-[16.666%] left-[16.666%] hidden h-px bg-white/20 md:block"
+                  aria-hidden="true"
+                />
+                <div className="grid gap-8 md:grid-cols-3 md:gap-x-6">
+                  {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
+                    <Link
+                      key={chapter.hash}
+                      href={`${tutorial.url}${chapter.hash}`}
+                      className="group relative text-center focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    >
+                      <span className="font-mono text-3xl font-medium tracking-[-0.08em] text-[#5f96ff]">
+                        0{index + 1}
+                      </span>
+                      <span className="relative z-10 mx-auto mt-5 block size-2 rotate-45 bg-[#146dff] ring-4 ring-[#08090a]" />
+                      <strong className="mt-6 block text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                        {chapter.title}
+                      </strong>
+                      <span className="mx-auto mt-3 block max-w-60 text-sm leading-6 text-zinc-300">
+                        {chapter.detail}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <TutorialRequestGuideLink className="group flex min-h-48 flex-col items-start border border-[#146dff]/60 bg-[#101318] p-6 text-left transition-colors hover:border-[#146dff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3">
+                <span className="font-mono text-xs font-bold tracking-[0.08em] text-[#5f96ff]">
+                  OTHER RUNTIME
                 </span>
-                <span className="relative z-10 mx-auto mt-5 block size-2 rotate-45 bg-[#146dff] ring-4 ring-[#08090a]" />
-                <strong className="mt-6 block text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                <strong className="mt-6 text-xl font-semibold text-white">
                   Request another stack
                 </strong>
-                <span className="mx-auto mt-3 block max-w-60 text-sm leading-6 text-zinc-300">
+                <span className="mt-3 text-sm leading-6 text-zinc-300">
                   Tell us what should ship next.
+                </span>
+                <span className="mt-auto inline-flex items-center pt-6 text-sm font-semibold text-[#5f96ff]">
+                  Request field note
+                  <ArrowRight
+                    size={16}
+                    className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
                 </span>
               </TutorialRequestGuideLink>
             </div>

@@ -193,9 +193,9 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
 
   return (
     <footer className="border-t border-white/10 text-white">
-      <div className="py-5">
-        <div className="container flex flex-col gap-5">
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+      <div className="py-8">
+        <div className="container flex flex-col gap-8">
+          <div className="grid gap-8 lg:grid-cols-[minmax(18rem,1fr)_minmax(0,2fr)] lg:items-start">
             <div>
               <Link
                 href={homeHref}
@@ -207,26 +207,54 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
               <p className="mt-2 text-sm text-zinc-300">
                 Build, deploy, and run applications on a cloud operating system.
               </p>
+              <div className="mt-5 flex items-center gap-4">
+                <SocialLink href={siteConfig.links.github} title="GitHub">
+                  <GithubIcon />
+                </SocialLink>
+                <SocialLink href={siteConfig.links.discord} title="Discord">
+                  <DiscordIcon />
+                </SocialLink>
+                <SocialLink href={siteConfig.links.twitter} title="X">
+                  <XIcon className="size-4" />
+                </SocialLink>
+                <SocialLink href={siteConfig.links.youtube} title="YouTube">
+                  <img
+                    src="/icons/youtube.svg"
+                    alt=""
+                    width={16}
+                    height={16}
+                    className="size-4"
+                  />
+                </SocialLink>
+                <SocialLink href="/rss.xml" title="RSS Feed">
+                  <RSSIcon className="size-4" />
+                </SocialLink>
+              </div>
             </div>
 
-            <nav
-              aria-label="Footer"
-              className="flex max-w-3xl flex-wrap gap-x-5 gap-y-2 lg:justify-end"
-            >
-              {footerLinks.columns.flatMap((category) =>
-                category.links.map((link) => (
-                  <FooterLink
-                    key={`${category.title}-${link.text}`}
-                    href={link.url}
-                  >
-                    {link.text}
-                  </FooterLink>
-                )),
-              )}
-            </nav>
+            <div>
+              <p className="font-mono text-xs font-semibold tracking-[0.08em] text-[#5f96ff] lg:text-right">
+                EXPLORE / SEALOS
+              </p>
+              <nav
+                aria-label="Footer"
+                className="mt-4 flex max-w-3xl flex-wrap gap-x-6 gap-y-3 lg:ml-auto lg:justify-end"
+              >
+                {footerLinks.columns.flatMap((category) =>
+                  category.links.map((link) => (
+                    <FooterLink
+                      key={`${category.title}-${link.text}`}
+                      href={link.url}
+                    >
+                      {link.text}
+                    </FooterLink>
+                  )),
+                )}
+              </nav>
+            </div>
           </div>
 
-          <div className="flex flex-col items-center justify-between gap-4 border-t border-zinc-900 pt-4 text-sm leading-5 text-zinc-300 lg:flex-row">
+          <div className="flex flex-col items-center justify-between gap-4 border-t border-zinc-900 pt-5 text-sm leading-5 text-zinc-300 lg:flex-row">
             <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 lg:justify-start">
               {footerLinks.legal.map((link) => (
                 <FooterLink key={link.text} href={link.url}>
@@ -236,30 +264,6 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
             </div>
 
             <p className="text-center">{footerLinks.copyright}</p>
-
-            <div className="flex items-center gap-4">
-              <SocialLink href={siteConfig.links.github} title="GitHub">
-                <GithubIcon />
-              </SocialLink>
-              <SocialLink href={siteConfig.links.discord} title="Discord">
-                <DiscordIcon />
-              </SocialLink>
-              <SocialLink href={siteConfig.links.twitter} title="X">
-                <XIcon className="size-4" />
-              </SocialLink>
-              <SocialLink href={siteConfig.links.youtube} title="YouTube">
-                <img
-                  src="/icons/youtube.svg"
-                  alt=""
-                  width={16}
-                  height={16}
-                  className="size-4"
-                />
-              </SocialLink>
-              <SocialLink href="/rss.xml" title="RSS Feed">
-                <RSSIcon className="size-4" />
-              </SocialLink>
-            </div>
           </div>
         </div>
       </div>
