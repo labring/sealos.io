@@ -55,7 +55,7 @@ function TutorialCatalogCard({
   return (
     <Link
       href={tutorial.url}
-      className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12"
+      className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12 md:items-center"
     >
       <div className="flex flex-col gap-6 p-6 md:col-span-5 md:p-10">
         <header>
@@ -126,15 +126,17 @@ function TutorialCatalogCard({
       </div>
 
       {tutorial.image && (
-        <div className="relative order-first aspect-[3/2] w-full overflow-clip md:order-none md:col-span-7 md:aspect-auto md:min-h-[500px]">
-          <Image
-            src={tutorial.image}
-            alt={`${tutorial.title} deployment result`}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-            fill
-            priority={priorityImage}
-            sizes="(max-width: 760px) 90vw, 55vw"
-          />
+        <div className="border-border bg-background order-first w-full border-b p-1.5 md:order-none md:col-span-7 md:border-b-0 md:border-l">
+          <div className="relative aspect-video w-full overflow-hidden rounded-[0.375rem]">
+            <Image
+              src={tutorial.image}
+              alt={`${tutorial.title} deployment result`}
+              className="h-full w-full object-contain"
+              fill
+              priority={priorityImage}
+              sizes="(max-width: 760px) 90vw, 55vw"
+            />
+          </div>
         </div>
       )}
     </Link>
