@@ -102,22 +102,24 @@ function TutorialCatalogCard({
             <span className="text-2xl font-semibold tracking-tight text-white">
               Production trace / DJANGO-01
             </span>
-            <span className="inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-[0.08em] text-emerald-400 uppercase">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-400">
               <span className="size-2 rounded-full bg-emerald-400" />
               Captured from a live project
             </span>
           </figcaption>
 
-          <div className="grid overflow-hidden bg-[#f1f1ed] text-zinc-950 md:grid-cols-[11rem_minmax(0,1fr)]">
-            <aside className="flex min-h-64 flex-col justify-between bg-[#146dff] p-7 text-white">
-              <p className="font-mono text-xs font-semibold tracking-[0.12em] uppercase">
-                HTTP result
+          <div className="grid overflow-hidden bg-[#dedfda] text-zinc-950 md:grid-cols-[7rem_minmax(0,1fr)]">
+            <aside className="flex min-h-56 flex-col justify-between bg-[#146dff] p-5 text-white">
+              <p className="text-xs font-semibold">
+                HTTP
+                <br />
+                response
               </p>
               <p>
-                <strong className="block text-6xl leading-none font-semibold tracking-[-0.06em]">
+                <strong className="block text-5xl leading-none font-semibold tracking-[-0.06em]">
                   200
                 </strong>
-                <span className="mt-1 block text-lg font-semibold">OK</span>
+                <span className="mt-1 block text-base font-semibold">OK</span>
               </p>
               <p className="text-xs leading-5 font-medium text-blue-100">
                 Public ingress
@@ -128,7 +130,7 @@ function TutorialCatalogCard({
 
             <div className="px-7 py-7 md:px-9">
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <span className="font-mono text-xs font-semibold tracking-[0.1em] text-[#146dff] uppercase">
+                <span className="text-xs font-semibold text-[#146dff]">
                   Verified request path
                 </span>
                 <code className="text-xs font-semibold text-zinc-600">
@@ -154,7 +156,7 @@ function TutorialCatalogCard({
                           <span className="absolute top-1/2 left-1/2 size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff]" />
                         </span>
                       )}
-                      <span className="relative z-10 flex size-5 items-center justify-center rounded-full bg-[#f1f1ed] ring-2 ring-[#146dff]">
+                      <span className="relative z-10 flex size-5 items-center justify-center rounded-full bg-[#dedfda] ring-2 ring-[#146dff]">
                         <span className="size-2 rounded-full bg-[#146dff]" />
                       </span>
                     </div>
@@ -169,7 +171,7 @@ function TutorialCatalogCard({
                 ))}
               </ol>
 
-              <div className="mt-6 grid gap-2 border-t border-zinc-300 pt-4 font-mono text-[11px] font-semibold tracking-[0.04em] text-zinc-600 uppercase md:grid-cols-3 md:gap-10">
+              <div className="mt-6 grid gap-2 border-t border-zinc-400/50 pt-4 font-mono text-[11px] font-semibold text-zinc-600 md:grid-cols-3 md:gap-10">
                 <span>HTTPS :443 · 200</span>
                 <span>WSGI :8000 · 1 replica</span>
                 <span>PostgreSQL :5432 · private</span>
@@ -178,43 +180,44 @@ function TutorialCatalogCard({
           </div>
 
           <nav
-            className="mt-12 grid gap-8 border-t border-white/10 pt-8 md:grid-cols-12 md:gap-10"
+            className="mt-10 border-t border-white/10 pt-7"
             aria-label="Guide chapters"
           >
-            <div className="md:col-span-4">
-              <p className="font-mono text-xs font-semibold tracking-[0.12em] text-[#5f96ff] uppercase">
-                Guide anatomy
+            <div className="grid gap-3 md:grid-cols-12 md:items-end md:gap-8">
+              <p className="text-sm font-semibold text-[#5f96ff] md:col-span-3">
+                Inside the guide
               </p>
-              <h3 className="mt-3 max-w-xs text-2xl leading-tight font-semibold tracking-tight text-white">
-                35 minutes. Three decisive checks.
+              <h3 className="text-2xl leading-tight font-semibold tracking-tight text-white md:col-span-5">
+                Three decisive checks in 35 minutes.
               </h3>
-              <p className="mt-3 max-w-xs text-sm leading-6 text-zinc-400">
+              <p className="max-w-sm text-sm leading-6 text-zinc-400 md:col-span-4">
                 Follow the shortest route from a local Django project to a
                 verified production service.
               </p>
             </div>
-            <ol className="border-t border-white/15 md:col-span-8">
+            <ol className="mt-6 border-y border-white/15">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                <li key={chapter.hash} className="border-b border-white/15">
+                <li
+                  key={chapter.hash}
+                  className="border-b border-white/15 last:border-b-0"
+                >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-5 rounded-sm py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_minmax(0,1fr)]"
+                    className="group grid items-center gap-x-5 rounded-sm py-4 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,0.8fr)]"
                   >
-                    <span className="font-mono text-3xl font-medium tracking-[-0.08em] text-[#5f96ff]">
+                    <span className="font-mono text-2xl font-medium tracking-[-0.08em] text-[#5f96ff]">
                       0{index + 1}
                     </span>
-                    <span>
-                      <strong className="inline-flex items-center gap-3 text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
-                        {chapter.title}
-                        <ArrowRight
-                          size={15}
-                          className="text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
-                          aria-hidden="true"
-                        />
-                      </strong>
-                      <span className="mt-1 block text-sm text-zinc-400">
-                        {chapter.detail}
-                      </span>
+                    <strong className="inline-flex items-center gap-3 text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                      {chapter.title}
+                      <ArrowRight
+                        size={15}
+                        className="text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
+                        aria-hidden="true"
+                      />
+                    </strong>
+                    <span className="col-start-2 mt-1 text-sm text-zinc-400 sm:col-start-auto sm:mt-0">
+                      {chapter.detail}
                     </span>
                   </Link>
                 </li>
@@ -337,8 +340,8 @@ export default function TutorialsPage({
       <main>
         <section className="container -mt-24 grid pt-32 pb-12 md:grid-cols-12 md:items-start md:gap-8">
           <div className="md:col-span-8">
-            <p className="text-xs font-semibold tracking-[0.18em] text-[#5f96ff] uppercase">
-              Field note 01 / Django 5.2 / Live evidence
+            <p className="text-sm font-semibold text-[#5f96ff]">
+              Field note 01 · Django 5.2 · Live evidence
             </p>
             <h1 className="mt-5 text-5xl leading-[0.92] font-medium tracking-[-0.05em] text-white md:text-[4.75rem]">
               <span className="block">Deploy Django</span>
@@ -370,9 +373,7 @@ export default function TutorialsPage({
             )}
           </div>
           <div className="mt-8 md:col-span-4 md:mt-0 md:self-stretch md:border-l md:border-[#146dff] md:pl-8">
-            <p className="font-mono text-xs font-semibold tracking-[0.12em] text-[#5f96ff] uppercase">
-              Run summary
-            </p>
+            <p className="text-sm font-semibold text-[#5f96ff]">Run summary</p>
             <dl className="mt-5 border-t border-white/15">
               <div className="flex items-baseline justify-between border-b border-white/15 py-3">
                 <dt className="text-sm text-zinc-400">Repo to live</dt>
