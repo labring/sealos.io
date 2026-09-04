@@ -28,8 +28,6 @@ const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
-    evidence: 'config.wsgi:application',
-    proofDetail: 'Gunicorn entrypoint',
     title: 'Prepare Django for production',
     detail:
       'Set the WSGI entrypoint, static file middleware, and production hosts.',
@@ -37,8 +35,6 @@ const DJANGO_GUIDE_CHAPTERS = [
   },
   {
     phase: 'Deploy',
-    evidence: 'DATABASE_URL → :5432',
-    proofDetail: 'Private PostgreSQL',
     title: 'Deploy with Sealos Skills',
     detail:
       'Provision the app and PostgreSQL, then release it with Sealos Skills.',
@@ -46,8 +42,6 @@ const DJANGO_GUIDE_CHAPTERS = [
   },
   {
     phase: 'Verify',
-    evidence: 'GET / → HTTP 200',
-    proofDetail: 'Persisted after fresh load',
     title: 'Verify the live application',
     detail:
       'Submit a task over HTTPS and confirm it persists after a fresh load.',
@@ -55,18 +49,21 @@ const DJANGO_GUIDE_CHAPTERS = [
   },
 ] as const;
 
-const DJANGO_LIVE_TRACE = [
+const DJANGO_LIVE_PROOF = [
   {
     stage: 'Request',
-    value: 'POST /',
+    command: 'POST / · task="Runtime proof from Sealos"',
+    result: '302',
   },
   {
     stage: 'Database',
-    value: 'COMMIT',
+    command: 'INSERT tasks_task · PostgreSQL',
+    result: 'COMMIT',
   },
   {
     stage: 'Fresh load',
-    value: 'GET /',
+    command: 'GET / HTTP/2 · task[0]',
+    result: '200 OK',
   },
 ] as const;
 
@@ -94,8 +91,6 @@ function TutorialCatalogCard({
   priorityImage?: boolean;
 }) {
   const isDjangoGuide = tutorial.url === DJANGO_TUTORIAL_PATH;
-  const verificationChapter = DJANGO_GUIDE_CHAPTERS[2];
-
   return (
     <article>
       <h2 id="published-tutorials-heading" className="sr-only">
@@ -103,12 +98,9 @@ function TutorialCatalogCard({
       </h2>
 
       {isDjangoGuide ? (
-        <nav
-          className="grid bg-[#f2f0e8] text-[#0a0a0a] md:grid-cols-3"
-          aria-label="Guide chapters"
-        >
-          <div className="md:col-span-2">
-            <div className="grid gap-6 py-6 pr-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center lg:gap-0">
+        <nav className="text-[#0a0a0a]" aria-label="Guide chapters">
+          <div className="grid md:grid-cols-3">
+            <div className="grid gap-6 bg-[#f2f0e8] py-6 pr-8 md:col-span-2 lg:grid-cols-[1.25fr_0.75fr] lg:items-center lg:gap-0">
               <div className="lg:pr-8">
                 <p className="text-sm font-semibold text-zinc-600">
                   Inside the guide
@@ -132,81 +124,76 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <ol className="grid border-y border-black/15 lg:grid-cols-2">
-              {DJANGO_GUIDE_CHAPTERS.slice(0, 2).map((chapter, index) => (
+            <div className="border-l border-white/15 bg-[#090909] px-7 py-6 text-white">
+              <p className="text-sm font-semibold text-zinc-400">
+                Observed transaction
+              </p>
+              <p className="mt-2 font-mono text-sm font-bold text-[#44b78b]">
+                POST → COMMIT → GET
+              </p>
+            </div>
+          </div>
+
+          <ol>
+            {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => {
+              const proof = DJANGO_LIVE_PROOF[index];
+
+              return (
                 <li
                   key={chapter.hash}
-                  className="border-t border-black/15 first:border-t-0 lg:border-t-0 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0"
+                  className="grid border-t border-black/15 md:grid-cols-3"
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group flex min-h-72 flex-col py-7 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none"
+                    className="group grid gap-5 bg-[#f2f0e8] py-6 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:col-span-2 md:grid-cols-[1.1fr_0.9fr] md:items-center md:gap-8"
                   >
-                    <span className="flex items-center gap-4">
-                      <span className="text-4xl font-medium tracking-[-0.055em] text-zinc-500">
+                    <span className="flex items-center gap-5">
+                      <span
+                        className={`text-4xl font-medium tracking-[-0.055em] ${
+                          index === DJANGO_GUIDE_CHAPTERS.length - 1
+                            ? 'text-[#16815d]'
+                            : 'text-zinc-500'
+                        }`}
+                      >
                         0{index + 1}
                       </span>
-                      <span className="text-sm font-semibold text-zinc-600">
-                        {chapter.phase}
+                      <span>
+                        <span className="block text-sm font-semibold text-zinc-600">
+                          {chapter.phase}
+                        </span>
+                        <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff]">
+                          {chapter.title}
+                        </strong>
                       </span>
                     </span>
-
-                    <strong className="mt-6 block max-w-sm text-2xl leading-tight font-semibold tracking-[-0.035em] transition-colors group-hover:text-[#146dff]">
-                      {chapter.title}
-                    </strong>
-                    <span className="mt-4 block max-w-sm text-base leading-7 text-zinc-700">
+                    <span className="text-base leading-7 text-zinc-700">
                       {chapter.detail}
                     </span>
-
-                    <span className="mt-auto flex min-w-0 items-center gap-3 pt-7">
-                      <span
-                        className="size-2 shrink-0 bg-[#16815d]"
-                        aria-hidden="true"
-                      />
-                      <span className="min-w-0">
-                        <code className="block truncate font-mono text-sm font-bold text-zinc-900">
-                          {chapter.evidence}
-                        </code>
-                        <span className="mt-1 block text-xs text-zinc-600">
-                          {chapter.proofDetail}
-                        </span>
-                      </span>
-                    </span>
                   </Link>
+
+                  <span className="border-l border-white/15 bg-[#090909] px-7 py-6 text-white">
+                    <span className="flex items-center justify-between gap-4">
+                      <span className="text-sm font-semibold text-zinc-300">
+                        {proof.stage}
+                      </span>
+                      <code
+                        className={`font-mono text-sm font-bold ${
+                          index === DJANGO_LIVE_PROOF.length - 1
+                            ? 'text-[#44b78b]'
+                            : 'text-zinc-300'
+                        }`}
+                      >
+                        {proof.result}
+                      </code>
+                    </span>
+                    <code className="mt-3 block truncate font-mono text-xs text-zinc-500">
+                      {proof.command}
+                    </code>
+                  </span>
                 </li>
-              ))}
-            </ol>
-          </div>
-
-          <Link
-            href={`${tutorial.url}${verificationChapter.hash}`}
-            className="group flex min-h-full flex-col border-l border-white/15 bg-[#090909] px-7 py-7 text-white transition-colors hover:text-[#44b78b] focus-visible:ring-2 focus-visible:ring-[#44b78b] focus-visible:outline-none"
-          >
-            <span className="flex items-center gap-4">
-              <span className="text-4xl font-medium tracking-[-0.055em] text-[#44b78b]">
-                03
-              </span>
-              <span className="text-sm font-semibold text-[#44b78b]">
-                {verificationChapter.phase}
-              </span>
-            </span>
-
-            <strong className="mt-6 block text-2xl leading-tight font-semibold tracking-[-0.035em] transition-colors">
-              {verificationChapter.title}
-            </strong>
-            <span className="mt-4 block text-base leading-7 text-zinc-300">
-              {verificationChapter.detail}
-            </span>
-
-            <span className="mt-auto border-t border-white/15 pt-7">
-              <code className="block font-mono text-base font-bold text-white">
-                {verificationChapter.evidence}
-              </code>
-              <span className="mt-2 block text-sm text-[#44b78b]">
-                {verificationChapter.proofDetail}
-              </span>
-            </span>
-          </Link>
+              );
+            })}
+          </ol>
         </nav>
       ) : tutorial.image ? (
         <figure className="mt-10 overflow-hidden rounded-xl bg-zinc-950 p-2 ring-1 ring-white/10">
@@ -367,32 +354,21 @@ export default function TutorialsPage({
                 </div>
 
                 <div className="flex flex-1 flex-col justify-center px-7 py-7">
-                  <p className="text-sm font-semibold text-[#44b78b]">
-                    Live persistence check
+                  <p className="text-sm font-semibold text-zinc-500">
+                    Submitted task
                   </p>
-                  <p className="mt-3 font-mono text-6xl font-medium tracking-[-0.06em] text-white">
-                    <span className="text-[#44b78b]">200</span> OK
-                  </p>
-                  <p className="mt-4 max-w-xs text-base leading-6 text-zinc-300">
-                    The submitted task remained after a fresh HTTP/2 load.
-                  </p>
+                  <blockquote className="mt-4 max-w-xs text-3xl leading-tight font-medium tracking-[-0.04em] text-white">
+                    “Runtime proof from Sealos”
+                  </blockquote>
+                  <span className="mt-6 inline-flex items-center gap-3 text-sm font-semibold text-[#44b78b]">
+                    <span className="size-2 bg-[#44b78b]" aria-hidden="true" />
+                    Persisted after refresh
+                  </span>
                 </div>
 
-                <ol
-                  className="flex items-center gap-3 border-t border-white/10 px-7 py-4 font-mono text-sm font-bold text-zinc-200"
-                  aria-label="Request, database commit, then fresh load"
-                >
-                  {DJANGO_LIVE_TRACE.map((proof, index) => (
-                    <li key={proof.stage} className="contents">
-                      <code>{proof.value}</code>
-                      {index < DJANGO_LIVE_TRACE.length - 1 && (
-                        <span className="text-zinc-600" aria-hidden="true">
-                          →
-                        </span>
-                      )}
-                    </li>
-                  ))}
-                </ol>
+                <p className="border-t border-white/10 px-7 py-4 font-mono text-xs text-zinc-400">
+                  HTTPS · Django 5.2 · PostgreSQL
+                </p>
               </div>
             </aside>
           </div>
