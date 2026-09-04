@@ -110,8 +110,8 @@ function TutorialCatalogCard({
             className="bg-[#f2f0e8] text-[#0a0a0a]"
             aria-label="Guide chapters"
           >
-            <div className="grid gap-8 py-9 lg:grid-cols-3 lg:items-start lg:gap-0">
-              <div className="lg:col-span-2 lg:pr-12">
+            <div className="grid gap-8 py-9 lg:grid-cols-2 lg:items-start lg:gap-0">
+              <div className="lg:pr-12">
                 <p className="text-sm font-semibold text-zinc-600">
                   Inside the guide
                 </p>
@@ -119,7 +119,7 @@ function TutorialCatalogCard({
                   Three decisive checks.
                 </h3>
               </div>
-              <div className="lg:pl-7">
+              <div className="lg:border-l lg:border-black/15 lg:pl-8">
                 <p className="text-base leading-7 text-zinc-700">
                   Configure, deploy, then verify the public flow.
                 </p>
@@ -134,19 +134,18 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <div className="hidden grid-cols-3 border-y border-black/15 py-3 text-xs font-semibold text-zinc-500 md:grid">
+            <div className="hidden grid-cols-2 border-y border-black/15 py-3 text-xs font-semibold text-zinc-500 md:grid">
               <span>Guide step</span>
-              <span className="px-7">Outcome</span>
-              <span className="pl-7">Verified proof</span>
+              <span className="pl-8">Outcome + verified proof</span>
             </div>
             <ol className="relative divide-y divide-black/15">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li key={chapter.hash}>
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid min-h-28 gap-5 py-6 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-3 md:items-center md:gap-0"
+                    className="group grid min-h-32 gap-5 py-6 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-2 md:items-center md:gap-0"
                   >
-                    <span className="grid grid-cols-[3.25rem_1fr] items-center gap-5 md:pr-7">
+                    <span className="grid grid-cols-[3.25rem_1fr] items-center gap-5 md:pr-8">
                       <span className="text-3xl font-medium tracking-[-0.05em] text-zinc-600">
                         0{index + 1}
                       </span>
@@ -159,22 +158,24 @@ function TutorialCatalogCard({
                         </strong>
                       </span>
                     </span>
-                    <span className="text-base leading-7 text-zinc-700 md:px-7">
-                      {chapter.detail}
-                    </span>
-                    <span className="relative md:pl-7">
-                      <span
-                        className="absolute -left-2.5 z-10 hidden size-5 place-items-center border border-[#16815d] bg-[#f2f0e8] md:grid"
-                        aria-hidden="true"
-                      >
-                        <span className="size-2 bg-[#16815d]" />
+                    <span className="md:border-l md:border-black/15 md:pl-8">
+                      <span className="block text-base leading-7 text-zinc-700">
+                        {chapter.detail}
                       </span>
-                      <span className="block min-w-0">
-                        <code className="block truncate font-mono text-sm font-bold text-zinc-900">
-                          {chapter.evidence}
-                        </code>
-                        <span className="mt-1 block text-xs text-zinc-600">
-                          {chapter.proofDetail}
+                      <span className="mt-3 flex min-w-0 items-center gap-3">
+                        <span
+                          className="grid size-5 shrink-0 place-items-center border border-[#16815d]"
+                          aria-hidden="true"
+                        >
+                          <span className="size-2 bg-[#16815d]" />
+                        </span>
+                        <span className="min-w-0">
+                          <code className="block truncate font-mono text-sm font-bold text-zinc-900">
+                            {chapter.evidence}
+                          </code>
+                          <span className="mt-1 block text-xs text-zinc-600">
+                            {chapter.proofDetail}
+                          </span>
                         </span>
                       </span>
                     </span>
@@ -332,14 +333,14 @@ export default function TutorialsPage({
                 className="absolute top-0 bottom-0 left-0 z-10 w-px bg-[#44b78b]/60"
                 aria-hidden="true"
               />
-              <div className="relative grid h-full grid-rows-[auto_1fr_auto] border border-white/15">
+              <div className="relative grid h-full grid-rows-[auto_1fr_auto] border border-white/10">
                 <div className="grid grid-cols-2 items-start py-4 pr-4 pl-7">
                   <Image
                     src="/icons/django.svg"
                     alt="Django"
                     width={148}
                     height={52}
-                    className="h-8 w-auto invert"
+                    className="h-7 w-auto opacity-80 invert"
                   />
                   <span className="text-right text-xs font-semibold text-white">
                     Live create / read
@@ -349,7 +350,7 @@ export default function TutorialsPage({
                   </span>
                 </div>
 
-                <div className="grid grid-rows-3 divide-y divide-white/15 border-y border-white/15">
+                <div className="grid grid-rows-3 divide-y divide-white/10 border-y border-white/10">
                   {DJANGO_LIVE_PROOF.map((proof, index) => (
                     <div
                       key={proof.stage}
@@ -365,7 +366,7 @@ export default function TutorialsPage({
                         0{index + 1}
                       </span>
                       <span className="min-w-0">
-                        <strong className="block text-sm font-semibold text-white">
+                        <strong className="block text-sm font-semibold text-zinc-300">
                           {proof.stage}
                         </strong>
                         <code className="mt-1 block truncate font-mono text-[11px] text-zinc-400">
@@ -376,7 +377,7 @@ export default function TutorialsPage({
                         className={`font-mono text-xs font-bold ${
                           index === DJANGO_LIVE_PROOF.length - 1
                             ? 'text-[#44b78b]'
-                            : 'text-zinc-300'
+                            : 'text-zinc-500'
                         }`}
                       >
                         {proof.result}
@@ -399,10 +400,6 @@ export default function TutorialsPage({
           className="relative container scroll-mt-28"
           aria-labelledby="published-tutorials-heading"
         >
-          <span
-            className="pointer-events-none absolute top-0 bottom-0 left-[calc(66.666667%-5.333px)] z-10 hidden w-px bg-[#16815d]/35 md:block"
-            aria-hidden="true"
-          />
           {firstTutorial && (
             <TutorialCatalogCard tutorial={firstTutorial} priorityImage />
           )}
