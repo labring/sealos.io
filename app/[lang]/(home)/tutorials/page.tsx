@@ -116,7 +116,7 @@ function TutorialCatalogCard({
                 <p className="text-sm leading-6 text-zinc-700">
                   Configure, deploy, then verify the public flow.
                 </p>
-                <TutorialRequestGuideLink className="group mt-3 inline-flex items-center gap-3 text-sm font-semibold text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none">
+                <TutorialRequestGuideLink className="group mt-3 inline-flex items-center gap-3 text-sm font-semibold text-zinc-800 focus-visible:ring-2 focus-visible:ring-zinc-800 focus-visible:outline-none">
                   Request the next field note
                   <ArrowRight
                     size={16}
@@ -127,15 +127,11 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <div className="relative bg-[#090909] py-5 pr-6 pl-12 text-white lg:border-l lg:border-white/15">
-              <span
-                className="absolute top-0 bottom-0 left-6 w-px bg-white/15"
-                aria-hidden="true"
-              />
-              <p className="text-sm font-semibold text-zinc-400">
+            <div className="bg-[#090909] px-6 py-5 text-white lg:border-l lg:border-white/15">
+              <p className="text-base font-semibold text-zinc-300">
                 Observed transaction
               </p>
-              <p className="mt-2 font-mono text-sm font-bold text-zinc-300">
+              <p className="mt-2 font-mono text-base font-bold text-zinc-200">
                 POST → COMMIT → GET
               </p>
             </div>
@@ -176,41 +172,29 @@ function TutorialCatalogCard({
                     </span>
                   </Link>
 
-                  <span className="relative bg-[#090909] py-5 pr-6 pl-12 text-white lg:border-l lg:border-white/15">
-                    <span
-                      className="absolute top-0 bottom-0 left-6 w-px bg-white/15"
-                      aria-hidden="true"
-                    />
-                    <span
-                      className={`absolute top-[1.6rem] left-[1.32rem] size-1.5 ${
-                        index === DJANGO_LIVE_PROOF.length - 1
-                          ? 'bg-[#44b78b]'
-                          : 'bg-zinc-600'
-                      }`}
-                      aria-hidden="true"
-                    />
+                  <span className="bg-[#090909] px-6 py-5 text-white lg:border-l lg:border-white/15">
                     <span className="flex items-center justify-between gap-4">
-                      <span className="text-sm font-semibold text-zinc-300">
+                      <span className="text-base font-semibold text-zinc-200">
                         {proof.stage}
                       </span>
                       {index < DJANGO_LIVE_PROOF.length - 1 && (
-                        <code className="font-mono text-sm font-bold text-zinc-300">
+                        <code className="font-mono text-base font-bold text-zinc-200">
                           {proof.result}
                         </code>
                       )}
                     </span>
-                    <code className="mt-2 block font-mono text-sm font-bold text-zinc-200">
+                    <code className="mt-2 block font-mono text-base font-bold text-white">
                       {proof.command}
                     </code>
-                    <code className="mt-1 block font-mono text-xs leading-5 break-words text-zinc-400">
+                    <code className="mt-1 block font-mono text-sm leading-5 break-words text-zinc-300">
                       {proof.detail}
                     </code>
                     {index === DJANGO_LIVE_PROOF.length - 1 && (
                       <span className="mt-2 flex items-baseline gap-3">
-                        <strong className="font-mono text-xl text-[#44b78b]">
+                        <strong className="font-mono text-2xl text-[#44b78b]">
                           {proof.result}
                         </strong>
-                        <span className="text-xs font-semibold text-[#44b78b]">
+                        <span className="text-sm font-semibold text-[#44b78b]">
                           Persisted after refresh
                         </span>
                       </span>
