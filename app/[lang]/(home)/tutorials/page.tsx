@@ -35,7 +35,7 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#prepare-django-for-production',
     evidence: 'Django container',
     status: 'Running',
-    cropClassName: '-left-[186.8%] -top-[58.3%]',
+    cropClassName: '-left-[166.25%] -top-[128.9%]',
   },
   {
     step: '02',
@@ -44,7 +44,7 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#deploy-with-sealos-skills',
     evidence: 'PostgreSQL',
     status: 'Running',
-    cropClassName: '-left-[302.1%] -top-[62.5%]',
+    cropClassName: '-left-[266.25%] -top-[157.8%]',
   },
   {
     step: '03',
@@ -53,7 +53,7 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#verify-the-live-django-application',
     evidence: 'Public HTTPS',
     status: 'Reachable',
-    cropClassName: '-left-[73.6%] -top-[55.6%]',
+    cropClassName: '-left-[62.5%] -top-full',
   },
 ] as const;
 
@@ -108,7 +108,7 @@ function TutorialCatalogCard({
             href={tutorial.url}
             className="group block rounded-sm focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
           >
-            <h3 className="max-w-4xl text-3xl leading-[1.08] font-semibold tracking-[-0.035em] text-white md:text-[2.65rem]">
+            <h3 className="max-w-4xl text-3xl leading-[1.08] font-semibold tracking-[-0.035em] text-white md:text-5xl">
               {isDjangoGuide ? (
                 <>
                   How to Deploy a Django App{' '}
@@ -126,7 +126,7 @@ function TutorialCatalogCard({
           </p>
           <Link
             href={tutorial.url}
-            className="group mt-6 inline-flex h-11 items-center rounded-md bg-[#146dff] px-5 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none active:translate-y-0"
+            className="group mt-6 inline-flex h-11 items-center rounded-sm bg-[#146dff] px-5 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none active:translate-y-0"
           >
             Read tutorial
             <ArrowRight
@@ -159,7 +159,7 @@ function TutorialCatalogCard({
           <h2 id="inside-guide-heading" className="sr-only">
             Guide chapters and deployment evidence
           </h2>
-          <div className="overflow-hidden rounded-lg ring-1 ring-white/15">
+          <div className="overflow-hidden rounded-sm ring-1 ring-white/15">
             <div className="hidden grid-cols-[1fr_auto_1fr_auto_1fr] items-center bg-[#0d111b] px-5 py-4 text-sm md:grid">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <Fragment key={chapter.step}>
@@ -188,16 +188,15 @@ function TutorialCatalogCard({
                     href={`${tutorial.url}${chapter.hash}`}
                     className="group block focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none focus-visible:ring-inset"
                   >
-                    <div className="relative aspect-square overflow-hidden bg-[#090c14]">
+                    <div className="relative aspect-video overflow-hidden bg-[#090c14]">
                       <Image
                         src="/images/tutorials/django/django-sealos-project-ops-running.webp"
                         alt={`${chapter.evidence} shown in the running Sealos project`}
-                        className={`absolute h-auto w-[444.444%] max-w-none ${chapter.cropClassName}`}
+                        className={`absolute h-auto w-[400%] max-w-none brightness-110 contrast-110 ${chapter.cropClassName}`}
                         width={3200}
                         height={1800}
                         priority={priorityImage}
-                        quality={90}
-                        sizes="(max-width: 760px) 92vw, 416px"
+                        unoptimized
                       />
                     </div>
                     <div className="p-5 md:min-h-40">
@@ -337,7 +336,7 @@ export default function TutorialsPage({
             </p>
             <h1
               aria-label="From working code to green lights"
-              className="mt-5 text-5xl leading-[0.98] font-medium tracking-[-0.045em] text-white md:text-7xl"
+              className="mt-5 text-5xl leading-[0.98] font-medium tracking-[-0.045em] text-white md:text-6xl"
             >
               <span className="block">From working code</span>
               <span className="mt-2 block text-zinc-300">to green lights.</span>
@@ -412,17 +411,17 @@ export default function TutorialsPage({
             </div>
           )}
 
-          <section className="mt-16 grid gap-7 bg-[#146dff] px-7 py-8 text-white md:grid-cols-12 md:items-center md:gap-8 md:px-9">
+          <section className="mt-16 grid gap-7 bg-[#f1f1ed] px-7 py-8 text-zinc-950 md:grid-cols-12 md:items-center md:gap-8 md:px-9">
             <div className="md:col-span-8">
               <h2 className="text-3xl font-semibold tracking-tight">
                 Need a guide for your stack?
               </h2>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-blue-100">
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-600">
                 Share the framework or runtime and the deployment job you need.
                 Requests help prioritize the next qualified Core tutorial.
               </p>
             </div>
-            <TutorialRequestGuideLink className="group inline-flex h-11 shrink-0 items-center text-sm font-semibold text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:translate-x-1 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none md:col-span-4 md:justify-end">
+            <TutorialRequestGuideLink className="group inline-flex h-11 shrink-0 items-center text-sm font-semibold text-[#146dff] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:translate-x-1 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:col-span-4 md:justify-end">
               Request a tutorial
               <ArrowRight
                 size={16}
