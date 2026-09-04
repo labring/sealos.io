@@ -44,7 +44,7 @@ const DJANGO_GUIDE_CHAPTERS = [
   },
 ] as const;
 
-const DJANGO_PROOF_CAPTURES = [
+const DJANGO_SERVICE_CAPTURES = [
   {
     marker: '01.A',
     title: 'Public HTTPS',
@@ -54,7 +54,6 @@ const DJANGO_PROOF_CAPTURES = [
     imageAlt: 'Public HTTPS service in the live Sealos project',
     imageSize: '500% auto',
     imagePosition: '22% 32%',
-    imageClassName: 'brightness-150 contrast-125 saturate-75',
   },
   {
     marker: '01.B',
@@ -65,7 +64,6 @@ const DJANGO_PROOF_CAPTURES = [
     imageAlt: 'Running Django container in the live Sealos project',
     imageSize: '500% auto',
     imagePosition: '55% 38%',
-    imageClassName: 'brightness-150 contrast-125 saturate-75',
   },
   {
     marker: '01.C',
@@ -76,19 +74,6 @@ const DJANGO_PROOF_CAPTURES = [
     imageAlt: 'Attached PostgreSQL service in the live Sealos project',
     imageSize: '500% auto',
     imagePosition: '86% 44%',
-    imageClassName: 'brightness-150 contrast-125 saturate-75',
-  },
-  {
-    marker: '02',
-    title: 'Live create/read',
-    status: '200 OK',
-    evidence: 'Public task write and read confirmed',
-    image: '/images/tutorials/django/django-sealos-live-app-https-proof.webp',
-    imageAlt: 'Live Django task application with a verified task result',
-    imageSize: '140% auto',
-    imagePosition: '50% 45%',
-    imageClassName:
-      'invert hue-rotate-180 brightness-90 contrast-125 saturate-75',
   },
 ] as const;
 
@@ -135,8 +120,39 @@ function TutorialCatalogCard({
             </span>
           </figcaption>
 
-          <ol className="grid overflow-hidden border-y border-white/15 bg-white/15 md:grid-cols-4 md:gap-px">
-            {DJANGO_PROOF_CAPTURES.map((capture) => (
+          <div className="border border-white/15">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/15 px-5 py-4">
+              <h3 className="text-xl font-semibold text-white">
+                02 / Live create and read
+              </h3>
+              <span className="inline-flex items-center gap-2 font-mono text-sm font-semibold text-emerald-400">
+                <span className="size-2 rounded-full bg-emerald-400" />
+                HTTP 200
+              </span>
+            </div>
+            <div className="relative aspect-[2/1] overflow-hidden bg-[#07101d]">
+              <Image
+                src="/images/tutorials/django/django-sealos-live-app-https-proof.webp"
+                alt="Live Django task application with a verified task write and read result"
+                fill
+                priority={priorityImage}
+                quality={95}
+                className="scale-[1.2] object-cover"
+                sizes="(max-width: 760px) 100vw, 88vw"
+              />
+            </div>
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/15 px-5 py-3 text-sm">
+              <span className="text-zinc-300">
+                Public task write and read confirmed
+              </span>
+              <span className="font-semibold text-emerald-400">
+                Production result verified
+              </span>
+            </div>
+          </div>
+
+          <ol className="mt-px grid overflow-hidden bg-white/15 md:grid-cols-3 md:gap-px">
+            {DJANGO_SERVICE_CAPTURES.map((capture) => (
               <li
                 key={capture.marker}
                 className="flex min-w-0 flex-col border-b border-white/15 bg-[#0d1016] last:border-b-0 md:border-b-0"
@@ -157,7 +173,7 @@ function TutorialCatalogCard({
                   <span
                     role="img"
                     aria-label={capture.imageAlt}
-                    className={`absolute inset-0 bg-no-repeat ${capture.imageClassName}`}
+                    className="absolute inset-0 bg-no-repeat"
                     style={{
                       backgroundImage: `url(${capture.image})`,
                       backgroundPosition: capture.imagePosition,
@@ -174,18 +190,18 @@ function TutorialCatalogCard({
           </ol>
 
           <nav
-            className="mt-10 grid border-y border-white/15 md:grid-cols-[0.72fr_2fr]"
+            className="mt-10 grid border-y border-white/15 md:grid-cols-[0.5fr_2fr]"
             aria-label="Guide chapters"
           >
-            <div className="flex items-center gap-4 border-b border-[#146dff] bg-[#146dff] p-6 md:border-r md:border-b-0">
-              <strong className="text-7xl leading-none font-medium tracking-[-0.08em] text-white">
+            <div className="flex items-center gap-4 border-b border-l-4 border-white/15 border-l-[#146dff] bg-[#101318] p-6 md:border-r md:border-b-0">
+              <strong className="text-6xl leading-none font-medium tracking-[-0.08em] text-[#5f96ff]">
                 35
               </strong>
               <div>
                 <h3 className="text-xl font-semibold text-white">
                   minute guide
                 </h3>
-                <p className="mt-1 text-sm text-blue-100">Three chapters</p>
+                <p className="mt-1 text-sm text-zinc-400">Three chapters</p>
               </div>
             </div>
             <ol>
@@ -196,23 +212,21 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-5 px-6 py-4 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[2rem_minmax(0,1fr)]"
+                    className="group grid items-center gap-x-5 px-6 py-4 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[2rem_22rem_minmax(0,1fr)]"
                   >
                     <span className="font-mono text-sm font-semibold text-[#5f96ff]">
                       0{index + 1}
                     </span>
-                    <span>
-                      <strong className="inline-flex items-center gap-3 text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
-                        {chapter.title}
-                        <ArrowRight
-                          size={15}
-                          className="text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
-                          aria-hidden="true"
-                        />
-                      </strong>
-                      <span className="mt-1 block text-sm text-zinc-300">
-                        {chapter.detail}
-                      </span>
+                    <strong className="inline-flex items-center gap-3 text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                      {chapter.title}
+                      <ArrowRight
+                        size={15}
+                        className="text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
+                        aria-hidden="true"
+                      />
+                    </strong>
+                    <span className="col-start-2 mt-1 text-sm text-zinc-300 sm:col-start-auto sm:mt-0">
+                      {chapter.detail}
                     </span>
                   </Link>
                 </li>
@@ -347,11 +361,6 @@ export default function TutorialsPage({
             </p>
             {firstTutorial && (
               <div className="flex flex-wrap items-center gap-5">
-                <span className="inline-flex items-center gap-2 text-sm text-zinc-400">
-                  <BookOpen size={14} aria-hidden="true" />
-                  {firstTutorial.estimatedReadingTime} · 3 proofs ·{' '}
-                  <span className="text-emerald-400">HTTP 200</span>
-                </span>
                 <Link
                   href={firstTutorial.url}
                   className="group inline-flex h-11 items-center rounded-sm bg-[#146dff] px-5 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none active:translate-y-0"
@@ -363,6 +372,11 @@ export default function TutorialsPage({
                     aria-hidden="true"
                   />
                 </Link>
+                <span className="inline-flex items-center gap-2 text-sm text-zinc-400">
+                  <BookOpen size={14} aria-hidden="true" />
+                  {firstTutorial.estimatedReadingTime} · 3 proofs ·{' '}
+                  <span className="text-emerald-400">HTTP 200</span>
+                </span>
               </div>
             )}
           </div>
