@@ -59,7 +59,9 @@ const DJANGO_GUIDE_CHAPTERS = [
     imageAlt: 'Public HTTPS service captured in the live Sealos project',
     imageSize: '290% auto',
     imagePosition: '12% 47%',
-    imageClassName: 'brightness-125 contrast-110',
+    imageClassName: 'brightness-150 contrast-110 saturate-75',
+    proofLabel: 'Public address',
+    proofValue: 'Reachable',
   },
   {
     title: 'Deploy with Sealos Skills',
@@ -69,7 +71,9 @@ const DJANGO_GUIDE_CHAPTERS = [
     imageAlt: 'Running Django container captured in the live Sealos project',
     imageSize: '290% auto',
     imagePosition: '50% 47%',
-    imageClassName: 'brightness-125 contrast-110',
+    imageClassName: 'brightness-150 contrast-110 saturate-75',
+    proofLabel: 'Django container',
+    proofValue: 'Running',
   },
   {
     title: 'Verify the live application',
@@ -77,9 +81,11 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#verify-the-live-django-application',
     image: '/images/tutorials/django/django-sealos-live-app-https-proof.webp',
     imageAlt: 'Live Django task application after deployment',
-    imageSize: '145% auto',
+    imageSize: '100% auto',
     imagePosition: '50% 47%',
-    imageClassName: 'brightness-75 contrast-110',
+    imageClassName: 'brightness-65 contrast-125 saturate-75',
+    proofLabel: 'Create + read',
+    proofValue: 'Verified',
   },
 ] as const;
 
@@ -126,7 +132,7 @@ function TutorialCatalogCard({
             </span>
           </figcaption>
 
-          <div className="-mx-6 border-y border-white/15 bg-[#0d1016] px-6 py-7 text-white">
+          <div className="border-y border-white/15 bg-[#0d1016] px-6 py-5 text-white">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <span className="text-sm font-semibold text-zinc-300">
                 Request enters the public service
@@ -136,17 +142,17 @@ function TutorialCatalogCard({
               </code>
             </div>
 
-            <div className="relative mt-8">
+            <div className="relative mt-5">
               <span
-                className="absolute top-24 right-3 left-3 hidden h-1 bg-[#146dff] md:block"
+                className="absolute top-20 right-3 left-3 hidden h-1 bg-[#146dff] md:block"
                 aria-hidden="true"
               />
               <span
-                className="absolute top-24 left-1/4 hidden size-0 -translate-x-1/2 -translate-y-1/2 border-y-[6px] border-l-[10px] border-y-transparent border-l-[#146dff] md:block"
+                className="absolute top-20 left-1/4 hidden size-0 -translate-x-1/2 -translate-y-1/2 border-y-[6px] border-l-[10px] border-y-transparent border-l-[#146dff] md:block"
                 aria-hidden="true"
               />
               <span
-                className="absolute top-24 left-3/4 hidden size-0 -translate-x-1/2 -translate-y-1/2 border-y-[6px] border-l-[10px] border-y-transparent border-l-[#146dff] md:block"
+                className="absolute top-20 left-3/4 hidden size-0 -translate-x-1/2 -translate-y-1/2 border-y-[6px] border-l-[10px] border-y-transparent border-l-[#146dff] md:block"
                 aria-hidden="true"
               />
 
@@ -159,13 +165,13 @@ function TutorialCatalogCard({
                     <span className="font-mono text-xs font-semibold tracking-[0.1em] text-[#146dff]">
                       {node.marker}
                     </span>
-                    <h3 className="mt-2 text-3xl font-semibold tracking-[-0.035em]">
+                    <h3 className="mt-2 text-2xl font-semibold tracking-[-0.035em]">
                       {node.title}
                     </h3>
-                    <span className="relative z-10 mt-6 flex size-6 items-center justify-center rounded-full bg-[#090909] ring-3 ring-[#146dff]">
+                    <span className="relative z-10 mt-5 flex size-6 items-center justify-center rounded-full bg-[#090909] ring-3 ring-[#146dff]">
                       <span className="size-2.5 rounded-full bg-[#146dff]" />
                     </span>
-                    <code className="mt-6 block text-sm font-semibold text-zinc-100">
+                    <code className="mt-5 block text-sm font-semibold text-zinc-100">
                       {node.value}
                     </code>
                     <span className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-emerald-400">
@@ -208,18 +214,27 @@ function TutorialCatalogCard({
                       <span className="text-[#5f96ff]">0{index + 1}</span>
                       <span className="text-zinc-500">Evidence capture</span>
                     </span>
-                    <span className="relative block h-40 overflow-hidden bg-[#101726]">
+                    <span className="relative block h-40 overflow-hidden bg-[#08111f]">
                       <span
                         role="img"
                         aria-label={chapter.imageAlt}
-                        className={`absolute inset-0 bg-no-repeat transition-opacity duration-500 group-hover:opacity-100 ${chapter.imageClassName}`}
+                        className={`absolute inset-3 bg-no-repeat transition-opacity duration-500 group-hover:opacity-100 ${chapter.imageClassName}`}
                         style={{
                           backgroundImage: `url(${chapter.image})`,
                           backgroundPosition: chapter.imagePosition,
                           backgroundSize: chapter.imageSize,
                         }}
                       />
-                      <span className="absolute inset-0 ring-1 ring-white/10 ring-inset" />
+                      <span className="absolute inset-3 ring-1 ring-white/10 ring-inset" />
+                      <span className="absolute right-3 bottom-3 left-3 flex items-center justify-between bg-[#06090e]/90 px-3 py-2 text-xs">
+                        <span className="text-zinc-300">
+                          {chapter.proofLabel}
+                        </span>
+                        <strong className="inline-flex items-center gap-2 font-semibold text-emerald-400">
+                          <span className="size-1.5 rounded-full bg-emerald-400" />
+                          {chapter.proofValue}
+                        </strong>
+                      </span>
                     </span>
                     <strong className="mt-5 inline-flex items-center gap-3 text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
                       {chapter.title}
@@ -351,21 +366,25 @@ export default function TutorialsPage({
       )}
 
       <main>
-        <section className="container -mt-24 grid pt-32 pb-12 md:grid-cols-12 md:items-start md:gap-8">
-          <div className="md:col-span-8">
-            <p className="text-sm font-semibold text-[#5f96ff]">
-              Field note 01 · Django 5.2 · Live evidence
-            </p>
-            <h1 className="mt-5 text-5xl leading-[0.92] font-medium tracking-[-0.05em] text-white md:text-[4.75rem]">
-              <span className="block">Deploy Django</span>
-              <span className="mt-2 block">on Sealos</span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-7 text-zinc-300">
+        <section className="container -mt-24 pt-32 pb-12">
+          <p className="text-sm font-semibold text-[#5f96ff]">
+            Field note 01 · Django 5.2 · Live evidence
+          </p>
+          <h1 className="mt-5 text-5xl leading-[0.92] font-medium tracking-[-0.055em] text-white md:text-[5.75rem]">
+            Deploy Django on Sealos
+          </h1>
+          <div className="mt-8 grid gap-6 md:grid-cols-12 md:items-end md:gap-8">
+            <p className="max-w-2xl text-base leading-7 text-zinc-300 md:col-span-7">
               Build a Django 5.2 Task app, prepare Gunicorn, WhiteNoise, and
               PostgreSQL, then deploy it and verify a live create/read flow.
             </p>
             {firstTutorial && (
-              <div className="mt-7 flex flex-wrap items-center gap-5">
+              <div className="flex flex-wrap items-center gap-5 md:col-span-5 md:justify-end">
+                <span className="inline-flex items-center gap-2 text-sm text-zinc-400">
+                  <BookOpen size={14} aria-hidden="true" />
+                  {firstTutorial.estimatedReadingTime} · 3 proofs ·{' '}
+                  <span className="text-emerald-400">HTTP 200</span>
+                </span>
                 <Link
                   href={firstTutorial.url}
                   className="group inline-flex h-11 items-center rounded-sm bg-[#146dff] px-5 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none active:translate-y-0"
@@ -377,29 +396,8 @@ export default function TutorialsPage({
                     aria-hidden="true"
                   />
                 </Link>
-                <span className="inline-flex items-center gap-2 text-sm text-zinc-400">
-                  <BookOpen size={14} aria-hidden="true" />
-                  {firstTutorial.estimatedReadingTime} · Django · Core
-                  deployment
-                </span>
               </div>
             )}
-          </div>
-          <div className="mt-8 md:col-span-4 md:mt-0 md:flex md:items-end md:self-stretch md:pb-2 md:pl-8">
-            <div className="max-w-sm">
-              <span
-                className="block h-1 w-full bg-[#146dff]"
-                aria-hidden="true"
-              />
-              <p className="mt-5 text-3xl leading-9 font-medium tracking-[-0.035em] text-zinc-100">
-                A field-tested route from a Django repository to a public
-                response.
-              </p>
-              <p className="mt-6 text-sm font-medium text-zinc-400">
-                35 minutes · 3 proofs ·{' '}
-                <span className="text-emerald-400">HTTP 200</span>
-              </p>
-            </div>
           </div>
         </section>
 
