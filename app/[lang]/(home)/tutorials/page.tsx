@@ -33,28 +33,19 @@ const DJANGO_EVIDENCE_NODES = [
     phase: '01 · Configure',
     label: 'Django runtime',
     status: 'Running · :8000',
-    className: 'top-[17%] left-[3%] w-[30%]',
-    frameClassName: 'h-60',
-    position: '56% 38%',
-    size: '445% auto',
+    position: '56% 34%',
   },
   {
     phase: '02 · Deploy',
     label: 'PostgreSQL',
     status: 'Private · attached',
-    className: 'top-[9%] left-[35%] w-[31%]',
-    frameClassName: 'h-72',
-    position: '90% 42%',
-    size: '410% auto',
+    position: '90% 37%',
   },
   {
     phase: '03 · Verify',
     label: 'Public HTTPS',
     status: 'HTTP 200 · live',
-    className: 'top-[29%] right-[3%] w-[28%]',
-    frameClassName: 'h-40',
-    position: '22% 33%',
-    size: '480% auto',
+    position: '22% 34%',
   },
 ] as const;
 
@@ -132,73 +123,46 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="overflow-hidden border-b border-white/15 bg-[#070b12]">
-              <Image
-                src={DJANGO_PRODUCTION_EVIDENCE}
-                alt="Sealos project canvas showing the public HTTPS endpoint, running Django container, and attached PostgreSQL database"
-                width={3200}
-                height={1800}
-                className="h-auto w-full brightness-110 contrast-110 md:hidden"
-                priority
-                quality={95}
-                sizes="100vw"
-              />
-
-              <div className="relative hidden h-96 md:block">
-                <span
-                  className="absolute top-1/2 left-[32%] w-[5%] border-t border-dashed border-[#5f96ff]/60"
-                  aria-hidden="true"
-                />
-                <span
-                  className="absolute top-1/2 left-[64%] w-[7%] border-t border-dashed border-[#5f96ff]/60"
-                  aria-hidden="true"
-                />
-                <ol className="absolute inset-0">
-                  {DJANGO_EVIDENCE_NODES.map((node) => (
-                    <li
-                      key={node.phase}
-                      className={`absolute ${node.className}`}
-                    >
-                      <div className="flex items-baseline justify-between gap-4">
-                        <span className="font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase">
-                          {node.phase}
-                        </span>
-                        <span className="text-sm font-semibold text-white">
-                          {node.status}
-                        </span>
-                      </div>
-                      <div
-                        role="img"
-                        aria-label={`${node.label}: ${node.status}`}
-                        className={`mt-3 bg-no-repeat brightness-125 contrast-125 ${node.frameClassName}`}
-                        style={{
-                          backgroundImage: `url(${DJANGO_PRODUCTION_EVIDENCE})`,
-                          backgroundPosition: node.position,
-                          backgroundSize: node.size,
-                        }}
-                      />
-                      <p className="mt-3 text-xl font-semibold tracking-[-0.025em] text-white">
-                        {node.label}
-                      </p>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-
-              <ul className="grid border-t border-white/15 bg-black sm:grid-cols-2 md:hidden">
-                <li className="border-b border-white/15 px-4 py-3 font-mono text-xs font-bold text-[#5f96ff] uppercase sm:border-r">
-                  Public HTTPS · reachable
-                </li>
-                <li className="border-b border-white/15 px-4 py-3 font-mono text-xs font-bold text-[#5f96ff] uppercase">
-                  Django · running
-                </li>
-                <li className="px-4 py-3 font-mono text-xs font-bold text-[#5f96ff] uppercase sm:border-r">
-                  PostgreSQL · attached
-                </li>
-                <li className="px-4 py-3 font-mono text-xs font-bold text-[#44b78b] uppercase">
-                  HTTP 200 · verified
-                </li>
-              </ul>
+            <div className="overflow-hidden border-b border-white/15 bg-white/15">
+              <ol className="grid gap-px md:grid-cols-3">
+                {DJANGO_EVIDENCE_NODES.map((node, index) => (
+                  <li
+                    key={node.phase}
+                    className="relative bg-[#070b12] p-6 md:p-7"
+                  >
+                    <div className="flex items-baseline justify-between gap-4">
+                      <span className="font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase">
+                        {node.phase}
+                      </span>
+                      <span className="text-sm font-semibold text-white">
+                        {node.status}
+                      </span>
+                    </div>
+                    <div
+                      role="img"
+                      aria-label={`${node.label}: ${node.status}`}
+                      className="mt-4 h-56 bg-no-repeat brightness-125 contrast-125"
+                      style={{
+                        backgroundImage: `url(${DJANGO_PRODUCTION_EVIDENCE})`,
+                        backgroundPosition: node.position,
+                        backgroundSize: '425% auto',
+                      }}
+                    />
+                    <p className="mt-4 text-xl font-semibold tracking-[-0.025em] text-white">
+                      {node.label}
+                    </p>
+                    {index < DJANGO_EVIDENCE_NODES.length - 1 && (
+                      <span
+                        className="absolute top-[57%] -right-5 z-10 hidden w-10 items-center md:flex"
+                        aria-hidden="true"
+                      >
+                        <span className="h-px flex-1 bg-[#5f96ff]" />
+                        <span className="size-1.5 rotate-45 border-t border-r border-[#5f96ff]" />
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ol>
             </div>
           </figure>
 
