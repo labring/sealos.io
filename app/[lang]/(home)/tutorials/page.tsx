@@ -151,10 +151,12 @@ function TutorialCatalogCard({
                     className="group grid gap-5 bg-[#f2f0e8] py-5 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none lg:grid-cols-[3rem_16.5rem_1fr] lg:items-center lg:gap-5"
                   >
                     <span
-                      className={`text-4xl font-medium tracking-[-0.055em] ${
+                      className={`font-medium tracking-[-0.055em] ${
                         index === DJANGO_GUIDE_CHAPTERS.length - 1
-                          ? 'text-[#16815d]'
-                          : 'text-zinc-500'
+                          ? 'text-4xl text-[#16815d]'
+                          : index === 1
+                            ? 'text-[2.125rem] text-zinc-500'
+                            : 'text-3xl text-zinc-500'
                       }`}
                     >
                       0{index + 1}
@@ -163,7 +165,15 @@ function TutorialCatalogCard({
                       <span className="block text-sm font-semibold text-zinc-600">
                         {chapter.phase}
                       </span>
-                      <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff]">
+                      <strong
+                        className={`mt-2 block leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff] ${
+                          index === DJANGO_GUIDE_CHAPTERS.length - 1
+                            ? 'text-[1.375rem]'
+                            : index === 1
+                              ? 'text-xl'
+                              : 'text-lg'
+                        }`}
+                      >
                         {chapter.title}
                       </strong>
                     </span>
@@ -368,24 +378,24 @@ export default function TutorialsPage({
                     2026.09.02
                   </span>
                 </div>
-                <div className="my-auto py-7">
+                <div className="my-auto py-6">
                   <p className="text-sm font-semibold text-zinc-500">
                     Live create / read proof
                   </p>
                   <p className="mt-3 max-w-xs text-3xl leading-tight font-medium tracking-[-0.04em] text-white">
                     One task. Written once. Read after refresh.
                   </p>
+                  <p className="mt-6 flex items-center gap-3 text-sm font-semibold text-[#44b78b]">
+                    <Image
+                      src="/logo.svg"
+                      alt=""
+                      width={20}
+                      height={20}
+                      className="size-5"
+                    />
+                    HTTP 200 · persisted
+                  </p>
                 </div>
-                <p className="flex items-center gap-3 text-sm font-semibold text-[#44b78b]">
-                  <Image
-                    src="/logo.svg"
-                    alt=""
-                    width={20}
-                    height={20}
-                    className="size-5"
-                  />
-                  HTTP 200 · persisted
-                </p>
               </div>
             </aside>
           </div>
