@@ -105,7 +105,7 @@ function TutorialCatalogCard({
                   Three decisive checks.
                 </h3>
               </div>
-              <div className="lg:pl-14">
+              <div className="lg:pl-7">
                 <p className="text-base leading-7 text-zinc-700">
                   Configure, deploy, then verify the public flow.
                 </p>
@@ -123,7 +123,7 @@ function TutorialCatalogCard({
             <div className="hidden grid-cols-3 border-y border-black/15 py-3 text-xs font-semibold text-zinc-500 md:grid">
               <span>Guide step</span>
               <span className="px-7">Outcome</span>
-              <span className="pl-14">Verified proof</span>
+              <span className="pl-7">Verified proof</span>
             </div>
             <ol className="relative divide-y divide-black/15">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
@@ -148,9 +148,9 @@ function TutorialCatalogCard({
                     <span className="text-base leading-7 text-zinc-700 md:px-7">
                       {chapter.detail}
                     </span>
-                    <span className="relative grid grid-cols-[1.25rem_1fr_auto] items-center gap-3 md:pl-7">
+                    <span className="relative grid grid-cols-[1fr_auto] items-center gap-3 md:pl-7">
                       <span
-                        className="relative z-10 grid size-4 place-items-center border border-[#16815d] bg-[#f2f0e8]"
+                        className="absolute -left-2 z-10 grid size-4 place-items-center border border-[#16815d] bg-[#f2f0e8]"
                         aria-hidden="true"
                       >
                         <span className="size-1.5 bg-[#16815d]" />
@@ -284,7 +284,7 @@ export default function TutorialsPage({
         <section className="container -mt-24 pt-32">
           <div className="relative grid gap-8 md:grid-cols-3 md:items-stretch md:gap-0">
             <span
-              className="absolute top-[13.3125rem] right-[calc(33.333333%-2.25rem)] left-0 hidden h-px bg-white/15 md:block"
+              className="absolute top-[13.3125rem] right-[33.333333%] left-0 hidden h-px bg-white/15 md:block"
               aria-hidden="true"
             />
             <ol
@@ -332,17 +332,17 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <aside className="pl-7">
-              <div className="relative grid h-full grid-rows-[auto_1fr_auto] border border-white/15">
+            <aside className="relative">
+              <span
+                className="absolute top-0 bottom-0 left-0 z-10 w-px bg-[#44b78b]/60"
+                aria-hidden="true"
+              />
+              <div className="relative grid grid-rows-[auto_auto_auto] border border-white/15">
                 <span
-                  className="absolute top-6 bottom-0 left-[7px] w-px bg-[#44b78b]/60"
+                  className="absolute top-6 -left-1 z-20 size-2 bg-[#44b78b]"
                   aria-hidden="true"
                 />
-                <span
-                  className="absolute top-6 left-[3px] size-2 bg-[#44b78b]"
-                  aria-hidden="true"
-                />
-                <div className="grid grid-cols-2 items-start px-4 py-4">
+                <div className="grid grid-cols-2 items-start py-4 pr-4 pl-7">
                   <Image
                     src="/icons/django.svg"
                     alt="Django"
@@ -363,33 +363,20 @@ export default function TutorialsPage({
                   </span>
                 </div>
 
-                <div className="grid content-center border-y border-white/15 px-4 py-5">
+                <div className="border-y border-white/15 py-5 pr-4 pl-7">
                   <p className="text-sm font-semibold text-zinc-200">
-                    Captured evidence
+                    Captured response
                   </p>
-                  <dl className="mt-4 grid gap-3 text-xs">
-                    <div className="grid grid-cols-[4rem_1fr] gap-3">
-                      <dt className="text-zinc-500">Source</dt>
-                      <dd className="font-mono text-zinc-300">
-                        django-tasks…sealos.io
-                      </dd>
-                    </div>
-                    <div className="grid grid-cols-[4rem_1fr] gap-3">
-                      <dt className="text-zinc-500">Runtime</dt>
-                      <dd className="font-mono text-zinc-300">
-                        config.wsgi:application
-                      </dd>
-                    </div>
-                    <div className="grid grid-cols-[4rem_1fr] gap-3">
-                      <dt className="text-zinc-500">Data</dt>
-                      <dd className="font-mono text-zinc-300">
-                        PostgreSQL · private :5432
-                      </dd>
-                    </div>
-                  </dl>
+                  <div className="mt-4 grid gap-1.5 font-mono text-xs leading-5">
+                    <code className="text-zinc-400">› GET / HTTP/2</code>
+                    <code className="font-bold text-[#44b78b]">‹ 200 OK</code>
+                    <code className="text-zinc-300">
+                      task = &quot;Runtime proof from Sealos&quot;
+                    </code>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 px-4 py-3 text-xs text-zinc-400">
+                <div className="grid grid-cols-2 gap-4 py-3 pr-4 pl-7 text-xs text-zinc-400">
                   <span>Django 5.2 · Field note 01</span>
                   <span className="text-right">35 min · 2026-09-02</span>
                 </div>
@@ -400,11 +387,11 @@ export default function TutorialsPage({
 
         <section
           id="published-tutorials"
-          className="relative container scroll-mt-28 pb-12"
+          className="relative container scroll-mt-28"
           aria-labelledby="published-tutorials-heading"
         >
           <span
-            className="pointer-events-none absolute top-0 bottom-12 left-[calc(66.666667%+31px)] z-10 hidden w-px bg-[#16815d]/35 md:block"
+            className="pointer-events-none absolute top-0 bottom-0 left-[calc(66.666667%-5.333px)] z-10 hidden w-px bg-[#16815d]/35 md:block"
             aria-hidden="true"
           />
           {firstTutorial && (
