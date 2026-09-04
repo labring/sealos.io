@@ -168,7 +168,9 @@ const DropdownMenu = ({
 }) => {
   return (
     <>
-      <NavigationMenuTrigger>{title}</NavigationMenuTrigger>
+      <NavigationMenuTrigger className="rounded-none font-mono text-xs tracking-[0.04em] uppercase">
+        {title}
+      </NavigationMenuTrigger>
 
       <NavigationMenuContent className="relative !border-none !bg-transparent !shadow-none">
         <div
@@ -302,7 +304,7 @@ export function Header({ lang }: HeaderProps) {
                 }}
                 className="overflow-hidden"
               >
-                <span className="pl-1 leading-none font-bold whitespace-nowrap">
+                <span className="pl-1 font-mono text-sm leading-none font-bold tracking-[0.02em] whitespace-nowrap uppercase">
                   Sealos
                 </span>
               </motion.div>
@@ -325,7 +327,10 @@ export function Header({ lang }: HeaderProps) {
                     ) : (
                       <NavigationMenuLink
                         asChild
-                        className={navigationMenuTriggerStyle()}
+                        className={cn(
+                          navigationMenuTriggerStyle(),
+                          'rounded-none font-mono text-xs tracking-[0.04em] uppercase',
+                        )}
                       >
                         <a
                           href={link.url}
@@ -348,7 +353,7 @@ export function Header({ lang }: HeaderProps) {
             <Button
               asChild
               variant="ghost"
-              className="hidden h-9 rounded-md lg:flex"
+              className="hidden h-9 rounded-none font-mono text-xs lg:flex"
               aria-label="Open Sealos GitHub page."
             >
               <a
@@ -371,7 +376,7 @@ export function Header({ lang }: HeaderProps) {
             </Button>
             <Button
               variant="default"
-              className="hidden h-9 rounded-md bg-[#146dff] px-4 text-white shadow-none hover:bg-[#0f5dd6] lg:flex"
+              className="hidden h-9 rounded-none bg-[#146dff] px-4 font-mono text-xs tracking-[0.04em] text-white uppercase shadow-none hover:bg-[#0f5dd6] lg:flex"
               aria-label="Start using Sealos for free."
               {...getRybbitCtaProps({
                 id: 'home_header_get_started',

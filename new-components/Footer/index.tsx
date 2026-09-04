@@ -157,7 +157,7 @@ function FooterLink({
   return (
     <Link
       href={href}
-      className="text-sm leading-5 text-zinc-300 transition-colors hover:text-white"
+      className="font-mono text-xs leading-5 tracking-[0.02em] text-zinc-300 uppercase transition-colors hover:text-white"
     >
       {children}
     </Link>
@@ -199,7 +199,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
             <div>
               <Link
                 href={homeHref}
-                className="inline-flex items-center gap-2 text-lg font-semibold text-white"
+                className="inline-flex items-center gap-2 font-mono text-sm font-bold tracking-[0.02em] text-white uppercase"
               >
                 <img src="/logo.svg" alt="" className="size-7" />
                 Sealos

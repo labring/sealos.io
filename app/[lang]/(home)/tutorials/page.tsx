@@ -116,16 +116,13 @@ function TutorialCatalogCard({
             <div className="grid overflow-hidden border border-white/15 md:grid-cols-12">
               <aside className="flex items-center justify-between gap-6 bg-[#146dff] p-5 text-white md:col-span-1 md:min-h-full md:flex-col md:items-start">
                 <span className="font-mono text-xs font-bold tracking-[0.08em]">
-                  LIVE
+                  RUN
                 </span>
-                <p>
-                  <strong className="block text-4xl leading-none font-semibold tracking-[-0.06em]">
-                    200
-                  </strong>
-                  <span className="mt-1 block text-sm font-semibold">OK</span>
-                </p>
+                <strong className="block text-4xl leading-none font-semibold tracking-[-0.06em]">
+                  01
+                </strong>
                 <span className="font-mono text-xs font-semibold text-blue-100">
-                  RUN 01
+                  SEALOS
                 </span>
               </aside>
 
@@ -216,39 +213,42 @@ function TutorialCatalogCard({
                 service.
               </p>
             </div>
-            <div className="mt-7 grid gap-8 md:grid-cols-12 md:gap-x-6">
-              <div className="relative border-t border-white/15 pt-7 md:col-span-9">
-                <span
-                  className="absolute top-[5.5rem] right-[16.666%] left-[16.666%] hidden h-px bg-white/20 md:block"
-                  aria-hidden="true"
-                />
-                <div className="grid gap-8 md:grid-cols-3 md:gap-x-6">
-                  {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                    <Link
-                      key={chapter.hash}
-                      href={`${tutorial.url}${chapter.hash}`}
-                      className="group relative text-center focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
-                    >
-                      <span className="font-mono text-3xl font-medium tracking-[-0.08em] text-[#5f96ff]">
-                        0{index + 1}
-                      </span>
-                      <span className="relative z-10 mx-auto mt-5 block size-2 rotate-45 bg-[#146dff] ring-4 ring-[#08090a]" />
-                      <strong className="mt-6 block text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
-                        {chapter.title}
-                      </strong>
-                      <span className="mx-auto mt-3 block max-w-60 text-sm leading-6 text-zinc-300">
-                        {chapter.detail}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+            <div className="mt-7 grid border-y border-white/15 md:grid-cols-12">
+              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
+                <Link
+                  key={chapter.hash}
+                  href={`${tutorial.url}${chapter.hash}`}
+                  className="group flex min-h-56 flex-col border-b border-white/15 p-6 text-left focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3 md:border-r md:border-b-0"
+                >
+                  <span className="flex items-baseline justify-between gap-4">
+                    <span className="font-mono text-3xl font-medium tracking-[-0.08em] text-[#5f96ff]">
+                      0{index + 1}
+                    </span>
+                    <span className="font-mono text-xs font-bold tracking-[0.08em] text-zinc-500">
+                      CHAPTER
+                    </span>
+                  </span>
+                  <strong className="mt-8 block text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                    {chapter.title}
+                  </strong>
+                  <span className="mt-3 block text-sm leading-6 text-zinc-300">
+                    {chapter.detail}
+                  </span>
+                  <span className="mt-auto self-end pt-6">
+                    <ArrowRight
+                      size={16}
+                      className="text-zinc-400 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </Link>
+              ))}
 
-              <TutorialRequestGuideLink className="group flex min-h-48 flex-col items-start bg-[#146dff] p-6 text-left transition-colors hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3">
+              <TutorialRequestGuideLink className="group flex min-h-56 flex-col items-start bg-[#146dff] p-6 text-left transition-colors hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3">
                 <span className="font-mono text-xs font-bold tracking-[0.08em] text-blue-100">
                   OTHER RUNTIME
                 </span>
-                <strong className="mt-6 text-xl font-semibold text-white">
+                <strong className="mt-8 text-xl font-semibold text-white">
                   Request another stack
                 </strong>
                 <span className="mt-3 text-sm leading-6 text-blue-100">
@@ -380,7 +380,7 @@ export default function TutorialsPage({
 
       <main>
         <section className="container -mt-24 pt-32 pb-10">
-          <p className="text-sm font-semibold text-[#5f96ff]">
+          <p className="font-mono text-xs font-bold tracking-[0.08em] text-[#5f96ff] uppercase">
             Deployment field note · 01
           </p>
           <h1 className="mt-5 text-5xl leading-[0.92] font-medium tracking-[-0.055em] text-white md:text-[5.75rem]">
@@ -399,7 +399,7 @@ export default function TutorialsPage({
             <div className="mt-7 flex flex-wrap items-center gap-5">
               <Link
                 href={firstTutorial.url}
-                className="group inline-flex h-11 items-center rounded-sm bg-[#146dff] px-5 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none active:translate-y-0"
+                className="group inline-flex h-11 items-center bg-[#146dff] px-5 font-mono text-xs font-bold tracking-[0.04em] whitespace-nowrap text-white uppercase transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none active:translate-y-0"
               >
                 Read tutorial
                 <ArrowRight
@@ -408,9 +408,8 @@ export default function TutorialsPage({
                   aria-hidden="true"
                 />
               </Link>
-              <span className="inline-flex items-center gap-2 text-sm text-zinc-300">
-                <BookOpen size={14} aria-hidden="true" />
-                {firstTutorial.estimatedReadingTime} · 3 chapters
+              <span className="font-mono text-xs font-semibold tracking-[0.04em] text-zinc-400 uppercase">
+                Guide / {firstTutorial.estimatedReadingTime} / 3 chapters
               </span>
             </div>
           )}
