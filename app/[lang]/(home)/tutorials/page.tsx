@@ -338,7 +338,7 @@ export default function TutorialsPage({
                 {firstTutorial && (
                   <Link
                     href={firstTutorial.url}
-                    className="group relative z-10 mt-6 mb-4 inline-flex min-w-[19rem] items-center justify-between gap-8 border-b-2 border-[#146dff] pb-3 text-[1.375rem] font-semibold text-white transition-colors hover:border-[#5f96ff] hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group relative z-10 mt-6 mb-4 inline-flex items-center gap-4 border-b-2 border-[#146dff] pb-3 text-[1.375rem] font-semibold text-white transition-colors hover:border-[#5f96ff] hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     Read the field note
                     <ArrowRight
@@ -351,21 +351,40 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <figure className="relative aspect-video overflow-hidden border-t border-white/15 bg-[#090909] lg:aspect-auto lg:h-full lg:border-l">
-              <div className="absolute inset-y-0 right-6 left-6 overflow-hidden border-x border-white/15">
-                <Image
-                  src="/images/tutorials/django/django-sealos-live-app-https-proof-hd.png"
-                  alt="Live Django task application on Sealos showing a persisted task"
-                  fill
-                  priority
-                  sizes="(max-width: 1023px) 100vw, 27rem"
-                  className="scale-[1.35] object-cover object-[52%_55%]"
-                />
-              </div>
-              <figcaption className="absolute right-0 bottom-0 left-0 flex items-center justify-between bg-[#090909] px-5 py-3 font-mono text-xs font-semibold tracking-wide text-white">
+            <figure className="flex min-h-[18rem] flex-col overflow-hidden border-t border-white/15 bg-[#090909] lg:h-full lg:min-h-0 lg:border-l">
+              <figcaption className="flex shrink-0 items-center justify-between border-b border-white/15 px-6 py-3 font-mono text-xs font-semibold tracking-wide text-white">
                 <span>LIVE APPLICATION</span>
                 <span className="text-[#44b78b]">HTTPS · 200</span>
               </figcaption>
+              <div className="flex min-h-0 flex-1 flex-col bg-[#f5f6f8] px-6 py-5 text-[#111827]">
+                <p className="font-mono text-[11px] font-bold tracking-[0.12em] text-[#146dff]">
+                  DJANGO 5.2 · SEALOS
+                </p>
+                <h2 className="mt-1 text-2xl font-semibold tracking-[-0.04em]">
+                  Django tasks
+                </h2>
+                <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto]">
+                  <span className="flex h-10 items-center border border-zinc-400 bg-white px-3 text-xs text-zinc-500">
+                    Ship Django on Sealos
+                  </span>
+                  <span className="flex h-10 items-center bg-[#146dff] px-4 font-mono text-[11px] font-bold tracking-wide text-white">
+                    ADD TASK
+                  </span>
+                </div>
+                <div className="mt-auto flex items-end justify-between gap-4 border-t border-zinc-300 pt-3">
+                  <span>
+                    <span className="block font-mono text-[10px] font-bold tracking-wide text-zinc-500">
+                      NEWEST RECORD
+                    </span>
+                    <strong className="mt-1 block text-sm font-semibold">
+                      Runtime proof from Sealos
+                    </strong>
+                  </span>
+                  <span className="font-mono text-xs font-bold text-[#16815d]">
+                    PERSISTED
+                  </span>
+                </div>
+              </div>
             </figure>
           </div>
         </section>
