@@ -91,70 +91,73 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="grid overflow-hidden border-b border-white/15 bg-[#08101f] md:grid-cols-[minmax(0,1fr)_20rem]">
-              <div className="relative aspect-[4/3] overflow-hidden bg-[#eef1f6] sm:aspect-video md:aspect-auto md:min-h-[25rem]">
+            <div className="grid overflow-hidden border-b border-white/15 bg-[#08101f] md:grid-cols-[3fr_2fr]">
+              <div className="relative aspect-[4/3] overflow-hidden bg-[#eef1f6]">
                 <Image
                   src={DJANGO_LIVE_EVIDENCE}
                   alt="Live Django task application showing the saved Runtime proof from Sealos task"
                   fill
-                  className="object-cover object-[50%_56%] md:scale-[1.38]"
+                  className="object-cover object-center"
                   priority
                   quality={100}
-                  sizes="(max-width: 768px) 100vw, 76vw"
+                  sizes="(max-width: 768px) 100vw, 60vw"
                 />
               </div>
 
-              <div className="flex flex-col border-t-2 border-[#146dff] bg-[#0d1015] p-7 text-white md:border-t-0 md:border-l-2">
+              <div className="flex flex-col border-t-2 border-[#146dff] bg-[#0d1015] p-8 text-white md:border-t-0 md:border-l-2">
                 <div className="flex items-center justify-between gap-4">
-                  <span className="font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase">
+                  <span className="font-mono text-sm font-bold tracking-[0.06em] text-[#5f96ff] uppercase">
                     Request receipt
                   </span>
-                  <time className="text-right font-mono text-[10px] leading-4 font-bold text-zinc-500 uppercase">
+                  <time className="text-right font-mono text-xs leading-5 font-bold text-zinc-400 uppercase">
                     Sep 03 2026
                     <span className="block">14:22 UTC</span>
                   </time>
                 </div>
 
-                <ol className="mt-6 border-t border-white/20">
-                  <li className="grid grid-cols-[1.75rem_1fr] gap-3 border-b border-white/20 py-4">
-                    <span className="font-mono text-xs font-bold text-zinc-500">
+                <ol className="mt-8 border-t border-white/20">
+                  <li className="grid grid-cols-[2rem_1fr] gap-4 border-b border-white/20 py-5">
+                    <span className="font-mono text-sm font-bold text-zinc-500">
                       01
                     </span>
                     <div>
-                      <p className="text-xs font-semibold text-[#5f96ff]">
+                      <p className="text-sm font-semibold text-[#5f96ff]">
                         Configure
                       </p>
-                      <code className="mt-2 block font-mono text-[11px] font-bold text-zinc-300">
+                      <code className="mt-2 block font-mono text-xs font-bold text-zinc-300">
                         config.wsgi:application
                       </code>
                     </div>
                   </li>
-                  <li className="grid grid-cols-[1.75rem_1fr] gap-3 border-b border-white/20 py-4">
-                    <span className="font-mono text-xs font-bold text-zinc-500">
+                  <li className="grid grid-cols-[2rem_1fr] gap-4 border-b border-white/20 py-5">
+                    <span className="font-mono text-sm font-bold text-zinc-500">
                       02
                     </span>
                     <div>
-                      <p className="text-xs font-semibold text-[#5f96ff]">
+                      <p className="text-sm font-semibold text-[#5f96ff]">
                         Deploy · curl --fail
                       </p>
-                      <code className="mt-2 block font-mono text-[11px] leading-5 break-all text-zinc-300">
+                      <code className="mt-2 block font-mono text-xs leading-5 break-all text-zinc-300">
                         https://django-tasks-mpbrofzu.usw.sealos.io/
                       </code>
                     </div>
                   </li>
-                  <li className="grid grid-cols-[1.75rem_1fr] gap-3 py-4">
-                    <span className="font-mono text-xs font-bold text-zinc-500">
+                  <li className="grid grid-cols-[2rem_1fr] gap-4 py-5">
+                    <span className="font-mono text-sm font-bold text-zinc-500">
                       03
                     </span>
                     <div>
-                      <p className="font-mono text-2xl font-semibold tracking-[-0.04em] text-[#44b78b]">
+                      <p className="font-mono text-3xl font-semibold tracking-[-0.04em] text-[#44b78b]">
                         HTTP/2 200
                       </p>
-                      <p className="mt-2 font-mono text-[11px] text-zinc-400">
+                      <p className="mt-3 font-mono text-xs text-zinc-400">
+                        content-type: text/html
+                      </p>
+                      <p className="mt-1 font-mono text-xs text-zinc-400">
                         x-forwarded-proto: https
                       </p>
-                      <p className="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-[#44b78b]">
-                        <span className="size-1.5 rounded-full bg-current" />
+                      <p className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#44b78b]">
+                        <span className="size-2 rounded-full bg-current" />
                         Saved row persisted
                       </p>
                     </div>
@@ -378,30 +381,39 @@ export default function TutorialsPage({
             </div>
 
             <aside className="flex flex-col border-l border-white/15 pl-7 md:py-1">
-              <div>
-                <Image
-                  src="/icons/django.svg"
-                  alt="Django"
-                  width={148}
-                  height={52}
-                  className="h-9 w-auto invert"
-                />
-                <span className="mt-3 block font-mono text-xs font-bold tracking-[0.04em] text-zinc-300">
-                  Django 5.2
+              <div className="flex items-start justify-between gap-5">
+                <div>
+                  <Image
+                    src="/icons/django.svg"
+                    alt="Django"
+                    width={148}
+                    height={52}
+                    className="h-9 w-auto invert"
+                  />
+                  <span className="mt-3 block font-mono text-xs font-bold tracking-[0.04em] text-zinc-300">
+                    Django 5.2
+                  </span>
+                </div>
+                <span className="font-mono text-[10px] font-bold tracking-[0.06em] text-zinc-500 uppercase">
+                  Field note 01
                 </span>
               </div>
-              <div className="flex flex-1 items-center gap-4 py-8">
-                <span className="text-[7rem] leading-[0.8] font-medium tracking-[-0.075em] text-white">
+              <div className="mt-8 flex items-end gap-4 border-y border-white/15 py-5">
+                <span className="text-[5.5rem] leading-[0.8] font-medium tracking-[-0.075em] text-white">
                   35
                 </span>
-                <span className="pb-1 font-mono text-xs font-bold tracking-[0.06em] text-zinc-300 uppercase">
+                <span className="pb-1 font-mono text-xs leading-5 font-bold tracking-[0.06em] text-zinc-300 uppercase">
                   Minutes
-                  <span className="mt-1 block">Repo → HTTPS</span>
+                  <span className="block text-zinc-500">From repo</span>
+                  <span className="block text-zinc-500">To HTTPS</span>
                 </span>
               </div>
-              <div className="mt-auto flex items-center justify-between gap-5 border-y border-white/15 py-4 font-mono text-xs font-bold tracking-[0.06em] uppercase">
-                <span className="text-zinc-300">Field note 01</span>
-                <span className="text-[#44b78b]">Verified</span>
+              <div className="mt-auto flex items-center justify-between gap-5 pt-5 font-mono text-xs font-bold tracking-[0.06em] uppercase">
+                <span className="text-zinc-500">Live proof below</span>
+                <span className="inline-flex items-center gap-2 text-[#44b78b]">
+                  <span className="size-1.5 rounded-full bg-current" />
+                  Verified
+                </span>
               </div>
             </aside>
           </div>
