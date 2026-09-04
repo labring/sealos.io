@@ -59,20 +59,20 @@ function TutorialCatalogCard({
       className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12"
     >
       {tutorial.image && (
-        <div className="relative aspect-[3/2] w-full overflow-clip md:col-span-5 md:aspect-auto md:min-h-[280px]">
+        <div className="relative aspect-[3/2] w-full overflow-clip md:col-span-7 md:aspect-auto md:min-h-[360px]">
           <Image
             src={tutorial.image}
             alt={`${tutorial.title} deployment result`}
-            className="h-full object-cover"
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
             fill
             priority={priorityImage}
-            sizes="(max-width: 760px) 90vw, 45vw"
+            sizes="(max-width: 760px) 90vw, 55vw"
           />
         </div>
       )}
 
-      <div className="flex flex-1 flex-col gap-3 p-6 md:col-span-7 md:p-8">
-        <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-xs font-medium">
+      <div className="flex flex-1 flex-col gap-4 p-6 md:col-span-5 md:p-10">
+        <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-sm font-medium">
           <span>{tutorial.framework}</span>
           <span aria-hidden="true">·</span>
           <span>
@@ -81,17 +81,17 @@ function TutorialCatalogCard({
               : tutorial.stageLabel}
           </span>
         </div>
-        <h2 className="line-clamp-2 text-xl font-semibold tracking-tight md:text-2xl">
+        <h2 className="line-clamp-2 text-2xl font-semibold tracking-tight md:text-3xl">
           <GradientText>
             <span className="text-foreground transition-colors group-hover:text-transparent">
               {tutorial.title}
             </span>
           </GradientText>
         </h2>
-        <p className="text-muted-foreground line-clamp-2 max-w-2xl text-sm leading-6">
+        <p className="text-foreground/80 line-clamp-2 text-base leading-7">
           {tutorial.description}
         </p>
-        <div className="text-muted-foreground mt-auto flex flex-wrap items-center justify-between gap-3 pt-3 text-sm">
+        <div className="text-muted-foreground border-border/80 mt-auto flex flex-wrap items-center justify-between gap-3 border-t pt-5 text-sm">
           {tutorial.estimatedReadingTime && (
             <span className="inline-flex items-center gap-2">
               <BookOpen size={14} aria-hidden="true" />
