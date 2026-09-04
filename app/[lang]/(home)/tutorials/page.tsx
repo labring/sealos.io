@@ -156,8 +156,7 @@ function TutorialCatalogCard({
             </ol>
 
             <div className="grid bg-[#090909] font-mono text-white lg:grid-rows-3">
-              <div className="relative grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-r border-[#146dff] border-r-white/15 px-8 py-4 lg:border-l-2">
-                <span className="absolute top-1/2 left-0 h-3 w-2 -translate-y-1/2 bg-[#146dff] [clip-path:polygon(0_0,100%_50%,0_100%)]" />
+              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-r border-[#146dff] border-r-white/15 px-8 py-4 lg:border-l-2">
                 <code className="text-sm text-zinc-300">01</code>
                 <span>
                   <code className="block text-xl font-bold">wsgi.py</code>
@@ -169,8 +168,7 @@ function TutorialCatalogCard({
                   READY
                 </code>
               </div>
-              <div className="relative grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-y border-r border-white/15 border-l-[#146dff] px-8 py-4 lg:border-l-2">
-                <span className="absolute top-1/2 left-0 h-3 w-2 -translate-y-1/2 bg-[#146dff] [clip-path:polygon(0_0,100%_50%,0_100%)]" />
+              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-y border-r border-white/15 border-l-[#146dff] px-8 py-4 lg:border-l-2">
                 <code className="text-sm text-zinc-300">02</code>
                 <span>
                   <code className="block text-xl font-bold">:8080</code>
@@ -182,8 +180,7 @@ function TutorialCatalogCard({
                   RUNNING
                 </code>
               </div>
-              <div className="relative grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-r border-[#44b78b] border-r-white/15 px-8 py-4 lg:border-l-2">
-                <span className="absolute top-1/2 left-0 h-3 w-2 -translate-y-1/2 bg-[#44b78b] [clip-path:polygon(0_0,100%_50%,0_100%)]" />
+              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-r border-[#44b78b] border-r-white/15 px-8 py-4 lg:border-l-2">
                 <code className="text-sm text-zinc-300">03</code>
                 <span>
                   <code className="block text-xl font-bold">POST → GET</code>
@@ -366,7 +363,7 @@ export default function TutorialsPage({
                 <span>LIVE DEPLOYMENT</span>
                 <span className="text-zinc-300">DJANGO · 5.2</span>
               </figcaption>
-              <div className="flex min-h-0 flex-1 flex-col px-8 py-5 font-mono text-white">
+              <div className="flex min-h-0 flex-1 flex-col py-5 pr-8 pl-12 font-mono text-white">
                 <h2 className="font-sans text-2xl font-semibold tracking-[-0.04em]">
                   Create once. Read after refresh.
                 </h2>
@@ -378,7 +375,7 @@ export default function TutorialsPage({
                     POST /TASKS
                   </span>
                 </div>
-                <div className="mt-auto flex items-center justify-between gap-4 border-y border-white/20 py-3">
+                <div className="mt-3 flex flex-1 items-center justify-between gap-4 border-y border-white/20 bg-white/[0.02] px-4">
                   <span>
                     <strong className="mt-1 block text-[13px]">
                       Runtime proof from Sealos
