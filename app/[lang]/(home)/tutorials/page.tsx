@@ -30,21 +30,24 @@ const DJANGO_GUIDE_CHAPTERS = [
     phase: 'Configure',
     evidence: 'config.wsgi:application',
     title: 'Prepare Django for production',
-    detail: 'Configure Gunicorn and WhiteNoise.',
+    detail:
+      'Set the WSGI entrypoint, static file middleware, and production hosts.',
     hash: '#prepare-django-for-production',
   },
   {
     phase: 'Deploy',
     evidence: 'DATABASE_URL → :5432',
     title: 'Deploy with Sealos Skills',
-    detail: 'Connect the application and database.',
+    detail:
+      'Provision the app and PostgreSQL, then release it with Sealos Skills.',
     hash: '#deploy-with-sealos-skills',
   },
   {
     phase: 'Verify',
     evidence: 'GET / → HTTP 200',
     title: 'Verify the live application',
-    detail: 'Confirm the HTTPS create/read flow.',
+    detail:
+      'Submit a task over HTTPS and confirm it persists after a fresh load.',
     hash: '#verify-the-live-django-application',
   },
 ] as const;
@@ -89,13 +92,12 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="relative overflow-hidden border-b border-white/15 bg-[#10151d] p-7 md:p-10">
-              <div className="absolute inset-x-0 top-0 z-10 h-0.5 bg-gradient-to-r from-[#146dff] to-[#44b78b]" />
+            <div className="overflow-hidden border-b border-white/15 bg-[#10151d] px-7 py-8">
               <div
-                className="grid gap-5 md:grid-cols-[1fr_3rem_1fr_3rem_1fr] md:items-center md:gap-0"
-                aria-label="Live deployment topology from public HTTPS through Django to PostgreSQL"
+                className="grid gap-6 md:grid-cols-[1fr_2rem_1fr_2rem_1fr_2rem_1fr] md:items-center md:gap-0"
+                aria-label="Live deployment path from public HTTPS through Django and PostgreSQL to an HTTP 200 response"
               >
-                <section className="flex min-h-60 flex-col border-t-2 border-[#146dff] bg-[#0b0f15] p-6 text-white">
+                <section className="flex min-h-40 flex-col py-3 text-white">
                   <div className="flex items-center justify-between gap-5">
                     <span className="font-mono text-sm font-bold text-zinc-500">
                       01
@@ -104,27 +106,26 @@ function TutorialCatalogCard({
                       Public ingress
                     </span>
                   </div>
-                  <p className="mt-8 text-4xl font-semibold tracking-[-0.05em]">
+                  <p className="mt-6 text-3xl font-semibold tracking-[-0.045em]">
                     HTTPS
                   </p>
-                  <code className="mt-3 font-mono text-sm leading-6 text-zinc-300">
-                    django-tasks-mpbrofzu.usw.sealos.io
+                  <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
+                    django-tasks…sealos.io
                   </code>
-                  <p className="mt-auto flex items-center gap-2 pt-6 text-sm font-semibold text-[#44b78b]">
+                  <p className="mt-auto flex items-center gap-2 pt-4 text-sm font-semibold text-[#44b78b]">
                     <span className="size-2 rounded-full bg-current" />
                     Connected
                   </p>
                 </section>
 
                 <span
-                  className="hidden items-center text-[#3d8cff] md:flex"
+                  className="hidden items-center justify-center text-xl text-[#3d8cff] md:flex"
                   aria-hidden="true"
                 >
-                  <span className="h-px flex-1 bg-current" />
-                  <span>→</span>
+                  →
                 </span>
 
-                <section className="flex min-h-60 flex-col border-t-2 border-[#3d8cff] bg-[#0b0f15] p-6 text-white">
+                <section className="flex min-h-40 flex-col py-3 text-white">
                   <div className="flex items-center justify-between gap-5">
                     <span className="font-mono text-sm font-bold text-zinc-500">
                       02
@@ -133,27 +134,26 @@ function TutorialCatalogCard({
                       Application
                     </span>
                   </div>
-                  <p className="mt-8 text-4xl font-semibold tracking-[-0.05em]">
+                  <p className="mt-6 text-3xl font-semibold tracking-[-0.045em]">
                     Django 5.2
                   </p>
-                  <code className="mt-3 font-mono text-sm leading-6 text-zinc-300">
+                  <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
                     Gunicorn · WhiteNoise
                   </code>
-                  <p className="mt-auto flex items-center gap-2 pt-6 text-sm font-semibold text-[#44b78b]">
+                  <p className="mt-auto flex items-center gap-2 pt-4 text-sm font-semibold text-[#44b78b]">
                     <span className="size-2 rounded-full bg-current" />
                     Container running
                   </p>
                 </section>
 
                 <span
-                  className="hidden items-center text-[#3d8cff] md:flex"
+                  className="hidden items-center justify-center text-xl text-[#3d8cff] md:flex"
                   aria-hidden="true"
                 >
-                  <span className="h-px flex-1 bg-current" />
-                  <span>→</span>
+                  →
                 </span>
 
-                <section className="flex min-h-60 flex-col border-t-2 border-[#44b78b] bg-[#0b0f15] p-6 text-white">
+                <section className="flex min-h-40 flex-col py-3 text-white">
                   <div className="flex items-center justify-between gap-5">
                     <span className="font-mono text-sm font-bold text-zinc-500">
                       03
@@ -162,31 +162,45 @@ function TutorialCatalogCard({
                       Managed data
                     </span>
                   </div>
-                  <p className="mt-8 text-4xl font-semibold tracking-[-0.05em]">
+                  <p className="mt-6 text-3xl font-semibold tracking-[-0.045em]">
                     PostgreSQL
                   </p>
-                  <code className="mt-3 font-mono text-sm leading-6 text-zinc-300">
+                  <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
                     DATABASE_URL → :5432
                   </code>
-                  <p className="mt-auto flex items-center gap-2 pt-6 text-sm font-semibold text-[#44b78b]">
+                  <p className="mt-auto flex items-center gap-2 pt-4 text-sm font-semibold text-[#44b78b]">
                     <span className="size-2 rounded-full bg-current" />
                     Private connection
                   </p>
                 </section>
-              </div>
 
-              <div className="mt-7 flex flex-col justify-between gap-5 border-t border-white/15 pt-6 text-white md:flex-row md:items-end">
-                <span>
-                  <span className="block text-sm font-semibold text-[#5f96ff]">
-                    Live response
-                  </span>
-                  <code className="mt-2 block font-mono text-sm text-zinc-300">
+                <span
+                  className="hidden items-center justify-center text-xl text-[#3d8cff] md:flex"
+                  aria-hidden="true"
+                >
+                  →
+                </span>
+
+                <section className="flex min-h-40 flex-col py-3 text-white">
+                  <div className="flex items-center justify-between gap-5">
+                    <span className="font-mono text-sm font-bold text-zinc-500">
+                      04
+                    </span>
+                    <span className="text-sm font-semibold text-[#44b78b]">
+                      Public response
+                    </span>
+                  </div>
+                  <p className="mt-6 text-3xl font-semibold tracking-[-0.045em] text-[#44b78b]">
+                    200 OK
+                  </p>
+                  <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
                     GET / · HTTP/2
                   </code>
-                </span>
-                <strong className="text-6xl leading-none font-semibold tracking-[-0.06em] text-[#44b78b]">
-                  200 OK
-                </strong>
+                  <p className="mt-auto flex items-center gap-2 pt-4 text-sm font-semibold text-[#44b78b]">
+                    <span className="size-2 rounded-full bg-current" />
+                    Verified
+                  </p>
+                </section>
               </div>
             </div>
           </figure>
@@ -229,7 +243,7 @@ function TutorialCatalogCard({
                     href={`${tutorial.url}${chapter.hash}`}
                     className="group flex min-h-56 flex-col px-0 py-7 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none"
                   >
-                    <span className="flex items-start justify-between gap-5">
+                    <span className="flex items-baseline justify-between gap-5">
                       <span className="font-mono text-4xl font-bold tracking-[-0.06em] text-zinc-400">
                         0{index + 1}
                       </span>
@@ -401,45 +415,37 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <aside className="flex flex-col border-l border-white/15 pl-7 md:py-1">
-              <div className="flex items-start justify-between gap-5">
-                <div>
-                  <Image
-                    src="/icons/django.svg"
-                    alt="Django"
-                    width={148}
-                    height={52}
-                    className="h-9 w-auto invert"
-                  />
-                  <span className="mt-3 block font-mono text-sm font-bold tracking-[0.04em] text-zinc-300">
-                    Django 5.2
+            <aside className="flex flex-col justify-between border-l border-white/15 pl-7 md:py-1">
+              <div>
+                <Image
+                  src="/icons/django.svg"
+                  alt="Django"
+                  width={148}
+                  height={52}
+                  className="h-9 w-auto invert"
+                />
+                <p className="mt-4 font-mono text-sm font-bold tracking-[0.04em] text-zinc-300">
+                  Django 5.2 · Field note 01
+                </p>
+              </div>
+              <div className="pt-10">
+                <div className="flex items-end justify-between gap-6">
+                  <span className="flex items-baseline gap-2 text-white">
+                    <span className="text-5xl leading-none font-medium tracking-[-0.06em]">
+                      35
+                    </span>
+                    <span className="font-mono text-sm font-bold uppercase">
+                      min
+                    </span>
+                  </span>
+                  <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#44b78b]">
+                    <span className="size-2 rounded-full bg-current" />
+                    Verified
                   </span>
                 </div>
-                <span className="text-sm font-semibold text-zinc-300">
-                  Field note 01
-                </span>
-              </div>
-              <div className="mt-8 flex items-end gap-4 py-5">
-                <span className="text-[4.75rem] leading-[0.8] font-medium tracking-[-0.075em] text-white">
-                  35
-                </span>
-                <span className="pb-1 font-mono text-xs leading-5 font-bold tracking-[0.06em] text-zinc-300 uppercase">
-                  Minutes
-                  <span className="block text-zinc-400">From repo</span>
-                  <span className="block text-zinc-400">To HTTPS</span>
-                </span>
-              </div>
-              <div className="grid flex-1 grid-cols-3 items-center gap-3 py-4 text-xs font-semibold text-zinc-300">
-                <span>Gunicorn</span>
-                <span>WhiteNoise</span>
-                <span>PostgreSQL</span>
-              </div>
-              <div className="flex items-center justify-between gap-5 py-4 text-xs font-semibold">
-                <span className="text-zinc-300">Live proof below</span>
-                <span className="inline-flex items-center gap-2 text-[#44b78b]">
-                  <span className="size-1.5 rounded-full bg-current" />
-                  Verified
-                </span>
+                <p className="mt-6 text-sm text-zinc-300">
+                  Gunicorn · WhiteNoise · PostgreSQL
+                </p>
               </div>
             </aside>
           </div>
