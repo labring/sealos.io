@@ -16,7 +16,7 @@ import {
   type TutorialSummary,
   toTutorialSummary,
 } from '@/lib/utils/tutorial-utils';
-import { ArrowRight, BookOpen } from 'lucide-react';
+import { ArrowRight, BookOpen, Database, Globe2, Server } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
@@ -27,22 +27,6 @@ const TUTORIALS_PAGE_TITLE = 'Sealos Deployment Tutorials';
 const TUTORIALS_PAGE_DESCRIPTION =
   'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
-const DJANGO_PROJECT_PROOF_IMAGE =
-  '/images/tutorials/django/django-sealos-project-ops-running.webp';
-const DJANGO_TOPOLOGY_FACTS = [
-  {
-    label: 'Public access',
-    value: 'Live HTTPS',
-  },
-  {
-    label: 'Django app',
-    value: 'Running',
-  },
-  {
-    label: 'PostgreSQL',
-    value: 'Running',
-  },
-];
 
 const TUTORIALS_PAGE_KEYWORDS = [
   'Sealos tutorials',
@@ -147,31 +131,92 @@ function TutorialCatalogCard({
       </div>
 
       {isDjangoGuide ? (
-        <figure className="order-first flex w-full flex-col border-b border-white/10 bg-[#080a0f] p-4 md:order-none md:border-b-0 md:border-l md:border-white/10">
-          <div className="relative aspect-[2.05/1] w-full overflow-hidden rounded-md border border-white/10">
-            <Image
-              src={DJANGO_PROJECT_PROOF_IMAGE}
-              alt="Sealos Project Canvas showing public access, the Django container, and PostgreSQL running"
-              className="h-full w-full scale-[1.28] object-cover object-[52%_45%]"
-              fill
-              priority={priorityImage}
-              quality={95}
-              sizes="(max-width: 760px) 90vw, 48vw"
-            />
-          </div>
-          <figcaption className="mt-3 grid grid-cols-3 divide-x divide-white/10 border-t border-white/10">
-            {DJANGO_TOPOLOGY_FACTS.map((fact) => (
-              <span key={fact.label} className="px-3 pt-3 first:pl-0">
-                <span className="block text-xs leading-4 text-zinc-500">
-                  {fact.label}
-                </span>
-                <span className="mt-1 flex items-center gap-1.5 text-sm leading-5 font-medium text-zinc-100">
-                  <span className="size-1.5 rounded-full bg-emerald-400" />
-                  {fact.value}
-                </span>
-              </span>
-            ))}
+        <figure className="relative order-first flex min-h-[30rem] w-full flex-col overflow-hidden border-b border-white/10 bg-[#080a0f] p-6 md:order-none md:min-h-[25rem] md:border-b-0 md:border-l md:border-white/10 md:p-7">
+          <figcaption className="flex items-center justify-between gap-4 text-sm font-medium text-zinc-200">
+            <span>Verified deployment topology</span>
+            <span className="inline-flex items-center gap-2 text-xs text-emerald-400">
+              <span className="size-2 rounded-full bg-emerald-400" />
+              Healthy
+            </span>
           </figcaption>
+
+          <svg
+            viewBox="0 0 660 330"
+            preserveAspectRatio="none"
+            className="pointer-events-none absolute inset-x-7 top-16 hidden h-[calc(100%-5rem)] w-[calc(100%-3.5rem)] md:block"
+            aria-hidden="true"
+          >
+            <path
+              d="M116 126 C 180 126, 194 165, 258 165"
+              fill="none"
+              stroke="#146dff"
+              strokeWidth="1.5"
+              strokeDasharray="5 6"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M402 165 C 470 165, 478 218, 548 218"
+              fill="none"
+              stroke="#146dff"
+              strokeWidth="1.5"
+              strokeDasharray="5 6"
+              vectorEffect="non-scaling-stroke"
+            />
+            <circle cx="116" cy="126" r="4" fill="#146dff" />
+            <circle cx="258" cy="165" r="4" fill="#146dff" />
+            <circle cx="402" cy="165" r="4" fill="#146dff" />
+            <circle cx="548" cy="218" r="4" fill="#146dff" />
+          </svg>
+
+          <div className="relative mt-16 flex items-center gap-4 md:absolute md:top-[29%] md:left-[5%] md:mt-0 md:w-[27%]">
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-full border border-[#146dff]/45 text-[#5f96ff]">
+              <Globe2 size={19} aria-hidden="true" />
+            </span>
+            <span>
+              <strong className="block text-base font-semibold text-white">
+                Public access
+              </strong>
+              <span className="mt-1 block text-sm text-zinc-400">
+                Live HTTPS endpoint
+              </span>
+            </span>
+          </div>
+
+          <div className="relative mt-8 rounded-lg border border-[#146dff]/55 bg-[#101722] p-5 md:absolute md:top-[35%] md:left-1/2 md:mt-0 md:w-[34%] md:-translate-x-1/2">
+            <div className="flex items-center justify-between gap-3">
+              <span className="flex size-10 items-center justify-center rounded-md bg-[#146dff] text-white">
+                <Server size={19} aria-hidden="true" />
+              </span>
+              <span className="inline-flex items-center gap-2 text-sm font-medium text-emerald-400">
+                <span className="size-2 rounded-full bg-emerald-400" />
+                Running
+              </span>
+            </div>
+            <strong className="mt-6 block text-xl font-semibold text-white">
+              Django app
+            </strong>
+            <span className="mt-1 block text-sm text-zinc-400">
+              Gunicorn + WhiteNoise
+            </span>
+          </div>
+
+          <div className="relative mt-8 flex items-center gap-4 md:absolute md:right-[5%] md:bottom-[20%] md:mt-0 md:w-[27%]">
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-full border border-[#146dff]/45 text-[#5f96ff]">
+              <Database size={19} aria-hidden="true" />
+            </span>
+            <span>
+              <strong className="block text-base font-semibold text-white">
+                PostgreSQL
+              </strong>
+              <span className="mt-1 block text-sm text-zinc-400">
+                Private database
+              </span>
+              <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400">
+                <span className="size-1.5 rounded-full bg-emerald-400" />
+                Running
+              </span>
+            </span>
+          </div>
         </figure>
       ) : (
         tutorial.image && (
@@ -318,15 +363,15 @@ export default function TutorialsPage({
                 >
                   Inside this guide
                 </h2>
-                <div className="grid border-t border-[#146dff]/55 md:grid-cols-3">
+                <div className="grid border-y border-white/10 md:grid-cols-3">
                   <Link
                     href={`${firstTutorial.url}#prepare-django-for-production`}
-                    className="group relative flex flex-col justify-center py-7 pr-8 focus-visible:ring-2 focus-visible:outline-none"
+                    className="group flex flex-col justify-center py-6 pr-8 focus-visible:ring-2 focus-visible:outline-none"
                   >
-                    <span className="absolute -top-2.5 left-0 flex size-5 items-center justify-center rounded-full bg-[#146dff] text-[9px] font-semibold text-white">
+                    <span className="text-2xl leading-none font-medium text-[#146dff]">
                       01
                     </span>
-                    <h3 className="text-foreground group-hover:text-primary font-semibold">
+                    <h3 className="text-foreground group-hover:text-primary mt-4 font-semibold">
                       Prepare Django for production
                     </h3>
                     <p className="text-muted-foreground mt-2 text-sm leading-5">
@@ -335,12 +380,12 @@ export default function TutorialsPage({
                   </Link>
                   <Link
                     href={`${firstTutorial.url}#deploy-with-sealos-skills`}
-                    className="group border-border relative flex flex-col justify-center border-t py-7 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:px-8"
+                    className="group border-border flex flex-col justify-center border-t py-6 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:px-8"
                   >
-                    <span className="absolute -top-2.5 left-0 flex size-5 items-center justify-center rounded-full bg-[#146dff] text-[9px] font-semibold text-white md:-left-2.5">
+                    <span className="text-2xl leading-none font-medium text-[#146dff]">
                       02
                     </span>
-                    <h3 className="text-foreground group-hover:text-primary font-semibold">
+                    <h3 className="text-foreground group-hover:text-primary mt-4 font-semibold">
                       Deploy with Sealos Skills
                     </h3>
                     <p className="text-muted-foreground mt-2 text-sm leading-5">
@@ -349,12 +394,12 @@ export default function TutorialsPage({
                   </Link>
                   <Link
                     href={`${firstTutorial.url}#verify-the-live-django-application`}
-                    className="group border-border relative flex flex-col justify-center border-t py-7 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:pl-8"
+                    className="group border-border flex flex-col justify-center border-t py-6 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:pl-8"
                   >
-                    <span className="absolute -top-2.5 left-0 flex size-5 items-center justify-center rounded-full bg-[#146dff] text-[9px] font-semibold text-white md:-left-2.5">
+                    <span className="text-2xl leading-none font-medium text-[#146dff]">
                       03
                     </span>
-                    <h3 className="text-foreground group-hover:text-primary font-semibold">
+                    <h3 className="text-foreground group-hover:text-primary mt-4 font-semibold">
                       Verify the live Django application
                     </h3>
                     <p className="text-muted-foreground mt-2 text-sm leading-5">

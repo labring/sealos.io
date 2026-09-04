@@ -193,8 +193,8 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
 
   return (
     <footer className="border-t border-white/10 text-white">
-      <div className="pt-12 pb-6">
-        <div className="container flex flex-col gap-10">
+      <div className="pt-8 pb-4">
+        <div className="container flex flex-col gap-8">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_3fr] lg:gap-16">
             <div className="max-w-xs">
               <Link
@@ -214,11 +214,11 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
               className="grid grid-cols-2 gap-x-10 gap-y-10 sm:grid-cols-4 lg:gap-x-16"
             >
               {footerLinks.columns.map((category) => (
-                <div key={category.title} className="flex flex-col gap-6">
+                <div key={category.title} className="flex flex-col gap-4">
                   <h3 className="text-base leading-6 font-medium text-zinc-200 uppercase">
                     {category.title}
                   </h3>
-                  <div className="flex flex-col gap-3.5">
+                  <div className="flex flex-col gap-2.5">
                     {category.links.map((link) => (
                       <FooterLink key={link.text} href={link.url}>
                         {link.text}
@@ -230,7 +230,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
             </nav>
           </div>
 
-          <div className="flex flex-col items-center justify-between gap-6 border-t border-zinc-900 pt-4 pb-6 text-sm leading-5 text-zinc-400 lg:flex-row">
+          <div className="flex flex-col items-center justify-between gap-5 border-t border-zinc-900 pt-4 pb-2 text-sm leading-5 text-zinc-400 lg:flex-row">
             <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 lg:justify-start">
               {footerLinks.legal.map((link) => (
                 <FooterLink key={link.text} href={link.url}>
