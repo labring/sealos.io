@@ -37,7 +37,7 @@ const DEPLOYMENT_NODES = [
   {
     marker: 'B',
     title: 'Django container',
-    evidence: 'gunicorn config.wsgi:application',
+    evidence: 'config.wsgi:application',
     status: 'Running',
     detail: ':8000 · 1 replica',
   },
@@ -183,7 +183,7 @@ function TutorialCatalogCard({
                         }`}
                       >
                         {node.status}
-                        <span className="text-zinc-600"> · {node.detail}</span>
+                        <span className="text-zinc-500"> · {node.detail}</span>
                       </span>
                     </div>
                   </li>
@@ -196,7 +196,7 @@ function TutorialCatalogCard({
             className="grid border-b border-white/15 md:grid-cols-12"
             aria-label="Guide chapters"
           >
-            <div className="py-8 md:col-span-3 md:pr-8">
+            <div className="flex flex-col py-8 md:col-span-3 md:pr-8">
               <p className="text-sm font-semibold text-[#5f96ff]">
                 Inside the guide
               </p>
@@ -205,6 +205,12 @@ function TutorialCatalogCard({
               </h3>
               <p className="mt-5 max-w-xs text-sm leading-6 text-zinc-300">
                 Configure, deploy, then verify the public flow.
+              </p>
+              <p className="mt-auto pt-12 font-mono text-xs font-bold tracking-[0.04em]">
+                <span className="block text-zinc-500">OUTCOME</span>
+                <span className="mt-2 block text-[#44b78b]">
+                  CREATE → READ VERIFIED
+                </span>
               </p>
             </div>
 
@@ -216,15 +222,21 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-5 p-6 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[5.5rem_12rem_minmax(0,1fr)]"
+                    className="group grid focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:grid-cols-3"
                   >
-                    <span className="font-mono text-xs font-bold tracking-[0.08em] text-[#5f96ff] uppercase">
+                    <span
+                      className={`flex items-center px-6 py-5 font-mono text-xs font-bold tracking-[0.08em] uppercase ${
+                        chapter.phase === 'Verify'
+                          ? 'text-[#44b78b]'
+                          : 'text-[#5f96ff]'
+                      }`}
+                    >
                       {chapter.phase}
                     </span>
-                    <code className="truncate font-mono text-xs font-bold text-zinc-500">
+                    <code className="flex min-w-0 items-center truncate border-t border-white/10 px-6 py-5 font-mono text-xs font-bold text-zinc-400 md:border-t-0 md:border-l">
                       {chapter.evidence}
                     </code>
-                    <span className="mt-2 sm:mt-0">
+                    <span className="border-t border-white/10 px-6 py-5 md:border-t-0 md:border-l">
                       <strong className="inline-flex items-center gap-3 text-xl font-semibold tracking-[-0.025em] text-white transition-colors group-hover:text-[#5f96ff]">
                         {chapter.title}
                         <ArrowRight
@@ -243,14 +255,14 @@ function TutorialCatalogCard({
             </ol>
           </nav>
 
-          <div className="grid border-b border-white/15 text-white md:grid-cols-12 md:items-stretch">
-            <h3 className="p-6 text-2xl leading-none font-medium tracking-[-0.035em] md:col-span-3">
+          <div className="grid border-b border-white/15 text-white md:grid-cols-4 md:items-stretch">
+            <h3 className="p-6 text-2xl leading-none font-medium tracking-[-0.035em]">
               Missing your stack?
             </h3>
-            <p className="border-t border-white/15 p-6 text-sm leading-6 text-zinc-300 md:col-span-4 md:border-t-0 md:border-l">
+            <p className="border-t border-white/15 p-6 text-sm leading-6 text-zinc-300 md:border-t-0 md:border-l">
               Share the deployment job you need.
             </p>
-            <TutorialRequestGuideLink className="group inline-flex items-center justify-between border-t border-white/15 p-6 text-sm font-semibold text-[#5f96ff] transition-colors hover:bg-[#146dff]/10 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-5 md:border-t-0 md:border-l">
+            <TutorialRequestGuideLink className="group inline-flex items-center justify-between border-t border-white/15 p-6 text-sm font-semibold text-[#5f96ff] transition-colors hover:bg-[#146dff]/10 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-2 md:border-t-0 md:border-l">
               Request the next field note
               <ArrowRight
                 size={16}
@@ -372,8 +384,8 @@ export default function TutorialsPage({
 
       <main>
         <section className="container -mt-24 pt-32">
-          <div className="grid gap-8 md:grid-cols-12 md:items-stretch">
-            <div className="md:col-span-8 lg:col-span-9">
+          <div className="grid gap-8 md:grid-cols-4 md:items-stretch md:gap-0">
+            <div className="md:col-span-3 md:pr-12">
               <p className="text-sm font-semibold text-[#5f96ff]">
                 Deployment field note
               </p>
@@ -407,7 +419,7 @@ export default function TutorialsPage({
               )}
             </div>
 
-            <aside className="border-l border-[#44b78b] pl-7 md:col-span-4 md:py-1 lg:col-span-3">
+            <aside className="border-l border-[#44b78b] pl-7 md:py-1">
               <div className="flex items-start justify-between gap-5">
                 <Image
                   src="/icons/django.svg"
@@ -425,25 +437,25 @@ export default function TutorialsPage({
               </p>
               <dl className="mt-7 border-t border-white/15 text-sm">
                 <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
-                  <dt className="font-mono text-xs font-bold text-zinc-500">
+                  <dt className="font-mono text-xs font-bold text-zinc-400">
                     RUNTIME
                   </dt>
                   <dd className="font-semibold text-white">Gunicorn</dd>
                 </div>
                 <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
-                  <dt className="font-mono text-xs font-bold text-zinc-500">
+                  <dt className="font-mono text-xs font-bold text-zinc-400">
                     STATIC
                   </dt>
                   <dd className="font-semibold text-white">WhiteNoise</dd>
                 </div>
                 <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
-                  <dt className="font-mono text-xs font-bold text-zinc-500">
+                  <dt className="font-mono text-xs font-bold text-zinc-400">
                     DATA
                   </dt>
                   <dd className="font-semibold text-white">PostgreSQL</dd>
                 </div>
                 <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
-                  <dt className="font-mono text-xs font-bold text-zinc-500">
+                  <dt className="font-mono text-xs font-bold text-zinc-400">
                     RESULT
                   </dt>
                   <dd className="font-semibold text-[#44b78b]">HTTPS · 200</dd>

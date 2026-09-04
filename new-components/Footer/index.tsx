@@ -195,7 +195,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
     <footer className="border-t border-white/10 text-white">
       <div className="py-5">
         <div className="container flex flex-col gap-5">
-          <div className="grid gap-5 lg:grid-cols-[12rem_minmax(0,1fr)] lg:items-center">
+          <div className="grid gap-5 lg:grid-cols-4 lg:items-center lg:gap-0">
             <Link
               href={homeHref}
               className="inline-flex items-center gap-2 text-lg font-semibold text-white"
@@ -206,7 +206,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
 
             <nav
               aria-label="Footer"
-              className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-6"
+              className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-6 lg:col-span-3"
             >
               {footerLinks.columns.flatMap((category) =>
                 category.links.map((link) => (
