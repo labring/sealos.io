@@ -273,8 +273,8 @@ export function Header({ lang }: HeaderProps) {
 
   return (
     <>
-      <div className="container pt-8">
-        <nav className="inset-shadow-bubble flex w-full justify-between rounded-full bg-white/5 px-6 py-3 backdrop-blur-lg">
+      <div className="container pt-6">
+        <nav className="flex w-full justify-between rounded-xl border border-white/10 bg-black/75 px-5 py-2.5 backdrop-blur-md">
           <div className="flex">
             <a
               href={homeHref}
@@ -348,7 +348,7 @@ export function Header({ lang }: HeaderProps) {
             <Button
               asChild
               variant="ghost"
-              className="hidden h-10 rounded-full lg:flex"
+              className="hidden h-9 rounded-md lg:flex"
               aria-label="Open Sealos GitHub page."
             >
               <a
@@ -371,7 +371,7 @@ export function Header({ lang }: HeaderProps) {
             </Button>
             <Button
               variant="landing-primary"
-              className="hidden h-10 lg:flex"
+              className="hidden h-9 rounded-md shadow-none lg:flex"
               aria-label="Start using Sealos for free."
               {...getRybbitCtaProps({
                 id: 'home_header_get_started',

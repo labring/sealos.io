@@ -29,21 +29,18 @@ const TUTORIALS_PAGE_DESCRIPTION =
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 const DJANGO_PROJECT_PROOF_IMAGE =
   '/images/tutorials/django/django-sealos-project-ops-running.webp';
-const DJANGO_TOPOLOGY_NODES = [
+const DJANGO_TOPOLOGY_FACTS = [
   {
-    name: 'Public Access',
-    alt: 'Public Access domain in the verified Sealos project topology',
-    objectPosition: 'object-[0%_42%]',
+    label: 'Public access',
+    value: 'Live HTTPS',
   },
   {
-    name: 'Django Container',
-    alt: 'Running Django container in the verified Sealos project topology',
-    objectPosition: 'object-[50%_42%]',
+    label: 'Django app',
+    value: 'Running',
   },
   {
-    name: 'PostgreSQL',
-    alt: 'Running PostgreSQL database in the verified Sealos project topology',
-    objectPosition: 'object-[100%_42%]',
+    label: 'PostgreSQL',
+    value: 'Running',
   },
 ];
 
@@ -78,7 +75,7 @@ function TutorialCatalogCard({
   return (
     <Link
       href={tutorial.url}
-      className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12 md:items-stretch"
+      className="group text-card-foreground focus-visible:ring-ring bg-card grid overflow-hidden rounded-lg border border-white/15 transition-colors hover:border-[#146dff]/60 focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12 md:items-stretch"
     >
       <div className="flex flex-col gap-4 p-6 md:col-span-5 md:p-6">
         <div className="flex flex-col gap-2">
@@ -88,7 +85,7 @@ function TutorialCatalogCard({
           >
             Published guide
           </h2>
-          <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-xs font-medium">
+          <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-sm font-medium">
             <span>01</span>
             <span aria-hidden="true">/</span>
             <span>{tutorial.framework}</span>
@@ -112,7 +109,7 @@ function TutorialCatalogCard({
           </p>
         </div>
 
-        <ul className="text-foreground/80 border-border/80 divide-border/80 grid list-none divide-y border-y text-xs leading-5">
+        <ul className="text-foreground/85 grid list-none divide-y divide-white/10 border-y border-white/10 text-sm leading-5">
           <li className="flex gap-3 py-2 first:pt-0">
             <span className="text-muted-foreground w-14 shrink-0">Runtime</span>
             <span>Django with Gunicorn and WhiteNoise.</span>
@@ -147,34 +144,29 @@ function TutorialCatalogCard({
 
       {proofImage &&
         (isDjangoGuide ? (
-          <figure className="border-border/80 order-first flex w-full flex-col gap-3 border-b bg-zinc-950 p-4 md:order-none md:col-span-7 md:border-b-0 md:border-l">
-            <div className="relative grid grid-cols-1 gap-px bg-[#146dff]/75 md:min-h-0 md:flex-1 md:grid-cols-3">
-              <span
-                aria-hidden="true"
-                className="absolute top-3 right-[16.667%] left-[16.667%] z-10 hidden h-px bg-[#146dff] md:block"
+          <figure className="order-first flex w-full flex-col border-b border-white/10 bg-zinc-950 p-4 md:order-none md:col-span-7 md:border-b-0 md:border-l md:border-white/10">
+            <div className="relative aspect-video w-full overflow-hidden rounded-md border border-white/10 md:flex-1">
+              <Image
+                src={proofImage}
+                alt="Sealos Project Canvas showing public access, the Django container, and PostgreSQL running"
+                className="h-full w-full scale-[1.14] object-cover object-center"
+                fill
+                priority={priorityImage}
+                quality={90}
+                sizes="(max-width: 760px) 90vw, 55vw"
               />
-              {DJANGO_TOPOLOGY_NODES.map((node) => (
-                <div
-                  key={node.name}
-                  className="relative aspect-video overflow-hidden bg-zinc-950 md:aspect-auto"
-                >
-                  <Image
-                    src={proofImage}
-                    alt={node.alt}
-                    className={cn(
-                      'h-full w-full scale-[2.2] object-cover',
-                      node.objectPosition,
-                    )}
-                    fill
-                    priority={priorityImage}
-                    quality={90}
-                    sizes="(max-width: 760px) 90vw, 18vw"
-                  />
-                </div>
-              ))}
             </div>
-            <figcaption className="px-1 text-xs leading-5 text-zinc-400">
-              Verified Sealos project topology
+            <figcaption className="mt-3 grid grid-cols-3 divide-x divide-white/10 border-t border-white/10">
+              {DJANGO_TOPOLOGY_FACTS.map((fact) => (
+                <span key={fact.label} className="px-3 pt-3 first:pl-0">
+                  <span className="block text-[11px] leading-4 text-zinc-500">
+                    {fact.label}
+                  </span>
+                  <span className="mt-0.5 block text-xs leading-5 font-medium text-zinc-100">
+                    {fact.value}
+                  </span>
+                </span>
+              ))}
             </figcaption>
           </figure>
         ) : (
@@ -311,19 +303,19 @@ export default function TutorialsPage({
             <>
               <TutorialCatalogCard tutorial={firstTutorial} priorityImage />
               <section
-                className="border-border -mt-px border-t md:ml-[41.666667%]"
+                className="border-border -mt-px border-t"
                 aria-labelledby="inside-guide-heading"
               >
                 <h2
                   id="inside-guide-heading"
-                  className="text-foreground py-4 text-lg font-semibold tracking-tight"
+                  className="text-foreground py-5 text-lg font-semibold tracking-tight"
                 >
                   Inside this guide
                 </h2>
                 <div className="border-border grid border-t md:grid-cols-3">
                   <Link
                     href={`${firstTutorial.url}#prepare-django-for-production`}
-                    className="group relative flex min-h-36 flex-col justify-center py-6 pr-6 focus-visible:ring-2 focus-visible:outline-none"
+                    className="group relative flex flex-col justify-center py-7 pr-8 focus-visible:ring-2 focus-visible:outline-none"
                   >
                     <span className="bg-background text-primary border-primary/80 absolute -top-2 left-0 flex size-4 items-center justify-center rounded-full border text-[9px] font-semibold">
                       01
@@ -337,7 +329,7 @@ export default function TutorialsPage({
                   </Link>
                   <Link
                     href={`${firstTutorial.url}#deploy-with-sealos-skills`}
-                    className="group border-border relative flex min-h-36 flex-col justify-center border-t py-6 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:px-6"
+                    className="group border-border relative flex flex-col justify-center border-t py-7 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:px-8"
                   >
                     <span className="bg-background text-primary border-primary/80 absolute -top-2 left-0 flex size-4 items-center justify-center rounded-full border text-[9px] font-semibold md:-left-2">
                       02
@@ -351,7 +343,7 @@ export default function TutorialsPage({
                   </Link>
                   <Link
                     href={`${firstTutorial.url}#verify-the-live-django-application`}
-                    className="group border-border relative flex min-h-36 flex-col justify-center border-t py-6 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:pl-6"
+                    className="group border-border relative flex flex-col justify-center border-t py-7 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:pl-8"
                   >
                     <span className="bg-background text-primary border-primary/80 absolute -top-2 left-0 flex size-4 items-center justify-center rounded-full border text-[9px] font-semibold md:-left-2">
                       03

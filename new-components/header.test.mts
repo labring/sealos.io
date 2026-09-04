@@ -43,11 +43,11 @@ test('legacy Header entrypoint keeps fixed positioning around the shared Header'
   assert.doesNotMatch(legacyHeaderSource, /ctaClassName|appearance|variant/);
 });
 
-test('shared Header owns the historical pill presentation', () => {
-  assert.match(source, /<div className="container pt-8">/);
+test('shared Header owns the restrained panel presentation', () => {
+  assert.match(source, /<div className="container pt-6">/);
   assert.match(
     source,
-    /inset-shadow-bubble flex w-full justify-between rounded-full bg-white\/5 px-6 py-3 backdrop-blur-lg/,
+    /flex w-full justify-between rounded-xl border border-white\/10 bg-black\/75 px-5 py-2\.5 backdrop-blur-md/,
   );
   assert.match(source, /className="h-8 w-8"/);
   assert.match(source, /width=\{36\}/);
