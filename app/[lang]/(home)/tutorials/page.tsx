@@ -118,7 +118,7 @@ function TutorialCatalogCard({
                   role="group"
                   aria-label="Running Sealos project with public domain, Django container, and PostgreSQL database"
                 >
-                  {DJANGO_SERVICE_EVIDENCE.map((service) => (
+                  {DJANGO_SERVICE_EVIDENCE.map((service, index) => (
                     <div key={service.number} className="flex min-w-0 flex-col">
                       <div className="relative flex-1 overflow-hidden">
                         <div
@@ -126,13 +126,13 @@ function TutorialCatalogCard({
                           style={{
                             backgroundImage: `url('${DJANGO_PROJECT_EVIDENCE}')`,
                             backgroundPosition: service.position,
-                            backgroundSize: '390% auto',
+                            backgroundSize: '500% auto',
                           }}
                           aria-hidden="true"
                         />
                       </div>
-                      <div className="grid min-h-16 grid-cols-[1.75rem_1fr] items-center gap-3 border-t border-white/15 bg-[#0d1015] px-4 py-3">
-                        <span className="font-mono text-xs font-bold text-zinc-500">
+                      <div className="relative grid min-h-16 grid-cols-[1.75rem_1fr] items-center gap-3 border-t border-white/15 bg-[#0d1015] px-4 py-3">
+                        <span className="font-mono text-sm font-bold text-zinc-500">
                           {service.number}
                         </span>
                         <span>
@@ -144,6 +144,14 @@ function TutorialCatalogCard({
                             {service.status}
                           </span>
                         </span>
+                        {index < DJANGO_SERVICE_EVIDENCE.length - 1 && (
+                          <span
+                            className="absolute right-3 text-base text-[#146dff]"
+                            aria-hidden="true"
+                          >
+                            →
+                          </span>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -167,7 +175,7 @@ function TutorialCatalogCard({
                 <div className="flex w-full flex-col">
                   <section className="flex flex-1 flex-col bg-[#0d1015] p-5 text-white">
                     <div className="flex items-center justify-between gap-4">
-                      <span className="font-mono text-xs font-bold text-zinc-500">
+                      <span className="font-mono text-sm font-bold text-zinc-500">
                         04
                       </span>
                       <p className="text-sm font-semibold text-[#146dff]">
@@ -196,7 +204,7 @@ function TutorialCatalogCard({
 
                   <section className="flex flex-1 flex-col border-t border-white/15 bg-[#0d1015] p-6 text-white">
                     <div className="flex items-center justify-between gap-4">
-                      <span className="font-mono text-xs font-bold text-zinc-500">
+                      <span className="font-mono text-sm font-bold text-zinc-500">
                         05
                       </span>
                       <p className="text-sm font-semibold text-[#44b78b]">
@@ -207,7 +215,7 @@ function TutorialCatalogCard({
                       <p className="text-5xl leading-none font-semibold tracking-[-0.055em] text-[#44b78b]">
                         200 OK
                       </p>
-                      <code className="font-mono text-xs text-zinc-400">
+                      <code className="font-mono text-sm text-zinc-300">
                         GET / · HTTP/2
                       </code>
                     </div>
@@ -215,7 +223,7 @@ function TutorialCatalogCard({
                       <p className="text-sm font-semibold text-white">
                         Read after redirect
                       </p>
-                      <code className="mt-2 block font-mono text-xs text-zinc-400">
+                      <code className="mt-2 block font-mono text-sm text-zinc-300">
                         django-tasks-mpbrofzu.usw.sealos.io
                       </code>
                     </div>
