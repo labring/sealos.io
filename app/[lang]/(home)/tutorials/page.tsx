@@ -25,27 +25,25 @@ const TUTORIALS_PAGE_TITLE = 'Sealos Deployment Tutorials';
 const TUTORIALS_PAGE_DESCRIPTION =
   'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
-const DJANGO_DEPLOYMENT_IMAGE =
-  '/images/tutorials/django/django-sealos-project-ops-running.webp';
 
-const DJANGO_PROOF_NODES = [
+const DEPLOYMENT_NODES = [
   {
-    label: '01 / PUBLIC HTTPS',
-    title: 'Public edge',
-    detail: 'Reachable on port 443',
-    imageClassName: 'origin-[13%_28%] scale-[2.6]',
+    marker: '01.A',
+    title: 'Public HTTPS',
+    evidence: 'GET / · :443',
+    status: 'Reachable',
   },
   {
-    label: '02 / APP RUNTIME',
+    marker: '01.B',
     title: 'Django container',
-    detail: 'Gunicorn process running',
-    imageClassName: 'origin-[56%_37%] scale-[2.6]',
+    evidence: 'gunicorn config.wsgi · :8000',
+    status: 'Running',
   },
   {
-    label: '03 / PRIVATE DATA',
+    marker: '01.C',
     title: 'PostgreSQL',
-    detail: 'Private service attached',
-    imageClassName: 'origin-[98%_53%] scale-[2.6]',
+    evidence: 'DATABASE_URL · :5432',
+    status: 'Attached',
   },
 ] as const;
 
@@ -101,130 +99,163 @@ function TutorialCatalogCard({
         Published tutorial evidence
       </h2>
 
-      {isDjangoGuide && tutorial.image ? (
+      {isDjangoGuide ? (
         <div>
-          <div className="mb-6 flex items-end justify-between gap-6">
-            <h2 className="text-2xl font-medium tracking-[-0.035em] text-white">
-              Production evidence / DJANGO–01
-            </h2>
-            <p className="hidden items-baseline gap-3 sm:flex">
-              <span className="text-sm text-zinc-400">Final response</span>
-              <strong className="font-mono text-base text-white">200 OK</strong>
-            </p>
-          </div>
-
-          <div className="overflow-hidden border border-white/15">
-            <figure>
-              <div className="relative aspect-[8/3] overflow-hidden bg-[#10131c]">
-                <Image
-                  src={DJANGO_DEPLOYMENT_IMAGE}
-                  alt="Complete Sealos path from public access through the Django container to PostgreSQL"
-                  className="object-cover object-center"
-                  fill
-                  priority={priorityImage}
-                  quality={90}
-                  sizes="(max-width: 760px) 100vw, 90vw"
+          <figure>
+            <figcaption className="mb-5 flex flex-wrap items-end justify-between gap-3">
+              <span className="text-2xl font-medium tracking-[-0.035em] text-white">
+                Production trace / DJANGO–01
+              </span>
+              <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#44b78b]">
+                <span
+                  className="size-2 rounded-full bg-current"
+                  aria-hidden="true"
                 />
-              </div>
-              <figcaption className="flex items-center justify-between gap-4 border-t border-white/15 bg-[#111419] px-5 py-3 text-sm text-zinc-300">
-                <span>Complete running topology</span>
-                <span className="font-mono text-xs font-bold tracking-[0.04em]">
-                  PUBLIC → RUNTIME → DATA
-                </span>
-              </figcaption>
-            </figure>
+                Verified live path
+              </span>
+            </figcaption>
 
-            <div className="grid border-t border-white/15 md:grid-cols-3 md:divide-x md:divide-white/15">
-              {DJANGO_PROOF_NODES.map((node) => (
-                <figure
-                  key={node.label}
-                  className="border-b border-white/15 last:border-b-0 md:border-b-0"
-                >
-                  <div className="relative aspect-[11/5] overflow-hidden bg-[#10131c]">
-                    <Image
-                      src={DJANGO_DEPLOYMENT_IMAGE}
-                      alt={`${node.title} deployment evidence`}
-                      className={`object-cover object-center ${node.imageClassName}`}
-                      fill
-                      quality={90}
-                      sizes="(max-width: 760px) 100vw, 30vw"
-                    />
-                  </div>
-                  <figcaption className="bg-[#e3e5df] p-5 text-[#101318]">
-                    <p className="font-mono text-xs font-bold tracking-[0.05em] text-zinc-600">
-                      {node.label}
-                    </p>
-                    <p className="mt-4 text-lg font-medium tracking-[-0.02em]">
-                      {node.title}
-                    </p>
-                    <p className="mt-1 text-sm text-zinc-700">{node.detail}</p>
-                  </figcaption>
-                </figure>
-              ))}
+            <div className="grid overflow-hidden bg-[#e3e5df] text-[#101318] md:grid-cols-[9rem_minmax(0,1fr)]">
+              <aside className="flex min-h-60 flex-col justify-between bg-[#146dff] p-6 text-white">
+                <p className="font-mono text-xs font-bold tracking-[0.06em]">
+                  HTTP
+                  <br />
+                  RESPONSE
+                </p>
+                <p>
+                  <strong className="block font-mono text-5xl leading-none font-medium tracking-[-0.08em]">
+                    200
+                  </strong>
+                  <span className="mt-2 block text-lg font-semibold">OK</span>
+                </p>
+                <p className="text-xs leading-5 font-semibold text-blue-100">
+                  Public ingress
+                  <br />
+                  Private data
+                </p>
+              </aside>
+
+              <div className="px-7 py-7 md:px-9">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <span className="text-sm font-semibold text-[#146dff]">
+                    Verified request path
+                  </span>
+                  <code className="font-mono text-xs font-bold text-zinc-600">
+                    GET / → response.html
+                  </code>
+                </div>
+
+                <ol className="mt-8 grid gap-8 md:grid-cols-3 md:gap-10">
+                  {DEPLOYMENT_NODES.map((node, index) => (
+                    <li key={node.marker} className="relative min-w-0">
+                      <span className="font-mono text-xs font-bold tracking-[0.08em] text-[#146dff]">
+                        {node.marker}
+                      </span>
+                      <h3 className="mt-2 text-xl font-semibold tracking-[-0.02em]">
+                        {node.title}
+                      </h3>
+                      <div className="relative mt-5">
+                        {index < DEPLOYMENT_NODES.length - 1 && (
+                          <span
+                            className="absolute top-1/2 left-2.5 hidden h-0.5 w-[calc(100%+2.5rem)] -translate-y-1/2 bg-[#146dff] md:block"
+                            aria-hidden="true"
+                          >
+                            <span className="absolute top-1/2 left-1/2 size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff]" />
+                          </span>
+                        )}
+                        <span className="relative z-10 flex size-5 items-center justify-center rounded-full bg-[#e3e5df] ring-2 ring-[#146dff]">
+                          <span className="size-2 rounded-full bg-[#146dff]" />
+                        </span>
+                      </div>
+                      <code className="mt-5 block truncate font-mono text-xs font-bold text-zinc-900">
+                        {node.evidence}
+                      </code>
+                      <span className="mt-2 inline-flex items-center gap-2 text-xs font-bold text-emerald-800">
+                        <span
+                          className="size-1.5 rounded-full bg-emerald-600"
+                          aria-hidden="true"
+                        />
+                        {node.status}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+
+                <div className="mt-7 grid gap-2 border-t border-zinc-500/40 pt-4 font-mono text-[11px] font-bold text-zinc-600 md:grid-cols-3 md:gap-10">
+                  <span>HTTPS :443 · 200</span>
+                  <span>WSGI :8000 · 1 replica</span>
+                  <span>PostgreSQL :5432 · private</span>
+                </div>
+              </div>
             </div>
-          </div>
+          </figure>
 
           <nav
-            className="mt-16"
-            aria-label="Guide chapters and next field note"
+            className="mt-12 border-t border-white/15 pt-7"
+            aria-label="Guide chapters"
           >
-            <div className="grid gap-5 md:grid-cols-12 md:items-end">
-              <h3 className="text-3xl leading-none font-medium tracking-[-0.035em] text-white md:col-span-8">
-                Three decisive checks
+            <div className="grid gap-3 md:grid-cols-12 md:items-end md:gap-8">
+              <p className="text-sm font-semibold text-[#5f96ff] md:col-span-3">
+                Inside the guide
+              </p>
+              <h3 className="text-2xl leading-tight font-medium tracking-[-0.03em] text-white md:col-span-5">
+                Three decisive checks in 35 minutes.
               </h3>
-              <p className="text-sm leading-6 text-zinc-300 md:col-span-4 md:text-right">
-                Inside the guide · 35 minutes
+              <p className="text-sm leading-6 text-zinc-300 md:col-span-4">
+                Follow the shortest route from a local Django project to a
+                verified production service.
               </p>
             </div>
 
-            <ol className="mt-7 grid divide-y divide-white/15 border-y border-white/15 md:grid-cols-3 md:divide-x md:divide-y-0">
+            <ol className="mt-6 border-y border-white/15">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                <li key={chapter.hash}>
+                <li
+                  key={chapter.hash}
+                  className="border-b border-white/15 last:border-b-0"
+                >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group flex min-h-60 flex-col p-6 text-left focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group grid items-center gap-x-5 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_7rem_minmax(0,1fr)_minmax(0,0.9fr)_1.25rem]"
                   >
-                    <span className="font-mono text-5xl leading-none font-medium tracking-[-0.06em] text-white/55">
+                    <span className="font-mono text-2xl font-medium tracking-[-0.08em] text-[#5f96ff]">
                       0{index + 1}
                     </span>
-                    <span className="mt-8 text-sm font-semibold text-zinc-400">
+                    <span className="text-sm font-semibold text-zinc-300">
                       {chapter.phase}
                     </span>
-                    <strong className="mt-2 text-xl font-medium tracking-[-0.02em] text-white transition-colors group-hover:text-[#5f96ff]">
+                    <strong className="mt-2 text-lg font-semibold tracking-[-0.02em] text-white transition-colors group-hover:text-[#5f96ff] sm:mt-0">
                       {chapter.title}
                     </strong>
-                    <span className="mt-auto flex items-end justify-between gap-5 pt-6 text-sm leading-6 text-zinc-200">
+                    <span className="col-start-2 mt-1 text-sm leading-6 text-zinc-300 sm:col-start-auto sm:mt-0">
                       {chapter.detail}
-                      <ArrowRight
-                        size={18}
-                        className="shrink-0 text-zinc-200 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white"
-                        aria-hidden="true"
-                      />
                     </span>
+                    <ArrowRight
+                      size={17}
+                      className="hidden text-zinc-300 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white sm:block"
+                      aria-hidden="true"
+                    />
                   </Link>
                 </li>
               ))}
             </ol>
-
-            <TutorialRequestGuideLink className="group flex flex-col gap-4 border-b border-white/15 py-5 text-left transition-colors hover:border-white/30 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:flex-row sm:items-center sm:justify-between">
-              <span className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-5">
-                <span className="text-sm font-semibold text-[#5f96ff]">
-                  Other runtime
-                </span>
-                <strong className="text-base font-semibold text-white">
-                  Request another deployment field note.
-                </strong>
-              </span>
-              <span className="inline-flex items-center text-sm font-semibold text-zinc-300">
-                Suggest a stack
-                <ArrowRight
-                  size={16}
-                  className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
-                  aria-hidden="true"
-                />
-              </span>
-            </TutorialRequestGuideLink>
           </nav>
+
+          <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/15 pt-7">
+            <h3 className="text-2xl font-medium tracking-[-0.03em] text-white">
+              Missing your stack?
+            </h3>
+            <p className="text-sm leading-6 text-zinc-300">
+              Share the deployment job you need.
+            </p>
+            <TutorialRequestGuideLink className="group inline-flex h-10 shrink-0 items-center border border-[#146dff]/70 px-4 text-sm font-semibold text-[#5f96ff] transition-colors hover:border-[#146dff] hover:bg-[#146dff] hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none">
+              Request the next field note
+              <ArrowRight
+                size={16}
+                className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                aria-hidden="true"
+              />
+            </TutorialRequestGuideLink>
+          </div>
         </div>
       ) : tutorial.image ? (
         <figure className="mt-10 overflow-hidden rounded-xl bg-zinc-950 p-2 ring-1 ring-white/10">
