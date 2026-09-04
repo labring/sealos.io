@@ -204,7 +204,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
                 <img src="/logo.svg" alt="" className="size-7" />
                 Sealos
               </Link>
-              <p className="mt-4 text-sm leading-6 text-zinc-500">
+              <p className="mt-4 text-sm leading-6 text-zinc-400">
                 Build, deploy, and run applications on a cloud operating system.
               </p>
             </div>
