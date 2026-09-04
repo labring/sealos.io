@@ -106,7 +106,7 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <div className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l lg:border-white/15">
+            <div className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l-2 lg:border-[#146dff]">
               <p className="text-sm font-bold tracking-wide text-zinc-300">
                 LIVE DATA PROOF
               </p>
@@ -123,7 +123,7 @@ function TutorialCatalogCard({
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
-                  className={`grid lg:min-h-[6.75rem] ${
+                  className={`grid lg:min-h-[5.5rem] ${
                     index === 0 ? '' : 'border-t border-zinc-500/30'
                   }`}
                 >
@@ -162,8 +162,8 @@ function TutorialCatalogCard({
               ))}
             </ol>
 
-            <div className="grid bg-[#090909] font-mono text-white lg:grid-rows-3 lg:border-l lg:border-white/15">
-              <div className="grid grid-cols-[2rem_1fr_8rem] items-center gap-3 px-6 py-4">
+            <div className="grid bg-[#090909] font-mono text-white lg:grid-rows-3">
+              <div className="grid grid-cols-[2rem_1fr_8rem] items-center gap-3 px-6 py-3 lg:border-l-2 lg:border-[#146dff]">
                 <code className="text-sm text-zinc-400">01</code>
                 <span>
                   <code className="block text-xl font-bold">POST /</code>
@@ -173,7 +173,7 @@ function TutorialCatalogCard({
                 </span>
                 <code className="text-right text-lg text-zinc-300">302</code>
               </div>
-              <div className="grid grid-cols-[2rem_1fr_8rem] items-center gap-3 border-y border-white/15 px-6 py-4">
+              <div className="grid grid-cols-[2rem_1fr_8rem] items-center gap-3 border-y border-white/15 px-6 py-3 lg:border-l-2 lg:border-[#146dff]">
                 <code className="text-sm text-zinc-400">02</code>
                 <span>
                   <code className="block text-xl font-bold">GET /</code>
@@ -183,7 +183,7 @@ function TutorialCatalogCard({
                 </span>
                 <code className="text-right text-lg text-zinc-300">200</code>
               </div>
-              <div className="grid grid-cols-[2rem_1fr_8rem] items-center gap-3 px-6 py-4">
+              <div className="grid grid-cols-[2rem_1fr_8rem] items-center gap-3 px-6 py-3 lg:border-l-2 lg:border-[#44b78b]">
                 <code className="text-sm text-zinc-400">03</code>
                 <span>
                   <code className="block text-xl font-bold">task[0]</code>
@@ -309,7 +309,7 @@ export default function TutorialsPage({
       )}
 
       <main>
-        <section className="container -mt-24 pt-32 pb-5">
+        <section className="container -mt-24 pt-32">
           <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-stretch lg:gap-0">
             <div className="lg:pr-12">
               <p className="text-sm font-semibold text-zinc-400">
@@ -320,10 +320,13 @@ export default function TutorialsPage({
                 aria-label="Deploy Django on Sealos"
               >
                 <span aria-hidden="true">Django</span>
-                <ArrowRight
-                  className="h-10 w-16 shrink-0 translate-y-1 stroke-2 text-[#146dff] md:h-16 md:w-32"
+                <span
+                  className="flex w-16 shrink-0 items-center md:w-28"
                   aria-hidden="true"
-                />
+                >
+                  <span className="h-0.5 flex-1 bg-[#146dff]" />
+                  <span className="-ml-3 size-4 rotate-45 border-t-2 border-r-2 border-[#146dff]" />
+                </span>
                 <span aria-hidden="true">Sealos</span>
               </h1>
               <div className="mt-7">
@@ -348,22 +351,25 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <aside className="lg:border-l lg:border-white/15 lg:px-6">
+            <aside className="lg:border-l-2 lg:border-[#146dff] lg:px-6">
               <div className="flex h-full flex-col border-t border-white/15 pt-5 pb-7 font-mono">
                 <div className="flex items-center justify-between gap-5 text-sm font-semibold tracking-wide text-zinc-400">
                   <span>DEPLOYMENT RECEIPT</span>
                   <span>2026.09.02</span>
                 </div>
                 <dl className="mt-7 divide-y divide-white/15 border-y border-white/15">
-                  <div className="grid grid-cols-[4.5rem_1fr] items-baseline gap-3 py-4">
+                  <div className="grid grid-cols-[2rem_4.5rem_1fr] items-baseline gap-3 py-4">
+                    <span className="text-xs text-zinc-500">01</span>
                     <dt className="text-sm text-zinc-400">BUILD</dt>
                     <dd className="text-base text-zinc-200">collectstatic</dd>
                   </div>
-                  <div className="grid grid-cols-[4.5rem_1fr] items-baseline gap-3 py-4">
+                  <div className="grid grid-cols-[2rem_4.5rem_1fr] items-baseline gap-3 py-4">
+                    <span className="text-xs text-zinc-500">02</span>
                     <dt className="text-sm text-zinc-400">MIGRATE</dt>
                     <dd className="text-base text-zinc-200">PostgreSQL</dd>
                   </div>
-                  <div className="grid grid-cols-[4.5rem_1fr] items-baseline gap-3 py-4">
+                  <div className="grid grid-cols-[2rem_4.5rem_1fr] items-baseline gap-3 py-4">
+                    <span className="text-xs text-zinc-500">03</span>
                     <dt className="text-sm text-zinc-400">SERVE</dt>
                     <dd className="text-base text-zinc-200">:8080</dd>
                   </div>
