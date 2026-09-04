@@ -27,6 +27,43 @@ const TUTORIALS_PAGE_DESCRIPTION =
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 const DJANGO_PRODUCTION_EVIDENCE =
   '/images/tutorials/django/django-sealos-project-ops-running.webp';
+const DJANGO_LIVE_EVIDENCE =
+  '/images/tutorials/django/django-sealos-live-app-https-proof.webp';
+
+const DJANGO_EVIDENCE_FRAMES = [
+  {
+    label: 'Public HTTPS',
+    detail: 'Reachable · :443',
+    image: DJANGO_PRODUCTION_EVIDENCE,
+    position: '12% 50%',
+    size: '250% auto',
+    alt: 'Sealos public access service with a reachable HTTPS address',
+  },
+  {
+    label: 'Django',
+    detail: 'Running · :8000',
+    image: DJANGO_PRODUCTION_EVIDENCE,
+    position: '57% 50%',
+    size: '250% auto',
+    alt: 'Running Django container on the Sealos project canvas',
+  },
+  {
+    label: 'PostgreSQL',
+    detail: 'Attached · private',
+    image: DJANGO_PRODUCTION_EVIDENCE,
+    position: '98% 50%',
+    size: '250% auto',
+    alt: 'Running PostgreSQL database attached to the Django application',
+  },
+  {
+    label: 'HTTP 200',
+    detail: 'Create/read verified',
+    image: DJANGO_LIVE_EVIDENCE,
+    position: '50% 62%',
+    size: '220% auto',
+    alt: 'Live Django task application showing the verified create and read result',
+  },
+] as const;
 
 const DJANGO_GUIDE_CHAPTERS = [
   {
@@ -102,32 +139,46 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="relative aspect-video overflow-hidden bg-[#0d1015] md:aspect-[3/1]">
-              <Image
-                src={DJANGO_PRODUCTION_EVIDENCE}
-                alt="Sealos project canvas with a public Django service, running container, and attached PostgreSQL database"
-                className="object-cover object-center md:scale-[1.35]"
-                fill
-                priority
-                quality={90}
-                sizes="(max-width: 760px) 100vw, 1248px"
-              />
-            </div>
-
-            <ol className="flex flex-col gap-3 border-b border-white/15 py-4 font-mono text-xs font-bold tracking-[0.02em] uppercase sm:flex-row sm:items-center sm:justify-between">
-              <li className="text-[#5f96ff]">Public HTTPS · reachable</li>
-              <li className="hidden text-zinc-700 sm:block" aria-hidden="true">
-                →
-              </li>
-              <li className="text-[#5f96ff]">Django · running</li>
-              <li className="hidden text-zinc-700 sm:block" aria-hidden="true">
-                →
-              </li>
-              <li className="text-[#5f96ff]">PostgreSQL · attached</li>
-              <li className="hidden text-zinc-700 sm:block" aria-hidden="true">
-                →
-              </li>
-              <li className="text-[#44b78b]">HTTP 200 · verified</li>
+            <ol className="grid overflow-hidden border-b border-white/15 bg-[#0d1015] sm:grid-cols-2 md:grid-cols-4">
+              {DJANGO_EVIDENCE_FRAMES.map((frame, index) => (
+                <li
+                  key={frame.label}
+                  className="relative h-64 border-b border-white/10 last:border-b-0 sm:border-l sm:first:border-l-0 md:border-b-0"
+                >
+                  <div
+                    role="img"
+                    aria-label={frame.alt}
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat brightness-125 contrast-110"
+                    style={{
+                      backgroundImage: `url(${frame.image})`,
+                      backgroundPosition: frame.position,
+                      backgroundSize: frame.size,
+                    }}
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-black/90 px-5 py-4">
+                    <p
+                      className={`font-mono text-xs font-bold tracking-[0.06em] uppercase ${
+                        index === DJANGO_EVIDENCE_FRAMES.length - 1
+                          ? 'text-[#44b78b]'
+                          : 'text-[#5f96ff]'
+                      }`}
+                    >
+                      {frame.label}
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-white">
+                      {frame.detail}
+                    </p>
+                  </div>
+                  {index < DJANGO_EVIDENCE_FRAMES.length - 1 && (
+                    <span
+                      className="absolute top-1/2 -right-4 z-20 hidden size-8 -translate-y-1/2 items-center justify-center bg-[#146dff] text-white md:flex"
+                      aria-hidden="true"
+                    >
+                      <ArrowRight size={16} strokeWidth={2.5} />
+                    </span>
+                  )}
+                </li>
+              ))}
             </ol>
           </figure>
 
