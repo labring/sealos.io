@@ -27,26 +27,6 @@ const TUTORIALS_PAGE_DESCRIPTION =
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 const DJANGO_PROJECT_EVIDENCE =
   '/images/tutorials/django/django-sealos-project-ops-running.webp';
-const DJANGO_SERVICE_EVIDENCE = [
-  {
-    number: '01',
-    name: 'Public domain',
-    status: 'Connected',
-    position: '20% 30%',
-  },
-  {
-    number: '02',
-    name: 'Django container',
-    status: 'Running',
-    position: '55% 34%',
-  },
-  {
-    number: '03',
-    name: 'PostgreSQL',
-    status: 'Running',
-    position: '89% 38%',
-  },
-] as const;
 const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
@@ -114,58 +94,38 @@ function TutorialCatalogCard({
             <div className="grid overflow-hidden border-b border-white/15 md:grid-cols-3">
               <figure className="bg-[#0d1015] md:col-span-2">
                 <div
-                  className="grid aspect-video grid-cols-3 divide-x divide-white/15 bg-[#08101f]"
-                  role="group"
-                  aria-label="Running Sealos project with public domain, Django container, and PostgreSQL database"
+                  className="relative aspect-video overflow-hidden bg-[#08101f]"
+                  role="img"
+                  aria-label="Running Django container in the Sealos project view"
                 >
-                  {DJANGO_SERVICE_EVIDENCE.map((service, index) => (
-                    <div key={service.number} className="flex min-w-0 flex-col">
-                      <div className="relative flex-1 overflow-hidden">
-                        <div
-                          className="absolute inset-0 bg-no-repeat brightness-[1.4] contrast-[1.15] saturate-[1.08]"
-                          style={{
-                            backgroundImage: `url('${DJANGO_PROJECT_EVIDENCE}')`,
-                            backgroundPosition: service.position,
-                            backgroundSize: '500% auto',
-                          }}
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <div className="relative grid min-h-16 grid-cols-[1.75rem_1fr] items-center gap-3 border-t border-white/15 bg-[#0d1015] px-4 py-3">
-                        <span className="font-mono text-sm font-bold text-zinc-500">
-                          {service.number}
-                        </span>
-                        <span>
-                          <strong className="block text-sm font-semibold text-white">
-                            {service.name}
-                          </strong>
-                          <span className="mt-1 flex items-center gap-2 text-xs font-semibold text-[#44b78b]">
-                            <span className="size-1.5 rounded-full bg-current" />
-                            {service.status}
-                          </span>
-                        </span>
-                        {index < DJANGO_SERVICE_EVIDENCE.length - 1 && (
-                          <span
-                            className="absolute right-3 text-base text-[#146dff]"
-                            aria-hidden="true"
-                          >
-                            →
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  ))}
+                  <div
+                    className="absolute inset-0 bg-no-repeat brightness-[1.45] contrast-[1.15] saturate-[0.72]"
+                    style={{
+                      backgroundImage: `url('${DJANGO_PROJECT_EVIDENCE}')`,
+                      backgroundPosition: '55% 34%',
+                      backgroundSize: '300% auto',
+                    }}
+                    aria-hidden="true"
+                  />
+                  <div className="absolute top-5 left-5 bg-[#0d1015]/90 px-4 py-3 ring-1 ring-white/15 backdrop-blur-sm">
+                    <span className="font-mono text-sm font-bold text-zinc-500">
+                      01
+                    </span>
+                    <strong className="ml-4 text-sm font-semibold text-white">
+                      Django container running
+                    </strong>
+                  </div>
                 </div>
                 <figcaption className="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-t border-white/15 px-5 py-4">
                   <span className="font-mono text-sm font-bold text-zinc-500">
-                    PATH
+                    01
                   </span>
                   <span>
                     <strong className="block text-sm font-semibold text-white">
-                      Service path verified
+                      Sealos application runtime
                     </strong>
                     <code className="mt-1 block font-mono text-sm text-zinc-300">
-                      public request → Django runtime → managed data
+                      ghcr.io/yangchuansheng/sealos-django:latest
                     </code>
                   </span>
                 </figcaption>
@@ -176,7 +136,7 @@ function TutorialCatalogCard({
                   <section className="flex flex-1 flex-col bg-[#0d1015] p-5 text-white">
                     <div className="flex items-center justify-between gap-4">
                       <span className="font-mono text-sm font-bold text-zinc-500">
-                        04
+                        02
                       </span>
                       <p className="text-sm font-semibold text-[#146dff]">
                         Django task submitted
@@ -205,7 +165,7 @@ function TutorialCatalogCard({
                   <section className="flex flex-1 flex-col border-t border-white/15 bg-[#0d1015] p-6 text-white">
                     <div className="flex items-center justify-between gap-4">
                       <span className="font-mono text-sm font-bold text-zinc-500">
-                        05
+                        03
                       </span>
                       <p className="text-sm font-semibold text-[#44b78b]">
                         Public response
