@@ -184,17 +184,18 @@ function TutorialCatalogCard({
                     <span className="text-base leading-7 text-zinc-700 md:px-7">
                       {chapter.detail}
                     </span>
-                    <code
-                      className={`font-mono text-[13px] font-bold md:ml-7 ${
-                        index === 0
-                          ? 'border-l-2 border-black/25 py-2 pl-4 text-zinc-700'
-                          : index === 1
-                            ? 'border-l-2 border-[#146dff] py-2 pl-4 text-zinc-800'
-                            : 'bg-[#16815d] px-4 py-3 text-white'
-                      }`}
-                    >
-                      {chapter.evidence}
-                    </code>
+                    <span className="grid h-12 grid-cols-[0.45rem_1fr_auto] items-center gap-3 border border-black/20 px-3 md:ml-7">
+                      <span
+                        className="size-1.5 bg-[#16815d]"
+                        aria-hidden="true"
+                      />
+                      <code className="truncate font-mono text-[13px] font-bold text-zinc-800">
+                        {chapter.evidence}
+                      </code>
+                      <span className="text-[11px] font-semibold text-[#16815d]">
+                        Pass
+                      </span>
+                    </span>
                   </Link>
                 </li>
               ))}
@@ -353,12 +354,15 @@ export default function TutorialsPage({
                   height={52}
                   className="h-8 w-auto invert"
                 />
-                <span className="flex items-baseline gap-2 text-white">
-                  <span className="text-3xl leading-none font-medium tracking-[-0.05em]">
-                    35
+                <span className="text-right text-[#44b78b]">
+                  <span className="flex items-baseline justify-end gap-2">
+                    <span className="text-4xl leading-none font-medium tracking-[-0.055em]">
+                      200
+                    </span>
+                    <span className="text-sm font-bold">OK</span>
                   </span>
-                  <span className="font-mono text-xs font-bold uppercase">
-                    min
+                  <span className="mt-1 block text-xs text-zinc-400">
+                    Final response
                   </span>
                 </span>
               </div>
@@ -372,24 +376,25 @@ export default function TutorialsPage({
                 </span>
               </div>
 
-              <ol
-                className="mt-3 divide-y divide-white/15 border-y border-white/15"
-                aria-label="Verified Django deployment path"
-              >
+              <ol className="mt-3" aria-label="Verified Django deployment path">
                 {DJANGO_RUNTIME_EVIDENCE.map((evidence) => (
                   <li
                     key={evidence.service}
-                    className="grid grid-cols-[1fr_auto] items-center gap-4 py-2.5"
+                    className="-mt-px grid h-12 grid-cols-[0.45rem_1fr_auto] items-center gap-3 border border-white/15 px-3 first:mt-0"
                   >
+                    <span
+                      className="size-1.5 bg-[#44b78b]"
+                      aria-hidden="true"
+                    />
                     <span className="min-w-0">
-                      <strong className="block truncate text-[13px] font-semibold text-white">
+                      <strong className="block truncate text-xs leading-tight font-semibold text-white">
                         {evidence.service}
                       </strong>
-                      <code className="mt-0.5 block truncate font-mono text-xs text-zinc-400">
+                      <code className="mt-0.5 block truncate font-mono text-[11px] leading-tight text-zinc-400">
                         {evidence.event}
                       </code>
                     </span>
-                    <span className="text-xs font-semibold text-[#44b78b]">
+                    <span className="text-[11px] font-semibold text-[#44b78b]">
                       {evidence.result}
                     </span>
                   </li>
@@ -398,7 +403,7 @@ export default function TutorialsPage({
 
               <div className="mt-4 flex items-center justify-between gap-4 text-xs text-zinc-400">
                 <span>Django 5.2 · Field note 01</span>
-                <span className="font-mono text-zinc-500">2026-09-02</span>
+                <span>35 min · 2026-09-02</span>
               </div>
             </aside>
           </div>
