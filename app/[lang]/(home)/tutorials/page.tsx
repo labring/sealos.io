@@ -114,12 +114,12 @@ function TutorialCatalogCard({
             </figcaption>
 
             <div className="grid overflow-hidden border border-white/15 md:grid-cols-12">
-              <aside className="flex items-center justify-between gap-6 bg-[#146dff] p-5 text-white md:col-span-2 md:min-h-full md:flex-col md:items-start">
+              <aside className="flex items-center justify-between gap-6 bg-[#146dff] p-5 text-white md:col-span-1 md:min-h-full md:flex-col md:items-start">
                 <span className="font-mono text-xs font-bold tracking-[0.08em]">
-                  LIVE TRACE
+                  LIVE
                 </span>
                 <p>
-                  <strong className="block text-5xl leading-none font-semibold tracking-[-0.06em]">
+                  <strong className="block text-4xl leading-none font-semibold tracking-[-0.06em]">
                     200
                   </strong>
                   <span className="mt-1 block text-sm font-semibold">OK</span>
@@ -129,24 +129,36 @@ function TutorialCatalogCard({
                 </span>
               </aside>
 
-              <div className="bg-[#e5e7e4] text-[#101318] md:col-span-10">
-                <div className="grid gap-2 border-b border-zinc-400/50 px-6 py-4 sm:px-8 md:grid-cols-12 md:items-center md:gap-x-6">
-                  <span className="inline-flex items-center gap-3 text-xs font-bold tracking-[0.12em] text-[#146dff] md:col-span-6">
-                    <Image
-                      src="/logo.svg"
-                      alt=""
-                      width={20}
-                      height={20}
-                      className="size-5"
-                    />
-                    DJANGO 5.2 / CREATE + READ
-                  </span>
-                  <code className="text-xs font-semibold text-zinc-600 md:col-span-6 md:text-right">
-                    response.html · run 01
-                  </code>
-                </div>
+              <div className="bg-[#cdd1ce] text-[#101318] md:col-span-11">
+                <dl className="grid border-b border-zinc-500/40 md:grid-cols-3 md:divide-x md:divide-zinc-500/40">
+                  <div className="px-6 py-4 sm:px-8">
+                    <dt className="inline-flex items-center gap-3 text-xs font-bold tracking-[0.08em] text-zinc-600">
+                      <Image
+                        src="/logo.svg"
+                        alt=""
+                        width={20}
+                        height={20}
+                        className="size-5"
+                      />
+                      RUNTIME
+                    </dt>
+                    <dd className="mt-1 text-base font-bold">Django 5.2</dd>
+                  </div>
+                  <div className="border-t border-zinc-500/40 px-6 py-4 sm:px-8 md:border-t-0">
+                    <dt className="text-xs font-bold tracking-[0.08em] text-zinc-600">
+                      DATA
+                    </dt>
+                    <dd className="mt-1 text-base font-bold">PostgreSQL</dd>
+                  </div>
+                  <div className="border-t border-zinc-500/40 px-6 py-4 sm:px-8 md:border-t-0">
+                    <dt className="text-xs font-bold tracking-[0.08em] text-zinc-600">
+                      EDGE
+                    </dt>
+                    <dd className="mt-1 text-base font-bold">Public HTTPS</dd>
+                  </div>
+                </dl>
 
-                <ol className="divide-y divide-zinc-400/50 px-6 sm:px-8">
+                <ol className="divide-y divide-zinc-500/40 px-6 sm:px-8">
                   {DJANGO_REQUEST_TRACE.map((step) => (
                     <li
                       key={step.marker}
@@ -190,14 +202,16 @@ function TutorialCatalogCard({
             className="mt-10 border-t border-white/10 pt-7"
             aria-label="Guide chapters and next field note"
           >
-            <div className="grid gap-3 md:grid-cols-12 md:items-end md:gap-x-6">
-              <p className="text-sm font-semibold text-[#5f96ff] md:col-span-2">
-                Inside the guide
-              </p>
-              <h3 className="text-2xl leading-tight font-semibold tracking-tight text-white md:col-span-5">
-                Three decisive checks. 35 minutes.
-              </h3>
-              <p className="text-sm leading-6 text-zinc-300 md:col-span-5">
+            <div className="grid gap-4 md:grid-cols-12 md:items-end md:gap-x-6">
+              <div className="md:col-span-9">
+                <p className="text-sm font-semibold text-[#5f96ff]">
+                  Inside the guide
+                </p>
+                <h3 className="mt-2 text-2xl leading-tight font-semibold tracking-tight text-white">
+                  Three decisive checks. 35 minutes.
+                </h3>
+              </div>
+              <p className="text-sm leading-6 text-zinc-300 md:col-span-3">
                 Move from a local Django project to a working production
                 service.
               </p>
@@ -230,17 +244,17 @@ function TutorialCatalogCard({
                 </div>
               </div>
 
-              <TutorialRequestGuideLink className="group flex min-h-48 flex-col items-start border border-[#146dff]/60 bg-[#101318] p-6 text-left transition-colors hover:border-[#146dff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3">
-                <span className="font-mono text-xs font-bold tracking-[0.08em] text-[#5f96ff]">
+              <TutorialRequestGuideLink className="group flex min-h-48 flex-col items-start bg-[#146dff] p-6 text-left transition-colors hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3">
+                <span className="font-mono text-xs font-bold tracking-[0.08em] text-blue-100">
                   OTHER RUNTIME
                 </span>
                 <strong className="mt-6 text-xl font-semibold text-white">
                   Request another stack
                 </strong>
-                <span className="mt-3 text-sm leading-6 text-zinc-300">
+                <span className="mt-3 text-sm leading-6 text-blue-100">
                   Tell us what should ship next.
                 </span>
-                <span className="mt-auto inline-flex items-center pt-6 text-sm font-semibold text-[#5f96ff]">
+                <span className="mt-auto inline-flex items-center pt-6 text-sm font-semibold text-white">
                   Request field note
                   <ArrowRight
                     size={16}
@@ -365,69 +379,46 @@ export default function TutorialsPage({
       )}
 
       <main>
-        <section className="container -mt-24 grid pt-32 pb-12 md:grid-cols-12 md:items-start md:gap-x-6">
-          <div className="md:col-span-6">
-            <p className="text-sm font-semibold text-[#5f96ff]">
-              Deployment field note · 01
-            </p>
-            <h1 className="mt-5 text-5xl leading-[0.92] font-medium tracking-[-0.05em] text-white md:text-[4.75rem]">
-              <span className="block">Deploy Django</span>
-              <span className="mt-2 block">on Sealos</span>
-            </h1>
-            <p className="mt-6 max-w-[42rem] text-base leading-7 text-zinc-300">
-              Build a Django 5.2 Task app, prepare Gunicorn, WhiteNoise, and
-              PostgreSQL, then deploy it and verify a live create/read flow.
-            </p>
-            {firstTutorial && (
-              <div className="mt-7 flex flex-wrap items-center gap-5">
-                <Link
-                  href={firstTutorial.url}
-                  className="group inline-flex h-11 items-center rounded-sm bg-[#146dff] px-5 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none active:translate-y-0"
-                >
-                  Read tutorial
-                  <ArrowRight
-                    size={15}
-                    className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
-                    aria-hidden="true"
-                  />
-                </Link>
-                <span className="inline-flex items-center gap-2 text-sm text-zinc-300">
-                  <BookOpen size={14} aria-hidden="true" />
-                  {firstTutorial.estimatedReadingTime} · 3 chapters
-                </span>
-              </div>
-            )}
-          </div>
-          <aside className="mt-9 md:col-span-5 md:col-start-8 md:mt-0 md:self-center">
-            <p className="text-sm font-semibold text-[#5f96ff]">
-              What you will ship
-            </p>
-            <dl className="mt-5 border-t border-white/15">
-              <div className="flex items-baseline justify-between gap-4 border-b border-white/15 py-4">
-                <dt className="text-sm text-zinc-300">Runtime</dt>
-                <dd className="text-base font-semibold text-white">
-                  Django 5.2
-                </dd>
-              </div>
-              <div className="flex items-baseline justify-between gap-4 border-b border-white/15 py-4">
-                <dt className="text-sm text-zinc-300">Data</dt>
-                <dd className="text-base font-semibold text-white">
-                  PostgreSQL
-                </dd>
-              </div>
-              <div className="flex items-baseline justify-between gap-4 border-b border-white/15 py-4">
-                <dt className="text-sm text-zinc-300">Edge</dt>
-                <dd className="text-base font-semibold text-white">
-                  Public HTTPS
-                </dd>
-              </div>
-            </dl>
-          </aside>
+        <section className="container -mt-24 pt-32 pb-10">
+          <p className="text-sm font-semibold text-[#5f96ff]">
+            Deployment field note · 01
+          </p>
+          <h1 className="mt-5 text-5xl leading-[0.92] font-medium tracking-[-0.055em] text-white md:text-[5.75rem]">
+            Deploy Django on Sealos
+          </h1>
+          <p className="mt-7 max-w-3xl text-base leading-7 text-zinc-300">
+            <span className="block">
+              Build a Django 5.2 Task app with Gunicorn, WhiteNoise, and
+              PostgreSQL.
+            </span>
+            <span className="block">
+              Deploy it on Sealos and verify a live create/read flow.
+            </span>
+          </p>
+          {firstTutorial && (
+            <div className="mt-7 flex flex-wrap items-center gap-5">
+              <Link
+                href={firstTutorial.url}
+                className="group inline-flex h-11 items-center rounded-sm bg-[#146dff] px-5 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none active:translate-y-0"
+              >
+                Read tutorial
+                <ArrowRight
+                  size={15}
+                  className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </Link>
+              <span className="inline-flex items-center gap-2 text-sm text-zinc-300">
+                <BookOpen size={14} aria-hidden="true" />
+                {firstTutorial.estimatedReadingTime} · 3 chapters
+              </span>
+            </div>
+          )}
         </section>
 
         <section
           id="published-tutorials"
-          className="container scroll-mt-28 border-t border-white/10 pt-10 pb-12"
+          className="container scroll-mt-28 border-t border-white/10 pt-8 pb-12"
           aria-labelledby="published-tutorials-heading"
         >
           {firstTutorial && (
