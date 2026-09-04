@@ -96,9 +96,9 @@ function TutorialCatalogCard({
             className="bg-[#f2f0e8] text-[#0a0a0a]"
             aria-label="Guide chapters"
           >
-            <div className="grid gap-8 py-9 lg:grid-cols-3 lg:items-end lg:gap-0">
+            <div className="grid gap-8 py-9 lg:grid-cols-3 lg:items-start lg:gap-0">
               <div className="lg:col-span-2 lg:pr-12">
-                <p className="text-sm font-semibold text-[#146dff]">
+                <p className="text-sm font-semibold text-zinc-600">
                   Inside the guide
                 </p>
                 <h3 className="mt-3 text-5xl leading-none font-medium tracking-[-0.055em]">
@@ -137,7 +137,7 @@ function TutorialCatalogCard({
                         0{index + 1}
                       </span>
                       <span>
-                        <span className="text-sm font-semibold text-[#146dff]">
+                        <span className="text-sm font-semibold text-zinc-600">
                           {chapter.phase}
                         </span>
                         <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff]">
@@ -282,16 +282,35 @@ export default function TutorialsPage({
 
       <main>
         <section className="container -mt-24 pt-32">
-          <div className="grid gap-8 md:grid-cols-3 md:items-stretch md:gap-0">
+          <div className="relative grid gap-8 md:grid-cols-3 md:items-stretch md:gap-0">
+            <span
+              className="absolute top-[13.3125rem] right-[calc(33.333333%-2.25rem)] left-0 hidden h-px bg-white/15 md:block"
+              aria-hidden="true"
+            />
+            <ol
+              className="absolute top-[12.65rem] left-[27.5rem] z-10 hidden items-center gap-2 text-xs font-semibold text-white lg:flex"
+              aria-label="HTTPS to Django 5.2 to PostgreSQL to HTTP/2"
+            >
+              {DJANGO_VERIFIED_PATH.map((stage, index) => (
+                <li key={stage} className="contents">
+                  <span className="bg-[#090909] px-1.5">{stage}</span>
+                  {index < DJANGO_VERIFIED_PATH.length - 1 && (
+                    <span className="text-[#5f96ff]" aria-hidden="true">
+                      →
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ol>
             <div className="md:col-span-2 md:pr-12">
-              <p className="text-sm font-semibold text-[#5f96ff]">
+              <p className="text-sm font-semibold text-zinc-400">
                 Deployment field note
               </p>
               <h1 className="mt-6 text-6xl leading-[0.92] font-medium tracking-[-0.055em] text-white md:text-[4.75rem]">
                 <span className="block">Deploy Django</span>
                 <span className="block">on Sealos</span>
               </h1>
-              <div className="mt-7 border-t border-white/15 pt-6">
+              <div className="mt-7 pt-6">
                 <p className="max-w-[35rem] text-lg leading-8 text-zinc-300">
                   Build a Django 5.2 Task app with Gunicorn, WhiteNoise, and
                   PostgreSQL. Deploy it on Sealos and verify a live create/read
@@ -336,7 +355,7 @@ export default function TutorialsPage({
                       <span className="text-4xl leading-none font-medium tracking-[-0.055em]">
                         200
                       </span>
-                      <span className="text-sm font-bold">OK</span>
+                      <span className="text-base font-semibold">OK</span>
                     </span>
                     <span className="mt-1 block text-xs text-zinc-400">
                       Final response
@@ -346,27 +365,28 @@ export default function TutorialsPage({
 
                 <div className="grid content-center border-y border-white/15 px-4 py-5">
                   <p className="text-sm font-semibold text-zinc-200">
-                    Verified deployment path
+                    Captured evidence
                   </p>
-                  <ol
-                    className="mt-4 flex items-center gap-2 text-sm font-semibold text-white"
-                    aria-label="HTTPS to Django 5.2 to PostgreSQL to HTTP/2"
-                  >
-                    {DJANGO_VERIFIED_PATH.map((stage, index) => (
-                      <li key={stage} className="contents">
-                        <span>{stage}</span>
-                        {index < DJANGO_VERIFIED_PATH.length - 1 && (
-                          <span className="text-[#5f96ff]" aria-hidden="true">
-                            →
-                          </span>
-                        )}
-                      </li>
-                    ))}
-                  </ol>
-                  <div className="mt-4 grid gap-1 font-mono text-xs text-zinc-400">
-                    <code>django-tasks…sealos.io</code>
-                    <code>config.wsgi:application · private :5432</code>
-                  </div>
+                  <dl className="mt-4 grid gap-3 text-xs">
+                    <div className="grid grid-cols-[4rem_1fr] gap-3">
+                      <dt className="text-zinc-500">Source</dt>
+                      <dd className="font-mono text-zinc-300">
+                        django-tasks…sealos.io
+                      </dd>
+                    </div>
+                    <div className="grid grid-cols-[4rem_1fr] gap-3">
+                      <dt className="text-zinc-500">Runtime</dt>
+                      <dd className="font-mono text-zinc-300">
+                        config.wsgi:application
+                      </dd>
+                    </div>
+                    <div className="grid grid-cols-[4rem_1fr] gap-3">
+                      <dt className="text-zinc-500">Data</dt>
+                      <dd className="font-mono text-zinc-300">
+                        PostgreSQL · private :5432
+                      </dd>
+                    </div>
+                  </dl>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 px-4 py-3 text-xs text-zinc-400">
