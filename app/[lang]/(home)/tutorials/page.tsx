@@ -124,11 +124,15 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <div className="border-l border-white/15 bg-[#090909] px-7 py-6 text-white">
+            <div className="relative border-l border-white/15 bg-[#090909] py-6 pr-7 pl-14 text-white">
+              <span
+                className="absolute top-0 bottom-0 left-7 w-px bg-white/10"
+                aria-hidden="true"
+              />
               <p className="text-sm font-semibold text-zinc-400">
                 Observed transaction
               </p>
-              <p className="mt-2 font-mono text-sm font-bold text-[#44b78b]">
+              <p className="mt-2 font-mono text-sm font-bold text-zinc-300">
                 POST → COMMIT → GET
               </p>
             </div>
@@ -145,50 +149,66 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid gap-5 bg-[#f2f0e8] py-6 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:col-span-2 md:grid-cols-[1.1fr_0.9fr] md:items-center md:gap-8"
+                    className="group grid gap-5 bg-[#f2f0e8] py-6 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:col-span-2 md:grid-cols-[3rem_minmax(13rem,0.75fr)_1.25fr] md:items-center md:gap-5"
                   >
-                    <span className="flex items-center gap-5">
-                      <span
-                        className={`text-4xl font-medium tracking-[-0.055em] ${
-                          index === DJANGO_GUIDE_CHAPTERS.length - 1
-                            ? 'text-[#16815d]'
-                            : 'text-zinc-500'
-                        }`}
-                      >
-                        0{index + 1}
+                    <span
+                      className={`text-4xl font-medium tracking-[-0.055em] ${
+                        index === DJANGO_GUIDE_CHAPTERS.length - 1
+                          ? 'text-[#16815d]'
+                          : 'text-zinc-500'
+                      }`}
+                    >
+                      0{index + 1}
+                    </span>
+                    <span>
+                      <span className="block text-sm font-semibold text-zinc-600">
+                        {chapter.phase}
                       </span>
-                      <span>
-                        <span className="block text-sm font-semibold text-zinc-600">
-                          {chapter.phase}
-                        </span>
-                        <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff]">
-                          {chapter.title}
-                        </strong>
-                      </span>
+                      <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff]">
+                        {chapter.title}
+                      </strong>
                     </span>
                     <span className="text-base leading-7 text-zinc-700">
                       {chapter.detail}
                     </span>
                   </Link>
 
-                  <span className="border-l border-white/15 bg-[#090909] px-7 py-6 text-white">
+                  <span className="relative border-l border-white/15 bg-[#090909] py-6 pr-7 pl-14 text-white">
+                    <span
+                      className="absolute top-0 bottom-0 left-7 w-px bg-white/10"
+                      aria-hidden="true"
+                    />
+                    <span
+                      className={`absolute top-[1.85rem] left-[1.57rem] size-1.5 ${
+                        index === DJANGO_LIVE_PROOF.length - 1
+                          ? 'bg-[#44b78b]'
+                          : 'bg-zinc-600'
+                      }`}
+                      aria-hidden="true"
+                    />
                     <span className="flex items-center justify-between gap-4">
                       <span className="text-sm font-semibold text-zinc-300">
                         {proof.stage}
                       </span>
-                      <code
-                        className={`font-mono text-sm font-bold ${
-                          index === DJANGO_LIVE_PROOF.length - 1
-                            ? 'text-[#44b78b]'
-                            : 'text-zinc-300'
-                        }`}
-                      >
-                        {proof.result}
-                      </code>
+                      {index < DJANGO_LIVE_PROOF.length - 1 && (
+                        <code className="font-mono text-sm font-bold text-zinc-300">
+                          {proof.result}
+                        </code>
+                      )}
                     </span>
                     <code className="mt-3 block truncate font-mono text-xs text-zinc-500">
                       {proof.command}
                     </code>
+                    {index === DJANGO_LIVE_PROOF.length - 1 && (
+                      <span className="mt-3 flex items-baseline gap-3">
+                        <strong className="font-mono text-2xl text-[#44b78b]">
+                          {proof.result}
+                        </strong>
+                        <span className="text-sm font-semibold text-[#44b78b]">
+                          Persisted after refresh
+                        </span>
+                      </span>
+                    )}
                   </span>
                 </li>
               );
@@ -339,7 +359,11 @@ export default function TutorialsPage({
             </div>
 
             <aside>
-              <div className="flex h-full flex-col border border-white/15">
+              <div className="relative flex h-full flex-col border border-white/15">
+                <span
+                  className="absolute top-[3.75rem] bottom-0 left-7 w-px bg-white/10"
+                  aria-hidden="true"
+                />
                 <div className="flex items-start justify-between border-b border-white/10 px-7 py-4">
                   <Image
                     src="/icons/django.svg"
@@ -348,25 +372,28 @@ export default function TutorialsPage({
                     height={52}
                     className="h-7 w-auto opacity-80 invert"
                   />
-                  <span className="font-mono text-xs font-semibold text-[#44b78b]">
+                  <span className="font-mono text-xs font-semibold text-zinc-400">
                     Verified · 2026.09.02
                   </span>
                 </div>
 
-                <div className="flex flex-1 flex-col justify-center px-7 py-7">
+                <div className="relative flex flex-1 flex-col justify-center py-7 pr-7 pl-14">
+                  <span
+                    className="absolute top-1/2 left-[1.57rem] size-1.5 -translate-y-1/2 bg-zinc-500"
+                    aria-hidden="true"
+                  />
                   <p className="text-sm font-semibold text-zinc-500">
                     Submitted task
                   </p>
                   <blockquote className="mt-4 max-w-xs text-3xl leading-tight font-medium tracking-[-0.04em] text-white">
                     “Runtime proof from Sealos”
                   </blockquote>
-                  <span className="mt-6 inline-flex items-center gap-3 text-sm font-semibold text-[#44b78b]">
-                    <span className="size-2 bg-[#44b78b]" aria-hidden="true" />
-                    Persisted after refresh
+                  <span className="mt-6 text-sm font-semibold text-zinc-300">
+                    Submitted over HTTPS
                   </span>
                 </div>
 
-                <p className="border-t border-white/10 px-7 py-4 font-mono text-xs text-zinc-400">
+                <p className="border-t border-white/10 py-4 pr-7 pl-14 font-mono text-xs text-zinc-400">
                   HTTPS · Django 5.2 · PostgreSQL
                 </p>
               </div>

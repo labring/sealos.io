@@ -193,8 +193,8 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
 
   return (
     <footer className="border-t border-white/10 text-white">
-      <div className="py-5">
-        <div className="container flex flex-col gap-5">
+      <div className="py-8">
+        <div className="container flex flex-col gap-7">
           <div className="grid gap-5 lg:grid-cols-4 lg:items-center lg:gap-0">
             <Link
               href={homeHref}
@@ -221,7 +221,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
             </nav>
           </div>
 
-          <div className="flex flex-col items-center gap-4 border-t border-zinc-900 pt-4 text-sm leading-5 text-zinc-300 lg:flex-row">
+          <div className="flex flex-col items-center gap-4 border-t border-zinc-900 pt-6 text-sm leading-5 text-zinc-300 lg:flex-row">
             <p>{footerLinks.copyright}</p>
 
             <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 lg:justify-start">
