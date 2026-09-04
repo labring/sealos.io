@@ -33,33 +33,45 @@ const DJANGO_GUIDE_CHAPTERS = [
     title: 'Prepare Django',
     detail: 'Gunicorn and WhiteNoise',
     hash: '#prepare-django-for-production',
-    evidence: 'Django container',
+    badge: 'APP',
+    serviceName: 'django-tasks-tcavnrnb',
+    serviceType: 'Container',
     status: 'Running',
-    imageSrc: '/images/tutorials/django/django-sealos-project-ops-running.webp',
-    imageClassName:
-      '-left-[189.4%] -top-[82.6%] h-auto w-[440%] brightness-110 contrast-110',
+    rows: [
+      ['Image', 'ghcr.io/yangchuansheng/sealos-django'],
+      ['Runtime', 'Gunicorn · WhiteNoise'],
+    ],
+    metrics: ['CPU 1%', 'RAM 87%', 'Replicas 1'],
   },
   {
     step: '02',
     title: 'Deploy with Skills',
     detail: 'Application and database',
     hash: '#deploy-with-sealos-skills',
-    evidence: 'PostgreSQL',
+    badge: 'DB',
+    serviceName: 'django-tasks-tcavnrnb-pg',
+    serviceType: 'Database PostgreSQL',
     status: 'Running',
-    imageSrc: '/images/tutorials/django/django-sealos-project-ops-running.webp',
-    imageClassName:
-      '-left-[303.3%] -top-[100.9%] h-auto w-[440%] brightness-110 contrast-110',
+    rows: [
+      ['Private connection', '••••••••••'],
+      ['Public connection', 'Disabled'],
+    ],
+    metrics: ['CPU 1%', 'RAM 26%', 'Disk 8%'],
   },
   {
     step: '03',
     title: 'Verify the live app',
     detail: 'HTTPS create/read proof',
     hash: '#verify-the-live-django-application',
-    evidence: 'Public HTTPS',
+    badge: 'URL',
+    serviceName: 'django-tasks-mpbrofzu.us...',
+    serviceType: 'Access domain',
     status: 'Reachable',
-    imageSrc: '/images/tutorials/django/django-sealos-project-ops-running.webp',
-    imageClassName:
-      '-left-[77.3%] -top-[71.6%] h-auto w-[440%] brightness-110 contrast-110',
+    rows: [
+      ['Public address', 'https://django-tasks-mpbrofzu.us...'],
+      ['Response', '200 OK · HTTPS'],
+    ],
+    metrics: ['TLS valid', 'GET 200', 'Create/read'],
   },
 ] as const;
 
@@ -116,11 +128,8 @@ function TutorialCatalogCard({
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <Fragment key={chapter.step}>
                   <span className="flex items-center justify-center gap-3 font-medium text-zinc-100">
-                    {chapter.evidence}
-                    <span className="inline-flex items-center gap-1.5 text-xs text-emerald-400">
-                      <span className="size-1.5 rounded-full bg-emerald-400" />
-                      {chapter.status}
-                    </span>
+                    <span className="text-[#5f96ff]">{chapter.step}</span>
+                    {chapter.serviceType}
                   </span>
                   {index < DJANGO_GUIDE_CHAPTERS.length - 1 && (
                     <span className="text-[#5f96ff]" aria-hidden="true">
@@ -140,16 +149,49 @@ function TutorialCatalogCard({
                     href={`${tutorial.url}${chapter.hash}`}
                     className="group block focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none focus-visible:ring-inset"
                   >
-                    <div className="relative aspect-[4/3] overflow-hidden bg-[#090c14]">
-                      <Image
-                        src={chapter.imageSrc}
-                        alt={`${chapter.evidence} shown in the running Sealos project`}
-                        className={`absolute max-w-none ${chapter.imageClassName}`}
-                        width={3200}
-                        height={1800}
-                        priority={priorityImage}
-                        unoptimized
-                      />
+                    <div className="flex min-h-[19rem] flex-col bg-[#0b101a] p-5">
+                      <div className="flex items-center gap-3">
+                        <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-[#14213a] font-mono text-[0.6875rem] font-semibold text-[#5f96ff]">
+                          {chapter.badge}
+                        </span>
+                        <span className="min-w-0">
+                          <strong className="block truncate font-mono text-sm font-medium text-zinc-100">
+                            {chapter.serviceName}
+                          </strong>
+                          <span className="mt-1 block text-sm text-zinc-400">
+                            {chapter.serviceType}
+                          </span>
+                        </span>
+                        <span
+                          className="ml-auto text-zinc-500"
+                          aria-hidden="true"
+                        >
+                          •••
+                        </span>
+                      </div>
+
+                      <dl className="mt-6 grid gap-3">
+                        {chapter.rows.map(([label, value]) => (
+                          <div key={label} className="bg-black/25 px-4 py-3">
+                            <dt className="text-xs text-zinc-500">{label}</dt>
+                            <dd className="mt-2 truncate font-mono text-sm text-zinc-200">
+                              {value}
+                            </dd>
+                          </div>
+                        ))}
+                      </dl>
+
+                      <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
+                        <span className="inline-flex items-center gap-2 text-sm font-medium text-emerald-400">
+                          <span className="size-2 rounded-full bg-emerald-400" />
+                          {chapter.status}
+                        </span>
+                        <span className="flex flex-wrap justify-end gap-3 font-mono text-[0.6875rem] text-zinc-400">
+                          {chapter.metrics.map((metric) => (
+                            <span key={metric}>{metric}</span>
+                          ))}
+                        </span>
+                      </div>
                     </div>
                     <div className="p-5 md:min-h-40">
                       <span className="text-sm font-medium text-[#5f96ff]">
@@ -320,14 +362,26 @@ export default function TutorialsPage({
               </div>
             )}
           </div>
-          <div className="mt-8 md:col-span-4 md:mt-0 md:border-l md:border-[#146dff] md:pt-14 md:pl-8">
-            <p className="max-w-sm text-3xl leading-[1.15] font-medium tracking-[-0.03em] text-zinc-200">
-              From working code{' '}
-              <span className="text-[#5f96ff]">to green lights.</span>
-            </p>
-            <p className="mt-6 text-sm font-medium text-zinc-400">
-              Build → Deploy → Verify
-            </p>
+          <div className="mt-8 md:col-span-4 md:mt-0 md:flex md:self-stretch md:border-l md:border-[#146dff] md:pt-14 md:pl-8">
+            <div className="flex flex-col justify-between">
+              <div>
+                <p className="max-w-sm text-3xl leading-[1.15] font-medium tracking-[-0.03em] text-zinc-200">
+                  From working code{' '}
+                  <span className="text-[#5f96ff]">to green lights.</span>
+                </p>
+                <p className="mt-5 text-sm font-medium text-zinc-400">
+                  Build → Deploy → Verify
+                </p>
+              </div>
+              <p className="mt-10 flex items-end gap-3">
+                <span className="text-5xl leading-none font-medium tracking-[-0.04em] text-[#5f96ff]">
+                  03
+                </span>
+                <span className="max-w-24 text-sm leading-5 text-zinc-400">
+                  visible proof points
+                </span>
+              </p>
+            </div>
           </div>
         </section>
 
@@ -396,7 +450,7 @@ export default function TutorialsPage({
             <p className="text-sm leading-6 text-zinc-400">
               Share the deployment job you need.
             </p>
-            <TutorialRequestGuideLink className="group inline-flex h-10 shrink-0 items-center text-sm font-semibold text-[#5f96ff] transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none">
+            <TutorialRequestGuideLink className="group inline-flex h-10 shrink-0 items-center rounded-sm border border-[#146dff]/70 px-4 text-sm font-semibold text-[#5f96ff] transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-[#146dff] hover:bg-[#146dff] hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none">
               Request the next field note
               <ArrowRight
                 size={16}
