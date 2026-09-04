@@ -105,7 +105,7 @@ function TutorialCatalogCard({
                   Three decisive checks.
                 </h3>
               </div>
-              <div className="lg:pl-7">
+              <div className="lg:pl-14">
                 <p className="text-base leading-7 text-zinc-700">
                   Configure, deploy, then verify the public flow.
                 </p>
@@ -123,13 +123,9 @@ function TutorialCatalogCard({
             <div className="hidden grid-cols-3 border-y border-black/15 py-3 text-xs font-semibold text-zinc-500 md:grid">
               <span>Guide step</span>
               <span className="px-7">Outcome</span>
-              <span className="pl-7">Verified proof</span>
+              <span className="pl-14">Verified proof</span>
             </div>
             <ol className="relative divide-y divide-black/15">
-              <span
-                className="absolute top-14 bottom-14 left-[calc(66.666667%+2.25rem)] hidden w-px bg-[#16815d]/35 md:block"
-                aria-hidden="true"
-              />
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li key={chapter.hash}>
                   <Link
@@ -137,7 +133,7 @@ function TutorialCatalogCard({
                     className="group grid min-h-28 gap-5 py-6 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-3 md:items-center md:gap-0"
                   >
                     <span className="grid grid-cols-[3.25rem_1fr] items-center gap-5 md:pr-7">
-                      <span className="text-3xl font-medium tracking-[-0.05em] text-zinc-500">
+                      <span className="text-3xl font-medium tracking-[-0.05em] text-zinc-600">
                         0{index + 1}
                       </span>
                       <span>
@@ -154,11 +150,7 @@ function TutorialCatalogCard({
                     </span>
                     <span className="relative grid grid-cols-[1.25rem_1fr_auto] items-center gap-3 md:pl-7">
                       <span
-                        className={`relative z-10 grid place-items-center border border-[#16815d] bg-[#f2f0e8] ${
-                          index === DJANGO_GUIDE_CHAPTERS.length - 1
-                            ? 'size-5'
-                            : 'size-4'
-                        }`}
+                        className="relative z-10 grid size-4 place-items-center border border-[#16815d] bg-[#f2f0e8]"
                         aria-hidden="true"
                       >
                         <span className="size-1.5 bg-[#16815d]" />
@@ -321,8 +313,16 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <aside className="pl-7 md:py-1">
-              <div className="grid h-full grid-rows-[auto_1fr_auto] border border-white/15">
+            <aside className="pl-7">
+              <div className="relative grid h-full grid-rows-[auto_1fr_auto] border border-white/15">
+                <span
+                  className="absolute top-6 bottom-0 left-[7px] w-px bg-[#44b78b]/60"
+                  aria-hidden="true"
+                />
+                <span
+                  className="absolute top-6 left-[3px] size-2 bg-[#44b78b]"
+                  aria-hidden="true"
+                />
                 <div className="grid grid-cols-2 items-start px-4 py-4">
                   <Image
                     src="/icons/django.svg"
@@ -333,7 +333,7 @@ export default function TutorialsPage({
                   />
                   <span className="text-right text-[#44b78b]">
                     <span className="flex items-baseline justify-end gap-2">
-                      <span className="text-5xl leading-none font-medium tracking-[-0.06em]">
+                      <span className="text-4xl leading-none font-medium tracking-[-0.055em]">
                         200
                       </span>
                       <span className="text-sm font-bold">OK</span>
@@ -349,7 +349,7 @@ export default function TutorialsPage({
                     Verified deployment path
                   </p>
                   <ol
-                    className="mt-4 flex items-center gap-2 text-xs font-semibold text-white"
+                    className="mt-4 flex items-center gap-2 text-sm font-semibold text-white"
                     aria-label="HTTPS to Django 5.2 to PostgreSQL to HTTP/2"
                   >
                     {DJANGO_VERIFIED_PATH.map((stage, index) => (
@@ -380,9 +380,13 @@ export default function TutorialsPage({
 
         <section
           id="published-tutorials"
-          className="container scroll-mt-28 pb-12"
+          className="relative container scroll-mt-28 pb-12"
           aria-labelledby="published-tutorials-heading"
         >
+          <span
+            className="pointer-events-none absolute top-0 bottom-12 left-[calc(66.666667%+31px)] z-10 hidden w-px bg-[#16815d]/35 md:block"
+            aria-hidden="true"
+          />
           {firstTutorial && (
             <TutorialCatalogCard tutorial={firstTutorial} priorityImage />
           )}
