@@ -129,17 +129,19 @@ function TutorialCatalogCard({
               <div className="bg-[#cdd1ce] text-[#101318] md:col-span-11">
                 <dl className="grid border-b border-zinc-500/40 md:grid-cols-3 md:divide-x md:divide-zinc-500/40">
                   <div className="px-6 py-4 sm:px-8">
-                    <dt className="inline-flex items-center gap-3 text-xs font-bold tracking-[0.08em] text-zinc-600">
-                      <Image
-                        src="/logo.svg"
-                        alt=""
-                        width={20}
-                        height={20}
-                        className="size-5"
-                      />
+                    <dt className="text-xs font-bold tracking-[0.08em] text-zinc-600">
                       RUNTIME
                     </dt>
-                    <dd className="mt-1 text-base font-bold">Django 5.2</dd>
+                    <dd className="mt-1 flex items-center gap-3 text-base font-bold">
+                      <Image
+                        src="/icons/django.svg"
+                        alt="Django"
+                        width={72}
+                        height={25}
+                        className="h-5 w-auto"
+                      />
+                      <span>5.2</span>
+                    </dd>
                   </div>
                   <div className="border-t border-zinc-500/40 px-6 py-4 sm:px-8 md:border-t-0">
                     <dt className="text-xs font-bold tracking-[0.08em] text-zinc-600">
@@ -213,49 +215,50 @@ function TutorialCatalogCard({
                 service.
               </p>
             </div>
-            <div className="mt-7 grid border-y border-white/15 md:grid-cols-12">
-              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                <Link
-                  key={chapter.hash}
-                  href={`${tutorial.url}${chapter.hash}`}
-                  className="group flex min-h-56 flex-col border-b border-white/15 p-6 text-left focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3 md:border-r md:border-b-0"
-                >
-                  <span className="flex items-baseline justify-between gap-4">
-                    <span className="font-mono text-3xl font-medium tracking-[-0.08em] text-[#5f96ff]">
-                      0{index + 1}
+            <div className="mt-7 border-y border-white/15">
+              <div className="grid md:grid-cols-3">
+                {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
+                  <Link
+                    key={chapter.hash}
+                    href={`${tutorial.url}${chapter.hash}`}
+                    className="group flex min-h-52 flex-col border-b border-white/15 p-6 text-left last:border-b-0 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:border-r md:border-b-0 md:last:border-r-0"
+                  >
+                    <span className="flex items-baseline justify-between gap-4">
+                      <span className="font-mono text-4xl font-medium tracking-[-0.08em] text-[#5f96ff]">
+                        0{index + 1}
+                      </span>
+                      <span className="font-mono text-xs font-bold tracking-[0.08em] text-zinc-400">
+                        CHAPTER
+                      </span>
                     </span>
-                    <span className="font-mono text-xs font-bold tracking-[0.08em] text-zinc-500">
-                      CHAPTER
+                    <strong className="mt-7 block text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                      {chapter.title}
+                    </strong>
+                    <span className="mt-3 block text-sm leading-6 text-zinc-300">
+                      {chapter.detail}
                     </span>
-                  </span>
-                  <strong className="mt-8 block text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
-                    {chapter.title}
-                  </strong>
-                  <span className="mt-3 block text-sm leading-6 text-zinc-300">
-                    {chapter.detail}
-                  </span>
-                  <span className="mt-auto self-end pt-6">
-                    <ArrowRight
-                      size={16}
-                      className="text-zinc-400 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
-                      aria-hidden="true"
-                    />
-                  </span>
-                </Link>
-              ))}
+                    <span className="mt-auto self-end pt-5">
+                      <ArrowRight
+                        size={16}
+                        className="text-zinc-400 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </Link>
+                ))}
+              </div>
 
-              <TutorialRequestGuideLink className="group flex min-h-56 flex-col items-start bg-[#146dff] p-6 text-left transition-colors hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3">
-                <span className="font-mono text-xs font-bold tracking-[0.08em] text-blue-100">
-                  OTHER RUNTIME
+              <TutorialRequestGuideLink className="group flex flex-col gap-4 border-t border-white/15 px-6 py-5 text-left transition-colors hover:bg-white/[0.03] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:flex-row sm:items-center sm:justify-between">
+                <span className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-5">
+                  <span className="font-mono text-xs font-bold tracking-[0.08em] text-[#5f96ff]">
+                    OTHER RUNTIME
+                  </span>
+                  <strong className="text-base font-semibold text-white">
+                    Request another deployment field note.
+                  </strong>
                 </span>
-                <strong className="mt-8 text-xl font-semibold text-white">
-                  Request another stack
-                </strong>
-                <span className="mt-3 text-sm leading-6 text-blue-100">
-                  Tell us what should ship next.
-                </span>
-                <span className="mt-auto inline-flex items-center pt-6 text-sm font-semibold text-white">
-                  Request field note
+                <span className="inline-flex items-center font-mono text-xs font-bold tracking-[0.04em] text-zinc-300 uppercase">
+                  Suggest a stack
                   <ArrowRight
                     size={16}
                     className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"

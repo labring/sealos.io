@@ -157,7 +157,7 @@ function FooterLink({
   return (
     <Link
       href={href}
-      className="font-mono text-xs leading-5 tracking-[0.02em] text-zinc-300 uppercase transition-colors hover:text-white"
+      className="text-sm leading-5 text-zinc-300 transition-colors hover:text-white"
     >
       {children}
     </Link>
