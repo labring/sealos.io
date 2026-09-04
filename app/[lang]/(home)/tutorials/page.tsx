@@ -108,12 +108,12 @@ function TutorialCatalogCard({
 
             <div className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l lg:border-white/15">
               <p className="text-sm font-bold tracking-wide text-white">
-                REQUEST / RESPONSE
+                DEPLOYMENT / PROOF
               </p>
               <div className="mt-3 grid grid-cols-[2rem_1fr_7rem] gap-3 text-xs text-zinc-300">
                 <span>#</span>
-                <span>EVENT</span>
-                <span className="text-right">RESULT</span>
+                <span>SIGNAL</span>
+                <span className="text-right">STATE</span>
               </div>
             </div>
           </div>
@@ -166,29 +166,33 @@ function TutorialCatalogCard({
               <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 px-6 py-4">
                 <code className="text-sm text-zinc-300">01</code>
                 <span>
-                  <code className="block text-xl font-bold">POST /</code>
+                  <code className="block text-xl font-bold">wsgi.py</code>
                   <code className="mt-1 block text-xs text-zinc-200">
-                    task=&quot;Runtime proof&quot;
+                    WhiteNoise · production hosts
                   </code>
                 </span>
-                <code className="text-right text-lg text-white">302</code>
+                <code className="text-right text-sm font-bold text-white">
+                  READY
+                </code>
               </div>
               <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-y border-white/15 px-6 py-4">
                 <code className="text-sm text-zinc-300">02</code>
                 <span>
-                  <code className="block text-xl font-bold">GET /</code>
+                  <code className="block text-xl font-bold">:8080</code>
                   <code className="mt-1 block text-xs text-zinc-200">
-                    fresh browser request
+                    Gunicorn · PostgreSQL
                   </code>
                 </span>
-                <code className="text-right text-lg text-white">200</code>
+                <code className="text-right text-sm font-bold text-white">
+                  RUNNING
+                </code>
               </div>
               <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 px-6 py-4">
                 <code className="text-sm text-zinc-300">03</code>
                 <span>
-                  <code className="block text-xl font-bold">task[0]</code>
+                  <code className="block text-xl font-bold">POST → GET</code>
                   <code className="mt-1 block text-xs text-zinc-200">
-                    &quot;Runtime proof&quot;
+                    task[0]=&quot;Runtime proof&quot;
                   </code>
                 </span>
                 <strong className="text-right text-xl text-[#44b78b]">
@@ -321,11 +325,11 @@ export default function TutorialsPage({
               >
                 <span aria-hidden="true">Django</span>
                 <span
-                  className="flex w-16 shrink-0 items-center md:w-28"
+                  className="flex w-14 shrink-0 items-center sm:w-20 md:w-32"
                   aria-hidden="true"
                 >
-                  <span className="h-[3px] flex-1 bg-[#146dff]" />
-                  <span className="-ml-4 size-5 rotate-45 border-t-[3px] border-r-[3px] border-[#146dff]" />
+                  <span className="h-[3px] flex-1 bg-[#146dff] md:h-1" />
+                  <span className="-ml-4 size-5 rotate-45 border-t-[3px] border-r-[3px] border-[#146dff] md:-ml-5 md:size-7 md:border-t-4 md:border-r-4" />
                 </span>
                 <span aria-hidden="true">Sealos</span>
               </h1>
@@ -371,7 +375,7 @@ export default function TutorialsPage({
                     ADD TASK
                   </span>
                 </div>
-                <div className="mt-auto flex items-end justify-between gap-4 border-t border-zinc-300 pt-3">
+                <div className="mt-4 flex flex-1 items-center justify-between gap-4 border-t border-zinc-300">
                   <span>
                     <span className="block font-mono text-[10px] font-bold tracking-wide text-zinc-500">
                       NEWEST RECORD
@@ -381,7 +385,7 @@ export default function TutorialsPage({
                     </strong>
                   </span>
                   <span className="font-mono text-xs font-bold text-[#16815d]">
-                    PERSISTED
+                    VISIBLE
                   </span>
                 </div>
               </div>
