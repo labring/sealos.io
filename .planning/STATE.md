@@ -7,8 +7,8 @@ current_phase_name: sitemap-route-parity-and-production-verification
 status: blocked
 stopped_at: Independent Phase 32 verification complete with production acceptance BLOCKED
 last_updated: "2026-08-12T07:22:00Z"
-last_activity: 2026-09-03
-last_activity_desc: Completed quick task 260903-nrv for retiring all remaining legacy Tutorial pages
+last_activity: 2026-09-04
+last_activity_desc: Completed quick task 260904-f92 for optimizing the public Tutorial Catalog
 progress:
   total_phases: 2
   completed_phases: 1
@@ -48,7 +48,7 @@ Phase 32 owns the pending PARITY-02 and DELIVERY-02 requirements.
 Phase: 32 (sitemap-route-parity-and-production-verification) — BLOCKED
 Plan: 4 of 4
 Status: Independent verification complete with 14/16 must-haves; production acceptance BLOCKED
-Last activity: 2026-09-03 — Completed quick task 260903-nrv for retiring all remaining legacy Tutorial pages
+Last activity: 2026-09-04 — Completed quick task 260904-f92 for optimizing the public Tutorial Catalog
 
 ## Next Action
 
@@ -87,6 +87,7 @@ production workflows for one SHA, then require a zero-finding live rerun.
 | 260903-gj1 | Unify tutorial detail pages with the blog visual system | 2026-09-03 | 18403b1 | Verified | [260903-gj1-unify-tutorial-detail-pages-with-the-blo](./quick/260903-gj1-unify-tutorial-detail-pages-with-the-blo/) |
 | 260903-nrv | Retire all remaining legacy tutorial pages and align the public tutorial matrix | 2026-09-03 | 7359e0c | Verified | [260903-nrv-retire-all-remaining-legacy-tutorial-pag](./quick/260903-nrv-retire-all-remaining-legacy-tutorial-pag/) |
 | 260903-rb1 | Align the Tutorial Catalog with the Blog visual system while preserving its learning-path matrix | 2026-09-03 | 1071c45 | Verified | [260903-rb1-align-the-tutorial-catalog-with-the-blog](./quick/260903-rb1-align-the-tutorial-catalog-with-the-blog/) |
+| 260904-f92 | Optimize the public tutorials catalog around published core deployment tutorials | 2026-09-04 | 46cc980 | Verified | [260904-f92-optimize-the-public-tutorials-catalog-ar](./quick/260904-f92-optimize-the-public-tutorials-catalog-ar/) |
 
 ## Performance Metrics
 
