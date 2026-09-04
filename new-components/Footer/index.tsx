@@ -180,7 +180,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
   const homeHref = lang === 'en' ? '/' : `/${lang}`;
 
   return (
-    <footer className="border-t border-white/10 text-white">
+    <footer className="border-t border-zinc-700/60 bg-[#0d0d0d] text-white">
       <div className="container flex flex-col gap-5 py-5 lg:flex-row lg:items-center lg:gap-8">
         <Link
           href={homeHref}

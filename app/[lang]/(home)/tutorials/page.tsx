@@ -106,15 +106,17 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <div className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l-2 lg:border-[#146dff]">
-              <p className="text-sm font-bold tracking-wide text-zinc-300">
+            <div className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l lg:border-white/15">
+              <div className="flex items-center gap-3 text-xl font-bold">
+                <span>POST</span>
+                <ArrowRight size={16} className="text-zinc-500" />
+                <span>GET</span>
+                <ArrowRight size={16} className="text-zinc-500" />
+                <span className="text-[#44b78b]">PERSISTED</span>
+              </div>
+              <p className="mt-3 text-xs tracking-wide text-zinc-400">
                 LIVE DATA PROOF
               </p>
-              <div className="mt-3 grid grid-cols-[2rem_1fr_8rem] gap-3 text-xs text-zinc-400">
-                <span>#</span>
-                <span>EVIDENCE</span>
-                <span className="text-right">RESULT</span>
-              </div>
             </div>
           </div>
 
@@ -123,7 +125,7 @@ function TutorialCatalogCard({
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
-                  className={`grid lg:min-h-[5.5rem] ${
+                  className={`grid lg:min-h-[6.5rem] ${
                     index === 0 ? '' : 'border-t border-zinc-500/30'
                   }`}
                 >
@@ -162,38 +164,20 @@ function TutorialCatalogCard({
               ))}
             </ol>
 
-            <div className="grid bg-[#090909] font-mono text-white lg:grid-rows-3">
-              <div className="grid grid-cols-[2rem_1fr_8rem] items-center gap-3 px-6 py-3 lg:border-l-2 lg:border-[#146dff]">
-                <code className="text-sm text-zinc-400">01</code>
-                <span>
-                  <code className="block text-xl font-bold">POST /</code>
-                  <code className="mt-1 block text-xs text-zinc-300">
-                    task=&quot;Runtime proof&quot;
-                  </code>
-                </span>
-                <code className="text-right text-lg text-zinc-300">302</code>
+            <div className="grid bg-[#090909] px-6 font-mono text-white lg:grid-rows-3 lg:border-l lg:border-white/15">
+              <div className="grid grid-cols-[1fr_auto] items-center gap-6">
+                <code className="text-2xl font-bold">POST /</code>
+                <code className="text-lg text-zinc-300">302</code>
               </div>
-              <div className="grid grid-cols-[2rem_1fr_8rem] items-center gap-3 border-y border-white/15 px-6 py-3 lg:border-l-2 lg:border-[#146dff]">
-                <code className="text-sm text-zinc-400">02</code>
-                <span>
-                  <code className="block text-xl font-bold">GET /</code>
-                  <code className="mt-1 block text-xs text-zinc-300">
-                    fresh browser request
-                  </code>
-                </span>
-                <code className="text-right text-lg text-zinc-300">200</code>
+              <div className="grid grid-cols-[1fr_auto] items-center gap-6">
+                <code className="text-2xl font-bold">GET /</code>
+                <code className="text-lg text-zinc-300">200</code>
               </div>
-              <div className="grid grid-cols-[2rem_1fr_8rem] items-center gap-3 px-6 py-3 lg:border-l-2 lg:border-[#44b78b]">
-                <code className="text-sm text-zinc-400">03</code>
-                <span>
-                  <code className="block text-xl font-bold">task[0]</code>
-                  <code className="mt-1 block text-xs text-zinc-300">
-                    &quot;Runtime proof&quot;
-                  </code>
-                </span>
-                <strong className="text-right text-xl text-[#44b78b]">
-                  PERSISTED
-                </strong>
+              <div className="grid grid-cols-[1fr_auto] items-center gap-6">
+                <code className="text-2xl font-bold">task[0]</code>
+                <code className="text-sm text-zinc-300">
+                  &quot;Runtime proof&quot;
+                </code>
               </div>
             </div>
           </div>
@@ -351,32 +335,26 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <aside className="lg:border-l-2 lg:border-[#146dff] lg:px-6">
+            <aside className="lg:border-l lg:border-white/15 lg:px-6">
               <div className="flex h-full flex-col border-t border-white/15 pt-5 pb-7 font-mono">
                 <div className="flex items-center justify-between gap-5 text-sm font-semibold tracking-wide text-zinc-400">
                   <span>DEPLOYMENT RECEIPT</span>
                   <span>2026.09.02</span>
                 </div>
-                <dl className="mt-7 divide-y divide-white/15 border-y border-white/15">
-                  <div className="grid grid-cols-[2rem_4.5rem_1fr] items-baseline gap-3 py-4">
-                    <span className="text-xs text-zinc-500">01</span>
-                    <dt className="text-sm text-zinc-400">BUILD</dt>
-                    <dd className="text-base text-zinc-200">collectstatic</dd>
-                  </div>
-                  <div className="grid grid-cols-[2rem_4.5rem_1fr] items-baseline gap-3 py-4">
-                    <span className="text-xs text-zinc-500">02</span>
-                    <dt className="text-sm text-zinc-400">MIGRATE</dt>
-                    <dd className="text-base text-zinc-200">PostgreSQL</dd>
-                  </div>
-                  <div className="grid grid-cols-[2rem_4.5rem_1fr] items-baseline gap-3 py-4">
-                    <span className="text-xs text-zinc-500">03</span>
-                    <dt className="text-sm text-zinc-400">SERVE</dt>
-                    <dd className="text-base text-zinc-200">:8080</dd>
-                  </div>
-                </dl>
-                <p className="mt-auto border-t border-white/15 pt-4 text-sm text-zinc-400">
-                  Django 5.2 · Gunicorn · PostgreSQL
-                </p>
+                <div className="mt-7 flex items-end justify-between border-y border-white/15 py-5">
+                  <span className="text-sm tracking-wide text-zinc-400">
+                    RELEASE
+                  </span>
+                  <strong className="font-sans text-6xl leading-none font-medium tracking-[-0.06em] text-white">
+                    01
+                  </strong>
+                </div>
+                <div className="mt-auto border-t border-white/15 pt-4">
+                  <p className="text-base text-zinc-200">Django 5.2 → :8080</p>
+                  <p className="mt-2 text-sm text-zinc-400">
+                    Gunicorn · PostgreSQL
+                  </p>
+                </div>
               </div>
             </aside>
           </div>
