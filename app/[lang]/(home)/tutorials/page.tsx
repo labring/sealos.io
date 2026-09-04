@@ -102,45 +102,35 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="relative aspect-[16/8] overflow-hidden border-b border-white/15 bg-[#07101c]">
+            <div className="relative aspect-[16/8] overflow-hidden border-b border-white/15 bg-[#07101c] md:aspect-[16/5.25]">
               <Image
                 src={DJANGO_PRODUCTION_EVIDENCE}
                 alt="Sealos project canvas showing the public HTTPS endpoint, running Django container, and attached PostgreSQL database"
                 fill
-                className="scale-[1.18] object-cover object-center brightness-110 contrast-110"
+                className="scale-[1.18] object-cover object-center brightness-110 contrast-125 saturate-75"
                 priority
                 quality={95}
                 sizes="(max-width: 1280px) 100vw, 1248px"
               />
 
               <div className="pointer-events-none absolute inset-0 hidden md:block">
-                <div className="absolute top-[9%] left-[10%]">
-                  <p className="bg-black px-3 py-2 font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase shadow-[0_0_0_1px_rgba(95,150,255,0.6)]">
-                    Public HTTPS
+                <div className="absolute top-[4%] left-[10%]">
+                  <p className="font-mono text-xs font-bold tracking-[0.06em] text-[#79a8ff] uppercase">
+                    HTTPS · :443
                   </p>
-                  <span className="ml-3 block h-12 w-px bg-[#5f96ff]" />
-                  <span className="ml-[9px] block size-[7px] rounded-full bg-[#5f96ff] ring-4 ring-black/70" />
+                  <span className="mt-2 ml-1 block h-8 w-px bg-[#79a8ff]" />
                 </div>
-                <div className="absolute top-[9%] left-[41.5%]">
-                  <p className="bg-black px-3 py-2 font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase shadow-[0_0_0_1px_rgba(95,150,255,0.6)]">
-                    Django · running
+                <div className="absolute top-[4%] left-[42%]">
+                  <p className="font-mono text-xs font-bold tracking-[0.06em] text-[#79a8ff] uppercase">
+                    Running · :8000
                   </p>
-                  <span className="ml-3 block h-12 w-px bg-[#5f96ff]" />
-                  <span className="ml-[9px] block size-[7px] rounded-full bg-[#5f96ff] ring-4 ring-black/70" />
+                  <span className="mt-2 ml-1 block h-8 w-px bg-[#79a8ff]" />
                 </div>
-                <div className="absolute top-[9%] left-[73%]">
-                  <p className="bg-black px-3 py-2 font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase shadow-[0_0_0_1px_rgba(95,150,255,0.6)]">
-                    PostgreSQL · attached
+                <div className="absolute top-[4%] left-[74%]">
+                  <p className="font-mono text-xs font-bold tracking-[0.06em] text-[#79a8ff] uppercase">
+                    Database · private
                   </p>
-                  <span className="ml-3 block h-12 w-px bg-[#5f96ff]" />
-                  <span className="ml-[9px] block size-[7px] rounded-full bg-[#5f96ff] ring-4 ring-black/70" />
-                </div>
-                <div className="absolute top-[68%] left-[10%] flex items-center">
-                  <span className="mr-3 block size-[7px] rounded-full bg-[#44b78b] ring-4 ring-black/70" />
-                  <span className="block h-px w-12 bg-[#44b78b]" />
-                  <p className="bg-black px-3 py-2 font-mono text-xs font-bold tracking-[0.06em] text-[#44b78b] uppercase shadow-[0_0_0_1px_rgba(68,183,139,0.65)]">
-                    HTTP 200 · verified
-                  </p>
+                  <span className="mt-2 ml-1 block h-8 w-px bg-[#79a8ff]" />
                 </div>
               </div>
 
@@ -162,10 +152,10 @@ function TutorialCatalogCard({
           </figure>
 
           <nav
-            className="mt-12 grid bg-[#f2f0e8] text-[#0a0a0a] md:grid-cols-[0.85fr_1.5fr]"
+            className="mt-10 grid bg-[#f2f0e8] text-[#0a0a0a] md:grid-cols-[0.85fr_1.5fr]"
             aria-label="Guide chapters"
           >
-            <div className="flex flex-col p-8 md:min-h-[34rem] md:p-10">
+            <div className="flex flex-col p-8 md:min-h-[27rem] md:p-10">
               <p className="text-sm font-semibold text-[#146dff]">
                 Inside the guide
               </p>
@@ -188,7 +178,7 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid min-h-44 grid-cols-[3.5rem_1fr_auto] gap-x-5 p-6 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[4.5rem_1fr_auto] md:p-8"
+                    className="group grid min-h-36 grid-cols-[3.5rem_1fr_auto] gap-x-5 p-6 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[4.5rem_1fr_auto]"
                   >
                     <span className="font-mono text-3xl leading-none font-medium tracking-[-0.05em] text-zinc-400">
                       0{index + 1}
