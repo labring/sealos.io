@@ -48,32 +48,17 @@ const DJANGO_SERVICE_CAPTURES = [
   {
     marker: '01.A',
     title: 'Public HTTPS',
-    status: 'Reachable',
     evidence: 'HTTPS :443 · create/read verified',
-    image: '/images/tutorials/django/django-sealos-project-ops-running.webp',
-    imageAlt: 'Public HTTPS service in the live Sealos project',
-    imageSize: '500% auto',
-    imagePosition: '22% 32%',
   },
   {
     marker: '01.B',
     title: 'Django container',
-    status: 'Running',
     evidence: 'Gunicorn · WhiteNoise · 1 replica',
-    image: '/images/tutorials/django/django-sealos-project-ops-running.webp',
-    imageAlt: 'Running Django container in the live Sealos project',
-    imageSize: '500% auto',
-    imagePosition: '55% 38%',
   },
   {
     marker: '01.C',
     title: 'PostgreSQL',
-    status: 'Attached',
     evidence: 'Private connection · public access disabled',
-    image: '/images/tutorials/django/django-sealos-project-ops-running.webp',
-    imageAlt: 'Attached PostgreSQL service in the live Sealos project',
-    imageSize: '500% auto',
-    imagePosition: '86% 44%',
   },
 ] as const;
 
@@ -109,91 +94,12 @@ function TutorialCatalogCard({
       </h2>
 
       {isDjangoGuide ? (
-        <figure>
-          <figcaption className="mb-5 flex flex-wrap items-end justify-between gap-3">
-            <span className="text-2xl font-semibold tracking-tight text-white">
-              Deployment evidence / DJANGO-01
-            </span>
-            <span className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-400">
-              <span className="size-2 rounded-full bg-emerald-400" />
-              Captured from a live project
-            </span>
-          </figcaption>
-
-          <div className="border border-white/15">
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/15 px-5 py-4">
-              <h3 className="text-xl font-semibold text-white">
-                02 / Live create and read
-              </h3>
-              <span className="inline-flex items-center gap-2 font-mono text-sm font-semibold text-emerald-400">
-                <span className="size-2 rounded-full bg-emerald-400" />
-                HTTP 200
-              </span>
-            </div>
-            <div className="relative aspect-[2/1] overflow-hidden bg-[#07101d]">
-              <Image
-                src="/images/tutorials/django/django-sealos-live-app-https-proof.webp"
-                alt="Live Django task application with a verified task write and read result"
-                fill
-                priority={priorityImage}
-                quality={95}
-                className="scale-[1.2] object-cover"
-                sizes="(max-width: 760px) 100vw, 88vw"
-              />
-            </div>
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/15 px-5 py-3 text-sm">
-              <span className="text-zinc-300">
-                Public task write and read confirmed
-              </span>
-              <span className="font-semibold text-emerald-400">
-                Production result verified
-              </span>
-            </div>
-          </div>
-
-          <ol className="mt-px grid overflow-hidden bg-white/15 md:grid-cols-3 md:gap-px">
-            {DJANGO_SERVICE_CAPTURES.map((capture) => (
-              <li
-                key={capture.marker}
-                className="flex min-w-0 flex-col border-b border-white/15 bg-[#0d1016] last:border-b-0 md:border-b-0"
-              >
-                <div className="flex items-center justify-between gap-3 px-4 pt-4">
-                  <span className="font-mono text-xs font-semibold text-[#5f96ff]">
-                    {capture.marker}
-                  </span>
-                  <span className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-400">
-                    <span className="size-1.5 rounded-full bg-emerald-400" />
-                    {capture.status}
-                  </span>
-                </div>
-                <h3 className="px-4 pt-3 text-xl font-semibold tracking-tight text-white">
-                  {capture.title}
-                </h3>
-                <div className="relative mt-4 h-52 overflow-hidden bg-[#08111f]">
-                  <span
-                    role="img"
-                    aria-label={capture.imageAlt}
-                    className="absolute inset-0 bg-no-repeat"
-                    style={{
-                      backgroundImage: `url(${capture.image})`,
-                      backgroundPosition: capture.imagePosition,
-                      backgroundSize: capture.imageSize,
-                    }}
-                  />
-                  <span className="absolute inset-0 ring-1 ring-white/10 ring-inset" />
-                </div>
-                <p className="mt-auto px-4 py-4 text-xs leading-5 text-zinc-300">
-                  {capture.evidence}
-                </p>
-              </li>
-            ))}
-          </ol>
-
+        <div>
           <nav
-            className="mt-10 grid border-y border-white/15 md:grid-cols-[0.5fr_2fr]"
+            className="grid border-y border-white/15 md:grid-cols-[0.52fr_2fr]"
             aria-label="Guide chapters"
           >
-            <div className="flex items-center gap-4 border-b border-l-4 border-white/15 border-l-[#146dff] bg-[#101318] p-6 md:border-r md:border-b-0">
+            <div className="flex items-center gap-4 border-b border-l-4 border-white/15 border-l-[#146dff] bg-[#101318] p-7 md:border-r md:border-b-0">
               <strong className="text-6xl leading-none font-medium tracking-[-0.08em] text-[#5f96ff]">
                 35
               </strong>
@@ -212,15 +118,15 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-5 px-6 py-4 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[2rem_22rem_minmax(0,1fr)]"
+                    className="group grid items-center gap-x-5 px-6 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[2rem_22rem_minmax(0,1fr)]"
                   >
                     <span className="font-mono text-sm font-semibold text-[#5f96ff]">
                       0{index + 1}
                     </span>
-                    <strong className="inline-flex items-center gap-3 text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                    <strong className="inline-flex items-center gap-3 text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
                       {chapter.title}
                       <ArrowRight
-                        size={15}
+                        size={16}
                         className="text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
                         aria-hidden="true"
                       />
@@ -233,7 +139,66 @@ function TutorialCatalogCard({
               ))}
             </ol>
           </nav>
-        </figure>
+
+          <figure className="mt-10">
+            <figcaption className="mb-5 flex flex-wrap items-end justify-between gap-3">
+              <span className="text-2xl font-semibold tracking-tight text-white">
+                Deployment evidence / DJANGO-01
+              </span>
+              <span className="text-xs font-semibold text-zinc-400">
+                Django 5.2 · Live project capture
+              </span>
+            </figcaption>
+
+            <div className="border border-white/15">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/15 px-5 py-4">
+                <h3 className="text-xl font-semibold text-white">
+                  02 / Live create and read
+                </h3>
+                <span className="font-mono text-sm font-semibold text-zinc-400">
+                  Django 5.2 / public HTTPS
+                </span>
+              </div>
+              <div className="relative aspect-[2/1] overflow-hidden bg-[#07101d]">
+                <Image
+                  src="/images/tutorials/django/django-sealos-live-app-https-proof.webp"
+                  alt="Live Django task application with a verified task write and read result"
+                  fill
+                  priority={priorityImage}
+                  quality={95}
+                  className="object-cover"
+                  sizes="(max-width: 760px) 100vw, 88vw"
+                />
+              </div>
+              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/15 px-5 py-3 text-sm">
+                <span className="text-zinc-300">Evidence chain complete</span>
+                <strong className="inline-flex items-center gap-2 font-semibold text-emerald-400">
+                  <span className="size-2 rounded-full bg-emerald-400" />3
+                  services · create/read · HTTP 200
+                </strong>
+              </div>
+            </div>
+
+            <ol className="grid border-x border-b border-white/15 md:grid-cols-3 md:divide-x md:divide-white/15">
+              {DJANGO_SERVICE_CAPTURES.map((capture) => (
+                <li
+                  key={capture.marker}
+                  className="border-b border-white/15 p-5 last:border-b-0 md:border-b-0"
+                >
+                  <span className="font-mono text-xs font-semibold text-[#5f96ff]">
+                    {capture.marker}
+                  </span>
+                  <h3 className="mt-3 text-xl font-semibold tracking-tight text-white">
+                    {capture.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-zinc-300">
+                    {capture.evidence}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </figure>
+        </div>
       ) : (
         tutorial.image && (
           <figure className="mt-10 overflow-hidden rounded-xl bg-zinc-950 p-2 ring-1 ring-white/10">
