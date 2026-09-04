@@ -127,13 +127,15 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <div className="bg-[#090909] px-6 py-5 text-white lg:border-l lg:border-white/15">
-              <p className="text-base font-semibold text-zinc-300">
-                Three live receipts
+            <div className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l lg:border-white/15">
+              <p className="text-sm font-bold tracking-wide text-zinc-300">
+                LIVE RECEIPTS
               </p>
-              <p className="mt-2 font-mono text-sm font-bold text-zinc-400">
-                REQUEST / DATABASE / FRESH LOAD
-              </p>
+              <div className="mt-3 grid grid-cols-[2rem_1fr_8rem] gap-3 text-[11px] text-zinc-500">
+                <span>#</span>
+                <span>ACTION</span>
+                <span className="text-right">RESULT</span>
+              </div>
             </div>
           </div>
 
@@ -180,49 +182,30 @@ function TutorialCatalogCard({
                     <span className="text-[15px] leading-6 text-zinc-700 lg:translate-y-3">
                       {chapter.detail}
                     </span>
-                    <span
-                      className={`absolute top-1/2 right-0 z-10 hidden h-7 w-7 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#f2f0e8] font-mono text-sm transition-colors lg:flex ${
-                        index === DJANGO_GUIDE_CHAPTERS.length - 1
-                          ? 'bg-[#16815d] text-white'
-                          : 'bg-[#090909] text-zinc-300 group-hover:bg-[#146dff] group-hover:text-white'
-                      }`}
-                      aria-hidden="true"
-                    >
-                      →
-                    </span>
                   </Link>
 
-                  <span className="bg-[#090909] px-6 py-5 text-white lg:border-l lg:border-white/15">
-                    <span className="flex items-center justify-between gap-4">
-                      <span className="flex items-center gap-3">
-                        <code className="font-mono text-xs text-zinc-500">
-                          0{index + 1}
-                        </code>
-                        <span className="text-base font-semibold text-zinc-200">
-                          {proof.stage}
-                        </span>
+                  <span className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l lg:border-white/15">
+                    <span className="grid grid-cols-[2rem_1fr_8rem] items-baseline gap-3">
+                      <code className="text-xs text-zinc-500">
+                        0{index + 1}
+                      </code>
+                      <span className="text-sm font-bold tracking-wide text-zinc-200 uppercase">
+                        {proof.stage}
                       </span>
-                      <span className="flex w-40 items-baseline justify-end gap-2 text-right">
-                        <code
-                          className={`font-mono font-bold ${
-                            index === DJANGO_LIVE_PROOF.length - 1
-                              ? 'text-xl text-[#44b78b]'
-                              : 'text-base text-zinc-200'
-                          }`}
-                        >
-                          {proof.result}
-                        </code>
-                        {index === DJANGO_LIVE_PROOF.length - 1 && (
-                          <span className="text-xs font-semibold text-[#44b78b]">
-                            persisted
-                          </span>
-                        )}
-                      </span>
+                      <code
+                        className={`text-right font-bold ${
+                          index === DJANGO_LIVE_PROOF.length - 1
+                            ? 'text-xl text-[#44b78b]'
+                            : 'text-base text-zinc-200'
+                        }`}
+                      >
+                        {proof.result}
+                      </code>
                     </span>
-                    <code className="mt-2 block font-mono text-lg font-bold text-white">
+                    <code className="mt-2 block pl-11 text-base font-bold text-white">
                       {proof.command}
                     </code>
-                    <code className="mt-1 block font-mono text-base leading-5 break-words text-zinc-300">
+                    <code className="mt-1 block pl-11 text-[13px] leading-5 tracking-[-0.02em] whitespace-nowrap text-zinc-300">
                       {proof.detail}
                     </code>
                   </span>
@@ -376,7 +359,7 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <aside className="lg:border-l lg:border-white/15 lg:pl-6">
+            <aside className="lg:border-l lg:border-white/15 lg:px-6">
               <div className="flex h-full flex-col border-t border-white/15 pt-5 pb-7">
                 <div className="flex items-center justify-between gap-5">
                   <Image
@@ -390,27 +373,19 @@ export default function TutorialsPage({
                     2026.09.02
                   </span>
                 </div>
-                <div className="mt-10">
-                  <div className="flex items-center justify-between gap-5">
-                    <p className="text-sm font-semibold text-zinc-500">
-                      Live create / read proof
-                    </p>
-                    <Image
-                      src="/logo.svg"
-                      alt=""
-                      width={20}
-                      height={20}
-                      className="size-5"
-                    />
-                  </div>
-                  <p className="mt-3 font-mono text-[1.65rem] leading-tight font-bold tracking-[-0.04em] text-white">
+                <div className="mt-10 font-mono">
+                  <p className="text-xs font-semibold tracking-wide text-zinc-500">
+                    SEALOS LIVE TRANSACTION
+                  </p>
+                  <p className="mt-4 text-2xl leading-tight font-semibold tracking-[-0.04em] text-white">
                     POST → COMMIT → GET
                   </p>
-                  <p className="mt-5 border-y border-white/15 py-4 font-mono text-lg font-semibold text-[#44b78b]">
-                    task[0] persisted after refresh
-                  </p>
-                  <p className="mt-4 font-mono text-sm text-zinc-400">
-                    HTTP/2 200 · live database read
+                  <div className="mt-5 grid grid-cols-[1fr_auto] items-baseline gap-4 border-y border-white/15 py-4">
+                    <span className="text-sm text-zinc-300">task[0]</span>
+                    <strong className="text-xl text-[#44b78b]">200 OK</strong>
+                  </div>
+                  <p className="mt-4 text-sm text-zinc-400">
+                    persisted after refresh
                   </p>
                 </div>
                 <p className="mt-auto border-t border-white/15 pt-4 font-mono text-sm text-zinc-400">
