@@ -55,21 +55,18 @@ const DJANGO_GUIDE_CHAPTERS = [
   },
 ] as const;
 
-const DJANGO_LIVE_PROOF = [
+const DJANGO_LIVE_TRACE = [
   {
     stage: 'Request',
-    command: 'POST / · task="Runtime proof…"',
-    result: '302',
+    value: 'POST /',
   },
   {
-    stage: 'Write',
-    command: 'INSERT tasks_task · PostgreSQL',
-    result: 'COMMIT',
+    stage: 'Database',
+    value: 'COMMIT',
   },
   {
     stage: 'Fresh load',
-    command: 'GET / HTTP/2 · task[0]',
-    result: '200 OK',
+    value: 'GET /',
   },
 ] as const;
 
@@ -134,48 +131,51 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <div className="hidden grid-cols-2 border-y border-black/15 py-3 text-xs font-semibold text-zinc-500 md:grid">
-              <span>Guide step</span>
-              <span className="pl-8">Outcome + verified proof</span>
-            </div>
-            <ol className="relative divide-y divide-black/15">
+            <ol className="grid border-y border-black/15 lg:grid-cols-3">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                <li key={chapter.hash}>
+                <li
+                  key={chapter.hash}
+                  className="border-t border-black/15 first:border-t-0 lg:border-t-0 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0 lg:last:pr-0"
+                >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid min-h-32 gap-5 py-6 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-2 md:items-center md:gap-0"
+                    className="group flex min-h-80 flex-col py-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none"
                   >
-                    <span className="grid grid-cols-[3.25rem_1fr] items-center gap-5 md:pr-8">
-                      <span className="text-3xl font-medium tracking-[-0.05em] text-zinc-600">
+                    <span className="flex items-start justify-between gap-5">
+                      <span
+                        className={`text-4xl font-medium tracking-[-0.055em] ${
+                          index === DJANGO_GUIDE_CHAPTERS.length - 1
+                            ? 'text-[#16815d]'
+                            : 'text-zinc-500'
+                        }`}
+                      >
                         0{index + 1}
                       </span>
-                      <span>
-                        <span className="text-sm font-semibold text-zinc-600">
-                          {chapter.phase}
-                        </span>
-                        <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff]">
-                          {chapter.title}
-                        </strong>
+                      <span className="pt-1 text-sm font-semibold text-zinc-600">
+                        {chapter.phase}
                       </span>
                     </span>
-                    <span className="md:border-l md:border-black/15 md:pl-8">
-                      <span className="block text-base leading-7 text-zinc-700">
-                        {chapter.detail}
+
+                    <strong className="mt-7 block max-w-sm text-2xl leading-tight font-semibold tracking-[-0.035em] transition-colors group-hover:text-[#146dff]">
+                      {chapter.title}
+                    </strong>
+                    <span className="mt-4 block max-w-sm text-base leading-7 text-zinc-700">
+                      {chapter.detail}
+                    </span>
+
+                    <span className="mt-auto flex min-w-0 items-center gap-3 pt-8">
+                      <span
+                        className="grid size-5 shrink-0 place-items-center border border-[#16815d]"
+                        aria-hidden="true"
+                      >
+                        <span className="size-2 bg-[#16815d]" />
                       </span>
-                      <span className="mt-3 flex min-w-0 items-center gap-3">
-                        <span
-                          className="grid size-5 shrink-0 place-items-center border border-[#16815d]"
-                          aria-hidden="true"
-                        >
-                          <span className="size-2 bg-[#16815d]" />
-                        </span>
-                        <span className="min-w-0">
-                          <code className="block truncate font-mono text-sm font-bold text-zinc-900">
-                            {chapter.evidence}
-                          </code>
-                          <span className="mt-1 block text-xs text-zinc-600">
-                            {chapter.proofDetail}
-                          </span>
+                      <span className="min-w-0">
+                        <code className="block truncate font-mono text-sm font-bold text-zinc-900">
+                          {chapter.evidence}
+                        </code>
+                        <span className="mt-1 block text-xs text-zinc-600">
+                          {chapter.proofDetail}
                         </span>
                       </span>
                     </span>
@@ -306,7 +306,7 @@ export default function TutorialsPage({
                 <span className="block">Deploy Django</span>
                 <span className="block">on Sealos</span>
               </h1>
-              <div className="mt-7 border-t border-white/15 pt-6 md:-mr-12 md:pr-12">
+              <div className="mt-7 pt-6">
                 <p className="max-w-[35rem] text-lg leading-8 text-zinc-300">
                   Build a Django 5.2 Task app with Gunicorn, WhiteNoise, and
                   PostgreSQL. Deploy it on Sealos and verify a live create/read
@@ -328,13 +328,9 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <aside className="relative">
-              <span
-                className="absolute top-0 bottom-0 left-0 z-10 w-px bg-[#44b78b]/60"
-                aria-hidden="true"
-              />
-              <div className="relative grid h-full grid-rows-[auto_1fr_auto] border border-white/10">
-                <div className="grid grid-cols-2 items-start py-4 pr-4 pl-7">
+            <aside>
+              <div className="flex h-full flex-col border border-white/15">
+                <div className="flex items-start justify-between border-b border-white/10 px-7 py-4">
                   <Image
                     src="/icons/django.svg"
                     alt="Django"
@@ -342,53 +338,42 @@ export default function TutorialsPage({
                     height={52}
                     className="h-7 w-auto opacity-80 invert"
                   />
-                  <span className="text-right text-xs font-semibold text-white">
-                    Live create / read
-                    <span className="mt-1 block text-[#44b78b]">
-                      Verified run
-                    </span>
+                  <span className="font-mono text-xs text-zinc-500">
+                    Django 5.2
                   </span>
                 </div>
 
-                <div className="grid grid-rows-3 divide-y divide-white/10 border-y border-white/10">
-                  {DJANGO_LIVE_PROOF.map((proof, index) => (
-                    <div
-                      key={proof.stage}
-                      className="relative grid grid-cols-[2rem_1fr_auto] items-center gap-3 pr-4 pl-7"
-                    >
-                      <span
-                        className="absolute top-1/2 -left-2 z-20 grid size-4 -translate-y-1/2 place-items-center border border-[#44b78b] bg-[#090909]"
-                        aria-hidden="true"
-                      >
-                        <span className="size-1.5 bg-[#44b78b]" />
-                      </span>
-                      <span className="text-xs font-medium text-zinc-500">
-                        0{index + 1}
-                      </span>
-                      <span className="min-w-0">
-                        <strong className="block text-sm font-semibold text-zinc-300">
-                          {proof.stage}
-                        </strong>
-                        <code className="mt-1 block truncate font-mono text-[11px] text-zinc-400">
-                          {proof.command}
-                        </code>
-                      </span>
-                      <code
-                        className={`font-mono text-xs font-bold ${
-                          index === DJANGO_LIVE_PROOF.length - 1
-                            ? 'text-[#44b78b]'
-                            : 'text-zinc-500'
-                        }`}
-                      >
-                        {proof.result}
-                      </code>
-                    </div>
-                  ))}
+                <div className="flex flex-1 flex-col justify-center px-7 py-7">
+                  <p className="text-xs font-semibold tracking-[0.16em] text-[#44b78b] uppercase">
+                    Live persistence check
+                  </p>
+                  <p className="mt-3 font-mono text-5xl font-medium tracking-[-0.06em] text-white">
+                    <span className="text-[#44b78b]">200</span> OK
+                  </p>
+                  <p className="mt-3 max-w-xs text-sm leading-6 text-zinc-400">
+                    The submitted task remained after a fresh HTTP/2 load.
+                  </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 py-3 pr-4 pl-7 text-xs text-zinc-400">
-                  <span>Django 5.2 · PostgreSQL</span>
-                  <span className="text-right">35 min · 2026-09-02</span>
+                <ol className="grid grid-cols-3 border-t border-white/10">
+                  {DJANGO_LIVE_TRACE.map((proof, index) => (
+                    <li
+                      key={proof.stage}
+                      className="border-l border-white/10 px-3 py-3 first:border-l-0"
+                    >
+                      <span className="block text-[10px] font-medium text-zinc-500">
+                        0{index + 1} · {proof.stage}
+                      </span>
+                      <code className="mt-1 block font-mono text-xs font-bold text-zinc-300">
+                        {proof.value}
+                      </code>
+                    </li>
+                  ))}
+                </ol>
+
+                <div className="flex justify-between gap-4 border-t border-white/10 px-7 py-3 text-xs text-zinc-500">
+                  <span>PostgreSQL</span>
+                  <span>2026-09-02</span>
                 </div>
               </div>
             </aside>
