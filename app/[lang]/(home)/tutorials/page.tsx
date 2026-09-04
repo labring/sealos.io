@@ -53,19 +53,16 @@ const DJANGO_LIVE_PROOF = [
   {
     stage: 'Configure',
     command: 'check --deploy',
-    detail: 'WhiteNoise + private PostgreSQL',
-    result: '0 errors',
+    result: '0 ERRORS',
   },
   {
     stage: 'Deploy',
     command: 'gunicorn config.wsgi',
-    detail: 'Listening at 0.0.0.0:8080',
-    result: 'Running',
+    result: 'RUNNING',
   },
   {
     stage: 'Verify',
     command: 'GET / HTTP/2',
-    detail: 'task[0]="Runtime proof from Sealos"',
     result: '200 OK',
   },
 ] as const;
@@ -129,7 +126,7 @@ function TutorialCatalogCard({
 
             <div className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l lg:border-white/15">
               <p className="text-sm font-bold tracking-wide text-zinc-300">
-                DEPLOYMENT RECEIPTS
+                GUIDE CHECKS
               </p>
               <div className="mt-3 grid grid-cols-[2rem_1fr_7rem] gap-3 text-[11px] text-zinc-400">
                 <span>#</span>
@@ -186,7 +183,7 @@ function TutorialCatalogCard({
                     </span>
                   </Link>
 
-                  <span className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l lg:border-white/15">
+                  <span className="bg-[#090909] px-6 py-5 font-mono text-white lg:flex lg:flex-col lg:justify-center lg:border-l lg:border-white/15">
                     <span className="grid grid-cols-[2rem_1fr_7rem] items-baseline gap-3">
                       <code className="text-xs text-zinc-400">
                         0{index + 1}
@@ -206,9 +203,6 @@ function TutorialCatalogCard({
                     </span>
                     <code className="mt-2 block pl-11 text-base font-bold text-white">
                       {proof.command}
-                    </code>
-                    <code className="mt-1 block pl-11 text-[13px] leading-5 tracking-[-0.02em] whitespace-nowrap text-zinc-300">
-                      {proof.detail}
                     </code>
                   </span>
                 </li>
@@ -331,11 +325,19 @@ export default function TutorialsPage({
           <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-stretch lg:gap-0">
             <div className="lg:pr-12">
               <p className="text-sm font-semibold text-zinc-400">
-                Deployment field note
+                Deployment field note · 01
               </p>
-              <h1 className="mt-5 text-6xl leading-[0.92] font-medium tracking-[-0.06em] text-white md:text-[6rem] md:leading-[0.86]">
-                <span className="block">Deploy Django</span>
-                <span className="block">on Sealos</span>
+              <h1
+                className="mt-5 text-6xl leading-[0.92] font-medium tracking-[-0.06em] text-white md:text-[6rem] md:leading-[0.86]"
+                aria-label="Deploy Django on Sealos"
+              >
+                <span className="block" aria-hidden="true">
+                  Django
+                </span>
+                <span className="flex items-baseline gap-5" aria-hidden="true">
+                  <span className="text-[#146dff]">→</span>
+                  <span>Sealos</span>
+                </span>
               </h1>
               <div className="mt-7">
                 <p className="max-w-[38rem] text-lg leading-8 text-zinc-300">
@@ -360,44 +362,38 @@ export default function TutorialsPage({
             </div>
 
             <aside className="lg:border-l lg:border-white/15 lg:px-6">
-              <div className="flex h-full flex-col border-t border-white/15 pt-5 pb-7">
-                <div className="flex items-center gap-4">
-                  <Image
-                    src="/icons/django.svg"
-                    alt="Django"
-                    width={148}
-                    height={52}
-                    className="h-7 w-auto opacity-80 invert"
-                  />
-                  <ArrowRight
-                    size={16}
-                    className="text-zinc-600"
-                    aria-hidden="true"
-                  />
-                  <span className="flex items-center gap-2 text-base font-semibold text-white">
-                    <Image
-                      src="/logo.svg"
-                      alt=""
-                      width={20}
-                      height={20}
-                      className="size-5"
-                    />
-                    Sealos
+              <div className="flex h-full flex-col border-t border-white/15 pt-5 pb-7 font-mono">
+                <div className="flex items-center justify-between gap-5 text-xs font-semibold tracking-wide text-zinc-400">
+                  <span>DEPLOYMENT RECEIPT</span>
+                  <span>2026.09.02</span>
+                </div>
+                <dl className="mt-7 divide-y divide-white/15 border-y border-white/15">
+                  <div className="grid grid-cols-[4.5rem_1fr_auto] items-baseline gap-3 py-3">
+                    <dt className="text-xs text-zinc-400">BUILD</dt>
+                    <dd className="text-sm text-zinc-200">collectstatic</dd>
+                    <dd className="text-xs font-bold text-white">PASS</dd>
+                  </div>
+                  <div className="grid grid-cols-[4.5rem_1fr_auto] items-baseline gap-3 py-3">
+                    <dt className="text-xs text-zinc-400">MIGRATE</dt>
+                    <dd className="text-sm text-zinc-200">PostgreSQL</dd>
+                    <dd className="text-xs font-bold text-white">APPLIED</dd>
+                  </div>
+                  <div className="grid grid-cols-[4.5rem_1fr_auto] items-baseline gap-3 py-3">
+                    <dt className="text-xs text-zinc-400">SERVE</dt>
+                    <dd className="text-sm text-zinc-200">:8080</dd>
+                    <dd className="text-xs font-bold text-[#44b78b]">
+                      HEALTHY
+                    </dd>
+                  </div>
+                </dl>
+                <p className="mt-5 flex items-center justify-between gap-4 text-sm font-semibold">
+                  <span className="text-[#44b78b]">LIVE</span>
+                  <span className="text-right text-zinc-300">
+                    task survives fresh load
                   </span>
-                </div>
-                <div className="mt-9">
-                  <p className="font-mono text-xs font-semibold tracking-wide text-zinc-400">
-                    DEPLOYMENT VERIFIED
-                  </p>
-                  <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-white">
-                    Django is live.
-                  </p>
-                  <p className="mt-5 border-y border-white/15 py-4 font-mono text-sm font-semibold text-[#44b78b]">
-                    task persisted after a fresh load
-                  </p>
-                </div>
-                <p className="mt-auto border-t border-white/15 pt-4 font-mono text-sm text-zinc-400">
-                  Django 5.2 · PostgreSQL · HTTP/2
+                </p>
+                <p className="mt-auto border-t border-white/15 pt-4 text-sm text-zinc-400">
+                  Django 5.2 · Gunicorn · PostgreSQL
                 </p>
               </div>
             </aside>
