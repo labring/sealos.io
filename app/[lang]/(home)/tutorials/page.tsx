@@ -57,7 +57,7 @@ function TutorialCatalogCard({
       href={tutorial.url}
       className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12 md:items-center"
     >
-      <div className="flex flex-col gap-6 p-6 md:col-span-5 md:p-10">
+      <div className="flex flex-col gap-6 p-6 md:col-span-7 md:p-10">
         <div>
           <h2
             id="published-tutorials-heading"
@@ -93,6 +93,12 @@ function TutorialCatalogCard({
           </p>
         </div>
 
+        <ul className="text-foreground/80 border-border/80 grid list-none gap-3 border-y py-4 text-sm leading-6 sm:grid-cols-3">
+          <li>Deploy the Django app with Gunicorn and WhiteNoise.</li>
+          <li>Connect PostgreSQL to the running application.</li>
+          <li>Verify the live create/read flow on Sealos.</li>
+        </ul>
+
         <div className="text-muted-foreground border-border/80 mt-auto flex flex-wrap items-center justify-between gap-3 border-t pt-5 text-sm">
           {tutorial.estimatedReadingTime && (
             <span className="inline-flex items-center gap-2">
@@ -100,7 +106,7 @@ function TutorialCatalogCard({
               {tutorial.estimatedReadingTime}
             </span>
           )}
-          <span className="text-primary inline-flex items-center font-medium">
+          <span className="bg-primary text-primary-foreground group-hover:bg-primary/90 inline-flex items-center rounded-md px-4 py-2 font-semibold transition-colors">
             Read tutorial
             <ArrowRight
               size={15}
@@ -112,15 +118,15 @@ function TutorialCatalogCard({
       </div>
 
       {tutorial.image && (
-        <figure className="border-border bg-background order-first w-full border-b p-2 md:order-none md:col-span-7 md:border-b-0 md:border-l">
+        <figure className="border-border bg-background order-first w-full border-b p-2 md:order-none md:col-span-5 md:border-b-0 md:border-l">
           <div className="relative aspect-video w-full overflow-hidden rounded-[0.375rem]">
             <Image
               src={tutorial.image}
               alt={`${tutorial.title} deployment result`}
-              className="h-full w-full scale-[1.38] object-cover object-center"
+              className="h-full w-full scale-[1.2] object-cover object-center"
               fill
               priority={priorityImage}
-              sizes="(max-width: 760px) 90vw, 55vw"
+              sizes="(max-width: 760px) 90vw, 42vw"
             />
           </div>
           <figcaption className="text-muted-foreground px-1 pt-3 pb-1 text-xs leading-5">
