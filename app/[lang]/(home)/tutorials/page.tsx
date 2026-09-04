@@ -81,7 +81,7 @@ function TutorialCatalogCard({
 
       {isDjangoGuide ? (
         <nav className="text-[#0a0a0a]" aria-label="Guide chapters">
-          <div className="grid border-b border-zinc-500/30 lg:grid-cols-[minmax(0,1fr)_26rem]">
+          <div className="grid border-b border-zinc-500/30 lg:grid-cols-[minmax(0,1fr)_30rem]">
             <div className="grid gap-5 bg-[#f2f0e8] py-5 pr-8 lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-center lg:gap-0">
               <div className="lg:pr-8">
                 <p className="text-sm font-semibold text-zinc-600">
@@ -107,10 +107,10 @@ function TutorialCatalogCard({
             </div>
 
             <div className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l lg:border-white/15">
-              <p className="text-sm font-bold tracking-wide text-zinc-300">
+              <p className="text-sm font-bold tracking-wide text-white">
                 REQUEST / RESPONSE
               </p>
-              <div className="mt-3 grid grid-cols-[2rem_1fr_7rem] gap-3 text-xs text-zinc-400">
+              <div className="mt-3 grid grid-cols-[2rem_1fr_7rem] gap-3 text-xs text-zinc-300">
                 <span>#</span>
                 <span>EVENT</span>
                 <span className="text-right">RESULT</span>
@@ -118,7 +118,7 @@ function TutorialCatalogCard({
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-[minmax(0,1fr)_26rem]">
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_30rem]">
             <ol>
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
@@ -164,30 +164,30 @@ function TutorialCatalogCard({
 
             <div className="grid bg-[#090909] font-mono text-white lg:grid-rows-3 lg:border-l lg:border-white/15">
               <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 px-6 py-4">
-                <code className="text-sm text-zinc-400">01</code>
+                <code className="text-sm text-zinc-300">01</code>
                 <span>
                   <code className="block text-xl font-bold">POST /</code>
-                  <code className="mt-1 block text-xs text-zinc-300">
+                  <code className="mt-1 block text-xs text-zinc-200">
                     task=&quot;Runtime proof&quot;
                   </code>
                 </span>
-                <code className="text-right text-lg text-zinc-300">302</code>
+                <code className="text-right text-lg text-white">302</code>
               </div>
               <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-y border-white/15 px-6 py-4">
-                <code className="text-sm text-zinc-400">02</code>
+                <code className="text-sm text-zinc-300">02</code>
                 <span>
                   <code className="block text-xl font-bold">GET /</code>
-                  <code className="mt-1 block text-xs text-zinc-300">
+                  <code className="mt-1 block text-xs text-zinc-200">
                     fresh browser request
                   </code>
                 </span>
-                <code className="text-right text-lg text-zinc-300">200</code>
+                <code className="text-right text-lg text-white">200</code>
               </div>
               <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 px-6 py-4">
-                <code className="text-sm text-zinc-400">03</code>
+                <code className="text-sm text-zinc-300">03</code>
                 <span>
                   <code className="block text-xl font-bold">task[0]</code>
-                  <code className="mt-1 block text-xs text-zinc-300">
+                  <code className="mt-1 block text-xs text-zinc-200">
                     &quot;Runtime proof&quot;
                   </code>
                 </span>
@@ -310,7 +310,7 @@ export default function TutorialsPage({
 
       <main>
         <section className="container -mt-24 pt-32">
-          <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-stretch lg:gap-0">
+          <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_30rem] lg:items-stretch lg:gap-0">
             <div className="lg:pr-12">
               <p className="text-sm font-semibold text-zinc-400">
                 Deployment field note · 01
@@ -324,8 +324,8 @@ export default function TutorialsPage({
                   className="flex w-16 shrink-0 items-center md:w-28"
                   aria-hidden="true"
                 >
-                  <span className="h-0.5 flex-1 bg-[#146dff]" />
-                  <span className="-ml-3 size-4 rotate-45 border-t-2 border-r-2 border-[#146dff]" />
+                  <span className="h-[3px] flex-1 bg-[#146dff]" />
+                  <span className="-ml-4 size-5 rotate-45 border-t-[3px] border-r-[3px] border-[#146dff]" />
                 </span>
                 <span aria-hidden="true">Sealos</span>
               </h1>
@@ -357,8 +357,8 @@ export default function TutorialsPage({
                 alt="Live Django task application on Sealos showing a persisted task"
                 fill
                 priority
-                sizes="(max-width: 1023px) 100vw, 26rem"
-                className="object-cover"
+                sizes="(max-width: 1023px) 100vw, 30rem"
+                className="scale-[1.5] object-cover object-[55%_55%]"
               />
               <figcaption className="absolute right-0 bottom-0 left-0 flex items-center justify-between bg-[#090909] px-5 py-3 font-mono text-xs font-semibold tracking-wide text-white">
                 <span>LIVE APPLICATION</span>
