@@ -107,16 +107,14 @@ function TutorialCatalogCard({
             </div>
 
             <div className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l lg:border-white/15">
-              <div className="flex items-center gap-3 text-xl font-bold">
-                <span>POST</span>
-                <ArrowRight size={16} className="text-zinc-500" />
-                <span>GET</span>
-                <ArrowRight size={16} className="text-zinc-500" />
-                <span className="text-[#44b78b]">PERSISTED</span>
-              </div>
-              <p className="mt-3 text-xs tracking-wide text-zinc-400">
-                LIVE DATA PROOF
+              <p className="text-sm font-bold tracking-wide text-zinc-300">
+                REQUEST / RESPONSE
               </p>
+              <div className="mt-3 grid grid-cols-[2rem_1fr_7rem] gap-3 text-xs text-zinc-400">
+                <span>#</span>
+                <span>EVENT</span>
+                <span className="text-right">RESULT</span>
+              </div>
             </div>
           </div>
 
@@ -164,20 +162,38 @@ function TutorialCatalogCard({
               ))}
             </ol>
 
-            <div className="grid bg-[#090909] px-6 font-mono text-white lg:grid-rows-3 lg:border-l lg:border-white/15">
-              <div className="grid grid-cols-[1fr_auto] items-center gap-6">
-                <code className="text-2xl font-bold">POST /</code>
-                <code className="text-lg text-zinc-300">302</code>
+            <div className="grid bg-[#090909] font-mono text-white lg:grid-rows-3 lg:border-l lg:border-white/15">
+              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 px-6 py-4">
+                <code className="text-sm text-zinc-400">01</code>
+                <span>
+                  <code className="block text-xl font-bold">POST /</code>
+                  <code className="mt-1 block text-xs text-zinc-300">
+                    task=&quot;Runtime proof&quot;
+                  </code>
+                </span>
+                <code className="text-right text-lg text-zinc-300">302</code>
               </div>
-              <div className="grid grid-cols-[1fr_auto] items-center gap-6">
-                <code className="text-2xl font-bold">GET /</code>
-                <code className="text-lg text-zinc-300">200</code>
+              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-y border-white/15 px-6 py-4">
+                <code className="text-sm text-zinc-400">02</code>
+                <span>
+                  <code className="block text-xl font-bold">GET /</code>
+                  <code className="mt-1 block text-xs text-zinc-300">
+                    fresh browser request
+                  </code>
+                </span>
+                <code className="text-right text-lg text-zinc-300">200</code>
               </div>
-              <div className="grid grid-cols-[1fr_auto] items-center gap-6">
-                <code className="text-2xl font-bold">task[0]</code>
-                <code className="text-sm text-zinc-300">
-                  &quot;Runtime proof&quot;
-                </code>
+              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 px-6 py-4">
+                <code className="text-sm text-zinc-400">03</code>
+                <span>
+                  <code className="block text-xl font-bold">task[0]</code>
+                  <code className="mt-1 block text-xs text-zinc-300">
+                    &quot;Runtime proof&quot;
+                  </code>
+                </span>
+                <strong className="text-right text-xl text-[#44b78b]">
+                  PERSISTED
+                </strong>
               </div>
             </div>
           </div>
@@ -335,28 +351,20 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <aside className="lg:border-l lg:border-white/15 lg:px-6">
-              <div className="flex h-full flex-col border-t border-white/15 pt-5 pb-7 font-mono">
-                <div className="flex items-center justify-between gap-5 text-sm font-semibold tracking-wide text-zinc-400">
-                  <span>DEPLOYMENT RECEIPT</span>
-                  <span>2026.09.02</span>
-                </div>
-                <div className="mt-7 flex items-end justify-between border-y border-white/15 py-5">
-                  <span className="text-sm tracking-wide text-zinc-400">
-                    RELEASE
-                  </span>
-                  <strong className="font-sans text-6xl leading-none font-medium tracking-[-0.06em] text-white">
-                    01
-                  </strong>
-                </div>
-                <div className="mt-auto border-t border-white/15 pt-4">
-                  <p className="text-base text-zinc-200">Django 5.2 → :8080</p>
-                  <p className="mt-2 text-sm text-zinc-400">
-                    Gunicorn · PostgreSQL
-                  </p>
-                </div>
-              </div>
-            </aside>
+            <figure className="relative aspect-video overflow-hidden border-t border-white/15 lg:aspect-auto lg:h-full lg:border-l">
+              <Image
+                src="/images/tutorials/django/django-sealos-live-app-https-proof-hd.png"
+                alt="Live Django task application on Sealos showing a persisted task"
+                fill
+                priority
+                sizes="(max-width: 1023px) 100vw, 26rem"
+                className="object-cover"
+              />
+              <figcaption className="absolute right-0 bottom-0 left-0 flex items-center justify-between bg-[#090909] px-5 py-3 font-mono text-xs font-semibold tracking-wide text-white">
+                <span>LIVE APPLICATION</span>
+                <span className="text-[#44b78b]">HTTPS · 200</span>
+              </figcaption>
+            </figure>
           </div>
         </section>
 
