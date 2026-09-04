@@ -58,21 +58,7 @@ function TutorialCatalogCard({
       className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12 md:items-center"
     >
       <div className="flex flex-col gap-6 p-6 md:col-span-5 md:p-10">
-        <header>
-          <h1
-            aria-label="Sealos tutorials for app deployment"
-            className="text-foreground text-3xl font-medium tracking-tight md:text-4xl"
-          >
-            <span>Sealos tutorials for </span>
-            <GradientText>app deployment</GradientText>
-          </h1>
-          <p className="text-muted-foreground mt-4 text-sm leading-6">
-            Follow complete deployment guides built from verified repositories
-            and live application evidence.
-          </p>
-        </header>
-
-        <div className="border-border/80 border-t pt-6">
+        <div>
           <h2
             id="published-tutorials-heading"
             className="text-foreground text-xl font-semibold tracking-tight"
@@ -126,7 +112,7 @@ function TutorialCatalogCard({
       </div>
 
       {tutorial.image && (
-        <div className="border-border bg-background order-first w-full border-b p-1.5 md:order-none md:col-span-7 md:border-b-0 md:border-l">
+        <figure className="border-border bg-background order-first w-full border-b p-2 md:order-none md:col-span-7 md:border-b-0 md:border-l">
           <div className="relative aspect-video w-full overflow-hidden rounded-[0.375rem]">
             <Image
               src={tutorial.image}
@@ -137,7 +123,10 @@ function TutorialCatalogCard({
               sizes="(max-width: 760px) 90vw, 55vw"
             />
           </div>
-        </div>
+          <figcaption className="text-muted-foreground px-1 pt-3 pb-1 text-xs leading-5">
+            Verified public application on Sealos.
+          </figcaption>
+        </figure>
       )}
     </Link>
   );
@@ -237,13 +226,78 @@ export default function TutorialsPage({
       <PageTopRays />
 
       <main>
+        <section className="container -mt-24 pt-44 pb-10">
+          <h1
+            aria-label="Sealos tutorials for app deployment"
+            className="text-foreground max-w-2xl text-4xl font-medium tracking-tight md:text-5xl"
+          >
+            <span>Sealos tutorials for </span>
+            <GradientText>app deployment</GradientText>
+          </h1>
+          <p className="text-muted-foreground mt-4 max-w-xl text-sm leading-6">
+            Follow complete deployment guides built from verified repositories
+            and live application evidence.
+          </p>
+        </section>
+
         <section
           id="published-tutorials"
-          className="container -mt-24 scroll-mt-28 pt-44 pb-2"
+          className="container scroll-mt-28 pb-2"
           aria-labelledby="published-tutorials-heading"
         >
           {firstTutorial && (
             <TutorialCatalogCard tutorial={firstTutorial} priorityImage />
+          )}
+
+          {tutorials.length > 1 && (
+            <div className="mt-6 grid gap-4">
+              {tutorials.slice(1).map((tutorial) => (
+                <Link
+                  key={tutorial.slug}
+                  href={tutorial.url}
+                  className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-[minmax(0,1fr)_18rem]"
+                >
+                  <div className="flex flex-col gap-2 p-5">
+                    <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-xs font-medium">
+                      <span>{tutorial.framework}</span>
+                      <span aria-hidden="true">·</span>
+                      <span>
+                        {tutorial.stage === 'beginner'
+                          ? 'Core deployment'
+                          : tutorial.stageLabel}
+                      </span>
+                    </div>
+                    <h2 className="text-lg font-semibold tracking-tight">
+                      <GradientText>
+                        <span className="text-foreground transition-colors group-hover:text-transparent">
+                          {tutorial.title}
+                        </span>
+                      </GradientText>
+                    </h2>
+                    <p className="text-muted-foreground line-clamp-2 text-sm leading-6">
+                      {tutorial.description}
+                    </p>
+                    {tutorial.estimatedReadingTime && (
+                      <span className="text-muted-foreground mt-auto inline-flex items-center gap-2 text-sm">
+                        <BookOpen size={14} aria-hidden="true" />
+                        {tutorial.estimatedReadingTime}
+                      </span>
+                    )}
+                  </div>
+                  {tutorial.image && (
+                    <div className="border-border relative aspect-video w-full overflow-hidden border-t md:border-t-0 md:border-l">
+                      <Image
+                        src={tutorial.image}
+                        alt={`${tutorial.title} deployment result`}
+                        className="h-full w-full object-cover"
+                        fill
+                        sizes="(max-width: 760px) 90vw, 18rem"
+                      />
+                    </div>
+                  )}
+                </Link>
+              ))}
+            </div>
           )}
 
           <section className="border-border mt-20 flex flex-col gap-6 border-t pt-10 md:flex-row md:items-center md:justify-between">
