@@ -308,12 +308,12 @@ export default function TutorialsPage({
                 {firstTutorial && (
                   <Link
                     href={firstTutorial.url}
-                    className="group mt-5 inline-flex w-60 items-center justify-between bg-[#f2f0e8] px-6 py-4 text-base font-semibold text-[#0a0a0a] transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group relative z-10 mt-5 inline-flex w-60 items-center justify-between border-x border-t border-black/20 bg-[#f2f0e8] px-6 py-4 text-base font-semibold text-[#0a0a0a] transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     Read the field note
                     <ArrowRight
                       size={15}
-                      className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                      className="rotate-45 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:translate-y-0.5"
                       aria-hidden="true"
                     />
                   </Link>
@@ -321,56 +321,58 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <aside className="flex flex-col border-l border-white/15 pl-7 md:py-1">
-              <div className="flex items-start justify-between gap-6">
-                <Image
-                  src="/icons/django.svg"
-                  alt="Django"
-                  width={148}
-                  height={52}
-                  className="h-8 w-auto invert"
-                />
-                <span className="text-right text-[#44b78b]">
-                  <span className="flex items-baseline justify-end gap-2">
-                    <span className="text-4xl leading-none font-medium tracking-[-0.055em]">
-                      200
+            <aside className="pl-7 md:py-1">
+              <div className="grid h-full grid-rows-[auto_1fr_auto] border border-white/15">
+                <div className="grid grid-cols-2 items-start px-4 py-4">
+                  <Image
+                    src="/icons/django.svg"
+                    alt="Django"
+                    width={148}
+                    height={52}
+                    className="h-8 w-auto invert"
+                  />
+                  <span className="text-right text-[#44b78b]">
+                    <span className="flex items-baseline justify-end gap-2">
+                      <span className="text-5xl leading-none font-medium tracking-[-0.06em]">
+                        200
+                      </span>
+                      <span className="text-sm font-bold">OK</span>
                     </span>
-                    <span className="text-sm font-bold">OK</span>
+                    <span className="mt-1 block text-xs text-zinc-400">
+                      Final response
+                    </span>
                   </span>
-                  <span className="mt-1 block text-xs text-zinc-400">
-                    Final response
-                  </span>
-                </span>
-              </div>
-
-              <div className="my-auto border-y border-white/15 py-5">
-                <p className="text-sm font-semibold text-zinc-200">
-                  Verified deployment path
-                </p>
-                <ol
-                  className="mt-4 flex items-center gap-2 text-xs font-semibold text-white"
-                  aria-label="HTTPS to Django 5.2 to PostgreSQL to HTTP/2"
-                >
-                  {DJANGO_VERIFIED_PATH.map((stage, index) => (
-                    <li key={stage} className="contents">
-                      <span>{stage}</span>
-                      {index < DJANGO_VERIFIED_PATH.length - 1 && (
-                        <span className="text-[#5f96ff]" aria-hidden="true">
-                          →
-                        </span>
-                      )}
-                    </li>
-                  ))}
-                </ol>
-                <div className="mt-4 grid gap-1 font-mono text-xs text-zinc-400">
-                  <code>django-tasks…sealos.io</code>
-                  <code>config.wsgi:application · private :5432</code>
                 </div>
-              </div>
 
-              <div className="mt-4 flex items-center justify-between gap-4 text-xs text-zinc-400">
-                <span>Django 5.2 · Field note 01</span>
-                <span>35 min · 2026-09-02</span>
+                <div className="grid content-center border-y border-white/15 px-4 py-5">
+                  <p className="text-sm font-semibold text-zinc-200">
+                    Verified deployment path
+                  </p>
+                  <ol
+                    className="mt-4 flex items-center gap-2 text-xs font-semibold text-white"
+                    aria-label="HTTPS to Django 5.2 to PostgreSQL to HTTP/2"
+                  >
+                    {DJANGO_VERIFIED_PATH.map((stage, index) => (
+                      <li key={stage} className="contents">
+                        <span>{stage}</span>
+                        {index < DJANGO_VERIFIED_PATH.length - 1 && (
+                          <span className="text-[#5f96ff]" aria-hidden="true">
+                            →
+                          </span>
+                        )}
+                      </li>
+                    ))}
+                  </ol>
+                  <div className="mt-4 grid gap-1 font-mono text-xs text-zinc-400">
+                    <code>django-tasks…sealos.io</code>
+                    <code>config.wsgi:application · private :5432</code>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 px-4 py-3 text-xs text-zinc-400">
+                  <span>Django 5.2 · Field note 01</span>
+                  <span className="text-right">35 min · 2026-09-02</span>
+                </div>
               </div>
             </aside>
           </div>
