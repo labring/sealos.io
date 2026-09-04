@@ -26,30 +26,24 @@ const TUTORIALS_PAGE_DESCRIPTION =
   'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 
-const DEPLOYMENT_STAGES = [
+const DJANGO_GUIDE_CHAPTERS = [
   {
     step: '01',
-    label: 'Source',
-    title: 'Django repository',
-    detail: 'Production settings ready',
+    title: 'Prepare Django',
+    detail: 'Gunicorn and WhiteNoise',
+    hash: '#prepare-django-for-production',
   },
   {
     step: '02',
-    label: 'Runtime',
-    title: 'Gunicorn + WhiteNoise',
-    detail: 'Application running',
+    title: 'Deploy with Skills',
+    detail: 'Application and database',
+    hash: '#deploy-with-sealos-skills',
   },
   {
     step: '03',
-    label: 'Data',
-    title: 'PostgreSQL',
-    detail: 'Private service attached',
-  },
-  {
-    step: '04',
-    label: 'Edge',
-    title: 'Public HTTPS',
-    detail: 'Create/read flow verified',
+    title: 'Verify the live app',
+    detail: 'HTTPS create/read proof',
+    hash: '#verify-the-live-django-application',
   },
 ] as const;
 
@@ -156,41 +150,70 @@ function TutorialCatalogCard({
       </div>
 
       {isDjangoGuide ? (
-        <figure className="mt-10 border-y border-white/10 py-6">
-          <figcaption className="flex flex-col gap-3 text-sm md:flex-row md:items-center md:justify-between">
-            <span>
-              <span className="font-mono text-[0.6875rem] tracking-[0.16em] text-[#5f96ff] uppercase">
-                Deployment trace 01
+        <figure className="mt-10">
+          <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <figcaption>
+              <span className="block text-lg font-semibold text-white">
+                Live deployment evidence
               </span>
-              <span className="ml-4 font-medium text-zinc-200">
-                Repository to public endpoint
+              <span className="mt-1 block text-sm text-zinc-400">
+                Public endpoint, Django container, and private PostgreSQL
               </span>
-            </span>
-            <span className="inline-flex items-center gap-2 text-xs font-medium text-emerald-400">
+            </figcaption>
+            <span className="inline-flex items-center gap-2 text-sm font-medium text-emerald-400">
               <span className="size-2 rounded-full bg-emerald-400" />
-              Path verified
+              All services running
             </span>
-          </figcaption>
+          </div>
 
-          <ol className="relative mt-8 grid gap-7 before:absolute before:top-2 before:bottom-2 before:left-[0.4375rem] before:w-px before:bg-[#146dff]/70 before:content-[''] md:grid-cols-4 md:gap-8 md:before:inset-x-0 md:before:top-[0.4375rem] md:before:bottom-auto md:before:h-px md:before:w-auto">
-            {DEPLOYMENT_STAGES.map((stage) => (
-              <li key={stage.step} className="relative pl-8 md:pt-8 md:pl-0">
-                <span className="absolute top-0 left-0 flex size-4 items-center justify-center rounded-full bg-[#070707] ring-1 ring-[#146dff] md:top-0">
-                  <span className="size-1.5 rounded-full bg-[#146dff]" />
-                </span>
-                <div className="flex items-center gap-3 font-mono text-[0.6875rem] tracking-[0.13em] uppercase">
-                  <span className="text-[#5f96ff]">{stage.step}</span>
-                  <span className="text-zinc-500">{stage.label}</span>
-                </div>
-                <strong className="mt-3 block text-base font-semibold text-white">
-                  {stage.title}
-                </strong>
-                <span className="mt-1 block text-sm text-zinc-400">
-                  {stage.detail}
-                </span>
-              </li>
-            ))}
-          </ol>
+          <div className="relative aspect-[2.2/1] w-full overflow-hidden rounded-lg ring-1 ring-white/15">
+            <Image
+              src="/images/tutorials/django/django-sealos-project-ops-running.webp"
+              alt="A running Sealos project with a public domain, Django container, and PostgreSQL database"
+              className="h-full w-full object-cover object-center"
+              fill
+              priority={priorityImage}
+              quality={90}
+              sizes="(max-width: 760px) 92vw, 1248px"
+            />
+          </div>
+
+          <div className="grid gap-6 pt-7 md:grid-cols-[8rem_minmax(0,1fr)]">
+            <div>
+              <h2
+                id="inside-guide-heading"
+                className="text-lg font-semibold text-white"
+              >
+                Guide chapters
+              </h2>
+              <p className="mt-2 text-sm text-zinc-500">
+                3 stages · 35 minutes
+              </p>
+            </div>
+            <ol
+              className="grid gap-6 md:grid-cols-3 md:gap-8"
+              aria-labelledby="inside-guide-heading"
+            >
+              {DJANGO_GUIDE_CHAPTERS.map((chapter) => (
+                <li key={chapter.step}>
+                  <Link
+                    href={`${tutorial.url}${chapter.hash}`}
+                    className="group block rounded-sm focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                  >
+                    <span className="text-sm font-medium text-[#5f96ff]">
+                      {chapter.step}
+                    </span>
+                    <strong className="mt-2 block text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                      {chapter.title}
+                    </strong>
+                    <span className="mt-1 block text-sm text-zinc-400">
+                      {chapter.detail}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          </div>
         </figure>
       ) : (
         tutorial.image && (
@@ -330,73 +353,7 @@ export default function TutorialsPage({
           aria-labelledby="published-tutorials-heading"
         >
           {firstTutorial && (
-            <>
-              <TutorialCatalogCard tutorial={firstTutorial} priorityImage />
-              <section
-                className="relative pt-14"
-                aria-labelledby="inside-guide-heading"
-              >
-                <span
-                  className="absolute top-0 left-0 h-10 w-px bg-[#146dff]"
-                  aria-hidden="true"
-                />
-                <div className="flex items-end justify-between gap-6">
-                  <h2
-                    id="inside-guide-heading"
-                    className="text-xl font-semibold tracking-tight text-white"
-                  >
-                    Guide chapters
-                  </h2>
-                  <span className="font-mono text-[0.6875rem] tracking-[0.14em] text-zinc-500 uppercase">
-                    03 stages / 35 minutes
-                  </span>
-                </div>
-                <div className="mt-6 grid gap-8 md:grid-cols-3">
-                  <Link
-                    href={`${firstTutorial.url}#prepare-django-for-production`}
-                    className="group flex flex-col justify-center border-t border-[#146dff]/60 pt-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
-                  >
-                    <span className="font-mono text-xs tracking-[0.12em] text-[#5f96ff]">
-                      01
-                    </span>
-                    <h3 className="mt-4 font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
-                      Prepare Django for production
-                    </h3>
-                    <p className="mt-2 text-sm leading-5 text-zinc-400">
-                      Configure Gunicorn and WhiteNoise for deployment.
-                    </p>
-                  </Link>
-                  <Link
-                    href={`${firstTutorial.url}#deploy-with-sealos-skills`}
-                    className="group flex flex-col justify-center border-t border-[#146dff]/60 pt-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
-                  >
-                    <span className="font-mono text-xs tracking-[0.12em] text-[#5f96ff]">
-                      02
-                    </span>
-                    <h3 className="mt-4 font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
-                      Deploy with Sealos Skills
-                    </h3>
-                    <p className="mt-2 text-sm leading-5 text-zinc-400">
-                      Connect the application, container, and database.
-                    </p>
-                  </Link>
-                  <Link
-                    href={`${firstTutorial.url}#verify-the-live-django-application`}
-                    className="group flex flex-col justify-center border-t border-[#146dff]/60 pt-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
-                  >
-                    <span className="font-mono text-xs tracking-[0.12em] text-[#5f96ff]">
-                      03
-                    </span>
-                    <h3 className="mt-4 font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
-                      Verify the live Django application
-                    </h3>
-                    <p className="mt-2 text-sm leading-5 text-zinc-400">
-                      Confirm the HTTPS create/read flow on Sealos.
-                    </p>
-                  </Link>
-                </div>
-              </section>
-            </>
+            <TutorialCatalogCard tutorial={firstTutorial} priorityImage />
           )}
 
           {tutorials.length > 1 && (

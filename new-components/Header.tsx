@@ -273,8 +273,8 @@ export function Header({ lang }: HeaderProps) {
 
   return (
     <>
-      <div className="container pt-6">
-        <nav className="flex w-full justify-between rounded-xl border border-white/10 bg-black/75 px-5 py-2.5 backdrop-blur-md">
+      <div className="container pt-4">
+        <nav className="flex w-full justify-between border-b border-white/10 py-3">
           <div className="flex">
             <a
               href={homeHref}
