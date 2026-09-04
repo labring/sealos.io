@@ -32,21 +32,18 @@ const DEPLOYMENT_NODES = [
     title: 'Public HTTPS',
     status: 'Reachable',
     value: 'django-tasks-mpbrofzu.us...',
-    detail: 'HTTPS · 200 OK · Create/read verified',
   },
   {
     marker: '01.B',
     title: 'Django container',
     status: 'Running',
     value: 'Gunicorn + WhiteNoise',
-    detail: 'Container · 1 replica · Image deployed',
   },
   {
     marker: '01.C',
     title: 'PostgreSQL',
     status: 'Attached',
     value: 'Private connection',
-    detail: 'PostgreSQL · Public access disabled',
   },
 ] as const;
 
@@ -101,40 +98,57 @@ function TutorialCatalogCard({
 
       {isDjangoGuide ? (
         <figure>
-          <div className="mb-6">
-            <figcaption>
-              <span className="block text-2xl font-semibold tracking-tight text-white">
-                One request. Three verified services.
-              </span>
-              <span className="mt-1 block text-sm text-zinc-400">
-                The live route from public HTTPS to a private PostgreSQL
-                service.
-              </span>
-            </figcaption>
-          </div>
+          <figcaption className="mb-5 flex flex-wrap items-end justify-between gap-3">
+            <span className="text-2xl font-semibold tracking-tight text-white">
+              Production trace / DJANGO-01
+            </span>
+            <span className="inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-[0.08em] text-emerald-400 uppercase">
+              <span className="size-2 rounded-full bg-emerald-400" />
+              Captured from a live project
+            </span>
+          </figcaption>
 
-          <div className="bg-[#f1f1ed] px-7 py-8 text-zinc-950 md:px-10 md:py-9">
-            <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
-              <span className="font-semibold">Verified request path</span>
-              <span className="font-mono text-xs tracking-[0.08em] text-zinc-500 uppercase">
-                Live project / Django 5.2
-              </span>
-            </div>
+          <div className="grid overflow-hidden bg-[#f1f1ed] text-zinc-950 md:grid-cols-[11rem_minmax(0,1fr)]">
+            <aside className="flex min-h-64 flex-col justify-between bg-[#146dff] p-7 text-white">
+              <p className="font-mono text-xs font-semibold tracking-[0.12em] uppercase">
+                HTTP result
+              </p>
+              <p>
+                <strong className="block text-6xl leading-none font-semibold tracking-[-0.06em]">
+                  200
+                </strong>
+                <span className="mt-1 block text-lg font-semibold">OK</span>
+              </p>
+              <p className="text-xs leading-5 font-medium text-blue-100">
+                Public ingress
+                <br />
+                Private data
+              </p>
+            </aside>
 
-            <div className="relative mt-10">
-              <ol className="grid gap-10 md:grid-cols-3 md:gap-12">
+            <div className="px-7 py-7 md:px-9">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <span className="font-mono text-xs font-semibold tracking-[0.1em] text-[#146dff] uppercase">
+                  Verified request path
+                </span>
+                <code className="text-xs font-semibold text-zinc-600">
+                  GET / → response.html
+                </code>
+              </div>
+
+              <ol className="mt-7 grid gap-8 md:grid-cols-3 md:gap-10">
                 {DEPLOYMENT_NODES.map((node, index) => (
-                  <li key={node.marker} className="relative">
+                  <li key={node.marker} className="relative min-w-0">
                     <span className="font-mono text-xs font-semibold tracking-[0.1em] text-[#146dff]">
                       {node.marker}
                     </span>
-                    <h3 className="mt-3 text-2xl font-semibold tracking-tight">
+                    <h3 className="mt-2 text-xl font-semibold tracking-tight">
                       {node.title}
                     </h3>
-                    <div className="relative mt-8">
+                    <div className="relative mt-5">
                       {index < DEPLOYMENT_NODES.length - 1 && (
                         <span
-                          className="absolute top-1/2 left-2.5 hidden h-0.5 w-[calc(100%+3rem)] -translate-y-1/2 bg-[#146dff] md:block"
+                          className="absolute top-1/2 left-2.5 hidden h-0.5 w-[calc(100%+2.5rem)] -translate-y-1/2 bg-[#146dff] md:block"
                           aria-hidden="true"
                         >
                           <span className="absolute top-1/2 left-1/2 size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff]" />
@@ -144,26 +158,22 @@ function TutorialCatalogCard({
                         <span className="size-2 rounded-full bg-[#146dff]" />
                       </span>
                     </div>
-                    <code className="mt-8 block truncate text-sm font-semibold text-zinc-900">
+                    <code className="mt-5 block truncate text-xs font-semibold text-zinc-900">
                       {node.value}
                     </code>
-                    <p className="mt-3 text-sm leading-6 text-zinc-600">
-                      {node.detail}
-                    </p>
-                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-emerald-700">
-                      <span className="size-2 rounded-full bg-emerald-500" />
+                    <span className="mt-2 inline-flex items-center gap-2 text-xs font-semibold text-emerald-700">
+                      <span className="size-1.5 rounded-full bg-emerald-500" />
                       {node.status}
                     </span>
                   </li>
                 ))}
               </ol>
-            </div>
 
-            <div className="mt-9 flex flex-wrap items-center justify-between gap-3 border-t border-zinc-300 pt-5 text-sm text-zinc-600">
-              <span>Ingress → WSGI runtime → private data</span>
-              <span className="font-semibold text-zinc-950">
-                3 proof points recorded
-              </span>
+              <div className="mt-6 grid gap-2 border-t border-zinc-300 pt-4 font-mono text-[11px] font-semibold tracking-[0.04em] text-zinc-600 uppercase md:grid-cols-3 md:gap-10">
+                <span>HTTPS :443 · 200</span>
+                <span>WSGI :8000 · 1 replica</span>
+                <span>PostgreSQL :5432 · private</span>
+              </div>
             </div>
           </div>
 
@@ -188,22 +198,24 @@ function TutorialCatalogCard({
                 <li key={chapter.hash} className="border-b border-white/15">
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-4 rounded-sm py-4 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[2rem_minmax(0,1fr)_minmax(0,0.85fr)_1rem]"
+                    className="group grid items-center gap-x-5 rounded-sm py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_minmax(0,1fr)]"
                   >
-                    <span className="font-mono text-xs font-semibold text-[#5f96ff]">
+                    <span className="font-mono text-3xl font-medium tracking-[-0.08em] text-[#5f96ff]">
                       0{index + 1}
                     </span>
-                    <strong className="text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
-                      {chapter.title}
-                    </strong>
-                    <span className="col-start-2 mt-1 text-sm text-zinc-400 sm:col-start-auto sm:mt-0">
-                      {chapter.detail}
+                    <span>
+                      <strong className="inline-flex items-center gap-3 text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                        {chapter.title}
+                        <ArrowRight
+                          size={15}
+                          className="text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
+                          aria-hidden="true"
+                        />
+                      </strong>
+                      <span className="mt-1 block text-sm text-zinc-400">
+                        {chapter.detail}
+                      </span>
                     </span>
-                    <ArrowRight
-                      size={15}
-                      className="hidden text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff] sm:block"
-                      aria-hidden="true"
-                    />
                   </Link>
                 </li>
               ))}
@@ -326,16 +338,11 @@ export default function TutorialsPage({
         <section className="container -mt-24 grid pt-32 pb-12 md:grid-cols-12 md:items-start md:gap-8">
           <div className="md:col-span-8">
             <p className="text-xs font-semibold tracking-[0.18em] text-[#5f96ff] uppercase">
-              Sealos deployment field note · 01
+              Field note 01 / Django 5.2 / Live evidence
             </p>
-            <h1
-              aria-label="How to Deploy a Django App on Sealos"
-              className="mt-5 text-5xl leading-[0.98] font-medium tracking-[-0.045em] text-white md:text-[4rem]"
-            >
-              <span className="block">How to Deploy a</span>
-              <span className="mt-2 block">
-                Django App <span className="text-zinc-400">on Sealos</span>
-              </span>
+            <h1 className="mt-5 text-5xl leading-[0.92] font-medium tracking-[-0.05em] text-white md:text-[4.75rem]">
+              <span className="block">Deploy Django</span>
+              <span className="mt-2 block">on Sealos</span>
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-zinc-300">
               Build a Django 5.2 Task app, prepare Gunicorn, WhiteNoise, and
@@ -362,29 +369,30 @@ export default function TutorialsPage({
               </div>
             )}
           </div>
-          <div className="mt-8 md:col-span-4 md:mt-0 md:flex md:self-stretch md:border-l md:border-[#146dff] md:pt-14 md:pl-8">
-            <div>
-              <p className="text-sm font-semibold text-[#5f96ff]">
-                Verified outcome
-              </p>
-              <ul className="mt-6 space-y-4 text-lg font-medium text-zinc-100">
-                <li className="flex items-center gap-3">
-                  <span className="size-2 rounded-full bg-emerald-400" />
-                  Public endpoint reachable
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="size-2 rounded-full bg-emerald-400" />
-                  Django container running
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="size-2 rounded-full bg-emerald-400" />
-                  PostgreSQL attached
-                </li>
-              </ul>
-              <p className="mt-7 text-sm font-medium text-zinc-400">
-                Build → Deploy → Verify
-              </p>
-            </div>
+          <div className="mt-8 md:col-span-4 md:mt-0 md:self-stretch md:border-l md:border-[#146dff] md:pl-8">
+            <p className="font-mono text-xs font-semibold tracking-[0.12em] text-[#5f96ff] uppercase">
+              Run summary
+            </p>
+            <dl className="mt-5 border-t border-white/15">
+              <div className="flex items-baseline justify-between border-b border-white/15 py-3">
+                <dt className="text-sm text-zinc-400">Repo to live</dt>
+                <dd className="text-3xl font-medium tracking-[-0.05em] text-white">
+                  35m
+                </dd>
+              </div>
+              <div className="flex items-baseline justify-between border-b border-white/15 py-3">
+                <dt className="text-sm text-zinc-400">Proofs captured</dt>
+                <dd className="text-3xl font-medium tracking-[-0.05em] text-white">
+                  03
+                </dd>
+              </div>
+              <div className="flex items-baseline justify-between border-b border-white/15 py-3">
+                <dt className="text-sm text-zinc-400">Final response</dt>
+                <dd className="font-mono text-lg font-semibold text-emerald-400">
+                  200 OK
+                </dd>
+              </div>
+            </dl>
           </div>
         </section>
 
