@@ -26,66 +26,21 @@ const TUTORIALS_PAGE_DESCRIPTION =
   'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 
-const DEPLOYMENT_NODES = [
-  {
-    marker: '01.A',
-    title: 'Public HTTPS',
-    status: 'Reachable',
-    value: 'django-tasks-mpbrofzu',
-    evidence: 'HTTPS :443 · create/read verified',
-  },
-  {
-    marker: '01.B',
-    title: 'Django container',
-    status: 'Running',
-    value: 'Gunicorn + WhiteNoise',
-    evidence: 'WSGI :8000 · 1 replica',
-  },
-  {
-    marker: '01.C',
-    title: 'PostgreSQL',
-    status: 'Attached',
-    value: 'Private connection',
-    evidence: 'PostgreSQL :5432 · public access disabled',
-  },
-] as const;
-
 const DJANGO_GUIDE_CHAPTERS = [
   {
     title: 'Prepare Django for production',
     detail: 'Configure Gunicorn and WhiteNoise.',
     hash: '#prepare-django-for-production',
-    image: '/images/tutorials/django/django-sealos-project-ops-running.webp',
-    imageAlt: 'Public HTTPS service captured in the live Sealos project',
-    imageSize: '290% auto',
-    imagePosition: '12% 47%',
-    imageClassName: 'brightness-150 contrast-110 saturate-75',
-    proofLabel: 'Public address',
-    proofValue: 'Reachable',
   },
   {
     title: 'Deploy with Sealos Skills',
     detail: 'Connect the application and database.',
     hash: '#deploy-with-sealos-skills',
-    image: '/images/tutorials/django/django-sealos-project-ops-running.webp',
-    imageAlt: 'Running Django container captured in the live Sealos project',
-    imageSize: '290% auto',
-    imagePosition: '50% 47%',
-    imageClassName: 'brightness-150 contrast-110 saturate-75',
-    proofLabel: 'Django container',
-    proofValue: 'Running',
   },
   {
     title: 'Verify the live application',
     detail: 'Confirm the HTTPS create/read flow.',
     hash: '#verify-the-live-django-application',
-    image: '/images/tutorials/django/django-sealos-live-app-https-proof.webp',
-    imageAlt: 'Live Django task application after deployment',
-    imageSize: '100% auto',
-    imagePosition: '50% 47%',
-    imageClassName: 'brightness-65 contrast-125 saturate-75',
-    proofLabel: 'Create + read',
-    proofValue: 'Verified',
   },
 ] as const;
 
@@ -124,7 +79,7 @@ function TutorialCatalogCard({
         <figure>
           <figcaption className="mb-5 flex flex-wrap items-end justify-between gap-3">
             <span className="text-2xl font-semibold tracking-tight text-white">
-              Production trace / DJANGO-01
+              Deployment evidence / DJANGO-01
             </span>
             <span className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-400">
               <span className="size-2 rounded-full bg-emerald-400" />
@@ -132,59 +87,70 @@ function TutorialCatalogCard({
             </span>
           </figcaption>
 
-          <div className="border-y border-white/15 bg-[#0d1016] px-6 py-5 text-white">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <span className="text-sm font-semibold text-zinc-300">
-                Request enters the public service
+          <div className="grid gap-px overflow-hidden border border-white/15 bg-white/15 md:grid-cols-[2fr_1fr]">
+            <div className="relative aspect-video overflow-hidden bg-[#07101d] md:aspect-auto md:min-h-[27rem]">
+              <Image
+                src="/images/tutorials/django/django-sealos-project-ops-running.webp"
+                alt="Live Sealos project with public HTTPS, Django container, and PostgreSQL services running"
+                fill
+                priority={priorityImage}
+                quality={95}
+                className="scale-[1.1] object-cover"
+                sizes="(max-width: 760px) 100vw, 58vw"
+              />
+              <span className="absolute top-4 left-4 bg-[#06090e]/90 px-3 py-2 font-mono text-xs font-semibold text-white">
+                01 / Service topology
               </span>
-              <code className="inline-flex items-center gap-3 text-sm font-semibold text-zinc-300">
-                GET /<span className="text-emerald-400">200 OK</span>
-              </code>
             </div>
 
-            <div className="relative mt-5">
-              <span
-                className="absolute top-20 right-3 left-3 hidden h-1 bg-[#146dff] md:block"
-                aria-hidden="true"
-              />
-              <span
-                className="absolute top-20 left-1/4 hidden size-0 -translate-x-1/2 -translate-y-1/2 border-y-[6px] border-l-[10px] border-y-transparent border-l-[#146dff] md:block"
-                aria-hidden="true"
-              />
-              <span
-                className="absolute top-20 left-3/4 hidden size-0 -translate-x-1/2 -translate-y-1/2 border-y-[6px] border-l-[10px] border-y-transparent border-l-[#146dff] md:block"
-                aria-hidden="true"
-              />
+            <div className="grid bg-[#0d1016] md:grid-rows-2">
+              <div className="relative min-h-56 overflow-hidden border-b border-white/15">
+                <Image
+                  src="/images/tutorials/django/django-sealos-live-app-https-proof.webp"
+                  alt="Live Django task application with a verified create and read result"
+                  fill
+                  quality={95}
+                  className="scale-[1.1] object-cover brightness-90"
+                  sizes="(max-width: 760px) 100vw, 29vw"
+                />
+                <span className="absolute top-4 left-4 bg-[#06090e]/90 px-3 py-2 font-mono text-xs font-semibold text-white">
+                  02 / Public result
+                </span>
+              </div>
 
-              <ol className="grid gap-8 md:grid-cols-3 md:gap-0">
-                {DEPLOYMENT_NODES.map((node) => (
-                  <li
-                    key={node.marker}
-                    className="relative flex min-w-0 flex-col items-center text-center first:items-start first:text-left last:items-end last:text-right"
-                  >
-                    <span className="font-mono text-xs font-semibold tracking-[0.1em] text-[#146dff]">
-                      {node.marker}
-                    </span>
-                    <h3 className="mt-2 text-2xl font-semibold tracking-[-0.035em]">
-                      {node.title}
-                    </h3>
-                    <span className="relative z-10 mt-5 flex size-6 items-center justify-center rounded-full bg-[#090909] ring-3 ring-[#146dff]">
-                      <span className="size-2.5 rounded-full bg-[#146dff]" />
-                    </span>
-                    <code className="mt-5 block text-sm font-semibold text-zinc-100">
-                      {node.value}
-                    </code>
-                    <span className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-emerald-400">
-                      <span className="size-2 rounded-full bg-emerald-400" />
-                      {node.status}
-                    </span>
-                    <span className="mt-3 text-xs text-zinc-400">
-                      {node.evidence}
-                    </span>
-                  </li>
-                ))}
-              </ol>
+              <div className="flex flex-col justify-between p-6 text-white">
+                <div>
+                  <p className="text-sm font-semibold text-[#5f96ff]">
+                    Final check
+                  </p>
+                  <h3 className="mt-3 text-3xl leading-tight font-semibold tracking-[-0.04em]">
+                    Create a task.
+                    <br />
+                    Read it back.
+                  </h3>
+                  <p className="mt-4 max-w-xs text-sm leading-6 text-zinc-300">
+                    The public HTTPS application writes to its attached private
+                    PostgreSQL service.
+                  </p>
+                </div>
+                <div className="mt-6 flex items-center justify-between border-t border-white/15 pt-4 font-mono text-sm font-semibold">
+                  <span className="text-zinc-300">GET /</span>
+                  <span className="inline-flex items-center gap-2 text-emerald-400">
+                    <span className="size-2 rounded-full bg-emerald-400" />
+                    200 OK
+                  </span>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-3 border-x border-b border-white/15 px-5 py-3 text-sm">
+            <span className="text-zinc-300">
+              Public HTTPS → Django container → PostgreSQL
+            </span>
+            <span className="font-semibold text-emerald-400">
+              3 / 3 services verified
+            </span>
           </div>
 
           <nav
@@ -195,9 +161,9 @@ function TutorialCatalogCard({
               <h3 className="text-2xl leading-tight font-semibold tracking-tight text-white">
                 Inside the 35-minute guide
               </h3>
-              <p className="max-w-lg text-sm leading-6 text-zinc-400">
-                Three field-tested chapters, each tied to visible production
-                evidence.
+              <p className="max-w-lg text-sm leading-6 text-zinc-300">
+                Three field-tested chapters from repository preparation to the
+                final production check.
               </p>
             </div>
             <ol className="mt-6 grid border-y border-white/15 md:grid-cols-3 md:divide-x md:divide-white/15">
@@ -210,33 +176,10 @@ function TutorialCatalogCard({
                     href={`${tutorial.url}${chapter.hash}`}
                     className="group block h-full p-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:p-6"
                   >
-                    <span className="mb-3 flex items-center justify-between font-mono text-xs font-semibold">
-                      <span className="text-[#5f96ff]">0{index + 1}</span>
-                      <span className="text-zinc-500">Evidence capture</span>
+                    <span className="font-mono text-sm font-semibold text-[#5f96ff]">
+                      0{index + 1}
                     </span>
-                    <span className="relative block h-40 overflow-hidden bg-[#08111f]">
-                      <span
-                        role="img"
-                        aria-label={chapter.imageAlt}
-                        className={`absolute inset-3 bg-no-repeat transition-opacity duration-500 group-hover:opacity-100 ${chapter.imageClassName}`}
-                        style={{
-                          backgroundImage: `url(${chapter.image})`,
-                          backgroundPosition: chapter.imagePosition,
-                          backgroundSize: chapter.imageSize,
-                        }}
-                      />
-                      <span className="absolute inset-3 ring-1 ring-white/10 ring-inset" />
-                      <span className="absolute right-3 bottom-3 left-3 flex items-center justify-between bg-[#06090e]/90 px-3 py-2 text-xs">
-                        <span className="text-zinc-300">
-                          {chapter.proofLabel}
-                        </span>
-                        <strong className="inline-flex items-center gap-2 font-semibold text-emerald-400">
-                          <span className="size-1.5 rounded-full bg-emerald-400" />
-                          {chapter.proofValue}
-                        </strong>
-                      </span>
-                    </span>
-                    <strong className="mt-5 inline-flex items-center gap-3 text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                    <strong className="mt-8 inline-flex items-center gap-3 text-xl font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
                       {chapter.title}
                       <ArrowRight
                         size={16}
@@ -244,7 +187,7 @@ function TutorialCatalogCard({
                         aria-hidden="true"
                       />
                     </strong>
-                    <span className="mt-2 block text-sm text-zinc-300">
+                    <span className="mt-3 block text-sm text-zinc-300">
                       {chapter.detail}
                     </span>
                   </Link>
