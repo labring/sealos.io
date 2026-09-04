@@ -52,27 +52,11 @@ const DJANGO_GUIDE_CHAPTERS = [
   },
 ] as const;
 
-const DJANGO_RUNTIME_EVIDENCE = [
-  {
-    service: 'HTTPS ingress',
-    event: 'django-tasks…sealos.io',
-    result: 'Connected',
-  },
-  {
-    service: 'Django 5.2 · Gunicorn',
-    event: 'config.wsgi:application',
-    result: 'Running',
-  },
-  {
-    service: 'PostgreSQL write',
-    event: 'tasks_task · private :5432',
-    result: 'Persisted',
-  },
-  {
-    service: 'HTTP/2 response',
-    event: 'GET /',
-    result: '200 OK',
-  },
+const DJANGO_VERIFIED_PATH = [
+  'HTTPS',
+  'Django 5.2',
+  'PostgreSQL',
+  'HTTP/2',
 ] as const;
 
 const TUTORIALS_PAGE_KEYWORDS = [
@@ -153,15 +137,11 @@ function TutorialCatalogCard({
                     className="group grid min-h-28 gap-5 py-6 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-3 md:items-center md:gap-0"
                   >
                     <span className="grid grid-cols-[3.25rem_1fr] items-center gap-5 md:pr-7">
-                      <span className="font-mono text-4xl font-bold tracking-[-0.06em] text-zinc-500">
+                      <span className="text-3xl font-medium tracking-[-0.05em] text-zinc-500">
                         0{index + 1}
                       </span>
                       <span>
-                        <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#146dff]">
-                          <span
-                            className="size-1.5 bg-current"
-                            aria-hidden="true"
-                          />
+                        <span className="text-sm font-semibold text-[#146dff]">
                           {chapter.phase}
                         </span>
                         <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff]">
@@ -320,7 +300,7 @@ export default function TutorialsPage({
                 <span className="block">on Sealos</span>
               </h1>
               <div className="mt-7 border-t border-white/15 pt-6">
-                <p className="max-w-[31rem] text-base leading-7 text-zinc-300">
+                <p className="max-w-[35rem] text-lg leading-8 text-zinc-300">
                   Build a Django 5.2 Task app with Gunicorn, WhiteNoise, and
                   PostgreSQL. Deploy it on Sealos and verify a live create/read
                   flow.
@@ -328,7 +308,7 @@ export default function TutorialsPage({
                 {firstTutorial && (
                   <Link
                     href={firstTutorial.url}
-                    className="group mt-5 inline-flex w-56 items-center justify-between bg-[#f2f0e8] px-5 py-3.5 text-sm font-semibold text-[#0a0a0a] transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group mt-5 inline-flex w-60 items-center justify-between bg-[#f2f0e8] px-6 py-4 text-base font-semibold text-[#0a0a0a] transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     Read the field note
                     <ArrowRight
@@ -341,7 +321,7 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <aside className="border-l border-white/15 pl-7 md:py-1">
+            <aside className="flex flex-col border-l border-white/15 pl-7 md:py-1">
               <div className="flex items-start justify-between gap-6">
                 <Image
                   src="/icons/django.svg"
@@ -363,39 +343,30 @@ export default function TutorialsPage({
                 </span>
               </div>
 
-              <div className="mt-5 flex items-center justify-between gap-4">
+              <div className="my-auto border-y border-white/15 py-5">
                 <p className="text-sm font-semibold text-zinc-200">
-                  Production evidence
+                  Verified deployment path
                 </p>
-                <span className="text-xs font-semibold text-[#44b78b]">
-                  4 of 4 verified
-                </span>
+                <ol
+                  className="mt-4 flex items-center gap-2 text-xs font-semibold text-white"
+                  aria-label="HTTPS to Django 5.2 to PostgreSQL to HTTP/2"
+                >
+                  {DJANGO_VERIFIED_PATH.map((stage, index) => (
+                    <li key={stage} className="contents">
+                      <span>{stage}</span>
+                      {index < DJANGO_VERIFIED_PATH.length - 1 && (
+                        <span className="text-[#5f96ff]" aria-hidden="true">
+                          →
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ol>
+                <div className="mt-4 grid gap-1 font-mono text-xs text-zinc-400">
+                  <code>django-tasks…sealos.io</code>
+                  <code>config.wsgi:application · private :5432</code>
+                </div>
               </div>
-
-              <ol className="mt-3" aria-label="Verified Django deployment path">
-                {DJANGO_RUNTIME_EVIDENCE.map((evidence) => (
-                  <li
-                    key={evidence.service}
-                    className="-mt-px grid h-12 grid-cols-[0.45rem_1fr_auto] items-center gap-3 border border-white/15 px-3 first:mt-0"
-                  >
-                    <span
-                      className="size-1.5 bg-[#44b78b]"
-                      aria-hidden="true"
-                    />
-                    <span className="min-w-0">
-                      <strong className="block truncate text-xs leading-tight font-semibold text-white">
-                        {evidence.service}
-                      </strong>
-                      <code className="mt-0.5 block truncate font-mono text-[11px] leading-tight text-zinc-400">
-                        {evidence.event}
-                      </code>
-                    </span>
-                    <span className="text-[11px] font-semibold text-[#44b78b]">
-                      {evidence.result}
-                    </span>
-                  </li>
-                ))}
-              </ol>
 
               <div className="mt-4 flex items-center justify-between gap-4 text-xs text-zinc-400">
                 <span>Django 5.2 · Field note 01</span>
