@@ -16,11 +16,10 @@ import {
   type TutorialSummary,
   toTutorialSummary,
 } from '@/lib/utils/tutorial-utils';
-import { ArrowRight, BookOpen, Database, Globe2, Server } from 'lucide-react';
+import { ArrowRight, BookOpen } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { Fragment } from 'react';
 import { TutorialRequestGuideLink } from './TutorialRequestGuideLink';
 
 const TUTORIALS_PATHNAME = '/tutorials';
@@ -28,24 +27,20 @@ const TUTORIALS_PAGE_TITLE = 'Sealos Deployment Tutorials';
 const TUTORIALS_PAGE_DESCRIPTION =
   'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
+const DJANGO_PROJECT_PROOF_IMAGE =
+  '/images/tutorials/django/django-sealos-project-ops-running.webp';
 const DJANGO_TOPOLOGY_FACTS = [
   {
-    icon: Globe2,
     label: 'Public access',
-    detail: 'Live HTTPS endpoint',
-    status: 'Live',
+    value: 'Live HTTPS',
   },
   {
-    icon: Server,
     label: 'Django app',
-    detail: 'Gunicorn + WhiteNoise',
-    status: 'Running',
+    value: 'Running',
   },
   {
-    icon: Database,
     label: 'PostgreSQL',
-    detail: 'Private database',
-    status: 'Running',
+    value: 'Running',
   },
 ];
 
@@ -77,9 +72,9 @@ function TutorialCatalogCard({
   return (
     <Link
       href={tutorial.url}
-      className="group text-card-foreground focus-visible:ring-ring bg-card grid overflow-hidden rounded-lg border border-white/15 transition-colors hover:border-[#146dff]/60 focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12 md:items-stretch"
+      className="group text-card-foreground focus-visible:ring-ring bg-card grid overflow-hidden rounded-lg border border-white/15 transition-colors hover:border-[#146dff]/60 focus-visible:ring-2 focus-visible:outline-none md:grid-cols-2 md:items-stretch"
     >
-      <div className="flex flex-col gap-4 p-6 md:col-span-5 md:p-6">
+      <div className="flex flex-col gap-4 p-6 md:p-7">
         <div className="flex flex-col gap-2">
           <h2
             id="published-tutorials-heading"
@@ -103,7 +98,14 @@ function TutorialCatalogCard({
         <div className="flex flex-col gap-3">
           <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">
             <span className="text-foreground group-hover:text-primary transition-colors">
-              {tutorial.title}
+              {isDjangoGuide ? (
+                <>
+                  <span className="block">How to Deploy a Django App</span>
+                  <span className="block">on Sealos</span>
+                </>
+              ) : (
+                tutorial.title
+              )}
             </span>
           </h3>
           <p className="text-foreground/85 text-sm leading-6">
@@ -145,51 +147,31 @@ function TutorialCatalogCard({
       </div>
 
       {isDjangoGuide ? (
-        <figure className="order-first flex w-full flex-col justify-center border-b border-white/10 bg-[#080a0f] p-5 md:order-none md:col-span-7 md:border-b-0 md:border-l md:border-white/10 md:p-7">
-          <figcaption className="mb-6 flex flex-wrap items-center justify-between gap-3">
-            <span className="text-sm font-medium text-zinc-200">
-              Verified project topology
-            </span>
-            <span className="inline-flex items-center gap-2 text-xs font-medium text-emerald-400">
-              <span className="size-1.5 rounded-full bg-emerald-400" />3
-              resources healthy
-            </span>
-          </figcaption>
-
-          <div className="grid gap-3 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-center">
-            {DJANGO_TOPOLOGY_FACTS.map((fact, index) => {
-              const Icon = fact.icon;
-
-              return (
-                <Fragment key={fact.label}>
-                  <div className="flex min-h-36 flex-col rounded-md border border-white/12 bg-[#10131a] p-4">
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="flex size-8 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-[#5f96ff]">
-                        <Icon size={16} aria-hidden="true" />
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400">
-                        <span className="size-1.5 rounded-full bg-emerald-400" />
-                        {fact.status}
-                      </span>
-                    </div>
-                    <strong className="mt-5 text-sm font-semibold text-white">
-                      {fact.label}
-                    </strong>
-                    <span className="mt-1 text-xs leading-5 text-zinc-400">
-                      {fact.detail}
-                    </span>
-                  </div>
-                  {index < DJANGO_TOPOLOGY_FACTS.length - 1 && (
-                    <ArrowRight
-                      size={18}
-                      className="mx-auto hidden text-[#146dff] md:block"
-                      aria-hidden="true"
-                    />
-                  )}
-                </Fragment>
-              );
-            })}
+        <figure className="order-first flex w-full flex-col border-b border-white/10 bg-[#080a0f] p-4 md:order-none md:border-b-0 md:border-l md:border-white/10">
+          <div className="relative aspect-[2.05/1] w-full overflow-hidden rounded-md border border-white/10">
+            <Image
+              src={DJANGO_PROJECT_PROOF_IMAGE}
+              alt="Sealos Project Canvas showing public access, the Django container, and PostgreSQL running"
+              className="h-full w-full scale-[1.28] object-cover object-[52%_45%]"
+              fill
+              priority={priorityImage}
+              quality={95}
+              sizes="(max-width: 760px) 90vw, 48vw"
+            />
           </div>
+          <figcaption className="mt-3 grid grid-cols-3 divide-x divide-white/10 border-t border-white/10">
+            {DJANGO_TOPOLOGY_FACTS.map((fact) => (
+              <span key={fact.label} className="px-3 pt-3 first:pl-0">
+                <span className="block text-xs leading-4 text-zinc-500">
+                  {fact.label}
+                </span>
+                <span className="mt-1 flex items-center gap-1.5 text-sm leading-5 font-medium text-zinc-100">
+                  <span className="size-1.5 rounded-full bg-emerald-400" />
+                  {fact.value}
+                </span>
+              </span>
+            ))}
+          </figcaption>
         </figure>
       ) : (
         tutorial.image && (
@@ -433,7 +415,7 @@ export default function TutorialsPage({
             </div>
           )}
 
-          <section className="border-border mt-10 flex flex-col gap-4 border-t pt-6 md:flex-row md:items-center md:gap-5">
+          <section className="mt-10 flex flex-col gap-5 border-y border-white/10 bg-white/[0.015] px-6 py-6 md:flex-row md:items-center md:justify-between">
             <div className="max-w-xl">
               <h2 className="text-foreground text-2xl font-semibold tracking-tight">
                 Need a guide for your stack?

@@ -1,9 +1,7 @@
 import React from 'react';
 import Link from 'fumadocs-core/link';
 import { siteConfig } from '@/config/site';
-import { StartBuildingButton } from './StartBuildingButton';
 import { DiscordIcon, GithubIcon, RSSIcon, XIcon } from './FooterIcons';
-import c from './index.module.css';
 
 const year = new Date().getFullYear();
 
@@ -191,38 +189,29 @@ function SocialLink({
 
 export function FooterV2({ lang = 'en' }: { lang?: string }) {
   const footerLinks = getFooterLinks(lang);
+  const homeHref = lang === 'en' ? '/' : `/${lang}`;
 
   return (
-    <footer className="relative isolate text-white">
-      <div className={c.footerGradientClip}>
-        <div className="container pt-6">
-          <div className={c.footerGradient} />
-        </div>
-      </div>
-
-      <div className="relative z-10 pt-20 pb-6">
-        <div className="container flex flex-col gap-12">
-          <div className="flex flex-col justify-between gap-10 lg:flex-row lg:gap-12">
-            <div className="flex max-w-[460px] flex-col items-start gap-6">
-              <div className="flex flex-col gap-3">
-                <h2 className="text-2xl leading-tight font-medium tracking-normal sm:text-3xl">
-                  <span className="block sm:whitespace-nowrap">
-                    Ready to Stop Configuring
-                  </span>
-                  <span className="block text-[#146dff] sm:whitespace-nowrap">
-                    and Start Creating?
-                  </span>
-                </h2>
-                <p className="text-base leading-6 text-zinc-500">
-                  Get started for free. No credit card required.
-                </p>
-              </div>
-              <StartBuildingButton className="h-10" />
+    <footer className="border-t border-white/10 text-white">
+      <div className="pt-12 pb-6">
+        <div className="container flex flex-col gap-10">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_3fr] lg:gap-16">
+            <div className="max-w-xs">
+              <Link
+                href={homeHref}
+                className="inline-flex items-center gap-2 text-lg font-semibold text-white"
+              >
+                <img src="/logo.svg" alt="" className="size-7" />
+                Sealos
+              </Link>
+              <p className="mt-4 text-sm leading-6 text-zinc-500">
+                Build, deploy, and run applications on a cloud operating system.
+              </p>
             </div>
 
             <nav
               aria-label="Footer"
-              className="grid grid-cols-2 gap-x-10 gap-y-10 sm:grid-cols-4 lg:gap-x-20"
+              className="grid grid-cols-2 gap-x-10 gap-y-10 sm:grid-cols-4 lg:gap-x-16"
             >
               {footerLinks.columns.map((category) => (
                 <div key={category.title} className="flex flex-col gap-6">
