@@ -102,37 +102,37 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="grid overflow-hidden border-b border-white/15 md:grid-cols-[1.55fr_0.75fr]">
+            <div className="grid overflow-hidden border-b border-white/15 md:grid-cols-[1.72fr_0.58fr]">
               <div className="relative aspect-video overflow-hidden bg-[#eef1f6] md:aspect-auto md:min-h-[28rem]">
                 <Image
                   src={DJANGO_LIVE_EVIDENCE}
                   alt="Live Django task application showing a saved task after a successful HTTPS create and read request"
                   fill
-                  className="scale-[1.15] object-cover object-center"
+                  className="scale-[1.38] object-cover object-center"
                   priority
-                  quality={95}
-                  sizes="(max-width: 768px) 100vw, 68vw"
+                  quality={100}
+                  sizes="(max-width: 768px) 100vw, 75vw"
                 />
               </div>
 
-              <div className="flex flex-col bg-[#146dff] p-7 text-white md:p-9">
+              <div className="flex flex-col border-l-2 border-[#146dff] bg-[#0d1015] p-7 text-white md:p-8">
                 <div className="flex items-center justify-between gap-4 font-mono text-xs font-bold tracking-[0.06em] uppercase">
-                  <span>Production receipt</span>
-                  <span>03 / Verify</span>
+                  <span className="text-[#5f96ff]">Production receipt</span>
+                  <span className="text-zinc-400">03 / Verify</span>
                 </div>
-                <p className="mt-8 text-[7.5rem] leading-[0.75] font-medium tracking-[-0.08em] md:text-[9rem]">
-                  200
+                <p className="mt-10 text-[4.75rem] leading-[0.8] font-medium tracking-[-0.07em] text-[#5f96ff] md:text-[5.5rem]">
+                  200 OK
                 </p>
-                <p className="mt-7 text-2xl leading-tight font-semibold tracking-[-0.035em]">
+                <p className="mt-6 text-2xl leading-tight font-semibold tracking-[-0.035em]">
                   Create. Redirect. Read.
                 </p>
-                <p className="mt-2 text-sm leading-6 text-blue-100">
+                <p className="mt-2 text-sm leading-6 text-zinc-300">
                   The saved task survives the full HTTPS flow.
                 </p>
 
                 <dl className="mt-auto border-t border-white/35 pt-2 text-sm">
                   <div className="grid grid-cols-[5rem_1fr] gap-4 border-b border-white/25 py-3">
-                    <dt className="font-mono text-xs font-bold text-blue-100 uppercase">
+                    <dt className="font-mono text-xs font-bold text-zinc-400 uppercase">
                       Runtime
                     </dt>
                     <dd className="flex justify-between gap-4 font-semibold">
@@ -141,7 +141,7 @@ function TutorialCatalogCard({
                     </dd>
                   </div>
                   <div className="grid grid-cols-[5rem_1fr] gap-4 border-b border-white/25 py-3">
-                    <dt className="font-mono text-xs font-bold text-blue-100 uppercase">
+                    <dt className="font-mono text-xs font-bold text-zinc-400 uppercase">
                       Data
                     </dt>
                     <dd className="flex justify-between gap-4 font-semibold">
@@ -150,7 +150,7 @@ function TutorialCatalogCard({
                     </dd>
                   </div>
                   <div className="grid grid-cols-[5rem_1fr] gap-4 py-3">
-                    <dt className="font-mono text-xs font-bold text-blue-100 uppercase">
+                    <dt className="font-mono text-xs font-bold text-zinc-400 uppercase">
                       Request
                     </dt>
                     <dd className="flex justify-between gap-4 font-semibold">
@@ -181,20 +181,26 @@ function TutorialCatalogCard({
               </p>
             </div>
 
-            <ol className="grid border-t border-black/20 md:grid-cols-3">
+            <ol className="border-t border-black/20 px-8 pb-8 md:px-10">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
-                  className="border-b border-black/20 last:border-b-0 md:border-b-0 md:border-l md:first:border-l-0"
+                  className={`border-b border-black/25 md:w-3/4 ${
+                    index === 1
+                      ? 'md:ml-[12.5%]'
+                      : index === 2
+                        ? 'md:ml-[25%]'
+                        : ''
+                  }`}
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group flex min-h-56 flex-col p-7 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none"
+                    className="group grid min-h-28 grid-cols-[3rem_1fr_auto] items-center gap-5 py-5 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[3rem_1.15fr_0.85fr_auto]"
                   >
-                    <span className="flex items-center justify-between gap-4">
-                      <span className="font-mono text-3xl leading-none font-medium tracking-[-0.05em] text-zinc-500">
-                        0{index + 1}
-                      </span>
+                    <span className="font-mono text-xl leading-none font-medium tracking-[-0.04em] text-zinc-500">
+                      0{index + 1}
+                    </span>
+                    <span>
                       <span
                         className={`font-mono text-xs font-bold tracking-[0.06em] uppercase ${
                           chapter.phase === 'Verify'
@@ -202,34 +208,23 @@ function TutorialCatalogCard({
                             : 'text-[#146dff]'
                         }`}
                       >
-                        {chapter.result}
+                        {chapter.phase} · {chapter.result}
                       </span>
+                      <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff]">
+                        {chapter.title}
+                      </strong>
                     </span>
-                    <span
-                      className={`mt-6 font-mono text-xs font-bold tracking-[0.06em] uppercase ${
-                        chapter.phase === 'Verify'
-                          ? 'text-[#16815d]'
-                          : 'text-[#146dff]'
-                      }`}
-                    >
-                      {chapter.phase}
-                    </span>
-                    <strong className="mt-3 block text-2xl leading-tight font-semibold tracking-[-0.035em] transition-colors group-hover:text-[#146dff]">
-                      {chapter.title}
-                    </strong>
-                    <span className="mt-1 block text-sm leading-6 text-zinc-600">
-                      {chapter.detail}
-                    </span>
-                    <span className="mt-auto flex items-center justify-between gap-4 pt-7">
-                      <code className="font-mono text-xs font-bold text-zinc-600">
+                    <span className="col-start-2 text-sm leading-6 text-zinc-600 md:col-start-auto">
+                      <span className="block">{chapter.detail}</span>
+                      <code className="mt-2 block font-mono text-xs font-bold text-zinc-600">
                         {chapter.evidence}
                       </code>
-                      <ArrowRight
-                        size={20}
-                        className="shrink-0 text-[#146dff] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
-                        aria-hidden="true"
-                      />
                     </span>
+                    <ArrowRight
+                      size={20}
+                      className="self-center text-[#146dff] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                      aria-hidden="true"
+                    />
                   </Link>
                 </li>
               ))}
@@ -415,9 +410,15 @@ export default function TutorialsPage({
                   Django 5.2
                 </span>
               </div>
-              <p className="mt-7 max-w-64 text-3xl leading-[1.08] font-medium tracking-[-0.035em] text-white">
-                A 35-minute production runbook.
-              </p>
+              <div className="mt-8 flex items-end gap-4">
+                <span className="text-[7rem] leading-[0.8] font-medium tracking-[-0.075em] text-white">
+                  35
+                </span>
+                <span className="pb-1 font-mono text-xs font-bold tracking-[0.06em] text-zinc-300 uppercase">
+                  Minutes
+                  <span className="mt-1 block">Repo → HTTPS</span>
+                </span>
+              </div>
               <div className="mt-auto flex items-end justify-between gap-5 border-b border-white/15 pt-10 pb-3">
                 <span className="text-7xl leading-none font-medium tracking-[-0.07em] text-white/15">
                   01
