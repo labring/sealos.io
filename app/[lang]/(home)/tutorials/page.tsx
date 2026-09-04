@@ -91,13 +91,13 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="grid overflow-hidden border-b border-white/15 bg-[#08101f] md:grid-cols-[1fr_18rem]">
-              <div className="relative aspect-video overflow-hidden bg-[#eef1f6] md:aspect-auto md:min-h-96">
+            <div className="grid overflow-hidden border-b border-white/15 bg-[#08101f] md:grid-cols-[minmax(0,1fr)_20rem]">
+              <div className="relative aspect-[4/3] overflow-hidden bg-[#eef1f6] sm:aspect-video md:aspect-auto md:min-h-[25rem]">
                 <Image
                   src={DJANGO_LIVE_EVIDENCE}
                   alt="Live Django task application showing the saved Runtime proof from Sealos task"
                   fill
-                  className="object-cover object-center"
+                  className="object-cover object-[50%_56%] md:scale-[1.38]"
                   priority
                   quality={100}
                   sizes="(max-width: 768px) 100vw, 76vw"
@@ -109,70 +109,104 @@ function TutorialCatalogCard({
                   <span className="font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase">
                     Request receipt
                   </span>
-                  <time className="font-mono text-[10px] font-bold text-zinc-500 uppercase">
-                    14:22 UTC
+                  <time className="text-right font-mono text-[10px] leading-4 font-bold text-zinc-500 uppercase">
+                    Sep 03 2026
+                    <span className="block">14:22 UTC</span>
                   </time>
                 </div>
 
-                <div className="mt-8 font-mono text-xs leading-6">
-                  <span className="text-zinc-500">$</span>{' '}
-                  <span className="font-bold">curl --fail</span>
-                  <code className="mt-2 block break-all text-zinc-300">
-                    https://django-tasks-mpbrofzu.usw.sealos.io/
-                  </code>
-                </div>
-
-                <div className="mt-8 border-y border-white/20 py-5">
-                  <p className="font-mono text-3xl font-semibold tracking-[-0.04em] text-[#44b78b]">
-                    HTTP/2 200
-                  </p>
-                  <p className="mt-3 font-mono text-xs text-zinc-400">
-                    content-type: text/html
-                  </p>
-                  <p className="mt-1 font-mono text-xs text-zinc-400">
-                    x-forwarded-proto: https
-                  </p>
-                </div>
-
-                <p className="mt-auto inline-flex items-center gap-3 pt-6 text-sm font-semibold text-[#44b78b]">
-                  <span className="size-2 rounded-full bg-current" />
-                  Saved row persisted
-                </p>
+                <ol className="mt-6 border-t border-white/20">
+                  <li className="grid grid-cols-[1.75rem_1fr] gap-3 border-b border-white/20 py-4">
+                    <span className="font-mono text-xs font-bold text-zinc-500">
+                      01
+                    </span>
+                    <div>
+                      <p className="text-xs font-semibold text-[#5f96ff]">
+                        Configure
+                      </p>
+                      <code className="mt-2 block font-mono text-[11px] font-bold text-zinc-300">
+                        config.wsgi:application
+                      </code>
+                    </div>
+                  </li>
+                  <li className="grid grid-cols-[1.75rem_1fr] gap-3 border-b border-white/20 py-4">
+                    <span className="font-mono text-xs font-bold text-zinc-500">
+                      02
+                    </span>
+                    <div>
+                      <p className="text-xs font-semibold text-[#5f96ff]">
+                        Deploy · curl --fail
+                      </p>
+                      <code className="mt-2 block font-mono text-[11px] leading-5 break-all text-zinc-300">
+                        https://django-tasks-mpbrofzu.usw.sealos.io/
+                      </code>
+                    </div>
+                  </li>
+                  <li className="grid grid-cols-[1.75rem_1fr] gap-3 py-4">
+                    <span className="font-mono text-xs font-bold text-zinc-500">
+                      03
+                    </span>
+                    <div>
+                      <p className="font-mono text-2xl font-semibold tracking-[-0.04em] text-[#44b78b]">
+                        HTTP/2 200
+                      </p>
+                      <p className="mt-2 font-mono text-[11px] text-zinc-400">
+                        x-forwarded-proto: https
+                      </p>
+                      <p className="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-[#44b78b]">
+                        <span className="size-1.5 rounded-full bg-current" />
+                        Saved row persisted
+                      </p>
+                    </div>
+                  </li>
+                </ol>
               </div>
             </div>
           </figure>
 
           <nav
-            className="border-t border-black/20 bg-[#f2f0e8] text-[#0a0a0a]"
+            className="bg-[#f2f0e8] text-[#0a0a0a]"
             aria-label="Guide chapters"
           >
-            <div className="flex flex-wrap items-end justify-between gap-6 py-6">
-              <div>
+            <div className="grid lg:grid-cols-[18rem_1fr]">
+              <div className="flex flex-col py-7 pr-8">
                 <p className="text-sm font-semibold text-[#146dff]">
                   Inside the guide
                 </p>
                 <h3 className="mt-3 text-3xl leading-none font-medium tracking-[-0.045em]">
                   Three decisive checks.
                 </h3>
+                <p className="mt-5 text-sm leading-6 text-zinc-600">
+                  Configure, deploy, then verify the public flow.
+                </p>
+                <TutorialRequestGuideLink className="group mt-auto inline-flex items-center justify-between gap-5 pt-8 text-sm font-semibold text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none">
+                  Request the next field note
+                  <ArrowRight
+                    size={16}
+                    className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </TutorialRequestGuideLink>
               </div>
-              <p className="max-w-sm text-base leading-7 text-zinc-600">
-                Configure, deploy, then verify the public flow.
-              </p>
-            </div>
 
-            <ol className="border-t border-black/20">
-              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                <li key={chapter.hash} className="border-b border-black/25">
-                  <Link
-                    href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid min-h-20 grid-cols-[2.5rem_1fr] items-center gap-5 py-4 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[2.5rem_1.15fr_0.85fr]"
+              <ol className="grid border-t border-black/20 sm:grid-cols-3 lg:border-t-0 lg:border-l">
+                {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
+                  <li
+                    key={chapter.hash}
+                    className={`border-black/20 sm:border-l sm:first:border-l-0 lg:first:border-l-0 ${
+                      index === 2 ? 'bg-[#e3f1e9]' : ''
+                    }`}
                   >
-                    <span className="font-mono text-xl leading-none font-medium tracking-[-0.04em] text-zinc-500">
-                      0{index + 1}
-                    </span>
-                    <span>
+                    <Link
+                      href={`${tutorial.url}${chapter.hash}`}
+                      className="group flex min-h-64 flex-col p-6 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none"
+                    >
+                      <span className="flex items-center justify-between gap-4 font-mono text-sm font-bold text-zinc-500">
+                        0{index + 1}
+                        <span aria-hidden="true">→</span>
+                      </span>
                       <span
-                        className={`text-sm font-semibold ${
+                        className={`mt-8 text-sm font-semibold ${
                           chapter.phase === 'Verify'
                             ? 'text-[#16815d]'
                             : 'text-[#146dff]'
@@ -180,40 +214,21 @@ function TutorialCatalogCard({
                       >
                         {chapter.phase}
                       </span>
-                      <strong className="mt-1.5 block text-lg leading-tight font-semibold tracking-[-0.025em] transition-colors group-hover:text-[#146dff]">
+                      <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.035em] transition-colors group-hover:text-[#146dff]">
                         {chapter.title}
                       </strong>
-                    </span>
-                    <span className="col-start-2 text-sm leading-6 text-zinc-600 md:col-start-auto">
-                      <span className="block">{chapter.detail}</span>
+                      <span className="mt-5 text-sm leading-6 text-zinc-600">
+                        {chapter.detail}
+                      </span>
                       <code className="mt-2 block font-mono text-xs font-bold text-zinc-600">
                         {chapter.evidence}
                       </code>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ol>
-          </nav>
-
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-6 bg-[#0d1015] py-5 text-white">
-            <div className="flex flex-wrap items-baseline gap-x-8 gap-y-2">
-              <h3 className="text-2xl leading-none font-medium tracking-[-0.035em]">
-                Missing your stack?
-              </h3>
-              <p className="text-sm leading-6 text-zinc-300">
-                Share the deployment job you need.
-              </p>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
             </div>
-            <TutorialRequestGuideLink className="group inline-flex items-center gap-5 text-sm font-semibold text-[#5f96ff] transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none">
-              Request a field note
-              <ArrowRight
-                size={16}
-                className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
-                aria-hidden="true"
-              />
-            </TutorialRequestGuideLink>
-          </div>
+          </nav>
         </div>
       ) : tutorial.image ? (
         <figure className="mt-10 overflow-hidden rounded-xl bg-zinc-950 p-2 ring-1 ring-white/10">
