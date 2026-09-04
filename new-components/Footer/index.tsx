@@ -7,8 +7,6 @@ import { DiscordIcon, GithubIcon, RSSIcon, XIcon } from './FooterIcons';
 import c from './index.module.css';
 
 const year = new Date().getFullYear();
-const wordmarkSize = 'clamp(120px, 26vw, 360px)';
-const wordmarkHeight = wordmarkSize;
 
 type FooterLinkItem = {
   textKey: string;
@@ -185,7 +183,7 @@ function SocialLink({
       rel="noopener noreferrer"
       title={title}
       aria-label={title}
-      className="flex size-8 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+      className="flex size-8 items-center justify-center rounded-md border border-white/15 text-zinc-300 transition-colors hover:border-white/40 hover:text-white"
     >
       {children}
     </a>
@@ -194,53 +192,29 @@ function SocialLink({
 
 export function FooterV2({ lang = 'en' }: { lang?: string }) {
   const footerLinks = getFooterLinks(lang);
-  const wordmarkStroke =
-    '4px 0 #58595E, -4px 0 #58595E, 0 4px #58595E, 0 -4px #58595E, 3px 3px #58595E, -3px -3px #58595E, -3px 3px #58595E, 3px -3px #58595E, 4px 4px #58595E, -4px -4px #58595E, -4px 4px #58595E, 4px -4px #58595E';
 
   return (
     <footer className="relative isolate text-white">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed right-0 bottom-0 left-0 overflow-hidden"
-      >
-        <div
-          className="[mask-image:linear-gradient(to_bottom,black_35%,transparent_100%)] text-center font-semibold tracking-normal opacity-40 select-none [-webkit-mask-image:linear-gradient(to_bottom,black_35%,transparent_100%)]"
-          style={{
-            color: 'var(--color-background)',
-            fontSize: wordmarkSize,
-            lineHeight: 1,
-            textShadow: wordmarkStroke,
-          }}
-        >
-          Sealos
-        </div>
-      </div>
-
-      <div
-        className={c.footerGradientClip}
-        style={{
-          clipPath: `inset(0 0 ${wordmarkSize} 0)`,
-        }}
-      >
+      <div className={c.footerGradientClip}>
         <div className={c.footerGradient} />
       </div>
 
-      <div className="relative z-10 px-4 pt-60 pb-8 sm:px-6 lg:px-8">
-        <div className="mx-auto flex w-full max-w-[1313px] flex-col gap-20">
-          <div className="flex flex-col justify-between gap-14 lg:flex-row lg:gap-20">
-            <div className="flex max-w-[520px] flex-col items-start gap-8">
-              <div className="flex flex-col gap-[13px]">
-                <h2 className="text-[32px] leading-[1.5] font-medium tracking-normal">
-                  <span className="block">Ready to Stop Configuring and</span>
+      <div className="relative z-10 px-4 pt-32 pb-6 sm:px-6 lg:px-8">
+        <div className="mx-auto flex w-full max-w-[1313px] flex-col gap-12">
+          <div className="flex flex-col justify-between gap-10 lg:flex-row lg:gap-12">
+            <div className="flex max-w-[460px] flex-col items-start gap-6">
+              <div className="flex flex-col gap-3">
+                <h2 className="text-2xl leading-tight font-medium tracking-normal sm:text-3xl">
+                  <span className="block">Ready to Stop Configuring</span>
                   <GradientText className="block to-[#146dff]">
-                    Start Creating?
+                    and Start Creating?
                   </GradientText>
                 </h2>
-                <p className="text-lg leading-none text-zinc-500">
+                <p className="text-base leading-6 text-zinc-500">
                   Get started for free. No credit card required.
                 </p>
               </div>
-              <StartBuildingButton className="h-10 shadow-[0_6px_25px_rgba(29,78,216,0.6)]" />
+              <StartBuildingButton className="h-10" />
             </div>
 
             <nav
@@ -301,7 +275,6 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
           </div>
         </div>
       </div>
-      <div aria-hidden="true" style={{ height: wordmarkHeight }} />
     </footer>
   );
 }

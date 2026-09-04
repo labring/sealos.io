@@ -124,12 +124,12 @@ function TutorialCatalogCard({
       </div>
 
       {tutorial.image && (
-        <figure className="border-border bg-background order-first w-full border-b p-2 md:order-none md:col-span-7 md:border-b-0 md:border-l">
+        <figure className="border-border/80 order-first w-full border-b bg-zinc-950/80 p-3 md:order-none md:col-span-7 md:border-b-0 md:border-l">
           <div className="relative aspect-video w-full overflow-hidden rounded-[0.375rem]">
             <Image
               src={tutorial.image}
               alt={`${tutorial.title} deployment result`}
-              className="h-full w-full scale-[1.2] object-cover object-center"
+              className="h-full w-full scale-[1.2] object-cover object-center brightness-[0.9] contrast-[1.03]"
               fill
               priority={priorityImage}
               sizes="(max-width: 760px) 90vw, 55vw"
