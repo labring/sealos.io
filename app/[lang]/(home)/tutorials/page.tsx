@@ -141,39 +141,27 @@ function TutorialCatalogCard({
               <span className="px-7">Outcome</span>
               <span className="pl-7">Verified proof</span>
             </div>
-            <ol className="divide-y divide-black/15">
+            <ol className="relative divide-y divide-black/15">
+              <span
+                className="absolute top-14 bottom-14 left-[calc(66.666667%+2.25rem)] hidden w-px bg-[#16815d]/35 md:block"
+                aria-hidden="true"
+              />
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li key={chapter.hash}>
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className={`group grid gap-5 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-3 md:items-center md:gap-0 ${
-                      index === 0
-                        ? 'min-h-24 py-5'
-                        : index === 1
-                          ? 'min-h-28 bg-[#e9edf2] py-6'
-                          : 'min-h-32 bg-[#dfeae4] py-8'
-                    }`}
+                    className="group grid min-h-28 gap-5 py-6 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-3 md:items-center md:gap-0"
                   >
                     <span className="grid grid-cols-[3.25rem_1fr] items-center gap-5 md:pr-7">
-                      <span
-                        className={`font-mono font-bold tracking-[-0.06em] ${
-                          index === 0
-                            ? 'text-3xl text-zinc-400'
-                            : index === 1
-                              ? 'text-4xl text-[#146dff]'
-                              : 'text-5xl text-[#16815d]'
-                        }`}
-                      >
+                      <span className="font-mono text-4xl font-bold tracking-[-0.06em] text-zinc-500">
                         0{index + 1}
                       </span>
                       <span>
-                        <span
-                          className={`text-sm font-semibold ${
-                            chapter.phase === 'Verify'
-                              ? 'text-[#16815d]'
-                              : 'text-[#146dff]'
-                          }`}
-                        >
+                        <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#146dff]">
+                          <span
+                            className="size-1.5 bg-current"
+                            aria-hidden="true"
+                          />
                           {chapter.phase}
                         </span>
                         <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff]">
@@ -184,16 +172,24 @@ function TutorialCatalogCard({
                     <span className="text-base leading-7 text-zinc-700 md:px-7">
                       {chapter.detail}
                     </span>
-                    <span className="grid h-12 grid-cols-[0.45rem_1fr_auto] items-center gap-3 border border-black/20 px-3 md:ml-7">
+                    <span className="relative grid grid-cols-[1.25rem_1fr_auto] items-center gap-3 md:pl-7">
                       <span
-                        className="size-1.5 bg-[#16815d]"
+                        className={`relative z-10 grid place-items-center border border-[#16815d] bg-[#f2f0e8] ${
+                          index === DJANGO_GUIDE_CHAPTERS.length - 1
+                            ? 'size-5'
+                            : 'size-4'
+                        }`}
                         aria-hidden="true"
-                      />
+                      >
+                        <span className="size-1.5 bg-[#16815d]" />
+                      </span>
                       <code className="truncate font-mono text-[13px] font-bold text-zinc-800">
                         {chapter.evidence}
                       </code>
-                      <span className="text-[11px] font-semibold text-[#16815d]">
-                        Pass
+                      <span className="text-xs font-semibold text-[#16815d]">
+                        {index === DJANGO_GUIDE_CHAPTERS.length - 1
+                          ? 'Verified'
+                          : 'Passed'}
                       </span>
                     </span>
                   </Link>
