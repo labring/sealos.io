@@ -35,7 +35,7 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#prepare-django-for-production',
     evidence: 'Django container',
     status: 'Running',
-    cropClassName: '-left-[166.25%] -top-[128.9%]',
+    cropClassName: '-left-[166.25%] -top-[71.7%]',
   },
   {
     step: '02',
@@ -44,7 +44,7 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#deploy-with-sealos-skills',
     evidence: 'PostgreSQL',
     status: 'Running',
-    cropClassName: '-left-[266.25%] -top-[157.8%]',
+    cropClassName: '-left-[266.25%] -top-[83.3%]',
   },
   {
     step: '03',
@@ -53,7 +53,7 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#verify-the-live-django-application',
     evidence: 'Public HTTPS',
     status: 'Reachable',
-    cropClassName: '-left-[62.5%] -top-full',
+    cropClassName: '-left-[62.5%] -top-[66.7%]',
   },
 ] as const;
 
@@ -83,63 +83,13 @@ function TutorialCatalogCard({
   const isDjangoGuide = tutorial.url === DJANGO_TUTORIAL_PATH;
 
   return (
-    <article className="border-t border-white/10 pt-8">
-      <div className="grid gap-7 md:grid-cols-12 md:gap-8">
-        <div className="md:col-span-3">
-          <h2
-            id="published-tutorials-heading"
-            className="text-sm font-semibold text-[#5f96ff]"
-          >
-            Featured field guide
-          </h2>
-          <p className="mt-4 text-sm text-zinc-400">
-            01 · Published · {tutorial.estimatedReadingTime}
-          </p>
-          <p className="mt-2 text-sm text-zinc-400">
-            {tutorial.framework} ·{' '}
-            {tutorial.stage === 'beginner'
-              ? 'Core deployment'
-              : tutorial.stageLabel}
-          </p>
-        </div>
-
-        <div className="md:col-span-9">
-          <Link
-            href={tutorial.url}
-            className="group block rounded-sm focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
-          >
-            <h3 className="max-w-4xl text-3xl leading-[1.08] font-semibold tracking-[-0.035em] text-white md:text-5xl">
-              {isDjangoGuide ? (
-                <>
-                  How to Deploy a Django App{' '}
-                  <span className="text-zinc-400 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:text-[#5f96ff]">
-                    on Sealos
-                  </span>
-                </>
-              ) : (
-                tutorial.title
-              )}
-            </h3>
-          </Link>
-          <p className="mt-4 max-w-3xl text-base leading-7 text-zinc-300">
-            {tutorial.description}
-          </p>
-          <Link
-            href={tutorial.url}
-            className="group mt-6 inline-flex h-11 items-center rounded-sm bg-[#146dff] px-5 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none active:translate-y-0"
-          >
-            Read tutorial
-            <ArrowRight
-              size={15}
-              className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
-              aria-hidden="true"
-            />
-          </Link>
-        </div>
-      </div>
+    <article>
+      <h2 id="published-tutorials-heading" className="sr-only">
+        Published tutorial evidence
+      </h2>
 
       {isDjangoGuide ? (
-        <figure className="mt-12">
+        <figure>
           <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <figcaption>
               <span className="block text-2xl font-semibold tracking-tight text-white">
@@ -188,7 +138,7 @@ function TutorialCatalogCard({
                     href={`${tutorial.url}${chapter.hash}`}
                     className="group block focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none focus-visible:ring-inset"
                   >
-                    <div className="relative aspect-video overflow-hidden bg-[#090c14]">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-[#090c14]">
                       <Image
                         src="/images/tutorials/django/django-sealos-project-ops-running.webp"
                         alt={`${chapter.evidence} shown in the running Sealos project`}
@@ -329,25 +279,51 @@ export default function TutorialsPage({
       )}
 
       <main>
-        <section className="container -mt-24 grid pt-32 pb-10 md:grid-cols-12 md:items-end md:gap-8">
+        <section className="container -mt-24 grid pt-32 pb-12 md:grid-cols-12 md:items-end md:gap-8">
           <div className="md:col-span-8">
             <p className="text-xs font-semibold tracking-[0.18em] text-[#5f96ff] uppercase">
-              Deployment field notes
+              Sealos deployment field note · 01
             </p>
             <h1
-              aria-label="From working code to green lights"
-              className="mt-5 text-5xl leading-[0.98] font-medium tracking-[-0.045em] text-white md:text-6xl"
+              aria-label="How to Deploy a Django App on Sealos"
+              className="mt-5 text-5xl leading-[0.98] font-medium tracking-[-0.045em] text-white md:text-[4rem]"
             >
-              <span className="block">From working code</span>
-              <span className="mt-2 block text-zinc-300">to green lights.</span>
+              <span className="block">How to Deploy a</span>
+              <span className="mt-2 block">
+                Django App <span className="text-zinc-400">on Sealos</span>
+              </span>
             </h1>
+            <p className="mt-6 max-w-2xl text-base leading-7 text-zinc-300">
+              Build a Django 5.2 Task app, prepare Gunicorn, WhiteNoise, and
+              PostgreSQL, then deploy it and verify a live create/read flow.
+            </p>
+            {firstTutorial && (
+              <div className="mt-7 flex flex-wrap items-center gap-5">
+                <Link
+                  href={firstTutorial.url}
+                  className="group inline-flex h-11 items-center rounded-sm bg-[#146dff] px-5 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none active:translate-y-0"
+                >
+                  Read tutorial
+                  <ArrowRight
+                    size={15}
+                    className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </Link>
+                <span className="inline-flex items-center gap-2 text-sm text-zinc-400">
+                  <BookOpen size={14} aria-hidden="true" />
+                  {firstTutorial.estimatedReadingTime} · Django · Core
+                  deployment
+                </span>
+              </div>
+            )}
           </div>
           <div className="mt-8 md:col-span-4 md:mt-0 md:pb-1 md:pl-8">
-            <p className="max-w-sm text-base leading-7 text-zinc-300">
-              Deployment field guides that finish with a running service, an
-              attached database, and a reachable public endpoint.
+            <p className="max-w-sm text-3xl leading-[1.15] font-medium tracking-[-0.03em] text-zinc-200">
+              From working code{' '}
+              <span className="text-[#5f96ff]">to green lights.</span>
             </p>
-            <p className="mt-7 text-sm font-medium text-[#5f96ff]">
+            <p className="mt-6 text-sm font-medium text-zinc-400">
               Build → Deploy → Verify
             </p>
           </div>
@@ -355,7 +331,7 @@ export default function TutorialsPage({
 
         <section
           id="published-tutorials"
-          className="container scroll-mt-28 pb-12"
+          className="container scroll-mt-28 border-t border-white/10 pt-10 pb-12"
           aria-labelledby="published-tutorials-heading"
         >
           {firstTutorial && (
@@ -411,17 +387,20 @@ export default function TutorialsPage({
             </div>
           )}
 
-          <section className="mt-16 grid gap-7 bg-[#f1f1ed] px-7 py-8 text-zinc-950 md:grid-cols-12 md:items-center md:gap-8 md:px-9">
-            <div className="md:col-span-8">
-              <h2 className="text-3xl font-semibold tracking-tight">
-                Need a guide for your stack?
+          <section className="mt-14 grid gap-5 py-3 md:grid-cols-12 md:items-center md:gap-8">
+            <p className="text-sm font-semibold text-[#5f96ff] md:col-span-3">
+              Next field note
+            </p>
+            <div className="md:col-span-6">
+              <h2 className="text-2xl font-semibold tracking-tight text-white">
+                Missing your stack?
               </h2>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-600">
+              <p className="mt-2 max-w-xl text-sm leading-6 text-zinc-400">
                 Share the framework or runtime and the deployment job you need.
                 Requests help prioritize the next qualified Core tutorial.
               </p>
             </div>
-            <TutorialRequestGuideLink className="group inline-flex h-11 shrink-0 items-center text-sm font-semibold text-[#146dff] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:translate-x-1 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:col-span-4 md:justify-end">
+            <TutorialRequestGuideLink className="group inline-flex h-11 shrink-0 items-center text-sm font-semibold text-white transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3 md:justify-end">
               Request a tutorial
               <ArrowRight
                 size={16}

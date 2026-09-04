@@ -180,7 +180,7 @@ function SocialLink({
       rel="noopener noreferrer"
       title={title}
       aria-label={title}
-      className="flex size-8 items-center justify-center rounded-md border border-white/15 text-zinc-300 transition-colors hover:border-white/40 hover:text-white"
+      className="flex size-7 items-center justify-center text-zinc-400 transition-colors hover:text-white"
     >
       {children}
     </a>
@@ -193,9 +193,9 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
 
   return (
     <footer className="border-t border-white/10 text-white">
-      <div className="pt-8 pb-4">
-        <div className="container flex flex-col gap-8">
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_3fr] lg:gap-16">
+      <div className="pt-7 pb-3">
+        <div className="container flex flex-col gap-6">
+          <div className="grid gap-8 lg:grid-cols-[1.1fr_3fr] lg:gap-12">
             <div className="max-w-xs">
               <Link
                 href={homeHref}
@@ -204,21 +204,21 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
                 <img src="/logo.svg" alt="" className="size-7" />
                 Sealos
               </Link>
-              <p className="mt-4 text-sm leading-6 text-zinc-400">
+              <p className="mt-3 text-sm leading-6 text-zinc-400">
                 Build, deploy, and run applications on a cloud operating system.
               </p>
             </div>
 
             <nav
               aria-label="Footer"
-              className="grid grid-cols-2 gap-x-10 gap-y-10 sm:grid-cols-4 lg:gap-x-16"
+              className="grid grid-cols-2 gap-x-10 gap-y-6 sm:grid-cols-4 lg:gap-x-14"
             >
               {footerLinks.columns.map((category) => (
-                <div key={category.title} className="flex flex-col gap-4">
-                  <h3 className="text-base leading-6 font-medium text-zinc-200 uppercase">
+                <div key={category.title} className="flex flex-col gap-2.5">
+                  <h3 className="text-sm leading-5 font-semibold text-zinc-200">
                     {category.title}
                   </h3>
-                  <div className="flex flex-col gap-2.5">
+                  <div className="flex flex-wrap gap-x-3 gap-y-2">
                     {category.links.map((link) => (
                       <FooterLink key={link.text} href={link.url}>
                         {link.text}
@@ -241,7 +241,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
 
             <p className="text-center">{footerLinks.copyright}</p>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
               <SocialLink href={siteConfig.links.github} title="GitHub">
                 <GithubIcon />
               </SocialLink>
