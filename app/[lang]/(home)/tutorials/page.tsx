@@ -124,8 +124,8 @@ function TutorialCatalogCard({
               </figure>
 
               <figure className="border-t border-white/15 bg-[#0d1015] md:border-t-0">
-                <div className="flex aspect-[4/3] bg-[#e8ebef] p-6 text-[#111827]">
-                  <div className="flex w-full flex-col border border-black/20 bg-[#f7f7f4] p-5">
+                <div className="flex aspect-[4/3] bg-[#10141b] p-8 text-[#111827]">
+                  <div className="flex w-full flex-col bg-[#dfe3e8] p-5 ring-1 ring-white/15">
                     <h4 className="text-2xl font-semibold tracking-[-0.04em]">
                       Django tasks
                     </h4>
