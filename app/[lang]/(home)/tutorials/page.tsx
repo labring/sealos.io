@@ -51,19 +51,19 @@ const DJANGO_GUIDE_CHAPTERS = [
 
 const DJANGO_LIVE_PROOF = [
   {
-    stage: 'Request',
-    command: 'POST /',
-    detail: 'task="Runtime proof from Sealos"',
-    result: '302 Redirect',
+    stage: 'Configure',
+    command: 'check --deploy',
+    detail: 'WhiteNoise + private PostgreSQL',
+    result: '0 errors',
   },
   {
-    stage: 'Database',
-    command: 'INSERT tasks_task',
-    detail: 'PostgreSQL transaction committed',
-    result: 'COMMIT',
+    stage: 'Deploy',
+    command: 'gunicorn config.wsgi',
+    detail: 'Listening at 0.0.0.0:8080',
+    result: 'Running',
   },
   {
-    stage: 'Fresh load',
+    stage: 'Verify',
     command: 'GET / HTTP/2',
     detail: 'task[0]="Runtime proof from Sealos"',
     result: '200 OK',
@@ -102,7 +102,7 @@ function TutorialCatalogCard({
 
       {isDjangoGuide ? (
         <nav className="text-[#0a0a0a]" aria-label="Guide chapters">
-          <div className="grid lg:grid-cols-[minmax(0,1fr)_24rem]">
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_22rem]">
             <div className="grid gap-5 bg-[#f2f0e8] py-5 pr-8 lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-center lg:gap-0">
               <div className="lg:pr-8">
                 <p className="text-sm font-semibold text-zinc-600">
@@ -131,7 +131,7 @@ function TutorialCatalogCard({
               <p className="text-sm font-bold tracking-wide text-zinc-300">
                 LIVE RECEIPTS
               </p>
-              <div className="mt-3 grid grid-cols-[2rem_1fr_8rem] gap-3 text-[11px] text-zinc-500">
+              <div className="mt-3 grid grid-cols-[2rem_1fr_7rem] gap-3 text-[11px] text-zinc-500">
                 <span>#</span>
                 <span>ACTION</span>
                 <span className="text-right">RESULT</span>
@@ -146,7 +146,7 @@ function TutorialCatalogCard({
               return (
                 <li
                   key={chapter.hash}
-                  className="grid border-t border-zinc-500/30 lg:min-h-[7.5rem] lg:grid-cols-[minmax(0,1fr)_24rem]"
+                  className="grid border-t border-zinc-500/30 lg:min-h-[7.5rem] lg:grid-cols-[minmax(0,1fr)_22rem]"
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
@@ -185,7 +185,7 @@ function TutorialCatalogCard({
                   </Link>
 
                   <span className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l lg:border-white/15">
-                    <span className="grid grid-cols-[2rem_1fr_8rem] items-baseline gap-3">
+                    <span className="grid grid-cols-[2rem_1fr_7rem] items-baseline gap-3">
                       <code className="text-xs text-zinc-500">
                         0{index + 1}
                       </code>
@@ -326,7 +326,7 @@ export default function TutorialsPage({
 
       <main>
         <section className="container -mt-24 pt-32">
-          <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-stretch lg:gap-0">
+          <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-stretch lg:gap-0">
             <div className="lg:pr-12">
               <p className="text-sm font-semibold text-zinc-400">
                 Deployment field note
@@ -344,16 +344,14 @@ export default function TutorialsPage({
                 {firstTutorial && (
                   <Link
                     href={firstTutorial.url}
-                    className="group relative z-10 mt-5 mb-4 inline-grid grid-cols-[auto_2.75rem] items-stretch border border-[#5f96ff] bg-[#146dff] text-base font-semibold text-white transition-colors hover:bg-[#2879ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group relative z-10 mt-6 mb-4 inline-flex min-w-[17rem] items-center justify-between gap-8 border-b border-white/35 pb-2 text-xl font-semibold text-white transition-colors hover:border-[#5f96ff] hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
-                    <span className="px-5 py-3">Read the field note</span>
-                    <span className="flex items-center justify-center border-l border-white/30">
-                      <ArrowRight
-                        size={15}
-                        className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
-                        aria-hidden="true"
-                      />
-                    </span>
+                    Read the field note
+                    <ArrowRight
+                      size={19}
+                      className="text-[#5f96ff] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                      aria-hidden="true"
+                    />
                   </Link>
                 )}
               </div>
@@ -375,17 +373,16 @@ export default function TutorialsPage({
                 </div>
                 <div className="mt-10 font-mono">
                   <p className="text-xs font-semibold tracking-wide text-zinc-500">
-                    SEALOS LIVE TRANSACTION
-                  </p>
-                  <p className="mt-4 text-2xl leading-tight font-semibold tracking-[-0.04em] text-white">
-                    POST → COMMIT → GET
+                    SEALOS DEPLOYMENT STATUS
                   </p>
                   <div className="mt-5 grid grid-cols-[1fr_auto] items-baseline gap-4 border-y border-white/15 py-4">
-                    <span className="text-sm text-zinc-300">task[0]</span>
+                    <span className="font-sans text-2xl font-semibold tracking-[-0.04em] text-white">
+                      Django is live.
+                    </span>
                     <strong className="text-xl text-[#44b78b]">200 OK</strong>
                   </div>
                   <p className="mt-4 text-sm text-zinc-400">
-                    persisted after refresh
+                    task persisted after a fresh load
                   </p>
                 </div>
                 <p className="mt-auto border-t border-white/15 pt-4 font-mono text-sm text-zinc-400">
