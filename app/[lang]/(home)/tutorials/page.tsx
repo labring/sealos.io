@@ -125,83 +125,57 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="overflow-hidden bg-[#e3e5df] px-7 py-7 text-[#101318] md:px-10 md:py-9">
-              <div className="flex flex-wrap items-end justify-between gap-3">
-                <span className="text-base font-semibold text-[#146dff]">
-                  Verified request path
-                </span>
-                <code className="font-mono text-sm font-bold text-zinc-700">
-                  GET / → response.html
-                </code>
-              </div>
-
-              <ol className="mt-7 grid gap-8 md:grid-cols-4 md:gap-9">
+            <div className="overflow-hidden bg-[#e3e5df] px-7 py-8 text-[#101318] md:px-10 md:py-10">
+              <ol className="grid gap-9 md:grid-cols-4 md:gap-10">
                 {DEPLOYMENT_NODES.map((node, index) => (
                   <li
                     key={node.marker}
-                    className="relative grid min-w-0 md:grid-rows-[7rem_3rem_7rem] md:text-center"
+                    className="relative min-w-0 md:text-center"
                   >
-                    <div
-                      className={`mb-4 min-w-0 md:mb-0 ${
-                        index % 2 === 0
-                          ? 'md:row-start-1 md:self-end md:pb-5'
-                          : 'md:row-start-3 md:pt-5'
-                      }`}
-                    >
-                      <span className="font-mono text-sm font-bold tracking-[0.08em] text-[#146dff]">
-                        {node.marker}
-                      </span>
-                      <h3 className="mt-1 text-xl font-semibold tracking-[-0.025em]">
-                        {node.title}
-                      </h3>
-                      <code className="mt-3 block truncate font-mono text-sm font-bold text-zinc-900">
-                        {node.evidence}
-                      </code>
-                      <span className="mt-2.5 flex items-center gap-3 text-sm font-bold md:justify-center">
-                        <span
-                          className={`inline-flex items-center gap-2 ${
-                            index === DEPLOYMENT_NODES.length - 1
-                              ? 'text-emerald-800'
-                              : 'text-[#0d5fd6]'
-                          }`}
-                        >
-                          <span
-                            className={`size-1.5 rounded-full ${
-                              index === DEPLOYMENT_NODES.length - 1
-                                ? 'bg-emerald-600'
-                                : 'bg-[#146dff]'
-                            }`}
-                            aria-hidden="true"
-                          />
-                          {node.status}
-                        </span>
-                        <span className="text-zinc-600">{node.detail}</span>
-                      </span>
-                    </div>
+                    <span className="font-mono text-sm font-bold tracking-[0.08em] text-[#146dff]">
+                      {node.marker}
+                    </span>
+                    <h3 className="mt-1 text-xl font-semibold tracking-[-0.025em]">
+                      {node.title}
+                    </h3>
 
-                    <div className="relative flex items-center md:row-start-2 md:justify-center">
+                    <div className="relative mt-6 flex items-center md:justify-center">
                       {index < DEPLOYMENT_NODES.length - 1 && (
                         <span
-                          className="absolute top-1/2 left-1/2 hidden h-1.5 w-[calc(100%+2.25rem)] -translate-y-1/2 bg-[#146dff] md:block"
+                          className="absolute top-1/2 left-1/2 hidden h-1 w-[calc(100%+2.5rem)] -translate-y-1/2 bg-[#146dff] md:block"
                           aria-hidden="true"
                         />
                       )}
                       <span
-                        className={`relative z-10 flex items-center justify-center rounded-full ring-[#146dff] ${
+                        className={`relative z-10 size-4 rounded-full ${
                           index === DEPLOYMENT_NODES.length - 1
-                            ? 'size-9 bg-[#44b78b]'
-                            : 'size-8 bg-[#e3e5df] ring-[3px]'
+                            ? 'bg-[#44b78b]'
+                            : 'bg-[#146dff]'
                         }`}
-                      >
-                        <span
-                          className={`rounded-full ${
-                            index === DEPLOYMENT_NODES.length - 1
-                              ? 'size-3 bg-white'
-                              : 'size-2.5 bg-[#146dff]'
-                          }`}
+                      />
+                      {index < DEPLOYMENT_NODES.length - 1 && (
+                        <ArrowRight
+                          size={22}
+                          strokeWidth={2.5}
+                          className="absolute top-1/2 -right-7 z-20 hidden -translate-y-1/2 bg-[#e3e5df] px-1 text-[#146dff] md:block"
+                          aria-hidden="true"
                         />
-                      </span>
+                      )}
                     </div>
+
+                    <code className="mt-6 block truncate font-mono text-sm font-bold text-zinc-900">
+                      {node.evidence}
+                    </code>
+                    <span
+                      className={`mt-3 block text-sm font-bold ${
+                        index === DEPLOYMENT_NODES.length - 1
+                          ? 'text-emerald-800'
+                          : 'text-[#0d5fd6]'
+                      }`}
+                    >
+                      {node.status}
+                      <span className="text-zinc-600"> · {node.detail}</span>
+                    </span>
                   </li>
                 ))}
               </ol>
