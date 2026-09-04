@@ -102,41 +102,40 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="relative overflow-hidden border-b border-white/15 bg-[#080b10]">
+            <div className="relative aspect-[16/8] overflow-hidden border-b border-white/15 bg-[#07101c]">
               <Image
                 src={DJANGO_PRODUCTION_EVIDENCE}
                 alt="Sealos project canvas showing the public HTTPS endpoint, running Django container, and attached PostgreSQL database"
-                width={3200}
-                height={1800}
-                className="h-auto w-full brightness-110 contrast-110"
+                fill
+                className="scale-[1.18] object-cover object-center brightness-110 contrast-110"
                 priority
                 quality={95}
                 sizes="(max-width: 1280px) 100vw, 1248px"
               />
 
               <div className="pointer-events-none absolute inset-0 hidden md:block">
-                <div className="absolute top-[17%] left-[18%]">
+                <div className="absolute top-[9%] left-[10%]">
                   <p className="bg-black px-3 py-2 font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase shadow-[0_0_0_1px_rgba(95,150,255,0.6)]">
                     Public HTTPS
                   </p>
-                  <span className="ml-3 block h-10 w-px bg-[#5f96ff]" />
+                  <span className="ml-3 block h-12 w-px bg-[#5f96ff]" />
                   <span className="ml-[9px] block size-[7px] rounded-full bg-[#5f96ff] ring-4 ring-black/70" />
                 </div>
-                <div className="absolute top-[17%] left-[43.5%]">
+                <div className="absolute top-[9%] left-[41.5%]">
                   <p className="bg-black px-3 py-2 font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase shadow-[0_0_0_1px_rgba(95,150,255,0.6)]">
                     Django · running
                   </p>
-                  <span className="ml-3 block h-10 w-px bg-[#5f96ff]" />
+                  <span className="ml-3 block h-12 w-px bg-[#5f96ff]" />
                   <span className="ml-[9px] block size-[7px] rounded-full bg-[#5f96ff] ring-4 ring-black/70" />
                 </div>
-                <div className="absolute top-[17%] left-[69.5%]">
+                <div className="absolute top-[9%] left-[73%]">
                   <p className="bg-black px-3 py-2 font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase shadow-[0_0_0_1px_rgba(95,150,255,0.6)]">
                     PostgreSQL · attached
                   </p>
-                  <span className="ml-3 block h-10 w-px bg-[#5f96ff]" />
+                  <span className="ml-3 block h-12 w-px bg-[#5f96ff]" />
                   <span className="ml-[9px] block size-[7px] rounded-full bg-[#5f96ff] ring-4 ring-black/70" />
                 </div>
-                <div className="absolute top-[61%] left-[18%] flex items-center">
+                <div className="absolute top-[68%] left-[10%] flex items-center">
                   <span className="mr-3 block size-[7px] rounded-full bg-[#44b78b] ring-4 ring-black/70" />
                   <span className="block h-px w-12 bg-[#44b78b]" />
                   <p className="bg-black px-3 py-2 font-mono text-xs font-bold tracking-[0.06em] text-[#44b78b] uppercase shadow-[0_0_0_1px_rgba(68,183,139,0.65)]">
@@ -189,7 +188,7 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid min-h-44 grid-cols-[3.5rem_1fr] gap-x-5 p-6 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[4.5rem_1fr_auto] md:p-8"
+                    className="group grid min-h-44 grid-cols-[3.5rem_1fr_auto] gap-x-5 p-6 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[4.5rem_1fr_auto] md:p-8"
                   >
                     <span className="font-mono text-3xl leading-none font-medium tracking-[-0.05em] text-zinc-400">
                       0{index + 1}
@@ -210,17 +209,15 @@ function TutorialCatalogCard({
                       <span className="mt-1 block text-sm leading-6 text-zinc-600">
                         {chapter.detail}
                       </span>
-                    </span>
-                    <span className="col-start-2 mt-5 flex items-center justify-between gap-4 md:col-start-auto md:mt-0 md:min-w-44 md:flex-col md:items-end">
-                      <code className="font-mono text-xs font-bold text-zinc-600">
+                      <code className="mt-4 block font-mono text-xs font-bold text-zinc-600">
                         {chapter.evidence}
                       </code>
-                      <ArrowRight
-                        size={20}
-                        className="shrink-0 text-[#146dff] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
-                        aria-hidden="true"
-                      />
                     </span>
+                    <ArrowRight
+                      size={20}
+                      className="self-center text-[#146dff] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                      aria-hidden="true"
+                    />
                   </Link>
                 </li>
               ))}
@@ -380,7 +377,7 @@ export default function TutorialsPage({
                 <div className="mt-7 flex flex-wrap items-center gap-5">
                   <Link
                     href={firstTutorial.url}
-                    className="group inline-flex items-center gap-5 bg-[#146dff] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#095bd8] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group inline-flex w-56 items-center justify-between border-b-2 border-[#146dff] py-3 text-base font-semibold text-white transition-colors hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     Read the field note
                     <ArrowRight
