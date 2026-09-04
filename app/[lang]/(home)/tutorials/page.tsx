@@ -110,7 +110,7 @@ function TutorialCatalogCard({
               <p className="text-sm font-bold tracking-wide text-zinc-300">
                 LIVE DATA PROOF
               </p>
-              <p className="mt-3 text-[11px] text-zinc-400">
+              <p className="mt-3 text-xs text-zinc-400">
                 ONE RECORD · TWO REQUESTS · FRESH READ
               </p>
             </div>
@@ -127,7 +127,7 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid gap-5 bg-[#f2f0e8] py-4 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none lg:grid-cols-[3rem_16.5rem_1fr] lg:items-center lg:gap-5"
+                    className="group grid h-full gap-5 bg-[#f2f0e8] py-4 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none lg:grid-cols-[3rem_16.5rem_1fr] lg:items-center lg:gap-5"
                   >
                     <span
                       className={`font-medium tracking-[-0.055em] ${
@@ -141,7 +141,13 @@ function TutorialCatalogCard({
                       0{index + 1}
                     </span>
                     <span>
-                      <span className="block text-sm font-semibold text-zinc-600">
+                      <span
+                        className={`block text-sm font-semibold ${
+                          index === DJANGO_GUIDE_CHAPTERS.length - 1
+                            ? 'text-[#16815d]'
+                            : 'text-zinc-600'
+                        }`}
+                      >
                         {chapter.phase}
                       </span>
                       <strong
@@ -166,7 +172,7 @@ function TutorialCatalogCard({
 
             <div className="grid content-center gap-5 bg-[#090909] px-6 py-6 font-mono text-white lg:border-l lg:border-white/15">
               <div>
-                <p className="text-[13px] tracking-wide text-zinc-400">
+                <p className="text-sm tracking-wide text-zinc-400">
                   01 / CREATE REQUEST
                 </p>
                 <p className="mt-2 flex items-baseline justify-between gap-4">
@@ -178,7 +184,7 @@ function TutorialCatalogCard({
                 </code>
               </div>
               <div>
-                <p className="text-[13px] tracking-wide text-zinc-400">
+                <p className="text-sm tracking-wide text-zinc-400">
                   02 / FRESH REQUEST
                 </p>
                 <p className="mt-2 flex items-baseline justify-between gap-4">
@@ -187,7 +193,7 @@ function TutorialCatalogCard({
                 </p>
               </div>
               <div className="border-t border-white/15 pt-5">
-                <p className="text-[13px] tracking-wide text-zinc-400">
+                <p className="text-sm tracking-wide text-zinc-400">
                   03 / DATABASE RECORD
                 </p>
                 <code className="mt-2 block text-sm text-zinc-200">
@@ -323,7 +329,7 @@ export default function TutorialsPage({
               >
                 <span aria-hidden="true">Django</span>
                 <ArrowRight
-                  className="h-[0.68em] w-[1.2em] shrink-0 stroke-[1.25] text-[#146dff]"
+                  className="h-10 w-14 shrink-0 translate-y-1 stroke-[1.5] text-[#146dff] md:h-16 md:w-24"
                   aria-hidden="true"
                 />
                 <span aria-hidden="true">Sealos</span>
@@ -352,22 +358,22 @@ export default function TutorialsPage({
 
             <aside className="lg:border-l lg:border-white/15 lg:px-6">
               <div className="flex h-full flex-col border-t border-white/15 pt-5 pb-7 font-mono">
-                <div className="flex items-center justify-between gap-5 text-xs font-semibold tracking-wide text-zinc-400">
+                <div className="flex items-center justify-between gap-5 text-sm font-semibold tracking-wide text-zinc-400">
                   <span>DEPLOYMENT RECEIPT</span>
                   <span>2026.09.02</span>
                 </div>
                 <dl className="mt-7 divide-y divide-white/15 border-y border-white/15">
                   <div className="grid grid-cols-[4.5rem_1fr] items-baseline gap-3 py-4">
-                    <dt className="text-xs text-zinc-400">BUILD</dt>
-                    <dd className="text-sm text-zinc-200">collectstatic</dd>
+                    <dt className="text-sm text-zinc-400">BUILD</dt>
+                    <dd className="text-base text-zinc-200">collectstatic</dd>
                   </div>
                   <div className="grid grid-cols-[4.5rem_1fr] items-baseline gap-3 py-4">
-                    <dt className="text-xs text-zinc-400">MIGRATE</dt>
-                    <dd className="text-sm text-zinc-200">PostgreSQL</dd>
+                    <dt className="text-sm text-zinc-400">MIGRATE</dt>
+                    <dd className="text-base text-zinc-200">PostgreSQL</dd>
                   </div>
                   <div className="grid grid-cols-[4.5rem_1fr] items-baseline gap-3 py-4">
-                    <dt className="text-xs text-zinc-400">SERVE</dt>
-                    <dd className="text-sm text-zinc-200">:8080</dd>
+                    <dt className="text-sm text-zinc-400">SERVE</dt>
+                    <dd className="text-base text-zinc-200">:8080</dd>
                   </div>
                 </dl>
                 <p className="mt-auto border-t border-white/15 pt-4 text-sm text-zinc-400">
