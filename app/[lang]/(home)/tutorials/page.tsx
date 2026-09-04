@@ -16,10 +16,11 @@ import {
   type TutorialSummary,
   toTutorialSummary,
 } from '@/lib/utils/tutorial-utils';
-import { ArrowRight, BookOpen } from 'lucide-react';
+import { ArrowRight, BookOpen, Database, Globe2, Server } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { Fragment } from 'react';
 import { TutorialRequestGuideLink } from './TutorialRequestGuideLink';
 
 const TUTORIALS_PATHNAME = '/tutorials';
@@ -27,20 +28,24 @@ const TUTORIALS_PAGE_TITLE = 'Sealos Deployment Tutorials';
 const TUTORIALS_PAGE_DESCRIPTION =
   'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
-const DJANGO_PROJECT_PROOF_IMAGE =
-  '/images/tutorials/django/django-sealos-project-ops-running.webp';
 const DJANGO_TOPOLOGY_FACTS = [
   {
+    icon: Globe2,
     label: 'Public access',
-    value: 'Live HTTPS',
+    detail: 'Live HTTPS endpoint',
+    status: 'Live',
   },
   {
+    icon: Server,
     label: 'Django app',
-    value: 'Running',
+    detail: 'Gunicorn + WhiteNoise',
+    status: 'Running',
   },
   {
+    icon: Database,
     label: 'PostgreSQL',
-    value: 'Running',
+    detail: 'Private database',
+    status: 'Running',
   },
 ];
 
@@ -68,9 +73,6 @@ function TutorialCatalogCard({
   priorityImage?: boolean;
 }) {
   const isDjangoGuide = tutorial.url === DJANGO_TUTORIAL_PATH;
-  const proofImage = isDjangoGuide
-    ? DJANGO_PROJECT_PROOF_IMAGE
-    : tutorial.image;
 
   return (
     <Link
@@ -142,38 +144,59 @@ function TutorialCatalogCard({
         </div>
       </div>
 
-      {proofImage &&
-        (isDjangoGuide ? (
-          <figure className="order-first flex w-full flex-col border-b border-white/10 bg-zinc-950 p-4 md:order-none md:col-span-7 md:border-b-0 md:border-l md:border-white/10">
-            <div className="relative aspect-video w-full overflow-hidden rounded-md border border-white/10 md:flex-1">
-              <Image
-                src={proofImage}
-                alt="Sealos Project Canvas showing public access, the Django container, and PostgreSQL running"
-                className="h-full w-full scale-[1.14] object-cover object-center"
-                fill
-                priority={priorityImage}
-                quality={90}
-                sizes="(max-width: 760px) 90vw, 55vw"
-              />
-            </div>
-            <figcaption className="mt-3 grid grid-cols-3 divide-x divide-white/10 border-t border-white/10">
-              {DJANGO_TOPOLOGY_FACTS.map((fact) => (
-                <span key={fact.label} className="px-3 pt-3 first:pl-0">
-                  <span className="block text-[11px] leading-4 text-zinc-500">
-                    {fact.label}
-                  </span>
-                  <span className="mt-0.5 block text-xs leading-5 font-medium text-zinc-100">
-                    {fact.value}
-                  </span>
-                </span>
-              ))}
-            </figcaption>
-          </figure>
-        ) : (
+      {isDjangoGuide ? (
+        <figure className="order-first flex w-full flex-col justify-center border-b border-white/10 bg-[#080a0f] p-5 md:order-none md:col-span-7 md:border-b-0 md:border-l md:border-white/10 md:p-7">
+          <figcaption className="mb-6 flex flex-wrap items-center justify-between gap-3">
+            <span className="text-sm font-medium text-zinc-200">
+              Verified project topology
+            </span>
+            <span className="inline-flex items-center gap-2 text-xs font-medium text-emerald-400">
+              <span className="size-1.5 rounded-full bg-emerald-400" />3
+              resources healthy
+            </span>
+          </figcaption>
+
+          <div className="grid gap-3 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-center">
+            {DJANGO_TOPOLOGY_FACTS.map((fact, index) => {
+              const Icon = fact.icon;
+
+              return (
+                <Fragment key={fact.label}>
+                  <div className="flex min-h-36 flex-col rounded-md border border-white/12 bg-[#10131a] p-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="flex size-8 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-[#5f96ff]">
+                        <Icon size={16} aria-hidden="true" />
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400">
+                        <span className="size-1.5 rounded-full bg-emerald-400" />
+                        {fact.status}
+                      </span>
+                    </div>
+                    <strong className="mt-5 text-sm font-semibold text-white">
+                      {fact.label}
+                    </strong>
+                    <span className="mt-1 text-xs leading-5 text-zinc-400">
+                      {fact.detail}
+                    </span>
+                  </div>
+                  {index < DJANGO_TOPOLOGY_FACTS.length - 1 && (
+                    <ArrowRight
+                      size={18}
+                      className="mx-auto hidden text-[#146dff] md:block"
+                      aria-hidden="true"
+                    />
+                  )}
+                </Fragment>
+              );
+            })}
+          </div>
+        </figure>
+      ) : (
+        tutorial.image && (
           <figure className="border-border/80 order-first flex w-full flex-col gap-3 border-b bg-zinc-950 p-4 md:order-none md:col-span-7 md:border-b-0 md:border-l">
             <div className="relative aspect-video w-full overflow-hidden rounded-md">
               <Image
-                src={proofImage}
+                src={tutorial.image}
                 alt={`${tutorial.title} deployment result`}
                 className="h-full w-full object-cover object-center"
                 fill
@@ -183,7 +206,8 @@ function TutorialCatalogCard({
               />
             </div>
           </figure>
-        ))}
+        )
+      )}
     </Link>
   );
 }
@@ -312,12 +336,12 @@ export default function TutorialsPage({
                 >
                   Inside this guide
                 </h2>
-                <div className="border-border grid border-t md:grid-cols-3">
+                <div className="grid border-t border-[#146dff]/55 md:grid-cols-3">
                   <Link
                     href={`${firstTutorial.url}#prepare-django-for-production`}
                     className="group relative flex flex-col justify-center py-7 pr-8 focus-visible:ring-2 focus-visible:outline-none"
                   >
-                    <span className="bg-background text-primary border-primary/80 absolute -top-2 left-0 flex size-4 items-center justify-center rounded-full border text-[9px] font-semibold">
+                    <span className="absolute -top-2.5 left-0 flex size-5 items-center justify-center rounded-full bg-[#146dff] text-[9px] font-semibold text-white">
                       01
                     </span>
                     <h3 className="text-foreground group-hover:text-primary font-semibold">
@@ -331,7 +355,7 @@ export default function TutorialsPage({
                     href={`${firstTutorial.url}#deploy-with-sealos-skills`}
                     className="group border-border relative flex flex-col justify-center border-t py-7 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:px-8"
                   >
-                    <span className="bg-background text-primary border-primary/80 absolute -top-2 left-0 flex size-4 items-center justify-center rounded-full border text-[9px] font-semibold md:-left-2">
+                    <span className="absolute -top-2.5 left-0 flex size-5 items-center justify-center rounded-full bg-[#146dff] text-[9px] font-semibold text-white md:-left-2.5">
                       02
                     </span>
                     <h3 className="text-foreground group-hover:text-primary font-semibold">
@@ -345,7 +369,7 @@ export default function TutorialsPage({
                     href={`${firstTutorial.url}#verify-the-live-django-application`}
                     className="group border-border relative flex flex-col justify-center border-t py-7 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:pl-8"
                   >
-                    <span className="bg-background text-primary border-primary/80 absolute -top-2 left-0 flex size-4 items-center justify-center rounded-full border text-[9px] font-semibold md:-left-2">
+                    <span className="absolute -top-2.5 left-0 flex size-5 items-center justify-center rounded-full bg-[#146dff] text-[9px] font-semibold text-white md:-left-2.5">
                       03
                     </span>
                     <h3 className="text-foreground group-hover:text-primary font-semibold">
@@ -409,7 +433,7 @@ export default function TutorialsPage({
             </div>
           )}
 
-          <section className="border-border mt-12 flex flex-col gap-4 border-t pt-6 md:flex-row md:items-center md:gap-5">
+          <section className="border-border mt-10 flex flex-col gap-4 border-t pt-6 md:flex-row md:items-center md:gap-5">
             <div className="max-w-xl">
               <h2 className="text-foreground text-2xl font-semibold tracking-tight">
                 Need a guide for your stack?
