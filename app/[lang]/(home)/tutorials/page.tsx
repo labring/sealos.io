@@ -81,7 +81,7 @@ function TutorialCatalogCard({
 
       {isDjangoGuide ? (
         <nav className="text-[#0a0a0a]" aria-label="Guide chapters">
-          <div className="grid border-b border-zinc-500/30 lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <div className="grid border-b border-zinc-500/30 lg:grid-cols-[minmax(0,1fr)_26rem]">
             <div className="grid gap-5 bg-[#f2f0e8] py-5 pr-8 lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-center lg:gap-0">
               <div className="lg:pr-8">
                 <p className="text-sm font-semibold text-zinc-600">
@@ -116,18 +116,18 @@ function TutorialCatalogCard({
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_26rem]">
             <ol>
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
-                  className={`lg:min-h-[7.5rem] ${
+                  className={`lg:min-h-[6.75rem] ${
                     index === 0 ? '' : 'border-t border-zinc-500/30'
                   }`}
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid gap-5 bg-[#f2f0e8] py-5 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none lg:grid-cols-[3rem_16.5rem_1fr] lg:items-center lg:gap-5"
+                    className="group grid gap-5 bg-[#f2f0e8] py-4 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none lg:grid-cols-[3rem_16.5rem_1fr] lg:items-center lg:gap-5"
                   >
                     <span
                       className={`font-medium tracking-[-0.055em] ${
@@ -164,36 +164,36 @@ function TutorialCatalogCard({
               ))}
             </ol>
 
-            <div className="grid content-center gap-6 bg-[#090909] px-6 py-6 font-mono text-white lg:border-l lg:border-white/15">
+            <div className="grid content-center gap-5 bg-[#090909] px-6 py-6 font-mono text-white lg:border-l lg:border-white/15">
               <div>
-                <p className="text-xs tracking-wide text-zinc-400">
+                <p className="text-[13px] tracking-wide text-zinc-400">
                   01 / CREATE REQUEST
                 </p>
                 <p className="mt-2 flex items-baseline justify-between gap-4">
-                  <code className="text-base font-bold">POST / HTTP/2</code>
-                  <code className="text-sm text-zinc-300">302</code>
+                  <code className="text-lg font-bold">POST / HTTP/2</code>
+                  <code className="text-base text-zinc-300">302</code>
                 </p>
-                <code className="mt-1 block text-[13px] text-zinc-300">
+                <code className="mt-1 block text-sm text-zinc-300">
                   task=&quot;Runtime proof from Sealos&quot;
                 </code>
               </div>
               <div>
-                <p className="text-xs tracking-wide text-zinc-400">
+                <p className="text-[13px] tracking-wide text-zinc-400">
                   02 / FRESH REQUEST
                 </p>
                 <p className="mt-2 flex items-baseline justify-between gap-4">
-                  <code className="text-base font-bold">GET / HTTP/2</code>
-                  <code className="text-sm text-zinc-300">200</code>
+                  <code className="text-lg font-bold">GET / HTTP/2</code>
+                  <code className="text-base text-zinc-300">200</code>
                 </p>
               </div>
               <div className="border-t border-white/15 pt-5">
-                <p className="text-xs tracking-wide text-zinc-400">
+                <p className="text-[13px] tracking-wide text-zinc-400">
                   03 / DATABASE RECORD
                 </p>
-                <code className="mt-2 block text-[13px] text-zinc-200">
+                <code className="mt-2 block text-sm text-zinc-200">
                   task[0]=&quot;Runtime proof from Sealos&quot;
                 </code>
-                <strong className="mt-2 block text-sm text-[#44b78b]">
+                <strong className="mt-2 block text-base text-[#44b78b]">
                   PERSISTED
                 </strong>
               </div>
@@ -312,7 +312,7 @@ export default function TutorialsPage({
 
       <main>
         <section className="container -mt-24 pt-32 pb-5">
-          <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-stretch lg:gap-0">
+          <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-stretch lg:gap-0">
             <div className="lg:pr-12">
               <p className="text-sm font-semibold text-zinc-400">
                 Deployment field note · 01
@@ -325,9 +325,7 @@ export default function TutorialsPage({
                   Django
                 </span>
                 <span className="flex items-baseline gap-5" aria-hidden="true">
-                  <span className="font-mono text-[0.72em] font-normal tracking-normal text-[#146dff]">
-                    →
-                  </span>
+                  <ArrowRight className="h-[0.75em] w-[1.45em] shrink-0 stroke-[1.25] text-[#146dff]" />
                   <span>Sealos</span>
                 </span>
               </h1>
