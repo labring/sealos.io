@@ -125,59 +125,67 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="overflow-hidden bg-[#e3e5df] px-7 py-6 text-[#101318] md:px-9">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <span className="text-sm font-semibold text-[#146dff]">
+            <div className="overflow-hidden bg-[#e3e5df] px-7 py-7 text-[#101318] md:px-10 md:py-9">
+              <div className="flex flex-wrap items-end justify-between gap-3">
+                <span className="text-base font-semibold text-[#146dff]">
                   Verified request path
                 </span>
-                <code className="font-mono text-xs font-bold text-zinc-600">
+                <code className="font-mono text-sm font-bold text-zinc-700">
                   GET / → response.html
                 </code>
               </div>
 
-              <ol className="mt-5 grid gap-7 md:grid-cols-4 md:gap-8">
+              <ol className="mt-7 grid gap-8 md:grid-cols-4 md:gap-9">
                 {DEPLOYMENT_NODES.map((node, index) => (
                   <li key={node.marker} className="relative min-w-0">
-                    <span className="font-mono text-xs font-bold tracking-[0.08em] text-[#146dff]">
+                    <span className="font-mono text-sm font-bold tracking-[0.08em] text-[#146dff]">
                       {node.marker}
                     </span>
-                    <h3 className="mt-1 text-lg font-semibold tracking-[-0.02em]">
+                    <h3 className="mt-1 text-xl font-semibold tracking-[-0.025em]">
                       {node.title}
                     </h3>
-                    <div className="relative mt-4">
+                    <div className="relative mt-5">
                       {index < DEPLOYMENT_NODES.length - 1 && (
                         <span
-                          className="absolute top-1/2 left-3 hidden h-1 w-[calc(100%+2rem)] -translate-y-1/2 bg-[#146dff] md:block"
+                          className="absolute top-1/2 left-4 hidden h-1.5 w-[calc(100%+2.25rem)] -translate-y-1/2 bg-[#146dff] md:block"
                           aria-hidden="true"
                         >
-                          <span className="absolute top-1/2 left-1/2 size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff]" />
+                          <span className="absolute top-1/2 left-1/2 size-0 -translate-x-1/2 -translate-y-1/2 border-y-[5px] border-l-8 border-y-transparent border-l-[#146dff]" />
                         </span>
                       )}
                       <span
                         className={`relative z-10 flex items-center justify-center rounded-full ring-[#146dff] ${
-                          index === 1
-                            ? 'size-7 bg-[#146dff] ring-4 ring-[#146dff]/25'
-                            : index === DEPLOYMENT_NODES.length - 1
-                              ? 'size-7 bg-[#44b78b] ring-4 ring-[#44b78b]/25'
-                              : 'size-6 bg-[#e3e5df] ring-2'
+                          index === DEPLOYMENT_NODES.length - 1
+                            ? 'size-9 bg-[#44b78b] ring-4 ring-[#44b78b]/25'
+                            : 'size-8 bg-[#e3e5df] ring-[3px]'
                         }`}
                       >
                         <span
                           className={`rounded-full ${
-                            index === 1 || index === DEPLOYMENT_NODES.length - 1
-                              ? 'size-2.5 bg-white'
-                              : 'size-2 bg-[#146dff]'
+                            index === DEPLOYMENT_NODES.length - 1
+                              ? 'size-3 bg-white'
+                              : 'size-2.5 bg-[#146dff]'
                           }`}
                         />
                       </span>
                     </div>
-                    <code className="mt-4 block truncate font-mono text-[13px] font-bold text-zinc-900">
+                    <code className="mt-5 block truncate font-mono text-sm font-bold text-zinc-900">
                       {node.evidence}
                     </code>
-                    <span className="mt-2 flex items-center gap-3 text-[13px] font-bold">
-                      <span className="inline-flex items-center gap-2 text-emerald-800">
+                    <span className="mt-2.5 flex items-center gap-3 text-sm font-bold">
+                      <span
+                        className={`inline-flex items-center gap-2 ${
+                          index === DEPLOYMENT_NODES.length - 1
+                            ? 'text-emerald-800'
+                            : 'text-[#0d5fd6]'
+                        }`}
+                      >
                         <span
-                          className="size-1.5 rounded-full bg-emerald-600"
+                          className={`size-1.5 rounded-full ${
+                            index === DEPLOYMENT_NODES.length - 1
+                              ? 'bg-emerald-600'
+                              : 'bg-[#146dff]'
+                          }`}
                           aria-hidden="true"
                         />
                         {node.status}
