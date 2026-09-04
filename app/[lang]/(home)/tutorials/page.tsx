@@ -102,7 +102,7 @@ function TutorialCatalogCard({
 
       {isDjangoGuide ? (
         <nav className="text-[#0a0a0a]" aria-label="Guide chapters">
-          <div className="grid lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <div className="grid border-b border-zinc-500/30 lg:grid-cols-[minmax(0,1fr)_22rem]">
             <div className="grid gap-5 bg-[#f2f0e8] py-5 pr-8 lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-center lg:gap-0">
               <div className="lg:pr-8">
                 <p className="text-sm font-semibold text-zinc-600">
@@ -129,9 +129,9 @@ function TutorialCatalogCard({
 
             <div className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l lg:border-white/15">
               <p className="text-sm font-bold tracking-wide text-zinc-300">
-                LIVE RECEIPTS
+                DEPLOYMENT RECEIPTS
               </p>
-              <div className="mt-3 grid grid-cols-[2rem_1fr_7rem] gap-3 text-[11px] text-zinc-500">
+              <div className="mt-3 grid grid-cols-[2rem_1fr_7rem] gap-3 text-[11px] text-zinc-400">
                 <span>#</span>
                 <span>ACTION</span>
                 <span className="text-right">RESULT</span>
@@ -146,7 +146,9 @@ function TutorialCatalogCard({
               return (
                 <li
                   key={chapter.hash}
-                  className="grid border-t border-zinc-500/30 lg:min-h-[7.5rem] lg:grid-cols-[minmax(0,1fr)_22rem]"
+                  className={`grid lg:min-h-[7.5rem] lg:grid-cols-[minmax(0,1fr)_22rem] ${
+                    index === 0 ? '' : 'border-t border-zinc-500/30'
+                  }`}
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
@@ -186,7 +188,7 @@ function TutorialCatalogCard({
 
                   <span className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l lg:border-white/15">
                     <span className="grid grid-cols-[2rem_1fr_7rem] items-baseline gap-3">
-                      <code className="text-xs text-zinc-500">
+                      <code className="text-xs text-zinc-400">
                         0{index + 1}
                       </code>
                       <span className="text-sm font-bold tracking-wide text-zinc-200 uppercase">
@@ -325,7 +327,7 @@ export default function TutorialsPage({
       )}
 
       <main>
-        <section className="container -mt-24 pt-32">
+        <section className="container -mt-24 pt-32 pb-5">
           <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-stretch lg:gap-0">
             <div className="lg:pr-12">
               <p className="text-sm font-semibold text-zinc-400">
@@ -359,7 +361,7 @@ export default function TutorialsPage({
 
             <aside className="lg:border-l lg:border-white/15 lg:px-6">
               <div className="flex h-full flex-col border-t border-white/15 pt-5 pb-7">
-                <div className="flex items-center justify-between gap-5">
+                <div className="flex items-center gap-4">
                   <Image
                     src="/icons/django.svg"
                     alt="Django"
@@ -367,21 +369,30 @@ export default function TutorialsPage({
                     height={52}
                     className="h-7 w-auto opacity-80 invert"
                   />
-                  <span className="font-mono text-xs font-semibold text-zinc-400">
-                    2026.09.02
+                  <ArrowRight
+                    size={16}
+                    className="text-zinc-600"
+                    aria-hidden="true"
+                  />
+                  <span className="flex items-center gap-2 text-base font-semibold text-white">
+                    <Image
+                      src="/logo.svg"
+                      alt=""
+                      width={20}
+                      height={20}
+                      className="size-5"
+                    />
+                    Sealos
                   </span>
                 </div>
-                <div className="mt-10 font-mono">
-                  <p className="text-xs font-semibold tracking-wide text-zinc-500">
-                    SEALOS DEPLOYMENT STATUS
+                <div className="mt-9">
+                  <p className="font-mono text-xs font-semibold tracking-wide text-zinc-400">
+                    DEPLOYMENT VERIFIED
                   </p>
-                  <div className="mt-5 grid grid-cols-[1fr_auto] items-baseline gap-4 border-y border-white/15 py-4">
-                    <span className="font-sans text-2xl font-semibold tracking-[-0.04em] text-white">
-                      Django is live.
-                    </span>
-                    <strong className="text-xl text-[#44b78b]">200 OK</strong>
-                  </div>
-                  <p className="mt-4 text-sm text-zinc-400">
+                  <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-white">
+                    Django is live.
+                  </p>
+                  <p className="mt-5 border-y border-white/15 py-4 font-mono text-sm font-semibold text-[#44b78b]">
                     task persisted after a fresh load
                   </p>
                 </div>
