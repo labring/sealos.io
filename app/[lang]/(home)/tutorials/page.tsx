@@ -28,18 +28,24 @@ const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 
 const DJANGO_GUIDE_CHAPTERS = [
   {
+    phase: 'Configure',
     title: 'Prepare Django for production',
     detail: 'Configure Gunicorn and WhiteNoise.',
+    result: 'Production settings locked',
     hash: '#prepare-django-for-production',
   },
   {
+    phase: 'Deploy',
     title: 'Deploy with Sealos Skills',
     detail: 'Connect the application and database.',
+    result: 'Service and database linked',
     hash: '#deploy-with-sealos-skills',
   },
   {
+    phase: 'Verify',
     title: 'Verify the live application',
     detail: 'Confirm the HTTPS create/read flow.',
+    result: 'HTTPS create/read confirmed',
     hash: '#verify-the-live-django-application',
   },
 ] as const;
@@ -113,12 +119,12 @@ function TutorialCatalogCard({
               Django deployment receipt
             </figcaption>
 
-            <div className="grid overflow-hidden border border-white/15 md:grid-cols-12">
-              <aside className="flex items-center justify-between gap-6 bg-[#146dff] p-5 text-white md:col-span-1 md:min-h-full md:flex-col md:items-start">
+            <div className="grid overflow-hidden border border-white/15 md:grid-cols-[4rem_minmax(0,1fr)]">
+              <aside className="flex items-center justify-between gap-6 bg-[#146dff] p-4 text-white md:min-h-full md:flex-col md:items-start">
                 <span className="font-mono text-xs font-bold tracking-[0.08em]">
                   RUN
                 </span>
-                <strong className="block text-4xl leading-none font-semibold tracking-[-0.06em]">
+                <strong className="block text-3xl leading-none font-semibold tracking-[-0.06em]">
                   01
                 </strong>
                 <span className="font-mono text-xs font-semibold text-blue-100">
@@ -126,7 +132,7 @@ function TutorialCatalogCard({
                 </span>
               </aside>
 
-              <div className="bg-[#cdd1ce] text-[#101318] md:col-span-11">
+              <div className="bg-[#cdd1ce] text-[#101318]">
                 <dl className="grid border-b border-zinc-500/40 md:grid-cols-3 md:divide-x md:divide-zinc-500/40">
                   <div className="px-6 py-4 sm:px-8">
                     <dt className="text-xs font-bold tracking-[0.08em] text-zinc-600">
@@ -215,38 +221,53 @@ function TutorialCatalogCard({
                 service.
               </p>
             </div>
-            <div className="mt-7 border-y border-white/15">
-              <div className="grid md:grid-cols-3">
+            <div className="relative mt-7 border-y border-white/15">
+              <span
+                className="absolute top-10 right-6 left-6 hidden h-px bg-white/20 md:block"
+                aria-hidden="true"
+              />
+              <ol className="grid md:grid-cols-3">
                 {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                  <Link
+                  <li
                     key={chapter.hash}
-                    href={`${tutorial.url}${chapter.hash}`}
-                    className="group flex min-h-52 flex-col border-b border-white/15 p-6 text-left last:border-b-0 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:border-r md:border-b-0 md:last:border-r-0"
+                    className="border-b border-white/15 last:border-b-0 md:border-b-0"
                   >
-                    <span className="flex items-baseline justify-between gap-4">
-                      <span className="font-mono text-4xl font-medium tracking-[-0.08em] text-[#5f96ff]">
-                        0{index + 1}
+                    <Link
+                      href={`${tutorial.url}${chapter.hash}`}
+                      className="group flex min-h-56 flex-col px-6 py-7 text-left focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    >
+                      <span className="relative z-10 flex items-center justify-between gap-4">
+                        <span className="inline-flex items-center gap-3 bg-[#08090a] pr-3 font-mono text-sm font-bold text-white">
+                          <span
+                            className="size-2 rotate-45 bg-[#146dff]"
+                            aria-hidden="true"
+                          />
+                          0{index + 1}
+                        </span>
+                        <span className="bg-[#08090a] pl-3 text-sm font-semibold text-zinc-300">
+                          {chapter.phase}
+                        </span>
                       </span>
-                      <span className="font-mono text-xs font-bold tracking-[0.08em] text-zinc-400">
-                        CHAPTER
+                      <strong className="mt-8 block text-xl font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                        {chapter.title}
+                      </strong>
+                      <span className="mt-3 block text-sm leading-6 text-zinc-300">
+                        {chapter.detail}
                       </span>
-                    </span>
-                    <strong className="mt-7 block text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
-                      {chapter.title}
-                    </strong>
-                    <span className="mt-3 block text-sm leading-6 text-zinc-300">
-                      {chapter.detail}
-                    </span>
-                    <span className="mt-auto self-end pt-5">
-                      <ArrowRight
-                        size={16}
-                        className="text-zinc-400 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
-                        aria-hidden="true"
-                      />
-                    </span>
-                  </Link>
+                      <span className="mt-auto flex items-end justify-between gap-4 pt-6">
+                        <span className="text-sm font-semibold text-[#00dca0]">
+                          ✓ {chapter.result}
+                        </span>
+                        <ArrowRight
+                          size={16}
+                          className="shrink-0 text-zinc-400 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
+                          aria-hidden="true"
+                        />
+                      </span>
+                    </Link>
+                  </li>
                 ))}
-              </div>
+              </ol>
 
               <TutorialRequestGuideLink className="group flex flex-col gap-4 border-t border-white/15 px-6 py-5 text-left transition-colors hover:bg-white/[0.03] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:flex-row sm:items-center sm:justify-between">
                 <span className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-5">

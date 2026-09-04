@@ -199,7 +199,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
             <div>
               <Link
                 href={homeHref}
-                className="inline-flex items-center gap-2 font-mono text-sm font-bold tracking-[0.02em] text-white uppercase"
+                className="inline-flex items-center gap-2 text-lg font-semibold text-white"
               >
                 <img src="/logo.svg" alt="" className="size-7" />
                 Sealos

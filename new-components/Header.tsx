@@ -168,7 +168,7 @@ const DropdownMenu = ({
 }) => {
   return (
     <>
-      <NavigationMenuTrigger className="rounded-none font-mono text-xs tracking-[0.04em] uppercase">
+      <NavigationMenuTrigger className="rounded-none text-sm font-medium">
         {title}
       </NavigationMenuTrigger>
 
@@ -304,7 +304,7 @@ export function Header({ lang }: HeaderProps) {
                 }}
                 className="overflow-hidden"
               >
-                <span className="pl-1 font-mono text-sm leading-none font-bold tracking-[0.02em] whitespace-nowrap uppercase">
+                <span className="pl-1 leading-none font-bold whitespace-nowrap">
                   Sealos
                 </span>
               </motion.div>
@@ -329,7 +329,7 @@ export function Header({ lang }: HeaderProps) {
                         asChild
                         className={cn(
                           navigationMenuTriggerStyle(),
-                          'rounded-none font-mono text-xs tracking-[0.04em] uppercase',
+                          'rounded-none text-sm font-medium',
                         )}
                       >
                         <a
@@ -353,7 +353,7 @@ export function Header({ lang }: HeaderProps) {
             <Button
               asChild
               variant="ghost"
-              className="hidden h-9 rounded-none font-mono text-xs lg:flex"
+              className="hidden h-9 rounded-none lg:flex"
               aria-label="Open Sealos GitHub page."
             >
               <a
@@ -376,7 +376,7 @@ export function Header({ lang }: HeaderProps) {
             </Button>
             <Button
               variant="default"
-              className="hidden h-9 rounded-none bg-[#146dff] px-4 font-mono text-xs tracking-[0.04em] text-white uppercase shadow-none hover:bg-[#0f5dd6] lg:flex"
+              className="hidden h-9 rounded-none bg-[#146dff] px-4 text-sm font-semibold text-white shadow-none hover:bg-[#0f5dd6] lg:flex"
               aria-label="Start using Sealos for free."
               {...getRybbitCtaProps({
                 id: 'home_header_get_started',
