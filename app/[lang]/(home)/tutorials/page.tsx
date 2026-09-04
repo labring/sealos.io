@@ -112,8 +112,8 @@ function TutorialCatalogCard({
             className="bg-[#f2f0e8] text-[#0a0a0a]"
             aria-label="Guide chapters"
           >
-            <div className="grid gap-8 px-7 py-9 lg:grid-cols-[2fr_1fr] lg:items-end">
-              <div>
+            <div className="grid gap-8 py-9 lg:grid-cols-3 lg:items-end lg:gap-0">
+              <div className="lg:col-span-2 lg:pr-12">
                 <p className="text-sm font-semibold text-[#146dff]">
                   Inside the guide
                 </p>
@@ -121,7 +121,7 @@ function TutorialCatalogCard({
                   Three decisive checks.
                 </h3>
               </div>
-              <div>
+              <div className="lg:pl-7">
                 <p className="text-base leading-7 text-zinc-700">
                   Configure, deploy, then verify the public flow.
                 </p>
@@ -136,19 +136,19 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <div className="hidden grid-cols-[1.15fr_1fr_18rem] gap-5 border-y border-black/15 px-7 py-3 text-xs font-semibold text-zinc-500 md:grid">
+            <div className="hidden grid-cols-3 border-y border-black/15 py-3 text-xs font-semibold text-zinc-500 md:grid">
               <span>Guide step</span>
-              <span>Outcome</span>
-              <span>Verified proof</span>
+              <span className="px-7">Outcome</span>
+              <span className="pl-7">Verified proof</span>
             </div>
-            <ol className="divide-y divide-black/15 px-7">
+            <ol className="divide-y divide-black/15">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li key={chapter.hash}>
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid min-h-28 gap-5 py-6 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[1.15fr_1fr_18rem] md:items-center"
+                    className="group grid min-h-28 gap-5 py-6 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-3 md:items-center md:gap-0"
                   >
-                    <span className="grid grid-cols-[3.25rem_1fr] items-center gap-5">
+                    <span className="grid grid-cols-[3.25rem_1fr] items-center gap-5 md:pr-7">
                       <span className="font-mono text-4xl font-bold tracking-[-0.06em] text-zinc-500">
                         0{index + 1}
                       </span>
@@ -167,10 +167,10 @@ function TutorialCatalogCard({
                         </strong>
                       </span>
                     </span>
-                    <span className="text-base leading-7 text-zinc-700">
+                    <span className="text-base leading-7 text-zinc-700 md:px-7">
                       {chapter.detail}
                     </span>
-                    <code className="justify-self-stretch bg-[#0a0a0a] px-4 py-3 font-mono text-[13px] font-bold text-[#f2f0e8]">
+                    <code className="border-l-2 border-[#16815d] py-2 pl-4 font-mono text-[13px] font-bold text-zinc-800 md:ml-7">
                       {chapter.evidence}
                     </code>
                   </Link>
@@ -345,9 +345,8 @@ export default function TutorialsPage({
                 <p className="text-sm font-semibold text-zinc-200">
                   Production evidence
                 </p>
-                <span className="inline-flex items-center gap-2 font-mono text-xs font-bold text-[#44b78b]">
-                  <span className="size-2 bg-current" aria-hidden="true" />4 / 4
-                  verified
+                <span className="text-xs font-semibold text-[#44b78b]">
+                  4 of 4 verified
                 </span>
               </div>
 
@@ -355,27 +354,20 @@ export default function TutorialsPage({
                 className="mt-3 divide-y divide-white/15 border-y border-white/15"
                 aria-label="Verified Django deployment path"
               >
-                {DJANGO_RUNTIME_EVIDENCE.map((evidence, index) => (
+                {DJANGO_RUNTIME_EVIDENCE.map((evidence) => (
                   <li
                     key={evidence.service}
-                    className="grid grid-cols-[1.5rem_1fr_auto] items-center gap-3 py-2.5"
+                    className="grid grid-cols-[1fr_auto] items-center gap-4 py-2.5"
                   >
-                    <span className="font-mono text-[11px] font-bold text-[#5f96ff]">
-                      0{index + 1}
-                    </span>
                     <span className="min-w-0">
-                      <strong className="block truncate text-xs font-semibold text-white">
+                      <strong className="block truncate text-[13px] font-semibold text-white">
                         {evidence.service}
                       </strong>
-                      <code className="mt-0.5 block truncate font-mono text-[11px] text-zinc-500">
+                      <code className="mt-0.5 block truncate font-mono text-xs text-zinc-400">
                         {evidence.event}
                       </code>
                     </span>
-                    <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#44b78b]">
-                      <span
-                        className="size-1.5 bg-current"
-                        aria-hidden="true"
-                      />
+                    <span className="text-xs font-semibold text-[#44b78b]">
                       {evidence.result}
                     </span>
                   </li>
