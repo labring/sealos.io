@@ -35,7 +35,9 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#prepare-django-for-production',
     evidence: 'Django container',
     status: 'Running',
-    cropClassName: '-left-[166.25%] -top-[71.7%]',
+    imageSrc: '/images/tutorials/django/django-sealos-project-ops-running.webp',
+    imageClassName:
+      '-left-[166.25%] -top-[71.7%] h-auto w-[400%] brightness-110 contrast-110',
   },
   {
     step: '02',
@@ -44,7 +46,9 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#deploy-with-sealos-skills',
     evidence: 'PostgreSQL',
     status: 'Running',
-    cropClassName: '-left-[266.25%] -top-[83.3%]',
+    imageSrc: '/images/tutorials/django/django-sealos-project-ops-running.webp',
+    imageClassName:
+      '-left-[266.25%] -top-[108.3%] h-auto w-[400%] brightness-110 contrast-110',
   },
   {
     step: '03',
@@ -53,7 +57,9 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#verify-the-live-django-application',
     evidence: 'Public HTTPS',
     status: 'Reachable',
-    cropClassName: '-left-[62.5%] -top-[66.7%]',
+    imageSrc:
+      '/images/tutorials/django/django-sealos-live-app-https-proof.webp',
+    imageClassName: 'inset-0 h-full w-full object-cover object-center',
   },
 ] as const;
 
@@ -140,9 +146,9 @@ function TutorialCatalogCard({
                   >
                     <div className="relative aspect-[4/3] overflow-hidden bg-[#090c14]">
                       <Image
-                        src="/images/tutorials/django/django-sealos-project-ops-running.webp"
+                        src={chapter.imageSrc}
                         alt={`${chapter.evidence} shown in the running Sealos project`}
-                        className={`absolute h-auto w-[400%] max-w-none brightness-110 contrast-110 ${chapter.cropClassName}`}
+                        className={`absolute max-w-none ${chapter.imageClassName}`}
                         width={3200}
                         height={1800}
                         priority={priorityImage}
@@ -279,7 +285,7 @@ export default function TutorialsPage({
       )}
 
       <main>
-        <section className="container -mt-24 grid pt-32 pb-12 md:grid-cols-12 md:items-end md:gap-8">
+        <section className="container -mt-24 grid pt-32 pb-12 md:grid-cols-12 md:items-start md:gap-8">
           <div className="md:col-span-8">
             <p className="text-xs font-semibold tracking-[0.18em] text-[#5f96ff] uppercase">
               Sealos deployment field note · 01
@@ -318,7 +324,7 @@ export default function TutorialsPage({
               </div>
             )}
           </div>
-          <div className="mt-8 md:col-span-4 md:mt-0 md:pb-1 md:pl-8">
+          <div className="mt-8 md:col-span-4 md:mt-0 md:pt-14 md:pl-8">
             <p className="max-w-sm text-3xl leading-[1.15] font-medium tracking-[-0.03em] text-zinc-200">
               From working code{' '}
               <span className="text-[#5f96ff]">to green lights.</span>
@@ -388,19 +394,16 @@ export default function TutorialsPage({
           )}
 
           <section className="mt-14 grid gap-5 py-3 md:grid-cols-12 md:items-center md:gap-8">
-            <p className="text-sm font-semibold text-[#5f96ff] md:col-span-3">
-              Next field note
-            </p>
-            <div className="md:col-span-6">
+            <div className="md:col-span-8">
               <h2 className="text-2xl font-semibold tracking-tight text-white">
-                Missing your stack?
+                Help choose the next field note.
               </h2>
               <p className="mt-2 max-w-xl text-sm leading-6 text-zinc-400">
                 Share the framework or runtime and the deployment job you need.
                 Requests help prioritize the next qualified Core tutorial.
               </p>
             </div>
-            <TutorialRequestGuideLink className="group inline-flex h-11 shrink-0 items-center text-sm font-semibold text-white transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3 md:justify-end">
+            <TutorialRequestGuideLink className="group inline-flex h-11 shrink-0 items-center text-sm font-semibold text-white transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-4 md:justify-end">
               Request a tutorial
               <ArrowRight
                 size={16}
