@@ -31,7 +31,7 @@ const DEPLOYMENT_NODES = [
     marker: '01.A',
     title: 'Public HTTPS',
     status: 'Reachable',
-    value: 'django-tasks-mpbrofzu.us...',
+    value: 'django-tasks-mpbrofzu',
   },
   {
     marker: '01.B',
@@ -108,59 +108,46 @@ function TutorialCatalogCard({
             </span>
           </figcaption>
 
-          <div className="grid overflow-hidden bg-[#dedfda] text-zinc-950 md:grid-cols-[7rem_minmax(0,1fr)]">
-            <aside className="flex min-h-56 flex-col justify-between bg-[#146dff] p-5 text-white">
-              <p className="text-xs font-semibold">
-                HTTP
-                <br />
-                response
-              </p>
-              <p>
-                <strong className="block text-5xl leading-none font-semibold tracking-[-0.06em]">
-                  200
-                </strong>
-                <span className="mt-1 block text-base font-semibold">OK</span>
-              </p>
-              <p className="text-xs leading-5 font-medium text-blue-100">
-                Public ingress
-                <br />
-                Private data
-              </p>
-            </aside>
+          <div className="border-l-4 border-[#146dff] bg-[#d8dad5] px-7 py-5 text-zinc-950 md:px-9">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <span className="text-xs font-semibold text-[#146dff]">
+                Verified request path
+              </span>
+              <code className="inline-flex items-center gap-3 text-xs font-semibold text-zinc-600">
+                GET /<span className="text-emerald-700">200 OK</span>
+              </code>
+            </div>
 
-            <div className="px-7 py-7 md:px-9">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <span className="text-xs font-semibold text-[#146dff]">
-                  Verified request path
-                </span>
-                <code className="text-xs font-semibold text-zinc-600">
-                  GET / → response.html
-                </code>
-              </div>
+            <div className="relative mt-7">
+              <span
+                className="absolute top-20 right-2.5 left-2.5 hidden h-0.5 bg-[#146dff] md:block"
+                aria-hidden="true"
+              />
+              <span
+                className="absolute top-20 left-1/4 hidden size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff] md:block"
+                aria-hidden="true"
+              />
+              <span
+                className="absolute top-20 left-3/4 hidden size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff] md:block"
+                aria-hidden="true"
+              />
 
-              <ol className="mt-7 grid gap-8 md:grid-cols-3 md:gap-10">
-                {DEPLOYMENT_NODES.map((node, index) => (
-                  <li key={node.marker} className="relative min-w-0">
+              <ol className="grid gap-8 md:grid-cols-3 md:gap-0">
+                {DEPLOYMENT_NODES.map((node) => (
+                  <li
+                    key={node.marker}
+                    className="relative flex min-w-0 flex-col items-center text-center first:items-start first:text-left last:items-end last:text-right"
+                  >
                     <span className="font-mono text-xs font-semibold tracking-[0.1em] text-[#146dff]">
                       {node.marker}
                     </span>
                     <h3 className="mt-2 text-xl font-semibold tracking-tight">
                       {node.title}
                     </h3>
-                    <div className="relative mt-5">
-                      {index < DEPLOYMENT_NODES.length - 1 && (
-                        <span
-                          className="absolute top-1/2 left-2.5 hidden h-0.5 w-[calc(100%+2.5rem)] -translate-y-1/2 bg-[#146dff] md:block"
-                          aria-hidden="true"
-                        >
-                          <span className="absolute top-1/2 left-1/2 size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff]" />
-                        </span>
-                      )}
-                      <span className="relative z-10 flex size-5 items-center justify-center rounded-full bg-[#dedfda] ring-2 ring-[#146dff]">
-                        <span className="size-2 rounded-full bg-[#146dff]" />
-                      </span>
-                    </div>
-                    <code className="mt-5 block truncate text-xs font-semibold text-zinc-900">
+                    <span className="relative z-10 mt-5 flex size-5 items-center justify-center rounded-full bg-[#d8dad5] ring-2 ring-[#146dff]">
+                      <span className="size-2 rounded-full bg-[#146dff]" />
+                    </span>
+                    <code className="mt-5 block text-xs font-semibold text-zinc-900">
                       {node.value}
                     </code>
                     <span className="mt-2 inline-flex items-center gap-2 text-xs font-semibold text-emerald-700">
@@ -170,12 +157,12 @@ function TutorialCatalogCard({
                   </li>
                 ))}
               </ol>
+            </div>
 
-              <div className="mt-6 grid gap-2 border-t border-zinc-400/50 pt-4 font-mono text-[11px] font-semibold text-zinc-600 md:grid-cols-3 md:gap-10">
-                <span>HTTPS :443 · 200</span>
-                <span>WSGI :8000 · 1 replica</span>
-                <span>PostgreSQL :5432 · private</span>
-              </div>
+            <div className="mt-5 grid gap-2 border-t border-zinc-400/50 pt-3 font-mono text-[11px] font-semibold text-zinc-600 md:grid-cols-3">
+              <span>HTTPS :443 · 200</span>
+              <span className="md:text-center">WSGI :8000 · 1 replica</span>
+              <span className="md:text-right">PostgreSQL :5432 · private</span>
             </div>
           </div>
 
@@ -203,7 +190,7 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-5 rounded-sm py-4 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,0.8fr)]"
+                    className="group grid items-center gap-x-5 rounded-sm py-4 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_26rem_minmax(0,1fr)]"
                   >
                     <span className="font-mono text-2xl font-medium tracking-[-0.08em] text-[#5f96ff]">
                       0{index + 1}
