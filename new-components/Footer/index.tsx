@@ -233,23 +233,27 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
             </div>
 
             <div>
-              <p className="font-mono text-xs font-semibold tracking-[0.08em] text-[#5f96ff] lg:text-right">
-                EXPLORE / SEALOS
+              <p className="text-sm font-semibold text-[#5f96ff]">
+                Explore Sealos
               </p>
               <nav
                 aria-label="Footer"
-                className="mt-4 flex max-w-3xl flex-wrap gap-x-6 gap-y-3 lg:ml-auto lg:justify-end"
+                className="mt-5 grid grid-cols-2 gap-x-8 gap-y-7 sm:grid-cols-4"
               >
-                {footerLinks.columns.flatMap((category) =>
-                  category.links.map((link) => (
-                    <FooterLink
-                      key={`${category.title}-${link.text}`}
-                      href={link.url}
-                    >
-                      {link.text}
-                    </FooterLink>
-                  )),
-                )}
+                {footerLinks.columns.map((category) => (
+                  <div key={category.title}>
+                    <p className="text-xs font-semibold tracking-[0.04em] text-zinc-500 uppercase">
+                      {category.title}
+                    </p>
+                    <div className="mt-3 flex flex-col items-start gap-2.5">
+                      {category.links.map((link) => (
+                        <FooterLink key={link.text} href={link.url}>
+                          {link.text}
+                        </FooterLink>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </nav>
             </div>
           </div>

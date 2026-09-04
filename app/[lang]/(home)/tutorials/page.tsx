@@ -125,22 +125,24 @@ function TutorialCatalogCard({
             </figcaption>
 
             <div className="grid bg-[#d4d7d4] text-[#101318] md:grid-cols-12">
-              <div className="border-b border-zinc-600/30 bg-[#b3bab6] p-6 md:col-span-3 md:border-r md:border-b-0">
+              <div className="flex flex-col border-b border-zinc-600/30 bg-[#b3bab6] p-6 md:col-span-3 md:border-r md:border-b-0">
                 <p className="text-sm font-semibold text-zinc-700">
                   Request trace
                 </p>
-                <p className="mt-4 font-mono text-5xl leading-none font-medium tracking-[-0.08em] text-[#101318]">
-                  04
+                <p className="mt-5 text-2xl leading-tight font-semibold">
+                  Four request events
                 </p>
-                <p className="mt-3 text-lg font-bold">Request events</p>
-                <code className="mt-6 block text-xs font-semibold text-zinc-700">
+                <p className="mt-3 text-sm leading-6 text-zinc-700">
+                  One saved task proves the complete production path.
+                </p>
+                <code className="mt-auto block pt-6 text-xs font-semibold text-zinc-700">
                   POST → 302 → GET → 200
                 </code>
               </div>
 
               <div className="relative bg-[repeating-linear-gradient(0deg,rgba(16,19,24,0.018)_0,rgba(16,19,24,0.018)_1px,transparent_1px,transparent_4px)] md:col-span-9">
                 <span
-                  className="absolute top-7 bottom-7 left-[2.2rem] w-px bg-[#146dff]/45"
+                  className="absolute top-7 bottom-7 left-[1.875rem] w-px bg-[#146dff]/35"
                   aria-hidden="true"
                 />
                 <ol className="divide-y divide-zinc-600/30 px-6">
@@ -149,9 +151,10 @@ function TutorialCatalogCard({
                       key={step.marker}
                       className="relative grid grid-cols-[2rem_minmax(0,1fr)] items-center gap-x-4 gap-y-1 py-4 md:grid-cols-12"
                     >
-                      <span className="z-10 flex size-6 items-center justify-center bg-[#146dff] font-mono text-[11px] font-bold text-white md:col-span-1">
-                        {step.marker}
-                      </span>
+                      <span
+                        className="z-10 ml-0.5 size-2 bg-[#146dff] md:col-span-1"
+                        aria-hidden="true"
+                      />
                       <span className="col-start-2 text-xs font-bold tracking-[0.04em] text-zinc-700 md:col-span-2 md:col-start-auto">
                         {step.label}
                       </span>
@@ -204,12 +207,12 @@ function TutorialCatalogCard({
                 <p className="text-sm font-semibold text-[#5f96ff]">
                   Inside the guide
                 </p>
-                <p className="mt-4 font-mono text-5xl leading-none font-medium tracking-[-0.08em] text-white">
-                  03
-                </p>
-                <h3 className="mt-3 text-xl leading-tight font-semibold text-white">
-                  Decisive checks
+                <h3 className="mt-5 text-2xl leading-tight font-semibold text-white">
+                  Three decisive checks
                 </h3>
+                <p className="mt-3 text-sm leading-6 text-zinc-400">
+                  Configure, deploy, then verify.
+                </p>
                 <p className="mt-auto pt-5 text-sm leading-6 text-zinc-300">
                   35 minutes from local project to verified production service.
                 </p>
@@ -383,7 +386,7 @@ export default function TutorialsPage({
       <main>
         <section className="container -mt-24 pt-32 pb-10">
           <div className="grid gap-9 md:grid-cols-12 md:items-stretch md:gap-x-6">
-            <div className="md:col-span-8">
+            <div className="md:col-span-8 md:pt-6">
               <p className="text-sm font-semibold text-[#5f96ff]">
                 Deployment field note · 01
               </p>
@@ -419,7 +422,7 @@ export default function TutorialsPage({
               )}
             </div>
 
-            <aside className="border border-[#44b78b]/40 bg-[#0c4b33] p-6 md:col-span-4">
+            <aside className="border border-[#2f6d55] bg-[#0a2a20] p-6 md:col-span-4">
               <div className="flex items-center justify-between gap-4">
                 <p className="text-sm font-semibold text-[#b8e8d1]">
                   Runtime profile
