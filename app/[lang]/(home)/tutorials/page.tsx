@@ -25,9 +25,6 @@ const TUTORIALS_PAGE_TITLE = 'Sealos Deployment Tutorials';
 const TUTORIALS_PAGE_DESCRIPTION =
   'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
-const DJANGO_LIVE_EVIDENCE =
-  '/images/tutorials/django/django-sealos-live-app-https-proof.webp';
-
 const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
@@ -105,7 +102,7 @@ function TutorialCatalogCard({
             <div className="overflow-hidden border-b border-white/15 bg-[#eef1f6]">
               <div className="flex min-h-11 flex-wrap items-center gap-5 border-b border-black/15 bg-[#e4e8ee] px-5 py-2 text-[#10131a]">
                 <span className="font-mono text-[11px] font-bold tracking-[0.04em] text-[#146dff] uppercase">
-                  Live capture
+                  Verified result
                 </span>
                 <span className="min-w-0 flex-1 truncate font-mono text-xs font-semibold">
                   https://django-tasks-mpbrofzu.usw.sealos.io/
@@ -115,16 +112,36 @@ function TutorialCatalogCard({
                 </time>
               </div>
 
-              <div className="relative aspect-video overflow-hidden bg-[#eef1f6] md:aspect-auto md:min-h-[26rem]">
-                <Image
-                  src={DJANGO_LIVE_EVIDENCE}
-                  alt="Live Django task application showing a saved task after a successful HTTPS create and read request"
-                  fill
-                  className="scale-[1.4] object-cover object-[50%_35%]"
-                  priority
-                  quality={100}
-                  sizes="100vw"
-                />
+              <div className="bg-[#eef1f6] p-7 text-[#111827] md:min-h-[21rem] md:p-10">
+                <div className="mx-auto max-w-5xl border border-zinc-300 bg-white p-7 shadow-[0_18px_50px_rgba(22,39,74,0.08)] md:p-9">
+                  <p className="text-sm font-bold tracking-[0.08em] text-[#146dff] uppercase">
+                    Django + Sealos
+                  </p>
+                  <h4 className="mt-3 text-4xl font-semibold tracking-[-0.04em]">
+                    Django tasks
+                  </h4>
+                  <p className="mt-3 text-base text-zinc-600">
+                    Create a task, then read it from the list below.
+                  </p>
+                  <div className="mt-7 grid items-center gap-3 sm:grid-cols-[auto_1fr_auto]">
+                    <span className="font-semibold">Title:</span>
+                    <span className="border border-zinc-500 px-4 py-3 text-zinc-600">
+                      Ship Django on Sealos
+                    </span>
+                    <span className="bg-[#146dff] px-5 py-3 text-center font-semibold text-white">
+                      Add task
+                    </span>
+                  </div>
+                  <div className="mt-7 flex flex-wrap items-baseline gap-x-8 gap-y-2">
+                    <h5 className="text-2xl font-semibold tracking-[-0.025em]">
+                      Task list
+                    </h5>
+                    <p className="inline-flex items-center gap-3 text-base font-medium">
+                      <span className="size-2 rounded-full bg-[#44b78b]" />
+                      Runtime proof from Sealos
+                    </p>
+                  </div>
+                </div>
               </div>
 
               <div className="flex flex-wrap items-center justify-between gap-4 border-t-2 border-[#146dff] bg-[#0d1015] px-6 py-5 text-white">
@@ -171,7 +188,7 @@ function TutorialCatalogCard({
                     </span>
                     <span>
                       <span
-                        className={`font-mono text-xs font-bold tracking-[0.06em] uppercase ${
+                        className={`text-sm font-semibold ${
                           chapter.phase === 'Verify'
                             ? 'text-[#16815d]'
                             : 'text-[#146dff]'
@@ -348,7 +365,7 @@ export default function TutorialsPage({
                 <div className="mt-7 flex flex-wrap items-center gap-5">
                   <Link
                     href={firstTutorial.url}
-                    className="group inline-flex w-56 items-center justify-between border-b-2 border-[#146dff] py-3 text-base font-semibold text-white transition-colors hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group inline-flex w-56 items-center justify-between bg-[#f2f0e8] px-5 py-3 text-base font-semibold text-[#0a0a0a] transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     Read the field note
                     <ArrowRight
