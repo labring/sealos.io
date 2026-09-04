@@ -28,6 +28,36 @@ const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 const DJANGO_PRODUCTION_EVIDENCE =
   '/images/tutorials/django/django-sealos-project-ops-running.webp';
 
+const DJANGO_EVIDENCE_NODES = [
+  {
+    phase: '01 · Configure',
+    label: 'Django runtime',
+    status: 'Running · :8000',
+    className: 'top-[17%] left-[3%] w-[30%]',
+    frameClassName: 'h-60',
+    position: '56% 38%',
+    size: '445% auto',
+  },
+  {
+    phase: '02 · Deploy',
+    label: 'PostgreSQL',
+    status: 'Private · attached',
+    className: 'top-[9%] left-[35%] w-[31%]',
+    frameClassName: 'h-72',
+    position: '90% 42%',
+    size: '410% auto',
+  },
+  {
+    phase: '03 · Verify',
+    label: 'Public HTTPS',
+    status: 'HTTP 200 · live',
+    className: 'top-[29%] right-[3%] w-[28%]',
+    frameClassName: 'h-40',
+    position: '22% 33%',
+    size: '480% auto',
+  },
+] as const;
+
 const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
@@ -102,36 +132,57 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="relative aspect-[16/8] overflow-hidden border-b border-white/15 bg-[#07101c] md:aspect-[16/5.25]">
+            <div className="overflow-hidden border-b border-white/15 bg-[#070b12]">
               <Image
                 src={DJANGO_PRODUCTION_EVIDENCE}
                 alt="Sealos project canvas showing the public HTTPS endpoint, running Django container, and attached PostgreSQL database"
-                fill
-                className="scale-[1.18] object-cover object-center brightness-110 contrast-125 saturate-75"
+                width={3200}
+                height={1800}
+                className="h-auto w-full brightness-110 contrast-110 md:hidden"
                 priority
                 quality={95}
-                sizes="(max-width: 1280px) 100vw, 1248px"
+                sizes="100vw"
               />
 
-              <div className="pointer-events-none absolute inset-0 hidden md:block">
-                <div className="absolute top-[4%] left-[10%]">
-                  <p className="font-mono text-xs font-bold tracking-[0.06em] text-[#79a8ff] uppercase">
-                    HTTPS · :443
-                  </p>
-                  <span className="mt-2 ml-1 block h-8 w-px bg-[#79a8ff]" />
-                </div>
-                <div className="absolute top-[4%] left-[42%]">
-                  <p className="font-mono text-xs font-bold tracking-[0.06em] text-[#79a8ff] uppercase">
-                    Running · :8000
-                  </p>
-                  <span className="mt-2 ml-1 block h-8 w-px bg-[#79a8ff]" />
-                </div>
-                <div className="absolute top-[4%] left-[74%]">
-                  <p className="font-mono text-xs font-bold tracking-[0.06em] text-[#79a8ff] uppercase">
-                    Database · private
-                  </p>
-                  <span className="mt-2 ml-1 block h-8 w-px bg-[#79a8ff]" />
-                </div>
+              <div className="relative hidden h-96 md:block">
+                <span
+                  className="absolute top-1/2 left-[32%] w-[5%] border-t border-dashed border-[#5f96ff]/60"
+                  aria-hidden="true"
+                />
+                <span
+                  className="absolute top-1/2 left-[64%] w-[7%] border-t border-dashed border-[#5f96ff]/60"
+                  aria-hidden="true"
+                />
+                <ol className="absolute inset-0">
+                  {DJANGO_EVIDENCE_NODES.map((node) => (
+                    <li
+                      key={node.phase}
+                      className={`absolute ${node.className}`}
+                    >
+                      <div className="flex items-baseline justify-between gap-4">
+                        <span className="font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase">
+                          {node.phase}
+                        </span>
+                        <span className="text-sm font-semibold text-white">
+                          {node.status}
+                        </span>
+                      </div>
+                      <div
+                        role="img"
+                        aria-label={`${node.label}: ${node.status}`}
+                        className={`mt-3 bg-no-repeat brightness-125 contrast-125 ${node.frameClassName}`}
+                        style={{
+                          backgroundImage: `url(${DJANGO_PRODUCTION_EVIDENCE})`,
+                          backgroundPosition: node.position,
+                          backgroundSize: node.size,
+                        }}
+                      />
+                      <p className="mt-3 text-xl font-semibold tracking-[-0.025em] text-white">
+                        {node.label}
+                      </p>
+                    </li>
+                  ))}
+                </ol>
               </div>
 
               <ul className="grid border-t border-white/15 bg-black sm:grid-cols-2 md:hidden">
@@ -152,25 +203,24 @@ function TutorialCatalogCard({
           </figure>
 
           <nav
-            className="mt-10 grid bg-[#f2f0e8] text-[#0a0a0a] md:grid-cols-[0.85fr_1.5fr]"
+            className="mt-10 bg-[#f2f0e8] text-[#0a0a0a]"
             aria-label="Guide chapters"
           >
-            <div className="flex flex-col p-8 md:min-h-[27rem] md:p-10">
-              <p className="text-sm font-semibold text-[#146dff]">
-                Inside the guide
-              </p>
-              <h3 className="mt-5 max-w-xs text-5xl leading-[0.95] font-medium tracking-[-0.055em]">
-                Three decisive checks.
-              </h3>
-              <p className="mt-6 max-w-xs text-base leading-7 text-zinc-600">
+            <div className="flex flex-wrap items-end justify-between gap-6 p-8 md:px-10">
+              <div>
+                <p className="text-sm font-semibold text-[#146dff]">
+                  Inside the guide
+                </p>
+                <h3 className="mt-4 text-4xl leading-none font-medium tracking-[-0.05em]">
+                  Three decisive checks.
+                </h3>
+              </div>
+              <p className="max-w-sm text-base leading-7 text-zinc-600">
                 Configure, deploy, then verify the public flow.
               </p>
-              <span className="mt-auto hidden font-mono text-xs font-bold tracking-[0.06em] text-zinc-500 uppercase md:block">
-                35 min · field note 01
-              </span>
             </div>
 
-            <ol className="border-t border-black/20 md:border-t-0 md:border-l">
+            <ol className="border-t border-black/20">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
@@ -178,7 +228,7 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid min-h-36 grid-cols-[3.5rem_1fr_auto] gap-x-5 p-6 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[4.5rem_1fr_auto]"
+                    className="group grid min-h-28 grid-cols-[3.5rem_1fr_auto] items-center gap-x-5 p-6 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[4.5rem_1.15fr_1fr_auto] md:px-10"
                   >
                     <span className="font-mono text-3xl leading-none font-medium tracking-[-0.05em] text-zinc-400">
                       0{index + 1}
@@ -196,6 +246,8 @@ function TutorialCatalogCard({
                       <strong className="mt-4 block text-2xl leading-tight font-semibold tracking-[-0.035em] transition-colors group-hover:text-[#146dff]">
                         {chapter.title}
                       </strong>
+                    </span>
+                    <span className="col-start-2 mt-3 md:col-start-auto md:mt-0">
                       <span className="mt-1 block text-sm leading-6 text-zinc-600">
                         {chapter.detail}
                       </span>
