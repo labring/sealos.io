@@ -29,6 +29,10 @@ const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 const DEPLOYMENT_NODES = [
   {
     marker: 'A',
+    x: 150,
+    y: 220,
+    position: { left: '12.5%', top: '65.5%' },
+    labelClassName: '-translate-x-1/2 -translate-y-[calc(100%+1.75rem)]',
     title: 'Public HTTPS',
     evidence: 'GET / HTTP/2',
     status: 'Reachable',
@@ -36,6 +40,10 @@ const DEPLOYMENT_NODES = [
   },
   {
     marker: 'B',
+    x: 450,
+    y: 140,
+    position: { left: '37.5%', top: '41.7%' },
+    labelClassName: '-translate-x-1/2 translate-y-7',
     title: 'Django container',
     evidence: 'config.wsgi:application',
     status: 'Running',
@@ -43,6 +51,10 @@ const DEPLOYMENT_NODES = [
   },
   {
     marker: 'C',
+    x: 750,
+    y: 194,
+    position: { left: '62.5%', top: '57.7%' },
+    labelClassName: '-translate-x-1/2 -translate-y-[calc(100%+1.75rem)]',
     title: 'PostgreSQL',
     evidence: 'DATABASE_URL → :5432',
     status: 'Attached',
@@ -50,6 +62,10 @@ const DEPLOYMENT_NODES = [
   },
   {
     marker: 'D',
+    x: 1050,
+    y: 100,
+    position: { left: '87.5%', top: '29.8%' },
+    labelClassName: '-translate-x-1/2 translate-y-7',
     title: 'Browser response',
     evidence: 'HTTP/2 200 · response.html',
     status: 'Verified',
@@ -118,11 +134,11 @@ function TutorialCatalogCard({
       {isDjangoGuide ? (
         <div>
           <figure>
-            <figcaption className="grid border-y border-white/15 md:grid-cols-4">
-              <span className="py-5 text-2xl font-medium tracking-[-0.035em] text-white md:col-span-3 md:pr-7">
+            <figcaption className="flex flex-wrap items-center justify-between gap-4 border-y border-white/15 py-5">
+              <span className="text-2xl font-medium tracking-[-0.035em] text-white">
                 Production trace
               </span>
-              <span className="inline-flex items-center gap-2 py-5 text-sm font-semibold text-[#44b78b] md:justify-end md:border-l md:border-white/15 md:pl-7">
+              <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#44b78b]">
                 <span
                   className="size-2 rounded-full bg-current"
                   aria-hidden="true"
@@ -131,68 +147,111 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="overflow-hidden border-b border-white/15 bg-[#0d1015] text-white">
-              <ol className="grid md:grid-cols-4">
+            <div className="relative hidden h-[21rem] overflow-hidden border-b border-white/15 bg-[#0d1015] text-white md:block">
+              <svg
+                viewBox="0 0 1200 336"
+                preserveAspectRatio="none"
+                className="absolute inset-0 size-full"
+                aria-hidden="true"
+              >
+                <path
+                  d="M150 220 L450 140 L750 194"
+                  fill="none"
+                  stroke="#146dff"
+                  strokeWidth="4"
+                  vectorEffect="non-scaling-stroke"
+                />
+                <path
+                  d="M750 194 L1050 100"
+                  fill="none"
+                  stroke="#44b78b"
+                  strokeWidth="4"
+                  vectorEffect="non-scaling-stroke"
+                />
+                {DEPLOYMENT_NODES.map((node, index) => (
+                  <circle
+                    key={node.marker}
+                    cx={node.x}
+                    cy={node.y}
+                    r="10"
+                    fill={
+                      index === DEPLOYMENT_NODES.length - 1
+                        ? '#44b78b'
+                        : '#146dff'
+                    }
+                    stroke="#0d1015"
+                    strokeWidth="7"
+                    vectorEffect="non-scaling-stroke"
+                  />
+                ))}
+              </svg>
+
+              <ol className="absolute inset-0">
                 {DEPLOYMENT_NODES.map((node, index) => (
                   <li
                     key={node.marker}
-                    className="relative min-w-0 border-b border-white/10 py-7 last:border-b-0 md:border-b-0 md:border-l md:text-center md:first:border-l-0"
+                    style={node.position}
+                    className={`absolute w-64 text-center ${node.labelClassName}`}
                   >
-                    <div className="px-7">
-                      <span className="font-mono text-xs font-bold tracking-[0.12em] text-[#5f96ff]">
-                        {node.marker}
+                    <span className="font-mono text-xs font-bold tracking-[0.12em] text-[#5f96ff]">
+                      {node.marker}
+                    </span>
+                    <h3 className="mt-2 text-xl font-semibold tracking-[-0.025em]">
+                      {node.title}
+                    </h3>
+                    <code className="mt-3 block truncate font-mono text-[13px] font-bold text-zinc-200">
+                      <span className="text-zinc-500" aria-hidden="true">
+                        &gt;{' '}
                       </span>
-                      <h3 className="mt-2 text-xl font-semibold tracking-[-0.025em]">
-                        {node.title}
-                      </h3>
-                    </div>
-
-                    <div className="relative mt-6 flex items-center md:justify-center">
-                      {index < DEPLOYMENT_NODES.length - 1 && (
-                        <span
-                          className="absolute top-1/2 left-1/2 hidden h-1 w-full -translate-y-1/2 bg-[#146dff] md:block"
-                          aria-hidden="true"
-                        />
-                      )}
-                      <span
-                        className={`relative z-10 size-5 rounded-full ring-4 ring-[#0d1015] ${
-                          index === DEPLOYMENT_NODES.length - 1
-                            ? 'bg-[#44b78b]'
-                            : 'bg-[#146dff]'
-                        }`}
-                      />
-                      {index < DEPLOYMENT_NODES.length - 1 && (
-                        <ArrowRight
-                          size={22}
-                          strokeWidth={2.5}
-                          className="absolute top-1/2 left-full z-20 hidden -translate-x-1/2 -translate-y-1/2 bg-[#0d1015] px-1 text-[#5f96ff] md:block"
-                          aria-hidden="true"
-                        />
-                      )}
-                    </div>
-
-                    <div className="px-7">
-                      <code className="mt-6 block truncate font-mono text-[13px] font-bold text-zinc-200">
-                        <span className="text-zinc-500" aria-hidden="true">
-                          &gt;{' '}
-                        </span>
-                        {node.evidence}
-                      </code>
-                      <span
-                        className={`mt-2 block font-mono text-xs font-bold tracking-[0.01em] uppercase ${
-                          index === DEPLOYMENT_NODES.length - 1
-                            ? 'text-[#44b78b]'
-                            : 'text-[#5f96ff]'
-                        }`}
-                      >
-                        {node.status}
-                        <span className="text-zinc-500"> · {node.detail}</span>
-                      </span>
-                    </div>
+                      {node.evidence}
+                    </code>
+                    <span
+                      className={`mt-2 block font-mono text-xs font-bold tracking-[0.01em] uppercase ${
+                        index === DEPLOYMENT_NODES.length - 1
+                          ? 'text-[#44b78b]'
+                          : 'text-[#5f96ff]'
+                      }`}
+                    >
+                      {node.status}
+                      <span className="text-zinc-500"> · {node.detail}</span>
+                    </span>
                   </li>
                 ))}
               </ol>
             </div>
+
+            <ol className="divide-y divide-white/10 border-b border-white/15 bg-[#0d1015] md:hidden">
+              {DEPLOYMENT_NODES.map((node, index) => (
+                <li key={node.marker} className="relative py-6 pl-8">
+                  <span
+                    className={`absolute top-7 left-0 size-3 rounded-full ${
+                      index === DEPLOYMENT_NODES.length - 1
+                        ? 'bg-[#44b78b]'
+                        : 'bg-[#146dff]'
+                    }`}
+                    aria-hidden="true"
+                  />
+                  <span className="font-mono text-xs font-bold tracking-[0.12em] text-[#5f96ff]">
+                    {node.marker}
+                  </span>
+                  <h3 className="mt-1 text-xl font-semibold text-white">
+                    {node.title}
+                  </h3>
+                  <code className="mt-3 block font-mono text-xs font-bold text-zinc-300">
+                    {node.evidence}
+                  </code>
+                  <span
+                    className={`mt-2 block font-mono text-xs font-bold uppercase ${
+                      index === DEPLOYMENT_NODES.length - 1
+                        ? 'text-[#44b78b]'
+                        : 'text-[#5f96ff]'
+                    }`}
+                  >
+                    {node.status} · {node.detail}
+                  </span>
+                </li>
+              ))}
+            </ol>
           </figure>
 
           <nav className="border-b border-white/15" aria-label="Guide chapters">
