@@ -18,6 +18,7 @@ import { ArrowRight, BookOpen } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { Fragment } from 'react';
 import { TutorialRequestGuideLink } from './TutorialRequestGuideLink';
 
 const TUTORIALS_PATHNAME = '/tutorials';
@@ -34,7 +35,7 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#prepare-django-for-production',
     evidence: 'Django container',
     status: 'Running',
-    cropClassName: '-left-[165%] -top-[70%]',
+    cropClassName: '-left-[186.8%] -top-[58.3%]',
   },
   {
     step: '02',
@@ -43,7 +44,7 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#deploy-with-sealos-skills',
     evidence: 'PostgreSQL',
     status: 'Running',
-    cropClassName: '-left-[268%] -top-[105%]',
+    cropClassName: '-left-[302.1%] -top-[62.5%]',
   },
   {
     step: '03',
@@ -52,7 +53,7 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#verify-the-live-django-application',
     evidence: 'Public HTTPS',
     status: 'Reachable',
-    cropClassName: '-left-[63%] -top-[70%]',
+    cropClassName: '-left-[73.6%] -top-[55.6%]',
   },
 ] as const;
 
@@ -158,52 +159,63 @@ function TutorialCatalogCard({
           <h2 id="inside-guide-heading" className="sr-only">
             Guide chapters and deployment evidence
           </h2>
-          <ol
-            className="grid gap-6 md:grid-cols-3 md:gap-5"
-            aria-labelledby="inside-guide-heading"
-          >
-            {DJANGO_GUIDE_CHAPTERS.map((chapter) => (
-              <li key={chapter.step}>
-                <Link
-                  href={`${tutorial.url}${chapter.hash}`}
-                  className="group block rounded-lg focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
-                >
-                  <div className="relative aspect-[1.45/1] overflow-hidden rounded-lg bg-[#090c14] ring-1 ring-white/15">
-                    <Image
-                      src="/images/tutorials/django/django-sealos-project-ops-running.webp"
-                      alt={`${chapter.evidence} shown in the running Sealos project`}
-                      className={`absolute h-auto w-[400%] max-w-none ${chapter.cropClassName}`}
-                      width={3200}
-                      height={1800}
-                      priority={priorityImage}
-                      quality={90}
-                      sizes="(max-width: 760px) 92vw, 400px"
-                    />
-                  </div>
-                  <div className="mt-5 flex items-start justify-between gap-4">
-                    <div>
-                      <span className="text-sm font-medium text-[#5f96ff]">
-                        {chapter.step}
-                      </span>
-                      <strong className="ml-3 text-lg font-semibold text-white transition-colors group-hover:text-[#5f96ff]">
-                        {chapter.evidence}
-                      </strong>
-                    </div>
-                    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400">
+          <div className="overflow-hidden rounded-lg ring-1 ring-white/15">
+            <div className="hidden grid-cols-[1fr_auto_1fr_auto_1fr] items-center bg-[#0d111b] px-5 py-4 text-sm md:grid">
+              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
+                <Fragment key={chapter.step}>
+                  <span className="flex items-center justify-center gap-3 font-medium text-zinc-100">
+                    {chapter.evidence}
+                    <span className="inline-flex items-center gap-1.5 text-xs text-emerald-400">
                       <span className="size-1.5 rounded-full bg-emerald-400" />
                       {chapter.status}
                     </span>
-                  </div>
-                  <span className="mt-2 block text-sm font-medium text-zinc-300">
-                    {chapter.title}
                   </span>
-                  <span className="mt-1 block text-sm text-zinc-500">
-                    {chapter.detail}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ol>
+                  {index < DJANGO_GUIDE_CHAPTERS.length - 1 && (
+                    <span className="text-[#5f96ff]" aria-hidden="true">
+                      →
+                    </span>
+                  )}
+                </Fragment>
+              ))}
+            </div>
+            <ol
+              className="grid bg-white/10 md:grid-cols-3 md:gap-px"
+              aria-labelledby="inside-guide-heading"
+            >
+              {DJANGO_GUIDE_CHAPTERS.map((chapter) => (
+                <li key={chapter.step} className="bg-[#070707]">
+                  <Link
+                    href={`${tutorial.url}${chapter.hash}`}
+                    className="group block focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none focus-visible:ring-inset"
+                  >
+                    <div className="relative aspect-square overflow-hidden bg-[#090c14]">
+                      <Image
+                        src="/images/tutorials/django/django-sealos-project-ops-running.webp"
+                        alt={`${chapter.evidence} shown in the running Sealos project`}
+                        className={`absolute h-auto w-[444.444%] max-w-none ${chapter.cropClassName}`}
+                        width={3200}
+                        height={1800}
+                        priority={priorityImage}
+                        quality={90}
+                        sizes="(max-width: 760px) 92vw, 416px"
+                      />
+                    </div>
+                    <div className="p-5 md:min-h-40">
+                      <span className="text-sm font-medium text-[#5f96ff]">
+                        Chapter {chapter.step}
+                      </span>
+                      <strong className="mt-3 block text-lg font-semibold text-white transition-colors group-hover:text-[#5f96ff]">
+                        {chapter.title}
+                      </strong>
+                      <span className="mt-1 block text-sm text-zinc-400">
+                        {chapter.detail}
+                      </span>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          </div>
         </figure>
       ) : (
         tutorial.image && (
@@ -324,34 +336,21 @@ export default function TutorialsPage({
               Deployment field notes
             </p>
             <h1
-              aria-label="Deployment guides, verified end to end"
+              aria-label="From working code to green lights"
               className="mt-5 text-5xl leading-[0.98] font-medium tracking-[-0.045em] text-white md:text-7xl"
             >
-              <span className="block">Deployment guides,</span>
-              <span className="mt-2 block text-zinc-300">
-                verified end to end.
-              </span>
+              <span className="block">From working code</span>
+              <span className="mt-2 block text-zinc-300">to green lights.</span>
             </h1>
           </div>
           <div className="mt-8 md:col-span-4 md:mt-0 md:pb-1 md:pl-8">
             <p className="max-w-sm text-base leading-7 text-zinc-300">
-              Follow a working repository through production setup, Sealos
-              deployment, and live application proof.
+              Deployment field guides that finish with a running service, an
+              attached database, and a reachable public endpoint.
             </p>
-            <dl className="mt-7 grid max-w-sm grid-cols-3 gap-4">
-              <div>
-                <dt className="text-xs text-zinc-500">Guides</dt>
-                <dd className="mt-1 text-2xl font-medium text-white">01</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-zinc-500">Services</dt>
-                <dd className="mt-1 text-2xl font-medium text-white">03</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-zinc-500">Minutes</dt>
-                <dd className="mt-1 text-2xl font-medium text-white">35</dd>
-              </div>
-            </dl>
+            <p className="mt-7 text-sm font-medium text-[#5f96ff]">
+              Build → Deploy → Verify
+            </p>
           </div>
         </section>
 
@@ -413,17 +412,17 @@ export default function TutorialsPage({
             </div>
           )}
 
-          <section className="mt-16 grid gap-6 md:grid-cols-12 md:items-end md:gap-8">
-            <div className="md:col-span-7">
-              <h2 className="text-foreground text-2xl font-semibold tracking-tight">
+          <section className="mt-16 grid gap-7 bg-[#146dff] px-7 py-8 text-white md:grid-cols-12 md:items-center md:gap-8 md:px-9">
+            <div className="md:col-span-8">
+              <h2 className="text-3xl font-semibold tracking-tight">
                 Need a guide for your stack?
               </h2>
-              <p className="mt-3 text-sm leading-6 text-zinc-400">
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-blue-100">
                 Share the framework or runtime and the deployment job you need.
                 Requests help prioritize the next qualified Core tutorial.
               </p>
             </div>
-            <TutorialRequestGuideLink className="group inline-flex h-11 shrink-0 items-center text-sm font-semibold text-white transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3 md:col-start-10 md:justify-end">
+            <TutorialRequestGuideLink className="group inline-flex h-11 shrink-0 items-center text-sm font-semibold text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:translate-x-1 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none md:col-span-4 md:justify-end">
               Request a tutorial
               <ArrowRight
                 size={16}
