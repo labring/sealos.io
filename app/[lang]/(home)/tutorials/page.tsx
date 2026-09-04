@@ -52,6 +52,29 @@ const DJANGO_GUIDE_CHAPTERS = [
   },
 ] as const;
 
+const DJANGO_RUNTIME_EVIDENCE = [
+  {
+    service: 'Ingress',
+    event: 'GET https://django-tasks…sealos.io/',
+    result: 'TLS · connected',
+  },
+  {
+    service: 'Application',
+    event: 'gunicorn config.wsgi:application',
+    result: 'PID 1 · running',
+  },
+  {
+    service: 'Database',
+    event: 'INSERT tasks_task · PostgreSQL :5432',
+    result: 'COMMIT · persisted',
+  },
+  {
+    service: 'Response',
+    event: 'GET / · HTTP/2',
+    result: '200 OK · verified',
+  },
+] as const;
+
 const TUTORIALS_PAGE_KEYWORDS = [
   'Sealos tutorials',
   'Django deployment tutorials',
@@ -92,111 +115,52 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="overflow-hidden border-b border-white/15 bg-[#10151d] px-7 py-8">
+            <div className="overflow-hidden border-b border-white/15 bg-[#10151d] px-7 py-6 font-mono">
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/15 pb-4 text-xs font-bold tracking-[0.06em] uppercase">
+                <span className="text-[#5f96ff]">
+                  Captured run / 2026-09-02
+                </span>
+                <span className="text-zinc-300">django-sealos-tasks</span>
+                <span className="inline-flex items-center gap-2 text-[#44b78b]">
+                  <span className="size-2 bg-current" aria-hidden="true" />4 / 4
+                  verified
+                </span>
+              </div>
+
+              <div className="hidden grid-cols-[3rem_8rem_1fr_12rem] gap-5 border-b border-white/10 py-3 text-[10px] font-bold tracking-[0.1em] text-zinc-600 uppercase md:grid">
+                <span>Seq</span>
+                <span>Service</span>
+                <span>Observed event</span>
+                <span className="text-right">Captured result</span>
+              </div>
+
               <ol
-                className="relative grid gap-7 md:grid-cols-4 md:gap-0"
-                aria-label="Live deployment path from public HTTPS through Django and PostgreSQL to an HTTP 200 response"
+                className="divide-y divide-white/10"
+                aria-label="Captured Django deployment run from HTTPS ingress through a persisted PostgreSQL write to an HTTP 200 response"
               >
-                <span
-                  className="absolute top-[4.25rem] right-[12.5%] left-[12.5%] hidden h-px bg-[#5f96ff] md:block"
-                  aria-hidden="true"
-                />
-
-                <li className="relative flex min-h-44 flex-col items-center text-center text-white">
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-sm font-bold text-zinc-500">
-                      01
+                {DJANGO_RUNTIME_EVIDENCE.map((evidence, index) => (
+                  <li
+                    key={evidence.service}
+                    className="grid grid-cols-[3rem_1fr] gap-x-4 gap-y-2 py-4 text-xs md:grid-cols-[3rem_8rem_1fr_12rem] md:items-center md:gap-5"
+                  >
+                    <span className="font-bold text-zinc-600">
+                      0{index + 1}
                     </span>
-                    <span className="text-sm font-semibold text-[#5f96ff]">
-                      Public ingress
+                    <span className="font-bold text-[#5f96ff] uppercase">
+                      {evidence.service}
                     </span>
-                  </div>
-                  <span
-                    className="relative z-10 mt-6 size-4 rounded-full border border-[#5f96ff] bg-[#10151d] ring-4 ring-[#10151d]"
-                    aria-hidden="true"
-                  />
-                  <p className="mt-5 text-3xl font-semibold tracking-[-0.045em]">
-                    HTTPS
-                  </p>
-                  <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
-                    django-tasks…sealos.io
-                  </code>
-                  <p className="mt-auto pt-3 text-sm font-semibold text-zinc-300">
-                    Connected
-                  </p>
-                </li>
-
-                <li className="relative flex min-h-44 flex-col items-center text-center text-white">
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-sm font-bold text-zinc-500">
-                      02
+                    <code className="col-span-2 text-[13px] text-zinc-200 md:col-span-1">
+                      {evidence.event}
+                    </code>
+                    <span className="col-span-2 inline-flex items-center gap-2 font-bold text-[#44b78b] uppercase md:col-span-1 md:justify-end">
+                      <span
+                        className="size-1.5 bg-current"
+                        aria-hidden="true"
+                      />
+                      {evidence.result}
                     </span>
-                    <span className="text-sm font-semibold text-[#5f96ff]">
-                      Application
-                    </span>
-                  </div>
-                  <span
-                    className="relative z-10 mt-6 size-4 rounded-full border border-[#5f96ff] bg-[#10151d] ring-4 ring-[#10151d]"
-                    aria-hidden="true"
-                  />
-                  <p className="mt-5 text-3xl font-semibold tracking-[-0.045em]">
-                    Django 5.2
-                  </p>
-                  <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
-                    Gunicorn · WhiteNoise
-                  </code>
-                  <p className="mt-auto pt-3 text-sm font-semibold text-zinc-300">
-                    Container running
-                  </p>
-                </li>
-
-                <li className="relative flex min-h-44 flex-col items-center text-center text-white">
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-sm font-bold text-zinc-500">
-                      03
-                    </span>
-                    <span className="text-sm font-semibold text-[#5f96ff]">
-                      Managed data
-                    </span>
-                  </div>
-                  <span
-                    className="relative z-10 mt-6 size-4 rounded-full border border-[#5f96ff] bg-[#10151d] ring-4 ring-[#10151d]"
-                    aria-hidden="true"
-                  />
-                  <p className="mt-5 text-3xl font-semibold tracking-[-0.045em]">
-                    PostgreSQL
-                  </p>
-                  <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
-                    DATABASE_URL → :5432
-                  </code>
-                  <p className="mt-auto pt-3 text-sm font-semibold text-zinc-300">
-                    Private connection
-                  </p>
-                </li>
-
-                <li className="relative flex min-h-44 flex-col items-center text-center text-white">
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-sm font-bold text-zinc-500">
-                      04
-                    </span>
-                    <span className="text-sm font-semibold text-[#44b78b]">
-                      Public response
-                    </span>
-                  </div>
-                  <span
-                    className="relative z-10 mt-6 size-4 rounded-full bg-[#44b78b] ring-4 ring-[#10151d]"
-                    aria-hidden="true"
-                  />
-                  <p className="mt-5 text-3xl font-semibold tracking-[-0.045em] text-[#44b78b]">
-                    200 OK
-                  </p>
-                  <code className="mt-2 font-mono text-[13px] leading-6 text-zinc-300">
-                    GET / · HTTP/2
-                  </code>
-                  <p className="mt-auto pt-3 text-sm font-semibold text-[#44b78b]">
-                    Verified
-                  </p>
-                </li>
+                  </li>
+                ))}
               </ol>
             </div>
           </figure>
