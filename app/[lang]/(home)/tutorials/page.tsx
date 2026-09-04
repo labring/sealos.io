@@ -115,15 +115,15 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="grid overflow-hidden bg-[#e3e5df] text-[#101318] md:grid-cols-[7rem_minmax(0,1fr)]">
-              <aside className="flex min-h-48 flex-col justify-between bg-[#146dff] p-5 text-white">
+            <div className="grid overflow-hidden bg-[#e3e5df] text-[#101318] md:grid-cols-[6rem_minmax(0,1fr)]">
+              <aside className="flex min-h-48 flex-col justify-between bg-[#146dff] p-4 text-white">
                 <p className="font-mono text-xs font-bold tracking-[0.06em]">
                   HTTP
                   <br />
                   RESPONSE
                 </p>
                 <p>
-                  <strong className="block font-mono text-4xl leading-none font-medium tracking-[-0.08em]">
+                  <strong className="block font-mono text-3xl leading-none font-medium tracking-[-0.08em]">
                     200
                   </strong>
                   <span className="mt-1 block text-base font-semibold">OK</span>
@@ -152,7 +152,7 @@ function TutorialCatalogCard({
                       <div className="relative mt-3">
                         {index < DEPLOYMENT_NODES.length - 1 && (
                           <span
-                            className="absolute top-1/2 left-2.5 hidden h-0.5 w-[calc(100%+2.5rem)] -translate-y-1/2 bg-[#146dff] md:block"
+                            className="absolute top-1/2 left-2.5 hidden h-[3px] w-[calc(100%+2.5rem)] -translate-y-1/2 bg-[#146dff] md:block"
                             aria-hidden="true"
                           >
                             <span className="absolute top-1/2 left-1/2 size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff]" />
@@ -162,7 +162,7 @@ function TutorialCatalogCard({
                           <span className="size-2 rounded-full bg-[#146dff]" />
                         </span>
                       </div>
-                      <code className="mt-3 block truncate font-mono text-xs font-bold text-zinc-900">
+                      <code className="mt-3 block truncate font-mono text-[13px] font-bold text-zinc-900">
                         {node.evidence}
                       </code>
                       <span className="mt-1 inline-flex items-center gap-2 text-xs font-bold text-emerald-800">
@@ -183,7 +183,7 @@ function TutorialCatalogCard({
             className="mt-10 border-t border-white/15 pt-7"
             aria-label="Guide chapters"
           >
-            <div className="grid gap-3 sm:grid-cols-[3.5rem_7rem_minmax(0,1fr)_minmax(0,0.9fr)_1.25rem] sm:items-end sm:gap-x-5">
+            <div className="grid gap-3 sm:grid-cols-[3.5rem_7rem_minmax(0,1fr)_minmax(0,0.9fr)] sm:items-end sm:gap-x-5">
               <p className="text-sm font-semibold text-[#5f96ff] sm:col-span-2">
                 Inside the guide
               </p>
@@ -203,7 +203,7 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-5 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_7rem_minmax(0,1fr)_minmax(0,0.9fr)_1.25rem]"
+                    className="group grid items-center gap-x-5 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_7rem_minmax(0,1fr)_minmax(0,0.9fr)]"
                   >
                     <span className="font-mono text-2xl font-medium tracking-[-0.08em] text-[#5f96ff]">
                       0{index + 1}
@@ -211,31 +211,31 @@ function TutorialCatalogCard({
                     <span className="text-sm font-semibold text-zinc-300">
                       {chapter.phase}
                     </span>
-                    <strong className="mt-2 text-xl font-semibold tracking-[-0.025em] text-white transition-colors group-hover:text-[#5f96ff] sm:mt-0">
+                    <strong className="mt-2 inline-flex items-center gap-3 text-xl font-semibold tracking-[-0.025em] text-white transition-colors group-hover:text-[#5f96ff] sm:mt-0">
                       {chapter.title}
+                      <ArrowRight
+                        size={16}
+                        className="shrink-0 text-zinc-300 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white"
+                        aria-hidden="true"
+                      />
                     </strong>
                     <span className="col-start-2 mt-1 text-sm leading-6 text-zinc-300 sm:col-start-auto sm:mt-0">
                       {chapter.detail}
                     </span>
-                    <ArrowRight
-                      size={17}
-                      className="hidden text-zinc-300 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white sm:block"
-                      aria-hidden="true"
-                    />
                   </Link>
                 </li>
               ))}
             </ol>
           </nav>
 
-          <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/15 pt-7">
-            <h3 className="text-2xl font-medium tracking-[-0.03em] text-white">
+          <div className="mt-12 grid gap-5 bg-[#e3e5df] p-7 text-[#101318] md:grid-cols-12 md:items-center">
+            <h3 className="text-3xl leading-none font-medium tracking-[-0.035em] md:col-span-4">
               Missing your stack?
             </h3>
-            <p className="text-sm leading-6 text-zinc-300">
+            <p className="text-sm leading-6 text-zinc-700 md:col-span-4">
               Share the deployment job you need.
             </p>
-            <TutorialRequestGuideLink className="group inline-flex h-10 shrink-0 items-center border border-[#146dff]/70 px-4 text-sm font-semibold text-[#5f96ff] transition-colors hover:border-[#146dff] hover:bg-[#146dff] hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none">
+            <TutorialRequestGuideLink className="group inline-flex h-11 items-center justify-between bg-[#146dff] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#101318] focus-visible:ring-offset-2 focus-visible:ring-offset-[#e3e5df] focus-visible:outline-none md:col-span-4">
               Request the next field note
               <ArrowRight
                 size={16}
@@ -356,8 +356,8 @@ export default function TutorialsPage({
       )}
 
       <main>
-        <section className="container -mt-24 pt-32 pb-12">
-          <div className="grid gap-12 md:grid-cols-12 md:items-stretch">
+        <section className="container -mt-24 pt-32 pb-8">
+          <div className="grid gap-8 md:grid-cols-12 md:items-stretch">
             <div className="md:col-span-8">
               <p className="text-sm font-semibold text-[#5f96ff]">
                 Deployment field note / 01
@@ -395,8 +395,8 @@ export default function TutorialsPage({
               )}
             </div>
 
-            <aside className="flex flex-col justify-between border-l border-[#44b78b] pl-8 md:col-span-4">
-              <div>
+            <aside className="flex flex-col border border-l-2 border-white/15 border-l-[#44b78b] bg-[#111419] p-6 md:col-span-4">
+              <div className="flex items-start justify-between gap-5 border-b border-white/15 pb-5">
                 <Image
                   src="/icons/django.svg"
                   alt="Django"
@@ -404,21 +404,26 @@ export default function TutorialsPage({
                   height={52}
                   className="h-9 w-auto invert"
                 />
-                <p className="mt-3 font-mono text-xs font-bold tracking-[0.04em] text-zinc-300">
-                  5.2 / PRODUCTION RUNBOOK
-                </p>
+                <span className="font-mono text-xs font-bold tracking-[0.04em] text-zinc-300">
+                  5.2 / 01
+                </span>
               </div>
-              <div className="my-8">
-                <p className="text-[4.75rem] leading-none font-medium tracking-[-0.065em] text-white">
+              <div className="grid grid-cols-[5rem_minmax(0,1fr)] items-end gap-5 border-b border-white/15 py-6">
+                <p className="text-[4rem] leading-none font-medium tracking-[-0.065em] text-white">
                   35
                 </p>
-                <p className="mt-3 max-w-52 text-base leading-6 text-zinc-200">
+                <p className="pb-1 text-base leading-6 text-zinc-200">
                   minutes from repository to public HTTPS.
                 </p>
               </div>
-              <p className="font-mono text-xs font-bold tracking-[0.04em] text-zinc-300">
-                GUNICORN · POSTGRESQL
-              </p>
+              <div className="mt-auto pt-5">
+                <p className="text-xs font-semibold text-zinc-400">
+                  Production stack
+                </p>
+                <p className="mt-2 font-mono text-xs font-bold tracking-[0.04em] text-zinc-200">
+                  GUNICORN · POSTGRESQL
+                </p>
+              </div>
             </aside>
           </div>
         </section>
