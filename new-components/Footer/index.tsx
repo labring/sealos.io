@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'fumadocs-core/link';
 import { siteConfig } from '@/config/site';
-import { GradientText } from '@/new-components/GradientText';
 import { StartBuildingButton } from './StartBuildingButton';
 import { DiscordIcon, GithubIcon, RSSIcon, XIcon } from './FooterIcons';
 import c from './index.module.css';
@@ -196,19 +195,23 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
   return (
     <footer className="relative isolate text-white">
       <div className={c.footerGradientClip}>
-        <div className={c.footerGradient} />
+        <div className="container pt-6">
+          <div className={c.footerGradient} />
+        </div>
       </div>
 
-      <div className="relative z-10 px-4 pt-32 pb-6 sm:px-6 lg:px-8">
-        <div className="mx-auto flex w-full max-w-[1313px] flex-col gap-12">
+      <div className="relative z-10 pt-20 pb-6">
+        <div className="container flex flex-col gap-12">
           <div className="flex flex-col justify-between gap-10 lg:flex-row lg:gap-12">
             <div className="flex max-w-[460px] flex-col items-start gap-6">
               <div className="flex flex-col gap-3">
                 <h2 className="text-2xl leading-tight font-medium tracking-normal sm:text-3xl">
-                  <span className="block">Ready to Stop Configuring</span>
-                  <GradientText className="block to-[#146dff]">
+                  <span className="block sm:whitespace-nowrap">
+                    Ready to Stop Configuring
+                  </span>
+                  <span className="block text-[#146dff] sm:whitespace-nowrap">
                     and Start Creating?
-                  </GradientText>
+                  </span>
                 </h2>
                 <p className="text-base leading-6 text-zinc-500">
                   Get started for free. No credit card required.

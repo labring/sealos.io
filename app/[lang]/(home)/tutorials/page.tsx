@@ -29,6 +29,23 @@ const TUTORIALS_PAGE_DESCRIPTION =
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 const DJANGO_PROJECT_PROOF_IMAGE =
   '/images/tutorials/django/django-sealos-project-ops-running.webp';
+const DJANGO_TOPOLOGY_NODES = [
+  {
+    name: 'Public Access',
+    alt: 'Public Access domain in the verified Sealos project topology',
+    objectPosition: 'object-[0%_42%]',
+  },
+  {
+    name: 'Django Container',
+    alt: 'Running Django container in the verified Sealos project topology',
+    objectPosition: 'object-[50%_42%]',
+  },
+  {
+    name: 'PostgreSQL',
+    alt: 'Running PostgreSQL database in the verified Sealos project topology',
+    objectPosition: 'object-[100%_42%]',
+  },
+];
 
 const TUTORIALS_PAGE_KEYWORDS = [
   'Sealos tutorials',
@@ -61,7 +78,7 @@ function TutorialCatalogCard({
   return (
     <Link
       href={tutorial.url}
-      className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12 md:items-center"
+      className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12 md:items-stretch"
     >
       <div className="flex flex-col gap-4 p-6 md:col-span-5 md:p-6">
         <div className="flex flex-col gap-2">
@@ -128,51 +145,53 @@ function TutorialCatalogCard({
         </div>
       </div>
 
-      {proofImage && (
-        <figure className="border-border/80 order-first flex w-full flex-col gap-3 border-b bg-zinc-950 p-4 md:order-none md:col-span-7 md:border-b-0 md:border-l">
-          <div className="relative aspect-video w-full overflow-hidden rounded-md">
-            <Image
-              src={proofImage}
-              alt={
-                isDjangoGuide
-                  ? 'Sealos Project Canvas showing public access, container, and PostgreSQL running'
-                  : `${tutorial.title} deployment result`
-              }
-              className="h-full w-full object-cover object-center"
-              fill
-              priority={priorityImage}
-              quality={90}
-              sizes="(max-width: 760px) 90vw, 55vw"
-            />
-            {isDjangoGuide && tutorial.image && (
-              <div className="absolute right-3 bottom-3 w-[38%] overflow-hidden rounded-md border border-white/15 bg-zinc-950 p-1.5">
-                <div className="relative aspect-video w-full overflow-hidden rounded-[0.25rem]">
+      {proofImage &&
+        (isDjangoGuide ? (
+          <figure className="border-border/80 order-first flex w-full flex-col gap-3 border-b bg-zinc-950 p-4 md:order-none md:col-span-7 md:border-b-0 md:border-l">
+            <div className="relative grid grid-cols-1 gap-px bg-[#146dff]/75 md:min-h-0 md:flex-1 md:grid-cols-3">
+              <span
+                aria-hidden="true"
+                className="absolute top-3 right-[16.667%] left-[16.667%] z-10 hidden h-px bg-[#146dff] md:block"
+              />
+              {DJANGO_TOPOLOGY_NODES.map((node) => (
+                <div
+                  key={node.name}
+                  className="relative aspect-video overflow-hidden bg-zinc-950 md:aspect-auto"
+                >
                   <Image
-                    src={tutorial.image}
-                    alt={`${tutorial.title} live HTTPS create/read verification`}
-                    className="h-full w-full object-contain"
+                    src={proofImage}
+                    alt={node.alt}
+                    className={cn(
+                      'h-full w-full scale-[2.2] object-cover',
+                      node.objectPosition,
+                    )}
                     fill
+                    priority={priorityImage}
                     quality={90}
-                    sizes="(max-width: 760px) 34vw, 16vw"
+                    sizes="(max-width: 760px) 90vw, 18vw"
                   />
                 </div>
-              </div>
-            )}
-          </div>
-          <figcaption className="grid grid-cols-2 gap-3 px-1 text-xs leading-5">
-            <span>
-              <span className="text-muted-foreground block">Live</span>
-              <span className="text-primary font-medium">HTTPS</span>
-            </span>
-            <span>
-              <span className="text-muted-foreground block">Proof</span>
-              <span className="text-primary font-medium">
-                Create/read verification
-              </span>
-            </span>
-          </figcaption>
-        </figure>
-      )}
+              ))}
+            </div>
+            <figcaption className="px-1 text-xs leading-5 text-zinc-400">
+              Verified Sealos project topology
+            </figcaption>
+          </figure>
+        ) : (
+          <figure className="border-border/80 order-first flex w-full flex-col gap-3 border-b bg-zinc-950 p-4 md:order-none md:col-span-7 md:border-b-0 md:border-l">
+            <div className="relative aspect-video w-full overflow-hidden rounded-md">
+              <Image
+                src={proofImage}
+                alt={`${tutorial.title} deployment result`}
+                className="h-full w-full object-cover object-center"
+                fill
+                priority={priorityImage}
+                quality={90}
+                sizes="(max-width: 760px) 90vw, 55vw"
+              />
+            </div>
+          </figure>
+        ))}
     </Link>
   );
 }
@@ -292,49 +311,55 @@ export default function TutorialsPage({
             <>
               <TutorialCatalogCard tutorial={firstTutorial} priorityImage />
               <section
-                className="border-border mt-6 border-t"
+                className="border-border -mt-px border-t md:ml-[41.666667%]"
                 aria-labelledby="inside-guide-heading"
               >
                 <h2
                   id="inside-guide-heading"
-                  className="text-foreground py-5 text-xl font-semibold tracking-tight"
+                  className="text-foreground py-4 text-lg font-semibold tracking-tight"
                 >
                   Inside this guide
                 </h2>
                 <div className="border-border grid border-t md:grid-cols-3">
                   <Link
                     href={`${firstTutorial.url}#prepare-django-for-production`}
-                    className="group border-border px-0 py-5 focus-visible:ring-2 focus-visible:outline-none md:pr-6"
+                    className="group relative flex min-h-36 flex-col justify-center py-6 pr-6 focus-visible:ring-2 focus-visible:outline-none"
                   >
-                    <span className="text-primary text-xs font-medium">01</span>
-                    <h3 className="text-foreground group-hover:text-primary mt-2 font-semibold">
+                    <span className="bg-background text-primary border-primary/80 absolute -top-2 left-0 flex size-4 items-center justify-center rounded-full border text-[9px] font-semibold">
+                      01
+                    </span>
+                    <h3 className="text-foreground group-hover:text-primary font-semibold">
                       Prepare Django for production
                     </h3>
-                    <p className="text-muted-foreground mt-2 text-sm leading-6">
+                    <p className="text-muted-foreground mt-2 text-sm leading-5">
                       Configure Gunicorn and WhiteNoise for deployment.
                     </p>
                   </Link>
                   <Link
                     href={`${firstTutorial.url}#deploy-with-sealos-skills`}
-                    className="group border-border border-t py-5 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:px-6"
+                    className="group border-border relative flex min-h-36 flex-col justify-center border-t py-6 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:px-6"
                   >
-                    <span className="text-primary text-xs font-medium">02</span>
-                    <h3 className="text-foreground group-hover:text-primary mt-2 font-semibold">
+                    <span className="bg-background text-primary border-primary/80 absolute -top-2 left-0 flex size-4 items-center justify-center rounded-full border text-[9px] font-semibold md:-left-2">
+                      02
+                    </span>
+                    <h3 className="text-foreground group-hover:text-primary font-semibold">
                       Deploy with Sealos Skills
                     </h3>
-                    <p className="text-muted-foreground mt-2 text-sm leading-6">
+                    <p className="text-muted-foreground mt-2 text-sm leading-5">
                       Connect the application, container, and database.
                     </p>
                   </Link>
                   <Link
                     href={`${firstTutorial.url}#verify-the-live-django-application`}
-                    className="group border-border border-t py-5 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:pl-6"
+                    className="group border-border relative flex min-h-36 flex-col justify-center border-t py-6 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:pl-6"
                   >
-                    <span className="text-primary text-xs font-medium">03</span>
-                    <h3 className="text-foreground group-hover:text-primary mt-2 font-semibold">
+                    <span className="bg-background text-primary border-primary/80 absolute -top-2 left-0 flex size-4 items-center justify-center rounded-full border text-[9px] font-semibold md:-left-2">
+                      03
+                    </span>
+                    <h3 className="text-foreground group-hover:text-primary font-semibold">
                       Verify the live Django application
                     </h3>
-                    <p className="text-muted-foreground mt-2 text-sm leading-6">
+                    <p className="text-muted-foreground mt-2 text-sm leading-5">
                       Confirm the HTTPS create/read flow on Sealos.
                     </p>
                   </Link>
@@ -392,8 +417,8 @@ export default function TutorialsPage({
             </div>
           )}
 
-          <section className="border-border mt-16 flex flex-col gap-5 border-t pt-8 md:flex-row md:items-end md:justify-start md:gap-8">
-            <div className="max-w-2xl">
+          <section className="border-border mt-12 flex flex-col gap-4 border-t pt-6 md:flex-row md:items-center md:gap-5">
+            <div className="max-w-xl">
               <h2 className="text-foreground text-2xl font-semibold tracking-tight">
                 Need a guide for your stack?
               </h2>

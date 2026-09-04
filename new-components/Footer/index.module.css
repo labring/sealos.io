@@ -8,10 +8,6 @@
 }
 
 .footerGradient {
-  position: absolute;
-  top: 1.5rem;
-  right: 0;
-  left: 0;
   height: 1px;
   background: rgba(20, 109, 255, 0.72);
 }
