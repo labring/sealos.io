@@ -27,43 +27,6 @@ const TUTORIALS_PAGE_DESCRIPTION =
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 const DJANGO_PRODUCTION_EVIDENCE =
   '/images/tutorials/django/django-sealos-project-ops-running.webp';
-const DJANGO_LIVE_EVIDENCE =
-  '/images/tutorials/django/django-sealos-live-app-https-proof.webp';
-
-const DJANGO_EVIDENCE_FRAMES = [
-  {
-    label: 'Public HTTPS',
-    detail: 'Reachable · :443',
-    image: DJANGO_PRODUCTION_EVIDENCE,
-    position: '12% 50%',
-    size: '250% auto',
-    alt: 'Sealos public access service with a reachable HTTPS address',
-  },
-  {
-    label: 'Django',
-    detail: 'Running · :8000',
-    image: DJANGO_PRODUCTION_EVIDENCE,
-    position: '57% 50%',
-    size: '250% auto',
-    alt: 'Running Django container on the Sealos project canvas',
-  },
-  {
-    label: 'PostgreSQL',
-    detail: 'Attached · private',
-    image: DJANGO_PRODUCTION_EVIDENCE,
-    position: '98% 50%',
-    size: '250% auto',
-    alt: 'Running PostgreSQL database attached to the Django application',
-  },
-  {
-    label: 'HTTP 200',
-    detail: 'Create/read verified',
-    image: DJANGO_LIVE_EVIDENCE,
-    position: '50% 62%',
-    size: '220% auto',
-    alt: 'Live Django task application showing the verified create and read result',
-  },
-] as const;
 
 const DJANGO_GUIDE_CHAPTERS = [
   {
@@ -139,101 +102,122 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <ol className="grid overflow-hidden border-b border-white/15 bg-[#0d1015] sm:grid-cols-2 md:grid-cols-4">
-              {DJANGO_EVIDENCE_FRAMES.map((frame, index) => (
-                <li
-                  key={frame.label}
-                  className="relative h-64 border-b border-white/10 last:border-b-0 sm:border-l sm:first:border-l-0 md:border-b-0"
-                >
-                  <div
-                    role="img"
-                    aria-label={frame.alt}
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat brightness-125 contrast-110"
-                    style={{
-                      backgroundImage: `url(${frame.image})`,
-                      backgroundPosition: frame.position,
-                      backgroundSize: frame.size,
-                    }}
-                  />
-                  <div className="absolute inset-x-0 bottom-0 bg-black/90 px-5 py-4">
-                    <p
-                      className={`font-mono text-xs font-bold tracking-[0.06em] uppercase ${
-                        index === DJANGO_EVIDENCE_FRAMES.length - 1
-                          ? 'text-[#44b78b]'
-                          : 'text-[#5f96ff]'
-                      }`}
-                    >
-                      {frame.label}
-                    </p>
-                    <p className="mt-1 text-sm font-semibold text-white">
-                      {frame.detail}
-                    </p>
-                  </div>
-                  {index < DJANGO_EVIDENCE_FRAMES.length - 1 && (
-                    <span
-                      className="absolute top-1/2 -right-4 z-20 hidden size-8 -translate-y-1/2 items-center justify-center bg-[#146dff] text-white md:flex"
-                      aria-hidden="true"
-                    >
-                      <ArrowRight size={16} strokeWidth={2.5} />
-                    </span>
-                  )}
+            <div className="relative overflow-hidden border-b border-white/15 bg-[#080b10]">
+              <Image
+                src={DJANGO_PRODUCTION_EVIDENCE}
+                alt="Sealos project canvas showing the public HTTPS endpoint, running Django container, and attached PostgreSQL database"
+                width={3200}
+                height={1800}
+                className="h-auto w-full brightness-110 contrast-110"
+                priority
+                quality={95}
+                sizes="(max-width: 1280px) 100vw, 1248px"
+              />
+
+              <div className="pointer-events-none absolute inset-0 hidden md:block">
+                <div className="absolute top-[17%] left-[18%]">
+                  <p className="bg-black px-3 py-2 font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase shadow-[0_0_0_1px_rgba(95,150,255,0.6)]">
+                    Public HTTPS
+                  </p>
+                  <span className="ml-3 block h-10 w-px bg-[#5f96ff]" />
+                  <span className="ml-[9px] block size-[7px] rounded-full bg-[#5f96ff] ring-4 ring-black/70" />
+                </div>
+                <div className="absolute top-[17%] left-[43.5%]">
+                  <p className="bg-black px-3 py-2 font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase shadow-[0_0_0_1px_rgba(95,150,255,0.6)]">
+                    Django · running
+                  </p>
+                  <span className="ml-3 block h-10 w-px bg-[#5f96ff]" />
+                  <span className="ml-[9px] block size-[7px] rounded-full bg-[#5f96ff] ring-4 ring-black/70" />
+                </div>
+                <div className="absolute top-[17%] left-[69.5%]">
+                  <p className="bg-black px-3 py-2 font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase shadow-[0_0_0_1px_rgba(95,150,255,0.6)]">
+                    PostgreSQL · attached
+                  </p>
+                  <span className="ml-3 block h-10 w-px bg-[#5f96ff]" />
+                  <span className="ml-[9px] block size-[7px] rounded-full bg-[#5f96ff] ring-4 ring-black/70" />
+                </div>
+                <div className="absolute top-[61%] left-[18%] flex items-center">
+                  <span className="mr-3 block size-[7px] rounded-full bg-[#44b78b] ring-4 ring-black/70" />
+                  <span className="block h-px w-12 bg-[#44b78b]" />
+                  <p className="bg-black px-3 py-2 font-mono text-xs font-bold tracking-[0.06em] text-[#44b78b] uppercase shadow-[0_0_0_1px_rgba(68,183,139,0.65)]">
+                    HTTP 200 · verified
+                  </p>
+                </div>
+              </div>
+
+              <ul className="grid border-t border-white/15 bg-black sm:grid-cols-2 md:hidden">
+                <li className="border-b border-white/15 px-4 py-3 font-mono text-xs font-bold text-[#5f96ff] uppercase sm:border-r">
+                  Public HTTPS · reachable
                 </li>
-              ))}
-            </ol>
+                <li className="border-b border-white/15 px-4 py-3 font-mono text-xs font-bold text-[#5f96ff] uppercase">
+                  Django · running
+                </li>
+                <li className="px-4 py-3 font-mono text-xs font-bold text-[#5f96ff] uppercase sm:border-r">
+                  PostgreSQL · attached
+                </li>
+                <li className="px-4 py-3 font-mono text-xs font-bold text-[#44b78b] uppercase">
+                  HTTP 200 · verified
+                </li>
+              </ul>
+            </div>
           </figure>
 
-          <nav className="pt-10" aria-label="Guide chapters">
-            <div className="flex flex-wrap items-end justify-between gap-5">
-              <div>
-                <p className="text-sm font-semibold text-[#5f96ff]">
-                  Inside the guide
-                </p>
-                <h3 className="mt-4 text-3xl leading-none font-medium tracking-[-0.04em] text-white">
-                  Three decisive checks
-                </h3>
-              </div>
-              <p className="max-w-sm text-sm leading-6 text-zinc-300">
+          <nav
+            className="mt-12 grid bg-[#f2f0e8] text-[#0a0a0a] md:grid-cols-[0.85fr_1.5fr]"
+            aria-label="Guide chapters"
+          >
+            <div className="flex flex-col p-8 md:min-h-[34rem] md:p-10">
+              <p className="text-sm font-semibold text-[#146dff]">
+                Inside the guide
+              </p>
+              <h3 className="mt-5 max-w-xs text-5xl leading-[0.95] font-medium tracking-[-0.055em]">
+                Three decisive checks.
+              </h3>
+              <p className="mt-6 max-w-xs text-base leading-7 text-zinc-600">
                 Configure, deploy, then verify the public flow.
               </p>
+              <span className="mt-auto hidden font-mono text-xs font-bold tracking-[0.06em] text-zinc-500 uppercase md:block">
+                35 min · field note 01
+              </span>
             </div>
 
-            <ol className="mt-7 grid border-t border-white/15 md:grid-cols-3">
-              {DJANGO_GUIDE_CHAPTERS.map((chapter) => (
+            <ol className="border-t border-black/20 md:border-t-0 md:border-l">
+              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
-                  className="border-b border-white/15 md:border-b-0 md:border-l md:first:border-l-0"
+                  className="border-b border-black/20 last:border-b-0"
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group flex h-full min-h-60 flex-col p-7 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group grid min-h-44 grid-cols-[3.5rem_1fr] gap-x-5 p-6 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[4.5rem_1fr_auto] md:p-8"
                   >
-                    <span className="flex items-center justify-between gap-4 font-mono text-xs font-bold tracking-[0.06em] uppercase">
-                      <span
-                        className={
-                          chapter.phase === 'Verify'
-                            ? 'text-[#44b78b]'
-                            : 'text-[#5f96ff]'
-                        }
-                      >
-                        {chapter.phase}
-                      </span>
-                      <span className="text-zinc-400">{chapter.result}</span>
+                    <span className="font-mono text-3xl leading-none font-medium tracking-[-0.05em] text-zinc-400">
+                      0{index + 1}
                     </span>
-                    <span className="mt-8">
-                      <strong className="block text-2xl leading-tight font-semibold tracking-[-0.03em] text-white transition-colors group-hover:text-[#5f96ff]">
+                    <span>
+                      <span
+                        className={`font-mono text-xs font-bold tracking-[0.06em] uppercase ${
+                          chapter.phase === 'Verify'
+                            ? 'text-[#16815d]'
+                            : 'text-[#146dff]'
+                        }`}
+                      >
+                        {chapter.phase} · {chapter.result}
+                      </span>
+                      <strong className="mt-4 block text-2xl leading-tight font-semibold tracking-[-0.035em] transition-colors group-hover:text-[#146dff]">
                         {chapter.title}
                       </strong>
-                      <span className="mt-1 block text-sm leading-6 text-zinc-300">
+                      <span className="mt-1 block text-sm leading-6 text-zinc-600">
                         {chapter.detail}
                       </span>
                     </span>
-                    <span className="mt-auto flex items-center justify-between gap-4 pt-8">
-                      <code className="truncate font-mono text-sm font-bold text-zinc-300">
+                    <span className="col-start-2 mt-5 flex items-center justify-between gap-4 md:col-start-auto md:mt-0 md:min-w-44 md:flex-col md:items-end">
+                      <code className="font-mono text-xs font-bold text-zinc-600">
                         {chapter.evidence}
                       </code>
                       <ArrowRight
-                        size={17}
-                        className="shrink-0 text-zinc-300 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white"
+                        size={20}
+                        className="shrink-0 text-[#146dff] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
                         aria-hidden="true"
                       />
                     </span>
@@ -396,7 +380,7 @@ export default function TutorialsPage({
                 <div className="mt-7 flex flex-wrap items-center gap-5">
                   <Link
                     href={firstTutorial.url}
-                    className="group inline-flex items-center gap-4 border-b border-[#146dff] py-2 text-sm font-semibold text-white transition-colors hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group inline-flex items-center gap-5 bg-[#146dff] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#095bd8] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     Read the field note
                     <ArrowRight
