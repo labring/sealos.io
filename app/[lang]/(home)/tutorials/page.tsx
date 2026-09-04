@@ -351,7 +351,7 @@ export default function TutorialsPage({
                 {firstTutorial && (
                   <Link
                     href={firstTutorial.url}
-                    className="group relative z-10 mt-5 mb-7 inline-flex items-center gap-3 text-base font-semibold text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group relative z-10 mt-5 mb-4 inline-flex items-center gap-3 border-b border-[#5f96ff] pb-1 text-lg font-semibold text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     Read the field note
                     <ArrowRight
@@ -378,7 +378,7 @@ export default function TutorialsPage({
                     2026.09.02
                   </span>
                 </div>
-                <div className="my-auto py-6">
+                <div className="mt-10">
                   <p className="text-sm font-semibold text-zinc-500">
                     Live create / read proof
                   </p>

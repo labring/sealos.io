@@ -193,68 +193,66 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
 
   return (
     <footer className="border-t border-white/10 text-white">
-      <div className="py-8">
-        <div className="container flex flex-col gap-7">
-          <div className="grid gap-5 lg:grid-cols-4 lg:items-center lg:gap-0">
-            <Link
-              href={homeHref}
-              className="inline-flex items-center gap-2 text-lg font-semibold text-white"
-            >
-              <img src="/logo.svg" alt="" className="size-7" />
-              Sealos
-            </Link>
+      <div className="container grid gap-6 py-6 lg:grid-cols-[auto_1fr_auto] lg:items-start lg:gap-10">
+        <Link
+          href={homeHref}
+          className="inline-flex items-center gap-2 text-lg font-semibold text-white"
+        >
+          <img src="/logo.svg" alt="" className="size-7" />
+          Sealos
+        </Link>
 
-            <nav
-              aria-label="Footer"
-              className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-6 lg:col-span-3"
-            >
-              {footerLinks.columns.flatMap((category) =>
-                category.links.map((link) => (
-                  <FooterLink
-                    key={`${category.title}-${link.text}`}
-                    href={link.url}
-                  >
-                    {link.text}
-                  </FooterLink>
-                )),
-              )}
-            </nav>
-          </div>
+        <nav
+          aria-label="Footer"
+          className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-6"
+        >
+          {footerLinks.columns.flatMap((category) =>
+            category.links.map((link) => (
+              <FooterLink
+                key={`${category.title}-${link.text}`}
+                href={link.url}
+              >
+                {link.text}
+              </FooterLink>
+            )),
+          )}
+        </nav>
 
-          <div className="flex flex-col items-center gap-4 border-t border-zinc-900 pt-6 text-sm leading-5 text-zinc-300 lg:flex-row">
-            <p>{footerLinks.copyright}</p>
+        <div className="flex items-center gap-3 lg:justify-self-end">
+          <SocialLink href={siteConfig.links.github} title="GitHub">
+            <GithubIcon />
+          </SocialLink>
+          <SocialLink href={siteConfig.links.discord} title="Discord">
+            <DiscordIcon />
+          </SocialLink>
+          <SocialLink href={siteConfig.links.twitter} title="X">
+            <XIcon className="size-4" />
+          </SocialLink>
+          <SocialLink href={siteConfig.links.youtube} title="YouTube">
+            <img
+              src="/icons/youtube.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="size-4"
+            />
+          </SocialLink>
+          <SocialLink href="/rss.xml" title="RSS Feed">
+            <RSSIcon className="size-4" />
+          </SocialLink>
+        </div>
+      </div>
 
-            <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 lg:justify-start">
-              {footerLinks.legal.map((link) => (
-                <FooterLink key={link.text} href={link.url}>
-                  {link.text}
-                </FooterLink>
-              ))}
-            </div>
+      <div className="border-t border-zinc-900">
+        <div className="container flex flex-col items-center gap-4 py-4 text-sm leading-5 text-zinc-300 lg:flex-row">
+          <p>{footerLinks.copyright}</p>
 
-            <div className="flex items-center gap-3 lg:ml-auto">
-              <SocialLink href={siteConfig.links.github} title="GitHub">
-                <GithubIcon />
-              </SocialLink>
-              <SocialLink href={siteConfig.links.discord} title="Discord">
-                <DiscordIcon />
-              </SocialLink>
-              <SocialLink href={siteConfig.links.twitter} title="X">
-                <XIcon className="size-4" />
-              </SocialLink>
-              <SocialLink href={siteConfig.links.youtube} title="YouTube">
-                <img
-                  src="/icons/youtube.svg"
-                  alt=""
-                  width={16}
-                  height={16}
-                  className="size-4"
-                />
-              </SocialLink>
-              <SocialLink href="/rss.xml" title="RSS Feed">
-                <RSSIcon className="size-4" />
-              </SocialLink>
-            </div>
+          <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 lg:ml-auto lg:justify-start">
+            {footerLinks.legal.map((link) => (
+              <FooterLink key={link.text} href={link.url}>
+                {link.text}
+              </FooterLink>
+            ))}
           </div>
         </div>
       </div>
