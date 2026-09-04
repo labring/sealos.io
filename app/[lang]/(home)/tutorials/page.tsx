@@ -94,6 +94,7 @@ function TutorialCatalogCard({
   priorityImage?: boolean;
 }) {
   const isDjangoGuide = tutorial.url === DJANGO_TUTORIAL_PATH;
+  const verificationChapter = DJANGO_GUIDE_CHAPTERS[2];
 
   return (
     <article>
@@ -102,13 +103,13 @@ function TutorialCatalogCard({
       </h2>
 
       {isDjangoGuide ? (
-        <div>
-          <nav
-            className="bg-[#f2f0e8] text-[#0a0a0a]"
-            aria-label="Guide chapters"
-          >
-            <div className="grid gap-6 py-6 lg:grid-cols-2 lg:items-center lg:gap-0">
-              <div className="lg:pr-12">
+        <nav
+          className="grid bg-[#f2f0e8] text-[#0a0a0a] md:grid-cols-3"
+          aria-label="Guide chapters"
+        >
+          <div className="md:col-span-2">
+            <div className="grid gap-6 py-6 pr-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center lg:gap-0">
+              <div className="lg:pr-8">
                 <p className="text-sm font-semibold text-zinc-600">
                   Inside the guide
                 </p>
@@ -116,11 +117,11 @@ function TutorialCatalogCard({
                   Three decisive checks.
                 </h3>
               </div>
-              <div className="lg:border-l lg:border-black/15 lg:pl-8">
-                <p className="text-base leading-7 text-zinc-700">
+              <div className="lg:border-l lg:border-black/15 lg:pl-7">
+                <p className="text-sm leading-6 text-zinc-700">
                   Configure, deploy, then verify the public flow.
                 </p>
-                <TutorialRequestGuideLink className="group mt-5 inline-flex items-center gap-3 text-sm font-semibold text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none">
+                <TutorialRequestGuideLink className="group mt-3 inline-flex items-center gap-3 text-sm font-semibold text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none">
                   Request the next field note
                   <ArrowRight
                     size={16}
@@ -131,33 +132,21 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <ol className="grid border-y border-black/15 lg:grid-cols-3">
-              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
+            <ol className="grid border-y border-black/15 lg:grid-cols-2">
+              {DJANGO_GUIDE_CHAPTERS.slice(0, 2).map((chapter, index) => (
                 <li
                   key={chapter.hash}
-                  className="border-t border-black/15 first:border-t-0 lg:border-t-0 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0 lg:last:pr-0"
+                  className="border-t border-black/15 first:border-t-0 lg:border-t-0 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0"
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
                     className="group flex min-h-72 flex-col py-7 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none"
                   >
                     <span className="flex items-center gap-4">
-                      <span
-                        className={`text-4xl font-medium tracking-[-0.055em] ${
-                          index === DJANGO_GUIDE_CHAPTERS.length - 1
-                            ? 'text-[#16815d]'
-                            : 'text-zinc-500'
-                        }`}
-                      >
+                      <span className="text-4xl font-medium tracking-[-0.055em] text-zinc-500">
                         0{index + 1}
                       </span>
-                      <span
-                        className={`text-sm font-semibold ${
-                          index === DJANGO_GUIDE_CHAPTERS.length - 1
-                            ? 'text-[#16815d]'
-                            : 'text-zinc-600'
-                        }`}
-                      >
+                      <span className="text-sm font-semibold text-zinc-600">
                         {chapter.phase}
                       </span>
                     </span>
@@ -187,8 +176,38 @@ function TutorialCatalogCard({
                 </li>
               ))}
             </ol>
-          </nav>
-        </div>
+          </div>
+
+          <Link
+            href={`${tutorial.url}${verificationChapter.hash}`}
+            className="group flex min-h-full flex-col border-l border-white/15 bg-[#090909] px-7 py-7 text-white transition-colors hover:text-[#44b78b] focus-visible:ring-2 focus-visible:ring-[#44b78b] focus-visible:outline-none"
+          >
+            <span className="flex items-center gap-4">
+              <span className="text-4xl font-medium tracking-[-0.055em] text-[#44b78b]">
+                03
+              </span>
+              <span className="text-sm font-semibold text-[#44b78b]">
+                {verificationChapter.phase}
+              </span>
+            </span>
+
+            <strong className="mt-6 block text-2xl leading-tight font-semibold tracking-[-0.035em] transition-colors">
+              {verificationChapter.title}
+            </strong>
+            <span className="mt-4 block text-base leading-7 text-zinc-300">
+              {verificationChapter.detail}
+            </span>
+
+            <span className="mt-auto border-t border-white/15 pt-7">
+              <code className="block font-mono text-base font-bold text-white">
+                {verificationChapter.evidence}
+              </code>
+              <span className="mt-2 block text-sm text-[#44b78b]">
+                {verificationChapter.proofDetail}
+              </span>
+            </span>
+          </Link>
+        </nav>
       ) : tutorial.image ? (
         <figure className="mt-10 overflow-hidden rounded-xl bg-zinc-950 p-2 ring-1 ring-white/10">
           <div className="relative aspect-video w-full overflow-hidden rounded-md">
@@ -319,7 +338,7 @@ export default function TutorialsPage({
                 {firstTutorial && (
                   <Link
                     href={firstTutorial.url}
-                    className="group relative z-10 mt-5 inline-flex w-60 items-center justify-between border-x border-t border-[#146dff] bg-[#146dff] px-6 py-4 text-base font-semibold text-white transition-colors hover:bg-[#2f7bff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group relative z-10 mt-5 mb-8 inline-flex w-60 items-center justify-between border border-[#146dff] bg-[#146dff] px-6 py-4 text-base font-semibold text-white transition-colors hover:bg-[#2f7bff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     Read the field note
                     <ArrowRight
@@ -359,18 +378,18 @@ export default function TutorialsPage({
                   </p>
                 </div>
 
-                <ol className="grid grid-cols-3 border-t border-white/10">
+                <ol
+                  className="flex items-center gap-3 border-t border-white/10 px-7 py-4 font-mono text-sm font-bold text-zinc-200"
+                  aria-label="Request, database commit, then fresh load"
+                >
                   {DJANGO_LIVE_TRACE.map((proof, index) => (
-                    <li
-                      key={proof.stage}
-                      className="border-l border-white/10 px-3 py-3 first:border-l-0"
-                    >
-                      <span className="block text-[11px] font-medium text-zinc-400">
-                        0{index + 1} · {proof.stage}
-                      </span>
-                      <code className="mt-1 block font-mono text-[13px] font-bold text-zinc-200">
-                        {proof.value}
-                      </code>
+                    <li key={proof.stage} className="contents">
+                      <code>{proof.value}</code>
+                      {index < DJANGO_LIVE_TRACE.length - 1 && (
+                        <span className="text-zinc-600" aria-hidden="true">
+                          →
+                        </span>
+                      )}
                     </li>
                   ))}
                 </ol>
