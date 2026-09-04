@@ -99,8 +99,8 @@ function TutorialCatalogCard({
 
       {isDjangoGuide ? (
         <nav className="text-[#0a0a0a]" aria-label="Guide chapters">
-          <div className="grid md:grid-cols-3">
-            <div className="grid gap-6 bg-[#f2f0e8] py-6 pr-8 md:col-span-2 lg:grid-cols-[1.25fr_0.75fr] lg:items-center lg:gap-0">
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_22.5rem]">
+            <div className="grid gap-5 bg-[#f2f0e8] py-5 pr-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center lg:gap-0">
               <div className="lg:pr-8">
                 <p className="text-sm font-semibold text-zinc-600">
                   Inside the guide
@@ -124,9 +124,9 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <div className="relative border-l border-white/15 bg-[#090909] py-6 pr-7 pl-14 text-white">
+            <div className="relative bg-[#090909] py-5 pr-6 pl-12 text-white lg:border-l lg:border-white/15">
               <span
-                className="absolute top-0 bottom-0 left-7 w-px bg-white/10"
+                className="absolute top-0 bottom-0 left-6 w-px bg-white/15"
                 aria-hidden="true"
               />
               <p className="text-sm font-semibold text-zinc-400">
@@ -145,11 +145,11 @@ function TutorialCatalogCard({
               return (
                 <li
                   key={chapter.hash}
-                  className="grid border-t border-black/15 md:grid-cols-3"
+                  className="grid border-t border-black/15 lg:grid-cols-[minmax(0,1fr)_22.5rem]"
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid gap-5 bg-[#f2f0e8] py-6 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:col-span-2 md:grid-cols-[3rem_minmax(13rem,0.75fr)_1.25fr] md:items-center md:gap-5"
+                    className="group grid gap-5 bg-[#f2f0e8] py-5 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none lg:grid-cols-[3rem_minmax(13rem,0.75fr)_1.25fr] lg:items-center lg:gap-5"
                   >
                     <span
                       className={`text-4xl font-medium tracking-[-0.055em] ${
@@ -173,13 +173,13 @@ function TutorialCatalogCard({
                     </span>
                   </Link>
 
-                  <span className="relative border-l border-white/15 bg-[#090909] py-6 pr-7 pl-14 text-white">
+                  <span className="relative bg-[#090909] py-5 pr-6 pl-12 text-white lg:border-l lg:border-white/15">
                     <span
-                      className="absolute top-0 bottom-0 left-7 w-px bg-white/10"
+                      className="absolute top-0 bottom-0 left-6 w-px bg-white/15"
                       aria-hidden="true"
                     />
                     <span
-                      className={`absolute top-[1.85rem] left-[1.57rem] size-1.5 ${
+                      className={`absolute top-[1.6rem] left-[1.32rem] size-1.5 ${
                         index === DJANGO_LIVE_PROOF.length - 1
                           ? 'bg-[#44b78b]'
                           : 'bg-zinc-600'
@@ -196,15 +196,15 @@ function TutorialCatalogCard({
                         </code>
                       )}
                     </span>
-                    <code className="mt-3 block truncate font-mono text-xs text-zinc-500">
+                    <code className="mt-2 block truncate font-mono text-xs text-zinc-400">
                       {proof.command}
                     </code>
                     {index === DJANGO_LIVE_PROOF.length - 1 && (
-                      <span className="mt-3 flex items-baseline gap-3">
-                        <strong className="font-mono text-2xl text-[#44b78b]">
+                      <span className="mt-2 flex items-baseline gap-3">
+                        <strong className="font-mono text-xl text-[#44b78b]">
                           {proof.result}
                         </strong>
-                        <span className="text-sm font-semibold text-[#44b78b]">
+                        <span className="text-xs font-semibold text-[#44b78b]">
                           Persisted after refresh
                         </span>
                       </span>
@@ -327,16 +327,16 @@ export default function TutorialsPage({
 
       <main>
         <section className="container -mt-24 pt-32">
-          <div className="relative grid gap-8 md:grid-cols-3 md:items-stretch md:gap-0">
-            <div className="md:col-span-2 md:pr-12">
+          <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_22.5rem] lg:items-stretch lg:gap-0">
+            <div className="lg:pr-12">
               <p className="text-sm font-semibold text-zinc-400">
                 Deployment field note
               </p>
-              <h1 className="mt-6 text-6xl leading-[0.92] font-medium tracking-[-0.06em] text-white md:text-[6rem] md:leading-[0.86]">
+              <h1 className="mt-5 text-6xl leading-[0.92] font-medium tracking-[-0.06em] text-white md:text-[5.5rem] md:leading-[0.88]">
                 <span className="block">Deploy Django</span>
                 <span className="block">on Sealos</span>
               </h1>
-              <div className="mt-8">
+              <div className="mt-7">
                 <p className="max-w-[35rem] text-lg leading-8 text-zinc-300">
                   Build a Django 5.2 Task app with Gunicorn, WhiteNoise, and
                   PostgreSQL. Deploy it on Sealos and verify a live create/read
@@ -345,12 +345,12 @@ export default function TutorialsPage({
                 {firstTutorial && (
                   <Link
                     href={firstTutorial.url}
-                    className="group relative z-10 mt-5 mb-8 inline-flex w-60 items-center justify-between border border-[#146dff] bg-[#146dff] px-6 py-4 text-base font-semibold text-white transition-colors hover:bg-[#2f7bff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group relative z-10 mt-5 mb-7 inline-flex items-center gap-3 text-base font-semibold text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     Read the field note
                     <ArrowRight
                       size={15}
-                      className="rotate-45 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:translate-y-0.5"
+                      className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
                       aria-hidden="true"
                     />
                   </Link>
@@ -361,7 +361,7 @@ export default function TutorialsPage({
             <aside>
               <div className="relative flex h-full flex-col border border-white/15">
                 <span
-                  className="absolute top-[3.75rem] bottom-0 left-7 w-px bg-white/10"
+                  className="absolute top-[3.75rem] bottom-0 left-6 w-px bg-white/15"
                   aria-hidden="true"
                 />
                 <div className="flex items-start justify-between border-b border-white/10 px-7 py-4">
@@ -377,9 +377,9 @@ export default function TutorialsPage({
                   </span>
                 </div>
 
-                <div className="relative flex flex-1 flex-col justify-center py-7 pr-7 pl-14">
+                <div className="relative flex flex-1 flex-col justify-center py-6 pr-6 pl-12">
                   <span
-                    className="absolute top-1/2 left-[1.57rem] size-1.5 -translate-y-1/2 bg-zinc-500"
+                    className="absolute top-1/2 left-[1.32rem] size-1.5 -translate-y-1/2 bg-zinc-500"
                     aria-hidden="true"
                   />
                   <p className="text-sm font-semibold text-zinc-500">
@@ -393,7 +393,7 @@ export default function TutorialsPage({
                   </span>
                 </div>
 
-                <p className="border-t border-white/10 py-4 pr-7 pl-14 font-mono text-xs text-zinc-400">
+                <p className="border-t border-white/10 py-3 pr-6 pl-12 font-mono text-xs text-zinc-300">
                   HTTPS · Django 5.2 · PostgreSQL
                 </p>
               </div>
