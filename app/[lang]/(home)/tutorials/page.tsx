@@ -114,99 +114,57 @@ function TutorialCatalogCard({
 
       {isDjangoGuide ? (
         <div>
-          <figure>
-            <figcaption className="mb-5 text-2xl font-semibold tracking-tight text-white">
-              Django deployment receipt
+          <figure className="overflow-hidden border border-l-4 border-white/15 border-l-[#146dff]">
+            <figcaption className="flex items-center justify-between gap-4 border-b border-white/15 bg-[#111419] px-6 py-4 text-white">
+              <span className="text-xl font-semibold tracking-tight">
+                Django deployment receipt
+              </span>
+              <span className="font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff]">
+                RUN 01 / VERIFIED
+              </span>
             </figcaption>
 
-            <div className="overflow-hidden border border-l-4 border-white/15 border-l-[#146dff]">
-              <div className="grid md:grid-cols-12">
-                <div className="border-b border-zinc-600/35 bg-[#b9bfbc] p-6 text-[#101318] md:col-span-4 md:border-r md:border-b-0 md:p-8">
-                  <p className="text-xs font-bold tracking-[0.08em] text-zinc-700">
-                    RUNTIME / 5.2
-                  </p>
-                  <Image
-                    src="/icons/django.svg"
-                    alt="Django"
-                    width={104}
-                    height={36}
-                    className="mt-5 h-8 w-auto"
-                  />
-                  <dl className="mt-8 grid grid-cols-2 gap-6 border-t border-zinc-600/35 pt-5">
-                    <div>
-                      <dt className="text-xs font-bold tracking-[0.08em] text-zinc-700">
-                        DATA
-                      </dt>
-                      <dd className="mt-1 text-base font-bold">PostgreSQL</dd>
-                    </div>
-                    <div>
-                      <dt className="text-xs font-bold tracking-[0.08em] text-zinc-700">
-                        EDGE
-                      </dt>
-                      <dd className="mt-1 text-base font-bold">Public HTTPS</dd>
-                    </div>
-                  </dl>
-                </div>
-
-                <div className="bg-[#c3c8c5] text-[#101318] md:col-span-8">
-                  <div className="flex items-center justify-between gap-4 border-b border-zinc-600/35 px-6 py-3.5">
-                    <div className="flex items-baseline gap-4">
-                      <span className="font-mono text-xl font-bold text-[#146dff]">
-                        01
-                      </span>
-                      <strong className="text-sm font-bold">
-                        Request trace
-                      </strong>
-                    </div>
-                    <span className="text-sm font-bold text-[#006f56]">
-                      Verified
+            <div className="relative bg-[#c3c8c5] text-[#101318]">
+              <span
+                className="absolute top-7 bottom-7 left-[2.2rem] w-px bg-[#146dff]/45"
+                aria-hidden="true"
+              />
+              <ol className="divide-y divide-zinc-600/30 px-6">
+                {DJANGO_REQUEST_TRACE.map((step) => (
+                  <li
+                    key={step.marker}
+                    className="relative grid grid-cols-[2rem_minmax(0,1fr)] items-center gap-x-4 gap-y-1 py-4 md:grid-cols-12"
+                  >
+                    <span className="z-10 flex size-6 items-center justify-center bg-[#146dff] font-mono text-[11px] font-bold text-white md:col-span-1">
+                      {step.marker}
                     </span>
-                  </div>
+                    <span className="col-start-2 text-xs font-bold tracking-[0.06em] text-zinc-700 md:col-span-2 md:col-start-auto">
+                      {step.label}
+                    </span>
+                    <code className="col-start-2 text-sm font-bold text-[#101318] md:col-span-2 md:col-start-auto">
+                      {step.title}
+                    </code>
+                    <code className="col-start-2 text-sm text-zinc-700 md:col-span-5 md:col-start-auto">
+                      {step.evidence}
+                    </code>
+                    <strong className="col-start-2 font-mono text-xs font-bold text-[#146dff] md:col-span-2 md:col-start-auto md:text-right">
+                      {step.transport}
+                    </strong>
+                  </li>
+                ))}
+              </ol>
+            </div>
 
-                  <div className="relative">
-                    <span
-                      className="absolute top-7 bottom-7 left-[2.2rem] w-px bg-[#146dff]/45"
-                      aria-hidden="true"
-                    />
-                    <ol className="divide-y divide-zinc-600/30 px-6">
-                      {DJANGO_REQUEST_TRACE.map((step) => (
-                        <li
-                          key={step.marker}
-                          className="relative grid grid-cols-[2rem_minmax(0,1fr)] items-center gap-x-4 gap-y-1 py-3.5 md:grid-cols-12 md:gap-x-4"
-                        >
-                          <span className="z-10 flex size-6 items-center justify-center bg-[#146dff] font-mono text-[11px] font-bold text-white md:col-span-1">
-                            {step.marker}
-                          </span>
-                          <span className="col-start-2 text-xs font-bold tracking-[0.06em] text-zinc-700 md:col-span-2 md:col-start-auto">
-                            {step.label}
-                          </span>
-                          <code className="col-start-2 text-sm font-bold text-[#101318] md:col-span-3 md:col-start-auto">
-                            {step.title}
-                          </code>
-                          <code className="col-start-2 text-sm text-zinc-700 md:col-span-4 md:col-start-auto">
-                            {step.evidence}
-                          </code>
-                          <strong className="col-start-2 font-mono text-xs font-bold text-[#146dff] md:col-span-2 md:col-start-auto md:text-right">
-                            {step.transport}
-                          </strong>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid gap-2 bg-[#101318] px-6 py-3.5 text-white md:grid-cols-12 md:items-center md:gap-x-6">
-                <span className="text-sm font-bold text-emerald-400 md:col-span-3">
-                  ✓ Persisted task
-                </span>
-                <strong className="text-sm font-semibold md:col-span-6">
-                  Runtime proof from Sealos
-                </strong>
-                <code className="text-xs font-semibold text-zinc-300 md:col-span-3 md:text-right">
-                  POST → 302 → GET → 200
-                </code>
-              </div>
+            <div className="grid gap-2 bg-[#101318] px-6 py-3.5 text-white md:grid-cols-12 md:items-center md:gap-x-6">
+              <span className="text-sm font-bold text-emerald-400 md:col-span-3">
+                ✓ Persisted task
+              </span>
+              <strong className="text-sm font-semibold md:col-span-6">
+                Runtime proof from Sealos
+              </strong>
+              <code className="text-xs font-semibold text-zinc-300 md:col-span-3 md:text-right">
+                POST → 302 → GET → 200
+              </code>
             </div>
           </figure>
 
@@ -431,32 +389,42 @@ export default function TutorialsPage({
             <aside className="border-t border-white/15 pt-6 md:col-span-4 md:border-t-0 md:border-l md:pt-0 md:pl-8">
               <div className="flex items-center justify-between gap-4">
                 <p className="font-mono text-xs font-bold tracking-[0.08em] text-[#5f96ff]">
-                  REQUEST TRACE
+                  RUNTIME PROFILE
                 </p>
                 <span className="text-sm font-semibold text-zinc-400">
-                  Live proof
+                  Production
                 </span>
               </div>
-              <ol className="mt-4 divide-y divide-white/15 border-y border-white/15">
-                {DJANGO_REQUEST_TRACE.map((step) => (
-                  <li
-                    key={step.marker}
-                    className="grid grid-cols-[1.75rem_minmax(0,1fr)_auto] items-center gap-3 py-3"
-                  >
-                    <span className="font-mono text-xs font-bold text-[#5f96ff]">
-                      {step.marker}
-                    </span>
-                    <code className="text-sm font-semibold text-white">
-                      {step.title}
-                    </code>
-                    <strong className="font-mono text-[11px] font-bold text-zinc-300">
-                      {step.transport}
-                    </strong>
-                  </li>
-                ))}
-              </ol>
+              <div className="mt-6 flex items-end justify-between gap-6">
+                <Image
+                  src="/icons/django.svg"
+                  alt="Django"
+                  width={104}
+                  height={36}
+                  className="h-8 w-auto invert"
+                />
+                <span className="font-mono text-5xl leading-none font-medium tracking-[-0.08em] text-[#5f96ff]">
+                  5.2
+                </span>
+              </div>
+              <dl className="mt-7 divide-y divide-white/15 border-y border-white/15">
+                <div className="flex items-center justify-between gap-4 py-3">
+                  <dt className="text-sm text-zinc-400">WSGI server</dt>
+                  <dd className="text-sm font-semibold text-white">Gunicorn</dd>
+                </div>
+                <div className="flex items-center justify-between gap-4 py-3">
+                  <dt className="text-sm text-zinc-400">Data service</dt>
+                  <dd className="text-sm font-semibold text-white">
+                    PostgreSQL
+                  </dd>
+                </div>
+                <div className="flex items-center justify-between gap-4 py-3">
+                  <dt className="text-sm text-zinc-400">Public edge</dt>
+                  <dd className="text-sm font-semibold text-white">HTTPS</dd>
+                </div>
+              </dl>
               <p className="mt-4 text-sm font-semibold text-[#00dca0]">
-                ✓ End-to-end response verified
+                ✓ Production stack verified
               </p>
             </aside>
           </div>
