@@ -27,6 +27,8 @@ const TUTORIALS_PAGE_DESCRIPTION =
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 const DJANGO_PROJECT_EVIDENCE =
   '/images/tutorials/django/django-sealos-project-ops-running.webp';
+const DJANGO_LIVE_EVIDENCE =
+  '/images/tutorials/django/django-sealos-live-app-https-proof.webp';
 const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
@@ -91,60 +93,62 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="grid overflow-hidden border-b border-white/15 bg-[#0d1015] md:grid-cols-[minmax(0,1fr)_24rem]">
-              <div className="relative min-h-[30rem] overflow-hidden bg-[#08101f]">
-                <Image
-                  src={DJANGO_PROJECT_EVIDENCE}
-                  alt="Running Sealos project with public domain, Django container, and PostgreSQL database"
-                  fill
-                  className="origin-[55%_50%] scale-[1.3] object-cover object-center"
-                  priority
-                  quality={100}
-                  sizes="(max-width: 768px) 100vw, 70vw"
-                />
-              </div>
-
-              <div className="flex flex-col border-t-2 border-[#146dff] bg-[#0d1015] p-7 text-white md:border-t-0 md:border-l-2">
-                <div className="flex items-center justify-between gap-4">
-                  <p className="text-sm font-semibold text-[#5f96ff]">
-                    Live outcome
-                  </p>
-                  <time className="text-right text-xs leading-5 text-zinc-400">
-                    Sep 03 2026
-                    <span className="block">14:22 UTC</span>
-                  </time>
+            <div className="grid overflow-hidden border-b border-white/15 md:grid-cols-2">
+              <figure className="bg-[#0d1015]">
+                <div className="relative aspect-video overflow-hidden bg-[#08101f]">
+                  <Image
+                    src={DJANGO_PROJECT_EVIDENCE}
+                    alt="Running Sealos project with public domain, Django container, and PostgreSQL database"
+                    fill
+                    className="scale-[1.25] object-cover object-center"
+                    priority
+                    quality={100}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
                 </div>
+                <figcaption className="flex items-center justify-between gap-5 border-t border-white/15 px-6 py-4 text-sm">
+                  <span className="font-mono text-xs font-bold text-zinc-500">
+                    01
+                  </span>
+                  <span className="font-semibold text-white">
+                    Domain → container → PostgreSQL
+                  </span>
+                </figcaption>
+              </figure>
 
-                <div className="mt-9 border-y border-white/20 py-7">
-                  <p className="text-5xl leading-none font-semibold tracking-[-0.055em] text-[#44b78b]">
-                    200 OK
-                  </p>
-                  <p className="mt-3 font-mono text-xs text-zinc-400">
-                    GET / · HTTP/2 · text/html
-                  </p>
+              <figure className="border-t border-white/15 bg-[#0d1015] md:border-t-0 md:border-l">
+                <div className="relative aspect-video overflow-hidden bg-[#eef1f6]">
+                  <Image
+                    src={DJANGO_LIVE_EVIDENCE}
+                    alt="Live Django application showing the created task after redirect"
+                    fill
+                    className="origin-[65%_50%] scale-[1.3] object-cover object-center"
+                    priority
+                    quality={100}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
                 </div>
+                <figcaption className="flex items-center justify-between gap-5 border-t border-white/15 px-6 py-4 text-sm">
+                  <span className="font-mono text-xs font-bold text-zinc-500">
+                    02
+                  </span>
+                  <span className="font-semibold text-[#44b78b]">
+                    Task created and read back
+                  </span>
+                </figcaption>
+              </figure>
+            </div>
 
-                <div className="mt-8">
-                  <p className="text-sm font-semibold text-white">
-                    Created and read back
-                  </p>
-                  <div className="mt-4 border border-white/20 bg-white/[0.04] px-4 py-4">
-                    <p className="inline-flex items-center gap-3 text-sm font-semibold text-[#44b78b]">
-                      <span className="size-2 rounded-full bg-current" />
-                      Runtime proof from Sealos
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-auto border-t border-white/20 pt-6">
-                  <p className="text-xs font-semibold text-zinc-400">
-                    Public HTTPS
-                  </p>
-                  <code className="mt-2 block font-mono text-[11px] leading-5 text-zinc-300">
-                    django-tasks-mpbrofzu.usw.sealos.io
-                  </code>
-                </div>
-              </div>
+            <div className="grid items-center gap-5 border-b border-white/15 bg-[#0d1015] px-6 py-5 text-sm text-white md:grid-cols-[1fr_auto_auto] md:gap-10">
+              <code className="font-mono text-xs text-zinc-400">
+                django-tasks-mpbrofzu.usw.sealos.io
+              </code>
+              <code className="font-mono text-xs font-bold text-white">
+                03 · GET / · HTTP/2
+              </code>
+              <strong className="text-2xl tracking-[-0.035em] text-[#44b78b]">
+                200 OK
+              </strong>
             </div>
           </figure>
 
@@ -385,7 +389,12 @@ export default function TutorialsPage({
                   <span className="block text-zinc-400">To HTTPS</span>
                 </span>
               </div>
-              <div className="mt-5 flex items-center justify-between gap-5 border-b border-white/15 pb-5 text-xs font-semibold">
+              <div className="grid flex-1 grid-cols-3 items-center gap-3 border-b border-white/15 py-4 text-[11px] font-semibold text-zinc-400">
+                <span>Gunicorn</span>
+                <span>WhiteNoise</span>
+                <span>PostgreSQL</span>
+              </div>
+              <div className="flex items-center justify-between gap-5 border-b border-white/15 py-4 text-xs font-semibold">
                 <span className="text-zinc-300">Live proof below</span>
                 <span className="inline-flex items-center gap-2 text-[#44b78b]">
                   <span className="size-1.5 rounded-full bg-current" />
