@@ -328,6 +328,7 @@ export default function TutorialsPage({
                   className="flex w-14 shrink-0 items-center sm:w-20 md:w-32"
                   aria-hidden="true"
                 >
+                  <span className="size-2 shrink-0 bg-[#146dff] md:size-3" />
                   <span className="h-[3px] flex-1 bg-[#146dff] md:h-1" />
                   <span className="-ml-4 size-5 rotate-45 border-t-[3px] border-r-[3px] border-[#146dff] md:-ml-5 md:size-7 md:border-t-4 md:border-r-4" />
                 </span>
@@ -375,18 +376,46 @@ export default function TutorialsPage({
                     ADD TASK
                   </span>
                 </div>
-                <div className="mt-4 flex flex-1 items-center justify-between gap-4 border-t border-zinc-300">
-                  <span>
-                    <span className="block font-mono text-[10px] font-bold tracking-wide text-zinc-500">
-                      NEWEST RECORD
+                <div className="mt-3 border-y border-zinc-300">
+                  <div className="flex items-center justify-between gap-4 py-2.5">
+                    <span>
+                      <span className="block font-mono text-[10px] font-bold tracking-wide text-zinc-500">
+                        TASK_001
+                      </span>
+                      <strong className="mt-0.5 block text-sm font-semibold">
+                        Runtime proof from Sealos
+                      </strong>
                     </span>
-                    <strong className="mt-1 block text-sm font-semibold">
-                      Runtime proof from Sealos
-                    </strong>
-                  </span>
-                  <span className="font-mono text-xs font-bold text-[#16815d]">
-                    VISIBLE
-                  </span>
+                    <span className="font-mono text-xs font-bold text-[#16815d]">
+                      VISIBLE
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-3 border-t border-zinc-300 font-mono">
+                    <span className="py-2 pr-2">
+                      <span className="block text-[9px] text-zinc-500">
+                        CREATED
+                      </span>
+                      <strong className="mt-0.5 block text-[10px]">
+                        14:32:18
+                      </strong>
+                    </span>
+                    <span className="border-x border-zinc-300 px-3 py-2">
+                      <span className="block text-[9px] text-zinc-500">
+                        STORED
+                      </span>
+                      <strong className="mt-0.5 block text-[10px]">
+                        POSTGRESQL
+                      </strong>
+                    </span>
+                    <span className="py-2 pl-3">
+                      <span className="block text-[9px] text-zinc-500">
+                        REFRESH
+                      </span>
+                      <strong className="mt-0.5 block text-[10px] text-[#16815d]">
+                        200 OK
+                      </strong>
+                    </span>
+                  </div>
                 </div>
               </div>
             </figure>
