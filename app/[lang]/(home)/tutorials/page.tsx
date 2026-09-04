@@ -95,26 +95,19 @@ function TutorialCatalogCard({
                 <p className="text-sm leading-6 text-zinc-700">
                   Configure, deploy, then verify the public flow.
                 </p>
-                <TutorialRequestGuideLink className="group mt-3 inline-flex items-center gap-3 text-sm font-semibold text-zinc-800 focus-visible:ring-2 focus-visible:ring-zinc-800 focus-visible:outline-none">
-                  Request the next field note
-                  <ArrowRight
-                    size={16}
-                    className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
-                    aria-hidden="true"
-                  />
+                <TutorialRequestGuideLink className="mt-3 inline-flex text-xs font-medium text-zinc-500 underline decoration-zinc-400 underline-offset-4 transition-colors hover:text-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-800 focus-visible:outline-none">
+                  Request another field note ↗
                 </TutorialRequestGuideLink>
               </div>
             </div>
 
             <div className="border-r border-r-white/15 border-l-[#146dff] bg-[#090909] px-8 py-5 font-mono text-white lg:border-l-2">
               <p className="text-sm font-bold tracking-wide text-white">
-                DEPLOYMENT / PROOF
+                FIELD PROOF
               </p>
-              <div className="mt-3 grid grid-cols-[2rem_1fr_7rem] gap-3 text-xs text-zinc-300">
-                <span>#</span>
-                <span>SIGNAL</span>
-                <span className="text-right">STATE</span>
-              </div>
+              <p className="mt-3 text-xs text-zinc-400">
+                ONE BUILD · THREE CHECKS
+              </p>
             </div>
           </div>
 
@@ -163,7 +156,8 @@ function TutorialCatalogCard({
             </ol>
 
             <div className="grid bg-[#090909] font-mono text-white lg:grid-rows-3">
-              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-r border-[#146dff] border-r-white/15 px-8 py-4 lg:border-l-2">
+              <div className="relative grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-r border-[#146dff] border-r-white/15 px-8 py-4 lg:border-l-2">
+                <span className="absolute top-1/2 left-0 h-3 w-2 -translate-y-1/2 bg-[#146dff] [clip-path:polygon(0_0,100%_50%,0_100%)]" />
                 <code className="text-sm text-zinc-300">01</code>
                 <span>
                   <code className="block text-xl font-bold">wsgi.py</code>
@@ -175,7 +169,8 @@ function TutorialCatalogCard({
                   READY
                 </code>
               </div>
-              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-y border-r border-white/15 border-l-[#146dff] px-8 py-4 lg:border-l-2">
+              <div className="relative grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-y border-r border-white/15 border-l-[#146dff] px-8 py-4 lg:border-l-2">
+                <span className="absolute top-1/2 left-0 h-3 w-2 -translate-y-1/2 bg-[#146dff] [clip-path:polygon(0_0,100%_50%,0_100%)]" />
                 <code className="text-sm text-zinc-300">02</code>
                 <span>
                   <code className="block text-xl font-bold">:8080</code>
@@ -187,7 +182,8 @@ function TutorialCatalogCard({
                   RUNNING
                 </code>
               </div>
-              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-r border-[#44b78b] border-r-white/15 px-8 py-4 lg:border-l-2">
+              <div className="relative grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-r border-[#44b78b] border-r-white/15 px-8 py-4 lg:border-l-2">
+                <span className="absolute top-1/2 left-0 h-3 w-2 -translate-y-1/2 bg-[#44b78b] [clip-path:polygon(0_0,100%_50%,0_100%)]" />
                 <code className="text-sm text-zinc-300">03</code>
                 <span>
                   <code className="block text-xl font-bold">POST → GET</code>
@@ -325,15 +321,11 @@ export default function TutorialsPage({
               >
                 <span aria-hidden="true">Django</span>
                 <span
-                  className="relative flex w-14 shrink-0 items-center sm:w-20 md:w-32"
+                  className="flex w-14 shrink-0 items-center sm:w-20 md:w-32"
                   aria-hidden="true"
                 >
-                  <span className="size-2 shrink-0 border-2 border-[#146dff] bg-[#090909]" />
                   <span className="h-0.5 flex-1 bg-[#146dff]" />
-                  <span className="size-2 shrink-0 bg-[#146dff]" />
-                  <span className="absolute -top-3 left-1/2 hidden -translate-x-1/2 font-mono text-[9px] font-bold tracking-[0.12em] text-[#5f96ff] md:block">
-                    DEPLOY
-                  </span>
+                  <span className="h-6 w-4 shrink-0 bg-[#146dff] [clip-path:polygon(0_0,100%_50%,0_100%)]" />
                 </span>
                 <span aria-hidden="true">Sealos</span>
                 <span
@@ -368,32 +360,26 @@ export default function TutorialsPage({
                 className="absolute top-[5.375rem] left-0 hidden h-0.5 w-7 bg-[#146dff] lg:block"
                 aria-hidden="true"
               >
-                <span className="absolute -top-[3px] right-0 size-2 bg-[#146dff]" />
+                <span className="absolute -top-[5px] right-0 h-3 w-2 bg-[#146dff] [clip-path:polygon(0_0,100%_50%,0_100%)]" />
               </span>
               <figcaption className="flex shrink-0 items-center justify-between border-b border-white/15 px-8 py-3 font-mono text-[13px] font-semibold tracking-wide text-white">
-                <span>LIVE APPLICATION</span>
+                <span>LIVE DEPLOYMENT</span>
                 <span className="text-zinc-300">DJANGO · 5.2</span>
               </figcaption>
               <div className="flex min-h-0 flex-1 flex-col px-8 py-5 font-mono text-white">
-                <p className="text-[13px] font-bold tracking-[0.12em] text-[#5f96ff]">
-                  DJANGO TASKS · PUBLIC
-                </p>
-                <h2 className="mt-2 font-sans text-2xl font-semibold tracking-[-0.04em]">
+                <h2 className="font-sans text-2xl font-semibold tracking-[-0.04em]">
                   Create once. Read after refresh.
                 </h2>
                 <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto] border border-white/25 text-white">
                   <span className="flex h-10 items-center px-3 text-xs text-zinc-200">
                     Runtime proof from Sealos
                   </span>
-                  <span className="flex h-10 items-center bg-[#146dff] px-4 font-mono text-xs font-bold text-white">
-                    SUBMIT →
+                  <span className="flex h-10 items-center border-l border-[#146dff] px-4 font-mono text-xs font-bold text-[#5f96ff]">
+                    POST /TASKS
                   </span>
                 </div>
                 <div className="mt-auto flex items-center justify-between gap-4 border-y border-white/20 py-3">
                   <span>
-                    <span className="block text-[11px] text-zinc-300">
-                      TASK_001
-                    </span>
                     <strong className="mt-1 block text-[13px]">
                       Runtime proof from Sealos
                     </strong>
