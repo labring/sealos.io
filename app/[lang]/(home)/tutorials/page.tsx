@@ -32,7 +32,6 @@ const DEPLOYMENT_NODES = [
     x: 150,
     y: 220,
     position: { left: '12.5%', top: '65.5%' },
-    labelClassName: '-translate-x-1/2 -translate-y-[calc(100%+1.75rem)]',
     title: 'Public HTTPS',
     evidence: 'GET / HTTP/2',
     status: 'Reachable',
@@ -43,7 +42,6 @@ const DEPLOYMENT_NODES = [
     x: 450,
     y: 140,
     position: { left: '37.5%', top: '41.7%' },
-    labelClassName: '-translate-x-1/2 translate-y-7',
     title: 'Django container',
     evidence: 'config.wsgi:application',
     status: 'Running',
@@ -54,7 +52,6 @@ const DEPLOYMENT_NODES = [
     x: 750,
     y: 194,
     position: { left: '62.5%', top: '57.7%' },
-    labelClassName: '-translate-x-1/2 -translate-y-[calc(100%+1.75rem)]',
     title: 'PostgreSQL',
     evidence: 'DATABASE_URL → :5432',
     status: 'Attached',
@@ -65,7 +62,6 @@ const DEPLOYMENT_NODES = [
     x: 1050,
     y: 100,
     position: { left: '87.5%', top: '29.8%' },
-    labelClassName: '-translate-x-1/2 translate-y-7',
     title: 'Browser response',
     evidence: 'HTTP/2 200 · response.html',
     status: 'Verified',
@@ -147,7 +143,7 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="relative hidden h-[21rem] overflow-hidden border-b border-white/15 bg-[#0d1015] text-white md:block">
+            <div className="relative hidden h-[22rem] overflow-hidden border-b border-white/15 bg-[#0d1015] text-white md:block">
               <svg
                 viewBox="0 0 1200 336"
                 preserveAspectRatio="none"
@@ -168,6 +164,18 @@ function TutorialCatalogCard({
                   strokeWidth="4"
                   vectorEffect="non-scaling-stroke"
                 />
+                {DEPLOYMENT_NODES.map((node) => (
+                  <line
+                    key={`stem-${node.marker}`}
+                    x1={node.x}
+                    x2={node.x}
+                    y1={node.y + 10}
+                    y2={node.y + 24}
+                    stroke="#71717a"
+                    strokeWidth="1"
+                    vectorEffect="non-scaling-stroke"
+                  />
+                ))}
                 {DEPLOYMENT_NODES.map((node, index) => (
                   <circle
                     key={node.marker}
@@ -191,29 +199,29 @@ function TutorialCatalogCard({
                   <li
                     key={node.marker}
                     style={node.position}
-                    className={`absolute w-64 text-center ${node.labelClassName}`}
+                    className="absolute w-72 -translate-x-1/2 translate-y-7 text-center"
                   >
-                    <span className="font-mono text-xs font-bold tracking-[0.12em] text-[#5f96ff]">
+                    <span className="font-mono text-sm font-bold tracking-[0.12em] text-[#5f96ff]">
                       {node.marker}
                     </span>
-                    <h3 className="mt-2 text-xl font-semibold tracking-[-0.025em]">
+                    <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em]">
                       {node.title}
                     </h3>
-                    <code className="mt-3 block truncate font-mono text-[13px] font-bold text-zinc-200">
-                      <span className="text-zinc-500" aria-hidden="true">
+                    <code className="mt-3 block truncate font-mono text-[15px] font-bold text-zinc-100">
+                      <span className="text-zinc-400" aria-hidden="true">
                         &gt;{' '}
                       </span>
                       {node.evidence}
                     </code>
                     <span
-                      className={`mt-2 block font-mono text-xs font-bold tracking-[0.01em] uppercase ${
+                      className={`mt-2 block font-mono text-sm font-bold tracking-[0.01em] uppercase ${
                         index === DEPLOYMENT_NODES.length - 1
                           ? 'text-[#44b78b]'
                           : 'text-[#5f96ff]'
                       }`}
                     >
                       {node.status}
-                      <span className="text-zinc-500"> · {node.detail}</span>
+                      <span className="text-zinc-400"> · {node.detail}</span>
                     </span>
                   </li>
                 ))}
@@ -270,26 +278,28 @@ function TutorialCatalogCard({
             </div>
 
             <ol className="border-t border-white/15">
-              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
+              {DJANGO_GUIDE_CHAPTERS.map((chapter) => (
                 <li
                   key={chapter.hash}
                   className="border-b border-white/15 last:border-b-0"
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-6 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:grid-cols-[3rem_6rem_minmax(16rem,1.4fr)_minmax(10rem,1fr)_8rem_1.25rem]"
+                    className="group grid items-center gap-x-8 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:grid-cols-[8rem_minmax(20rem,1.5fr)_minmax(14rem,1fr)_1.25rem]"
                   >
-                    <span className="font-mono text-sm font-bold text-zinc-500">
-                      0{index + 1}
-                    </span>
-                    <span
-                      className={`font-mono text-xs font-bold tracking-[0.08em] uppercase ${
-                        chapter.phase === 'Verify'
-                          ? 'text-[#44b78b]'
-                          : 'text-[#5f96ff]'
-                      }`}
-                    >
-                      {chapter.phase}
+                    <span className="font-mono text-xs font-bold tracking-[0.06em] uppercase">
+                      <span
+                        className={
+                          chapter.phase === 'Verify'
+                            ? 'text-[#44b78b]'
+                            : 'text-[#5f96ff]'
+                        }
+                      >
+                        {chapter.phase}
+                      </span>
+                      <span className="mt-2 block text-zinc-400">
+                        {chapter.result}
+                      </span>
                     </span>
                     <span className="mt-3 md:mt-0">
                       <strong className="block text-xl font-semibold tracking-[-0.025em] text-white transition-colors group-hover:text-[#5f96ff]">
@@ -299,18 +309,9 @@ function TutorialCatalogCard({
                         {chapter.detail}
                       </span>
                     </span>
-                    <code className="mt-3 truncate font-mono text-xs font-bold text-zinc-400 md:mt-0">
+                    <code className="mt-3 truncate font-mono text-sm font-bold text-zinc-300 md:mt-0">
                       {chapter.evidence}
                     </code>
-                    <span
-                      className={`mt-3 font-mono text-xs font-bold tracking-[0.03em] uppercase md:mt-0 ${
-                        chapter.phase === 'Verify'
-                          ? 'text-[#44b78b]'
-                          : 'text-zinc-400'
-                      }`}
-                    >
-                      {chapter.result}
-                    </span>
                     <ArrowRight
                       size={17}
                       className="mt-3 text-zinc-300 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white md:mt-0"
@@ -488,7 +489,7 @@ export default function TutorialsPage({
               )}
             </div>
 
-            <aside className="border-l border-[#44b78b] pl-7 md:py-1">
+            <aside className="border-l border-white/15 pl-7 md:py-1">
               <div className="flex items-start justify-between gap-5">
                 <Image
                   src="/icons/django.svg"
@@ -506,25 +507,25 @@ export default function TutorialsPage({
               </p>
               <dl className="mt-7 border-t border-white/15 text-sm">
                 <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
-                  <dt className="font-mono text-xs font-bold text-zinc-400">
+                  <dt className="font-mono text-[13px] font-bold text-zinc-300">
                     RUNTIME
                   </dt>
                   <dd className="font-semibold text-white">Gunicorn</dd>
                 </div>
                 <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
-                  <dt className="font-mono text-xs font-bold text-zinc-400">
+                  <dt className="font-mono text-[13px] font-bold text-zinc-300">
                     STATIC
                   </dt>
                   <dd className="font-semibold text-white">WhiteNoise</dd>
                 </div>
                 <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
-                  <dt className="font-mono text-xs font-bold text-zinc-400">
+                  <dt className="font-mono text-[13px] font-bold text-zinc-300">
                     DATA
                   </dt>
                   <dd className="font-semibold text-white">PostgreSQL</dd>
                 </div>
                 <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
-                  <dt className="font-mono text-xs font-bold text-zinc-400">
+                  <dt className="font-mono text-[13px] font-bold text-zinc-300">
                     RESULT
                   </dt>
                   <dd className="font-semibold text-[#44b78b]">HTTPS · 200</dd>
