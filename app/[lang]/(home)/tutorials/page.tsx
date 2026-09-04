@@ -25,32 +25,8 @@ const TUTORIALS_PAGE_TITLE = 'Sealos Deployment Tutorials';
 const TUTORIALS_PAGE_DESCRIPTION =
   'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
-const DJANGO_PRODUCTION_EVIDENCE =
-  '/images/tutorials/django/django-sealos-project-ops-running.webp';
-
-const DJANGO_EVIDENCE_NODES = [
-  {
-    phase: '01 · Configure',
-    label: 'Django runtime',
-    status: 'Running · :8000',
-    proof: 'Gunicorn · config.wsgi:application',
-    position: '56% 42%',
-  },
-  {
-    phase: '02 · Deploy',
-    label: 'PostgreSQL',
-    status: 'Private · attached',
-    proof: 'DATABASE_URL · private service',
-    position: '87% 39%',
-  },
-  {
-    phase: '03 · Verify',
-    label: 'Public HTTPS',
-    status: 'HTTP 200 · live',
-    proof: 'GET / · HTTPS 200',
-    position: '22% 42%',
-  },
-] as const;
+const DJANGO_LIVE_EVIDENCE =
+  '/images/tutorials/django/django-sealos-live-app-https-proof.webp';
 
 const DJANGO_GUIDE_CHAPTERS = [
   {
@@ -126,53 +102,64 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="relative overflow-hidden border-b border-white/15 bg-white/15">
-              <span
-                className="absolute top-9 right-8 left-8 z-10 hidden h-px bg-[#5f96ff]/45 md:block"
-                aria-hidden="true"
-              />
-              <ol className="relative grid gap-px md:grid-cols-3">
-                {DJANGO_EVIDENCE_NODES.map((node, index) => (
-                  <li
-                    key={node.phase}
-                    className="relative bg-[#070b12] p-6 md:p-7"
-                  >
-                    <div className="relative z-20 flex items-center justify-between gap-4">
-                      <span className="inline-flex items-center gap-3 bg-[#070b12] pr-3 font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase">
-                        <span className="size-2 rounded-full bg-[#5f96ff] ring-4 ring-[#070b12]" />
-                        {node.phase}
-                      </span>
-                      <span
-                        className={`bg-[#070b12] pl-3 text-sm font-semibold ${
-                          index === DJANGO_EVIDENCE_NODES.length - 1
-                            ? 'text-[#44b78b]'
-                            : 'text-white'
-                        }`}
-                      >
-                        {node.status}
-                      </span>
-                    </div>
-                    <div
-                      role="img"
-                      aria-label={`${node.label}: ${node.status}`}
-                      className="mt-4 h-44 bg-no-repeat brightness-[1.4] contrast-125"
-                      style={{
-                        backgroundImage: `url(${DJANGO_PRODUCTION_EVIDENCE})`,
-                        backgroundPosition: node.position,
-                        backgroundSize: '480% auto',
-                      }}
-                    />
-                    <div className="mt-4 border-l-2 border-[#146dff] pl-3">
-                      <p className="text-xl font-semibold tracking-[-0.025em] text-white">
-                        {node.label}
-                      </p>
-                      <code className="mt-1 block font-mono text-xs font-bold text-zinc-300">
-                        {node.proof}
-                      </code>
-                    </div>
-                  </li>
-                ))}
-              </ol>
+            <div className="grid overflow-hidden border-b border-white/15 md:grid-cols-[1.55fr_0.75fr]">
+              <div className="relative aspect-video overflow-hidden bg-[#eef1f6] md:aspect-auto md:min-h-[28rem]">
+                <Image
+                  src={DJANGO_LIVE_EVIDENCE}
+                  alt="Live Django task application showing a saved task after a successful HTTPS create and read request"
+                  fill
+                  className="scale-[1.15] object-cover object-center"
+                  priority
+                  quality={95}
+                  sizes="(max-width: 768px) 100vw, 68vw"
+                />
+              </div>
+
+              <div className="flex flex-col bg-[#146dff] p-7 text-white md:p-9">
+                <div className="flex items-center justify-between gap-4 font-mono text-xs font-bold tracking-[0.06em] uppercase">
+                  <span>Production receipt</span>
+                  <span>03 / Verify</span>
+                </div>
+                <p className="mt-8 text-[7.5rem] leading-[0.75] font-medium tracking-[-0.08em] md:text-[9rem]">
+                  200
+                </p>
+                <p className="mt-7 text-2xl leading-tight font-semibold tracking-[-0.035em]">
+                  Create. Redirect. Read.
+                </p>
+                <p className="mt-2 text-sm leading-6 text-blue-100">
+                  The saved task survives the full HTTPS flow.
+                </p>
+
+                <dl className="mt-auto border-t border-white/35 pt-2 text-sm">
+                  <div className="grid grid-cols-[5rem_1fr] gap-4 border-b border-white/25 py-3">
+                    <dt className="font-mono text-xs font-bold text-blue-100 uppercase">
+                      Runtime
+                    </dt>
+                    <dd className="flex justify-between gap-4 font-semibold">
+                      <span>Gunicorn</span>
+                      <span>Running</span>
+                    </dd>
+                  </div>
+                  <div className="grid grid-cols-[5rem_1fr] gap-4 border-b border-white/25 py-3">
+                    <dt className="font-mono text-xs font-bold text-blue-100 uppercase">
+                      Data
+                    </dt>
+                    <dd className="flex justify-between gap-4 font-semibold">
+                      <span>PostgreSQL</span>
+                      <span>Attached</span>
+                    </dd>
+                  </div>
+                  <div className="grid grid-cols-[5rem_1fr] gap-4 py-3">
+                    <dt className="font-mono text-xs font-bold text-blue-100 uppercase">
+                      Request
+                    </dt>
+                    <dd className="flex justify-between gap-4 font-semibold">
+                      <span>GET /</span>
+                      <span>HTTPS</span>
+                    </dd>
+                  </div>
+                </dl>
+              </div>
             </div>
           </figure>
 
@@ -198,9 +185,7 @@ function TutorialCatalogCard({
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
-                  className={`border-b border-black/20 last:border-b-0 md:border-b-0 md:border-l md:first:border-l-0 ${
-                    chapter.phase === 'Verify' ? 'bg-[#e7efe9]' : ''
-                  }`}
+                  className="border-b border-black/20 last:border-b-0 md:border-b-0 md:border-l md:first:border-l-0"
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
@@ -417,7 +402,7 @@ export default function TutorialsPage({
               )}
             </div>
 
-            <aside className="border-l border-white/15 pl-7 md:py-1">
+            <aside className="flex flex-col border-l border-white/15 pl-7 md:py-1">
               <div className="flex items-end gap-5">
                 <Image
                   src="/icons/django.svg"
@@ -433,32 +418,15 @@ export default function TutorialsPage({
               <p className="mt-7 max-w-64 text-3xl leading-[1.08] font-medium tracking-[-0.035em] text-white">
                 A 35-minute production runbook.
               </p>
-              <dl className="mt-7 border-t border-white/15 text-sm">
-                <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
-                  <dt className="font-mono text-[13px] font-bold text-zinc-300">
-                    RUNTIME
-                  </dt>
-                  <dd className="font-semibold text-white">Gunicorn</dd>
-                </div>
-                <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
-                  <dt className="font-mono text-[13px] font-bold text-zinc-300">
-                    STATIC
-                  </dt>
-                  <dd className="font-semibold text-white">WhiteNoise</dd>
-                </div>
-                <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
-                  <dt className="font-mono text-[13px] font-bold text-zinc-300">
-                    DATA
-                  </dt>
-                  <dd className="font-semibold text-white">PostgreSQL</dd>
-                </div>
-                <div className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-white/15 py-3">
-                  <dt className="font-mono text-[13px] font-bold text-zinc-300">
-                    RESULT
-                  </dt>
-                  <dd className="font-semibold text-[#44b78b]">HTTPS · 200</dd>
-                </div>
-              </dl>
+              <div className="mt-auto flex items-end justify-between gap-5 border-b border-white/15 pt-10 pb-3">
+                <span className="text-7xl leading-none font-medium tracking-[-0.07em] text-white/15">
+                  01
+                </span>
+                <span className="pb-1 text-right font-mono text-xs font-bold tracking-[0.06em] text-zinc-300 uppercase">
+                  Field note
+                  <span className="mt-1 block text-[#44b78b]">Verified</span>
+                </span>
+              </div>
             </aside>
           </div>
         </section>
