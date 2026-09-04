@@ -32,18 +32,21 @@ const DEPLOYMENT_NODES = [
     title: 'Public HTTPS',
     evidence: 'GET / · :443',
     status: 'Reachable',
+    detail: 'TLS ingress',
   },
   {
     marker: '01.B',
     title: 'Django container',
     evidence: 'gunicorn config.wsgi · :8000',
     status: 'Running',
+    detail: '1 replica',
   },
   {
     marker: '01.C',
     title: 'PostgreSQL',
     evidence: 'DATABASE_URL · :5432',
     status: 'Attached',
+    detail: 'Private network',
   },
 ] as const;
 
@@ -116,14 +119,14 @@ function TutorialCatalogCard({
             </figcaption>
 
             <div className="grid overflow-hidden bg-[#e3e5df] text-[#101318] md:grid-cols-[6rem_minmax(0,1fr)]">
-              <aside className="flex min-h-48 flex-col justify-between bg-[#146dff] p-4 text-white">
+              <aside className="flex min-h-48 flex-col justify-between border-r border-black/15 bg-[#111419] p-4 text-white">
                 <p className="font-mono text-xs font-bold tracking-[0.06em]">
                   HTTP
                   <br />
                   RESPONSE
                 </p>
                 <p>
-                  <strong className="block font-mono text-3xl leading-none font-medium tracking-[-0.08em]">
+                  <strong className="block font-mono text-3xl leading-none font-medium tracking-[-0.08em] text-[#3887ff]">
                     200
                   </strong>
                   <span className="mt-1 block text-base font-semibold">OK</span>
@@ -149,28 +152,39 @@ function TutorialCatalogCard({
                       <h3 className="mt-1 text-lg font-semibold tracking-[-0.02em]">
                         {node.title}
                       </h3>
-                      <div className="relative mt-3">
+                      <div className="relative mt-4">
                         {index < DEPLOYMENT_NODES.length - 1 && (
                           <span
-                            className="absolute top-1/2 left-2.5 hidden h-[3px] w-[calc(100%+2.5rem)] -translate-y-1/2 bg-[#146dff] md:block"
+                            className="absolute top-1/2 left-3 hidden h-1 w-[calc(100%+2.5rem)] -translate-y-1/2 bg-[#146dff] md:block"
                             aria-hidden="true"
                           >
                             <span className="absolute top-1/2 left-1/2 size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff]" />
                           </span>
                         )}
-                        <span className="relative z-10 flex size-5 items-center justify-center rounded-full bg-[#e3e5df] ring-2 ring-[#146dff]">
-                          <span className="size-2 rounded-full bg-[#146dff]" />
+                        <span
+                          className={`relative z-10 flex items-center justify-center rounded-full ring-[#146dff] ${
+                            index === 1
+                              ? 'size-7 bg-[#146dff] ring-4 ring-[#146dff]/25'
+                              : 'size-6 bg-[#e3e5df] ring-2'
+                          }`}
+                        >
+                          <span
+                            className={`rounded-full ${index === 1 ? 'size-2.5 bg-white' : 'size-2 bg-[#146dff]'}`}
+                          />
                         </span>
                       </div>
-                      <code className="mt-3 block truncate font-mono text-[13px] font-bold text-zinc-900">
+                      <code className="mt-4 block truncate font-mono text-[13px] font-bold text-zinc-900">
                         {node.evidence}
                       </code>
-                      <span className="mt-1 inline-flex items-center gap-2 text-xs font-bold text-emerald-800">
-                        <span
-                          className="size-1.5 rounded-full bg-emerald-600"
-                          aria-hidden="true"
-                        />
-                        {node.status}
+                      <span className="mt-2 flex items-center gap-3 text-xs font-bold">
+                        <span className="inline-flex items-center gap-2 text-emerald-800">
+                          <span
+                            className="size-1.5 rounded-full bg-emerald-600"
+                            aria-hidden="true"
+                          />
+                          {node.status}
+                        </span>
+                        <span className="text-zinc-600">{node.detail}</span>
                       </span>
                     </li>
                   ))}
@@ -183,16 +197,18 @@ function TutorialCatalogCard({
             className="mt-10 border-t border-white/15 pt-7"
             aria-label="Guide chapters"
           >
-            <div className="grid gap-3 sm:grid-cols-[3.5rem_7rem_minmax(0,1fr)_minmax(0,0.9fr)] sm:items-end sm:gap-x-5">
+            <div className="grid gap-3 sm:grid-cols-[3.5rem_7rem_minmax(0,1fr)] sm:items-end sm:gap-x-5">
               <p className="text-sm font-semibold text-[#5f96ff] sm:col-span-2">
                 Inside the guide
               </p>
-              <h3 className="text-3xl leading-none font-medium tracking-[-0.035em] text-white">
-                Three decisive checks
-              </h3>
-              <p className="text-sm leading-6 text-zinc-300">
-                Configure, deploy, then verify the public flow.
-              </p>
+              <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
+                <h3 className="text-3xl leading-none font-medium tracking-[-0.035em] text-white">
+                  Three decisive checks
+                </h3>
+                <p className="text-sm leading-6 text-zinc-300">
+                  Configure, deploy, then verify the public flow.
+                </p>
+              </div>
             </div>
 
             <ol className="mt-6 border-y border-white/15">
@@ -203,7 +219,7 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-5 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_7rem_minmax(0,1fr)_minmax(0,0.9fr)]"
+                    className="group grid items-center gap-x-5 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_7rem_minmax(0,1fr)]"
                   >
                     <span className="font-mono text-2xl font-medium tracking-[-0.08em] text-[#5f96ff]">
                       0{index + 1}
@@ -211,16 +227,18 @@ function TutorialCatalogCard({
                     <span className="text-sm font-semibold text-zinc-300">
                       {chapter.phase}
                     </span>
-                    <strong className="mt-2 inline-flex items-center gap-3 text-xl font-semibold tracking-[-0.025em] text-white transition-colors group-hover:text-[#5f96ff] sm:mt-0">
-                      {chapter.title}
-                      <ArrowRight
-                        size={16}
-                        className="shrink-0 text-zinc-300 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white"
-                        aria-hidden="true"
-                      />
-                    </strong>
-                    <span className="col-start-2 mt-1 text-sm leading-6 text-zinc-300 sm:col-start-auto sm:mt-0">
-                      {chapter.detail}
+                    <span className="mt-2 sm:mt-0">
+                      <strong className="inline-flex items-center gap-3 text-xl font-semibold tracking-[-0.025em] text-white transition-colors group-hover:text-[#5f96ff]">
+                        {chapter.title}
+                        <ArrowRight
+                          size={16}
+                          className="shrink-0 text-zinc-300 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white"
+                          aria-hidden="true"
+                        />
+                      </strong>
+                      <span className="mt-1 block text-sm leading-6 text-zinc-300">
+                        {chapter.detail}
+                      </span>
                     </span>
                   </Link>
                 </li>
@@ -395,8 +413,8 @@ export default function TutorialsPage({
               )}
             </div>
 
-            <aside className="flex flex-col border border-l-2 border-white/15 border-l-[#44b78b] bg-[#111419] p-6 md:col-span-4">
-              <div className="flex items-start justify-between gap-5 border-b border-white/15 pb-5">
+            <aside className="border-l border-[#44b78b] pl-8 md:col-span-4 md:py-1">
+              <div className="flex items-start justify-between gap-5">
                 <Image
                   src="/icons/django.svg"
                   alt="Django"
@@ -408,22 +426,13 @@ export default function TutorialsPage({
                   5.2 / 01
                 </span>
               </div>
-              <div className="grid grid-cols-[5rem_minmax(0,1fr)] items-end gap-5 border-b border-white/15 py-6">
-                <p className="text-[4rem] leading-none font-medium tracking-[-0.065em] text-white">
-                  35
-                </p>
-                <p className="pb-1 text-base leading-6 text-zinc-200">
-                  minutes from repository to public HTTPS.
-                </p>
-              </div>
-              <div className="mt-auto pt-5">
-                <p className="text-xs font-semibold text-zinc-400">
-                  Production stack
-                </p>
-                <p className="mt-2 font-mono text-xs font-bold tracking-[0.04em] text-zinc-200">
-                  GUNICORN · POSTGRESQL
-                </p>
-              </div>
+              <p className="mt-8 max-w-64 text-3xl leading-[1.08] font-medium tracking-[-0.035em] text-white">
+                A 35-minute production runbook.
+              </p>
+              <p className="mt-6 max-w-60 text-sm leading-6 text-zinc-300">
+                Django 5.2 with Gunicorn and PostgreSQL, verified on public
+                HTTPS.
+              </p>
             </aside>
           </div>
         </section>
