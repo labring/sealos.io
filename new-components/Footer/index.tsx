@@ -238,22 +238,18 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
               </p>
               <nav
                 aria-label="Footer"
-                className="mt-5 grid grid-cols-2 gap-x-8 gap-y-7 sm:grid-cols-4"
+                className="mt-5 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"
               >
-                {footerLinks.columns.map((category) => (
-                  <div key={category.title}>
-                    <p className="text-xs font-semibold tracking-[0.04em] text-zinc-500 uppercase">
-                      {category.title}
-                    </p>
-                    <div className="mt-3 flex flex-col items-start gap-2.5">
-                      {category.links.map((link) => (
-                        <FooterLink key={link.text} href={link.url}>
-                          {link.text}
-                        </FooterLink>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                {footerLinks.columns.flatMap((category) =>
+                  category.links.map((link) => (
+                    <FooterLink
+                      key={`${category.title}-${link.text}`}
+                      href={link.url}
+                    >
+                      {link.text}
+                    </FooterLink>
+                  )),
+                )}
               </nav>
             </div>
           </div>

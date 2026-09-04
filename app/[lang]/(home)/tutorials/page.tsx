@@ -125,19 +125,23 @@ function TutorialCatalogCard({
             </figcaption>
 
             <div className="grid bg-[#d4d7d4] text-[#101318] md:grid-cols-12">
-              <div className="flex flex-col border-b border-zinc-600/30 bg-[#b3bab6] p-6 md:col-span-3 md:border-r md:border-b-0">
-                <p className="text-sm font-semibold text-zinc-700">
-                  Request trace
+              <div className="flex flex-col border-b border-white/15 bg-[#111419] p-6 text-white md:col-span-3 md:border-r md:border-b-0">
+                <p className="text-sm font-semibold text-zinc-400">
+                  Deployment result
                 </p>
-                <p className="mt-5 text-2xl leading-tight font-semibold">
-                  Four request events
+                <p className="mt-4 font-mono text-5xl leading-none font-medium tracking-[-0.08em]">
+                  200
                 </p>
-                <p className="mt-3 text-sm leading-6 text-zinc-700">
-                  One saved task proves the complete production path.
+                <p className="mt-1 text-2xl leading-none font-semibold text-[#5f96ff]">
+                  OK
                 </p>
-                <code className="mt-auto block pt-6 text-xs font-semibold text-zinc-700">
-                  POST → 302 → GET → 200
-                </code>
+                <p className="mt-4 inline-flex items-center gap-2 text-sm font-semibold">
+                  <span
+                    className="size-1.5 rounded-full bg-[#44b78b]"
+                    aria-hidden="true"
+                  />
+                  Production verified
+                </p>
               </div>
 
               <div className="relative bg-[repeating-linear-gradient(0deg,rgba(16,19,24,0.018)_0,rgba(16,19,24,0.018)_1px,transparent_1px,transparent_4px)] md:col-span-9">
@@ -149,20 +153,20 @@ function TutorialCatalogCard({
                   {DJANGO_REQUEST_TRACE.map((step) => (
                     <li
                       key={step.marker}
-                      className="relative grid grid-cols-[2rem_minmax(0,1fr)] items-center gap-x-4 gap-y-1 py-4 md:grid-cols-12"
+                      className="relative grid grid-cols-[2rem_minmax(0,1fr)] items-center gap-x-4 gap-y-1 py-3 md:grid-cols-12"
                     >
                       <span
                         className="z-10 ml-0.5 size-2 bg-[#146dff] md:col-span-1"
                         aria-hidden="true"
                       />
-                      <span className="col-start-2 text-xs font-bold tracking-[0.04em] text-zinc-700 md:col-span-2 md:col-start-auto">
+                      <span className="col-start-2 text-xs font-bold tracking-[0.04em] text-zinc-600 md:col-span-2 md:col-start-auto">
                         {step.label}
                       </span>
                       <span className="col-start-2 md:col-span-7 md:col-start-auto md:grid md:grid-cols-[10rem_minmax(0,1fr)] md:items-center md:gap-x-6">
                         <code className="block text-sm font-bold text-[#101318]">
                           {step.title}
                         </code>
-                        <code className="mt-1 block text-sm text-zinc-700 md:mt-0">
+                        <code className="mt-1 block text-sm text-zinc-600 md:mt-0">
                           {step.evidence}
                         </code>
                       </span>
@@ -170,7 +174,7 @@ function TutorialCatalogCard({
                         className={`col-start-2 font-mono text-xs font-bold md:col-span-2 md:col-start-auto md:text-right ${
                           step.marker === '04'
                             ? 'text-[#146dff]'
-                            : 'text-zinc-700'
+                            : 'text-zinc-600'
                         }`}
                       >
                         {step.transport}
@@ -179,22 +183,6 @@ function TutorialCatalogCard({
                   ))}
                 </ol>
               </div>
-            </div>
-
-            <div className="grid gap-2 bg-[#101318] px-6 py-3.5 text-white md:grid-cols-12 md:items-center md:gap-x-6">
-              <span className="inline-flex items-center gap-2 text-sm font-bold text-zinc-100 md:col-span-3">
-                <span
-                  className="size-1.5 rounded-full bg-[#44b78b]"
-                  aria-hidden="true"
-                />
-                Persisted task
-              </span>
-              <strong className="text-sm font-semibold md:col-span-6">
-                Runtime proof from Sealos
-              </strong>
-              <code className="text-xs font-semibold text-zinc-300 md:col-span-3 md:text-right">
-                POST → 302 → GET → 200
-              </code>
             </div>
           </figure>
 
@@ -422,16 +410,16 @@ export default function TutorialsPage({
               )}
             </div>
 
-            <aside className="border border-[#2f6d55] bg-[#0a2a20] p-6 md:col-span-4">
+            <aside className="border-y border-[#2f6d55] py-5 md:col-span-4 md:self-end">
               <div className="flex items-center justify-between gap-4">
                 <p className="text-sm font-semibold text-[#b8e8d1]">
                   Runtime profile
                 </p>
-                <span className="text-sm font-semibold text-[#b8e8d1]">
+                <span className="text-sm font-semibold text-zinc-400">
                   Production
                 </span>
               </div>
-              <div className="mt-6 flex items-end justify-between gap-6">
+              <div className="mt-5 flex items-end justify-between gap-6">
                 <Image
                   src="/icons/django.svg"
                   alt="Django"
@@ -443,23 +431,10 @@ export default function TutorialsPage({
                   5.2
                 </span>
               </div>
-              <dl className="mt-7 divide-y divide-white/20 border-y border-white/20">
-                <div className="flex items-center justify-between gap-4 py-3">
-                  <dt className="text-sm text-[#b8e8d1]">WSGI server</dt>
-                  <dd className="text-sm font-semibold text-white">Gunicorn</dd>
-                </div>
-                <div className="flex items-center justify-between gap-4 py-3">
-                  <dt className="text-sm text-[#b8e8d1]">Data service</dt>
-                  <dd className="text-sm font-semibold text-white">
-                    PostgreSQL
-                  </dd>
-                </div>
-                <div className="flex items-center justify-between gap-4 py-3">
-                  <dt className="text-sm text-[#b8e8d1]">Public edge</dt>
-                  <dd className="text-sm font-semibold text-white">HTTPS</dd>
-                </div>
-              </dl>
-              <p className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white">
+              <p className="mt-5 border-t border-white/15 pt-4 text-sm font-semibold text-zinc-300">
+                Gunicorn · PostgreSQL · Public HTTPS
+              </p>
+              <p className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-white">
                 <span
                   className="size-1.5 rounded-full bg-[#73d6aa]"
                   aria-hidden="true"
