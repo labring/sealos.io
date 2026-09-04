@@ -34,18 +34,21 @@ const DJANGO_EVIDENCE_NODES = [
     label: 'Django runtime',
     status: 'Running · :8000',
     position: '56% 34%',
+    highlightClassName: 'top-[38%] right-[4%] bottom-[12%] left-[4%]',
   },
   {
     phase: '02 · Deploy',
     label: 'PostgreSQL',
     status: 'Private · attached',
-    position: '90% 37%',
+    position: '88% 34%',
+    highlightClassName: 'top-[37%] right-[4%] bottom-[10%] left-[4%]',
   },
   {
     phase: '03 · Verify',
     label: 'Public HTTPS',
     status: 'HTTP 200 · live',
     position: '22% 34%',
+    highlightClassName: 'top-[39%] right-[4%] bottom-[9%] left-[4%]',
   },
 ] as const;
 
@@ -123,43 +126,50 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="overflow-hidden border-b border-white/15 bg-white/15">
-              <ol className="grid gap-px md:grid-cols-3">
+            <div className="relative overflow-hidden border-b border-white/15 bg-white/15">
+              <span
+                className="absolute top-9 right-8 left-8 z-10 hidden h-px bg-[#5f96ff]/45 md:block"
+                aria-hidden="true"
+              />
+              <ol className="relative grid gap-px md:grid-cols-3">
                 {DJANGO_EVIDENCE_NODES.map((node, index) => (
                   <li
                     key={node.phase}
                     className="relative bg-[#070b12] p-6 md:p-7"
                   >
-                    <div className="flex items-baseline justify-between gap-4">
-                      <span className="font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase">
+                    <div className="relative z-20 flex items-center justify-between gap-4">
+                      <span className="inline-flex items-center gap-3 bg-[#070b12] pr-3 font-mono text-xs font-bold tracking-[0.06em] text-[#5f96ff] uppercase">
+                        <span className="size-2 rounded-full bg-[#5f96ff] ring-4 ring-[#070b12]" />
                         {node.phase}
                       </span>
-                      <span className="text-sm font-semibold text-white">
+                      <span
+                        className={`bg-[#070b12] pl-3 text-sm font-semibold ${
+                          index === DJANGO_EVIDENCE_NODES.length - 1
+                            ? 'text-[#44b78b]'
+                            : 'text-white'
+                        }`}
+                      >
                         {node.status}
                       </span>
                     </div>
                     <div
                       role="img"
                       aria-label={`${node.label}: ${node.status}`}
-                      className="mt-4 h-56 bg-no-repeat brightness-125 contrast-125"
+                      className="relative mt-4 h-48 bg-no-repeat brightness-[1.4] contrast-125"
                       style={{
                         backgroundImage: `url(${DJANGO_PRODUCTION_EVIDENCE})`,
                         backgroundPosition: node.position,
-                        backgroundSize: '425% auto',
+                        backgroundSize: '460% auto',
                       }}
-                    />
+                    >
+                      <span
+                        className={`absolute border border-[#5f96ff] bg-[#146dff]/5 shadow-[0_0_0_1px_rgba(0,0,0,0.6)] ${node.highlightClassName}`}
+                        aria-hidden="true"
+                      />
+                    </div>
                     <p className="mt-4 text-xl font-semibold tracking-[-0.025em] text-white">
                       {node.label}
                     </p>
-                    {index < DJANGO_EVIDENCE_NODES.length - 1 && (
-                      <span
-                        className="absolute top-[57%] -right-5 z-10 hidden w-10 items-center md:flex"
-                        aria-hidden="true"
-                      >
-                        <span className="h-px flex-1 bg-[#5f96ff]" />
-                        <span className="size-1.5 rotate-45 border-t border-r border-[#5f96ff]" />
-                      </span>
-                    )}
                   </li>
                 ))}
               </ol>
@@ -397,7 +407,7 @@ export default function TutorialsPage({
             </div>
 
             <aside className="border-l border-white/15 pl-7 md:py-1">
-              <div className="flex items-start justify-between gap-5">
+              <div className="flex items-end gap-5">
                 <Image
                   src="/icons/django.svg"
                   alt="Django"
@@ -405,7 +415,7 @@ export default function TutorialsPage({
                   height={52}
                   className="h-9 w-auto invert"
                 />
-                <span className="font-mono text-xs font-bold tracking-[0.04em] text-zinc-300">
+                <span className="pb-1 font-mono text-xs font-bold tracking-[0.04em] text-zinc-300">
                   Django 5.2
                 </span>
               </div>
