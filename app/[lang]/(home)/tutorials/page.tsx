@@ -103,7 +103,7 @@ function TutorialCatalogCard({
       {isDjangoGuide ? (
         <nav className="text-[#0a0a0a]" aria-label="Guide chapters">
           <div className="grid lg:grid-cols-[minmax(0,1fr)_24rem]">
-            <div className="grid gap-5 bg-[#f2f0e8] py-5 pr-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center lg:gap-0">
+            <div className="grid gap-5 bg-[#f2f0e8] py-5 pr-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-0">
               <div className="lg:pr-8">
                 <p className="text-sm font-semibold text-zinc-600">
                   Inside the guide
@@ -129,7 +129,7 @@ function TutorialCatalogCard({
 
             <div className="bg-[#090909] px-6 py-5 text-white lg:border-l lg:border-white/15">
               <p className="text-base font-semibold text-zinc-300">
-                Observed transaction
+                Sealos live transaction
               </p>
               <p className="mt-2 font-mono text-base font-bold text-zinc-200">
                 POST → COMMIT → GET
@@ -148,7 +148,7 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid gap-5 bg-[#f2f0e8] py-5 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none lg:grid-cols-[3rem_minmax(13rem,0.75fr)_1.25fr] lg:items-center lg:gap-5"
+                    className="group grid gap-5 bg-[#f2f0e8] py-5 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none lg:grid-cols-[3rem_16.5rem_1fr] lg:items-center lg:gap-5"
                   >
                     <span
                       className={`text-4xl font-medium tracking-[-0.055em] ${
@@ -167,7 +167,7 @@ function TutorialCatalogCard({
                         {chapter.title}
                       </strong>
                     </span>
-                    <span className="text-base leading-7 text-zinc-700">
+                    <span className="text-[15px] leading-6 text-zinc-700">
                       {chapter.detail}
                     </span>
                   </Link>
@@ -327,7 +327,7 @@ export default function TutorialsPage({
                 <span className="block">on Sealos</span>
               </h1>
               <div className="mt-7">
-                <p className="max-w-[35rem] text-lg leading-8 text-zinc-300">
+                <p className="max-w-[38rem] text-lg leading-8 text-zinc-300">
                   Build a Django 5.2 Task app with Gunicorn, WhiteNoise, and
                   PostgreSQL. Deploy it on Sealos and verify a live create/read
                   flow.
@@ -348,8 +348,8 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <aside className="flex flex-col justify-end pb-7 lg:border-l lg:border-white/15 lg:pl-8">
-              <div className="border-t border-white/15 pt-5">
+            <aside className="lg:border-l lg:border-white/15 lg:pl-8">
+              <div className="flex h-full flex-col border-t border-white/15 pt-5 pb-7">
                 <div className="flex items-center justify-between gap-5">
                   <Image
                     src="/icons/django.svg"
@@ -362,14 +362,22 @@ export default function TutorialsPage({
                     2026.09.02
                   </span>
                 </div>
-                <p className="mt-8 text-sm font-semibold text-zinc-500">
-                  Live create / read proof
-                </p>
-                <p className="mt-3 max-w-xs text-3xl leading-tight font-medium tracking-[-0.04em] text-white">
-                  One task. Written once. Read after refresh.
-                </p>
-                <p className="mt-6 flex items-center gap-3 text-sm font-semibold text-[#44b78b]">
-                  <span className="size-2 bg-[#44b78b]" aria-hidden="true" />
+                <div className="my-auto py-7">
+                  <p className="text-sm font-semibold text-zinc-500">
+                    Live create / read proof
+                  </p>
+                  <p className="mt-3 max-w-xs text-3xl leading-tight font-medium tracking-[-0.04em] text-white">
+                    One task. Written once. Read after refresh.
+                  </p>
+                </div>
+                <p className="flex items-center gap-3 text-sm font-semibold text-[#44b78b]">
+                  <Image
+                    src="/logo.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="size-5"
+                  />
                   HTTP 200 · persisted
                 </p>
               </div>
