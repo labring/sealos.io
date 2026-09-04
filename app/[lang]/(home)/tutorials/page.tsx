@@ -131,7 +131,7 @@ function TutorialCatalogCard({
                     </span>
                     <ArrowRight
                       size={16}
-                      className="col-start-3 row-start-1 justify-self-end text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff] sm:col-start-auto"
+                      className="col-start-3 row-start-1 justify-self-end text-zinc-400 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff] sm:col-start-auto sm:row-start-auto"
                       aria-hidden="true"
                     />
                   </Link>
@@ -145,20 +145,20 @@ function TutorialCatalogCard({
               <span className="text-xl font-semibold tracking-tight text-white">
                 Deployment evidence / DJANGO-01
               </span>
-              <span className="font-mono text-xs font-semibold text-zinc-500">
+              <span className="font-mono text-xs font-semibold text-zinc-400">
                 01 / LIVE PROJECT CAPTURE
               </span>
             </figcaption>
 
-            <div className="grid border border-white/15 lg:grid-cols-[minmax(0,1fr)_15rem]">
-              <div className="relative aspect-[2.65/1] overflow-hidden bg-[#07101d]">
+            <div className="grid border border-white/15 lg:grid-cols-[minmax(0,1fr)_17rem]">
+              <div className="relative aspect-[2.3/1] overflow-hidden bg-[#07101d]">
                 <Image
                   src="/images/tutorials/django/django-sealos-live-app-https-proof.webp"
                   alt="Live Django task application with a verified task write and read result"
                   fill
                   priority={priorityImage}
                   quality={95}
-                  className="object-cover object-[50%_37%]"
+                  className="origin-[40%_40%] scale-[1.35] object-cover object-[50%_37%]"
                   sizes="(max-width: 760px) 100vw, 88vw"
                 />
               </div>
@@ -177,7 +177,7 @@ function TutorialCatalogCard({
                     <h3 className="mt-3 text-sm font-semibold text-white">
                       {step.title}
                     </h3>
-                    <p className="mt-1 text-xs leading-5 text-zinc-400">
+                    <p className="mt-1 text-xs leading-5 text-zinc-300">
                       {step.evidence}
                     </p>
                   </li>
@@ -190,7 +190,7 @@ function TutorialCatalogCard({
                 <span className="size-1.5 rounded-full bg-emerald-400" />
                 Live create/read verified
               </strong>
-              <span className="text-zinc-400 sm:text-right">
+              <span className="text-zinc-300 sm:text-right">
                 Django 5.2 · Gunicorn · WhiteNoise · PostgreSQL · HTTPS :443
               </span>
             </div>
@@ -334,7 +334,7 @@ export default function TutorialsPage({
                     aria-hidden="true"
                   />
                 </Link>
-                <span className="inline-flex items-center gap-2 text-sm text-zinc-400">
+                <span className="inline-flex items-center gap-2 text-sm text-zinc-300">
                   <BookOpen size={14} aria-hidden="true" />
                   {firstTutorial.estimatedReadingTime} · 3 proofs ·{' '}
                   <span className="text-emerald-400">HTTP 200</span>
@@ -406,7 +406,7 @@ export default function TutorialsPage({
             <h2 className="text-2xl font-semibold tracking-tight text-white">
               Missing your stack?
             </h2>
-            <p className="text-sm leading-6 text-zinc-400">
+            <p className="text-sm leading-6 text-zinc-300">
               Share the deployment job you need.
             </p>
             <TutorialRequestGuideLink className="group inline-flex shrink-0 items-center border-b border-[#146dff] py-1 text-sm font-semibold text-[#5f96ff] transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-white hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none">

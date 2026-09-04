@@ -157,7 +157,7 @@ function FooterLink({
   return (
     <Link
       href={href}
-      className="text-sm leading-5 text-zinc-400 transition-colors hover:text-white"
+      className="text-sm leading-5 text-zinc-300 transition-colors hover:text-white"
     >
       {children}
     </Link>
@@ -180,7 +180,7 @@ function SocialLink({
       rel="noopener noreferrer"
       title={title}
       aria-label={title}
-      className="flex size-7 items-center justify-center text-zinc-400 transition-colors hover:text-white"
+      className="flex size-7 items-center justify-center text-zinc-300 transition-colors hover:text-white"
     >
       {children}
     </a>
@@ -204,7 +204,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
                 <img src="/logo.svg" alt="" className="size-7" />
                 Sealos
               </Link>
-              <p className="mt-2 text-sm text-zinc-400">
+              <p className="mt-2 text-sm text-zinc-300">
                 Build, deploy, and run applications on a cloud operating system.
               </p>
             </div>
@@ -226,7 +226,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
             </nav>
           </div>
 
-          <div className="flex flex-col items-center justify-between gap-4 border-t border-zinc-900 pt-4 text-sm leading-5 text-zinc-400 lg:flex-row">
+          <div className="flex flex-col items-center justify-between gap-4 border-t border-zinc-900 pt-4 text-sm leading-5 text-zinc-300 lg:flex-row">
             <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 lg:justify-start">
               {footerLinks.legal.map((link) => (
                 <FooterLink key={link.text} href={link.url}>
