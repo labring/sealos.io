@@ -65,7 +65,7 @@ export const footerTranslations: Record<string, Record<string, string>> = {
     sealosSkills: 'Agents',
     education: 'Education',
     blog: 'Blog',
-    frequentlyAskedQuestions: 'Frequently Asked Questions',
+    frequentlyAskedQuestions: 'FAQs',
     skills: 'Skills',
     templates: 'Templates',
     pricing: 'Pricing',
