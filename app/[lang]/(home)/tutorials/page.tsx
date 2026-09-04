@@ -361,20 +361,22 @@ export default function TutorialsPage({
                 {firstTutorial && (
                   <Link
                     href={firstTutorial.url}
-                    className="group relative z-10 mt-5 mb-4 inline-flex items-center gap-3 border border-[#5f96ff] px-5 py-3 text-base font-semibold text-[#5f96ff] transition-colors hover:bg-[#146dff] hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group relative z-10 mt-5 mb-4 inline-grid grid-cols-[auto_2.75rem] items-stretch border border-[#5f96ff] bg-[#146dff] text-base font-semibold text-white transition-colors hover:bg-[#2879ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
-                    Read the field note
-                    <ArrowRight
-                      size={15}
-                      className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
-                      aria-hidden="true"
-                    />
+                    <span className="px-5 py-3">Read the field note</span>
+                    <span className="flex items-center justify-center border-l border-white/30">
+                      <ArrowRight
+                        size={15}
+                        className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                        aria-hidden="true"
+                      />
+                    </span>
                   </Link>
                 )}
               </div>
             </div>
 
-            <aside className="lg:border-l lg:border-white/15 lg:pl-8">
+            <aside className="lg:border-l lg:border-white/15 lg:pl-6">
               <div className="flex h-full flex-col border-t border-white/15 pt-5 pb-7">
                 <div className="flex items-center justify-between gap-5">
                   <Image
@@ -388,14 +390,11 @@ export default function TutorialsPage({
                     2026.09.02
                   </span>
                 </div>
-                <div className="mt-10">
-                  <p className="text-sm font-semibold text-zinc-500">
-                    Live create / read proof
-                  </p>
-                  <p className="mt-3 max-w-xs text-3xl leading-tight font-medium tracking-[-0.04em] text-white">
-                    One task. Written once. Read after refresh.
-                  </p>
-                  <p className="mt-6 flex items-center gap-3 text-sm font-semibold text-[#44b78b]">
+                <div className="mt-8">
+                  <div className="flex items-center justify-between gap-5">
+                    <p className="text-sm font-semibold text-zinc-500">
+                      Live create / read proof
+                    </p>
                     <Image
                       src="/logo.svg"
                       alt=""
@@ -403,7 +402,38 @@ export default function TutorialsPage({
                       height={20}
                       className="size-5"
                     />
-                    HTTP 200 · persisted
+                  </div>
+                  <p className="mt-3 max-w-xs text-[1.75rem] leading-tight font-medium tracking-[-0.04em] text-white">
+                    One task. Three states. Proven live.
+                  </p>
+                  <ol className="mt-5 grid grid-cols-3 border-y border-white/15">
+                    <li className="py-3 pr-3">
+                      <span className="block font-mono text-[10px] text-zinc-500">
+                        01 · CREATE
+                      </span>
+                      <strong className="mt-1 block font-mono text-lg text-[#5f96ff]">
+                        POST
+                      </strong>
+                    </li>
+                    <li className="border-l border-white/15 px-3 py-3">
+                      <span className="block font-mono text-[10px] text-zinc-500">
+                        02 · PERSIST
+                      </span>
+                      <strong className="mt-1 block font-mono text-lg text-white">
+                        COMMIT
+                      </strong>
+                    </li>
+                    <li className="border-l border-white/15 py-3 pl-3">
+                      <span className="block font-mono text-[10px] text-zinc-500">
+                        03 · READ
+                      </span>
+                      <strong className="mt-1 block font-mono text-lg text-[#44b78b]">
+                        GET
+                      </strong>
+                    </li>
+                  </ol>
+                  <p className="mt-4 font-mono text-sm font-semibold text-[#44b78b]">
+                    HTTP 200 · persisted after refresh
                   </p>
                 </div>
                 <p className="mt-auto border-t border-white/15 pt-4 font-mono text-sm text-zinc-400">
