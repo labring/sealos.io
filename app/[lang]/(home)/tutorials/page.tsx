@@ -144,7 +144,7 @@ function TutorialCatalogCard({
               return (
                 <li
                   key={chapter.hash}
-                  className="grid border-t border-black/15 lg:grid-cols-[minmax(0,1fr)_24rem]"
+                  className="grid border-t border-zinc-500/30 lg:min-h-[7.5rem] lg:grid-cols-[minmax(0,1fr)_24rem]"
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
@@ -174,14 +174,30 @@ function TutorialCatalogCard({
 
                   <span className="bg-[#090909] px-6 py-5 text-white lg:border-l lg:border-white/15">
                     <span className="flex items-center justify-between gap-4">
-                      <span className="text-base font-semibold text-zinc-200">
-                        {proof.stage}
+                      <span className="flex items-center gap-3">
+                        <code className="font-mono text-xs text-zinc-500">
+                          0{index + 1}
+                        </code>
+                        <span className="text-base font-semibold text-zinc-200">
+                          {proof.stage}
+                        </span>
                       </span>
-                      {index < DJANGO_LIVE_PROOF.length - 1 && (
-                        <code className="font-mono text-base font-bold text-zinc-200">
+                      <span className="flex items-baseline gap-2">
+                        <code
+                          className={`font-mono font-bold ${
+                            index === DJANGO_LIVE_PROOF.length - 1
+                              ? 'text-xl text-[#44b78b]'
+                              : 'text-base text-zinc-200'
+                          }`}
+                        >
                           {proof.result}
                         </code>
-                      )}
+                        {index === DJANGO_LIVE_PROOF.length - 1 && (
+                          <span className="text-xs font-semibold text-[#44b78b]">
+                            persisted
+                          </span>
+                        )}
+                      </span>
                     </span>
                     <code className="mt-2 block font-mono text-base font-bold text-white">
                       {proof.command}
@@ -189,16 +205,6 @@ function TutorialCatalogCard({
                     <code className="mt-1 block font-mono text-sm leading-5 break-words text-zinc-300">
                       {proof.detail}
                     </code>
-                    {index === DJANGO_LIVE_PROOF.length - 1 && (
-                      <span className="mt-2 flex items-baseline gap-3">
-                        <strong className="font-mono text-2xl text-[#44b78b]">
-                          {proof.result}
-                        </strong>
-                        <span className="text-sm font-semibold text-[#44b78b]">
-                          Persisted after refresh
-                        </span>
-                      </span>
-                    )}
                   </span>
                 </li>
               );
