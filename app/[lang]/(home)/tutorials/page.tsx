@@ -37,7 +37,7 @@ const DJANGO_GUIDE_CHAPTERS = [
     status: 'Running',
     imageSrc: '/images/tutorials/django/django-sealos-project-ops-running.webp',
     imageClassName:
-      '-left-[166.25%] -top-[71.7%] h-auto w-[400%] brightness-110 contrast-110',
+      '-left-[189.4%] -top-[82.6%] h-auto w-[440%] brightness-110 contrast-110',
   },
   {
     step: '02',
@@ -48,7 +48,7 @@ const DJANGO_GUIDE_CHAPTERS = [
     status: 'Running',
     imageSrc: '/images/tutorials/django/django-sealos-project-ops-running.webp',
     imageClassName:
-      '-left-[266.25%] -top-[108.3%] h-auto w-[400%] brightness-110 contrast-110',
+      '-left-[303.3%] -top-[100.9%] h-auto w-[440%] brightness-110 contrast-110',
   },
   {
     step: '03',
@@ -57,9 +57,9 @@ const DJANGO_GUIDE_CHAPTERS = [
     hash: '#verify-the-live-django-application',
     evidence: 'Public HTTPS',
     status: 'Reachable',
-    imageSrc:
-      '/images/tutorials/django/django-sealos-live-app-https-proof.webp',
-    imageClassName: 'inset-0 h-full w-full object-cover object-center',
+    imageSrc: '/images/tutorials/django/django-sealos-project-ops-running.webp',
+    imageClassName:
+      '-left-[77.3%] -top-[71.6%] h-auto w-[440%] brightness-110 contrast-110',
   },
 ] as const;
 
@@ -96,7 +96,7 @@ function TutorialCatalogCard({
 
       {isDjangoGuide ? (
         <figure>
-          <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div className="mb-6">
             <figcaption>
               <span className="block text-2xl font-semibold tracking-tight text-white">
                 Three checks. One running application.
@@ -106,10 +106,6 @@ function TutorialCatalogCard({
                 project.
               </span>
             </figcaption>
-            <span className="inline-flex items-center gap-2 text-sm font-medium text-emerald-400">
-              <span className="size-2 rounded-full bg-emerald-400" />
-              All services running
-            </span>
           </div>
 
           <h2 id="inside-guide-heading" className="sr-only">
@@ -324,7 +320,7 @@ export default function TutorialsPage({
               </div>
             )}
           </div>
-          <div className="mt-8 md:col-span-4 md:mt-0 md:pt-14 md:pl-8">
+          <div className="mt-8 md:col-span-4 md:mt-0 md:border-l md:border-[#146dff] md:pt-14 md:pl-8">
             <p className="max-w-sm text-3xl leading-[1.15] font-medium tracking-[-0.03em] text-zinc-200">
               From working code{' '}
               <span className="text-[#5f96ff]">to green lights.</span>
@@ -393,18 +389,15 @@ export default function TutorialsPage({
             </div>
           )}
 
-          <section className="mt-14 grid gap-5 py-3 md:grid-cols-12 md:items-center md:gap-8">
-            <div className="md:col-span-8">
-              <h2 className="text-2xl font-semibold tracking-tight text-white">
-                Help choose the next field note.
-              </h2>
-              <p className="mt-2 max-w-xl text-sm leading-6 text-zinc-400">
-                Share the framework or runtime and the deployment job you need.
-                Requests help prioritize the next qualified Core tutorial.
-              </p>
-            </div>
-            <TutorialRequestGuideLink className="group inline-flex h-11 shrink-0 items-center text-sm font-semibold text-white transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-4 md:justify-end">
-              Request a tutorial
+          <section className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 py-2">
+            <h2 className="text-xl font-semibold tracking-tight text-white">
+              Missing your stack?
+            </h2>
+            <p className="text-sm leading-6 text-zinc-400">
+              Share the deployment job you need.
+            </p>
+            <TutorialRequestGuideLink className="group inline-flex h-10 shrink-0 items-center text-sm font-semibold text-[#5f96ff] transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none">
+              Request the next field note
               <ArrowRight
                 size={16}
                 className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
