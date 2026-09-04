@@ -102,63 +102,85 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="grid overflow-hidden border-b border-white/15 md:grid-cols-[1.72fr_0.58fr]">
-              <div className="relative aspect-video overflow-hidden bg-[#eef1f6] md:aspect-auto md:min-h-[28rem]">
-                <Image
-                  src={DJANGO_LIVE_EVIDENCE}
-                  alt="Live Django task application showing a saved task after a successful HTTPS create and read request"
-                  fill
-                  className="scale-[1.38] object-cover object-center"
-                  priority
-                  quality={100}
-                  sizes="(max-width: 768px) 100vw, 75vw"
-                />
+            <div className="overflow-hidden border-b border-white/15 bg-[#eef1f6]">
+              <div className="flex min-h-12 flex-wrap items-center gap-4 border-b border-black/15 bg-[#e4e8ee] px-5 py-2 text-[#10131a]">
+                <span className="flex gap-1.5" aria-hidden="true">
+                  <span className="size-2 rounded-full bg-[#ff5f57]" />
+                  <span className="size-2 rounded-full bg-[#febc2e]" />
+                  <span className="size-2 rounded-full bg-[#28c840]" />
+                </span>
+                <span className="min-w-0 flex-1 truncate border border-black/15 bg-white px-4 py-1.5 font-mono text-xs font-semibold">
+                  https://django-tasks-mpbrofzu.usw.sealos.io/
+                </span>
+                <time className="font-mono text-[11px] font-bold tracking-[0.04em] text-zinc-600 uppercase">
+                  Sep 03 2026 · 14:22 UTC
+                </time>
               </div>
 
-              <div className="flex flex-col border-l-2 border-[#146dff] bg-[#0d1015] p-7 text-white md:p-8">
-                <div className="flex items-center justify-between gap-4 font-mono text-xs font-bold tracking-[0.06em] uppercase">
-                  <span className="text-[#5f96ff]">Production receipt</span>
-                  <span className="text-zinc-400">03 / Verify</span>
+              <div className="grid md:grid-cols-[1fr_19rem]">
+                <div className="relative aspect-video overflow-hidden bg-[#eef1f6] md:aspect-auto md:min-h-[26rem]">
+                  <Image
+                    src={DJANGO_LIVE_EVIDENCE}
+                    alt="Live Django task application showing a saved task after a successful HTTPS create and read request"
+                    fill
+                    className="scale-[1.42] object-cover object-center"
+                    priority
+                    quality={100}
+                    sizes="(max-width: 768px) 100vw, 75vw"
+                  />
                 </div>
-                <p className="mt-10 text-[4.75rem] leading-[0.8] font-medium tracking-[-0.07em] text-[#5f96ff] md:text-[5.5rem]">
-                  200 OK
-                </p>
-                <p className="mt-6 text-2xl leading-tight font-semibold tracking-[-0.035em]">
-                  Create. Redirect. Read.
-                </p>
-                <p className="mt-2 text-sm leading-6 text-zinc-300">
-                  The saved task survives the full HTTPS flow.
-                </p>
 
-                <dl className="mt-auto border-t border-white/35 pt-2 text-sm">
-                  <div className="grid grid-cols-[5rem_1fr] gap-4 border-b border-white/25 py-3">
-                    <dt className="font-mono text-xs font-bold text-zinc-400 uppercase">
-                      Runtime
-                    </dt>
-                    <dd className="flex justify-between gap-4 font-semibold">
-                      <span>Gunicorn</span>
-                      <span>Running</span>
-                    </dd>
+                <aside className="flex flex-col border-l-2 border-[#146dff] bg-[#0d1015] p-7 text-white">
+                  <div className="flex items-center justify-between gap-4 font-mono text-xs font-bold tracking-[0.06em] uppercase">
+                    <span className="text-[#5f96ff]">Request trace</span>
+                    <span className="text-zinc-400">03 / Verify</span>
                   </div>
-                  <div className="grid grid-cols-[5rem_1fr] gap-4 border-b border-white/25 py-3">
-                    <dt className="font-mono text-xs font-bold text-zinc-400 uppercase">
-                      Data
-                    </dt>
-                    <dd className="flex justify-between gap-4 font-semibold">
-                      <span>PostgreSQL</span>
-                      <span>Attached</span>
-                    </dd>
+                  <ol className="mt-8 border-t border-white/20">
+                    <li className="border-b border-white/20 py-4">
+                      <div className="flex items-center justify-between gap-4">
+                        <code className="font-mono text-sm font-bold">
+                          POST /
+                        </code>
+                        <span className="font-mono text-xs font-bold text-zinc-400">
+                          302
+                        </span>
+                      </div>
+                      <p className="mt-1 text-sm text-zinc-400">
+                        Task accepted · redirect
+                      </p>
+                    </li>
+                    <li className="border-b border-white/20 py-4">
+                      <div className="flex items-center justify-between gap-4">
+                        <code className="font-mono text-sm font-bold">
+                          GET /
+                        </code>
+                        <span className="font-mono text-xs font-bold text-[#44b78b]">
+                          200 OK
+                        </span>
+                      </div>
+                      <p className="mt-1 text-sm text-zinc-400">
+                        Saved row returned
+                      </p>
+                    </li>
+                    <li className="py-4">
+                      <div className="flex items-center justify-between gap-4">
+                        <code className="font-mono text-[11px] font-bold">
+                          GET /static/tasks/app.css
+                        </code>
+                        <span className="font-mono text-xs font-bold text-[#44b78b]">
+                          200 OK
+                        </span>
+                      </div>
+                      <p className="mt-1 text-sm text-zinc-400">
+                        WhiteNoise asset served
+                      </p>
+                    </li>
+                  </ol>
+                  <div className="mt-auto flex items-center gap-3 border-t border-white/20 pt-5 text-sm font-semibold text-[#44b78b]">
+                    <span className="size-2 rounded-full bg-current" />
+                    Runtime proof persisted
                   </div>
-                  <div className="grid grid-cols-[5rem_1fr] gap-4 py-3">
-                    <dt className="font-mono text-xs font-bold text-zinc-400 uppercase">
-                      Request
-                    </dt>
-                    <dd className="flex justify-between gap-4 font-semibold">
-                      <span>GET /</span>
-                      <span>HTTPS</span>
-                    </dd>
-                  </div>
-                </dl>
+                </aside>
               </div>
             </div>
           </figure>
@@ -183,19 +205,10 @@ function TutorialCatalogCard({
 
             <ol className="border-t border-black/20 px-8 pb-8 md:px-10">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                <li
-                  key={chapter.hash}
-                  className={`border-b border-black/25 md:w-3/4 ${
-                    index === 1
-                      ? 'md:ml-[12.5%]'
-                      : index === 2
-                        ? 'md:ml-[25%]'
-                        : ''
-                  }`}
-                >
+                <li key={chapter.hash} className="border-b border-black/25">
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid min-h-28 grid-cols-[3rem_1fr_auto] items-center gap-5 py-5 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[3rem_1.15fr_0.85fr_auto]"
+                    className="group grid min-h-24 grid-cols-[2.5rem_1fr] items-center gap-5 py-5 focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[2.5rem_1.15fr_0.85fr]"
                   >
                     <span className="font-mono text-xl leading-none font-medium tracking-[-0.04em] text-zinc-500">
                       0{index + 1}
@@ -220,11 +233,6 @@ function TutorialCatalogCard({
                         {chapter.evidence}
                       </code>
                     </span>
-                    <ArrowRight
-                      size={20}
-                      className="self-center text-[#146dff] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
-                      aria-hidden="true"
-                    />
                   </Link>
                 </li>
               ))}
@@ -419,14 +427,9 @@ export default function TutorialsPage({
                   <span className="mt-1 block">Repo → HTTPS</span>
                 </span>
               </div>
-              <div className="mt-auto flex items-end justify-between gap-5 border-b border-white/15 pt-10 pb-3">
-                <span className="text-7xl leading-none font-medium tracking-[-0.07em] text-white/15">
-                  01
-                </span>
-                <span className="pb-1 text-right font-mono text-xs font-bold tracking-[0.06em] text-zinc-300 uppercase">
-                  Field note
-                  <span className="mt-1 block text-[#44b78b]">Verified</span>
-                </span>
+              <div className="mt-auto flex items-center justify-between gap-5 border-y border-white/15 py-4 font-mono text-xs font-bold tracking-[0.06em] uppercase">
+                <span className="text-zinc-300">Field note 01</span>
+                <span className="text-[#44b78b]">Verified</span>
               </div>
             </aside>
           </div>
