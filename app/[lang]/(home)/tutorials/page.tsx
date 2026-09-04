@@ -52,17 +52,20 @@ const DJANGO_GUIDE_CHAPTERS = [
 const DJANGO_LIVE_PROOF = [
   {
     stage: 'Request',
-    command: 'POST / · task="Runtime proof from Sealos"',
-    result: '302',
+    command: 'POST /',
+    detail: 'task="Runtime proof from Sealos"',
+    result: '302 Redirect',
   },
   {
     stage: 'Database',
-    command: 'INSERT tasks_task · PostgreSQL',
+    command: 'INSERT tasks_task',
+    detail: 'PostgreSQL transaction committed',
     result: 'COMMIT',
   },
   {
     stage: 'Fresh load',
-    command: 'GET / HTTP/2 · task[0]',
+    command: 'GET / HTTP/2',
+    detail: 'task[0]="Runtime proof from Sealos"',
     result: '200 OK',
   },
 ] as const;
@@ -99,7 +102,7 @@ function TutorialCatalogCard({
 
       {isDjangoGuide ? (
         <nav className="text-[#0a0a0a]" aria-label="Guide chapters">
-          <div className="grid lg:grid-cols-[minmax(0,1fr)_22.5rem]">
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_24rem]">
             <div className="grid gap-5 bg-[#f2f0e8] py-5 pr-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center lg:gap-0">
               <div className="lg:pr-8">
                 <p className="text-sm font-semibold text-zinc-600">
@@ -145,7 +148,7 @@ function TutorialCatalogCard({
               return (
                 <li
                   key={chapter.hash}
-                  className="grid border-t border-black/15 lg:grid-cols-[minmax(0,1fr)_22.5rem]"
+                  className="grid border-t border-black/15 lg:grid-cols-[minmax(0,1fr)_24rem]"
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
@@ -196,8 +199,11 @@ function TutorialCatalogCard({
                         </code>
                       )}
                     </span>
-                    <code className="mt-2 block truncate font-mono text-xs text-zinc-400">
+                    <code className="mt-2 block font-mono text-sm font-bold text-zinc-200">
                       {proof.command}
+                    </code>
+                    <code className="mt-1 block font-mono text-xs leading-5 break-words text-zinc-400">
+                      {proof.detail}
                     </code>
                     {index === DJANGO_LIVE_PROOF.length - 1 && (
                       <span className="mt-2 flex items-baseline gap-3">
@@ -327,12 +333,12 @@ export default function TutorialsPage({
 
       <main>
         <section className="container -mt-24 pt-32">
-          <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_22.5rem] lg:items-stretch lg:gap-0">
+          <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-stretch lg:gap-0">
             <div className="lg:pr-12">
               <p className="text-sm font-semibold text-zinc-400">
                 Deployment field note
               </p>
-              <h1 className="mt-5 text-6xl leading-[0.92] font-medium tracking-[-0.06em] text-white md:text-[5.5rem] md:leading-[0.88]">
+              <h1 className="mt-5 text-6xl leading-[0.92] font-medium tracking-[-0.06em] text-white md:text-[6rem] md:leading-[0.86]">
                 <span className="block">Deploy Django</span>
                 <span className="block">on Sealos</span>
               </h1>
@@ -358,13 +364,9 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <aside>
-              <div className="relative flex h-full flex-col border border-white/15">
-                <span
-                  className="absolute top-[3.75rem] bottom-0 left-6 w-px bg-white/15"
-                  aria-hidden="true"
-                />
-                <div className="flex items-start justify-between border-b border-white/10 px-7 py-4">
+            <aside className="flex flex-col justify-end pb-7 lg:border-l lg:border-white/15 lg:pl-8">
+              <div className="border-t border-white/15 pt-5">
+                <div className="flex items-center justify-between gap-5">
                   <Image
                     src="/icons/django.svg"
                     alt="Django"
@@ -373,28 +375,18 @@ export default function TutorialsPage({
                     className="h-7 w-auto opacity-80 invert"
                   />
                   <span className="font-mono text-xs font-semibold text-zinc-400">
-                    Verified · 2026.09.02
+                    2026.09.02
                   </span>
                 </div>
-
-                <div className="relative flex flex-1 flex-col justify-center py-6 pr-6 pl-12">
-                  <span
-                    className="absolute top-1/2 left-[1.32rem] size-1.5 -translate-y-1/2 bg-zinc-500"
-                    aria-hidden="true"
-                  />
-                  <p className="text-sm font-semibold text-zinc-500">
-                    Submitted task
-                  </p>
-                  <blockquote className="mt-4 max-w-xs text-3xl leading-tight font-medium tracking-[-0.04em] text-white">
-                    “Runtime proof from Sealos”
-                  </blockquote>
-                  <span className="mt-6 text-sm font-semibold text-zinc-300">
-                    Submitted over HTTPS
-                  </span>
-                </div>
-
-                <p className="border-t border-white/10 py-3 pr-6 pl-12 font-mono text-xs text-zinc-300">
-                  HTTPS · Django 5.2 · PostgreSQL
+                <p className="mt-8 text-sm font-semibold text-zinc-500">
+                  Live create / read proof
+                </p>
+                <p className="mt-3 max-w-xs text-3xl leading-tight font-medium tracking-[-0.04em] text-white">
+                  One task. Written once. Read after refresh.
+                </p>
+                <p className="mt-6 flex items-center gap-3 text-sm font-semibold text-[#44b78b]">
+                  <span className="size-2 bg-[#44b78b]" aria-hidden="true" />
+                  HTTP 200 · persisted
                 </p>
               </div>
             </aside>
