@@ -48,6 +48,13 @@ const DEPLOYMENT_NODES = [
     status: 'Attached',
     detail: 'Private network',
   },
+  {
+    marker: '01.D',
+    title: 'Browser response',
+    evidence: 'response.html · 200',
+    status: 'Verified',
+    detail: 'Task persisted',
+  },
 ] as const;
 
 const DJANGO_GUIDE_CHAPTERS = [
@@ -121,15 +128,17 @@ function TutorialCatalogCard({
             <div className="grid overflow-hidden bg-[#e3e5df] text-[#101318] md:grid-cols-[6rem_minmax(0,1fr)]">
               <aside className="flex min-h-48 flex-col justify-between border-r border-black/15 bg-[#111419] p-4 text-white">
                 <p className="font-mono text-xs font-bold tracking-[0.06em]">
-                  HTTP
+                  RUN
                   <br />
-                  RESPONSE
+                  DJANGO
                 </p>
                 <p>
                   <strong className="block font-mono text-3xl leading-none font-medium tracking-[-0.08em] text-[#3887ff]">
-                    200
+                    01
                   </strong>
-                  <span className="mt-1 block text-base font-semibold">OK</span>
+                  <span className="mt-1 block text-xs font-semibold">
+                    VERIFIED
+                  </span>
                 </p>
               </aside>
 
@@ -143,7 +152,7 @@ function TutorialCatalogCard({
                   </code>
                 </div>
 
-                <ol className="mt-5 grid gap-7 md:grid-cols-3 md:gap-10">
+                <ol className="mt-5 grid gap-7 md:grid-cols-4 md:gap-8">
                   {DEPLOYMENT_NODES.map((node, index) => (
                     <li key={node.marker} className="relative min-w-0">
                       <span className="font-mono text-xs font-bold tracking-[0.08em] text-[#146dff]">
@@ -155,7 +164,7 @@ function TutorialCatalogCard({
                       <div className="relative mt-4">
                         {index < DEPLOYMENT_NODES.length - 1 && (
                           <span
-                            className="absolute top-1/2 left-3 hidden h-1 w-[calc(100%+2.5rem)] -translate-y-1/2 bg-[#146dff] md:block"
+                            className="absolute top-1/2 left-3 hidden h-1 w-[calc(100%+2rem)] -translate-y-1/2 bg-[#146dff] md:block"
                             aria-hidden="true"
                           >
                             <span className="absolute top-1/2 left-1/2 size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff]" />
@@ -165,18 +174,25 @@ function TutorialCatalogCard({
                           className={`relative z-10 flex items-center justify-center rounded-full ring-[#146dff] ${
                             index === 1
                               ? 'size-7 bg-[#146dff] ring-4 ring-[#146dff]/25'
-                              : 'size-6 bg-[#e3e5df] ring-2'
+                              : index === DEPLOYMENT_NODES.length - 1
+                                ? 'size-7 bg-[#44b78b] ring-4 ring-[#44b78b]/25'
+                                : 'size-6 bg-[#e3e5df] ring-2'
                           }`}
                         >
                           <span
-                            className={`rounded-full ${index === 1 ? 'size-2.5 bg-white' : 'size-2 bg-[#146dff]'}`}
+                            className={`rounded-full ${
+                              index === 1 ||
+                              index === DEPLOYMENT_NODES.length - 1
+                                ? 'size-2.5 bg-white'
+                                : 'size-2 bg-[#146dff]'
+                            }`}
                           />
                         </span>
                       </div>
                       <code className="mt-4 block truncate font-mono text-[13px] font-bold text-zinc-900">
                         {node.evidence}
                       </code>
-                      <span className="mt-2 flex items-center gap-3 text-xs font-bold">
+                      <span className="mt-2 flex items-center gap-3 text-[13px] font-bold">
                         <span className="inline-flex items-center gap-2 text-emerald-800">
                           <span
                             className="size-1.5 rounded-full bg-emerald-600"
@@ -406,9 +422,6 @@ export default function TutorialsPage({
                       aria-hidden="true"
                     />
                   </Link>
-                  <span className="text-sm font-semibold text-zinc-400">
-                    3 chapters
-                  </span>
                 </div>
               )}
             </div>
@@ -430,8 +443,8 @@ export default function TutorialsPage({
                 A 35-minute production runbook.
               </p>
               <p className="mt-6 max-w-60 text-sm leading-6 text-zinc-300">
-                Django 5.2 with Gunicorn and PostgreSQL, verified on public
-                HTTPS.
+                Configure the app, connect its services, and prove the public
+                response.
               </p>
             </aside>
           </div>
