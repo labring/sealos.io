@@ -98,21 +98,21 @@ function TutorialCatalogCard({
                     src={DJANGO_PROJECT_EVIDENCE}
                     alt="Running Sealos project with public domain, Django container, and PostgreSQL database"
                     fill
-                    className="scale-[1.25] object-cover object-center"
+                    className="scale-[1.27] object-cover object-center brightness-[1.32] contrast-[1.12] saturate-[1.08]"
                     priority
                     quality={100}
                     sizes="(max-width: 768px) 100vw, 67vw"
                   />
                 </div>
                 <figcaption className="grid min-h-20 grid-cols-[2rem_1fr] items-center gap-4 border-t border-white/15 px-5 py-4">
-                  <span className="font-mono text-xs font-bold text-zinc-500">
+                  <span className="font-mono text-sm font-bold text-zinc-500">
                     01
                   </span>
                   <span>
                     <strong className="block text-sm font-semibold text-white">
                       Sealos service graph
                     </strong>
-                    <code className="mt-1 block font-mono text-xs text-zinc-400">
+                    <code className="mt-1 block font-mono text-sm text-zinc-300">
                       public domain → container → PostgreSQL
                     </code>
                   </span>
@@ -121,7 +121,7 @@ function TutorialCatalogCard({
 
               <div className="flex border-t border-white/15 md:border-t-0 md:border-l">
                 <div className="flex w-full flex-col">
-                  <section className="flex flex-1 flex-col bg-[#e8ebef] p-5 text-[#111827]">
+                  <section className="flex flex-1 flex-col bg-[#0d1015] p-5 text-white">
                     <div className="flex items-center justify-between gap-4">
                       <span className="font-mono text-xs font-bold text-zinc-500">
                         02
@@ -130,7 +130,7 @@ function TutorialCatalogCard({
                         Django task submitted
                       </p>
                     </div>
-                    <div className="mt-4 flex flex-1 flex-col border border-black/20 bg-white p-4">
+                    <div className="mt-4 flex flex-1 flex-col border border-white/15 bg-[#e8ebef] p-4 text-[#111827]">
                       <h4 className="text-xl font-semibold tracking-[-0.035em]">
                         Django tasks
                       </h4>
@@ -364,7 +364,7 @@ export default function TutorialsPage({
                 <span className="block">Deploy Django</span>
                 <span className="block">on Sealos</span>
               </h1>
-              <div className="mt-7 flex flex-col gap-7 md:flex-row md:items-end md:justify-between">
+              <div className="mt-7 flex flex-col gap-7 border-t border-white/15 pt-6 md:flex-row md:items-end md:justify-between">
                 <p className="max-w-[31rem] text-base leading-7 text-zinc-300">
                   Build a Django 5.2 Task app with Gunicorn, WhiteNoise, and
                   PostgreSQL. Deploy it on Sealos and verify a live create/read
