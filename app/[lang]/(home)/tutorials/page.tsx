@@ -27,8 +27,6 @@ const TUTORIALS_PAGE_DESCRIPTION =
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 const DJANGO_PROJECT_EVIDENCE =
   '/images/tutorials/django/django-sealos-project-ops-running.webp';
-const DJANGO_APP_EVIDENCE =
-  '/images/tutorials/django/django-sealos-live-app-https-proof-hd.png';
 const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
@@ -93,91 +91,59 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="relative grid overflow-hidden border-b border-white/15 bg-[#10151d] md:grid-cols-3">
-              <div className="absolute inset-x-0 top-0 z-10 h-0.5 bg-gradient-to-r from-[#146dff] via-[#3d8cff] to-[#44b78b]" />
-
-              <section
-                className="relative min-h-[28rem] overflow-hidden bg-[#08101f] md:col-span-2"
-                aria-label="Deploy: Django container running"
-              >
-                <div
-                  className="absolute inset-0 bg-no-repeat brightness-[1.5] contrast-[1.15] saturate-[0.72]"
-                  role="img"
-                  aria-label="Running Django container in the Sealos project view"
-                  style={{
-                    backgroundImage: `url('${DJANGO_PROJECT_EVIDENCE}')`,
-                    backgroundPosition: '55% 34%',
-                    backgroundSize: '220% auto',
-                  }}
+            <div className="relative overflow-hidden border-b border-white/15 bg-[#08101f]">
+              <div className="absolute inset-x-0 top-0 z-10 h-0.5 bg-gradient-to-r from-[#146dff] to-[#44b78b]" />
+              <div className="relative aspect-[16/7] overflow-hidden">
+                <Image
+                  src={DJANGO_PROJECT_EVIDENCE}
+                  alt="Running Sealos project with public domain, Django container, and PostgreSQL database"
+                  fill
+                  className="scale-[1.1] object-cover object-center brightness-[1.45] contrast-[1.12] saturate-[0.8]"
+                  priority
+                  quality={100}
+                  sizes="(max-width: 768px) 100vw, 87vw"
                 />
-                <div className="absolute inset-x-0 top-0 flex items-center justify-between bg-gradient-to-b from-[#080b10] to-transparent px-6 pt-7 pb-16">
-                  <span className="font-mono text-sm font-bold text-zinc-300">
+              </div>
+              <div className="grid bg-[#10151d] md:grid-cols-3 md:divide-x md:divide-white/10">
+                <span className="flex min-h-24 items-center gap-5 px-6 py-5">
+                  <span className="font-mono text-sm font-bold text-zinc-500">
                     01
                   </span>
-                  <span className="text-sm font-semibold text-[#5f96ff]">
-                    Deploy · container running
-                  </span>
-                </div>
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#080b10] via-[#080b10]/90 to-transparent px-7 pt-20 pb-7">
-                  <p className="text-2xl font-semibold tracking-[-0.035em] text-white">
-                    Django runtime is live
-                  </p>
-                  <code className="mt-2 block font-mono text-sm text-zinc-300">
-                    sealos-django:latest · Running
-                  </code>
-                </div>
-              </section>
-
-              <div className="flex min-h-[28rem] flex-col border-t border-white/10 md:border-t-0 md:border-l">
-                <section
-                  className="flex min-h-56 flex-1 flex-col overflow-hidden bg-[#e8ebef]"
-                  aria-label="Write: Django task submitted"
-                >
-                  <div className="flex h-16 shrink-0 items-center justify-between bg-[#10151d] px-6">
-                    <span className="font-mono text-sm font-bold text-zinc-300">
-                      02
-                    </span>
-                    <span className="text-sm font-semibold text-[#5f96ff]">
-                      Write · task submitted
-                    </span>
-                  </div>
-                  <div
-                    className="flex-1 bg-no-repeat brightness-[0.9] contrast-[1.08] saturate-[0.85]"
-                    role="img"
-                    aria-label="Live Django task application with a submitted task"
-                    style={{
-                      backgroundImage: `url('${DJANGO_APP_EVIDENCE}')`,
-                      backgroundPosition: '50% 60%',
-                      backgroundSize: '155% auto',
-                    }}
-                  />
-                </section>
-
-                <section
-                  className="flex min-h-56 flex-1 flex-col border-t border-white/10 p-6 text-white"
-                  aria-label="Verify: public HTTP 200 response"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="font-mono text-sm font-bold text-zinc-500">
-                      03
-                    </span>
-                    <span className="text-sm font-semibold text-[#44b78b]">
-                      Verify · public response
-                    </span>
-                  </div>
-                  <div className="mt-6 flex items-center justify-between gap-4 border-b border-white/15 pb-4">
-                    <code className="font-mono text-sm font-bold text-[#5f96ff]">
-                      GET /
+                  <span>
+                    <strong className="block text-base font-semibold text-white">
+                      Runtime online
+                    </strong>
+                    <code className="mt-1 block font-mono text-[13px] text-zinc-300">
+                      Django container · Running
                     </code>
-                    <span className="text-sm text-zinc-400">HTTP/2</span>
-                  </div>
-                  <p className="mt-6 text-6xl leading-none font-semibold tracking-[-0.06em] text-[#44b78b]">
-                    200 OK
-                  </p>
-                  <code className="mt-auto block font-mono text-[13px] text-zinc-300">
-                    django-tasks-mpbrofzu.usw.sealos.io
-                  </code>
-                </section>
+                  </span>
+                </span>
+                <span className="flex min-h-24 items-center gap-5 border-t border-white/10 px-6 py-5 md:border-t-0">
+                  <span className="font-mono text-sm font-bold text-zinc-500">
+                    02
+                  </span>
+                  <span>
+                    <strong className="block text-base font-semibold text-white">
+                      Data connected
+                    </strong>
+                    <code className="mt-1 block font-mono text-[13px] text-zinc-300">
+                      PostgreSQL · private network
+                    </code>
+                  </span>
+                </span>
+                <span className="flex min-h-24 items-center gap-5 border-t border-white/10 px-6 py-5 md:border-t-0">
+                  <span className="font-mono text-sm font-bold text-zinc-500">
+                    03
+                  </span>
+                  <span>
+                    <strong className="block text-base font-semibold text-[#44b78b]">
+                      Public response verified
+                    </strong>
+                    <code className="mt-1 block font-mono text-[13px] text-zinc-300">
+                      GET / · HTTP/2 · 200 OK
+                    </code>
+                  </span>
+                </span>
               </div>
             </div>
           </figure>
