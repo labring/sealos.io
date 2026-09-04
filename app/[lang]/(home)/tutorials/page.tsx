@@ -136,40 +136,41 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <div className="hidden grid-cols-[4rem_1.15fr_1fr_16rem] gap-5 border-y border-black/15 px-7 py-3 font-mono text-[11px] font-bold tracking-[0.08em] text-zinc-500 uppercase md:grid">
-              <span>No.</span>
-              <span>Operation</span>
+            <div className="hidden grid-cols-[1.15fr_1fr_18rem] gap-5 border-y border-black/15 px-7 py-3 text-xs font-semibold text-zinc-500 md:grid">
+              <span>Guide step</span>
               <span>Outcome</span>
-              <span className="text-right">Proof</span>
+              <span>Verified proof</span>
             </div>
             <ol className="divide-y divide-black/15 px-7">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li key={chapter.hash}>
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid min-h-28 gap-5 py-6 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[4rem_1.15fr_1fr_16rem] md:items-center"
+                    className="group grid min-h-28 gap-5 py-6 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none md:grid-cols-[1.15fr_1fr_18rem] md:items-center"
                   >
-                    <span className="font-mono text-4xl font-bold tracking-[-0.06em] text-zinc-500">
-                      0{index + 1}
-                    </span>
-                    <span>
-                      <span
-                        className={`text-sm font-semibold ${
-                          chapter.phase === 'Verify'
-                            ? 'text-[#16815d]'
-                            : 'text-[#146dff]'
-                        }`}
-                      >
-                        {chapter.phase}
+                    <span className="grid grid-cols-[3.25rem_1fr] items-center gap-5">
+                      <span className="font-mono text-4xl font-bold tracking-[-0.06em] text-zinc-500">
+                        0{index + 1}
                       </span>
-                      <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff]">
-                        {chapter.title}
-                      </strong>
+                      <span>
+                        <span
+                          className={`text-sm font-semibold ${
+                            chapter.phase === 'Verify'
+                              ? 'text-[#16815d]'
+                              : 'text-[#146dff]'
+                          }`}
+                        >
+                          {chapter.phase}
+                        </span>
+                        <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff]">
+                          {chapter.title}
+                        </strong>
+                      </span>
                     </span>
                     <span className="text-base leading-7 text-zinc-700">
                       {chapter.detail}
                     </span>
-                    <code className="font-mono text-[13px] font-bold text-zinc-600 md:text-right">
+                    <code className="justify-self-stretch bg-[#0a0a0a] px-4 py-3 font-mono text-[13px] font-bold text-[#f2f0e8]">
                       {chapter.evidence}
                     </code>
                   </Link>
