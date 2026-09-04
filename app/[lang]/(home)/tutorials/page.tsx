@@ -124,19 +124,19 @@ function TutorialCatalogCard({
       </div>
 
       {tutorial.image && (
-        <figure className="border-border/80 order-first w-full border-b bg-zinc-950/80 p-3 md:order-none md:col-span-7 md:border-b-0 md:border-l">
-          <div className="relative aspect-video w-full overflow-hidden rounded-[0.375rem]">
+        <figure className="border-border/80 order-first flex w-full flex-col border-b bg-zinc-950 p-3 md:order-none md:col-span-7 md:self-stretch md:border-b-0 md:border-l">
+          <div className="relative aspect-video w-full overflow-hidden rounded-[0.375rem] md:aspect-auto md:flex-1">
             <Image
               src={tutorial.image}
               alt={`${tutorial.title} deployment result`}
-              className="h-full w-full scale-[1.2] object-cover object-center brightness-[0.9] contrast-[1.03]"
+              className="h-full w-full scale-[1.08] object-cover object-[54%_50%] contrast-[1.08]"
               fill
               priority={priorityImage}
               sizes="(max-width: 760px) 90vw, 55vw"
             />
           </div>
-          <figcaption className="text-muted-foreground px-1 pt-3 pb-1 text-xs leading-5">
-            Verified public application on Sealos.
+          <figcaption className="text-primary px-1 pt-3 pb-1 text-xs leading-5 font-medium">
+            Live HTTPS · Create/read verification
           </figcaption>
         </figure>
       )}
@@ -312,7 +312,7 @@ export default function TutorialsPage({
             </div>
           )}
 
-          <section className="border-border mt-20 flex flex-col gap-6 border-t pt-10 md:flex-row md:items-center md:justify-between">
+          <section className="border-border mt-16 flex flex-col gap-5 border-t pt-8 md:flex-row md:items-end md:justify-start md:gap-8">
             <div className="max-w-2xl">
               <h2 className="text-foreground text-2xl font-semibold tracking-tight">
                 Need a guide for your stack?
