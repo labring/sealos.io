@@ -55,16 +55,25 @@ const DJANGO_GUIDE_CHAPTERS = [
     title: 'Prepare Django for production',
     detail: 'Configure Gunicorn and WhiteNoise.',
     hash: '#prepare-django-for-production',
+    image: '/images/tutorials/django/django-sealos-project-ops-running.webp',
+    imageAlt: 'Public HTTPS service captured in the live Sealos project',
+    cropClassName: 'scale-[2.25] origin-[23%_47%]',
   },
   {
     title: 'Deploy with Sealos Skills',
     detail: 'Connect the application and database.',
     hash: '#deploy-with-sealos-skills',
+    image: '/images/tutorials/django/django-sealos-project-ops-running.webp',
+    imageAlt: 'Running Django container captured in the live Sealos project',
+    cropClassName: 'scale-[2.25] origin-[50%_47%]',
   },
   {
     title: 'Verify the live application',
     detail: 'Confirm the HTTPS create/read flow.',
     hash: '#verify-the-live-django-application',
+    image: '/images/tutorials/django/django-sealos-live-app-https-proof.webp',
+    imageAlt: 'Live Django task application after deployment',
+    cropClassName: 'scale-[1.45] origin-[50%_47%]',
   },
 ] as const;
 
@@ -111,7 +120,7 @@ function TutorialCatalogCard({
             </span>
           </figcaption>
 
-          <div className="border-y border-white/15 py-7 text-white">
+          <div className="-mx-6 border-y border-white/15 bg-[#0d1016] px-6 py-7 text-white">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <span className="text-sm font-semibold text-zinc-300">
                 Request enters the public service
@@ -170,43 +179,47 @@ function TutorialCatalogCard({
             className="mt-10 border-t border-white/10 pt-7"
             aria-label="Guide chapters"
           >
-            <div className="grid gap-3 md:grid-cols-12 md:items-end md:gap-8">
-              <p className="text-sm font-semibold text-[#5f96ff] md:col-span-3">
-                Inside the guide
-              </p>
-              <h3 className="text-2xl leading-tight font-semibold tracking-tight text-white md:col-span-5">
-                Three decisive checks in 35 minutes.
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <h3 className="text-2xl leading-tight font-semibold tracking-tight text-white">
+                Inside the 35-minute guide
               </h3>
-              <p className="max-w-sm text-sm leading-6 text-zinc-400 md:col-span-4">
-                Follow the shortest route from a local Django project to a
-                verified production service.
+              <p className="max-w-lg text-sm leading-6 text-zinc-400">
+                Three field-tested chapters, each tied to visible production
+                evidence.
               </p>
             </div>
-            <ol className="mt-6 max-w-5xl border-y border-white/15">
+            <ol className="mt-6 grid border-y border-white/15 md:grid-cols-3 md:divide-x md:divide-white/15">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
-                  className="border-b border-white/15 last:border-b-0"
+                  className="border-b border-white/15 md:border-b-0"
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-5 rounded-sm py-4 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_minmax(0,1fr)]"
+                    className="group block h-full p-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:p-6"
                   >
-                    <span className="font-mono text-2xl font-medium tracking-[-0.08em] text-[#5f96ff]">
-                      0{index + 1}
-                    </span>
-                    <span>
-                      <strong className="inline-flex items-center gap-3 text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
-                        {chapter.title}
-                        <ArrowRight
-                          size={15}
-                          className="text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
-                          aria-hidden="true"
-                        />
-                      </strong>
-                      <span className="mt-1 block text-sm text-zinc-400">
-                        {chapter.detail}
+                    <span className="relative block h-36 overflow-hidden bg-[#101726]">
+                      <Image
+                        src={chapter.image}
+                        alt={chapter.imageAlt}
+                        fill
+                        className={`object-cover opacity-90 transition-opacity duration-500 group-hover:opacity-100 ${chapter.cropClassName}`}
+                        sizes="(max-width: 760px) 90vw, 26vw"
+                      />
+                      <span className="absolute top-3 left-3 bg-[#090909]/90 px-2 py-1 font-mono text-xs font-semibold text-[#5f96ff]">
+                        0{index + 1}
                       </span>
+                    </span>
+                    <strong className="mt-5 inline-flex items-center gap-3 text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                      {chapter.title}
+                      <ArrowRight
+                        size={16}
+                        className="text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
+                        aria-hidden="true"
+                      />
+                    </strong>
+                    <span className="mt-2 block text-sm text-zinc-400">
+                      {chapter.detail}
                     </span>
                   </Link>
                 </li>
