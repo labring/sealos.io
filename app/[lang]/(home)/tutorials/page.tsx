@@ -224,7 +224,7 @@ export default function TutorialsPage({
 
         <section
           id="published-tutorials"
-          className="container scroll-mt-28 pb-24"
+          className="container scroll-mt-28 pb-2"
           aria-labelledby="published-tutorials-heading"
         >
           <div className="mb-10 max-w-2xl">
