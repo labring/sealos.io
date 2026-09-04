@@ -44,21 +44,21 @@ const DJANGO_GUIDE_CHAPTERS = [
   },
 ] as const;
 
-const DJANGO_SERVICE_CAPTURES = [
+const DJANGO_EVIDENCE_STEPS = [
   {
-    marker: '01.A',
-    title: 'Public HTTPS',
-    evidence: 'HTTPS :443 · create/read verified',
+    marker: '01',
+    title: 'Input',
+    evidence: 'Task title entered',
   },
   {
-    marker: '01.B',
-    title: 'Django container',
-    evidence: 'Gunicorn · WhiteNoise · 1 replica',
+    marker: '02',
+    title: 'Write',
+    evidence: 'POST accepted over HTTPS',
   },
   {
-    marker: '01.C',
-    title: 'PostgreSQL',
-    evidence: 'Private connection · public access disabled',
+    marker: '03',
+    title: 'Read',
+    evidence: 'Saved task returned',
   },
 ] as const;
 
@@ -118,22 +118,22 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-5 px-6 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[2rem_22rem_minmax(0,1fr)]"
+                    className="group grid grid-cols-[2rem_minmax(0,1fr)_1rem] items-center gap-x-5 px-6 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[2rem_20rem_minmax(0,1fr)_1rem]"
                   >
                     <span className="font-mono text-sm font-semibold text-[#5f96ff]">
                       0{index + 1}
                     </span>
-                    <strong className="inline-flex items-center gap-3 text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                    <strong className="text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
                       {chapter.title}
-                      <ArrowRight
-                        size={16}
-                        className="text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
-                        aria-hidden="true"
-                      />
                     </strong>
                     <span className="col-start-2 mt-1 text-sm text-zinc-300 sm:col-start-auto sm:mt-0">
                       {chapter.detail}
                     </span>
+                    <ArrowRight
+                      size={16}
+                      className="col-start-3 row-start-1 justify-self-end text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff] sm:col-start-auto"
+                      aria-hidden="true"
+                    />
                   </Link>
                 </li>
               ))}
@@ -141,62 +141,59 @@ function TutorialCatalogCard({
           </nav>
 
           <figure className="mt-10">
-            <figcaption className="mb-5 flex flex-wrap items-end justify-between gap-3">
-              <span className="text-2xl font-semibold tracking-tight text-white">
+            <figcaption className="mb-4 flex flex-wrap items-end justify-between gap-3">
+              <span className="text-xl font-semibold tracking-tight text-white">
                 Deployment evidence / DJANGO-01
               </span>
-              <span className="text-xs font-semibold text-zinc-400">
-                Django 5.2 · Live project capture
+              <span className="font-mono text-xs font-semibold text-zinc-500">
+                01 / LIVE PROJECT CAPTURE
               </span>
             </figcaption>
 
-            <div className="border border-white/15">
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/15 px-5 py-4">
-                <h3 className="text-xl font-semibold text-white">
-                  02 / Live create and read
-                </h3>
-                <span className="font-mono text-sm font-semibold text-zinc-400">
-                  Django 5.2 / public HTTPS
-                </span>
-              </div>
-              <div className="relative aspect-[2/1] overflow-hidden bg-[#07101d]">
+            <div className="grid border border-white/15 lg:grid-cols-[minmax(0,1fr)_15rem]">
+              <div className="relative aspect-[2.65/1] overflow-hidden bg-[#07101d]">
                 <Image
                   src="/images/tutorials/django/django-sealos-live-app-https-proof.webp"
                   alt="Live Django task application with a verified task write and read result"
                   fill
                   priority={priorityImage}
                   quality={95}
-                  className="object-cover"
+                  className="object-cover object-[50%_37%]"
                   sizes="(max-width: 760px) 100vw, 88vw"
                 />
               </div>
-              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/15 px-5 py-3 text-sm">
-                <span className="text-zinc-300">Evidence chain complete</span>
-                <strong className="inline-flex items-center gap-2 font-semibold text-emerald-400">
-                  <span className="size-2 rounded-full bg-emerald-400" />3
-                  services · create/read · HTTP 200
-                </strong>
-              </div>
+              <ol className="grid grid-cols-3 border-t border-white/15 bg-[#0c0d0f] lg:grid-cols-1 lg:grid-rows-3 lg:border-t-0 lg:border-l">
+                {DJANGO_EVIDENCE_STEPS.map((step) => (
+                  <li
+                    key={step.marker}
+                    className="border-r border-white/15 p-4 last:border-r-0 lg:border-r-0 lg:border-b lg:last:border-b-0"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-[11px] font-semibold text-[#5f96ff]">
+                        {step.marker}
+                      </span>
+                      <span className="h-px flex-1 bg-white/15" />
+                    </div>
+                    <h3 className="mt-3 text-sm font-semibold text-white">
+                      {step.title}
+                    </h3>
+                    <p className="mt-1 text-xs leading-5 text-zinc-400">
+                      {step.evidence}
+                    </p>
+                  </li>
+                ))}
+              </ol>
             </div>
 
-            <ol className="grid border-x border-b border-white/15 md:grid-cols-3 md:divide-x md:divide-white/15">
-              {DJANGO_SERVICE_CAPTURES.map((capture) => (
-                <li
-                  key={capture.marker}
-                  className="border-b border-white/15 p-5 last:border-b-0 md:border-b-0"
-                >
-                  <span className="font-mono text-xs font-semibold text-[#5f96ff]">
-                    {capture.marker}
-                  </span>
-                  <h3 className="mt-3 text-xl font-semibold tracking-tight text-white">
-                    {capture.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-zinc-300">
-                    {capture.evidence}
-                  </p>
-                </li>
-              ))}
-            </ol>
+            <div className="grid gap-2 border-x border-b border-white/15 px-4 py-3 text-xs sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center sm:gap-6">
+              <strong className="inline-flex items-center gap-2 font-semibold text-emerald-400">
+                <span className="size-1.5 rounded-full bg-emerald-400" />
+                Live create/read verified
+              </strong>
+              <span className="text-zinc-400 sm:text-right">
+                Django 5.2 · Gunicorn · WhiteNoise · PostgreSQL · HTTPS :443
+              </span>
+            </div>
           </figure>
         </div>
       ) : (
