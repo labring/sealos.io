@@ -371,7 +371,7 @@ export function Header({ lang }: HeaderProps) {
             </Button>
             <Button
               variant="landing-primary"
-              className="hidden h-9 rounded-md shadow-none lg:flex"
+              className="hidden h-9 rounded-md bg-[#146dff] px-4 text-white shadow-none hover:bg-[#0f5dd6] lg:flex"
               aria-label="Start using Sealos for free."
               {...getRybbitCtaProps({
                 id: 'home_header_get_started',

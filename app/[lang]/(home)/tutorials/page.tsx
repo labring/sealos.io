@@ -1,7 +1,5 @@
 import StructuredDataComponent from '@/components/structured-data';
-import { buttonVariants } from '@/components/ui/button';
 import type { languagesType } from '@/lib/i18n';
-import { cn } from '@/lib/utils';
 import {
   generatePageMetadata,
   getBaseUrl,
@@ -54,21 +52,20 @@ function TutorialCatalogCard({
   const isDjangoGuide = tutorial.url === DJANGO_TUTORIAL_PATH;
 
   return (
-    <Link
-      href={tutorial.url}
-      className="group text-card-foreground focus-visible:ring-ring bg-card grid overflow-hidden rounded-lg border border-white/15 transition-colors hover:border-[#146dff]/60 focus-visible:ring-2 focus-visible:outline-none md:grid-cols-2 md:items-stretch"
-    >
-      <div className="flex flex-col gap-4 p-6 md:p-7">
-        <div className="flex flex-col gap-2">
+    <article className="border-t border-white/10 pt-8">
+      <div className="grid gap-8 md:grid-cols-12 md:items-end">
+        <div className="md:col-span-2 md:self-start">
           <h2
             id="published-tutorials-heading"
-            className="text-primary text-base font-semibold tracking-tight"
+            className="text-sm font-semibold text-[#5f96ff]"
           >
-            Published guide
+            Guide 01
           </h2>
-          <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-sm font-medium">
-            <span>01</span>
-            <span aria-hidden="true">/</span>
+          <p className="mt-2 text-sm text-zinc-500">Published tutorial</p>
+        </div>
+
+        <div className="md:col-span-7">
+          <div className="flex flex-wrap items-center gap-2 text-sm font-medium text-zinc-400">
             <span>{tutorial.framework}</span>
             <span aria-hidden="true">/</span>
             <span>
@@ -77,61 +74,49 @@ function TutorialCatalogCard({
                 : tutorial.stageLabel}
             </span>
           </div>
-        </div>
-
-        <div className="flex flex-col gap-3">
-          <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">
-            <span className="text-foreground group-hover:text-primary transition-colors">
+          <Link
+            href={tutorial.url}
+            className="group mt-4 block rounded-sm focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+          >
+            <h3 className="text-3xl leading-[1.08] font-semibold tracking-[-0.035em] text-white md:text-4xl">
               {isDjangoGuide ? (
                 <>
                   <span className="block">How to Deploy a Django App</span>
-                  <span className="block">on Sealos</span>
+                  <span className="mt-1 block text-zinc-400 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:text-[#5f96ff]">
+                    on Sealos
+                  </span>
                 </>
               ) : (
                 tutorial.title
               )}
-            </span>
-          </h3>
-          <p className="text-foreground/85 text-sm leading-6">
+            </h3>
+          </Link>
+          <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-400">
             {tutorial.description}
           </p>
         </div>
 
-        <ul className="text-foreground/85 grid list-none divide-y divide-white/10 border-y border-white/10 text-sm leading-5">
-          <li className="flex gap-3 py-2 first:pt-0">
-            <span className="text-muted-foreground w-14 shrink-0">Runtime</span>
-            <span>Django with Gunicorn and WhiteNoise.</span>
-          </li>
-          <li className="flex gap-3 py-2">
-            <span className="text-muted-foreground w-14 shrink-0">Data</span>
-            <span>PostgreSQL connected to the running application.</span>
-          </li>
-          <li className="flex gap-3 py-2 last:pb-0">
-            <span className="text-muted-foreground w-14 shrink-0">Proof</span>
-            <span>Live create/read verification on Sealos.</span>
-          </li>
-        </ul>
-
-        <div className="text-muted-foreground border-border/80 mt-auto flex flex-wrap items-center justify-between gap-3 border-t pt-4 text-sm">
+        <div className="flex items-center gap-5 md:col-span-3 md:flex-col md:items-end">
           {tutorial.estimatedReadingTime && (
-            <span className="inline-flex items-center gap-2">
+            <span className="inline-flex items-center gap-2 text-sm text-zinc-500">
               <BookOpen size={14} aria-hidden="true" />
               {tutorial.estimatedReadingTime}
             </span>
           )}
-          <span className="inline-flex items-center rounded-md bg-[#146dff] px-4 py-2 font-semibold text-white transition-colors group-hover:bg-[#0f5dd6]">
+          <Link
+            href={tutorial.url}
+            className="group inline-flex h-11 items-center rounded-full bg-[#146dff] py-1 pr-1 pl-5 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-[#0f5dd6] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none active:translate-y-0"
+          >
             Read tutorial
-            <ArrowRight
-              size={15}
-              className="ml-2 transition-transform group-hover:translate-x-1"
-              aria-hidden="true"
-            />
-          </span>
+            <span className="ml-3 flex size-9 items-center justify-center rounded-full bg-white/15 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5">
+              <ArrowRight size={15} aria-hidden="true" />
+            </span>
+          </Link>
         </div>
       </div>
 
       {isDjangoGuide ? (
-        <figure className="relative order-first flex min-h-[30rem] w-full flex-col overflow-hidden border-b border-white/10 bg-[#080a0f] p-6 md:order-none md:min-h-[25rem] md:border-b-0 md:border-l md:border-white/10 md:p-7">
+        <figure className="relative mt-10 flex min-h-[34rem] w-full flex-col overflow-hidden rounded-xl bg-[#080a0f] p-6 ring-1 ring-white/10 md:min-h-[21rem] md:p-7">
           <figcaption className="flex items-center justify-between gap-4 text-sm font-medium text-zinc-200">
             <span>Verified deployment topology</span>
             <span className="inline-flex items-center gap-2 text-xs text-emerald-400">
@@ -141,34 +126,34 @@ function TutorialCatalogCard({
           </figcaption>
 
           <svg
-            viewBox="0 0 660 330"
+            viewBox="0 0 1248 336"
             preserveAspectRatio="none"
             className="pointer-events-none absolute inset-x-7 top-16 hidden h-[calc(100%-5rem)] w-[calc(100%-3.5rem)] md:block"
             aria-hidden="true"
           >
             <path
-              d="M116 126 C 180 126, 194 165, 258 165"
+              d="M302 154 C 392 154, 414 168, 486 168"
               fill="none"
               stroke="#146dff"
-              strokeWidth="1.5"
-              strokeDasharray="5 6"
+              strokeWidth="1.75"
+              strokeDasharray="6 7"
               vectorEffect="non-scaling-stroke"
             />
             <path
-              d="M402 165 C 470 165, 478 218, 548 218"
+              d="M762 168 C 850 168, 866 192, 948 192"
               fill="none"
               stroke="#146dff"
-              strokeWidth="1.5"
-              strokeDasharray="5 6"
+              strokeWidth="1.75"
+              strokeDasharray="6 7"
               vectorEffect="non-scaling-stroke"
             />
-            <circle cx="116" cy="126" r="4" fill="#146dff" />
-            <circle cx="258" cy="165" r="4" fill="#146dff" />
-            <circle cx="402" cy="165" r="4" fill="#146dff" />
-            <circle cx="548" cy="218" r="4" fill="#146dff" />
+            <circle cx="302" cy="154" r="4" fill="#146dff" />
+            <circle cx="486" cy="168" r="4" fill="#146dff" />
+            <circle cx="762" cy="168" r="4" fill="#146dff" />
+            <circle cx="948" cy="192" r="4" fill="#146dff" />
           </svg>
 
-          <div className="relative mt-16 flex items-center gap-4 md:absolute md:top-[29%] md:left-[5%] md:mt-0 md:w-[27%]">
+          <div className="relative mt-16 flex items-center gap-4 md:absolute md:top-[36%] md:left-[8%] md:mt-0 md:w-[21%]">
             <span className="flex size-11 shrink-0 items-center justify-center rounded-full border border-[#146dff]/45 text-[#5f96ff]">
               <Globe2 size={19} aria-hidden="true" />
             </span>
@@ -182,7 +167,7 @@ function TutorialCatalogCard({
             </span>
           </div>
 
-          <div className="relative mt-8 rounded-lg border border-[#146dff]/55 bg-[#101722] p-5 md:absolute md:top-[35%] md:left-1/2 md:mt-0 md:w-[34%] md:-translate-x-1/2">
+          <div className="relative mt-8 rounded-lg border border-[#146dff]/55 bg-[#101722] p-5 md:absolute md:top-[29%] md:left-1/2 md:mt-0 md:w-[24%] md:-translate-x-1/2">
             <div className="flex items-center justify-between gap-3">
               <span className="flex size-10 items-center justify-center rounded-md bg-[#146dff] text-white">
                 <Server size={19} aria-hidden="true" />
@@ -200,7 +185,7 @@ function TutorialCatalogCard({
             </span>
           </div>
 
-          <div className="relative mt-8 flex items-center gap-4 md:absolute md:right-[5%] md:bottom-[20%] md:mt-0 md:w-[27%]">
+          <div className="relative mt-8 flex items-center gap-4 md:absolute md:right-[8%] md:bottom-[23%] md:mt-0 md:w-[21%]">
             <span className="flex size-11 shrink-0 items-center justify-center rounded-full border border-[#146dff]/45 text-[#5f96ff]">
               <Database size={19} aria-hidden="true" />
             </span>
@@ -220,7 +205,7 @@ function TutorialCatalogCard({
         </figure>
       ) : (
         tutorial.image && (
-          <figure className="border-border/80 order-first flex w-full flex-col gap-3 border-b bg-zinc-950 p-4 md:order-none md:col-span-7 md:border-b-0 md:border-l">
+          <figure className="mt-10 overflow-hidden rounded-xl bg-zinc-950 p-2 ring-1 ring-white/10">
             <div className="relative aspect-video w-full overflow-hidden rounded-md">
               <Image
                 src={tutorial.image}
@@ -235,7 +220,7 @@ function TutorialCatalogCard({
           </figure>
         )
       )}
-    </Link>
+    </article>
   );
 }
 
@@ -331,42 +316,44 @@ export default function TutorialsPage({
       )}
 
       <main>
-        <section className="container -mt-24 pt-32 pb-6">
+        <section className="container -mt-24 pt-32 pb-10">
+          <p className="text-xs font-semibold tracking-[0.18em] text-[#5f96ff] uppercase">
+            Deployment field notes
+          </p>
           <h1
-            aria-label="Sealos tutorials for app deployment"
-            className="text-foreground max-w-5xl text-5xl font-medium tracking-tight md:text-6xl"
+            aria-label="Deployment guides, verified end to end"
+            className="mt-5 max-w-5xl text-5xl leading-[0.98] font-medium tracking-[-0.045em] text-white md:text-7xl"
           >
-            <span>Sealos tutorials for </span>
-            <span className="text-primary">app deployment</span>
+            <span className="block">Deployment guides,</span>
+            <span className="mt-2 block text-zinc-400">
+              verified end to end.
+            </span>
           </h1>
-          <p className="text-muted-foreground mt-5 max-w-2xl text-base leading-7">
-            Follow a small set of complete deployment guides built from verified
-            repositories and live application evidence, beginning with Django.
+          <p className="mt-7 max-w-2xl text-base leading-7 text-zinc-400">
+            Sealos tutorials trace every step from a working repository to a
+            healthy public application, beginning with Django.
           </p>
         </section>
 
         <section
           id="published-tutorials"
-          className="container scroll-mt-28 pb-2"
+          className="container scroll-mt-28 pb-12"
           aria-labelledby="published-tutorials-heading"
         >
           {firstTutorial && (
             <>
               <TutorialCatalogCard tutorial={firstTutorial} priorityImage />
-              <section
-                className="border-border -mt-px border-t"
-                aria-labelledby="inside-guide-heading"
-              >
+              <section className="mt-12" aria-labelledby="inside-guide-heading">
                 <h2
                   id="inside-guide-heading"
-                  className="text-foreground py-5 text-lg font-semibold tracking-tight"
+                  className="text-xl font-semibold tracking-tight text-white"
                 >
-                  Inside this guide
+                  Guide chapters
                 </h2>
-                <div className="grid border-y border-white/10 md:grid-cols-3">
+                <div className="mt-6 grid gap-8 md:grid-cols-3">
                   <Link
                     href={`${firstTutorial.url}#prepare-django-for-production`}
-                    className="group flex flex-col justify-center py-6 pr-8 focus-visible:ring-2 focus-visible:outline-none"
+                    className="group flex flex-col justify-center border-t border-white/10 pt-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     <span className="text-2xl leading-none font-medium text-[#146dff]">
                       01
@@ -380,7 +367,7 @@ export default function TutorialsPage({
                   </Link>
                   <Link
                     href={`${firstTutorial.url}#deploy-with-sealos-skills`}
-                    className="group border-border flex flex-col justify-center border-t py-6 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:px-8"
+                    className="group flex flex-col justify-center border-t border-white/10 pt-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     <span className="text-2xl leading-none font-medium text-[#146dff]">
                       02
@@ -394,7 +381,7 @@ export default function TutorialsPage({
                   </Link>
                   <Link
                     href={`${firstTutorial.url}#verify-the-live-django-application`}
-                    className="group border-border flex flex-col justify-center border-t py-6 focus-visible:ring-2 focus-visible:outline-none md:border-t-0 md:border-l md:pl-8"
+                    className="group flex flex-col justify-center border-t border-white/10 pt-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     <span className="text-2xl leading-none font-medium text-[#146dff]">
                       03
@@ -460,7 +447,7 @@ export default function TutorialsPage({
             </div>
           )}
 
-          <section className="mt-10 flex flex-col gap-5 border-y border-white/10 bg-white/[0.015] px-6 py-6 md:flex-row md:items-center md:justify-between">
+          <section className="mt-14 flex flex-col gap-5 border-l-2 border-[#146dff] py-2 pl-6 md:flex-row md:items-center md:justify-between">
             <div className="max-w-xl">
               <h2 className="text-foreground text-2xl font-semibold tracking-tight">
                 Need a guide for your stack?
@@ -470,14 +457,13 @@ export default function TutorialsPage({
                 Requests help prioritize the next qualified Core tutorial.
               </p>
             </div>
-            <TutorialRequestGuideLink
-              className={cn(
-                buttonVariants({ variant: 'outline' }),
-                'border-border text-foreground hover:text-foreground h-10 shrink-0 bg-transparent px-5 hover:bg-white/5',
-              )}
-            >
+            <TutorialRequestGuideLink className="group inline-flex h-11 shrink-0 items-center text-sm font-semibold text-white transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none">
               Request a tutorial
-              <ArrowRight size={16} className="ml-2" aria-hidden="true" />
+              <ArrowRight
+                size={16}
+                className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                aria-hidden="true"
+              />
             </TutorialRequestGuideLink>
           </section>
         </section>
