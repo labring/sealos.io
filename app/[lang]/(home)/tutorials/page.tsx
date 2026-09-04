@@ -56,22 +56,22 @@ function TutorialCatalogCard({
   return (
     <Link
       href={tutorial.url}
-      className="group text-card-foreground focus-visible:ring-ring flex flex-col rounded-xl focus-visible:ring-2 focus-visible:outline-none"
+      className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12"
     >
       {tutorial.image && (
-        <div className="relative aspect-[3/2] w-full overflow-clip rounded-xl border">
+        <div className="relative aspect-[3/2] w-full overflow-clip md:col-span-5 md:aspect-auto md:min-h-[280px]">
           <Image
             src={tutorial.image}
             alt={`${tutorial.title} deployment result`}
             className="h-full object-cover"
             fill
             priority={priorityImage}
-            sizes="(max-width: 760px) 90vw, 400px"
+            sizes="(max-width: 760px) 90vw, 45vw"
           />
         </div>
       )}
 
-      <div className="flex flex-1 flex-col gap-2.5 pt-4">
+      <div className="flex flex-1 flex-col gap-3 p-6 md:col-span-7 md:p-8">
         <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-xs font-medium">
           <span>{tutorial.framework}</span>
           <span aria-hidden="true">·</span>
@@ -81,17 +81,17 @@ function TutorialCatalogCard({
               : tutorial.stageLabel}
           </span>
         </div>
-        <h2 className="line-clamp-2 font-semibold">
+        <h2 className="line-clamp-2 text-xl font-semibold tracking-tight md:text-2xl">
           <GradientText>
             <span className="text-foreground transition-colors group-hover:text-transparent">
               {tutorial.title}
             </span>
           </GradientText>
         </h2>
-        <p className="text-muted-foreground line-clamp-2 text-sm leading-6">
+        <p className="text-muted-foreground line-clamp-2 max-w-2xl text-sm leading-6">
           {tutorial.description}
         </p>
-        <div className="text-muted-foreground mt-2 flex flex-wrap items-center justify-between gap-3 text-sm">
+        <div className="text-muted-foreground mt-auto flex flex-wrap items-center justify-between gap-3 pt-3 text-sm">
           {tutorial.estimatedReadingTime && (
             <span className="inline-flex items-center gap-2">
               <BookOpen size={14} aria-hidden="true" />
@@ -240,7 +240,7 @@ export default function TutorialsPage({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-x-5 gap-y-12 sm:grid-cols-2 md:gap-x-8 md:gap-y-16 lg:grid-cols-3">
+          <div className="grid gap-6">
             {tutorials.map((tutorial, index) => (
               <TutorialCatalogCard
                 key={tutorial.slug}
