@@ -25,8 +25,6 @@ const TUTORIALS_PAGE_TITLE = 'Sealos Deployment Tutorials';
 const TUTORIALS_PAGE_DESCRIPTION =
   'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
-const DJANGO_PROJECT_EVIDENCE =
-  '/images/tutorials/django/django-sealos-project-ops-running.webp';
 const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
@@ -91,59 +89,104 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="relative overflow-hidden border-b border-white/15 bg-[#08101f]">
+            <div className="relative overflow-hidden border-b border-white/15 bg-[#10151d] p-7 md:p-10">
               <div className="absolute inset-x-0 top-0 z-10 h-0.5 bg-gradient-to-r from-[#146dff] to-[#44b78b]" />
-              <div className="relative aspect-[8/3] overflow-hidden">
-                <Image
-                  src={DJANGO_PROJECT_EVIDENCE}
-                  alt="Running Sealos project with public domain, Django container, and PostgreSQL database"
-                  fill
-                  className="scale-[1.25] object-cover object-[50%_40%] brightness-[1.5] contrast-[1.12] saturate-[0.8]"
-                  priority
-                  quality={100}
-                  sizes="(max-width: 768px) 100vw, 87vw"
-                />
+              <div
+                className="grid gap-5 md:grid-cols-[1fr_3rem_1fr_3rem_1fr] md:items-center md:gap-0"
+                aria-label="Live deployment topology from public HTTPS through Django to PostgreSQL"
+              >
+                <section className="flex min-h-60 flex-col border-t-2 border-[#146dff] bg-[#0b0f15] p-6 text-white">
+                  <div className="flex items-center justify-between gap-5">
+                    <span className="font-mono text-sm font-bold text-zinc-500">
+                      01
+                    </span>
+                    <span className="text-sm font-semibold text-[#5f96ff]">
+                      Public ingress
+                    </span>
+                  </div>
+                  <p className="mt-8 text-4xl font-semibold tracking-[-0.05em]">
+                    HTTPS
+                  </p>
+                  <code className="mt-3 font-mono text-sm leading-6 text-zinc-300">
+                    django-tasks-mpbrofzu.usw.sealos.io
+                  </code>
+                  <p className="mt-auto flex items-center gap-2 pt-6 text-sm font-semibold text-[#44b78b]">
+                    <span className="size-2 rounded-full bg-current" />
+                    Connected
+                  </p>
+                </section>
+
+                <span
+                  className="hidden items-center text-[#3d8cff] md:flex"
+                  aria-hidden="true"
+                >
+                  <span className="h-px flex-1 bg-current" />
+                  <span>→</span>
+                </span>
+
+                <section className="flex min-h-60 flex-col border-t-2 border-[#3d8cff] bg-[#0b0f15] p-6 text-white">
+                  <div className="flex items-center justify-between gap-5">
+                    <span className="font-mono text-sm font-bold text-zinc-500">
+                      02
+                    </span>
+                    <span className="text-sm font-semibold text-[#5f96ff]">
+                      Application
+                    </span>
+                  </div>
+                  <p className="mt-8 text-4xl font-semibold tracking-[-0.05em]">
+                    Django 5.2
+                  </p>
+                  <code className="mt-3 font-mono text-sm leading-6 text-zinc-300">
+                    Gunicorn · WhiteNoise
+                  </code>
+                  <p className="mt-auto flex items-center gap-2 pt-6 text-sm font-semibold text-[#44b78b]">
+                    <span className="size-2 rounded-full bg-current" />
+                    Container running
+                  </p>
+                </section>
+
+                <span
+                  className="hidden items-center text-[#3d8cff] md:flex"
+                  aria-hidden="true"
+                >
+                  <span className="h-px flex-1 bg-current" />
+                  <span>→</span>
+                </span>
+
+                <section className="flex min-h-60 flex-col border-t-2 border-[#44b78b] bg-[#0b0f15] p-6 text-white">
+                  <div className="flex items-center justify-between gap-5">
+                    <span className="font-mono text-sm font-bold text-zinc-500">
+                      03
+                    </span>
+                    <span className="text-sm font-semibold text-[#44b78b]">
+                      Managed data
+                    </span>
+                  </div>
+                  <p className="mt-8 text-4xl font-semibold tracking-[-0.05em]">
+                    PostgreSQL
+                  </p>
+                  <code className="mt-3 font-mono text-sm leading-6 text-zinc-300">
+                    DATABASE_URL → :5432
+                  </code>
+                  <p className="mt-auto flex items-center gap-2 pt-6 text-sm font-semibold text-[#44b78b]">
+                    <span className="size-2 rounded-full bg-current" />
+                    Private connection
+                  </p>
+                </section>
               </div>
-              <div className="grid bg-[#10151d] md:grid-cols-3 md:divide-x md:divide-white/10">
-                <span className="flex min-h-24 items-center gap-5 px-6 py-5">
-                  <span className="font-mono text-sm font-bold text-zinc-500">
-                    01
+
+              <div className="mt-7 flex flex-col justify-between gap-5 border-t border-white/15 pt-6 text-white md:flex-row md:items-end">
+                <span>
+                  <span className="block text-sm font-semibold text-[#5f96ff]">
+                    Live response
                   </span>
-                  <span>
-                    <strong className="block text-base font-semibold text-white">
-                      Runtime online
-                    </strong>
-                    <code className="mt-1 block font-mono text-[13px] text-zinc-300">
-                      Django container · Running
-                    </code>
-                  </span>
+                  <code className="mt-2 block font-mono text-sm text-zinc-300">
+                    GET / · HTTP/2
+                  </code>
                 </span>
-                <span className="flex min-h-24 items-center gap-5 border-t border-white/10 px-6 py-5 md:border-t-0">
-                  <span className="font-mono text-sm font-bold text-zinc-500">
-                    02
-                  </span>
-                  <span>
-                    <strong className="block text-base font-semibold text-white">
-                      Data connected
-                    </strong>
-                    <code className="mt-1 block font-mono text-[13px] text-zinc-300">
-                      PostgreSQL · private network
-                    </code>
-                  </span>
-                </span>
-                <span className="flex min-h-24 items-center gap-5 border-t border-white/10 px-6 py-5 md:border-t-0">
-                  <span className="font-mono text-sm font-bold text-zinc-500">
-                    03
-                  </span>
-                  <span>
-                    <strong className="block text-base font-semibold text-[#44b78b]">
-                      Public response verified
-                    </strong>
-                    <code className="mt-1 block font-mono text-[13px] text-zinc-300">
-                      GET / · HTTP/2 · 200 OK
-                    </code>
-                  </span>
-                </span>
+                <strong className="text-6xl leading-none font-semibold tracking-[-0.06em] text-[#44b78b]">
+                  200 OK
+                </strong>
               </div>
             </div>
           </figure>
