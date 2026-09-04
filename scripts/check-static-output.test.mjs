@@ -147,7 +147,7 @@ test('legacy Django URLs permanently consolidate on the Core tutorial', async ()
   }
 });
 
-test('remaining legacy tutorial URLs permanently redirect to the tutorial matrix', async () => {
+test('remaining legacy tutorial URLs permanently redirect to the tutorial catalog', async () => {
   const vercel = JSON.parse(await readFile('vercel.json', 'utf8'));
   const cloudflare = parseCloudflareRedirects(
     await readFile('public/_redirects', 'utf8'),

@@ -67,12 +67,20 @@ _Avoid_: Django demo, Django sample app
 
 **Tutorial Opportunity**:
 A framework and launch-job pair, such as Django Deploy or Django PostgreSQL,
-whose availability is evaluated independently in the tutorial framework matrix.
+whose demand and production readiness are evaluated independently in the
+operational Tutorial Matrix.
 _Avoid_: Framework-wide availability, tutorial bundle
+
+**Tutorial Matrix**:
+The operational inventory of independently qualified tutorial URL candidates,
+demand evidence, priority, technical scope, and production state. It lives
+outside the public website.
+_Avoid_: Public tutorial directory, fixed framework-stage grid
 
 **Available Tutorial Opportunity**:
 A Tutorial Opportunity whose published page has passed source, asset, catalog,
-production build, and public route acceptance and is linked from the matrix.
+production build, and public route acceptance and is linked from the Tutorial
+Catalog.
 _Avoid_: Published framework badge, enabled framework
 
 **Retired Tutorial**:
@@ -92,9 +100,10 @@ served to readers from the production static build.
 _Avoid_: Build output files, generated pages
 
 **Tutorial Catalog**:
-The public `/tutorials/` page that groups Framework Tutorial Paths by learning
-stage, framework, publication status, and request entry.
-_Avoid_: Tutorial landing page, Tutorial Matrix
+The public `/tutorials/` page that lists published Core Deployment Tutorials
+and their published extensions. It adds Runtime Hub grouping when the published
+inventory supports useful groups and provides one tutorial request entry.
+_Avoid_: Tutorial Matrix, production roadmap, planned URL inventory
 
 ## Website Attribution Language
 
