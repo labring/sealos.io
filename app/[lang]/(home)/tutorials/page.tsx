@@ -49,24 +49,6 @@ const DJANGO_GUIDE_CHAPTERS = [
   },
 ] as const;
 
-const DJANGO_LIVE_PROOF = [
-  {
-    stage: 'Configure',
-    command: 'check --deploy',
-    result: '0 ERRORS',
-  },
-  {
-    stage: 'Deploy',
-    command: 'gunicorn config.wsgi',
-    result: 'RUNNING',
-  },
-  {
-    stage: 'Verify',
-    command: 'GET / HTTP/2',
-    result: '200 OK',
-  },
-] as const;
-
 const TUTORIALS_PAGE_KEYWORDS = [
   'Sealos tutorials',
   'Django deployment tutorials',
@@ -126,24 +108,20 @@ function TutorialCatalogCard({
 
             <div className="bg-[#090909] px-6 py-5 font-mono text-white lg:border-l lg:border-white/15">
               <p className="text-sm font-bold tracking-wide text-zinc-300">
-                GUIDE CHECKS
+                LIVE DATA PROOF
               </p>
-              <div className="mt-3 grid grid-cols-[2rem_1fr_7rem] gap-3 text-[11px] text-zinc-400">
-                <span>#</span>
-                <span>ACTION</span>
-                <span className="text-right">RESULT</span>
-              </div>
+              <p className="mt-3 text-[11px] text-zinc-400">
+                ONE RECORD · TWO REQUESTS · FRESH READ
+              </p>
             </div>
           </div>
 
-          <ol>
-            {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => {
-              const proof = DJANGO_LIVE_PROOF[index];
-
-              return (
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_22rem]">
+            <ol>
+              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
-                  className={`grid lg:min-h-[7.5rem] lg:grid-cols-[minmax(0,1fr)_22rem] ${
+                  className={`lg:min-h-[7.5rem] ${
                     index === 0 ? '' : 'border-t border-zinc-500/30'
                   }`}
                 >
@@ -182,33 +160,45 @@ function TutorialCatalogCard({
                       {chapter.detail}
                     </span>
                   </Link>
-
-                  <span className="bg-[#090909] px-6 py-5 font-mono text-white lg:flex lg:flex-col lg:justify-center lg:border-l lg:border-white/15">
-                    <span className="grid grid-cols-[2rem_1fr_7rem] items-baseline gap-3">
-                      <code className="text-xs text-zinc-400">
-                        0{index + 1}
-                      </code>
-                      <span className="text-sm font-bold tracking-wide text-zinc-200 uppercase">
-                        {proof.stage}
-                      </span>
-                      <code
-                        className={`text-right font-bold ${
-                          index === DJANGO_LIVE_PROOF.length - 1
-                            ? 'text-xl text-[#44b78b]'
-                            : 'text-base text-zinc-200'
-                        }`}
-                      >
-                        {proof.result}
-                      </code>
-                    </span>
-                    <code className="mt-2 block pl-11 text-base font-bold text-white">
-                      {proof.command}
-                    </code>
-                  </span>
                 </li>
-              );
-            })}
-          </ol>
+              ))}
+            </ol>
+
+            <div className="grid content-center gap-6 bg-[#090909] px-6 py-6 font-mono text-white lg:border-l lg:border-white/15">
+              <div>
+                <p className="text-xs tracking-wide text-zinc-400">
+                  01 / CREATE REQUEST
+                </p>
+                <p className="mt-2 flex items-baseline justify-between gap-4">
+                  <code className="text-base font-bold">POST / HTTP/2</code>
+                  <code className="text-sm text-zinc-300">302</code>
+                </p>
+                <code className="mt-1 block text-[13px] text-zinc-300">
+                  task=&quot;Runtime proof from Sealos&quot;
+                </code>
+              </div>
+              <div>
+                <p className="text-xs tracking-wide text-zinc-400">
+                  02 / FRESH REQUEST
+                </p>
+                <p className="mt-2 flex items-baseline justify-between gap-4">
+                  <code className="text-base font-bold">GET / HTTP/2</code>
+                  <code className="text-sm text-zinc-300">200</code>
+                </p>
+              </div>
+              <div className="border-t border-white/15 pt-5">
+                <p className="text-xs tracking-wide text-zinc-400">
+                  03 / DATABASE RECORD
+                </p>
+                <code className="mt-2 block text-[13px] text-zinc-200">
+                  task[0]=&quot;Runtime proof from Sealos&quot;
+                </code>
+                <strong className="mt-2 block text-sm text-[#44b78b]">
+                  PERSISTED
+                </strong>
+              </div>
+            </div>
+          </div>
         </nav>
       ) : tutorial.image ? (
         <figure className="mt-10 overflow-hidden rounded-xl bg-zinc-950 p-2 ring-1 ring-white/10">
@@ -335,7 +325,9 @@ export default function TutorialsPage({
                   Django
                 </span>
                 <span className="flex items-baseline gap-5" aria-hidden="true">
-                  <span className="text-[#146dff]">→</span>
+                  <span className="font-mono text-[0.72em] font-normal tracking-normal text-[#146dff]">
+                    →
+                  </span>
                   <span>Sealos</span>
                 </span>
               </h1>
@@ -348,7 +340,7 @@ export default function TutorialsPage({
                 {firstTutorial && (
                   <Link
                     href={firstTutorial.url}
-                    className="group relative z-10 mt-6 mb-4 inline-flex min-w-[17rem] items-center justify-between gap-8 border-b border-white/35 pb-2 text-xl font-semibold text-white transition-colors hover:border-[#5f96ff] hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group relative z-10 mt-6 mb-4 inline-flex min-w-[19rem] items-center justify-between gap-8 border-y border-white/30 py-3 text-[1.375rem] font-semibold text-white transition-colors hover:border-[#5f96ff] hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     Read the field note
                     <ArrowRight
