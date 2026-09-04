@@ -115,27 +115,22 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="grid overflow-hidden bg-[#e3e5df] text-[#101318] md:grid-cols-[9rem_minmax(0,1fr)]">
-              <aside className="flex min-h-60 flex-col justify-between bg-[#146dff] p-6 text-white">
+            <div className="grid overflow-hidden bg-[#e3e5df] text-[#101318] md:grid-cols-[7rem_minmax(0,1fr)]">
+              <aside className="flex min-h-48 flex-col justify-between bg-[#146dff] p-5 text-white">
                 <p className="font-mono text-xs font-bold tracking-[0.06em]">
                   HTTP
                   <br />
                   RESPONSE
                 </p>
                 <p>
-                  <strong className="block font-mono text-5xl leading-none font-medium tracking-[-0.08em]">
+                  <strong className="block font-mono text-4xl leading-none font-medium tracking-[-0.08em]">
                     200
                   </strong>
-                  <span className="mt-2 block text-lg font-semibold">OK</span>
-                </p>
-                <p className="text-xs leading-5 font-semibold text-blue-100">
-                  Public ingress
-                  <br />
-                  Private data
+                  <span className="mt-1 block text-base font-semibold">OK</span>
                 </p>
               </aside>
 
-              <div className="px-7 py-7 md:px-9">
+              <div className="px-7 py-5 md:px-9">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <span className="text-sm font-semibold text-[#146dff]">
                     Verified request path
@@ -145,16 +140,16 @@ function TutorialCatalogCard({
                   </code>
                 </div>
 
-                <ol className="mt-8 grid gap-8 md:grid-cols-3 md:gap-10">
+                <ol className="mt-5 grid gap-7 md:grid-cols-3 md:gap-10">
                   {DEPLOYMENT_NODES.map((node, index) => (
                     <li key={node.marker} className="relative min-w-0">
                       <span className="font-mono text-xs font-bold tracking-[0.08em] text-[#146dff]">
                         {node.marker}
                       </span>
-                      <h3 className="mt-2 text-xl font-semibold tracking-[-0.02em]">
+                      <h3 className="mt-1 text-lg font-semibold tracking-[-0.02em]">
                         {node.title}
                       </h3>
-                      <div className="relative mt-5">
+                      <div className="relative mt-3">
                         {index < DEPLOYMENT_NODES.length - 1 && (
                           <span
                             className="absolute top-1/2 left-2.5 hidden h-0.5 w-[calc(100%+2.5rem)] -translate-y-1/2 bg-[#146dff] md:block"
@@ -167,10 +162,10 @@ function TutorialCatalogCard({
                           <span className="size-2 rounded-full bg-[#146dff]" />
                         </span>
                       </div>
-                      <code className="mt-5 block truncate font-mono text-xs font-bold text-zinc-900">
+                      <code className="mt-3 block truncate font-mono text-xs font-bold text-zinc-900">
                         {node.evidence}
                       </code>
-                      <span className="mt-2 inline-flex items-center gap-2 text-xs font-bold text-emerald-800">
+                      <span className="mt-1 inline-flex items-center gap-2 text-xs font-bold text-emerald-800">
                         <span
                           className="size-1.5 rounded-full bg-emerald-600"
                           aria-hidden="true"
@@ -180,30 +175,23 @@ function TutorialCatalogCard({
                     </li>
                   ))}
                 </ol>
-
-                <div className="mt-7 grid gap-2 border-t border-zinc-500/40 pt-4 font-mono text-[11px] font-bold text-zinc-600 md:grid-cols-3 md:gap-10">
-                  <span>HTTPS :443 · 200</span>
-                  <span>WSGI :8000 · 1 replica</span>
-                  <span>PostgreSQL :5432 · private</span>
-                </div>
               </div>
             </div>
           </figure>
 
           <nav
-            className="mt-12 border-t border-white/15 pt-7"
+            className="mt-10 border-t border-white/15 pt-7"
             aria-label="Guide chapters"
           >
-            <div className="grid gap-3 md:grid-cols-12 md:items-end md:gap-8">
-              <p className="text-sm font-semibold text-[#5f96ff] md:col-span-3">
+            <div className="grid gap-3 sm:grid-cols-[3.5rem_7rem_minmax(0,1fr)_minmax(0,0.9fr)_1.25rem] sm:items-end sm:gap-x-5">
+              <p className="text-sm font-semibold text-[#5f96ff] sm:col-span-2">
                 Inside the guide
               </p>
-              <h3 className="text-2xl leading-tight font-medium tracking-[-0.03em] text-white md:col-span-5">
-                Three decisive checks in 35 minutes.
+              <h3 className="text-3xl leading-none font-medium tracking-[-0.035em] text-white">
+                Three decisive checks
               </h3>
-              <p className="text-sm leading-6 text-zinc-300 md:col-span-4">
-                Follow the shortest route from a local Django project to a
-                verified production service.
+              <p className="text-sm leading-6 text-zinc-300">
+                Configure, deploy, then verify the public flow.
               </p>
             </div>
 
@@ -223,7 +211,7 @@ function TutorialCatalogCard({
                     <span className="text-sm font-semibold text-zinc-300">
                       {chapter.phase}
                     </span>
-                    <strong className="mt-2 text-lg font-semibold tracking-[-0.02em] text-white transition-colors group-hover:text-[#5f96ff] sm:mt-0">
+                    <strong className="mt-2 text-xl font-semibold tracking-[-0.025em] text-white transition-colors group-hover:text-[#5f96ff] sm:mt-0">
                       {chapter.title}
                     </strong>
                     <span className="col-start-2 mt-1 text-sm leading-6 text-zinc-300 sm:col-start-auto sm:mt-0">
@@ -372,7 +360,7 @@ export default function TutorialsPage({
           <div className="grid gap-12 md:grid-cols-12 md:items-stretch">
             <div className="md:col-span-8">
               <p className="text-sm font-semibold text-[#5f96ff]">
-                Field note 01 · Django 5.2 · Live evidence
+                Deployment field note / 01
               </p>
               <h1 className="mt-6 text-6xl leading-[0.92] font-medium tracking-[-0.055em] text-white md:text-[4.75rem]">
                 <span className="block">Deploy Django</span>
@@ -401,7 +389,7 @@ export default function TutorialsPage({
                     />
                   </Link>
                   <span className="text-sm font-semibold text-zinc-400">
-                    {firstTutorial.estimatedReadingTime} · 3 chapters
+                    3 chapters
                   </span>
                 </div>
               )}
@@ -429,7 +417,7 @@ export default function TutorialsPage({
                 </p>
               </div>
               <p className="font-mono text-xs font-bold tracking-[0.04em] text-zinc-300">
-                03 PROOFS · 200 OK
+                GUNICORN · POSTGRESQL
               </p>
             </aside>
           </div>
