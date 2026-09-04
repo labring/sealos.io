@@ -192,7 +192,7 @@ function TutorialCatalogCard({
                           {proof.stage}
                         </span>
                       </span>
-                      <span className="flex items-baseline gap-2">
+                      <span className="flex w-40 items-baseline justify-end gap-2 text-right">
                         <code
                           className={`font-mono font-bold ${
                             index === DJANGO_LIVE_PROOF.length - 1
@@ -351,7 +351,7 @@ export default function TutorialsPage({
                 {firstTutorial && (
                   <Link
                     href={firstTutorial.url}
-                    className="group relative z-10 mt-5 mb-4 inline-flex items-center gap-3 border-b border-[#5f96ff] pb-1 text-lg font-semibold text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                    className="group relative z-10 mt-5 mb-4 inline-flex items-center gap-3 border border-[#5f96ff] px-5 py-3 text-base font-semibold text-[#5f96ff] transition-colors hover:bg-[#146dff] hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
                     Read the field note
                     <ArrowRight
@@ -396,6 +396,9 @@ export default function TutorialsPage({
                     HTTP 200 · persisted
                   </p>
                 </div>
+                <p className="mt-auto border-t border-white/15 pt-4 font-mono text-sm text-zinc-400">
+                  Django 5.2 · PostgreSQL · HTTP/2
+                </p>
               </div>
             </aside>
           </div>
