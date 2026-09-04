@@ -193,15 +193,15 @@ function TutorialCatalogCard({
                 </p>
               </div>
               <div className="flex flex-col justify-center px-6 py-4">
-                <p className="text-sm tracking-wide text-zinc-400">
-                  03 / DATABASE RECORD
+                <p className="flex items-baseline justify-between gap-4">
+                  <span className="text-sm tracking-wide text-zinc-400">
+                    03 / DATABASE RECORD
+                  </span>
+                  <strong className="text-2xl text-[#44b78b]">PERSISTED</strong>
                 </p>
                 <code className="mt-2 block text-sm text-zinc-200">
                   task[0]=&quot;Runtime proof from Sealos&quot;
                 </code>
-                <strong className="mt-2 block text-2xl text-[#44b78b]">
-                  PERSISTED
-                </strong>
               </div>
             </div>
           </div>
@@ -329,7 +329,7 @@ export default function TutorialsPage({
               >
                 <span aria-hidden="true">Django</span>
                 <ArrowRight
-                  className="h-10 w-14 shrink-0 translate-y-1 stroke-[1.5] text-[#146dff] md:h-16 md:w-24"
+                  className="h-10 w-16 shrink-0 translate-y-1 stroke-2 text-[#146dff] md:h-16 md:w-32"
                   aria-hidden="true"
                 />
                 <span aria-hidden="true">Sealos</span>

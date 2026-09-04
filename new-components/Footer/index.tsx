@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'fumadocs-core/link';
 import { siteConfig } from '@/config/site';
-import { DiscordIcon, GithubIcon, RSSIcon, XIcon } from './FooterIcons';
 
 const year = new Date().getFullYear();
 
@@ -28,10 +27,7 @@ const FooterLinksData: Record<string, FooterCategory> = {
   },
   products: {
     titleKey: 'productsTitle',
-    links: [
-      { textKey: 'skills', urlKey: 'skillsUrl' },
-      { textKey: 'templates', urlKey: 'templatesUrl' },
-    ],
+    links: [{ textKey: 'templates', urlKey: 'templatesUrl' }],
   },
   services: {
     titleKey: 'servicesTitle',
@@ -157,7 +153,7 @@ function FooterLink({
   return (
     <Link
       href={href}
-      className="text-sm leading-5 text-zinc-300 transition-colors hover:text-white"
+      className="text-[13px] leading-5 text-zinc-300 transition-colors hover:text-white"
     >
       {children}
     </Link>
@@ -180,7 +176,7 @@ function SocialLink({
       rel="noopener noreferrer"
       title={title}
       aria-label={title}
-      className="flex size-7 items-center justify-center text-zinc-300 transition-colors hover:text-white"
+      className="font-mono text-xs text-zinc-400 transition-colors hover:text-white"
     >
       {children}
     </a>
@@ -193,7 +189,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
 
   return (
     <footer className="border-t border-white/10 text-white">
-      <div className="container grid gap-6 py-6 lg:grid-cols-[auto_1fr_auto] lg:items-start lg:gap-10">
+      <div className="container flex flex-col gap-5 py-5 lg:flex-row lg:items-center lg:gap-8">
         <Link
           href={homeHref}
           className="inline-flex items-center gap-2 text-lg font-semibold text-white"
@@ -204,7 +200,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
 
         <nav
           aria-label="Footer"
-          className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-6"
+          className="flex flex-1 flex-wrap items-center gap-x-5 gap-y-2"
         >
           {footerLinks.columns.flatMap((category) =>
             category.links.map((link) => (
@@ -218,27 +214,21 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
           )}
         </nav>
 
-        <div className="flex items-center gap-3 lg:justify-self-end">
+        <div className="flex shrink-0 items-center gap-4">
           <SocialLink href={siteConfig.links.github} title="GitHub">
-            <GithubIcon />
+            GH
           </SocialLink>
           <SocialLink href={siteConfig.links.discord} title="Discord">
-            <DiscordIcon />
+            DC
           </SocialLink>
           <SocialLink href={siteConfig.links.twitter} title="X">
-            <XIcon className="size-4" />
+            X
           </SocialLink>
           <SocialLink href={siteConfig.links.youtube} title="YouTube">
-            <img
-              src="/icons/youtube.svg"
-              alt=""
-              width={16}
-              height={16}
-              className="size-4"
-            />
+            YT
           </SocialLink>
           <SocialLink href="/rss.xml" title="RSS Feed">
-            <RSSIcon className="size-4" />
+            RSS
           </SocialLink>
         </div>
       </div>
