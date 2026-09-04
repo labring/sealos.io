@@ -351,15 +351,17 @@ export default function TutorialsPage({
               </div>
             </div>
 
-            <figure className="relative aspect-video overflow-hidden border-t border-white/15 lg:aspect-auto lg:h-full lg:border-l">
-              <Image
-                src="/images/tutorials/django/django-sealos-live-app-https-proof-hd.png"
-                alt="Live Django task application on Sealos showing a persisted task"
-                fill
-                priority
-                sizes="(max-width: 1023px) 100vw, 30rem"
-                className="scale-[1.5] object-cover object-[55%_55%]"
-              />
+            <figure className="relative aspect-video overflow-hidden border-t border-white/15 bg-[#090909] lg:aspect-auto lg:h-full lg:border-l">
+              <div className="absolute inset-y-0 right-6 left-6 overflow-hidden border-x border-white/15">
+                <Image
+                  src="/images/tutorials/django/django-sealos-live-app-https-proof-hd.png"
+                  alt="Live Django task application on Sealos showing a persisted task"
+                  fill
+                  priority
+                  sizes="(max-width: 1023px) 100vw, 27rem"
+                  className="scale-[1.35] object-cover object-[52%_55%]"
+                />
+              </div>
               <figcaption className="absolute right-0 bottom-0 left-0 flex items-center justify-between bg-[#090909] px-5 py-3 font-mono text-xs font-semibold tracking-wide text-white">
                 <span>LIVE APPLICATION</span>
                 <span className="text-[#44b78b]">HTTPS · 200</span>
