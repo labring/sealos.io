@@ -93,12 +93,12 @@ function TutorialCatalogCard({
 
             <div className="relative overflow-hidden border-b border-white/15 bg-[#08101f]">
               <div className="absolute inset-x-0 top-0 z-10 h-0.5 bg-gradient-to-r from-[#146dff] to-[#44b78b]" />
-              <div className="relative aspect-[16/7] overflow-hidden">
+              <div className="relative aspect-[8/3] overflow-hidden">
                 <Image
                   src={DJANGO_PROJECT_EVIDENCE}
                   alt="Running Sealos project with public domain, Django container, and PostgreSQL database"
                   fill
-                  className="scale-[1.1] object-cover object-center brightness-[1.45] contrast-[1.12] saturate-[0.8]"
+                  className="scale-[1.25] object-cover object-[50%_40%] brightness-[1.5] contrast-[1.12] saturate-[0.8]"
                   priority
                   quality={100}
                   sizes="(max-width: 768px) 100vw, 87vw"
@@ -176,7 +176,7 @@ function TutorialCatalogCard({
               </div>
             </div>
 
-            <ol className="grid border-t border-black/15 lg:grid-cols-3 lg:divide-x lg:divide-black/15">
+            <ol className="grid border-t border-black/15 lg:grid-cols-3 lg:gap-10 lg:px-7">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
@@ -184,7 +184,7 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group flex min-h-64 flex-col p-7 transition-colors hover:bg-black/[0.035] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none"
+                    className="group flex min-h-56 flex-col px-0 py-7 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none"
                   >
                     <span className="flex items-start justify-between gap-5">
                       <span className="font-mono text-4xl font-bold tracking-[-0.06em] text-zinc-400">
@@ -376,7 +376,7 @@ export default function TutorialsPage({
                   Field note 01
                 </span>
               </div>
-              <div className="mt-8 flex items-end gap-4 border-y border-white/15 py-5">
+              <div className="mt-8 flex items-end gap-4 py-5">
                 <span className="text-[4.75rem] leading-[0.8] font-medium tracking-[-0.075em] text-white">
                   35
                 </span>
@@ -386,12 +386,12 @@ export default function TutorialsPage({
                   <span className="block text-zinc-400">To HTTPS</span>
                 </span>
               </div>
-              <div className="grid flex-1 grid-cols-3 items-center gap-3 border-b border-white/15 py-4 text-xs font-semibold text-zinc-300">
+              <div className="grid flex-1 grid-cols-3 items-center gap-3 py-4 text-xs font-semibold text-zinc-300">
                 <span>Gunicorn</span>
                 <span>WhiteNoise</span>
                 <span>PostgreSQL</span>
               </div>
-              <div className="flex items-center justify-between gap-5 border-b border-white/15 py-4 text-xs font-semibold">
+              <div className="flex items-center justify-between gap-5 py-4 text-xs font-semibold">
                 <span className="text-zinc-300">Live proof below</span>
                 <span className="inline-flex items-center gap-2 text-[#44b78b]">
                   <span className="size-1.5 rounded-full bg-current" />
