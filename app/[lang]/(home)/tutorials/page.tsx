@@ -115,7 +115,14 @@ function TutorialCatalogCard({
 
             <div className="overflow-hidden bg-[#e5e7e4] text-[#101318]">
               <div className="grid gap-2 border-b border-zinc-400/50 px-6 py-4 sm:px-8 md:grid-cols-12 md:items-center md:gap-x-6">
-                <span className="text-xs font-bold tracking-[0.12em] text-[#146dff] md:col-span-6">
+                <span className="inline-flex items-center gap-3 text-xs font-bold tracking-[0.12em] text-[#146dff] md:col-span-6">
+                  <Image
+                    src="/logo.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="size-5"
+                  />
                   DJANGO 5.2 / CREATE + READ
                 </span>
                 <code className="text-xs font-semibold text-zinc-600 md:col-span-6 md:text-right">
@@ -164,7 +171,7 @@ function TutorialCatalogCard({
 
           <nav
             className="mt-10 border-t border-white/10 pt-7"
-            aria-label="Guide chapters"
+            aria-label="Guide chapters and next field note"
           >
             <div className="grid gap-3 md:grid-cols-12 md:items-end md:gap-x-6">
               <p className="text-sm font-semibold text-[#5f96ff] md:col-span-2">
@@ -178,41 +185,40 @@ function TutorialCatalogCard({
                 service.
               </p>
             </div>
-            <ol className="mt-7 grid gap-8 border-t border-white/15 pt-7 md:grid-cols-12 md:gap-x-6">
+            <div className="relative mt-7 grid gap-8 border-t border-white/15 pt-7 md:grid-cols-12 md:gap-x-6">
+              <span
+                className="absolute top-[5.5rem] right-[12.5%] left-[12.5%] hidden h-px bg-white/20 md:block"
+                aria-hidden="true"
+              />
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                <li key={chapter.hash} className="md:col-span-4">
-                  <Link
-                    href={`${tutorial.url}${chapter.hash}`}
-                    className="group block h-full focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
-                  >
-                    <span className="flex items-center justify-between gap-4">
-                      <span className="font-mono text-3xl font-medium tracking-[-0.08em] text-[#5f96ff]">
-                        0{index + 1}
-                      </span>
-                      <ArrowRight
-                        size={16}
-                        className="text-zinc-400 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
-                        aria-hidden="true"
-                      />
-                    </span>
-                    <strong className="mt-6 block text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
-                      {chapter.title}
-                    </strong>
-                    <span className="mt-3 block max-w-sm text-sm leading-6 text-zinc-300">
-                      {chapter.detail}
-                    </span>
-                  </Link>
-                </li>
+                <Link
+                  key={chapter.hash}
+                  href={`${tutorial.url}${chapter.hash}`}
+                  className="group relative text-center focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3"
+                >
+                  <span className="font-mono text-3xl font-medium tracking-[-0.08em] text-[#5f96ff]">
+                    0{index + 1}
+                  </span>
+                  <span className="relative z-10 mx-auto mt-5 block size-2 rotate-45 bg-[#146dff] ring-4 ring-[#08090a]" />
+                  <strong className="mt-6 block text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                    {chapter.title}
+                  </strong>
+                  <span className="mx-auto mt-3 block max-w-60 text-sm leading-6 text-zinc-300">
+                    {chapter.detail}
+                  </span>
+                </Link>
               ))}
-            </ol>
-            <div className="mt-8 grid md:grid-cols-12 md:gap-x-6">
-              <TutorialRequestGuideLink className="group inline-flex items-center justify-self-start border-b border-[#146dff] py-1 text-sm font-semibold text-[#5f96ff] transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-white hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-5 md:col-start-8">
-                Request a different stack
-                <ArrowRight
-                  size={16}
-                  className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
-                  aria-hidden="true"
-                />
+              <TutorialRequestGuideLink className="group relative text-center focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-3">
+                <span className="font-mono text-3xl font-medium tracking-[-0.08em] text-[#5f96ff]">
+                  NEXT
+                </span>
+                <span className="relative z-10 mx-auto mt-5 block size-2 rotate-45 bg-[#146dff] ring-4 ring-[#08090a]" />
+                <strong className="mt-6 block text-lg font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                  Request another stack
+                </strong>
+                <span className="mx-auto mt-3 block max-w-60 text-sm leading-6 text-zinc-300">
+                  Tell us what should ship next.
+                </span>
               </TutorialRequestGuideLink>
             </div>
           </nav>
@@ -363,7 +369,7 @@ export default function TutorialsPage({
               </div>
             )}
           </div>
-          <aside className="mt-9 md:col-span-5 md:col-start-8 md:mt-0 md:self-end">
+          <aside className="mt-9 md:col-span-5 md:col-start-8 md:mt-0 md:self-center">
             <p className="text-sm font-semibold text-[#5f96ff]">
               What you will ship
             </p>
