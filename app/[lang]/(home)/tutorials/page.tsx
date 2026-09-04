@@ -92,11 +92,11 @@ function TutorialCatalogCard({
           </div>
 
           <figure className="overflow-hidden border border-white/15">
-            <div className="relative aspect-video overflow-hidden md:h-[30rem]">
+            <div className="relative aspect-video overflow-hidden">
               <Image
                 src={DJANGO_DEPLOYMENT_IMAGE}
                 alt="Sealos project with public access, Django container, and PostgreSQL running"
-                className="object-cover object-[center_38%] md:scale-[1.2]"
+                className="object-cover object-center"
                 fill
                 priority={priorityImage}
                 quality={90}
@@ -158,7 +158,7 @@ function TutorialCatalogCard({
                     href={`${tutorial.url}${chapter.hash}`}
                     className="group flex min-h-60 flex-col p-6 text-left focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
-                    <span className="font-mono text-5xl leading-none font-medium tracking-[-0.06em] text-white/20">
+                    <span className="font-mono text-5xl leading-none font-medium tracking-[-0.06em] text-white/40">
                       0{index + 1}
                     </span>
                     <span className="mt-8 text-sm font-semibold text-zinc-400">
@@ -346,17 +346,28 @@ export default function TutorialsPage({
               )}
             </div>
 
-            <aside className="flex flex-col justify-between border-l border-white/20 pl-8 md:col-span-4">
-              <p className="text-sm text-zinc-500">Field result</p>
+            <aside className="flex flex-col justify-between border-l border-[#44b78b] pl-8 md:col-span-4">
+              <div>
+                <Image
+                  src="/icons/django.svg"
+                  alt="Django"
+                  width={148}
+                  height={52}
+                  className="h-9 w-auto invert"
+                />
+                <p className="mt-3 font-mono text-xs font-bold tracking-[0.04em] text-zinc-300">
+                  5.2 / PRODUCTION RUNBOOK
+                </p>
+              </div>
               <div className="my-8">
                 <p className="text-[4.75rem] leading-none font-medium tracking-[-0.065em] text-white">
                   35
                 </p>
-                <p className="mt-3 max-w-52 text-base leading-6 text-zinc-300">
+                <p className="mt-3 max-w-52 text-base leading-6 text-zinc-200">
                   minutes from repository to public HTTPS.
                 </p>
               </div>
-              <p className="font-mono text-xs font-bold tracking-[0.04em] text-zinc-400">
+              <p className="font-mono text-xs font-bold tracking-[0.04em] text-zinc-300">
                 03 PROOFS · 200 OK
               </p>
             </aside>
