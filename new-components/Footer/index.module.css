@@ -3,7 +3,6 @@
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  container-type: inline-size;
   z-index: 0;
   background: var(--color-background);
 }
@@ -11,13 +10,8 @@
 .footerGradient {
   position: absolute;
   top: 1.5rem;
-  left: 50%;
-  width: 180cqw;
-  min-width: 64rem;
-  height: calc(100% + 4rem);
-  transform: translateX(-50%);
-  border-radius: 50% 50% 0 0 / clamp(5rem, 28cqw, 18rem)
-    clamp(5rem, 28cqw, 18rem) 0 0;
-  background: var(--color-background);
-  box-shadow: 0 -1px 0 rgba(20, 109, 255, 0.72);
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: rgba(20, 109, 255, 0.72);
 }

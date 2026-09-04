@@ -16,7 +16,6 @@ import {
   type TutorialSummary,
   toTutorialSummary,
 } from '@/lib/utils/tutorial-utils';
-import { GradientText } from '@/new-components/GradientText';
 import { PageTopRays } from '@/new-components/SideRays';
 import { ArrowRight, BookOpen } from 'lucide-react';
 import Image from 'next/image';
@@ -57,51 +56,54 @@ function TutorialCatalogCard({
       href={tutorial.url}
       className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12 md:items-center"
     >
-      <div className="flex flex-col gap-7 p-6 md:col-span-5 md:p-10">
+      <div className="flex flex-col gap-5 p-6 md:col-span-5 md:p-7">
         <div>
           <h2
             id="published-tutorials-heading"
-            className="text-primary text-lg font-semibold tracking-tight"
+            className="text-primary text-base font-semibold tracking-tight"
           >
             Published deployment tutorials
           </h2>
-          <p className="text-muted-foreground mt-3 text-sm leading-6">
+          <p className="text-muted-foreground mt-2 text-xs leading-5">
             Each Core guide takes one technology from a working repository to a
             verified public application on Sealos.
           </p>
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3">
           <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-xs font-medium">
+            <span>01</span>
+            <span aria-hidden="true">/</span>
             <span>{tutorial.framework}</span>
-            <span aria-hidden="true">·</span>
+            <span aria-hidden="true">/</span>
             <span>
               {tutorial.stage === 'beginner'
                 ? 'Core deployment'
                 : tutorial.stageLabel}
             </span>
           </div>
-          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            <GradientText>
-              <span className="text-foreground transition-colors group-hover:text-transparent">
-                {tutorial.title}
-              </span>
-            </GradientText>
+          <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+            <span className="text-foreground group-hover:text-primary transition-colors">
+              {tutorial.title}
+            </span>
           </h2>
-          <p className="text-foreground/85 text-base leading-7">
+          <p className="text-foreground/85 text-sm leading-6">
             {tutorial.description}
           </p>
         </div>
 
-        <ul className="text-foreground/80 border-border/80 divide-border/80 grid list-none divide-y border-y text-sm leading-6">
-          <li className="py-2.5 first:pt-0">
-            Deploy the Django app with Gunicorn and WhiteNoise.
+        <ul className="text-foreground/80 border-border/80 divide-border/80 grid list-none divide-y border-y text-xs leading-5">
+          <li className="flex gap-3 py-2 first:pt-0">
+            <span className="text-muted-foreground w-14 shrink-0">Runtime</span>
+            <span>Django with Gunicorn and WhiteNoise.</span>
           </li>
-          <li className="py-2.5">
-            Connect PostgreSQL to the running application.
+          <li className="flex gap-3 py-2">
+            <span className="text-muted-foreground w-14 shrink-0">Data</span>
+            <span>PostgreSQL connected to the running application.</span>
           </li>
-          <li className="py-2.5 last:pb-0">
-            Verify the live create/read flow on Sealos.
+          <li className="flex gap-3 py-2 last:pb-0">
+            <span className="text-muted-foreground w-14 shrink-0">Proof</span>
+            <span>Live create/read verification on Sealos.</span>
           </li>
         </ul>
 
@@ -124,19 +126,28 @@ function TutorialCatalogCard({
       </div>
 
       {tutorial.image && (
-        <figure className="border-border/80 order-first flex w-full flex-col border-b bg-zinc-950 p-3 md:order-none md:col-span-7 md:self-stretch md:border-b-0 md:border-l">
-          <div className="relative aspect-video w-full overflow-hidden rounded-[0.375rem] md:aspect-auto md:flex-1">
+        <figure className="border-border/80 order-first flex w-full flex-col gap-3 border-b bg-zinc-950 p-4 md:order-none md:col-span-7 md:border-b-0 md:border-l">
+          <div className="relative aspect-video w-full overflow-hidden rounded-md">
             <Image
               src={tutorial.image}
               alt={`${tutorial.title} deployment result`}
-              className="h-full w-full scale-[1.08] object-cover object-[54%_50%] contrast-[1.08]"
+              className="h-full w-full scale-[1.3] object-cover object-[52%_50%]"
               fill
               priority={priorityImage}
               sizes="(max-width: 760px) 90vw, 55vw"
             />
           </div>
-          <figcaption className="text-primary px-1 pt-3 pb-1 text-xs leading-5 font-medium">
-            Live HTTPS · Create/read verification
+          <figcaption className="grid grid-cols-2 gap-3 px-1 text-xs leading-5">
+            <span>
+              <span className="text-muted-foreground block">Live</span>
+              <span className="text-primary font-medium">HTTPS</span>
+            </span>
+            <span>
+              <span className="text-muted-foreground block">Proof</span>
+              <span className="text-primary font-medium">
+                Create/read verification
+              </span>
+            </span>
           </figcaption>
         </figure>
       )}
@@ -244,11 +255,11 @@ export default function TutorialsPage({
             className="text-foreground max-w-5xl text-5xl font-medium tracking-tight md:text-6xl"
           >
             <span>Sealos tutorials for </span>
-            <GradientText>app deployment</GradientText>
+            <span className="text-primary">app deployment</span>
           </h1>
           <p className="text-muted-foreground mt-5 max-w-2xl text-base leading-7">
-            Follow complete deployment guides built from verified repositories
-            and live application evidence.
+            Follow a small set of complete deployment guides built from verified
+            repositories and live application evidence, beginning with Django.
           </p>
         </section>
 
@@ -280,11 +291,9 @@ export default function TutorialsPage({
                       </span>
                     </div>
                     <h2 className="text-lg font-semibold tracking-tight">
-                      <GradientText>
-                        <span className="text-foreground transition-colors group-hover:text-transparent">
-                          {tutorial.title}
-                        </span>
-                      </GradientText>
+                      <span className="text-foreground group-hover:text-primary transition-colors">
+                        {tutorial.title}
+                      </span>
                     </h2>
                     <p className="text-muted-foreground line-clamp-2 text-sm leading-6">
                       {tutorial.description}
@@ -324,8 +333,8 @@ export default function TutorialsPage({
             </div>
             <TutorialRequestGuideLink
               className={cn(
-                buttonVariants({ variant: 'landing-primary' }),
-                'h-10 shrink-0 px-5',
+                buttonVariants({ variant: 'outline' }),
+                'border-border text-foreground hover:text-foreground h-10 shrink-0 bg-transparent px-5 hover:bg-white/5',
               )}
             >
               Request a tutorial
