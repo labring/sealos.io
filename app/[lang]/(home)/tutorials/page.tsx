@@ -1,6 +1,5 @@
 import StructuredDataComponent from '@/components/structured-data';
-import { ContentIndexHeader } from '@/components/content-index-header';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import type { languagesType } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 import {
@@ -58,39 +57,56 @@ function TutorialCatalogCard({
       href={tutorial.url}
       className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-12"
     >
-      {tutorial.image && (
-        <div className="relative aspect-[3/2] w-full overflow-clip md:col-span-7 md:aspect-auto md:min-h-[360px]">
-          <Image
-            src={tutorial.image}
-            alt={`${tutorial.title} deployment result`}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-            fill
-            priority={priorityImage}
-            sizes="(max-width: 760px) 90vw, 55vw"
-          />
-        </div>
-      )}
+      <div className="flex flex-col gap-6 p-6 md:col-span-5 md:p-10">
+        <header>
+          <h1
+            aria-label="Sealos tutorials for app deployment"
+            className="text-foreground text-3xl font-medium tracking-tight md:text-4xl"
+          >
+            <span>Sealos tutorials for </span>
+            <GradientText>app deployment</GradientText>
+          </h1>
+          <p className="text-muted-foreground mt-4 text-sm leading-6">
+            Follow complete deployment guides built from verified repositories
+            and live application evidence.
+          </p>
+        </header>
 
-      <div className="flex flex-1 flex-col gap-4 p-6 md:col-span-5 md:p-10">
-        <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-sm font-medium">
-          <span>{tutorial.framework}</span>
-          <span aria-hidden="true">·</span>
-          <span>
-            {tutorial.stage === 'beginner'
-              ? 'Core deployment'
-              : tutorial.stageLabel}
-          </span>
+        <div className="border-border/80 border-t pt-6">
+          <h2
+            id="published-tutorials-heading"
+            className="text-foreground text-xl font-semibold tracking-tight"
+          >
+            Published deployment tutorials
+          </h2>
+          <p className="text-muted-foreground mt-3 text-sm leading-6">
+            Each Core guide takes one technology from a working repository to a
+            verified public application on Sealos.
+          </p>
         </div>
-        <h2 className="line-clamp-2 text-2xl font-semibold tracking-tight md:text-3xl">
-          <GradientText>
-            <span className="text-foreground transition-colors group-hover:text-transparent">
-              {tutorial.title}
+
+        <div className="flex flex-col gap-3">
+          <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-sm font-medium">
+            <span>{tutorial.framework}</span>
+            <span aria-hidden="true">·</span>
+            <span>
+              {tutorial.stage === 'beginner'
+                ? 'Core deployment'
+                : tutorial.stageLabel}
             </span>
-          </GradientText>
-        </h2>
-        <p className="text-foreground/80 line-clamp-2 text-base leading-7">
-          {tutorial.description}
-        </p>
+          </div>
+          <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+            <GradientText>
+              <span className="text-foreground transition-colors group-hover:text-transparent">
+                {tutorial.title}
+              </span>
+            </GradientText>
+          </h2>
+          <p className="text-foreground/80 text-base leading-7">
+            {tutorial.description}
+          </p>
+        </div>
+
         <div className="text-muted-foreground border-border/80 mt-auto flex flex-wrap items-center justify-between gap-3 border-t pt-5 text-sm">
           {tutorial.estimatedReadingTime && (
             <span className="inline-flex items-center gap-2">
@@ -108,6 +124,19 @@ function TutorialCatalogCard({
           </span>
         </div>
       </div>
+
+      {tutorial.image && (
+        <div className="relative order-first aspect-[3/2] w-full overflow-clip md:order-none md:col-span-7 md:aspect-auto md:min-h-[500px]">
+          <Image
+            src={tutorial.image}
+            alt={`${tutorial.title} deployment result`}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+            fill
+            priority={priorityImage}
+            sizes="(max-width: 760px) 90vw, 55vw"
+          />
+        </div>
+      )}
     </Link>
   );
 }
@@ -206,49 +235,14 @@ export default function TutorialsPage({
       <PageTopRays />
 
       <main>
-        <section className="container -mt-24 pt-44 pb-14">
-          <ContentIndexHeader
-            prefix="Sealos tutorials for"
-            accent="app deployment"
-            description="Follow complete deployment guides built from verified repositories and live application evidence."
-            action={
-              <Button variant="landing-primary" className="h-10" asChild>
-                <Link href={firstTutorial?.url ?? '/tutorials/django/deploy/'}>
-                  Read the Django guide
-                  <ArrowRight size={16} className="ml-2" aria-hidden="true" />
-                </Link>
-              </Button>
-            }
-          />
-        </section>
-
         <section
           id="published-tutorials"
-          className="container scroll-mt-28 pb-2"
+          className="container -mt-24 scroll-mt-28 pt-44 pb-2"
           aria-labelledby="published-tutorials-heading"
         >
-          <div className="mb-10 max-w-2xl">
-            <h2
-              id="published-tutorials-heading"
-              className="text-foreground text-3xl font-semibold tracking-tight md:text-4xl"
-            >
-              Published deployment tutorials
-            </h2>
-            <p className="text-muted-foreground mt-4 text-sm leading-6">
-              Each Core guide takes one technology from a working repository to
-              a verified public application on Sealos.
-            </p>
-          </div>
-
-          <div className="grid gap-6">
-            {tutorials.map((tutorial, index) => (
-              <TutorialCatalogCard
-                key={tutorial.slug}
-                tutorial={tutorial}
-                priorityImage={index < 3}
-              />
-            ))}
-          </div>
+          {firstTutorial && (
+            <TutorialCatalogCard tutorial={firstTutorial} priorityImage />
+          )}
 
           <section className="border-border mt-20 flex flex-col gap-6 border-t pt-10 md:flex-row md:items-center md:justify-between">
             <div className="max-w-2xl">
