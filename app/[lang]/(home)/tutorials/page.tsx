@@ -32,18 +32,21 @@ const DEPLOYMENT_NODES = [
     title: 'Public HTTPS',
     status: 'Reachable',
     value: 'django-tasks-mpbrofzu',
+    evidence: 'HTTPS :443 · create/read verified',
   },
   {
     marker: '01.B',
     title: 'Django container',
     status: 'Running',
     value: 'Gunicorn + WhiteNoise',
+    evidence: 'WSGI :8000 · 1 replica',
   },
   {
     marker: '01.C',
     title: 'PostgreSQL',
     status: 'Attached',
     value: 'Private connection',
+    evidence: 'PostgreSQL :5432 · public access disabled',
   },
 ] as const;
 
@@ -108,27 +111,27 @@ function TutorialCatalogCard({
             </span>
           </figcaption>
 
-          <div className="border-l-4 border-[#146dff] bg-[#d8dad5] px-7 py-5 text-zinc-950 md:px-9">
+          <div className="border-y border-white/15 py-7 text-white">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <span className="text-xs font-semibold text-[#146dff]">
-                Verified request path
+              <span className="text-sm font-semibold text-zinc-300">
+                Request enters the public service
               </span>
-              <code className="inline-flex items-center gap-3 text-xs font-semibold text-zinc-600">
-                GET /<span className="text-emerald-700">200 OK</span>
+              <code className="inline-flex items-center gap-3 text-sm font-semibold text-zinc-300">
+                GET /<span className="text-emerald-400">200 OK</span>
               </code>
             </div>
 
-            <div className="relative mt-7">
+            <div className="relative mt-8">
               <span
-                className="absolute top-20 right-2.5 left-2.5 hidden h-0.5 bg-[#146dff] md:block"
+                className="absolute top-24 right-3 left-3 hidden h-1 bg-[#146dff] md:block"
                 aria-hidden="true"
               />
               <span
-                className="absolute top-20 left-1/4 hidden size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff] md:block"
+                className="absolute top-24 left-1/4 hidden size-0 -translate-x-1/2 -translate-y-1/2 border-y-[6px] border-l-[10px] border-y-transparent border-l-[#146dff] md:block"
                 aria-hidden="true"
               />
               <span
-                className="absolute top-20 left-3/4 hidden size-0 -translate-x-1/2 -translate-y-1/2 border-y-4 border-l-7 border-y-transparent border-l-[#146dff] md:block"
+                className="absolute top-24 left-3/4 hidden size-0 -translate-x-1/2 -translate-y-1/2 border-y-[6px] border-l-[10px] border-y-transparent border-l-[#146dff] md:block"
                 aria-hidden="true"
               />
 
@@ -141,28 +144,25 @@ function TutorialCatalogCard({
                     <span className="font-mono text-xs font-semibold tracking-[0.1em] text-[#146dff]">
                       {node.marker}
                     </span>
-                    <h3 className="mt-2 text-xl font-semibold tracking-tight">
+                    <h3 className="mt-2 text-3xl font-semibold tracking-[-0.035em]">
                       {node.title}
                     </h3>
-                    <span className="relative z-10 mt-5 flex size-5 items-center justify-center rounded-full bg-[#d8dad5] ring-2 ring-[#146dff]">
-                      <span className="size-2 rounded-full bg-[#146dff]" />
+                    <span className="relative z-10 mt-6 flex size-6 items-center justify-center rounded-full bg-[#090909] ring-3 ring-[#146dff]">
+                      <span className="size-2.5 rounded-full bg-[#146dff]" />
                     </span>
-                    <code className="mt-5 block text-xs font-semibold text-zinc-900">
+                    <code className="mt-6 block text-sm font-semibold text-zinc-100">
                       {node.value}
                     </code>
-                    <span className="mt-2 inline-flex items-center gap-2 text-xs font-semibold text-emerald-700">
-                      <span className="size-1.5 rounded-full bg-emerald-500" />
+                    <span className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-emerald-400">
+                      <span className="size-2 rounded-full bg-emerald-400" />
                       {node.status}
+                    </span>
+                    <span className="mt-3 text-xs text-zinc-500">
+                      {node.evidence}
                     </span>
                   </li>
                 ))}
               </ol>
-            </div>
-
-            <div className="mt-5 grid gap-2 border-t border-zinc-400/50 pt-3 font-mono text-[11px] font-semibold text-zinc-600 md:grid-cols-3">
-              <span>HTTPS :443 · 200</span>
-              <span className="md:text-center">WSGI :8000 · 1 replica</span>
-              <span className="md:text-right">PostgreSQL :5432 · private</span>
             </div>
           </div>
 
@@ -182,7 +182,7 @@ function TutorialCatalogCard({
                 verified production service.
               </p>
             </div>
-            <ol className="mt-6 border-y border-white/15">
+            <ol className="mt-6 max-w-5xl border-y border-white/15">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
@@ -190,21 +190,23 @@ function TutorialCatalogCard({
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid items-center gap-x-5 rounded-sm py-4 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_26rem_minmax(0,1fr)]"
+                    className="group grid items-center gap-x-5 rounded-sm py-4 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none sm:grid-cols-[3.5rem_minmax(0,1fr)]"
                   >
                     <span className="font-mono text-2xl font-medium tracking-[-0.08em] text-[#5f96ff]">
                       0{index + 1}
                     </span>
-                    <strong className="inline-flex items-center gap-3 text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
-                      {chapter.title}
-                      <ArrowRight
-                        size={15}
-                        className="text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
-                        aria-hidden="true"
-                      />
-                    </strong>
-                    <span className="col-start-2 mt-1 text-sm text-zinc-400 sm:col-start-auto sm:mt-0">
-                      {chapter.detail}
+                    <span>
+                      <strong className="inline-flex items-center gap-3 text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                        {chapter.title}
+                        <ArrowRight
+                          size={15}
+                          className="text-zinc-500 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-[#5f96ff]"
+                          aria-hidden="true"
+                        />
+                      </strong>
+                      <span className="mt-1 block text-sm text-zinc-400">
+                        {chapter.detail}
+                      </span>
                     </span>
                   </Link>
                 </li>
@@ -359,28 +361,21 @@ export default function TutorialsPage({
               </div>
             )}
           </div>
-          <div className="mt-8 md:col-span-4 md:mt-0 md:self-stretch md:border-l md:border-[#146dff] md:pl-8">
-            <p className="text-sm font-semibold text-[#5f96ff]">Run summary</p>
-            <dl className="mt-5 border-t border-white/15">
-              <div className="flex items-baseline justify-between border-b border-white/15 py-3">
-                <dt className="text-sm text-zinc-400">Repo to live</dt>
-                <dd className="text-3xl font-medium tracking-[-0.05em] text-white">
-                  35m
-                </dd>
-              </div>
-              <div className="flex items-baseline justify-between border-b border-white/15 py-3">
-                <dt className="text-sm text-zinc-400">Proofs captured</dt>
-                <dd className="text-3xl font-medium tracking-[-0.05em] text-white">
-                  03
-                </dd>
-              </div>
-              <div className="flex items-baseline justify-between border-b border-white/15 py-3">
-                <dt className="text-sm text-zinc-400">Final response</dt>
-                <dd className="font-mono text-lg font-semibold text-emerald-400">
-                  200 OK
-                </dd>
-              </div>
-            </dl>
+          <div className="mt-8 md:col-span-4 md:mt-0 md:flex md:items-end md:pb-2 md:pl-8">
+            <div className="max-w-sm">
+              <span
+                className="block h-1 w-12 bg-[#146dff]"
+                aria-hidden="true"
+              />
+              <p className="mt-5 text-2xl leading-8 font-medium tracking-tight text-zinc-100">
+                A field-tested route from a Django repository to a public
+                response.
+              </p>
+              <p className="mt-6 text-sm font-medium text-zinc-400">
+                35 minutes · 3 proofs ·{' '}
+                <span className="text-emerald-400">HTTP 200</span>
+              </p>
+            </div>
           </div>
         </section>
 
