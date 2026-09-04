@@ -18,7 +18,6 @@ import { ArrowRight, BookOpen } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { Fragment } from 'react';
 import { TutorialRequestGuideLink } from './TutorialRequestGuideLink';
 
 const TUTORIALS_PATHNAME = '/tutorials';
@@ -27,18 +26,45 @@ const TUTORIALS_PAGE_DESCRIPTION =
   'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
 const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
 
+const DEPLOYMENT_NODES = [
+  {
+    marker: '01.A',
+    title: 'Public HTTPS',
+    status: 'Reachable',
+    value: 'django-tasks-mpbrofzu.us...',
+    detail: 'HTTPS · 200 OK · Create/read verified',
+  },
+  {
+    marker: '01.B',
+    title: 'Django container',
+    status: 'Running',
+    value: 'Gunicorn + WhiteNoise',
+    detail: 'Container · 1 replica · Image deployed',
+  },
+  {
+    marker: '01.C',
+    title: 'PostgreSQL',
+    status: 'Attached',
+    value: 'Private connection',
+    detail: 'PostgreSQL · Public access disabled',
+  },
+] as const;
+
 const DJANGO_GUIDE_CHAPTERS = [
   {
-    step: '01',
-    serviceType: 'Public HTTPS',
+    title: 'Prepare Django for production',
+    detail: 'Configure Gunicorn and WhiteNoise.',
+    hash: '#prepare-django-for-production',
   },
   {
-    step: '02',
-    serviceType: 'Django container',
+    title: 'Deploy with Sealos Skills',
+    detail: 'Connect the application and database.',
+    hash: '#deploy-with-sealos-skills',
   },
   {
-    step: '03',
-    serviceType: 'PostgreSQL',
+    title: 'Verify the live application',
+    detail: 'Confirm the HTTPS create/read flow.',
+    hash: '#verify-the-live-django-application',
   },
 ] as const;
 
@@ -78,42 +104,88 @@ function TutorialCatalogCard({
           <div className="mb-6">
             <figcaption>
               <span className="block text-2xl font-semibold tracking-tight text-white">
-                Three checks. One running application.
+                One request. Three verified services.
               </span>
               <span className="mt-1 block text-sm text-zinc-400">
-                Captured from the same live Sealos project after verification.
+                The live route from public HTTPS to a private PostgreSQL
+                service.
               </span>
             </figcaption>
           </div>
 
-          <div className="overflow-hidden rounded-sm ring-1 ring-white/15">
-            <div className="hidden grid-cols-[1fr_auto_1fr_auto_1fr] items-center bg-[#0d111b] px-5 py-4 text-sm md:grid">
-              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                <Fragment key={chapter.step}>
-                  <span className="flex items-center justify-center gap-3 font-medium text-zinc-100">
-                    <span className="text-[#5f96ff]">{chapter.step}</span>
-                    {chapter.serviceType}
-                  </span>
-                  {index < DJANGO_GUIDE_CHAPTERS.length - 1 && (
-                    <span className="text-[#5f96ff]" aria-hidden="true">
-                      →
-                    </span>
-                  )}
-                </Fragment>
-              ))}
+          <div className="bg-[#f1f1ed] px-7 py-8 text-zinc-950 md:px-10 md:py-9">
+            <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
+              <span className="font-semibold">Verified request path</span>
+              <span className="font-mono text-xs tracking-[0.08em] text-zinc-500 uppercase">
+                Live project / Django 5.2
+              </span>
             </div>
-            <div className="relative aspect-[2.736/1] overflow-hidden bg-[#090c14]">
-              <Image
-                src="/images/tutorials/django/django-sealos-project-ops-running.webp"
-                alt="A verified Sealos project connecting a public HTTPS domain, running Django container, and PostgreSQL database"
-                className="absolute -top-[36.84%] -left-[10.77%] h-auto w-[123.08%] max-w-none brightness-110 contrast-110"
-                width={3200}
-                height={1800}
-                priority={priorityImage}
-                unoptimized
+
+            <div className="relative mt-10">
+              <span
+                className="absolute top-24 right-[8%] left-[8%] hidden h-0.5 bg-[#146dff] md:block"
+                aria-hidden="true"
               />
+              <ol className="grid gap-10 md:grid-cols-3 md:gap-12">
+                {DEPLOYMENT_NODES.map((node) => (
+                  <li key={node.marker} className="relative">
+                    <span className="font-mono text-xs font-semibold tracking-[0.1em] text-[#146dff]">
+                      {node.marker}
+                    </span>
+                    <h3 className="mt-3 text-2xl font-semibold tracking-tight">
+                      {node.title}
+                    </h3>
+                    <span className="relative z-10 mt-8 flex size-5 items-center justify-center rounded-full bg-[#f1f1ed] ring-2 ring-[#146dff]">
+                      <span className="size-2 rounded-full bg-[#146dff]" />
+                    </span>
+                    <code className="mt-8 block truncate text-sm font-semibold text-zinc-900">
+                      {node.value}
+                    </code>
+                    <p className="mt-3 text-sm leading-6 text-zinc-600">
+                      {node.detail}
+                    </p>
+                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-emerald-700">
+                      <span className="size-2 rounded-full bg-emerald-500" />
+                      {node.status}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div className="mt-9 flex flex-wrap items-center justify-between gap-3 border-t border-zinc-300 pt-5 text-sm text-zinc-600">
+              <span>Ingress → WSGI runtime → private data</span>
+              <span className="font-semibold text-zinc-950">
+                3 proof points recorded
+              </span>
             </div>
           </div>
+
+          <nav className="mt-10" aria-label="Guide chapters">
+            <h3 className="text-lg font-semibold text-white">
+              Inside the 35-minute guide
+            </h3>
+            <ol className="mt-6 grid gap-7 md:grid-cols-3 md:gap-10">
+              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
+                <li key={chapter.hash}>
+                  <Link
+                    href={`${tutorial.url}${chapter.hash}`}
+                    className="group block rounded-sm focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
+                  >
+                    <span className="text-sm font-medium text-[#5f96ff]">
+                      0{index + 1}
+                    </span>
+                    <strong className="mt-3 block text-base font-semibold text-zinc-100 transition-colors group-hover:text-[#5f96ff]">
+                      {chapter.title}
+                    </strong>
+                    <span className="mt-2 block text-sm text-zinc-400">
+                      {chapter.detail}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          </nav>
         </figure>
       ) : (
         tutorial.image && (
