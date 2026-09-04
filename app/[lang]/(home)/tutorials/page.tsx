@@ -61,6 +61,7 @@ const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Configure',
     evidence: 'config.wsgi:application',
+    result: 'WSGI ready',
     title: 'Prepare Django for production',
     detail: 'Configure Gunicorn and WhiteNoise.',
     hash: '#prepare-django-for-production',
@@ -68,6 +69,7 @@ const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Deploy',
     evidence: 'DATABASE_URL → :5432',
+    result: 'Services linked',
     title: 'Deploy with Sealos Skills',
     detail: 'Connect the application and database.',
     hash: '#deploy-with-sealos-skills',
@@ -75,6 +77,7 @@ const DJANGO_GUIDE_CHAPTERS = [
   {
     phase: 'Verify',
     evidence: 'GET / → HTTP 200',
+    result: 'Flow verified',
     title: 'Verify the live application',
     detail: 'Confirm the HTTPS create/read flow.',
     hash: '#verify-the-live-django-application',
@@ -192,40 +195,36 @@ function TutorialCatalogCard({
             </div>
           </figure>
 
-          <nav
-            className="grid border-b border-white/15 md:grid-cols-12"
-            aria-label="Guide chapters"
-          >
-            <div className="flex flex-col py-8 md:col-span-3 md:pr-8">
-              <p className="text-sm font-semibold text-[#5f96ff]">
-                Inside the guide
-              </p>
-              <h3 className="mt-5 text-3xl leading-[0.95] font-medium tracking-[-0.04em] text-white">
-                Three decisive checks
-              </h3>
-              <p className="mt-5 max-w-xs text-sm leading-6 text-zinc-300">
+          <nav className="border-b border-white/15" aria-label="Guide chapters">
+            <div className="flex flex-wrap items-end justify-between gap-5 py-7">
+              <div>
+                <p className="text-sm font-semibold text-[#5f96ff]">
+                  Inside the guide
+                </p>
+                <h3 className="mt-4 text-3xl leading-none font-medium tracking-[-0.04em] text-white">
+                  Three decisive checks
+                </h3>
+              </div>
+              <p className="max-w-sm text-sm leading-6 text-zinc-300">
                 Configure, deploy, then verify the public flow.
-              </p>
-              <p className="mt-auto pt-12 font-mono text-xs font-bold tracking-[0.04em]">
-                <span className="block text-zinc-500">OUTCOME</span>
-                <span className="mt-2 block text-[#44b78b]">
-                  CREATE → READ VERIFIED
-                </span>
               </p>
             </div>
 
-            <ol className="border-t border-white/15 md:col-span-9 md:border-t-0 md:border-l">
-              {DJANGO_GUIDE_CHAPTERS.map((chapter) => (
+            <ol className="border-t border-white/15">
+              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
                   className="border-b border-white/15 last:border-b-0"
                 >
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:grid-cols-3"
+                    className="group grid items-center gap-x-6 py-5 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:grid-cols-[3rem_6rem_minmax(16rem,1.4fr)_minmax(10rem,1fr)_8rem_1.25rem]"
                   >
+                    <span className="font-mono text-sm font-bold text-zinc-500">
+                      0{index + 1}
+                    </span>
                     <span
-                      className={`flex items-center px-6 py-5 font-mono text-xs font-bold tracking-[0.08em] uppercase ${
+                      className={`font-mono text-xs font-bold tracking-[0.08em] uppercase ${
                         chapter.phase === 'Verify'
                           ? 'text-[#44b78b]'
                           : 'text-[#5f96ff]'
@@ -233,40 +232,51 @@ function TutorialCatalogCard({
                     >
                       {chapter.phase}
                     </span>
-                    <code className="flex min-w-0 items-center truncate border-t border-white/10 px-6 py-5 font-mono text-xs font-bold text-zinc-400 md:border-t-0 md:border-l">
-                      {chapter.evidence}
-                    </code>
-                    <span className="border-t border-white/10 px-6 py-5 md:border-t-0 md:border-l">
-                      <strong className="inline-flex items-center gap-3 text-xl font-semibold tracking-[-0.025em] text-white transition-colors group-hover:text-[#5f96ff]">
+                    <span className="mt-3 md:mt-0">
+                      <strong className="block text-xl font-semibold tracking-[-0.025em] text-white transition-colors group-hover:text-[#5f96ff]">
                         {chapter.title}
-                        <ArrowRight
-                          size={16}
-                          className="shrink-0 text-zinc-300 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white"
-                          aria-hidden="true"
-                        />
                       </strong>
                       <span className="mt-1 block text-sm leading-6 text-zinc-300">
                         {chapter.detail}
                       </span>
                     </span>
+                    <code className="mt-3 truncate font-mono text-xs font-bold text-zinc-400 md:mt-0">
+                      {chapter.evidence}
+                    </code>
+                    <span
+                      className={`mt-3 font-mono text-xs font-bold tracking-[0.03em] uppercase md:mt-0 ${
+                        chapter.phase === 'Verify'
+                          ? 'text-[#44b78b]'
+                          : 'text-zinc-400'
+                      }`}
+                    >
+                      {chapter.result}
+                    </span>
+                    <ArrowRight
+                      size={17}
+                      className="mt-3 text-zinc-300 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white md:mt-0"
+                      aria-hidden="true"
+                    />
                   </Link>
                 </li>
               ))}
             </ol>
           </nav>
 
-          <div className="grid border-b border-white/15 text-white md:grid-cols-4 md:items-stretch">
-            <h3 className="p-6 text-2xl leading-none font-medium tracking-[-0.035em]">
-              Missing your stack?
-            </h3>
-            <p className="border-t border-white/15 p-6 text-sm leading-6 text-zinc-300 md:border-t-0 md:border-l">
-              Share the deployment job you need.
-            </p>
-            <TutorialRequestGuideLink className="group inline-flex items-center justify-between border-t border-white/15 p-6 text-sm font-semibold text-[#5f96ff] transition-colors hover:bg-[#146dff]/10 focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:col-span-2 md:border-t-0 md:border-l">
-              Request the next field note
+          <div className="flex flex-wrap items-center justify-between gap-6 border-b border-white/15 py-6 text-white">
+            <div className="flex flex-wrap items-baseline gap-x-8 gap-y-2">
+              <h3 className="text-2xl leading-none font-medium tracking-[-0.035em]">
+                Missing your stack?
+              </h3>
+              <p className="text-sm leading-6 text-zinc-300">
+                Share the deployment job you need.
+              </p>
+            </div>
+            <TutorialRequestGuideLink className="group inline-flex items-center gap-5 text-sm font-semibold text-[#5f96ff] transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none">
+              Request a field note
               <ArrowRight
                 size={16}
-                className="ml-3 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
                 aria-hidden="true"
               />
             </TutorialRequestGuideLink>
