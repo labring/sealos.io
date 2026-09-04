@@ -86,126 +86,95 @@ function TutorialCatalogCard({
             <h2 className="text-2xl font-medium tracking-[-0.035em] text-white">
               Production evidence / DJANGO–01
             </h2>
-            <p className="hidden items-center gap-2 text-sm font-semibold text-[#36d399] sm:flex">
-              <span
-                className="size-2 rounded-full bg-current"
-                aria-hidden="true"
-              />
-              Captured from a live project
+            <p className="hidden text-sm text-zinc-400 sm:block">
+              Captured from a live Sealos project
             </p>
           </div>
 
-          <div className="overflow-hidden border border-white/15">
-            <div className="grid md:grid-cols-12">
-              <figure className="relative aspect-video overflow-hidden border-b border-white/15 md:col-span-8 md:h-[27rem] md:border-r md:border-b-0">
-                <Image
-                  src={DJANGO_DEPLOYMENT_IMAGE}
-                  alt="Sealos project with public access, Django container, and PostgreSQL running"
-                  className="object-cover object-center"
-                  fill
-                  priority={priorityImage}
-                  quality={90}
-                  sizes="(max-width: 760px) 100vw, 67vw"
-                />
-                <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 bg-[#0b0d11]/95 px-5 py-3 text-sm font-semibold text-white backdrop-blur-sm">
-                  <span>Sealos project topology</span>
-                  <span className="font-mono text-xs tracking-[0.04em] text-[#83e7bd]">
-                    03 SERVICES / RUNNING
-                  </span>
-                </figcaption>
-              </figure>
-
-              <figure className="relative aspect-[4/3] overflow-hidden md:col-span-4 md:h-[27rem]">
-                <Image
-                  src={tutorial.image}
-                  alt={`${tutorial.title} live application`}
-                  className="object-cover object-center"
-                  fill
-                  quality={90}
-                  sizes="(max-width: 760px) 100vw, 33vw"
-                />
-                <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 bg-[#0b0d11]/95 px-5 py-3 text-sm font-semibold text-white backdrop-blur-sm">
-                  <span>Task persisted</span>
-                  <span className="font-mono text-xs tracking-[0.04em] text-[#8db2ff]">
-                    CREATE / READ
-                  </span>
-                </figcaption>
-              </figure>
+          <figure className="overflow-hidden border border-white/15">
+            <div className="relative aspect-video overflow-hidden md:h-[30rem]">
+              <Image
+                src={DJANGO_DEPLOYMENT_IMAGE}
+                alt="Sealos project with public access, Django container, and PostgreSQL running"
+                className="object-cover object-[center_38%] md:scale-[1.2]"
+                fill
+                priority={priorityImage}
+                quality={90}
+                sizes="(max-width: 760px) 100vw, 90vw"
+              />
+              <span className="absolute top-5 left-5 bg-[#e3e5df] px-3 py-2 font-mono text-xs font-bold tracking-[0.05em] text-[#101318]">
+                01 / PUBLIC HTTPS
+              </span>
+              <span className="absolute top-5 right-5 hidden bg-[#e3e5df] px-3 py-2 font-mono text-xs font-bold tracking-[0.05em] text-[#101318] sm:block">
+                02 / PRIVATE POSTGRESQL
+              </span>
             </div>
 
-            <div className="grid bg-[#e3e5df] text-[#101318] md:grid-cols-12">
-              <div className="bg-[#146dff] p-6 text-white md:col-span-2">
-                <p className="font-mono text-5xl leading-none font-medium tracking-[-0.08em]">
-                  200
+            <figcaption className="grid bg-[#e3e5df] text-[#101318] md:grid-cols-12">
+              <div className="border-b border-black/15 p-6 md:col-span-3 md:border-r md:border-b-0">
+                <p className="text-xs font-semibold tracking-[0.05em] text-zinc-600 uppercase">
+                  Final response
                 </p>
-                <p className="mt-2 text-lg font-semibold">OK</p>
+                <p className="mt-3 font-mono text-4xl leading-none font-medium tracking-[-0.06em]">
+                  200 OK
+                </p>
               </div>
               <div className="border-b border-black/15 p-6 md:col-span-6 md:border-r md:border-b-0">
                 <h3 className="text-2xl leading-tight font-medium tracking-[-0.035em]">
-                  One repository. Three linked services. One working public app.
+                  Public edge, app runtime, and private data on one visible
+                  path.
                 </h3>
                 <p className="mt-3 text-sm leading-6 text-zinc-700">
-                  The guide traces the exact path from production settings to a
-                  verified HTTPS create/read flow.
+                  The running topology records every service used by the guide.
                 </p>
               </div>
-              <dl className="divide-y divide-black/15 px-6 text-sm md:col-span-4">
-                <div className="flex items-center justify-between gap-4 py-3">
-                  <dt className="text-zinc-600">Runtime</dt>
-                  <dd className="font-semibold">Gunicorn</dd>
-                </div>
-                <div className="flex items-center justify-between gap-4 py-3">
-                  <dt className="text-zinc-600">Assets</dt>
-                  <dd className="font-semibold">WhiteNoise</dd>
-                </div>
-                <div className="flex items-center justify-between gap-4 py-3">
-                  <dt className="text-zinc-600">Database</dt>
-                  <dd className="font-semibold">PostgreSQL</dd>
-                </div>
-              </dl>
-            </div>
-          </div>
+              <p className="p-6 text-sm leading-6 text-zinc-700 md:col-span-3">
+                Django 5.2
+                <br />
+                Gunicorn + WhiteNoise
+                <br />
+                PostgreSQL
+              </p>
+            </figcaption>
+          </figure>
 
           <nav
-            className="mt-12"
+            className="mt-16"
             aria-label="Guide chapters and next field note"
           >
-            <div className="grid gap-4 border-t border-white/15 pt-6 md:grid-cols-12 md:items-end">
-              <p className="text-sm font-semibold text-[#5f96ff] md:col-span-3">
-                Inside the guide
-              </p>
-              <h3 className="text-3xl leading-none font-medium tracking-[-0.035em] text-white md:col-span-6">
+            <div className="grid gap-5 md:grid-cols-12 md:items-end">
+              <h3 className="text-3xl leading-none font-medium tracking-[-0.035em] text-white md:col-span-8">
                 Three decisive checks
               </h3>
-              <p className="text-sm leading-6 text-zinc-400 md:col-span-3 md:text-right">
-                35 minutes from repository to production.
+              <p className="text-sm leading-6 text-zinc-300 md:col-span-4 md:text-right">
+                Inside the guide · 35 minutes
               </p>
             </div>
 
-            <ol className="mt-6 divide-y divide-white/20 border-y border-white/20">
+            <ol className="mt-7 grid divide-y divide-white/15 border-y border-white/15 md:grid-cols-3 md:divide-x md:divide-y-0">
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li key={chapter.hash}>
                   <Link
                     href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid gap-2 py-6 text-left focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none md:grid-cols-12 md:items-center"
+                    className="group flex min-h-60 flex-col p-6 text-left focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
                   >
-                    <span className="font-mono text-sm font-bold text-[#5f96ff] md:col-span-1">
+                    <span className="font-mono text-5xl leading-none font-medium tracking-[-0.06em] text-white/20">
                       0{index + 1}
                     </span>
-                    <span className="text-sm font-semibold text-zinc-300 md:col-span-2">
+                    <span className="mt-8 text-sm font-semibold text-zinc-400">
                       {chapter.phase}
                     </span>
-                    <strong className="text-xl font-medium tracking-[-0.02em] text-white transition-colors group-hover:text-[#5f96ff] md:col-span-5">
+                    <strong className="mt-2 text-xl font-medium tracking-[-0.02em] text-white transition-colors group-hover:text-[#5f96ff]">
                       {chapter.title}
                     </strong>
-                    <span className="text-sm leading-6 text-zinc-300 md:col-span-3">
+                    <span className="mt-auto flex items-end justify-between gap-5 pt-6 text-sm leading-6 text-zinc-300">
                       {chapter.detail}
+                      <ArrowRight
+                        size={18}
+                        className="shrink-0 text-zinc-400 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white"
+                        aria-hidden="true"
+                      />
                     </span>
-                    <ArrowRight
-                      size={18}
-                      className="text-zinc-400 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:text-white md:col-span-1 md:justify-self-end"
-                      aria-hidden="true"
-                    />
                   </Link>
                 </li>
               ))}
@@ -377,30 +346,19 @@ export default function TutorialsPage({
               )}
             </div>
 
-            <aside className="border-l border-[#146dff] pl-8 md:col-span-4">
-              <p className="text-sm font-semibold text-[#5f96ff]">
-                Run summary
+            <aside className="flex flex-col justify-between border-l border-white/20 pl-8 md:col-span-4">
+              <p className="text-sm text-zinc-500">Field result</p>
+              <div className="my-8">
+                <p className="text-[4.75rem] leading-none font-medium tracking-[-0.065em] text-white">
+                  35
+                </p>
+                <p className="mt-3 max-w-52 text-base leading-6 text-zinc-300">
+                  minutes from repository to public HTTPS.
+                </p>
+              </div>
+              <p className="font-mono text-xs font-bold tracking-[0.04em] text-zinc-400">
+                03 PROOFS · 200 OK
               </p>
-              <dl className="mt-5 divide-y divide-white/15 border-y border-white/15">
-                <div className="flex items-end justify-between gap-4 py-4">
-                  <dt className="text-sm text-zinc-400">Repo to live</dt>
-                  <dd className="text-3xl leading-none font-medium tracking-[-0.04em] text-white">
-                    35m
-                  </dd>
-                </div>
-                <div className="flex items-end justify-between gap-4 py-4">
-                  <dt className="text-sm text-zinc-400">Proofs captured</dt>
-                  <dd className="text-3xl leading-none font-medium tracking-[-0.04em] text-white">
-                    03
-                  </dd>
-                </div>
-                <div className="flex items-end justify-between gap-4 py-4">
-                  <dt className="text-sm text-zinc-400">Final response</dt>
-                  <dd className="font-mono text-base font-bold text-[#36d399]">
-                    200 OK
-                  </dd>
-                </div>
-              </dl>
             </aside>
           </div>
         </section>
