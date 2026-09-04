@@ -193,68 +193,37 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
 
   return (
     <footer className="border-t border-white/10 text-white">
-      <div className="py-6">
-        <div className="container flex flex-col gap-6">
-          <div className="grid gap-6 lg:grid-cols-[minmax(18rem,1fr)_minmax(0,3fr)] lg:items-center">
-            <div>
-              <Link
-                href={homeHref}
-                className="inline-flex items-center gap-2 text-lg font-semibold text-white"
-              >
-                <img src="/logo.svg" alt="" className="size-7" />
-                Sealos
-              </Link>
-              <p className="mt-2 text-sm text-zinc-300">
-                Build, deploy, and run applications on a cloud operating system.
-              </p>
-              <div className="mt-4 flex items-center gap-4">
-                <SocialLink href={siteConfig.links.github} title="GitHub">
-                  <GithubIcon />
-                </SocialLink>
-                <SocialLink href={siteConfig.links.discord} title="Discord">
-                  <DiscordIcon />
-                </SocialLink>
-                <SocialLink href={siteConfig.links.twitter} title="X">
-                  <XIcon className="size-4" />
-                </SocialLink>
-                <SocialLink href={siteConfig.links.youtube} title="YouTube">
-                  <img
-                    src="/icons/youtube.svg"
-                    alt=""
-                    width={16}
-                    height={16}
-                    className="size-4"
-                  />
-                </SocialLink>
-                <SocialLink href="/rss.xml" title="RSS Feed">
-                  <RSSIcon className="size-4" />
-                </SocialLink>
-              </div>
-            </div>
+      <div className="py-5">
+        <div className="container flex flex-col gap-5">
+          <div className="grid gap-5 lg:grid-cols-[12rem_minmax(0,1fr)] lg:items-center">
+            <Link
+              href={homeHref}
+              className="inline-flex items-center gap-2 text-lg font-semibold text-white"
+            >
+              <img src="/logo.svg" alt="" className="size-7" />
+              Sealos
+            </Link>
 
-            <div>
-              <p className="text-sm font-semibold text-[#5f96ff]">
-                Explore Sealos
-              </p>
-              <nav
-                aria-label="Footer"
-                className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-6"
-              >
-                {footerLinks.columns.flatMap((category) =>
-                  category.links.map((link) => (
-                    <FooterLink
-                      key={`${category.title}-${link.text}`}
-                      href={link.url}
-                    >
-                      {link.text}
-                    </FooterLink>
-                  )),
-                )}
-              </nav>
-            </div>
+            <nav
+              aria-label="Footer"
+              className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-6"
+            >
+              {footerLinks.columns.flatMap((category) =>
+                category.links.map((link) => (
+                  <FooterLink
+                    key={`${category.title}-${link.text}`}
+                    href={link.url}
+                  >
+                    {link.text}
+                  </FooterLink>
+                )),
+              )}
+            </nav>
           </div>
 
-          <div className="flex flex-col items-center justify-between gap-4 border-t border-zinc-900 pt-4 text-sm leading-5 text-zinc-300 lg:flex-row">
+          <div className="flex flex-col items-center gap-4 border-t border-zinc-900 pt-4 text-sm leading-5 text-zinc-300 lg:flex-row">
+            <p>{footerLinks.copyright}</p>
+
             <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 lg:justify-start">
               {footerLinks.legal.map((link) => (
                 <FooterLink key={link.text} href={link.url}>
@@ -263,7 +232,29 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
               ))}
             </div>
 
-            <p className="text-center">{footerLinks.copyright}</p>
+            <div className="flex items-center gap-3 lg:ml-auto">
+              <SocialLink href={siteConfig.links.github} title="GitHub">
+                <GithubIcon />
+              </SocialLink>
+              <SocialLink href={siteConfig.links.discord} title="Discord">
+                <DiscordIcon />
+              </SocialLink>
+              <SocialLink href={siteConfig.links.twitter} title="X">
+                <XIcon className="size-4" />
+              </SocialLink>
+              <SocialLink href={siteConfig.links.youtube} title="YouTube">
+                <img
+                  src="/icons/youtube.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="size-4"
+                />
+              </SocialLink>
+              <SocialLink href="/rss.xml" title="RSS Feed">
+                <RSSIcon className="size-4" />
+              </SocialLink>
+            </div>
           </div>
         </div>
       </div>

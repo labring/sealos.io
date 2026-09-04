@@ -30,28 +30,28 @@ const DEPLOYMENT_NODES = [
   {
     marker: 'A',
     title: 'Public HTTPS',
-    evidence: 'GET / · :443',
+    evidence: 'GET / HTTP/2',
     status: 'Reachable',
-    detail: 'TLS ingress',
+    detail: 'TLS ingress · :443',
   },
   {
     marker: 'B',
     title: 'Django container',
-    evidence: 'gunicorn config.wsgi · :8000',
+    evidence: 'gunicorn config.wsgi:application',
     status: 'Running',
-    detail: '1 replica',
+    detail: ':8000 · 1 replica',
   },
   {
     marker: 'C',
     title: 'PostgreSQL',
-    evidence: 'DATABASE_URL · :5432',
+    evidence: 'DATABASE_URL → :5432',
     status: 'Attached',
     detail: 'Private network',
   },
   {
     marker: 'D',
     title: 'Browser response',
-    evidence: 'response.html · 200',
+    evidence: 'HTTP/2 200 · response.html',
     status: 'Verified',
     detail: 'Task persisted',
   },
@@ -125,29 +125,29 @@ function TutorialCatalogCard({
               </span>
             </figcaption>
 
-            <div className="overflow-hidden bg-[#e3e5df] px-7 py-8 text-[#101318] md:px-10 md:py-10">
-              <ol className="grid gap-9 md:grid-cols-4 md:gap-10">
+            <div className="overflow-hidden border-y border-white/15 bg-[#0d1015] px-7 py-7 text-white md:px-10">
+              <ol className="grid gap-8 md:grid-cols-4 md:gap-10">
                 {DEPLOYMENT_NODES.map((node, index) => (
                   <li
                     key={node.marker}
                     className="relative min-w-0 md:text-center"
                   >
-                    <span className="font-mono text-sm font-bold tracking-[0.08em] text-[#146dff]">
+                    <span className="font-mono text-xs font-bold tracking-[0.12em] text-[#5f96ff]">
                       {node.marker}
                     </span>
-                    <h3 className="mt-1 text-xl font-semibold tracking-[-0.025em]">
+                    <h3 className="mt-1 text-lg font-semibold tracking-[-0.02em]">
                       {node.title}
                     </h3>
 
-                    <div className="relative mt-6 flex items-center md:justify-center">
+                    <div className="relative mt-5 flex items-center md:justify-center">
                       {index < DEPLOYMENT_NODES.length - 1 && (
                         <span
-                          className="absolute top-1/2 left-1/2 hidden h-1 w-[calc(100%+2.5rem)] -translate-y-1/2 bg-[#146dff] md:block"
+                          className="absolute top-1/2 left-1/2 hidden h-0.5 w-[calc(100%+2.5rem)] -translate-y-1/2 bg-[#146dff] md:block"
                           aria-hidden="true"
                         />
                       )}
                       <span
-                        className={`relative z-10 size-4 rounded-full ${
+                        className={`relative z-10 size-3 rounded-full ring-4 ring-[#0d1015] ${
                           index === DEPLOYMENT_NODES.length - 1
                             ? 'bg-[#44b78b]'
                             : 'bg-[#146dff]'
@@ -157,20 +157,23 @@ function TutorialCatalogCard({
                         <ArrowRight
                           size={22}
                           strokeWidth={2.5}
-                          className="absolute top-1/2 -right-7 z-20 hidden -translate-y-1/2 bg-[#e3e5df] px-1 text-[#146dff] md:block"
+                          className="absolute top-1/2 -right-7 z-20 hidden -translate-y-1/2 bg-[#0d1015] px-1 text-[#5f96ff] md:block"
                           aria-hidden="true"
                         />
                       )}
                     </div>
 
-                    <code className="mt-6 block truncate font-mono text-sm font-bold text-zinc-900">
+                    <code className="mt-5 block truncate font-mono text-xs font-bold text-zinc-200">
+                      <span className="text-zinc-500" aria-hidden="true">
+                        &gt;{' '}
+                      </span>
                       {node.evidence}
                     </code>
                     <span
-                      className={`mt-3 block text-sm font-bold ${
+                      className={`mt-2 block font-mono text-xs font-bold tracking-[0.01em] uppercase ${
                         index === DEPLOYMENT_NODES.length - 1
-                          ? 'text-emerald-800'
-                          : 'text-[#0d5fd6]'
+                          ? 'text-[#44b78b]'
+                          : 'text-[#5f96ff]'
                       }`}
                     >
                       {node.status}
@@ -183,7 +186,7 @@ function TutorialCatalogCard({
           </figure>
 
           <nav
-            className="mt-12 grid border-t border-white/15 md:grid-cols-12"
+            className="grid border-b border-white/15 md:grid-cols-12"
             aria-label="Guide chapters"
           >
             <div className="py-8 md:col-span-4 md:pr-10">

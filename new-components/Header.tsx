@@ -388,7 +388,7 @@ export function Header({ lang }: HeaderProps) {
                 handleAuthRedirect({ openapp: getOpenBrainParam() });
               }}
             >
-              Get Started For Free
+              Get started free
             </Button>
 
             <Button
@@ -572,7 +572,7 @@ export function Header({ lang }: HeaderProps) {
                         closeMobileMenu();
                       }}
                     >
-                      Get Start For Free
+                      Get started free
                     </Button>
                   </div>
                 </div>
