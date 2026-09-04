@@ -85,9 +85,10 @@ const DJANGO_PROOF_CAPTURES = [
     evidence: 'Public task write and read confirmed',
     image: '/images/tutorials/django/django-sealos-live-app-https-proof.webp',
     imageAlt: 'Live Django task application with a verified task result',
-    imageSize: '220% auto',
+    imageSize: '140% auto',
     imagePosition: '50% 45%',
-    imageClassName: 'brightness-70 contrast-125 saturate-75',
+    imageClassName:
+      'invert hue-rotate-180 brightness-90 contrast-125 saturate-75',
   },
 ] as const;
 
@@ -176,15 +177,15 @@ function TutorialCatalogCard({
             className="mt-10 grid border-y border-white/15 md:grid-cols-[0.72fr_2fr]"
             aria-label="Guide chapters"
           >
-            <div className="flex items-end gap-4 border-b border-white/15 p-6 md:border-r md:border-b-0">
-              <strong className="text-7xl leading-none font-medium tracking-[-0.08em] text-[#5f96ff]">
+            <div className="flex items-center gap-4 border-b border-[#146dff] bg-[#146dff] p-6 md:border-r md:border-b-0">
+              <strong className="text-7xl leading-none font-medium tracking-[-0.08em] text-white">
                 35
               </strong>
-              <div className="pb-1">
+              <div>
                 <h3 className="text-xl font-semibold text-white">
                   minute guide
                 </h3>
-                <p className="mt-1 text-sm text-zinc-400">Three chapters</p>
+                <p className="mt-1 text-sm text-blue-100">Three chapters</p>
               </div>
             </div>
             <ol>
@@ -339,13 +340,13 @@ export default function TutorialsPage({
           <h1 className="mt-5 text-5xl leading-[0.92] font-medium tracking-[-0.055em] text-white md:text-[5.75rem]">
             Deploy Django on Sealos
           </h1>
-          <div className="mt-8 grid gap-6 md:grid-cols-12 md:items-end md:gap-8">
-            <p className="max-w-2xl text-base leading-7 text-zinc-300 md:col-span-7">
+          <div className="mt-8 flex flex-wrap items-end gap-x-8 gap-y-6">
+            <p className="max-w-2xl flex-1 text-base leading-7 text-zinc-300">
               Build a Django 5.2 Task app, prepare Gunicorn, WhiteNoise, and
               PostgreSQL, then deploy it and verify a live create/read flow.
             </p>
             {firstTutorial && (
-              <div className="flex flex-wrap items-center gap-5 md:col-span-5 md:justify-end">
+              <div className="flex flex-wrap items-center gap-5">
                 <span className="inline-flex items-center gap-2 text-sm text-zinc-400">
                   <BookOpen size={14} aria-hidden="true" />
                   {firstTutorial.estimatedReadingTime} · 3 proofs ·{' '}
