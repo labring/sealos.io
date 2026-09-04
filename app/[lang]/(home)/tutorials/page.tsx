@@ -110,9 +110,11 @@ function TutorialCatalogCard({
               <p className="text-sm font-bold tracking-wide text-zinc-300">
                 LIVE DATA PROOF
               </p>
-              <p className="mt-3 text-xs text-zinc-400">
-                ONE RECORD · TWO REQUESTS · FRESH READ
-              </p>
+              <div className="mt-3 grid grid-cols-[2rem_1fr_8rem] gap-3 text-xs text-zinc-400">
+                <span>#</span>
+                <span>EVIDENCE</span>
+                <span className="text-right">RESULT</span>
+              </div>
             </div>
           </div>
 
@@ -130,12 +132,10 @@ function TutorialCatalogCard({
                     className="group grid h-full gap-5 bg-[#f2f0e8] py-4 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none lg:grid-cols-[3rem_16.5rem_1fr] lg:items-center lg:gap-5"
                   >
                     <span
-                      className={`font-medium tracking-[-0.055em] ${
+                      className={`text-3xl font-medium tracking-[-0.055em] lg:translate-y-3 ${
                         index === DJANGO_GUIDE_CHAPTERS.length - 1
-                          ? 'text-4xl text-[#16815d]'
-                          : index === 1
-                            ? 'text-[2.125rem] text-zinc-500'
-                            : 'text-3xl text-zinc-500'
+                          ? 'text-[#16815d]'
+                          : 'text-zinc-500'
                       }`}
                     >
                       0{index + 1}
@@ -150,15 +150,7 @@ function TutorialCatalogCard({
                       >
                         {chapter.phase}
                       </span>
-                      <strong
-                        className={`mt-2 block leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff] ${
-                          index === DJANGO_GUIDE_CHAPTERS.length - 1
-                            ? 'text-[1.375rem]'
-                            : index === 1
-                              ? 'text-xl'
-                              : 'text-lg'
-                        }`}
-                      >
+                      <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff]">
                         {chapter.title}
                       </strong>
                     </span>
@@ -171,37 +163,37 @@ function TutorialCatalogCard({
             </ol>
 
             <div className="grid bg-[#090909] font-mono text-white lg:grid-rows-3 lg:border-l lg:border-white/15">
-              <div className="flex flex-col justify-center px-6 py-4">
-                <p className="text-sm tracking-wide text-zinc-400">
-                  01 / CREATE REQUEST
-                </p>
-                <p className="mt-2 flex items-baseline justify-between gap-4">
-                  <code className="text-2xl font-bold">POST / HTTP/2</code>
-                  <code className="text-lg text-zinc-300">302</code>
-                </p>
-                <code className="mt-1 block text-sm text-zinc-300">
-                  task=&quot;Runtime proof from Sealos&quot;
-                </code>
+              <div className="grid grid-cols-[2rem_1fr_8rem] items-center gap-3 px-6 py-4">
+                <code className="text-sm text-zinc-400">01</code>
+                <span>
+                  <code className="block text-xl font-bold">POST /</code>
+                  <code className="mt-1 block text-xs text-zinc-300">
+                    task=&quot;Runtime proof&quot;
+                  </code>
+                </span>
+                <code className="text-right text-lg text-zinc-300">302</code>
               </div>
-              <div className="flex flex-col justify-center border-y border-white/15 px-6 py-4">
-                <p className="text-sm tracking-wide text-zinc-400">
-                  02 / FRESH REQUEST
-                </p>
-                <p className="mt-2 flex items-baseline justify-between gap-4">
-                  <code className="text-2xl font-bold">GET / HTTP/2</code>
-                  <code className="text-lg text-zinc-300">200</code>
-                </p>
+              <div className="grid grid-cols-[2rem_1fr_8rem] items-center gap-3 border-y border-white/15 px-6 py-4">
+                <code className="text-sm text-zinc-400">02</code>
+                <span>
+                  <code className="block text-xl font-bold">GET /</code>
+                  <code className="mt-1 block text-xs text-zinc-300">
+                    fresh browser request
+                  </code>
+                </span>
+                <code className="text-right text-lg text-zinc-300">200</code>
               </div>
-              <div className="flex flex-col justify-center px-6 py-4">
-                <p className="flex items-baseline justify-between gap-4">
-                  <span className="text-sm tracking-wide text-zinc-400">
-                    03 / DATABASE RECORD
-                  </span>
-                  <strong className="text-2xl text-[#44b78b]">PERSISTED</strong>
-                </p>
-                <code className="mt-2 block text-sm text-zinc-200">
-                  task[0]=&quot;Runtime proof from Sealos&quot;
-                </code>
+              <div className="grid grid-cols-[2rem_1fr_8rem] items-center gap-3 px-6 py-4">
+                <code className="text-sm text-zinc-400">03</code>
+                <span>
+                  <code className="block text-xl font-bold">task[0]</code>
+                  <code className="mt-1 block text-xs text-zinc-300">
+                    &quot;Runtime proof&quot;
+                  </code>
+                </span>
+                <strong className="text-right text-xl text-[#44b78b]">
+                  PERSISTED
+                </strong>
               </div>
             </div>
           </div>

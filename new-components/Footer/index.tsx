@@ -20,9 +20,7 @@ const FooterLinksData: Record<string, FooterCategory> = {
     links: [
       { textKey: 'docs', urlKey: 'docsUrl' },
       { textKey: 'sealosSkills', urlKey: 'sealosSkillsUrl' },
-      { textKey: 'education', urlKey: 'educationUrl' },
       { textKey: 'blog', urlKey: 'blogUrl' },
-      { textKey: 'frequentlyAskedQuestions', urlKey: 'faqUrl' },
     ],
   },
   products: {
@@ -31,17 +29,11 @@ const FooterLinksData: Record<string, FooterCategory> = {
   },
   services: {
     titleKey: 'servicesTitle',
-    links: [
-      { textKey: 'pricing', urlKey: 'pricingUrl' },
-      { textKey: 'fastgpt', urlKey: 'fastgptUrl' },
-    ],
+    links: [{ textKey: 'pricing', urlKey: 'pricingUrl' }],
   },
   support: {
     titleKey: 'supportTitle',
-    links: [
-      { textKey: 'contactUs', urlKey: 'contactUsUrl' },
-      { textKey: 'reportAbuse', urlKey: 'reportAbuseUrl' },
-    ],
+    links: [{ textKey: 'contactUs', urlKey: 'contactUsUrl' }],
   },
 };
 
@@ -176,7 +168,7 @@ function SocialLink({
       rel="noopener noreferrer"
       title={title}
       aria-label={title}
-      className="font-mono text-xs text-zinc-400 transition-colors hover:text-white"
+      className="font-mono text-[13px] text-zinc-400 transition-colors hover:text-white"
     >
       {children}
     </a>
@@ -200,7 +192,7 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
 
         <nav
           aria-label="Footer"
-          className="flex flex-1 flex-wrap items-center gap-x-5 gap-y-2"
+          className="flex flex-1 flex-wrap items-center gap-x-7 gap-y-2"
         >
           {footerLinks.columns.flatMap((category) =>
             category.links.map((link) => (
@@ -216,16 +208,16 @@ export function FooterV2({ lang = 'en' }: { lang?: string }) {
 
         <div className="flex shrink-0 items-center gap-4">
           <SocialLink href={siteConfig.links.github} title="GitHub">
-            GH
+            GitHub
           </SocialLink>
           <SocialLink href={siteConfig.links.discord} title="Discord">
-            DC
+            Discord
           </SocialLink>
           <SocialLink href={siteConfig.links.twitter} title="X">
             X
           </SocialLink>
           <SocialLink href={siteConfig.links.youtube} title="YouTube">
-            YT
+            YouTube
           </SocialLink>
           <SocialLink href="/rss.xml" title="RSS Feed">
             RSS
