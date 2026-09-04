@@ -121,7 +121,7 @@ function TutorialCatalogCard({
               {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
                 <li
                   key={chapter.hash}
-                  className={`lg:min-h-[6.75rem] ${
+                  className={`grid lg:min-h-[6.75rem] ${
                     index === 0 ? '' : 'border-t border-zinc-500/30'
                   }`}
                 >
@@ -162,44 +162,44 @@ function TutorialCatalogCard({
                         {chapter.title}
                       </strong>
                     </span>
-                    <span className="text-[15px] leading-6 text-zinc-700 lg:translate-y-3">
-                      {chapter.detail}
+                    <span className="h-full text-[15px] leading-6 text-zinc-700 lg:flex lg:items-center lg:border-l lg:border-black/15 lg:pl-7">
+                      <span className="lg:translate-y-3">{chapter.detail}</span>
                     </span>
                   </Link>
                 </li>
               ))}
             </ol>
 
-            <div className="grid content-center gap-5 bg-[#090909] px-6 py-6 font-mono text-white lg:border-l lg:border-white/15">
-              <div>
+            <div className="grid bg-[#090909] font-mono text-white lg:grid-rows-3 lg:border-l lg:border-white/15">
+              <div className="flex flex-col justify-center px-6 py-4">
                 <p className="text-sm tracking-wide text-zinc-400">
                   01 / CREATE REQUEST
                 </p>
                 <p className="mt-2 flex items-baseline justify-between gap-4">
-                  <code className="text-lg font-bold">POST / HTTP/2</code>
-                  <code className="text-base text-zinc-300">302</code>
+                  <code className="text-2xl font-bold">POST / HTTP/2</code>
+                  <code className="text-lg text-zinc-300">302</code>
                 </p>
                 <code className="mt-1 block text-sm text-zinc-300">
                   task=&quot;Runtime proof from Sealos&quot;
                 </code>
               </div>
-              <div>
+              <div className="flex flex-col justify-center border-y border-white/15 px-6 py-4">
                 <p className="text-sm tracking-wide text-zinc-400">
                   02 / FRESH REQUEST
                 </p>
                 <p className="mt-2 flex items-baseline justify-between gap-4">
-                  <code className="text-lg font-bold">GET / HTTP/2</code>
-                  <code className="text-base text-zinc-300">200</code>
+                  <code className="text-2xl font-bold">GET / HTTP/2</code>
+                  <code className="text-lg text-zinc-300">200</code>
                 </p>
               </div>
-              <div className="border-t border-white/15 pt-5">
+              <div className="flex flex-col justify-center px-6 py-4">
                 <p className="text-sm tracking-wide text-zinc-400">
                   03 / DATABASE RECORD
                 </p>
                 <code className="mt-2 block text-sm text-zinc-200">
                   task[0]=&quot;Runtime proof from Sealos&quot;
                 </code>
-                <strong className="mt-2 block text-base text-[#44b78b]">
+                <strong className="mt-2 block text-2xl text-[#44b78b]">
                   PERSISTED
                 </strong>
               </div>
