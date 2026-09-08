@@ -60,6 +60,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...AGENT_GUIDES.map((agent) => agent.path),
   ].map((path) => toSitemapItem(getUrl, path, 'monthly', 0.75));
 
+  const railwayAlternativePages: MetadataRoute.Sitemap = isZhCn
+    ? []
+    : [toSitemapItem(getUrl, '/railway-alternative', 'monthly', 0.8)];
+
   const appStorePages: MetadataRoute.Sitemap = appsConfig.map((app) =>
     toSitemapItem(getUrl, getAppDetailPathname(app.slug), 'weekly', 0.7),
   );
@@ -89,6 +93,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     toSitemapItem(getUrl, '/', 'monthly', 1),
     ...staticProductPages,
     ...staticMarketingPages,
+    ...railwayAlternativePages,
     ...appStorePages,
     ...chineseSpecificPages,
     toSitemapItem(getUrl, '/docs', 'monthly', 0.8),

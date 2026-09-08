@@ -10,6 +10,10 @@ export function isForcedDarkMode(pathname: string): boolean {
       match: 'full',
     },
     {
+      path: '/railway-alternative',
+      match: 'prefix',
+    },
+    {
       path: '/brain-caps-preview',
       match: 'full',
     },

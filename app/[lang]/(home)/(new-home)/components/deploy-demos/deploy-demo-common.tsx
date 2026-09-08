@@ -30,6 +30,11 @@ import { LayoutGroup, motion, useReducedMotion } from 'motion/react';
 
 import { cn } from '@/lib/utils';
 
+import {
+  getNextPlaybackState,
+  getRemainingDuration,
+} from './deploy-demo-playback.mjs';
+
 export type CursorStep = {
   cursor: { x: number; y: number };
   clickTarget?: string;
@@ -104,10 +109,16 @@ const modeCards = [
 export function useDemoPlayback<TStep extends CursorStep>({
   active = true,
   getTargetId,
+  loop = true,
+  onComplete,
+  paused = false,
   steps,
 }: {
   active?: boolean;
   getTargetId: (step: TStep) => string | undefined;
+  loop?: boolean;
+  onComplete?: () => void;
+  paused?: boolean;
   steps: TStep[];
 }) {
   const prefersReducedMotion = useReducedMotion();
@@ -115,6 +126,8 @@ export function useDemoPlayback<TStep extends CursorStep>({
   const stageRef = useRef<HTMLDivElement>(null);
   const [stepIndex, setStepIndex] = useState(0);
   const [progress, setProgress] = useState(0);
+  const progressRef = useRef(0);
+  const completionNotifiedRef = useRef(false);
   const [cursorPosition, setCursorPosition] = useState<{
     x: number;
     y: number;
@@ -138,32 +151,58 @@ export function useDemoPlayback<TStep extends CursorStep>({
   }, []);
 
   useEffect(() => {
-    if (!active && !reduceMotion) {
+    if (!active) {
+      progressRef.current = 0;
+      completionNotifiedRef.current = false;
       setStepIndex(0);
       setProgress(0);
     }
-  }, [active, reduceMotion]);
+  }, [active]);
 
   useEffect(() => {
-    if (reduceMotion || !active) return;
+    if (reduceMotion || !active || paused) return;
 
-    const startedAt = performance.now();
     const duration = steps[stepIndex].duration;
-    setProgress(0);
+    const remainingDuration = getRemainingDuration(
+      duration,
+      progressRef.current,
+    );
+    const startedAt = performance.now() - (duration - remainingDuration);
 
     const interval = window.setInterval(() => {
-      setProgress(Math.min(1, (performance.now() - startedAt) / duration));
+      const nextProgress = Math.min(
+        1,
+        (performance.now() - startedAt) / duration,
+      );
+      progressRef.current = nextProgress;
+      setProgress(nextProgress);
     }, 50);
     const timeout = window.setTimeout(() => {
-      setProgress(0);
-      setStepIndex((index) => (index + 1) % steps.length);
-    }, duration);
+      const nextState = getNextPlaybackState({
+        index: stepIndex,
+        loop,
+        stepCount: steps.length,
+      });
+
+      progressRef.current = nextState.progress;
+      setProgress(nextState.progress);
+
+      if (nextState.completed) {
+        if (!completionNotifiedRef.current) {
+          completionNotifiedRef.current = true;
+          onComplete?.();
+        }
+        return;
+      }
+
+      setStepIndex(nextState.index);
+    }, remainingDuration);
 
     return () => {
       window.clearInterval(interval);
       window.clearTimeout(timeout);
     };
-  }, [active, reduceMotion, stepIndex, steps]);
+  }, [active, loop, onComplete, paused, reduceMotion, stepIndex, steps]);
 
   useLayoutEffect(() => {
     const stage = stageRef.current;

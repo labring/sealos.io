@@ -1,7 +1,6 @@
 import { railwayComparablePlans } from '../../pricing/config/plans';
 import {
   RAILWAY_RATE_CARD,
-  calculateCostDifference,
   estimateRailwayMonthlyCost,
   formatUsd,
 } from '../../pricing/config/railway-cost';
@@ -714,16 +713,12 @@ This is a key difference from Google App Engine, which runs only on GCP infrastr
     volumeGb: 50,
     egressGb: 100,
   });
-  const railwayMediumDifference = calculateCostDifference(
-    standardPlan.monthlyPrice,
-    railwayMediumEstimate.total,
-  );
-
+  const railwayMediumPlan =
+    RAILWAY_RATE_CARD.plans[railwayMediumEstimate.selectedPlan];
   return [
     {
-      question:
-        'How much can I actually save by switching from Railway to Sealos?',
-      answer: `For this full-utilization medium workload, the Sealos Standard plan is about **${railwayMediumDifference.percentage}% lower** than the Railway estimate.
+      question: 'How does the Railway estimate compare with Sealos?',
+      answer: `For this full-utilization medium workload, the Sealos Standard plan is ${formatUsd(standardPlan.monthlyPrice)} and the Railway ${railwayMediumPlan.name} estimate is ${formatUsd(railwayMediumEstimate.billedTotal)}.
 
 **Example calculation for a medium app (8 vCPU, 16GB RAM, 24/7):**
 
@@ -732,21 +727,15 @@ This is a key difference from Google App Engine, which runs only on GCP infrastr
 | Compute (monthly) | ${formatUsd(railwayMediumEstimate.cpu + railwayMediumEstimate.ram)} | Included |
 | 50GB volume | ${formatUsd(railwayMediumEstimate.volume)} | Included |
 | 100GB egress | ${formatUsd(railwayMediumEstimate.egress)} | Included |
-| **Total** | **~${formatUsd(railwayMediumEstimate.total)}/mo** | **${formatUsd(standardPlan.monthlyPrice)}/mo** |
+| **Total** | **~${formatUsd(railwayMediumEstimate.billedTotal)}/mo** | **${formatUsd(standardPlan.monthlyPrice)}/mo** |
 
-This is a rate-card estimate. Low-utilization workloads can cost less on Railway. Railway also provides hard usage limits that shut down workloads at the selected limit.`,
+This is a rate-card estimate for the documented workload. The shared estimator applies the ${railwayMediumPlan.name} minimum and confirms ${railwayMediumEstimate.resourceEligibility.eligible ? 'resource eligibility' : railwayMediumEstimate.validationResult.message}. Verify the current terms in [Railway pricing documentation](${RAILWAY_RATE_CARD.sourceUrl}), checked ${RAILWAY_RATE_CARD.verifiedAt}. Use the [Railway alternative page](/railway-alternative/) for migration fit and the [pricing calculator](/pricing/#railway-cost) for your own inputs. Actual billing follows measured resource usage, plan terms, regional pricing, and provider changes.`,
     },
     {
-      question: "What's included in Sealos that costs extra on Railway?",
-      answer: `Several things that Railway charges separately are included in Sealos plans:
+      question: 'How do the billing models differ?',
+      answer: `Sealos packages defined CPU, memory, disk, and traffic resources in a monthly plan. Railway measures resource usage and applies the selected plan's minimum and included usage.
 
-| Feature | Railway | Sealos |
-|---------|---------|--------|
-| Database hosting | Metered separately | Included in plan quota |
-| Object storage | $0.015/GB-month | Included (S3-compatible) |
-| Egress bandwidth | $0.05/GB | Generous allowance (50GB-3TB) |
-| Build minutes | Counted against usage | Unlimited |
-| Custom domains | Hobby: 2, Pro: 20 | Unlimited |`,
+Use the linked rate card and enter your own workload in the pricing calculator for a current estimate. Railway plan terms were verified ${RAILWAY_RATE_CARD.verifiedAt}.`,
     },
     {
       question: 'Can I verify these claims myself?',
@@ -760,37 +749,33 @@ This is a rate-card estimate. Low-utilization workloads can cost less on Railway
 We encourage you to verify and calculate based on your specific workload.`,
     },
     {
-      question: 'How long does it take to migrate from Railway to Sealos?',
-      answer: `Typical migrations complete in **10–14 days**. Here's what the process looks like:
+      question: 'What is a practical Railway-to-Sealos migration path?',
+      answer: `Use a workload-specific migration checklist without assuming a fixed timeline:
 
-**Week 1: Assessment & Setup**
-- Our team audits your Railway services, databases, and environment variables
-- We provision equivalent resources on Sealos and configure networking
-
-**Week 2: Migration & Validation**
-- Data migration with zero-downtime cutover strategy
-- CI/CD pipeline reconfiguration
-- Production validation and traffic switchover`,
+1. Provision the destination application and data services.
+2. Copy configuration and export/import data with a maintenance window.
+3. Verify connections, health checks, logs, and public behavior.
+4. Cut over the domain after the data gate passes.`,
     },
     {
       question: 'Do we need Kubernetes expertise to use Sealos?',
-      answer: `**No.** DevBox and App Launchpad abstract Kubernetes primitives completely. You can:
+      answer: `DevBox and App Launchpad provide a managed workflow for common tasks. You can:
 - Deploy apps with a single click or natural language prompt
 - Manage databases without touching YAML
 - Scale services with simple UI controls
 
-Platform teams who want deeper control can still access native Kubernetes APIs, \`kubectl\`, and Helm when needed. Sealos gives you **simplicity by default, power when required**.`,
+Platform teams who want deeper control can still access native Kubernetes APIs, \`kubectl\`, and Helm when needed.`,
     },
     {
       question:
         'Can Sealos run in a private region or on our own infrastructure?',
-      answer: `**Yes.** Because Sealos is 100% source-available, you have full deployment flexibility:
+      answer: `Sealos supports multiple deployment models:
 
 - **Sealos Cloud**: Fully managed service in multiple regions
 - **Self-hosted**: Deploy on your own AWS, GCP, Azure, or bare metal
 - **Hybrid**: Mix cloud and on-premise for compliance requirements
 
-This is a key difference from Railway, which only offers cloud deployment (BYO Cloud is Enterprise-only). With Sealos, you're never locked in.`,
+Railway focuses on its managed cloud platform, while Sealos also supports source-available deployment options. Railway deployment and plan terms were checked ${RAILWAY_RATE_CARD.verifiedAt} in [official documentation](${RAILWAY_RATE_CARD.sourceUrl}).`,
     },
   ];
 }

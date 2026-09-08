@@ -83,10 +83,12 @@ const canvasConfigs: Record<DeploymentCanvasVariant, DeploymentCanvasConfig> = {
 
 export function DeploymentCanvas({
   readyStage,
+  runtimeStatus,
   shifted = false,
   variant,
 }: {
   readyStage: number;
+  runtimeStatus?: DeploymentCanvasConfig['runtimeStatus'];
   shifted?: boolean;
   variant: DeploymentCanvasVariant;
 }) {
@@ -94,7 +96,7 @@ export function DeploymentCanvas({
   const showRuntime = readyStage >= 4;
   const accessStage = config.accessStage;
   const showAccess = accessStage !== undefined && readyStage >= accessStage;
-  const status = config.runtimeStatus ?? 'Creating';
+  const status = runtimeStatus ?? config.runtimeStatus ?? 'Creating';
 
   return (
     <div

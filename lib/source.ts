@@ -31,15 +31,19 @@ export const blog = loader({
   source: createMDXSource(blogPosts, []),
 });
 
+const englishContentI18n = {
+  ...i18n,
+  defaultLanguage: 'en',
+};
 
 export const tutorials = loader({
-  i18n,
+  i18n: englishContentI18n,
   baseUrl: '/tutorials',
   source: createMDXSource(tutorialPosts, []),
 });
 
 export const faqSource = loader({
-  i18n,
+  i18n: englishContentI18n,
   baseUrl: '/ai-quick-reference',
   source: createMDXSource(aiQuickReference, []),
 });

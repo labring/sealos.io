@@ -15,7 +15,7 @@ Enter Retrieval-Augmented Generation (RAG). RAG is the ingenious technique that 
 
 But as developers move from simple prototypes to robust, production-grade applications, they quickly discover that a basic RAG setup is not enough. The real power lies in **Advanced RAG pipelines**, and at the heart of these sophisticated systems is a component that is often overlooked: the **vector database**.
 
-This article dives deep into the world of advanced RAG. We'll explore why the transition from simple to advanced RAG is necessary and demonstrate why your choice of vector database—like the open-source powerhouse, **Milvus**—is not just a technical detail, but a critical architectural decision that will define the performance, scalability, and intelligence of your AI application.
+This article dives deep into the world of advanced RAG. We'll explore why the transition from simple to advanced RAG is necessary and demonstrate why your choice of vector database—like the open-source powerhouse, [**Milvus**](https://milvus.io/)—is not just a technical detail, but a critical architectural decision that will define the performance, scalability, and intelligence of your AI application.
 
 ## From Simple RAG to Advanced Pipelines
 

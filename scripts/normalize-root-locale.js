@@ -45,6 +45,17 @@ async function main() {
     await fs.cp(src, dest, { recursive: true, force: true });
   }
 
+  if (locale !== 'en') {
+    // AI FAQ content is English-only; keep its canonical English root artifact.
+    const englishFaqDir = path.join(outDir, 'en', 'ai-quick-reference');
+    if (await pathExists(englishFaqDir)) {
+      await fs.cp(englishFaqDir, path.join(outDir, 'ai-quick-reference'), {
+        recursive: true,
+        force: true,
+      });
+    }
+  }
+
   console.log(
     `[normalize-root-locale] copied ${locale}/ content to root export directory.`,
   );

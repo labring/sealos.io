@@ -16,5 +16,5 @@ export const locales: Array<{ name: string; locale: languagesType }> = [
 ];
 
 export function getLanguageSlug(lang: string) {
-  return lang == i18n.defaultLanguage ? '' : `/${lang}`;
+  return lang === i18n.defaultLanguage ? '' : `/${lang}`;
 }
