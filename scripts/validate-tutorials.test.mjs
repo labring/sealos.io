@@ -79,13 +79,17 @@ async function updateFixtureFile(fixtureRoot, relativePath, transform) {
   await writeFile(path, transform(source));
 }
 
-test('validator accepts the sole Django Core public tutorial contract', () => {
+test('validator accepts the published tutorial catalog', async () => {
   const result = runValidator(root);
+  const tutorialFiles = await findFiles(
+    join(root, 'content', 'tutorials'),
+    'index.en.mdx',
+  );
 
   assert.equal(result.status, 0, result.stderr);
   assert.equal(
     result.stdout.trim(),
-    'validate-tutorials passed: 1 tutorial page checked.',
+    `validate-tutorials passed: ${tutorialFiles.length} tutorial page${tutorialFiles.length === 1 ? '' : 's'} checked.`,
   );
 });
 
@@ -106,6 +110,38 @@ test('validator fails when a required Django screenshot is missing', async (t) =
     result.stderr,
     /image does not resolve to \/images\/tutorials\/django\/django-sealos-project-ops-running\.webp/,
   );
+});
+
+test('validator requires both result screenshots for every Core tutorial', async (t) => {
+  const tutorialFiles = await findFiles(
+    join(root, 'content', 'tutorials'),
+    'index.en.mdx',
+  );
+
+  for (const file of tutorialFiles.filter((path) =>
+    path.endsWith('/deploy/index.en.mdx'),
+  )) {
+    const relativePath = file.slice(root.length + 1);
+    await t.test(relativePath, async (t) => {
+      const fixtureRoot = await createTutorialFixture();
+      t.after(() => rm(fixtureRoot, { force: true, recursive: true }));
+
+      await updateFixtureFile(fixtureRoot, relativePath, (source) =>
+        source.replace(/!\[[^\]]*]\([^)]+\)/g, ''),
+      );
+      const result = runValidator(fixtureRoot);
+
+      assert.equal(result.status, 1, result.stdout);
+      assert.match(
+        result.stderr,
+        /missing required screenshot .*project-ops-running/,
+      );
+      assert.match(
+        result.stderr,
+        /missing required screenshot .*live-app-https-proof/,
+      );
+    });
+  }
 });
 
 test('validator rejects internal publishing fields in public MDX', async (t) => {

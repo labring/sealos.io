@@ -1,8 +1,14 @@
 import React from 'react';
 import Link from 'fumadocs-core/link';
 import { siteConfig } from '@/config/site';
+import { GradientText } from '@/new-components/GradientText';
+import { StartBuildingButton } from './StartBuildingButton';
+import { DiscordIcon, GithubIcon, RSSIcon, XIcon } from './FooterIcons';
+import c from './index.module.css';
 
 const year = new Date().getFullYear();
+const wordmarkSize = 'clamp(120px, 26vw, 360px)';
+const wordmarkHeight = wordmarkSize;
 
 type FooterLinkItem = {
   textKey: string;
@@ -20,20 +26,31 @@ const FooterLinksData: Record<string, FooterCategory> = {
     links: [
       { textKey: 'docs', urlKey: 'docsUrl' },
       { textKey: 'sealosSkills', urlKey: 'sealosSkillsUrl' },
+      { textKey: 'education', urlKey: 'educationUrl' },
       { textKey: 'blog', urlKey: 'blogUrl' },
+      { textKey: 'frequentlyAskedQuestions', urlKey: 'faqUrl' },
     ],
   },
   products: {
     titleKey: 'productsTitle',
-    links: [{ textKey: 'templates', urlKey: 'templatesUrl' }],
+    links: [
+      { textKey: 'skills', urlKey: 'skillsUrl' },
+      { textKey: 'templates', urlKey: 'templatesUrl' },
+    ],
   },
   services: {
     titleKey: 'servicesTitle',
-    links: [{ textKey: 'pricing', urlKey: 'pricingUrl' }],
+    links: [
+      { textKey: 'pricing', urlKey: 'pricingUrl' },
+      { textKey: 'fastgpt', urlKey: 'fastgptUrl' },
+    ],
   },
   support: {
     titleKey: 'supportTitle',
-    links: [{ textKey: 'contactUs', urlKey: 'contactUsUrl' }],
+    links: [
+      { textKey: 'contactUs', urlKey: 'contactUsUrl' },
+      { textKey: 'reportAbuse', urlKey: 'reportAbuseUrl' },
+    ],
   },
 };
 
@@ -53,12 +70,12 @@ export const footerTranslations: Record<string, Record<string, string>> = {
     sealosSkills: 'Agents',
     education: 'Education',
     blog: 'Blog',
-    frequentlyAskedQuestions: 'FAQs',
+    frequentlyAskedQuestions: 'Frequently Asked Questions',
     skills: 'Skills',
     templates: 'Templates',
     pricing: 'Pricing',
     fastgpt: 'FastGPT',
-    contactUs: 'Contact',
+    contactUs: 'Contact Us',
     reportAbuse: 'Report Abuse',
     termsOfService: 'Terms of Service',
     privacyPolicy: 'Privacy Policy',
@@ -145,7 +162,7 @@ function FooterLink({
   return (
     <Link
       href={href}
-      className="text-[13px] leading-5 text-zinc-300 transition-colors hover:text-white"
+      className="text-sm leading-5 text-zinc-400 transition-colors hover:text-white"
     >
       {children}
     </Link>
@@ -168,7 +185,7 @@ function SocialLink({
       rel="noopener noreferrer"
       title={title}
       aria-label={title}
-      className="font-mono text-[13px] text-zinc-400 transition-colors hover:text-white"
+      className="flex size-8 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
     >
       {children}
     </a>
@@ -177,67 +194,114 @@ function SocialLink({
 
 export function FooterV2({ lang = 'en' }: { lang?: string }) {
   const footerLinks = getFooterLinks(lang);
-  const homeHref = lang === 'en' ? '/' : `/${lang}`;
+  const wordmarkStroke =
+    '4px 0 #58595E, -4px 0 #58595E, 0 4px #58595E, 0 -4px #58595E, 3px 3px #58595E, -3px -3px #58595E, -3px 3px #58595E, 3px -3px #58595E, 4px 4px #58595E, -4px -4px #58595E, -4px 4px #58595E, 4px -4px #58595E';
 
   return (
-    <footer className="border-t border-zinc-700/60 bg-[#0d0d0d] text-white">
-      <div className="container flex flex-col gap-5 py-5 lg:flex-row lg:items-center lg:gap-8">
-        <Link
-          href={homeHref}
-          className="inline-flex items-center gap-2 text-lg font-semibold text-white"
+    <footer className="relative isolate text-white">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed right-0 bottom-0 left-0 overflow-hidden"
+      >
+        <div
+          className="[mask-image:linear-gradient(to_bottom,black_35%,transparent_100%)] text-center font-semibold tracking-normal opacity-40 select-none [-webkit-mask-image:linear-gradient(to_bottom,black_35%,transparent_100%)]"
+          style={{
+            color: 'var(--color-background)',
+            fontSize: wordmarkSize,
+            lineHeight: 1,
+            textShadow: wordmarkStroke,
+          }}
         >
-          <img src="/logo.svg" alt="" className="size-7" />
           Sealos
-        </Link>
-
-        <nav
-          aria-label="Footer"
-          className="flex flex-1 flex-wrap items-center gap-x-7 gap-y-2"
-        >
-          {footerLinks.columns.flatMap((category) =>
-            category.links.map((link) => (
-              <FooterLink
-                key={`${category.title}-${link.text}`}
-                href={link.url}
-              >
-                {link.text}
-              </FooterLink>
-            )),
-          )}
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-4">
-          <SocialLink href={siteConfig.links.github} title="GitHub">
-            GitHub
-          </SocialLink>
-          <SocialLink href={siteConfig.links.discord} title="Discord">
-            Discord
-          </SocialLink>
-          <SocialLink href={siteConfig.links.twitter} title="X">
-            X
-          </SocialLink>
-          <SocialLink href={siteConfig.links.youtube} title="YouTube">
-            YouTube
-          </SocialLink>
-          <SocialLink href="/rss.xml" title="RSS Feed">
-            RSS
-          </SocialLink>
         </div>
       </div>
 
-      <div className="border-t border-zinc-900">
-        <div className="container flex flex-col items-center gap-4 py-4 text-sm leading-5 text-zinc-300 lg:flex-row">
-          <p>{footerLinks.copyright}</p>
+      <div
+        className={c.footerGradientClip}
+        style={{
+          clipPath: `inset(0 0 ${wordmarkSize} 0)`,
+        }}
+      >
+        <div className={c.footerGradient} />
+      </div>
 
-          <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 lg:ml-auto lg:justify-start">
-            {footerLinks.legal.map((link) => (
-              <FooterLink key={link.text} href={link.url}>
-                {link.text}
-              </FooterLink>
-            ))}
+      <div className="relative z-10 px-4 pt-60 pb-8 sm:px-6 lg:px-8">
+        <div className="mx-auto flex w-full max-w-[1313px] flex-col gap-20">
+          <div className="flex flex-col justify-between gap-14 lg:flex-row lg:gap-20">
+            <div className="flex max-w-[520px] flex-col items-start gap-8">
+              <div className="flex flex-col gap-[13px]">
+                <h2 className="text-[32px] leading-[1.5] font-medium tracking-normal">
+                  <span className="block">Ready to Stop Configuring and</span>
+                  <GradientText className="block to-[#146dff]">
+                    Start Creating?
+                  </GradientText>
+                </h2>
+                <p className="text-lg leading-none text-zinc-500">
+                  Get started for free. No credit card required.
+                </p>
+              </div>
+              <StartBuildingButton className="h-10 shadow-[0_6px_25px_rgba(29,78,216,0.6)]" />
+            </div>
+
+            <nav
+              aria-label="Footer"
+              className="grid grid-cols-2 gap-x-10 gap-y-10 sm:grid-cols-4 lg:gap-x-20"
+            >
+              {footerLinks.columns.map((category) => (
+                <div key={category.title} className="flex flex-col gap-6">
+                  <h3 className="text-base leading-6 font-medium text-zinc-200 uppercase">
+                    {category.title}
+                  </h3>
+                  <div className="flex flex-col gap-3.5">
+                    {category.links.map((link) => (
+                      <FooterLink key={link.text} href={link.url}>
+                        {link.text}
+                      </FooterLink>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </nav>
+          </div>
+
+          <div className="flex flex-col items-center justify-between gap-6 border-t border-zinc-900 pt-4 pb-6 text-sm leading-5 text-zinc-400 lg:flex-row">
+            <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 lg:justify-start">
+              {footerLinks.legal.map((link) => (
+                <FooterLink key={link.text} href={link.url}>
+                  {link.text}
+                </FooterLink>
+              ))}
+            </div>
+
+            <p className="text-center">{footerLinks.copyright}</p>
+
+            <div className="flex items-center gap-6">
+              <SocialLink href={siteConfig.links.github} title="GitHub">
+                <GithubIcon />
+              </SocialLink>
+              <SocialLink href={siteConfig.links.discord} title="Discord">
+                <DiscordIcon />
+              </SocialLink>
+              <SocialLink href={siteConfig.links.twitter} title="X">
+                <XIcon className="size-4" />
+              </SocialLink>
+              <SocialLink href={siteConfig.links.youtube} title="YouTube">
+                <img
+                  src="/icons/youtube.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="size-4"
+                />
+              </SocialLink>
+              <SocialLink href="/rss.xml" title="RSS Feed">
+                <RSSIcon className="size-4" />
+              </SocialLink>
+            </div>
           </div>
         </div>
       </div>
+      <div aria-hidden="true" style={{ height: wordmarkHeight }} />
     </footer>
   );
 }

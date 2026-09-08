@@ -36,10 +36,6 @@ const internalKeys = [
   'related_articles',
 ];
 const djangoDeployPath = '/tutorials/django/deploy/';
-const djangoImages = [
-  '/images/tutorials/django/django-sealos-project-ops-running.webp',
-  '/images/tutorials/django/django-sealos-live-app-https-proof.webp',
-];
 
 function fail(message) {
   errors.push(message);
@@ -121,6 +117,7 @@ function headingIds(body) {
 function getWebpDimensions(path) {
   const buffer = readFileSync(path);
   if (
+    buffer.length < 30 ||
     buffer.toString('ascii', 0, 4) !== 'RIFF' ||
     buffer.toString('ascii', 8, 12) !== 'WEBP'
   ) {
@@ -268,21 +265,30 @@ function validateDjangoDeploy(tutorial) {
       `${djangoDeployPath}: deployment flow must use Sealos Skills and product operations`,
     );
   }
+}
 
+function validateCoreScreenshots(tutorial) {
+  const [framework, task, extra] = tutorial.route.split('/');
+  if (task !== 'deploy' || extra) return;
+
+  const requiredImages = [
+    `/images/tutorials/${framework}/${framework}-sealos-project-ops-running.webp`,
+    `/images/tutorials/${framework}/${framework}-sealos-live-app-https-proof.webp`,
+  ];
   const imageRefs = collectMarkdownImages(tutorial.body).map(
     (image) => image.href,
   );
-  for (const image of djangoImages) {
+  for (const image of requiredImages) {
     if (!imageRefs.includes(image)) {
-      fail(`${djangoDeployPath}: missing required screenshot ${image}`);
+      fail(`${tutorial.expectedPath}: missing required screenshot ${image}`);
       continue;
     }
     const imagePath = join(root, 'public', image.slice(1));
-    if (!existsSync(imagePath)) continue;
+    if (!existsSync(imagePath) || !statSync(imagePath).isFile()) continue;
     const dimensions = getWebpDimensions(imagePath);
     if (dimensions.width !== 3200 || dimensions.height !== 1800) {
       fail(
-        `${djangoDeployPath}: screenshot ${image} must be 3200x1800, found ${dimensions.width}x${dimensions.height}`,
+        `${tutorial.expectedPath}: screenshot ${image} must be 3200x1800, found ${dimensions.width}x${dimensions.height}`,
       );
     }
   }
@@ -293,8 +299,8 @@ if (!existsSync(tutorialDir)) fail('content/tutorials directory is missing');
 const tutorials = findTutorialFiles(tutorialDir)
   .map(parseTutorial)
   .filter(Boolean);
-if (tutorials.length !== 1) {
-  fail(`expected 1 published tutorial page, found ${tutorials.length}`);
+if (tutorials.length === 0) {
+  fail('expected at least one published tutorial page');
 }
 
 const publishedPaths = new Set(
@@ -307,6 +313,7 @@ for (const tutorial of tutorials) {
   validateFrontmatter(tutorial);
   validateReferences(tutorial, publishedPaths);
   validateEntrypoints(tutorial);
+  validateCoreScreenshots(tutorial);
   validateDjangoDeploy(tutorial);
 }
 
@@ -326,5 +333,5 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `validate-tutorials passed: ${tutorials.length} tutorial page checked.`,
+  `validate-tutorials passed: ${tutorials.length} tutorial page${tutorials.length === 1 ? '' : 's'} checked.`,
 );

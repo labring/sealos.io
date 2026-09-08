@@ -1,0 +1,42 @@
+.footerGradientClip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  container-type: inline-size;
+  z-index: 0;
+  background: var(--color-background);
+}
+
+.footerGradient {
+  position: absolute;
+  top: clamp(9rem, 12cqw, 12rem);
+  left: 50%;
+  width: 380cqw;
+  min-width: 100rem;
+  height: calc(100% + 24rem);
+  transform: translateX(-50%);
+  border-radius: 50% 50% 0 0 / clamp(18rem, 116cqw, 90rem)
+    clamp(18rem, 116cqw, 90rem) 0 0;
+  background: var(--color-background);
+  box-shadow:
+    0 -2rem 4rem rgba(20, 109, 255, 0.45),
+    0 -0.5rem 1.25rem rgba(191, 211, 255, 0.3);
+}
+
+.footerGradient::before {
+  content: '';
+  position: absolute;
+  top: -7rem;
+  left: 50%;
+  width: min(120rem, 90cqw);
+  height: 8rem;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center bottom,
+    rgba(191, 211, 255, 0.65) 0%,
+    rgba(20, 109, 255, 0.35) 42%,
+    transparent 78%
+  );
+  filter: blur(1.25rem);
+}

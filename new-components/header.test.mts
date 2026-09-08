@@ -43,11 +43,11 @@ test('legacy Header entrypoint keeps fixed positioning around the shared Header'
   assert.doesNotMatch(legacyHeaderSource, /ctaClassName|appearance|variant/);
 });
 
-test('shared Header owns the restrained panel presentation', () => {
-  assert.match(source, /<div className="container pt-6">/);
+test('shared Header owns the rounded navigation presentation', () => {
+  assert.match(source, /<div className="container pt-8">/);
   assert.match(
     source,
-    /flex w-full justify-between rounded-xl border border-white\/10 bg-black\/75 px-5 py-2\.5 backdrop-blur-md/,
+    /inset-shadow-bubble flex w-full justify-between rounded-full bg-white\/5 px-6 py-3 backdrop-blur-lg/,
   );
   assert.match(source, /className="h-8 w-8"/);
   assert.match(source, /width=\{36\}/);
@@ -79,7 +79,7 @@ test('all current dropdown children render in historical two-column panels', () 
   assert.doesNotMatch(source, /children\.slice/);
 
   for (const label of [
-    'Skills',
+    'Agents',
     'Templates',
     'Docs',
     'Resources',
@@ -95,7 +95,7 @@ test('all current dropdown children render in historical two-column panels', () 
 
   assert.match(
     navigationLinks,
-    /text: 'Skills'[\s\S]*text: 'Templates'[\s\S]*text: 'Docs'[\s\S]*text: 'Resources'[\s\S]*text: 'Pricing'[\s\S]*text: 'Contact'/,
+    /text: 'Agents'[\s\S]*text: 'Templates'[\s\S]*text: 'Docs'[\s\S]*text: 'Resources'[\s\S]*text: 'Pricing'[\s\S]*text: 'Contact'/,
   );
   assert.match(navigationLinks, /url: '\/sealos-skills'/);
   assert.match(navigationLinks, /url: '\/products\/app-store'/);

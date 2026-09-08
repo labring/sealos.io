@@ -55,6 +55,17 @@ Build, deployment, runtime, and browser results captured from an actual tutorial
 workflow and used as the source for tutorial screenshots.
 _Avoid_: Mock output, illustrative proof
 
+**Expected Result Visual**:
+A screenshot of an actual product or application state that helps readers
+recognize a completed tutorial step. Core Deployment Tutorials show both the
+healthy Sealos project and the public application's verified task result.
+_Avoid_: Decorative screenshot, generated product mockup
+
+**Branded Screenshot Frame**:
+The Sealos presentation surrounding an unchanged product or application
+capture, giving tutorial images a consistent visual identity.
+_Avoid_: Interface redesign, screenshot annotation
+
 **Reference Application**:
 A concrete framework-native application that remains consistent throughout one
 Framework Tutorial Series.

@@ -168,9 +168,7 @@ const DropdownMenu = ({
 }) => {
   return (
     <>
-      <NavigationMenuTrigger className="rounded-none text-sm font-medium">
-        {title}
-      </NavigationMenuTrigger>
+      <NavigationMenuTrigger>{title}</NavigationMenuTrigger>
 
       <NavigationMenuContent className="relative !border-none !bg-transparent !shadow-none">
         <div
@@ -275,8 +273,8 @@ export function Header({ lang }: HeaderProps) {
 
   return (
     <>
-      <div className="container pt-4">
-        <nav className="flex w-full justify-between border-b border-white/10 py-3">
+      <div className="container pt-8">
+        <nav className="inset-shadow-bubble flex w-full justify-between rounded-full bg-white/5 px-6 py-3 backdrop-blur-lg">
           <div className="flex">
             <a
               href={homeHref}
@@ -327,10 +325,7 @@ export function Header({ lang }: HeaderProps) {
                     ) : (
                       <NavigationMenuLink
                         asChild
-                        className={cn(
-                          navigationMenuTriggerStyle(),
-                          'rounded-none text-sm font-medium',
-                        )}
+                        className={navigationMenuTriggerStyle()}
                       >
                         <a
                           href={link.url}
@@ -353,7 +348,7 @@ export function Header({ lang }: HeaderProps) {
             <Button
               asChild
               variant="ghost"
-              className="hidden h-9 rounded-none lg:flex"
+              className="hidden h-10 rounded-full lg:flex"
               aria-label="Open Sealos GitHub page."
             >
               <a
@@ -375,8 +370,8 @@ export function Header({ lang }: HeaderProps) {
               </a>
             </Button>
             <Button
-              variant="default"
-              className="hidden h-9 rounded-none bg-transparent px-2 text-sm font-semibold text-zinc-300 shadow-none hover:bg-transparent hover:text-white lg:flex"
+              variant="landing-primary"
+              className="hidden h-10 lg:flex"
               aria-label="Start using Sealos for free."
               {...getRybbitCtaProps({
                 id: 'home_header_get_started',
@@ -388,7 +383,7 @@ export function Header({ lang }: HeaderProps) {
                 handleAuthRedirect({ openapp: getOpenBrainParam() });
               }}
             >
-              Get started free
+              Get Started For Free
             </Button>
 
             <Button
@@ -572,7 +567,7 @@ export function Header({ lang }: HeaderProps) {
                         closeMobileMenu();
                       }}
                     >
-                      Get started free
+                      Get Start For Free
                     </Button>
                   </div>
                 </div>

@@ -11,14 +11,14 @@ interface TutorialRequestGuideLinkProps {
 const CONTACT_EMAIL = 'contact@sealos.io';
 
 function buildMailtoHref(): string {
-  const subject = 'Request a Sealos deployment tutorial';
+  const subject = 'Request a Sealos tutorial';
   const body = [
     'Hi Sealos team,',
     '',
-    'I would like to request a deployment tutorial.',
+    'I would like to request a tutorial.',
     '',
     'Framework or runtime:',
-    'Deployment goal:',
+    'Task or goal:',
     'Existing project URL (optional):',
     '',
     'Source: /tutorials',
@@ -38,7 +38,7 @@ export function TutorialRequestGuideLink({
     <a
       href={href}
       className={className}
-      aria-label="Request a Sealos deployment tutorial"
+      aria-label="Request a tutorial"
       data-request-source="tutorial-catalog"
       onClick={() => {
         trackCustom(

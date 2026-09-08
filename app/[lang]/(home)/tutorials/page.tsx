@@ -14,205 +14,21 @@ import {
   type TutorialSummary,
   toTutorialSummary,
 } from '@/lib/utils/tutorial-utils';
-import { ArrowRight, BookOpen } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
 import type { Metadata } from 'next';
-import { TutorialRequestGuideLink } from './TutorialRequestGuideLink';
+import { TutorialCatalogBrowser } from './tutorial-catalog-browser';
 
 const TUTORIALS_PATHNAME = '/tutorials';
-const TUTORIALS_PAGE_TITLE = 'Sealos Deployment Tutorials';
+const TUTORIALS_PAGE_TITLE =
+  'Sealos Tutorials: Deployment, Databases & Production';
 const TUTORIALS_PAGE_DESCRIPTION =
-  'Follow published Sealos deployment tutorials built from verified repositories and live application evidence, starting with Django.';
-const DJANGO_TUTORIAL_PATH = '/tutorials/django/deploy/';
-const DJANGO_GUIDE_CHAPTERS = [
-  {
-    phase: 'Configure',
-    title: 'Prepare Django for production',
-    detail:
-      'Set the WSGI entrypoint, static file middleware, and production hosts.',
-    hash: '#prepare-django-for-production',
-  },
-  {
-    phase: 'Deploy',
-    title: 'Deploy with Sealos Skills',
-    detail:
-      'Provision the app and PostgreSQL, then release it with Sealos Skills.',
-    hash: '#deploy-with-sealos-skills',
-  },
-  {
-    phase: 'Verify',
-    title: 'Verify the live application',
-    detail:
-      'Submit a task over HTTPS and confirm it persists after a fresh load.',
-    hash: '#verify-the-live-django-application',
-  },
-] as const;
-
+  'Practical Sealos tutorials for your stack. Deploy applications, connect services, operate in production, troubleshoot, and migrate with verifiable results.';
 const TUTORIALS_PAGE_KEYWORDS = [
   'Sealos tutorials',
-  'Django deployment tutorials',
-  'deploy Django on Sealos',
-  'Django deployment guide',
-  'Django 5.2 deployment',
-  'Django Gunicorn deployment',
-  'Django PostgreSQL deployment',
-  'Django WhiteNoise deployment',
+  'application deployment tutorials',
+  'Sealos deployment guides',
+  'framework deployment',
   'Sealos Skills',
 ];
-
-type TutorialCatalogItem = TutorialSummary & {
-  image?: string;
-};
-
-function TutorialCatalogCard({
-  tutorial,
-  priorityImage,
-}: {
-  tutorial: TutorialCatalogItem;
-  priorityImage?: boolean;
-}) {
-  const isDjangoGuide = tutorial.url === DJANGO_TUTORIAL_PATH;
-  return (
-    <article>
-      <h2 id="published-tutorials-heading" className="sr-only">
-        Published tutorial evidence
-      </h2>
-
-      {isDjangoGuide ? (
-        <nav className="text-[#0a0a0a]" aria-label="Guide chapters">
-          <div className="grid border-b border-zinc-500/30 lg:grid-cols-[minmax(0,1fr)_29rem]">
-            <div className="grid gap-5 bg-[#f2f0e8] py-5 pr-8 lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-center lg:gap-0">
-              <div className="lg:pr-8">
-                <p className="text-sm font-semibold text-zinc-600">
-                  Inside the guide
-                </p>
-                <h3 className="mt-2 text-4xl leading-none font-medium tracking-[-0.05em]">
-                  Three decisive checks.
-                </h3>
-              </div>
-              <div className="lg:border-l lg:border-black/15 lg:pl-7">
-                <p className="text-sm leading-6 text-zinc-700">
-                  Configure, deploy, then verify the public flow.
-                </p>
-                <TutorialRequestGuideLink className="mt-3 inline-flex text-xs font-medium text-zinc-500 underline decoration-zinc-400 underline-offset-4 transition-colors hover:text-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-800 focus-visible:outline-none">
-                  Request another field note ↗
-                </TutorialRequestGuideLink>
-              </div>
-            </div>
-
-            <div className="border-r border-r-white/15 border-l-[#146dff] bg-[#090909] px-8 py-5 font-mono text-white lg:border-l-2">
-              <p className="text-sm font-bold tracking-wide text-white">
-                FIELD PROOF
-              </p>
-              <p className="mt-3 text-xs text-zinc-400">
-                ONE BUILD · THREE CHECKS
-              </p>
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-[minmax(0,1fr)_29rem]">
-            <ol>
-              {DJANGO_GUIDE_CHAPTERS.map((chapter, index) => (
-                <li
-                  key={chapter.hash}
-                  className={`grid lg:min-h-[6.5rem] ${
-                    index === 0 ? '' : 'border-t border-zinc-500/30'
-                  }`}
-                >
-                  <Link
-                    href={`${tutorial.url}${chapter.hash}`}
-                    className="group grid h-full gap-5 bg-[#f2f0e8] py-4 pr-8 transition-colors hover:text-[#146dff] focus-visible:ring-2 focus-visible:ring-[#146dff] focus-visible:outline-none lg:grid-cols-[3rem_16.5rem_1fr] lg:items-center lg:gap-5"
-                  >
-                    <span
-                      className={`text-3xl font-medium tracking-[-0.055em] lg:translate-y-3 ${
-                        index === DJANGO_GUIDE_CHAPTERS.length - 1
-                          ? 'text-[#16815d]'
-                          : 'text-zinc-500'
-                      }`}
-                    >
-                      0{index + 1}
-                    </span>
-                    <span>
-                      <span
-                        className={`block text-sm font-semibold ${
-                          index === DJANGO_GUIDE_CHAPTERS.length - 1
-                            ? 'text-[#16815d]'
-                            : 'text-zinc-600'
-                        }`}
-                      >
-                        {chapter.phase}
-                      </span>
-                      <strong className="mt-2 block text-xl leading-tight font-semibold tracking-[-0.03em] transition-colors group-hover:text-[#146dff]">
-                        {chapter.title}
-                      </strong>
-                    </span>
-                    <span className="h-full text-[15px] leading-6 text-zinc-700 lg:flex lg:items-center lg:border-l lg:border-black/15 lg:pl-7">
-                      <span className="lg:translate-y-3">{chapter.detail}</span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ol>
-
-            <div className="grid bg-[#090909] font-mono text-white lg:grid-rows-3">
-              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-r border-[#146dff] border-r-white/15 px-8 py-4 lg:border-l-2">
-                <code className="text-sm text-zinc-300">01</code>
-                <span>
-                  <code className="block text-xl font-bold">wsgi.py</code>
-                  <code className="mt-1 block text-xs text-zinc-200">
-                    WhiteNoise · production hosts
-                  </code>
-                </span>
-                <code className="text-right text-sm font-bold text-white">
-                  READY
-                </code>
-              </div>
-              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-y border-r border-white/15 border-l-[#146dff] px-8 py-4 lg:border-l-2">
-                <code className="text-sm text-zinc-300">02</code>
-                <span>
-                  <code className="block text-xl font-bold">:8080</code>
-                  <code className="mt-1 block text-xs text-zinc-200">
-                    Gunicorn · PostgreSQL
-                  </code>
-                </span>
-                <code className="text-right text-sm font-bold text-white">
-                  RUNNING
-                </code>
-              </div>
-              <div className="grid grid-cols-[2rem_1fr_7rem] items-center gap-3 border-r border-[#44b78b] border-r-white/15 px-8 py-4 lg:border-l-2">
-                <code className="text-sm text-zinc-300">03</code>
-                <span>
-                  <code className="block text-xl font-bold">POST → GET</code>
-                  <code className="mt-1 block text-xs text-zinc-200">
-                    task[0]=&quot;Runtime proof&quot;
-                  </code>
-                </span>
-                <strong className="text-right text-xl text-[#44b78b]">
-                  PERSISTED
-                </strong>
-              </div>
-            </div>
-          </div>
-        </nav>
-      ) : tutorial.image ? (
-        <figure className="mt-10 overflow-hidden rounded-xl bg-zinc-950 p-2 ring-1 ring-white/10">
-          <div className="relative aspect-video w-full overflow-hidden rounded-md">
-            <Image
-              src={tutorial.image}
-              alt={`${tutorial.title} deployment result`}
-              className="h-full w-full object-cover object-center"
-              fill
-              priority={priorityImage}
-              quality={90}
-              sizes="(max-width: 760px) 90vw, 55vw"
-            />
-          </div>
-        </figure>
-      ) : null}
-    </article>
-  );
-}
 
 function getTutorialsStructuredData(
   tutorials: TutorialSummary[],
@@ -293,161 +109,16 @@ export default function TutorialsPage({
 }) {
   const tutorials = getSortedTutorials().map((page) => ({
     ...toTutorialSummary(page),
-    image: page.data.image,
+    displayTitle: page.data.sidebar_title,
   }));
-  const firstTutorial = tutorials[0];
-  const structuredData = getTutorialsStructuredData(tutorials);
-  const shouldRenderStructuredData = params.lang === 'en';
 
   return (
     <>
-      {shouldRenderStructuredData && (
-        <StructuredDataComponent data={structuredData} />
+      {params.lang === 'en' && (
+        <StructuredDataComponent data={getTutorialsStructuredData(tutorials)} />
       )}
-
-      <main>
-        <section className="container -mt-24 pt-32">
-          <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_29rem] lg:items-stretch lg:gap-0">
-            <div>
-              <p className="text-sm font-semibold text-zinc-400">
-                Deployment field note · 01
-              </p>
-              <h1
-                className="mt-6 flex items-center gap-4 text-[2.9rem] leading-none font-medium tracking-[-0.06em] whitespace-nowrap text-white sm:text-6xl md:text-[5.5rem]"
-                aria-label="Deploy Django on Sealos"
-              >
-                <span aria-hidden="true">Django</span>
-                <span
-                  className="flex w-14 shrink-0 items-center sm:w-20 md:w-32"
-                  aria-hidden="true"
-                >
-                  <span className="h-0.5 flex-1 bg-[#146dff]" />
-                  <span className="h-6 w-4 shrink-0 bg-[#146dff] [clip-path:polygon(0_0,100%_50%,0_100%)]" />
-                </span>
-                <span aria-hidden="true">Sealos</span>
-                <span
-                  className="hidden h-0.5 min-w-8 flex-1 bg-[#146dff] lg:block"
-                  aria-hidden="true"
-                />
-              </h1>
-              <div className="mt-7 lg:pr-12">
-                <p className="max-w-[38rem] text-lg leading-8 text-zinc-300">
-                  Build a Django 5.2 Task app with Gunicorn, WhiteNoise, and
-                  PostgreSQL, then deploy it on Sealos and verify a live
-                  create/read flow.
-                </p>
-                {firstTutorial && (
-                  <Link
-                    href={firstTutorial.url}
-                    className="group relative z-10 mt-6 mb-4 inline-flex items-center gap-4 border-b-2 border-[#146dff] pb-3 text-[1.375rem] font-semibold text-white transition-colors hover:border-[#5f96ff] hover:text-[#5f96ff] focus-visible:ring-2 focus-visible:ring-[#5f96ff] focus-visible:outline-none"
-                  >
-                    Read the field note
-                    <ArrowRight
-                      size={19}
-                      className="text-[#5f96ff] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
-                      aria-hidden="true"
-                    />
-                  </Link>
-                )}
-              </div>
-            </div>
-
-            <figure className="relative flex min-h-[18rem] flex-col overflow-hidden border-x border-t border-white/15 bg-[#090909] lg:h-full lg:min-h-0">
-              <span
-                className="absolute top-[5.375rem] left-0 hidden h-0.5 w-7 bg-[#146dff] lg:block"
-                aria-hidden="true"
-              >
-                <span className="absolute -top-[5px] right-0 h-3 w-2 bg-[#146dff] [clip-path:polygon(0_0,100%_50%,0_100%)]" />
-              </span>
-              <figcaption className="flex shrink-0 items-center justify-between border-b border-white/15 px-8 py-3 font-mono text-[13px] font-semibold tracking-wide text-white">
-                <span>LIVE DEPLOYMENT</span>
-                <span className="text-zinc-300">DJANGO · 5.2</span>
-              </figcaption>
-              <div className="flex min-h-0 flex-1 flex-col py-5 pr-8 pl-12 font-mono text-white">
-                <h2 className="font-sans text-2xl font-semibold tracking-[-0.04em]">
-                  Create once. Read after refresh.
-                </h2>
-                <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto] border border-white/25 text-white">
-                  <span className="flex h-10 items-center px-3 text-xs text-zinc-200">
-                    Runtime proof from Sealos
-                  </span>
-                  <span className="flex h-10 items-center border-l border-[#146dff] px-4 font-mono text-xs font-bold text-[#5f96ff]">
-                    POST /TASKS
-                  </span>
-                </div>
-                <div className="mt-3 flex flex-1 items-center justify-between gap-4 border-y border-white/20 bg-white/[0.02] px-4">
-                  <span>
-                    <strong className="mt-1 block text-[13px]">
-                      Runtime proof from Sealos
-                    </strong>
-                  </span>
-                  <strong className="text-[13px] text-[#44b78b]">
-                    PERSISTED
-                  </strong>
-                </div>
-              </div>
-            </figure>
-          </div>
-        </section>
-
-        <section
-          id="published-tutorials"
-          className="relative container scroll-mt-28"
-          aria-labelledby="published-tutorials-heading"
-        >
-          {firstTutorial && (
-            <TutorialCatalogCard tutorial={firstTutorial} priorityImage />
-          )}
-
-          {tutorials.length > 1 && (
-            <div className="mt-6 grid gap-4">
-              {tutorials.slice(1).map((tutorial) => (
-                <Link
-                  key={tutorial.slug}
-                  href={tutorial.url}
-                  className="group text-card-foreground focus-visible:ring-ring border-border bg-card hover:border-primary/50 grid overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-[minmax(0,1fr)_18rem]"
-                >
-                  <div className="flex flex-col gap-2 p-5">
-                    <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-xs font-medium">
-                      <span>{tutorial.framework}</span>
-                      <span aria-hidden="true">·</span>
-                      <span>
-                        {tutorial.stage === 'beginner'
-                          ? 'Core deployment'
-                          : tutorial.stageLabel}
-                      </span>
-                    </div>
-                    <h2 className="text-lg font-semibold tracking-tight">
-                      <span className="text-foreground group-hover:text-primary transition-colors">
-                        {tutorial.title}
-                      </span>
-                    </h2>
-                    <p className="text-muted-foreground line-clamp-2 text-sm leading-6">
-                      {tutorial.description}
-                    </p>
-                    {tutorial.estimatedReadingTime && (
-                      <span className="text-muted-foreground mt-auto inline-flex items-center gap-2 text-sm">
-                        <BookOpen size={14} aria-hidden="true" />
-                        {tutorial.estimatedReadingTime}
-                      </span>
-                    )}
-                  </div>
-                  {tutorial.image && (
-                    <div className="border-border relative aspect-video w-full overflow-hidden border-t md:border-t-0 md:border-l">
-                      <Image
-                        src={tutorial.image}
-                        alt={`${tutorial.title} deployment result`}
-                        className="h-full w-full object-cover"
-                        fill
-                        sizes="(max-width: 760px) 90vw, 18rem"
-                      />
-                    </div>
-                  )}
-                </Link>
-              ))}
-            </div>
-          )}
-        </section>
+      <main className="mx-auto max-w-[1088px] px-4 text-zinc-100">
+        <TutorialCatalogBrowser tutorials={tutorials} />
       </main>
     </>
   );

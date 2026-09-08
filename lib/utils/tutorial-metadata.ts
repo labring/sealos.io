@@ -1,5 +1,8 @@
 import { blogAuthors, siteConfig } from '@/config/site';
-import { getTutorialKeywords, getTutorialPage } from '@/lib/utils/tutorial-utils';
+import {
+  getTutorialKeywords,
+  getTutorialPage,
+} from '@/lib/utils/tutorial-utils';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -41,18 +44,20 @@ function buildSiteUrl(pathname?: string | null): string {
 }
 
 export async function generateTutorialMetadata(props: {
-  params: Promise<{ slug: string; lang?: string }>;
+  params: Promise<{ slug: string[]; lang?: string }>;
 }): Promise<Metadata> {
   const params = await props.params;
   const page = getTutorialPage(params.slug, params.lang ?? 'en');
 
   if (!page) notFound();
 
-  const tutorialPath = `/tutorials/${page.slugs.join('/')}`;
+  const tutorialPath = page.data.slug;
   const url = buildSiteUrl(tutorialPath);
   const docTitle = `${page.data.title} | Sealos Tutorials`;
   const publishedTime = new Date(page.data.date).toISOString();
-  const modifiedTime = new Date(page.data.updated ?? page.data.date).toISOString();
+  const modifiedTime = new Date(
+    page.data.updated ?? page.data.date,
+  ).toISOString();
 
   return {
     metadataBase: new URL(siteConfig.url.base),

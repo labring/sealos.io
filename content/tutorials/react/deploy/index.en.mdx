@@ -1,0 +1,734 @@
+---
+title: 'How to Deploy a React + Vite App on Sealos'
+image: '/images/tutorials/react/react-sealos-live-app-https-proof.webp'
+description: 'Build a React Task app with Vite, prepare its production assets and client routes, then deploy it with Sealos Skills and verify it at a public HTTPS URL.'
+slug: '/tutorials/react/deploy/'
+date: 2026-09-06
+updated: 2026-09-06
+stage: beginner
+framework: 'React + Vite'
+runtime: 'Node.js 24 LTS for the build; Nginx 1.30 for static serving'
+sidebar_title: 'Deploy React + Vite'
+estimatedReadingTime: '30 minutes'
+tags:
+  - tutorial
+  - sealos-skills
+  - react
+  - vite
+  - deployment
+authors:
+  - default
+related: []
+entrypoints:
+  from_scratch: '#create-a-react-task-app'
+  existing_project: '#prepare-react-and-vite-for-production'
+---
+
+## What you will deploy
+
+You will build a React Task app, use Vite to create its production files, and
+deploy it with Sealos Skills. You will finish with a public HTTPS URL where
+`/dashboard` opens directly, the JavaScript and CSS load, and a Task stays
+visible after you add it and refresh the page.
+
+| Requirement               | Version used by this guide                     |
+| ------------------------- | ---------------------------------------------- |
+| Node.js                   | 24 LTS                                         |
+| npm                       | 11 or newer; local checks use 11.6.2           |
+| Project generator         | `create-vite@9.2.0`, React JavaScript template |
+| React and React DOM       | `19.2.8`                                       |
+| Vite and its React plugin | `8.2.2` and `6.1.1`                            |
+| React Router              | `8.3.1`, Declarative Mode                      |
+| Production server         | Official `nginx:1.30-alpine` image             |
+| Dependency lock           | `package-lock.json`                            |
+
+**Prerequisites:**
+
+- [Node.js 24 LTS](https://nodejs.org/en/about/previous-releases), npm, Git, and
+  a terminal using Bash or Zsh.
+- Docker with a running engine and Buildx for the local container check and
+  image build.
+- Local Codex with access to your project directory.
+- A Sealos Cloud account and a target workspace. The image upload also needs
+  registry access; Sealos Skills guides the required registry authentication,
+  including GitHub CLI setup when you use GitHub Container Registry.
+
+**For an existing React + Vite project:** Jump to
+[Prepare React and Vite for production](#prepare-react-and-vite-for-production).
+Keep your package manager, dependency manifest, lock file, and application
+behavior. Use an existing form and read view for the Task checks, and select a
+client route that you can open directly.
+
+Explore more framework guides in the [tutorial catalog](/tutorials).
+
+## Create a React Task app
+
+### Create the project
+
+**Working directory:** The parent directory that will contain your project.
+
+```bash
+npm create vite@9.2.0 react-sealos-tasks -- --template react --no-interactive
+cd react-sealos-tasks
+git init
+npm install --save-exact react@19.2.8 react-dom@19.2.8 react-router@8.3.1
+npm install --save-dev --save-exact vite@8.2.2 @vitejs/plugin-react@6.1.1
+```
+
+Accept npm's package download prompt when it appears. The generator creates
+`package.json`, `index.html`, `vite.config.js`, and `src/`; installation adds
+`package-lock.json`. The versioned commands and lock file give later builds the
+same application dependencies.
+
+### Add the routes and Task form
+
+**File:** `src/App.jsx`
+
+Replace the generated file with:
+
+```jsx
+import { useState } from 'react';
+import { Link, Route, Routes } from 'react-router';
+
+const STORAGE_KEY = 'sealos-react-tasks';
+
+function Dashboard() {
+  const [saved, setSaved] = useState(() => {
+    try {
+      const tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]');
+      if (
+        !Array.isArray(tasks) ||
+        tasks.some((task) => typeof task !== 'string' || task.length > 200)
+      ) {
+        throw new Error('Invalid saved tasks');
+      }
+      return { tasks, available: true };
+    } catch {
+      return { tasks: [], available: false };
+    }
+  });
+  const [title, setTitle] = useState('');
+  const [message, setMessage] = useState('');
+
+  function addTask(event) {
+    event.preventDefault();
+    const task = title.trim();
+    if (!task || task.length > 200) {
+      setMessage('Enter a task title with 1 to 200 characters.');
+      return;
+    }
+
+    const tasks = [...saved.tasks, task];
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+      setSaved({ tasks, available: true });
+      setTitle('');
+      setMessage('Task added.');
+    } catch {
+      setMessage(
+        'Your browser could not save this task. Allow site storage and try again.',
+      );
+    }
+  }
+
+  return (
+    <section aria-labelledby="task-heading">
+      <h2 id="task-heading">Task list</h2>
+      <p>Tasks are saved in this browser for this site.</p>
+      {saved.available ? (
+        <form onSubmit={addTask}>
+          <label htmlFor="title">Title</label>
+          <input
+            id="title"
+            name="title"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            maxLength={200}
+            autoComplete="off"
+            required
+          />
+          <button type="submit">Add task</button>
+        </form>
+      ) : (
+        <p role="alert">
+          Your saved tasks could not be opened. Check this site's storage
+          permissions and saved data in your browser, then reload the page.
+        </p>
+      )}
+      <p role="status">{message}</p>
+      {saved.tasks.length > 0 ? (
+        <ul>
+          {saved.tasks.map((task, index) => (
+            <li key={index}>{task}</li>
+          ))}
+        </ul>
+      ) : saved.available ? (
+        <p>Your task list is empty.</p>
+      ) : null}
+    </section>
+  );
+}
+
+export default function App() {
+  return (
+    <>
+      <header>
+        <h1>{import.meta.env.VITE_APP_TITLE || 'React tasks'}</h1>
+        <nav aria-label="Main navigation">
+          <Link to="/">Home</Link>
+          <Link to="/dashboard">Dashboard</Link>
+        </nav>
+      </header>
+      <main>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <section>
+                <h2>Keep track of your next task</h2>
+                <Link to="/dashboard">Open dashboard</Link>
+              </section>
+            }
+          />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="*"
+            element={
+              <section>
+                <h2>Page not found</h2>
+                <Link to="/dashboard">Open dashboard</Link>
+              </section>
+            }
+          />
+        </Routes>
+      </main>
+    </>
+  );
+}
+```
+
+The form trims the title, saves the updated list, and displays the saved Tasks.
+The storage checks keep a read or write failure visible so you can correct the
+browser setting before continuing.
+
+**File:** `src/main.jsx`
+
+Replace the generated file with:
+
+```jsx
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router';
+import App from './App.jsx';
+import './index.css';
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>,
+);
+```
+
+`BrowserRouter` connects the browser's URL to the routes in `App.jsx`, following
+the [React Router setup](https://reactrouter.com/start/declarative/installation).
+Visiting `/dashboard` selects the Task form.
+
+### Add the page and stylesheet
+
+**File:** `index.html`
+
+Replace the generated file with:
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React tasks</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+```
+
+**File:** `src/index.css`
+
+Replace the generated stylesheet with:
+
+```css
+:root {
+  font-family: system-ui, sans-serif;
+  color: #172033;
+  background: #f3f6fb;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+nav {
+  display: flex;
+  gap: 1.25rem;
+}
+a {
+  color: #0756b8;
+}
+
+main {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: white;
+  border: 1px solid #ccd5e3;
+  border-radius: 0.75rem;
+}
+
+form {
+  display: grid;
+  gap: 0.75rem;
+}
+label {
+  font-weight: 600;
+}
+input,
+button {
+  font: inherit;
+  padding: 0.65rem;
+}
+input {
+  min-width: 0;
+  border: 1px solid #66748b;
+  border-radius: 0.25rem;
+}
+button {
+  color: white;
+  background: #0756b8;
+  border: 0;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+:focus-visible {
+  outline: 3px solid #0756b8;
+  outline-offset: 3px;
+}
+li {
+  margin-block: 0.5rem;
+  overflow-wrap: anywhere;
+}
+[role='alert'] {
+  color: #a31d1d;
+}
+```
+
+You should see a pale background, a white content panel, and a blue **Add task**
+button. Importing this CSS through `main.jsx` also gives the production build a
+stylesheet to verify.
+
+Remove the starter artwork and stylesheet that the Task app has replaced:
+
+```bash
+rm -r src/assets public src/App.css
+```
+
+### Run the app locally
+
+**Working directory:** Repository root.
+
+```bash
+npm run dev -- --host 127.0.0.1
+```
+
+Open the local address printed by Vite and select **Dashboard**. Enter
+`Ship React on Sealos` in **Title**, select **Add task**, then refresh
+`/dashboard`. Confirm that the Task remains in the list.
+
+The app saves Tasks in `localStorage`, which belongs to one browser profile and
+one origin: the protocol, hostname, and port. Your local address and deployed
+HTTPS address therefore have separate lists. Clearing site data removes that
+origin's Tasks; shared records across devices require an application API and
+database.
+
+Stop the development server with `Ctrl+C`.
+
+## Prepare React and Vite for production
+
+Existing-project readers resume here. Confirm that your app builds into static
+files and has a working form, read view, stylesheet, and client route. Use your
+own equivalent of `/dashboard` and retain any existing API connections and
+storage behavior.
+
+The files below are complete for the Task app. Merge the relevant settings into
+an existing repository. Its package manager and lock determine the install
+command in the Docker build: use `npm ci` for npm, `pnpm install --frozen-lockfile`
+for pnpm, or the repository's immutable or frozen Yarn install.
+Keep the corresponding package-manager setup in your builder image. When your
+Vite configuration changes `build.outDir`, use that output directory in the
+Dockerfile's final copy and in the asset checks.
+
+### Verify the dependency lock
+
+**Working directory:** Repository root.
+
+```bash
+npm ci
+npm run lint
+```
+
+`npm ci` installs the versions recorded in `package-lock.json`, and the generated
+lint command checks the source. Both commands should finish with exit status
+`0`. Commit `package.json` and `package-lock.json` together after preparation.
+
+> **If you see `npm ci` report that the lock file and package file are out of sync:** Run `npm install` in the repository root, review the changes to `package-lock.json`, then repeat `npm ci`.
+
+### Set the asset base
+
+**File:** `vite.config.js`
+
+Replace the generated file with:
+
+```javascript
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  base: '/',
+});
+```
+
+The app will use the root of its Sealos hostname. `base: '/'` makes Vite generate
+asset URLs such as `/assets/index-<hash>.js`, so they work when you open
+`/dashboard` directly. A project served under a path such as `/tasks/` needs a
+matching Vite base, router basename, and server mapping; see
+[Vite's public base path guidance](https://vite.dev/guide/build.html#public-base-path).
+
+Check the output from the repository root:
+
+```bash
+npm run build
+test -f dist/index.html && echo 'Production HTML exists'
+```
+
+Expected: Vite prints the files under `dist/`, including JavaScript and CSS
+inside `dist/assets/`, followed by `Production HTML exists`. Open
+`dist/index.html` in your editor and confirm that its script and stylesheet
+URLs start with `/assets/`.
+
+### Define the public value used during the build
+
+**File:** `.env.example` in the repository root.
+
+```dotenv
+VITE_APP_TITLE=React tasks
+```
+
+**File:** `.gitignore`
+
+Append these lines to the generated rules:
+
+```text title=".gitignore"
+.env
+.env.*
+!.env.example
+.sealos/
+```
+
+**Working directory:** Repository root.
+
+```bash
+cp .env.example .env
+git check-ignore -q .env && echo '.env is ignored'
+```
+
+Expected: `.env is ignored`. The example documents the value that `App.jsx`
+reads, and the ignored file supplies it during local development.
+
+Vite puts `VITE_` values into the browser's JavaScript during `npm run build`.
+Use these variables for public configuration such as a page title or API base
+URL. Keep secrets in the backend that owns them. To change a public value after
+deployment, rebuild the image with the new value and deploy it; the Dockerfile
+below passes the title into that build.
+[Vite environment variables](https://vite.dev/guide/env-and-mode.html)
+documents this behavior.
+
+### Serve the build and client routes with Nginx
+
+**File:** `nginx.conf` in the repository root.
+
+```nginx
+server {
+    listen 8080;
+    server_name _;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    location /assets/ {
+        try_files $uri =404;
+    }
+
+    location / {
+        add_header Cache-Control "no-cache";
+        try_files $uri $uri/ /index.html;
+    }
+}
+```
+
+Nginx serves the files Vite creates. Its
+[`try_files` fallback](https://nginx.org/en/docs/http/ngx_http_core_module.html#try_files)
+returns `index.html` for `/dashboard`, allowing React Router to display the
+matching page. Requests under `/assets/` must resolve to a real file and return
+`404` when a file is missing. The HTML response asks the browser to check for a
+fresh version, which supports the update you will deploy later.
+
+**File:** `Dockerfile` in the repository root.
+
+```dockerfile
+FROM node:24-bookworm-slim AS build
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+ARG VITE_APP_TITLE="React tasks"
+ENV VITE_APP_TITLE=$VITE_APP_TITLE
+RUN npm run build
+
+FROM nginx:1.30-alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 8080
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+Node installs the locked dependencies and builds `dist/`. The final image uses
+the [official Nginx image](https://hub.docker.com/_/nginx) to serve that directory
+on `0.0.0.0:8080`. Sealos forwards the public HTTPS route to this port.
+
+**File:** `.dockerignore` in the repository root.
+
+```text title=".dockerignore"
+node_modules
+dist
+.git
+.sealos
+.env
+.env.*
+!.env.example
+```
+
+These rules keep local dependencies, local build output, and environment files
+outside the image's source copy. `VITE_APP_TITLE` reaches Vite through the build
+argument in the Dockerfile.
+
+Build and check the Nginx configuration from the repository root:
+
+```bash
+docker build --build-arg VITE_APP_TITLE="React tasks" -t react-sealos-tasks:local .
+docker run --rm react-sealos-tasks:local nginx -t
+```
+
+Expected: the image build succeeds, and Nginx reports that the configuration
+syntax is valid and its test is successful.
+
+### Test the production container locally
+
+**Working directory:** Repository root.
+
+```bash
+docker run --rm -p 127.0.0.1:8080:8080 react-sealos-tasks:local
+```
+
+In a second terminal, verify the root page, the client route, and a missing
+asset:
+
+```bash
+curl --fail --silent http://127.0.0.1:8080/ | grep -F '<div id="root"></div>'
+curl --fail --silent http://127.0.0.1:8080/dashboard | grep -F '<div id="root"></div>'
+curl --silent --output /dev/null --write-out '%{http_code}\n' http://127.0.0.1:8080/assets/missing.js
+```
+
+Expected: both page requests print the root element, and the missing asset
+returns `404`.
+
+Open `http://127.0.0.1:8080/dashboard` directly in your browser. Confirm **React
+tasks**, **Task list**, and the blue button appear. Create `Production build
+check`, refresh the page, and confirm that the Task remains visible.
+
+In your browser's developer tools, open **Network** and reload the page. Select
+the `/assets/index-<hash>.js` and `/assets/index-<hash>.css` requests. Confirm
+successful responses and the JavaScript and `text/css` content types. This checks
+the compiled assets through the same server you will deploy.
+
+Stop the container with `Ctrl+C`.
+
+### Save the ready repository
+
+**Working directory:** Repository root.
+
+```bash
+git add .
+git commit -m 'Prepare React and Vite app for Sealos'
+git status --short
+```
+
+The commit saves the application, dependency lock, and production configuration
+as one revision. Expected: the commit succeeds and `git status --short` shows a
+clean working tree.
+
+### Production Readiness Checklist
+
+- [ ] Node, npm, and the application dependencies match the version requirements.
+- [ ] The dependency lock is committed, and the locked install and lint pass.
+- [ ] The production build creates `dist/index.html` and JavaScript and CSS assets.
+- [ ] The image builds successfully, and `nginx -t` succeeds.
+- [ ] The container serves `/` and `/dashboard` on port `8080`; the compiled assets load, and a missing asset returns `404`.
+- [ ] Creating a Task and refreshing `/dashboard` keeps it visible in the same browser.
+- [ ] `.env.example` documents the public build value, and `.env` is ignored.
+
+The Task app uses browser storage. An existing app that calls an API also needs
+its production API URL, the API's allowed browser origin, and its required
+services ready before you proceed.
+
+## Deploy with Sealos Skills
+
+Install [Sealos Skills](https://sealos.io/sealos-skills/) in local Codex:
+
+```bash
+codex plugin marketplace add labring/sealos-skills
+codex plugin add sealos@sealos
+```
+
+Open the repository root in local Codex. In Codex App, select **+ → Plugins →
+Sealos**; in Codex CLI, use `$sealos`. Send this request:
+
+```text
+$sealos deploy this repo to Sealos Cloud.
+Source: use this repository's committed revision and root Dockerfile.
+Build: keep the Node 24 builder, npm ci, and npm run build; use VITE_APP_TITLE="React tasks" as the Docker build argument. The output directory is dist.
+Lifecycle: Pre-deploy=N/A; Required services=None.
+Runtime: use the final Nginx image and its command nginx -g 'daemon off;'; retain nginx.conf, listen on port 8080, and probe GET /.
+Application: serve the hostname root, keep the /dashboard fallback and /assets/ file checks, and expose HTTPS through port 8080. Tasks use browser localStorage.
+Verification: confirm the build and Nginx start succeed; open /dashboard directly; check the generated JavaScript and CSS and the missing-asset 404; submit "Runtime proof from Sealos" and confirm it remains visible after a browser refresh.
+```
+
+For an existing app, adapt the route, public build values, and required services
+to the production checks you completed above.
+
+Review the plan before confirming it:
+
+1. The account, workspace, repository revision, and application name are correct.
+2. The image build uses the committed Dockerfile and lock file, with
+   `VITE_APP_TITLE` supplied during the build.
+3. The application uses the Nginx command and port `8080`, and its public HTTPS
+   route forwards to that port.
+4. The selected registry, image access, resource sizes, and public exposure match
+   your intended deployment.
+
+Confirm the plan in local Codex and complete the authentication prompts. Keep
+the local deployment state saved by Sealos Skills so your next deployment can
+target the same application.
+
+After deployment, use the Sealos web interface to review the application,
+resources, logs, public access, and assigned domain. The title is part of the
+built JavaScript; changing it uses a new image build.
+
+## Verify the live React application
+
+### Check the deployment state
+
+Use the Sealos Skills result and the Sealos web interface to confirm:
+
+- The build completes `npm ci` and `npm run build`, including the files in
+  `dist/assets/`.
+- Nginx starts successfully, and recent application logs show successful page
+  and asset requests.
+- The Sealos Project Canvas shows the application running with healthy public
+  access connected to port `8080`.
+
+![Sealos Project Canvas showing the React application running with healthy public access](/images/tutorials/react/react-sealos-project-ops-running.webp)
+
+### Open the public page and its assets
+
+Open the HTTPS URL returned by Sealos, then type `/dashboard` after its hostname
+and open that address directly. Confirm that **React tasks**, **Task list**, and
+the styled form appear.
+
+> **If you see an Nginx `404 Not Found` page at `/dashboard`:** The served configuration needs the client-route fallback. Restore `try_files $uri $uri/ /index.html;` in `nginx.conf`, deploy the saved application through Sealos Skills, and open `/dashboard` directly again.
+
+Open **Network** in your browser's developer tools and reload `/dashboard`.
+Confirm the hashed JavaScript and CSS requests succeed. Open the CSS request's
+URL in a new tab and confirm it contains the stylesheet rules.
+
+Set the returned HTTPS origin in your terminal, replacing the sample hostname:
+
+```bash
+export APP_URL='https://your-app-hostname'
+curl --fail --silent "$APP_URL/dashboard" | grep -F '<div id="root"></div>'
+curl --silent --output /dev/null --write-out '%{http_code}\n' "$APP_URL/assets/missing.js"
+```
+
+Expected: the first request prints the root element, and the second prints
+`404`. The address should contain the protocol and hostname, with the trailing
+slash omitted.
+
+> **If you see `Failed to load module script` with a `text/html` response for an asset:** The script request is receiving the page fallback. Restore `base: '/'` in `vite.config.js` and the separate `/assets/` location with `try_files $uri =404;` in `nginx.conf`, then rebuild and deploy the saved application. Reload `/dashboard` and check the JavaScript and CSS responses again.
+
+### Create and read a Task
+
+1. On the live `/dashboard` page, enter `Runtime proof from Sealos` in **Title**.
+2. Select **Add task** and confirm the Task appears under **Task list**.
+3. Refresh `/dashboard` and confirm that the same Task remains visible.
+
+![React Task app showing Runtime proof from Sealos after a browser refresh](/images/tutorials/react/react-sealos-live-app-https-proof.webp)
+
+Captured from the deployed app at
+[its public HTTPS address](https://react-tasks-vrvevswc.usw-1.sealos.app/dashboard).
+
+You have exercised the deployed JavaScript, the form, and storage in this
+browser. Use this same browser profile and HTTPS origin for the update check.
+
+## Deploy your next change and continue
+
+In `src/App.jsx`, replace the dashboard heading with:
+
+```jsx
+<h2 id="task-heading">Task list on Sealos</h2>
+```
+
+From the repository root, check and commit the change:
+
+```bash
+npm run lint
+npm run build
+git add src/App.jsx
+git commit -m 'Update the Task list heading'
+```
+
+Ask Sealos Skills to update the saved application:
+
+```text
+$sealos deploy this repo to Sealos Cloud.
+Target: update the saved React application from this repository and preserve its public URL.
+Build: use the updated committed revision and the root Dockerfile; retain Node 24, npm ci, npm run build, and the VITE_APP_TITLE="React tasks" build argument.
+Lifecycle: Pre-deploy=N/A; Required services=None.
+Runtime: retain the Nginx image, nginx.conf, nginx -g 'daemon off;' command, port 8080, and GET / probe.
+Verification: open /dashboard directly at the original HTTPS origin; confirm "Task list on Sealos" and the existing "Runtime proof from Sealos" Task; add "Verify the update" and confirm both Tasks remain after refresh; check the new JavaScript asset and the CSS response.
+```
+
+Review the plan and confirm that it targets the saved application. After the
+update, refresh the original `/dashboard` URL and check the new heading. Add
+`Verify the update`, refresh again, and confirm that both Tasks remain visible.
+Reload the **Network** panel and confirm that the updated JavaScript and CSS
+load successfully.
