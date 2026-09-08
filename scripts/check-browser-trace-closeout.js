@@ -7,8 +7,7 @@ const { execFileSync } = require('child_process');
 const TRACE_GATE = 'PHASE9_RUN_BROWSER_TRACE';
 const BASE_URL_ENV = 'PHASE9_BROWSER_TRACE_BASE_URL';
 const ADAPTER_ENV = 'PHASE9_BROWSER_TRACE_ADAPTER';
-const ARTIFACT_DIR =
-  '.planning/phases/13-validation-closeout-and-audit-status/browser-traces';
+const ARTIFACT_DIR = 'build/browser-traces';
 
 const DEFAULT_ROUTE_FIXTURES = [
   {
