@@ -45,22 +45,15 @@ export function getTutorialStageLabel(stage: TutorialStage): string {
   return STAGE_LABELS[stage] ?? stage;
 }
 
-export function getTutorialSlug(page: TutorialPage): string {
-  return page.slugs.join('/');
-}
-
 export function getTutorialPage(
-  slug: string | string[],
-  lang: string = TUTORIAL_DETAIL_LANG,
+  slug: string[],
+  lang: string,
 ): TutorialPage | undefined {
   if (lang !== TUTORIAL_DETAIL_LANG) return undefined;
-  const segments = Array.isArray(slug) ? slug : slug.split('/').filter(Boolean);
-  return tutorials.getPage(segments, TUTORIAL_DETAIL_LANG) ?? undefined;
+  return tutorials.getPage(slug, TUTORIAL_DETAIL_LANG) ?? undefined;
 }
 
-export function getSortedTutorials(lang: string = TUTORIAL_DETAIL_LANG) {
-  if (lang !== TUTORIAL_DETAIL_LANG) return [];
-
+export function getSortedTutorials() {
   return [...tutorials.getPages(TUTORIAL_DETAIL_LANG)].sort((a, b) => {
     const frameworkCompare = a.data.framework.localeCompare(b.data.framework);
     if (frameworkCompare !== 0) return frameworkCompare;
@@ -69,7 +62,7 @@ export function getSortedTutorials(lang: string = TUTORIAL_DETAIL_LANG) {
 }
 
 export function toTutorialSummary(page: TutorialPage): TutorialSummary {
-  const slug = getTutorialSlug(page);
+  const slug = page.slugs.join('/');
   return {
     title: page.data.title,
     description: page.data.description,
