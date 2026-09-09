@@ -13,12 +13,8 @@ export interface TutorialSummary {
   stage: TutorialStage;
   stageLabel: string;
   framework: string;
-  seriesOrder: number;
+  runtime: string;
   estimatedReadingTime?: string;
-  cta: {
-    label: string;
-    href: string;
-  };
 }
 
 export interface AdjacentTutorial {
@@ -39,45 +35,44 @@ const STAGE_LABELS: Record<TutorialStage, string> = {
   production: 'Production',
 };
 
+const STAGE_ORDER: Record<TutorialStage, number> = {
+  beginner: 1,
+  advanced: 2,
+  production: 3,
+};
+
 export function getTutorialStageLabel(stage: TutorialStage): string {
   return STAGE_LABELS[stage] ?? stage;
 }
 
-export function getTutorialSlug(page: TutorialPage): string {
-  return page.slugs[0] ?? '';
-}
-
 export function getTutorialPage(
-  slug: string,
-  lang: string = TUTORIAL_DETAIL_LANG,
+  slug: string[],
+  lang: string,
 ): TutorialPage | undefined {
   if (lang !== TUTORIAL_DETAIL_LANG) return undefined;
-  return tutorials.getPage([slug], TUTORIAL_DETAIL_LANG) ?? undefined;
+  return tutorials.getPage(slug, TUTORIAL_DETAIL_LANG) ?? undefined;
 }
 
-export function getSortedTutorials(lang: string = TUTORIAL_DETAIL_LANG) {
-  if (lang !== TUTORIAL_DETAIL_LANG) return [];
-
+export function getSortedTutorials() {
   return [...tutorials.getPages(TUTORIAL_DETAIL_LANG)].sort((a, b) => {
-    const seriesCompare = a.data.series.localeCompare(b.data.series);
-    if (seriesCompare !== 0) return seriesCompare;
-    return a.data.seriesOrder - b.data.seriesOrder;
+    const frameworkCompare = a.data.framework.localeCompare(b.data.framework);
+    if (frameworkCompare !== 0) return frameworkCompare;
+    return STAGE_ORDER[a.data.stage] - STAGE_ORDER[b.data.stage];
   });
 }
 
 export function toTutorialSummary(page: TutorialPage): TutorialSummary {
-  const slug = getTutorialSlug(page);
+  const slug = page.slugs.join('/');
   return {
     title: page.data.title,
     description: page.data.description,
-    url: `/tutorials/${slug}`,
+    url: page.data.slug,
     slug,
     stage: page.data.stage,
     stageLabel: getTutorialStageLabel(page.data.stage),
     framework: page.data.framework,
-    seriesOrder: page.data.seriesOrder,
+    runtime: page.data.runtime,
     estimatedReadingTime: page.data.estimatedReadingTime,
-    cta: page.data.cta,
   };
 }
 
@@ -85,33 +80,32 @@ function toAdjacentTutorial(
   page: TutorialPage | undefined,
 ): AdjacentTutorial | undefined {
   if (!page) return undefined;
-  return { name: page.data.title, url: `/tutorials/${getTutorialSlug(page)}` };
+  return { name: page.data.title, url: page.data.slug };
 }
 
 export function getAdjacentTutorials(page: TutorialPage): AdjacentTutorials {
-  const series = getSortedTutorials().filter(
-    (candidate) => candidate.data.series === page.data.series,
+  const pages = getSortedTutorials();
+  const previous = pages.find(
+    (candidate) => candidate.data.next === page.data.slug,
   );
-  const index = series.findIndex(
-    (candidate) => getTutorialSlug(candidate) === getTutorialSlug(page),
+  const next = pages.find(
+    (candidate) => candidate.data.slug === page.data.next,
   );
 
   return {
-    previous: toAdjacentTutorial(index > 0 ? series[index - 1] : undefined),
-    next: toAdjacentTutorial(
-      index >= 0 && index < series.length - 1 ? series[index + 1] : undefined,
-    ),
+    previous: toAdjacentTutorial(previous),
+    next: toAdjacentTutorial(next),
   };
 }
 
 export function getRelatedTutorials(page: TutorialPage): TutorialSummary[] {
   const allTutorials = getSortedTutorials();
-  const bySlug = new Map(
-    allTutorials.map((candidate) => [getTutorialSlug(candidate), candidate]),
+  const byPath = new Map(
+    allTutorials.map((candidate) => [candidate.data.slug, candidate]),
   );
 
-  return page.data.relatedTutorials
-    .map((slug) => bySlug.get(slug))
+  return page.data.related
+    .map((path) => byPath.get(path))
     .filter((candidate): candidate is TutorialPage => Boolean(candidate))
     .map(toTutorialSummary);
 }
@@ -119,10 +113,10 @@ export function getRelatedTutorials(page: TutorialPage): TutorialSummary[] {
 export function getTutorialKeywords(page: TutorialPage): string[] {
   return Array.from(
     new Set([
-      page.data.primaryKeyword,
-      ...page.data.targetKeywords,
+      page.data.title,
       ...page.data.tags,
       page.data.framework,
+      `${page.data.framework} deployment`,
       'Sealos Tutorials',
     ]),
   );

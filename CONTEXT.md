@@ -5,17 +5,49 @@ website attribution, and competitor acquisition work.
 
 ## Language
 
-**Framework Tutorial Series**:
-A three-page learning path for one framework: beginner deployment, PostgreSQL
-integration, and production deployment.
-_Avoid_: Tutorial bundle, article set
+**Framework Tutorial Path**:
+A framework-specific learning path that starts with a Core Deployment Tutorial
+and can extend into database, production, and task-specific tutorials.
+_Avoid_: Tutorial bundle, fixed three-page series
 
-**FastAPI Series**:
-The Framework Tutorial Series whose framework is FastAPI.
+**Core Deployment Tutorial**:
+The primary framework tutorial that takes a reader from a local application to
+a verified public deployment on Sealos.
+_Avoid_: Beginner article, deployment landing page
+
+**Tutorial Detail Shell**:
+The shared page structure for tutorial title, outcome summary, entry paths,
+article body, table of contents, navigation, and structured data.
+_Avoid_: Tutorial hero, article wrapper
+
+**Dual-Entry Tutorial Flow**:
+The two visible starting paths in a Core Deployment Tutorial: build the
+reference application from scratch or continue with an existing application.
+_Avoid_: Beginner mode, expert mode
+
+**Existing-Project Compatibility Checkpoint**:
+The section where readers with an existing application verify required files,
+settings, runtime behavior, and deployment assumptions before joining the main
+deployment flow.
+_Avoid_: Existing app shortcut, skip section
+
+**Public Tutorial Frontmatter**:
+Reader-facing content facts stored with an MDX tutorial, including its canonical
+path, framework, runtime, publication dates, reading time, navigation, FAQ, and
+HowTo data.
+_Avoid_: Editorial workflow metadata, keyword scorecard
+
+**Tutorial Operations Data**:
+Internal planning and production state such as target queries, search demand,
+workflow status, and evidence tracking. It lives outside published MDX.
+_Avoid_: Public tutorial metadata
+
+**FastAPI Path**:
+The Framework Tutorial Path whose framework is FastAPI.
 _Avoid_: Python API series
 
-**Django Series**:
-The Framework Tutorial Series whose framework is Django.
+**Django Path**:
+The Framework Tutorial Path whose framework is Django.
 _Avoid_: Python web series
 
 **Practice Evidence**:
@@ -23,32 +55,66 @@ Build, deployment, runtime, and browser results captured from an actual tutorial
 workflow and used as the source for tutorial screenshots.
 _Avoid_: Mock output, illustrative proof
 
+**Expected Result Visual**:
+A screenshot of an actual product or application state that helps readers
+recognize a completed tutorial step. Core Deployment Tutorials show both the
+healthy Sealos project and the public application's verified task result.
+_Avoid_: Decorative screenshot, generated product mockup
+
+**Branded Screenshot Frame**:
+The Sealos presentation surrounding an unchanged product or application
+capture, giving tutorial images a consistent visual identity.
+_Avoid_: Interface redesign, screenshot annotation
+
 **Reference Application**:
 A concrete framework-native application that remains consistent throughout one
 Framework Tutorial Series.
 _Avoid_: Demo app, sample project
 
-**Task Board**:
-The Django Reference Application with a rendered task creation and listing
-workflow plus the framework-native administration entry point.
+**Django Task App**:
+The Django Reference Application with a task creation and listing workflow plus
+the framework-native administration entry point.
 _Avoid_: Django demo, Django sample app
 
-**Available Framework Path**:
-A Framework Tutorial Series whose three pages have passed source, asset,
-catalog, production build, and public route acceptance and are linked from the
-tutorial framework matrix.
+**Tutorial Opportunity**:
+A framework and launch-job pair, such as Django Deploy or Django PostgreSQL,
+whose demand and production readiness are evaluated independently in the
+operational Tutorial Matrix.
+_Avoid_: Framework-wide availability, tutorial bundle
+
+**Tutorial Matrix**:
+The operational inventory of independently qualified tutorial URL candidates,
+demand evidence, priority, technical scope, and production state. It lives
+outside the public website.
+_Avoid_: Public tutorial directory, fixed framework-stage grid
+
+**Available Tutorial Opportunity**:
+A Tutorial Opportunity whose published page has passed source, asset, catalog,
+production build, and public route acceptance and is linked from the Tutorial
+Catalog.
 _Avoid_: Published framework badge, enabled framework
+
+**Retired Tutorial**:
+Removed public content whose former canonical URL has an intentional reader
+handoff to the qualified published tutorial.
+_Avoid_: Planned tutorial, deleted URL
 
 **Tutorial Publication Gate**:
 The combined source, catalog, validator, static HTTP, image, and cleanup
-acceptance required before a Framework Tutorial Series becomes an Available
-Framework Path.
+acceptance required before a Tutorial Opportunity becomes an Available Tutorial
+Opportunity.
 _Avoid_: Content check, release smoke
 
 **Static Tutorial Surface**:
 The exported tutorial index, tutorial detail routes, and public evidence assets
 served to readers from the production static build.
 _Avoid_: Build output files, generated pages
+
+**Tutorial Catalog**:
+The public `/tutorials/` page that lists published Core Deployment Tutorials
+and their published extensions. It adds Runtime Hub grouping when the published
+inventory supports useful groups and provides one tutorial request entry.
+_Avoid_: Tutorial Matrix, production roadmap, planned URL inventory
 
 ## Website Attribution Language
 

@@ -4,6 +4,10 @@ This report is the durable v1 performance audit ledger. Later phases append
 evidence, findings, validation results, and remediation ordering here so shared
 mechanisms are grouped once.
 
+Planning records were removed on 2026-09-09. References to `.planning/` below
+describe historical evidence preserved in [Git history](https://github.com/yangchuansheng/sealos.io/tree/4f737b6bbe53221ce16e45aa9b0b17f21d88fd95/.planning).
+Browser trace artifacts now use the ignored `build/browser-traces/` directory.
+
 ## Audit Status
 
 | Field | Value |
@@ -13,7 +17,7 @@ mechanisms are grouped once.
 | Phase status | Phase 13 v2 closeout records browser trace guard evidence, final v2 status matrix, and open-gate caveats |
 | Scope | Full-codebase performance audit across source, content, assets, build, and deployment surfaces |
 | Durable artifact | `docs/performance-audit.md` |
-| Planning source | `.planning/phases/01-audit-ledger-and-module-inventory/01-CONTEXT.md` |
+| Planning source | Historical `.planning/` records in Git history, linked above |
 | Requirements covered | LEDGER-01, LEDGER-02, LEDGER-03, LEDGER-04, APPPIPE-01, APPPIPE-02, APPPIPE-03, APPPIPE-04, APPPIPE-05, ROUTE-01, ROUTE-02, CONTENT-01, CONTENT-02, CONTENT-03, CONTENT-04, HOTSPOT-01, HOTSPOT-02, HOTSPOT-03, HOTSPOT-04, FRONTEND-01, FRONTEND-02, FRONTEND-03, FRONTEND-04, FRONTEND-05, ASSET-01, ASSET-02, DEPS-01, DEPS-02, DEPLOY-01, DEPLOY-02, VERIFY-01, VERIFY-02, VERIFY-03 |
 | Inventory coverage | 21 module rows across required repository surfaces |
 | Source inventory count | 3886 files from `rg --files app components new-components config content hooks lib scripts public assets fonts .github/workflows` |

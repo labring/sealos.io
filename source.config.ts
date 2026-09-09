@@ -76,16 +76,18 @@ export const tutorials = defineCollections({
     updated: z.string().date().or(z.date()).optional(),
     stage: z.enum(['beginner', 'advanced', 'production']),
     framework: z.string(),
-    series: z.string(),
-    seriesOrder: z.number(),
+    runtime: z.string(),
+    slug: z.string().regex(/^\/tutorials\/(?:[^/]+\/)+$/),
+    sidebar_title: z.string(),
     estimatedReadingTime: z.string().optional(),
-    primaryKeyword: z.string(),
-    targetKeywords: z.array(z.string()).default([]),
-    relatedTutorials: z.array(z.string()).default([]),
-    cta: z.object({
-      label: z.string(),
-      href: z.string(),
-    }),
+    related: z.array(z.string()).default([]),
+    next: z.string().optional(),
+    entrypoints: z
+      .object({
+        from_scratch: z.string().startsWith('#'),
+        existing_project: z.string().startsWith('#'),
+      })
+      .optional(),
   }),
 });
 

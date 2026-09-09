@@ -24,6 +24,36 @@ https://sealos.run/en/* https://sealos.io/:splat 302
 /robots.txt /api/robots 200
 
 # Vercel redirect parity
+/tutorials/deploy-django-sealos /tutorials/django/deploy/ 308
+/tutorials/deploy-django-sealos/ /tutorials/django/deploy/ 308
+/tutorials/django-postgresql-sealos /tutorials/django/deploy/ 308
+/tutorials/django-postgresql-sealos/ /tutorials/django/deploy/ 308
+/tutorials/django-production-deployment-sealos /tutorials/django/deploy/ 308
+/tutorials/django-production-deployment-sealos/ /tutorials/django/deploy/ 308
+/tutorials/deploy-fastapi-sealos /tutorials/ 308
+/tutorials/deploy-fastapi-sealos/ /tutorials/ 308
+/tutorials/fastapi-postgresql-sealos /tutorials/ 308
+/tutorials/fastapi-postgresql-sealos/ /tutorials/ 308
+/tutorials/fastapi-production-deployment-sealos /tutorials/ 308
+/tutorials/fastapi-production-deployment-sealos/ /tutorials/ 308
+/tutorials/deploy-nextjs-sealos /tutorials/ 308
+/tutorials/deploy-nextjs-sealos/ /tutorials/ 308
+/tutorials/nextjs-postgresql-sealos /tutorials/ 308
+/tutorials/nextjs-postgresql-sealos/ /tutorials/ 308
+/tutorials/nextjs-production-deployment-sealos /tutorials/ 308
+/tutorials/nextjs-production-deployment-sealos/ /tutorials/ 308
+/tutorials/deploy-nodejs-sealos /tutorials/ 308
+/tutorials/deploy-nodejs-sealos/ /tutorials/ 308
+/tutorials/nodejs-postgresql-sealos /tutorials/ 308
+/tutorials/nodejs-postgresql-sealos/ /tutorials/ 308
+/tutorials/nodejs-production-deployment-sealos /tutorials/ 308
+/tutorials/nodejs-production-deployment-sealos/ /tutorials/ 308
+/tutorials/deploy-react-sealos /tutorials/ 308
+/tutorials/deploy-react-sealos/ /tutorials/ 308
+/tutorials/react-postgresql-sealos /tutorials/ 308
+/tutorials/react-postgresql-sealos/ /tutorials/ 308
+/tutorials/react-production-deployment-sealos /tutorials/ 308
+/tutorials/react-production-deployment-sealos/ /tutorials/ 308
 /products/app-store/lobe-chat /products/app-store/lobehub/ 308
 /products/app-store/lobe-chat/ /products/app-store/lobehub/ 308
 /products/app-store/lobe-chat-db /products/app-store/lobehub/ 308

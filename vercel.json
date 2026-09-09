@@ -21,6 +21,156 @@
   ],
   "redirects": [
     {
+      "source": "/tutorials/deploy-django-sealos",
+      "destination": "/tutorials/django/deploy/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/deploy-django-sealos/",
+      "destination": "/tutorials/django/deploy/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/django-postgresql-sealos",
+      "destination": "/tutorials/django/deploy/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/django-postgresql-sealos/",
+      "destination": "/tutorials/django/deploy/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/django-production-deployment-sealos",
+      "destination": "/tutorials/django/deploy/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/django-production-deployment-sealos/",
+      "destination": "/tutorials/django/deploy/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/deploy-fastapi-sealos",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/deploy-fastapi-sealos/",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/fastapi-postgresql-sealos",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/fastapi-postgresql-sealos/",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/fastapi-production-deployment-sealos",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/fastapi-production-deployment-sealos/",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/deploy-nextjs-sealos",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/deploy-nextjs-sealos/",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/nextjs-postgresql-sealos",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/nextjs-postgresql-sealos/",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/nextjs-production-deployment-sealos",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/nextjs-production-deployment-sealos/",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/deploy-nodejs-sealos",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/deploy-nodejs-sealos/",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/nodejs-postgresql-sealos",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/nodejs-postgresql-sealos/",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/nodejs-production-deployment-sealos",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/nodejs-production-deployment-sealos/",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/deploy-react-sealos",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/deploy-react-sealos/",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/react-postgresql-sealos",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/react-postgresql-sealos/",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/react-production-deployment-sealos",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
+      "source": "/tutorials/react-production-deployment-sealos/",
+      "destination": "/tutorials/",
+      "permanent": true
+    },
+    {
       "source": "/products/app-store/lobe-chat",
       "destination": "/products/app-store/lobehub/",
       "permanent": true
