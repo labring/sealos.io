@@ -10,7 +10,7 @@ import {
   ChevronRight,
   Star,
 } from 'lucide-react';
-import { languagesType } from '@/lib/i18n';
+import { getLanguageSlug, type languagesType } from '@/lib/i18n';
 import AppStoreStatePanel from '@/app/[lang]/products/app-store/components/app-store-state-panel';
 import { AppIcon } from '@/components/ui/app-icon';
 import { getTemplateName, type AppConfig } from '@/config/apps-loader';
@@ -97,7 +97,7 @@ function AppCard({
       style={{ animationDelay: `${Math.min(index, 11) * 35}ms` }}
     >
       <a
-        href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
+        href={`${getLanguageSlug(lang)}/products/app-store/${app.slug.toLowerCase()}/`}
         className="focus-visible:ring-offset-background relative block h-[135px] overflow-hidden focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none"
         aria-label={`View ${app.name} details`}
       >
@@ -146,7 +146,7 @@ function AppCard({
       <div className="flex flex-1 flex-col gap-5 px-5 py-4">
         <div className="flex items-start gap-3">
           <a
-            href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
+            href={`${getLanguageSlug(lang)}/products/app-store/${app.slug.toLowerCase()}/`}
             className="focus-visible:ring-offset-background flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-zinc-100 shadow-sm transition duration-200 group-hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]"
             aria-label={`View ${app.name} details`}
           >
@@ -163,7 +163,7 @@ function AppCard({
           <div className="min-w-0 flex-1">
             <div className="flex min-w-0 items-center justify-between gap-3">
               <a
-                href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
+                href={`${getLanguageSlug(lang)}/products/app-store/${app.slug.toLowerCase()}/`}
                 className="focus-visible:ring-offset-background truncate text-base font-semibold text-zinc-100 transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none"
               >
                 {app.name}

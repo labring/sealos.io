@@ -1,4 +1,22 @@
 {
+  "7daystodie": [
+    {
+      "description": "Private server name shown in the game.",
+      "type": "string",
+      "default": "Sealos 7 Days to Die",
+      "required": true,
+      "key": "server_name",
+      "label": "server_name"
+    },
+    {
+      "description": "Maximum concurrent players, from 1 to 8. Increase resources for larger groups.",
+      "type": "number",
+      "default": "4",
+      "required": true,
+      "key": "max_players",
+      "label": "max_players"
+    }
+  ],
   "reactive-resume": [
     {
       "description": "Storage size for minio in Gi",
@@ -114,17 +132,15 @@
   ],
   "airbyte": [
     {
-      "description": "Initial Airbyte admin username.",
+      "description": "Initial Airbyte admin email address.",
       "type": "string",
-      "default": "admin",
       "required": true,
-      "key": "auth_admin_username",
-      "label": "auth_admin_username"
+      "key": "auth_admin_email",
+      "label": "auth_admin_email"
     },
     {
       "description": "Initial Airbyte admin password.",
       "type": "string",
-      "default": "bmxkujyckqgrppidrxejjmqm",
       "required": true,
       "key": "auth_admin_password",
       "label": "auth_admin_password"
@@ -162,10 +178,9 @@
       "label": "vector_database"
     },
     {
-      "description": "Single-user password for the application. Leave empty to complete onboarding without password protection first.",
+      "description": "Single-user password used to sign in to AnythingLLM.",
       "type": "string",
-      "default": "",
-      "required": false,
+      "required": true,
       "key": "auth_token",
       "label": "auth_token"
     },
@@ -178,14 +193,6 @@
       "label": "openai_api_key"
     },
     {
-      "description": "External PostgreSQL connection string with the pgvector extension enabled.",
-      "type": "string",
-      "default": "",
-      "required": false,
-      "key": "pgvector_connection_string",
-      "label": "pgvector_connection_string"
-    },
-    {
       "description": "Table name used by AnythingLLM for PGVector embeddings.",
       "type": "string",
       "default": "anythingllm_vectors",
@@ -196,89 +203,18 @@
   ],
   "apitable": [
     {
-      "description": "S3-compatible storage backend for APITable attachments, images, and uploads.",
-      "type": "choice",
-      "default": "sealos-objectstorage",
-      "required": true,
-      "options": [
-        "sealos-objectstorage",
-        "external-s3"
-      ],
-      "key": "apitable_s3_provider",
-      "label": "apitable_s3_provider"
-    },
-    {
-      "description": "External S3-compatible API endpoint, for example https://s3.amazonaws.com or https://s3.example.com.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "if": "inputs.apitable_s3_provider === 'external-s3'",
-      "key": "external_s3_endpoint",
-      "label": "external_s3_endpoint"
-    },
-    {
-      "description": "Public S3-compatible endpoint used in generated asset URLs.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "if": "inputs.apitable_s3_provider === 'external-s3'",
-      "key": "external_s3_public_endpoint",
-      "label": "external_s3_public_endpoint"
-    },
-    {
-      "description": "Access key for the external S3-compatible bucket.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "if": "inputs.apitable_s3_provider === 'external-s3'",
-      "key": "external_s3_access_key",
-      "label": "external_s3_access_key"
-    },
-    {
-      "description": "Secret key for the external S3-compatible bucket.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "if": "inputs.apitable_s3_provider === 'external-s3'",
-      "key": "external_s3_secret_key",
-      "label": "external_s3_secret_key"
-    },
-    {
-      "description": "Existing external S3-compatible bucket name.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "if": "inputs.apitable_s3_provider === 'external-s3'",
-      "key": "external_s3_bucket",
-      "label": "external_s3_bucket"
-    },
-    {
-      "description": "Region for the external S3-compatible bucket.",
-      "type": "string",
-      "default": "us-east-1",
-      "required": true,
-      "if": "inputs.apitable_s3_provider === 'external-s3'",
-      "key": "external_s3_region",
-      "label": "external_s3_region"
+      "description": "Use the Sealos ObjectStorage bucket for APITable attachments, images, and uploads.",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "key": "use_sealos_objectstorage",
+      "label": "use_sealos_objectstorage"
     }
   ],
   "appflowy": [
     {
-      "description": "File storage backend for uploads, imports, and collaboration snapshots.",
-      "type": "choice",
-      "default": "sealos-objectstorage",
-      "required": true,
-      "options": [
-        "sealos-objectstorage",
-        "external-s3"
-      ],
-      "key": "appflowy_s3_provider",
-      "label": "appflowy_s3_provider"
-    },
-    {
       "description": "Bootstrap admin email for GoTrue service administration. Use AppFlowy Web registration for workspace login.",
       "type": "string",
-      "default": "admin@example.com",
       "required": true,
       "key": "gotrue_admin_email",
       "label": "gotrue_admin_email"
@@ -286,64 +222,9 @@
     {
       "description": "Bootstrap admin password for GoTrue service administration. This is not the recommended AppFlowy Web login account.",
       "type": "string",
-      "default": "",
       "required": true,
       "key": "gotrue_admin_password",
       "label": "gotrue_admin_password"
-    },
-    {
-      "description": "External S3-compatible API endpoint, for example https://s3.amazonaws.com or https://s3.example.com.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "if": "inputs.appflowy_s3_provider === 'external-s3'",
-      "key": "external_s3_endpoint",
-      "label": "external_s3_endpoint"
-    },
-    {
-      "description": "Public endpoint used in generated presigned URLs. Leave equal to external_s3_endpoint unless clients need a different URL.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "if": "inputs.appflowy_s3_provider === 'external-s3'",
-      "key": "external_s3_public_endpoint",
-      "label": "external_s3_public_endpoint"
-    },
-    {
-      "description": "Access key for the external S3-compatible bucket.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "if": "inputs.appflowy_s3_provider === 'external-s3'",
-      "key": "external_s3_access_key",
-      "label": "external_s3_access_key"
-    },
-    {
-      "description": "Secret key for the external S3-compatible bucket.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "if": "inputs.appflowy_s3_provider === 'external-s3'",
-      "key": "external_s3_secret_key",
-      "label": "external_s3_secret_key"
-    },
-    {
-      "description": "Existing external S3-compatible bucket name.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "if": "inputs.appflowy_s3_provider === 'external-s3'",
-      "key": "external_s3_bucket",
-      "label": "external_s3_bucket"
-    },
-    {
-      "description": "Region for the external S3-compatible bucket.",
-      "type": "string",
-      "default": "us-east-1",
-      "required": true,
-      "if": "inputs.appflowy_s3_provider === 'external-s3'",
-      "key": "external_s3_region",
-      "label": "external_s3_region"
     }
   ],
   "appsmith": [],
@@ -367,7 +248,17 @@
       "label": "artalk_storage"
     }
   ],
-  "authentik": [],
+  "authentik": [
+    {
+      "description": "Create a private Sealos bucket for Authentik media and uploaded files",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_external_files",
+      "label": "enable_external_files"
+    }
+  ],
+  "bentopdf": [],
   "billionmail": [
     {
       "description": "Initial BillionMail administrator username",
@@ -412,17 +303,15 @@
   ],
   "budibase": [
     {
-      "description": "Admin email address",
+      "description": "Initial administrator email address. Use this email to sign in after deployment.",
       "type": "string",
-      "default": "",
       "required": true,
       "key": "admin_email",
       "label": "admin_email"
     },
     {
-      "description": "Admin password (minimum 8 characters)",
+      "description": "Initial administrator password. Use at least 8 characters.",
       "type": "string",
-      "default": "",
       "required": true,
       "key": "admin_password",
       "label": "admin_password"
@@ -492,7 +381,7 @@
     {
       "description": "BunkerWeb Web UI administrator password. Leave the generated default or use at least 8 characters with uppercase, lowercase, number, and special character.",
       "type": "string",
-      "default": "BunkerWeb@gaunuujjeooweguc!1",
+      "default": "BunkerWeb@qcaubkurnjxizfgi!1",
       "required": true,
       "key": "admin_password",
       "label": "admin_password"
@@ -692,8 +581,116 @@
       "label": "OPENAI_API_KEY"
     }
   ],
+  "chatgpt-next-web": [
+    {
+      "description": "OpenAI API keys, separated by commas when multiple keys should be rotated.",
+      "type": "string",
+      "default": "",
+      "required": true,
+      "key": "OPENAI_API_KEY",
+      "label": "OPENAI_API_KEY"
+    },
+    {
+      "description": "Required access passwords for the web UI, separated by commas when multiple passwords are allowed.",
+      "type": "string",
+      "default": "dbwuwntmuskndzni",
+      "required": true,
+      "key": "CODE",
+      "label": "CODE"
+    },
+    {
+      "description": "OpenAI-compatible API base URL for proxies or self-hosted endpoints.",
+      "type": "string",
+      "default": "https://api.openai.com",
+      "required": false,
+      "key": "BASE_URL",
+      "label": "BASE_URL"
+    },
+    {
+      "description": "OpenAI organization ID.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "OPENAI_ORG_ID",
+      "label": "OPENAI_ORG_ID"
+    },
+    {
+      "description": "Set to 1 to hide the user-provided API key field in the UI.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "HIDE_USER_API_KEY",
+      "label": "HIDE_USER_API_KEY"
+    },
+    {
+      "description": "Set to 1 to disable GPT-4 model options.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "DISABLE_GPT4",
+      "label": "DISABLE_GPT4"
+    },
+    {
+      "description": "Set to 1 to enable balance query features.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "ENABLE_BALANCE_QUERY",
+      "label": "ENABLE_BALANCE_QUERY"
+    },
+    {
+      "description": "Azure OpenAI deployment URL.",
+      "type": "string",
+      "default": "https://{azure-resource-url}/openai/deployments/{deploy-name}",
+      "required": false,
+      "key": "AZURE_URL",
+      "label": "AZURE_URL"
+    },
+    {
+      "description": "Azure OpenAI API key.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "AZURE_API_KEY",
+      "label": "AZURE_API_KEY"
+    },
+    {
+      "description": "Azure OpenAI API version.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "AZURE_API_VERSION",
+      "label": "AZURE_API_VERSION"
+    }
+  ],
+  "chatgpt-on-wechat": [
+    {
+      "description": "Password used to access the CowAgent web console.",
+      "type": "string",
+      "required": true,
+      "key": "WEB_PASSWORD",
+      "label": "WEB_PASSWORD"
+    }
+  ],
   "chatnio": [],
-  "chatwoot": [],
+  "chatwoot": [
+    {
+      "description": "Allow account registration from the Chatwoot login page. Disable it after creating the required accounts.",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "key": "enable_account_signup",
+      "label": "enable_account_signup"
+    },
+    {
+      "description": "Store attachments in a private Sealos ObjectStorageBucket. Clear stores attachments on shared persistent local storage.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
+    }
+  ],
   "chrome": [
     {
       "description": "Chrome startup URL or CLI flags passed to the browser process.",
@@ -710,6 +707,24 @@
       "required": false,
       "key": "custom_user",
       "label": "custom_user"
+    }
+  ],
+  "clouisle": [
+    {
+      "description": "Store uploads in a private Sealos ObjectStorageBucket. Clear keeps uploads on shared persistent local storage.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
+    },
+    {
+      "description": "Enable the Bubblewrap sandbox worker in a workspace that permits Unconfined seccomp or provides an equivalent Localhost profile.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_sandbox",
+      "label": "enable_sandbox"
     }
   ],
   "cobalt": [
@@ -748,9 +763,8 @@
   ],
   "code-server": [
     {
-      "description": "Access Password",
+      "description": "Password for code-server login",
       "type": "string",
-      "default": "sealos123",
       "required": true,
       "key": "PASSWORD",
       "label": "PASSWORD"
@@ -760,21 +774,28 @@
     {
       "description": "the API Key for Ark API Key",
       "type": "string",
-      "default": "",
-      "required": false,
+      "required": true,
       "key": "api_key",
       "label": "api_key"
     },
     {
       "description": "the Model ID or Endpoint ID of Ark",
       "type": "string",
-      "default": "",
-      "required": false,
+      "required": true,
       "key": "model_id",
       "label": "model_id"
     }
   ],
-  "crawl4ai": [],
+  "crawl4ai": [
+    {
+      "description": "API token required to access Crawl4AI Playground, Dashboard, and protected API endpoints.",
+      "type": "string",
+      "default": "Crawl4AI@nkppzmuvyczpqzwvyaawsnan!1",
+      "required": true,
+      "key": "api_token",
+      "label": "api_token"
+    }
+  ],
   "cronicle": [],
   "dbgate": [
     {
@@ -828,19 +849,25 @@
   ],
   "dify": [
     {
-      "description": "admin init password",
+      "description": "Initial administrator password for the first Dify setup screen.",
       "type": "string",
-      "default": "",
       "required": true,
       "key": "init_password",
       "label": "init_password"
+    },
+    {
+      "description": "Enable Sealos Object Storage for Dify uploaded files and plugin packages.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
     }
   ],
   "directus": [
     {
       "description": "Initial administrator email address",
       "type": "string",
-      "default": "",
       "required": true,
       "key": "admin_email",
       "label": "admin_email"
@@ -848,10 +875,17 @@
     {
       "description": "Initial administrator password",
       "type": "string",
-      "default": "",
       "required": true,
       "key": "admin_password",
       "label": "admin_password"
+    },
+    {
+      "description": "Use a managed PostgreSQL database instead of embedded SQLite",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "key": "use_postgresql",
+      "label": "use_postgresql"
     },
     {
       "description": "Use S3-compatible object storage for uploaded files",
@@ -863,7 +897,16 @@
     }
   ],
   "docker-stacks": [],
-  "docuseal": [],
+  "docuseal": [
+    {
+      "description": "Create a private Sealos bucket for uploaded attachments",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_external_files",
+      "label": "enable_external_files"
+    }
+  ],
   "dolibarr": [
     {
       "description": "Dolibarr administrator username created during first boot.",
@@ -917,7 +960,27 @@
       "label": "masterpass"
     }
   ],
-  "eaglercraft-server": [],
+  "eaglercraft-server": [
+    {
+      "description": "Minecraft server version. Choose 1.12 for Paper 1.12.2 or 1.8 for Paper 1.8.8.",
+      "type": "choice",
+      "default": "1.12",
+      "required": true,
+      "options": [
+        "1.12",
+        "1.8"
+      ],
+      "key": "minecraft_version",
+      "label": "minecraft_version"
+    },
+    {
+      "description": "Non-empty RCON password for admin login and server commands. Use a single-line password.",
+      "type": "string",
+      "required": true,
+      "key": "rcon_password",
+      "label": "rcon_password"
+    }
+  ],
   "edgequake": [
     {
       "description": "LLM provider name, such as openai, mistral, anthropic, gemini, ollama, or mock.",
@@ -960,7 +1023,24 @@
       "label": "RUST_LOG"
     }
   ],
-  "elasticsearch": [],
+  "elasticsearch": [
+    {
+      "description": "Username for HTTP Basic Auth on the public Elasticsearch REST endpoint.",
+      "type": "string",
+      "default": "elastic",
+      "required": true,
+      "key": "auth_username",
+      "label": "auth_username"
+    },
+    {
+      "description": "Password for HTTP Basic Auth on the public Elasticsearch REST endpoint.",
+      "type": "string",
+      "default": "uxvubbarfgddojehephqireb",
+      "required": true,
+      "key": "auth_password",
+      "label": "auth_password"
+    }
+  ],
   "emqx": [
     {
       "description": "Number of EMQX broker replicas.",
@@ -973,7 +1053,7 @@
     {
       "description": "Initial EMQX Dashboard admin password. Change it after first login.",
       "type": "string",
-      "default": "pmjqulvopioyoeaa",
+      "default": "iqusoofjcnswzobk",
       "required": true,
       "key": "ADMIN_PASSWORD",
       "label": "ADMIN_PASSWORD"
@@ -1170,11 +1250,35 @@
       "label": "IMPRINT_URL"
     }
   ],
+  "freellmapi": [],
+  "frp": [
+    {
+      "description": "Dashboard login username",
+      "type": "string",
+      "required": true,
+      "key": "dashboard_username",
+      "label": "dashboard_username"
+    },
+    {
+      "description": "Dashboard login password",
+      "type": "string",
+      "required": true,
+      "key": "dashboard_password",
+      "label": "dashboard_password"
+    },
+    {
+      "description": "Shared token used by frpc clients to authenticate with frps",
+      "type": "string",
+      "required": true,
+      "key": "frp_auth_token",
+      "label": "frp_auth_token"
+    }
+  ],
   "full-stack-fastapi": [
     {
       "description": "Backend secret key (JWT signing)",
       "type": "string",
-      "default": "rcdijwyoelgyiugykiobjuyuxjapexux",
+      "default": "wbvpwkqcyzbrzkhkzuabgvcmmessitwf",
       "required": true,
       "key": "SECRET_KEY",
       "label": "SECRET_KEY"
@@ -1236,17 +1340,35 @@
       "label": "SENTRY_DSN"
     }
   ],
+  "fxserver": [],
   "ghost": [
     {
-      "description": "Use S3-compatible object storage through the Ghost storage adapter configuration",
+      "description": "Store Ghost images, media, and files in Sealos object storage",
       "type": "boolean",
       "default": "false",
       "required": false,
-      "key": "use_s3_storage",
-      "label": "use_s3_storage"
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
     }
   ],
-  "gitea": [],
+  "gitea": [
+    {
+      "description": "Use a managed MySQL database instead of embedded SQLite",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "key": "use_external_database",
+      "label": "use_external_database"
+    },
+    {
+      "description": "Store attachments, packages, LFS objects, and archives in Sealos object storage",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
+    }
+  ],
   "glance": [],
   "glitchtip": [
     {
@@ -1276,6 +1398,15 @@
       "label": "DEFAULT_FROM_EMAIL"
     }
   ],
+  "glpi": [
+    {
+      "type": "string",
+      "description": "Required initial GLPI Super-Admin password. Use a long, unique value; line breaks are rejected.",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    }
+  ],
   "grafana": [
     {
       "description": "Enable the managed PostgreSQL database instead of Grafana's default SQLite storage.",
@@ -1294,23 +1425,70 @@
   "happy-server": [],
   "harbor": [
     {
-      "description": "Harbor admin password for initial login.",
+      "description": "Initial password for the Harbor admin account. Use at least 8 characters.",
       "type": "string",
-      "default": "",
       "required": true,
       "key": "harbor_admin_password",
       "label": "harbor_admin_password"
+    },
+    {
+      "description": "Store OCI artifacts in a private Sealos ObjectStorageBucket. Disable this option to use the Registry persistent volume.",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
     }
   ],
-  "hasura": [],
+  "hasura": [
+    {
+      "description": "Admin secret used to open the Hasura Console and authenticate API requests.",
+      "type": "string",
+      "required": true,
+      "key": "admin_secret",
+      "label": "admin_secret"
+    }
+  ],
   "headscale": [
     {
-      "description": "Use PostgreSQL instead of the default embedded SQLite database. Headscale primarily optimizes for SQLite; enable PostgreSQL only when you need an external database.",
+      "description": "Use a managed PostgreSQL database instead of the default SQLite database. Headscale recommends SQLite for new deployments.",
       "type": "boolean",
       "default": "false",
       "required": false,
       "key": "use_postgresql",
       "label": "use_postgresql"
+    }
+  ],
+  "hermes-agent": [
+    {
+      "description": "Username for the externally reachable Hermes dashboard.",
+      "type": "string",
+      "required": true,
+      "key": "dashboard_username",
+      "label": "dashboard_username"
+    },
+    {
+      "description": "Password for the Hermes dashboard. Use a strong password.",
+      "type": "string",
+      "required": true,
+      "key": "dashboard_password",
+      "label": "dashboard_password"
+    },
+    {
+      "description": "Bearer key for the Hermes OpenAI-compatible API server. Defaults to an auto-generated 32-character key; custom values must be at least 16 characters and private.",
+      "type": "string",
+      "default": "mvuqnonlosccfupmeahzoldrbmysqcfo",
+      "required": true,
+      "key": "api_server_key",
+      "label": "api_server_key"
+    },
+    {
+      "description": "Optional OpenAI-compatible model API key used by Hermes chat actions.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "openai_api_key",
+      "label": "openai_api_key"
     }
   ],
   "heyform": [
@@ -1555,17 +1733,15 @@
   "kaneo": [],
   "keycloak": [
     {
-      "description": "Admin username for Keycloak",
+      "description": "Initial Keycloak administrator username",
       "type": "string",
-      "default": "",
       "required": true,
       "key": "admin_username",
       "label": "admin_username"
     },
     {
-      "description": "Admin password for Keycloak",
+      "description": "Initial Keycloak administrator password",
       "type": "string",
-      "default": "",
       "required": true,
       "key": "admin_password",
       "label": "admin_password"
@@ -1619,7 +1795,7 @@
     {
       "description": "Initial administrator password for the Kuvasz web UI. It must be at least 12 characters and different from the username.",
       "type": "string",
-      "default": "mvvfbjzoyhuxtmiygpay",
+      "default": "ggrqgjjpmlwsyftztwgw",
       "required": true,
       "key": "admin_password",
       "label": "admin_password"
@@ -1627,7 +1803,7 @@
     {
       "description": "API key for Kuvasz REST API access.",
       "type": "string",
-      "default": "nrxlemdvqwtbbnpegiljvqieywtpotep",
+      "default": "uxtzvurfiymxohcpogofzkkwujnqfcbr",
       "required": true,
       "key": "admin_api_key",
       "label": "admin_api_key"
@@ -1637,7 +1813,6 @@
     {
       "description": "Initial Langflow superuser username.",
       "type": "string",
-      "default": "admin",
       "required": true,
       "key": "admin_username",
       "label": "admin_username"
@@ -1645,7 +1820,6 @@
     {
       "description": "Initial Langflow superuser password. Use a strong password.",
       "type": "string",
-      "default": "",
       "required": true,
       "key": "admin_password",
       "label": "admin_password"
@@ -1683,14 +1857,6 @@
       "required": false,
       "key": "init_user_password",
       "label": "init_user_password"
-    },
-    {
-      "description": "Use Sealos S3-compatible object storage for Langfuse event and media blobs",
-      "type": "boolean",
-      "default": "true",
-      "required": false,
-      "key": "use_object_storage",
-      "label": "use_object_storage"
     }
   ],
   "librechat": [
@@ -1701,6 +1867,30 @@
       "required": false,
       "key": "OPENAI_REVERSE_PROXY",
       "label": "OPENAI_REVERSE_PROXY"
+    }
+  ],
+  "libredb-studio": [
+    {
+      "description": "Admin email used to sign in after deployment.",
+      "type": "string",
+      "required": true,
+      "key": "admin_email",
+      "label": "admin_email"
+    },
+    {
+      "description": "Admin password used to sign in after deployment. Use at least 8 characters.",
+      "type": "string",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Provision a dedicated Sealos-managed PostgreSQL database for server-side storage.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_postgres_storage",
+      "label": "enable_postgres_storage"
     }
   ],
   "listmonk": [
@@ -1733,7 +1923,7 @@
     {
       "description": "Administrator password for the LiteLLM Admin UI",
       "type": "string",
-      "default": "LiteLLM@dkjjeigrndruunoj!1",
+      "default": "LiteLLM@dzamyzkjnoupoaxg!1",
       "required": true,
       "key": "ui_password",
       "label": "ui_password"
@@ -1765,9 +1955,17 @@
       "label": "anthropic_api_key"
     }
   ],
-  "lobe-chat": [
+  "lobehub": [
     {
-      "description": "This is the API key you apply on the OpenAI account page",
+      "description": "Optional comma-separated email strings or domains allowed to register. This filter does not verify email ownership.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "AUTH_ALLOWED_EMAILS",
+      "label": "AUTH_ALLOWED_EMAILS"
+    },
+    {
+      "description": "Optional OpenAI-compatible API key. Model providers can also be configured after login.",
       "type": "string",
       "default": "",
       "required": false,
@@ -1775,7 +1973,7 @@
       "label": "OPENAI_API_KEY"
     },
     {
-      "description": "If you manually configure the OpenAI interface proxy, you can use this configuration item to override the default OpenAI API request base URL",
+      "description": "OpenAI-compatible API base URL.",
       "type": "string",
       "default": "https://api.openai.com/v1",
       "required": false,
@@ -1783,72 +1981,23 @@
       "label": "OPENAI_PROXY_URL"
     },
     {
-      "description": "Add a password to access this service; you can set a long password to avoid leaking. If this value contains a comma, it is a password array.",
-      "type": "string",
-      "default": "",
-      "required": false,
-      "key": "ACCESS_CODE",
-      "label": "ACCESS_CODE"
-    },
-    {
-      "description": "Used to control the model list. Use + to add a model, - to hide a model, and model_name=display_name to customize the display name of a model, separated by commas.",
+      "description": "Optional comma-separated OpenAI model list.",
       "type": "string",
       "default": "",
       "required": false,
       "key": "OPENAI_MODEL_LIST",
       "label": "OPENAI_MODEL_LIST"
+    },
+    {
+      "description": "Optional external SearXNG endpoint for web search.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "SEARXNG_URL",
+      "label": "SEARXNG_URL"
     }
   ],
-  "lobe-chat-db": [
-    {
-      "description": "The Client ID of the Logto application.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "key": "AUTH_LOGTO_ID",
-      "label": "AUTH_LOGTO_ID"
-    },
-    {
-      "description": "The Client Secret of the Logto application.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "key": "AUTH_LOGTO_SECRET",
-      "label": "AUTH_LOGTO_SECRET"
-    },
-    {
-      "description": "The OpenID Connect issuer of the Logto application.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "key": "AUTH_LOGTO_ISSUER",
-      "label": "AUTH_LOGTO_ISSUER"
-    },
-    {
-      "description": "This is the API key you apply on the OpenAI account page",
-      "type": "string",
-      "default": "",
-      "required": false,
-      "key": "OPENAI_API_KEY",
-      "label": "OPENAI_API_KEY"
-    },
-    {
-      "description": "If you manually configure the OpenAI interface proxy, you can use this configuration item to override the default OpenAI API request base URL",
-      "type": "string",
-      "default": "https://api.openai.com/v1",
-      "required": false,
-      "key": "OPENAI_PROXY_URL",
-      "label": "OPENAI_PROXY_URL"
-    },
-    {
-      "description": "Used to control the model list. Use + to add a model, - to hide a model, and model_name=display_name to customize the display name of a model, separated by commas.",
-      "type": "string",
-      "default": "",
-      "required": false,
-      "key": "OPENAI_MODEL_LIST",
-      "label": "OPENAI_MODEL_LIST"
-    }
-  ],
+  "localstack": [],
   "logto": [],
   "loki": [],
   "mage-ai": [
@@ -1869,11 +2018,11 @@
       "label": "default_owner_password"
     }
   ],
+  "markitdown": [],
   "mastodon": [
     {
       "description": "Initial owner username. Use lowercase letters, numbers, or underscores.",
       "type": "string",
-      "default": "admin",
       "required": true,
       "key": "admin_username",
       "label": "admin_username"
@@ -1881,7 +2030,6 @@
     {
       "description": "Initial owner email address.",
       "type": "string",
-      "default": "admin@example.com",
       "required": true,
       "key": "admin_email",
       "label": "admin_email"
@@ -1889,7 +2037,6 @@
     {
       "description": "Initial owner password. Change it after the first login.",
       "type": "string",
-      "default": "",
       "required": true,
       "key": "admin_password",
       "label": "admin_password"
@@ -1908,20 +2055,12 @@
       "label": "registration_mode"
     },
     {
-      "description": "VAPID private key for Web Push. Generate it together with vapid_public_key before deployment.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "key": "vapid_private_key",
-      "label": "vapid_private_key"
-    },
-    {
-      "description": "VAPID public key for Web Push. Generate it together with vapid_private_key before deployment.",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "key": "vapid_public_key",
-      "label": "vapid_public_key"
+      "description": "Store media in a Sealos ObjectStorageBucket. The default stores media on shared persistent local storage.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
     },
     {
       "description": "Enable SMTP for confirmation, notification, and password reset emails.",
@@ -2016,7 +2155,7 @@
     {
       "description": "MindsDB administrator password for the web UI and REST API.",
       "type": "string",
-      "default": "MindsDB@cevhgkxzcqoplevt!1",
+      "default": "MindsDB@clfkujinjoznnhca!1",
       "required": true,
       "key": "admin_password",
       "label": "admin_password"
@@ -2087,7 +2226,41 @@
       "label": "important note"
     }
   ],
-  "mlflow": [],
+  "mlflow": [
+    {
+      "description": "Initial MLflow administrator username.",
+      "type": "string",
+      "default": "admin",
+      "required": true,
+      "key": "admin_username",
+      "label": "admin_username"
+    },
+    {
+      "description": "Initial MLflow administrator password.",
+      "type": "string",
+      "default": "MLflow@oluyxmgtbqgbsvph!1",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Use a dedicated Sealos-managed PostgreSQL database instead of persistent SQLite.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_postgresql",
+      "label": "enable_postgresql"
+    },
+    {
+      "description": "Store artifacts in a private Sealos S3-compatible bucket instead of persistent local storage.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
+    }
+  ],
+  "moneyprinterturbo": [],
   "mongo-express": [],
   "n8n": [
     {
@@ -2170,7 +2343,46 @@
       "label": "console_password"
     }
   ],
+  "nanobot": [
+    {
+      "description": "WebUI login password. Set your own strong password and save it for signing in.",
+      "type": "string",
+      "required": true,
+      "key": "web_token",
+      "label": "web_token"
+    },
+    {
+      "description": "API key for your OpenAI-compatible model provider.",
+      "type": "string",
+      "required": true,
+      "key": "api_key",
+      "label": "api_key"
+    },
+    {
+      "description": "OpenAI-compatible API base URL, including the version path such as /v1.",
+      "type": "string",
+      "default": "https://api.openai.com/v1",
+      "required": true,
+      "key": "api_base",
+      "label": "api_base"
+    },
+    {
+      "description": "Exact model ID supported by your provider, for example gpt-4.1-mini.",
+      "type": "string",
+      "required": true,
+      "key": "model",
+      "label": "model"
+    }
+  ],
   "netbird": [
+    {
+      "description": "Use a managed PostgreSQL database instead of the default embedded SQLite database.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_postgresql",
+      "label": "use_postgresql"
+    },
     {
       "description": "Disable default all-to-all policy",
       "type": "choice",
@@ -2212,17 +2424,31 @@
   "nexus": [],
   "nocodb": [
     {
+      "description": "Use a Sealos-managed PostgreSQL database for NocoDB metadata.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_postgresql",
+      "label": "use_postgresql"
+    },
+    {
+      "description": "Store NocoDB attachments in Sealos Object Storage.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
+    },
+    {
       "description": "Initial admin email. Use this email to sign in after deployment.",
       "type": "string",
-      "default": "admin@example.com",
       "required": true,
       "key": "NC_ADMIN_EMAIL",
       "label": "NC_ADMIN_EMAIL"
     },
     {
-      "description": "Initial admin password. Use at least 8 characters with letters and numbers.",
+      "description": "Initial admin password. Use at least 8 characters with an uppercase letter, a number, and a special character.",
       "type": "string",
-      "default": "lenvvbyvwubfdwxk",
       "required": true,
       "key": "NC_ADMIN_PASSWORD",
       "label": "NC_ADMIN_PASSWORD"
@@ -2236,7 +2462,6 @@
     {
       "description": "Initial Odysseus admin username.",
       "type": "string",
-      "default": "admin",
       "required": true,
       "key": "admin_user",
       "label": "admin_user"
@@ -2244,7 +2469,6 @@
     {
       "description": "Initial Odysseus admin password.",
       "type": "string",
-      "default": "",
       "required": true,
       "key": "admin_password",
       "label": "admin_password"
@@ -2258,6 +2482,7 @@
       "label": "openai_api_key"
     }
   ],
+  "ollama": [],
   "open-design": [
     {
       "description": "Open Design Basic Auth username for the public proxy.",
@@ -2270,13 +2495,54 @@
     {
       "description": "Open Design Basic Auth password for the public proxy.",
       "type": "string",
-      "default": "seqawlnyjtrexsbhfuxdjwna",
+      "default": "paqwgovvjaxjmbcntftbzmdi",
       "required": true,
       "key": "auth_password",
       "label": "auth_password"
     }
   ],
-  "open-webui": [],
+  "open-webui": [
+    {
+      "description": "Enable the Ollama provider at startup.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_ollama_api",
+      "label": "enable_ollama_api"
+    },
+    {
+      "description": "Optional Ollama API base URL, for example http://ollama-service:11434.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "ollama_base_url",
+      "label": "ollama_base_url"
+    },
+    {
+      "description": "Optional OpenAI-compatible API base URL.",
+      "type": "string",
+      "default": "https://api.openai.com/v1",
+      "required": false,
+      "key": "openai_api_base_url",
+      "label": "openai_api_base_url"
+    },
+    {
+      "description": "Optional OpenAI-compatible API key. Providers can also be configured after login.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "openai_api_key",
+      "label": "openai_api_key"
+    },
+    {
+      "description": "Store uploads in a Sealos-managed S3-compatible bucket.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "use_sealos_objectstorage",
+      "label": "use_sealos_objectstorage"
+    }
+  ],
   "openagents": [
     {
       "description": "OpenAI API Key (optional)",
@@ -2330,19 +2596,19 @@
   ],
   "openclaw": [
     {
-      "description": "provider kind (openai_compat or anthropic_compat)",
+      "description": "Model provider protocol to configure at first boot",
       "type": "choice",
       "options": [
         "openai_compat",
         "anthropic_compat"
       ],
-      "default": "anthropic_compat",
+      "default": "openai_compat",
       "required": true,
       "key": "provider_kind",
       "label": "provider_kind"
     },
     {
-      "description": "Compatible provider base URL (must end with /v1 for OpenAI-compatible)",
+      "description": "Compatible provider base URL, such as an OpenAI-compatible /v1 endpoint",
       "type": "string",
       "default": "https://aiproxy.usw-1.sealos.io/v1",
       "required": true,
@@ -2358,7 +2624,7 @@
       "label": "api_key"
     },
     {
-      "description": "Default model id (raw id, e.g. gpt-5.2 / claude-opus-4-6-20251101)",
+      "description": "Default model id, such as claude-opus-4-6 or gpt-5.2",
       "type": "string",
       "default": "claude-opus-4-6",
       "required": true,
@@ -2382,6 +2648,31 @@
       "required": false,
       "key": "llm_model",
       "label": "llm_model"
+    }
+  ],
+  "openlist": [
+    {
+      "description": "Initial password for the built-in admin account.",
+      "type": "string",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Use a dedicated PostgreSQL database instead of the built-in SQLite database.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_postgresql",
+      "label": "enable_postgresql"
+    },
+    {
+      "description": "Create and mount a private Sealos S3 bucket at /sealos-s3.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
     }
   ],
   "openobserve": [
@@ -2408,6 +2699,78 @@
       "required": true,
       "key": "data_dir",
       "label": "data_dir"
+    }
+  ],
+  "openviking": [
+    {
+      "description": "API key for an OpenAI-compatible embedding service",
+      "type": "string",
+      "required": true,
+      "key": "embedding_api_key",
+      "label": "embedding_api_key"
+    },
+    {
+      "description": "Base URL of the OpenAI-compatible embedding API",
+      "type": "string",
+      "required": true,
+      "default": "https://api.openai.com/v1",
+      "key": "embedding_api_base",
+      "label": "embedding_api_base"
+    },
+    {
+      "description": "Embedding model served by the configured API",
+      "type": "string",
+      "required": true,
+      "default": "text-embedding-3-small",
+      "key": "embedding_model",
+      "label": "embedding_model"
+    },
+    {
+      "description": "Positive integer dimension returned by the embedding model",
+      "type": "string",
+      "required": true,
+      "default": "1536",
+      "key": "embedding_dimension",
+      "label": "embedding_dimension"
+    },
+    {
+      "description": "API key for an OpenAI-compatible vision or language model service",
+      "type": "string",
+      "required": true,
+      "key": "vlm_api_key",
+      "label": "vlm_api_key"
+    },
+    {
+      "description": "Base URL of the OpenAI-compatible vision or language model API",
+      "type": "string",
+      "required": true,
+      "default": "https://api.openai.com/v1",
+      "key": "vlm_api_base",
+      "label": "vlm_api_base"
+    },
+    {
+      "description": "Vision or language model used for context summaries and memory extraction",
+      "type": "string",
+      "required": true,
+      "default": "gpt-4o-mini",
+      "key": "vlm_model",
+      "label": "vlm_model"
+    },
+    {
+      "description": "Store context files in private Sealos object storage; local files are used when disabled",
+      "type": "boolean",
+      "required": false,
+      "default": "false",
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
+    },
+    {
+      "description": "Use managed Redis for QueueFS; persistent SQLite is used when disabled",
+      "type": "boolean",
+      "required": false,
+      "default": "false",
+      "key": "enable_redis_queue",
+      "label": "enable_redis_queue"
     }
   ],
   "outline": [
@@ -2440,7 +2803,7 @@
     {
       "description": "Secret key for encrypting data (32 bytes hex)",
       "type": "string",
-      "default": "lrzkpcxingfnwgguxlphectwhqhdaxzpfefulsyhehnvyidtkeyfqdivevumikpq",
+      "default": "ngcqgltrecqqpmezbmcmgqfilrdfgzxhptgepspgqlgiptdrksestyjpnkehyiws",
       "required": true,
       "key": "secret_key",
       "label": "secret_key"
@@ -2448,7 +2811,7 @@
     {
       "description": "Utility secret for internal operations",
       "type": "string",
-      "default": "vsvnwqwulyesuccyzkgdzeudpbawihkmldjgnnhcstzijcheiofkckaeqcfeunry",
+      "default": "zikwhwxtznpgmaunfjoseswmxtdvqaklkfvtatvpnwerrkvecdnjzkflkhwmwufc",
       "required": true,
       "key": "utils_secret",
       "label": "utils_secret"
@@ -2628,6 +2991,14 @@
       "required": false,
       "key": "EMAIL_CONFIRMATION_DISABLED",
       "label": "EMAIL_CONFIRMATION_DISABLED"
+    },
+    {
+      "description": "Create private Sealos buckets for project files and project history",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_external_files",
+      "label": "enable_external_files"
     }
   ],
   "palacms": [],
@@ -2642,6 +3013,14 @@
     }
   ],
   "paperclip": [
+    {
+      "description": "Record this one-time setup code before deployment. It must be 32-128 URL-safe characters with uppercase, lowercase, and a number.",
+      "type": "string",
+      "default": "pcp_bootstrap_A1_mldybdhjprudshlyrwbnanrpdgtzabvsnbqndvjbiwiqnpvw",
+      "required": true,
+      "key": "first_admin_setup_code",
+      "label": "first_admin_setup_code"
+    },
     {
       "description": "Use S3-compatible object storage for attachments and company assets",
       "type": "boolean",
@@ -2703,7 +3082,7 @@
     {
       "description": "Should be a very long sequence of random characters",
       "type": "string",
-      "default": "cthtdmwkrjkmdcpcioqxvrhkbyurgxjz",
+      "default": "qwhwfgdebivwbgdsppmwgcffmaksjqao",
       "required": false,
       "key": "paperless_secret_key",
       "label": "paperless_secret_key"
@@ -2750,32 +3129,48 @@
     }
   ],
   "payload": [],
-  "pdf2zh": [],
-  "penpot": [],
+  "pdf2zh": [
+    {
+      "description": "Username for accessing the PDFMathTranslate WebUI; use no commas or line breaks",
+      "type": "string",
+      "required": true,
+      "key": "webui_username",
+      "label": "webui_username"
+    },
+    {
+      "description": "Password for accessing the PDFMathTranslate WebUI; use no commas or line breaks",
+      "type": "string",
+      "required": true,
+      "key": "webui_password",
+      "label": "webui_password"
+    }
+  ],
+  "penpot": [
+    {
+      "description": "Store uploaded assets in private Sealos Object Storage instead of the shared filesystem volume",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
+    }
+  ],
   "perplexica": [
     {
-      "description": "The API Key of the OpenAI-compatible service",
+      "description": "Optional API key for an OpenAI or OpenAI-compatible provider. Leave empty to configure another provider in the setup wizard.",
       "type": "string",
       "default": "",
-      "required": true,
+      "required": false,
       "key": "OPENAI_API_KEY",
       "label": "OPENAI_API_KEY"
     },
     {
-      "description": "The API URL of the OpenAI-compatible service (e.g. \"https://api.openai.com/v1\" for official API, or custom endpoint URL that follows OpenAI API format/structure)",
+      "description": "OpenAI-compatible API base URL. The official OpenAI endpoint is used by default.",
       "type": "string",
       "default": "https://api.openai.com/v1",
-      "required": true,
-      "key": "OPENAI_API_URL",
-      "label": "OPENAI_API_URL"
-    },
-    {
-      "description": "The model name of the OpenAI-compatible service",
-      "type": "string",
-      "default": "",
-      "required": true,
-      "key": "OPENAI_MODEL_NAME",
-      "label": "OPENAI_MODEL_NAME"
+      "required": false,
+      "key": "OPENAI_BASE_URL",
+      "label": "OPENAI_BASE_URL"
     }
   ],
   "pgadmin4": [
@@ -2815,6 +3210,7 @@
     }
   ],
   "phpmyadmin": [],
+  "plane": [],
   "planka": [
     {
       "description": "Initial administrator email address",
@@ -2835,7 +3231,7 @@
     {
       "description": "Initial administrator password",
       "type": "string",
-      "default": "utkuqxaxigxuyndh",
+      "default": "jgxqaenqgwhbjiwl",
       "required": true,
       "key": "admin_password",
       "label": "admin_password"
@@ -2904,7 +3300,7 @@
     {
       "description": "Encryption key for settings (recommended for production, 32 characters)",
       "type": "string",
-      "default": "ygcuetesblrjugolsoksuodqmysuitmh",
+      "default": "inrbjspuztltipgrdpirlrugubfmynkh",
       "required": false,
       "key": "encryption_key",
       "label": "encryption_key"
@@ -2940,6 +3336,30 @@
     }
   ],
   "privatebin": [],
+  "project-zomboid": [
+    {
+      "description": "Administrator username. Use ASCII letters and digits only.",
+      "type": "string",
+      "required": true,
+      "key": "admin_username",
+      "label": "admin_username"
+    },
+    {
+      "description": "Administrator password for first startup. Must be non-empty and contain no line breaks.",
+      "type": "string",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Optional server join password. Use a single-line value.",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "server_password",
+      "label": "server_password"
+    }
+  ],
   "pterodactyl": [
     {
       "description": "Email address used by the initial Panel administrator",
@@ -3017,6 +3437,7 @@
       "label": "initial_admin_email"
     }
   ],
+  "ragflow": [],
   "rclone": [
     {
       "description": "Username for the Rclone Web GUI and RC API.",
@@ -3063,8 +3484,54 @@
     }
   ],
   "registry": [],
-  "rocketchat": [],
-  "rocketchat-micro": [],
+  "rocketchat": [
+    {
+      "description": "Username for the initial Rocket.Chat administrator",
+      "type": "string",
+      "required": true,
+      "key": "admin_username",
+      "label": "admin_username"
+    },
+    {
+      "description": "Display name for the initial Rocket.Chat administrator",
+      "type": "string",
+      "required": true,
+      "key": "admin_name",
+      "label": "admin_name"
+    },
+    {
+      "description": "Email address for the initial Rocket.Chat administrator",
+      "type": "string",
+      "required": true,
+      "key": "admin_email",
+      "label": "admin_email"
+    },
+    {
+      "description": "Password for the initial Rocket.Chat administrator",
+      "type": "string",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Store uploaded files in private Sealos object storage",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
+    }
+  ],
+  "rocketchat-micro": [
+    {
+      "description": "Store Rocket.Chat file uploads in a private Sealos Object Storage bucket instead of MongoDB GridFS.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
+    }
+  ],
   "rsshub": [],
   "rustdesk": [
     {
@@ -3109,7 +3576,7 @@
   "rybbit": [],
   "s-pdf": [
     {
-      "description": "Use PostgreSQL database for production workloads (recommended for better performance and data persistence)",
+      "description": "Use an independent PostgreSQL database. A valid Stirling-PDF Pro or Enterprise license is required.",
       "type": "boolean",
       "default": "false",
       "required": false,
@@ -3117,39 +3584,30 @@
       "label": "use_postgresql"
     },
     {
-      "description": "download security jar (required as true for auth login)",
+      "description": "Valid Stirling-PDF Pro or Enterprise license key. Required when PostgreSQL is enabled.",
       "type": "string",
-      "default": "false",
-      "required": false,
-      "key": "DOCKER_ENABLE_SECURITY",
-      "label": "DOCKER_ENABLE_SECURITY"
+      "default": "",
+      "required": true,
+      "if": "inputs.use_postgresql === 'true'",
+      "key": "PREMIUM_KEY",
+      "label": "PREMIUM_KEY"
     },
     {
-      "description": "set to 'true' to enable login",
+      "description": "Initial administrator username for the fresh Stirling-PDF data volume.",
       "type": "string",
-      "default": "false",
-      "required": false,
-      "key": "SECURITY_ENABLELOGIN",
-      "label": "SECURITY_ENABLELOGIN"
+      "required": true,
+      "key": "SECURITY_INITIALLOGIN_USERNAME",
+      "label": "SECURITY_INITIALLOGIN_USERNAME"
     },
     {
-      "description": "define custom font libraries to install for use for document conversions",
+      "description": "Initial administrator password for the fresh Stirling-PDF data volume.",
       "type": "string",
-      "default": "en-GB,en-US,zh-CN,zh-TW",
-      "required": false,
-      "key": "LANGS",
-      "label": "LANGS"
+      "required": true,
+      "key": "SECURITY_INITIALLOGIN_PASSWORD",
+      "label": "SECURITY_INITIALLOGIN_PASSWORD"
     },
     {
-      "description": "download calibre onto stirling-pdf enabling pdf to/from book and advanced html conversion",
-      "type": "string",
-      "default": "true",
-      "required": false,
-      "key": "INSTALL_BOOK_AND_ADVANCED_HTML_OPS",
-      "label": "INSTALL_BOOK_AND_ADVANCED_HTML_OPS"
-    },
-    {
-      "description": "Set the default language",
+      "description": "Default Stirling-PDF interface locale.",
       "type": "string",
       "default": "en-US",
       "required": false,
@@ -3157,44 +3615,12 @@
       "label": "SYSTEM_DEFAULTLOCALE"
     },
     {
-      "description": "Application's visible name",
-      "type": "string",
-      "default": "Stirling-PDF",
+      "description": "Enable Calibre-backed book conversion and advanced HTML conversion.",
+      "type": "boolean",
+      "default": "false",
       "required": false,
-      "key": "UI_APPNAME",
-      "label": "UI_APPNAME"
-    },
-    {
-      "description": "Short description or tagline shown on homepage",
-      "type": "string",
-      "default": "Demo site for Stirling-PDF",
-      "required": false,
-      "key": "UI_HOMEDESCRIPTION",
-      "label": "UI_HOMEDESCRIPTION"
-    },
-    {
-      "description": "Name displayed on the navigation bar",
-      "type": "string",
-      "default": "Stirling-PDF",
-      "required": false,
-      "key": "UI_APPNAMENAVBAR",
-      "label": "UI_APPNAMENAVBAR"
-    },
-    {
-      "description": "enable Info APIs (`/api/*`) endpoints",
-      "type": "string",
-      "default": "true",
-      "required": false,
-      "key": "METRICS_ENABLED",
-      "label": "METRICS_ENABLED"
-    },
-    {
-      "description": "allow Google visibility (via robots.txt)",
-      "type": "string",
-      "default": "true",
-      "required": false,
-      "key": "SYSTEM_GOOGLEVISIBILITY",
-      "label": "SYSTEM_GOOGLEVISIBILITY"
+      "key": "INSTALL_BOOK_AND_ADVANCED_HTML_OPS",
+      "label": "INSTALL_BOOK_AND_ADVANCED_HTML_OPS"
     }
   ],
   "samarium": [
@@ -3245,7 +3671,7 @@
     {
       "description": "Basic authentication password",
       "type": "string",
-      "default": "whqmhjzhbblqyqiodycektzy",
+      "default": "dcyyggvphkmuzkjvcfcyehuz",
       "required": true,
       "if": "inputs.enable_basic_auth === 'true'",
       "key": "basic_auth_password",
@@ -3264,7 +3690,7 @@
     {
       "description": "Secret key used to sign sessions (32+ characters). Auto-generated by default",
       "type": "string",
-      "default": "xcrlxlpgtgrxxalnhqohukiggobbokxt",
+      "default": "mwffgteqbpjowhxkjpfrfchjsovxxzfs",
       "required": false,
       "key": "auth_secret",
       "label": "auth_secret"
@@ -3299,34 +3725,74 @@
   "steel-browser": [],
   "strapi": [
     {
-      "description": "Node environment mode",
-      "type": "choice",
-      "default": "production",
-      "options": [
-        "production",
-        "development"
-      ],
-      "required": true,
-      "key": "node_env",
-      "label": "node_env"
-    }
-  ],
-  "sub2api": [
-    {
-      "description": "Administrator email address",
+      "description": "Initial Strapi administrator email address.",
       "type": "string",
-      "default": "admin@sub2api.local",
-      "required": false,
+      "required": true,
       "key": "admin_email",
       "label": "admin_email"
     },
     {
-      "description": "Administrator password (leave empty to auto-generate on first startup)",
+      "description": "Initial administrator password. Use at least 8 characters with one uppercase letter, lowercase letter, and number.",
       "type": "string",
-      "default": "",
-      "required": false,
+      "required": true,
       "key": "admin_password",
       "label": "admin_password"
+    },
+    {
+      "description": "Initial administrator first name.",
+      "type": "string",
+      "default": "Admin",
+      "required": true,
+      "key": "admin_firstname",
+      "label": "admin_firstname"
+    },
+    {
+      "description": "Initial administrator last name.",
+      "type": "string",
+      "default": "User",
+      "required": true,
+      "key": "admin_lastname",
+      "label": "admin_lastname"
+    },
+    {
+      "description": "Use an independent Sealos PostgreSQL 16 database. Clear selects SQLite on persistent storage.",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "key": "use_postgresql",
+      "label": "use_postgresql"
+    },
+    {
+      "description": "Store media in a Sealos ObjectStorageBucket. Clear stores uploads on persistent local storage.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
+    }
+  ],
+  "sub2api": [
+    {
+      "description": "Initial administrator email address",
+      "type": "string",
+      "required": true,
+      "key": "admin_email",
+      "label": "admin_email"
+    },
+    {
+      "description": "Initial administrator password (minimum 8 characters)",
+      "type": "string",
+      "required": true,
+      "key": "admin_password",
+      "label": "admin_password"
+    },
+    {
+      "description": "Use a private Sealos S3-compatible bucket for asynchronous image task results",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
     },
     {
       "description": "Timezone used by the application",
@@ -3397,6 +3863,14 @@
       "label": "antigravity_oauth_client_secret"
     },
     {
+      "description": "Optional Antigravity user agent version",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "antigravity_user_agent_version",
+      "label": "antigravity_user_agent_version"
+    },
+    {
       "description": "Enable upstream URL allowlist validation",
       "type": "boolean",
       "default": "false",
@@ -3439,28 +3913,27 @@
   ],
   "supabase": [
     {
-      "description": "JWT signing secret for Auth, PostgREST, Studio, and Storage API.",
-      "type": "string",
-      "default": "super-secret-jwt-token-with-at-least-32-characters-long",
-      "required": true,
-      "key": "jwt_secret",
-      "label": "jwt_secret"
+      "description": "Use a Sealos ObjectStorageBucket as the Supabase Storage S3 backend; clear to use the local persistent volume.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_s3_storage",
+      "label": "enable_s3_storage"
     },
     {
-      "description": "Anonymous API key in JWT format (must be signed by jwt_secret).",
+      "description": "Single-line username for the HTTP Basic Auth prompt that protects Supabase Studio.",
       "type": "string",
-      "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlYWxvcyIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzA0MDY3MjAwLCJleHAiOjIwNTEyMjI0MDB9.V5KvFbM6nMq-n8Ic1-9662IR7z4l00fNZD1mk4q8l84",
+      "default": "supabase",
       "required": true,
-      "key": "anon_key",
-      "label": "anon_key"
+      "key": "dashboard_username",
+      "label": "dashboard_username"
     },
     {
-      "description": "Service role API key in JWT format (must be signed by jwt_secret).",
+      "description": "Single-line password for the HTTP Basic Auth prompt that protects Supabase Studio.",
       "type": "string",
-      "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlYWxvcyIsInJvbGUiOiJzZXJ2aWNlX3JvbGUiLCJpYXQiOjE3MDQwNjcyMDAsImV4cCI6MjA1MTIyMjQwMH0.gSHZ4wBeDMAbjjmkQ3TEoyOoqq7GR5F36krGv81PQLY",
       "required": true,
-      "key": "service_role_key",
-      "label": "service_role_key"
+      "key": "dashboard_password",
+      "label": "dashboard_password"
     }
   ],
   "superset": [
@@ -3548,6 +4021,43 @@
       "required": false,
       "key": "ALLOW_OPENAPI",
       "label": "ALLOW_OPENAPI"
+    }
+  ],
+  "tmodloader": [
+    {
+      "description": "Comma-separated Steam Workshop mod IDs to download and enable. Leave empty to use saved enabled.json settings (initially no mods).",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "key": "workshop_mods",
+      "label": "workshop_mods"
+    },
+    {
+      "description": "Size for a newly generated world (1 = Small, 2 = Medium, 3 = Large). Increase resources for larger worlds or mod packs.",
+      "type": "choice",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "default": "1",
+      "required": true,
+      "key": "world_size",
+      "label": "world_size"
+    },
+    {
+      "description": "Difficulty for a newly generated world (0 = Classic, 1 = Expert, 2 = Master, 3 = Journey).",
+      "type": "choice",
+      "options": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "default": "0",
+      "required": true,
+      "key": "difficulty",
+      "label": "difficulty"
     }
   ],
   "tolgee": [
@@ -3781,7 +4291,16 @@
       "label": "admin_password"
     }
   ],
-  "twenty": [],
+  "twenty": [
+    {
+      "description": "Use S3 object storage instead of shared local storage",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "USE_S3_STORAGE",
+      "label": "USE_S3_STORAGE"
+    }
+  ],
   "typebot": [
     {
       "description": "Email address that receives the UNLIMITED workspace plan after signup",
@@ -4003,8 +4522,43 @@
       "label": "TRACKER_SCRIPT_NAME"
     }
   ],
-  "uptime-kuma": [],
+  "uptime-kuma": [
+    {
+      "description": "Enable a dedicated MySQL-compatible database instead of the built-in SQLite database.",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "key": "enable_external_database",
+      "label": "enable_external_database"
+    }
+  ],
+  "valheim": [
+    {
+      "description": "Server name shown in the community list. Use letters, numbers, spaces, and hyphens.",
+      "type": "string",
+      "default": "Valheim on Sealos",
+      "required": true,
+      "key": "server_name",
+      "label": "server_name"
+    },
+    {
+      "description": "Persistent world name. Use letters, numbers, underscores, and hyphens.",
+      "type": "string",
+      "default": "Dedicated",
+      "required": true,
+      "key": "world_name",
+      "label": "world_name"
+    },
+    {
+      "description": "Game password: at least 5 characters, different from the server name. Use letters, numbers, and hyphens.",
+      "type": "string",
+      "required": true,
+      "key": "server_password",
+      "label": "server_password"
+    }
+  ],
   "vaultwarden": [],
+  "vllm": [],
   "waha": [
     {
       "description": "Dashboard username",
@@ -4070,16 +4624,40 @@
     {
       "description": "OpenAI API Key",
       "type": "string",
-      "required": false,
+      "required": true,
       "key": "openai_api_key",
       "label": "openai_api_key"
     },
     {
       "description": "OpenAI API Key for Embedder",
       "type": "string",
-      "required": false,
+      "required": true,
       "key": "embedder_openai_api_key",
       "label": "embedder_openai_api_key"
+    },
+    {
+      "description": "OpenAI-compatible API base for text generation",
+      "type": "string",
+      "default": "https://api.openai.com/v1",
+      "required": false,
+      "key": "openai_api_base",
+      "label": "openai_api_base"
+    },
+    {
+      "description": "OpenAI-compatible API base for embeddings",
+      "type": "string",
+      "default": "https://api.openai.com/v1",
+      "required": false,
+      "key": "embedder_openai_api_base",
+      "label": "embedder_openai_api_base"
+    },
+    {
+      "description": "Default chat model name exposed to WrenAI",
+      "type": "string",
+      "default": "gpt-4.1-nano-2025-04-14",
+      "required": false,
+      "key": "generation_model",
+      "label": "generation_model"
     }
   ],
   "yourls": [

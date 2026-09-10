@@ -34,7 +34,7 @@ import { useGTM } from '@/hooks/use-gtm';
 import { siteConfig } from '@/config/site';
 import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { getOpenBrainParam } from '@/lib/utils/brain';
-import { i18n, languagesType } from '@/lib/i18n';
+import { getLanguageSlug, i18n, type languagesType } from '@/lib/i18n';
 import { getRybbitCtaProps } from '@/lib/analytics/rybbit-cta';
 
 type NavigationChild = {
@@ -68,7 +68,7 @@ const navigationLinks: NavigationLink[] = [
   },
   {
     text: 'Templates',
-    url: '/products/app-store',
+    url: '/products/app-store/',
     isExternal: false,
   },
   {
@@ -269,7 +269,7 @@ export function Header({ lang }: HeaderProps) {
     }));
   }, [resolvedLang]);
 
-  const homeHref = resolvedLang ? `/${resolvedLang}` : '/';
+  const homeHref = resolvedLang ? `${getLanguageSlug(resolvedLang)}/` : '/';
 
   return (
     <>

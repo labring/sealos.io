@@ -1,6 +1,7 @@
 // App Store listing page entry with semantic theme and marketplace browsing.
 import type { CSSProperties } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Footer } from '@/new-components/Footer';
 import { Header } from '@/new-components/Header';
 import BottomLightImage from '@/assets/bottom-light.svg';
@@ -12,7 +13,7 @@ import {
 } from '@/lib/utils/structured-data';
 import { siteConfig } from '@/config/site';
 import { appsConfig } from '@/config/apps';
-import { languagesType, LANGUAGES } from '@/lib/i18n';
+import { getLanguageSlug, type languagesType, LANGUAGES } from '@/lib/i18n';
 import AppStoreContent from './components/app-store-content';
 import AppStoreFAQ from './components/app-store-faq';
 import {
@@ -74,9 +75,11 @@ export default function AppStorePage({
 }) {
   const breadcrumbSchema = generateBreadcrumbSchema(
     [
-      { name: 'Home', url: siteConfig.url.base },
-      { name: 'Products', url: `${siteConfig.url.base}/products` },
-      { name: 'App Store', url: `${siteConfig.url.base}${APP_STORE_PATHNAME}` },
+      { name: 'Home', url: `${siteConfig.url.base}/` },
+      {
+        name: 'App Store',
+        url: `${siteConfig.url.base}${APP_STORE_PATHNAME}/`,
+      },
     ],
     params.lang,
   );
@@ -106,6 +109,35 @@ export default function AppStorePage({
 
         <main className="bg-background relative z-10">
           <AppStoreContent lang={params.lang} />
+          <section
+            className="mx-auto max-w-7xl px-6 pb-12 lg:px-8"
+            aria-label={
+              params.lang === 'zh-cn' ? '全部应用模板' : 'All app templates'
+            }
+          >
+            <details className="rounded-xl border border-white/10 px-6 py-5">
+              <summary className="cursor-pointer text-base font-medium text-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7fa8ff]">
+                {params.lang === 'zh-cn'
+                  ? '浏览全部模板'
+                  : 'Browse all templates'}{' '}
+                ({appsConfig.length})
+              </summary>
+              <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+                {[...appsConfig]
+                  .sort((a, b) => a.name.localeCompare(b.name, 'en'))
+                  .map((app) => (
+                    <li key={app.slug}>
+                      <Link
+                        href={`${getLanguageSlug(params.lang)}${APP_STORE_PATHNAME}/${app.slug.toLowerCase()}/`}
+                        className="text-sm text-zinc-300 underline-offset-4 hover:text-[#7fa8ff] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7fa8ff]"
+                      >
+                        {app.name}
+                      </Link>
+                    </li>
+                  ))}
+              </ul>
+            </details>
+          </section>
           <AppStoreFAQ lang={params.lang} />
         </main>
 

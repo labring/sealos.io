@@ -3,8 +3,6 @@ import assert from 'node:assert/strict';
 import {
   formatAppCount,
   getDisplayDescription,
-  getAppBenefits,
-  getAppUseCases,
   getRelatedApps,
   getTagLabel,
 } from './app-detail-utils.ts';
@@ -102,44 +100,20 @@ test('formatAppCount uses compact number formatting', () => {
   assert.equal(formatAppCount(2400), '2.4K');
 });
 
-test('getAppBenefits derives app-specific copy when generated benefits are generic', () => {
-  const benefits = getAppBenefits({
-    name: 'Dify',
-    category: 'AI',
-    benefits: [
-      'Easy to deploy and manage',
-      'Self-hosted solution',
-      'Open source and free',
-      'Community supported',
-    ],
-  });
-
-  assert.equal(benefits.length, 4);
-  assert.match(benefits[0], /Dify/);
-  assert.match(benefits.join(' '), /AI|Kubernetes YAML/);
-  assert.notDeepEqual(benefits, [
-    'Easy to deploy and manage',
-    'Self-hosted solution',
-    'Open source and free',
-    'Community supported',
-  ]);
-});
-
-test('getAppUseCases replaces repeated generic use cases with category-specific use cases', () => {
-  const useCases = getAppUseCases({
-    category: 'Monitoring',
-    useCases: [
-      'Business Operations',
-      'Development Workflow',
-      'Data Management',
-      'Team Collaboration',
-    ],
-  });
-
-  assert.deepEqual(useCases, [
-    'Application observability',
-    'Uptime and incident response',
-    'Metrics and dashboard operations',
-    'Log and trace analysis',
-  ]);
+test('getRelatedApps prioritizes a shared use-case tag over a broad category', () => {
+  const currentApp = { ...fixtures[0], category: 'Tools', tags: ['game'] };
+  const unrelatedTool = {
+    ...fixtures[1],
+    category: 'Tools',
+    tags: ['productivity'],
+  };
+  const gameServer = { ...fixtures[2], category: 'Backend', tags: ['game'] };
+  assert.deepEqual(
+    getRelatedApps({
+      apps: [currentApp, unrelatedTool, gameServer],
+      currentApp,
+      limit: 2,
+    }).map((app) => app.slug),
+    [gameServer.slug, unrelatedTool.slug],
+  );
 });

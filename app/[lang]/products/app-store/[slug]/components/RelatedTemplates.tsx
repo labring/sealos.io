@@ -1,9 +1,8 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { AppIcon } from '@/components/ui/app-icon';
-import type { languagesType } from '@/lib/i18n';
-import AppPreviewPanel from './AppPreviewPanel';
-import { figmaDetailHeadingClassName } from './SectionHeading';
+import { getLanguageSlug, type languagesType } from '@/lib/i18n';
+import AppTemplateCardPreview from './AppTemplateCardPreview';
 import type { AppDetailConfig } from './app-detail-utils';
 
 interface RelatedTemplatesProps {
@@ -20,16 +19,24 @@ export default function RelatedTemplates({
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-6 pt-12 pb-16 lg:px-8 lg:pt-14 lg:pb-20">
+    <section
+      className="pt-12 pb-16 lg:pt-14 lg:pb-20"
+      aria-labelledby="related-title"
+    >
       <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2 className={figmaDetailHeadingClassName()}>Related templates</h2>
+          <h2
+            id="related-title"
+            className="max-w-full text-3xl leading-none font-semibold sm:text-4xl"
+          >
+            Related templates
+          </h2>
           <p className="mt-6 text-sm leading-6 text-zinc-500">
             Explore more production-ready templates.
           </p>
         </div>
         <Link
-          href={`/${lang}/products/app-store`}
+          href={`${getLanguageSlug(lang)}/products/app-store/`}
           className="focus-visible:ring-offset-background inline-flex h-11 items-center gap-2 rounded-full px-3 text-sm text-zinc-200 transition hover:text-[#69a3ff] focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]"
         >
           More
@@ -47,19 +54,19 @@ export default function RelatedTemplates({
                 className="group flex w-[82vw] max-w-[386px] min-w-[310px] shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-white/[0.035] transition duration-300 hover:-translate-y-1 hover:bg-white/[0.055]"
               >
                 <Link
-                  href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
+                  href={`${getLanguageSlug(lang)}/products/app-store/${app.slug.toLowerCase()}/`}
                   className="focus-visible:ring-offset-background block h-[135px] overflow-hidden focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none"
                   aria-label={`View ${app.name} details`}
                 >
                   <div className="origin-center scale-[0.68] opacity-80 transition duration-300 group-hover:scale-[0.7]">
-                    <AppPreviewPanel app={app} compact />
+                    <AppTemplateCardPreview app={app} />
                   </div>
                 </Link>
 
                 <div className="flex flex-1 flex-col gap-5 px-5 py-4">
                   <div className="flex items-start gap-3">
                     <Link
-                      href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
+                      href={`${getLanguageSlug(lang)}/products/app-store/${app.slug.toLowerCase()}/`}
                       className="focus-visible:ring-offset-background flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-zinc-100 shadow-sm transition duration-200 group-hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]"
                     >
                       <AppIcon
@@ -75,7 +82,7 @@ export default function RelatedTemplates({
                     <div className="min-w-0 flex-1">
                       <div className="flex min-w-0 items-center justify-between gap-3">
                         <Link
-                          href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
+                          href={`${getLanguageSlug(lang)}/products/app-store/${app.slug.toLowerCase()}/`}
                           className="focus-visible:ring-offset-background truncate text-base font-semibold text-zinc-100 transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none"
                         >
                           {app.name}
@@ -95,7 +102,7 @@ export default function RelatedTemplates({
 
                   <div className="mt-auto flex items-center gap-2">
                     <Link
-                      href={`/${lang}/products/app-store/${app.slug.toLowerCase()}`}
+                      href={`${getLanguageSlug(lang)}/products/app-store/${app.slug.toLowerCase()}/`}
                       className="focus-visible:ring-offset-background ml-auto inline-flex h-11 items-center gap-2 rounded-full px-3 text-sm font-medium text-[#69a3ff] transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#6ea2ff] focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98]"
                     >
                       View Template

@@ -4,6 +4,8 @@ import type { StructuredData } from '@/lib/utils/structured-data';
 import type { AppConfig } from '@/config/apps';
 
 export const APP_STORE_PATHNAME = '/products/app-store';
+export const APP_STORE_BILLING_DESCRIPTION =
+  'Sealos monthly plans include compute, memory, storage, and traffic. Size your plan for all deployed services. Software licenses and external AI or API services may have separate terms and charges. Confirm the applicable plan and optional charges in Cost Center.';
 export const APP_STORE_TITLE =
   'App Store | One-Click Self-Hosted App Templates';
 export const APP_STORE_DESCRIPTION =
@@ -45,8 +47,7 @@ export const appStoreFaqItems: Record<
     },
     {
       question: 'How is billing handled for App Store deployments?',
-      answer:
-        'Templates are typically open source, while cloud usage is billed based on the resources the deployment consumes, such as compute, storage, and networking.',
+      answer: APP_STORE_BILLING_DESCRIPTION,
     },
   ],
   'zh-cn': [
@@ -120,7 +121,7 @@ export function getAppDetailMetadata(
   app: Pick<AppConfig, 'name' | 'description' | 'tags'>,
 ) {
   return {
-    title: `Deploy ${app.name} on Sealos | One-Click Self-Hosted App Template`,
+    title: `${app.name} Hosting & Deployment`,
     description: trimMetaDescription(app.description),
     keywords: [
       ...(app.tags || []),
@@ -181,12 +182,6 @@ export function generateAppStoreSoftwareSchema(
       name: 'Labring',
       url: siteConfig.url.base,
     },
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-      description: 'Open-source templates with usage-based cloud resources.',
-    },
     featureList: [
       'One-click self-hosted app templates',
       'Kubernetes-backed deployments',
@@ -195,6 +190,53 @@ export function generateAppStoreSoftwareSchema(
       'Database, AI, monitoring, and developer tool templates',
     ],
   };
+}
+
+export function getAppApplicationCategory(
+  app: Pick<AppConfig, 'category' | 'tags'>,
+): string | undefined {
+  const tags = new Set(app.tags || []);
+  if (tags.has('game')) return 'GameApplication';
+  if (tags.has('security')) return 'SecurityApplication';
+  if (tags.has('browser')) return 'BrowserApplication';
+  if (tags.has('design')) return 'DesignApplication';
+  if (tags.has('social')) return 'SocialNetworkingApplication';
+  if (tags.has('low-code') || tags.has('automation'))
+    return 'BusinessApplication';
+
+  const categories: Record<string, string> = {
+    Database: 'DeveloperApplication',
+    Development: 'DeveloperApplication',
+    Infrastructure: 'DeveloperApplication',
+    DevOps: 'DeveloperApplication',
+    Monitoring: 'DeveloperApplication',
+    Storage: 'DeveloperApplication',
+    CMS: 'BusinessApplication',
+    Blog: 'BusinessApplication',
+    Automation: 'BusinessApplication',
+    'Low-Code': 'BusinessApplication',
+    Tools: 'UtilitiesApplication',
+  };
+  return categories[app.category];
+}
+
+export function normalizeAppStoreLink(value: string): string {
+  try {
+    const url = new URL(value, siteConfig.url.base);
+    if (
+      url.origin === siteConfig.url.base &&
+      /^\/(?:en\/)?products\/app-store(?:\/[^/]+)?\/?$/.test(url.pathname)
+    ) {
+      url.pathname = url.pathname
+        .replace(/^\/en\//, '/')
+        .toLowerCase()
+        .replace(/\/?$/, '/');
+      return url.toString();
+    }
+  } catch {
+    // Leave malformed source links to the Markdown renderer.
+  }
+  return value;
 }
 
 export function generateAppDetailSoftwareSchema(
@@ -210,7 +252,7 @@ export function generateAppDetailSoftwareSchema(
     name: app.name,
     description: trimMetaDescription(app.description),
     url: buildCanonicalUrl(canonicalPath),
-    applicationCategory: 'DeveloperApplication',
+    applicationCategory: getAppApplicationCategory(app),
     applicationSubCategory: app.category,
     operatingSystem: 'Web',
     inLanguage: lang === 'zh-cn' ? 'zh-CN' : 'en-US',
@@ -224,14 +266,6 @@ export function generateAppDetailSoftwareSchema(
       name: 'Labring',
       url: siteConfig.url.base,
     },
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-      description: 'Open-source template with usage-based cloud resources.',
-    },
-    featureList: app.features?.length ? app.features : app.tags,
-    sameAs: [app.website, app.github].filter(Boolean),
+    sameAs: [...new Set([app.website, app.github].filter(Boolean))],
   };
 }

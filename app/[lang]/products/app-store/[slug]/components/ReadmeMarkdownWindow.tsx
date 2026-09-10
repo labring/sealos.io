@@ -1,9 +1,8 @@
-import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { ArchiveIcon } from '@radix-ui/react-icons';
 import { cn } from '@/lib/utils';
 import type { AppDetailConfig } from './app-detail-utils';
+import { normalizeAppStoreLink } from '../../app-store-seo';
 
 type ReadmeSource = {
   repoLabel: string;
@@ -272,7 +271,7 @@ function resolveMarkdownUrl(
 ) {
   if (!value || isUnsafeUrl(value)) return undefined;
   if (/^(https?:)?\/\//i.test(value) || /^(mailto|tel):/i.test(value)) {
-    return value;
+    return kind === 'link' ? normalizeAppStoreLink(value) : value;
   }
   if (value.startsWith('#')) return value;
 
@@ -329,50 +328,14 @@ export async function loadReadmeMarkdown(
 
 function ReadmeUnavailableNotice({ app }: { app: AppDetailConfig }) {
   return (
-    <div className="absolute inset-x-4 bottom-4 z-10 rounded-2xl border border-white/10 bg-[#0d1117]/88 p-4 shadow-2xl shadow-black/40 backdrop-blur-md sm:inset-x-6 sm:bottom-6 sm:p-5">
-      <div className="flex items-start gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.055] text-[#6ea2ff]">
-          <ArchiveIcon className="h-5 w-5" />
-        </span>
-        <div>
-          <h3 className="text-sm font-semibold text-white">
-            README preview is unavailable
-          </h3>
-          <p className="mt-1 text-xs leading-5 text-zinc-400">
-            We could not load {app.name} README content, so this page keeps the
-            app preview visible instead.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ReadmeFallback({ app }: { app: AppDetailConfig }) {
-  const screenshot = app.screenshots?.[0];
-
-  if (!screenshot) {
-    return (
-      <div className="relative aspect-video min-h-[320px] overflow-hidden bg-[#0d1117]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(20,109,255,0.15),transparent_42%)]" />
-        <div className="relative flex h-full min-h-[320px] items-center justify-center px-6">
-          <ReadmeUnavailableNotice app={app} />
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="relative aspect-video min-h-[320px] overflow-hidden bg-[#d8d8d8]">
-      <Image
-        src={screenshot}
-        alt={`${app.name} screenshot`}
-        fill
-        className="object-cover object-top opacity-70"
-        sizes="(max-width: 768px) 100vw, 1253px"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-[#0d1117]/20 to-transparent" />
-      <ReadmeUnavailableNotice app={app} />
+    <div role="status" className="py-6">
+      <h3 className="text-lg font-medium text-zinc-100">
+        README preview is unavailable
+      </h3>
+      <p className="mt-3 text-sm leading-6 text-zinc-400">
+        Visit the {app.name} repository for setup and configuration
+        instructions.
+      </p>
     </div>
   );
 }
@@ -385,7 +348,7 @@ export default function ReadmeMarkdownWindow({
   readme: LoadedReadmeMarkdown | null;
 }) {
   if (!readme) {
-    return <ReadmeFallback app={app} />;
+    return <ReadmeUnavailableNotice app={app} />;
   }
 
   return (
@@ -438,19 +401,19 @@ export default function ReadmeMarkdownWindow({
             </code>
           ),
           h1: ({ children }) => (
-            <h1 className="mt-0 mb-5 border-b border-white/10 pb-4 text-2xl leading-tight font-semibold text-zinc-50 sm:text-3xl">
-              {children}
-            </h1>
-          ),
-          h2: ({ children }) => (
-            <h2 className="mt-8 mb-4 border-b border-white/10 pb-2 text-xl leading-tight font-semibold text-zinc-50">
-              {children}
-            </h2>
-          ),
-          h3: ({ children }) => (
-            <h3 className="mt-7 mb-3 text-base font-semibold text-zinc-100">
+            <h3 className="mt-0 mb-5 border-b border-white/10 pb-4 text-2xl leading-tight font-semibold text-zinc-50 sm:text-3xl">
               {children}
             </h3>
+          ),
+          h2: ({ children }) => (
+            <h4 className="mt-8 mb-4 border-b border-white/10 pb-2 text-xl leading-tight font-semibold text-zinc-50">
+              {children}
+            </h4>
+          ),
+          h3: ({ children }) => (
+            <h5 className="mt-7 mb-3 text-base font-semibold text-zinc-100">
+              {children}
+            </h5>
           ),
           hr: () => <hr className="my-7 border-white/10" />,
           img: ({ src, alt }) => {

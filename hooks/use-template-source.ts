@@ -104,7 +104,7 @@ export async function loadTemplateSource(
       string,
       TemplateInput[]
     >;
-    const inputs = sources[templateName];
+    const inputs = sources[templateName] ?? sources[templateName.toLowerCase()];
 
     if (inputs !== undefined) {
       return {

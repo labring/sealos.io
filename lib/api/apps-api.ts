@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { AppConfig } from '@/config/apps-loader';
+import appStoreContent from '@/config/app-store-content.json';
 
 const API_URL = 'https://template.os.sealos.io/api/listTemplate';
 
@@ -185,7 +186,11 @@ async function convertTemplateToAppConfig(
   const appConfig: AppConfig = {
     name: spec.title || metadata.name || '',
     slug: metadata.name || '',
-    description: spec.description || '',
+    description:
+      appStoreContent[slug.toLowerCase() as keyof typeof appStoreContent]
+        ?.description ||
+      spec.description ||
+      '',
     icon: iconPath,
     screenshots: Array.isArray(spec.screenshots) ? spec.screenshots : [],
     category: category,
