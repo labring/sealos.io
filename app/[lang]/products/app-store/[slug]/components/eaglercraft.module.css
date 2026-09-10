@@ -1,0 +1,130 @@
+.guide section {
+  padding: 64px 0;
+  border-bottom: 1px solid var(--detail-line);
+  scroll-margin-top: 100px;
+}
+.guide h2 {
+  margin: 12px 0 32px;
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+.guide h3,
+.cards dt {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.guide p,
+.cards dd {
+  margin-top: 14px;
+  color: var(--detail-muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+.guide code {
+  color: #e1e9fc;
+  overflow-wrap: anywhere;
+}
+.guide a {
+  color: var(--detail-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.guide a svg {
+  display: inline;
+}
+.steps,
+.cards,
+.plans {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 36px 48px;
+}
+.steps {
+  list-style: decimal-leading-zero;
+  padding-left: 28px;
+}
+.steps li {
+  padding-left: 8px;
+}
+.steps li::marker {
+  color: var(--detail-accent);
+  font-family: monospace;
+}
+.console {
+  margin: 40px 0 0;
+}
+.console a {
+  display: block;
+  overflow-x: auto;
+}
+.console img {
+  min-width: 760px;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--detail-line);
+  border-radius: 8px;
+}
+.console figcaption {
+  margin-top: 12px;
+  color: var(--detail-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.cards {
+  margin-top: 32px;
+}
+.plans > div {
+  padding: 28px;
+  border: 1px solid var(--detail-line);
+  border-radius: 8px;
+}
+.plans a {
+  display: inline-block;
+  margin-top: 20px;
+}
+.allocation,
+.prices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 24px 0;
+}
+.allocation dt,
+.prices dt {
+  color: var(--detail-muted);
+  font-size: 13px;
+}
+.allocation dd {
+  margin-top: 8px;
+  font-size: 20px;
+}
+.prices dd {
+  margin-top: 8px;
+  font-size: 40px;
+}
+.prices dd span {
+  margin-left: 4px;
+  font-size: 14px;
+  color: var(--detail-muted);
+}
+.references {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 28px;
+  margin: 24px 0 32px;
+}
+@media (max-width: 800px) {
+  .steps,
+  .cards,
+  .plans {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .guide section {
+    padding: 40px 0;
+  }
+  .plans > div {
+    padding: 20px;
+  }
+}
