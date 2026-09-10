@@ -1,11 +1,9 @@
 // App Store detail page with the redesigned marketplace layout.
 import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Footer } from '@/new-components/Footer';
 import { Header } from '@/new-components/Header';
-import BottomLightImage from '@/assets/bottom-light.svg';
 import {
   appsConfig,
   getAppBySlug,
@@ -21,8 +19,9 @@ import AppDetailHero from './components/AppDetailHero';
 import ReadmePreview from './components/ReadmePreview';
 import { loadReadmeMarkdown } from './components/ReadmeMarkdownWindow';
 import RelatedTemplates from './components/RelatedTemplates';
-import WholeStackSection from './components/WholeStackSection';
 import WhyDeployOnSealos from './components/WhyDeployOnSealos';
+import WholeStackSection from './components/WholeStackSection';
+import s from './components/detail.module.css';
 import {
   getRelatedApps,
   type AppDetailConfig,
@@ -80,6 +79,7 @@ export async function generateMetadata({
     pathname: getAppDetailPathname(app.slug),
     lang: params.lang,
     ogType: 'app',
+    languageAlternates: params.lang === 'en' ? false : undefined,
   });
 }
 
@@ -101,10 +101,12 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
   const appSchema = generateAppDetailSoftwareSchema(app, params.lang);
   const breadcrumbSchema = generateBreadcrumbSchema(
     [
-      { name: 'Home', url: siteConfig.url.base },
-      { name: 'Products', url: `${siteConfig.url.base}/products` },
-      { name: 'App Store', url: `${siteConfig.url.base}${APP_STORE_PATHNAME}` },
-      { name: app.name, url: `${siteConfig.url.base}${canonicalPath}` },
+      { name: 'Home', url: `${siteConfig.url.base}/` },
+      {
+        name: 'App Store',
+        url: `${siteConfig.url.base}${APP_STORE_PATHNAME}/`,
+      },
+      { name: app.name, url: `${siteConfig.url.base}${canonicalPath}/` },
     ],
     params.lang,
   );
@@ -115,37 +117,25 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
       <div
         data-theme="app-store"
         style={appStoreDetailBackgroundVars}
-        className="bg-background text-foreground isolate min-h-[100dvh]"
+        className={`${s.page} relative isolate z-10 min-h-[100dvh]`}
       >
         <div className="sticky top-0 z-50 w-full">
           <Header lang={params.lang} />
         </div>
 
-        <main className="bg-background relative z-10 -mt-24 overflow-x-clip">
+        <main className={s.main}>
           <AppDetailHero
             app={app}
             lang={params.lang}
             templateName={getTemplateName(app)}
           />
+          <ReadmePreview app={app} readme={readme} />
           <WhyDeployOnSealos />
           <WholeStackSection />
-          <ReadmePreview app={app} readme={readme} />
           <RelatedTemplates apps={relatedApps} lang={params.lang} />
         </main>
-
-        <div className="relative mt-16 mb-48 h-[520px] sm:mt-[80px] sm:mb-[400px] sm:h-[800px]">
-          <div className="w-full">
-            <Image
-              src={BottomLightImage}
-              alt=""
-              className="h-auto w-full object-cover select-none"
-              priority
-              fill
-            />
-          </div>
-          <Footer lang={params.lang} />
-        </div>
       </div>
+      <Footer lang={params.lang} />
     </>
   );
 }

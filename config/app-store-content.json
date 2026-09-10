@@ -1,0 +1,338 @@
+{
+  "openclaw": {
+    "description": "Host OpenClaw's AI agent gateway on Sealos with a browser control panel, token authentication, and persistent storage for configuration and workspaces.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/openclaw/README.md"
+    ]
+  },
+  "firefox": {
+    "description": "Run a remote Firefox browser on Sealos and use its graphical interface from your own browser through noVNC. Keep the browsing session in a hosted container.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/firefox/README.md",
+      "https://github.com/jlesage/docker-firefox"
+    ]
+  },
+  "flarum": {
+    "description": "Launch a Flarum community forum on Sealos with discussion threads, moderation tools, persistent storage, and a managed MySQL database.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/flarum/README.md"
+    ]
+  },
+  "flowise": {
+    "description": "Build Flowise AI agents and LLM workflows on a visual canvas. Host on Sealos with persistent storage and optional PostgreSQL and object storage.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/flowise/README.md"
+    ]
+  },
+  "airbyte": {
+    "description": "Connect databases, APIs, and SaaS tools to a warehouse with Airbyte. Deploy its integration services, PostgreSQL, and object storage on Sealos.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/airbyte/README.md"
+    ]
+  },
+  "umami": {
+    "description": "Self-host Umami on Sealos to measure website traffic, campaigns, and visitor behavior with privacy-focused analytics and control over your data.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/umami/README.md",
+      "https://github.com/umami-software/umami"
+    ]
+  },
+  "code-server": {
+    "description": "Run VS Code in your browser with code-server on Sealos. Use password-protected HTTPS access and a persistent workspace for code, settings, and files.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/code-server/README.md"
+    ]
+  },
+  "postiz": {
+    "description": "Schedule and manage social media publishing with Postiz on Sealos, including PostgreSQL, Redis, Temporal, and persistent storage for your publishing workspace.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/postiz/README.md"
+    ]
+  },
+  "deeplx": {
+    "description": "Deploy the self-hosted DeeplX translation API on Sealos and connect applications to its HTTP endpoint. This independent gateway integrates with DeepL translation.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/deeplx/README.md",
+      "https://github.com/OwO-Network/DeepLX"
+    ]
+  },
+  "glance": {
+    "description": "Bring RSS feeds, weather, videos, and server status into a self-hosted Glance dashboard on Sealos. Customize its pages and widgets through YAML configuration.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/glance/README.md",
+      "https://github.com/glanceapp/glance"
+    ]
+  },
+  "kaneo": {
+    "description": "Host Kaneo on Sealos to organize team projects and tasks in your own workspace. Keep project management data under your control with a self-hosted deployment.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/kaneo/README.md",
+      "https://github.com/usekaneo/kaneo"
+    ]
+  },
+  "localstack": {
+    "description": "Test AWS-compatible APIs with LocalStack on Sealos. Point your SDK or CLI at the hosted gateway to develop S3, SQS, and other cloud integrations.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/localstack/README.md"
+    ]
+  },
+  "nocodb": {
+    "description": "Turn relational data into collaborative tables, views, and forms with NocoDB on Sealos. Start with persistent SQLite storage or select managed PostgreSQL.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/nocodb/README.md"
+    ]
+  },
+  "vllm": {
+    "description": "Serve a compact language model on CPU with vLLM on Sealos. Connect through an OpenAI-compatible HTTPS API and retain downloaded models in a persistent cache.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/vllm/README.md"
+    ]
+  },
+  "chatnio": {
+    "description": "Host Chat Nio on Sealos for a shared AI chat interface and model-provider management. Connect your configured AI services through a self-hosted workspace.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/chatnio/README.md",
+      "https://github.com/coaidev/coai"
+    ]
+  },
+  "drawdb": {
+    "description": "Design database diagrams and generate SQL with drawDB on Sealos. Open the browser editor over HTTPS, then export your work from its local browser storage.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/drawdb/README.md"
+    ]
+  },
+  "kanboard": {
+    "description": "Organize tasks with Kanboard boards, swimlanes, and work-in-progress limits. Deploy on Sealos with PostgreSQL and persistent storage for data and plugins.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/kanboard/README.md"
+    ]
+  },
+  "penpot": {
+    "description": "Collaborate on product designs and prototypes with Penpot on Sealos. Deploy its frontend, backend, exporter, PostgreSQL, and Redis services together.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/penpot/README.md"
+    ]
+  },
+  "photoprism": {
+    "description": "Host PhotoPrism on Sealos to organize, search, and browse your photo and video library. Use AI-assisted tagging while keeping control of your media collection.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/photoprism/README.md",
+      "https://github.com/photoprism/photoprism"
+    ]
+  },
+  "cap": {
+    "description": "Host Cap's video-sharing workspace on Sealos with a media server, MySQL, and object storage. Manage and share recordings created with the Cap desktop app.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/cap/README.md"
+    ]
+  },
+  "chatbot-ui": {
+    "description": "Run Chatbot UI as your own AI chat application on Sealos. Configure model-provider access and give users a dedicated browser interface for conversations.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/chatbot-ui/README.md",
+      "https://github.com/mckaywrigley/chatbot-ui"
+    ]
+  },
+  "full-stack-fastapi": {
+    "description": "Start a web application with the Full Stack FastAPI template on Sealos, combining a Python API, PostgreSQL database, and React frontend.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/full-stack-fastapi/README.md",
+      "https://github.com/yangchuansheng/full-stack-fastapi-template"
+    ]
+  },
+  "glitchtip": {
+    "description": "Track application errors, performance, and uptime with GlitchTip on Sealos. Connect Sentry-compatible SDKs and investigate failures in a self-hosted dashboard.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/glitchtip/README.md",
+      "https://glitchtip.com/"
+    ]
+  },
+  "grafana-otel": {
+    "description": "Collect application metrics through OpenTelemetry and explore them in Grafana. This Sealos stack includes Prometheus and persistent monitoring data.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/grafana-otel/README.md"
+    ]
+  },
+  "librechat": {
+    "description": "Host LibreChat on Sealos for an AI chat workspace with configurable model providers. Bring your own provider credentials and manage conversations in the browser.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/librechat/README.md",
+      "https://github.com/danny-avila/LibreChat"
+    ]
+  },
+  "nexus": {
+    "description": "Host private packages and proxy upstream repositories with Nexus Repository on Sealos. Keep build artifacts in persistent storage behind an HTTPS endpoint.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/nexus/README.md"
+    ]
+  },
+  "opencart": {
+    "description": "Build an OpenCart store on Sealos with managed MySQL, persistent product data, and HTTPS access. Configure administrator credentials during deployment.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/opencart/README.md"
+    ]
+  },
+  "phpmyadmin": {
+    "description": "Manage MySQL and MariaDB through phpMyAdmin's browser interface on Sealos. Connect to your database to inspect tables, run queries, and administer data.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/phpmyadmin/README.md"
+    ]
+  },
+  "pocket-id": {
+    "description": "Run Pocket ID on Sealos to give your applications OpenID Connect sign-in with passkeys. Persist identity data and expose the provider through managed HTTPS.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/pocket-id/README.md"
+    ]
+  },
+  "tailchat": {
+    "description": "Create a self-hosted team messaging workspace with Tailchat on Sealos. Bring group conversations and collaboration into a chat service you operate.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/tailchat/README.md",
+      "https://github.com/msgbyte/tailchat"
+    ]
+  },
+  "tentix": {
+    "description": "Host Tentix on Sealos for AI-assisted support ticket workflows. Connect a knowledge base and AI provider to help staff draft replies and handle customer requests.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/tentix/README.md",
+      "https://github.com/labring/tentix"
+    ]
+  },
+  "tolgee": {
+    "description": "Manage application translations with a self-hosted Tolgee workspace on Sealos. Bring developers and translators together to maintain localized product content.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/tolgee/README.md",
+      "https://github.com/tolgee/tolgee-platform"
+    ]
+  },
+  "calcom": {
+    "description": "Host Cal.com booking pages and team scheduling on Sealos with managed PostgreSQL. Let visitors book available times while you control the scheduling application.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/calcom/README.md"
+    ]
+  },
+  "docker-stacks": {
+    "description": "Run Jupyter applications on Sealos with Jupyter Docker Stacks. Open a hosted notebook environment in your browser for interactive code and data analysis.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/docker-stacks/README.md",
+      "https://github.com/jupyter/docker-stacks"
+    ]
+  },
+  "overleaf": {
+    "description": "Collaborate on LaTeX documents with Overleaf Community Edition on Sealos, including MongoDB, Redis, persistent project storage, and browser-based PDF compilation.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/overleaf/README.md"
+    ]
+  },
+  "pangolin": {
+    "description": "Deploy Pangolin's identity-aware access control plane on Sealos with persistent configuration. Connect an external Gerbil node for tunnel and egress services.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/pangolin/README.md"
+    ]
+  },
+  "woocommerce": {
+    "description": "Launch WooCommerce with WordPress on Sealos. The template installs the store plugin and provisions MySQL, persistent site storage, and HTTPS access.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/woocommerce/README.md"
+    ]
+  },
+  "anki-sync-server": {
+    "description": "Host your own Anki sync endpoint on Sealos. Configure compatible Anki clients to synchronize study collections with the server you operate.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/anki-sync-server/README.md",
+      "https://github.com/yangchuansheng/anki-sync-server"
+    ]
+  },
+  "chatany": {
+    "description": "Deploy ChatAny's AI chat and image-service interface on Sealos using your provider credentials. Upstream development has stopped; assess maintenance before adoption.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/chatany/README.md",
+      "https://github.com/ChatAnyTeam/ChatAny"
+    ]
+  },
+  "glpi": {
+    "description": "Manage IT assets and service desk requests with GLPI on Sealos, backed by a dedicated MySQL database, persistent storage, and a public HTTPS endpoint.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/glpi/README.md"
+    ]
+  },
+  "it-tools": {
+    "description": "Host IT-Tools on Sealos to give your team a browser-based collection of development and IT utilities. Access the tools from a dedicated HTTPS address.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/it-tools/README.md",
+      "https://github.com/CorentinTh/it-tools"
+    ]
+  },
+  "mage-ai": {
+    "description": "Build, schedule, and monitor data pipelines with Mage AI on Sealos. Use a notebook-style editor with PostgreSQL metadata and persistent project files.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/mage-ai/README.md"
+    ]
+  },
+  "node-red": {
+    "description": "Connect devices, APIs, and services in Node-RED's visual flow editor on Sealos. Keep flows and credentials on persistent storage and access the editor over HTTPS.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/node-red/README.md"
+    ]
+  },
+  "pdf2zh": {
+    "description": "Translate scientific PDFs with PDFMathTranslate on Sealos while preserving formulas and layout. Use a password-protected WebUI with persistent files and caches.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/pdf2zh/README.md"
+    ]
+  },
+  "quay": {
+    "description": "Host an OCI container registry with Project Quay on Sealos. Store images with PostgreSQL, Redis, persistent storage, and automatic initial administrator setup.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/quay/README.md"
+    ]
+  },
+  "eaglercraft-server": {
+    "description": "Host browser-based Minecraft with EaglerCraft on Sealos. Each deployment runs one selected Paper version with an admin console and persistent world storage.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/eaglercraft-server/README.md",
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/eaglercraft-server/index.yaml"
+    ],
+    "deployment": {
+      "steps": [
+        "Choose Minecraft 1.12 or 1.8 and set a strong administration password in Deploy now.",
+        "Launch the template, open its application card, and sign in to /admin with that password.",
+        "Wait for Paper is ready, then use Join game. Players create a profile and register their own in-game password."
+      ],
+      "resources": "The main game container defaults to a 0.2 vCPU limit, 1 GiB memory limit, and a 1 GiB world volume. Increase capacity as players, map data, and backups grow. These allocations describe the default template; workload requirements vary.",
+      "access": "The HTTPS host serves the game at / and the console at /admin; players connect over secure WebSockets. One deployment runs one Paper version. Running both versions requires separate instances and volumes."
+    }
+  },
+  "n8n": {
+    "description": "Host n8n workflow automation on Sealos with persistent storage and HTTPS webhooks. Choose PostgreSQL and Redis-backed queue mode as your workflows grow.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/n8n/README.md",
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/n8n/index.yaml"
+    ],
+    "deployment": {
+      "steps": [
+        "Choose Deploy now, select your scheduling timezone, and decide whether to enable PostgreSQL.",
+        "Enable queue mode for separate workers; the template also provisions PostgreSQL, Redis, and task runners.",
+        "Launch the template, open the n8n URL in Canvas, and create the first owner account."
+      ],
+      "resources": "The n8n editor defaults to a 0.5 vCPU limit, 1 GiB memory limit, and a 1 GiB volume. PostgreSQL and queue mode add database, Redis, worker, and runner resources. Budget for the full selected configuration.",
+      "access": "Use the generated HTTPS address for the editor and webhook endpoints. Create credentials for connected services in n8n, then configure and test your first workflow."
+    }
+  },
+  "grafana": {
+    "description": "Build metrics dashboards with Grafana on Sealos. Keep dashboards and configuration on persistent storage, with SQLite by default and optional managed PostgreSQL.",
+    "sources": [
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/grafana/README.md",
+      "https://raw.githubusercontent.com/labring-actions/templates/kb-0.9/template/grafana/index.yaml"
+    ],
+    "deployment": {
+      "steps": [
+        "Choose Deploy now and select SQLite or the optional managed PostgreSQL database.",
+        "Launch the template and open the Grafana URL from Canvas.",
+        "Sign in as admin with the generated admin_password, update the password when prompted, and connect a data source."
+      ],
+      "resources": "The Grafana container defaults to a 0.2 vCPU limit, 256 MiB memory limit, and a 1 GiB volume. Optional PostgreSQL adds a 0.5 vCPU limit, 512 MiB memory limit, and its own 1 GiB volume. Adjust capacity for your dashboard workload.",
+      "access": "Open Grafana through its generated HTTPS URL. Prometheus, Loki, and other monitoring backends are data sources you connect separately; PostgreSQL stores Grafana application data."
+    }
+  }
+}

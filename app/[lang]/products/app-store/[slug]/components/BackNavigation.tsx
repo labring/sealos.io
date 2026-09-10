@@ -1,16 +1,19 @@
 import Link from 'next/link';
-import { languagesType } from '@/lib/i18n';
+import { getLanguageSlug, type languagesType } from '@/lib/i18n';
 
 interface BackNavigationProps {
   lang: languagesType;
   backText: string;
 }
 
-export default function BackNavigation({ lang, backText }: BackNavigationProps) {
+export default function BackNavigation({
+  lang,
+  backText,
+}: BackNavigationProps) {
   return (
     <Link
-      href={`/${lang}/products/app-store`}
-      className="group mb-6 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+      href={`${getLanguageSlug(lang)}/products/app-store/`}
+      className="group text-muted-foreground hover:text-foreground mb-6 inline-flex items-center gap-2 text-sm transition-colors"
     >
       <svg
         className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-0.5"

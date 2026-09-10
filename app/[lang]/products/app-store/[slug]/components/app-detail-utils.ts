@@ -163,7 +163,11 @@ export function getRelatedApps({
   const fallback = candidates.filter(
     (app) => app.category !== currentApp.category,
   );
-  const related = [...sameCategory, ...fallback];
+  const sharesTag = (app: AppDetailConfig) =>
+    app.tags?.some((tag) => currentApp.tags?.includes(tag)) ?? false;
+  const related = [...sameCategory, ...fallback].sort(
+    (a, b) => Number(sharesTag(b)) - Number(sharesTag(a)),
+  );
 
   return related.slice(0, limit);
 }

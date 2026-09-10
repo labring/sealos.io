@@ -1,25 +1,18 @@
 import Link from 'next/link';
-import {
-  ArrowLeft,
-  ArrowRight,
-  BookOpen,
-  CircleCheck,
-  ExternalLink,
-  Github,
-} from 'lucide-react';
-import { PageTopRays } from '@/new-components/SideRays';
-import { GradientLucideIcon } from '@/new-components/GradientLucideIcon';
-import { GradientText } from '@/new-components/GradientText';
+
+import { ArrowRight, ArrowUpRight, Github } from 'lucide-react';
 import { AppIcon } from '@/components/ui/app-icon';
-import { languagesType } from '@/lib/i18n';
-import { cn } from '@/lib/utils';
+import { getLanguageSlug, type languagesType } from '@/lib/i18n';
 import { DeployButton } from './DeployButton';
 import AppPreviewPanel from './AppPreviewPanel';
+import WorldPreview from './WorldPreview';
 import {
-  getAppBenefits,
+  formatAppCount,
+  getDeployCount,
   getDisplayDescription,
   type AppDetailConfig,
 } from './app-detail-utils';
+import s from './detail.module.css';
 
 interface AppDetailHeroProps {
   app: AppDetailConfig;
@@ -27,164 +20,125 @@ interface AppDetailHeroProps {
   templateName: string;
 }
 
-const proofPoints = [
-  'Easy to deploy and manage',
-  'Self-hosted solution',
-  'Open source and free',
-  'Community supported',
-];
-
-const heroCenterLogoClassName =
-  'hidden lg:flex absolute left-[609px] top-9 z-20 h-[130px] w-[130px] -translate-x-1/2 items-center justify-center rounded-[5.235px] border-[0.5px] border-transparent p-5 shadow-2xl shadow-black/40';
-
-const heroCenterLogoBorderStyle = {
-  background:
-    'linear-gradient(#0A0A0A, #0A0A0A) padding-box, linear-gradient(109.08deg, #FFFFFF 0.55%, rgba(255, 255, 255, 0) 26.65%) border-box, linear-gradient(285.16deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 8.87%) border-box, linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)) border-box',
-};
-
-function textLinkClassName(variant: 'primary' | 'default' = 'default') {
-  return cn(
-    'inline-flex items-center gap-1.5 text-xs transition',
-    variant === 'primary'
-      ? 'text-white hover:text-[#69a3ff]'
-      : 'text-zinc-400 hover:text-white',
-  );
-}
-
 export default function AppDetailHero({
   app,
   lang,
   templateName,
 }: AppDetailHeroProps) {
-  const benefits = getAppBenefits(app);
-
+  const deployCount = getDeployCount(app);
+  const featured = app.slug === 'eaglercraft-server';
   return (
-    <section className="relative overflow-hidden pt-28 pb-14 sm:pt-36 sm:pb-16 md:pt-44 md:pb-20 lg:pt-[132px] lg:pb-20">
-      <div
-        className="bg-background pointer-events-none absolute inset-0 z-0"
-        aria-hidden="true"
-      />
-      <div className="pointer-events-none absolute inset-0 z-[3]">
-        <PageTopRays />
-      </div>
-
-      <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-12 px-6 lg:grid-cols-[minmax(0,560px)_minmax(0,1fr)] lg:px-8">
-        <div
-          className={heroCenterLogoClassName}
-          style={heroCenterLogoBorderStyle}
-        >
-          <AppIcon
-            src={app.icon}
-            alt={`${app.name} icon`}
-            width={92}
-            height={92}
-            className="h-[92px] w-[92px] rounded-md object-contain"
-            fallbackClassName="h-16 w-16 text-zinc-700"
-          />
-        </div>
-
-        <div className="relative z-20 min-w-0 lg:pt-2">
-          <Link
-            href={`/${lang}/products/app-store`}
-            className="mb-12 inline-flex items-center gap-2 text-xs text-zinc-500 transition hover:text-zinc-200 lg:mb-[92px]"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            Back to templates
-          </Link>
-
-          <div className="mb-7 flex items-center gap-5 lg:hidden">
-            <div className="flex h-[84px] w-[84px] items-center justify-center rounded-xl border border-white/15 bg-zinc-100 p-3 shadow-2xl shadow-black/40">
+    <section className={s.hero}>
+      <nav aria-label="Breadcrumb" className={s.breadcrumb}>
+        <Link href={`${getLanguageSlug(lang)}/products/app-store/`}>
+          App Store
+        </Link>
+        <span aria-hidden="true">/</span>
+        <span>{app.category}</span>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{app.name}</span>
+      </nav>
+      <div className={`${s.heroIntro} ${featured ? s.featureIntro : ''}`}>
+        {featured && <WorldPreview />}
+        <div className={s.titleBlock}>
+          <span className={s.eyebrow}>
+            {featured ? 'Browser gaming / Self-hosted' : 'App Store template'}
+          </span>
+          <div className={s.appHeading}>
+            {!featured && (
               <AppIcon
                 src={app.icon}
                 alt={`${app.name} icon`}
                 width={64}
                 height={64}
-                className="h-16 w-16 rounded-lg object-contain"
-                fallbackClassName="h-12 w-12 text-zinc-700"
+                className={s.appIcon}
               />
-            </div>
-          </div>
-
-          <h1 className="max-w-[720px] text-[34px] leading-[1.12] font-semibold text-white sm:text-[36px] lg:max-w-[500px] lg:text-[36px] lg:leading-[1.18]">
-            Deploy{' '}
-            <GradientText className="to-[#146DFF]">
-              {app.name} on Sealos
-            </GradientText>
-          </h1>
-          <p className="mt-6 max-w-[600px] text-sm leading-6 text-zinc-400">
-            {getDisplayDescription(app)}
-          </p>
-
-          <div className="mt-6 flex flex-wrap items-center gap-2">
-            <span className="inline-flex h-6 items-center gap-1 rounded-full bg-white/[0.055] px-2 text-xs text-zinc-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#6ea2ff]" />
-              {app.category}
-            </span>
-          </div>
-
-          <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-xs text-zinc-400">
-            {(benefits.length ? benefits : proofPoints)
-              .slice(0, 4)
-              .map((item) => (
-                <span key={item} className="inline-flex items-center gap-2">
-                  <GradientLucideIcon
-                    Icon={CircleCheck}
-                    className="h-3.5 w-3.5 shrink-0"
-                  />
-                  {item}
-                </span>
-              ))}
-          </div>
-
-          <div className="mt-10">
-            <DeployButton
-              templateName={templateName}
-              appName={app.name}
-              category={app.category}
-              className="gap-2 px-6 text-sm"
-            >
-              Deploy Now
-              <ArrowRight className="h-4 w-4" />
-            </DeployButton>
-          </div>
-
-          <div className="mt-9 flex flex-wrap items-center gap-5">
-            {app.website && (
-              <a
-                href={app.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={textLinkClassName('primary')}
-              >
-                <ExternalLink className="h-3.5 w-3.5" />
-                Official Website
-              </a>
             )}
+            <h1>{app.name}</h1>
+          </div>
+          <p className={s.description}>
+            {app.slug === 'eaglercraft-server'
+              ? 'A Minecraft world in your browser. A server of your own.'
+              : getDisplayDescription(app)}
+          </p>
+        </div>
+        <div className={s.launchBlock}>
+          <DeployButton
+            templateName={templateName}
+            appName={app.name}
+            category={app.category}
+            className={s.deployButton}
+          >
+            Deploy now <ArrowRight size={18} />
+          </DeployButton>
+          {!featured && (
+            <p className={s.deployNote}>Launch in your Sealos workspace.</p>
+          )}
+          <div className={s.heroLinks}>
             {app.github && (
               <a
                 href={app.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={textLinkClassName()}
+                className={s.textLink}
               >
-                <Github className="h-3.5 w-3.5" />
-                GitHub
+                <Github size={15} /> Source
               </a>
             )}
-            <a href="#readme" className={textLinkClassName()}>
-              <BookOpen className="h-3.5 w-3.5" />
-              README
+            <a href="#readme" className={s.textLink}>
+              Deploy guide <ArrowRight size={14} />
             </a>
+            {featured && app.screenshots?.[0] && (
+              <a
+                href={app.screenshots[0]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={s.textLink}
+              >
+                Console <ArrowUpRight size={14} />
+              </a>
+            )}
+            {app.website && app.website !== app.github && (
+              <a
+                href={app.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={s.textLink}
+              >
+                Website <ArrowUpRight size={14} />
+              </a>
+            )}
           </div>
-        </div>
-
-        <div className="relative z-20 hidden min-w-0 lg:block lg:pt-[150px]">
-          <div className="absolute -inset-10 bg-[radial-gradient(circle_at_45%_40%,rgba(20,109,255,0.18),transparent_54%)]" />
-          <div className="relative translate-x-14">
-            <AppPreviewPanel app={app} variant="hero" />
-          </div>
+          {featured && (
+            <p className={s.featureProof}>
+              <strong>{formatAppCount(deployCount)}</strong> template
+              deployments on Sealos
+            </p>
+          )}
         </div>
       </div>
+      {!featured && <AppPreviewPanel app={app} />}
+      {!featured && (
+        <dl className={s.facts}>
+          {deployCount > 0 && (
+            <div className={s.deploymentCount}>
+              <dt>Template deployments</dt>
+              <dd>
+                {formatAppCount(deployCount)}
+                <span className={s.factNote}> on Sealos</span>
+              </dd>
+            </div>
+          )}
+          <div>
+            <dt>Deployment</dt>
+            <dd>Your own instance</dd>
+          </div>
+          <div>
+            <dt>Category</dt>
+            <dd>{app.category}</dd>
+          </div>
+        </dl>
+      )}
     </section>
   );
 }

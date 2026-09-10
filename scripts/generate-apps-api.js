@@ -13,8 +13,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
 const crypto = require('crypto');
+const appStoreContent = require('../config/app-store-content.json');
 
 // API endpoints
 const API_URL = 'https://template.os.sealos.io/api/listTemplate';
@@ -308,7 +308,7 @@ async function convertTemplateToAppConfig(template) {
   const appConfig = {
     name: spec.title || metadata.name || '',
     slug,
-    description: spec.description || '',
+    description: appStoreContent[slug]?.description || spec.description || '',
     icon: iconPath,
     screenshots:
       Array.isArray(spec.screenshots) && spec.screenshots.length > 0
@@ -397,10 +397,15 @@ async function downloadIcon(iconUrl, slug) {
 
     console.log(`📥 Downloading icon for ${slug}: ${iconUrl}`);
 
-    // Use curl to download the icon
-    execSync(`curl -s -L -o "${outputPath}" "${iconUrl}"`, {
-      timeout: 10000, // 10 second timeout
+    const response = await fetch(iconUrl, {
+      signal: AbortSignal.timeout(10000),
     });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const icon = Buffer.from(await response.arrayBuffer());
+    if (!icon.length) throw new Error('Empty icon response');
+    fs.writeFileSync(outputPath, icon);
 
     // Check if file was downloaded successfully
     if (fs.existsSync(outputPath) && fs.statSync(outputPath).size > 0) {

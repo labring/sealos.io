@@ -40,6 +40,7 @@ FROM nginx:1.27-alpine AS runner
 
 # Copy static export output to nginx web root
 COPY --from=builder /app/out /usr/share/nginx/html
+COPY config/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 

@@ -143,3 +143,13 @@ test('getAppUseCases replaces repeated generic use cases with category-specific 
     'Log and trace analysis',
   ]);
 });
+
+test('getRelatedApps prioritizes a shared use-case tag over a broad category', () => {
+  const currentApp = { ...fixtures[0], category: 'Tools', tags: ['game'] };
+  const unrelatedTool = { ...fixtures[1], category: 'Tools', tags: ['productivity'] };
+  const gameServer = { ...fixtures[2], category: 'Backend', tags: ['game'] };
+  assert.deepEqual(
+    getRelatedApps({ apps: [currentApp, unrelatedTool, gameServer], currentApp, limit: 2 }).map((app) => app.slug),
+    [gameServer.slug, unrelatedTool.slug],
+  );
+});
