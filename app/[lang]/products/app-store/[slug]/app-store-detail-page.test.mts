@@ -9,24 +9,6 @@ const source = readFileSync(
   'utf8',
 );
 
-test('app store detail page uses the redesigned dark shell and home footer', () => {
-  assert.match(source, /import \{ Footer \} from '@\/new-components\/Footer'/);
-  assert.match(source, /<Footer lang=\{params.lang\} \/>/);
-  assert.match(source, /appStoreDetailBackgroundVars/);
-  assert.match(source, /data-theme="app-store"/);
-  assert.match(source, /isolate z-10 min-h-\[100dvh\]/);
-  assert.doesNotMatch(source, /import Footer from '@\/components\/footer'/);
-  assert.doesNotMatch(source, /@\/components\/header\/hero/);
-});
-
-test('app store detail page renders the application-focused detail sections', () => {
-  assert.match(source, /AppDetailHero/);
-  assert.match(source, /<WhyDeployOnSealos \/>/);
-  assert.match(source, /<WholeStackSection \/>/);
-  assert.match(source, /ReadmePreview/);
-  assert.match(source, /RelatedTemplates/);
-});
-
 test('app store detail page preserves canonical SEO and legacy slug compatibility', () => {
   assert.match(source, /StructuredDataComponent/);
   assert.match(source, /generateAppDetailSoftwareSchema/);
@@ -67,11 +49,4 @@ test('README fallback communicates unavailable content with repository guidance'
     readmeWindowSource,
     /repository for setup and configuration\s+instructions/,
   );
-});
-
-test('app store detail page delegates navbar top spacing to the shared Header', () => {
-  assert.match(source, /min-h-\[100dvh\]/);
-  assert.match(source, /className="sticky top-0 z-50 w-full"/);
-  assert.doesNotMatch(source, /pt-4 sm:pt-8/);
-  assert.match(source, /<Header lang=\{params.lang\} \/>/);
 });

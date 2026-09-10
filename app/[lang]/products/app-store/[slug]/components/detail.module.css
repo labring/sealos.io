@@ -220,8 +220,8 @@
   border-radius: 0;
   background: transparent;
 }
-.readmeExcerpt :global(img),
-.readmeExcerpt :global(p:has(img)) {
+.readmeSummary :global(img),
+.readmeSummary :global(p:has(img)) {
   display: none;
 }
 .readmeBody :global(h3) {
@@ -450,13 +450,11 @@
   font-size: 16px;
 }
 .deploymentDetails dl {
-  margin: 20px 0 25px;
+  margin: 0 0 28px;
   display: grid;
   grid-template-columns: 25% 40% 35%;
   gap: 0;
   align-items: start;
-  margin-top: 0;
-  margin-bottom: 28px;
 }
 .deploymentDetails dl > div {
   display: block;
@@ -464,8 +462,6 @@
   align-items: baseline;
   gap: 22px;
   padding: 0;
-  border-bottom: 0;
-  border-left: 1px solid #34383d;
   border: 0;
   text-align: left;
   position: relative;
@@ -511,14 +507,13 @@
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
   grid-template-rows: auto 1fr;
   gap: 32px 60px;
-  padding: 48px 0 0;
+  padding: 48px 0 58px;
   margin: 0;
   min-height: 0;
   overflow: visible;
   isolation: auto;
   border-radius: 0;
   align-items: center;
-  padding-bottom: 58px;
   border-bottom: 1px solid var(--detail-line);
 }
 .featureIntro::after {
@@ -531,9 +526,6 @@
   margin-top: 90px;
 }
 .featureIntro h1 {
-  font-size: 76px;
-  line-height: 1.03;
-  letter-spacing: -0.04em;
   text-wrap: initial;
   overflow-wrap: normal;
 }
@@ -552,10 +544,9 @@
   grid-column: 1;
   grid-row: 2;
   align-self: start;
-  margin: 0 0 68px;
+  margin: 0;
   padding: 0;
   max-width: 310px;
-  margin-bottom: 0;
 }
 .featureIntro .heroLinks {
   margin-top: 20px;
@@ -587,14 +578,11 @@
   align-items: baseline;
   gap: 7px;
   padding: 0;
-  margin: 30px 0 0;
-  border-top: 1px solid var(--detail-line);
-  border-bottom: 1px solid var(--detail-line);
+  margin: 18px 0 0;
   font-size: 13px;
   color: var(--detail-muted);
   border: 0;
   white-space: nowrap;
-  margin-top: 18px;
 }
 .featureProof strong {
   font-size: 20px;
@@ -610,32 +598,19 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 16px 0 0;
 }
 .sceneControls > span {
   margin-right: auto;
   color: #d6dbe5;
   font-size: 11px;
-  padding: 7px 9px;
-  border-radius: 3px;
-  background: #0a0a0bb8;
 }
 .sceneControls button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 7px 10px;
-  border: 1px solid #303b50;
-  border-radius: 4px;
-  font-size: 12px;
   color: var(--detail-muted);
   cursor: pointer;
-  background: #0a0a0be0;
-}
-.sceneControls button[aria-pressed='true'] {
-  background: #152039;
-  border-color: var(--detail-accent);
-  color: var(--detail-accent);
 }
 .sceneControls button:hover {
   border-color: var(--detail-accent);
@@ -646,12 +621,7 @@
 .featureVisual .sceneControls {
   font-size: 13px;
   margin-top: 0;
-  padding-top: 16px;
   position: absolute;
-  bottom: 16px;
-  left: 16px;
-  right: 16px;
-  padding: 0;
 }
 .deploymentDetails dd,
 .deploymentDetails dl > div:first-child dd {
@@ -661,8 +631,7 @@
   margin-top: 10px;
 }
 .featureDocumentation .readmeToggle {
-  margin: 18px auto 0;
-  margin-top: 32px;
+  margin: 32px auto 0;
 }
 .deploymentDetails dd p {
   font-size: 16px;
@@ -690,7 +659,7 @@
   margin-bottom: 26px;
 }
 .connectedWorld {
-  display: block !important;
+  display: block;
   width: 100%;
   height: auto;
   mix-blend-mode: lighten;
@@ -718,9 +687,6 @@
   }
   .featureIntro {
     gap: 28px 36px;
-  }
-  .featureIntro h1 {
-    font-size: 58px;
   }
   .featureArt {
     height: 540px;
@@ -866,7 +832,6 @@
   }
   .facts {
     grid-template-columns: 1fr 1fr;
-    row-gap: 25px;
     padding: 24px 0;
     margin-top: 25px;
     gap: 25px 0;
@@ -902,10 +867,6 @@
   .readmeSummary [role='region'] {
     font-size: 15px;
   }
-  .deploymentDetails dd {
-    font-size: 19px;
-    margin-top: 8px;
-  }
   .deploymentDetails dt {
     font-size: 19px;
     align-self: end;
@@ -923,20 +884,9 @@
   }
   .deploymentDetails dl > div {
     border-left: 0;
-    padding: 0;
-    text-align: left;
     display: block;
-    grid-template-columns: 100px 1fr;
     align-items: center;
     gap: 4px 18px;
-    padding-left: 110px;
-    min-height: 135px;
-  }
-  .deploymentDetails dl > div:first-child dd {
-    font-size: 25px;
-  }
-  .featureIntro h1 {
-    font-size: 56px;
   }
   .featureIntro .description {
     font-size: 18px;
@@ -972,9 +922,6 @@
   .featureDocumentation .readmeToggle {
     margin-left: 0;
   }
-  .deploymentDetails dl > div:first-child {
-    padding-left: 110px;
-  }
   .deploymentDetails dd p {
     font-size: 14px;
     margin: 0;
@@ -987,11 +934,6 @@
   }
   .featureProof strong {
     font-size: 18px;
-  }
-  .featureVisual .sceneControls {
-    bottom: 12px;
-    left: 12px;
-    right: 12px;
   }
   .deploymentDetails dl > div,
   .deploymentDetails dl > div:first-child {

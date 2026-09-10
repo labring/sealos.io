@@ -95,7 +95,7 @@ export default function AppDetailHero({
                 rel="noopener noreferrer"
                 className={s.textLink}
               >
-                Console <ArrowUpRight size={14} />
+                Console screenshot <ArrowUpRight size={14} />
               </a>
             )}
             {app.website && app.website !== app.github && (
