@@ -14,7 +14,7 @@ restart, architecture, troubleshooting, manual-hosting references, and six FAQs.
 It retains the November 20, 2025 publication date and existing blog identity.
 Fumadocs derives `lastModified` from the article's Git history. The old unsupported
 frontmatter override was removed; the final committed export must carry the real
-article commit timestamp in both Open Graph and Article JSON-LD.
+article Git author timestamp in both Open Graph and Article JSON-LD.
 
 The existing article shell, FAQ renderer, schemas, product page, deployment handoff, and other locales retain their existing
 structure. The shared blog metadata function now serializes the Git modification
@@ -125,21 +125,34 @@ separate content tasks; the article links to available destinations.
   first rewritten export passed it. The expanded scenario also detected the
   missing simultaneous-session evidence in the earlier export.
 - Node 20 `pnpm lint`: passed after MDX generation and after the article/test edits.
-- Node 20 production export: first build passed with 6,219 pages. Final validation
-  after the actual article commit is pending.
+- Node 20 production export after implementation commit `0d7bc4e`: passed with
+  6,219 pages, locale normalization, and AI FAQ route verification. The clean
+  final build includes the committed article and ISO metadata correction.
 - Full Node 24 test discovery: 36 test files, 252 tests; 246 passed, three failed,
   three browser scenarios skipped without their opt-in preview environment.
   The failures are the same baseline footer product-order expectation, header
   trailing-slash expectation, and extensionless import in `tests/rybbit-cta.test.ts`
-  recorded in C01. Their source files are unchanged by C02.
+  recorded in C01. All three failures were reproduced against unchanged baseline
+  sources in the C01 worktree. Their source files are unchanged by C02.
 - Desktop/mobile visual checks: passed at 1440, 390, and 320 pixels with five
   loaded screenshots and no document overflow. Registration commands and
-  address tables remain readable. All directory anchors, local destination
+  address tables remain readable. All table-of-contents anchors, local destination
   links, and six keyboard-operated FAQ answers passed browser assertions.
 - Independent Standards and Spec reviews: zero actionable findings on both axes,
   including the shared metadata date correction and existing-article regression.
-- The exported browser test caught the prior numeric Open Graph modification
-  time; its ISO correction and the real article commit date await final rebuild.
+- Final focused exported-browser acceptance: one scenario passed, zero failures
+  or skips. It covers desktop and 390/320px layouts, JavaScript-disabled core
+  instructions, image loading, heading order, anchors, credentials, addresses,
+  qualified prices, internal links, both template actions, six keyboard-operated
+  FAQs, canonical/title/description, and matching Article/FAQPage JSON-LD.
+- The existing `/blog/what-is-sealos/` regression passed the shared ISO date check.
+  Fumadocs uses Git `%ai` (author time): the article exports
+  `2026-09-11T17:43:33.000Z` in both Open Graph and Article JSON-LD, matching
+  implementation commit `0d7bc4e` exactly. Publication remains November 20, 2025.
+- All six unique external article links returned HTTP 200. The four reused image
+  files match their original evidence byte-for-byte; all five article images are
+  below 210,000 bytes.
+- `git diff --check`: passed.
 
 Reproduce article acceptance after building and serving `out/`:
 
