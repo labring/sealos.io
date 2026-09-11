@@ -13,6 +13,7 @@ import {
   type AppDetailConfig,
 } from './app-detail-utils';
 import s from './detail.module.css';
+import { eaglercraftConfig } from '@/config/eaglercraft';
 
 interface AppDetailHeroProps {
   app: AppDetailConfig;
@@ -27,6 +28,7 @@ export default function AppDetailHero({
 }: AppDetailHeroProps) {
   const deployCount = getDeployCount(app);
   const featured = app.slug === 'eaglercraft-server';
+  const hosting = featured && lang === 'en';
   return (
     <section className={s.hero}>
       <nav aria-label="Breadcrumb" className={s.breadcrumb}>
@@ -41,9 +43,11 @@ export default function AppDetailHero({
       <div className={`${s.heroIntro} ${featured ? s.featureIntro : ''}`}>
         {featured && <WorldPreview />}
         <div className={s.titleBlock}>
-          <span className={s.eyebrow}>
-            {featured ? 'Browser gaming / Self-hosted' : 'App Store template'}
-          </span>
+          {!hosting && (
+            <span className={s.eyebrow}>
+              {featured ? 'Browser gaming / Self-hosted' : 'App Store template'}
+            </span>
+          )}
           <div className={s.appHeading}>
             {!featured && (
               <AppIcon
@@ -54,13 +58,21 @@ export default function AppDetailHero({
                 className={s.appIcon}
               />
             )}
-            <h1>{app.name}</h1>
+            <h1>{hosting ? eaglercraftConfig.title : app.name}</h1>
           </div>
           <p className={s.description}>
-            {app.slug === 'eaglercraft-server'
-              ? 'A Minecraft world in your browser. A server of your own.'
-              : getDisplayDescription(app)}
+            {hosting
+              ? eaglercraftConfig.subtitle
+              : app.slug === 'eaglercraft-server'
+                ? 'A Minecraft world in your browser. A server of your own.'
+                : getDisplayDescription(app)}
           </p>
+          {hosting && (
+            <p className={s.deployNote}>
+              Includes the browser client, Paper game server, secure WSS
+              connection, admin console, and persistent world storage.
+            </p>
+          )}
         </div>
         <div className={s.launchBlock}>
           <DeployButton
@@ -69,7 +81,8 @@ export default function AppDetailHero({
             category={app.category}
             className={s.deployButton}
           >
-            Deploy now <ArrowRight size={18} />
+            {hosting ? 'Deploy Eaglercraft' : 'Deploy now'}{' '}
+            <ArrowRight size={18} />
           </DeployButton>
           {!featured && (
             <p className={s.deployNote}>Launch in your Sealos workspace.</p>
@@ -85,10 +98,14 @@ export default function AppDetailHero({
                 <Github size={15} /> Source
               </a>
             )}
-            <a href="#readme" className={s.textLink}>
-              Deploy guide <ArrowRight size={14} />
+            <a
+              href={hosting ? '#how-to-join' : '#readme'}
+              className={s.textLink}
+            >
+              {hosting ? 'See how to join' : 'Deploy guide'}{' '}
+              <ArrowRight size={14} />
             </a>
-            {featured && app.screenshots?.[0] && (
+            {featured && !hosting && app.screenshots?.[0] && (
               <a
                 href={app.screenshots[0]}
                 target="_blank"

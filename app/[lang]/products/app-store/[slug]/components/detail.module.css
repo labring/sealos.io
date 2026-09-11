@@ -1147,3 +1147,430 @@
     gap: 28px;
   }
 }
+
+/* Eaglercraft hosting keeps its visual language within the English detail route. */
+.hosting {
+  --detail-line: #2b313b;
+  --detail-muted: #b6bfcd;
+  --detail-accent: #9bbcff;
+}
+.hosting .featureIntro {
+  padding: 48px 0 64px;
+}
+.hosting .featureIntro .titleBlock {
+  margin-top: 36px;
+}
+.hosting .featureIntro .description {
+  max-width: 440px;
+  margin-top: 24px;
+  font-size: 21px;
+  line-height: 1.55;
+  color: #d1d8e3;
+}
+.hosting .featureIntro .deployNote {
+  max-width: 430px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--detail-muted);
+}
+.hosting .deployButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  min-height: 50px;
+  height: auto;
+  padding: 14px 22px;
+  border: 1px solid #9abfff;
+  border-radius: 5px;
+  background: #146dff;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 550;
+  box-shadow: none;
+  text-shadow: none;
+}
+.hosting .deployButton:hover {
+  background: #095ce0;
+}
+.hosting .featureVisual {
+  align-self: stretch;
+  border: 1px solid #343f50;
+  border-radius: 6px;
+  background: #111925;
+}
+.hosting .featureArt {
+  height: 556px;
+  border-radius: 5px 5px 0 0;
+  object-position: 58% 50%;
+}
+.hosting .featureVisual .sceneControls {
+  position: static;
+  padding: 6px 14px;
+  background: #111720;
+}
+.hosting .sceneControls > span {
+  font-size: 12px;
+}
+.hosting .sceneControls button {
+  min-height: 40px;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+.hosting .sceneControls button:hover {
+  background: #202b3c;
+  color: #fff;
+}
+.hosting .heroLinks {
+  margin-top: 16px;
+}
+.hosting .featureProof {
+  font-size: 12px;
+}
+.hosting .featureProof strong {
+  color: #dce8ff;
+}
+@media (max-width: 1050px) {
+  .hosting .featureIntro {
+    gap: 24px 32px;
+  }
+  .hosting .featureArt {
+    height: 540px;
+  }
+}
+@media (max-width: 800px) {
+  .hosting .featureIntro {
+    padding: 32px 0 48px;
+  }
+  .hosting .featureIntro .titleBlock {
+    margin-top: 0;
+  }
+  .hosting .featureIntro .description {
+    font-size: 19px;
+    margin-top: 18px;
+  }
+  .hosting .featureIntro .launchBlock {
+    max-width: none;
+  }
+  .hosting .featureVisual {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .hosting .featureIntro .heroLinks .textLink {
+    font-size: 12px;
+  }
+}
+@media (max-width: 480px) {
+  .hosting .main {
+    padding-inline: 22px;
+  }
+  .hosting .hero {
+    padding-top: 18px;
+  }
+  .hosting .featureIntro {
+    padding-top: 28px;
+    gap: 20px;
+  }
+  .hosting .featureIntro .deployNote {
+    font-size: 13px;
+  }
+  .hosting .breadcrumb {
+    font-size: 11px;
+    gap: 8px;
+  }
+  .hosting .sceneControls {
+    gap: 2px;
+  }
+  .hosting .sceneControls > span {
+    font-size: 10px;
+  }
+  .hosting .sceneControls button {
+    padding-inline: 8px;
+  }
+}
+
+.hosting .main {
+  max-width: none;
+  padding: 0;
+}
+.hosting .hero {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 40px;
+}
+.hosting .featureIntro {
+  border-bottom: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: 24px 48px;
+}
+.hosting .featureIntro .launchBlock {
+  max-width: none;
+}
+.hosting .featureIntro .deployButton {
+  max-width: 360px;
+}
+.hosting .heroLinks {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: start;
+}
+.hosting .featureIntro .heroLinks .textLink {
+  font-size: 12px;
+}
+@media (max-width: 800px) {
+  .hosting .featureIntro {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .hosting .featureIntro .deployButton {
+    max-width: none;
+  }
+}
+@media (max-width: 800px) {
+  .hosting .featureProof {
+    border: 0;
+    padding: 0;
+  }
+}
+
+/* Keep decorative window controls separate from preview copy. */
+@media (max-width: 800px) {
+  .hosting .heroLinks {
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 800px) {
+  .hosting .heroLinks a {
+    min-height: 40px;
+  }
+}
+
+.hosting .connectedScene {
+  max-width: 980px;
+  margin: 8px auto 40px;
+  padding-bottom: 30px;
+}
+.hosting .connectedScene picture {
+  display: block;
+}
+.hosting .connectedWorld {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+}
+.hosting .sceneLabels {
+  display: block;
+  font-size: 14px;
+  color: #dae7fa;
+}
+@media (max-width: 800px) {
+  .hosting .connectedScene {
+    padding: 0;
+    margin: 0 auto 32px;
+  }
+  .hosting .connectedWorld {
+    aspect-ratio: 2 / 3;
+    object-fit: contain;
+  }
+  .hosting .sceneLabels {
+    inset: 0;
+    font-size: 13px;
+    pointer-events: none;
+  }
+  .hosting .sceneLabels > span {
+    transform: none;
+    padding: 4px 0;
+    background: transparent;
+  }
+  .hosting .sceneLabels > span:nth-child(1) {
+    top: 16%;
+  }
+  .hosting .sceneLabels > span:nth-child(2) {
+    top: 47%;
+  }
+  .hosting .sceneLabels > span:nth-child(3) {
+    top: 80%;
+  }
+  .hosting .sceneLabels > span::before {
+    bottom: 50%;
+    height: 1px;
+    background: #4b87cd;
+  }
+}
+
+.hosting .deployButton {
+  border-color: #146dff;
+}
+
+.hosting .featureIntro h1 {
+  font-size: clamp(56px, 5vw, 76px);
+  font-weight: 550;
+  line-height: 1.04;
+}
+@media (max-width: 800px) {
+  .hosting .featureIntro h1 {
+    font-size: clamp(36px, 10vw, 46px);
+    line-height: 1.06;
+    letter-spacing: -0.05em;
+  }
+}
+
+/* Give related previews a consistent frame and reading baseline. */
+.hosting .heroLinks { gap: 8px 20px; }
+.hosting .heroLinks a { min-height: 44px; font-size: 14px; }
+.hosting .featureProof { margin-top: 20px; }
+.hosting .featureProof strong { font-size: 22px; }
+@media (min-width: 801px) {
+  .hosting .sceneLabels > span::before { height: 24px; background: #4b87cd; }
+  .hosting .sceneLabels > span:nth-child(1) { bottom: 48px; }
+  .hosting .sceneLabels > span:nth-child(2) { bottom: 24px; }
+  .hosting .sceneLabels > span:nth-child(3) { bottom: 0; }
+  .hosting .sceneLabels > span::after { content: ''; position: absolute; left: calc(50% - 2px); bottom: calc(100% + 24px); width: 4px; height: 4px; background: #6c9edc; border-radius: 50%; }
+}
+@media (max-width: 800px) {
+  .hosting .sceneLabels > span::after { content: ''; position: absolute; top: calc(50% - 2px); width: 4px; height: 4px; background: #6c9edc; border-radius: 50%; }
+}
+@media (max-width: 800px) {
+  .hosting .heroLinks a { min-width: 0; line-height: 1.35; white-space: normal; }
+  .hosting .heroLinks a:last-child { grid-column: auto; }
+}
+
+.hosting .featureIntro h1 { font-family: ui-sans-serif, system-ui, sans-serif; }
+@media (min-width: 801px) {
+  .hosting .connectedScene { padding: 0 0 48px; background: #0a0a0b; border-radius: 6px; }
+  .hosting .sceneLabels { bottom: 36px; }
+  .hosting .sceneLabels > span:nth-child(1),
+  .hosting .sceneLabels > span:nth-child(2),
+  .hosting .sceneLabels > span:nth-child(3) { bottom: 0; }
+}
+@media (max-width: 800px) {
+  .hosting .connectedScene { background: #0a0a0b; border-radius: 6px; }
+  .hosting .sceneLabels > span { left: 12px; }
+  .hosting .sceneLabels > span::before { width: 10px; left: calc(100% + 4px); }
+  .hosting .sceneLabels > span::after { left: calc(100% + 14px); }
+}
+.hosting .featureIntro h1 { max-width: 480px; letter-spacing: -0.035em; text-wrap: balance; }
+
+/* Distinguish the template preview from the catalogue entry beneath it. */
+@media (min-width: 1101px) {
+  .hosting .connectedScene { width: 100%; margin: 0; padding: 0; }
+  .hosting .connectedScene picture { margin-left: 54px; }
+  .hosting .connectedWorld { aspect-ratio: 2 / 3; object-fit: contain; }
+  .hosting .sceneLabels { inset: 0; font-size: 13px; pointer-events: none; }
+  .hosting .sceneLabels > span { left: 12px; transform: none; padding: 4px 0; background: transparent; bottom: auto !important; }
+  .hosting .sceneLabels > span:nth-child(1) { top: 16%; }
+  .hosting .sceneLabels > span:nth-child(2) { top: 47%; }
+  .hosting .sceneLabels > span:nth-child(3) { top: 80%; }
+  .hosting .sceneLabels > span::before { bottom: 50%; height: 1px; width: 10px; left: calc(100% + 4px); }
+  .hosting .sceneLabels > span::after { top: calc(50% - 2px); left: calc(100% + 14px); bottom: auto; }
+}
+
+/* One outer card, with a quiet flat preview and a clear catalogue title. */
+@media (max-width: 800px) {
+  .hosting .heroLinks { flex-wrap: wrap; gap: 0 20px; }
+  .hosting .heroLinks a { font-size: 14px; gap: 6px; }
+}
+.hosting .heroLinks a { gap: 8px; }
+.hosting .sceneControls button { font-family: ui-sans-serif, system-ui, sans-serif; }
+@media (max-width: 800px) {
+  .hosting .featureIntro { padding-top: 8px; }
+}
+
+/* Compact sticky navigation keeps reading content below a solid top edge. */
+.hosting { padding-top: 20px; }
+
+/* A single card surface makes the catalogue title the primary entry. */
+
+@media (max-width: 800px) {
+ .hosting .hero { padding-inline: 32px; }
+}
+
+/* A quiet technical preview precedes the main catalogue information. */
+@media (max-width: 800px) {
+ .hosting .connectedScene { margin-block: 0 8px; }
+}
+
+/* Discovery uses the same restrained surface as resource planning. */
+@media (min-width: 1101px) {
+ .hosting .connectedScene { align-self: center; }
+ .hosting .connectedScene picture { width: calc(100% - 54px); }
+}
+
+/* Desktop discovery is an editorial list with a subordinate preview column. */
+@media (max-width: 800px) {
+ .hosting .heroLinks { display: grid; grid-template-columns: auto auto; justify-content: start; row-gap: 0; }
+ .hosting .featureProof { margin-top: 4px; }
+}
+
+/* Open previews are secondary technical surfaces; card boundaries stay aligned. */
+@media (max-width: 800px) {
+ .hosting .connectedScene { margin-bottom: 0; }
+}
+
+/* Native anchored previews preserve the catalogue grid through interaction. */
+@media (max-width: 800px) {
+ .hosting .sceneLabels > span { width: 64px; }
+ .hosting .heroLinks { column-gap: 16px; }
+ .hosting .featureProof { margin-bottom: 8px; }
+}
+
+/* A self-contained preview surface separates temporary detail from the page. */
+@media (min-width: 1101px) {
+ .hosting .featureIntro { grid-template-rows: auto auto; align-items: start; }
+ .hosting .featureIntro .titleBlock { margin-top: 0; }
+ .hosting .featureArt { object-position: 50% center; }
+ .hosting .featureVisual { align-self: start; }
+}
+
+.hosting .featureVisual { border-color: transparent; box-shadow: none; }
+
+/* Blend only the scene edge to connect the world with the hero typography. */
+@media (min-width: 1101px) {
+ .hosting .featureVisual { width: calc(100% + 160px); margin-left: -160px; background: transparent; border: 0; }
+ .hosting .featureArt { height: 474px; border-radius: 0; mask-image: linear-gradient(to right, transparent, #000 28%); }
+ .hosting .featureVisual .sceneControls { margin-left: 0; width: 100%; }
+ .hosting .titleBlock, .hosting .launchBlock { position: relative; z-index: 1; }
+}
+@media (max-width: 800px) {
+ .hosting .featureVisual { width: calc(100% + 64px); margin-left: -32px; border-inline: 0; border-radius: 0; }
+ .hosting .featureArt { height: 300px; aspect-ratio: auto; margin-top: 0; border-radius: 0; }
+ .hosting .featureVisual .sceneControls { padding-inline: 32px; }
+}
+.hosting .featureArt { filter: brightness(1.12); }
+@media (max-width: 800px) {
+ .hosting .connectedScene { max-width: 314px; }
+ .hosting .connectedScene picture { width: calc(100% - 68px); margin-left: 68px; }
+}
+
+/* Keep secondary actions together and trim empty image edges on narrow screens. */
+@media (max-width: 800px) {
+ .hosting .heroLinks { grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 12px; }
+ .hosting .heroLinks a { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 6px; min-height: 58px; padding-block: 4px; font-size: 13px; line-height: 1.35; }
+ .hosting .heroLinks a > svg { order: -1; }
+ .hosting .featureProof { margin-top: 0; }
+ .hosting .connectedScene { max-width: 300px; }
+ .hosting .connectedScene picture { height: auto; aspect-ratio: 5 / 7; overflow: hidden; }
+ .hosting .connectedWorld { margin-top: -6%; }
+}
+
+/* Native capability selection emphasizes the corresponding existing diagram labels. */
+.hosting section[aria-labelledby='world-title'] .sceneLabels > span { --node-accent: #6b7f97; color: #aebed0; font-weight: 400; }
+.hosting section[aria-labelledby='world-title'] .sceneLabels > span::before,
+.hosting section[aria-labelledby='world-title'] .sceneLabels > span::after { background: var(--node-accent); }
+.hosting section[aria-labelledby='world-title']:has(details:is(:nth-child(1),:nth-child(2))[open]) .sceneLabels > span:nth-child(1),.hosting section[aria-labelledby='world-title']:has(details:is(:nth-child(2),:nth-child(3),:nth-child(4))[open]) .sceneLabels > span:nth-child(2),.hosting section[aria-labelledby='world-title']:has(details:is(:nth-child(5),:nth-child(6))[open]) .sceneLabels > span:nth-child(3) { --node-accent: #8cbcff; color: #c1d9ff; font-weight: 600; }
+
+.hosting .appHeading:first-child { margin-top: 0; }
+
+/* Match the original main-column gutter around the shared related templates. */
+.hosting [aria-labelledby='related-title'] {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 40px;
+}
+@media (max-width: 800px) {
+  .hosting [aria-labelledby='related-title'] { padding-inline: 28px; }
+}
+@media (max-width: 600px) {
+  .hosting [aria-labelledby='related-title'] { padding-inline: 22px; }
+}

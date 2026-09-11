@@ -16,6 +16,8 @@ import { generateBreadcrumbSchema } from '@/lib/utils/structured-data';
 import { siteConfig } from '@/config/site';
 import { LANGUAGES, languagesType } from '@/lib/i18n';
 import AppDetailHero from './components/AppDetailHero';
+import EaglercraftGuide from './components/eaglercraft-guide';
+import { eaglercraftConfig } from '@/config/eaglercraft';
 import ReadmePreview from './components/ReadmePreview';
 import { loadReadmeMarkdown } from './components/ReadmeMarkdownWindow';
 import RelatedTemplates from './components/RelatedTemplates';
@@ -70,7 +72,10 @@ export async function generateMetadata({
     };
   }
 
-  const metadata = getAppDetailMetadata(app);
+  const metadata =
+    app.slug === 'eaglercraft-server' && params.lang === 'en'
+      ? eaglercraftConfig.metadata
+      : getAppDetailMetadata(app);
 
   return generatePageMetadata({
     title: metadata.title,
@@ -96,9 +101,11 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
     currentApp: app,
     limit: 3,
   });
-  const readme = await loadReadmeMarkdown(app);
+  const hosting = app.slug === 'eaglercraft-server' && params.lang === 'en';
+  const readme = hosting ? null : await loadReadmeMarkdown(app);
   const canonicalPath = getAppDetailPathname(app.slug);
   const appSchema = generateAppDetailSoftwareSchema(app, params.lang);
+  if (hosting) appSchema.description = eaglercraftConfig.metadata.description;
   const breadcrumbSchema = generateBreadcrumbSchema(
     [
       { name: 'Home', url: `${siteConfig.url.base}/` },
@@ -117,7 +124,7 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
       <div
         data-theme="app-store"
         style={appStoreDetailBackgroundVars}
-        className={`${s.page} relative isolate z-10 min-h-[100dvh]`}
+        className={`${s.page} ${hosting ? s.hosting : ''} relative isolate z-10 min-h-[100dvh]`}
       >
         <div className="sticky top-0 z-50 w-full">
           <Header lang={params.lang} />
@@ -129,9 +136,15 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
             lang={params.lang}
             templateName={getTemplateName(app)}
           />
-          <ReadmePreview app={app} readme={readme} />
-          <WhyDeployOnSealos />
-          <WholeStackSection />
+          {hosting ? (
+            <EaglercraftGuide app={app} templateName={getTemplateName(app)} />
+          ) : (
+            <>
+              <ReadmePreview app={app} readme={readme} />
+              <WhyDeployOnSealos />
+              <WholeStackSection />
+            </>
+          )}
           <RelatedTemplates apps={relatedApps} lang={params.lang} />
         </main>
       </div>

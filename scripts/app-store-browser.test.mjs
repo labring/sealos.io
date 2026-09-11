@@ -28,7 +28,7 @@ test('app detail pages preserve visible content and native interactions', async 
     viewport: { width: 1440, height: 1000 },
   });
   const page = await context.newPage();
-  for (const slug of ['eaglercraft-server', 'n8n', 'grafana']) {
+  for (const slug of ['n8n', 'grafana']) {
     const app = apps.find((app) => app.slug === slug);
     assert.equal(
       (await page.goto(`${base}/products/app-store/${slug}/`)).status(),
@@ -36,11 +36,9 @@ test('app detail pages preserve visible content and native interactions', async 
     );
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal(await page.locator('h1').innerText(), app.name);
-    assert.ok(
-      await page
-        .getByRole('banner', { name: 'Sealos Logotype', exact: true })
-        .isVisible(),
-    );
+    await page
+      .getByRole('banner', { name: 'Sealos Logotype', exact: true })
+      .waitFor({ state: 'visible' });
     assert.ok(await page.locator('footer').isVisible());
     for (const name of [
       /Why deploy on\s*Sealos/i,
@@ -70,23 +68,14 @@ test('app detail pages preserve visible content and native interactions', async 
     assert.ok((await documentation.innerText()).length > 100);
     await page.keyboard.press('Space');
     assert.equal(await details.getAttribute('open'), null);
-    if (slug !== 'eaglercraft-server') {
-      assert.ok(
-        await page
-          .getByRole('heading', { name: 'Overview', exact: true })
-          .isVisible(),
-      );
-      assert.ok(
-        (await page.locator('#readme').innerText()).includes(app.description),
-      );
-    } else {
-      const screenshot = page.getByRole('link', {
-        name: 'Console screenshot',
-        exact: true,
-      });
-      assert.equal(await screenshot.getAttribute('href'), app.screenshots[0]);
-      assert.equal(await screenshot.getAttribute('target'), '_blank');
-    }
+    assert.ok(
+      await page
+        .getByRole('heading', { name: 'Overview', exact: true })
+        .isVisible(),
+    );
+    assert.ok(
+      (await page.locator('#readme').innerText()).includes(app.description),
+    );
   }
   const interactive = await browser.newPage({
     viewport: { width: 1440, height: 1000 },
@@ -95,6 +84,9 @@ test('app detail pages preserve visible content and native interactions', async 
   interactive.on('pageerror', (error) => errors.push(error.message));
   for (const slug of ['eaglercraft-server', 'n8n', 'grafana']) {
     await interactive.goto(`${base}/products/app-store/${slug}/`);
+    await interactive
+      .getByRole('banner', { name: 'Sealos Logotype', exact: true })
+      .waitFor({ state: 'visible' });
     if (slug === 'eaglercraft-server') {
       const day = interactive.getByRole('button', { name: 'Day', exact: true });
       const night = interactive.getByRole('button', {
@@ -113,7 +105,12 @@ test('app detail pages preserve visible content and native interactions', async 
       assert.equal(await art.getAttribute('src'), nightSource);
     }
     await interactive
-      .getByRole('button', { name: 'Deploy now', exact: true })
+      .getByRole('button', {
+        name:
+          slug === 'eaglercraft-server' ? 'Deploy Eaglercraft' : 'Deploy now',
+        exact: true,
+      })
+      .first()
       .click();
     await interactive.getByRole('dialog').waitFor({ state: 'visible' });
     await interactive.keyboard.press('Escape');
@@ -132,7 +129,11 @@ test('app detail pages preserve visible content and native interactions', async 
       );
       assert.ok(
         await page
-          .locator('#readme ol:visible')
+          .locator(
+            slug === 'eaglercraft-server'
+              ? '#how-to-join ol'
+              : '#readme ol:visible',
+          )
           .evaluate((element) => element.scrollWidth <= element.clientWidth),
         `${slug} deployment steps at ${width}px overflow`,
       );
