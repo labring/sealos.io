@@ -1,801 +1,173 @@
 ---
-title: "Eaglercraft Server Hosting: Fast Setup (2026)"
-imageTitle: "Create Your Own Eaglercraft Server"
-description: "Host a private Eaglercraft 1.8.8 server for browser play. Compare Docker vs one-click deployment, get a public WSS URL, and start in minutes."
+title: 'How to Host an Eaglercraft Server for Friends: From Setup to First Join'
+imageTitle: 'Host an Eaglercraft Server for Friends'
+description: 'Set up an Eaglercraft server on Sealos, create your player account, invite friends with a browser link, and check that your world survives a restart.'
 date: 2025-11-20
-lastModified: 2026-03-13
-tags: ['eaglercraft', 'minecraft', 'server', 'Sealos', 'docker']
+tags: ['eaglercraft', 'minecraft', 'server', 'Sealos']
 authors: ['default']
 faq:
-  - question: "What is Eaglercraft exactly?"
-    answer: "Eaglercraft is an open-source project that ports Minecraft Java Edition (versions 1.5.2, 1.8.8, and 1.12.2) to run directly in a web browser. It uses [TeaVM](https://teavm.org/) to compile Minecraft's Java code into JavaScript or WebAssembly, and a custom WebGL layer to handle graphics. It's not a Minecraft clone—it's the actual game code, translated to run in your browser without any installation."
-  - question: "Is Eaglercraft safe to use?"
-    answer: |-
-      **The official Eaglercraft client from trusted sources is safe.** However, because the project is open-source and widely forked, many unofficial sites exist—some containing malware, crypto miners, or hidden browsers that bypass school filters.
-
-      To stay safe:
-      - Only download from verified sources like [eaglercraft.com](https://eaglercraft.com/)
-      - Avoid random "Eaglercraft unblocked" links from search results
-      - If hosting your own server, use official Docker images or the Sealos template
-      - Be cautious of sites with excessive ads or pop-ups
-  - question: "Is Eaglercraft legal?"
-    answer: |-
-      **Eaglercraft operates in a legal gray area.** Mojang (owned by Microsoft) considers it copyright infringement and has issued DMCA takedowns against GitHub repositories, Discord servers, and hosting platforms like Replit.
-
-      The Eaglercraft developers argue that:
-      - The client downloads assets from Mojang's official servers, not from Eaglercraft itself
-      - The project serves educational and archival purposes
-      - They encourage users to buy the official game
-
-      However, Microsoft's position is clear: Eaglercraft "allows the connection to Minecraft servers without account verification" and "violates the Minecraft EULA."
-
-      **Bottom line:** Playing Eaglercraft won't get you sued, but distributing or hosting it publicly carries legal risk.
-  - question: "What Minecraft versions does Eaglercraft support?"
-    answer: |-
-      | Version | Base Minecraft | Key Features |
-      |:--------|:---------------|:-------------|
-      | **Eaglercraft 1.5.2** | Minecraft 1.5.2 (2013) | Original port, very lightweight, multiplayer only |
-      | **EaglercraftX 1.8.8** | Minecraft 1.8.8 (2015) | Full singleplayer, built-in shaders, voice chat, best performance |
-      | **Eaglercraft 1.12.2** | Minecraft 1.12.2 (2017) | Newest content (elytra, shields, new combat), WASM recommended |
-
-      **EaglercraftX 1.8.8 is the most popular** because it combines good performance with classic PvP mechanics (no attack cooldown).
-  - question: "Can I play Eaglercraft on a Chromebook?"
-    answer: |-
-      **Yes, Eaglercraft was practically designed for Chromebooks.** It runs in any modern browser with WebGL support—including Chrome on Chromebooks, which are common in schools. Many users report that Eaglercraft actually runs *smoother* on Chromebooks than the official Java Edition would.
-
-      For best performance on low-end devices:
-      - Use the **WASM (WebAssembly) version** if your browser supports it (~50% better FPS)
-      - Lower render distance to 4-6 chunks
-      - Disable fancy graphics and smooth lighting
-      - Use a lightweight client like the default EaglercraftX
-  - question: "Does Eaglercraft have singleplayer mode?"
-    answer: |-
-      **Yes, EaglercraftX 1.8.8 and 1.12.2 both support full singleplayer** with world saving. Your worlds are stored in your browser's local storage (IndexedDB). You can:
-
-      - Create, play, and save worlds offline
-      - Export worlds as `.epk` files to share or back up
-      - Import worlds from other Eaglercraft players
-      - Convert Eaglercraft worlds to vanilla Minecraft format
-
-      **Tip:** The site recommends downloading an offline copy to a USB drive, so you can play anywhere without relying on a specific website.
-  - question: "How do I connect to an Eaglercraft server?"
-    answer: |-
-      1. Open your Eaglercraft client
-      2. Click **"Multiplayer"** → **"Add Server"**
-      3. Enter a server address in WebSocket format:
-         - `wss://server.example.com` (secure, recommended)
-         - `ws://your-server-ip:5200` (for self-hosted servers without SSL)
-      4. Click **"Done"**, then select the server and click **"Join Server"**
-
-      **Note:** You use `wss://` (secure WebSocket) for public servers with SSL certificates, and `ws://` for local or self-hosted servers without SSL.
-  - question: "Can Java Edition players and Eaglercraft players play together?"
-    answer: |-
-      **Yes, with the right server setup.** Since Eaglercraft servers use standard Minecraft server software (Spigot/Paper), you can configure the proxy to accept both:
-
-      - **Eaglercraft clients** via WebSocket (port 8081, for example)
-      - **Java Edition clients** via standard TCP (port 25565)
-
-      Both connect to the same backend server. Some servers even add Bedrock Edition support via GeyserMC, creating a truly cross-platform experience.
-  - question: "Why is Eaglercraft blocked at my school?"
-    answer: |-
-      Schools use web filters like GoGuardian, Securly, or Lightspeed to block gaming sites. Eaglercraft became a specific target because:
-
-      1. It's extremely popular among students
-      2. Some forked clients contained hidden browsers that bypassed *all* content filtering
-      3. Mojang has actively requested that platforms block Eaglercraft
-
-      **Solutions:**
-      - Host your own private server (schools can't block unknown URLs)
-      - Use Sealos or a personal VPS with a custom domain
-      - Download an offline client to a USB drive for truly local play
-  - question: "Why is my Eaglercraft server laggy?"
-    answer: |-
-      Common causes and fixes:
-
-      | Problem | Solution |
-      |:--------|:---------|
-      | **High ping/latency** | Choose a server geographically closer to you, or host your own |
-      | **Low FPS (client-side)** | Use WASM build, lower render distance, disable shaders |
-      | **Server lag (TPS drops)** | Reduce view-distance in server config, use Paper instead of Spigot |
-      | **WebSocket timeout** | Check proxy settings; increase `websocketConnectionTimeout` in EaglerXServer config |
-      | **Chunk loading issues** | Enable compression in the EaglerXServer plugin to reduce bandwidth |
-
-      For self-hosted servers, make sure you're not running on a free tier with limited CPU (like old Replit instances).
-  - question: "What's the difference between `ws://` and `wss://`?"
-    answer: |-
-      - **`ws://`** = WebSocket (unencrypted, like HTTP)
-      - **`wss://`** = WebSocket Secure (encrypted, like HTTPS)
-
-      **Use `wss://` for:**
-      - Public servers
-      - Any server where you want encrypted traffic
-      - Servers behind Cloudflare or a reverse proxy with SSL
-
-      **Use `ws://` for:**
-      - Local testing
-      - Self-hosted servers without SSL certificates
-      - Direct IP connections on your own network
-
-      Most public Eaglercraft servers use `wss://` because browsers increasingly block mixed content (loading insecure WebSockets from HTTPS pages).
-  - question: "Do I need a Minecraft account to play Eaglercraft?"
-    answer: |-
-      **No.** Eaglercraft operates in "offline mode," meaning there's no Mojang/Microsoft authentication. You simply choose a username when you connect. This is why Mojang considers it a form of piracy—it bypasses their account verification system entirely.
-
-      **Implications:**
-      - Anyone can use any username (no identity verification)
-      - Your skins won't load from Mojang's servers by default (servers can provide custom skin systems)
-      - You can't join official servers like Hypixel (they require authenticated accounts)
-      - Some Eaglercraft servers implement their own login/registration systems for security
+  - question: 'Which Eaglercraft version should my friends choose?'
+    answer: 'Use the same version as your server. This walkthrough uses 1.8 with Paper 1.8.8 and release 2.2.7. The template also offers 1.12 with Paper 1.12.2; its browser join remains unverified in this walkthrough.'
+  - question: 'Can I join with an existing browser client?'
+    answer: 'Yes. In a compatible client, open Multiplayer, add a server, and paste the WebSocket Server Address beginning with wss://. The Browser Play Link opens the hosted client in a browser tab.'
+  - question: 'How do I return as the same player?'
+    answer: 'Keep the exact player name, including capitalization. Rejoin and enter /login followed by your personal player password. Each friend registers a separate Player Account; the Administrator Password is used in the management console.'
+  - question: 'Can friends play while my browser is closed?'
+    answer: 'Yes, while the hosted application is running, reachable, and covered by an active resource plan or eligible trial. Closing your browser disconnects your player. Your friends can continue through their own browser sessions.'
+  - question: 'Will my world survive a restart?'
+    answer: 'The checked world survived an application restart with its original persistent volume retained. Save the world before restarting and reconnect to inspect a recognizable change. Keep a separate Recovery Copy for recovery after storage loss; restoring that copy requires its own verification.'
+  - question: 'How much does Sealos hosting cost?'
+    answer: 'On September 12, 2026, Starter listed $7/month for eligible first paid-plan purchases and $34/month as the regular price. A seven-day trial is offered to eligible new users. Review current pricing and your Cost Center for eligibility, included resources, taxes, optional services, and the actual charge.'
 ---
 
-import { DeployButton } from '@/components/ui/button'
+Create a world that you and a friend can enter in your browsers, then return with the same player identities and saved progress. This guide follows the Sealos template from deployment to your **First Join**, a friend's arrival, and a restart check. The main example uses **Eaglercraft 1.8 / Paper 1.8.8**, with template release **2.2.7**.
 
-**Eaglercraft** is an open-source project that lets you play Minecraft Java Edition (versions 1.5.2, 1.8.8, and 1.12.2) directly in your web browser—no download, no installation, no paid account required. Built using [TeaVM](https://teavm.org/) to compile Java to JavaScript and WebAssembly, it runs on virtually any device with a modern browser, from school Chromebooks to smartphones.
+## Choose a Hosting Path
 
-> **Quick answer:** If you want an **Eaglercraft server online fast**, you have two realistic paths: **Docker** if you want full control and don't mind Linux setup, or **Sealos App Store** if you want a public `wss://` URL, SSL, and a working server in a few minutes.
+| Path                 | Choose it when                                                            | What you maintain                                                      |
+| -------------------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Shared World         | You want a session hosted from a compatible client's single-player world. | The host's browser session and that client's sharing setup.            |
+| Your computer or VPS | You want direct control over server files and networking.                 | Runtime, gateway, updates, public connectivity, and saved data.        |
+| Sealos template      | You want a hosted world with a browser client and admin console together. | Your resource allocation, Player Accounts, world, and recovery copies. |
 
-**Last verified:** March 9, 2026
+For the walkthrough below, [open the Eaglercraft server template](https://sealos.io/products/app-store/eaglercraft-server/). Keep this guide open in another tab while you deploy.
 
-## 2026 Reality Check
+## Before You Deploy
 
-| Question | Short answer |
-| --- | --- |
-| Can you still host an Eaglercraft server? | Yes, but expect a fragmented ecosystem and changing public links |
-| What do most players actually need? | A stable server, a browser-friendly `wss://` address, and a private setup they control |
-| What is the main risk? | Public infrastructure, mirrors, and community links change frequently, and the legal gray area has not gone away |
-| What is the fastest practical setup? | Use Sealos if you want speed and a public browser-ready URL; use Docker if you want lower-level control |
+Prepare these items:
 
-If you came here from search, the core answer is simple: this page is most useful when you want to host your own private Eaglercraft server instead of relying on unstable public links.
+- A Sealos account and a browser with WebGL support. The recorded gameplay checks used Chrome on a Mac with a keyboard and mouse.
+- A game-version choice shared by all participants. Select **1.8** to follow the demonstrated path.
+- A strong **Administrator Password**, stored privately, for the server management console.
+- A stable player name and a separate personal password for each **Player Account**.
+- Agreement to the upstream deployment's terms, including the [Minecraft EULA](https://www.minecraft.net/en-us/eula). The template's startup configuration accepts that EULA.
 
-| If you want to... | Best path | Time to launch | Best next step |
-|:---|:---|:---|:---|
-| Get a private server online as fast as possible | **Sealos App Store** | ~1-5 minutes | [Deploy the Eaglercraft template](https://sealos.io/products/app-store/eaglercraft-server) |
-| Control every file, plugin, and port yourself | **Docker on your own VPS** | ~30-60 minutes | Jump to [Method 1](#method-1-the-docker-way-full-control) |
-| Avoid manual SSL / WSS setup | **Sealos App Store** | Automatic | Jump to [Method 2](#method-2-the-one-click-way) |
-| Learn how the stack works under the hood | **Docker** | Slower, more flexible | Read the architecture section first |
+A Resource Plan covers a monthly pool of compute, memory, storage, and traffic. On **September 12, 2026**, [Sealos pricing](https://sealos.io/pricing/) lists Starter at **$7/month for eligible first paid-plan purchases**, with a **$34/month listed regular price**. Eligible new users can receive a seven-day trial. Open **Cost Center** in the Sealos desktop to review your offer, available resources, taxes, optional services, and actual charge before deploying; the [pricing FAQ](https://sealos.io/pricing/) explains plan limits and billing.
 
-**What you'll get from this guide:**
+The checked template allocates 0.2 vCPU and 1 GiB memory to the main container, with a 1 GiB persistent volume. These are application allocations within your Resource Plan. Monitor memory, storage, and world growth as you play; player capacity depends on activity and resource availability.
 
-- A fast way to decide between **Docker vs. Sealos**
-- The exact steps to launch a **private Eaglercraft server**
-- A path to a **public `wss://` address** so friends can join from the browser
-- A cleaner way to avoid the risk and instability of random public servers
+**Version labels describe different things:** 1.8 is the game option, Paper 1.8.8 is the game-server version, and 2.2.7 is the packaged application release. The template also offers 1.12 / Paper 1.12.2. That option reached admin readiness and retained a storage marker in the earlier check; a truncated browser asset download left its full browser join unverified. Use 1.8 for the complete demonstrated workflow.
 
-## Choose the Right Path First
+## Deploy Your Eaglercraft Server on Sealos
 
-| Use case | Best fit |
-| --- | --- |
-| You want a working private server fast and do not want to manage SSL and ingress yourself | Sealos |
-| You want to customize files, ports, and plugins on your own host | Docker |
-| You only want to play casually with a few friends for one session | Consider Shared Worlds before running a full server |
-| You just want a server list | This guide is not the best source for that because public server status changes too often |
+### 1. Choose the version and Administrator Password
 
-## Deployment Prep Checklist
+On the template page, choose **Deploy Eaglercraft** and sign in when prompted. In the deployment form, select `1.8` for `minecraft_version`, then set `rcon_password`: this is your **Administrator Password**. Keep it private and save it before continuing.
 
-Before you pick a method, make sure you know these four things:
+Review the application resources and storage, then deploy. **Completion state:** the deployment opens in **Canvas**, where you can see your application's resource card. Keep the assigned application name so you can find this same instance later.
 
-- Do you want a **public `wss://` URL** for browser players, or are you only testing privately?
-- Do you want to manage **Docker, ports, and SSL** yourself?
-- Do you need a server online in **minutes**, or do you want deeper control over plugins and files?
-- Are you hosting for **friends / classmates** or building a more customized setup?
+### 2. Open the admin console and wait for Paper
 
-**Fastest deployment path:**
+Open the application's link from its Canvas card. It leads to `/admin` on your application's public host. Enter the saved Administrator Password and choose **Confirm**.
 
-<DeployButton deployUrl="https://sealos.io/products/app-store/eaglercraft-server" />
+The management interface can open while the game server is still starting. On **Overview**, wait for **Paper is ready** before joining. Initial world generation and available resources affect the wait; readiness is the useful completion signal. If it stays in startup, inspect the application's logs from Canvas.
 
-The practical reason to host your own server is simple: public Eaglercraft servers are unstable, often unsafe, and frequently disappear. A private setup gives you:
+![Admin console showing Paper readiness, the connected player ___, and the saved gold-block check. Captured during the September 10–11, 2026 verification.](./images/admin-ready.png)
 
-- ✅ **Full control** over who can join
-- ✅ **A clean, stable environment** free from malicious code
-- ✅ **Your own rules**—no one can block your URL
-- ✅ **Persistence**—your world stays online as long as you want
+### 3. Open the browser client and set your player name
 
-This guide covers two methods to set up your own Eaglercraft server:
+Choose **Join game** from the console's Overview page. The hosted browser client opens; press a key when prompted to enable sound and complete any client information screen.
 
-1. **The Docker Way** – Full control, hands-on setup for those comfortable with the command line
-2. **The One-Click Way (Sealos)** – Automated deployment in minutes, no technical expertise required
+Before connecting, open **Edit Profile**, enter a stable player name of **3–16 characters**, and choose **Done**. Use letters, numbers, and underscores, and keep the exact spelling and capitalization for future visits. The September 12 friend-join check used `RiverBuilder` and `StoneExplorer`. Choose your own available name. Quick join can initially assign a random name, so check the profile first.
 
-If you mainly want the server, you can skip the background sections and jump straight to [Method 1](#method-1-the-docker-way-full-control) or [Method 2](#method-2-the-one-click-way).
+The supplied Join game link can connect automatically after profile setup. To join from the menu, open **Multiplayer**. Release 2.2.7 preconfigures this deployment in the server list. Select that server and choose **Join Server**. **Completion state:** the world loads and the game asks you to register or log in. The authentication step below completes your First Join.
 
-## What Exactly is Eaglercraft?
+### 4. Register your Player Account
 
-![Eaglercraft](./images/eaglercraft.jpeg)
+Have a private **6–32 character** player password ready. Within **30 seconds** of connecting, press **T** to open chat and enter:
 
-[Eaglercraft](https://eaglercraft.com/) is an open-source project that ports Minecraft Java Edition to run directly in a web browser. Created by a developer known as "LAX1Dude" in 2021, it allows players to experience full Minecraft gameplay on nearly any device with a modern browser—from school Chromebooks to smartphones, and even smart fridges (as the community jokes).
-
-It's not a Minecraft-inspired clone; it is a **direct port of the original Java code**, translated into browser-compatible formats using sophisticated compilation techniques.
-
-### How Eaglercraft Works Under the Hood
-
-The magic behind Eaglercraft involves several key technologies:
-
-**TeaVM Compilation**
-
-Eaglercraft uses [TeaVM](https://teavm.org/) (Tea Virtual Machine) to perform ahead-of-time (AOT) compilation of Minecraft's Java bytecode into JavaScript. This allows the entire Minecraft game logic—originally written in Java—to execute within a browser's JavaScript engine. The result is a massive JavaScript file that essentially contains the complete game.
-
-**WebAssembly (WASM) for Better Performance**
-
-Recent versions of EaglercraftX offer an experimental **WASM-GC** (WebAssembly with Garbage Collection) build. This newer runtime can deliver:
-
-- **~50% higher FPS** compared to the JavaScript version
-- Improved game tick rates (TPS)
-- Better performance on low-end hardware
-
-However, WASM-GC requires modern browser support. Chrome and Firefox remain the safest choices for testing it, while Safari support still lags enough that you should verify the current client notes before assuming it will work.
-
-**Custom WebGL Graphics Layer**
-
-Since Minecraft relies on OpenGL for 3D rendering (which browsers can't run natively), LAX1Dude created a custom **OpenGL 1.3 emulator** that maps Minecraft's drawing routines to WebGL operations on an HTML5 `<canvas>`. This allows the game to render graphics with minimal changes to the original source code.
-
-**Browser API Integration**
-
-Eaglercraft provides implementations for keyboard, mouse, audio, and file access using web APIs:
-- Keyboard/mouse input via JavaScript event listeners
-- Audio through HTML5 Audio or WebAudio (including a bundled OGG Vorbis decoder for iOS Safari compatibility)
-- World saves stored in browser storage (IndexedDB/LocalStorage)
-
-### Browser Compatibility
-
-Eaglercraft runs on surprisingly old browsers—tested on Chrome 38 (circa 2014) and even Windows XP machines. Requirements:
-
-| Feature | Minimum Requirement |
-|:---|:---|
-| Basic gameplay | WebGL 1.0 capable browser |
-| Dynamic lighting & shaders | WebGL 2.0 support |
-| WASM performance mode | Browser with WASM-GC support |
-| Touch controls | Auto-detected on mobile devices |
-
-### The Real "Why": The Cat-and-Mouse Game
-
-Eaglercraft's popularity isn't about being free. It's about **access**.
-
-It's the main weapon in a "cat-and-mouse game" between students and school IT administrators:
-
-1. **Students** find a link to a client
-2. **IT Admins** block that specific URL with filters like [GoGuardian](https://www.goguardian.com/) or Securly
-3. **Students** re-host the open-source client on a new, unblocked URL
-4. Rinse, repeat—it's a "Hydra"; cut off one head, and two more pop up
-
-But here's the real secret: Eaglercraft is often a Trojan horse. An IT admin consultant's report found that many clients have a hidden, built-in unfiltered web browser. Students aren't just bypassing the filter for a game—they've gained a tool to bypass the school's entire content filtering system.
-
-### Why Host Your Own Server?
-
-The public Eaglercraft world is chaotic:
-- **DMCA takedowns** constantly remove popular sites
-- **Unmoderated chat** with toxic behavior from younger players
-- **Malware-laden forks** that can compromise your device
-- **Unstable connections** to overloaded public servers
-
-Hosting your own server means a clean, stable, private environment where you control everything.
-
-If that is already enough context for you, skip ahead to the deployment methods below.
-
-## Eaglercraft Client Features: What Can You Actually Do?
-
-Eaglercraft isn't just a stripped-down browser port. It's a surprisingly feature-rich client that, in some ways, offers more than vanilla Minecraft 1.8 ever did.
-
-Here's what you get out of the box:
-
-### Singleplayer Mode with World Saving
-
-Unlike earlier versions that were multiplayer-only, **EaglercraftX 1.8** includes full singleplayer support. You can:
-
-- Create new worlds directly in your browser
-- Save worlds to your browser's local storage (IndexedDB)
-- Export worlds as `.epk` files to back them up or share with friends
-- Import existing worlds, including converting vanilla Minecraft saves
-
-This means your builds persist between sessions—even on a school Chromebook. Just don't clear your browser data.
-
-> **Pro tip:** Export your world regularly. Browser storage can be wiped by IT policies or cache cleaners.
-
-### Built-in PBR Shaders
-
-This is where Eaglercraft flexes. The client ships with a **Physically Based Rendering (PBR) shader system** inspired by GTA V's deferred rendering engine—written from scratch by LAX1Dude.
-
-| Feature | Description |
-|:--------|:------------|
-| Dynamic Lighting | Torches and lava cast realistic, soft light |
-| Reflections | Water, glass, and metal blocks reflect the environment |
-| PBR Textures | Default textures show glossiness and metallic properties |
-| Deferred Rendering | Modern rendering pipeline for better performance |
-
-To enable shaders: **Options → Video Settings → Shaders → Select PBR Pack**
-
-**Requirements:** WebGL 2.0 support. Works on most modern browsers, but skip this on older Chromebooks if you want playable framerates.
-
-### Integrated Voice Chat
-
-EaglercraftX has **built-in voice chat** using WebRTC—no Discord or third-party apps needed. It works in both Shared Worlds and on servers that support it.
-
-How it works:
-1. Join a server or open your world to friends
-2. Voice chat activates automatically (if enabled)
-3. Proximity-based audio in-game
-
-**Privacy warning:** WebRTC can expose your IP address to other players. On public servers, consider this before enabling voice.
-
-Server owners can disable voice chat by adding `allowVoiceClient: false` to their client configuration.
-
-### Shared Worlds (Play with Friends Without a Server)
-
-Don't want to set up a full server? **Shared Worlds** lets you invite friends to your singleplayer world using peer-to-peer connections.
-
-Here's how it works:
-
-1. Open your singleplayer world
-2. Press `Esc` → "Open to Shared World"
-3. Share the generated **join code** with friends
-4. They enter the code in Multiplayer → "Join Shared World"
-
-Behind the scenes, this uses WebRTC with relay servers to punch through NATs. It's essentially "Open to LAN" but works over the internet.
-
-**Limitations:**
-- Performance depends on the host's upload speed
-- Best for 2-4 players
-- Both players need matching relay server URLs configured
-
-### Resource Pack Support
-
-You can import any **Minecraft 1.8-compatible resource pack** directly into Eaglercraft:
-
-1. Go to **Options → Resource Packs**
-2. Click "Open Pack Folder" or drag-and-drop a `.zip` file
-3. The pack is stored in your browser and persists between sessions
-
-**Missing the music?** Minecraft's soundtrack isn't included by default (file size + copyright). Download a C418 music resource pack and import it for the full nostalgic experience.
-
-### WebAssembly Mode for 50% Better Performance
-
-If your browser supports **WebAssembly with Garbage Collection (WASM-GC)**, Eaglercraft can run significantly faster:
-
-| Runtime | Performance | Browser Support |
-|:--------|:------------|:----------------|
-| JavaScript | Baseline | All browsers (Chrome 38+, even Windows XP) |
-| WASM-GC | ~50% more FPS | Chrome 119+, Firefox 120+, Edge 119+ |
-
-To check: Look for "WASM-GC" in the Eaglercraft loading screen or F3 debug menu.
-
-**Note:** Safari remains the least reliable choice for WASM-GC compared with Chrome or Firefox. If browser support is a deciding factor, verify the current client notes before you commit to that path.
-
-### What About Mods and Hacked Clients?
-
-Because Eaglercraft is open-source, the community has created numerous **modified clients**:
-
-| Client | Focus | Notable Features |
-|:-------|:------|:-----------------|
-| **Resent Client** | PvP | Keystrokes, FPS boost, click GUI, toggle mods |
-| **Astra Client** | Aesthetics | Enhanced shaders, cleaner UI |
-| **CyanogenMC** | Quality of Life | Polished experience, bug fixes |
-| **Shadow/Pixel** | Performance | Optimized for low-end devices |
-
-**Warning:** Some unofficial clients floating around contain malware or hidden browser exploits. Only download from trusted sources like the official Eaglercraft site or verified GitHub repositories.
-
-### Browser Compatibility at a Glance
-
-Eaglercraft is designed to run on almost anything:
-
-- ✅ Chrome 38+ (2014 and newer)
-- ✅ Firefox, Edge, Opera (modern versions)
-- ✅ Chromebooks (the primary use case)
-- ✅ Touch devices (auto-detects and shows touch controls)
-- ✅ Windows XP (yes, really)
-- ⚠️ Safari (works, but no WASM-GC, no OGG audio without polyfill)
-- ❌ Internet Explorer (WebGL not supported)
-
-The only hard requirement is **WebGL support**. For advanced features like dynamic lighting, you need WebGL 2.0.
-
-## The Eaglercraft Server Hosting Challenge
-
-Here's the catch: an Eaglercraft server isn't one piece of software. It's a **fragile "man-in-the-middle" setup** that bridges two incompatible worlds.
-
-### The Core Problem: Protocol Mismatch
-
-A browser client lives in a **security sandbox**. It's forbidden from opening direct TCP/IP socket connections to game servers. It can only speak web-standard protocols—primarily **WebSockets** (`ws://` or secure `wss://`).
-
-But a standard Minecraft server (like [Spigot](https://www.spigotmc.org/) or [Paper](https://papermc.io/)) *only* speaks the **Minecraft TCP protocol** on port 25565.
-
-They're speaking different languages. To make them communicate, you need a translation bridge.
-
-### The Three-Part Architecture
-
-Every Eaglercraft multiplayer setup requires these three components working together:
-
-```
-┌─────────────────┐     WebSocket      ┌─────────────────┐     Minecraft TCP    ┌─────────────────┐
-│   Browser       │ ──────────────────▶│   Proxy +       │ ───────────────────▶│   Game Server   │
-│   (Eaglercraft) │     (wss://)       │   Translator    │     (Internal)       │   (Spigot)      │
-└─────────────────┘                    └─────────────────┘                      └─────────────────┘
+```text
+/register <player-password>
 ```
 
-**1. The Bouncer (Proxy Server)**
+Replace `<player-password>` with your own password, typed once, and press Enter. Keep the password as one argument. The selected template uses LoginSecurity with password confirmation disabled. Each player chooses their own password; the Administrator Password stays in the management console.
 
-This is the front door—the only thing the browser talks to. Common options include:
-- [BungeeCord](https://www.spigotmc.org/wiki/bungeecord/) - The traditional choice
-- [Velocity](https://velocitypowered.com/) - Modern, higher performance alternative
+**Completion state:** chat shows **“Successfully registered, you are now logged in.”** You can move through and interact with the hosted world. If the registration window expires, select the same multiplayer server again and submit the command promptly.
 
-The proxy listens on a web port (typically 80, 443, or a custom port) and accepts WebSocket connections from browsers.
+![First Join: player ___ receives the successful registration message in the hosted 1.8 world. Original September 10–11, 2026 browser evidence.](./images/first-join.webp)
 
-**2. The Translator (EaglercraftXServer Plugin)**
+The earlier captured player is named `___`. Keep that identity in mind when comparing the original screenshots; your profile will show the name you chose.
 
-This is the magic layer. The **EaglercraftXServer** plugin sits inside the proxy and performs real-time protocol translation:
+### 5. Leave and return with the same identity
 
-- **Incoming**: Unwraps WebSocket frames → extracts Minecraft packets → forwards to game server
-- **Outgoing**: Receives Minecraft packets → wraps in WebSocket frames → sends to browser
+Open the game menu and disconnect. Reopen the Browser Play Link, confirm your exact player name in **Edit Profile**, and join the preconfigured server again. Press **T** and enter:
 
-The plugin also handles Eaglercraft-specific features:
-- **Authentication**: Since Eaglercraft clients can't use Mojang login, the plugin manages alternate auth systems (optional password registration, session cookies, etc.)
-- **Skins & Capes**: Offline clients can't use Mojang's skin API, so the plugin serves community-provided skins
-- **Compression**: Optional zlib compression on WebSocket streams to reduce bandwidth (critical for school WiFi)
-- **Rate Limiting**: Configurable timeouts and connection limits to prevent abuse
-
-**3. The Game Server (Spigot/Paper)**
-
-The actual Minecraft server running your world. Critical requirement:
-
-> ⚠️ **Must run in `online-mode=false`** (offline/cracked mode)
-
-This is necessary because Eaglercraft clients cannot perform official Mojang authentication. The proxy handles any authentication you want to implement, then forwards "pre-authenticated" players to the game server.
-
-### The EaglercraftXServer Plugin
-
-Originally, there were separate plugins for BungeeCord (EaglerXBungee) and Velocity (EaglerXVelocity). In 2025, these were unified into **EaglercraftXServer**—a single plugin that works with:
-
-- BungeeCord
-- Velocity
-- Direct Spigot/Paper installation (no proxy needed for simple setups)
-
-The unified plugin supports all Eaglercraft versions (1.5.2, 1.8.8, 1.12.2) simultaneously, meaning players on different client versions could potentially connect to the same network (with appropriate backend servers).
-
-**Key Configuration Options:**
-
-| Setting | Purpose |
-|:---|:---|
-| `websocket_compression` | Enable zlib compression (recommended for WiFi) |
-| `connection_timeout` | How long to wait for handshake completion |
-| `max_connections` | Limit concurrent WebSocket connections |
-| `allow_voice_client` | Enable/disable built-in voice chat |
-| `skin_service` | Configure custom skin server URL |
-
-### Shared Worlds: The Serverless Alternative
-
-Don't want to set up all this infrastructure? EaglercraftX 1.8 includes **Shared Worlds**—a peer-to-peer multiplayer system:
-
-1. Start a singleplayer world
-2. Open the pause menu and select "Shared World"
-3. Share the generated join code with friends
-4. Friends enter the code in their multiplayer menu
-
-Behind the scenes, this uses **WebRTC** to establish direct browser-to-browser connections, with community relay servers helping browsers find each other. No dedicated server, no proxy, no configuration—perfect for casual play with friends.
-
-**Limitations:**
-- Performance depends on host's device and upload speed
-- Works best with small groups (2-5 players)
-- Voice chat may expose IP addresses to participants
-- All players must have matching relay URLs configured
-
-## Method 1: The Docker Way (Full Control)
-
-This is the classic, hands-on method for folks who are comfortable with a command line and want full control over their Eaglercraft server configuration. This approach is ideal if you:
-
-- Want to customize every aspect of your server
-- Already have a Linux VPS or dedicated server
-- Need to run multiple game servers on the same machine
-- Want to learn how Eaglercraft's architecture actually works
-
-**Prerequisites:** A server (like a [Linux VPS](https://www.digitalocean.com/products/droplets) or home server) with [Docker](https://www.docker.com/) and `docker-compose` installed. Most cloud providers (DigitalOcean, Vultr, Linode) offer $5-10/month VPS options that work perfectly for small Eaglercraft servers.
-
-### Step 1: Create Necessary Directories
-
-First, create directories on your server to store your world data. This way, even if you update or restart the server, your world is safe.
-
-```bash
-mkdir -p ~/eaglercraft-server/{world,world_nether,world_the_end}
-cd ~/eaglercraft-server
+```text
+/login <player-password>
 ```
 
-### Step 2: Create `docker-compose.yml` File
+Use the personal password you registered. **Completion state:** **“Successfully logged in.”** appears, and you return as the existing player. A fresh browser profile may need its player name set again. Changing the name selects a different identity on this server.
 
-Next, create the configuration file that tells Docker how to build your server.
+![Returning login: the same player ___ successfully signs in after the original application's storage-preserving restart. September 10–11, 2026 evidence.](./images/returning-login.webp)
 
-```bash
-nano docker-compose.yml
+## Invite a Friend to the Same World
+
+On the admin console's **Overview** page, use **Join game** to obtain the **Browser Play Link**. Copy that link's address, including any supplied query string, and send it privately to your friend. It opens the hosted browser client. The friend's Player Account gives them their own game identity.
+
+| Address                                                                    | Where it goes                                                     |
+| -------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Browser Play Link: `https://your-app-host/` with any supplied query string | Browser address bar.                                              |
+| WebSocket Server Address: `wss://your-app-host/`                           | An existing compatible client's multiplayer server address field. |
+| Admin console: `https://your-app-host/admin`                               | The owner's browser for management.                               |
+
+Your friend should open the Browser Play Link, set a **different stable player name**, select **Multiplayer**, and join the preconfigured server. They then register their own password using `/register <player-password>` within 30 seconds. On later visits, they use `/login <player-password>` with that same identity.
+
+To confirm **Friend Join**, stay online together, meet at a recognizable landmark, and check both names in the admin console's player list. A message in game chat or a shared block placement helps confirm that you are interacting in the same world. Players with an existing client can instead add the displayed WSS address, using a client compatible with the selected game version.
+
+![Friend Join: RiverBuilder sees StoneExplorer beside the gold block, with both names visible in the online player list. Captured September 12, 2026 in two isolated Chrome sessions on one Mac and network.](./images/friend-join.webp)
+
+Both players registered with separate credentials and were online together through the public HTTPS/WSS entry point. The server console also reported both names. This check used two isolated browser contexts on the same Mac and network; access from a second physical device or independent network remains outside the recorded test.
+
+Friends can continue playing while your browser is closed, provided the hosted application stays running and reachable with an active plan or eligible trial. Your own browser controls your player session; the hosted application runs the shared world.
+
+## Restart and Check Your Saved World
+
+A **Persistent World** lives on the application's persistent storage. Check it with a change you can recognize:
+
+1. Place a distinctive block or small structure. Record its location and take a screenshot so you can compare it after restart.
+2. In the admin console, use **World tools** to save the world, or run `save-all` in **Command terminal** and wait for the save confirmation.
+3. Disconnect players. Restart the existing application through its Canvas resource controls, **preserving the original persistent volume**. Keep the same application, game version, and storage attached. Removing the volume removes the data that this check depends on.
+4. Wait for **Paper is ready**, reopen the same Browser Play Link, and sign in with the same player name and `/login <player-password>`.
+5. Return to the recorded location. **Completion state:** the recognizable change remains and your existing player can access it.
+
+The original 1.8 check saved a gold block at `-188 70 -178`, restarted the application with its original volume retained, and signed in as `___`. Both the browser view and the server's block check confirmed the retained gold block.
+
+![Persistent World: the gold block remains after the application restart and returning login by ___. September 10–11, 2026 evidence using the original persistent volume.](./images/saved-world.webp)
+
+Keep a **Recovery Copy** separately from the active world storage so you have a source for recovery after accidental deletion or storage loss. The restart check proves continuity with retained storage. Exporting a copy, restoring it independently, and checking the **Restored World** are a separate recovery procedure. See the [persistent storage guide](/docs/guides/app-deploy/persistent-volume/) for volume behavior and retention planning.
+
+## Understand the Client, Gateway, and Game Server
+
+```text
+Browser client
+    | secure WebSocket (WSS)
+    v
+WebSocket gateway
+    | game connection
+    v
+Paper game server
+    | saves world and player data
+    v
+Persistent storage
 ```
 
-Paste the following content into the file. This configuration bundles the proxy, translator, and game server into a single image.
+The **browser client** displays the game and receives your keyboard and mouse input. The **gateway** accepts the browser's WebSocket connection and forwards game traffic. **Paper** runs the shared world. This template packages the client, gateway, Paper, administration interface, and player-login support in one deployment; LoginSecurity stores accounts on its persistent volume.
 
-```yaml
-version: '3.8'
+A client's single-player world is stored by that browser. Joining the hosted multiplayer server uses the server's Persistent World. Use **Multiplayer** and the deployment's server entry to reach the world your friend is playing in.
 
-services:
-  eaglercraft:
-    image: ghcr.io/yangchuansheng/eaglerx1.8server:1.12.1
-    container_name: eaglercraft-server
-    ports:
-      - "5200:5200" # For adding to the server list
-      - "5201:5201" # For direct, stable connections
-    volumes:
-      - ./world:/world              # Overworld data
-      - ./world_nether:/world_nether    # Nether data
-      - ./world_the_end:/world_the_end  # The End data
-    restart: unless-stopped
-```
+## Fix Common Join Problems
 
-### Step 3: Start the Server
+| What you see                         | Next check                                                                                                                               |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Console opens, game connection fails | Wait for **Paper is ready**; inspect Canvas logs if startup stalls.                                                                      |
+| Address fails in Add Server          | Paste the **WSS** address into a compatible client's multiplayer field. Open the **HTTPS** Browser Play Link in the browser address bar. |
+| Registration or login times out      | Rejoin, press **T**, and submit the appropriate command within 30 seconds.                                                               |
+| Existing player is asked to register | Restore the exact original player name, including capitalization, then reconnect and log in.                                             |
+| Friend sees a different world        | Compare the host in both Browser Play Links and check that both players selected the same multiplayer server.                            |
+| Public page fails to open            | Check the application's status and follow the [public URL troubleshooting guide](/docs/guides/app-deploy/public-url-does-not-open/).     |
 
-Save the file and exit the editor. Now, tell Docker to start the server in the background (`-d`).
+## Continue with Manual Hosting
 
-```bash
-docker-compose up -d
-```
+For your computer or VPS, start with the maintained [EaglerXserver implementation](https://github.com/yangchuansheng/eaglerXserver) and the [2.2.7 release documentation](https://github.com/yangchuansheng/eaglerXserver/tree/v2.2.7). Plan the game version, persistent data location, HTTPS/WSS access, and update procedure together. The [current Sealos template documentation](https://github.com/labring-actions/templates/blob/kb-0.9/template/eaglercraft-server/README.md) records how the hosted package connects those components. Existing Compose users can consult the [Docker Compose migration guide](/docs/guides/app-deploy/docker-compose-migration/).
 
-### Step 4: Check Logs
-
-You can check the server's console logs to make sure it started correctly.
-
-```bash
-docker-compose logs -f
-```
-
-### Step 5: Connect to Your Docker Server
-
-Once deployed, you have two ways to connect:
-
-  * Method A: Add to Server List (Port 5200)
-
-    1.  Open your Eaglercraft client.
-    2.  Go to "Multiplayer" -\> "Add Server".
-    3.  Enter the server address: `ws://YOUR_SERVER_IP:5200`
-    4.  (A quick heads-up: You only use `wss://`, the secure version, if you've manually set up an SSL reverse proxy like Nginx or Caddy. For this simple setup, stick to `ws://`.)
-
-  * Method B: Direct Connection (Port 5201 - Recommended)
-
-    1.  This port is often more stable for long play sessions.
-    2.  Simply visit this URL in your browser: `http://YOUR_SERVER_IP:5201`
-
-> **Note on `ws://` vs `wss://`:** Use `ws://` (unsecured WebSocket) for this basic setup. To use `wss://` (secured), you'll need to configure an SSL reverse proxy with Nginx or Caddy—covered in the advanced section below.
-
-### Advanced: Setting Up Secure WSS with SSL
-
-For public servers, especially those shared via links, using `wss://` (WebSocket Secure) is recommended. Here's how to set it up with Nginx:
-
-**1. Install Nginx and Certbot:**
-```bash
-sudo apt update
-sudo apt install nginx certbot python3-certbot-nginx
-```
-
-**2. Create Nginx configuration** (`/etc/nginx/sites-available/eaglercraft`):
-```nginx
-server {
-    listen 443 ssl;
-    server_name your-domain.com;
-
-    ssl_certificate /etc/letsencrypt/live/your-domain.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/your-domain.com/privkey.pem;
-
-    location / {
-        proxy_pass http://127.0.0.1:5200;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header Host $host;
-        proxy_read_timeout 86400;
-    }
-}
-```
-
-**3. Enable and get SSL certificate:**
-```bash
-sudo ln -s /etc/nginx/sites-available/eaglercraft /etc/nginx/sites-enabled/
-sudo certbot --nginx -d your-domain.com
-sudo systemctl restart nginx
-```
-
-Now players can connect via `wss://your-domain.com`.
-
-## Method 2: The One-Click Way
-
-If the Docker method feels like too much work, this is the zero-configuration alternative. [Sealos](/) is a cloud platform built specifically for containerized applications—it handles all the complex infrastructure so you can focus on playing.
-
-### Why Choose Sealos Over Manual Docker?
-
-| Feature | Docker (Self-Hosted) | Sealos (One-Click) |
-|:---|:---|:---|
-| **Setup Time** | 30-60 minutes | Under 5 minutes |
-| **Technical Knowledge** | Linux, Docker, networking | None required |
-| **SSL/WSS** | Manual Nginx/Certbot setup | Automatic HTTPS |
-| **Server Management** | SSH + command line | Web dashboard |
-| **Scaling** | Manual configuration | One-click upgrade |
-| **Cost** | VPS ($5-20/month) + your time | Pay-as-you-go (similar pricing) |
-| **Maintenance** | You handle updates/security | Platform managed |
-| **Best For** | Learning, full customization | Quick setup, reliability |
-
-Sealos uses the same container technology under the hood—it's not a different server; it's the same Docker image with all the hard parts automated.
-
-### Step 1: Deploy from Template
-
-The fastest way to get started is using the pre-configured Eaglercraft template:
-
-<DeployButton deployUrl="https://sealos.io/products/app-store/eaglercraft-server" />
-
-Click the button above.
-
-### Step 2: Configure and Deploy
-
-Click "Deploy Now". You don't need to change any configuration.
-
-### Step 3: Get Your Server URL
-
-After 0~1 minutes, your server is live. Sealos automatically:
-
-- Provisions the container
-- Configures networking
-- Sets up SSL certificates
-- Generates a public `wss://` address
-
-Find your server URL on the application details page:
-
-![Sealos Eaglercraft Server WebSocket URL](./images/sealos-eaglercraft-server-websocket-url.png)
-
-### Step 4: Connect and Play
-
-Copy the `wss://` URL and add it to your Eaglercraft client:
-
-1. Open Eaglercraft in your browser
-2. Click **Multiplayer** → **Add Server**
-3. Paste your `wss://xxxxx.sealos.io` address
-4. Click **Done**, then join your server
-
-![Eaglercraft Client Add Server](./images/eaglercraft-client-add-server.png)
-
-That's it—you now have a private Eaglercraft server with automatic SSL, no port forwarding, and no command-line required.
-
-### When to Choose Docker Instead
-
-While Sealos is easier, the Docker method makes more sense if you:
-
-- Already pay for a VPS for other projects.
-- Need custom plugins beyond the default setup.
-- Want to run multiple servers (survival, creative, minigames).
-- Are learning server administration as a skill.
-
-## What About Public Eaglercraft Servers?
-
-Before investing time in your own server, you might want to explore the public Eaglercraft multiplayer scene. The important caveat is that public server addresses, uptime, moderation quality, and legal status change frequently. That makes static "top server" lists one of the least durable parts of any Eaglercraft article.
-
-### How to Evaluate a Public Eaglercraft Server
-
-| What to check | Why it matters |
-|:---|:---|
-| Does the server publish a working `wss://` address and recent join instructions? | Browser-based multiplayer depends on the WebSocket endpoint being current |
-| Is there an active Discord or community channel? | Public servers often communicate outages, resets, and new addresses there first |
-| Is moderation visible and documented? | Public chat quality and player safety vary widely |
-| Does the server explain compatibility clearly? | Some communities optimize for 1.8.8 PvP, others for survival or mixed-client setups |
-| Are you comfortable trusting the client and link source? | The Eaglercraft ecosystem is heavily mirrored, and not every mirror is trustworthy |
-
-> **Finding current servers:** Use community-maintained server hubs like [TopEaglerServers](https://topeaglerservers.com/) to find active servers to join or list your own, and verify the address and community activity before joining.
-
-### Choosing the Right Server Type
-
-**PvP & Competitive:**
-- Practice servers (Zentic, ArchMC) let you train combat skills
-- 1.8.8 combat mechanics (no attack cooldown) are standard
-- Expect players using optimized clients (Resent, Astra) for competitive edge
-
-**Survival & Building:**
-- Look for servers with land protection plugins (GriefPrevention, Towny)
-- VanillaCraft-style servers offer the purest experience
-- SMP (Survival Multiplayer) servers often have active communities
-
-**Minigames:**
-- BedWars, SkyWars, and similar modes work well on Eaglercraft
-- Queue times vary; larger servers fill games faster
-- Some servers offer unique Eagler-only game modes
-
-### The Case for Running Your Own Server
-
-Public servers are great for quick fun, but they come with trade-offs:
-
-| Public Servers | Your Own Server |
-|:---|:---|
-| ❌ Someone else's rules | ✅ Your rules |
-| ❌ Can't install custom plugins | ✅ Full plugin control |
-| ❌ May shut down without notice | ✅ Runs as long as you want |
-| ❌ Possible lag from overcrowding | ✅ Dedicated resources |
-| ❌ Risk of toxic players | ✅ Whitelist your friends |
-| ❌ No world backup access | ✅ Full data ownership |
-| ❌ Dynamic links and uncertain uptime | ✅ Stable join path you control |
-
-### Safety Considerations for Public Servers
-
-The Eaglercraft ecosystem exists in a legal gray area, which attracts both passionate fans and bad actors:
-
-**Risks to be aware of:**
-- **Malware-laden clients:** Some third-party Eaglercraft sites bundle malware. Stick to known sources like [eaglercraft.com](https://eaglercraft.com)
-- **Unmoderated chat:** Younger player base means inconsistent moderation on some servers
-- **IP exposure via voice chat:** Eaglercraft's WebRTC voice feature can reveal your IP address to other players
-- **Impersonation:** Without Mojang authentication, anyone can use any username
-
-**Best practices:**
-- Use servers with active moderation and Discord communities
-- Disable voice chat on untrusted servers (`allowVoiceClient: false` in client config)
-- Don't share personal information in public chat
-- Consider a VPN if privacy is a concern
-
-### The Hydra Problem
-
-Here's the practical reality: Eaglercraft links, mirrors, and public infrastructure are unstable. Takedowns happen, school filters change, and community hosts move or disappear.
-
-That is exactly why many players end up hosting their own server. Not because self-hosting removes every legal or platform risk, but because it gives you a stable environment, a join path you control, and less dependence on random public infrastructure.
-
-## Is Eaglercraft Legal? Understanding the Risks
-
-Before you dive in, you need to understand what you're getting into. Eaglercraft exists in a legal gray area, and there are real risks to consider.
-
-### The Legal Reality
-
-Let's be direct: **Mojang (Microsoft) considers Eaglercraft copyright infringement.**
-
-In 2023, Microsoft launched a widespread crackdown, issuing DMCA takedown notices that removed thousands of Eaglercraft repositories from GitHub, GitLab, and even Replit. Their official position is clear:
-
-> "EaglerCraft allows the connection to Minecraft: Java Edition servers without requiring users to have an authenticated Minecraft account... The development and distribution of this product infringes Mojang's intellectual property rights."
-
-The original developer, LAX1Dude, eventually removed code from his sites after this pressure. However, the project has continued through mirrors and community distribution.
-
-**What this means for you:**
-- **Playing Eaglercraft:** Extremely unlikely to result in any legal action against you personally. Microsoft targets distributors, not players.
-- **Hosting a public server:** Higher risk. Your server could receive a takedown notice, especially if it becomes popular.
-- **Hosting a private server for friends:** Lower visibility than a public server, but still not risk-free.
-
-### Security Risks: The Malware Problem
-
-Here's the more immediate danger: **not all Eaglercraft clients are safe.**
-
-After Microsoft's crackdowns removed official sources, the vacuum was filled by countless re-uploads and forks. Many of these are trustworthy. Many are not.
-
-Some malicious forks have been found to contain:
-- **Cryptocurrency miners** running in the background
-- **Keyloggers** capturing everything you type
-- **Hidden browsers** that bypass school content filters entirely
-- **Excessive advertisements** and tracking scripts
-
-An IT security consultant investigating Eaglercraft in schools discovered that some clients had a secret, built-in unfiltered web browser—turning a "harmless game" into a tool for bypassing all network restrictions.
-
-### How to Stay Safe
-
-If you're going to use Eaglercraft, follow these guidelines:
-
-| Do | Don't |
-|:---|:---|
-| Download only from [eaglercraft.com](https://eaglercraft.com) or verified sources | Click random "Eaglercraft unblocked" links from search results |
-| Host your own server with known, clean images | Join servers from untrusted sources |
-| Use a separate browser profile or incognito mode | Enter any personal information or passwords |
-| Keep your browser and system updated | Ignore security warnings from your browser |
-
-### The Ethical Perspective
-
-Is using Eaglercraft "wrong"? That depends on your viewpoint:
-
-**The case against:** Minecraft is a paid product. Using Eaglercraft means playing without paying, which arguably deprives developers of revenue.
-
-**The case for:** Many Eaglercraft users are students who can't purchase games, or people who already own Minecraft but need browser access. The [official Eaglercraft site](https://eaglercraft.com/p/legal/#dmca) explicitly states: *"If you enjoy Minecraft, you should buy the game."*
-
-**The practical reality:** Eaglercraft likely doesn't significantly impact Minecraft's $200+ million in sales. Many users are not "lost sales"—they're people who would never have purchased anyway, or who eventually do buy the official game.
-
-We're not here to tell you what to think. We're here to make sure you understand the landscape before you make your choice.
-
-## Your World, Your Rules
-
-If you use public servers, you accept someone else's moderation, uptime, address changes, and client trust model.
-
-If you host your own, you gain something more practical than hype: a cleaner server for friends, a stable world you can keep online, and a join workflow you control.
-
-That is the strongest reason to self-host Eaglercraft in 2026. Not because the ecosystem is perfectly safe or legally settled, but because a private setup is often the most stable option available for the people who still want to use it.
-
-## Next Step Options
-
-- If you just want the fastest working setup, use the [Sealos Eaglercraft template](https://sealos.io/products/app-store/eaglercraft-server).
-- If you need full control over files, ports, and plugins, stick with the Docker path in this guide.
-- After your server is live, the final step is getting players. List your server on community directories like [TopEaglerServers](https://topeaglerservers.com/) so players can discover and join it.
-- If you want to understand the broader platform behind the one-click flow, read [What Is Sealos?](/blog/what-is-sealos) and [What Is DevBox?](/blog/what-is-devbox).
+Once you have checked the first player, your friend's connection, and the retained world, keep the Browser Play Link and your private credentials for the next session. [Deploy your shared world from the Eaglercraft template](https://sealos.io/products/app-store/eaglercraft-server/).
