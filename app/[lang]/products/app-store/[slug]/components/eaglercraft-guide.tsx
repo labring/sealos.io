@@ -1,8 +1,11 @@
 import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronDown, Globe, Network, KeyRound, UserRound, HardDrive, Archive } from 'lucide-react';
 import StackIllustration from '@/assets/app-previews/eaglercraft-stack.webp';
+import MobileStackIllustration from '@/assets/app-previews/eaglercraft-stack-mobile.webp';
 import { eaglercraftConfig } from '@/config/eaglercraft';
 import { DeployButton } from './DeployButton';
+import ConsoleScreenshot from './ConsoleScreenshot';
+import ResponsiveDisclosure from './responsive-disclosure';
 import type { AppDetailConfig } from './app-detail-utils';
 import s from './detail.module.css';
 import g from './eaglercraft.module.css';
@@ -18,11 +21,15 @@ export default function EaglercraftGuide({
   return (
     <div className={g.guide}>
       <section id="how-to-join" aria-labelledby="join-title">
-        <span className={s.eyebrow}>From setup to a shared world</span>
         <h2 id="join-title">Your friend’s first join, in four steps</h2>
         <ol className={g.steps}>
           <li>
-            <h3>Choose your version and Administrator Password</h3>
+            <details className={g.stepRow} open>
+              <summary>
+                <h3>Choose your version and Administrator Password</h3>
+                <ChevronDown size={18} aria-hidden="true" />
+              </summary>
+            <div className={g.stepBody}>
             <p>
               Choose 1.8 (Paper 1.8.8) or 1.12 (Paper 1.12.2) in the deployment
               configuration. Each deployment runs one selected version; running
@@ -32,9 +39,16 @@ export default function EaglercraftGuide({
               Set a strong, single-line Administrator Password in{' '}
               <code>rcon_password</code> and save it for server management.
             </p>
+            </div>
+            </details>
           </li>
           <li>
-            <h3>Deploy and open the admin console</h3>
+            <details className={g.stepRow}>
+              <summary>
+                <h3>Deploy and open the admin console</h3>
+                <ChevronDown size={18} aria-hidden="true" />
+              </summary>
+            <div className={g.stepBody}>
             <p>
               Select Deploy Eaglercraft, sign in to Sealos, and review your
               configuration. Open the deployed application card in Canvas to
@@ -45,9 +59,16 @@ export default function EaglercraftGuide({
               The console opens during startup. Watch its status while Paper
               prepares the world.
             </p>
+            </div>
+            </details>
           </li>
           <li>
-            <h3>Wait for Paper, then join</h3>
+            <details className={g.stepRow}>
+              <summary>
+                <h3>Wait for Paper, then join</h3>
+                <ChevronDown size={18} aria-hidden="true" />
+              </summary>
+            <div className={g.stepBody}>
             <p>
               Wait for <strong>Paper is ready</strong> on Overview, then select{' '}
               <strong>Join game</strong>. In a fresh browser profile, use Edit
@@ -58,16 +79,23 @@ export default function EaglercraftGuide({
               Press T and create your Player Account within 30 seconds using a
               personal password of 6–32 characters:
             </p>
-            <p>
+            <p className={g.command}>
               <code>/register &lt;player-password&gt;</code>
             </p>
             <p>
               Registration signs you in. On later visits, keep the same player
               name and enter <code>/login &lt;player-password&gt;</code>.
             </p>
+            </div>
+            </details>
           </li>
           <li>
-            <h3>Invite a friend</h3>
+            <details className={g.stepRow}>
+              <summary>
+                <h3>Invite a friend</h3>
+                <ChevronDown size={18} aria-hidden="true" />
+              </summary>
+            <div className={g.stepBody}>
             <p>
               Copy the destination of Join game: this is the{' '}
               <strong>Browser Play Link</strong>. Share it with your friend.
@@ -79,106 +107,74 @@ export default function EaglercraftGuide({
               Keep the Administrator Password private. Each player uses their
               personal game password.
             </p>
+            </div>
+            </details>
           </li>
         </ol>
-        <figure className={g.console}>
-          <a
-            href={eaglercraftConfig.consoleImage}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Open full-size admin console screenshot"
-          >
-            <Image
-              src={eaglercraftConfig.consoleImage}
-              width={3840}
-              height={2160}
-              sizes="(max-width: 800px) 100vw, 1200px"
-              alt="Sealos deployment admin console showing Paper is ready, the WebSocket address, Join game, and a connected player"
-            />
-          </a>
-          <figcaption>
-            Template-maintainer screenshot of a Sealos deployment, supplied with
-            the template documentation. On small screens, scroll the image
-            horizontally or open it at full size to inspect the controls.
-          </figcaption>
-        </figure>
+        <ConsoleScreenshot />
       </section>
 
       <section aria-labelledby="world-title">
-        <span className={s.eyebrow}>Your players. Your world.</span>
         <h2 id="world-title">Manage access and keep what you build</h2>
         <div className={s.connectedScene}>
-          <Image
-            src={StackIllustration}
-            alt="Illustrated connection from a browser through a game server to a persistent world."
-            className={s.connectedWorld}
-            sizes="(max-width: 1280px) 100vw, 1200px"
-          />
+          <div className={g.sceneFrame}>
+            <picture>
+              <source
+                media="(max-width: 800px), (min-width: 1101px)"
+                srcSet={MobileStackIllustration.src}
+              />
+              <Image
+                src={StackIllustration}
+                alt="Illustrated connection from a browser through a game server to a persistent world."
+                className={s.connectedWorld}
+                sizes="(max-width: 1280px) 100vw, 1200px"
+              />
+            </picture>
+          </div>
           <div className={s.sceneLabels} aria-hidden="true">
             <span>Browser</span>
             <span>Paper</span>
             <span>Storage</span>
           </div>
         </div>
-        <dl className={g.cards}>
-          <div>
-            <dt>Browser Play Link</dt>
-            <dd>
+        <div className={g.capabilities}>
+          <ResponsiveDisclosure defaultOpen heading={<><Globe size={18} aria-hidden="true" />Browser Play Link</>}>
               The included browser client opens the game over HTTPS. Friends can
               play while your browser is closed, as long as the hosted server is
               running, reachable, and covered by your account’s available
               resources.
-            </dd>
-          </div>
-          <div>
-            <dt>WebSocket Server Address</dt>
-            <dd>
+            </ResponsiveDisclosure>
+          <ResponsiveDisclosure heading={<><Network size={18} aria-hidden="true" />WebSocket Server Address</>}>
               Overview shows the secure <code>wss://</code> address. Paste it
               into a compatible existing Eaglercraft client using the same game
               version as your server.
-            </dd>
-          </div>
-          <div>
-            <dt>Administrator Password</dt>
-            <dd>
+            </ResponsiveDisclosure>
+          <ResponsiveDisclosure heading={<><KeyRound size={18} aria-hidden="true" />Administrator Password</>}>
               Use it at <code>/admin</code> to manage time, weather, players,
               world saves, configuration, trusted plugins, and controlled Paper
               restarts. Admin access controls the server.
-            </dd>
-          </div>
-          <div>
-            <dt>Player Account</dt>
-            <dd>
+            </ResponsiveDisclosure>
+          <ResponsiveDisclosure heading={<><UserRound size={18} aria-hidden="true" />Player Account</>}>
               Your stable player name and LoginSecurity password identify you in
               the game. Register once, then log in with the same identity on
               future visits.
-            </dd>
-          </div>
-          <div>
-            <dt>Persistent World</dt>
-            <dd>
+            </ResponsiveDisclosure>
+          <ResponsiveDisclosure heading={<><HardDrive size={18} aria-hidden="true" />Persistent World</>}>
               Worlds, player accounts, and configuration live on the
               deployment’s persistent volume. For retention across application
               restarts, preserve the same volume mounted at{' '}
               <code>/eaglerx-data</code>.
-            </dd>
-          </div>
-          <div>
-            <dt>A separate recovery copy</dt>
-            <dd>
+            </ResponsiveDisclosure>
+          <ResponsiveDisclosure heading={<><Archive size={18} aria-hidden="true" />A separate recovery copy</>}>
               Persistent storage keeps the working world across restarts. A
               separate backup provides a recovery copy after deletion or
               corruption. Save and keep a copy separately before upgrades or
               game-version changes.
-            </dd>
-          </div>
-        </dl>
+            </ResponsiveDisclosure>
+        </div>
       </section>
 
       <section id="hosting-cost" aria-labelledby="cost-title">
-        <span className={s.eyebrow}>
-          Plan for the server and its ongoing cost
-        </span>
         <h2 id="cost-title">Server resources and monthly hosting</h2>
         <div className={g.plans}>
           <div>
@@ -209,6 +205,7 @@ export default function EaglercraftGuide({
             <a href={eaglercraftConfig.template}>Review template resources</a>
           </div>
           <div>
+            <div className={g.priceHighlight}>
             <h3>Resource Plan</h3>
             <p>Starter example · monthly resource pool</p>
             <dl className={g.prices}>
@@ -227,9 +224,10 @@ export default function EaglercraftGuide({
                 </dd>
               </div>
             </dl>
+            </div>
             <p>{pricing.eligibility}</p>
             <p>
-              Includes {pricing.resources}. Your plan covers the resources of
+              Includes <strong>{pricing.resources}</strong>. Your plan covers the resources of
               all deployed services; the server allocation uses part of that
               pool.
             </p>
@@ -247,7 +245,7 @@ export default function EaglercraftGuide({
 
       <section id="faq" aria-labelledby="faq-title">
         <h2 id="faq-title">Before you start</h2>
-        <div className={g.cards}>
+        <div className={g.faqList}>
           {[
             [
               'Does this include the client and server?',
@@ -273,11 +271,11 @@ export default function EaglercraftGuide({
               'How many players can I host?',
               'Capacity depends on world complexity, plugins, and player activity. Watch CPU, memory, and storage usage during play and increase your server allocation and plan when needed.',
             ],
-          ].map(([question, answer]) => (
-            <div key={question}>
-              <h3>{question}</h3>
+          ].map(([question, answer], index) => (
+            <details key={question} open={index === 0}>
+              <summary><h3>{question}</h3><ChevronDown size={18} aria-hidden="true" /></summary>
               <p>{answer}</p>
-            </div>
+            </details>
           ))}
         </div>
       </section>

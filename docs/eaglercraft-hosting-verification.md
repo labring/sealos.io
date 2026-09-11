@@ -113,3 +113,22 @@ desktop/mobile page captures are retained in the local session artifact director
 Credential files remain private outside the repository. Both test applications
 and their volumes remain allocated; cleanup requires the separately authorized
 destructive-resource action required by the deployment skill.
+
+## Visual follow-up verification
+
+The English hosting page now uses a responsive illustrated hero, native setup,
+capability and FAQ disclosures, a keyboard-scrollable console image, and aligned
+resource comparisons. Header, footer and related-template cards retain their
+production/shared presentation.
+
+The user approved removing four redundant eyebrow labels, the hero console-image
+link, and the architecture illustration's expand control. All remaining ordered
+text, accessible-label wording, metadata and JSON-LD match the pre-visual baseline.
+
+Final follow-up checks: `pnpm lint`, the three detail-route/SEO tests and
+`git diff --check` pass. Native in-app browser checks cover desktop/mobile
+rendering, original related-card scrolling and links, and matching production
+header/footer styles. The complete static export and live deployment checks above
+were run on the preceding content commit; they were not rerun for this visual
+follow-up. Full visual iteration artifacts remain local under
+`docs/eaglercraft-visual/` and are excluded from the repository.

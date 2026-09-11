@@ -124,7 +124,7 @@ export default async function AppDeployPage({ params }: AppDeployPageProps) {
       <div
         data-theme="app-store"
         style={appStoreDetailBackgroundVars}
-        className={`${s.page} relative isolate z-10 min-h-[100dvh]`}
+        className={`${s.page} ${hosting ? s.hosting : ''} relative isolate z-10 min-h-[100dvh]`}
       >
         <div className="sticky top-0 z-50 w-full">
           <Header lang={params.lang} />

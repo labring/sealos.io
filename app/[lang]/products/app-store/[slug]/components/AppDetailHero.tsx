@@ -43,9 +43,11 @@ export default function AppDetailHero({
       <div className={`${s.heroIntro} ${featured ? s.featureIntro : ''}`}>
         {featured && <WorldPreview />}
         <div className={s.titleBlock}>
-          <span className={s.eyebrow}>
-            {featured ? 'Browser gaming / Self-hosted' : 'App Store template'}
-          </span>
+          {!hosting && (
+            <span className={s.eyebrow}>
+              {featured ? 'Browser gaming / Self-hosted' : 'App Store template'}
+            </span>
+          )}
           <div className={s.appHeading}>
             {!featured && (
               <AppIcon
@@ -103,7 +105,7 @@ export default function AppDetailHero({
               {hosting ? 'See how to join' : 'Deploy guide'}{' '}
               <ArrowRight size={14} />
             </a>
-            {featured && app.screenshots?.[0] && (
+            {featured && !hosting && app.screenshots?.[0] && (
               <a
                 href={app.screenshots[0]}
                 target="_blank"
