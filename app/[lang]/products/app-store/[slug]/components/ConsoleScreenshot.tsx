@@ -5,7 +5,7 @@ import g from './eaglercraft.module.css';
 
 export default function ConsoleScreenshot() {
   return (
-    <figure className={g.console} data-zoomed="false">
+    <figure className={g.console}>
       <div className={g.consoleToolbar}>
         <a
           href={eaglercraftConfig.consoleImage}

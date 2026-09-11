@@ -1328,12 +1328,6 @@
 }
 @media (max-width: 800px) {
   .hosting .featureProof {
-    padding-top: 10px;
-    border-top: 1px solid #303946;
-  }
-}
-@media (max-width: 800px) {
-  .hosting .featureProof {
     border: 0;
     padding: 0;
   }
@@ -1422,8 +1416,6 @@
   }
 }
 
-.hosting .eyebrow { font-size: 13px; letter-spacing: 0.08em; }
-
 /* Give related previews a consistent frame and reading baseline. */
 .hosting .heroLinks { gap: 8px 20px; }
 .hosting .heroLinks a { min-height: 44px; font-size: 14px; }
@@ -1474,8 +1466,6 @@
   .hosting .sceneLabels > span::after { top: calc(50% - 2px); left: calc(100% + 14px); bottom: auto; }
 }
 
-/* Allow every preview line to determine its own height. */
-
 /* One outer card, with a quiet flat preview and a clear catalogue title. */
 @media (max-width: 800px) {
   .hosting .heroLinks { flex-wrap: wrap; gap: 0 20px; }
@@ -1490,19 +1480,11 @@
 /* Compact sticky navigation keeps reading content below a solid top edge. */
 .hosting { padding-top: 20px; }
 
-/* The icon and title share a row; the description uses the whole card. */
-
-/* Discovery returns to the dark canvas, with quiet technical previews. */
-
 /* A single card surface makes the catalogue title the primary entry. */
 
 @media (max-width: 800px) {
  .hosting .hero { padding-inline: 32px; }
 }
-
-/* Follow the existing reading order with one primary product identity. */
-
-/* Shared rows align previews and actions without fixed content heights. */
 
 /* A quiet technical preview precedes the main catalogue information. */
 @media (max-width: 800px) {
@@ -1515,18 +1497,11 @@
  .hosting .connectedScene picture { width: calc(100% - 54px); }
 }
 
-/* Distinguish the small preview canvas from the readable catalogue body. */
-
-/* Give the mobile catalogue enough width for readable previews. */
-
 /* Desktop discovery is an editorial list with a subordinate preview column. */
 @media (max-width: 800px) {
  .hosting .heroLinks { display: grid; grid-template-columns: auto auto; justify-content: start; row-gap: 0; }
  .hosting .featureProof { margin-top: 4px; }
 }
-
-/* Native preview disclosures retain every original preview string. */
-/* Each disclosure owns its height while card actions share the row bottom. */
 
 /* Open previews are secondary technical surfaces; card boundaries stay aligned. */
 @media (max-width: 800px) {

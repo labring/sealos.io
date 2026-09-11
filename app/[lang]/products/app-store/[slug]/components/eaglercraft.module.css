@@ -594,9 +594,6 @@
   .faqList summary h3 { font-size: 17px; }
 }
 .console figcaption { font-size: 14px; line-height: 1.6; }
-.guide section:not([aria-labelledby='world-title']) > span {
-  letter-spacing: 0.08em;
-}
 @media (min-width: 801px) {
   .plans > div > p:first-of-type { min-height: 48px; }
 }
@@ -712,7 +709,6 @@
 }
 .guide section:not([aria-labelledby='world-title']) h3,
 .guide section:not([aria-labelledby='world-title']) strong { color: #edf2f9; }
-.guide section:not([aria-labelledby='world-title']) > span { color: #a9bbd3; }
 .guide h2 { letter-spacing: -0.025em; }
 .guide code { color: #c9daf3; background: #1e2c40; }
 .stepRow summary:focus-visible,
@@ -736,7 +732,6 @@
     column-gap: 48px;
     align-items: start;
   }
-  .guide section[aria-labelledby='join-title'] > span,
   .guide section[aria-labelledby='join-title'] > h2 { grid-column: 1 / -1; }
   .stepRow[open] { display: block; }
   .stepRow summary { min-height: 76px; padding-block: 20px; gap: 16px; }
@@ -812,8 +807,6 @@
 .guide section:not([aria-labelledby='world-title']) h3,
 .guide section:not([aria-labelledby='world-title']) strong,
 .guide section[aria-labelledby='references-title'] h2 { color: #142333; }
-.guide section > span,
-.guide section:not([aria-labelledby='world-title']) > span { color: #536981; }
 .guide code,
 .guide section[aria-labelledby='world-title'] code { color: #204e87; background: #e0e7ef; }
 .guide a:hover { color: #123d80; }
@@ -845,7 +838,6 @@
 .references a:hover { color: #123d80; }
 @media (max-width: 800px) {
   .capability { border-color: #ccd5df; }
-  .guide section > span { letter-spacing: 0.04em; font-size: 12px; }
 }
 
 /* Pair the architecture with its management reference. */
@@ -854,14 +846,12 @@
     display: grid;
     align-items: start;
   }
-  .guide section[aria-labelledby='world-title'] > span,
   .guide section[aria-labelledby='world-title'] > h2 { grid-column: 1 / -1; }
   .capabilities { margin: 0; padding: 4px 0 0; }
   .capability summary h3 { font-size: 18px; }
   .capability p { font-size: 15px; }
 }
 @media (max-width: 800px) {
-  .guide section:not([aria-labelledby='world-title']) > span { letter-spacing: 0.035em; font-size: 11px; }
   .guide section[aria-labelledby='join-title'] { padding-bottom: 36px; }
   .guide section[aria-labelledby='world-title'] { padding-block: 56px; }
   .plans { gap: 0; border: 1px solid #bdc9d8; }
@@ -886,7 +876,6 @@
 }
 .guide section[aria-labelledby='world-title'] h2,
 .guide section[aria-labelledby='world-title'] h3 { color: #edf3fc; }
-.guide section[aria-labelledby='world-title'] > span { color: #9fb7d8; }
 .guide section[aria-labelledby='world-title'] code { color: #c9ddf8; background: #1e2c40; }
 .capability p { color: #b8c6d9; }
 .capability summary h3 > svg,
@@ -978,8 +967,7 @@
 .prices > div { display: grid; grid-template-rows: subgrid; grid-row: span 2; }
 .priceHighlight .prices dd { margin-top: 0; align-self: baseline; }
 @media (max-width: 800px) {
-  .console[data-zoomed='false'] .consoleViewport { border-radius: 4px; }
-  .console[data-zoomed='false'] .zoomIcon { top: 4px; right: 4px; }
+  .console .zoomIcon { top: 4px; right: 4px; }
 }
 /* Separate comparison, answers and discovery with deliberate chapter boundaries. */
 .guide section[aria-labelledby='cost-title'] { padding-bottom: 56px; }
@@ -995,7 +983,6 @@
 
 /* The overview emphasizes the actual control panel; activation opens detail. */
 @media (max-width: 800px) {
-  .console[data-zoomed='false'] img { margin-top: -4%; }
   .plans { border-inline: 0; border-radius: 0; }
   .guide section[aria-labelledby='faq-title'] { margin-top: 0; border-radius: 0; border-top: 1px solid #d7dcd9; }
 }
@@ -1041,10 +1028,6 @@
 
 .priceHighlight .prices dt { max-width: 140px; }
 .priceHighlight .prices > div:last-child dt { max-width: 100px; }
-.priceHighlight .prices > div:last-child dd { font-size: 40px; color: #9fb3cc; }
-@media (max-width: 800px) {
- .priceHighlight .prices > div:last-child dd { font-size: 32px; }
-}
 
 /* Keep the long-form chapters on the same product canvas. */
 .guide section[aria-labelledby='cost-title'],
@@ -1062,7 +1045,6 @@
 .guide section[aria-labelledby='faq-title'] h2,
 .guide section[aria-labelledby='references-title'] h2,
 .guide section[aria-labelledby='faq-title'] h3 { color: #edf2f9; }
-.guide section[aria-labelledby='cost-title'] > span { color: #a9bbd3; }
 .guide section[aria-labelledby='faq-title'] p,
 .guide section[aria-labelledby='references-title'] p { color: #b8c4d5; }
 .guide section[aria-labelledby='references-title'] a { color: #a4c6ff; }
@@ -1120,20 +1102,12 @@
  .guide .plans > div + div > p { font-size: 14px; }
 }
 
-/* Place visual evidence next to the first step without moving any copy. */
+/* Keep the mobile tutorial in document order. */
 @media (max-width: 800px) {
  .guide section[aria-labelledby='join-title'] { display: grid; grid-template-columns: minmax(0,1fr); }
  .guide section[aria-labelledby='join-title'] > h2 { grid-row: 1; }
- .guide section[aria-labelledby='join-title'] .steps,
- .guide section[aria-labelledby='join-title'] .console { display: contents; }
  .steps > li { margin-left: 40px; }
- .steps > li:nth-child(1) { grid-row: 3; }
- .steps > li:nth-child(2) { grid-row: 6; }
- .steps > li:nth-child(3) { grid-row: 7; }
- .steps > li:nth-child(4) { grid-row: 8; }
- .console[data-zoomed='false'] .consoleViewport { grid-row: 4; grid-column: 1; }
- .consoleToolbar { grid-row: 4; grid-column: 1; align-self: start; justify-self: end; }
- .console figcaption { grid-row: 9; grid-column: 1; }
+ .consoleToolbar { align-self: start; justify-self: end; }
  .guide .plans { background: transparent; }
  .guide section[aria-labelledby='references-title'] { gap: 12px; padding-block: 24px; }
  .guide h2 { letter-spacing: -0.015em; }
@@ -1169,11 +1143,6 @@
  .guide .plans > div + div > p:nth-of-type(2) { font-size: 14px; }
 }
 
-/* Focus the mobile image on the central console; the source link retains the full view. */
-@media (max-width: 800px) {
- .console[data-zoomed='false'] .consoleViewport { position: relative; }
- .console[data-zoomed='false'] img { object-position: 60% center; }
-}
 .console .zoomIcon { color: #344354; }
 .console a:hover .zoomIcon { background: #dbe0d7; color: #142333; }
 
@@ -1184,8 +1153,6 @@
 
 /* Native image scrolling retains detailed controls and access to the complete source. */
 @media (max-width: 800px) {
- .console[data-zoomed='false'] .consoleViewport { scrollbar-color: #6b798a #cbd3cf; }
- .console[data-zoomed='false'] img { position: static; object-fit: contain; direction: ltr; }
  .console .zoomIcon { padding: 12px; border: 4px solid transparent; background: #dbe0d7; background-clip: padding-box; border-radius: 6px; }
 }
 @media (max-width: 800px) {
@@ -1198,8 +1165,6 @@
 .guide .plans p strong { font-weight: 500; }
 @media (max-width: 800px) {
  .guide section[aria-labelledby='join-title'] { padding-block: 24px; }
- .console[data-zoomed='false'] .consoleViewport { direction: ltr; }
- .console[data-zoomed='false'] img { height: auto; margin: 0; }
 }
 
 /* The tutorial shares the product surface; the actual workspace remains the light focal point. */
@@ -1207,7 +1172,6 @@
 .guide section[aria-labelledby='join-title'] h2,
 .guide section[aria-labelledby='join-title'] h3,
 .guide section[aria-labelledby='join-title'] strong { color: #edf2f9; }
-.guide section[aria-labelledby='join-title'] > span { color: #a9bbd3; }
 .guide section[aria-labelledby='join-title'] p { color: #b8c4d5; }
 .guide section[aria-labelledby='join-title'] code { color: #c9ddf8; background: #1e2c40; }
 .guide section[aria-labelledby='join-title'] .stepRow[open] h3,
@@ -1222,11 +1186,6 @@
 .console .zoomIcon { width: 44px; height: 44px; padding: 7px; border: 6px solid transparent; border-radius: 10px; background: #1e2c40; background-clip: padding-box; color: #c9ddf8; }
 .console a:hover .zoomIcon { background-color: #30445e; color: #fff; }
 
-/* Keep the main console controls legible while retaining native image scrolling. */
-@media (max-width: 800px) {
- .console[data-zoomed='false'] .consoleViewport { overflow: auto; scrollbar-gutter: stable; scrollbar-width: auto; }
- .console[data-zoomed='false'] img { max-width: none; }
-}
 .guide .plans .allocation { padding-block: 16px; gap: 0; }
 .guide .plans .allocation > div { min-height: 48px; }
 @media (min-width: 801px) {
@@ -1257,8 +1216,29 @@
  .guide section[aria-labelledby='join-title'] .steps > li { margin-left: 0; }
  .guide section[aria-labelledby='join-title'] .console { display: block; grid-row: 3; margin-top: 20px; }
  .consoleToolbar { position: absolute; top: 8px; right: 8px; }
- .console[data-zoomed='false'] .consoleViewport { height: auto; aspect-ratio: 1.25; margin-bottom: 0; }
- .console[data-zoomed='false'] img { width: 180%; min-width: 180%; margin-left: -50%; }
+ .console .consoleViewport {
+   position: relative;
+   height: auto;
+   aspect-ratio: 1.25;
+   margin-bottom: 0;
+   border-radius: 4px;
+   direction: ltr;
+   overflow: auto;
+   scrollbar-color: #6b798a #cbd3cf;
+   scrollbar-gutter: stable;
+   scrollbar-width: auto;
+ }
+ .console img {
+   position: static;
+   width: 180%;
+   min-width: 180%;
+   max-width: none;
+   height: auto;
+   margin: 0 0 0 -50%;
+   object-fit: contain;
+   object-position: 60% center;
+   direction: ltr;
+ }
  .console figcaption { margin-top: 12px; }
 }
 .guide .plans > div > a { margin-top: auto; }

@@ -1,8 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
+import { setTimeout } from 'node:timers/promises';
 
 const require = createRequire(import.meta.url);
+
+// Poll from Node because page timers are disabled in the static-content scenario.
+async function waitForBrowserCheck(check, message) {
+  for (let attempt = 0; attempt < 1200; attempt++) {
+    if (await check()) return;
+    await setTimeout(100);
+  }
+  assert.fail(message);
+}
 
 // APP_STORE_PREVIEW_URL=http://localhost:3410 node --test scripts/eaglercraft-browser.test.mjs
 test('Eaglercraft hosting explains the first join and monthly resource plan', async (t) => {
@@ -37,41 +47,93 @@ test('Eaglercraft hosting explains the first join and monthly resource plan', as
       .getAttribute('href'),
     '#how-to-join',
   );
-  for (const width of [1440, 390, 320]) {
+  for (const width of [1440, 1101, 1100, 900, 801, 800, 390, 320]) {
     await page.setViewportSize({ width, height: 1000 });
     const steps = page.locator('#how-to-join ol > li');
     assert.equal(await steps.count(), 4);
-    for (const [index, text] of [
-      'Choose your version and Administrator Password',
-      'Deploy and open the admin console',
-      'Wait for Paper, then join',
-      'Invite a friend',
+    for (const [index, [heading, content]] of [
+      ['Choose your version and Administrator Password', ['rcon_password']],
+      [
+        'Deploy and open the admin console',
+        ['/admin', 'Administrator Password'],
+      ],
+      [
+        'Wait for Paper, then join',
+        [
+          'Paper is ready',
+          '/register <player-password>',
+          '/login <player-password>',
+        ],
+      ],
+      ['Invite a friend', ['Browser Play Link', 'Player Account']],
     ].entries()) {
-      assert.ok((await steps.nth(index).innerText()).includes(text));
+      const details = steps.nth(index).locator('details');
+      const summary = details.locator('summary');
+      assert.ok((await summary.innerText()).includes(heading));
+      assert.equal(
+        await details.evaluate((element) => element.open),
+        index === 0,
+      );
+      if (index > 0) await summary.press('Enter');
+      for (const text of content) {
+        assert.ok((await details.innerText()).includes(text), text);
+      }
+      await summary.press('Space');
+      assert.equal(await details.evaluate((element) => element.open), false);
+      if (index === 0) await summary.press('Enter');
     }
-    for (const text of [
-      '/register <player-password>',
-      '/login <player-password>',
-      'Browser Play Link',
-      'WebSocket Server Address',
-      'Player Account',
-      'Paper is ready',
-      'preserve the same volume',
-    ]) {
-      assert.ok((await page.locator('main').innerText()).includes(text), text);
+
+    const capabilities = page.locator(
+      '[aria-labelledby="world-title"] details',
+    );
+    assert.deepEqual(
+      await capabilities.evaluateAll((elements) =>
+        elements.map((element) => element.open),
+      ),
+      [true, false, false, false, false, false],
+    );
+    for (const [index, [heading, text]] of [
+      ['Browser Play Link', 'Friends can play while your browser is closed'],
+      ['WebSocket Server Address', 'wss://'],
+      ['Administrator Password', '/admin'],
+      ['Player Account', 'Register once'],
+      ['Persistent World', 'preserve the same volume'],
+      ['A separate recovery copy', 'separate backup'],
+    ].entries()) {
+      const details = capabilities.nth(index);
+      const summary = details.locator('summary');
+      assert.ok((await summary.innerText()).includes(heading));
+      if (index > 0) await summary.press('Enter');
+      assert.deepEqual(
+        await capabilities.evaluateAll((elements) =>
+          elements.map((element) => element.open),
+        ),
+        Array.from({ length: 6 }, (_, current) => current === index),
+      );
+      assert.ok((await details.innerText()).includes(text), text);
     }
+    await capabilities.first().locator('summary').press('Enter');
     const consoleImage = page.getByRole('img', {
       name: /Sealos deployment admin console/,
     });
-    assert.ok(await consoleImage.isVisible());
-    assert.ok(
-      await consoleImage.evaluate(
-        (img) => img.complete && img.naturalWidth > 0,
-      ),
+    await consoleImage.scrollIntoViewIfNeeded();
+    await waitForBrowserCheck(
+      () =>
+        consoleImage.evaluate((img) => img.complete && img.naturalWidth > 0),
+      'The console screenshot must finish loading',
     );
+    assert.ok(await consoleImage.isVisible());
     assert.ok(
       await page.getByText(/Template-maintainer screenshot/).isVisible(),
     );
+    if (width === 390) {
+      const viewport = page.locator('[aria-describedby="console-caption"]');
+      await viewport.press('ArrowRight');
+      await waitForBrowserCheck(
+        () => viewport.evaluate((element) => element.scrollLeft > 0),
+        'The focused console screenshot must scroll with the keyboard',
+      );
+    }
     assert.ok(
       await page
         .getByRole('img', {
@@ -161,8 +223,9 @@ test('Eaglercraft hosting explains the first join and monthly resource plan', as
   await page.goto(`${base}/zh-cn/products/app-store/eaglercraft-server/`);
   assert.equal(await page.locator('h1').innerText(), 'EaglerCraft Server');
   assert.equal(await page.locator('#how-to-join').count(), 0);
-  assert.ok(
-    await page.getByRole('heading', { name: /How to deploy/ }).isVisible(),
+  await waitForBrowserCheck(
+    () => page.getByRole('heading', { name: /How to deploy/ }).isVisible(),
+    'The Chinese deployment guide must remain visible',
   );
 
   // Only the external authentication boundary is simulated; the UI and handoff run normally.

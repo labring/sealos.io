@@ -98,13 +98,15 @@ remain separate evidence categories.
 
 ## Original session visuals
 
-These unaltered screenshots belong to this deployment session. The public page's
-console image is separately labeled as template-maintainer evidence.
+These screenshots belong to this deployment session. The four browser captures
+are compressed WebP copies at their original resolution; the admin PNG retains
+its original encoding. The public page's console image is separately labeled as
+template-maintainer evidence.
 
-- [Successful player registration](evidence/eaglercraft-hosting/owner18-registration-success.png)
-- [Visible gold block before restart](evidence/eaglercraft-hosting/owner18-marker-before.png)
-- [Existing account login after restart](evidence/eaglercraft-hosting/owner18-login-after-restart.png)
-- [Visible gold block after restart](evidence/eaglercraft-hosting/owner18-marker-after.png)
+- [Successful player registration](evidence/eaglercraft-hosting/owner18-registration-success.webp)
+- [Visible gold block before restart](evidence/eaglercraft-hosting/owner18-marker-before.webp)
+- [Existing account login after restart](evidence/eaglercraft-hosting/owner18-login-after-restart.webp)
+- [Visible gold block after restart](evidence/eaglercraft-hosting/owner18-marker-after.webp)
 - [Admin readiness, player, and coordinate verification](evidence/eaglercraft-hosting/admin18-marker-after.png)
 
 The original build/test logs, template, deployment manifests, PVC records, and
@@ -132,3 +134,117 @@ header/footer styles. The complete static export and live deployment checks abov
 were run on the preceding content commit; they were not rerun for this visual
 follow-up. Full visual iteration artifacts remain local under
 `docs/eaglercraft-visual/` and are excluded from the repository.
+
+## PR #341 equivalence ablation
+
+Validated September 11, 2026 against
+`7c4b8e428c2dbfaaa1a4f17ddadd9afd06149e55`. The user approved implementation
+of the reviewed ablations and bypassed the unavailable GSD entry point.
+
+| Group | Applied simplification |
+| --- | --- |
+| Empty selectors | Removed chapter `section > span` selectors and `.hosting .eyebrow`; retained the heading arms of mixed selectors. |
+| Superseded rules | Removed covered mobile proof padding/border, old price font/color overrides, and grid placement left by the replaced `display: contents` layout. Removed associated obsolete comments. |
+| Constant state | Removed `data-zoomed="false"` from `ConsoleScreenshot`, eliminated its 14 attribute-selector occurrences, and consolidated the surviving mobile viewport/image styles under existing classes. |
+
+The six `ResponsiveDisclosure` uses, shared `eaglercraftConfig`, native
+disclosures, diagram highlights, keyboard screenshot scrolling, focus styles,
+copy, SEO, routes and dependencies retain their existing implementations.
+
+### CSS source size
+
+| File | Before (bytes) | After (bytes) | Reduction |
+| --- | ---: | ---: | ---: |
+| `detail.module.css` | 34,880 | 34,033 | 847 |
+| `eaglercraft.module.css` | 43,728 | 41,558 | 2,170 |
+| Total | 78,608 | 75,591 | 3,017 (3.84%) |
+
+Individually gzipped source totals fell from 15,266 to 14,708 bytes, a 558-byte
+reduction. These measurements describe source CSS; production bundle savings
+require a separate pair of production builds.
+
+### Equivalence evidence
+
+The three groups first passed independent in-memory ablations at seven widths.
+The combined source changes were then compared with frozen baseline HTML/CSS
+in Chrome with JavaScript disabled. Default states at 320, 390, 800, 801,
+1,100, 1,101 and 1,440px, plus expanded setup/storage disclosures at 390,
+900 and 1,440px, all matched. Each comparison covered 423 elements, their
+geometry, 45 computed properties including pseudo-elements, ordered text,
+title, description, canonical URL and JSON-LD. All ten full-page screenshots
+had zero differing pixel channels and all ten pages stayed within the viewport.
+Images and fonts were allowed to settle, with eager loading and synchronous
+image decoding applied equally by the comparison harness. Every checked image
+had a positive natural width; screenshots used the complete page without masks.
+
+The browser acceptance now verifies the initially open first setup/capability
+item, opens each remaining item with Enter, checks its visible body, and closes
+setup items with Space. It checks capability-group exclusivity and restores
+the initial state between widths. Image readiness and keyboard scrolling are
+polled from Node because page timers are disabled in the static-content case.
+
+### Final validation
+
+| Check | Result |
+| --- | --- |
+| `pnpm lint` on Node 20 | Passed. |
+| Existing detail-page, detail-utility and SEO tests on Node 24 | 17 passed. |
+| `pnpm build` on Node 20 | Passed; 6,219 static pages generated, locale normalization and AI FAQ route verification passed. |
+| Both browser scenarios against the fresh production export | 2 passed, zero failures/skips. Covered eight Eaglercraft widths, native keyboard disclosures and image scrolling, day/night switching, signed-in/out deployment handoff and attribution, Chinese presentation, and shared-template regressions. |
+| Shared template overflow regression | Eaglercraft, n8n, Grafana and Tolgee passed at 320, 390, 600, 601, 768, 800, 801, 1,050, 1,051 and 1,440px. |
+| Independent standards and spec reviews | Both passed with zero actionable findings. |
+| `git diff --check` | Passed. |
+
+The handoff tests intercept external identity/deployment endpoints at the
+website boundary. Live Sealos deployment evidence remains the earlier record.
+
+Comparison results, frozen baseline, harness and representative before/after
+captures are retained locally under
+`~/.codex/visualizations/2026/09/11/01a08f12-219a-77e0-90e7-66459522a31b/pr341-ablation/`.
+
+
+## Image byte budget follow-up
+
+All PR #341 images and the Eaglercraft page imagery were checked against a strict
+210,000-byte limit. Eight oversized files were recompressed with cwebp through
+the image-compression skill. Dimensions and alpha presence were preserved.
+The four browser evidence PNGs became WebP, and their report links were updated.
+The retained admin image, pinned console screenshot, related-template icons,
+site logo and YouTube icon already met the limit.
+
+| Image | Before (bytes) | After (bytes) |
+| --- | ---: | ---: |
+| Night world | 271,330 | 151,142 |
+| Day world | 399,142 | 192,830 |
+| Desktop architecture | 216,062 | 196,048 |
+| Mobile architecture | 222,808 | 196,544 |
+| Login after restart | 412,356 | 182,072 |
+| World after restart | 414,852 | 183,392 |
+| World before restart | 475,257 | 191,658 |
+| Registration success | 407,018 | 207,398 |
+| Admin evidence (retained PNG) | 167,691 | 167,691 |
+| Pinned remote console screenshot | 102,778 | 102,778 |
+
+Total saved across the eight changed images: 1,317,741 bytes. All scoped files
+pass the byte check and decode successfully; source dimensions and alpha presence
+match. The day illustration and registration text were visually checked after
+compression. Compression changes encoded pixels, so the earlier exact screenshot
+comparison describes the CSS ablation before this image-only follow-up.
+
+Original inputs and compression results are retained locally under
+`~/.codex/visualizations/2026/09/11/01a08f12-219a-77e0-90e7-66459522a31b/pr341-image-compression/`.
+
+Recheck the local illustration/evidence budget:
+
+```sh
+node --input-type=module <<'NODE'
+import { readdirSync, statSync } from 'node:fs';
+import assert from 'node:assert/strict';
+for (const dir of ['assets/app-previews', 'docs/evidence/eaglercraft-hosting']) {
+  for (const name of readdirSync(dir)) {
+    if (dir.startsWith('assets') && !name.startsWith('eaglercraft')) continue;
+    assert(statSync(`${dir}/${name}`).size < 210000, `${dir}/${name}`);
+  }
+}
+NODE
+```
