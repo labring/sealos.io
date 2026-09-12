@@ -167,3 +167,25 @@ Local execution logs, source checks, and original screenshots:
 `~/.codex/visualizations/2026/09/11/01a0915d-0aa5-75b1-8b16-38cb465d7cc9/c02/`.
 Private credentials remain outside the repository. Website publishing is a
 separate action; this delivery prepares the local implementation and commit.
+
+## Template button follow-up (September 12, 2026)
+
+- Replaced both article template links with the existing `DeployButton`, retaining
+  `https://sealos.io/products/app-store/eaglercraft-server/`. Each action opens a
+  new tab and includes visible destination guidance plus a descriptive image alt.
+- Corrected the first deployment step to configure the version and administrator
+  password before signing in when prompted on submission. This matches the
+  form-first path in `new-components/DeployModal/DeployModalContext.tsx`.
+- The expanded browser acceptance failed against the previous export with zero
+  matching buttons instead of two, then passed against the updated export.
+  Both actions were activated with Enter; the external destination response was
+  intercepted to verify navigation without starting a deployment. All seven
+  images loaded at 1440, 390, and 320 pixels with no document overflow.
+- Node 20 typechecking and the 6,219-page production export passed. The export
+  logged two upstream Markdown fetch timeouts while completing successfully.
+  Full Node 24 discovery remained at 252 tests: 246 passed, the same three
+  baseline failures, and three opt-in browser skips. Focused browser acceptance
+  passed separately with zero skips. Both independent review axes had zero
+  actionable findings; `git diff --check` passed.
+- Local evidence in the directory above: `cta-build.log`, `cta-suite.log`,
+  `cta-browser-test.log`, and six `cta-{top,bottom}-{1440,390,320}.png` screenshots.

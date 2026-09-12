@@ -20,6 +20,8 @@ faq:
     answer: 'On September 12, 2026, Starter listed $7/month for eligible first paid-plan purchases and $34/month as the regular price. A seven-day trial is offered to eligible new users. Review current pricing and your Cost Center for eligibility, included resources, taxes, optional services, and the actual charge.'
 ---
 
+import { DeployButton } from '@/components/ui/button';
+
 Create a world that you and a friend can enter in your browsers, then return with the same player identities and saved progress. This guide follows the Sealos template from deployment to your **First Join**, a friend's arrival, and a restart check. The main example uses **Eaglercraft 1.8 / Paper 1.8.8**, with template release **2.2.7**.
 
 ## Choose a Hosting Path
@@ -30,7 +32,14 @@ Create a world that you and a friend can enter in your browsers, then return wit
 | Your computer or VPS | You want direct control over server files and networking.                 | Runtime, gateway, updates, public connectivity, and saved data.        |
 | Sealos template      | You want a hosted world with a browser client and admin console together. | Your resource allocation, Player Accounts, world, and recovery copies. |
 
-For the walkthrough below, [open the Eaglercraft server template](https://sealos.io/products/app-store/eaglercraft-server/). Keep this guide open in another tab while you deploy.
+Open the template to follow the walkthrough below. Keep this guide open while you deploy.
+
+<DeployButton
+  deployUrl="https://sealos.io/products/app-store/eaglercraft-server/"
+  alt="Deploy on Sealos: open the Eaglercraft template in a new tab"
+/>
+
+Opens the Eaglercraft template in a new tab.
 
 ## Before You Deploy
 
@@ -52,7 +61,7 @@ The checked template allocates 0.2 vCPU and 1 GiB memory to the main container, 
 
 ### 1. Choose the version and Administrator Password
 
-On the template page, choose **Deploy Eaglercraft** and sign in when prompted. In the deployment form, select `1.8` for `minecraft_version`, then set `rcon_password`: this is your **Administrator Password**. Keep it private and save it before continuing.
+On the template page, choose **Deploy Eaglercraft**. In the deployment form, select `1.8` for `minecraft_version`, then set `rcon_password`: this is your **Administrator Password**. Keep it private and save it before continuing. Submit the configuration, then sign in when prompted.
 
 Review the application resources and storage, then deploy. **Completion state:** the deployment opens in **Canvas**, where you can see your application's resource card. Keep the assigned application name so you can find this same instance later.
 
@@ -170,4 +179,11 @@ A client's single-player world is stored by that browser. Joining the hosted mul
 
 For your computer or VPS, start with the maintained [EaglerXserver implementation](https://github.com/yangchuansheng/eaglerXserver) and the [2.2.7 release documentation](https://github.com/yangchuansheng/eaglerXserver/tree/v2.2.7). Plan the game version, persistent data location, HTTPS/WSS access, and update procedure together. The [current Sealos template documentation](https://github.com/labring-actions/templates/blob/kb-0.9/template/eaglercraft-server/README.md) records how the hosted package connects those components. Existing Compose users can consult the [Docker Compose migration guide](/docs/guides/app-deploy/docker-compose-migration/).
 
-Once you have checked the first player, your friend's connection, and the retained world, keep the Browser Play Link and your private credentials for the next session. [Deploy your shared world from the Eaglercraft template](https://sealos.io/products/app-store/eaglercraft-server/).
+Once you have checked the first player, your friend's connection, and the retained world, keep the Browser Play Link and your private credentials for the next session. Start your shared world with the Eaglercraft template:
+
+<DeployButton
+  deployUrl="https://sealos.io/products/app-store/eaglercraft-server/"
+  alt="Deploy on Sealos: open the Eaglercraft template in a new tab"
+/>
+
+Opens the Eaglercraft template in a new tab.

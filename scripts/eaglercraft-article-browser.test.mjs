@@ -36,6 +36,32 @@ test('Eaglercraft article guides friends from setup through a retained world', a
     'https://sealos.io/blog/eaglercraft-server/',
   );
   const article = page.locator('.article-content');
+  const templateButtons = article.getByRole('link', {
+    name: 'Deploy on Sealos: open the Eaglercraft template in a new tab',
+    exact: true,
+  });
+  assert.equal(await templateButtons.count(), 2);
+  await page
+    .context()
+    .route(
+      'https://sealos.io/products/app-store/eaglercraft-server/',
+      (route) => route.fulfill({ status: 200, body: 'Eaglercraft template' }),
+    );
+  for (const button of await templateButtons.all()) {
+    assert.equal(await button.getAttribute('target'), '_blank');
+    assert.equal(await button.getAttribute('rel'), 'noopener noreferrer');
+    await button.focus();
+    const [destination] = await Promise.all([
+      page.waitForEvent('popup'),
+      page.keyboard.press('Enter'),
+    ]);
+    await destination.waitForLoadState();
+    assert.equal(
+      destination.url(),
+      'https://sealos.io/products/app-store/eaglercraft-server/',
+    );
+    await destination.close();
+  }
   assert.deepEqual(await article.locator('h2').allTextContents(), [
     'Choose a Hosting Path',
     'Before You Deploy',
@@ -149,7 +175,7 @@ test('Eaglercraft article guides friends from setup through a retained world', a
   for (const width of [1440, 390, 320]) {
     await page.setViewportSize({ width, height: 1000 });
     const images = article.locator('img');
-    assert.equal(await images.count(), 5);
+    assert.equal(await images.count(), 7);
     for (const img of await images.all()) {
       assert.ok((await img.getAttribute('alt')).length > 30);
       await img.scrollIntoViewIfNeeded();
