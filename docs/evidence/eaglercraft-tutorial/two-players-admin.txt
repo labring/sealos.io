@@ -1,0 +1,88 @@
+2026-09-11T17:29:19.967Z
+Skip to main content
+EaglercraftX Admin Console
+MC 1.8 · RCON:25575
+Connected
+Language
+English
+简体中文
+Log out
+WORKSPACE
+Overview
+Runtime controls
+Players
+World tools
+System settings
+Maps and seeds
+One-click deploy
+↗
+Server overview
+
+Live world status and the controls you use most.
+
+World
+Overworld
+Paper is ready
+World information will appear automatically when Paper is ready.
+TPS
+ticks / second
+Last 1 min
+--
+Available when Paper is ready.
+Online players
+Manage players →
+2
+RiverBuilder
+StoneExplorer
+Connection details
+Configured
+wss://eaglercraft-viwwojry.usw-1.sealos.app/
+Copy
+Join game
+Runtime controls
+Weather
+Clear
+Rain
+Storm
+Difficulty
+--
+Peaceful
+Easy
+Normal
+Hard
+Custom
+Time
+--:--
+Sunrise
+Noon
+Dusk
+Midnight
+Custom
+Default game mode
+--
+Survival
+Creative
+Adventure
+Spectator
+Command terminal
+Terminal output
+01:28:04RCON 已启用，管理面板准备就绪
+01:28:04Verifying password and creating browser login status
+01:28:04认证成功，登录态将在当前浏览器会话中保持
+01:28:23tp RiverBuilder -188 71 -174 180 15
+01:28:23Teleported RiverBuilder to -187.5, 71.0, -173.5
+01:28:24tp StoneExplorer -187 71 -178 0 0
+01:28:24Teleported StoneExplorer to -186.5, 71.0, -177.5
+01:28:49fill -190 69 -181 -184 69 -173 stone
+01:28:4963 blocks filled
+01:28:49tp RiverBuilder -188 70 -174 180 8
+01:28:49Teleported RiverBuilder to -187.5, 70.0, -173.5
+01:28:49tp StoneExplorer -186 70 -178 0 0
+01:28:50Teleported StoneExplorer to -185.5, 70.0, -177.5
+01:28:50testforblock -188 70 -178 gold_block
+01:28:50Successfully found the block at -188,70,-178.
+01:29:19list
+01:29:19There are 2/20 players online:RiverBuilder, StoneExplorer
+/
+send
+Paper is ready

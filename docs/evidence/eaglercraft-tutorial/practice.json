@@ -1,0 +1,18 @@
+{
+  "capturedAt": "2026-09-11T17:30:03.039Z",
+  "instance": "eaglercraft-kvqdlpej",
+  "namespace": "ns-let51wad",
+  "version": "1.8 / Paper 1.8.8",
+  "release": "2.2.7",
+  "browserPlayLink": "https://eaglercraft-viwwojry.usw-1.sealos.app/?server=wss%3A%2F%2Feaglercraft-viwwojry.usw-1.sealos.app%2F",
+  "players": [
+    "RiverBuilder",
+    "StoneExplorer"
+  ],
+  "contexts": "Two isolated Playwright BrowserContexts in the same Chrome process",
+  "device": "Execution Mac",
+  "network": "Same network through public HTTPS/WSS",
+  "result": "Both players registered with individual passwords; RiverBuilder returned with /login; both were simultaneously online beside the existing gold block at -188 70 -178; StoneExplorer sent a chat message visible to RiverBuilder.",
+  "worldPreparation": "Added a stone meeting platform at y=69; teleported both players beside the existing marker. Original gold block retained.",
+  "persistence": "Reuses C01 application restart/PVC evidence from September 10–11."
+}

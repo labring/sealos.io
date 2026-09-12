@@ -66,7 +66,9 @@ const baseArticleSchema = frontmatterSchema.extend({
 export const blog = defineCollections({
   dir: 'content/blog',
   type: 'doc',
-  schema: baseArticleSchema,
+  schema: baseArticleSchema.extend({
+    seoTitle: z.string().trim().optional(),
+  }),
 });
 
 export const tutorials = defineCollections({
