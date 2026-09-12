@@ -4,7 +4,6 @@ Implementation of [C02 / issue #342](https://github.com/labring/sealos.io/issues
 Baseline: `dca6f5edabc9d5a10c5981f2cbd3691195c1fcc9`.
 Canonical destination: <https://sealos.io/blog/eaglercraft-server/>.
 Fact-checked September 12, 2026 (Asia/Shanghai).
-The user explicitly authorized bypassing the unavailable GSD workflow for this task.
 
 ## Content and publishing
 
@@ -16,10 +15,10 @@ Fumadocs derives `lastModified` from the article's Git history. The old unsuppor
 frontmatter override was removed; the final committed export must carry the real
 article Git author timestamp in both Open Graph and Article JSON-LD.
 
-The existing article shell, FAQ renderer, schemas, product page, deployment handoff, and other locales retain their existing
-structure. The shared blog metadata function now serializes the Git modification
-time as ISO 8601; the exported browser test exposed the previous numeric
-Open Graph timestamp and checks an existing blog article as a regression.
+The shared blog metadata function serializes the Git modification time as ISO
+8601. The optional `seoTitle` sets the HTML title; H1, Open Graph, Twitter, and
+Article headline retain the article title. The SEO unit test covers trim and blank
+fallback, and the browser test also checks an existing article's metadata.
 FAQ questions and the complete tutorial render statically. The shared FAQ answers
 use the existing hydrated disclosures; the browser check opens all six with the
 keyboard and compares their visible answers with FAQPage JSON-LD.
@@ -52,20 +51,25 @@ remain in this operations document.
   [LoginSecurity configuration](https://github.com/yangchuansheng/eaglerXserver/blob/v2.2.7/server-1.8/plugins/LoginSecurity/config.yml),
   and [pricing](https://sealos.io/pricing/).
 
-## New simultaneous Friend Join evidence
+Both template actions use the existing `DeployButton` and open the app-store
+template in a new tab. The first deployment step configures the version and
+administrator password before sign-in on submission, matching the form-first
+path in `new-components/DeployModal/DeployModalContext.tsx`.
+
+## Simultaneous Friend Join evidence
 
 The live test used two isolated Playwright BrowserContexts in Chrome on the
 execution Mac, sharing its network. Each context had its own browser storage and
 personal Player Account. Both opened the public HTTPS client and connected through
-its public WSS endpoint. This satisfies the accepted session boundary; the
-second-device and independent-network waiver remains in effect.
+its public WSS endpoint. Verification covers isolated sessions on one device and
+network; second-device and independent-network access remain unverified.
 
 - Instance: `eaglercraft-kvqdlpej`, namespace `ns-let51wad`.
 - Browser Play Link:
   `https://eaglercraft-viwwojry.usw-1.sealos.app/?server=wss%3A%2F%2Feaglercraft-viwwojry.usw-1.sealos.app%2F`.
-- Player A: `RiverBuilder`, newly registered with a private password. After the
-  first automation session ended, a fresh isolated context returned with the
-  same name and `/login`; the game displayed successful login.
+- Player A: `RiverBuilder`, newly registered with a private password. A fresh
+  isolated context returned with the same name and `/login`; the game displayed
+  successful login.
 - Player B: `StoneExplorer`, separately registered with a different private
   password. The game displayed successful registration.
 - At September 12, 2026, 01:29 Asia/Shanghai, both players were online together.
@@ -86,12 +90,6 @@ Artifacts:
 - The article's `images/friend-join.webp` is an encoded copy of the original
   screenshot: both online names, StoneExplorer's character, and the gold block.
 
-An early attempt exceeded the registration window while the automation inspected
-screens. Rejoining and submitting the command completed registration. One browser
-automation call later timed out and reset its controller; the subsequent test used
-fresh isolated contexts and verified the actual server player list. These were
-harness interruptions; successful gameplay is evidenced separately above.
-
 ## Reused persistence and visual provenance
 
 The four original images come from the [C01 verification record](eaglercraft-hosting-verification.md),
@@ -108,8 +106,7 @@ C01 saved the gold block, restarted the application pod, retained PVC UID
 `c88aa4e4-b0f4-4c5f-8593-e7298783f5fb`, and logged in as the same player to inspect
 that block. The original record includes the server-side block check and before/
 after PVC evidence. This delivery reuses that same-version application-restart
-result. The added meeting platform has its own save confirmation; it is not part
-of the earlier restart evidence.
+result. The added meeting platform has a separate save confirmation.
 
 The 1.12 record proves admin readiness and a retained-volume marker. Its browser
 asset download was truncated, so full 1.12 browser joining remains unverified.
@@ -119,73 +116,60 @@ unmeasured. C12 owns the full Recovery Copy export/restore procedure and Restore
 World acceptance. Dedicated environment tutorials and the C04 video remain their
 separate content tasks; the article links to available destinations.
 
-## Validation
+## Recorded implementation validation (September 12, 2026)
 
-- TDD: the original production export failed the required new article H1; the
-  first rewritten export passed it. The expanded scenario also detected the
-  missing simultaneous-session evidence in the earlier export.
-- Node 20 `pnpm lint`: passed after MDX generation and after the article/test edits.
-- Node 20 production export after implementation commit `0d7bc4e`: passed with
-  6,219 pages, locale normalization, and AI FAQ route verification. The clean
-  final build includes the committed article and ISO metadata correction.
+- Node 20 typechecking and the 6,219-page production export passed, including
+  locale normalization and AI FAQ route verification. The template-button export
+  logged two upstream Markdown fetch timeouts while completing successfully.
 - Full Node 24 test discovery: 36 test files, 252 tests; 246 passed, three failed,
   three browser scenarios skipped without their opt-in preview environment.
   The failures are the same baseline footer product-order expectation, header
   trailing-slash expectation, and extensionless import in `tests/rybbit-cta.test.ts`
   recorded in C01. All three failures were reproduced against unchanged baseline
   sources in the C01 worktree. Their source files are unchanged by C02.
-- Desktop/mobile visual checks: passed at 1440, 390, and 320 pixels with five
-  loaded screenshots and no document overflow. Registration commands and
-  address tables remain readable. All table-of-contents anchors, local destination
-  links, and six keyboard-operated FAQ answers passed browser assertions.
-- Independent Standards and Spec reviews: zero actionable findings on both axes,
-  including the shared metadata date correction and existing-article regression.
-- Final focused exported-browser acceptance: one scenario passed, zero failures
-  or skips. It covers desktop and 390/320px layouts, JavaScript-disabled core
-  instructions, image loading, heading order, anchors, credentials, addresses,
-  qualified prices, internal links, both template actions, six keyboard-operated
-  FAQs, canonical/title/description, and matching Article/FAQPage JSON-LD.
-- The existing `/blog/what-is-sealos/` regression passed the shared ISO date check.
-  Fumadocs uses Git `%ai` (author time): the article exports
-  `2026-09-11T17:43:33.000Z` in both Open Graph and Article JSON-LD, matching
-  implementation commit `0d7bc4e` exactly. Publication remains November 20, 2025.
+- Focused exported-browser acceptance passed with zero skips at 1440, 390, and
+  320 pixels: all seven images loaded, document width fit the viewport, core
+  instructions rendered with JavaScript disabled, and anchors and internal links
+  resolved. Both template actions opened the expected URL via Enter with the
+  external response intercepted. All six FAQ answers opened via keyboard and
+  matched FAQPage JSON-LD; title, description, canonical, and Article metadata
+  checks passed, including the `/blog/what-is-sealos/` regression.
+- Fumadocs uses Git `%ai` (author time) for modification dates in both Open Graph
+  and Article JSON-LD. The `0d7bc4e` export recorded
+  `2026-09-11T17:43:33.000Z`; later article commits update this value. Publication
+  remains November 20, 2025.
 - All six unique external article links returned HTTP 200. The four reused image
   files match their original evidence byte-for-byte; all five article images are
   below 210,000 bytes.
 - `git diff --check`: passed.
 
-Reproduce article acceptance after building and serving `out/`:
+## Review cleanup validation (September 13, 2026)
+
+On Node 20.20.0, the SEO unit test and focused Chrome acceptance both passed
+against the existing `37eee6be` production export before and after test cleanup.
+The cleanup also passed 39 assertion boundary checks using the actual test blocks,
+covering alt text, step numbering, FAQ counts, and all 27 retained body requirements.
+Syntax and diff checks passed. This follow-up changes tests and this record;
+the production build, live gameplay, and persistence results above remain the
+recorded implementation checks.
+
+## Reproduction
+
+Build with the repository's Node 20 runtime, then serve the export:
 
 ```sh
+pnpm lint
+pnpm build
+python3 -m http.server 3421 --bind 127.0.0.1 --directory out
+```
+
+In a separate terminal, run the SEO and article checks using installed Playwright
+and Chrome:
+
+```sh
+pnpm exec node --test scripts/blog-seo-title.test.mjs
 APP_STORE_PREVIEW_URL=http://127.0.0.1:3421 \
 PLAYWRIGHT_MODULE=/absolute/path/to/installed/playwright \
 BROWSER_CHANNEL=chrome \
-node --test scripts/eaglercraft-article-browser.test.mjs
+pnpm exec node --test scripts/eaglercraft-article-browser.test.mjs
 ```
-
-Local execution logs, source checks, and original screenshots:
-`~/.codex/visualizations/2026/09/11/01a0915d-0aa5-75b1-8b16-38cb465d7cc9/c02/`.
-Private credentials remain outside the repository. Website publishing is a
-separate action; this delivery prepares the local implementation and commit.
-
-## Template button follow-up (September 12, 2026)
-
-- Replaced both article template links with the existing `DeployButton`, retaining
-  `https://sealos.io/products/app-store/eaglercraft-server/`. Each action opens a
-  new tab and includes visible destination guidance plus a descriptive image alt.
-- Corrected the first deployment step to configure the version and administrator
-  password before signing in when prompted on submission. This matches the
-  form-first path in `new-components/DeployModal/DeployModalContext.tsx`.
-- The expanded browser acceptance failed against the previous export with zero
-  matching buttons instead of two, then passed against the updated export.
-  Both actions were activated with Enter; the external destination response was
-  intercepted to verify navigation without starting a deployment. All seven
-  images loaded at 1440, 390, and 320 pixels with no document overflow.
-- Node 20 typechecking and the 6,219-page production export passed. The export
-  logged two upstream Markdown fetch timeouts while completing successfully.
-  Full Node 24 discovery remained at 252 tests: 246 passed, the same three
-  baseline failures, and three opt-in browser skips. Focused browser acceptance
-  passed separately with zero skips. Both independent review axes had zero
-  actionable findings; `git diff --check` passed.
-- Local evidence in the directory above: `cta-build.log`, `cta-suite.log`,
-  `cta-browser-test.log`, and six `cta-{top,bottom}-{1440,390,320}.png` screenshots.
