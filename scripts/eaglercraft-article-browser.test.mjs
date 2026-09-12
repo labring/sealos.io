@@ -26,7 +26,19 @@ test('Eaglercraft article guides friends from setup through a retained world', a
   const title = await page.locator('h1').innerText();
   const description =
     'Set up an Eaglercraft server on Sealos, create your player account, invite friends with a browser link, and check that your world survives a restart.';
-  assert.equal(await page.title(), `${title} | Sealos Blog`);
+  assert.equal(
+    await page.title(),
+    'Host an Eaglercraft Server for Friends | Sealos Blog',
+  );
+  for (const selector of [
+    'meta[property="og:title"]',
+    'meta[name="twitter:title"]',
+  ]) {
+    assert.equal(
+      await page.locator(selector).getAttribute('content'),
+      `${title} | Sealos Blog`,
+    );
+  }
   assert.equal(
     await page.locator('meta[name="description"]').getAttribute('content'),
     description,
@@ -232,17 +244,20 @@ test('Eaglercraft article guides friends from setup through a retained world', a
       .getAttribute('content'),
     articleSchema.dateModified,
   );
-  // The shared date formatting also applies to existing blog articles.
+  // Existing articles retain their title fallback and shared date formatting.
   await page.goto(`${base}/blog/what-is-sealos/`);
   const existingSchemas = (
     await page.locator('script[type="application/ld+json"]').allTextContents()
   ).flatMap(JSON.parse);
+  const existingArticle = existingSchemas.find(
+    (schema) => schema['@type'] === 'Article',
+  );
+  assert.equal(await page.title(), `${existingArticle.headline} | Sealos Blog`);
   assert.equal(
     await page
       .locator('meta[property="article:modified_time"]')
       .getAttribute('content'),
-    existingSchemas.find((schema) => schema['@type'] === 'Article')
-      .dateModified,
+    existingArticle.dateModified,
   );
   // Fumadocs derives this from the article's real Git commit time.
   assert.ok(

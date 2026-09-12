@@ -95,7 +95,9 @@ export async function generateBlogMetadata(props: {
   return {
     metadataBase: new URL(siteConfig.url.base),
     title: {
-      absolute: docTitle,
+      absolute: page?.data.seoTitle
+        ? `${page.data.seoTitle} | Sealos Blog`
+        : docTitle,
     },
     description,
     keywords,
