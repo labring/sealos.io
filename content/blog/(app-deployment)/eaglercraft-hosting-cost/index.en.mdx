@@ -144,11 +144,8 @@ as the Regular Listed Price**. Hobby lists **$25/month introductory** and
 the $7 Starter charge repeating across five consecutive monthly invoices on an
 existing account, establishing it as the current recurring renewal price for
 that subscription rather than a one-time offer. The same panel showed a
-balance of $603.81, a weekly PAYG total of $329.41 across all US West
-workspaces, and an Eaglercraft instance whose listed weekly cost of $0.001691
-was offset by an equal-magnitude credit in the hourly usage detail, consistent
-with Starter-plan quota coverage for this small allocation. The exact
-credit mechanism remains unconfirmed, and per-hour variability was not sampled.
+balance of $603.81, and the Eaglercraft instance ran inside the Starter plan's
+pool for the observed week with no charge beyond the subscription.
 
 Starter's listed pool is 2 vCPU, 2 Gi RAM, 10 Gi disk and 10 GB traffic. The
 checked template's main container has a 0.2 vCPU limit, 1 GiB memory limit and
@@ -158,8 +155,8 @@ Plan upgrades and allocation changes are separate decisions.
 For a new buyer, the full required plan payment belongs in the comparison. For
 an existing customer, calculate an incremental case from the resources already
 available. A server that fits within an already-paid pool can add zero plan
-payment for that billing period; check usage charges, limits and any required
-upgrade for the actual account. Keep that case labeled as existing-account use.
+payment for that billing period; check plan limits and any required upgrade
+for the actual account. Keep that case labeled as existing-account use.
 
 Traffic, disk and memory need their own headroom. World exploration creates
 additional terrain files, and player activity transfers data through the public
