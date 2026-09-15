@@ -22,10 +22,10 @@ faq:
 
 For a group of friends, choose hosting around three practical questions: when
 everyone can join, what the complete service costs, and who will look after the
-world. A hosted server suits a group that plays at different times. Shared World
-suits a session organized around one available host. A home computer or DIY VPS
-suits someone willing to maintain the runtime, network access and recovery
-copies.
+world. A hosted server accommodates friends logging on at different hours.
+Shared World centers on a live session kept open by one player. A home
+computer or DIY VPS demands hands-on maintenance for the runtime, network
+access, and recovery copies.
 
 A low advertised monthly price is useful for building a shortlist. The purchase
 decision also needs the server's actual allocation, your group's activities and
@@ -47,8 +47,8 @@ distinctions and applies them to the buying decision.
 
 An Eaglercraft browser session connects to a game server through a WebSocket
 gateway. A browser client delivered over HTTPS needs a compatible secure WSS
-connection. Hosting the client page, running Paper, exposing the gateway and
-storing the world are distinct parts of that arrangement.
+connection. Hosting the client page, running Paper, exposing the gateway, and
+storing the world are four distinct components.
 
 Check the game version at both ends. A browser client labeled 1.8 and a server
 package labeled 2.2.7 refer to different version schemes. The Sealos package's
@@ -118,14 +118,13 @@ Hosting Haven's order configuration deserves a close check. On September 15,
 per month** with every optional extra set to zero. Each optional slot prices
 separately: backups at **$0.10 each**, databases at **$0.05 each**, and
 additional ports at **$0.10 each**. Every billing cycle from quarterly to
-triennial is an exact multiple of the monthly price, so paying longer terms
-carries no discount. Guest checkout works without an account, and the checkout
-page displays the gateway fee dynamically: **Stripe adds $0.33** for a
-$1.33 total, **PayPal adds $0.52** for a $1.52 total, and **Cash App adds
-$0.00** for a $1.00 total. A promo code offering 15% off for three months
-was visible but left unapplied. Its sales page advertises daily backups;
-confirm the included backup facility and independent export access before
-relying on that feature. The
+triennial is an exact multiple of the monthly rate, so paying for longer terms
+matches the standard monthly price. Guest checkout works without an account.
+The page displays the gateway fee dynamically: **Stripe adds $0.33** ($1.33
+total), **PayPal adds $0.52** ($1.52 total), and **Cash App adds $0.00** ($1.00
+total). A promo code offering 15% off for three months remained unapplied. Its
+sales page advertises daily backups; confirm the included backup facility and
+independent export access before relying on that feature. The
 [sales page](https://hostinghaven.us/cloudhosting/Games/eaglercraft) and
 [order form](https://billing.hostinghaven.us/store/eaglercraft-hosting) were
 checked September 14–15, 2026; a cart is a quotation stage, with payment still
@@ -140,12 +139,11 @@ to other applications affects what remains available for your world.
 On September 14, 2026, [Sealos pricing](https://sealos.io/pricing/) lists
 Starter at **$7/month for eligible first paid-plan purchases**, with **$34/month
 as the Regular Listed Price**. Hobby lists **$25/month introductory** and
-**$70/month regular**. On September 15, 2026, the Cost Center app confirmed
-the $7 Starter charge repeating across five consecutive monthly invoices on an
-existing account, establishing it as the current recurring renewal price for
-that subscription rather than a one-time offer. The Eaglercraft instance ran
-inside the Starter plan's pool for the observed week with no charge beyond
-the subscription.
+**$70/month regular**. On September 15, 2026, the Cost Center app confirmed the
+$7 Starter charge across five consecutive monthly invoices on an existing
+account. This confirms $7 as the steady recurring renewal price for that
+subscription. The Eaglercraft instance ran inside the Starter plan's pool for
+the observed week with no charge beyond the subscription.
 
 Starter's listed pool is 2 vCPU, 2 Gi RAM, 10 Gi disk and 10 GB traffic. The
 checked template's main container has a 0.2 vCPU limit, 1 GiB memory limit and
@@ -154,9 +152,9 @@ Plan upgrades and allocation changes are separate decisions.
 
 For a new buyer, the full required plan payment belongs in the comparison. For
 an existing customer, calculate an incremental case from the resources already
-available. A server that fits within an already-paid pool can add zero plan
-payment for that billing period; check plan limits and any required upgrade
-for the actual account. Keep that case labeled as existing-account use.
+available. A server fitting within an already-paid pool adds zero plan payment
+for that billing period. Check plan limits and any required upgrade for the
+actual account. Keep that case labeled as existing-account use.
 
 Traffic, disk and memory need their own headroom. World exploration creates
 additional terrain files, and player activity transfers data through the public
@@ -179,14 +177,14 @@ The declared steady-activity threshold is TPS of at least 19 at a minimum of
 and at least thirty minutes of observation, repeated at least twice. Existing
 terrain activity and new-chunk generation are reported separately.
 
-The measured two-provider runs that would populate this section and the
-provider offer tables have yet to be produced; the test protocol, candidate
-scope and thresholds above describe the comparison method. Treat any
-minimum-cost claim as unverified until those run records exist.
+The measured two-provider runs that would populate this section have yet to be
+produced. The test protocol, candidate scope, and thresholds above describe the
+comparison method. Treat any minimum-cost claim as unverified until those run
+records exist.
 
 The **Lowest Passing Offer** for a player target is the lowest tested or
 non-excluded purchase option that meets the declared experience and functional
-requirements. Keep the candidate trail with the result: a configured limit of
+requirements. Keep the candidate trail with the result. A configured limit of
 20 player slots describes a setting, while a ten-player result requires those
 players to participate for the measured workload.
 
@@ -213,9 +211,8 @@ real play.
 The [first-join tutorial](/blog/eaglercraft-server/) verified registration,
 returning login and a gold block retained across a restart on the original
 volume. The comparison's recovery check extends that evidence: export a
-separate copy, restore it independently, then verify a known marker, the
-required player's identity and inventory, the existing login and browser
-re-entry.
+separate copy and restore it independently. Then verify a known marker, player
+identity and inventory, authentication continuity, and browser re-entry.
 
 Keep copies that include world files, player state and the authentication data
 needed for continuity. Protect exported credentials and account databases. A
