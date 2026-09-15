@@ -22,6 +22,8 @@ test('cost guide article exists with required structure and boundaries', () => {
   const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
   assert.ok(match, 'frontmatter present');
   const [, frontmatter, body] = match;
+  // Prose rewraps with every editorial pass; match against collapsed whitespace.
+  const flat = body.replace(/\s+/g, ' ');
   assert.ok(
     frontmatter.includes(
       "'Eaglercraft Hosting Costs: Free Options, Paid Plans, and Setup Trade-offs'",
@@ -77,14 +79,14 @@ test('cost guide article exists with required structure and boundaries', () => {
     'https://sealos.io/pricing/',
     '[Follow the Setup Guide](/blog/eaglercraft-server/)',
     '[Deploy an Eaglercraft Server on Sealos](/products/app-store/eaglercraft-server/)',
-    'Treat any\nminimum-cost claim as unverified',
+    'Treat any minimum-cost claim as unverified',
   ])
-    assert.ok(body.includes(text), text);
+    assert.ok(flat.includes(text), text);
 
   // Evidence-label integrity: observed paired runs remain absent from the article.
-  assert.ok(body.includes('have yet to be produced'));
-  assert.ok(!body.includes('passed the ten-player workload'));
-  assert.ok(!body.includes('Lowest Passing Offer:'));
+  assert.ok(flat.includes('have yet to be produced'));
+  assert.ok(!flat.includes('passed the ten-player workload'));
+  assert.ok(!flat.includes('Lowest Passing Offer:'));
 });
 
 test('tutorial and template page link to the cost guide', () => {
