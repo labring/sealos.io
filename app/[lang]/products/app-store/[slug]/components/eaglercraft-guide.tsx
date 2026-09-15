@@ -235,6 +235,14 @@ export default function EaglercraftGuide({
               Public prices and conditions checked{' '}
               <time dateTime={pricing.checked}>{pricing.checked}</time>.
             </p>
+            <p>
+              Comparing hosting costs? Read{' '}
+              <a href="/blog/eaglercraft-hosting-cost/">
+                Eaglercraft Hosting Costs: Free Options, Paid Plans, and Setup
+                Trade-offs
+              </a>
+              .
+            </p>
             <a href={pricing.url}>
               View current plans <ArrowRight size={14} aria-hidden="true" />
             </a>
