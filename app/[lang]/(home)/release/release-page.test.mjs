@@ -23,6 +23,10 @@ const localeRoutesSource = readFileSync(
   'utf8',
 );
 const sitemapSource = readFileSync(join(root, 'app', 'sitemap.ts'), 'utf8');
+const forcedDarkModeSource = readFileSync(
+  join(root, 'app', '[lang]', 'utils', 'is-forced-dark-mode.ts'),
+  'utf8',
+);
 
 test('release route is present under the shared home shell', () => {
   assert.equal(existsSync(join(routeDir, 'page.tsx')), true);
@@ -75,6 +79,10 @@ test('release is discoverable from active navigation and footer resources', () =
   assert.match(footerSource, /textKey: 'releases', urlKey: 'releasesUrl'/);
   assert.match(footerSource, /releases: 'Releases'/);
   assert.match(footerSource, /releasesUrl: '\/release'/);
+});
+
+test('release route inherits the site forced-dark mode', () => {
+  assert.match(forcedDarkModeSource, /path: '\/release',\s*match: 'prefix'/);
 });
 
 test('release is registered for default locale rewrites and sitemap discovery', () => {
