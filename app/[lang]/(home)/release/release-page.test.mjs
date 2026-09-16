@@ -6,6 +6,10 @@ import test from 'node:test';
 const root = process.cwd();
 const routeDir = join(root, 'app', '[lang]', '(home)', 'release');
 const pageSource = readFileSync(join(routeDir, 'page.tsx'), 'utf8');
+const timelineSource = readFileSync(
+  join(routeDir, 'components', 'ReleasesTimeline.tsx'),
+  'utf8',
+);
 const headerSource = readFileSync(
   join(root, 'new-components', 'Header.tsx'),
   'utf8',
@@ -24,33 +28,39 @@ test('release route is present under the shared home shell', () => {
   assert.equal(existsSync(join(routeDir, 'page.tsx')), true);
   assert.match(pageSource, /PageTopRays/);
   assert.match(pageSource, /GradientText/);
+  assert.match(pageSource, /<ReleasesTimeline \/>/);
   assert.equal((pageSource.match(/<h1\b/g) ?? []).length, 1);
 });
 
-test('release page documents Brain v2.0.14 in scannable categories', () => {
-  for (const label of [
-    'Product releases',
-    'Brain',
-    'v2.0.14',
-    'September 10, 2026',
-    'Added',
-    'Changed',
-    'Fixed',
-    'Upgrade notes',
-    'Release assets',
-  ]) {
-    assert.match(
-      pageSource,
-      new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
-    );
-  }
-
+test('release timeline fetches live releases from GitHub on the client', () => {
+  assert.match(timelineSource, /'use client'/);
   assert.match(
-    pageSource,
-    /https:\/\/github\.com\/labring\/brain\/releases\/tag\/v2\.0\.14/,
+    timelineSource,
+    /https:\/\/api\.github\.com\/repos\/labring\/brain\/releases/,
   );
-  assert.match(pageSource, /target="_blank"/);
-  assert.match(pageSource, /rel="noopener noreferrer"/);
+  assert.match(timelineSource, /useEffect/);
+  assert.match(timelineSource, /AbortController/);
+  assert.match(timelineSource, /draft/);
+  assert.match(timelineSource, /prerelease/);
+  assert.match(timelineSource, /aria-busy/);
+});
+
+test('release timeline renders release bodies as markdown', () => {
+  assert.match(timelineSource, /ReactMarkdown/);
+  assert.match(timelineSource, /remarkGfm/);
+  assert.match(timelineSource, /tag_name/);
+  assert.match(timelineSource, /published_at/);
+  assert.match(timelineSource, /html_url/);
+});
+
+test('release timeline keeps a cached fallback for API failures', () => {
+  assert.match(timelineSource, /FALLBACK_RELEASES/);
+  assert.match(timelineSource, /v2\.0\.14/);
+  assert.match(timelineSource, /releases\/tag\/v2\.0\.14/);
+  assert.match(timelineSource, /### Added/);
+  assert.match(timelineSource, /### Changed/);
+  assert.match(timelineSource, /### Fixed/);
+  assert.match(timelineSource, /### Upgrade notes/);
 });
 
 test('release page metadata follows the localized page contract', () => {
