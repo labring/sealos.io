@@ -25,7 +25,7 @@ import { DeployButton } from '@/components/ui/button';
 
 An Ubuntu VPS you already rent can run a full Eaglercraft world: the browser client, the WebSocket gateway, a Paper 1.8.8 game server, and the Server Management Panel. This walkthrough installs [yangchuansheng/eaglerXserver](https://github.com/yangchuansheng/eaglerXserver) release **2.2.7** on Ubuntu 24.04, runs four systemd units, terminates HTTPS with Caddy, and finishes with a backup and a restore rehearsal.
 
-The upstream README documents the Docker deployment, leaving the bare-metal path open. Every command, version, and measurement below comes from one recorded run on September 16, 2026; the sections that follow mark what that run did not exercise.
+While the upstream documentation focuses on Docker, deploying directly under systemd gives you full control over processes, system resources, and local storage.
 
 <DeployButton
   deployUrl="https://sealos.io/products/app-store/eaglercraft-server/"
