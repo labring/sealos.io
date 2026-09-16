@@ -150,9 +150,10 @@ test('Eaglercraft article guides friends from setup through a retained world', a
     .evaluateAll((nodes) => nodes.map((node) => node.getAttribute('href')));
   for (const href of [
     'https://sealos.io/pricing/',
-    'https://github.com/yangchuansheng/eaglerXserver',
-    'https://github.com/yangchuansheng/eaglerXserver/tree/v2.2.7',
-    'https://github.com/labring-actions/templates/blob/kb-0.9/template/eaglercraft-server/README.md',
+    '/blog/eaglercraft-hosting-cost/',
+    '/blog/eaglercraft-server-ubuntu-vps/',
+    '/docs/guides/app-deploy/persistent-volume/',
+    '/docs/guides/app-deploy/public-url-does-not-open/',
   ])
     assert.ok(links.includes(href), href);
   for (const href of new Set(

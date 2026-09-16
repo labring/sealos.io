@@ -1,0 +1,47 @@
+# Recorded 2026-09-16T02:31:54Z
+# Node v20.20.0, pnpm 10.28.2
+
+$ pnpm lint
+exit 0, no diagnostics
+
+$ node --test scripts/eaglercraft-vps-guide.test.mjs
+  ---
+  duration_ms: 0.353541
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 56.585541
+
+$ node --test scripts/eaglercraft-hosting-cost.test.mjs
+  ---
+  duration_ms: 0.253959
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 48.787584
+
+$ grep -o '<title>[^<]*</title>' out/blog/eaglercraft-server-ubuntu-vps/index.html
+<title>Host an Eaglercraft Server on an Ubuntu VPS | Sealos Blog</title>
+<title>Scira AI</title>
+<title>Scira AI</title>
+
+$ grep -o 'rel="canonical" href="[^"]*"' out/blog/eaglercraft-server-ubuntu-vps/index.html
+rel="canonical" href="https://sealos.io/blog/eaglercraft-server-ubuntu-vps/"
+
+$ grep -c '_next/static/media/.*webp' out/blog/eaglercraft-server-ubuntu-vps/index.html
+6
+
+$ git diff --check
+no whitespace errors

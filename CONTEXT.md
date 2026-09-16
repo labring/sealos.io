@@ -116,6 +116,36 @@ and their published extensions. It adds Runtime Hub grouping when the published
 inventory supports useful groups and provides one tutorial request entry.
 _Avoid_: Tutorial Matrix, production roadmap, planned URL inventory
 
+**Self-Hosted Eaglercraft Deployment**:
+A hosting path where the reader runs the runtime on a machine they administer,
+keeping control of the public entry point, stored worlds, and upgrades.
+_Avoid_: DIY hosting, manual mode
+
+**Eaglercraft Gateway**:
+The process that serves the browser client page and terminates Eaglercraft
+WebSocket connections, forwarding player sessions to the Game Server.
+_Avoid_: Proxy, backend
+
+**Game Server**:
+The process that owns the world and the game rules, reachable only through the
+Eaglercraft Gateway.
+_Avoid_: Backend, Java server
+
+**Server Management Panel**:
+The local management interface shipped with the runtime for readiness, players,
+worlds, plugins, and console commands, published on a loopback address.
+_Avoid_: Admin console, admin dashboard
+
+**Verified Scope**:
+The set of tutorial steps that were actually executed and can be evidenced,
+stated alongside the steps recorded from upstream sources without execution.
+_Avoid_: Caveat, disclaimer, known limitations
+
+**Runtime Bundle**:
+One pinned release archive that supplies the Eaglercraft Gateway, the Game
+Server, the browser client, and the Server Management Panel together.
+_Avoid_: Docker image, server files
+
 ## Website Attribution Language
 
 **Attribution Handoff (归因交接)**:

@@ -1,0 +1,51 @@
+$ systemctl is-enabled eaglercraft-gateway eaglercraft-paper eaglercraft-panel eaglercraft-backup.timer
+enabled
+enabled
+enabled
+enabled
+
+$ systemctl status eaglercraft-gateway eaglercraft-panel eaglercraft-backup.timer --no-pager
+● eaglercraft-gateway.service - Eaglercraft gateway
+     Loaded: loaded (/etc/systemd/system/eaglercraft-gateway.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2026-09-16 09:55:17 CST; 5min ago
+   Main PID: 960 (run.sh)
+      Tasks: 30 (limit: 3453)
+     Memory: 233.3M (peak: 241.7M)
+        CPU: 8.947s
+     CGroup: /system.slice/eaglercraft-gateway.service
+             ├─ 960 /bin/bash /opt/eaglercraft/bungee/run.sh
+             └─1009 java -Xmx256M -Xms256M -jar ./bungee.jar
+
+Sep 16 09:55:31 carson-Standard-PC-i440FX-PIIX-1996 run.sh[1009]: [101B blob data]
+Sep 16 09:55:31 carson-Standard-PC-i440FX-PIIX-1996 run.sh[1009]: [112B blob data]
+Sep 16 09:55:31 carson-Standard-PC-i440FX-PIIX-1996 run.sh[1009]: [78B blob data]
+Sep 16 09:55:31 carson-Standard-PC-i440FX-PIIX-1996 run.sh[1009]: [49B blob data]
+Sep 16 09:57:04 carson-Standard-PC-i440FX-PIIX-1996 run.sh[1009]: [84B blob data]
+Sep 16 09:57:04 carson-Standard-PC-i440FX-PIIX-1996 run.sh[1009]: [90B blob data]
+Sep 16 09:57:04 carson-Standard-PC-i440FX-PIIX-1996 run.sh[1009]: [98B blob data]
+Sep 16 09:57:04 carson-Standard-PC-i440FX-PIIX-1996 run.sh[1009]: [87B blob data]
+Sep 16 09:57:04 carson-Standard-PC-i440FX-PIIX-1996 run.sh[1009]: [65B blob data]
+Sep 16 09:57:04 carson-Standard-PC-i440FX-PIIX-1996 run.sh[1009]: [75B blob data]
+
+● eaglercraft-panel.service - Eaglercraft server management panel
+     Loaded: loaded (/etc/systemd/system/eaglercraft-panel.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2026-09-16 09:55:18 CST; 5min ago
+   Main PID: 965 (python3)
+      Tasks: 1 (limit: 3453)
+     Memory: 15.7M (peak: 15.9M)
+        CPU: 133ms
+     CGroup: /system.slice/eaglercraft-panel.service
+             └─965 /usr/bin/python3 /opt/eaglercraft/script/http_server.py
+
+Sep 16 09:55:18 carson-Standard-PC-i440FX-PIIX-1996 systemd[1]: Started eaglercraft-panel.service - Eaglercraft server management panel.
+
+● eaglercraft-backup.timer - Daily Eaglercraft world backup
+     Loaded: loaded (/etc/systemd/system/eaglercraft-backup.timer; enabled; preset: enabled)
+     Active: active (waiting) since Wed 2026-09-16 09:55:15 CST; 5min ago
+    Trigger: Thu 2026-09-17 00:00:00 CST; 13h left
+   Triggers: ● eaglercraft-backup.service
+
+Sep 16 09:55:15 carson-Standard-PC-i440FX-PIIX-1996 systemd[1]: Started eaglercraft-backup.timer - Daily Eaglercraft world backup.
+
+$ systemctl list-timers --all --no-pager | grep eaglercraft
+Thu 2026-09-17 00:00:00 CST          13h -                                 - eaglercraft-backup.timer       eaglercraft-backup.service

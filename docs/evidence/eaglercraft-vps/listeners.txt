@@ -1,0 +1,18 @@
+$ ss -tlnp
+LISTEN 0      5                 0.0.0.0:5201       0.0.0.0:*    users:(("python3",pid=965,fd=3))
+LISTEN 0      50     [::ffff:127.0.0.1]:25575            *:*    users:(("java",pid=1025,fd=39))
+LISTEN 0      4096   [::ffff:127.0.0.1]:25565            *:*    users:(("java",pid=1025,fd=19))
+LISTEN 0      4096   [::ffff:127.0.0.1]:5200             *:*    users:(("java",pid=1009,fd=28))
+
+$ ss -tlnp | grep -vE "5200|5201|25565|25575" | head -20
+State  Recv-Q Send-Q      Local Address:Port  Peer Address:PortProcess
+LISTEN 0      4096        127.0.0.53%lo:53         0.0.0.0:*    users:(("systemd-resolve",pid=485,fd=15))
+LISTEN 0      4096            127.0.0.1:631        0.0.0.0:*    users:(("cupsd",pid=930,fd=7))
+LISTEN 0      4096            127.0.0.1:2019       0.0.0.0:*    users:(("caddy",pid=952,fd=3))
+LISTEN 0      4096              0.0.0.0:22         0.0.0.0:*    users:(("sshd",pid=946,fd=3),("systemd",pid=1,fd=231))
+LISTEN 0      4096           127.0.0.54:53         0.0.0.0:*    users:(("systemd-resolve",pid=485,fd=17))
+LISTEN 0      4096   [::ffff:127.0.0.1]:25577            *:*    users:(("java",pid=1009,fd=31))
+LISTEN 0      4096                [::1]:631           [::]:*    users:(("cupsd",pid=930,fd=6))
+LISTEN 0      50     [::ffff:127.0.0.1]:8123             *:*    users:(("java",pid=1025,fd=10))
+LISTEN 0      4096                 [::]:22            [::]:*    users:(("sshd",pid=946,fd=4),("systemd",pid=1,fd=232))
+LISTEN 0      4096                    *:80               *:*    users:(("caddy",pid=952,fd=7))

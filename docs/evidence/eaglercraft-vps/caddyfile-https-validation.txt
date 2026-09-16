@@ -1,0 +1,19 @@
+=== Caddyfile published in the article (HTTPS site block) ===
+play.example.com {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:5200 {
+		header_up X-Real-IP {remote_host}
+	}
+}
+
+=== caddy validate --config /tmp/Caddyfile.https (2026-09-16 10:16 CST) ===
+{"level":"info","ts":1789524934.9509706,"msg":"using provided configuration","config_file":"/tmp/Caddyfile.https","config_adapter":""}
+{"level":"info","ts":1789524934.9518611,"logger":"http","msg":"server is listening only on the HTTPS port but has no TLS connection policies; adding one to enable TLS","server_name":"srv0","https_port":443}
+{"level":"info","ts":1789524934.9518764,"logger":"http","msg":"enabling automatic HTTP->HTTPS redirects","server_name":"srv0"}
+{"level":"info","ts":1789524934.951965,"logger":"tls.cache.maintenance","msg":"started background certificate maintenance","cache":"0xc0001d73b0"}
+{"level":"info","ts":1789524934.952048,"logger":"tls.cache.maintenance","msg":"stopped background certificate maintenance","cache":"0xc0001d73b0"}
+Valid configuration
+
+The config-level check passes: Caddy reports Valid configuration and adds the
+TLS connection policy plus the automatic HTTP to HTTPS redirect. Certificate
+issuance for a real hostname was not exercised on this machine.

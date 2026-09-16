@@ -1,0 +1,31 @@
+zsh:1: no matches found: /var/backups/eaglercraft/world-*.tar.gz
+zsh:1: no matches found: /var/backups/eaglercraft/world-*.tar.gz
+$ systemctl start eaglercraft-backup.service
+$ systemctl status eaglercraft-backup.service --no-pager
+○ eaglercraft-backup.service - Back up the Eaglercraft world
+     Loaded: loaded (/etc/systemd/system/eaglercraft-backup.service; static)
+     Active: inactive (dead) since Wed 2026-09-16 10:00:51 CST; 31ms ago
+TriggeredBy: ● eaglercraft-backup.timer
+    Process: 3083 ExecStart=/opt/eaglercraft/bin/backup.sh (code=exited, status=0/SUCCESS)
+   Main PID: 3083 (code=exited, status=0/SUCCESS)
+        CPU: 252ms
+
+Sep 16 10:00:46 carson-Standard-PC-i440FX-PIIX-1996 systemd[1]: Starting eaglercraft-backup.service - Back up the Eaglercraft world...
+Sep 16 10:00:51 carson-Standard-PC-i440FX-PIIX-1996 systemd[1]: eaglercraft-backup.service: Deactivated successfully.
+Sep 16 10:00:51 carson-Standard-PC-i440FX-PIIX-1996 systemd[1]: Finished eaglercraft-backup.service - Back up the Eaglercraft world.
+
+$ ls -la /var/backups/eaglercraft/
+total 9320
+drwx------ 2 eaglercraft eaglercraft    4096 Sep 16 10:00 .
+drwxr-xr-x 3 root        root           4096 Sep 16 09:25 ..
+-rw-r--r-- 1 eaglercraft eaglercraft 4758206 Sep 16 09:52 world-20260916T015259Z.tar.gz
+-rw-r--r-- 1 eaglercraft eaglercraft 4774769 Sep 16 10:00 world-20260916T020051Z.tar.gz
+
+$ tar -tzf <latest backup> | wc -l
+tar: option requires an argument -- 'f'
+Try 'tar --help' or 'tar --usage' for more information.
+tar: option requires an argument -- 'f'
+Try 'tar --help' or 'tar --usage' for more information.
+0
+
+$ tar -tzf <latest backup> | head -8
