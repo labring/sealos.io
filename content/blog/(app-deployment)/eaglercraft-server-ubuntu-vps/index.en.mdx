@@ -25,14 +25,14 @@ import { DeployButton } from '@/components/ui/button';
 
 An Ubuntu VPS you already rent can run a full Eaglercraft world: the browser client, the WebSocket gateway, a Paper 1.8.8 game server, and the Server Management Panel. This walkthrough installs [yangchuansheng/eaglerXserver](https://github.com/yangchuansheng/eaglerXserver) release **2.2.7** on Ubuntu 24.04, runs four systemd units, terminates HTTPS with Caddy, and finishes with a backup and a restore rehearsal.
 
-It covers the bare-metal path the upstream project leaves open, since its README documents the Docker deployment. Every command, version, and measurement below comes from one recorded run on September 16, 2026; the sections that follow mark what that run did not exercise.
+The upstream README documents the Docker deployment, leaving the bare-metal path open. Every command, version, and measurement below comes from one recorded run on September 16, 2026; the sections that follow mark what that run did not exercise.
 
 <DeployButton
   deployUrl="https://sealos.io/products/app-store/eaglercraft-server/"
   alt="Deploy on Sealos: open the Eaglercraft template in a new tab"
 />
 
-Opens the Eaglercraft template in a new tab if you would rather start from a managed deployment.
+Opens the Eaglercraft template in a new tab to start with a managed deployment.
 
 ## What This Guide Builds
 
@@ -52,13 +52,13 @@ Paper 1.8.8 on 127.0.0.1:25565
 /opt/eaglercraft/server, snapshotted to /var/backups/eaglercraft
 ```
 
-One Java process serves the browser client page and the game WebSocket on the same port, which is why port `5200` handles both. The Server Management Panel is a separate Python process on `5201`, and it talks to the game server over RCON on `127.0.0.1:25575`.
+One Java process serves both the browser client page and the game WebSocket on port `5200`. The Server Management Panel runs as a separate Python process on `5201`, communicating with the game server over RCON on `127.0.0.1:25575`.
 
 The recorded machine used 2 vCPU, 3,911 MiB of memory, and a 51 GiB root disk. After startup the gateway held 233.3 MiB, Paper 429.4 MiB, and the panel 15.7 MiB, so plan on roughly 1 GiB of memory for the game stack plus room for the operating system. A world snapshot of the starting map came to 4,794,045 bytes.
 
 ## Before You Start
 
-- An Ubuntu 22.04 or 24.04 server with `sudo`, and root or an equivalent account. The recorded run used Ubuntu 24.04.4 LTS with kernel `7.0.0-31-generic`.
+- An Ubuntu 22.04 or 24.04 server with `sudo` privileges. The recorded run used Ubuntu 24.04.4 LTS with kernel `7.0.0-31-generic`.
 - Two vCPU and at least 4 GiB of memory for a small group.
 - Java 21, `tmux`, `unzip`, and `caddy` from the distribution repositories.
 - A domain with an `A` record you can point at the server when you want access from outside your network.
@@ -120,7 +120,7 @@ sudo chmod 0640 /etc/eaglercraft/eaglercraft.env
 sudo chown root:eaglercraft /etc/eaglercraft/eaglercraft.env
 ```
 
-Generate the RCON password rather than typing one, and reuse it verbatim in `server.properties`:
+Generate a random RCON password and write it to `server.properties`:
 
 ```sh
 PASSWORD=$(openssl rand -hex 24)
@@ -166,14 +166,14 @@ WantedBy=multi-user.target
 
 The remaining units, the tmux configuration, the backup script, and the environment template live in the upstream [`deploy/ubuntu-vps/`](https://github.com/yangchuansheng/eaglerXserver/tree/main/deploy/ubuntu-vps) directory.
 
-One detail in that directory exists for a specific reason. The `eaglercraft` account has `/usr/sbin/nologin` as its shell, and the game server runs inside tmux, so `bin/tmux.conf` pins the shell tmux uses to spawn panes and keeps a crashed pane addressable:
+Because the `eaglercraft` account uses `/usr/sbin/nologin` as its login shell, `bin/tmux.conf` pins the shell for spawned panes and keeps a crashed process addressable for the panel:
 
 ```text
 set -g default-shell /bin/bash
 setw -g remain-on-exit on
 ```
 
-`bin/paper-tmux.sh` starts the tmux server with `-f bin/tmux.conf` for the same reason. `bin/backup.sh` and the panel then send keys to that running server over the socket path from `TMUX_TMPDIR`. Without the configuration the pane exits as soon as it spawns and the panel reports the game server as offline.
+`bin/paper-tmux.sh` starts the tmux server with `-f bin/tmux.conf`. `bin/backup.sh` and the panel then send keys over the socket path in `TMUX_TMPDIR`. Without this configuration, the pane exits immediately upon spawning and the panel reports the game server as offline.
 
 Install the units and start them in order:
 
@@ -212,7 +212,7 @@ sudo caddy validate --config /etc/caddy/Caddyfile
 sudo systemctl reload caddy
 ```
 
-The `header_up` line carries the weight here. The shipped listener sets `forward_ip: true` together with `forward_ip_header: X-Real-IP`, so the gateway reads that header on every connection and drops a request that arrives without it. In the recorded run a request straight to `127.0.0.1:5200` without the header returned no response at all, and the same request through Caddy returned `200` with `2158` bytes and the title `EaglercraftX 1.8`.
+The gateway relies on the `header_up` line. The shipped listener sets `forward_ip: true` together with `forward_ip_header: X-Real-IP`, so the gateway reads that header on every connection and drops a request that arrives without it. In the recorded run, a direct request to `127.0.0.1:5200` without the header returned no response, whereas the request through Caddy returned `200` with `2158` bytes and the title `EaglercraftX 1.8`.
 
 Caddy requests a certificate for the site address on its first start, which requires a public DNS record pointing at the server and inbound access on ports 80 and 443. Then `https://play.example.com/` serves the browser client and `wss://play.example.com/` carries the game traffic over the same connection. The recorded run validated this configuration with `caddy validate`, which reported `Valid configuration` along with the TLS policy and the automatic HTTP-to-HTTPS redirect; certificate issuance and a browser `wss://` session stayed outside that run and appear in [What This Guide Did Not Test](#what-this-guide-did-not-test).
 
@@ -246,7 +246,7 @@ Later visits use `/login <player-password>` with the same name and password.
 
 ## Reach the Server Management Panel Through an SSH Tunnel
 
-The panel answers on `0.0.0.0:5201`, and its bind address has no environment override. Forward the port over SSH instead of publishing it:
+The panel answers on `0.0.0.0:5201`, and its bind address has no environment override. Forward the port over an SSH tunnel to keep it private:
 
 ```sh
 ssh -N -L 5201:127.0.0.1:5201 root@your-server
