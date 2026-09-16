@@ -234,13 +234,13 @@ This ruleset permits inbound traffic only on ports 22, 80, and 443 under a defau
 
 Open `https://play.example.com/` and press a key when the client asks for input. Release 2.2.7 preconfigures the server, so the entry appears in **Multiplayer** with the message of the day from `listeners.yml`.
 
-![Multiplayer server list showing the server entry at ws://192.168.0.228/ with the An EaglercraftX server message of the day. Captured September 16, 2026 on the test machine.](./images/server-list.webp)
+![Eaglercraft Multiplayer server list showing the server entry and the An EaglercraftX server message of the day.](./images/server-list.webp)
 
 The default listener allows 60 connections. Set a stable player name of 3 to 16 characters in **Edit Profile**, keep the exact capitalization for later visits, and select the entry to connect.
 
 Registration expects a command within 30 seconds of connecting. Press **T**, enter `/register <player-password>`, and press Enter. Each player picks a separate password, and the RCON password from the environment file stays on the server.
 
-![Chat showing the successful registration message and the player standing beside the recorded gold markers. Captured September 16, 2026.](./images/register-success.webp)
+![In-game chat displaying a successful player registration message in Eaglercraft.](./images/register-success.webp)
 
 Later visits use `/login <player-password>` with the same name and password.
 
@@ -254,7 +254,7 @@ ssh -N -L 5201:127.0.0.1:5201 root@your-server
 
 Leave that command running and open `http://127.0.0.1:5201/admin`. Enter the RCON password from `/etc/eaglercraft/eaglercraft.env`.
 
-![Server Management Panel Overview showing RCON Connected, Paper is ready, TPS 20.0 across all three windows, and the Configured connection details card. Captured September 16, 2026 through an SSH tunnel.](./images/panel-overview.webp)
+![Eaglercraft Server Management Panel Overview showing RCON Connected, Paper ready status, TPS gauges, and connection details.](./images/panel-overview.webp)
 
 Once signed in, the panel confirms `Paper is ready`, TPS `20.0` across the one, five, and fifteen minute windows, and current player counts. The **Connection details** card on the same page displays the address driven by `PUBLIC_GAME_URL`.
 
@@ -282,7 +282,7 @@ The snapshot finishes with `Result=success` and creates an archive in `/var/back
 
 In our drill, an emerald block was placed at `-11 72 222` beside three gold blocks at `-15 70 222`, `-11 71 222`, and `-13 71 224`. After removing the emerald block, deleting all three world directories, and unpacking the snapshot, the emerald returned intact along with the gold blocks.
 
-![The restored world with the emerald and the three gold markers standing after the snapshot was unpacked over a clean world directory. Captured September 16, 2026.](./images/marker-after-restore.webp)
+![Restored Minecraft world showing the emerald and gold marker blocks intact after restoring the backup snapshot.](./images/marker-after-restore.webp)
 
 The first version of `bin/backup.sh` sent `save-all flush` to the console. On Java 21 with Paper 1.8.8 that wedged the chunk I/O thread: the console printed `All chunks are saved` without stopping, RCON stopped answering, and the active log grew to `4,374,236,066` bytes in about five minutes, holding `49,147,793` copies of that message. Plain `save-all` reports `Saving...Saved the world` and returns within a second, which is what the shipped script uses now.
 
@@ -327,7 +327,7 @@ Take a snapshot first and keep the previous directory in place, so the change re
 | The panel is unreachable                     | Confirm the SSH tunnel is running and that `5201` stays closed in `ufw`.                               |
 | A save never returns                         | Use `save-all` and avoid `save-all flush` on Java 21 with Paper 1.8.8.                                 |
 
-![The client reporting Login timed out! after the registration window closed, which reconnecting and registering again clears. Captured September 16, 2026.](./images/login-timeout.webp)
+![Eaglercraft browser client displaying the Login timed out error screen after the registration window expires.](./images/login-timeout.webp)
 
 ## What This Guide Did Not Test
 
