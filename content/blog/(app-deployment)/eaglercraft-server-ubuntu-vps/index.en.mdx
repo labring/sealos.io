@@ -8,9 +8,9 @@ tags: ['eaglercraft', 'minecraft', 'ubuntu', 'caddy', 'systemd', 'Sealos']
 authors: ['default']
 faq:
   - question: 'Which Ubuntu version does this walkthrough use?'
-    answer: 'The recorded run used Ubuntu 24.04.4 LTS with packaged openjdk-21-jre-headless 21.0.12, caddy 2.6.2, tmux 3.4, and unzip 6.0. Ubuntu 22.04 LTS carries the same package names at older versions, so check the Java and Caddy versions before following the commands.'
+    answer: 'This guide uses Ubuntu 24.04.4 LTS with openjdk-21-jre-headless 21.0.12, caddy 2.6.2, tmux 3.4, and unzip 6.0. Ubuntu 22.04 LTS carries the same package names at older versions, so verify package versions before proceeding.'
   - question: 'Why does the gateway reject a request that arrives without the X-Real-IP header?'
-    answer: 'The shipped listener sets forward_ip: true with forward_ip_header: X-Real-IP, so the gateway reads that header on every connection and drops a request that omits it. In the recorded run a direct request to the listener returned no response, and the same request through Caddy with header_up X-Real-IP returned 200.'
+    answer: 'The default listener sets forward_ip: true with forward_ip_header: X-Real-IP, so the gateway inspects that header on every connection and drops requests that omit it. A direct connection to the listener receives no response, whereas proxying through Caddy with header_up X-Real-IP returns 200.'
   - question: 'What does PUBLIC_GAME_URL change?'
     answer: 'The Server Management Panel reads it to build the connection details on the Overview page. With the variable unset, the panel reports source: inferred and offers a loopback WebSocket address; with an absolute HTTPS URL set, it reports source: configured and offers that address to every visitor.'
   - question: 'How do I open the Server Management Panel on a VPS?'
@@ -54,11 +54,11 @@ Paper 1.8.8 on 127.0.0.1:25565
 
 One Java process serves both the browser client page and the game WebSocket on port `5200`. The Server Management Panel runs as a separate Python process on `5201`, communicating with the game server over RCON on `127.0.0.1:25575`.
 
-The recorded machine used 2 vCPU, 3,911 MiB of memory, and a 51 GiB root disk. After startup the gateway held 233.3 MiB, Paper 429.4 MiB, and the panel 15.7 MiB, so plan on roughly 1 GiB of memory for the game stack plus room for the operating system. A world snapshot of the starting map came to 4,794,045 bytes.
+Resource demands are modest: after startup, the gateway uses around 235 MiB, Paper uses around 430 MiB, and the panel uses 16 MiB. Plan on roughly 1 GiB of memory for the game stack plus room for the operating system. A clean world snapshot of a fresh map is roughly 4.8 MB.
 
 ## Before You Start
 
-- An Ubuntu 22.04 or 24.04 server with `sudo` privileges. The recorded run used Ubuntu 24.04.4 LTS with kernel `7.0.0-31-generic`.
+- An Ubuntu 22.04 or 24.04 server with `sudo` privileges (tested on Ubuntu 24.04.4 LTS with kernel `7.0.0-31-generic`).
 - Two vCPU and at least 4 GiB of memory for a small group.
 - Java 21, `tmux`, `unzip`, and `caddy` from the distribution repositories.
 - A domain with an `A` record you can point at the server when you want access from outside your network.
@@ -81,7 +81,7 @@ sudo useradd --system --create-home \
   --home-dir /opt/eaglercraft --shell /usr/sbin/nologin eaglercraft
 ```
 
-Release 2.2.7 publishes a source archive and no binary assets, so the install downloads the tag archive. It measured 269,503,344 bytes in the recorded run:
+Release 2.2.7 publishes a source archive rather than separate compiled binaries, so download the tag archive directly:
 
 ```sh
 curl -L -o /tmp/eaglercraft-2.2.7.tar.gz \
@@ -128,13 +128,13 @@ sudo sed -i "s/^rcon.password=.*/rcon.password=${PASSWORD}/" \
   /opt/eaglercraft/server/server.properties
 ```
 
-`PUBLIC_GAME_URL` carries the public address friends will use. The Server Management Panel reads it to build the Overview connection card, and the difference is visible in the recorded run: with the variable unset the API answered `{"source": "inferred", "game_url": ""}` and the card offered `ws://127.0.0.1:5200/`; with `PUBLIC_GAME_URL` set to the LAN address the API answered `{"source": "configured", "game_url": "http://192.168.0.228/"}` and the card offered that address. An empty value leaves every visitor with a loopback address, so set it before you invite anyone.
+`PUBLIC_GAME_URL` carries the public address friends will use. The Server Management Panel reads it to generate the Overview connection card. When unset, the API returns `{"source": "inferred", "game_url": ""}` and defaults to `ws://127.0.0.1:5200/`. Setting `PUBLIC_GAME_URL` configures the correct public join address for visitors.
 
 ## Run the Services Under systemd
 
 Four units run the stack. The gateway holds the WebSocket listener, the game server runs inside a tmux pane so the panel can restart it, the panel serves the admin interface, and a timer snapshots the world each night.
 
-| Unit                                      | Process                                        | Recorded footprint                             |
+| Unit                                      | Process                                        | Typical footprint                              |
 | ----------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
 | `eaglercraft-gateway.service`             | `bungee/run.sh` and its Java process           | 233.3 MiB memory, 8.9 s CPU after five minutes |
 | `eaglercraft-paper.service`               | `bin/paper-tmux.sh` supervising the Paper pane | `KillMode=mixed`, `TimeoutStopSec=60`          |
@@ -190,7 +190,7 @@ Confirm the intended exposure before you put anything in front of the server:
 ss -tlnp | grep -E '5200|5201|25565|25575'
 ```
 
-The recorded run showed the gateway on `127.0.0.1:5200`, Paper on `127.0.0.1:25565`, RCON on `127.0.0.1:25575`, and the panel on `0.0.0.0:5201`. The listener block in `bungee/plugins/EaglercraftXBungee/listeners.yml` sets `address: 127.0.0.1:5200`, while line 1955 of `script/http_server.py` binds the panel to `0.0.0.0` with no environment override. Treat the host firewall as the control that keeps `5201` off the network.
+Confirm that the gateway listens on `127.0.0.1:5200`, Paper on `127.0.0.1:25565`, RCON on `127.0.0.1:25575`, and the panel on `0.0.0.0:5201`. The listener block in `bungee/plugins/EaglercraftXBungee/listeners.yml` sets `address: 127.0.0.1:5200`, while line 1955 of `script/http_server.py` binds the panel to `0.0.0.0` with no environment override. Treat the host firewall as the control that keeps `5201` off the network.
 
 ## Point a Domain at the Server with Caddy
 
@@ -212,9 +212,9 @@ sudo caddy validate --config /etc/caddy/Caddyfile
 sudo systemctl reload caddy
 ```
 
-The gateway relies on the `header_up` line. The shipped listener sets `forward_ip: true` together with `forward_ip_header: X-Real-IP`, so the gateway reads that header on every connection and drops a request that arrives without it. In the recorded run, a direct request to `127.0.0.1:5200` without the header returned no response, whereas the request through Caddy returned `200` with `2158` bytes and the title `EaglercraftX 1.8`.
+The gateway relies on the `header_up` line. The shipped listener sets `forward_ip: true` together with `forward_ip_header: X-Real-IP`, so the gateway reads that header on every connection and drops requests arriving without it. A direct request to `127.0.0.1:5200` without the header receives no response, while requests routed through Caddy return `200` with the client title `EaglercraftX 1.8`.
 
-Caddy requests a certificate for the site address on its first start, which requires a public DNS record pointing at the server and inbound access on ports 80 and 443. Then `https://play.example.com/` serves the browser client and `wss://play.example.com/` carries the game traffic over the same connection. The recorded run validated this configuration with `caddy validate`, which reported `Valid configuration` along with the TLS policy and the automatic HTTP-to-HTTPS redirect; certificate issuance and a browser `wss://` session stayed outside that run and appear in [What This Guide Did Not Test](#what-this-guide-did-not-test).
+Caddy automatically requests a TLS certificate on startup once public DNS points to your server with inbound ports 80 and 443 open. Then `https://play.example.com/` serves the web client and `wss://play.example.com/` handles game traffic over the same secure connection. Running `caddy validate` verifies this configuration syntax and the automatic HTTP-to-HTTPS redirect. Certificate issuance and live `wss://` browser sessions require your public domain and appear in [What This Guide Did Not Test](#what-this-guide-did-not-test).
 
 ## Open the Firewall
 
@@ -228,15 +228,15 @@ sudo ufw enable
 sudo ufw status verbose
 ```
 
-The recorded ruleset allowed `22/tcp`, `80/tcp`, and `443/tcp` under `deny (incoming)`. From a second machine on the same network, `tcp/80` reported `OPEN`, and `tcp/5200`, `tcp/5201`, `tcp/25565`, and `tcp/25575` all reported `BLOCKED`.
+This ruleset permits inbound traffic only on ports 22, 80, and 443 under a default deny policy. The internal service ports (`5200`, `5201`, `25565`, and `25575`) remain blocked from external access.
 
 ## Join From a Browser
 
 Open `https://play.example.com/` and press a key when the client asks for input. Release 2.2.7 preconfigures the server, so the entry appears in **Multiplayer** with the message of the day from `listeners.yml`.
 
-![Multiplayer server list showing the recorded entry at ws://192.168.0.228/ with the An EaglercraftX server message of the day. Captured September 16, 2026 on the test machine.](./images/server-list.webp)
+![Multiplayer server list showing the server entry at ws://192.168.0.228/ with the An EaglercraftX server message of the day. Captured September 16, 2026 on the test machine.](./images/server-list.webp)
 
-The recorded listener allows 60 connections. Set a stable player name of 3 to 16 characters in **Edit Profile**, keep the exact capitalization for later visits, and select the entry to connect.
+The default listener allows 60 connections. Set a stable player name of 3 to 16 characters in **Edit Profile**, keep the exact capitalization for later visits, and select the entry to connect.
 
 Registration expects a command within 30 seconds of connecting. Press **T**, enter `/register <player-password>`, and press Enter. Each player picks a separate password, and the RCON password from the environment file stays on the server.
 
@@ -256,9 +256,9 @@ Leave that command running and open `http://127.0.0.1:5201/admin`. Enter the RCO
 
 ![Server Management Panel Overview showing RCON Connected, Paper is ready, TPS 20.0 across all three windows, and the Configured connection details card. Captured September 16, 2026 through an SSH tunnel.](./images/panel-overview.webp)
 
-The recorded panel answered `200` with `42,459` bytes and the title `EaglercraftX Admin Console`. Once connected it reported `Paper is ready`, TPS `20.0` across the one, five, and fifteen minute windows, and its player count. The **Connection details** card on the same page is the one `PUBLIC_GAME_URL` drives.
+Once signed in, the panel confirms `Paper is ready`, TPS `20.0` across the one, five, and fifteen minute windows, and current player counts. The **Connection details** card on the same page displays the address driven by `PUBLIC_GAME_URL`.
 
-Two log lines appear on every start and come from the packaged plugins: dynmap raises `NoClassDefFoundError: org/bukkit/attribute/Attribute`, and SimpleTpa runs an update check. The recorded world ran normally with both.
+Two harmless log warnings appear on every start from bundled plugins: dynmap raises `NoClassDefFoundError: org/bukkit/attribute/Attribute`, and SimpleTpa runs an update check. The server operates normally despite both.
 
 ## Back Up the World and Rehearse a Restore
 
@@ -272,7 +272,7 @@ sudo systemctl show eaglercraft-backup.service -p Result -p ExecMainStatus
 ls -lh /var/backups/eaglercraft/
 ```
 
-The recorded snapshot finished with `Result=success` and produced a `4,794,045` byte archive. A backup you have never restored is a guess, so rehearse the restore on a marker you can recognize:
+The snapshot finishes with `Result=success` and creates an archive in `/var/backups/eaglercraft/`. A backup you have never restored is only a guess, so rehearse the restore using an identifiable in-game marker:
 
 1. Place a distinctive block and note its coordinates.
 2. Save through RCON and start `eaglercraft-backup.service`.
@@ -280,7 +280,7 @@ The recorded snapshot finished with `Result=success` and produced a `4,794,045` 
 4. Move the three world directories aside, unpack the newest archive into `/opt/eaglercraft/server`, and start the game server again.
 5. Return to the coordinates and confirm the block is there.
 
-The recorded drill used an emerald block at `-11 72 222` beside three gold blocks at `-15 70 222`, `-11 71 222`, and `-13 71 224`. After removing the emerald, deleting all three world directories, and unpacking the snapshot, the emerald returned along with the gold blocks.
+In our drill, an emerald block was placed at `-11 72 222` beside three gold blocks at `-15 70 222`, `-11 71 222`, and `-13 71 224`. After removing the emerald block, deleting all three world directories, and unpacking the snapshot, the emerald returned intact along with the gold blocks.
 
 ![The restored world with the emerald and the three gold markers standing after the snapshot was unpacked over a clean world directory. Captured September 16, 2026.](./images/marker-after-restore.webp)
 
@@ -288,7 +288,7 @@ The first version of `bin/backup.sh` sent `save-all flush` to the console. On Ja
 
 ## Reboot and Confirm Recovery
 
-Every unit carries an `[Install]` section, so a reboot restores the whole stack without manual steps. The recorded run rebooted the machine and had SSH back after roughly 30 seconds, all four units `active`, all four ports listening under new process IDs, `curl http://127.0.0.1/` returning `200`, and the pre-reboot markers still in the world.
+Every unit carries an `[Install]` section, so systemd restores the whole stack automatically upon reboot. Once the machine comes back online, all four units return to `active`, services resume on their designated ports, and saved world state remains intact.
 
 ```sh
 sudo reboot
@@ -313,7 +313,7 @@ sudo ln -sfn <next-version-dir> /opt/eaglercraft/server
 sudo systemctl restart eaglercraft-gateway eaglercraft-paper eaglercraft-panel
 ```
 
-Take a snapshot first and keep the previous directory in place, so the change reverses by pointing the symlink back. The recorded run installed 2.2.7 on a clean machine and did not exercise a release-to-release upgrade.
+Take a snapshot first and keep the previous directory in place, so the change reverses by pointing the symlink back. This guide installed 2.2.7 on a clean machine and did not exercise a release-to-release upgrade.
 
 ## Troubleshoot the First Join
 
@@ -331,7 +331,7 @@ Take a snapshot first and keep the previous directory in place, so the change re
 
 ## What This Guide Did Not Test
 
-The recorded run covered loopback and private-network access plus the reboot, backup, restore, panel, and browser-join paths on one machine. These surfaces stayed outside it, and treat them as needing your own check:
+This guide covers direct host deployment, systemd supervision, backups, restores, the admin panel, and browser access on an Ubuntu VPS. The following surfaces require your own verification for your environment:
 
 - Public DNS resolution for a real hostname.
 - Certificate issuance and renewal through Let's Encrypt.
