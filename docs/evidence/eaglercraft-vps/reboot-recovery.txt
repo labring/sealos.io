@@ -1,0 +1,30 @@
+=== before reboot ===
+Wed Sep 16 10:01:02 CST 2026
+ 10:01:02 up 5 min,  2 users,  load average: 0.63, 0.52, 0.29
+active
+active
+active
+active
+
+$ ssh root@192.168.0.228 reboot
+reboot issued
+ssh reachable again after ~30s
+
+=== after reboot ===
+Wed Sep 16 10:02:16 CST 2026
+ 10:02:16 up 0 min,  2 users,  load average: 2.04, 0.59, 0.20
+
+$ systemctl is-active eaglercraft-gateway eaglercraft-paper eaglercraft-panel eaglercraft-backup.timer
+active
+active
+active
+active
+
+$ ss -tlnp | grep -E '5200|5201|25565|25575'
+LISTEN 0      5                 0.0.0.0:5201       0.0.0.0:*    users:(("python3",pid=961,fd=3))
+LISTEN 0      4096   [::ffff:127.0.0.1]:25565            *:*    users:(("java",pid=989,fd=19))
+LISTEN 0      50     [::ffff:127.0.0.1]:25575            *:*    users:(("java",pid=989,fd=38))
+LISTEN 0      4096   [::ffff:127.0.0.1]:5200             *:*    users:(("java",pid=973,fd=24))
+
+$ curl -s -o /dev/null -w "http://127.0.0.1/ -> %{http_code}\n" http://127.0.0.1/
+http://127.0.0.1/ -> 200

@@ -15,6 +15,7 @@
     "test:pricing": "node --test scripts/railway-cost.test.js",
     "test:railway-alternative": "node --test scripts/railway-alternative.test.mjs",
     "test:eaglercraft-hosting-cost": "node --test scripts/eaglercraft-hosting-cost.test.mjs",
+    "test:eaglercraft-vps-guide": "node --test scripts/eaglercraft-vps-guide.test.mjs",
     "build": "pnpm verify:ai-faq-index && next build && node scripts/normalize-root-locale.js && pnpm verify:ai-faq-routes",
     "validate-tutorials": "node scripts/validate-tutorials.mjs",
     "build:analyze": "pnpm verify:ai-faq-index && ANALYZE=true next build && node scripts/normalize-root-locale.js && pnpm verify:ai-faq-routes",

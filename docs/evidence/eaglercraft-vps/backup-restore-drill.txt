@@ -1,0 +1,47 @@
+=== backup and restore drill ===
+
+1) Put the emerald marker in the test area and save the world.
+> setblock -11 72 222 minecraft:emerald_block
+(no output)
+> save-all
+Saving...Saved the world
+
+2) Snapshot the world while the marker is present.
+$ systemctl start eaglercraft-backup.service
+$ systemctl show -p Result --value eaglercraft-backup.service
+success
+$ ls -la /var/backups/eaglercraft/
+total 28008
+drwx------ 2 eaglercraft eaglercraft    4096 Sep 16 10:06 .
+drwxr-xr-x 3 root        root           4096 Sep 16 09:25 ..
+-rw-r--r-- 1 eaglercraft eaglercraft 4758206 Sep 16 09:52 world-20260916T015259Z.tar.gz
+-rw-r--r-- 1 eaglercraft eaglercraft 4774769 Sep 16 10:00 world-20260916T020051Z.tar.gz
+-rw-r--r-- 1 eaglercraft eaglercraft 4779676 Sep 16 10:03 world-20260916T020329Z.tar.gz
+-rw-r--r-- 1 eaglercraft eaglercraft 4779782 Sep 16 10:04 world-20260916T020411Z.tar.gz
+-rw-r--r-- 1 eaglercraft eaglercraft 4777555 Sep 16 10:05 world-20260916T020525Z.tar.gz
+-rw-r--r-- 1 eaglercraft eaglercraft 4794045 Sep 16 10:06 world-20260916T020630Z.tar.gz
+
+3) Remove the marker and confirm that it is gone.
+> setblock -11 72 222 minecraft:air
+Block placed
+> save-all
+Saving...Saved the world
+> testforblock -11 72 222 minecraft:emerald_block
+(no output)
+
+4) Stop the game server, delete world, world_nether and world_the_end, untar the newest snapshot, start again.
+$ ls -t /var/backups/eaglercraft/world-*.tar.gz | head -1
+/var/backups/eaglercraft/world-20260916T020630Z.tar.gz
+$ systemctl stop eaglercraft-paper
+$ runuser -u eaglercraft -- tar -xzf /var/backups/eaglercraft/world-20260916T020630Z.tar.gz -C /opt/eaglercraft/server
+$ systemctl start eaglercraft-paper
+
+5) The restored world has the emerald marker back and the gold blocks untouched.
+> testforblock -11 72 222 minecraft:emerald_block
+Successfully found the block at -11,72,222.
+> testforblock -15 70 222 minecraft:gold_block
+Successfully found the block at -15,70,222.
+> testforblock -11 71 222 minecraft:gold_block
+Successfully found the block at -11,71,222.
+> testforblock -13 71 224 minecraft:gold_block
+Successfully found the block at -13,71,224.

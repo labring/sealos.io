@@ -11,6 +11,8 @@ KEY_URLS=(
   "/docs/"
   "/blog/eaglercraft-server"
   "/blog/eaglercraft-server/"
+  "/blog/eaglercraft-server-ubuntu-vps"
+  "/blog/eaglercraft-server-ubuntu-vps/"
   "/blog/claude-code-on-phone"
   "/blog/claude-code-on-phone/"
 )

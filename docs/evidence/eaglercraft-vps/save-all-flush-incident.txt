@@ -1,0 +1,32 @@
+=== save-all flush on Java 21 + Paper 1.8.8 (2026-09-16, 09:43-09:48 CST) ===
+
+The backup script originally sent 'save-all flush' through the console pane.
+The command wedged the chunk I/O thread: the console printed
+All chunks are saved without stopping, RCON stopped answering, and
+latest.log grew without bound until the server was stopped.
+
+total 4271788
+drwxr-xr-x 2 eaglercraft eaglercraft       4096 Sep 16 10:06 .
+drwxrwxr-x 8 eaglercraft eaglercraft       4096 Sep 16 10:06 ..
+-rw-r--r-- 1 eaglercraft eaglercraft       3626 Sep 16 09:53 2026-09-16-1.log.gz
+-rw-r--r-- 1 eaglercraft eaglercraft       3787 Sep 16 09:54 2026-09-16-2.log.gz
+-rw-r--r-- 1 eaglercraft eaglercraft 4374236066 Sep 16 09:48 2026-09-16-3.log
+-rw-r--r-- 1 eaglercraft eaglercraft       3615 Sep 16 09:55 2026-09-16-3.log.gz
+-rw-r--r-- 1 eaglercraft eaglercraft       4305 Sep 16 10:01 2026-09-16-4.log.gz
+-rw-r--r-- 1 eaglercraft eaglercraft       3785 Sep 16 10:04 2026-09-16-5.log.gz
+-rw-r--r-- 1 eaglercraft eaglercraft       3588 Sep 16 10:05 2026-09-16-6.log.gz
+-rw-r--r-- 1 eaglercraft eaglercraft       3717 Sep 16 10:06 2026-09-16-7.log.gz
+-rw-r--r-- 1 eaglercraft eaglercraft      24711 Sep 16 10:13 latest.log
+
+=== plain save-all after the same server started again ===
+
+49147793
+445]
+	at org.bukkit.craftbukkit.libs.jline.console.ConsoleReader.readCharacter(ConsoleReader.java:2145) ~[patched_1.8.8.jar:git-PaperSpigot-445]
+	at org.bukkit.craftbukkit.libs.jline.console.ConsoleReader.readLine(ConsoleReader.java:2349) ~[patched_1.8.8.jar:git-PaperSpigot-445]
+	at net.minecraft.server.v1_8_R3.DedicatedServer$2.run(DedicatedServer.java:79) [patched_1.8.8.jar:git-PaperSpigot-445]
+
+=== RCON response after plain save-all (2026-09-16 10:08 CST) ===
+
+> save-all
+Saving...Saved the world

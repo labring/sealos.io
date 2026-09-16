@@ -1,0 +1,37 @@
+=== Caddyfile in use ===
+:80 {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:5200 {
+		header_up X-Real-IP {remote_host}
+	}
+}
+
+\$ caddy validate --config /etc/caddy/Caddyfile
+{"level":"info","ts":1789524181.46021,"msg":"using provided configuration","config_file":"/etc/caddy/Caddyfile","config_adapter":""}
+{"level":"warn","ts":1789524181.461179,"logger":"http","msg":"server is listening only on the HTTP port, so no automatic HTTPS will be applied to this server","server_name":"srv0","http_port":80}
+{"level":"info","ts":1789524181.4612508,"logger":"tls.cache.maintenance","msg":"started background certificate maintenance","cache":"0xc0001ed500"}
+{"level":"info","ts":1789524181.4613674,"logger":"tls.cache.maintenance","msg":"stopped background certificate maintenance","cache":"0xc0001ed500"}
+Valid configuration
+
+\$ systemctl reload caddy && systemctl is-active caddy
+active
+
+=== reverse proxy over loopback ===
+http://127.0.0.1/  -> 200  2158 bytes  text/html; charset=utf-8
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Play minecraft 1.8 in your brow
+
+=== reverse proxy from the Mac (LAN address, not loopback) ===
+http://192.168.0.228/  -> 200  2158 bytes  text/html; charset=utf-8
+<title>EaglercraftX 1.8</title>
+
+=== direct backend port from the Mac (ufw blocks it) ===
+tcp/80  OPEN
+tcp/5200  BLOCKED
+tcp/5201  BLOCKED
+tcp/25565  BLOCKED
+tcp/25575  BLOCKED

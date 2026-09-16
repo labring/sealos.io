@@ -1,0 +1,22 @@
+=== first attempt (RCON read timed out mid-reply) ===
+$ python3 /root/rcon.py "testforblock -15 70 222 minecraft:gold_block" "testforblock -11 71 222 minecraft:gold_block" "testforblock -11 72 222 minecraft:emerald_block" "testforblock -13 71 224 minecraft:gold_block" "save-all"
+Traceback (most recent call last):
+  File "/root/rcon.py", line 17, in <module>
+    rd(s)
+  File "/root/rcon.py", line 8, in rd
+    ln = struct.unpack('<i', s.recv(4))[0]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+struct.error: unpack requires a buffer of 4 bytes
+
+=== retry, same commands (2026-09-16 10:08 CST) ===
+$ python3 /root/rcon.py "testforblock -15 70 222 minecraft:gold_block" "testforblock -11 71 222 minecraft:gold_block" "testforblock -11 72 222 minecraft:emerald_block" "testforblock -13 71 224 minecraft:gold_block" "save-all"
+> testforblock -15 70 222 minecraft:gold_block
+Successfully found the block at -15,70,222.
+> testforblock -11 71 222 minecraft:gold_block
+Successfully found the block at -11,71,222.
+> testforblock -11 72 222 minecraft:emerald_block
+Successfully found the block at -11,72,222.
+> testforblock -13 71 224 minecraft:gold_block
+Successfully found the block at -13,71,224.
+> save-all
+Saving...Saved the world
