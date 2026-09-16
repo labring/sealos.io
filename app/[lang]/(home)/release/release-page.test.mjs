@@ -10,6 +10,9 @@ const timelineSource = readFileSync(
   join(routeDir, 'components', 'ReleasesTimeline.tsx'),
   'utf8',
 );
+const snapshot = JSON.parse(
+  readFileSync(join(routeDir, 'releases-snapshot.json'), 'utf8'),
+);
 const headerSource = readFileSync(
   join(root, 'new-components', 'Header.tsx'),
   'utf8',
@@ -36,7 +39,27 @@ test('release route is present under the shared home shell', () => {
   assert.equal((pageSource.match(/<h1\b/g) ?? []).length, 1);
 });
 
-test('release timeline fetches live releases from GitHub on the client', () => {
+test('release timeline server-renders the committed snapshot', () => {
+  assert.match(timelineSource, /releases-snapshot\.json/);
+  assert.match(
+    timelineSource,
+    /useState<DisplayRelease\[\]>\s*\(\s*initialReleases\s*\)/,
+  );
+  assert.doesNotMatch(timelineSource, /ReleaseSkeleton/);
+  assert.equal(
+    snapshot.length > 1,
+    true,
+    'snapshot must hold several releases',
+  );
+  assert.equal(snapshot[0].version, 'v2.0.14');
+  for (const entry of snapshot) {
+    for (const field of ['version', 'publishedAt', 'href', 'body']) {
+      assert.equal(typeof entry[field], 'string');
+    }
+  }
+});
+
+test('release timeline refreshes live from GitHub and keeps the snapshot on failure', () => {
   assert.match(timelineSource, /'use client'/);
   assert.match(
     timelineSource,
@@ -46,7 +69,9 @@ test('release timeline fetches live releases from GitHub on the client', () => {
   assert.match(timelineSource, /AbortController/);
   assert.match(timelineSource, /draft/);
   assert.match(timelineSource, /prerelease/);
-  assert.match(timelineSource, /aria-busy/);
+  // Silent fallback: on failure the snapshot stays and no notice is shown.
+  assert.doesNotMatch(timelineSource, /Live release updates are unavailable/);
+  assert.doesNotMatch(timelineSource, /isUsingFallback/);
 });
 
 test('release timeline renders release bodies as markdown', () => {
@@ -57,16 +82,18 @@ test('release timeline renders release bodies as markdown', () => {
   assert.match(timelineSource, /html_url/);
 });
 
-test('release timeline keeps a cached fallback for API failures', () => {
-  assert.match(timelineSource, /FALLBACK_RELEASES/);
-  assert.match(timelineSource, /v2\.0\.14/);
-  assert.match(timelineSource, /releases\/tag\/v2\.0\.14/);
-  assert.match(timelineSource, /### Added/);
-  assert.match(timelineSource, /### Changed/);
-  assert.match(timelineSource, /### Fixed/);
-  assert.match(timelineSource, /### Upgrade notes/);
-  // The fallback is silent: users are never shown an availability notice.
-  assert.doesNotMatch(timelineSource, /Live release updates are unavailable/);
+test('release snapshot can be regenerated via the refresh script', () => {
+  const packageJson = JSON.parse(
+    readFileSync(join(root, 'package.json'), 'utf8'),
+  );
+  assert.equal(
+    packageJson.scripts['releases:refresh'],
+    'node scripts/generate-release-snapshot.mjs',
+  );
+  assert.equal(
+    existsSync(join(root, 'scripts', 'generate-release-snapshot.mjs')),
+    true,
+  );
 });
 
 test('release page metadata follows the localized page contract', () => {

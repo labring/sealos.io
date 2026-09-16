@@ -45,7 +45,8 @@
     "validate:deployment": "node scripts/check-deployment-parity.js --validate-deployment",
     "deployment:locked-validation": "node scripts/check-deployment-parity.js --locked-validation",
     "generate-apps": "node scripts/generate-apps-api.js --refresh",
-    "generate-apps:clean": "node scripts/generate-apps-api.js --refresh --clean"
+    "generate-apps:clean": "node scripts/generate-apps-api.js --refresh --clean",
+    "releases:refresh": "node scripts/generate-release-snapshot.mjs"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^1.3.1",

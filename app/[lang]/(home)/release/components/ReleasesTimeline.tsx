@@ -4,13 +4,20 @@ import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { ArrowUpRight } from 'lucide-react';
+import releaseSnapshot from '../releases-snapshot.json';
 
 const GITHUB_RELEASES_URL =
   'https://api.github.com/repos/labring/brain/releases?per_page=30';
 
+type SnapshotRelease = {
+  version: string;
+  publishedAt: string;
+  href: string;
+  body: string;
+};
+
 type GithubRelease = {
   tag_name: string;
-  name: string | null;
   published_at: string;
   html_url: string;
   body: string | null;
@@ -25,33 +32,6 @@ type DisplayRelease = {
   body: string;
 };
 
-const FALLBACK_RELEASES: DisplayRelease[] = [
-  {
-    version: 'v2.0.14',
-    date: 'September 10, 2026',
-    href: 'https://github.com/labring/brain/releases/tag/v2.0.14',
-    body: [
-      '### Added',
-      "- Project Assistant can use a project's Template README to answer setup and configuration questions.",
-      '- Template resolution considers deployment sources and adopted instances, with a clear selection path when several templates are available.',
-      '- README fetching supports cancellation, time limits, and response-size limits.',
-      '',
-      '### Changed',
-      '- Chat guidance gives clearer context about Sealos capabilities, workspace context, and user intent.',
-      '- Langfuse traces are grouped by verified workspace namespace for easier investigation.',
-      '',
-      '### Fixed',
-      '- Managed deployment setup writes ownership labels atomically, preserves the runtime kubeconfig location, and derives region settings from the request kubeconfig.',
-      '- Repeated tool calls, retries, cancellation, and superseded operations follow consistent handling.',
-      '- New GitHub Deploy Devboxes once again receive LANGFUSE_* environment forwarding for Codex tracing.',
-      '',
-      '### Upgrade notes',
-      '- No database migrations or new operator environment variables are required.',
-      '- No breaking changes were identified in this release.',
-    ].join('\n'),
-  },
-];
-
 function formatReleaseDate(publishedAt: string): string {
   return new Date(publishedAt).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -61,14 +41,30 @@ function formatReleaseDate(publishedAt: string): string {
   });
 }
 
-function toDisplayRelease(release: GithubRelease): DisplayRelease {
+function toDisplayRelease(
+  release: SnapshotRelease | GithubRelease,
+): DisplayRelease {
+  if ('tag_name' in release) {
+    return {
+      version: release.tag_name,
+      date: formatReleaseDate(release.published_at),
+      href: release.html_url,
+      body: release.body ?? '',
+    };
+  }
+
   return {
-    version: release.tag_name,
-    date: formatReleaseDate(release.published_at),
-    href: release.html_url,
-    body: release.body ?? '',
+    version: release.version,
+    date: formatReleaseDate(release.publishedAt),
+    href: release.href,
+    body: release.body,
   };
 }
+
+// The committed snapshot is the initial render (full list, SEO-visible);
+// the browser-side refresh below replaces it with live data on success and
+// quietly keeps the snapshot when GitHub is rate-limited or unreachable.
+const initialReleases: DisplayRelease[] = releaseSnapshot.map(toDisplayRelease);
 
 function ReleaseCard({ release }: { release: DisplayRelease }) {
   return (
@@ -160,25 +156,8 @@ function ReleaseCard({ release }: { release: DisplayRelease }) {
   );
 }
 
-function ReleaseSkeleton() {
-  return (
-    <div className="border-l border-white/15 pl-6 sm:pl-10" aria-hidden="true">
-      <div className="mb-5 flex items-center gap-3">
-        <div className="h-7 w-28 animate-pulse rounded-full bg-white/10" />
-        <div className="h-4 w-32 animate-pulse rounded bg-white/10" />
-      </div>
-      <div className="mb-10 space-y-3 rounded-xl border border-white/10 bg-white/[0.035] p-6">
-        <div className="h-4 w-40 animate-pulse rounded bg-white/10" />
-        <div className="h-4 w-full animate-pulse rounded bg-white/10" />
-        <div className="h-4 w-5/6 animate-pulse rounded bg-white/10" />
-        <div className="h-4 w-2/3 animate-pulse rounded bg-white/10" />
-      </div>
-    </div>
-  );
-}
-
 export default function ReleasesTimeline() {
-  const [releases, setReleases] = useState<DisplayRelease[] | null>(null);
+  const [releases, setReleases] = useState<DisplayRelease[]>(initialReleases);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -197,14 +176,12 @@ export default function ReleasesTimeline() {
           .filter((release) => !release.draft && !release.prerelease)
           .map(toDisplayRelease);
 
-        if (published.length === 0) {
-          throw new Error('No published releases returned');
+        if (published.length > 0) {
+          setReleases(published);
         }
-
-        setReleases(published);
       })
       .catch(() => {
-        setReleases(FALLBACK_RELEASES);
+        // Keep the committed snapshot; the page never shows a partial list.
       });
 
     return () => controller.abort();
@@ -212,18 +189,9 @@ export default function ReleasesTimeline() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <div aria-busy={releases === null}>
-        {releases === null ? (
-          <>
-            <ReleaseSkeleton />
-            <ReleaseSkeleton />
-          </>
-        ) : (
-          releases.map((release) => (
-            <ReleaseCard key={release.version} release={release} />
-          ))
-        )}
-      </div>
+      {releases.map((release) => (
+        <ReleaseCard key={release.version} release={release} />
+      ))}
     </div>
   );
 }
