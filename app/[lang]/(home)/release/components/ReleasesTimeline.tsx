@@ -3,11 +3,10 @@
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { ArrowUpRight, RefreshCw } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 const GITHUB_RELEASES_URL =
   'https://api.github.com/repos/labring/brain/releases?per_page=30';
-const GITHUB_RELEASES_PAGE_URL = 'https://github.com/labring/brain/releases';
 
 type GithubRelease = {
   tag_name: string;
@@ -180,7 +179,6 @@ function ReleaseSkeleton() {
 
 export default function ReleasesTimeline() {
   const [releases, setReleases] = useState<DisplayRelease[] | null>(null);
-  const [isUsingFallback, setIsUsingFallback] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -207,7 +205,6 @@ export default function ReleasesTimeline() {
       })
       .catch(() => {
         setReleases(FALLBACK_RELEASES);
-        setIsUsingFallback(true);
       });
 
     return () => controller.abort();
@@ -215,27 +212,6 @@ export default function ReleasesTimeline() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      {isUsingFallback && (
-        <p className="mb-6 flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.035] p-4 text-sm text-zinc-400">
-          <RefreshCw
-            size={16}
-            className="shrink-0 text-zinc-500"
-            aria-hidden="true"
-          />
-          Live release updates are unavailable right now. Showing the latest
-          cached release — the full history lives on{' '}
-          <a
-            href={GITHUB_RELEASES_PAGE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-blue-200 underline-offset-4 hover:underline"
-          >
-            GitHub
-          </a>
-          .
-        </p>
-      )}
-
       <div aria-busy={releases === null}>
         {releases === null ? (
           <>

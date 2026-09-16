@@ -65,6 +65,8 @@ test('release timeline keeps a cached fallback for API failures', () => {
   assert.match(timelineSource, /### Changed/);
   assert.match(timelineSource, /### Fixed/);
   assert.match(timelineSource, /### Upgrade notes/);
+  // The fallback is silent: users are never shown an availability notice.
+  assert.doesNotMatch(timelineSource, /Live release updates are unavailable/);
 });
 
 test('release page metadata follows the localized page contract', () => {
