@@ -134,10 +134,14 @@ The bundled gateway serves the client page from port 5200, and on this test LAN
 that transfer arrives truncated. `curl http://192.168.0.228:5200/classes.js`
 returned 6,445,772 bytes in 11.96 s at 00:51 and 6,151,052 bytes in 11.43 s at
 01:20 on 2026-09-18, against a complete `classes.js` of 8,698,873 bytes. The
-same file over the same LAN from a plain `python3 -m http.server` on port 5299
-completed at the full 8,698,873 bytes in 16.69 s; both fetches cross the same
-network path, so the difference sits in the serving process. The captures
-therefore ran against a copy of the client assets served from
+response announces `content-length: 8698873` and `server: EaglerXBungee/1.3.6`,
+then closes the connection around 12 seconds with 6,151,052 to 6,741,720 bytes
+delivered over three probes, so the shortfall is the connection ending early
+rather than a short file. The same file over the same LAN from a plain
+`python3 -m http.server` on port 5299 completed at the full 8,698,873 bytes in
+16.69 s; both fetches cross the same network path, so the difference sits in
+the serving process. The captures therefore ran against a copy of the client
+assets served from
 `http://192.168.0.228:5299/`, with the same game server on 5200 and identical
 client code. The reader-facing symptom sits in the first-join troubleshooting
 table of the article.
