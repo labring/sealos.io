@@ -146,6 +146,18 @@ One pinned release archive that supplies the Eaglercraft Gateway, the Game
 Server, the browser client, and the Server Management Panel together.
 _Avoid_: Docker image, server files
 
+**Compose Deployment Path**:
+The Self-Hosted Eaglercraft Deployment where the reader runs the published
+Runtime Bundle image under Docker Compose with one bind-mounted data directory
+for the world, plugins, and server config.
+_Avoid_: Docker deployment, containerized hosting
+
+**Scenario Deployment Assets**:
+The runnable per-scenario files (compose files, environment templates,
+Caddyfile examples, ADRs) that live next to the scenario they serve in the
+upstream repository instead of inside the published article.
+_Avoid_: Embedded configs, copied snippets
+
 ## Website Attribution Language
 
 **Attribution Handoff (归因交接)**:

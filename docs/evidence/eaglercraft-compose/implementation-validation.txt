@@ -1,0 +1,41 @@
+Implementation validation evidence - Eaglercraft Docker Compose guide (C08)
+Date: 2026-09-17
+Worktree: /Users/longnv/.codex/worktrees/bf75/sealos.io (branch feat/350-eaglercraft-compose, base 9dc8e47)
+
+## Toolchain
+node --version  -> v20.20.0 per .nvmrc (a first validation round ran on
+v24.13.0 with identical results); pnpm --version -> 10.28.2
+
+## TypeScript check
+Command: pnpm lint
+Result: exit 0 (rm -f tsconfig.tsbuildinfo && tsc --noEmit, no output = success)
+
+## Guide conformance tests
+Command: node --test scripts/eaglercraft-compose-guide.test.mjs
+Result: tests 2, pass 2, fail 0 (duration_ms 37.633792)
+Regression: node --test equivalents for C02/C07 guides stay green
+  pnpm test:eaglercraft-vps-guide    -> 2 pass, 0 fail
+  pnpm test:eaglercraft-hosting-cost -> 2 pass, 0 fail
+
+## Production build (static export)
+Command: pnpm build (final rerun 2026-09-17 16:40-16:47 local time)
+Result: exit 0; chain: verify:ai-faq-index PASS, next build "Compiled
+successfully", static page generation 6243/6243, root-locale normalization,
+verify:ai-faq-routes "Result: PASS"; no error lines.
+Note: the recorded run is the rerun after the spec-review fixes (cold-copy
+backup procedure, Cloudflare Tunnel section, Sealos comparison table, site
+ADR 0006). An earlier attempt failed with ENOSPC when the host disk filled;
+the failure left the site files untouched.
+Note: objc GNotificationCenter duplicate-class warning from sharp/canvas dylibs
+is pre-existing local noise, build completed successfully.
+
+## Generated page verification
+out/blog/eaglercraft-server-docker/index.html (generated 16:10:41 2026-09-17):
+  title:     Run an Eaglercraft Server with Docker Compose (2026 Guide) | Sealos Blog
+  canonical: https://sealos.io/blog/eaglercraft-server-docker/
+
+## Live drills source
+All behavioral claims in the guide come from drills on VM 192.168.0.228
+recorded in docs/eaglercraft-compose-verification.md; raw shell evidence in
+docs/evidence/eaglercraft-compose/*.txt (compose config, files, container
+status, image digest, recreation + backup-protection log).

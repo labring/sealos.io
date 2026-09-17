@@ -1,0 +1,20 @@
+=== recreation test 2026-09-17T15:44:40+08:00 ===
+save-all before down: 2026-09-17T15:44:15+08:00 -> {success: true, response: Saving...Saved the world}
+docker compose down at 15:44:40, up -d same second; container healthy at 15:45:27
+LoginSecurity.db retains ComposeTester bcrypt hash after recreation (verified via strings extraction)
+browser rejoin after recreation: prompt changed to /login, /login <password> -> Successfully logged in.
+
+=== backup drill ===
+save-all: {success: true, response: Saving...Saved the world} at 15:49:00
+35 world/account files checksummed; tar czf eaglercraft-data-20260917.tar.gz data -> 275M
+
+=== restore drill ===
+down -> mv data data.old-drill -> mkdir data -> tar xzf backup
+checksums-after vs checksums-before: CHECKSUM-MATCH (35 files)
+up -d -> healthy; client HTTP 200; panel HTTP 200; RCON list -> There are 0/20 players online
+
+=== incomplete dir protection ===
+partial dir (README.txt only) -> start_server.sh exit 1, loop msg:
+  [start] ERROR: mounted app dir is non-empty and incomplete: /eaglerX-1.8-server
+  [start]        use an empty directory or restore a complete application directory
+world+plugins-only restore also rejected with same message

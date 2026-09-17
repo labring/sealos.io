@@ -13,6 +13,8 @@ KEY_URLS=(
   "/blog/eaglercraft-server/"
   "/blog/eaglercraft-server-ubuntu-vps"
   "/blog/eaglercraft-server-ubuntu-vps/"
+  "/blog/eaglercraft-server-docker"
+  "/blog/eaglercraft-server-docker/"
   "/blog/claude-code-on-phone"
   "/blog/claude-code-on-phone/"
 )

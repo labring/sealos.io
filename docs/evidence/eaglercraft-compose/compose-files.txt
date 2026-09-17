@@ -1,0 +1,44 @@
+=== base compose.yaml ===
+name: eaglercraft
+
+services:
+  eaglercraft:
+    image: ghcr.io/yangchuansheng/eaglerx1.8server:2.2.7
+    # platform: linux/amd64
+    stop_grace_period: 45s
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - '5200:5200'
+      - '127.0.0.1:5201:5201'
+    volumes:
+      - ./data:/eaglerX-1.8-server
+=== overlay compose.caddy.yaml ===
+services:
+  eaglercraft:
+    environment:
+      PUBLIC_GAME_URL: https://play.example.com
+  caddy:
+    image: caddy:2.10.2
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:
+=== .env.example ===
+# Paper game version: 1.8 (Paper 1.8.8) or 1.12 (Paper 1.12.2)
+MINECRAFT_VERSION=1.8
+
+# Set a password to enable RCON, the management panel, and save-all backups.
+RCON_PASSWORD=change-me
+
+# Base path on the host that holds the world, plugins, and server config.
+EAGLECRAFT_DATA_DIR=./data
