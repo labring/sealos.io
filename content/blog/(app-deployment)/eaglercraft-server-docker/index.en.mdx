@@ -101,7 +101,7 @@ services:
       - ./data:/eaglerX-1.8-server
 ```
 
-Three lines carry the whole persistence story. `./data:/eaglerX-1.8-server` bind-mounts the host directory so the world survives container removal. `stop_grace_period: 45s` gives Paper time to save chunks when Compose stops the container. `127.0.0.1:5201:5201` keeps the management panel on the loopback interface, which matters because the panel holds the RCON password behind a plain HTTP page.
+`./data:/eaglerX-1.8-server` bind-mounts the host directory so the world survives container removal. `stop_grace_period: 45s` gives Paper time to save chunks before Compose terminates the process. `127.0.0.1:5201:5201` keeps the management panel on the loopback interface, shielding the plain HTTP password from the local network.
 
 `MINECRAFT_VERSION=1.8` in `.env` selects Paper 1.8.8; setting `1.12` selects Paper 1.12.2. A missing version directory makes the container exit with a visible error instead of initializing a half-state.
 
@@ -131,7 +131,7 @@ curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:5200/
 curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:5201/
 ```
 
-The gateway answers `200` on `5200` from any interface, and the panel answers `200` on `5201` from the host itself. From another machine, `5201` refuses connections; that is the loopback mapping doing its job.
+The gateway answers `200` on `5200` from any interface, and the panel answers `200` on `5201` from the host itself. From another machine, `5201` refuses connections as intended.
 
 ## Register and Join From a Browser
 
@@ -139,7 +139,7 @@ Open `http://<host-ip>:5200/` on your LAN, press a key when the client asks for 
 
 Registration expects a command within 30 seconds of connecting. Press **T**, enter `/register <player-password>`, and press Enter. The chat confirms with `Successfully registered, you are now logged in.` Later visits use `/login <player-password>` with the same name and password.
 
-The test run joined as `ComposeTester`, registered with `/register`, then logged back in after the recreation test below with the same password. The bundled LoginSecurity plugin stores accounts in a SQLite database under `data/server-data/plugins-1.8/enabled/LoginSecurity/`, which is why the account survives container recreation exactly like the world does.
+The test run joined as `ComposeTester`, registered with `/register`, then logged back in after the recreation test below with the same password. The bundled LoginSecurity plugin stores accounts in a SQLite database under `data/server-data/plugins-1.8/enabled/LoginSecurity/`, keeping player accounts intact across container recreation alongside the world.
 
 Two harmless log warnings appear on every start from bundled plugins: dynmap raises `NoClassDefFoundError: org/bukkit/attribute/Attribute` on Paper 1.8.8, and SimpleTpa runs an update check. The server operates normally despite both.
 
@@ -168,7 +168,7 @@ docker compose ps
 
 In the recorded run, `down` removed the container and the `eaglercraft_default` network at 15:44:40, `up -d` brought the stack back, and the container reported `healthy` about 45 seconds later. The data directory kept its 382 MB, the LoginSecurity database kept the `ComposeTester` bcrypt hash, and the browser rejoined with `Please log in using /login <password>`. Logging in with the original password returned `Successfully logged in.`
 
-`docker compose down` with this file removes the container and network; the bind mount is a host directory, so it stays.
+Because the bind mount is a host directory, `docker compose down` removes only the container and network.
 
 ## Back Up the Whole Data Directory
 
@@ -184,7 +184,7 @@ curl -s -X POST http://127.0.0.1:5201/api/rcon \
   -d '{"command":"save-all","token":"'"$TOKEN"'"}'
 ```
 
-The response reads `Saving...Saved the world`. Then stop the stack and archive cold, bringing it back afterwards:
+The response reads `Saving...Saved the world`. Stop the stack, archive cold, and start it again:
 
 ```sh
 docker compose stop
@@ -223,7 +223,7 @@ docker compose up -d
 
 The recorded run reported `CHECKSUM-MATCH` across all 35 tracked files, and the stack returned to `healthy` with the client page and panel answering `200` again. RCON `list` answered `There are 0/20 players online:` on the restored data.
 
-For moving a world between two complete installs, archive `data/server-1.8/world` separately. The recorded secondary archive measured 3.2 MB for a fresh world. Restoring a partial tree into a non-empty directory is where the runtime protects you, as the next section shows.
+For moving a world between two complete installs, archive `data/server-1.8/world` separately. The recorded secondary archive measured 3.2 MB for a fresh world. Restoring a partial tree into a non-empty directory triggers the safety guard described next.
 
 ## Learn the Incomplete-Directory Guard
 
@@ -234,9 +234,9 @@ The image's entrypoint refuses to start on a data directory that is non-empty an
 [start]        use an empty directory or restore a complete application directory
 ```
 
-Compose then restarts the container in a loop while the message repeats in `docker compose logs`. The guard exists so a partial restore can never masquerade as a healthy server and silently overwrite your real data. The recovery is always the same: stop the stack, empty the directory or restore a complete backup, and start again.
+Compose restarts the container in a loop while the message repeats in `docker compose logs`. The guard ensures a partial restore never masquerades as a healthy server or silently overwrites real data. Recovery is straightforward: stop the stack, empty the directory or restore a complete backup, and start again.
 
-This guard also answers a quiet worry about first starts: when the directory is empty, the entrypoint initializes it from the image; when the directory holds a complete initialized tree, it starts as-is; anything in between fails loudly.
+First starts follow a clear rule: empty directories initialize from the image, complete trees start as-is, and partial directories fail loudly.
 
 ## Publish with the Caddy Overlay
 
