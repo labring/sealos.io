@@ -96,6 +96,16 @@ test('Docker Compose guide carries the verified deployment path and boundaries',
   assert.ok(!flat.includes('ComposeTest2026'));
   assert.ok(!flat.includes('eagler-rcon-2026'));
 
+  // Every screenshot embed ships next to the article with descriptive alt text.
+  const images = [
+    ...body.matchAll(/!\[([^\]]+)\]\((\.\/images\/[^)]+)\)/g),
+  ].map(([, alt, relative]) => ({ alt, relative }));
+  assert.equal(images.length, 6, 'article embeds its screenshots');
+  for (const { alt, relative } of images) {
+    assert.ok(alt.trim().length > 20, `${relative} has descriptive alt text`);
+    assert.ok(existsSync(new URL(relative, articlePath)), `${relative} exists`);
+  }
+
   // Unverified surfaces stay labelled as such.
   for (const text of [
     'Public DNS resolution for a real hostname',

@@ -137,7 +137,11 @@ The gateway answers `200` on `5200` from any interface, and the panel answers `2
 
 Open `http://<host-ip>:5200/` on your LAN, press a key when the client asks for input, and pick a name of 3 to 16 characters in **Edit Profile**. The preconfigured server waits in **Multiplayer**; select the entry and join.
 
+![Eaglercraft Multiplayer server list showing the preconfigured entry, the An EaglercraftX server message of the day, and 0 of 60 slots in use.](./images/server-list.webp)
+
 Registration expects a command within 30 seconds of connecting. Press **T**, enter `/register <player-password>`, and press Enter. The chat confirms with `Successfully registered, you are now logged in.` Later visits use `/login <player-password>` with the same name and password.
+
+![In-game chat in the Eaglercraft client showing the Please register using /register password prompt above the Successfully registered, you are now logged in confirmation.](./images/register-success.webp)
 
 The test run joined as `ComposeTester`, registered with `/register`, then logged back in after the recreation test below with the same password. The bundled LoginSecurity plugin stores accounts in a SQLite database under `data/server-data/plugins-1.8/enabled/LoginSecurity/`, keeping player accounts intact across container recreation alongside the world.
 
@@ -166,7 +170,17 @@ docker compose up -d
 docker compose ps
 ```
 
-In the recorded run, `down` removed the container and the `eaglercraft_default` network at 15:44:40, `up -d` brought the stack back, and the container reported `healthy` about 45 seconds later. The data directory kept its 382 MB, the LoginSecurity database kept the `ComposeTester` bcrypt hash, and the browser rejoined with `Please log in using /login <password>`. Logging in with the original password returned `Successfully logged in.`
+In the recorded run, `down` removed the container and the `eaglercraft_default` network at 15:44:40, and `up -d` brought the stack back with the container reporting `healthy` about 45 seconds later. The open client session detected the removal immediately.
+
+![Eaglercraft client showing the Connection Lost screen with the Server closed message after docker compose down removed the container.](./images/server-closed.webp)
+
+The data directory kept its 382 MB and the LoginSecurity database kept the `ComposeTester` bcrypt hash, so the browser rejoined with `Please log in using /login <password>`.
+
+![Rejoined Eaglercraft session showing the Please log in using /login password prompt after the container was recreated against the same data directory.](./images/login-prompt.webp)
+
+Logging in with the original password returned `Successfully logged in.`
+
+![In-game chat confirming Successfully logged in after the player logged back in to the recreated Eaglercraft container.](./images/login-success.webp)
 
 Because the bind mount is a host directory, `docker compose down` removes only the container and network.
 
@@ -305,12 +319,15 @@ Run `cloudflared tunnel login`, create a tunnel, and copy its token into the com
 
 | What you see | Next check |
 | ------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| Client page loads, the game never starts | The client bundle can arrive truncated on a slow link. Download `http://<host-ip>:5200/classes.js` and confirm the transfer reaches 8,699,873 bytes on image 2.2.7, then retry from a faster link or through the Caddy overlay. |
 | Page loads, game connection fails | With the overlay, confirm `header_up X-Real-IP {remote_host}` is in the Caddyfile and restart Caddy. |
 | `Login timed out!` after 30 seconds | Reconnect and submit `/register` or `/login` within the 30 second window. |
 | Container exits: `non-empty and incomplete` | The data directory is partial; restore a complete backup or empty it for a fresh initialize. |
 | Panel unreachable from another machine | Expected with the base file; use an SSH tunnel: `ssh -N -L 5201:127.0.0.1:5201 user@your-host`. |
 | `port is already allocated` on start | Another stack holds 5200/5201 or 80/443; stop it or change the published ports. |
 | Save never returns | Use plain `save-all`; avoid `save-all flush` on Java 21 with Paper 1.8.8. |
+
+![Eaglercraft browser client displaying the Login timed out error screen after the registration window expires.](./images/login-timeout.webp)
 
 ## What This Guide Did Not Test
 

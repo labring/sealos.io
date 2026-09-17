@@ -39,3 +39,28 @@ All behavioral claims in the guide come from drills on VM 192.168.0.228
 recorded in docs/eaglercraft-compose-verification.md; raw shell evidence in
 docs/evidence/eaglercraft-compose/*.txt (compose config, files, container
 status, image digest, recreation + backup-protection log).
+
+## Screenshot round (2026-09-18)
+
+Guide conformance tests: node --test scripts/eaglercraft-compose-guide.test.mjs
+-> tests 2, pass 2, fail 0. The suite now also asserts six image embeds with
+descriptive alt text and a matching image file next to the article.
+
+TypeScript check: pnpm lint -> exit 0.
+
+Production build (static export): pnpm build -> exit 0, next build "Compiled
+successfully", verify:ai-faq-routes "Result: PASS" (checked at
+2026-09-17T17:26:43Z). Export check on
+out/blog/eaglercraft-server-docker/index.html:
+
+  server-list      -> /_next/static/media/server-list.b8fc8b95.webp
+  register-success -> /_next/static/media/register-success.1165086c.webp
+  server-closed    -> /_next/static/media/server-closed.3c93f94b.webp
+  login-prompt     -> /_next/static/media/login-prompt.de75d40d.webp
+  login-success    -> /_next/static/media/login-success.e078a6ec.webp
+  login-timeout    -> /_next/static/media/login-timeout.f7e8c8f0.webp
+
+Every referenced file is present in the export.
+
+The captures, the recreation timings, and the capture path are recorded in
+docs/eaglercraft-compose-verification.md under "Browser screenshot captures".

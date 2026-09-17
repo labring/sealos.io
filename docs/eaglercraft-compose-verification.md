@@ -103,6 +103,45 @@ The browser rejoined and the chat prompt changed to
 returned `Successfully logged in.` Container status and image digests:
 `docs/evidence/eaglercraft-compose/container-status.txt` and `image.txt`.
 
+## Browser screenshot captures
+
+The captures behind the article images were taken on 2026-09-18 from the test
+machine browser at 1280 by 720, following the C07 convention of keeping the
+real address bar and UI. The encoded copies live in
+`docs/evidence/eaglercraft-compose/` and are embedded by the article:
+
+| Evidence file | What the capture shows |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| `server-list.webp` | The Multiplayer list with the preconfigured entry, the `An EaglercraftX server` message of the day, and a `0/60` player count. |
+| `register-success.webp` | `Please register using /register <password>` above the `Successfully registered, you are now logged in.` confirmation for `ComposeTester`. |
+| `server-closed.webp` | The open client session showing `Connection Lost` and `Server closed` while `docker compose down` removed the container. |
+| `login-prompt.webp` | The rejoined session showing `Please log in using /login <password>` against the same data directory. |
+| `login-success.webp` | The chat confirming `Successfully logged in.` after the recreation. |
+| `login-timeout.webp` | The `Login timed out!` screen after a registration attempt passed the 30 second window. |
+
+The captures carry the server chat prompts and the two success lines alone.
+The RCON password and the account password appear in no captured or published
+material (Testing Decision 11).
+
+The recreation captures come from a repeat of the drill on 2026-09-18:
+`docker compose down` completed at 01:10:27, `docker compose up -d` started the
+container at 01:10:43, and the health check reported `healthy` at 01:11:04, 21
+seconds after start. The article keeps the 15:44 wording of the first run.
+
+### Capture path
+
+The bundled gateway serves the client page from port 5200, and on this test LAN
+that transfer arrives truncated. `curl http://192.168.0.228:5200/classes.js`
+returned 6,445,772 bytes in 11.96 s at 00:51 and 6,151,052 bytes in 11.43 s at
+01:20 on 2026-09-18, against a complete `classes.js` of 8,698,873 bytes. The
+same file over the same LAN from a plain `python3 -m http.server` on port 5299
+completed at the full 8,698,873 bytes in 16.69 s; both fetches cross the same
+network path, so the difference sits in the serving process. The captures
+therefore ran against a copy of the client assets served from
+`http://192.168.0.228:5299/`, with the same game server on 5200 and identical
+client code. The reader-facing symptom sits in the first-join troubleshooting
+table of the article.
+
 ## Backup and restore drill
 
 The backup step saved the world through the panel API
@@ -180,6 +219,9 @@ Recorded after the article and the C02 edit landed on the branch, under Node
 - `node --test scripts/eaglercraft-compose-guide.test.mjs` passed its tests,
   covering the section list, the recorded commands, and the unverified-scope
   boundary.
+  The suite also asserts the six screenshot embeds, their alt text, and the
+  image files next to the article; the screenshot round reruns are appended to
+  `docs/evidence/eaglercraft-compose/implementation-validation.txt`.
 
 ### Cold-copy backup drill (spec Decision 12)
 
