@@ -33,6 +33,8 @@ yarn-error.log*
 /openspec
 /docs/*
 !/docs/adr/
+!/docs/evidence/
+!/docs/eaglercraft-compose-verification.md
 !/docs/tutorial-detail-ui-contract.md
 !/docs/react-tutorial-verification.md
 /CLAUDE.md
