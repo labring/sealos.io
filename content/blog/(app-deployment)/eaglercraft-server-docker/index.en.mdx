@@ -4,7 +4,8 @@ seoTitle: 'Run an Eaglercraft Server with Docker Compose (2026 Guide)'
 imageTitle: 'Eaglercraft under Docker Compose'
 description: 'Deploy the EaglercraftX 1.8 server image with Docker Compose, keep the world on a bind mount, add a Caddy overlay for HTTPS, and rehearse a full backup and restore drill.'
 date: 2026-09-17
-tags: ['eaglercraft', 'minecraft', 'docker-compose', 'caddy', 'backups', 'Sealos']
+tags:
+  ['eaglercraft', 'minecraft', 'docker-compose', 'caddy', 'backups', 'Sealos']
 authors: ['default']
 faq:
   - question: 'Which versions does this walkthrough use?'
@@ -317,15 +318,15 @@ Run `cloudflared tunnel login`, create a tunnel, and copy its token into the com
 
 ## Troubleshoot the First Join
 
-| What you see | Next check |
-| ------------------------------------ | -------------------------------------------------------------------------------------------------------- |
-| Client page loads, the game never starts | The client bundle can arrive truncated on a slow link. Download `http://<host-ip>:5200/classes.js` and confirm the transfer reaches 8,699,873 bytes on image 2.2.7, then retry from a faster link or through the Caddy overlay. |
-| Page loads, game connection fails | With the overlay, confirm `header_up X-Real-IP {remote_host}` is in the Caddyfile and restart Caddy. |
-| `Login timed out!` after 30 seconds | Reconnect and submit `/register` or `/login` within the 30 second window. |
-| Container exits: `non-empty and incomplete` | The data directory is partial; restore a complete backup or empty it for a fresh initialize. |
-| Panel unreachable from another machine | Expected with the base file; use an SSH tunnel: `ssh -N -L 5201:127.0.0.1:5201 user@your-host`. |
-| `port is already allocated` on start | Another stack holds 5200/5201 or 80/443; stop it or change the published ports. |
-| Save never returns | Use plain `save-all`; avoid `save-all flush` on Java 21 with Paper 1.8.8. |
+| What you see                                | Next check                                                                                                                                                                                                                      |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Client page loads, the game never starts    | The client bundle can arrive truncated on a slow link. Download `http://<host-ip>:5200/classes.js` and confirm the transfer reaches 8,699,873 bytes on image 2.2.7, then retry from a faster link or through the Caddy overlay. |
+| Page loads, game connection fails           | With the overlay, confirm `header_up X-Real-IP {remote_host}` is in the Caddyfile and restart Caddy.                                                                                                                            |
+| `Login timed out!` after 30 seconds         | Reconnect and submit `/register` or `/login` within the 30 second window.                                                                                                                                                       |
+| Container exits: `non-empty and incomplete` | The data directory is partial; restore a complete backup or empty it for a fresh initialize.                                                                                                                                    |
+| Panel unreachable from another machine      | Expected with the base file; use an SSH tunnel: `ssh -N -L 5201:127.0.0.1:5201 user@your-host`.                                                                                                                                 |
+| `port is already allocated` on start        | Another stack holds 5200/5201 or 80/443; stop it or change the published ports.                                                                                                                                                 |
+| Save never returns                          | Use plain `save-all`; avoid `save-all flush` on Java 21 with Paper 1.8.8.                                                                                                                                                       |
 
 ![Eaglercraft browser client displaying the Login timed out error screen after the registration window expires.](./images/login-timeout.webp)
 
@@ -345,13 +346,14 @@ This guide covers first start, browser join and registration, container recreati
 
 The steps above hand you a Compose host, a persistent data directory, and a rehearsed backup path. Running them yourself suits a server you already administer and want to keep under `docker compose`.
 
-| Concern | Local Compose host | Sealos template |
-| --- | --- | --- |
-| Deployment | Read the Compose files, prepare the host, `docker compose up -d` | Pick the Eaglercraft template, fill the form, deploy |
-| Updates | Pull the new image tag and recreate against the same data directory | Redeploy the template app; the volume persists |
-| Backups | Your own save, stop, and archive schedule on the bind mount | Persistent volume; archive its contents with the platform tools |
-| Public entry | Caddy overlay with a DNS record, or a Cloudflare Tunnel | Managed HTTPS ingress on the template URL |
-| Management panel | Loopback-only port reached through an SSH tunnel | Built into the template console |
+| Concern          | Local Compose host                                                  | Sealos template                                                 |
+| ---------------- | ------------------------------------------------------------------- | --------------------------------------------------------------- |
+| Deployment       | Read the Compose files, prepare the host, `docker compose up -d`    | Pick the Eaglercraft template, fill the form, deploy            |
+| Updates          | Pull the new image tag and recreate against the same data directory | Redeploy the template app; the volume persists                  |
+| Backups          | Your own save, stop, and archive schedule on the bind mount         | Persistent volume; archive its contents with the platform tools |
+| Public entry     | Caddy overlay with a DNS record, or a Cloudflare Tunnel             | Managed HTTPS ingress on the template URL                       |
+| Management panel | Loopback-only port reached through an SSH tunnel                    | Built into the template console                                 |
+
 The [Eaglercraft template on Sealos](/products/app-store/eaglercraft-server/) packages the same client, gateway, Paper, and admin console behind one deployment form, with a persistent volume for the world and no Docker host to maintain. The [setup walkthrough](/blog/eaglercraft-server/) covers that path, the [Ubuntu VPS guide](/blog/eaglercraft-server-ubuntu-vps/) covers the systemd path, and [Eaglercraft Hosting Costs](/blog/eaglercraft-hosting-cost/) compares what each path costs to run.
 
 <DeployButton

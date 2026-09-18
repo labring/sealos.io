@@ -110,14 +110,14 @@ machine browser at 1280 by 720, following the C07 convention of keeping the
 real address bar and UI. The encoded copies live in
 `docs/evidence/eaglercraft-compose/` and are embedded by the article:
 
-| Evidence file | What the capture shows |
-| ------------------------------------ | -------------------------------------------------------------------------------------------------------- |
-| `server-list.webp` | The Multiplayer list with the preconfigured entry, the `An EaglercraftX server` message of the day, and a `0/60` player count. |
+| Evidence file           | What the capture shows                                                                                                                     |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `server-list.webp`      | The Multiplayer list with the preconfigured entry, the `An EaglercraftX server` message of the day, and a `0/60` player count.             |
 | `register-success.webp` | `Please register using /register <password>` above the `Successfully registered, you are now logged in.` confirmation for `ComposeTester`. |
-| `server-closed.webp` | The open client session showing `Connection Lost` and `Server closed` while `docker compose down` removed the container. |
-| `login-prompt.webp` | The rejoined session showing `Please log in using /login <password>` against the same data directory. |
-| `login-success.webp` | The chat confirming `Successfully logged in.` after the recreation. |
-| `login-timeout.webp` | The `Login timed out!` screen after a registration attempt passed the 30 second window. |
+| `server-closed.webp`    | The open client session showing `Connection Lost` and `Server closed` while `docker compose down` removed the container.                   |
+| `login-prompt.webp`     | The rejoined session showing `Please log in using /login <password>` against the same data directory.                                      |
+| `login-success.webp`    | The chat confirming `Successfully logged in.` after the recreation.                                                                        |
+| `login-timeout.webp`    | The `Login timed out!` screen after a registration attempt passed the 30 second window.                                                    |
 
 The captures carry the server chat prompts and the two success lines alone.
 The RCON password and the account password appear in no captured or published
@@ -171,8 +171,8 @@ Two partial-restore attempts confirmed the entrypoint guard:
 
 1. A data directory holding one stray file: the container exited with
    `[start] ERROR: mounted app dir is non-empty and incomplete:
-   /eaglerX-1.8-server` and the advice line `use an empty directory or restore
-   a complete application directory`, then restarted in a loop.
+/eaglerX-1.8-server` and the advice line `use an empty directory or restore
+a complete application directory`, then restarted in a loop.
 2. A directory holding only `server-1.8/world` plus the LoginSecurity plugin:
    the same message and exit.
 
@@ -234,7 +234,7 @@ re-executed per the spec: save-all, stop the stack, take both cold copies,
 and restart. Recorded on 2026-09-17:
 
 - 16:26:28 save-all response `{"success": true, "response":
-  "Saving...Saved the world", "auth_kind": "token"}` from the panel API.
+"Saving...Saved the world", "auth_kind": "token"}` from the panel API.
 - `docker compose stop` completed at 16:26:42.
 - Cold copy 1: full `data` tree to
   `/root/eaglercraft-full-cold-202609171626.tar.gz`, 275 MB, sha256
