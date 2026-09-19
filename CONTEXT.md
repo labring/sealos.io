@@ -121,6 +121,21 @@ A hosting path where the reader runs the runtime on a machine they administer,
 keeping control of the public entry point, stored worlds, and upgrades.
 _Avoid_: DIY hosting, manual mode
 
+**Browser Play Link**:
+The HTTPS address that opens the hosted Client Website in a browser and starts
+the player entry flow.
+_Avoid_: game server address, admin URL
+
+**WebSocket Server Address**:
+The WSS address entered into an existing compatible Eaglercraft client's
+Multiplayer field to reach the Eaglercraft Gateway.
+_Avoid_: browser link, HTTPS page URL
+
+**Client Website**:
+The web page and browser assets served to players before their Eaglercraft
+session connects through the Gateway.
+_Avoid_: frontend server, game server
+
 **Eaglercraft Gateway**:
 The process that serves the browser client page and terminates Eaglercraft
 WebSocket connections, forwarding player sessions to the Game Server.
@@ -130,6 +145,11 @@ _Avoid_: Proxy, backend
 The process that owns the world and the game rules, reachable only through the
 Eaglercraft Gateway.
 _Avoid_: Backend, Java server
+
+**Persistent World**:
+The durable storage that keeps the Game Server's world, player, plugin, and
+server data across ordinary restarts and supports a separate recovery plan.
+_Avoid_: browser world, backup copy
 
 **Server Management Panel**:
 The local management interface shipped with the runtime for readiness, players,

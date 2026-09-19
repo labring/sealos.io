@@ -17,6 +17,7 @@
     "test:eaglercraft-hosting-cost": "node --test scripts/eaglercraft-hosting-cost.test.mjs",
     "test:eaglercraft-vps-guide": "node --test scripts/eaglercraft-vps-guide.test.mjs",
     "test:eaglercraft-compose-guide": "node --test scripts/eaglercraft-compose-guide.test.mjs",
+    "test:eaglercraft-client-server-gateway": "node --test scripts/eaglercraft-client-server-gateway.test.mjs",
     "build": "pnpm verify:ai-faq-index && next build && node scripts/normalize-root-locale.js && pnpm verify:ai-faq-routes",
     "validate-tutorials": "node scripts/validate-tutorials.mjs",
     "build:analyze": "pnpm verify:ai-faq-index && ANALYZE=true next build && node scripts/normalize-root-locale.js && pnpm verify:ai-faq-routes",
