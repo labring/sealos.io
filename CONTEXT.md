@@ -121,6 +121,11 @@ A hosting path where the reader runs the runtime on a machine they administer,
 keeping control of the public entry point, stored worlds, and upgrades.
 _Avoid_: DIY hosting, manual mode
 
+**Browser Client**:
+The Eaglercraft game running in a player's browser, connecting to the Game
+Server through the Eaglercraft Gateway.
+_Avoid_: Client Website, Game Server
+
 **Browser Play Link**:
 The HTTPS address that opens the hosted Client Website in a browser and starts
 the player entry flow.
@@ -153,7 +158,8 @@ _Avoid_: browser world, backup copy
 
 **Server Management Panel**:
 The local management interface shipped with the runtime for readiness, players,
-worlds, plugins, and console commands, published on a loopback address.
+worlds, plugins, and console commands, protected through the deployment's
+panel routing, loopback publishing, or firewall and SSH tunnel.
 _Avoid_: Admin console, admin dashboard
 
 **Verified Scope**:

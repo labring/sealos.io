@@ -1,27 +1,55 @@
 # D04: Eaglercraft Client, Server, and WebSocket Gateway Explained
 
-**Target length:** 60–90 seconds
+**Target length:** 60–90 seconds (approximately 180 spoken words).
 
-**[0:00–0:12]**
+**[0:00–0:17] Visual: highlight each box in the article's architecture diagram.**
 
-An Eaglercraft deployment has four connected parts: the Browser Client opens the Client Website, the Eaglercraft Gateway carries the WebSocket session, the Game Server owns the world, and the Persistent World keeps progress on durable storage.
+Follow four parts: the Browser Client connects through the Eaglercraft Gateway to the Game Server. The Game Server saves progress in the Persistent World. The Client Website supplies the browser game; the Server Management Panel gives the owner controls.
 
-**[0:12–0:28]**
+**[0:17–0:34] Visual: show the article's address table, labelled Sealos.**
 
-Remember the three addresses. Open the **Browser Play Link** in a browser. Paste the `wss://` **WebSocket Server Address** into an existing compatible client's Multiplayer field. Use HTTPS `/admin` for the **Server Management Panel**.
+Open the Browser Play Link in your browser. Paste the WSS WebSocket Server Address into a compatible client's Multiplayer field. On Sealos, use HTTPS slash admin for the Server Management Panel. Self-hosted guides use a separate protected panel connection.
 
-**[0:28–0:46]**
+**[0:34–0:48] Visual: Sealos template card, Paper readiness, Join game.**
 
-The Sealos template packages the Client Website, Gateway, selected Paper Game Server, Server Management Panel, and Persistent World volume in one deployment. Wait for Paper readiness, use **Join game**, and invite friends with the Browser Play Link.
+The Sealos template packages the client, Gateway, selected Paper Game Server, and persistent storage. Wait for Paper readiness, select Join game, and share the Browser Play Link. Each player registers an in-game password.
 
-**[0:46–1:04]**
+**[0:48–1:03] Visual: highlight the four hosting-path rows.**
 
-Choose the path that matches your control needs. Sealos supplies the application surface. Ubuntu VPS gives direct service and Caddy control. Docker Compose gives a reproducible image and bind-mounted data. A Shared World fits a temporary session.
+Choose Sealos for managed application hosting, Ubuntu VPS for direct host control, Docker Compose for reproducible containers, or a Shared World for a temporary session. Keep storage and recovery in your hosting plan.
 
-**[1:04–1:18]**
+**[1:03–1:20] Visual: own-domain diagram labelled configuration example, then CTA.**
 
-For your own domain, point DNS to the public host and let Caddy route HTTPS and WSS to the Gateway. Keep the Game Server and management panel on private listeners while you verify the path.
+An owned domain routes HTTPS and WSS through Caddy to the Gateway. Follow the full guide for headers, panel protection, and verification. Read the architecture guide, then [deploy the Eaglercraft template](https://sealos.io/products/app-store/eaglercraft-server/) on Sealos.
 
-**[1:18–1:28]**
+## Publication checks
 
-Read the full architecture guide, then [deploy the Eaglercraft template](https://sealos.io/products/app-store/eaglercraft-server/) on Sealos.
+Validated on September 20, 2026 using:
+
+```sh
+pnpm exec fumadocs-mdx
+pnpm lint
+node --test scripts/*.test.mjs
+node --test scripts/railway-cost.test.js config/apps-data-quality.test.mts
+node --test 'app/**/*.test.mts'
+pnpm build
+EAGLERCRAFT_STATIC_CHECK=1 pnpm test:eaglercraft-client-server-gateway
+```
+
+The three Node suite commands passed 262 tests and skipped four optional
+preview/export checks. The explicit static article check then passed all three
+article tests, including the previously skipped export check. The production
+build exported 6,251 pages and passed the 2,000-record AI FAQ route check.
+
+Browser acceptance on the local static export confirmed a visible Mermaid SVG
+with its accessible title and description, five tables with header cells, and
+an FAQ answer opened with Enter. Repeat these browser checks after diagram or
+shared renderer changes. Owned-domain DNS, TLS, and WSS deployment checks remain
+outside this article's Verified Scope.
+
+After the final integration-link label and glossary wording edits, MDX generation,
+TypeScript lint, and source checks passed again. A fresh full export stopped with
+`ENOSPC` before page generation; the disk had approximately 120 MiB free. The
+successful export and browser checks above precede those wording-only edits.
+Repeat the export check after reclaiming build space (the completed build used
+approximately 6 GiB).
