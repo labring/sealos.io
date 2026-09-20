@@ -23,15 +23,15 @@ import { DeployButton } from '@/components/ui/button';
 
 Eaglercraft hosting becomes easier to plan when each address and process has one clear job. A player opens a **Browser Play Link** in a browser or enters a **WebSocket Server Address** in an existing compatible client. The **Eaglercraft Gateway** carries that session to the **Game Server**, which owns the world and saves it to a **Persistent World**. The **Server Management Panel** gives the operator a separate place to check readiness, players, storage, and commands.
 
-This article explains the architecture with the Sealos template as the first concrete example, then maps the same design to a **Self-Hosted Eaglercraft Deployment** on an Ubuntu VPS or through Docker Compose. It gives you enough context to choose a path and find the right operational guide.
+This guide maps the Eaglercraft architecture to four hosting paths: the Sealos template, a **Self-Hosted Eaglercraft Deployment** on an Ubuntu VPS, Docker Compose, and Shared World. It connects each public address to the service behind it so you can choose the right operational guide.
 
 ## The Architecture in One View
 
-The request path has four core stages:
+The path from a player's browser to the stored world looks like this:
 
 ![Eaglercraft architecture showing the Browser Client loading the Client Website over HTTPS, opening a WSS session through the Eaglercraft Gateway, reaching the Game Server, and saving to the Persistent World, with the Server Management Panel sending protected operator requests.](./images/eaglercraft-client-server-gateway-architecture.webp)
 
-The diagram's text alternative is: a Browser Client opens the Client Website or starts a WSS session; the Eaglercraft Gateway accepts the session and forwards it to the Game Server; the Game Server reads and writes the Persistent World; the Server Management Panel sends operator commands to the Game Server. Each box can run in one Runtime Bundle while retaining a separate operational role.
+Players load the Client Website over HTTPS or connect from an existing compatible client over WSS. The Eaglercraft Gateway accepts the session and forwards it to the Game Server, which reads and writes the Persistent World. Operators use the protected Server Management Panel to manage the server.
 
 The browser experience has two layers. The Client Website serves the JavaScript and assets that make the game playable in a browser. The Eaglercraft Gateway accepts the browser's WebSocket upgrade and translates that public connection into the runtime's game connection. A player may use the supplied Client Website or an existing compatible client that connects straight to the Gateway.
 
@@ -46,7 +46,7 @@ The browser experience has two layers. The Client Website serves the JavaScript 
 | Persistent World        | Stores world, player, plugin, and server data on durable storage.          | Keep the volume or bind mount during restarts and recovery. |
 | Server Management Panel | Exposes readiness, player, world, plugin, and command controls.            | Open the protected panel using your deployment guide.       |
 
-The player needs a compatible client. The host needs the Gateway, Game Server, and storage. A Runtime Bundle can package all of them, which is why the Sealos path feels like one application even though the connection crosses several responsibilities.
+The player needs a compatible client. The host needs the Gateway, Game Server, and storage. The Sealos template packages these services into one Runtime Bundle, so deployment feels like one application while the connection still crosses several responsibilities.
 
 ## HTTPS, WSS, and the Three Addresses
 
@@ -81,7 +81,7 @@ The [Sealos template definition](https://github.com/labring-actions/templates/bl
 
 After deployment, open the application card and sign in at `/admin`. The **Server Management Panel** can become available while the Game Server is still starting, so wait for **Paper is ready** before joining. Choose **Join game** to open the Client Website. Players set a stable profile name, select the preconfigured multiplayer entry, and register their own in-game password. The Administrator Password belongs to the management panel; each Player Account owns its own login password.
 
-The [recorded First Join workflow](/blog/eaglercraft-server/) defines this article's **Verified Scope**: September 10–12, 2026, release 2.2.7, Eaglercraft 1.8, and Paper 1.8.8. Two isolated Chrome sessions joined through public HTTPS/WSS from one Mac and network. Saved progress survived an application restart with the original persistent volume. A second physical device, an independent network, the 1.12 browser join, and capacity limits require separate checks.
+The [recorded First Join workflow](/blog/eaglercraft-server/) tested release 2.2.7 with Eaglercraft 1.8 and Paper 1.8.8 from September 10–12, 2026. Two isolated Chrome sessions joined through public HTTPS/WSS from one Mac and network, and saved progress survived an application restart with the original persistent volume. A second physical device, an independent network, the 1.12 browser join, and capacity limits need separate checks.
 
 <DeployButton
   deployUrl="https://sealos.io/products/app-store/eaglercraft-server/"
@@ -92,13 +92,13 @@ Open the [Eaglercraft template on Sealos](/products/app-store/eaglercraft-server
 
 ## Use Your Own Domain
 
-An owned domain gives players a stable name such as `play.example.com`. The configuration shape has three parts:
+An owned domain gives players a stable name such as `play.example.com`. Set up an owned domain in three steps:
 
 1. Create a DNS record that points the name at the public host or load balancer.
 2. Let Caddy obtain and renew the certificate for the name.
 3. Reverse proxy HTTPS and WebSocket traffic to the Eaglercraft Gateway while the Game Server stays on its private listener.
 
-This minimal configuration example assumes Caddy runs on the VPS host, with public DNS and inbound ports 80/443 available:
+On a VPS host running Caddy, with public DNS and inbound ports 80/443 available, use:
 
 ```text
 play.example.com {
@@ -110,7 +110,7 @@ play.example.com {
 
 [Caddy forwards WebSocket upgrades](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy) automatically. The packaged Gateway expects `X-Real-IP`; the explicit header keeps that listener usable behind Caddy. For the Compose overlay, the upstream is `eaglercraft:5200` on the container network. Protect panel port 5201 using the guide's firewall or loopback publishing rule and SSH tunnel. Set `PUBLIC_GAME_URL=https://play.example.com/` when a separate panel address would otherwise generate the wrong join link; this setting controls URL generation.
 
-This section is a configuration example. DNS propagation, certificate issuance, and an external WSS join for an owned domain remain outside the current Verified Scope. Use the [How to Host an Eaglercraft Server on an Ubuntu VPS](/blog/eaglercraft-server-ubuntu-vps/) guide for the complete host setup, firewall, systemd, Caddy, panel tunnel, backup, and restore sequence. Use [Run Eaglercraft with Docker Compose](/blog/eaglercraft-server-docker/) for the image, bind mount, loopback panel, Caddy overlay, and recreation checks.
+Confirm DNS propagation, certificate issuance, and an external WSS join separately. Use the [How to Host an Eaglercraft Server on an Ubuntu VPS](/blog/eaglercraft-server-ubuntu-vps/) guide for the complete host setup, firewall, systemd, Caddy, panel tunnel, backup, and restore sequence. Use [Run Eaglercraft with Docker Compose](/blog/eaglercraft-server-docker/) for the image, bind mount, loopback panel, Caddy overlay, and recreation checks.
 
 ## Direct Paper and Proxy-Based Integration
 
@@ -145,4 +145,4 @@ The address table is the fastest diagnostic: HTTPS means a browser page, WSS mea
 
 Start with the [first-join Eaglercraft tutorial](/blog/eaglercraft-server/) when you want to deploy on Sealos, register a player, invite a friend, and verify a retained world. Select the [Ubuntu VPS guide](/blog/eaglercraft-server-ubuntu-vps/) for a machine you administer. Select the [Docker Compose guide](/blog/eaglercraft-server-docker/) for a container host and bind-mounted data directory. Use the [public URL troubleshooting guide](/docs/guides/app-deploy/troubleshoot/) for page access and the [Eaglercraft join troubleshooting section](/blog/eaglercraft-server/#fix-common-join-problems) for WSS, registration, and login symptoms.
 
-The component model gives every path the same planning checkpoint: identify the Client Website, publish the Eaglercraft Gateway, keep the Game Server reachable through that Gateway, protect the Server Management Panel, and preserve the Persistent World. Once those pieces and addresses are clear, the hosting path becomes a practical operations choice.
+Whichever hosting path you choose, start by identifying the Client Website, publishing the Eaglercraft Gateway, keeping the Game Server reachable through that Gateway, protecting the Server Management Panel, and preserving the Persistent World. With those pieces and addresses in place, you can choose the hosting path that fits your operating model.

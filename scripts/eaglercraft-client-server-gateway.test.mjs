@@ -74,7 +74,7 @@ test('architecture article contains the publication contract', () => {
     'Client Website',
     'Persistent World',
     'Server Management Panel',
-    'Verified Scope',
+    'Set up an owned domain in three steps:',
     'reverse_proxy 127.0.0.1:5200',
     'header_up X-Real-IP {remote_host}',
     'wss://play.example.com/',
@@ -166,7 +166,8 @@ test(
       html.includes('Eaglercraft architecture showing the Browser Client'),
       'rendered architecture image has descriptive alt text',
     );
-    assert.ok(html.includes('The diagram&#x27;s text alternative is:'));
+    assert.ok(html.includes('Players load the Client Website over HTTPS'));
+    assert.ok(!html.includes('The diagram&#x27;s text alternative is:'));
     assert.equal((html.match(/<table\b/g) || []).length, 5);
     assert.equal((html.match(/<thead\b/g) || []).length, 5);
     assert.ok((html.match(/<th\b/g) || []).length >= 14);
