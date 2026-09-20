@@ -1,0 +1,263 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Eaglercraft client, gateway, and world architecture",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1280,
+      720
+    ],
+    "repository": {
+      "url": "https://github.com/yangchuansheng/sealos.io",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "83f1883fd55bc3c062372ee653e1927028471f2b"
+    },
+    "views": [
+      {
+        "id": "player-path",
+        "label": "Player path",
+        "focus": [
+          "browser",
+          "website",
+          "gateway",
+          "game",
+          "world"
+        ],
+        "note": "Follow the browser page and WebSocket session into the Game Server and Persistent World."
+      },
+      {
+        "id": "operator-path",
+        "label": "Operator path",
+        "focus": [
+          "panel",
+          "game",
+          "world"
+        ],
+        "note": "Inspect protected management access and the durable world independently from player traffic."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "browser",
+      "type": "external",
+      "label": "Browser Client",
+      "sublabel": "Player session",
+      "tag": "HTTPS / WSS",
+      "sources": [
+        {
+          "path": "content/blog/(app-deployment)/eaglercraft-client-server-gateway/index.en.mdx",
+          "label": "Architecture article"
+        }
+      ],
+      "pos": [
+        48,
+        300
+      ],
+      "size": [
+        176,
+        82
+      ]
+    },
+    {
+      "id": "website",
+      "type": "frontend",
+      "label": "Client Website",
+      "sublabel": "Browser game assets",
+      "tag": "HTTPS",
+      "sources": [
+        {
+          "path": "CONTEXT.md",
+          "label": "Domain vocabulary"
+        }
+      ],
+      "pos": [
+        282,
+        188
+      ],
+      "size": [
+        190,
+        82
+      ]
+    },
+    {
+      "id": "gateway",
+      "type": "backend",
+      "label": "Eaglercraft Gateway",
+      "sublabel": "WebSocket entry point",
+      "tag": "WSS :5200",
+      "sources": [
+        {
+          "path": "content/blog/(app-deployment)/eaglercraft-server-docker/index.en.mdx",
+          "label": "Compose guide"
+        }
+      ],
+      "pos": [
+        520,
+        300
+      ],
+      "size": [
+        204,
+        82
+      ]
+    },
+    {
+      "id": "game",
+      "type": "backend",
+      "label": "Game Server",
+      "sublabel": "Paper game rules",
+      "tag": "private :25565",
+      "sources": [
+        {
+          "path": "content/blog/(app-deployment)/eaglercraft-server/index.en.mdx",
+          "label": "First Join guide"
+        }
+      ],
+      "pos": [
+        780,
+        300
+      ],
+      "size": [
+        190,
+        82
+      ]
+    },
+    {
+      "id": "world",
+      "type": "database",
+      "label": "Persistent World",
+      "sublabel": "Durable player and world data",
+      "tag": "volume / bind mount",
+      "sources": [
+        {
+          "path": "content/blog/(app-deployment)/eaglercraft-server-docker/index.en.mdx",
+          "label": "Persistence guide"
+        }
+      ],
+      "pos": [
+        1000,
+        470
+      ],
+      "size": [
+        176,
+        82
+      ]
+    },
+    {
+      "id": "panel",
+      "type": "security",
+      "label": "Server Management Panel",
+      "sublabel": "Protected operator access",
+      "tag": "HTTPS /admin",
+      "sources": [
+        {
+          "path": "content/blog/(app-deployment)/eaglercraft-server-ubuntu-vps/index.en.mdx",
+          "label": "VPS guide"
+        }
+      ],
+      "pos": [
+        780,
+        120
+      ],
+      "size": [
+        222,
+        82
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Runtime Bundle",
+      "wraps": [
+        "gateway",
+        "game",
+        "world",
+        "panel"
+      ],
+      "pad": 34
+    },
+    {
+      "kind": "security-group",
+      "label": "Player-facing surface",
+      "wraps": [
+        "website",
+        "gateway"
+      ],
+      "pad": 24
+    }
+  ],
+  "connections": [
+    {
+      "id": "browser-to-website",
+      "from": "browser",
+      "to": "website",
+      "label": "open Browser Play Link",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "left",
+      "labelAt": [
+        253,
+        284
+      ]
+    },
+    {
+      "id": "browser-to-gateway",
+      "from": "browser",
+      "to": "gateway",
+      "label": "WSS session",
+      "variant": "emphasis",
+      "labelDy": 24
+    },
+    {
+      "id": "gateway-to-game",
+      "from": "gateway",
+      "to": "game",
+      "label": "game protocol",
+      "fromSide": "right",
+      "toSide": "left",
+      "labelDy": -35
+    },
+    {
+      "id": "game-to-world",
+      "from": "game",
+      "to": "world",
+      "label": "read and write world data",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "variant": "emphasis"
+    },
+    {
+      "id": "panel-to-game",
+      "from": "panel",
+      "to": "game",
+      "label": "local management requests",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Player path",
+      "items": [
+        "HTTPS loads the Client Website",
+        "WSS carries the live Eaglercraft session",
+        "The Gateway keeps Paper behind the public entry point"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Operator path",
+      "items": [
+        "The panel remains protected",
+        "Paper owns game rules and player state",
+        "The Persistent World survives ordinary restarts"
+      ]
+    }
+  ]
+}
