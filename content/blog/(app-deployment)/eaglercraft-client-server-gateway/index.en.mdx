@@ -29,15 +29,7 @@ This article explains the architecture with the Sealos template as the first con
 
 The request path has four core stages:
 
-```mermaid
-flowchart TD
-    accTitle: Eaglercraft connection and storage architecture
-    accDescr: Browser Client connects through the Eaglercraft Gateway to the Game Server, which saves the Persistent World. The Server Management Panel sends operator commands.
-    B[Browser Client] -->|HTTPS page or WSS session| G[Eaglercraft Gateway]
-    G -->|game protocol connection| S[Game Server]
-    S -->|world and player data| W[Persistent World]
-    P[Server Management Panel] -->|local management requests| S
-```
+![Eaglercraft architecture showing the Browser Client loading the Client Website over HTTPS, opening a WSS session through the Eaglercraft Gateway, reaching the Game Server, and saving to the Persistent World, with the Server Management Panel sending protected operator requests.](./images/eaglercraft-client-server-gateway-architecture.webp)
 
 The diagram's text alternative is: a Browser Client opens the Client Website or starts a WSS session; the Eaglercraft Gateway accepts the session and forwards it to the Game Server; the Game Server reads and writes the Persistent World; the Server Management Panel sends operator commands to the Game Server. Each box can run in one Runtime Bundle while retaining a separate operational role.
 

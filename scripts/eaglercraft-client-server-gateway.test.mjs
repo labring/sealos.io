@@ -11,6 +11,10 @@ const scriptPath = new URL(
   import.meta.url,
 );
 const contextPath = new URL('../CONTEXT.md', import.meta.url);
+const diagramImagePath = new URL(
+  '../content/blog/(app-deployment)/eaglercraft-client-server-gateway/images/eaglercraft-client-server-gateway-architecture.webp',
+  import.meta.url,
+);
 
 function readArticle() {
   assert.ok(existsSync(articlePath), 'article file exists');
@@ -24,6 +28,8 @@ test('architecture article contains the publication contract', () => {
   const { frontmatter, body } = readArticle();
   const flat = body.replace(/\s+/g, ' ');
   const wordCount = body.trim().split(/\s+/).length;
+
+  assert.ok(existsSync(diagramImagePath), 'architecture diagram image exists');
 
   assert.ok(
     frontmatter.includes(
@@ -60,7 +66,7 @@ test('architecture article contains the publication contract', () => {
     assert.ok(body.includes(heading), heading);
 
   for (const text of [
-    '```mermaid',
+    './images/eaglercraft-client-server-gateway-architecture.webp',
     'Browser Play Link',
     'WebSocket Server Address',
     'Eaglercraft Gateway',
@@ -153,9 +159,12 @@ test(
     }
     assert.ok(!structuredData.some((item) => item['@type'] === 'HowTo'));
     assert.ok(
-      html.includes(
-        'accTitle: Eaglercraft connection and storage architecture',
-      ),
+      html.includes('eaglercraft-client-server-gateway-architecture'),
+      'rendered architecture image is present',
+    );
+    assert.ok(
+      html.includes('Eaglercraft architecture showing the Browser Client'),
+      'rendered architecture image has descriptive alt text',
     );
     assert.ok(html.includes('The diagram&#x27;s text alternative is:'));
     assert.equal((html.match(/<table\b/g) || []).length, 5);
