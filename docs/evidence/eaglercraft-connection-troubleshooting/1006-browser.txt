@@ -1,0 +1,5 @@
+verified_at=2026-09-21T16:48:54Z
+fixture=http://127.0.0.1:5204/c010-ws-close-1790008928.html
+browser=Codex In-app Browser
+observed_page_text=close code=1006 wasClean=false
+interpretation=The fixture page served and the WebSocket TCP connection ended without a close frame.

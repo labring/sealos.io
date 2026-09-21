@@ -6,6 +6,14 @@ const articlePath = new URL(
   '../content/blog/(app-deployment)/eaglercraft-connection-troubleshooting/index.en.mdx',
   import.meta.url,
 );
+const evidenceRoot = new URL(
+  '../docs/evidence/eaglercraft-connection-troubleshooting/',
+  import.meta.url,
+);
+const imageRoot = new URL(
+  '../content/blog/(app-deployment)/eaglercraft-connection-troubleshooting/images/',
+  import.meta.url,
+);
 
 test('connection troubleshooting article carries the diagnostic contract', () => {
   assert.ok(existsSync(articlePath), 'article file exists');
@@ -59,6 +67,8 @@ test('connection troubleshooting article carries the diagnostic contract', () =>
     '/register <player-password>',
     '/register <password> <password>',
     'Recovery Proof',
+    'raw WebSocket upgrade',
+    'Mac/aarch64',
     '[client, server, and WebSocket gateway overview](/blog/eaglercraft-client-server-gateway/)',
     '[Eaglercraft template on Sealos](/products/app-store/eaglercraft-server/)',
     '[setup and first-join guide](/blog/eaglercraft-server/)',
@@ -68,6 +78,25 @@ test('connection troubleshooting article carries the diagnostic contract', () =>
     '[Docker Compose to Kubernetes migration guide](/blog/from-docker-compose-to-kubernetes-a-simple-migration-path-with-sealos/)',
   ])
     assert.ok(flat.includes(text), text);
+
+  for (const evidenceFile of [
+    '112-smoke.txt',
+    '502-nginx.txt',
+    '101-close.txt',
+    '1006-browser.txt',
+    'sealos-status.txt',
+  ])
+    assert.ok(existsSync(new URL(evidenceFile, evidenceRoot)), evidenceFile);
+
+  for (const imageFile of [
+    'admin-ready.png',
+    'sealos-eaglercraft-server-websocket-url.png',
+    'login-timeout.webp',
+    'friend-join.webp',
+  ]) {
+    assert.ok(flat.includes(`./images/${imageFile}`), imageFile);
+    assert.ok(existsSync(new URL(imageFile, imageRoot)), imageFile);
+  }
 
   assert.equal((frontmatter.match(/^  - question:/gm) || []).length, 6);
 });

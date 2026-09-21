@@ -12,14 +12,14 @@ the connection troubleshooting article.
 | --- | --- | --- | --- |
 | Sealos application | Eaglercraft 1.8 / Paper 1.8.8 | Ready and public connection info configured | `GET https://eaglercraft-viwwojry.usw-1.sealos.app/api/status` and `/api/connection-info` returned HTTP 200 |
 | Local runtime repository `v2.2.7` | EaglercraftX 1.8 / Paper 1.8.8 | Running locally | `server-1.8/logs/latest.log` reports Paper 1.8.8 and LoginSecurity 3.2.0; ports 5200, 5201, 25565, and 25575 were listening |
-| Local runtime repository `v2.2.7` | EaglercraftX 1.12 / Paper 1.12.2 | Assets and server bundle present; live join pending because this shell has no Java Runtime | `AGENTS.md`, `README.md`, `web-1.12/`, and `server-1.12/` document the 1.12 selection and port contract |
+| Local runtime repository `v2.2.7` | EaglercraftX 1.12 / Paper 1.12.2 | Page HTTP 200, WebSocket 101, and Paper ready; LoginSecurity database initialization failed on macOS arm64 | `docs/evidence/eaglercraft-connection-troubleshooting/112-smoke.txt` |
 
-The 1.12.2 row remains an explicit scope boundary. The current Sealos
-instance and local live process used for the primary check were 1.8. A local
-attempt with `MINECRAFT_VERSION=1.12` stopped before Bungee became ready after
-the shell reported `Unable to locate a Java Runtime`. The runtime repository
-supports selecting `MINECRAFT_VERSION=1.12`, while a separate 1.12 instance
-with Java 21 is required for a live compatibility result.
+The 1.12.2 row records a live local result. The current Sealos instance used
+for the primary check was 1.8. The local 1.12 run reached the page, gateway,
+and Paper readiness boundaries, while LoginSecurity reported that no SQLite
+native library exists for `os.name=Mac` and `os.arch=aarch64`. A Linux/amd64
+runtime check is required before generalizing the login result to a production
+deployment.
 
 ## Observed primary path
 
@@ -124,6 +124,19 @@ they require a real player password.
 
 The Sealos API checks prove readiness and configured public routing. They do not
 prove a second-network player join or Persistent World Recovery Proof.
+
+## Raw evidence files
+
+The reproducible command outputs for this record live under
+`docs/evidence/eaglercraft-connection-troubleshooting/`:
+
+| File | Evidence |
+| --- | --- |
+| `112-smoke.txt` | Eaglercraft 1.12 page, raw WebSocket 101, Paper readiness, and LoginSecurity SQLite failure |
+| `502-nginx.txt` | Nginx proxy to a stopped upstream returning 502 |
+| `101-close.txt` | WebSocket 101 followed by TCP EOF without a close frame |
+| `1006-browser.txt` | Browser fixture showing `close code=1006 wasClean=false` |
+| `sealos-status.txt` | Current Sealos 1.8 readiness and configured public game URL |
 
 ## Evidence commands
 

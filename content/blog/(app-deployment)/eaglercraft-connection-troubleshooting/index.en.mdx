@@ -129,6 +129,10 @@ Local-only success can coexist with external failure under NAT, double NAT, CGNA
 
 Open the [Eaglercraft template on Sealos](/products/app-store/eaglercraft-server/) and wait for the application to report **Ready**. Inspect application logs, the generated Browser Play Link, the WebSocket Server Address, and the management panel's Paper readiness before asking a friend to join. The [first-join walkthrough](/blog/eaglercraft-server/) records the 1.8 path, LoginSecurity commands, public entry points, and retained-world check.
 
+![Sealos Eaglercraft management panel showing Paper ready status, a connected player, and the saved world marker check.](./images/admin-ready.png)
+
+![Sealos Eaglercraft application details showing the generated public WebSocket Server Address.](./images/sealos-eaglercraft-server-websocket-url.png)
+
 Use this sequence:
 
 1. Select Eaglercraft 1.8 for the primary check and record the server and application release.
@@ -137,6 +141,8 @@ Use this sequence:
 4. Join as one player, register or log in, then ask a friend on an independent network to join.
 5. Capture application logs at the time of any `502`, `101` close, `1006`, or login failure.
 6. Run the Eaglercraft 1.12.2 compatibility smoke test separately and record whether page load, handshake, backend session, and game login each pass.
+
+The recorded local 1.12.2 smoke test served the Eaglercraft page with HTTP `200`, completed a raw WebSocket upgrade with `101 Switching Protocols`, and reported Paper `ready` through the management API. LoginSecurity failed to initialize its SQLite database on the macOS arm64 test host because the bundled library had no `Mac/aarch64` native binary. Page reachability, the WebSocket Handshake, and Backend Session passed in this run; Game Login requires a Linux/amd64 runtime check before the result applies to a production deployment.
 
 The template packages the Client Website, Gateway, Game Server, management panel, and Persistent World into one application. The management surface simplifies readiness and log checks; the same four diagnostic boundaries still apply.
 
@@ -197,6 +203,8 @@ When the Browser Play Link loads and the WebSocket session reaches the server li
 
 For LoginSecurity, use the Sealos path shown above. For AuthMe, use the generic path shown above only after checking the installed plugin's prompt and configuration. A successful repair ends with a player entering the world, a second-network join, and Recovery Proof that the Persistent World remains available after the approved restart or recovery check.
 
+![Eaglercraft browser client displaying the Login timed out error after the registration window expires.](./images/login-timeout.webp)
+
 ## Practice Evidence Record
 
 For each test, keep one small record with this shape:
@@ -219,6 +227,8 @@ Use screenshots of the actual Network or Console state, Sealos readiness or appl
 After a repair, close stale browser tabs and clear saved server entries that point at an old host. Start from a separate ISP or mobile connection. Open the current Browser Play Link, confirm the generated WebSocket Server Address, join with a compatible client, complete the correct login command, and ask a second player to join.
 
 Record the exact time, network, client version, server version, public host, status, close code, player name, and server response. Re-enter the same Persistent World after the approved restart or recovery check and confirm a recognizable marker. This Recovery Proof closes the loop between a transport repair and a usable server.
+
+![Two Eaglercraft players visible beside the saved world marker in a successful hosted game session.](./images/friend-join.webp)
 
 ## Choose the Next Path
 
