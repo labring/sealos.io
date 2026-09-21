@@ -159,6 +159,8 @@ For a `502`, compare the Caddy upstream with the gateway listener, check that th
 
 On Windows, confirm the Java version, `PATH`, launch directory, gateway port, Windows Defender Firewall rule, and the Tunnel connector's target. A process can run successfully from PowerShell while a service, scheduled task, or Tunnel starts from a different directory and reads different configuration.
 
+For the containerized Tunnel path, use the [Docker Compose guide](/blog/eaglercraft-server-docker/) and its Cloudflare Tunnel section. Keep the same browser, gateway, and external-network checks when the host is Windows or a home network.
+
 For a home-network deployment, label each result Local-only, LAN, or External-network. Check router port forwarding, double NAT, CGNAT, firewall scope, Tunnel status, and the public hostname. Capture the Tunnel log beside the browser Network request; the first timestamp where the path disappears identifies the next boundary.
 
 The same sequence applies through a Tunnel:

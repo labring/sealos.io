@@ -59,10 +59,13 @@ test('connection troubleshooting article carries the diagnostic contract', () =>
     '/register <player-password>',
     '/register <password> <password>',
     'Recovery Proof',
+    '[client, server, and WebSocket gateway overview](/blog/eaglercraft-client-server-gateway/)',
     '[Eaglercraft template on Sealos](/products/app-store/eaglercraft-server/)',
+    '[setup and first-join guide](/blog/eaglercraft-server/)',
     '[first-join walkthrough](/blog/eaglercraft-server/)',
     '[Ubuntu VPS guide](/blog/eaglercraft-server-ubuntu-vps/)',
     '[Docker Compose guide](/blog/eaglercraft-server-docker/)',
+    '[Docker Compose to Kubernetes migration guide](/blog/from-docker-compose-to-kubernetes-a-simple-migration-path-with-sealos/)',
   ])
     assert.ok(flat.includes(text), text);
 
