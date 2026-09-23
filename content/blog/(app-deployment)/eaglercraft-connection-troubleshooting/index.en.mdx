@@ -29,7 +29,7 @@ faq:
 
 import { DeployButton } from '@/components/ui/button';
 
-Friends can reach the Eaglercraft page while the multiplayer connection still fails. Diagnose the first boundary that breaks: **Client Reachability**, **WebSocket Handshake**, **Backend Session**, or **Game Login**. Each boundary has different evidence and a different repair.
+Friends can reach the Eaglercraft page while the multiplayer connection fails in the background. Trace the failure across four diagnostic boundaries: **Client Reachability**, **WebSocket Handshake**, **Backend Session**, and **Game Login**. Each boundary surfaces unique log signatures and requires its own fix.
 
 ## Quick answer
 
@@ -48,7 +48,7 @@ This guide uses **Eaglercraft 1.8.8** as the primary evidence version and treats
 | Page and socket work, login fails           | Game Login                             | Client version, server version, plugin name, and command syntax  | Use the correct authentication path.            |
 | Local join works and a friend fails         | External reachability                  | NAT, double NAT, CGNAT, firewall, Tunnel, and public DNS         | Test from an independent network.               |
 
-Record the client version, server version, public URL, WebSocket Server Address, browser, timestamp, network scope, status code, close code, and the matching server log lines. A report with those fields lets an operator locate the first failed boundary without repeating every setup step.
+When troubleshooting with friends, capture the client version, server version, public URL, WebSocket Server Address, browser console output, timestamp, network scope, status code, close code, and matching server log lines. Having these details isolates the failing hop without repeating every setup step.
 
 ## Symptom → Check → Fix
 
@@ -66,7 +66,7 @@ Record the client version, server version, public URL, WebSocket Server Address,
 
 ### 1. Client Reachability
 
-The **Browser Play Link** is an HTTPS page. It delivers the browser client and static assets. A successful page load establishes Client Reachability and leaves multiplayer connectivity to the next checks.
+The **Browser Play Link** is an HTTPS page. It delivers the browser client and static assets. A successful page load establishes Client Reachability and leaves multiplayer connectivity to the remaining checks.
 
 Check the following in the browser:
 
@@ -75,7 +75,7 @@ Check the following in the browser:
 3. In **Console**, record certificate, mixed-content, JavaScript, and WebSocket errors.
 4. Confirm that the page-generated server entry uses the current public host.
 
-An HTTPS page that loads while the WebSocket URL points at `127.0.0.1`, a private address, an old application host, or the wrong path gives a false sense of readiness. Share the Browser Play Link with a second device only after the page works from the host.
+If the page loads while the WebSocket URL points at `127.0.0.1`, a private address, an old application host, or the wrong path, external players will immediately disconnect. Share the Browser Play Link with a second device only after the page works from the host.
 
 ### 2. WebSocket Handshake
 
@@ -99,7 +99,7 @@ The **Eaglercraft Gateway** accepts the WebSocket stream and forwards it to the 
 | Game Server log             | Did Paper accept the session, reject a version, stop, or report a plugin error?             |
 | Sealos application logs     | Was the template Ready, and did the gateway and Paper processes remain healthy?             |
 
-Keep the **Client Website**, **Runtime Bundle**, **Eaglercraft Gateway**, and **Game Server** responsibilities separate while reading logs. A page served by the Client Website can succeed while the Gateway is stopped. A Gateway can accept the handshake while Paper is still starting. A ready application can still reject a client with an incompatible protocol or plugin state.
+Keep the **Client Website**, **Runtime Bundle**, **Eaglercraft Gateway**, and **Game Server** responsibilities separate while reading logs. A page served by the Client Website can succeed while the Gateway is stopped. A Gateway can accept the handshake while Paper is still starting. A ready application can reject a client with an incompatible protocol or plugin state.
 
 ### 4. Game Login
 
@@ -205,25 +205,25 @@ The same sequence applies through a Tunnel:
 
 ### Case 1: `502 Bad Gateway`
 
-Reproduce this case by routing the proxy or Tunnel to a stopped process, an incorrect port, or an incomplete upstream path in a controlled test environment. Save the browser response, proxy or Tunnel log, listener state, and service status. A 502 is evidence that the public intermediary did not complete a valid upstream exchange; it leaves the exact cause to the matching logs.
+Reproduce this case by routing the proxy or Tunnel to a stopped process, an incorrect port, or an incomplete upstream path in a controlled test environment. Save the browser response, proxy or Tunnel log, listener state, and service status. A 502 indicates that the public intermediary could not complete a valid upstream exchange, leaving the exact cause to the matching service logs.
 
 Repair the first broken hop: start the gateway, correct the upstream host or port, restore the forwarded header required by the gateway, reload the proxy, or correct the Tunnel target. Repeat the Browser Play Link check, the WSS handshake, and the External-network retest.
 
 ### Case 2: `101 Switching Protocols` followed by a close
 
-Capture the `101` response and the close event from the same browser request. Inspect the gateway and Game Server log lines at the same timestamp. Common boundaries include a backend that is still starting, a gateway-to-Paper failure, a version mismatch, a proxy timeout, or a plugin rejection.
+Capture the `101` response and the close event from the same browser request. Inspect the gateway and Game Server log lines at the same timestamp. Common root causes include a backend still starting, a gateway-to-Paper drop, a version mismatch, a proxy timeout, or a plugin rejection.
 
 Repair the first component that closes the session, then repeat with the same Eaglercraft and server versions. The success condition includes a stable socket, a server list or game session, a clean login, and an External-network retest.
 
 ### Case 3: close code `1006`
 
-`1006` is an abnormal-close signal reported to the browser. Record the request URL, browser Console event, Network timing, proxy or Tunnel status, gateway log, Game Server log, and network scope. Correlation separates a process exit from a route interruption, a firewall drop, a timeout, or a protocol mismatch.
+`1006` is an abnormal-close signal reported to the browser when the socket drops abruptly without a clean close frame. Record the request URL, browser Console event, Network timing, proxy or Tunnel status, gateway log, Game Server log, and network scope. Log correlation distinguishes a process exit from a route drop, firewall timeout, or protocol mismatch.
 
 Repair the evidence-backed boundary. Repeat the check from Local-only, LAN, and External-network scopes. Preserve the successful retest and the matching logs so future reports can compare the same failure shape.
 
 ### Case 4: page load succeeds and game login fails
 
-When the Browser Play Link loads and the WebSocket session reaches the server list, record the client version, server version, plugin name, player name, login prompt, exact command, and server response. Confirm that the player is using a player password and that the administrator or RCON credential remains separate.
+When the Browser Play Link loads and the WebSocket session reaches the server list, record the client version, server version, plugin name, player name, login prompt, exact command, and server response. Confirm that the player uses a player password while keeping administrator or RCON credentials separate.
 
 For LoginSecurity, use the Sealos path shown above. For AuthMe, use the generic path shown above only after checking the installed plugin's prompt and configuration. A successful repair ends with a player entering the world, a second-network join, and Recovery Proof that the Persistent World remains available after the approved restart or recovery check.
 
