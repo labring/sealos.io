@@ -25,7 +25,12 @@ test('connection troubleshooting article carries the diagnostic contract', () =>
 
   assert.ok(
     frontmatter.includes(
-      'title: "Eaglercraft Server Troubleshooting: Friends Can\'t Connect (WSS, 502, and 1006)"',
+      "title: 'Best Eaglercraft Server Troubleshooting Guide 2026: WSS, 502, and 1006'",
+    ),
+  );
+  assert.ok(
+    frontmatter.includes(
+      "seoTitle: 'Best Eaglercraft Server Troubleshooting Guide 2026: WSS, 502, and 1006'",
     ),
   );
   assert.ok(!/^#\s+/m.test(body), 'body leaves the H1 to the title');
@@ -33,6 +38,7 @@ test('connection troubleshooting article carries the diagnostic contract', () =>
 
   for (const heading of [
     '## 60-Second Triage',
+    '## Quick answer',
     '## Symptom → Check → Fix',
     '## The Four Diagnostic Boundaries',
     '### 1. Client Reachability',
@@ -68,6 +74,12 @@ test('connection troubleshooting article carries the diagnostic contract', () =>
     '/register <password> <password>',
     'Recovery Proof',
     'raw WebSocket upgrade',
+    'eaglercraft-server-2',
+    'wss://eaglercraft-lewgjfye.usw-1.sealos.app/',
+    'Observed evidence',
+    'What it proves',
+    'Next check',
+    'Sealos Cloud application details for eaglercraft-server-2',
     'Mac/aarch64',
     '[client, server, and WebSocket gateway overview](/blog/eaglercraft-client-server-gateway/)',
     '[Eaglercraft template on Sealos](/products/app-store/eaglercraft-server/)',
@@ -98,5 +110,5 @@ test('connection troubleshooting article carries the diagnostic contract', () =>
     assert.ok(existsSync(new URL(imageFile, imageRoot)), imageFile);
   }
 
-  assert.equal((frontmatter.match(/^  - question:/gm) || []).length, 6);
+  assert.equal((frontmatter.match(/^  - question:/gm) || []).length, 9);
 });
