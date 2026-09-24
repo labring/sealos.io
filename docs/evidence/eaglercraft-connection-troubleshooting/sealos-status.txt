@@ -1,0 +1,5 @@
+captured_at=2026-09-21T17:29:44Z
+$ curl -sS https://eaglercraft-viwwojry.usw-1.sealos.app/api/status
+{"success": true, "rcon_host": "127.0.0.1", "rcon_port": 25575, "bridge_port": 5201, "minecraft_version": "1.8", "native_seed_finder_ready": true, "paper": {"state": "ready", "elapsed_seconds": null}}
+$ curl -sS https://eaglercraft-viwwojry.usw-1.sealos.app/api/connection-info
+{"success": true, "source": "configured", "game_url": "https://eaglercraft-viwwojry.usw-1.sealos.app"}

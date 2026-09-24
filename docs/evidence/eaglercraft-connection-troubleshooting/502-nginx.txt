@@ -1,0 +1,19 @@
+verified_at=2026-09-21T17:28:34Z
+upstream=127.0.0.1:59999 (stopped)
+nginx: the configuration file /tmp/c010-nginx-502.conf syntax is ok
+nginx: configuration file /tmp/c010-nginx-502.conf test is successful
+$ curl -i http://127.0.0.1:5205/
+HTTP/1.1 502 Bad Gateway
+Server: nginx/1.31.4
+Date: Mon, 21 Sep 2026 17:28:34 GMT
+Content-Type: text/html
+Content-Length: 157
+Connection: keep-alive
+
+<html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.31.4</center>
+</body>
+</html>

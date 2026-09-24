@@ -1,0 +1,38 @@
+verified_at=2026-09-21T17:28:11Z
+runtime=/tmp/eaglerXserver-c010-1790008220
+runtime_release=v2.2.7
+MINECRAFT_VERSION=1.12
+client=EaglercraftX 1.12
+server=Paper 1.12.2
+$ curl -sS -D - http://127.0.0.1:5200/ -o /tmp/c010-112-page.html
+HTTP/1.1 200 OK
+content-type: text/html; charset=utf-8
+content-length: 2423
+cache-control: max-age=3600
+date: 21 9? 2026 17:28:11 GMT
+expires: 21 9? 2026 18:28:11 GMT
+last-modified: 21 9? 2026 16:30:42 GMT
+server: EaglerXBungee/1.3.6
+
+    2423 /tmp/c010-112-page.html
+6:		<meta name="description" content="Play minecraft 1.12 in your browser" />
+7:		<meta name="keywords" content="eaglercraft, minecraft, 1.12, 1.12.2" />
+8:		<title>Eaglercraft 1.12 WASM-GC</title>
+12:		<meta property="og:description" content="Play minecraft 1.12 in your browser" />
+$ curl -sS http://127.0.0.1:5201/api/status
+{"success": true, "rcon_host": "127.0.0.1", "rcon_port": 25575, "bridge_port": 5201, "minecraft_version": "1.12", "native_seed_finder_ready": false, "paper": {"state": "ready", "elapsed_seconds": null}}
+$ curl -sS http://127.0.0.1:5201/api/connection-info
+{"success": true, "source": "inferred", "game_url": ""}
+$ raw WebSocket upgrade to 127.0.0.1:5200
+HTTP/1.1 101 Switching Protocols
+upgrade: websocket
+connection: upgrade
+sec-websocket-accept: z6h019jF8CDkeJZtTqgeffL9E4I=
+
+
+$ runtime log evidence
+/tmp/eaglerXserver-c010-1790008220/server-1.12/logs/latest.log:1:[01:20:34] [Server thread/INFO]: Starting minecraft server version 1.12.2
+/tmp/eaglerXserver-c010-1790008220/server-1.12/logs/latest.log:157:[01:20:36] [Server thread/ERROR]: [LoginSecurity] Failed to initiate database
+/tmp/eaglerXserver-c010-1790008220/server-1.12/logs/latest.log:194:Caused by: java.lang.Exception: No native library is found for os.name=Mac and os.arch=aarch64. path=/org/sqlite/native/Mac/aarch64
+/tmp/eaglerXserver-c010-1790008220/server-1.12/logs/latest.log:202:[01:20:36] [Server thread/INFO]: Done (2.290s)! For help, type "help" or "?"
+/tmp/eaglerXserver-c010-1790008220/bungee/proxy.log.0:47:01:20:31 [信息] [EaglercraftXBungee] Eaglercraft is listening on: /0.0.0.0:5200

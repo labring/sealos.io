@@ -1,0 +1,4 @@
+verified_at=2026-09-21T17:29:09Z
+fixture=local WebSocket server on 127.0.0.1:5206
+HTTP/1.1 101 Switching Protocols\nUpgrade: websocket\nConnection: Upgrade\nSec-WebSocket-Accept: 0+qgzt8qIhfsY5eqFaqsrfs1GVM=\n\n
+tcp_eof= True
