@@ -102,7 +102,7 @@ test('connection troubleshooting article carries the diagnostic contract', () =>
 
   for (const imageFile of [
     'admin-ready.png',
-    'sealos-eaglercraft-server-websocket-url.png',
+    'sealos-eaglercraft-server-websocket-url.webp',
     'login-timeout.webp',
     'friend-join.webp',
   ]) {
