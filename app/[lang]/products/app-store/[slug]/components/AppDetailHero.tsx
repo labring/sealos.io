@@ -5,6 +5,7 @@ import { AppIcon } from '@/components/ui/app-icon';
 import { getLanguageSlug, type languagesType } from '@/lib/i18n';
 import { DeployButton } from './DeployButton';
 import AppPreviewPanel from './AppPreviewPanel';
+import { getTemplateVideoId } from './template-video';
 import WorldPreview from './WorldPreview';
 import {
   formatAppCount,
@@ -134,7 +135,9 @@ export default function AppDetailHero({
           )}
         </div>
       </div>
-      {!featured && <AppPreviewPanel app={app} />}
+      {(!featured || getTemplateVideoId(app.youtube)) && (
+        <AppPreviewPanel app={app} />
+      )}
       {!featured && (
         <dl className={s.facts}>
           {deployCount > 0 && (

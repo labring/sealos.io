@@ -19,6 +19,10 @@
       ]
     }
   ],
+  "rewrites": [
+    { "source": "/api/apps", "destination": "/api/apps/en" },
+    { "source": "/api/apps/", "destination": "/api/apps/en" }
+  ],
   "redirects": [
     {
       "source": "/tutorials/deploy-django-sealos",

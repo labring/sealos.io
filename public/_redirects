@@ -23,6 +23,10 @@ https://sealos.run/en/* https://sealos.io/:splat 302
 # robots.txt rewrite
 /robots.txt /api/robots 200
 
+# Default Apps API uses the exported English catalog.
+/api/apps /api/apps/en 200
+/api/apps/ /api/apps/en 200
+
 # Vercel redirect parity
 /tutorials/deploy-django-sealos /tutorials/django/deploy/ 308
 /tutorials/deploy-django-sealos/ /tutorials/django/deploy/ 308

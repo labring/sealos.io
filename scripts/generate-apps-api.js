@@ -337,6 +337,10 @@ async function convertTemplateToAppConfig(template) {
     github: spec.gitRepo || undefined,
     website: normalizeHttpUrl(spec.url),
     readme: spec.readme || undefined,
+    youtube:
+      typeof spec.youtube === 'string'
+        ? spec.youtube.trim() || undefined
+        : undefined,
     tags: buildTags(spec, category),
     source: {
       url: template.filePath

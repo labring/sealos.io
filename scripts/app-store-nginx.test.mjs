@@ -15,7 +15,7 @@ import { once } from 'node:events';
 import { setTimeout as delay } from 'node:timers/promises';
 
 // Run with: node --test scripts/app-store-nginx.test.mjs (requires nginx).
-test('legacy app redirects preserve query strings and the public origin', async (t) => {
+test('App Store static routes preserve legacy URLs and default Apps API videos', async (t) => {
   if (spawnSync('nginx', ['-v']).error?.code === 'ENOENT') {
     t.skip('Install nginx to run the HTTP redirect regression.');
     return;
@@ -31,6 +31,17 @@ test('legacy app redirects preserve query strings and the public origin', async 
   writeFileSync(join(root, 'products/app-store/lobehub/index.html'), 'LobeHub');
   writeFileSync(join(root, 'index.html'), 'App Store');
   writeFileSync(join(root, '404.html'), 'Missing');
+  const apps = {
+    apps: [
+      {
+        slug: 'excalidraw',
+        youtube: 'https://www.youtube.com/watch?v=-tuMrj63-6g',
+      },
+    ],
+    language: 'en',
+  };
+  mkdirSync(join(root, 'api/apps'), { recursive: true });
+  writeFileSync(join(root, 'api/apps/en'), JSON.stringify(apps));
   const config = readFileSync(
     new URL('../config/nginx.conf', import.meta.url),
     'utf8',
@@ -72,6 +83,12 @@ test('legacy app redirects preserve query strings and the public origin', async 
     await delay(50);
   }
   assert.ok(ready, errors || 'Nginx did not start');
+  for (const path of ['/api/apps', '/api/apps/', '/api/apps?source=preview']) {
+    const response = await fetch(`${base}${path}`, { redirect: 'manual' });
+    assert.equal(response.status, 200, path);
+    assert.match(response.headers.get('content-type'), /application\/json/);
+    assert.deepEqual(await response.json(), apps);
+  }
   for (const locale of ['', '/en']) {
     for (const slug of ['lobe-chat', 'lobe-chat-db']) {
       for (const slash of ['', '/']) {

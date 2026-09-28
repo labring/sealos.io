@@ -28,6 +28,29 @@ test('convertTemplateToAppConfig preserves template screenshots', async () => {
   assert.deepEqual(app?.screenshots, screenshots);
 });
 
+test('catalog conversion preserves optional Template Video metadata', async () => {
+  for (const [youtube, expected] of [
+    [
+      '  https://www.youtube.com/watch?v=-tuMrj63-6g\n',
+      'https://www.youtube.com/watch?v=-tuMrj63-6g',
+    ],
+    ['https://youtu.be/x-NrQq3C84Q', 'https://youtu.be/x-NrQq3C84Q'],
+    [undefined, undefined],
+    ['', undefined],
+    [' \t\n ', undefined],
+    [123, undefined],
+    [{ url: 'https://youtu.be/x-NrQq3C84Q' }, undefined],
+    ['malformed', 'malformed'],
+  ]) {
+    const app = await convertTemplateToAppConfig({
+      metadata: { name: 'sample-app' },
+      spec: { title: 'Sample App', icon: '/icons/default.svg', youtube },
+    });
+    assert.equal(app.youtube, expected);
+    assert.equal(JSON.parse(JSON.stringify(app)).youtube, expected);
+  }
+});
+
 test('convertTemplateToAppConfig reads deploy count from template spec', async () => {
   const app = await convertTemplateToAppConfig({
     metadata: {

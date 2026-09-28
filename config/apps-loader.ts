@@ -9,6 +9,7 @@ export interface AppConfig {
   description: string;
   icon: string;
   screenshots?: string[];
+  youtube?: string;
   category: string;
   features: string[];
   benefits: string[];

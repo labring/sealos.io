@@ -40,7 +40,8 @@
       "zh": {
         "description": "EaglercraftX 2.2.7 服务器，支持网页端游戏、安全 WebSocket 连接、双语管理面板和持久化 Paper 世界"
       }
-    }
+    },
+    "youtube": "https://www.youtube.com/watch?v=6ANuRL-c5Fs"
   },
   {
     "name": "Open Design",
@@ -84,7 +85,8 @@
       "zh": {
         "description": "Open Design 是一个本地优先的开源 AI 设计工作区，可生成原型、演示文稿、图片、视频和基于设计系统的可交付产物。"
       }
-    }
+    },
+    "youtube": "https://www.youtube.com/watch?v=BWVigaUeCVg"
   },
   {
     "name": "Minecraft",
@@ -391,7 +393,8 @@
       "zh": {
         "description": "开源 AI 模型网关与分发平台，兼容 OpenAI API，支持多供应商模型路由、额度管理、渠道编排和管理后台。"
       }
-    }
+    },
+    "youtube": "https://www.youtube.com/watch?v=zea5yrXCz28"
   },
   {
     "name": "WordPress",
@@ -828,7 +831,8 @@
       "zh": {
         "description": "LobeHub 是开源 AI 工作空间，支持聊天、智能体、知识库、多模态文件和模型服务商管理。"
       }
-    }
+    },
+    "youtube": "https://www.youtube.com/watch?v=qZQpL-efnyU"
   },
   {
     "name": "Mautic",
@@ -916,7 +920,8 @@
       "zh": {
         "description": "Firecrawl 是自托管网页抓取和爬取 API，可将网站内容转换为适合大模型使用的结构化数据。"
       }
-    }
+    },
+    "youtube": "https://www.youtube.com/watch?v=heq0YdUyzXE"
   },
   {
     "name": "LiteLLM",
@@ -1135,7 +1140,8 @@
       "zh": {
         "description": "开源的手绘风格虚拟白板，支持协作和端到端加密。"
       }
-    }
+    },
+    "youtube": "https://www.youtube.com/watch?v=-tuMrj63-6g"
   },
   {
     "name": "Happy Server",
@@ -7256,7 +7262,8 @@
       "zh": {
         "description": "面向 Ollama、OpenAI 兼容 API、RAG 和多模态工作流的友好 AI 界面。"
       }
-    }
+    },
+    "youtube": "https://www.youtube.com/watch?v=x-NrQq3C84Q"
   },
   {
     "name": "Outline",
@@ -9521,7 +9528,8 @@
       "zh": {
         "description": "一个自托管 PDF 工具箱，支持合并、拆分、转换、OCR、压缩、涂黑和其他文档处理流程。"
       }
-    }
+    },
+    "youtube": "https://www.youtube.com/watch?v=fu6T-Yl0afY"
   },
   {
     "name": "Strapi",
