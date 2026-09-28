@@ -7,6 +7,7 @@ import { ArrowRight, AlertCircle } from 'lucide-react';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { siteConfig } from '@/config/site';
 import { appendAttributionToUrl } from '@/lib/attribution-url';
+import { gtmPush } from '@/lib/gtm';
 import { z } from 'zod';
 import { useAuthForm } from './AuthFormContext';
 import { useCountdown } from './hooks';
@@ -53,6 +54,12 @@ export function SelectMethodStep() {
       return;
     }
 
+    gtmPush({
+      event: 'login_start',
+      method: 'email',
+      module: 'auth',
+      context: 'app',
+    });
     const success = await sendCode();
     if (success) {
       setStep('verify-code');
