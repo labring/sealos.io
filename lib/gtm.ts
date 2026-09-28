@@ -11,9 +11,9 @@ export type ButtonActionType =
   | 'auth-form';
 
 export const gtmPush = (event: GTMEvent) => {
-  if (typeof window !== 'undefined' && window.dataLayer) {
-    window.dataLayer.push(event);
-  }
+  if (typeof window === 'undefined') return;
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(event);
 };
 
 export const trackPageView = (

@@ -5,6 +5,7 @@ import { AuthFormProvider as BaseAuthFormProvider } from './AuthFormContext';
 import { EmailVerifyResponse } from './types';
 import { siteConfig } from '@/config/site';
 import { appendAttributionToUrl } from '@/lib/attribution-url';
+import { setTokenLoginTracking } from '@/lib/login-tracking';
 
 export function AuthFormProvider({ children }: { children: ReactNode }) {
   const handleVerifySuccess = (
@@ -23,6 +24,8 @@ export function AuthFormProvider({ children }: { children: ReactNode }) {
         target.searchParams.append(key, value);
       });
     }
+
+    setTokenLoginTracking(target, 'email', data.needInit);
 
     const decoratedTarget = appendAttributionToUrl(target.toString());
     window.location.href = decoratedTarget;

@@ -4,6 +4,8 @@ import Script from 'next/script';
 import { useCallback } from 'react';
 import { appDomain, siteConfig } from '@/config/site';
 import { appendAttributionToUrl } from '@/lib/attribution-url';
+import { gtmPush } from '@/lib/gtm';
+import { setTokenLoginTracking } from '@/lib/login-tracking';
 
 type GoogleCredentialResponse = {
   credential?: string;
@@ -37,6 +39,8 @@ function buildOneTapRedirectUrl(data: { token: string; needInit?: boolean }) {
     target.searchParams.append('workspaceName', 'My Workspace');
   }
 
+  setTokenLoginTracking(target, 'google_one_tap', !!data.needInit);
+
   return appendAttributionToUrl(target.toString());
 }
 
@@ -56,6 +60,14 @@ export function GoogleOneTap() {
       if (!response.credential) {
         return;
       }
+
+      gtmPush({
+        event: 'login_start',
+        method: 'oauth2',
+        oauth2_provider: 'GOOGLE',
+        module: 'auth',
+        context: 'app',
+      });
 
       try {
         const result = await fetch(siteConfig.googleOneTap.loginEndpoint, {
