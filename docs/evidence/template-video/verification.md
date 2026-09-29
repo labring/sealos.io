@@ -6,6 +6,27 @@ Date: 2026-09-29 (Asia/Shanghai). Baseline: `ace53cd`.
 Environment: Node 20.20.0, pnpm 10.28.2, installed TypeScript 5.8.3,
 Chrome 153 via the existing Playwright installation. No dependencies added.
 
+## Historical player style
+
+The style update starts from `84f1be7` and follows the homepage player at
+`226c1a0697e84885d099ce48fbaa7494e6deaf77`, the first parent of PR #298's merge.
+The reference components are `DemoSection.tsx` and `VideoModal.tsx` under
+`app/[lang]/(home)/(new-home)/`, plus the historical `landing-primary` button.
+
+The approved scope restores the 16:9 cover, 32px corners, 4px dark border,
+64px white-to-gray round play button, and responsive modal playback. The cover
+stays flat. Each template keeps its own video, thumbnail, and caption links.
+The modal uses the existing Radix dependency and CSS transitions, with a dark
+blurred backdrop, 16px video corners, and an external close button. Its width is
+capped by viewport height so the close button fits landscape phones.
+
+Mouse close, backdrop close, and Escape with host-dialog focus unload the
+iframe and restore focus to the cover. Cross-origin YouTube controls retain
+their own keyboard events: use Tab/Shift+Tab to return to the close button
+after interacting inside the player. Chrome also retains this focus boundary
+with a native HTML `dialog`; the historical Radix player has the same boundary.
+Reduced-motion preferences disable the modal transitions.
+
 ## Data and publishing
 
 - The existing template-list endpoint returned 250 templates. Its existing
@@ -36,18 +57,20 @@ Next server from a temporary copy of application code/configuration. Catalog
 fixtures never modify the working catalog.
 
 Verified on Excalidraw, Open WebUI, and Eaglercraft in English and Chinese,
-at viewport widths 1440 and 390:
+at 1440×1000, 390×844, and 844×390 viewports:
 
 - A 16:9 thumbnail cover precedes the player; initial feature requests contain
-  no player request. Mouse, Enter, and Space replace it with one fixed-host
-  privacy-enhanced iframe requesting autoplay.
-- Cover/player dimensions match, controls fit the viewport, keyboard focus is
-  visible and transfers to the iframe, fullscreen permission is present, and
-  captions plus direct YouTube/full-screenshot links remain available.
+  no player request. Mouse, Enter, and Space open a named modal containing one
+  fixed-host privacy-enhanced iframe requesting autoplay.
+- The cover retains its dimensions, video and close controls fit the viewport,
+  keyboard focus starts at Close video and can enter/leave the iframe, and
+  fullscreen permission is present. Closing removes the iframe and returns
+  focus to the cover; reopening and backdrop dismissal work. Captions and
+  direct YouTube/full-screenshot links remain available after dismissal.
 - Eaglercraft keeps the world illustration, Day control, deployment dialog,
   and the existing language-appropriate guide.
-- Failed thumbnails keep the title/play control usable. Restricted iframe
-  requests keep the direct viewing link usable.
+- Failed thumbnails keep the named play control usable. Restricted iframe
+  requests retain modal dismissal and the direct viewing link.
 - Fresh n8n and legacy `Reactive-Resume` visits retain screenshot previews.
 - 36 fixture combinations exercise accepted watch/short links, absent/blank/
   non-string values, malformed/foreign/spoofed URLs, credentials, HTTP,
@@ -57,6 +80,8 @@ at viewport widths 1440 and 390:
   production-only check.
 
 ![Excalidraw mobile preview](./excalidraw-mobile.png)
+
+![Excalidraw video modal](./excalidraw-modal.png)
 
 ## External playback
 
@@ -93,6 +118,9 @@ video availability and browser autoplay policy remain external conditions.
   its existing trailing slash; the existing Eaglercraft architecture article
   test expects the absent sentence “Set up an owned domain in three steps:”.
 - Independent standards/spec reviews found no outstanding production issue.
+  The historical-style update passed both reviews, with the cross-origin
+  keyboard boundary documented above. Real YouTube playback, landscape fit,
+  and reduced-motion behavior were checked against its production export.
   Test fixture isolation, loopback binding, and signaled-process cleanup
   findings were addressed before final verification.
 

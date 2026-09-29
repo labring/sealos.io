@@ -183,16 +183,25 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
   const visit = async (path) => {
     requests.length = 0;
     assert.equal(
-      (await page.goto(`${base}${path}`, { waitUntil: 'load' })).status(),
+      (
+        await page.goto(`${base}${path}`, {
+          waitUntil: 'load',
+          timeout: 120_000,
+        })
+      ).status(),
       200,
     );
   };
 
   await t.test(
-    'ordinary and featured videos activate with mouse, Enter, and Space at both viewport sizes',
+    'ordinary and featured video dialogs open and close on desktop, portrait, and landscape screens',
     async () => {
-      for (const width of [1440, 390]) {
-        await page.setViewportSize({ width, height: 1000 });
+      for (const [width, height] of [
+        [1440, 1000],
+        [390, 844],
+        [844, 390],
+      ]) {
+        await page.setViewportSize({ width, height });
         for (const [slug, id, activation] of [
           ['excalidraw', '-tuMrj63-6g', 'click'],
           ['open-webui', 'x-NrQq3C84Q', 'Enter'],
@@ -204,6 +213,7 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
             const play = page.getByRole('button', {
               name: `Play ${app.name} template video`,
               exact: true,
+              includeHidden: true,
             });
             await play.waitFor();
             const preview = page.locator('figure').filter({
@@ -239,6 +249,7 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
               await play.locator('img').getAttribute('src'),
               `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
             );
+            await play.scrollIntoViewIfNeeded();
             const before = await play.boundingBox();
             assert.ok(Math.abs(before.width / before.height - 16 / 9) < 0.02);
             assert.ok(before.x >= 0 && before.x + before.width <= width);
@@ -263,12 +274,19 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
               );
               await page.keyboard.press(activation);
             }
-            const player = page.locator(
-              `iframe[title="${app.name} template video"]`,
-            );
+            const dialog = page.getByRole('dialog', {
+              name: `${app.name} template video`,
+              exact: true,
+            });
+            await dialog.waitFor({ timeout: 5000 });
+            const close = dialog.getByRole('button', { name: 'Close video' });
+            const player = dialog.locator('iframe');
             await player.waitFor();
             assert.equal(await player.count(), 1);
-            assert.equal(await play.count(), 0);
+            assert.equal(await play.count(), 1);
+            const cover = await play.boundingBox();
+            assert.equal(cover.width, before.width);
+            assert.equal(cover.height, before.height);
             assert.equal(
               await player.getAttribute('src'),
               `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`,
@@ -280,19 +298,59 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
               'strict-origin-when-cross-origin',
             );
             const after = await player.boundingBox();
-            assert.equal(after.width, before.width);
-            assert.equal(after.height, before.height);
-            await page.waitForFunction(
-              () => document.activeElement?.tagName === 'IFRAME',
+            assert.ok(Math.abs(after.width / after.height - 16 / 9) < 0.02);
+            assert.ok(after.x >= 0 && after.x + after.width <= width);
+            assert.ok(after.y >= 0 && after.y + after.height <= height);
+            const closeBox = await close.boundingBox();
+            assert.ok(
+              closeBox.y >= 0 && closeBox.y + closeBox.height <= height,
+            );
+            assert.ok(
+              await close.evaluate(
+                (button) => button === document.activeElement,
+              ),
             );
             await page.keyboard.press('Tab');
-            assert.ok(await direct.isVisible());
+            assert.ok(
+              await player.evaluate(
+                (frame) => frame === document.activeElement,
+              ),
+            );
+            await page.keyboard.press('Shift+Tab');
+            assert.ok(
+              await close.evaluate(
+                (button) => button === document.activeElement,
+              ),
+            );
             assert.ok(
               requests.some(
                 (url) =>
                   url ===
                   `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`,
               ),
+            );
+            if (activation === 'click') await close.click();
+            else await page.keyboard.press('Escape');
+            await dialog.waitFor({ state: 'hidden' });
+            assert.equal(
+              await page.locator('iframe[src*="youtube"]').count(),
+              0,
+            );
+            assert.ok(
+              await play.evaluate(
+                (button) => button === document.activeElement,
+              ),
+            );
+            assert.ok(await direct.isVisible());
+            await play.click();
+            await dialog.waitFor();
+            // Wait for the opening transition before exercising the backdrop.
+            await close.hover();
+            await page.mouse.click(2, 2);
+            await dialog.waitFor({ state: 'hidden' });
+            assert.equal(
+              await page.locator('iframe[src*="youtube"]').count(),
+              0,
             );
             assert.ok(
               await page.evaluate(
@@ -344,9 +402,11 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
         const img = document.querySelector('button img[src*="i.ytimg.com"]');
         return img?.complete && img.naturalWidth === 0;
       });
-      assert.ok((await play.innerText()).includes('Excalidraw'));
+      assert.ok(await play.isVisible());
       await play.click();
       await page.locator('iframe[title="Excalidraw template video"]').waitFor();
+      await page.getByRole('button', { name: 'Close video' }).click();
+      await page.getByRole('dialog').waitFor({ state: 'hidden' });
       assert.ok(
         await page
           .getByRole('link', { name: 'Watch on YouTube', exact: true })
@@ -452,12 +512,17 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
               `https://www.youtube.com/watch?v=${id}`,
             );
             await play.click();
-            const player = preview.locator('iframe');
+            const dialog = page.getByRole('dialog', {
+              name: 'Excalidraw template video',
+            });
+            const player = dialog.locator('iframe');
             await player.waitFor();
             assert.equal(
               await player.getAttribute('src'),
               `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`,
             );
+            await dialog.getByRole('button', { name: 'Close video' }).click();
+            await dialog.waitFor({ state: 'hidden' });
           } else {
             assert.equal(
               await preview
