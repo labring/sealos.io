@@ -38,23 +38,16 @@ export default function AppPreviewPanel({ app }: { app: AppDetailConfig }) {
           </div>
         )}
       </div>
-      <figcaption>
-        <span>{videoId ? 'Template video' : 'Template preview'}</span>
-        {videoId && (
-          <a
-            href={`https://www.youtube.com/watch?v=${videoId}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Watch on YouTube <ArrowUpRight size={14} />
-          </a>
-        )}
-        {screenshot && (
-          <a href={screenshot} target="_blank" rel="noopener noreferrer">
-            Full screenshot <ArrowUpRight size={14} />
-          </a>
-        )}
-      </figcaption>
+      {!videoId && (
+        <figcaption>
+          <span>Template preview</span>
+          {screenshot && (
+            <a href={screenshot} target="_blank" rel="noopener noreferrer">
+              Full screenshot <ArrowUpRight size={14} />
+            </a>
+          )}
+        </figcaption>
+      )}
     </figure>
   );
 }

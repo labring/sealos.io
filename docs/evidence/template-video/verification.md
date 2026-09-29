@@ -15,7 +15,7 @@ The reference components are `DemoSection.tsx` and `VideoModal.tsx` under
 
 The approved scope restores the 16:9 cover, 32px corners, 4px dark border,
 64px white-to-gray round play button, and responsive modal playback. The cover
-stays flat. Each template keeps its own video, thumbnail, and caption links.
+stays flat. Each template keeps its own video and thumbnail.
 The modal uses the existing Radix dependency and CSS transitions, with a dark
 blurred backdrop, 16px video corners, and an external close button. Its width is
 capped by viewport height so the close button fits landscape phones.
@@ -32,6 +32,13 @@ The thumbnail-quality follow-up starts from `7e6ffcf`. Covers prefer
 on an image load error. A failed fallback keeps the named play control usable
 without retrying the image indefinitely. The image ref also checks for a
 completed failure before hydration, when the original error event was missed.
+
+The caption-removal follow-up starts from `b389a16`. Video previews omit the
+entire caption row; screenshot and identity previews retain their captions.
+Typechecking and fixture browser acceptance passed (6 passed, 1 production-only
+skip); the full suite retained its three documented baseline failures. The
+mobile screenshot was refreshed. Production build results below refer to the
+historical-style revision `7e6ffcf`.
 
 ## Data and publishing
 
@@ -71,19 +78,19 @@ at 1440×1000, 390×844, and 844×390 viewports:
 - The cover retains its dimensions, video and close controls fit the viewport,
   keyboard focus starts at Close video and can enter/leave the iframe, and
   fullscreen permission is present. Closing removes the iframe and returns
-  focus to the cover; reopening and backdrop dismissal work. Captions and
-  direct YouTube/full-screenshot links remain available after dismissal.
+  focus to the cover; reopening and backdrop dismissal work. Video previews
+  omit the caption and its YouTube/full-screenshot links.
 - Eaglercraft keeps the world illustration, Day control, deployment dialog,
   and the existing language-appropriate guide.
 - Failed thumbnails keep the named play control usable. Restricted iframe
-  requests retain modal dismissal and the direct viewing link.
+  requests retain modal dismissal and the cover play control.
 - Fresh n8n and legacy `Reactive-Resume` visits retain screenshot previews.
 - 36 fixture combinations exercise accepted watch/short links, absent/blank/
   non-string values, malformed/foreign/spoofed URLs, credentials, HTTP,
   unsupported paths/ports, and invalid IDs, with and without screenshots.
-- Production exported pages with JavaScript disabled retain the direct video
-  link, page title, and guide. Dev streaming is tested separately from this
-  production-only check.
+- The previous production export passed the JavaScript-disabled content check.
+  The updated check expects the video cover, page title, and guide; it awaits
+  the next production build. Dev streaming is tested separately.
 
 ![Excalidraw mobile preview](./excalidraw-mobile.png)
 

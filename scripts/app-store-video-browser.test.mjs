@@ -223,25 +223,8 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
               includeHidden: true,
             });
             await play.waitFor();
-            const preview = page.locator('figure').filter({
-              has: page.getByRole('link', {
-                name: 'Watch on YouTube',
-                exact: true,
-              }),
-            });
-            const direct = preview.getByRole('link', {
-              name: 'Watch on YouTube',
-            });
-            assert.equal(
-              await direct.getAttribute('href'),
-              `https://www.youtube.com/watch?v=${id}`,
-            );
-            assert.equal(
-              await preview
-                .getByRole('link', { name: 'Full screenshot' })
-                .getAttribute('href'),
-              app.screenshots[0],
-            );
+            const preview = page.locator('figure').filter({ has: play });
+            assert.equal(await preview.locator('figcaption').count(), 0);
             assert.equal(
               await preview
                 .getByRole('img', {
@@ -251,7 +234,6 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
                 .count(),
               0,
             );
-            assert.ok((await preview.innerText()).includes('Template video'));
             assert.equal(
               await play.locator('img').getAttribute('src'),
               `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
@@ -348,7 +330,6 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
                 (button) => button === document.activeElement,
               ),
             );
-            assert.ok(await direct.isVisible());
             await play.click();
             await dialog.waitFor();
             // Wait for the opening transition before exercising the backdrop.
@@ -450,11 +431,7 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
       await page.locator('iframe[title="Excalidraw template video"]').waitFor();
       await page.getByRole('button', { name: 'Close video' }).click();
       await page.getByRole('dialog').waitFor({ state: 'hidden' });
-      assert.ok(
-        await page
-          .getByRole('link', { name: 'Watch on YouTube', exact: true })
-          .isVisible(),
-      );
+      assert.ok(await play.isVisible());
       failThumbnail = false;
       failPlayer = false;
     },
@@ -486,7 +463,7 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
   );
 
   await t.test(
-    'server-rendered video links and page content work with JavaScript disabled',
+    'server-rendered video covers and page content remain visible with JavaScript disabled',
     async (t) => {
       if (process.env.APP_STORE_VIDEO_FIXTURES === '1')
         return t.skip(
@@ -505,9 +482,7 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
         await staticPage.goto(`${base}${path}`, {
           waitUntil: 'load',
         });
-        await staticPage
-          .getByRole('link', { name: 'Watch on YouTube', exact: true })
-          .waitFor();
+        await staticPage.locator('button img[src*="i.ytimg.com"]').waitFor();
         assert.equal(await staticPage.locator('h1').count(), 1);
         assert.equal(
           await staticPage.locator('iframe[src*="youtube"]').count(),
@@ -544,16 +519,11 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
           });
           const preview = page
             .locator('figure')
-            .filter({ hasText: id ? 'Template video' : 'Template preview' });
+            .filter(id ? { has: play } : { hasText: 'Template preview' });
+          assert.equal(await preview.locator('figcaption').count(), id ? 0 : 1);
           assert.equal(await play.count(), id ? 1 : 0);
           assert.equal(await image.count(), !id && screenshot ? 1 : 0);
           if (id) {
-            assert.equal(
-              await preview
-                .getByRole('link', { name: 'Watch on YouTube' })
-                .getAttribute('href'),
-              `https://www.youtube.com/watch?v=${id}`,
-            );
             await play.click();
             const dialog = page.getByRole('dialog', {
               name: 'Excalidraw template video',
@@ -581,7 +551,7 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
             await preview
               .getByRole('link', { name: 'Full screenshot' })
               .count(),
-            screenshot ? 1 : 0,
+            !id && screenshot ? 1 : 0,
           );
         }
       }
