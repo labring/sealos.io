@@ -11,6 +11,12 @@ export default function TemplateVideo({
   videoId: string;
   appName: string;
 }) {
+  const loadFallbackThumbnail = (image: HTMLImageElement) => {
+    if (image.src.endsWith('/maxresdefault.jpg')) {
+      image.src = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+    }
+  };
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -20,10 +26,17 @@ export default function TemplateVideo({
           aria-label={`Play ${appName} template video`}
         >
           <img
-            src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+            src={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
             alt=""
-            width={480}
-            height={360}
+            width={1280}
+            height={720}
+            ref={(image) => {
+              // Catch image failures that happened before hydration.
+              if (image?.complete && image.naturalWidth === 0) {
+                loadFallbackThumbnail(image);
+              }
+            }}
+            onError={(event) => loadFallbackThumbnail(event.currentTarget)}
           />
           <span className={s.videoPlay}>
             <Play size={24} fill="currentColor" aria-hidden="true" />

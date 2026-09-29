@@ -153,6 +153,7 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
     viewport: { width: 1440, height: 1000 },
   });
   const requests = [];
+  let failHighResolutionThumbnail = false;
   let failThumbnail = false;
   let failPlayer = false;
   await context.route('**/*', (route) => {
@@ -170,6 +171,12 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
     if (url.hostname === 'i.ytimg.com') {
       requests.push(url.href);
       if (failThumbnail) return route.abort();
+      if (
+        failHighResolutionThumbnail &&
+        url.pathname.endsWith('/maxresdefault.jpg')
+      ) {
+        return route.fulfill({ status: 404, body: '' });
+      }
     }
     if (route.request().resourceType() === 'image') {
       return route.fulfill({ contentType: 'image/svg+xml', body: thumbnail });
@@ -247,7 +254,7 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
             assert.ok((await preview.innerText()).includes('Template video'));
             assert.equal(
               await play.locator('img').getAttribute('src'),
-              `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+              `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
             );
             await play.scrollIntoViewIfNeeded();
             const before = await play.boundingBox();
@@ -389,6 +396,34 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
   );
 
   await t.test(
+    'missing high-resolution covers fall back to the standard thumbnail',
+    async () => {
+      failHighResolutionThumbnail = true;
+      await visit('/products/app-store/excalidraw/');
+      const play = page.getByRole('button', {
+        name: 'Play Excalidraw template video',
+      });
+      await play.waitFor();
+      await page.waitForFunction(() => {
+        const img = document.querySelector('button img[src*="i.ytimg.com"]');
+        return (
+          img?.src.endsWith('/hqdefault.jpg') &&
+          img.complete &&
+          img.naturalWidth > 0
+        );
+      });
+      assert.deepEqual(
+        requests.filter((url) => url.includes('i.ytimg.com')),
+        [
+          'https://i.ytimg.com/vi/-tuMrj63-6g/maxresdefault.jpg',
+          'https://i.ytimg.com/vi/-tuMrj63-6g/hqdefault.jpg',
+        ],
+      );
+      failHighResolutionThumbnail = false;
+    },
+  );
+
+  await t.test(
     'failed thumbnails and restricted players keep usable viewing controls',
     async () => {
       failThumbnail = true;
@@ -400,8 +435,16 @@ test('Template Previews preserve safe video selection, activation, and fallbacks
       await play.waitFor();
       await page.waitForFunction(() => {
         const img = document.querySelector('button img[src*="i.ytimg.com"]');
-        return img?.complete && img.naturalWidth === 0;
+        return (
+          img?.src.endsWith('/hqdefault.jpg') &&
+          img.complete &&
+          img.naturalWidth === 0
+        );
       });
+      assert.equal(
+        requests.filter((url) => url.includes('i.ytimg.com')).length,
+        2,
+      );
       assert.ok(await play.isVisible());
       await play.click();
       await page.locator('iframe[title="Excalidraw template video"]').waitFor();

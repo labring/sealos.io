@@ -27,6 +27,12 @@ after interacting inside the player. Chrome also retains this focus boundary
 with a native HTML `dialog`; the historical Radix player has the same boundary.
 Reduced-motion preferences disable the modal transitions.
 
+The thumbnail-quality follow-up starts from `7e6ffcf`. Covers prefer
+`maxresdefault.jpg` (1280×720), with one fallback to `hqdefault.jpg` (480×360)
+on an image load error. A failed fallback keeps the named play control usable
+without retrying the image indefinitely. The image ref also checks for a
+completed failure before hydration, when the original error event was missed.
+
 ## Data and publishing
 
 - The existing template-list endpoint returned 250 templates. Its existing
@@ -94,9 +100,12 @@ requests on 2026-09-29. All three player documents loaded and began playback:
 | Open WebUI  | `x-NrQq3C84Q` | `currentTime > 0`, `paused = false`, `readyState = 4` |
 | Eaglercraft | `6ANuRL-c5Fs` | `currentTime > 0`, `paused = false`, `readyState = 4` |
 
-Excalidraw and Eaglercraft cover images loaded at the specified 480×360
-thumbnail size and were visually inspected at desktop/mobile widths. Upstream
-video availability and browser autoplay policy remain external conditions.
+The poster-quality follow-up was checked against the isolated Next preview.
+All three representative templates loaded 1280×720 `maxresdefault.jpg` covers;
+Excalidraw's cover was inspected at desktop/mobile widths. Browser regression
+checks cover a missing high-resolution image and failure of both image sizes.
+Upstream video availability and browser autoplay policy remain external
+conditions.
 
 ## Checks
 
