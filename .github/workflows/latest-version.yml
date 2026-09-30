@@ -1,0 +1,31 @@
+name: 🤖Using latest version to fix docs
+on:
+  push:
+    branches:
+      - main
+jobs:
+  latest-docs:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Use command to generate version
+        run: |
+          bash scripts/latest_version.sh
+      - uses: peter-evans/create-pull-request@v5
+        if: "steps.tagpr.outputs.version != ''"
+        with:
+          title: 'Release sealos docs for latest version'
+          body: |
+            
+            Automated changes by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action
+          commit-message: |
+            🤖 New release for sealos docs using robot.
+          branch: docs-robot-latest
+          draft: true
+          signoff: true
+          delete-branch: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
