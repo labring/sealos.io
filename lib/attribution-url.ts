@@ -85,7 +85,24 @@ function resolveStoredAttribution(): string | undefined {
     }
 
     const stored = storage.getItem(LOCAL_STORAGE_KEY);
-    return typeof stored === 'string' && stored.length > 0 ? stored : undefined;
+    if (!stored) {
+      return undefined;
+    }
+
+    const state = JSON.parse(stored);
+    if (!state || (state.version !== 2 && state.version !== 3)) {
+      return undefined;
+    }
+
+    // GTM stores JSON, while product applications consume UTF-8 Base64.
+    const bytes = new TextEncoder().encode(JSON.stringify(state));
+    const binary = Array.from(bytes, (byte) => String.fromCharCode(byte)).join(
+      '',
+    );
+    return btoa(binary)
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '');
   } catch {
     return undefined;
   }

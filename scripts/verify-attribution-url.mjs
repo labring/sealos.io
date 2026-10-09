@@ -407,14 +407,34 @@ try {
     'https://os.sealos.io/?openapp=system-brain&sea_attr=page',
   );
 
+  const storedState = {
+    version: 2,
+    first_touch: { source: 'google', campaign: '部署 AI 🚀' },
+  };
   setBrowserFixtures({
     href: 'https://sealos.io/',
-    storedAttr: 'stored',
+    storedAttr: JSON.stringify(storedState),
   });
-  assert.equal(
+  const storedUrl = new URL(
     appendAttributionToUrl('https://os.sealos.io/?openapp=system-brain'),
-    'https://os.sealos.io/?openapp=system-brain&sea_attr=stored',
   );
+  const storedEncoded = storedUrl.searchParams.get('sea_attr');
+  assert.ok(storedEncoded);
+  assert.deepEqual(
+    JSON.parse(Buffer.from(storedEncoded, 'base64url').toString('utf8')),
+    storedState,
+    'stored attribution must decode using the product Base64 contract',
+  );
+  assert.equal(storedUrl.searchParams.get('openapp'), 'system-brain');
+
+  for (const storedAttr of ['{broken', 'null', '{}', '{"version":1}']) {
+    setBrowserFixtures({ href: 'https://sealos.io/', storedAttr });
+    assert.equal(
+      appendAttributionToUrl('https://os.sealos.io/?openapp=system-brain'),
+      'https://os.sealos.io/?openapp=system-brain',
+      'invalid storage must not poison the login redirect',
+    );
+  }
 
   setBrowserFixtures({
     href: 'https://sealos.io/',
