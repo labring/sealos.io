@@ -8,6 +8,7 @@ const DEFAULT_LOCALE_EXACT_ROUTES = [
   '/customers',
   '/docs',
   '/pricing',
+  '/release',
   '/sealos-skills',
   '/tutorials',
 ];

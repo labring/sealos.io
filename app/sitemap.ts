@@ -57,6 +57,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticMarketingPages: MetadataRoute.Sitemap = [
     '/sealos-skills',
+    '/release',
     ...AGENT_GUIDES.map((agent) => agent.path),
   ].map((path) => toSitemapItem(getUrl, path, 'monthly', 0.75));
 
