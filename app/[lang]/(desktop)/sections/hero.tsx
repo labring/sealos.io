@@ -1,5 +1,5 @@
 import { AsciiWatercolor } from '../components/ascii-watercolor';
-import { DownloadSplitButton } from '../components/download';
+import { DownloadActions } from '../components/download';
 import { InstallWithAgent } from '../components/install-agent';
 import type { HomeCopy } from '../content';
 import { HeroApp } from '../faux/hero-app';
@@ -18,18 +18,24 @@ export function HeroSection({
           <h1 className="sx-display">{copy.hero.title}</h1>
           <p className="sx-lede">{copy.hero.subtitle}</p>
           <div className="sx-hero-actions">
-            <DownloadSplitButton
+            <DownloadActions
               copy={copy.download}
               tracking={{
                 id: 'home_hero_download',
                 location: 'hero',
                 destination: 'desktop_download',
               }}
-            />
-            <InstallWithAgent
-              copy={copy.installAgent}
-              skillsHref={skillsHref}
-            />
+              signUpTracking={{
+                id: 'home_hero_sign_up',
+                location: 'hero',
+                destination: 'signup_modal',
+              }}
+            >
+              <InstallWithAgent
+                copy={copy.installAgent}
+                skillsHref={skillsHref}
+              />
+            </DownloadActions>
           </div>
         </div>
         <AsciiWatercolor image="hero" interactive className="sx-hero-panel">

@@ -18,7 +18,10 @@ export interface HomeCopy {
   };
   download: {
     cta: string;
+    navCta: string;
     menuLabel: string;
+    desktopOnly: string;
+    signUp: string;
     forMac: string;
     forWindows: string;
     forLinux: string;
@@ -82,7 +85,10 @@ const en: HomeCopy = {
   },
   download: {
     cta: 'Download Sealos',
+    navCta: 'Download',
     menuLabel: 'Choose a download',
+    desktopOnly: 'Visit on desktop to download',
+    signUp: 'Sign up',
     forMac: 'Download for macOS',
     forWindows: 'Download for Windows',
     forLinux: 'Download for Linux',
@@ -278,7 +284,10 @@ const zhCn: HomeCopy = {
   },
   download: {
     cta: '下载 Sealos',
+    navCta: '下载',
     menuLabel: '选择下载版本',
+    desktopOnly: '请在电脑上访问并下载',
+    signUp: '注册',
     forMac: '下载 macOS 版',
     forWindows: '下载 Windows 版',
     forLinux: '下载 Linux 版',

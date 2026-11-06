@@ -1,7 +1,10 @@
 'use client';
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
+import { useAuthRedirect } from '@/hooks/use-auth-redirect';
+import { useGTM } from '@/hooks/use-gtm';
+import { getOpenBrainParam } from '@/lib/utils/brain';
 import {
   DESKTOP_DOWNLOAD_ORDER,
   DESKTOP_DOWNLOADS,
@@ -21,7 +24,6 @@ import {
   ArrowRight,
   CheckIcon,
   ChevronDown,
-  ChevronRight,
   DownloadIcon,
   LinuxIcon,
   WindowsIcon,
@@ -29,11 +31,20 @@ import {
 
 type DownloadCopy = HomeCopy['download'];
 
-function useDetectedDownload() {
-  const [detected, setDetected] = useState<DesktopDownloadKey>('macArm64');
+/**
+ * The visitor's build: `undefined` until detection runs in the browser, `null`
+ * on a phone or tablet, where the desktop app cannot be installed.
+ */
+type DetectedDownload = DesktopDownloadKey | null | undefined;
+
+let detection: Promise<DesktopDownloadKey | null> | undefined;
+
+function useDetectedDownload(): DetectedDownload {
+  const [detected, setDetected] = useState<DetectedDownload>(undefined);
   useEffect(() => {
     let alive = true;
-    detectDesktopDownload().then((key) => {
+    detection ??= detectDesktopDownload();
+    detection.then((key) => {
       if (alive) setDetected(key);
     });
     return () => {
@@ -67,7 +78,7 @@ function DownloadMenuContent({
   tracking,
 }: {
   copy: DownloadCopy;
-  detected: DesktopDownloadKey;
+  detected: DetectedDownload;
   align?: 'start' | 'end' | 'center';
   tracking?: RybbitCtaTracking;
 }) {
@@ -126,30 +137,43 @@ function DownloadMenuContent({
   );
 }
 
-/** Primary download pill: the label downloads, the chevron opens all builds. */
-export function DownloadSplitButton({
+const PLATFORM_LABEL: Record<
+  DesktopPlatform,
+  'forMac' | 'forWindows' | 'forLinux'
+> = {
+  mac: 'forMac',
+  windows: 'forWindows',
+  linux: 'forLinux',
+};
+
+/** Download pill: the label downloads the visitor's build, the chevron lists every build. */
+function DownloadSplitButton({
   copy,
-  size = 'lg',
-  label,
+  detected,
+  size,
   tracking,
 }: {
   copy: DownloadCopy;
-  size?: 'md' | 'lg';
-  label?: string;
+  detected: DesktopDownloadKey | undefined;
+  size: 'lg' | 'xl';
   tracking: RybbitCtaTracking;
 }) {
-  const detected = useDetectedDownload();
+  const target = detected ? DESKTOP_DOWNLOADS[detected] : undefined;
+  const Icon = target ? PLATFORM_ICON[target.platform] : undefined;
   return (
     <div className="sx-split" data-size={size}>
       <a
         className="sx-split-main"
-        href={DESKTOP_DOWNLOADS[detected].href}
+        href={target?.href ?? DESKTOP_RELEASES_URL}
         target="_blank"
         rel="noopener noreferrer"
         data-download={detected}
         {...trackingFor(tracking)}
       >
-        {label ?? copy.cta}
+        {Icon ? <Icon className="sx-split-icon" /> : null}
+        <span>
+          {target ? copy[PLATFORM_LABEL[target.platform]] : copy.cta}
+        </span>
       </a>
       <DropdownMenu.Root modal={false}>
         <DropdownMenu.Trigger
@@ -169,7 +193,67 @@ export function DownloadSplitButton({
   );
 }
 
-/** Compact nav button, opens the download menu. */
+/**
+ * Primary download actions. Desktops get the download pill plus `children`;
+ * phones and tablets get a desktop-only notice and a sign-up button instead.
+ */
+export function DownloadActions({
+  copy,
+  size = 'lg',
+  tracking,
+  signUpTracking,
+  children,
+}: {
+  copy: DownloadCopy;
+  size?: 'lg' | 'xl';
+  tracking: RybbitCtaTracking;
+  signUpTracking: RybbitCtaTracking;
+  children?: ReactNode;
+}) {
+  const detected = useDetectedDownload();
+  const { trackButton } = useGTM();
+  const handleAuthRedirect = useAuthRedirect();
+
+  if (detected === null) {
+    const sizeClass = size === 'xl' ? 'sx-btn-xl' : 'sx-btn-lg';
+    return (
+      <>
+        <button
+          type="button"
+          className={`sx-btn sx-btn-secondary ${sizeClass} sx-btn-notice`}
+          disabled
+        >
+          {copy.desktopOnly}
+        </button>
+        <button
+          type="button"
+          className={`sx-btn sx-btn-primary ${sizeClass}`}
+          {...getRybbitCtaProps(signUpTracking)}
+          onClick={() => {
+            trackButton('Sign Up', signUpTracking.location, 'auth-form', '');
+            handleAuthRedirect({ openapp: getOpenBrainParam() });
+          }}
+        >
+          {copy.signUp}
+        </button>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <DownloadSplitButton
+        copy={copy}
+        detected={detected}
+        size={size}
+        tracking={tracking}
+      />
+      {children}
+    </>
+  );
+}
+
+/** Compact nav button that opens the download menu; hidden on phones and tablets. */
 export function NavDownloadButton({
   copy,
   tracking,
@@ -178,14 +262,15 @@ export function NavDownloadButton({
   tracking: RybbitCtaTracking;
 }) {
   const detected = useDetectedDownload();
+  if (detected === null) return null;
   return (
     <DropdownMenu.Root modal={false}>
       <DropdownMenu.Trigger
         className="sx-btn sx-btn-primary sx-btn-md"
         {...trackingFor(tracking)}
       >
-        <span>{copy.cta}</span>
-        <ChevronRight className="sx-btn-chevron" />
+        <span>{copy.navCta}</span>
+        <ChevronDown className="sx-btn-caret" />
       </DropdownMenu.Trigger>
       <DownloadMenuContent
         copy={copy}
@@ -194,72 +279,5 @@ export function NavDownloadButton({
         tracking={tracking}
       />
     </DropdownMenu.Root>
-  );
-}
-
-/** Closing call to action: the visitor's platform first, the others a click away. */
-export function CtaDownloads({
-  copy,
-  tracking,
-}: {
-  copy: DownloadCopy;
-  tracking: RybbitCtaTracking;
-}) {
-  const detected = useDetectedDownload();
-  const platform = DESKTOP_DOWNLOADS[detected].platform;
-  const Icon = PLATFORM_ICON[platform];
-  const primaryLabel =
-    platform === 'windows'
-      ? copy.forWindows
-      : platform === 'linux'
-        ? copy.forLinux
-        : copy.forMac;
-  const secondary: DesktopDownloadKey =
-    platform === 'mac' ? 'windowsX64' : 'macArm64';
-  const SecondaryIcon = PLATFORM_ICON[DESKTOP_DOWNLOADS[secondary].platform];
-  const secondaryLabel = platform === 'mac' ? copy.forWindows : copy.forMac;
-
-  return (
-    <div className="sx-cta-buttons">
-      <a
-        className="sx-btn sx-btn-primary sx-btn-xl"
-        href={DESKTOP_DOWNLOADS[detected].href}
-        target="_blank"
-        rel="noopener noreferrer"
-        data-download={detected}
-        {...trackingFor(tracking)}
-      >
-        <Icon className="sx-btn-platform" />
-        <span>{primaryLabel}</span>
-        <ChevronRight className="sx-btn-chevron" />
-      </a>
-      <a
-        className="sx-btn sx-btn-secondary sx-btn-xl"
-        href={DESKTOP_DOWNLOADS[secondary].href}
-        target="_blank"
-        rel="noopener noreferrer"
-        data-download={secondary}
-        {...trackingFor(tracking, 'secondary')}
-      >
-        <SecondaryIcon className="sx-btn-platform" />
-        <span>{secondaryLabel}</span>
-        <DownloadIcon className="sx-btn-chevron" />
-      </a>
-      <DropdownMenu.Root modal={false}>
-        <DropdownMenu.Trigger
-          className="sx-cta-more"
-          {...trackingFor(tracking, 'menu')}
-        >
-          <span>{copy.menuLabel}</span>
-          <ChevronDown />
-        </DropdownMenu.Trigger>
-        <DownloadMenuContent
-          copy={copy}
-          detected={detected}
-          align="center"
-          tracking={tracking}
-        />
-      </DropdownMenu.Root>
-    </div>
   );
 }

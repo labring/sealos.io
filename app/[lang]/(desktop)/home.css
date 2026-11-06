@@ -330,11 +330,27 @@ html:has(#sx-home) body {
   transform: rotate(90deg);
 }
 
-.sx-btn-platform {
+/* Down caret on buttons that open a menu. */
+.sx-btn-caret {
   flex: none;
-  width: 20px;
-  height: 20px;
-  margin-top: -2px;
+  width: 16px;
+  height: 16px;
+  margin-right: -4px;
+  transition: transform 220ms var(--sx-ease);
+}
+
+.sx-btn[data-state='open'] .sx-btn-caret {
+  transform: rotate(180deg);
+}
+
+/* Desktop-only notice shown on phones and tablets in place of a download. */
+.sx-btn-notice:disabled {
+  color: var(--sx-fg-muted);
+  cursor: default;
+}
+
+.sx-btn-notice:disabled:active {
+  transform: none;
 }
 
 /* Split button: download on the label, all builds behind the chevron. */
@@ -353,6 +369,7 @@ html:has(#sx-home) body {
 .sx-split-main {
   display: inline-flex;
   align-items: center;
+  gap: 8px;
   padding-inline: 18px 14px;
   border-radius: 999px 0 0 999px;
   transition: background-color 160ms ease;
@@ -381,6 +398,37 @@ html:has(#sx-home) body {
 .sx-split-trigger:hover,
 .sx-split-trigger[data-state='open'] {
   background: var(--sx-primary-hover);
+}
+
+.sx-split-icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -2px;
+}
+
+.sx-split[data-size='xl'] {
+  height: 56px;
+  font-size: 18px;
+}
+
+.sx-split[data-size='xl'] .sx-split-main {
+  gap: 12px;
+  padding-inline: 28px 20px;
+}
+
+.sx-split[data-size='xl'] .sx-split-trigger {
+  width: 52px;
+}
+
+.sx-split[data-size='xl'] .sx-split-trigger::before {
+  top: 16px;
+  bottom: 16px;
+}
+
+.sx-split[data-size='xl'] .sx-split-icon {
+  width: 20px;
+  height: 20px;
 }
 
 .sx-split-trigger svg {
@@ -1550,22 +1598,6 @@ html[data-sx-theme='dark']:has(#sx-home) .sx-duty-card[data-tone='tint'] {
   gap: 16px 20px;
 }
 
-.sx-cta-more {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  flex-basis: 100%;
-  font-size: 14px;
-  color: var(--sx-fg-muted);
-  transition: color 160ms ease;
-}
-
-.sx-cta-more:hover,
-.sx-cta-more[data-state='open'] {
-  color: var(--sx-fg);
-}
-
 @media (max-width: 640px) {
   .sx-cta {
     padding-block: 80px;
@@ -1576,6 +1608,10 @@ html[data-sx-theme='dark']:has(#sx-home) .sx-duty-card[data-tone='tint'] {
   .sx-cta-buttons .sx-btn-xl {
     width: 100%;
     justify-content: center;
+    height: 52px;
+    font-size: 16px;
+  }
+  .sx-cta-buttons .sx-split[data-size='xl'] {
     height: 52px;
     font-size: 16px;
   }

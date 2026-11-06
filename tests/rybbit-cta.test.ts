@@ -38,6 +38,10 @@ const homepageCtas = [
     id: 'home_hero_download',
   },
   {
+    file: 'app/[lang]/(desktop)/sections/hero.tsx',
+    id: 'home_hero_sign_up',
+  },
+  {
     file: 'app/[lang]/(desktop)/components/install-agent.tsx',
     id: 'home_hero_install_agent',
   },
@@ -56,6 +60,10 @@ const homepageCtas = [
   {
     file: 'app/[lang]/(desktop)/sections/cta.tsx',
     id: 'home_bottom_download',
+  },
+  {
+    file: 'app/[lang]/(desktop)/sections/cta.tsx',
+    id: 'home_bottom_sign_up',
   },
   {
     file: 'new-components/Footer/StartBuildingButton.tsx',
