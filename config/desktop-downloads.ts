@@ -1,9 +1,9 @@
 /**
  * Download targets for the Sealos desktop app.
  *
- * Installer file names carry the version, so there is no stable direct URL
- * yet. Every target points at the public releases page for now; swap the
- * `href` values here once the release feed is resolved at build time.
+ * Installer file names carry the version, so direct links are resolved from
+ * the release feed manifests when the static site is built. A platform whose
+ * manifest cannot be read falls back to the public releases page.
  */
 export type DesktopDownloadKey =
   | 'macArm64'
@@ -14,19 +14,125 @@ export type DesktopDownloadKey =
 
 export type DesktopPlatform = 'mac' | 'windows' | 'linux';
 
+/** Installer URL for each build. */
+export type DesktopDownloadLinks = Record<DesktopDownloadKey, string>;
+
 export const DESKTOP_RELEASES_URL =
   'https://github.com/sealox/sealox-releases/releases/latest';
 
-export const DESKTOP_DOWNLOADS: Record<
-  DesktopDownloadKey,
-  { platform: DesktopPlatform; href: string }
-> = {
-  macArm64: { platform: 'mac', href: DESKTOP_RELEASES_URL },
-  macX64: { platform: 'mac', href: DESKTOP_RELEASES_URL },
-  windowsX64: { platform: 'windows', href: DESKTOP_RELEASES_URL },
-  linuxX64: { platform: 'linux', href: DESKTOP_RELEASES_URL },
-  linuxArm64: { platform: 'linux', href: DESKTOP_RELEASES_URL },
+export const DESKTOP_PLATFORMS: Record<DesktopDownloadKey, DesktopPlatform> = {
+  macArm64: 'mac',
+  macX64: 'mac',
+  windowsX64: 'windows',
+  linuxX64: 'linux',
+  linuxArm64: 'linux',
 };
+
+export const FALLBACK_DESKTOP_DOWNLOAD_LINKS: DesktopDownloadLinks = {
+  macArm64: DESKTOP_RELEASES_URL,
+  macX64: DESKTOP_RELEASES_URL,
+  windowsX64: DESKTOP_RELEASES_URL,
+  linuxX64: DESKTOP_RELEASES_URL,
+  linuxArm64: DESKTOP_RELEASES_URL,
+};
+
+/** A link to an installer file rather than the releases page. */
+export const isDirectDownload = (href: string) => href !== DESKTOP_RELEASES_URL;
+
+const DESKTOP_FEED_BASE_URL =
+  'https://sealox-global.oss-us-west-1.aliyuncs.com/app/';
+
+const DESKTOP_FEED_MANIFESTS = [
+  'latest-mac.yml',
+  'latest.yml',
+  'latest-linux.yml',
+  'latest-linux-arm64.yml',
+];
+
+const MANIFEST_TIMEOUT_MS = 5000;
+
+// File entries sit on their own line inside the top-level `files:` block, e.g.
+// `  - url: releases/0.10.3/Sealos-0.10.3-mac-arm64.dmg`. Reading only that
+// block keeps `releaseNotes` prose from being taken as file entries.
+const FILE_URL_LINE = /^\s*-\s*url:\s*(.+?)\s*$/;
+
+function classifyInstaller(fileName: string): DesktopDownloadKey | null {
+  const name = fileName.toLowerCase();
+  const arm = /arm64|aarch64/.test(name);
+  if (name.endsWith('.dmg')) return arm ? 'macArm64' : 'macX64';
+  if (name.endsWith('.exe')) return arm ? null : 'windowsX64';
+  if (name.endsWith('.appimage')) return arm ? 'linuxArm64' : 'linuxX64';
+  return null;
+}
+
+/** Installer links listed in one release feed manifest. */
+export function parseDesktopManifest(
+  manifest: string,
+): Partial<DesktopDownloadLinks> {
+  const links: Partial<DesktopDownloadLinks> = {};
+  let inFiles = false;
+  for (const line of manifest.split('\n')) {
+    if (/^\S/.test(line)) inFiles = /^files:\s*$/.test(line);
+    if (!inFiles) continue;
+    const relativeUrl = line
+      .match(FILE_URL_LINE)?.[1]
+      ?.replace(/^['"]|['"]$/g, '');
+    // Only asset paths published by the release pipeline are accepted.
+    if (!relativeUrl?.startsWith('releases/')) continue;
+    const key = classifyInstaller(relativeUrl.split('/').pop() ?? '');
+    if (key && !links[key]) {
+      links[key] = new URL(encodeURI(relativeUrl), DESKTOP_FEED_BASE_URL).href;
+    }
+  }
+  return links;
+}
+
+async function fetchManifest(name: string): Promise<string> {
+  const response = await fetch(new URL(name, DESKTOP_FEED_BASE_URL), {
+    signal: AbortSignal.timeout(MANIFEST_TIMEOUT_MS),
+  });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  return response.text();
+}
+
+async function loadDesktopDownloadLinks(): Promise<DesktopDownloadLinks> {
+  const results = await Promise.allSettled(
+    DESKTOP_FEED_MANIFESTS.map(fetchManifest),
+  );
+  const links: Partial<DesktopDownloadLinks> = {};
+  results.forEach((result, i) => {
+    if (result.status === 'rejected') {
+      console.warn(
+        `[desktop-downloads] Could not read ${DESKTOP_FEED_MANIFESTS[i]}: ${result.reason}`,
+      );
+      return;
+    }
+    for (const [key, href] of Object.entries(
+      parseDesktopManifest(result.value),
+    )) {
+      links[key as DesktopDownloadKey] ??= href;
+    }
+  });
+
+  const missing = DESKTOP_DOWNLOAD_ORDER.filter((key) => !links[key]);
+  if (missing.length > 0) {
+    console.warn(
+      `[desktop-downloads] No installer for ${missing.join(', ')}; linking to the releases page instead.`,
+    );
+  }
+  return { ...FALLBACK_DESKTOP_DOWNLOAD_LINKS, ...links };
+}
+
+let pendingLinks: Promise<DesktopDownloadLinks> | undefined;
+
+/**
+ * Direct installer links from the release feed. Runs at build time on the
+ * server; never throws, so an unreachable feed cannot fail the site build.
+ */
+export function getDesktopDownloadLinks(): Promise<DesktopDownloadLinks> {
+  pendingLinks ??= loadDesktopDownloadLinks();
+  return pendingLinks;
+}
 
 export const DESKTOP_DOWNLOAD_ORDER: DesktopDownloadKey[] = [
   'macArm64',

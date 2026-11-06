@@ -7,10 +7,12 @@ import { useGTM } from '@/hooks/use-gtm';
 import { getOpenBrainParam } from '@/lib/utils/brain';
 import {
   DESKTOP_DOWNLOAD_ORDER,
-  DESKTOP_DOWNLOADS,
+  DESKTOP_PLATFORMS,
   DESKTOP_RELEASES_URL,
   detectDesktopDownload,
+  isDirectDownload,
   type DesktopDownloadKey,
+  type DesktopDownloadLinks,
   type DesktopPlatform,
 } from '@/config/desktop-downloads';
 import {
@@ -71,13 +73,22 @@ function trackingFor(tracking: RybbitCtaTracking | undefined, suffix?: string) {
   });
 }
 
+/** Installers download in place; the releases page opens in a new tab. */
+function linkTarget(href: string) {
+  return isDirectDownload(href)
+    ? {}
+    : { target: '_blank', rel: 'noopener noreferrer' };
+}
+
 function DownloadMenuContent({
   copy,
+  links,
   detected,
   align = 'start',
   tracking,
 }: {
   copy: DownloadCopy;
+  links: DesktopDownloadLinks;
   detected: DetectedDownload;
   align?: 'start' | 'end' | 'center';
   tracking?: RybbitCtaTracking;
@@ -94,14 +105,12 @@ function DownloadMenuContent({
           {copy.menuLabel}
         </DropdownMenu.Label>
         {DESKTOP_DOWNLOAD_ORDER.map((key) => {
-          const target = DESKTOP_DOWNLOADS[key];
-          const Icon = PLATFORM_ICON[target.platform];
+          const Icon = PLATFORM_ICON[DESKTOP_PLATFORMS[key]];
           return (
             <DropdownMenu.Item key={key} asChild className="sx-menu-item">
               <a
-                href={target.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={links[key]}
+                {...linkTarget(links[key])}
                 data-recommended={key === detected || undefined}
                 {...trackingFor(tracking, toSnake(key))}
               >
@@ -149,31 +158,31 @@ const PLATFORM_LABEL: Record<
 /** Download pill: the label downloads the visitor's build, the chevron lists every build. */
 function DownloadSplitButton({
   copy,
+  links,
   detected,
   size,
   tracking,
 }: {
   copy: DownloadCopy;
+  links: DesktopDownloadLinks;
   detected: DesktopDownloadKey | undefined;
   size: 'lg' | 'xl';
   tracking: RybbitCtaTracking;
 }) {
-  const target = detected ? DESKTOP_DOWNLOADS[detected] : undefined;
-  const Icon = target ? PLATFORM_ICON[target.platform] : undefined;
+  const platform = detected ? DESKTOP_PLATFORMS[detected] : undefined;
+  const Icon = platform ? PLATFORM_ICON[platform] : undefined;
+  const href = detected ? links[detected] : DESKTOP_RELEASES_URL;
   return (
     <div className="sx-split" data-size={size}>
       <a
         className="sx-split-main"
-        href={target?.href ?? DESKTOP_RELEASES_URL}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={href}
+        {...linkTarget(href)}
         data-download={detected}
         {...trackingFor(tracking)}
       >
         {Icon ? <Icon className="sx-split-icon" /> : null}
-        <span>
-          {target ? copy[PLATFORM_LABEL[target.platform]] : copy.cta}
-        </span>
+        <span>{platform ? copy[PLATFORM_LABEL[platform]] : copy.cta}</span>
       </a>
       <DropdownMenu.Root modal={false}>
         <DropdownMenu.Trigger
@@ -185,6 +194,7 @@ function DownloadSplitButton({
         </DropdownMenu.Trigger>
         <DownloadMenuContent
           copy={copy}
+          links={links}
           detected={detected}
           tracking={tracking}
         />
@@ -199,12 +209,14 @@ function DownloadSplitButton({
  */
 export function DownloadActions({
   copy,
+  links,
   size = 'lg',
   tracking,
   signUpTracking,
   children,
 }: {
   copy: DownloadCopy;
+  links: DesktopDownloadLinks;
   size?: 'lg' | 'xl';
   tracking: RybbitCtaTracking;
   signUpTracking: RybbitCtaTracking;
@@ -244,6 +256,7 @@ export function DownloadActions({
     <>
       <DownloadSplitButton
         copy={copy}
+        links={links}
         detected={detected}
         size={size}
         tracking={tracking}
@@ -256,9 +269,11 @@ export function DownloadActions({
 /** Compact nav button that opens the download menu; hidden on phones and tablets. */
 export function NavDownloadButton({
   copy,
+  links,
   tracking,
 }: {
   copy: DownloadCopy;
+  links: DesktopDownloadLinks;
   tracking: RybbitCtaTracking;
 }) {
   const detected = useDetectedDownload();
@@ -274,6 +289,7 @@ export function NavDownloadButton({
       </DropdownMenu.Trigger>
       <DownloadMenuContent
         copy={copy}
+        links={links}
         detected={detected}
         align="end"
         tracking={tracking}

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { languagesType } from '@/lib/i18n';
 import { getLanguageSlug } from '@/lib/i18n';
 import { generatePageMetadata } from '@/lib/utils/metadata';
+import { getDesktopDownloadLinks } from '@/config/desktop-downloads';
 import { getHomeCopy } from './content';
 import { HomeNav } from './components/nav';
 import { HeroSection } from './sections/hero';
@@ -38,25 +39,30 @@ export function generateMetadata({ params }: PageProps): Metadata {
   });
 }
 
-export default function DesktopHomePage({ params }: PageProps) {
+export default async function DesktopHomePage({ params }: PageProps) {
   const lang = params.lang;
   const copy = getHomeCopy(lang);
+  const downloadLinks = await getDesktopDownloadLinks();
   const prefix = getLanguageSlug(lang);
   const localize = (href: string) =>
     href.startsWith('/') ? `${prefix}${href}` : href;
 
   return (
     <>
-      <HomeNav copy={copy} lang={lang} />
+      <HomeNav copy={copy} downloadLinks={downloadLinks} lang={lang} />
       <main>
-        <HeroSection copy={copy} skillsHref={localize('/sealos-skills')} />
+        <HeroSection
+          copy={copy}
+          downloadLinks={downloadLinks}
+          skillsHref={localize('/sealos-skills')}
+        />
         <FeatureRows copy={copy} />
         <ShipSection copy={copy} />
         <DeployAnySection copy={copy} />
         <DutySection copy={copy} />
         <DependsSection copy={copy} />
         <FaqSection copy={copy} />
-        <CtaSection copy={copy} />
+        <CtaSection copy={copy} downloadLinks={downloadLinks} />
       </main>
       <HomeFooter copy={copy} lang={lang} localize={localize} />
     </>

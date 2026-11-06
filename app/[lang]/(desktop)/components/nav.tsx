@@ -15,6 +15,7 @@ import {
 } from '@/new-components/header-links';
 import type { HomeCopy } from '../content';
 import { portalContainer } from './portal';
+import type { DesktopDownloadLinks } from '@/config/desktop-downloads';
 import { NavDownloadButton } from './download';
 import {
   ArrowUpRight,
@@ -97,9 +98,11 @@ function ResourcesMenu({ link }: { link: HeaderNavLink }) {
 
 export function HomeNav({
   copy,
+  downloadLinks,
   lang,
 }: {
   copy: HomeCopy;
+  downloadLinks: DesktopDownloadLinks;
   lang: languagesType;
 }) {
   const { setOpenSearch } = useSearchContext();
@@ -179,6 +182,7 @@ export function HomeNav({
           </button>
           <NavDownloadButton
             copy={copy.download}
+            links={downloadLinks}
             tracking={{
               id: 'home_header_download',
               location: 'header',
@@ -255,6 +259,7 @@ export function HomeNav({
         </button>
         <NavDownloadButton
           copy={copy.download}
+          links={downloadLinks}
           tracking={{
             id: 'home_header_mobile_download',
             location: 'header_mobile',

@@ -1,14 +1,17 @@
 import { Watercolor } from '../components/watercolor';
 import { DownloadActions } from '../components/download';
 import { InstallWithAgent } from '../components/install-agent';
+import type { DesktopDownloadLinks } from '@/config/desktop-downloads';
 import type { HomeCopy } from '../content';
 import { HeroApp } from '../faux/hero-app';
 
 export function HeroSection({
   copy,
+  downloadLinks,
   skillsHref,
 }: {
   copy: HomeCopy;
+  downloadLinks: DesktopDownloadLinks;
   skillsHref: string;
 }) {
   return (
@@ -20,6 +23,7 @@ export function HeroSection({
           <div className="sx-hero-actions">
             <DownloadActions
               copy={copy.download}
+              links={downloadLinks}
               tracking={{
                 id: 'home_hero_download',
                 location: 'hero',
