@@ -58,7 +58,7 @@ export default function DesktopHomePage({ params }: PageProps) {
         <FaqSection copy={copy} />
         <CtaSection copy={copy} />
       </main>
-      <HomeFooter lang={lang} localize={localize} />
+      <HomeFooter copy={copy} lang={lang} localize={localize} />
     </>
   );
 }

@@ -2,22 +2,62 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { siteConfig } from '@/config/site';
 import type { languagesType } from '@/lib/i18n';
-import { getFooterLinks } from '@/new-components/Footer/footer-links';
-import {
-  DiscordIcon,
-  GithubIcon,
-  RSSIcon,
-  XIcon,
-  YoutubeIcon,
-} from '@/new-components/Footer/FooterIcons';
-import { SealosMark } from '../components/icons';
+import { footerTranslations } from '@/new-components/Footer/footer-links';
+import type { HomeCopy } from '../content';
+import { LanguageMenu } from '../components/nav';
+import { ThemeToggle } from '../components/theme';
 
-const socialLinks: Array<{ href: string; title: string; icon: ReactNode }> = [
-  { href: siteConfig.links.github, title: 'GitHub', icon: <GithubIcon /> },
-  { href: siteConfig.links.discord, title: 'Discord', icon: <DiscordIcon /> },
-  { href: siteConfig.links.twitter, title: 'X', icon: <XIcon /> },
-  { href: siteConfig.links.youtube, title: 'YouTube', icon: <YoutubeIcon /> },
-  { href: '/rss.xml', title: 'RSS Feed', icon: <RSSIcon /> },
+type FooterColumn = {
+  titleKey: string;
+  links: Array<
+    { textKey: string; urlKey: string } | { text: string; url: string }
+  >;
+};
+
+const columns: FooterColumn[] = [
+  {
+    titleKey: 'productsTitle',
+    links: [
+      { textKey: 'skills', urlKey: 'skillsUrl' },
+      { textKey: 'templates', urlKey: 'templatesUrl' },
+      { textKey: 'pricing', urlKey: 'pricingUrl' },
+      { textKey: 'fastgpt', urlKey: 'fastgptUrl' },
+    ],
+  },
+  {
+    titleKey: 'resourcesTitle',
+    links: [
+      { textKey: 'docs', urlKey: 'docsUrl' },
+      { textKey: 'blog', urlKey: 'blogUrl' },
+      { textKey: 'faqShort', urlKey: 'faqUrl' },
+      { textKey: 'education', urlKey: 'educationUrl' },
+    ],
+  },
+  {
+    titleKey: 'supportTitle',
+    links: [
+      { textKey: 'contactUs', urlKey: 'contactUsUrl' },
+      { textKey: 'reportAbuse', urlKey: 'reportAbuseUrl' },
+    ],
+  },
+  {
+    titleKey: 'legalTitle',
+    links: [
+      { textKey: 'termsOfService', urlKey: 'termsOfServiceUrl' },
+      { textKey: 'privacyPolicy', urlKey: 'privacyPolicyUrl' },
+      { textKey: 'cookiePolicy', urlKey: 'cookiePolicyUrl' },
+    ],
+  },
+  {
+    titleKey: 'connectTitle',
+    links: [
+      { text: 'GitHub', url: siteConfig.links.github },
+      { text: 'Discord', url: siteConfig.links.discord },
+      { text: 'X', url: siteConfig.links.twitter },
+      { text: 'YouTube', url: siteConfig.links.youtube },
+      { text: 'RSS', url: '/rss.xml' },
+    ],
+  },
 ];
 
 function FooterLink({
@@ -30,77 +70,60 @@ function FooterLink({
   children: ReactNode;
 }) {
   if (href.startsWith('/')) {
-    return <Link href={localize(href)}>{children}</Link>;
+    // The RSS feed is a root-level route and is not localized.
+    const target = href.endsWith('.xml') ? href : localize(href);
+    return <Link href={target}>{children}</Link>;
   }
   return (
     <a href={href} target="_blank" rel="noopener noreferrer">
       {children}
+      <span className="sx-footer-external" aria-hidden>
+        ↗
+      </span>
     </a>
   );
 }
 
 export function HomeFooter({
+  copy,
   lang,
   localize,
 }: {
+  copy: HomeCopy;
   lang: languagesType;
   localize: (href: string) => string;
 }) {
-  const footer = getFooterLinks(lang);
+  const t = footerTranslations[lang] ?? footerTranslations.en;
 
   return (
     <footer className="sx-footer">
       <div className="sx-container">
-        <Link
-          href={localize('/') || '/'}
-          className="sx-brand"
-          aria-label="Sealos"
-        >
-          <SealosMark className="sx-brand-mark" />
-          <span>Sealos</span>
-        </Link>
         <nav aria-label="Footer" className="sx-footer-columns">
-          {footer.columns.map((column) => (
-            <div key={column.title}>
-              <h2 className="sx-footer-title">{column.title}</h2>
+          {columns.map((column) => (
+            <div key={column.titleKey}>
+              <h2 className="sx-footer-title">{t[column.titleKey]}</h2>
               <ul className="sx-footer-links">
-                {column.links.map((link) => (
-                  <li key={link.text}>
-                    <FooterLink href={link.url} localize={localize}>
-                      {link.text}
-                    </FooterLink>
-                  </li>
-                ))}
+                {column.links.map((link) => {
+                  const text = 'text' in link ? link.text : t[link.textKey];
+                  const url = 'url' in link ? link.url : t[link.urlKey];
+                  return (
+                    <li key={text}>
+                      <FooterLink href={url} localize={localize}>
+                        {text}
+                      </FooterLink>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
         </nav>
         <div className="sx-footer-bottom">
-          <ul className="sx-footer-legal">
-            {footer.legal.map((link) => (
-              <li key={link.text}>
-                <FooterLink href={link.url} localize={localize}>
-                  {link.text}
-                </FooterLink>
-              </li>
-            ))}
-          </ul>
-          <span>{footer.copyright}</span>
-          <ul className="sx-footer-social">
-            {socialLinks.map((link) => (
-              <li key={link.title}>
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={link.title}
-                  aria-label={link.title}
-                >
-                  {link.icon}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <small className="sx-footer-copyright">{t.copyrightShort}</small>
+          <div className="sx-footer-controls">
+            <LanguageMenu lang={lang} label={copy.nav.language} />
+            <ThemeToggle labels={copy.nav.theme} />
+          </div>
         </div>
       </div>
     </footer>
