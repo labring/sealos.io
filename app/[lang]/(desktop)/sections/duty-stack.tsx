@@ -11,8 +11,6 @@ import {
 const STICK_TOP = 118;
 const STEP = 14;
 const GAP = 16;
-// How long the last card stays pinned after it lands, as a share of a pitch.
-const TAIL_DWELL = 0.6;
 
 const clamp01 = (value: number) => Math.max(0, Math.min(1, value));
 
@@ -29,7 +27,6 @@ interface DutyStackProps {
  */
 export function DutyStack({ items, head, cards }: DutyStackProps) {
   const stackRef = useRef<HTMLDivElement>(null);
-  const tailRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
   const itemRefs = useRef<Array<HTMLLIElement | null>>([]);
   const [active, setActive] = useState(0);
@@ -61,24 +58,18 @@ export function DutyStack({ items, head, cards }: DutyStackProps) {
       const cover = i < n - 1 ? clamp01(position - i) : 0;
       card.style.setProperty('--cover', cover.toFixed(3));
     });
+    // An item's line fills while its card slides in: from the moment the item
+    // becomes active (half a pitch out) to the card landing. The last line
+    // therefore completes as the last card lands, so the page never has to
+    // hold the stack pinned with nothing moving but the line.
     itemRefs.current.forEach((item, i) => {
       item?.style.setProperty(
         '--progress',
-        clamp01(position - i + 0.5).toFixed(3),
+        clamp01((position - i + 0.5) * 2).toFixed(3),
       );
     });
     setActive((prev) => (prev === current ? prev : current));
   }, [cards.length]);
-
-  // The sticky cards are held by the stack's content box, so the last card
-  // only stays pinned while there is content below it. The tail spacer keeps
-  // it pinned long enough for the last item's progress line to finish.
-  const layoutTail = useCallback(() => {
-    const tail = tailRef.current;
-    if (!tail) return;
-    const height = Math.max(0, Math.round(getPitch() * TAIL_DWELL - GAP));
-    tail.style.height = `${height}px`;
-  }, []);
 
   useEffect(() => {
     let raf = 0;
@@ -89,12 +80,8 @@ export function DutyStack({ items, head, cards }: DutyStackProps) {
         measure();
       });
     };
-    const onResize = () => {
-      layoutTail();
-      onScroll();
-    };
-    onResize();
-    const observer = new ResizeObserver(onResize);
+    onScroll();
+    const observer = new ResizeObserver(onScroll);
     if (cardRefs.current[0]) observer.observe(cardRefs.current[0]);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
@@ -102,7 +89,7 @@ export function DutyStack({ items, head, cards }: DutyStackProps) {
       observer.disconnect();
       window.removeEventListener('scroll', onScroll);
     };
-  }, [measure, layoutTail]);
+  }, [measure]);
 
   const goTo = (index: number) => {
     const stack = stackRef.current;
@@ -180,7 +167,6 @@ export function DutyStack({ items, head, cards }: DutyStackProps) {
             </div>
           </div>,
         ])}
-        <div ref={tailRef} className="sx-duty-tail" aria-hidden />
       </div>
     </div>
   );
