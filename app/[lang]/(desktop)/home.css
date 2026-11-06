@@ -128,7 +128,6 @@ html:has(#sx-home) body {
 }
 
 #sx-home :where(a, button):focus-visible,
-.sx-menu :where(a, button):focus-visible,
 .sx-popover :where(a, button):focus-visible {
   outline: 2px solid var(--sx-accent);
   outline-offset: 2px;
@@ -458,6 +457,12 @@ html:has(#sx-home) body {
 
 .sx-menu-item[data-highlighted] {
   background: var(--sx-chip);
+}
+
+/* Radix menu items take DOM focus on hover, so the global focus ring would
+   also show on mouse hover; the highlight background marks focus instead. */
+#sx-home .sx-menu-item:focus-visible {
+  outline: none;
 }
 
 .sx-menu-icon {
