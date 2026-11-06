@@ -148,17 +148,16 @@ html:has(#sx-home) body {
 
 .sx-display {
   font-size: 40px;
-  line-height: 1.25;
-  letter-spacing: -0.016em;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   font-weight: 400;
   text-wrap: pretty;
   margin: 0;
 }
 
 .sx-lede {
-  font-size: 26px;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+  font-size: 20px;
+  line-height: 1.45;
   color: var(--sx-fg-muted);
   margin: 0;
   text-wrap: pretty;
@@ -175,7 +174,7 @@ html:has(#sx-home) body {
 
 .sx-body {
   font-size: 20px;
-  line-height: 1.25;
+  line-height: 1.45;
   color: var(--sx-fg-muted);
   margin: 0;
   text-wrap: pretty;
@@ -208,9 +207,10 @@ html:has(#sx-home) body {
 @media (max-width: 860px) {
   .sx-display {
     font-size: 30px;
+    line-height: 1.17;
   }
   .sx-lede {
-    font-size: 20px;
+    font-size: 17px;
   }
   .sx-title {
     font-size: 22px;
@@ -235,6 +235,23 @@ html:has(#sx-home) body {
 :lang(zh) :is(.sx-display, .sx-title, .sx-cta-title, .sx-card-title) {
   word-break: keep-all;
   overflow-wrap: anywhere;
+}
+
+/* CJK glyphs fill the em box, so Latin display leading reads cramped. */
+:lang(zh) :is(.sx-display, .sx-cta-title) {
+  line-height: 1.24;
+  letter-spacing: -0.01em;
+}
+
+/* On narrow screens a keep-all phrase that overflows gets split by
+   overflow-wrap:anywhere, which can strand a closing 。 on its own line.
+   Break per glyph with strict kinsoku instead. */
+@media (max-width: 860px) {
+  :lang(zh) :is(.sx-display, .sx-title, .sx-cta-title, .sx-card-title) {
+    word-break: normal;
+    overflow-wrap: normal;
+    line-break: strict;
+  }
 }
 
 /* ---------- Buttons ---------- */
@@ -958,19 +975,25 @@ html:has(#sx-home) body {
 /* ---------- Hero ---------- */
 
 .sx-hero {
-  padding-block: 112px 80px;
+  padding-block: 104px 72px;
 }
 
+/* Headline and lede read as one group; the CTAs sit apart from it. */
 .sx-hero-copy {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
 }
 
 .sx-hero-copy .sx-display {
-  max-width: 780px;
+  max-width: 720px;
+  text-wrap: balance;
+}
+
+.sx-hero-copy .sx-lede {
+  max-width: 560px;
+  margin-top: 10px;
 }
 
 .sx-hero-actions {
@@ -978,6 +1001,7 @@ html:has(#sx-home) body {
   flex-wrap: wrap;
   align-items: center;
   gap: 8px 10px;
+  margin-top: 28px;
 }
 
 .sx-hero-panel {
@@ -986,10 +1010,16 @@ html:has(#sx-home) body {
 
 @media (max-width: 860px) {
   .sx-hero {
-    padding-block: 56px 40px;
+    padding-block: 48px 36px;
   }
   .sx-hero-copy {
-    margin-bottom: 36px;
+    margin-bottom: 32px;
+  }
+  .sx-hero-copy .sx-lede {
+    margin-top: 8px;
+  }
+  .sx-hero-actions {
+    margin-top: 20px;
   }
 }
 
@@ -1562,11 +1592,12 @@ html[data-sx-theme='dark']:has(#sx-home) .sx-duty-card[data-tone='tint'] {
   text-align: center;
 }
 
+/* Same step as the hero display: the page never shouts louder than it opens. */
 .sx-cta-title {
-  margin: 0 0 40px;
-  font-size: 64px;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  margin: 0 0 32px;
+  font-size: 40px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   font-weight: 400;
   text-wrap: balance;
 }
@@ -1575,7 +1606,7 @@ html[data-sx-theme='dark']:has(#sx-home) .sx-duty-card[data-tone='tint'] {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 16px 20px;
+  gap: 8px 10px;
 }
 
 @media (max-width: 640px) {
@@ -1583,17 +1614,8 @@ html[data-sx-theme='dark']:has(#sx-home) .sx-duty-card[data-tone='tint'] {
     padding-block: 80px;
   }
   .sx-cta-title {
-    font-size: 40px;
-  }
-  .sx-cta-buttons .sx-btn-xl {
-    width: 100%;
-    justify-content: center;
-    height: 52px;
-    font-size: 16px;
-  }
-  .sx-cta-buttons .sx-split[data-size='xl'] {
-    height: 52px;
-    font-size: 16px;
+    font-size: 30px;
+    line-height: 1.17;
   }
 }
 

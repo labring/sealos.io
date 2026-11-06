@@ -8,7 +8,6 @@ export function CtaSection({ copy }: { copy: HomeCopy }) {
       <div className="sx-cta-buttons">
         <DownloadActions
           copy={copy.download}
-          size="xl"
           tracking={{
             id: 'home_bottom_download',
             location: 'bottom_cta',
