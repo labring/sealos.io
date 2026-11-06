@@ -362,7 +362,7 @@ Considerations:
 - Basic Kubernetes concepts are helpful (Deployments, Services, Ingress).
 - More powerful but more flexible than classic PaaS; governance needed as teams grow.
 
-Learn more: sealos.io
+Learn more at [sealos.io](https://sealos.io) or see how Sealos stacks up on [HissingKitty](https://hissingkitty.com/listings/sealos).
 
 ---
 
