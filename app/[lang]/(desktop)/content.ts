@@ -252,7 +252,7 @@ const en: HomeCopy = {
       },
     ],
   },
-  cta: { title: 'Try Sealos now.' },
+  cta: { title: 'Hire your dedicated Ops\u00a0Agent and ship in minutes.' },
 };
 
 const zhCn: HomeCopy = {
@@ -438,7 +438,7 @@ const zhCn: HomeCopy = {
       },
     ],
   },
-  cta: { title: '现在就试试 Sealos。' },
+  cta: { title: '雇一位专属 Ops Agent，几分钟就能上线。' },
 };
 
 const COPY: Record<languagesType, HomeCopy> = { en, 'zh-cn': zhCn };

@@ -1592,12 +1592,13 @@ html[data-sx-theme='dark']:has(#sx-home) .sx-duty-card[data-tone='tint'] {
   text-align: center;
 }
 
-/* Same step as the hero display: the page never shouts louder than it opens. */
 .sx-cta-title {
-  margin: 0 0 32px;
-  font-size: 40px;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  /* Narrow enough that balance splits the line into two even halves. */
+  max-width: 900px;
+  margin: 0 0 40px;
+  font-size: 64px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
   font-weight: 400;
   text-wrap: balance;
 }
@@ -1614,8 +1615,7 @@ html[data-sx-theme='dark']:has(#sx-home) .sx-duty-card[data-tone='tint'] {
     padding-block: 80px;
   }
   .sx-cta-title {
-    font-size: 30px;
-    line-height: 1.17;
+    font-size: 40px;
   }
 }
 
