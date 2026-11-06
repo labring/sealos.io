@@ -10,6 +10,7 @@ import {
   DESKTOP_PLATFORMS,
   DESKTOP_RELEASES_URL,
   detectDesktopDownload,
+  getLatestDesktopDownloadLinks,
   isDirectDownload,
   type DesktopDownloadKey,
   type DesktopDownloadLinks,
@@ -54,6 +55,29 @@ function useDetectedDownload(): DetectedDownload {
     };
   }, []);
   return detected;
+}
+
+/**
+ * Build-time links, upgraded in the browser to the newest release of the
+ * visitor's build once that build is known.
+ */
+function useLatestLinks(
+  links: DesktopDownloadLinks,
+  detected: DetectedDownload,
+): DesktopDownloadLinks {
+  const [latest, setLatest] = useState(links);
+  useEffect(() => {
+    setLatest(links);
+    if (!detected) return;
+    let alive = true;
+    getLatestDesktopDownloadLinks(detected).then((fresh) => {
+      if (alive) setLatest({ ...links, ...fresh });
+    });
+    return () => {
+      alive = false;
+    };
+  }, [links, detected]);
+  return latest;
 }
 
 const toSnake = (key: string) =>
@@ -223,6 +247,7 @@ export function DownloadActions({
   children?: ReactNode;
 }) {
   const detected = useDetectedDownload();
+  const latestLinks = useLatestLinks(links, detected);
   const { trackButton } = useGTM();
   const handleAuthRedirect = useAuthRedirect();
 
@@ -256,7 +281,7 @@ export function DownloadActions({
     <>
       <DownloadSplitButton
         copy={copy}
-        links={links}
+        links={latestLinks}
         detected={detected}
         size={size}
         tracking={tracking}
@@ -277,6 +302,7 @@ export function NavDownloadButton({
   tracking: RybbitCtaTracking;
 }) {
   const detected = useDetectedDownload();
+  const latestLinks = useLatestLinks(links, detected);
   if (detected === null) return null;
   return (
     <DropdownMenu.Root modal={false}>
@@ -289,7 +315,7 @@ export function NavDownloadButton({
       </DropdownMenu.Trigger>
       <DownloadMenuContent
         copy={copy}
-        links={links}
+        links={latestLinks}
         detected={detected}
         align="end"
         tracking={tracking}

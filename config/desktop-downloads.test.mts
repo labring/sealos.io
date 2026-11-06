@@ -3,6 +3,7 @@ import test from 'node:test';
 import {
   DESKTOP_RELEASES_URL,
   getDesktopDownloadLinks,
+  getLatestDesktopDownloadLinks,
   parseDesktopManifest,
   pickDesktopDownload,
 } from './desktop-downloads.ts';
@@ -179,5 +180,35 @@ test('builds whose manifest cannot be read fall back to the releases page', asyn
   } finally {
     globalThis.fetch = realFetch;
     console.warn = realWarn;
+  }
+});
+
+test('browser refresh reads only the visitor manifest and never throws', async () => {
+  const realFetch = globalThis.fetch;
+  const requested: string[] = [];
+  globalThis.fetch = (async (url: URL) => {
+    requested.push(String(url).split('/').pop() ?? '');
+    if (String(url).endsWith('/latest-mac.yml')) {
+      return new Response(
+        manifest([
+          'releases/0.10.4/Sealos-0.10.4-mac-arm64.dmg',
+          'releases/0.10.4/Sealos-0.10.4-mac-x64.dmg',
+        ]),
+      );
+    }
+    throw new TypeError('Failed to fetch');
+  }) as typeof fetch;
+  try {
+    assert.deepEqual(await getLatestDesktopDownloadLinks('macX64'), {
+      macArm64: `${FEED}releases/0.10.4/Sealos-0.10.4-mac-arm64.dmg`,
+      macX64: `${FEED}releases/0.10.4/Sealos-0.10.4-mac-x64.dmg`,
+    });
+    // Both Mac builds share one manifest request.
+    await getLatestDesktopDownloadLinks('macArm64');
+    // A blocked request (no CORS headers) leaves the build-time links alone.
+    assert.deepEqual(await getLatestDesktopDownloadLinks('linuxArm64'), {});
+    assert.deepEqual(requested, ['latest-mac.yml', 'latest-linux-arm64.yml']);
+  } finally {
+    globalThis.fetch = realFetch;
   }
 });

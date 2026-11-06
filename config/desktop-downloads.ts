@@ -42,12 +42,16 @@ export const isDirectDownload = (href: string) => href !== DESKTOP_RELEASES_URL;
 const DESKTOP_FEED_BASE_URL =
   'https://sealox-global.oss-us-west-1.aliyuncs.com/app/';
 
-const DESKTOP_FEED_MANIFESTS = [
-  'latest-mac.yml',
-  'latest.yml',
-  'latest-linux.yml',
-  'latest-linux-arm64.yml',
-];
+/** The release feed manifest that lists each build. */
+const DESKTOP_MANIFEST: Record<DesktopDownloadKey, string> = {
+  macArm64: 'latest-mac.yml',
+  macX64: 'latest-mac.yml',
+  windowsX64: 'latest.yml',
+  linuxX64: 'latest-linux.yml',
+  linuxArm64: 'latest-linux-arm64.yml',
+};
+
+const DESKTOP_FEED_MANIFESTS = [...new Set(Object.values(DESKTOP_MANIFEST))];
 
 const MANIFEST_TIMEOUT_MS = 5000;
 
@@ -124,6 +128,7 @@ async function loadDesktopDownloadLinks(): Promise<DesktopDownloadLinks> {
 }
 
 let pendingLinks: Promise<DesktopDownloadLinks> | undefined;
+const pendingLatest = new Map<string, Promise<Partial<DesktopDownloadLinks>>>();
 
 /**
  * Direct installer links from the release feed. Runs at build time on the
@@ -208,4 +213,21 @@ export async function detectDesktopDownload(): Promise<DesktopDownloadKey | null
     mobile: nav.userAgentData?.mobile,
     architecture,
   });
+}
+
+/**
+ * Newest links for one build, read in the browser so a release shows up
+ * without a site deploy. Resolves to `{}` when the feed cannot be read (for
+ * example while the bucket sends no CORS headers); the build-time links stay.
+ */
+export function getLatestDesktopDownloadLinks(
+  key: DesktopDownloadKey,
+): Promise<Partial<DesktopDownloadLinks>> {
+  const name = DESKTOP_MANIFEST[key];
+  let pending = pendingLatest.get(name);
+  if (!pending) {
+    pending = fetchManifest(name).then(parseDesktopManifest, () => ({}));
+    pendingLatest.set(name, pending);
+  }
+  return pending;
 }
