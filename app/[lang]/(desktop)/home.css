@@ -1311,6 +1311,11 @@ html:has(#sx-home) body {
 .sx-duty-card {
   position: sticky;
   top: calc(118px + var(--i) * 14px);
+  /* Close to a screen of scroll per card, so each step has room to land. */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: min(540px, calc(100svh - 260px));
   border-radius: 16px;
   overflow: hidden;
   background: var(--sx-surface);
@@ -1361,7 +1366,11 @@ html[data-sx-theme='dark']:has(#sx-home) .sx-duty-card[data-tone='tint'] {
     position: relative;
     top: auto;
     height: auto;
+    min-height: 0;
     transform: none;
+  }
+  .sx-duty-tail {
+    display: none;
   }
   .sx-duty-card::after {
     display: none;
