@@ -922,20 +922,6 @@ html:has(#sx-home) body {
   --sx-wc-image: url('/images/desktop-home/watercolor-b.webp');
 }
 
-.sx-watercolor-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 700ms ease;
-}
-
-.sx-watercolor[data-shader='ready'] .sx-watercolor-canvas {
-  opacity: 1;
-}
-
 /* Scales a fixed-size stage to its container without JavaScript. On phones
    a stage can keep a minimum scale and pan to its subject (--m-scale,
    --m-shift, --m-ar), so it is cropped instead of shrunk to unreadable. */
@@ -1426,9 +1412,6 @@ html[data-sx-theme='dark']:has(#sx-home) .sx-duty-card[data-tone='tint'] {
     height: auto;
     min-height: 0;
     transform: none;
-  }
-  .sx-duty-tail {
-    display: none;
   }
   .sx-duty-card::after {
     display: none;

@@ -8,7 +8,7 @@ import railwayIcon from '@/assets/platform-icons/railway.svg';
 import renderIcon from '@/assets/platform-icons/render.svg';
 import supabaseIcon from '@/assets/platform-icons/supabase.svg';
 import vercelIcon from '@/assets/platform-icons/vercel.svg';
-import { AsciiWatercolor } from '../components/ascii-watercolor';
+import { Watercolor } from '../components/watercolor';
 import { SealosMark } from '../components/icons';
 import type { HomeCopy } from '../content';
 import { ShipCanvasShot } from '../faux/ship';
@@ -83,7 +83,7 @@ export function ShipSection({ copy }: { copy: HomeCopy }) {
             );
           })}
         </h2>
-        <AsciiWatercolor image="b" className="sx-reveal">
+        <Watercolor image="b" className="sx-reveal">
           <div
             className="sx-scaler"
             style={{
@@ -98,7 +98,7 @@ export function ShipSection({ copy }: { copy: HomeCopy }) {
               <ShipCanvasShot />
             </div>
           </div>
-        </AsciiWatercolor>
+        </Watercolor>
         <div className="sx-ship-cards">
           {copy.ship.cards.map((card, index) => (
             <div key={card.title} className="sx-card sx-ship-card">

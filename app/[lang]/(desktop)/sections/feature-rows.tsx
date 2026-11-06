@@ -1,8 +1,5 @@
 import type { ReactNode } from 'react';
-import {
-  AsciiWatercolor,
-  type WatercolorImage,
-} from '../components/ascii-watercolor';
+import { Watercolor, type WatercolorImage } from '../components/watercolor';
 import type { FeatureRowCopy, HomeCopy } from '../content';
 import {
   AgentLogsShot,
@@ -16,9 +13,9 @@ const SHOTS: Record<
   { image: WatercolorImage; shot: ReactNode; mobileShift: number }
 > = {
   local: { image: 'a', shot: <LocalDeployShot />, mobileShift: 24 },
-  github: { image: 'b', shot: <GithubDeployShot />, mobileShift: 250 },
+  github: { image: 'a', shot: <GithubDeployShot />, mobileShift: 250 },
   project: { image: 'a', shot: <ProjectViewShot />, mobileShift: 24 },
-  agent: { image: 'hero', shot: <AgentLogsShot />, mobileShift: 0 },
+  agent: { image: 'a', shot: <AgentLogsShot />, mobileShift: 0 },
 };
 
 export function FeatureRows({ copy }: { copy: HomeCopy }) {
@@ -39,7 +36,7 @@ export function FeatureRows({ copy }: { copy: HomeCopy }) {
                   <p className="sx-body">{feature.body}</p>
                 </div>
               </div>
-              <AsciiWatercolor image={image}>
+              <Watercolor image={image}>
                 <div
                   className="sx-scaler sx-row-scaler"
                   style={{
@@ -52,7 +49,7 @@ export function FeatureRows({ copy }: { copy: HomeCopy }) {
                 >
                   <div className="sx-scaler-stage">{shot}</div>
                 </div>
-              </AsciiWatercolor>
+              </Watercolor>
             </article>
           );
         })}

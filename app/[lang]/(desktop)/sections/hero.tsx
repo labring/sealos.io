@@ -1,4 +1,4 @@
-import { AsciiWatercolor } from '../components/ascii-watercolor';
+import { Watercolor } from '../components/watercolor';
 import { DownloadActions } from '../components/download';
 import { InstallWithAgent } from '../components/install-agent';
 import type { HomeCopy } from '../content';
@@ -38,7 +38,7 @@ export function HeroSection({
             </DownloadActions>
           </div>
         </div>
-        <AsciiWatercolor image="hero" interactive className="sx-hero-panel">
+        <Watercolor image="hero" className="sx-hero-panel">
           <div
             className="sx-scaler"
             style={{
@@ -53,7 +53,7 @@ export function HeroSection({
               <HeroApp />
             </div>
           </div>
-        </AsciiWatercolor>
+        </Watercolor>
       </div>
     </section>
   );
