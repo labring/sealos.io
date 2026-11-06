@@ -34,21 +34,20 @@ import { useGTM } from '@/hooks/use-gtm';
 import { siteConfig } from '@/config/site';
 import { useAuthRedirect } from '@/hooks/use-auth-redirect';
 import { getOpenBrainParam } from '@/lib/utils/brain';
-import { getLanguageSlug, i18n, type languagesType } from '@/lib/i18n';
+import { getLanguageSlug, type languagesType } from '@/lib/i18n';
 import { getRybbitCtaProps } from '@/lib/analytics/rybbit-cta';
+import {
+  getHeaderLinks,
+  type HeaderLinkId,
+  type HeaderNavChild,
+  type HeaderNavLink,
+} from '@/new-components/header-links';
 
-type NavigationChild = {
-  text: string;
-  url: string;
-  isExternal: boolean;
-  description?: string;
+type NavigationChild = HeaderNavChild & {
   icon?: React.ReactNode;
 };
 
-type NavigationLink = {
-  text: string;
-  url: string;
-  isExternal: boolean;
+type NavigationLink = Omit<HeaderNavLink, 'children'> & {
   children?: NavigationChild[];
   dropdownConfig?: {
     className?: string;
@@ -59,72 +58,21 @@ type HeaderProps = {
   lang?: languagesType;
 };
 
-// 导航链接数据
-const navigationLinks: NavigationLink[] = [
-  {
-    text: 'Agents',
-    url: '/sealos-skills',
-    isExternal: false,
+// Link set comes from header-links.ts; this header adds icons and panel sizing.
+const navigationIcons: Partial<Record<HeaderLinkId, React.ReactNode>> = {
+  learn: <BookOpenText size={16} />,
+  tutorials: <GraduationCap size={16} />,
+  blog: <FileText size={16} />,
+  community: <Users size={16} />,
+};
+
+const dropdownConfigs: Partial<
+  Record<HeaderLinkId, NavigationLink['dropdownConfig']>
+> = {
+  resources: {
+    className: 'w-[40rem]! md:w-[40rem]!',
   },
-  {
-    text: 'Templates',
-    url: '/products/app-store/',
-    isExternal: false,
-  },
-  {
-    text: 'Docs',
-    url: '/docs',
-    isExternal: false,
-  },
-  {
-    text: 'Resources',
-    url: '#',
-    isExternal: false,
-    dropdownConfig: {
-      className: 'w-[40rem]! md:w-[40rem]!',
-    },
-    children: [
-      {
-        text: 'Learn',
-        url: '/blog/category/best-practices',
-        isExternal: false,
-        description: 'Learn and build with the best practices',
-        icon: <BookOpenText size={16} />,
-      },
-      {
-        text: 'Tutorials',
-        url: '/tutorials',
-        isExternal: false,
-        description: 'Step-by-step guides for real app deployments',
-        icon: <GraduationCap size={16} />,
-      },
-      {
-        text: 'Blog',
-        url: '/blog',
-        isExternal: false,
-        description: 'Latest news and updates from Sealos',
-        icon: <FileText size={16} />,
-      },
-      {
-        text: 'Community',
-        url: 'https://discord.gg/wdUn538zVP',
-        isExternal: true,
-        description: 'Join our community of developers',
-        icon: <Users size={16} />,
-      },
-    ],
-  },
-  {
-    text: 'Pricing',
-    url: '/pricing',
-    isExternal: false,
-  },
-  {
-    text: 'Contact',
-    url: '/contact',
-    isExternal: false,
-  },
-];
+};
 
 const DropdownMenuItem = ({ child }: { child: NavigationChild }) => {
   return (
@@ -238,36 +186,18 @@ export function Header({ lang }: HeaderProps) {
     };
   }, [isMobileMenuOpen]);
 
-  const localizedNavigationLinks = React.useMemo(() => {
-    if (!resolvedLang || resolvedLang === i18n.defaultLanguage) {
-      return navigationLinks;
-    }
-
-    const localizeUrl = (url: string, isExternal: boolean) => {
-      if (isExternal || url.startsWith('#')) {
-        return url;
-      }
-      if (url.startsWith(`/${resolvedLang}`)) {
-        return url;
-      }
-      if (url === '/') {
-        return `/${resolvedLang}`;
-      }
-      if (url.startsWith('/')) {
-        return `/${resolvedLang}${url}`;
-      }
-      return `/${resolvedLang}/${url}`;
-    };
-
-    return navigationLinks.map((link) => ({
-      ...link,
-      url: localizeUrl(link.url, link.isExternal),
-      children: link.children?.map((child) => ({
-        ...child,
-        url: localizeUrl(child.url, child.isExternal),
+  const localizedNavigationLinks = React.useMemo<NavigationLink[]>(
+    () =>
+      getHeaderLinks({ lang: resolvedLang, textLang: 'en' }).map((link) => ({
+        ...link,
+        dropdownConfig: dropdownConfigs[link.id],
+        children: link.children?.map((child) => ({
+          ...child,
+          icon: navigationIcons[child.id],
+        })),
       })),
-    }));
-  }, [resolvedLang]);
+    [resolvedLang],
+  );
 
   const homeHref = resolvedLang ? `${getLanguageSlug(resolvedLang)}/` : '/';
 

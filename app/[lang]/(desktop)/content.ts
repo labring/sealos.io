@@ -1,7 +1,5 @@
 import type { languagesType } from '@/lib/i18n';
 
-export type SectionId = 'deploy' | 'run' | 'workspace' | 'faq';
-
 export interface FeatureRowCopy {
   id: 'local' | 'github' | 'project' | 'agent';
   title: string;
@@ -12,7 +10,7 @@ export interface FeatureRowCopy {
 export interface HomeCopy {
   meta: { title: string; description: string };
   nav: {
-    links: Array<{ label: string; href: `#${SectionId}` }>;
+    signIn: string;
     search: string;
     language: string;
     theme: { system: string; light: string; dark: string };
@@ -76,12 +74,7 @@ const en: HomeCopy = {
       'Sealos is a desktop ops agent that deploys local code, GitHub repos and templates, wires databases and AI models, and keeps them running with logs, metrics and fixes you approve.',
   },
   nav: {
-    links: [
-      { label: 'Deploy', href: '#deploy' },
-      { label: 'Run', href: '#run' },
-      { label: 'Workspace', href: '#workspace' },
-      { label: 'FAQ', href: '#faq' },
-    ],
+    signIn: 'Sign in',
     search: 'Search docs',
     language: 'English',
     theme: { system: 'System', light: 'Light', dark: 'Dark' },
@@ -277,12 +270,7 @@ const zhCn: HomeCopy = {
       'Sealos 是一个桌面端 Ops Agent：把本地代码、GitHub 仓库和模板一键上线，接好数据库与 AI 模型，再用日志、指标和你确认过的修复方案让它们稳定运行。',
   },
   nav: {
-    links: [
-      { label: '部署', href: '#deploy' },
-      { label: '运行', href: '#run' },
-      { label: '工作空间', href: '#workspace' },
-      { label: '常见问题', href: '#faq' },
-    ],
+    signIn: '登录',
     search: '搜索文档',
     language: '简体中文',
     theme: { system: '跟随系统', light: '浅色', dark: '深色' },

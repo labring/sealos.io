@@ -75,6 +75,14 @@ export function ArrowRight(props: IconProps) {
   );
 }
 
+export function ArrowUpRight(props: IconProps) {
+  return (
+    <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden {...props}>
+      <path d="M5 11l6-6M6 5h5v5" {...stroke} />
+    </svg>
+  );
+}
+
 export function SearchIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden {...props}>

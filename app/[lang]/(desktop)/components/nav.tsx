@@ -4,19 +4,28 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useSearchContext } from 'fumadocs-ui/provider';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useGTM } from '@/hooks/use-gtm';
+import { useAuthRedirect } from '@/hooks/use-auth-redirect';
+import { getRybbitCtaProps } from '@/lib/analytics/rybbit-cta';
 import { getLanguageSlug, locales, type languagesType } from '@/lib/i18n';
+import { getOpenBrainParam } from '@/lib/utils/brain';
+import {
+  getHeaderLinks,
+  type HeaderNavLink,
+} from '@/new-components/header-links';
 import type { HomeCopy } from '../content';
 import { portalContainer } from './portal';
 import { NavDownloadButton } from './download';
 import {
+  ArrowUpRight,
   CheckIcon,
+  ChevronDown,
   ChevronRight,
   GlobeIcon,
   MenuIcon,
   SealosMark,
   SearchIcon,
 } from './icons';
-import { ThemeToggle } from './theme';
 
 export function LanguageMenu({
   lang,
@@ -57,6 +66,35 @@ export function LanguageMenu({
   );
 }
 
+function ResourcesMenu({ link }: { link: HeaderNavLink }) {
+  return (
+    <DropdownMenu.Root modal={false}>
+      <DropdownMenu.Trigger className="sx-nav-link sx-nav-dropdown">
+        <span>{link.text}</span>
+        <ChevronDown className="sx-nav-dropdown-chevron" />
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Portal container={portalContainer()}>
+        <DropdownMenu.Content className="sx-menu" align="start" sideOffset={8}>
+          {link.children?.map((child) => (
+            <DropdownMenu.Item key={child.id} asChild className="sx-menu-item">
+              <a
+                href={child.url}
+                target={child.isExternal ? '_blank' : undefined}
+                rel={child.isExternal ? 'noopener noreferrer' : undefined}
+              >
+                <span className="sx-menu-text">{child.text}</span>
+                <span className="sx-menu-trailing">
+                  {child.isExternal ? <ArrowUpRight /> : null}
+                </span>
+              </a>
+            </DropdownMenu.Item>
+          ))}
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
+  );
+}
+
 export function HomeNav({
   copy,
   lang,
@@ -65,9 +103,17 @@ export function HomeNav({
   lang: languagesType;
 }) {
   const { setOpenSearch } = useSearchContext();
+  const { trackButton } = useGTM();
+  const handleAuthRedirect = useAuthRedirect();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const home = getLanguageSlug(lang) || '/';
+  const links = getHeaderLinks({ lang });
+
+  const signIn = (location: 'header' | 'header-mobile') => {
+    trackButton('Sign In', location, 'auth-form', '');
+    handleAuthRedirect({ openapp: getOpenBrainParam() });
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -98,11 +144,15 @@ export function HomeNav({
         </Link>
 
         <nav className="sx-nav-links" aria-label="Primary">
-          {copy.nav.links.map((link) => (
-            <a key={link.href} href={link.href} className="sx-nav-link">
-              {link.label}
-            </a>
-          ))}
+          {links.map((link) =>
+            link.children ? (
+              <ResourcesMenu key={link.id} link={link} />
+            ) : (
+              <a key={link.id} href={link.url} className="sx-nav-link">
+                {link.text}
+              </a>
+            ),
+          )}
           <button
             type="button"
             className="sx-nav-link sx-nav-search"
@@ -115,8 +165,18 @@ export function HomeNav({
         </nav>
 
         <div className="sx-nav-actions">
-          <LanguageMenu lang={lang} label={copy.nav.language} />
-          <ThemeToggle labels={copy.nav.theme} />
+          <button
+            type="button"
+            className="sx-nav-link"
+            {...getRybbitCtaProps({
+              id: 'home_header_sign_in',
+              location: 'header',
+              destination: 'signup_modal',
+            })}
+            onClick={() => signIn('header')}
+          >
+            {copy.nav.signIn}
+          </button>
           <NavDownloadButton
             copy={copy.download}
             tracking={{
@@ -140,16 +200,34 @@ export function HomeNav({
       </div>
 
       <div id="sx-mobile-menu" className="sx-mobile-menu" hidden={!menuOpen}>
-        {copy.nav.links.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            className="sx-mobile-link"
-            onClick={() => setMenuOpen(false)}
-          >
-            {link.label}
-          </a>
-        ))}
+        {links.map((link) =>
+          link.children ? (
+            <div key={link.id} className="sx-mobile-group">
+              <span className="sx-mobile-group-label">{link.text}</span>
+              {link.children.map((child) => (
+                <a
+                  key={child.id}
+                  href={child.url}
+                  target={child.isExternal ? '_blank' : undefined}
+                  rel={child.isExternal ? 'noopener noreferrer' : undefined}
+                  className="sx-mobile-link sx-mobile-sublink"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {child.text}
+                </a>
+              ))}
+            </div>
+          ) : (
+            <a
+              key={link.id}
+              href={link.url}
+              className="sx-mobile-link"
+              onClick={() => setMenuOpen(false)}
+            >
+              {link.text}
+            </a>
+          ),
+        )}
         <button
           type="button"
           className="sx-mobile-link"
@@ -160,10 +238,21 @@ export function HomeNav({
         >
           {copy.nav.search}
         </button>
-        <div className="sx-mobile-row">
-          <LanguageMenu lang={lang} label={copy.nav.language} />
-          <ThemeToggle labels={copy.nav.theme} />
-        </div>
+        <button
+          type="button"
+          className="sx-btn sx-btn-secondary sx-btn-md sx-mobile-signin"
+          {...getRybbitCtaProps({
+            id: 'home_header_mobile_sign_in',
+            location: 'header_mobile_menu',
+            destination: 'signup_modal',
+          })}
+          onClick={() => {
+            setMenuOpen(false);
+            signIn('header-mobile');
+          }}
+        >
+          {copy.nav.signIn}
+        </button>
         <NavDownloadButton
           copy={copy.download}
           tracking={{
