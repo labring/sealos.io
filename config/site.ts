@@ -10,6 +10,9 @@ export const templateDomain =
     ? 'https://template.hzh.sealos.run'
     : 'https://template.sealos.io';
 
+/** Share image for the homepage, generated from the live hero panel. */
+export const HOMEPAGE_OG_IMAGE_PATH = '/images/og/homepage.png';
+
 export const siteConfig: SiteConfig = {
   name: 'Sealos',
   author: 'Labring',

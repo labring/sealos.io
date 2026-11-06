@@ -19,11 +19,28 @@ const legacyHeaderSource = readFileSync(
   'utf8',
 );
 
+const headerLinksSource = readFileSync(
+  join(dirname(fileURLToPath(import.meta.url)), 'header-links.ts'),
+  'utf8',
+);
+const homeNavSource = readFileSync(
+  join(
+    dirname(fileURLToPath(import.meta.url)),
+    '..',
+    'app',
+    '[lang]',
+    '(desktop)',
+    'components',
+    'nav.tsx',
+  ),
+  'utf8',
+);
+
 const headerProps =
   source.match(/type HeaderProps = \{[\s\S]*?\n\};/)?.[0] ?? '';
 const navigationLinks =
-  source.match(
-    /const navigationLinks: NavigationLink\[\] = \[[\s\S]*?\n\];\n\nconst DropdownMenuItem/,
+  headerLinksSource.match(
+    /const headerLinks: HeaderLinkSource\[\] = \[[\s\S]*?\n\];/,
   )?.[0] ?? '';
 
 test('shared Header keeps a single optional language prop', () => {
@@ -66,9 +83,12 @@ test('desktop logotype collapses after scrolling and expands at the top', () => 
 
 test('all current dropdown children render in historical two-column panels', () => {
   assert.equal(
-    (navigationLinks.match(/className: 'w-\[40rem\]! md:w-\[40rem\]!'/g) ?? [])
-      .length,
+    (source.match(/className: 'w-\[40rem\]! md:w-\[40rem\]!'/g) ?? []).length,
     1,
+  );
+  assert.match(
+    source,
+    /getHeaderLinks\(\{ lang: resolvedLang, textLang: 'en' \}\)/,
   );
   assert.match(
     source,
@@ -90,15 +110,15 @@ test('all current dropdown children render in historical two-column panels', () 
     'Blog',
     'Community',
   ]) {
-    assert.match(navigationLinks, new RegExp(`text: '${label}'`));
+    assert.match(navigationLinks, new RegExp(`en: '${label}'`));
   }
 
   assert.match(
     navigationLinks,
-    /text: 'Agents'[\s\S]*text: 'Templates'[\s\S]*text: 'Docs'[\s\S]*text: 'Resources'[\s\S]*text: 'Pricing'[\s\S]*text: 'Contact'/,
+    /en: 'Agents'[\s\S]*en: 'Templates'[\s\S]*en: 'Docs'[\s\S]*en: 'Resources'[\s\S]*en: 'Pricing'[\s\S]*en: 'Contact'/,
   );
   assert.match(navigationLinks, /url: '\/sealos-skills'/);
-  assert.match(navigationLinks, /url: '\/products\/app-store'/);
+  assert.match(navigationLinks, /url: '\/products\/app-store\/'/);
   for (const removedLabel of [
     'Products',
     'Solutions',
@@ -109,15 +129,16 @@ test('all current dropdown children render in historical two-column panels', () 
     'Gaming',
     'Information Technology',
   ]) {
-    assert.doesNotMatch(navigationLinks, new RegExp(`text: '${removedLabel}'`));
+    assert.doesNotMatch(navigationLinks, new RegExp(`en: '${removedLabel}'`));
   }
 });
 
 test('locale, analytics, auth, and mobile menu contracts remain current', () => {
   assert.match(source, /const resolvedLang = lang \?\?/);
   assert.match(source, /children: link\.children\?\.map/);
-  assert.match(source, /return `\/\$\{resolvedLang\}\$\{url\}`;/);
-  assert.match(source, /https:\/\/discord\.gg\/wdUn538zVP/);
+  assert.match(headerLinksSource, /children: link\.children\?\.map/);
+  assert.match(headerLinksSource, /return `\/\$\{lang\}\$\{url\}`;/);
+  assert.match(headerLinksSource, /https:\/\/discord\.gg\/wdUn538zVP/);
 
   assert.equal((source.match(/<span>18\.3k<\/span>/g) ?? []).length, 2);
   assert.equal((source.match(/<Github size=\{16\}/g) ?? []).length, 2);
@@ -143,4 +164,22 @@ test('locale, analytics, auth, and mobile menu contracts remain current', () => 
   assert.match(source, /document\.documentElement\.style\.overflow = 'hidden'/);
   assert.match(source, /\{link\.children\.map\(\(child, childIndex\) => \(/);
   assert.match(source, /onClick=\{closeMobileMenu\}/);
+});
+
+test('desktop homepage nav uses the shared site links, not page anchors', () => {
+  assert.match(homeNavSource, /const links = getHeaderLinks\(\{ lang \}\);/);
+  assert.doesNotMatch(homeNavSource, /href="#|href: '#/);
+  assert.doesNotMatch(homeNavSource, /copy\.nav\.links/);
+});
+
+test('desktop homepage nav keeps sign in and download, drops GitHub and theme', () => {
+  assert.match(homeNavSource, /home_header_sign_in/);
+  assert.match(homeNavSource, /home_header_mobile_sign_in/);
+  assert.match(homeNavSource, /home_header_download/);
+  assert.match(
+    homeNavSource,
+    /handleAuthRedirect\(\{ openapp: getOpenBrainParam\(\) \}\)/,
+  );
+  assert.doesNotMatch(homeNavSource, /siteConfig\.links\.github|github\.com/);
+  assert.doesNotMatch(homeNavSource, /<ThemeToggle|<LanguageMenu lang/);
 });
