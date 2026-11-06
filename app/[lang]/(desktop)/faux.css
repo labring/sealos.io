@@ -593,34 +593,6 @@
   background: var(--fx-line);
 }
 
-/* Hero demo states */
-.fx-hero-empty {
-  transition:
-    opacity 420ms ease,
-    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.fx-hero-empty[data-hidden] {
-  opacity: 0;
-  transform: translateY(-16px);
-  pointer-events: none;
-}
-
-.fx-thread {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 48px;
-  gap: 14px;
-  transition: opacity 360ms ease;
-}
-
-.fx-thread[data-hidden] {
-  opacity: 0;
-}
-
 .fx-bubble {
   align-self: flex-end;
   max-width: 340px;
@@ -632,17 +604,6 @@
   transition:
     opacity 320ms ease,
     transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.fx-appear {
-  transition:
-    opacity 360ms ease,
-    transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.fx-appear[data-hidden] {
-  opacity: 0;
-  transform: translateY(10px);
 }
 
 .fx-plan {
@@ -693,34 +654,395 @@
   padding: 8px 14px 10px;
 }
 
-.fx-url {
+/* ---------- Hero scene ---------- */
+
+.fx-hx .fx-nav-item {
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.fx-hx .fx-nav-item[data-pressed] {
+  background: #e2e2e2;
+}
+
+.fx-hx-main {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Two pages in one window: only the body crossfades, with a small rise. */
+.fx-hx-page {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition:
+    opacity 260ms ease,
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fx-hx-page[data-shown] {
+  opacity: 1;
+  transform: none;
+}
+
+.fx-hx-home {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  width: 560px;
+  padding-top: 8px;
+}
+
+.fx-hx-tray {
+  margin: 0 24px 24px;
+  padding: 12px 14px 14px;
+  border-radius: 16px;
+  background: #f6f6f6;
+  box-shadow: inset 0 0 0 1px #ededed;
+}
+
+.fx-hx-tag {
+  padding: 5px 10px;
+  border-radius: 999px;
+  color: var(--fx-ink-2);
+}
+
+.fx-hx-tag[data-active] {
+  background: #fff;
+  box-shadow: 0 0 0 1px #e8e8e8;
+  color: var(--fx-ink);
+  font-weight: 500;
+}
+
+.fx-hx-topbar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  border-bottom: 1px solid #efefef;
+}
+
+.fx-hx-tools {
+  display: inline-flex;
+  gap: 14px;
+  margin-left: auto;
+  color: var(--fx-ink-3);
+}
+
+.fx-hx-badge {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.fx-hx-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--fx-amber);
+  transition: background-color 200ms ease;
+}
+
+.fx-hx-badge[data-tone='green'] .fx-hx-dot,
+.fx-hx-dot[data-tone='green'] {
+  background: var(--fx-green);
+}
+
+.fx-hx .fx-node-status .fx-hx-dot {
+  width: 7px;
+  height: 7px;
+}
+
+/* Chat column */
+.fx-hx-chat {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 0;
+  border-right: 1px solid #efefef;
+}
+
+.fx-hx-thread {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.fx-hx-bubble {
+  align-self: flex-end;
+  max-width: 280px;
+  padding: 9px 13px;
+  text-wrap: balance;
+  border-radius: 16px 16px 4px 16px;
+  background: var(--fx-nested);
+  line-height: 1.45;
+}
+
+.fx-hx-in {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 320ms ease,
+    transform 520ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.fx-hx-in[data-in] {
+  opacity: 1;
+  transform: none;
+}
+
+.fx-hx-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px var(--fx-line);
+  font-size: 12.5px;
+  transition:
+    opacity 320ms ease,
+    transform 520ms cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 300ms ease;
+}
+
+.fx-hx-status[data-done] {
+  box-shadow: 0 0 0 1px #9fd6ad;
+}
+
+.fx-hx-mark {
+  position: relative;
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.fx-hx-spin,
+.fx-hx-check {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transition:
+    opacity 220ms ease,
+    transform 320ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.fx-hx-spin {
+  border: 1.6px solid var(--fx-amber);
+  border-right-color: transparent;
+  animation: fx-spin 0.9s linear infinite;
+}
+
+.fx-hx-check {
+  display: grid;
+  place-items: center;
+  background: var(--fx-green);
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.6);
+}
+
+.fx-hx-check svg {
+  width: 10px;
+  height: 10px;
+}
+
+.fx-hx-status[data-done] .fx-hx-spin {
+  opacity: 0;
+}
+
+.fx-hx-status[data-done] .fx-hx-check {
+  opacity: 1;
+  transform: none;
+}
+
+.fx-hx-env {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: #fafafa;
+  box-shadow: 0 0 0 1px #ececec;
+}
+
+.fx-hx-env-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0 14px 14px;
-  padding: 9px 12px;
-  border-radius: 10px;
-  background: var(--fx-green-bg);
-  color: #17803a;
+  height: 34px;
   font-size: 12.5px;
-  transition:
-    opacity 360ms ease,
-    transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.fx-url[data-hidden] {
+.fx-hx-env-row + .fx-hx-env-row {
+  border-top: 1px solid #ececec;
+}
+
+.fx-hx-env-row .fx-mono {
+  width: 96px;
+}
+
+/* Phones see a crop of the stage; it pans from the start screen's column to
+   the canvas as the project opens, so each beat's subject stays whole. */
+@media (max-width: 640px) {
+  .fx-hx {
+    transform: translateX(-454px);
+    transition: transform 700ms cubic-bezier(0.45, 0, 0.1, 1);
+  }
+  .fx-hx[data-view='project'] {
+    transform: translateX(-620px);
+  }
+}
+
+.fx-hx-composer {
+  padding: 12px 12px 9px;
+  border-radius: 16px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.06);
+}
+
+.fx-hx-composer .fx-composer-text {
+  min-height: 34px;
+  font-size: 12.5px;
+  line-height: 18px;
+}
+
+.fx-hx-composer .fx-composer-row {
+  height: 28px;
+}
+
+.fx-hx-composer .fx-icon-btn {
+  width: 24px;
+  height: 24px;
+}
+
+.fx-hx-composer .fx-send {
+  width: 26px;
+  height: 26px;
+}
+
+.fx-hx-composer .fx-send svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* Canvas */
+.fx-hx-node {
   opacity: 0;
-  transform: translateY(6px);
+  transform: translateY(-12px);
+  transition:
+    opacity 300ms ease,
+    transform 800ms cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.fx-url svg {
-  width: 14px;
-  height: 14px;
+.fx-hx-node[data-in] {
+  opacity: 1;
+  transform: none;
+}
+
+.fx-hx-url {
+  transition: color 200ms ease;
+}
+
+.fx-hx-url[data-live] {
+  color: #17803a;
+}
+
+.fx-hx-open {
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+.fx-hx-url[data-live] .fx-hx-open {
+  opacity: 1;
+}
+
+.fx-hx-edges {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+}
+
+.fx-hx-edges path {
+  fill: none;
+  stroke: var(--fx-line-2);
+  stroke-width: 1.25;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 900ms cubic-bezier(0.45, 0, 0.1, 1);
+}
+
+.fx-hx-edges[data-in] path {
+  stroke-dashoffset: 0;
+}
+
+/* Rolling text */
+.fx-roll {
+  position: relative;
+  display: inline-grid;
+  overflow: hidden;
+  vertical-align: bottom;
+  white-space: nowrap;
+  transition: width 320ms cubic-bezier(0.45, 0, 0.1, 1);
+}
+
+.fx-roll-measure {
+  position: absolute;
+  visibility: hidden;
+  white-space: nowrap;
+}
+
+.fx-roll-item {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+}
+
+.fx-roll-item[data-in] {
+  animation: fx-roll-in 380ms cubic-bezier(0.25, 0.8, 0.25, 1) both;
+}
+
+.fx-roll-item[data-out] {
+  animation: fx-roll-out 260ms ease both;
+}
+
+@keyframes fx-roll-in {
+  from {
+    opacity: 0;
+    transform: translateY(60%);
+  }
+}
+
+@keyframes fx-roll-out {
+  to {
+    opacity: 0;
+    transform: translateY(-60%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .fx * {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-roll-item[data-out] {
+    display: none;
   }
 }

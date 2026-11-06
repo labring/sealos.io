@@ -44,9 +44,8 @@ export function HeroSection({
             style={{
               ['--w' as string]: 1296,
               ['--h' as string]: 764,
-              ['--m-scale' as string]: 0.52,
-              ['--m-shift' as string]: 400,
-              ['--m-ar' as string]: '358 / 400',
+              ['--m-scale' as string]: 0.6,
+              ['--m-ar' as string]: '358 / 458',
             }}
           >
             <div className="sx-scaler-stage">
