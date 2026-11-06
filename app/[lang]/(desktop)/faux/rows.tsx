@@ -113,7 +113,7 @@ export function LocalDeployShot() {
           left: 40,
           top: 40,
           width: 860,
-          height: 704,
+          height: 644,
           flexDirection: 'column',
         }}
       >
@@ -389,8 +389,8 @@ export function GithubDeployShot() {
         style={{
           left: 40,
           top: 40,
-          width: 760,
-          height: 724,
+          width: 860,
+          height: 644,
           flexDirection: 'column',
         }}
       >
@@ -480,7 +480,6 @@ export function GithubDeployShot() {
           left: 340,
           top: 100,
           width: 392,
-          height: 640,
           padding: 18,
         }}
       >
@@ -656,7 +655,7 @@ export function ProjectViewShot() {
           left: 40,
           top: 40,
           width: 689,
-          height: 720,
+          height: 644,
           padding: '26px 26px 0',
           borderRadius: 18,
         }}
@@ -978,12 +977,11 @@ export function AgentLogsShot() {
       <div
         className="fx-window"
         style={{
-          left: -60,
+          left: 40,
           top: 40,
-          width: 790,
-          height: 724,
+          width: 689,
+          height: 644,
           flexDirection: 'column',
-          padding: '0 0 0 72px',
         }}
       >
         <div
@@ -998,8 +996,7 @@ export function AgentLogsShot() {
             All services <ChevronDown strokeWidth={1.75} />
           </span>
           <span className="fx-light-btn" style={{ flex: 1, color: '#909090' }}>
-            <Search strokeWidth={1.75} /> Search logs · service:nginx
-            level:error
+            <Search strokeWidth={1.75} /> Search logs · level:error
           </span>
           <span className="fx-light-btn">
             All levels <ChevronDown strokeWidth={1.75} />
@@ -1102,15 +1099,25 @@ export function AgentLogsShot() {
           className="fx-dark-btn"
           style={{
             position: 'absolute',
-            left: 372,
-            top: 664,
+            left: '50%',
+            bottom: 16,
+            transform: 'translateX(-50%)',
             height: 24,
             zIndex: 1,
           }}
         >
           Live ↓
         </span>
-        <div style={{ flex: 1, overflow: 'hidden', padding: '0 0 0 12px' }}>
+        {/* The stream fades out at the window's foot, under the Live pill. */}
+        <div
+          style={{
+            flex: 1,
+            overflow: 'hidden',
+            padding: '0 16px 0 12px',
+            maskImage:
+              'linear-gradient(to bottom, #000 calc(100% - 96px), transparent calc(100% - 8px))',
+          }}
+        >
           {LOG_LINES.map(([time, svc, pod, msg, level], i) => (
             <div
               key={i}
@@ -1151,7 +1158,13 @@ export function AgentLogsShot() {
                 {svc}
               </span>
               <span style={{ color: '#909090' }}>{pod}</span>
-              <span style={{ overflow: 'hidden', textOverflow: 'clip' }}>
+              <span
+                style={{
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'pre',
+                }}
+              >
                 {msg}
               </span>
             </div>

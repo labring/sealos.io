@@ -44,7 +44,7 @@ export function FeatureRows({ copy }: { copy: HomeCopy }) {
                     ['--h' as string]: 724,
                     ['--m-scale' as string]: 0.6,
                     ['--m-shift' as string]: mobileShift,
-                    ['--m-ar' as string]: '1 / 1.05',
+                    ['--m-ar' as string]: '1 / 1.3',
                   }}
                 >
                   <div className="sx-scaler-stage">{shot}</div>
