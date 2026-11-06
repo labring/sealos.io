@@ -1,4 +1,5 @@
-import { siteConfig, blogAuthors } from '@/config/site';
+import { HOMEPAGE_OG_IMAGE_PATH, siteConfig, blogAuthors } from '@/config/site';
+import { DESKTOP_RELEASES_URL } from '@/config/desktop-downloads';
 import { i18n } from '@/lib/i18n';
 
 // Base types for structured data
@@ -179,40 +180,43 @@ export function generateSoftwareApplicationSchema(
     '@type': 'SoftwareApplication',
     name: 'Sealos',
     description: isZhCn
-      ? 'Sealos 云操作系统，Kubernetes 云内核，多 Region 统一管理，以应用为中心的企业级容器云'
-      : 'Sealos, the Intelligent Cloud OS, uses AI to automate your workflow. Deploy apps, databases, and scalable Kubernetes with one click. Faster, simpler development for developers.',
+      ? 'Sealos 是桌面端 Ops Agent。把本地代码、GitHub 仓库和模板一键上线，接好数据库与 AI 模型，再用你确认过的修复方案让它们稳定运行。'
+      : 'Sealos is a desktop ops agent. Deploy local code, GitHub repos and templates, wire databases and AI models, and keep them running with fixes you approve.',
     url: siteConfig.url.base,
     applicationCategory: 'DeveloperApplication',
-    operatingSystem: 'Web',
+    operatingSystem: 'macOS, Windows, Linux',
     offers: {
       '@type': 'Offer',
       price: '0',
-      priceCurrency: 'USD',
-      description: isZhCn ? '免费试用' : 'Free trial available',
+      priceCurrency: isZhCn ? 'CNY' : 'USD',
+      description: isZhCn
+        ? '免费下载，按资源用量计费'
+        : 'Free to download; pay only for the resources your projects use',
     },
     publisher: {
       '@type': 'Organization',
       name: 'Labring',
     },
-    screenshot: `${siteConfig.url.base}/images/banner.jpeg`,
-    softwareVersion: '5.0',
-    releaseNotes: `${siteConfig.url.base}/blog`,
-    downloadUrl: siteConfig.links.github,
-    installUrl: `${siteConfig.url.base}/docs`,
+    screenshot: `${siteConfig.url.base}${HOMEPAGE_OG_IMAGE_PATH}`,
+    releaseNotes: DESKTOP_RELEASES_URL,
+    downloadUrl: DESKTOP_RELEASES_URL,
+    installUrl: DESKTOP_RELEASES_URL,
     featureList: isZhCn
       ? [
-          'DevBox 开发环境',
-          '数据库托管',
-          '应用商店',
-          'Kubernetes 集群管理',
-          '自动伸缩',
+          '部署本地代码、GitHub 仓库和开源模板',
+          '托管 PostgreSQL、MySQL、MongoDB 和 Redis，每天自动备份',
+          '兼容 S3 的对象存储',
+          '统一调用 OpenAI 和 Anthropic 模型的 AI Gateway',
+          'Ops Agent 诊断、热更新与回滚',
+          '团队工作空间',
         ]
       : [
-          'DevBox Development Environment',
-          'Database Hosting',
-          'App Store',
-          'Kubernetes Cluster Management',
-          'Auto Scaling',
+          'Deploy local code, GitHub repositories and open-source templates',
+          'Managed PostgreSQL, MySQL, MongoDB and Redis with daily backups',
+          'S3-compatible object storage',
+          'AI Gateway for OpenAI and Anthropic models',
+          'Ops Agent diagnostics, hot updates and rollbacks',
+          'Team workspaces',
         ],
   };
 }

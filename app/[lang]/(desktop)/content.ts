@@ -71,9 +71,9 @@ export interface HomeCopy {
 
 const en: HomeCopy = {
   meta: {
-    title: 'The ops agent for shipping and running full-stack apps',
+    title: 'Deploy Full-Stack Apps, Databases & AI with Your Ops Agent',
     description:
-      'Sealos is a desktop ops agent that deploys local code, GitHub repos and templates, wires databases and AI models, and keeps them running with logs, metrics and fixes you approve.',
+      'Sealos is a desktop ops agent. Deploy local code, GitHub repos and templates, wire databases and AI models, and keep them running with fixes you approve.',
   },
   nav: {
     signIn: 'Sign in',
@@ -257,9 +257,9 @@ const en: HomeCopy = {
 
 const zhCn: HomeCopy = {
   meta: {
-    title: '上线并运维全栈应用的 Ops Agent',
+    title: '一键上线全栈应用、数据库与 AI，交给你的 Ops Agent',
     description:
-      'Sealos 是一个桌面端 Ops Agent：把本地代码、GitHub 仓库和模板一键上线，接好数据库与 AI 模型，再用日志、指标和你确认过的修复方案让它们稳定运行。',
+      'Sealos 是桌面端 Ops Agent。把本地代码、GitHub 仓库和模板一键上线，接好数据库与 AI 模型，再用你确认过的修复方案让它们稳定运行。',
   },
   nav: {
     signIn: '登录',

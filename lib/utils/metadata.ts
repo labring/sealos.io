@@ -50,8 +50,16 @@ function buildUrl(baseUrl: string, pathname?: string | null): string {
     : `${baseUrl}${normalizedPath}`;
 }
 
-function buildCanonicalUrl(pathname?: string | null): string {
-  return buildUrl(CANONICAL_DOMAIN, pathname);
+/**
+ * Each language has its own home domain (see DOMAIN_MAP). A page served under
+ * the other domain, such as zh-cn under sealos.io, points at its home domain so
+ * search engines index the two sites separately instead of as duplicates.
+ */
+function buildCanonicalUrl(
+  pathname?: string | null,
+  lang: string = i18n.defaultLanguage,
+): string {
+  return buildUrl(DOMAIN_MAP[lang] ?? CANONICAL_DOMAIN, pathname);
 }
 
 function buildSiteUrl(pathname?: string | null): string {
@@ -63,7 +71,9 @@ function toAlternateLanguages(
 ): Record<string, string> | undefined {
   if (links.length === 0) return undefined;
 
-  return Object.fromEntries(links.map(({ hrefLang, href }) => [hrefLang, href]));
+  return Object.fromEntries(
+    links.map(({ hrefLang, href }) => [hrefLang, href]),
+  );
 }
 
 export { generateTutorialMetadata } from '@/lib/utils/tutorial-metadata';
@@ -216,7 +226,7 @@ export function generateDocsMetadata({
       },
     },
     alternates: {
-      canonical: buildCanonicalUrl(docsPath),
+      canonical: buildCanonicalUrl(docsPath, params.lang),
       types: {
         'application/rss+xml': BLOG_RSS_ALTERNATE,
       },
@@ -268,6 +278,8 @@ export function generatePageMetadata(
     tags?: string[];
     ogType?: string;
     languageAlternates?: false | Record<string, string>;
+    /** Site-relative path of a page-specific share image, 1200x630. */
+    ogImage?: string;
   } = {},
 ): Metadata {
   const title = options.title
@@ -275,17 +287,20 @@ export function generatePageMetadata(
     : `${siteConfig.name} | ${siteConfig.tagline}`;
   const description = options.description ?? siteConfig.description;
   const keywords = options.keywords ?? siteConfig.keywords;
-  const lang = options.lang || 'en';
+  const lang = options.lang || i18n.defaultLanguage;
+  const imageUrl = options.ogImage
+    ? `${siteConfig.url.base}${options.ogImage}`
+    : OG_IMAGE_URL;
 
   const normalizedPathname = normalizePathname(options.pathname);
 
   const alternateLanguages =
     options.languageAlternates === false
       ? undefined
-      : options.languageAlternates ??
+      : (options.languageAlternates ??
         (options.pathname
           ? toAlternateLanguages(generateHreflangLinks(normalizedPathname))
-          : undefined);
+          : undefined));
 
   return {
     title,
@@ -311,7 +326,7 @@ export function generatePageMetadata(
       google: process.env.GOOGLE_SITE_VERIFICATION,
     },
     alternates: {
-      canonical: buildCanonicalUrl(normalizedPathname),
+      canonical: buildCanonicalUrl(normalizedPathname, lang),
       languages: alternateLanguages,
       types: {
         'application/rss+xml': BLOG_RSS_ALTERNATE,
@@ -325,7 +340,7 @@ export function generatePageMetadata(
       description,
       images: [
         {
-          url: OG_IMAGE_URL,
+          url: imageUrl,
           width: 1200,
           height: 630,
           alt: title,
@@ -339,7 +354,7 @@ export function generatePageMetadata(
       description,
       images: [
         {
-          url: OG_IMAGE_URL,
+          url: imageUrl,
           alt: title,
         },
       ],
@@ -403,7 +418,7 @@ export function generateProductMetadata(options: {
       },
     },
     alternates: {
-      canonical: buildCanonicalUrl(normalizedPathname),
+      canonical: buildCanonicalUrl(normalizedPathname, lang),
       languages: alternateLanguages,
       types: {
         'application/rss+xml': BLOG_RSS_ALTERNATE,

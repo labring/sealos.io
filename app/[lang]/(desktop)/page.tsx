@@ -2,7 +2,10 @@ import type { Metadata } from 'next';
 import type { languagesType } from '@/lib/i18n';
 import { getLanguageSlug } from '@/lib/i18n';
 import { generatePageMetadata } from '@/lib/utils/metadata';
+import { generateFAQSchema } from '@/lib/utils/structured-data';
+import StructuredDataComponent from '@/components/structured-data';
 import { getDesktopDownloadLinks } from '@/config/desktop-downloads';
+import { HOMEPAGE_OG_IMAGE_PATH } from '@/config/site';
 import { getHomeCopy } from './content';
 import { HomeNav } from './components/nav';
 import { HeroSection } from './sections/hero';
@@ -36,6 +39,7 @@ export function generateMetadata({ params }: PageProps): Metadata {
     ],
     pathname: '/',
     lang: params.lang,
+    ogImage: HOMEPAGE_OG_IMAGE_PATH,
   });
 }
 
@@ -46,9 +50,14 @@ export default async function DesktopHomePage({ params }: PageProps) {
   const prefix = getLanguageSlug(lang);
   const localize = (href: string) =>
     href.startsWith('/') ? `${prefix}${href}` : href;
+  const faqSchema = generateFAQSchema(
+    copy.faq.items.map((item) => ({ question: item.q, answer: item.a })),
+    lang,
+  );
 
   return (
     <>
+      <StructuredDataComponent data={faqSchema} />
       <HomeNav copy={copy} downloadLinks={downloadLinks} lang={lang} />
       <main>
         <HeroSection

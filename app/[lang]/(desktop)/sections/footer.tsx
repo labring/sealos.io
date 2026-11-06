@@ -101,7 +101,7 @@ export function HomeFooter({
         <nav aria-label="Footer" className="sx-footer-columns">
           {columns.map((column) => (
             <div key={column.titleKey}>
-              <h2 className="sx-footer-title">{t[column.titleKey]}</h2>
+              <p className="sx-footer-title">{t[column.titleKey]}</p>
               <ul className="sx-footer-links">
                 {column.links.map((link) => {
                   const text = 'text' in link ? link.text : t[link.textKey];

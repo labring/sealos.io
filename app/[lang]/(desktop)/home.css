@@ -1512,15 +1512,28 @@ html[data-sx-theme='dark']:has(#sx-home) .sx-duty-card[data-tone='tint'] {
   color: var(--sx-accent);
 }
 
+/* Every answer is in the HTML (the content is force-mounted). A closed answer
+   collapses to a zero-height grid row, and the row height, not a measured
+   pixel height, is what animates. */
 .sx-faq-content {
+  display: grid;
+  grid-template-rows: 0fr;
   overflow: hidden;
 }
 
+.sx-faq-content > div {
+  min-height: 0;
+}
+
 .sx-faq-content[data-state='open'] {
+  grid-template-rows: 1fr;
+}
+
+.sx-faq-list[data-ready] .sx-faq-content[data-state='open'] {
   animation: sx-accordion-down 320ms var(--sx-ease);
 }
 
-.sx-faq-content[data-state='closed'] {
+.sx-faq-list[data-ready] .sx-faq-content[data-state='closed'] {
   animation: sx-accordion-up 240ms var(--sx-ease);
 }
 
@@ -1536,19 +1549,19 @@ html[data-sx-theme='dark']:has(#sx-home) .sx-duty-card[data-tone='tint'] {
 
 @keyframes sx-accordion-down {
   from {
-    height: 0;
+    grid-template-rows: 0fr;
   }
   to {
-    height: var(--radix-accordion-content-height);
+    grid-template-rows: 1fr;
   }
 }
 
 @keyframes sx-accordion-up {
   from {
-    height: var(--radix-accordion-content-height);
+    grid-template-rows: 1fr;
   }
   to {
-    height: 0;
+    grid-template-rows: 0fr;
   }
 }
 
