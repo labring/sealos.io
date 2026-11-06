@@ -34,12 +34,20 @@ const homepageCtas = [
     id: 'home_header_mobile_get_started',
   },
   {
-    file: 'app/[lang]/(home)/(new-home)/sections/hero/hero-section.tsx',
-    id: 'home_hero_get_started',
+    file: 'app/[lang]/(desktop)/sections/hero.tsx',
+    id: 'home_hero_download',
   },
   {
-    file: 'app/[lang]/(home)/(new-home)/sections/cta/cta-section.tsx',
-    id: 'home_bottom_deploy_free',
+    file: 'app/[lang]/(desktop)/components/install-agent.tsx',
+    id: 'home_hero_install_agent',
+  },
+  {
+    file: 'app/[lang]/(desktop)/components/nav.tsx',
+    id: 'home_header_download',
+  },
+  {
+    file: 'app/[lang]/(desktop)/sections/cta.tsx',
+    id: 'home_bottom_download',
   },
   {
     file: 'new-components/Footer/StartBuildingButton.tsx',

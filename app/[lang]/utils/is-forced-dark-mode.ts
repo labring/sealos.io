@@ -2,10 +2,6 @@
 export function isForcedDarkMode(pathname: string): boolean {
   const PATHS = [
     {
-      path: '/',
-      match: 'full',
-    },
-    {
       path: '/pricing',
       match: 'full',
     },
