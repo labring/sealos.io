@@ -77,7 +77,7 @@ export function ShipCanvasShot() {
           left: 110,
           top: 56,
           width: 1076,
-          height: 768,
+          height: 652,
           flexDirection: 'column',
         }}
       >
@@ -156,7 +156,6 @@ export function ShipCanvasShot() {
           <div
             style={{
               width: 312,
-              height: 662,
               display: 'flex',
               flexDirection: 'column',
               gap: 12,

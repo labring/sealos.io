@@ -92,6 +92,10 @@ const TEMPLATES = [
   },
 ];
 
+// The window sits whole on the 1296 × 764 stage: 110px in from each side,
+// 56px from the top and bottom.
+const WINDOW_H = 652;
+
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
@@ -175,15 +179,14 @@ export function HeroApp() {
   const finished = state.step >= STEPS.length;
 
   // Where the composer docks once the conversation starts: just above the
-  // visible bottom of the window (the window runs off the stage).
+  // bottom of the window.
   useEffect(() => {
     const column = columnRef.current;
     const composer = composerRef.current;
     if (!column || !composer) return;
-    const visibleBottom = 764 - 56;
     const bottom =
       column.offsetTop + composer.offsetTop + composer.offsetHeight;
-    setDock(visibleBottom - 26 - bottom);
+    setDock(WINDOW_H - 24 - bottom);
   }, []);
   const typedText = PROMPT.slice(0, state.typed);
   const composerText =
@@ -199,7 +202,7 @@ export function HeroApp() {
     >
       <div
         className="fx-window"
-        style={{ left: 110, top: 56, width: 1076, height: 768 }}
+        style={{ left: 110, top: 56, width: 1076, height: WINDOW_H }}
       >
         <aside className="fx-sidebar" style={{ width: 208 }}>
           <div className="fx-traffic" style={{ paddingLeft: 4, paddingTop: 2 }}>
@@ -281,7 +284,7 @@ export function HeroApp() {
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
-              paddingBottom: 120,
+              paddingBottom: 32,
             }}
           >
             <div
@@ -497,10 +500,9 @@ export function HeroApp() {
             data-hidden={hideEmpty || undefined}
             style={{
               alignSelf: 'stretch',
-              margin: '0 18px',
-              padding: '12px 14px 0',
-              height: 168,
-              borderRadius: '16px 16px 0 0',
+              margin: '0 18px 18px',
+              padding: '12px 14px 14px',
+              borderRadius: 16,
               background: '#f6f6f6',
               boxShadow: 'inset 0 0 0 1px #ededed',
             }}
