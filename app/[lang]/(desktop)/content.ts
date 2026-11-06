@@ -4,7 +4,6 @@ export interface FeatureRowCopy {
   id: 'local' | 'github' | 'project' | 'agent';
   title: string;
   body: string;
-  link: { label: string; href: string };
 }
 
 export interface HomeCopy {
@@ -119,34 +118,21 @@ const en: HomeCopy = {
       id: 'local',
       title: 'Turn local code into a live app',
       body: 'Point Sealos at any folder on your machine, from a full codebase to a single HTML deck. It builds the image and puts it on a public URL.',
-      link: {
-        label: 'See how local deploys work',
-        href: '/docs/guides/app-deploy/first-deploy',
-      },
     },
     {
       id: 'github',
       title: 'Deploy from a GitHub link',
       body: 'Pick a repository and branch. Sealos detects the port, deploys it, and injects the connection string of any database you need.',
-      link: {
-        label: 'See how GitHub deploys work',
-        href: '/docs/guides/app-deploy/create-app',
-      },
     },
     {
       id: 'project',
       title: 'Everything stays in view',
       body: 'Once it is live, every service sits in one project view with its status, uptime, metrics and logs, so you can open a terminal in any container, roll back a deploy, or catch a memory limit before it is hit.',
-      link: { label: 'See the project view', href: '/docs/guides/databases' },
     },
     {
       id: 'agent',
       title: 'Agent keeps it running',
       body: 'After the deploy, your Ops Agent reads logs and metrics, names the cause of a 502 or an out-of-memory crash, and ships every fix as a plan you approve first.',
-      link: {
-        label: 'See how diagnosis works',
-        href: '/docs/guides/app-deploy/app-does-not-reach-running',
-      },
     },
   ],
   ship: {
@@ -318,34 +304,21 @@ const zhCn: HomeCopy = {
       id: 'local',
       title: '本地代码，一键变成线上应用',
       body: '选中电脑里的任意文件夹，从完整代码库到一页 HTML 演示稿都可以。Sealos 会构建镜像，并给它一个公网地址。',
-      link: {
-        label: '了解本地部署',
-        href: '/docs/guides/app-deploy/first-deploy',
-      },
     },
     {
       id: 'github',
       title: '贴一个 GitHub 链接就能部署',
       body: '选好仓库和分支，Sealos 自动识别端口并完成部署，需要的数据库连接串也会自动注入。',
-      link: {
-        label: '了解 GitHub 部署',
-        href: '/docs/guides/app-deploy/create-app',
-      },
     },
     {
       id: 'project',
       title: '所有服务，一目了然',
       body: '上线之后，每个服务都在同一个项目视图里，状态、运行时长、指标和日志都看得到。可以进任意容器开终端、回滚部署，也能在内存触顶之前发现问题。',
-      link: { label: '查看项目视图', href: '/docs/guides/databases' },
     },
     {
       id: 'agent',
       title: 'Agent 帮你守着线上',
       body: '部署完成后，Ops Agent 会读日志和指标，指出 502 或内存溢出的原因，每一次修复都先做成方案，等你确认后再执行。',
-      link: {
-        label: '了解故障诊断',
-        href: '/docs/guides/app-deploy/app-does-not-reach-running',
-      },
     },
   ],
   ship: {

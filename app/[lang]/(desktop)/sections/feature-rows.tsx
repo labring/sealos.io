@@ -1,10 +1,8 @@
-import Link from 'next/link';
 import type { ReactNode } from 'react';
 import {
   AsciiWatercolor,
   type WatercolorImage,
 } from '../components/ascii-watercolor';
-import { ArrowRight } from '../components/icons';
 import type { FeatureRowCopy, HomeCopy } from '../content';
 import {
   AgentLogsShot,
@@ -23,13 +21,7 @@ const SHOTS: Record<
   agent: { image: 'hero', shot: <AgentLogsShot />, mobileShift: 0 },
 };
 
-export function FeatureRows({
-  copy,
-  localize,
-}: {
-  copy: HomeCopy;
-  localize: (href: string) => string;
-}) {
+export function FeatureRows({ copy }: { copy: HomeCopy }) {
   return (
     <section className="sx-section" id="deploy" style={{ paddingTop: 0 }}>
       <div className="sx-container sx-rows">
@@ -46,10 +38,6 @@ export function FeatureRows({
                   <h2 className="sx-title">{feature.title}</h2>
                   <p className="sx-body">{feature.body}</p>
                 </div>
-                <Link className="sx-link" href={localize(feature.link.href)}>
-                  {feature.link.label}
-                  <ArrowRight />
-                </Link>
               </div>
               <AsciiWatercolor image={image}>
                 <div

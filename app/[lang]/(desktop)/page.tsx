@@ -50,7 +50,7 @@ export default function DesktopHomePage({ params }: PageProps) {
       <HomeNav copy={copy} lang={lang} />
       <main>
         <HeroSection copy={copy} skillsHref={localize('/sealos-skills')} />
-        <FeatureRows copy={copy} localize={localize} />
+        <FeatureRows copy={copy} />
         <ShipSection copy={copy} />
         <DeployAnySection copy={copy} />
         <DutySection copy={copy} />

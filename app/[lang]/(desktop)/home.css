@@ -205,23 +205,6 @@ html:has(#sx-home) body {
   margin-bottom: 54px;
 }
 
-.sx-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--sx-accent);
-  font-size: 20px;
-  line-height: 1.3;
-}
-
-.sx-link svg {
-  transition: transform 260ms var(--sx-ease);
-}
-
-.sx-link:hover svg {
-  transform: translateX(3px);
-}
-
 @media (max-width: 860px) {
   .sx-display {
     font-size: 30px;
@@ -233,9 +216,6 @@ html:has(#sx-home) body {
     font-size: 22px;
   }
   .sx-body {
-    font-size: 17px;
-  }
-  .sx-link {
     font-size: 17px;
   }
   .sx-card-title {
