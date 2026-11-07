@@ -85,6 +85,13 @@ const navigationLinks: NavigationLink[] = [
     },
     children: [
       {
+        text: 'Desktop App',
+        url: '/downloads',
+        isExternal: false,
+        description: 'Download Sealos for Mac and Windows',
+        icon: <BookOpenText size={16} />,
+      },
+      {
         text: 'Learn',
         url: '/blog/category/best-practices',
         isExternal: false,

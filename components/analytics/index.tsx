@@ -3,6 +3,7 @@
 import Script from 'next/script';
 import { analyticsConfig } from '@/config/analytics';
 import { useEffect } from 'react';
+import { AcquisitionObserver } from './acquisition-observer';
 
 // Clarity script for lazy loading
 const loadClarity = (trackingId: string) => {
@@ -143,6 +144,7 @@ export function Analytics() {
 
   return (
     <>
+      <AcquisitionObserver />
       {/* Google Tag Manager is now loaded via useEffect with smart lazy loading */}
 
       {/* Baidu Analytics - for zh-cn */}
@@ -158,34 +160,6 @@ export function Analytics() {
             })();
           `}
         </Script>
-      )}
-
-      {analyticsConfig.google?.enabled && (
-        <>
-          <Script
-            strategy="afterInteractive"
-            src={`https://www.googletagmanager.com/gtag/js?id=${analyticsConfig.google.trackingId}`}
-            id="google-analytics"
-          />
-          <Script strategy="afterInteractive" id="google-analytics-config">
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${analyticsConfig.google.trackingId}', {
-                send_page_view: false  // Defer page view to improve FCP
-              });
-              // Send page view after the page is interactive
-              if (document.readyState === 'complete') {
-                gtag('event', 'page_view');
-              } else {
-                window.addEventListener('load', function() {
-                  gtag('event', 'page_view');
-                });
-              }
-            `}
-          </Script>
-        </>
       )}
 
       {analyticsConfig.email?.enabled && (

@@ -3,10 +3,6 @@ export interface AnalyticsConfig {
     trackingId: string;
     enabled: boolean;
   };
-  google?: {
-    trackingId: string;
-    enabled: boolean;
-  };
   clarity?: {
     trackingId: string;
     enabled: boolean;
@@ -44,10 +40,6 @@ const analyticsConfigByLanguage: Record<string, AnalyticsConfig> = {
       trackingId: '',
       enabled: false,
     },
-    google: {
-      trackingId: 'G-YF5VHZSTE0', // Google Analytics ID for English website
-      enabled: false,
-    },
     clarity: {
       trackingId: 'qf9f625a3h', // Clarity ID for English website
       enabled: false,
@@ -64,10 +56,6 @@ const analyticsConfigByLanguage: Record<string, AnalyticsConfig> = {
     baidu: {
       trackingId: 'd8e8ecf669c47dc2512d3f1417e761f9', // Baidu Analytics ID for Chinese website
       enabled: true,
-    },
-    google: {
-      trackingId: '', // Google Analytics ID for Chinese website
-      enabled: false,
     },
     clarity: {
       trackingId: 'ov517w4xcf', // Clarity ID for Chinese website

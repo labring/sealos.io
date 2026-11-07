@@ -1,0 +1,404 @@
+{
+  "exportFormatVersion": 2,
+  "containerVersion": {
+    "container": {
+      "accountId": "6299222375",
+      "containerId": "222308200",
+      "name": "sealos.io",
+      "publicId": "GTM-5DTRN2V3",
+      "usageContext": ["WEB"]
+    },
+    "folder": [
+      {
+        "folderId": "810000",
+        "name": "Sealos Website Acquisition | Integration v1"
+      }
+    ],
+    "variable": [
+      {
+        "variableId": "810100",
+        "name": "Sealos Website Acquisition | DLV - visitor_id",
+        "type": "v",
+        "parentFolderId": "810000",
+        "parameter": [
+          { "type": "integer", "key": "dataLayerVersion", "value": "2" },
+          { "type": "boolean", "key": "setDefaultValue", "value": "false" },
+          { "type": "template", "key": "name", "value": "visitor_id" }
+        ]
+      },
+      {
+        "variableId": "810101",
+        "name": "Sealos Website Acquisition | DLV - surface",
+        "type": "v",
+        "parentFolderId": "810000",
+        "parameter": [
+          { "type": "integer", "key": "dataLayerVersion", "value": "2" },
+          { "type": "boolean", "key": "setDefaultValue", "value": "false" },
+          { "type": "template", "key": "name", "value": "surface" }
+        ]
+      },
+      {
+        "variableId": "810102",
+        "name": "Sealos Website Acquisition | DLV - product_edition",
+        "type": "v",
+        "parentFolderId": "810000",
+        "parameter": [
+          { "type": "integer", "key": "dataLayerVersion", "value": "2" },
+          { "type": "boolean", "key": "setDefaultValue", "value": "false" },
+          { "type": "template", "key": "name", "value": "product_edition" }
+        ]
+      },
+      {
+        "variableId": "810103",
+        "name": "Sealos Website Acquisition | DLV - analytics_consent",
+        "type": "v",
+        "parentFolderId": "810000",
+        "parameter": [
+          { "type": "integer", "key": "dataLayerVersion", "value": "2" },
+          { "type": "boolean", "key": "setDefaultValue", "value": "false" },
+          { "type": "template", "key": "name", "value": "analytics_consent" }
+        ]
+      },
+      {
+        "variableId": "810104",
+        "name": "Sealos Website Acquisition | DLV - acquisition_source",
+        "type": "v",
+        "parentFolderId": "810000",
+        "parameter": [
+          { "type": "integer", "key": "dataLayerVersion", "value": "2" },
+          { "type": "boolean", "key": "setDefaultValue", "value": "false" },
+          { "type": "template", "key": "name", "value": "acquisition_source" }
+        ]
+      },
+      {
+        "variableId": "810105",
+        "name": "Sealos Website Acquisition | DLV - acquisition_medium",
+        "type": "v",
+        "parentFolderId": "810000",
+        "parameter": [
+          { "type": "integer", "key": "dataLayerVersion", "value": "2" },
+          { "type": "boolean", "key": "setDefaultValue", "value": "false" },
+          { "type": "template", "key": "name", "value": "acquisition_medium" }
+        ]
+      },
+      {
+        "variableId": "810106",
+        "name": "Sealos Website Acquisition | DLV - acquisition_campaign",
+        "type": "v",
+        "parentFolderId": "810000",
+        "parameter": [
+          { "type": "integer", "key": "dataLayerVersion", "value": "2" },
+          { "type": "boolean", "key": "setDefaultValue", "value": "false" },
+          { "type": "template", "key": "name", "value": "acquisition_campaign" }
+        ]
+      },
+      {
+        "variableId": "810110",
+        "name": "Sealos Website Acquisition | Scope",
+        "type": "jsm",
+        "parentFolderId": "810000",
+        "parameter": [
+          {
+            "type": "template",
+            "key": "javascript",
+            "value": "function() {\n  var visitor = {{Sealos Website Acquisition | DLV - visitor_id}};\n  if (location.protocol !== 'https:' || location.port ||\n      (location.hostname !== 'sealos.io' && location.hostname !== 'www.sealos.io') ||\n      {{Sealos Website Acquisition | DLV - surface}} !== 'website' || {{Sealos Website Acquisition | DLV - product_edition}} !== 'global' ||\n      {{Sealos Website Acquisition | DLV - analytics_consent}} !== 'granted' ||\n      !/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(visitor)) return false;\n  try {\n    var match = document.cookie.match(/(?:^|;\\s*)sealos_acquisition_v1=([A-Za-z0-9_-]+)(?:;|$)/);\n    if (!match || match[1].length > 2400) return false;\n    var bytes = atob(match[1].replace(/-/g, '+').replace(/_/g, '/'));\n    if (bytes.length > 1800 || btoa(bytes).replace(/\\+/g, '-').replace(/\\//g, '_').replace(/=+$/, '') !== match[1]) return false;\n    var encoded = '';\n    for (var i = 0; i < bytes.length; i++) encoded += '%' + ('0' + bytes.charCodeAt(i).toString(16)).slice(-2);\n    var current = JSON.parse(decodeURIComponent(encoded));\n    return !!(current && current.version === 1 && current.realm === 'global' && current.visitor_id === visitor &&\n      current.consent && current.consent.analytics_storage === 'granted');\n  } catch (error) { return false; }\n}"
+          }
+        ]
+      }
+    ],
+    "trigger": [
+      {
+        "triggerId": "810001",
+        "name": "Sealos Website Acquisition | acquisition_visit",
+        "type": "CUSTOM_EVENT",
+        "parentFolderId": "810000",
+        "customEventFilter": [
+          {
+            "type": "equals",
+            "parameter": [
+              { "type": "template", "key": "arg0", "value": "{{_event}}" },
+              {
+                "type": "template",
+                "key": "arg1",
+                "value": "acquisition_visit"
+              }
+            ]
+          }
+        ],
+        "filter": [
+          {
+            "type": "equals",
+            "parameter": [
+              {
+                "type": "template",
+                "key": "arg0",
+                "value": "{{Sealos Website Acquisition | Scope}}"
+              },
+              { "type": "template", "key": "arg1", "value": "true" }
+            ]
+          }
+        ]
+      },
+      {
+        "triggerId": "810002",
+        "name": "Sealos Website Acquisition | download_click",
+        "type": "CUSTOM_EVENT",
+        "parentFolderId": "810000",
+        "customEventFilter": [
+          {
+            "type": "equals",
+            "parameter": [
+              { "type": "template", "key": "arg0", "value": "{{_event}}" },
+              { "type": "template", "key": "arg1", "value": "download_click" }
+            ]
+          }
+        ],
+        "filter": [
+          {
+            "type": "equals",
+            "parameter": [
+              {
+                "type": "template",
+                "key": "arg0",
+                "value": "{{Sealos Website Acquisition | Scope}}"
+              },
+              { "type": "template", "key": "arg1", "value": "true" }
+            ]
+          }
+        ]
+      }
+    ],
+    "tag": [
+      {
+        "tagId": "810010",
+        "name": "Sealos Website Acquisition | GA4 - acquisition_visit",
+        "type": "gaawe",
+        "parentFolderId": "810000",
+        "parameter": [
+          { "type": "boolean", "key": "sendEcommerceData", "value": "false" },
+          {
+            "type": "template",
+            "key": "eventName",
+            "value": "acquisition_visit"
+          },
+          {
+            "type": "template",
+            "key": "measurementIdOverride",
+            "value": "G-YF5VHZSTE0"
+          },
+          {
+            "type": "list",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "map",
+                "map": [
+                  {
+                    "type": "template",
+                    "key": "parameter",
+                    "value": "visitor_id"
+                  },
+                  {
+                    "type": "template",
+                    "key": "parameterValue",
+                    "value": "{{Sealos Website Acquisition | DLV - visitor_id}}"
+                  }
+                ]
+              },
+              {
+                "type": "map",
+                "map": [
+                  {
+                    "type": "template",
+                    "key": "parameter",
+                    "value": "surface"
+                  },
+                  {
+                    "type": "template",
+                    "key": "parameterValue",
+                    "value": "{{Sealos Website Acquisition | DLV - surface}}"
+                  }
+                ]
+              },
+              {
+                "type": "map",
+                "map": [
+                  {
+                    "type": "template",
+                    "key": "parameter",
+                    "value": "product_edition"
+                  },
+                  {
+                    "type": "template",
+                    "key": "parameterValue",
+                    "value": "{{Sealos Website Acquisition | DLV - product_edition}}"
+                  }
+                ]
+              },
+              {
+                "type": "map",
+                "map": [
+                  {
+                    "type": "template",
+                    "key": "parameter",
+                    "value": "acquisition_source"
+                  },
+                  {
+                    "type": "template",
+                    "key": "parameterValue",
+                    "value": "{{Sealos Website Acquisition | DLV - acquisition_source}}"
+                  }
+                ]
+              },
+              {
+                "type": "map",
+                "map": [
+                  {
+                    "type": "template",
+                    "key": "parameter",
+                    "value": "acquisition_medium"
+                  },
+                  {
+                    "type": "template",
+                    "key": "parameterValue",
+                    "value": "{{Sealos Website Acquisition | DLV - acquisition_medium}}"
+                  }
+                ]
+              },
+              {
+                "type": "map",
+                "map": [
+                  {
+                    "type": "template",
+                    "key": "parameter",
+                    "value": "acquisition_campaign"
+                  },
+                  {
+                    "type": "template",
+                    "key": "parameterValue",
+                    "value": "{{Sealos Website Acquisition | DLV - acquisition_campaign}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": ["810001"],
+        "tagFiringOption": "oncePerEvent"
+      },
+      {
+        "tagId": "810011",
+        "name": "Sealos Website Acquisition | GA4 - download_click",
+        "type": "gaawe",
+        "parentFolderId": "810000",
+        "parameter": [
+          { "type": "boolean", "key": "sendEcommerceData", "value": "false" },
+          { "type": "template", "key": "eventName", "value": "download_click" },
+          {
+            "type": "template",
+            "key": "measurementIdOverride",
+            "value": "G-YF5VHZSTE0"
+          },
+          {
+            "type": "list",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "map",
+                "map": [
+                  {
+                    "type": "template",
+                    "key": "parameter",
+                    "value": "visitor_id"
+                  },
+                  {
+                    "type": "template",
+                    "key": "parameterValue",
+                    "value": "{{Sealos Website Acquisition | DLV - visitor_id}}"
+                  }
+                ]
+              },
+              {
+                "type": "map",
+                "map": [
+                  {
+                    "type": "template",
+                    "key": "parameter",
+                    "value": "surface"
+                  },
+                  {
+                    "type": "template",
+                    "key": "parameterValue",
+                    "value": "{{Sealos Website Acquisition | DLV - surface}}"
+                  }
+                ]
+              },
+              {
+                "type": "map",
+                "map": [
+                  {
+                    "type": "template",
+                    "key": "parameter",
+                    "value": "product_edition"
+                  },
+                  {
+                    "type": "template",
+                    "key": "parameterValue",
+                    "value": "{{Sealos Website Acquisition | DLV - product_edition}}"
+                  }
+                ]
+              },
+              {
+                "type": "map",
+                "map": [
+                  {
+                    "type": "template",
+                    "key": "parameter",
+                    "value": "acquisition_source"
+                  },
+                  {
+                    "type": "template",
+                    "key": "parameterValue",
+                    "value": "{{Sealos Website Acquisition | DLV - acquisition_source}}"
+                  }
+                ]
+              },
+              {
+                "type": "map",
+                "map": [
+                  {
+                    "type": "template",
+                    "key": "parameter",
+                    "value": "acquisition_medium"
+                  },
+                  {
+                    "type": "template",
+                    "key": "parameterValue",
+                    "value": "{{Sealos Website Acquisition | DLV - acquisition_medium}}"
+                  }
+                ]
+              },
+              {
+                "type": "map",
+                "map": [
+                  {
+                    "type": "template",
+                    "key": "parameter",
+                    "value": "acquisition_campaign"
+                  },
+                  {
+                    "type": "template",
+                    "key": "parameterValue",
+                    "value": "{{Sealos Website Acquisition | DLV - acquisition_campaign}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": ["810002"],
+        "tagFiringOption": "oncePerEvent"
+      }
+    ]
+  }
+}
