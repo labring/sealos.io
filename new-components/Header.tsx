@@ -18,6 +18,7 @@ import {
   GraduationCap,
   FileText,
   Github,
+  PackageOpen,
   Users,
 } from 'lucide-react';
 import {
@@ -104,6 +105,13 @@ const navigationLinks: NavigationLink[] = [
         isExternal: false,
         description: 'Latest news and updates from Sealos',
         icon: <FileText size={16} />,
+      },
+      {
+        text: 'Releases',
+        url: '/release',
+        isExternal: false,
+        description: 'See what is new across Sealos products',
+        icon: <PackageOpen size={16} />,
       },
       {
         text: 'Community',

@@ -14,6 +14,10 @@ export function isForcedDarkMode(pathname: string): boolean {
       match: 'prefix',
     },
     {
+      path: '/release',
+      match: 'prefix',
+    },
+    {
       path: '/brain-caps-preview',
       match: 'full',
     },
