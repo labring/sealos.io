@@ -1,0 +1,63 @@
+import { Watercolor } from '../components/watercolor';
+import { DownloadActions } from '../components/download';
+import { InstallWithAgent } from '../components/install-agent';
+import type { DesktopDownloadLinks } from '@/config/desktop-downloads';
+import type { HomeCopy } from '../content';
+import { HeroApp } from '../faux/hero-app';
+
+export function HeroSection({
+  copy,
+  downloadLinks,
+  skillsHref,
+}: {
+  copy: HomeCopy;
+  downloadLinks: DesktopDownloadLinks;
+  skillsHref: string;
+}) {
+  return (
+    <section className="sx-hero" id="download">
+      <div className="sx-container">
+        <div className="sx-hero-copy">
+          <h1 className="sx-display">{copy.hero.title}</h1>
+          <p className="sx-lede">{copy.hero.subtitle}</p>
+          <div className="sx-hero-actions">
+            <DownloadActions
+              copy={copy.download}
+              links={downloadLinks}
+              tracking={{
+                id: 'home_hero_download',
+                location: 'hero',
+                destination: 'desktop_download',
+              }}
+              signUpTracking={{
+                id: 'home_hero_sign_up',
+                location: 'hero',
+                destination: 'signup_modal',
+              }}
+            >
+              <InstallWithAgent
+                copy={copy.installAgent}
+                skillsHref={skillsHref}
+              />
+            </DownloadActions>
+          </div>
+        </div>
+        <Watercolor image="hero" className="sx-hero-panel">
+          <div
+            className="sx-scaler"
+            style={{
+              ['--w' as string]: 1296,
+              ['--h' as string]: 764,
+              ['--m-scale' as string]: 0.6,
+              ['--m-ar' as string]: '358 / 458',
+            }}
+          >
+            <div className="sx-scaler-stage">
+              <HeroApp />
+            </div>
+          </div>
+        </Watercolor>
+      </div>
+    </section>
+  );
+}

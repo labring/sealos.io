@@ -1,0 +1,1403 @@
+/* Faux Sealos desktop UI. The app is light-only, so these stay light in both
+   page themes. Sizes are design pixels; .sx-scaler scales the stage. */
+
+.fx {
+  --fx-sidebar: #f9f9f9;
+  --fx-panel: #ffffff;
+  --fx-nested: #f5f5f5;
+  --fx-canvas: #fafafa;
+  --fx-ink: #1c1c1c;
+  --fx-ink-2: #717171;
+  --fx-ink-3: #909090;
+  --fx-line: #e8e8e8;
+  --fx-line-2: #d8d8d8;
+  --fx-accent: #0a84ff;
+  --fx-accent-bg: #e7f4fe;
+  --fx-green: #1f9e3f;
+  --fx-green-bg: #e9f6ec;
+  --fx-amber: #e5960f;
+  --fx-amber-bg: #fdf3e1;
+  --fx-red: #e5484d;
+  --fx-red-bg: #fdeced;
+  --fx-shadow-window:
+    0 0 0 0.5px rgb(0 0 0 / 0.12), 0 24px 60px -20px rgb(20 30 60 / 0.35),
+    0 8px 20px -8px rgb(20 30 60 / 0.18);
+  --fx-shadow-card: 0 0 0 1px rgb(0 0 0 / 0.05), 0 2px 10px rgb(0 0 0 / 0.08);
+  --fx-shadow-float:
+    0 0 0 1px rgb(0 0 0 / 0.06), 0 12px 28px -6px rgb(0 0 0 / 0.16);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', var(--font-geist-sans),
+    'PingFang SC', system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.38;
+  color: var(--fx-ink);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.fx * {
+  box-sizing: border-box;
+}
+
+.fx-mono {
+  font-family:
+    'SF Mono', ui-monospace, var(--font-geist-mono), Menlo, Consolas, monospace;
+  font-size: 11.5px;
+}
+
+.fx-muted {
+  color: var(--fx-ink-2);
+}
+
+.fx-faint {
+  color: var(--fx-ink-3);
+}
+
+.fx-strong {
+  font-weight: 500;
+}
+
+/* Window */
+.fx-window {
+  position: absolute;
+  background: var(--fx-panel);
+  border-radius: 14px;
+  box-shadow: var(--fx-shadow-window);
+  overflow: hidden;
+  display: flex;
+}
+
+.fx-traffic {
+  display: flex;
+  gap: 8px;
+}
+
+.fx-traffic i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff5f57;
+  box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.12);
+}
+
+.fx-traffic i:nth-child(2) {
+  background: #febc2e;
+}
+
+.fx-traffic i:nth-child(3) {
+  background: #28c840;
+}
+
+/* Sidebar */
+.fx-sidebar {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 10px;
+  background: var(--fx-sidebar);
+  border-right: 1px solid #efefef;
+}
+
+.fx-ws {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px;
+  margin: 12px 0 10px;
+  border-radius: 10px;
+  background: var(--fx-panel);
+  box-shadow: 0 0 0 1px var(--fx-line);
+}
+
+.fx-avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  background: #e9e9e9;
+  color: #4a4a4a;
+}
+
+.fx-avatar[data-round] {
+  border-radius: 50%;
+}
+
+.fx-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 30px;
+  padding-inline: 8px;
+  border-radius: 8px;
+  color: #3d3d3d;
+}
+
+.fx-nav-item[data-active] {
+  background: #ececec;
+  color: var(--fx-ink);
+  font-weight: 500;
+}
+
+.fx-nav-item svg {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  color: var(--fx-ink-2);
+}
+
+.fx-nav-label {
+  padding: 16px 8px 6px;
+  font-size: 11.5px;
+  color: var(--fx-ink-3);
+}
+
+.fx-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--fx-green);
+}
+
+.fx-dot[data-tone='amber'] {
+  background: var(--fx-amber);
+}
+
+.fx-dot[data-tone='red'] {
+  background: var(--fx-red);
+}
+
+.fx-dot[data-tone='gray'] {
+  background: #c4c4c4;
+}
+
+.fx-dot[data-halo] {
+  box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 0%, var(--fx-green-bg));
+}
+
+/* Composer */
+.fx-composer {
+  background: var(--fx-panel);
+  border-radius: 20px;
+  border: 1px solid rgb(0 0 0 / 0.06);
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.08);
+  padding: 15px 15px 11px;
+}
+
+.fx-composer-text {
+  min-height: 42px;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--fx-ink-2);
+}
+
+.fx-composer-text[data-filled] {
+  color: var(--fx-ink);
+}
+
+.fx-composer-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 32px;
+}
+
+.fx-icon-btn {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--fx-line-2);
+  color: var(--fx-ink-2);
+  background: var(--fx-panel);
+}
+
+.fx-icon-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.fx-send {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  margin-left: auto;
+  border-radius: 50%;
+  background: #000;
+  color: #fff;
+  transition:
+    transform 160ms ease,
+    opacity 200ms ease;
+}
+
+.fx-send svg {
+  width: 15px;
+  height: 15px;
+}
+
+.fx-send[data-pressed] {
+  transform: scale(0.88);
+}
+
+.fx-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding-inline: 10px 8px;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.05);
+  font-size: 13.5px;
+  color: #171717;
+}
+
+.fx-chip svg {
+  width: 12px;
+  height: 12px;
+  opacity: 0.6;
+}
+
+.fx-caret {
+  display: inline-block;
+  width: 1.5px;
+  height: 17px;
+  margin-left: 1px;
+  vertical-align: -3px;
+  background: var(--fx-accent);
+  animation: fx-blink 1.05s steps(1) infinite;
+}
+
+@keyframes fx-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Generic surfaces */
+.fx-card {
+  background: var(--fx-panel);
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px var(--fx-line);
+}
+
+.fx-float {
+  background: var(--fx-panel);
+  border-radius: 14px;
+  box-shadow: var(--fx-shadow-float);
+}
+
+.fx-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 20px;
+  padding-inline: 7px;
+  border-radius: 999px;
+  font-size: 11px;
+  background: var(--fx-nested);
+  color: var(--fx-ink-2);
+  white-space: nowrap;
+}
+
+.fx-badge[data-tone='amber'] {
+  background: var(--fx-amber-bg);
+  color: #a86a00;
+}
+
+.fx-badge[data-tone='green'] {
+  background: var(--fx-green-bg);
+  color: #17803a;
+}
+
+.fx-badge[data-tone='blue'] {
+  background: var(--fx-accent-bg);
+  color: #0866c6;
+}
+
+.fx-badge[data-tone='amber'] .fx-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--fx-amber);
+}
+
+.fx-tabs {
+  display: flex;
+  gap: 18px;
+  border-bottom: 1px solid var(--fx-line);
+  font-size: 12.5px;
+  color: var(--fx-ink-2);
+}
+
+.fx-tabs span {
+  padding-bottom: 9px;
+  margin-bottom: -1px;
+}
+
+.fx-tabs span[data-active] {
+  color: var(--fx-ink);
+  font-weight: 500;
+  border-bottom: 1.5px solid var(--fx-ink);
+}
+
+.fx-segmented {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 999px;
+  background: var(--fx-nested);
+  font-size: 12px;
+  color: var(--fx-ink-2);
+}
+
+.fx-segmented span {
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.fx-segmented span[data-active] {
+  background: #e6e6e6;
+  color: var(--fx-ink);
+}
+
+.fx-dark-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 26px;
+  padding-inline: 11px;
+  border-radius: 999px;
+  background: #1c1c1c;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.fx-light-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding-inline: 11px;
+  border-radius: 999px;
+  background: var(--fx-panel);
+  box-shadow: 0 0 0 1px var(--fx-line);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.fx-light-btn svg {
+  width: 13px;
+  height: 13px;
+}
+
+.fx-logo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--fx-panel);
+  box-shadow: 0 0 0 1px var(--fx-line);
+}
+
+.fx-logo img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.fx-logo[data-size='lg'] {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+}
+
+.fx-logo[data-size='lg'] img {
+  width: 26px;
+  height: 26px;
+}
+
+.fx-logo[data-size='sm'] {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+}
+
+.fx-logo[data-size='sm'] img {
+  width: 14px;
+  height: 14px;
+}
+
+/* Canvas */
+.fx-canvas {
+  position: relative;
+  background-color: var(--fx-canvas);
+  background-image: radial-gradient(#d0d0d0 1px, transparent 1.2px);
+  background-size: 24px 24px;
+  background-position: 12px 12px;
+}
+
+.fx-node {
+  position: absolute;
+  width: 208px;
+  background: var(--fx-panel);
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 1px var(--fx-line),
+    0 2px 6px rgb(0 0 0 / 0.04);
+}
+
+.fx-node[data-selected] {
+  box-shadow:
+    0 0 0 1px #1c1c1c,
+    0 6px 16px -6px rgb(0 0 0 / 0.2);
+}
+
+.fx-node-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 14px 10px;
+}
+
+.fx-node-title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.fx-node-sub {
+  font-size: 11.5px;
+  color: var(--fx-ink-2);
+}
+
+.fx-node-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 14px 13px;
+  font-size: 12px;
+}
+
+.fx-node-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--fx-line);
+  font-size: 11.5px;
+  color: var(--fx-ink-2);
+}
+
+.fx-edge {
+  position: absolute;
+  background: var(--fx-line-2);
+}
+
+.fx-steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.fx-step {
+  display: grid;
+  grid-template-columns: 16px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  height: 30px;
+  font-size: 12.5px;
+}
+
+.fx-step[data-state='todo'] {
+  color: var(--fx-ink-3);
+}
+
+.fx-step[data-state='active'] {
+  font-weight: 500;
+}
+
+.fx-step-mark {
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.fx-step[data-state='done'] .fx-step-mark {
+  background: var(--fx-green);
+  color: #fff;
+}
+
+.fx-step[data-state='done'] .fx-step-mark svg {
+  width: 9px;
+  height: 9px;
+}
+
+.fx-step[data-state='active'] .fx-step-mark {
+  border: 1.6px solid var(--fx-amber);
+  border-right-color: transparent;
+  animation: fx-spin 0.9s linear infinite;
+}
+
+.fx-step[data-state='todo'] .fx-step-mark {
+  border: 1.2px solid var(--fx-line-2);
+}
+
+@keyframes fx-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fx-kv {
+  display: grid;
+  grid-template-columns: 124px 1fr;
+  row-gap: 11px;
+  font-size: 12.5px;
+}
+
+.fx-kv dt {
+  color: var(--fx-ink-2);
+}
+
+.fx-kv dd {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fx-logs {
+  font-family:
+    'SF Mono', ui-monospace, var(--font-geist-mono), Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.85;
+  white-space: pre;
+}
+
+.fx-hr {
+  height: 1px;
+  background: var(--fx-line);
+}
+
+.fx-bubble {
+  align-self: flex-end;
+  max-width: 340px;
+  padding: 9px 13px;
+  border-radius: 16px 16px 4px 16px;
+  background: var(--fx-nested);
+  font-size: 13.5px;
+  line-height: 1.45;
+  transition:
+    opacity 320ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fx-plan {
+  width: 100%;
+  border-radius: 14px;
+  background: var(--fx-panel);
+  box-shadow: 0 0 0 1px var(--fx-line);
+  overflow: hidden;
+  transition: box-shadow 400ms ease;
+}
+
+.fx-plan[data-done] {
+  box-shadow: 0 0 0 1px #9fd6ad;
+}
+
+.fx-plan-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--fx-line);
+}
+
+.fx-plan-icon {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: var(--fx-nested);
+  color: var(--fx-ink-2);
+  transition:
+    background-color 300ms ease,
+    color 300ms ease;
+}
+
+.fx-plan[data-done] .fx-plan-icon {
+  background: var(--fx-green-bg);
+  color: var(--fx-green);
+}
+
+.fx-plan-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.fx-plan-body {
+  padding: 8px 14px 10px;
+}
+
+/* ---------- Hero scene ---------- */
+
+/* The Sealos desktop app's session view, drawn from its shell spec (sealox
+   DESIGN.md): sidebar | chat | Right pane with an inset canvas. Type sits a
+   step under the app's 14px so the shot reads at its real density. */
+.fx-hx {
+  --fx-hx-ease: cubic-bezier(0.25, 0.8, 0.25, 1);
+  font-size: 12.5px;
+}
+
+.fx-hx-window {
+  border-radius: 12px;
+}
+
+.fx-hx-ellipsis {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Sidebar */
+.fx-hx-sidebar {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px 8px;
+  background: var(--fx-sidebar);
+  border-right: 1px solid var(--fx-line);
+}
+
+.fx-hx-traffic {
+  flex: none;
+  align-items: center;
+  margin-bottom: 8px;
+  padding-left: 10px;
+}
+
+.fx-hx-nav,
+.fx-hx-project,
+.fx-hx-session,
+.fx-hx-account {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.fx-hx-nav {
+  gap: 10px;
+  height: 30px;
+  padding-inline: 10px;
+  color: var(--fx-ink-2);
+}
+
+.fx-hx-nav svg {
+  flex: none;
+  opacity: 0.68;
+}
+
+.fx-hx-section {
+  padding: 18px 10px 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--fx-ink-3);
+}
+
+.fx-hx-project {
+  gap: 10px;
+  height: 32px;
+  padding-inline: 10px;
+  font-weight: 500;
+}
+
+.fx-hx-letter {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 9.5px;
+  font-weight: 600;
+}
+
+.fx-hx-session {
+  gap: 10px;
+  height: 28px;
+  padding: 0 10px 0 14px;
+  color: var(--fx-ink);
+}
+
+.fx-hx-session[data-active] {
+  background: rgb(0 0 0 / 0.06);
+}
+
+/* A session's mark: an idle dot, or a spinner while the agent works. */
+.fx-hx-session-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 12px;
+  height: 12px;
+}
+
+.fx-hx-session-mark > * {
+  grid-area: 1 / 1;
+  transition: opacity 200ms ease;
+}
+
+.fx-hx-session-mark i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--fx-line-2);
+}
+
+.fx-hx-session-mark svg {
+  opacity: 0;
+  color: var(--fx-ink-2);
+}
+
+.fx-hx-session-mark[data-working] i {
+  opacity: 0;
+}
+
+.fx-hx-session-mark[data-working] svg {
+  opacity: 1;
+}
+
+.fx-hx-spin {
+  animation: fx-spin 900ms linear infinite;
+}
+
+.fx-hx-account {
+  gap: 10px;
+  height: 36px;
+  margin-top: auto;
+  padding-inline: 8px;
+}
+
+.fx-hx-account svg {
+  margin-left: auto;
+  color: var(--fx-ink-3);
+}
+
+.fx-hx-avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #a4471e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* Main: one header row over the chat and the Right pane. */
+.fx-hx-main {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.fx-hx-topbar {
+  flex: none;
+  display: flex;
+  align-items: center;
+}
+
+.fx-hx-title {
+  flex: none;
+  padding-inline: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.fx-hx-tabs {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 8px 0 12px;
+}
+
+.fx-hx-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  color: var(--fx-ink-2);
+}
+
+.fx-hx-tab[data-active] {
+  padding-inline: 10px 12px;
+  background: rgb(0 0 0 / 0.05);
+  color: var(--fx-ink);
+}
+
+.fx-hx-tab-rule {
+  width: 1px;
+  height: 16px;
+  margin-inline: 6px;
+  background: var(--fx-line-2);
+}
+
+.fx-hx-pane-toggle {
+  color: var(--fx-ink);
+}
+
+/* The workbench toggle's project dot: hollow before there is anything to
+   run, amber and pulsing while it deploys, green once it is live. */
+.fx-hx-pane-dot {
+  position: absolute;
+  top: 5px;
+  right: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 2px var(--fx-panel),
+    inset 0 0 0 1px var(--fx-ink-3);
+  transition:
+    background-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.fx-hx-pane-dot[data-state='deploying'] {
+  background: var(--fx-amber);
+  box-shadow: 0 0 0 2px var(--fx-panel);
+  animation: fx-hx-pulse 1.4s ease-in-out infinite;
+}
+
+.fx-hx-pane-dot[data-state='live'] {
+  background: var(--fx-green);
+  box-shadow: 0 0 0 2px var(--fx-panel);
+}
+
+@keyframes fx-hx-pulse {
+  50% {
+    box-shadow:
+      0 0 0 2px var(--fx-panel),
+      0 0 0 4px rgb(229 150 15 / 0.3);
+  }
+}
+
+/* Chat column */
+.fx-hx-chat {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0 4px 8px 16px;
+}
+
+.fx-hx-thread {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 18px 12px 0 0;
+  line-height: 20px;
+  text-wrap: pretty;
+}
+
+.fx-hx-bubble {
+  align-self: flex-end;
+  max-width: 260px;
+  padding: 9px 14px;
+  border-radius: 18px;
+  background: var(--fx-nested);
+  text-wrap: balance;
+}
+
+.fx-hx-turn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Thread lines are laid out from the first frame and only fade in, so the
+   thread never reflows while the story plays. */
+.fx-hx-in {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 320ms ease,
+    transform 520ms var(--fx-hx-ease);
+}
+
+.fx-hx-in[data-in] {
+  opacity: 1;
+  transform: none;
+}
+
+.fx-hx-thought {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--fx-ink-3);
+}
+
+/* "Thinking" shimmers until it rolls over to how long it took. */
+.fx-hx-thought[data-thinking] .fx-roll-item {
+  color: transparent;
+  background: linear-gradient(
+      90deg,
+      var(--fx-ink-3) 0%,
+      var(--fx-ink-3) 35%,
+      var(--fx-ink) 50%,
+      var(--fx-ink-3) 65%,
+      var(--fx-ink-3) 100%
+    )
+    0 0 / 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: fx-hx-shimmer 1.4s linear infinite;
+}
+
+@keyframes fx-hx-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+.fx-hx-word {
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.fx-hx-word[data-in] {
+  opacity: 1;
+}
+
+/* The steps the agent ran, one row each. */
+.fx-hx-steps {
+  display: flex;
+  flex-direction: column;
+  padding: 2px 0;
+}
+
+.fx-hx-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 26px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 260ms ease,
+    transform 420ms var(--fx-hx-ease);
+}
+
+.fx-hx-step[data-in] {
+  opacity: 1;
+  transform: none;
+}
+
+.fx-hx-step .fx-mono {
+  font-size: 11.5px;
+}
+
+.fx-hx-step-mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 14px;
+  height: 14px;
+  color: var(--fx-ink-3);
+}
+
+.fx-hx-step-mark > svg {
+  grid-area: 1 / 1;
+  transition:
+    opacity 200ms ease,
+    transform 300ms var(--fx-hx-ease);
+}
+
+.fx-hx-step-mark .fx-hx-check {
+  opacity: 0;
+  transform: scale(0.6);
+}
+
+.fx-hx-step-mark[data-state='done'] .fx-hx-spin {
+  opacity: 0;
+}
+
+.fx-hx-step-mark[data-state='done'] .fx-hx-check {
+  opacity: 1;
+  transform: none;
+}
+
+.fx-hx-step-verb {
+  font-weight: 500;
+}
+
+.fx-hx-step-object {
+  color: var(--fx-ink-2);
+}
+
+.fx-hx-step-took {
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+.fx-hx-step-took[data-in] {
+  opacity: 1;
+}
+
+/* Composer */
+.fx-hx-composer {
+  flex: none;
+  margin-right: 12px;
+  padding: 12px;
+  border-radius: 18px;
+  border: 1px solid var(--fx-line-2);
+  background: var(--fx-panel);
+}
+
+.fx-hx-composer-text {
+  min-height: 40px;
+  line-height: 20px;
+  color: var(--fx-ink-3);
+}
+
+.fx-hx-composer-text[data-filled] {
+  color: var(--fx-ink);
+}
+
+.fx-hx-composer-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  margin-top: 8px;
+}
+
+.fx-hx-ghost {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin-left: -4px;
+  border-radius: 50%;
+  color: var(--fx-ink-2);
+}
+
+.fx-hx-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 28px;
+  padding-inline: 6px;
+  white-space: nowrap;
+}
+
+.fx-hx-picker svg {
+  color: var(--fx-ink-2);
+}
+
+.fx-hx-send {
+  width: 28px;
+  height: 28px;
+}
+
+.fx-hx-send svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Canvas: the Right pane's inset area with its dot grid. */
+.fx-hx-canvas {
+  position: relative;
+  flex: none;
+  margin-left: 12px;
+  border-radius: 20px;
+  border: 1px solid var(--fx-line);
+  background-color: #fcfcfc;
+  background-image: radial-gradient(#d6d6d6 1px, transparent 1.2px);
+  background-size: 24px 24px;
+  background-position: 11px 11px;
+}
+
+.fx-hx-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 40px;
+  color: var(--fx-ink-3);
+  transition: opacity 240ms ease;
+}
+
+.fx-hx-empty[data-out] {
+  opacity: 0;
+}
+
+.fx-hx-node {
+  position: absolute;
+  border-radius: 14px;
+  background: var(--fx-panel);
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.04),
+    0 1px 2px rgb(0 0 0 / 0.05),
+    0 2px 8px rgb(0 0 0 / 0.04);
+  opacity: 0;
+  transform: translateY(-12px);
+  transition:
+    opacity 300ms ease,
+    transform 800ms var(--fx-hx-ease);
+}
+
+.fx-hx-node[data-in] {
+  opacity: 1;
+  transform: none;
+}
+
+.fx-hx-node-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+}
+
+.fx-hx-node-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fx-hx-node-logo {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.fx-hx-node-name {
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 19px;
+  letter-spacing: -0.01em;
+}
+
+.fx-hx-node-ref {
+  font-size: 11px;
+  line-height: 15px;
+  color: var(--fx-ink-2);
+}
+
+.fx-hx-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.fx-hx-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--fx-amber);
+  transition: background-color 200ms ease;
+}
+
+.fx-hx-dot[data-tone='green'] {
+  background: var(--fx-green);
+}
+
+.fx-hx-url {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding-inline: 14px;
+  border-top: 1px solid var(--fx-line);
+  font-size: 12px;
+  color: var(--fx-ink-3);
+  transition: color 200ms ease;
+}
+
+.fx-hx-url[data-live] {
+  color: var(--fx-ink);
+}
+
+.fx-hx-url svg:first-child {
+  flex: none;
+  color: var(--fx-ink-3);
+}
+
+.fx-hx-open {
+  margin-left: auto;
+  color: var(--fx-ink-3);
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+.fx-hx-url[data-live] .fx-hx-open {
+  opacity: 1;
+}
+
+.fx-hx-edges {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+}
+
+.fx-hx-edges path {
+  fill: none;
+  stroke: var(--fx-line-2);
+  stroke-width: 1.25;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 900ms cubic-bezier(0.45, 0, 0.1, 1);
+}
+
+.fx-hx-edges[data-in] path {
+  stroke-dashoffset: 0;
+}
+
+/* The env var each connector injects, sitting on its line. */
+.fx-hx-env-tag {
+  position: absolute;
+  height: 20px;
+  padding-inline: 7px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 6px;
+  background: var(--fx-panel);
+  box-shadow: 0 0 0 1px var(--fx-line);
+  color: var(--fx-ink-2);
+  font-size: 10.5px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.96);
+  transition:
+    opacity 260ms ease,
+    transform 420ms var(--fx-hx-ease);
+}
+
+.fx-hx-env-tag[data-in] {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+.fx-hx-add {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 14px 0 11px;
+  border-radius: 999px;
+  background: var(--fx-panel);
+  box-shadow: 0 0 0 1px var(--fx-line);
+  filter: drop-shadow(0 2px 8px rgb(0 0 0 / 0.08));
+  font-weight: 500;
+}
+
+/* Phones see a crop of the stage: the chat while the request is sent and
+   answered, then one pan to the canvas as the work starts. */
+@media (max-width: 640px) {
+  .fx-hx {
+    transform: translateX(-96px);
+    transition: transform 800ms cubic-bezier(0.45, 0, 0.1, 1);
+  }
+  .fx-hx[data-phase='canvas'] {
+    transform: translateX(-682px);
+  }
+}
+
+/* Rolling text */
+.fx-roll {
+  position: relative;
+  display: inline-grid;
+  overflow: hidden;
+  vertical-align: bottom;
+  white-space: nowrap;
+  transition: width 320ms cubic-bezier(0.45, 0, 0.1, 1);
+}
+
+.fx-roll-measure {
+  position: absolute;
+  visibility: hidden;
+  white-space: nowrap;
+}
+
+.fx-roll-item {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+}
+
+.fx-roll-item[data-in] {
+  animation: fx-roll-in 380ms cubic-bezier(0.25, 0.8, 0.25, 1) both;
+}
+
+.fx-roll-item[data-out] {
+  animation: fx-roll-out 260ms ease both;
+}
+
+@keyframes fx-roll-in {
+  from {
+    opacity: 0;
+    transform: translateY(60%);
+  }
+}
+
+@keyframes fx-roll-out {
+  to {
+    opacity: 0;
+    transform: translateY(-60%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-roll-item[data-out] {
+    display: none;
+  }
+}

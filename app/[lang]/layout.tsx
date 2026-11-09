@@ -78,12 +78,6 @@ export default async function LocaleLayout({
 
         {/* Preconnect to critical third-party domains */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
 
         {/* Language and Locale */}
         <meta httpEquiv="Content-Language" content={htmlLang} />
