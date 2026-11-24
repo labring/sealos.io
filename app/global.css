@@ -876,3 +876,73 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Chinese site recommendation banner tokens and fixed/sticky header offsets */
+:root {
+  --sealos-cn-banner-height: 0px;
+  --fd-banner-height: var(--sealos-cn-banner-height, 0px);
+  --cn-banner-bg: #f1f5f9;
+  --cn-banner-fg: #18181b;
+  --cn-banner-border: rgba(15, 23, 42, 0.1);
+  --cn-banner-btn-bg: #18181b;
+  --cn-banner-btn-hover: #27272a;
+  --cn-banner-btn-fg: #fafafa;
+  --cn-banner-close-hover: rgba(15, 23, 42, 0.08);
+  --cn-banner-focus: #005bff;
+}
+
+html.dark {
+  --cn-banner-bg: #141518;
+  --cn-banner-fg: #edeef0;
+  --cn-banner-border: rgba(255, 255, 255, 0.1);
+  --cn-banner-btn-bg: #f4f4f5;
+  --cn-banner-btn-hover: #ffffff;
+  --cn-banner-btn-fg: #141414;
+  --cn-banner-close-hover: rgba(255, 255, 255, 0.1);
+  --cn-banner-focus: #5b9bff;
+}
+
+html:has(#sx-home) {
+  --cn-banner-bg: var(--sx-surface);
+  --cn-banner-fg: var(--sx-fg);
+  --cn-banner-border: var(--sx-line);
+  --cn-banner-btn-bg: var(--sx-primary);
+  --cn-banner-btn-hover: var(--sx-primary-hover);
+  --cn-banner-btn-fg: var(--sx-on-primary);
+  --cn-banner-close-hover: var(--sx-chip);
+  --cn-banner-focus: var(--sx-accent);
+}
+
+.cn-site-banner {
+  background-color: var(--cn-banner-bg);
+  color: var(--cn-banner-fg);
+  border-bottom-color: var(--cn-banner-border);
+}
+
+.cn-site-banner-cta {
+  background-color: var(--cn-banner-btn-bg);
+  color: var(--cn-banner-btn-fg);
+}
+
+.cn-site-banner-cta:hover {
+  background-color: var(--cn-banner-btn-hover);
+}
+
+.cn-site-banner-close {
+  color: var(--cn-banner-fg);
+}
+
+.cn-site-banner-close:hover {
+  background-color: var(--cn-banner-close-hover);
+}
+
+.cn-site-banner-cta:focus-visible,
+.cn-site-banner-close:focus-visible {
+  outline: 2px solid var(--cn-banner-focus);
+  outline-offset: 2px;
+}
+
+html[data-cn-banner-active]
+  :is(.sticky, .fixed).top-0.z-50.w-full:not([data-cn-site-banner]) {
+  top: var(--sealos-cn-banner-height, 0px);
+}
