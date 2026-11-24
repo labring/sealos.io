@@ -41,6 +41,8 @@ jobs:
       - name: Refresh App Store templates
         run: pnpm app-store:refresh
       - name: Build
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
         run: vercel build --prod --local-config ./vercel.json
       - name: Link to Vercel
         run: vercel link -t ${{ secrets.VERCEL_TOKEN }} -p ${{ secrets.VERCEL_PROJECT_ID }} --scope ${{ secrets.VERCEL_ORG_ID }} -y
