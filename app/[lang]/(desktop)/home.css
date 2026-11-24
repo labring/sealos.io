@@ -30,7 +30,7 @@ html:has(#sx-home) {
   --sx-ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
   background: var(--sx-bg);
-  scroll-padding-top: 88px;
+  scroll-padding-top: calc(88px + var(--sealos-cn-banner-height, 0px));
 }
 
 html[data-sx-theme='dark']:has(#sx-home) {
@@ -681,7 +681,7 @@ html:has(#sx-home) body {
 
 .sx-nav {
   position: sticky;
-  top: 0;
+  top: var(--sealos-cn-banner-height, 0px);
   z-index: 50;
   background: color-mix(in srgb, var(--sx-bg) 82%, transparent);
   backdrop-filter: saturate(1.4) blur(12px);

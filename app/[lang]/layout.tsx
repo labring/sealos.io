@@ -9,6 +9,7 @@ import { generateHomepageSchema } from '@/lib/utils/structured-data';
 import { LazySearchDialog } from '@/components/docs/LazySearchDialog';
 import { HomepageDarkMode } from './homepage-dark-mode';
 import { ConditionalSiteBanner } from './conditional-site-banner';
+import { ChineseSiteBanner } from './chinese-site-banner';
 import { AuthFormProvider } from '@/new-components/AuthForm/AuthFormProvider';
 import { AuthForm } from '@/new-components/AuthForm';
 import { GoogleOneTap } from '@/new-components/AuthForm/GoogleOneTap';
@@ -120,6 +121,7 @@ export default async function LocaleLayout({
                 SearchDialog: LazySearchDialog,
               }}
             >
+              <ChineseSiteBanner lang={params.lang} />
               {/* SiteBanner is conditionally rendered by client component based on pathname */}
               <ConditionalSiteBanner />
 

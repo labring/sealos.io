@@ -31,19 +31,19 @@ export default function Layout({
   const bannerHeightCss = hasBanner
     ? `
         :root {
-          --fd-banner-height: 84px;
+          --fd-banner-height: calc(84px + var(--sealos-cn-banner-height, 0px));
 
           @media (width >= 40rem) {
-            --fd-banner-height: 56px;
+            --fd-banner-height: calc(56px + var(--sealos-cn-banner-height, 0px));
           }
           @media (width >= 64rem) {
-            --fd-banner-height: 48px;
+            --fd-banner-height: calc(48px + var(--sealos-cn-banner-height, 0px));
           }
         }
       `
     : `
         :root {
-          --fd-banner-height: 0px;
+          --fd-banner-height: var(--sealos-cn-banner-height, 0px);
         }
       `;
 
