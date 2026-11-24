@@ -190,6 +190,7 @@ jobs:
           NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL || 'https://sealos.io' }}
           NEXT_PUBLIC_OPEN_SOURCE_URL: ${{ vars.NEXT_PUBLIC_OPEN_SOURCE_URL || '' }}
           NEXT_PUBLIC_DEFAULT_LOCALE: ${{ vars.NEXT_PUBLIC_DEFAULT_LOCALE || 'en' }}
+          NODE_OPTIONS: --max-old-space-size=6144
         run: |
           pnpm install --frozen-lockfile
           pnpm app-store:refresh

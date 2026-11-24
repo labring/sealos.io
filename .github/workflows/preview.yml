@@ -50,6 +50,8 @@ jobs:
       - name: Refresh App Store templates
         run: pnpm app-store:refresh
       - name: Build
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
         run: vercel build --local-config ./vercel.json
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
